@@ -2,19 +2,17 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfParameters describes the resource data model.
 type VrfNameProtocolsOspfParameters struct {
 	// LeafNodes
 	LeafVrfNameProtocolsOspfParametersAbrType                           types.String `tfsdk:"abr_type" vyos:"abr-type,omitempty"`
-	LeafVrfNameProtocolsOspfParametersOpaqueLsa                         types.String `tfsdk:"opaque_lsa" vyos:"opaque-lsa,omitempty"`
-	LeafVrfNameProtocolsOspfParametersRfconefiveeightthreeCompatibility types.String `tfsdk:"rfc1583_compatibility" vyos:"rfc1583-compatibility,omitempty"`
+	LeafVrfNameProtocolsOspfParametersOpaqueLsa                         types.Bool   `tfsdk:"opaque_lsa" vyos:"opaque-lsa,omitempty"`
+	LeafVrfNameProtocolsOspfParametersRfconefiveeightthreeCompatibility types.Bool   `tfsdk:"rfc1583_compatibility" vyos:"rfc1583-compatibility,omitempty"`
 	LeafVrfNameProtocolsOspfParametersRouterID                          types.String `tfsdk:"router_id" vyos:"router-id,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -44,18 +42,22 @@ func (o VrfNameProtocolsOspfParameters) ResourceSchemaAttributes() map[string]sc
 			Computed: true,
 		},
 
-		"opaque_lsa": schema.StringAttribute{
+		"opaque_lsa": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable the Opaque-LSA capability (rfc2370)
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"rfc1583_compatibility": schema.StringAttribute{
+		"rfc1583_compatibility": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable RFC1583 criteria for handling AS external routes
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"router_id": schema.StringAttribute{
@@ -76,71 +78,10 @@ func (o VrfNameProtocolsOspfParameters) ResourceSchemaAttributes() map[string]sc
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfParameters) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfParametersAbrType.IsNull() && !o.LeafVrfNameProtocolsOspfParametersAbrType.IsUnknown() {
-		jsonData["abr-type"] = o.LeafVrfNameProtocolsOspfParametersAbrType.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfParametersOpaqueLsa.IsNull() && !o.LeafVrfNameProtocolsOspfParametersOpaqueLsa.IsUnknown() {
-		jsonData["opaque-lsa"] = o.LeafVrfNameProtocolsOspfParametersOpaqueLsa.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfParametersRfconefiveeightthreeCompatibility.IsNull() && !o.LeafVrfNameProtocolsOspfParametersRfconefiveeightthreeCompatibility.IsUnknown() {
-		jsonData["rfc1583-compatibility"] = o.LeafVrfNameProtocolsOspfParametersRfconefiveeightthreeCompatibility.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfParametersRouterID.IsNull() && !o.LeafVrfNameProtocolsOspfParametersRouterID.IsUnknown() {
-		jsonData["router-id"] = o.LeafVrfNameProtocolsOspfParametersRouterID.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfParameters) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["abr-type"]; ok {
-		o.LeafVrfNameProtocolsOspfParametersAbrType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfParametersAbrType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["opaque-lsa"]; ok {
-		o.LeafVrfNameProtocolsOspfParametersOpaqueLsa = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfParametersOpaqueLsa = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rfc1583-compatibility"]; ok {
-		o.LeafVrfNameProtocolsOspfParametersRfconefiveeightthreeCompatibility = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfParametersRfconefiveeightthreeCompatibility = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["router-id"]; ok {
-		o.LeafVrfNameProtocolsOspfParametersRouterID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfParametersRouterID = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfParameters) UnmarshalJSON(_ []byte) error {
 	return nil
 }

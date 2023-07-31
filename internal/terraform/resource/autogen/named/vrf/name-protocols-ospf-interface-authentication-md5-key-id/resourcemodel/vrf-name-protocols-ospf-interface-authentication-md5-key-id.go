@@ -2,20 +2,17 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID describes the resource data model.
 type VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVrfName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
-	ParentIDVrfNameProtocolsOspfInterface any `tfsdk:"interface" vyos:"interface,parent-id"`
+	ParentIDVrfNameProtocolsOspfInterface types.String `tfsdk:"interface" vyos:"interface_identifier,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyIDMdfiveKey types.String `tfsdk:"md5_key" vyos:"md5-key,omitempty"`
@@ -29,14 +26,23 @@ type VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID struct {
 func (o *VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) GetVyosPath() []string {
 	return []string{
 		"vrf",
+
 		"name",
+		o.ParentIDVrfName.ValueString(),
+
 		"protocols",
+
 		"ospf",
+
 		"interface",
+		o.ParentIDVrfNameProtocolsOspfInterface.ValueString(),
+
 		"authentication",
+
 		"md5",
+
 		"key-id",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -50,6 +56,28 @@ func (o VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) ResourceSchemaAt
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  MD5 key id  |
+
+`,
+		},
+
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
+
+`,
+		},
+
+		"interface_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Interface configuration
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Interface name  |
 
 `,
 		},
@@ -74,41 +102,10 @@ func (o VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) ResourceSchemaAt
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyIDMdfiveKey.IsNull() && !o.LeafVrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyIDMdfiveKey.IsUnknown() {
-		jsonData["md5-key"] = o.LeafVrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyIDMdfiveKey.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["md5-key"]; ok {
-		o.LeafVrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyIDMdfiveKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyIDMdfiveKey = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) UnmarshalJSON(_ []byte) error {
 	return nil
 }

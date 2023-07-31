@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesBondingVifSVifCMirror describes the resource data model.
@@ -54,51 +51,10 @@ func (o InterfacesBondingVifSVifCMirror) ResourceSchemaAttributes() map[string]s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesBondingVifSVifCMirror) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesBondingVifSVifCMirrorIngress.IsNull() && !o.LeafInterfacesBondingVifSVifCMirrorIngress.IsUnknown() {
-		jsonData["ingress"] = o.LeafInterfacesBondingVifSVifCMirrorIngress.ValueString()
-	}
-
-	if !o.LeafInterfacesBondingVifSVifCMirrorEgress.IsNull() && !o.LeafInterfacesBondingVifSVifCMirrorEgress.IsUnknown() {
-		jsonData["egress"] = o.LeafInterfacesBondingVifSVifCMirrorEgress.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesBondingVifSVifCMirror) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["ingress"]; ok {
-		o.LeafInterfacesBondingVifSVifCMirrorIngress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifSVifCMirrorIngress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["egress"]; ok {
-		o.LeafInterfacesBondingVifSVifCMirrorEgress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifSVifCMirrorEgress = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesBondingVifSVifCMirror) UnmarshalJSON(_ []byte) error {
 	return nil
 }

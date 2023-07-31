@@ -46,6 +46,11 @@ DNS zone records
 
 ### Required
 
+- `authoritative_domain_identifier` (String) Domain to host authoritative records for
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  text  |  An absolute DNS name  |
 - `identifier` (String) "MX" record
 
     |  Format  |  Description  |
@@ -55,8 +60,8 @@ DNS zone records
 
 ### Optional
 
-- `disable` (String) Disable instance
-- `ttl` (String) Time-to-live (TTL)
+- `disable` (Boolean) Disable instance
+- `ttl` (Number) Time-to-live (TTL)
 
     |  Format  |  Description  |
     |----------|---------------|

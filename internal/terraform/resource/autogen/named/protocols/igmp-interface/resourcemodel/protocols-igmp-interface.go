@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsIgmpInterface describes the resource data model.
@@ -15,8 +12,8 @@ type ProtocolsIgmpInterface struct {
 
 	// LeafNodes
 	LeafProtocolsIgmpInterfaceVersion              types.String `tfsdk:"version" vyos:"version,omitempty"`
-	LeafProtocolsIgmpInterfaceQueryInterval        types.String `tfsdk:"query_interval" vyos:"query-interval,omitempty"`
-	LeafProtocolsIgmpInterfaceQueryMaxResponseTime types.String `tfsdk:"query_max_response_time" vyos:"query-max-response-time,omitempty"`
+	LeafProtocolsIgmpInterfaceQueryInterval        types.Number `tfsdk:"query_interval" vyos:"query-interval,omitempty"`
+	LeafProtocolsIgmpInterfaceQueryMaxResponseTime types.Number `tfsdk:"query_max_response_time" vyos:"query-max-response-time,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagProtocolsIgmpInterfaceJoin bool `tfsdk:"join" vyos:"join,child"`
@@ -28,7 +25,9 @@ type ProtocolsIgmpInterface struct {
 func (o *ProtocolsIgmpInterface) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"igmp",
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -58,7 +57,7 @@ func (o ProtocolsIgmpInterface) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"query_interval": schema.StringAttribute{
+		"query_interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `IGMP host query interval
 
@@ -69,7 +68,7 @@ func (o ProtocolsIgmpInterface) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"query_max_response_time": schema.StringAttribute{
+		"query_max_response_time": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `IGMP max query response time
 
@@ -87,61 +86,10 @@ func (o ProtocolsIgmpInterface) ResourceSchemaAttributes() map[string]schema.Att
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsIgmpInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsIgmpInterfaceVersion.IsNull() && !o.LeafProtocolsIgmpInterfaceVersion.IsUnknown() {
-		jsonData["version"] = o.LeafProtocolsIgmpInterfaceVersion.ValueString()
-	}
-
-	if !o.LeafProtocolsIgmpInterfaceQueryInterval.IsNull() && !o.LeafProtocolsIgmpInterfaceQueryInterval.IsUnknown() {
-		jsonData["query-interval"] = o.LeafProtocolsIgmpInterfaceQueryInterval.ValueString()
-	}
-
-	if !o.LeafProtocolsIgmpInterfaceQueryMaxResponseTime.IsNull() && !o.LeafProtocolsIgmpInterfaceQueryMaxResponseTime.IsUnknown() {
-		jsonData["query-max-response-time"] = o.LeafProtocolsIgmpInterfaceQueryMaxResponseTime.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsIgmpInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["version"]; ok {
-		o.LeafProtocolsIgmpInterfaceVersion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIgmpInterfaceVersion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["query-interval"]; ok {
-		o.LeafProtocolsIgmpInterfaceQueryInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIgmpInterfaceQueryInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["query-max-response-time"]; ok {
-		o.LeafProtocolsIgmpInterfaceQueryMaxResponseTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIgmpInterfaceQueryMaxResponseTime = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsIgmpInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

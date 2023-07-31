@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesWireguard describes the resource data model.
@@ -15,11 +12,11 @@ type InterfacesWireguard struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafInterfacesWireguardAddress     types.String `tfsdk:"address" vyos:"address,omitempty"`
+	LeafInterfacesWireguardAddress     types.List   `tfsdk:"address" vyos:"address,omitempty"`
 	LeafInterfacesWireguardDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafInterfacesWireguardDisable     types.String `tfsdk:"disable" vyos:"disable,omitempty"`
-	LeafInterfacesWireguardPort        types.String `tfsdk:"port" vyos:"port,omitempty"`
-	LeafInterfacesWireguardMtu         types.String `tfsdk:"mtu" vyos:"mtu,omitempty"`
+	LeafInterfacesWireguardDisable     types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafInterfacesWireguardPort        types.Number `tfsdk:"port" vyos:"port,omitempty"`
+	LeafInterfacesWireguardMtu         types.Number `tfsdk:"mtu" vyos:"mtu,omitempty"`
 	LeafInterfacesWireguardFwmark      types.String `tfsdk:"fwmark" vyos:"fwmark,omitempty"`
 	LeafInterfacesWireguardPrivateKey  types.String `tfsdk:"private_key" vyos:"private-key,omitempty"`
 	LeafInterfacesWireguardRedirect    types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
@@ -38,6 +35,7 @@ type InterfacesWireguard struct {
 func (o *InterfacesWireguard) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"wireguard",
 		o.ID.ValueString(),
 	}
@@ -59,8 +57,9 @@ func (o InterfacesWireguard) ResourceSchemaAttributes() map[string]schema.Attrib
 
 		// LeafNodes
 
-		"address": schema.StringAttribute{
-			Optional: true,
+		"address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address
 
     |  Format  |  Description  |
@@ -82,14 +81,16 @@ func (o InterfacesWireguard) ResourceSchemaAttributes() map[string]schema.Attrib
 `,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
@@ -100,7 +101,7 @@ func (o InterfacesWireguard) ResourceSchemaAttributes() map[string]schema.Attrib
 `,
 		},
 
-		"mtu": schema.StringAttribute{
+		"mtu": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
@@ -187,202 +188,10 @@ func (o InterfacesWireguard) ResourceSchemaAttributes() map[string]schema.Attrib
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesWireguard) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesWireguardAddress.IsNull() && !o.LeafInterfacesWireguardAddress.IsUnknown() {
-		jsonData["address"] = o.LeafInterfacesWireguardAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesWireguardDescrIPtion.IsNull() && !o.LeafInterfacesWireguardDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafInterfacesWireguardDescrIPtion.ValueString()
-	}
-
-	if !o.LeafInterfacesWireguardDisable.IsNull() && !o.LeafInterfacesWireguardDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafInterfacesWireguardDisable.ValueString()
-	}
-
-	if !o.LeafInterfacesWireguardPort.IsNull() && !o.LeafInterfacesWireguardPort.IsUnknown() {
-		jsonData["port"] = o.LeafInterfacesWireguardPort.ValueString()
-	}
-
-	if !o.LeafInterfacesWireguardMtu.IsNull() && !o.LeafInterfacesWireguardMtu.IsUnknown() {
-		jsonData["mtu"] = o.LeafInterfacesWireguardMtu.ValueString()
-	}
-
-	if !o.LeafInterfacesWireguardFwmark.IsNull() && !o.LeafInterfacesWireguardFwmark.IsUnknown() {
-		jsonData["fwmark"] = o.LeafInterfacesWireguardFwmark.ValueString()
-	}
-
-	if !o.LeafInterfacesWireguardPrivateKey.IsNull() && !o.LeafInterfacesWireguardPrivateKey.IsUnknown() {
-		jsonData["private-key"] = o.LeafInterfacesWireguardPrivateKey.ValueString()
-	}
-
-	if !o.LeafInterfacesWireguardRedirect.IsNull() && !o.LeafInterfacesWireguardRedirect.IsUnknown() {
-		jsonData["redirect"] = o.LeafInterfacesWireguardRedirect.ValueString()
-	}
-
-	if !o.LeafInterfacesWireguardVrf.IsNull() && !o.LeafInterfacesWireguardVrf.IsUnknown() {
-		jsonData["vrf"] = o.LeafInterfacesWireguardVrf.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesWireguardMirror).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWireguardMirror)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["mirror"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesWireguardIP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWireguardIP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ip"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesWireguardIPvsix).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWireguardIPvsix)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipv6"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWireguard) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafInterfacesWireguardAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafInterfacesWireguardDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafInterfacesWireguardDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafInterfacesWireguardPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mtu"]; ok {
-		o.LeafInterfacesWireguardMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardMtu = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["fwmark"]; ok {
-		o.LeafInterfacesWireguardFwmark = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardFwmark = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["private-key"]; ok {
-		o.LeafInterfacesWireguardPrivateKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardPrivateKey = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["redirect"]; ok {
-		o.LeafInterfacesWireguardRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardRedirect = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vrf"]; ok {
-		o.LeafInterfacesWireguardVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardVrf = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["mirror"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWireguardMirror = &InterfacesWireguardMirror{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWireguardMirror)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ip"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWireguardIP = &InterfacesWireguardIP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWireguardIP)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ipv6"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWireguardIPvsix = &InterfacesWireguardIPvsix{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWireguardIPvsix)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesWireguard) UnmarshalJSON(_ []byte) error {
 	return nil
 }

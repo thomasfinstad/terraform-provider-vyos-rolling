@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallGroupPortGroup describes the resource data model.
@@ -15,8 +12,8 @@ type FirewallGroupPortGroup struct {
 
 	// LeafNodes
 	LeafFirewallGroupPortGroupDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafFirewallGroupPortGroupPort        types.String `tfsdk:"port" vyos:"port,omitempty"`
-	LeafFirewallGroupPortGroupInclude     types.String `tfsdk:"include" vyos:"include,omitempty"`
+	LeafFirewallGroupPortGroupPort        types.List   `tfsdk:"port" vyos:"port,omitempty"`
+	LeafFirewallGroupPortGroupInclude     types.List   `tfsdk:"include" vyos:"include,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,7 +24,9 @@ type FirewallGroupPortGroup struct {
 func (o *FirewallGroupPortGroup) GetVyosPath() []string {
 	return []string{
 		"firewall",
+
 		"group",
+
 		"port-group",
 		o.ID.ValueString(),
 	}
@@ -56,8 +55,9 @@ func (o FirewallGroupPortGroup) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"port": schema.StringAttribute{
-			Optional: true,
+		"port": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Port-group member
 
     |  Format  |  Description  |
@@ -69,8 +69,9 @@ func (o FirewallGroupPortGroup) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"include": schema.StringAttribute{
-			Optional: true,
+		"include": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Include another port-group
 
 `,
@@ -83,61 +84,10 @@ func (o FirewallGroupPortGroup) ResourceSchemaAttributes() map[string]schema.Att
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallGroupPortGroup) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallGroupPortGroupDescrIPtion.IsNull() && !o.LeafFirewallGroupPortGroupDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafFirewallGroupPortGroupDescrIPtion.ValueString()
-	}
-
-	if !o.LeafFirewallGroupPortGroupPort.IsNull() && !o.LeafFirewallGroupPortGroupPort.IsUnknown() {
-		jsonData["port"] = o.LeafFirewallGroupPortGroupPort.ValueString()
-	}
-
-	if !o.LeafFirewallGroupPortGroupInclude.IsNull() && !o.LeafFirewallGroupPortGroupInclude.IsUnknown() {
-		jsonData["include"] = o.LeafFirewallGroupPortGroupInclude.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallGroupPortGroup) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafFirewallGroupPortGroupDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallGroupPortGroupDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafFirewallGroupPortGroupPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallGroupPortGroupPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["include"]; ok {
-		o.LeafFirewallGroupPortGroupInclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallGroupPortGroupInclude = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallGroupPortGroup) UnmarshalJSON(_ []byte) error {
 	return nil
 }

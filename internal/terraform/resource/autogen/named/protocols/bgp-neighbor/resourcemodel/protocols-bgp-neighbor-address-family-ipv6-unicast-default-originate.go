@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvsixUnicastDefaultOriginate describes the resource data model.
@@ -42,41 +39,10 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixUnicastDefaultOriginate) Resource
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpNeighborAddressFamilyIPvsixUnicastDefaultOriginate) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastDefaultOriginateRouteMap.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastDefaultOriginateRouteMap.IsUnknown() {
-		jsonData["route-map"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastDefaultOriginateRouteMap.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighborAddressFamilyIPvsixUnicastDefaultOriginate) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["route-map"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastDefaultOriginateRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastDefaultOriginateRouteMap = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpNeighborAddressFamilyIPvsixUnicastDefaultOriginate) UnmarshalJSON(_ []byte) error {
 	return nil
 }

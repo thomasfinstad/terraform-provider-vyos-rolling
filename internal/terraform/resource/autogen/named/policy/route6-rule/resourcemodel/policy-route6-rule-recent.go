@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRoutesixRuleRecent describes the resource data model.
 type PolicyRoutesixRuleRecent struct {
 	// LeafNodes
-	LeafPolicyRoutesixRuleRecentCount types.String `tfsdk:"count" vyos:"count,omitempty"`
-	LeafPolicyRoutesixRuleRecentTime  types.String `tfsdk:"time" vyos:"time,omitempty"`
+	LeafPolicyRoutesixRuleRecentCount types.Number `tfsdk:"count" vyos:"count,omitempty"`
+	LeafPolicyRoutesixRuleRecentTime  types.Number `tfsdk:"time" vyos:"time,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +22,7 @@ func (o PolicyRoutesixRuleRecent) ResourceSchemaAttributes() map[string]schema.A
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"count": schema.StringAttribute{
+		"count": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Source addresses seen more than N times
 
@@ -36,7 +33,7 @@ func (o PolicyRoutesixRuleRecent) ResourceSchemaAttributes() map[string]schema.A
 `,
 		},
 
-		"time": schema.StringAttribute{
+		"time": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Source addresses seen in the last N seconds
 
@@ -54,51 +51,10 @@ func (o PolicyRoutesixRuleRecent) ResourceSchemaAttributes() map[string]schema.A
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRoutesixRuleRecent) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRoutesixRuleRecentCount.IsNull() && !o.LeafPolicyRoutesixRuleRecentCount.IsUnknown() {
-		jsonData["count"] = o.LeafPolicyRoutesixRuleRecentCount.ValueString()
-	}
-
-	if !o.LeafPolicyRoutesixRuleRecentTime.IsNull() && !o.LeafPolicyRoutesixRuleRecentTime.IsUnknown() {
-		jsonData["time"] = o.LeafPolicyRoutesixRuleRecentTime.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRoutesixRuleRecent) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["count"]; ok {
-		o.LeafPolicyRoutesixRuleRecentCount = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleRecentCount = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["time"]; ok {
-		o.LeafPolicyRoutesixRuleRecentTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleRecentTime = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRoutesixRuleRecent) UnmarshalJSON(_ []byte) error {
 	return nil
 }

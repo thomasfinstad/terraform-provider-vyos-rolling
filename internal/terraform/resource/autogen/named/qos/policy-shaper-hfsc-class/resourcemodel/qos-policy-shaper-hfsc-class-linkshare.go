@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyShaperHfscClassLinkshare describes the resource data model.
@@ -82,61 +79,10 @@ func (o QosPolicyShaperHfscClassLinkshare) ResourceSchemaAttributes() map[string
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyShaperHfscClassLinkshare) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyShaperHfscClassLinkshareD.IsNull() && !o.LeafQosPolicyShaperHfscClassLinkshareD.IsUnknown() {
-		jsonData["d"] = o.LeafQosPolicyShaperHfscClassLinkshareD.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperHfscClassLinkshareMone.IsNull() && !o.LeafQosPolicyShaperHfscClassLinkshareMone.IsUnknown() {
-		jsonData["m1"] = o.LeafQosPolicyShaperHfscClassLinkshareMone.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperHfscClassLinkshareMtwo.IsNull() && !o.LeafQosPolicyShaperHfscClassLinkshareMtwo.IsUnknown() {
-		jsonData["m2"] = o.LeafQosPolicyShaperHfscClassLinkshareMtwo.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyShaperHfscClassLinkshare) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["d"]; ok {
-		o.LeafQosPolicyShaperHfscClassLinkshareD = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassLinkshareD = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["m1"]; ok {
-		o.LeafQosPolicyShaperHfscClassLinkshareMone = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassLinkshareMone = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["m2"]; ok {
-		o.LeafQosPolicyShaperHfscClassLinkshareMtwo = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassLinkshareMtwo = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyShaperHfscClassLinkshare) UnmarshalJSON(_ []byte) error {
 	return nil
 }

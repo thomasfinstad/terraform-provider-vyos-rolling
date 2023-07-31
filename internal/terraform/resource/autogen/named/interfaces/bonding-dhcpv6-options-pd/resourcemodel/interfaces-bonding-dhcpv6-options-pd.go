@@ -2,21 +2,18 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesBondingDhcpvsixOptionsPd describes the resource data model.
 type InterfacesBondingDhcpvsixOptionsPd struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDInterfacesBonding any `tfsdk:"bonding" vyos:"bonding,parent-id"`
+	ParentIDInterfacesBonding types.String `tfsdk:"bonding" vyos:"bonding_identifier,parent-id"`
 
 	// LeafNodes
-	LeafInterfacesBondingDhcpvsixOptionsPdLength types.String `tfsdk:"length" vyos:"length,omitempty"`
+	LeafInterfacesBondingDhcpvsixOptionsPdLength types.Number `tfsdk:"length" vyos:"length,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagInterfacesBondingDhcpvsixOptionsPdInterface bool `tfsdk:"interface" vyos:"interface,child"`
@@ -28,8 +25,12 @@ type InterfacesBondingDhcpvsixOptionsPd struct {
 func (o *InterfacesBondingDhcpvsixOptionsPd) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"bonding",
+		o.ParentIDInterfacesBonding.ValueString(),
+
 		"dhcpv6-options",
+
 		"pd",
 		o.ID.ValueString(),
 	}
@@ -49,9 +50,20 @@ func (o InterfacesBondingDhcpvsixOptionsPd) ResourceSchemaAttributes() map[strin
 `,
 		},
 
+		"bonding_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Bonding Interface/Link Aggregation
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  bondN  |  Bonding interface name  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"length": schema.StringAttribute{
+		"length": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Request IPv6 prefix length from peer
 
@@ -72,41 +84,10 @@ func (o InterfacesBondingDhcpvsixOptionsPd) ResourceSchemaAttributes() map[strin
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesBondingDhcpvsixOptionsPd) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesBondingDhcpvsixOptionsPdLength.IsNull() && !o.LeafInterfacesBondingDhcpvsixOptionsPdLength.IsUnknown() {
-		jsonData["length"] = o.LeafInterfacesBondingDhcpvsixOptionsPdLength.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesBondingDhcpvsixOptionsPd) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["length"]; ok {
-		o.LeafInterfacesBondingDhcpvsixOptionsPdLength = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingDhcpvsixOptionsPdLength = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesBondingDhcpvsixOptionsPd) UnmarshalJSON(_ []byte) error {
 	return nil
 }

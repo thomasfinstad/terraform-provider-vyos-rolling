@@ -2,23 +2,21 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsNhrpTunnelMap describes the resource data model.
 type ProtocolsNhrpTunnelMap struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDProtocolsNhrpTunnel any `tfsdk:"tunnel" vyos:"tunnel,parent-id"`
+	ParentIDProtocolsNhrpTunnel types.String `tfsdk:"tunnel" vyos:"tunnel_identifier,parent-id"`
 
 	// LeafNodes
-	LeafProtocolsNhrpTunnelMapCisco       types.String `tfsdk:"cisco" vyos:"cisco,omitempty"`
+	LeafProtocolsNhrpTunnelMapCisco       types.Bool   `tfsdk:"cisco" vyos:"cisco,omitempty"`
 	LeafProtocolsNhrpTunnelMapNbmaAddress types.String `tfsdk:"nbma_address" vyos:"nbma-address,omitempty"`
-	LeafProtocolsNhrpTunnelMapRegister    types.String `tfsdk:"register" vyos:"register,omitempty"`
+	LeafProtocolsNhrpTunnelMapRegister    types.Bool   `tfsdk:"register" vyos:"register,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -29,8 +27,12 @@ type ProtocolsNhrpTunnelMap struct {
 func (o *ProtocolsNhrpTunnelMap) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"nhrp",
+
 		"tunnel",
+		o.ParentIDProtocolsNhrpTunnel.ValueString(),
+
 		"map",
 		o.ID.ValueString(),
 	}
@@ -46,13 +48,26 @@ func (o ProtocolsNhrpTunnelMap) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
+		"tunnel_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Tunnel for NHRP
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  tunN  |  NHRP tunnel name  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"cisco": schema.StringAttribute{
+		"cisco": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `If the statically mapped peer is running Cisco IOS, specify this
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"nbma_address": schema.StringAttribute{
@@ -62,11 +77,13 @@ func (o ProtocolsNhrpTunnelMap) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"register": schema.StringAttribute{
+		"register": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Specifies that Registration Request should be sent to this peer on startup
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -76,61 +93,10 @@ func (o ProtocolsNhrpTunnelMap) ResourceSchemaAttributes() map[string]schema.Att
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsNhrpTunnelMap) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsNhrpTunnelMapCisco.IsNull() && !o.LeafProtocolsNhrpTunnelMapCisco.IsUnknown() {
-		jsonData["cisco"] = o.LeafProtocolsNhrpTunnelMapCisco.ValueString()
-	}
-
-	if !o.LeafProtocolsNhrpTunnelMapNbmaAddress.IsNull() && !o.LeafProtocolsNhrpTunnelMapNbmaAddress.IsUnknown() {
-		jsonData["nbma-address"] = o.LeafProtocolsNhrpTunnelMapNbmaAddress.ValueString()
-	}
-
-	if !o.LeafProtocolsNhrpTunnelMapRegister.IsNull() && !o.LeafProtocolsNhrpTunnelMapRegister.IsUnknown() {
-		jsonData["register"] = o.LeafProtocolsNhrpTunnelMapRegister.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsNhrpTunnelMap) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["cisco"]; ok {
-		o.LeafProtocolsNhrpTunnelMapCisco = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsNhrpTunnelMapCisco = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["nbma-address"]; ok {
-		o.LeafProtocolsNhrpTunnelMapNbmaAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsNhrpTunnelMapNbmaAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["register"]; ok {
-		o.LeafProtocolsNhrpTunnelMapRegister = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsNhrpTunnelMapRegister = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsNhrpTunnelMap) UnmarshalJSON(_ []byte) error {
 	return nil
 }

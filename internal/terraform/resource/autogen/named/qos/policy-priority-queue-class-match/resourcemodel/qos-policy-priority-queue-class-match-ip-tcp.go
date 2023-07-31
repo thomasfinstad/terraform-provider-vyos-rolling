@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyPriorityQueueClassMatchIPTCP describes the resource data model.
 type QosPolicyPriorityQueueClassMatchIPTCP struct {
 	// LeafNodes
-	LeafQosPolicyPriorityQueueClassMatchIPTCPAck types.String `tfsdk:"ack" vyos:"ack,omitempty"`
-	LeafQosPolicyPriorityQueueClassMatchIPTCPSyn types.String `tfsdk:"syn" vyos:"syn,omitempty"`
+	LeafQosPolicyPriorityQueueClassMatchIPTCPAck types.Bool `tfsdk:"ack" vyos:"ack,omitempty"`
+	LeafQosPolicyPriorityQueueClassMatchIPTCPSyn types.Bool `tfsdk:"syn" vyos:"syn,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,18 +23,22 @@ func (o QosPolicyPriorityQueueClassMatchIPTCP) ResourceSchemaAttributes() map[st
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"ack": schema.StringAttribute{
+		"ack": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Match TCP ACK
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"syn": schema.StringAttribute{
+		"syn": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Match TCP SYN
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -46,51 +48,10 @@ func (o QosPolicyPriorityQueueClassMatchIPTCP) ResourceSchemaAttributes() map[st
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyPriorityQueueClassMatchIPTCP) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyPriorityQueueClassMatchIPTCPAck.IsNull() && !o.LeafQosPolicyPriorityQueueClassMatchIPTCPAck.IsUnknown() {
-		jsonData["ack"] = o.LeafQosPolicyPriorityQueueClassMatchIPTCPAck.ValueString()
-	}
-
-	if !o.LeafQosPolicyPriorityQueueClassMatchIPTCPSyn.IsNull() && !o.LeafQosPolicyPriorityQueueClassMatchIPTCPSyn.IsUnknown() {
-		jsonData["syn"] = o.LeafQosPolicyPriorityQueueClassMatchIPTCPSyn.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyPriorityQueueClassMatchIPTCP) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["ack"]; ok {
-		o.LeafQosPolicyPriorityQueueClassMatchIPTCPAck = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassMatchIPTCPAck = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["syn"]; ok {
-		o.LeafQosPolicyPriorityQueueClassMatchIPTCPSyn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassMatchIPTCPSyn = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyPriorityQueueClassMatchIPTCP) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,9 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 )
 
@@ -55,112 +52,10 @@ func (o PolicyRouteMapRuleMatchIP) ResourceSchemaAttributes() map[string]schema.
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteMapRuleMatchIP) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodePolicyRouteMapRuleMatchIPAddress).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleMatchIPAddress)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["address"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteMapRuleMatchIPNexthop).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleMatchIPNexthop)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["nexthop"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteMapRuleMatchIPRouteSource).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleMatchIPRouteSource)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["route-source"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteMapRuleMatchIP) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["address"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteMapRuleMatchIPAddress = &PolicyRouteMapRuleMatchIPAddress{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleMatchIPAddress)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["nexthop"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteMapRuleMatchIPNexthop = &PolicyRouteMapRuleMatchIPNexthop{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleMatchIPNexthop)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["route-source"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteMapRuleMatchIPRouteSource = &PolicyRouteMapRuleMatchIPRouteSource{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleMatchIPRouteSource)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *PolicyRouteMapRuleMatchIP) UnmarshalJSON(_ []byte) error {
 	return nil
 }

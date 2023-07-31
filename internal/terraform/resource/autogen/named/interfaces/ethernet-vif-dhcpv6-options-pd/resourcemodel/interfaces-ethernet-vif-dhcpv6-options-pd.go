@@ -2,23 +2,20 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesEthernetVifDhcpvsixOptionsPd describes the resource data model.
 type InterfacesEthernetVifDhcpvsixOptionsPd struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDInterfacesEthernet any `tfsdk:"ethernet" vyos:"ethernet,parent-id"`
+	ParentIDInterfacesEthernet types.String `tfsdk:"ethernet" vyos:"ethernet_identifier,parent-id"`
 
-	ParentIDInterfacesEthernetVif any `tfsdk:"vif" vyos:"vif,parent-id"`
+	ParentIDInterfacesEthernetVif types.String `tfsdk:"vif" vyos:"vif_identifier,parent-id"`
 
 	// LeafNodes
-	LeafInterfacesEthernetVifDhcpvsixOptionsPdLength types.String `tfsdk:"length" vyos:"length,omitempty"`
+	LeafInterfacesEthernetVifDhcpvsixOptionsPdLength types.Number `tfsdk:"length" vyos:"length,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagInterfacesEthernetVifDhcpvsixOptionsPdInterface bool `tfsdk:"interface" vyos:"interface,child"`
@@ -30,9 +27,15 @@ type InterfacesEthernetVifDhcpvsixOptionsPd struct {
 func (o *InterfacesEthernetVifDhcpvsixOptionsPd) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"ethernet",
+		o.ParentIDInterfacesEthernet.ValueString(),
+
 		"vif",
+		o.ParentIDInterfacesEthernetVif.ValueString(),
+
 		"dhcpv6-options",
+
 		"pd",
 		o.ID.ValueString(),
 	}
@@ -52,9 +55,31 @@ func (o InterfacesEthernetVifDhcpvsixOptionsPd) ResourceSchemaAttributes() map[s
 `,
 		},
 
+		"ethernet_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Ethernet Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ethN  |  Ethernet interface name  |
+
+`,
+		},
+
+		"vif_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Local Area Network (VLAN) ID
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"length": schema.StringAttribute{
+		"length": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Request IPv6 prefix length from peer
 
@@ -75,41 +100,10 @@ func (o InterfacesEthernetVifDhcpvsixOptionsPd) ResourceSchemaAttributes() map[s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesEthernetVifDhcpvsixOptionsPd) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesEthernetVifDhcpvsixOptionsPdLength.IsNull() && !o.LeafInterfacesEthernetVifDhcpvsixOptionsPdLength.IsUnknown() {
-		jsonData["length"] = o.LeafInterfacesEthernetVifDhcpvsixOptionsPdLength.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesEthernetVifDhcpvsixOptionsPd) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["length"]; ok {
-		o.LeafInterfacesEthernetVifDhcpvsixOptionsPdLength = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifDhcpvsixOptionsPdLength = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesEthernetVifDhcpvsixOptionsPd) UnmarshalJSON(_ []byte) error {
 	return nil
 }

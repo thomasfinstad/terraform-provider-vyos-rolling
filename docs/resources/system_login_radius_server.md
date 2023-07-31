@@ -41,19 +41,19 @@ RADIUS server configuration
 
 ### Optional
 
-- `disable` (String) Disable instance
+- `disable` (Boolean) Disable instance
 - `key` (String) Shared secret key
-- `port` (String) Authentication port
+- `port` (Number) Authentication port
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Numeric IP port  |
-- `priority` (String) Server priority
+- `priority` (Number) Server priority
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Server priority  |
-- `timeout` (String) Session timeout
+- `timeout` (Number) Session timeout
 
     |  Format  |  Description  |
     |----------|---------------|

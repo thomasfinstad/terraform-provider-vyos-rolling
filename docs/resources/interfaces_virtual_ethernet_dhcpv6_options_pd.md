@@ -43,10 +43,15 @@ DHCPv6 prefix delegation interface statement
     |  Format  |  Description  |
     |----------|---------------|
     |  instance number  |  Prefix delegation instance (>= 0)  |
+- `virtual_ethernet_identifier` (String) Virtual Ethernet (veth) Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  vethN  |  Virtual Ethernet interface name  |
 
 ### Optional
 
-- `length` (String) Request IPv6 prefix length from peer
+- `length` (Number) Request IPv6 prefix length from peer
 
     |  Format  |  Description  |
     |----------|---------------|

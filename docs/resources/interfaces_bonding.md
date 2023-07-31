@@ -32,7 +32,7 @@ Bonding Interface/Link Aggregation
 
 ### Optional
 
-- `address` (String) IP address
+- `address` (List of String) IP address
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -48,8 +48,8 @@ Bonding Interface/Link Aggregation
     |  txt  |  Description  |
 - `dhcp_options` (Attributes) DHCP client settings/options (see [below for nested schema](#nestedatt--dhcp_options))
 - `dhcpv6_options` (Attributes) DHCPv6 client settings/options (see [below for nested schema](#nestedatt--dhcpv6_options))
-- `disable` (String) Administratively disable interface
-- `disable_link_detect` (String) Ignore link state changes
+- `disable` (Boolean) Administratively disable interface
+- `disable_link_detect` (Boolean) Ignore link state changes
 - `hash_policy` (String) Bonding transmit hash policy
 
     |  Format  |  Description  |
@@ -73,13 +73,13 @@ Bonding Interface/Link Aggregation
     |----------|---------------|
     |  macaddr  |  Hardware (MAC) address  |
 - `member` (Attributes) Bridge member interfaces (see [below for nested schema](#nestedatt--member))
-- `mii_mon_interval` (String) Specifies the MII link monitoring frequency in milliseconds
+- `mii_mon_interval` (Number) Specifies the MII link monitoring frequency in milliseconds
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0  |  Disable MII link monitoring  |
     |  u32:50-1000  |  MII link monitoring frequency in milliseconds  |
-- `min_links` (String) Minimum number of member interfaces required up before enabling bond
+- `min_links` (Number) Minimum number of member interfaces required up before enabling bond
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -96,7 +96,7 @@ Bonding Interface/Link Aggregation
     |  transmit-load-balance  |  Load balance: adapts based on transmit load and speed  |
     |  adaptive-load-balance  |  Load balance: adapts based on transmit and receive plus ARP  |
     |  xor-hash  |  Distribute based on MAC address  |
-- `mtu` (String) Maximum Transmission Unit (MTU)
+- `mtu` (Number) Maximum Transmission Unit (MTU)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -116,19 +116,19 @@ Bonding Interface/Link Aggregation
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  VRF instance name  |
-- `xdp` (String) Enable eXpress Data Path
+- `xdp` (Boolean) Enable eXpress Data Path
 
 <a id="nestedatt--arp_monitor"></a>
 ### Nested Schema for `arp_monitor`
 
 Optional:
 
-- `interval` (String) ARP link monitoring interval
+- `interval` (Number) ARP link monitoring interval
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32  |  Specifies the ARP link monitoring frequency in milliseconds  |
-- `target` (String) IP address used for ARP monitoring
+- `target` (List of String) IP address used for ARP monitoring
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -141,15 +141,15 @@ Optional:
 Optional:
 
 - `client_id` (String) Identifier used by client to identify itself to the DHCP server
-- `default_route_distance` (String) Distance for installed default route
+- `default_route_distance` (Number) Distance for installed default route
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Distance for the default route from DHCP server  |
 - `host_name` (String) Override system host-name sent to DHCP server
-- `mtu` (String) Use MTU value from DHCP server - ignore interface setting
-- `no_default_route` (String) Do not install default route to system
-- `reject` (String) IP addresses or subnets from which to reject DHCP leases
+- `mtu` (Boolean) Use MTU value from DHCP server - ignore interface setting
+- `no_default_route` (Boolean) Do not install default route to system
+- `reject` (List of String) IP addresses or subnets from which to reject DHCP leases
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -168,9 +168,9 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  duid  |  DHCP unique identifier (DUID)  |
-- `parameters_only` (String) Acquire only config parameters, no address
-- `rapid_commit` (String) Wait for immediate reply instead of advertisements
-- `temporary` (String) IPv6 temporary address
+- `parameters_only` (Boolean) Acquire only config parameters, no address
+- `rapid_commit` (Boolean) Wait for immediate reply instead of advertisements
+- `temporary` (Boolean) IPv6 temporary address
 
 
 <a id="nestedatt--ip"></a>
@@ -184,19 +184,19 @@ Optional:
     |----------|---------------|
     |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
     |  u32:536-65535  |  TCP Maximum segment size in bytes  |
-- `arp_cache_timeout` (String) ARP cache entry timeout in seconds
+- `arp_cache_timeout` (Number) ARP cache entry timeout in seconds
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-86400  |  ARP cache entry timout in seconds  |
-- `disable_arp_filter` (String) Disable ARP filter on this interface
-- `disable_forwarding` (String) Disable IP forwarding on this interface
-- `enable_arp_accept` (String) Enable ARP accept on this interface
-- `enable_arp_announce` (String) Enable ARP announce on this interface
-- `enable_arp_ignore` (String) Enable ARP ignore on this interface
-- `enable_directed_broadcast` (String) Enable directed broadcast forwarding on this interface
-- `enable_proxy_arp` (String) Enable proxy-arp on this interface
-- `proxy_arp_pvlan` (String) Enable private VLAN proxy ARP on this interface
+- `disable_arp_filter` (Boolean) Disable ARP filter on this interface
+- `disable_forwarding` (Boolean) Disable IP forwarding on this interface
+- `enable_arp_accept` (Boolean) Enable ARP accept on this interface
+- `enable_arp_announce` (Boolean) Enable ARP announce on this interface
+- `enable_arp_ignore` (Boolean) Enable ARP ignore on this interface
+- `enable_directed_broadcast` (Boolean) Enable directed broadcast forwarding on this interface
+- `enable_proxy_arp` (Boolean) Enable proxy-arp on this interface
+- `proxy_arp_pvlan` (Boolean) Enable private VLAN proxy ARP on this interface
 - `source_validation` (String) Source validation by reversed path (RFC3704)
 
     |  Format  |  Description  |
@@ -218,8 +218,8 @@ Optional:
     |----------|---------------|
     |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
     |  u32:536-65535  |  TCP Maximum segment size in bytes  |
-- `disable_forwarding` (String) Disable IP forwarding on this interface
-- `dup_addr_detect_transmits` (String) Number of NS messages to send while performing DAD (default: 1)
+- `disable_forwarding` (Boolean) Disable IP forwarding on this interface
+- `dup_addr_detect_transmits` (Number) Number of NS messages to send while performing DAD (default: 1)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -231,13 +231,13 @@ Optional:
 
 Optional:
 
-- `autoconf` (String) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
-- `eui64` (String) Prefix for IPv6 address with MAC-based EUI-64
+- `autoconf` (Boolean) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
+- `eui64` (List of String) Prefix for IPv6 address with MAC-based EUI-64
 
     |  Format  |  Description  |
     |----------|---------------|
     |  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
-- `no_default_link_local` (String) Remove the default link-local address from the interface
+- `no_default_link_local` (Boolean) Remove the default link-local address from the interface
 
 
 
@@ -246,7 +246,7 @@ Optional:
 
 Optional:
 
-- `interface` (String) Member interface name
+- `interface` (List of String) Member interface name
 
     |  Format  |  Description  |
     |----------|---------------|

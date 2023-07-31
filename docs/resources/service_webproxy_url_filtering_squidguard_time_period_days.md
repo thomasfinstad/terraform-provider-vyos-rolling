@@ -68,6 +68,7 @@ Time-period days
     |  weekdays  |  Monday through Friday  |
     |  weekend  |  Saturday and Sunday  |
     |  all  |  All days of the week  |
+- `time_period_identifier` (String) Time period name
 
 ### Optional
 

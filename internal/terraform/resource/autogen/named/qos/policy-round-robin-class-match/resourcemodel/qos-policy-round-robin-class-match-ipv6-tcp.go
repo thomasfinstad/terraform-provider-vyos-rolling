@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyRoundRobinClassMatchIPvsixTCP describes the resource data model.
 type QosPolicyRoundRobinClassMatchIPvsixTCP struct {
 	// LeafNodes
-	LeafQosPolicyRoundRobinClassMatchIPvsixTCPAck types.String `tfsdk:"ack" vyos:"ack,omitempty"`
-	LeafQosPolicyRoundRobinClassMatchIPvsixTCPSyn types.String `tfsdk:"syn" vyos:"syn,omitempty"`
+	LeafQosPolicyRoundRobinClassMatchIPvsixTCPAck types.Bool `tfsdk:"ack" vyos:"ack,omitempty"`
+	LeafQosPolicyRoundRobinClassMatchIPvsixTCPSyn types.Bool `tfsdk:"syn" vyos:"syn,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,18 +23,22 @@ func (o QosPolicyRoundRobinClassMatchIPvsixTCP) ResourceSchemaAttributes() map[s
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"ack": schema.StringAttribute{
+		"ack": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Match TCP ACK
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"syn": schema.StringAttribute{
+		"syn": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Match TCP SYN
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -46,51 +48,10 @@ func (o QosPolicyRoundRobinClassMatchIPvsixTCP) ResourceSchemaAttributes() map[s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyRoundRobinClassMatchIPvsixTCP) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyRoundRobinClassMatchIPvsixTCPAck.IsNull() && !o.LeafQosPolicyRoundRobinClassMatchIPvsixTCPAck.IsUnknown() {
-		jsonData["ack"] = o.LeafQosPolicyRoundRobinClassMatchIPvsixTCPAck.ValueString()
-	}
-
-	if !o.LeafQosPolicyRoundRobinClassMatchIPvsixTCPSyn.IsNull() && !o.LeafQosPolicyRoundRobinClassMatchIPvsixTCPSyn.IsUnknown() {
-		jsonData["syn"] = o.LeafQosPolicyRoundRobinClassMatchIPvsixTCPSyn.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyRoundRobinClassMatchIPvsixTCP) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["ack"]; ok {
-		o.LeafQosPolicyRoundRobinClassMatchIPvsixTCPAck = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassMatchIPvsixTCPAck = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["syn"]; ok {
-		o.LeafQosPolicyRoundRobinClassMatchIPvsixTCPSyn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassMatchIPvsixTCPSyn = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyRoundRobinClassMatchIPvsixTCP) UnmarshalJSON(_ []byte) error {
 	return nil
 }

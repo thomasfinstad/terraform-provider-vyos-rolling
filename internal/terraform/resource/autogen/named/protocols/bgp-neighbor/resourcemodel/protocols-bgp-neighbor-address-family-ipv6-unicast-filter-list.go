@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvsixUnicastFilterList describes the resource data model.
@@ -46,51 +43,10 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixUnicastFilterList) ResourceSchema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpNeighborAddressFamilyIPvsixUnicastFilterList) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastFilterListExport.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastFilterListExport.IsUnknown() {
-		jsonData["export"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastFilterListExport.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastFilterListImport.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastFilterListImport.IsUnknown() {
-		jsonData["import"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastFilterListImport.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighborAddressFamilyIPvsixUnicastFilterList) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["export"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastFilterListExport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastFilterListExport = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["import"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastFilterListImport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastFilterListImport = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpNeighborAddressFamilyIPvsixUnicastFilterList) UnmarshalJSON(_ []byte) error {
 	return nil
 }

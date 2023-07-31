@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallIPvsixNameRuleIPsec describes the resource data model.
 type FirewallIPvsixNameRuleIPsec struct {
 	// LeafNodes
-	LeafFirewallIPvsixNameRuleIPsecMatchIPsec types.String `tfsdk:"match_ipsec" vyos:"match-ipsec,omitempty"`
-	LeafFirewallIPvsixNameRuleIPsecMatchNone  types.String `tfsdk:"match_none" vyos:"match-none,omitempty"`
+	LeafFirewallIPvsixNameRuleIPsecMatchIPsec types.Bool `tfsdk:"match_ipsec" vyos:"match-ipsec,omitempty"`
+	LeafFirewallIPvsixNameRuleIPsecMatchNone  types.Bool `tfsdk:"match_none" vyos:"match-none,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,18 +23,22 @@ func (o FirewallIPvsixNameRuleIPsec) ResourceSchemaAttributes() map[string]schem
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"match_ipsec": schema.StringAttribute{
+		"match_ipsec": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Inbound IPsec packets
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"match_none": schema.StringAttribute{
+		"match_none": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Inbound non-IPsec packets
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -46,51 +48,10 @@ func (o FirewallIPvsixNameRuleIPsec) ResourceSchemaAttributes() map[string]schem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallIPvsixNameRuleIPsec) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallIPvsixNameRuleIPsecMatchIPsec.IsNull() && !o.LeafFirewallIPvsixNameRuleIPsecMatchIPsec.IsUnknown() {
-		jsonData["match-ipsec"] = o.LeafFirewallIPvsixNameRuleIPsecMatchIPsec.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleIPsecMatchNone.IsNull() && !o.LeafFirewallIPvsixNameRuleIPsecMatchNone.IsUnknown() {
-		jsonData["match-none"] = o.LeafFirewallIPvsixNameRuleIPsecMatchNone.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallIPvsixNameRuleIPsec) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["match-ipsec"]; ok {
-		o.LeafFirewallIPvsixNameRuleIPsecMatchIPsec = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleIPsecMatchIPsec = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["match-none"]; ok {
-		o.LeafFirewallIPvsixNameRuleIPsecMatchNone = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleIPsecMatchNone = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallIPvsixNameRuleIPsec) UnmarshalJSON(_ []byte) error {
 	return nil
 }

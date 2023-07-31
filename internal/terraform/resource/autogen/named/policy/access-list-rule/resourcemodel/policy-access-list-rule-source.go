@@ -2,17 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyAccessListRuleSource describes the resource data model.
 type PolicyAccessListRuleSource struct {
 	// LeafNodes
-	LeafPolicyAccessListRuleSourceAny         types.String `tfsdk:"any" vyos:"any,omitempty"`
+	LeafPolicyAccessListRuleSourceAny         types.Bool   `tfsdk:"any" vyos:"any,omitempty"`
 	LeafPolicyAccessListRuleSourceHost        types.String `tfsdk:"host" vyos:"host,omitempty"`
 	LeafPolicyAccessListRuleSourceInverseMask types.String `tfsdk:"inverse_mask" vyos:"inverse-mask,omitempty"`
 	LeafPolicyAccessListRuleSourceNetwork     types.String `tfsdk:"network" vyos:"network,omitempty"`
@@ -27,11 +25,13 @@ func (o PolicyAccessListRuleSource) ResourceSchemaAttributes() map[string]schema
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"any": schema.StringAttribute{
+		"any": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Any IP address to match
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"host": schema.StringAttribute{
@@ -74,71 +74,10 @@ func (o PolicyAccessListRuleSource) ResourceSchemaAttributes() map[string]schema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyAccessListRuleSource) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyAccessListRuleSourceAny.IsNull() && !o.LeafPolicyAccessListRuleSourceAny.IsUnknown() {
-		jsonData["any"] = o.LeafPolicyAccessListRuleSourceAny.ValueString()
-	}
-
-	if !o.LeafPolicyAccessListRuleSourceHost.IsNull() && !o.LeafPolicyAccessListRuleSourceHost.IsUnknown() {
-		jsonData["host"] = o.LeafPolicyAccessListRuleSourceHost.ValueString()
-	}
-
-	if !o.LeafPolicyAccessListRuleSourceInverseMask.IsNull() && !o.LeafPolicyAccessListRuleSourceInverseMask.IsUnknown() {
-		jsonData["inverse-mask"] = o.LeafPolicyAccessListRuleSourceInverseMask.ValueString()
-	}
-
-	if !o.LeafPolicyAccessListRuleSourceNetwork.IsNull() && !o.LeafPolicyAccessListRuleSourceNetwork.IsUnknown() {
-		jsonData["network"] = o.LeafPolicyAccessListRuleSourceNetwork.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyAccessListRuleSource) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["any"]; ok {
-		o.LeafPolicyAccessListRuleSourceAny = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyAccessListRuleSourceAny = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["host"]; ok {
-		o.LeafPolicyAccessListRuleSourceHost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyAccessListRuleSourceHost = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["inverse-mask"]; ok {
-		o.LeafPolicyAccessListRuleSourceInverseMask = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyAccessListRuleSourceInverseMask = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["network"]; ok {
-		o.LeafPolicyAccessListRuleSourceNetwork = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyAccessListRuleSourceNetwork = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyAccessListRuleSource) UnmarshalJSON(_ []byte) error {
 	return nil
 }

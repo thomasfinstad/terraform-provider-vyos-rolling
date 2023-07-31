@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PkiOpenvpnSharedSecret describes the resource data model.
@@ -26,7 +23,9 @@ type PkiOpenvpnSharedSecret struct {
 func (o *PkiOpenvpnSharedSecret) GetVyosPath() []string {
 	return []string{
 		"pki",
+
 		"openvpn",
+
 		"shared-secret",
 		o.ID.ValueString(),
 	}
@@ -65,51 +64,10 @@ func (o PkiOpenvpnSharedSecret) ResourceSchemaAttributes() map[string]schema.Att
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PkiOpenvpnSharedSecret) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPkiOpenvpnSharedSecretKey.IsNull() && !o.LeafPkiOpenvpnSharedSecretKey.IsUnknown() {
-		jsonData["key"] = o.LeafPkiOpenvpnSharedSecretKey.ValueString()
-	}
-
-	if !o.LeafPkiOpenvpnSharedSecretVersion.IsNull() && !o.LeafPkiOpenvpnSharedSecretVersion.IsUnknown() {
-		jsonData["version"] = o.LeafPkiOpenvpnSharedSecretVersion.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PkiOpenvpnSharedSecret) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["key"]; ok {
-		o.LeafPkiOpenvpnSharedSecretKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiOpenvpnSharedSecretKey = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["version"]; ok {
-		o.LeafPkiOpenvpnSharedSecretVersion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiOpenvpnSharedSecretVersion = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PkiOpenvpnSharedSecret) UnmarshalJSON(_ []byte) error {
 	return nil
 }

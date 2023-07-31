@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfInterfaceBfd describes the resource data model.
@@ -42,41 +39,10 @@ func (o VrfNameProtocolsOspfInterfaceBfd) ResourceSchemaAttributes() map[string]
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfInterfaceBfd) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfInterfaceBfdProfile.IsNull() && !o.LeafVrfNameProtocolsOspfInterfaceBfdProfile.IsUnknown() {
-		jsonData["profile"] = o.LeafVrfNameProtocolsOspfInterfaceBfdProfile.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfInterfaceBfd) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["profile"]; ok {
-		o.LeafVrfNameProtocolsOspfInterfaceBfdProfile = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfInterfaceBfdProfile = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfInterfaceBfd) UnmarshalJSON(_ []byte) error {
 	return nil
 }

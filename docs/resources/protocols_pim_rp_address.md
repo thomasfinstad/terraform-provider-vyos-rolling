@@ -38,7 +38,7 @@ Rendezvous Point address
 
 ### Optional
 
-- `group` (String) Group Address range
+- `group` (List of String) Group Address range
 
     |  Format  |  Description  |
     |----------|---------------|

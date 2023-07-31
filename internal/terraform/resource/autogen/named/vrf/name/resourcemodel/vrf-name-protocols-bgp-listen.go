@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpListen describes the resource data model.
 type VrfNameProtocolsBgpListen struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpListenLimit types.String `tfsdk:"limit" vyos:"limit,omitempty"`
+	LeafVrfNameProtocolsBgpListenLimit types.Number `tfsdk:"limit" vyos:"limit,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagVrfNameProtocolsBgpListenRange bool `tfsdk:"range" vyos:"range,child"`
@@ -25,7 +22,7 @@ func (o VrfNameProtocolsBgpListen) ResourceSchemaAttributes() map[string]schema.
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"limit": schema.StringAttribute{
+		"limit": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum number of dynamic neighbors that can be created
 
@@ -43,41 +40,10 @@ func (o VrfNameProtocolsBgpListen) ResourceSchemaAttributes() map[string]schema.
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpListen) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpListenLimit.IsNull() && !o.LeafVrfNameProtocolsBgpListenLimit.IsUnknown() {
-		jsonData["limit"] = o.LeafVrfNameProtocolsBgpListenLimit.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpListen) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["limit"]; ok {
-		o.LeafVrfNameProtocolsBgpListenLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpListenLimit = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpListen) UnmarshalJSON(_ []byte) error {
 	return nil
 }

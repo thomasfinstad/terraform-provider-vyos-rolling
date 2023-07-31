@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfRefresh describes the resource data model.
 type VrfNameProtocolsOspfRefresh struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfRefreshTimers types.String `tfsdk:"timers" vyos:"timers,omitempty"`
+	LeafVrfNameProtocolsOspfRefreshTimers types.Number `tfsdk:"timers" vyos:"timers,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,7 +21,7 @@ func (o VrfNameProtocolsOspfRefresh) ResourceSchemaAttributes() map[string]schem
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"timers": schema.StringAttribute{
+		"timers": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Refresh timer
 
@@ -42,41 +39,10 @@ func (o VrfNameProtocolsOspfRefresh) ResourceSchemaAttributes() map[string]schem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfRefresh) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfRefreshTimers.IsNull() && !o.LeafVrfNameProtocolsOspfRefreshTimers.IsUnknown() {
-		jsonData["timers"] = o.LeafVrfNameProtocolsOspfRefreshTimers.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfRefresh) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["timers"]; ok {
-		o.LeafVrfNameProtocolsOspfRefreshTimers = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfRefreshTimers = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfRefresh) UnmarshalJSON(_ []byte) error {
 	return nil
 }

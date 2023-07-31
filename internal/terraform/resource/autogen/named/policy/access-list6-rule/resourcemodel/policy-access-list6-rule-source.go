@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyAccessListsixRuleSource describes the resource data model.
 type PolicyAccessListsixRuleSource struct {
 	// LeafNodes
-	LeafPolicyAccessListsixRuleSourceAny        types.String `tfsdk:"any" vyos:"any,omitempty"`
-	LeafPolicyAccessListsixRuleSourceExactMatch types.String `tfsdk:"exact_match" vyos:"exact-match,omitempty"`
+	LeafPolicyAccessListsixRuleSourceAny        types.Bool   `tfsdk:"any" vyos:"any,omitempty"`
+	LeafPolicyAccessListsixRuleSourceExactMatch types.Bool   `tfsdk:"exact_match" vyos:"exact-match,omitempty"`
 	LeafPolicyAccessListsixRuleSourceNetwork    types.String `tfsdk:"network" vyos:"network,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -26,18 +24,22 @@ func (o PolicyAccessListsixRuleSource) ResourceSchemaAttributes() map[string]sch
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"any": schema.StringAttribute{
+		"any": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Any IP address to match
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"exact_match": schema.StringAttribute{
+		"exact_match": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Exact match of the network prefixes
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"network": schema.StringAttribute{
@@ -58,61 +60,10 @@ func (o PolicyAccessListsixRuleSource) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyAccessListsixRuleSource) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyAccessListsixRuleSourceAny.IsNull() && !o.LeafPolicyAccessListsixRuleSourceAny.IsUnknown() {
-		jsonData["any"] = o.LeafPolicyAccessListsixRuleSourceAny.ValueString()
-	}
-
-	if !o.LeafPolicyAccessListsixRuleSourceExactMatch.IsNull() && !o.LeafPolicyAccessListsixRuleSourceExactMatch.IsUnknown() {
-		jsonData["exact-match"] = o.LeafPolicyAccessListsixRuleSourceExactMatch.ValueString()
-	}
-
-	if !o.LeafPolicyAccessListsixRuleSourceNetwork.IsNull() && !o.LeafPolicyAccessListsixRuleSourceNetwork.IsUnknown() {
-		jsonData["network"] = o.LeafPolicyAccessListsixRuleSourceNetwork.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyAccessListsixRuleSource) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["any"]; ok {
-		o.LeafPolicyAccessListsixRuleSourceAny = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyAccessListsixRuleSourceAny = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["exact-match"]; ok {
-		o.LeafPolicyAccessListsixRuleSourceExactMatch = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyAccessListsixRuleSourceExactMatch = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["network"]; ok {
-		o.LeafPolicyAccessListsixRuleSourceNetwork = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyAccessListsixRuleSourceNetwork = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyAccessListsixRuleSource) UnmarshalJSON(_ []byte) error {
 	return nil
 }

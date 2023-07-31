@@ -32,9 +32,14 @@ Set an HUB tunnel address
 ### Required
 
 - `identifier` (String) Set an HUB tunnel address
+- `tunnel_identifier` (String) Tunnel for NHRP
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  tunN  |  NHRP tunnel name  |
 
 ### Optional
 
-- `cisco` (String) If the statically mapped peer is running Cisco IOS, specify this
+- `cisco` (Boolean) If the statically mapped peer is running Cisco IOS, specify this
 - `nbma_address` (String) Set HUB address (nbma-address - external hub address or fqdn)
-- `register` (String) Specifies that Registration Request should be sent to this peer on startup
+- `register` (Boolean) Specifies that Registration Request should be sent to this peer on startup

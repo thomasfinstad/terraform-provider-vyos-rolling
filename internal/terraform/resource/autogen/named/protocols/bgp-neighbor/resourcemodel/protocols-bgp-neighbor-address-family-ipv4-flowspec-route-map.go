@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap describes the resource data model.
@@ -54,51 +51,10 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap) ResourceSchema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMapExport.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMapExport.IsUnknown() {
-		jsonData["export"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMapExport.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMapImport.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMapImport.IsUnknown() {
-		jsonData["import"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMapImport.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["export"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMapExport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMapExport = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["import"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMapImport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMapImport = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap) UnmarshalJSON(_ []byte) error {
 	return nil
 }

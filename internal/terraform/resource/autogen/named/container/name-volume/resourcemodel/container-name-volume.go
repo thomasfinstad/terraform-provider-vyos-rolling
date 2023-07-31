@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ContainerNameVolume describes the resource data model.
 type ContainerNameVolume struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDContainerName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDContainerName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
 	// LeafNodes
 	LeafContainerNameVolumeSource      types.String `tfsdk:"source" vyos:"source,omitempty"`
@@ -29,7 +26,10 @@ type ContainerNameVolume struct {
 func (o *ContainerNameVolume) GetVyosPath() []string {
 	return []string{
 		"container",
+
 		"name",
+		o.ParentIDContainerName.ValueString(),
+
 		"volume",
 		o.ID.ValueString(),
 	}
@@ -41,6 +41,13 @@ func (o ContainerNameVolume) ResourceSchemaAttributes() map[string]schema.Attrib
 		"identifier": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Mount a volume into the container
+
+`,
+		},
+
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Container name
 
 `,
 		},
@@ -91,61 +98,10 @@ func (o ContainerNameVolume) ResourceSchemaAttributes() map[string]schema.Attrib
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ContainerNameVolume) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafContainerNameVolumeSource.IsNull() && !o.LeafContainerNameVolumeSource.IsUnknown() {
-		jsonData["source"] = o.LeafContainerNameVolumeSource.ValueString()
-	}
-
-	if !o.LeafContainerNameVolumeDestination.IsNull() && !o.LeafContainerNameVolumeDestination.IsUnknown() {
-		jsonData["destination"] = o.LeafContainerNameVolumeDestination.ValueString()
-	}
-
-	if !o.LeafContainerNameVolumeMode.IsNull() && !o.LeafContainerNameVolumeMode.IsUnknown() {
-		jsonData["mode"] = o.LeafContainerNameVolumeMode.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ContainerNameVolume) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["source"]; ok {
-		o.LeafContainerNameVolumeSource = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameVolumeSource = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["destination"]; ok {
-		o.LeafContainerNameVolumeDestination = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameVolumeDestination = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mode"]; ok {
-		o.LeafContainerNameVolumeMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameVolumeMode = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ContainerNameVolume) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnIPsecSiteToSitePeerTunnelLocal describes the resource data model.
 type VpnIPsecSiteToSitePeerTunnelLocal struct {
 	// LeafNodes
-	LeafVpnIPsecSiteToSitePeerTunnelLocalPort   types.String `tfsdk:"port" vyos:"port,omitempty"`
-	LeafVpnIPsecSiteToSitePeerTunnelLocalPrefix types.String `tfsdk:"prefix" vyos:"prefix,omitempty"`
+	LeafVpnIPsecSiteToSitePeerTunnelLocalPort   types.Number `tfsdk:"port" vyos:"port,omitempty"`
+	LeafVpnIPsecSiteToSitePeerTunnelLocalPrefix types.List   `tfsdk:"prefix" vyos:"prefix,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +22,7 @@ func (o VpnIPsecSiteToSitePeerTunnelLocal) ResourceSchemaAttributes() map[string
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
@@ -36,8 +33,9 @@ func (o VpnIPsecSiteToSitePeerTunnelLocal) ResourceSchemaAttributes() map[string
 `,
 		},
 
-		"prefix": schema.StringAttribute{
-			Optional: true,
+		"prefix": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Local IPv4 or IPv6 prefix
 
     |  Format  |  Description  |
@@ -55,51 +53,10 @@ func (o VpnIPsecSiteToSitePeerTunnelLocal) ResourceSchemaAttributes() map[string
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnIPsecSiteToSitePeerTunnelLocal) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnIPsecSiteToSitePeerTunnelLocalPort.IsNull() && !o.LeafVpnIPsecSiteToSitePeerTunnelLocalPort.IsUnknown() {
-		jsonData["port"] = o.LeafVpnIPsecSiteToSitePeerTunnelLocalPort.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerTunnelLocalPrefix.IsNull() && !o.LeafVpnIPsecSiteToSitePeerTunnelLocalPrefix.IsUnknown() {
-		jsonData["prefix"] = o.LeafVpnIPsecSiteToSitePeerTunnelLocalPrefix.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnIPsecSiteToSitePeerTunnelLocal) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerTunnelLocalPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerTunnelLocalPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["prefix"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerTunnelLocalPrefix = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerTunnelLocalPrefix = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VpnIPsecSiteToSitePeerTunnelLocal) UnmarshalJSON(_ []byte) error {
 	return nil
 }

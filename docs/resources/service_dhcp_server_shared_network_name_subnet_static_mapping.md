@@ -35,10 +35,16 @@ Name of static mapping
 ### Required
 
 - `identifier` (String) Name of static mapping
+- `shared_network_name_identifier` (String) Name of DHCP shared network
+- `subnet_identifier` (String) DHCP subnet for shared network
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 address and prefix length  |
 
 ### Optional
 
-- `disable` (String) Disable instance
+- `disable` (Boolean) Disable instance
 - `ip_address` (String) Fixed IP address of static mapping
 
     |  Format  |  Description  |
@@ -49,4 +55,4 @@ Name of static mapping
     |  Format  |  Description  |
     |----------|---------------|
     |  macaddr  |  Hardware (MAC) address  |
-- `static_mapping_parameters` (String) Additional static-mapping parameters for DHCP server. Will be placed inside the "host" block of the mapping. You must use the syntax of dhcpd.conf in this text-field. Using this without proper knowledge may result in a crashed DHCP server. Check system log to look for errors.
+- `static_mapping_parameters` (List of String) Additional static-mapping parameters for DHCP server. Will be placed inside the "host" block of the mapping. You must use the syntax of dhcpd.conf in this text-field. Using this without proper knowledge may result in a crashed DHCP server. Check system log to look for errors.

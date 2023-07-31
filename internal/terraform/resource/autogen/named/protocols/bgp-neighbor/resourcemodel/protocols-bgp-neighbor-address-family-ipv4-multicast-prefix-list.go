@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList describes the resource data model.
@@ -54,51 +51,10 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList) ResourceSch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixListExport.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixListExport.IsUnknown() {
-		jsonData["export"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixListExport.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixListImport.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixListImport.IsUnknown() {
-		jsonData["import"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixListImport.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["export"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixListExport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixListExport = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["import"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixListImport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixListImport = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList) UnmarshalJSON(_ []byte) error {
 	return nil
 }

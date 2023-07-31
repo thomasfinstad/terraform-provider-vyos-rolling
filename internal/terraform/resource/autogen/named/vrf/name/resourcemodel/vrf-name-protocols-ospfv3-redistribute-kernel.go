@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfvthreeRedistributeKernel describes the resource data model.
@@ -42,41 +39,10 @@ func (o VrfNameProtocolsOspfvthreeRedistributeKernel) ResourceSchemaAttributes()
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfvthreeRedistributeKernel) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfvthreeRedistributeKernelRouteMap.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeRedistributeKernelRouteMap.IsUnknown() {
-		jsonData["route-map"] = o.LeafVrfNameProtocolsOspfvthreeRedistributeKernelRouteMap.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfvthreeRedistributeKernel) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["route-map"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeRedistributeKernelRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeRedistributeKernelRouteMap = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfvthreeRedistributeKernel) UnmarshalJSON(_ []byte) error {
 	return nil
 }

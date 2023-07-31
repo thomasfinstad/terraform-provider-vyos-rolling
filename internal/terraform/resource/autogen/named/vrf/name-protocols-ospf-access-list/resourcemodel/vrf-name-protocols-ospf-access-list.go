@@ -2,21 +2,18 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfAccessList describes the resource data model.
 type VrfNameProtocolsOspfAccessList struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVrfName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
 	// LeafNodes
-	LeafVrfNameProtocolsOspfAccessListExport types.String `tfsdk:"export" vyos:"export,omitempty"`
+	LeafVrfNameProtocolsOspfAccessListExport types.List `tfsdk:"export" vyos:"export,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,11 +24,16 @@ type VrfNameProtocolsOspfAccessList struct {
 func (o *VrfNameProtocolsOspfAccessList) GetVyosPath() []string {
 	return []string{
 		"vrf",
+
 		"name",
+		o.ParentIDVrfName.ValueString(),
+
 		"protocols",
+
 		"ospf",
+
 		"access-list",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -49,10 +51,22 @@ func (o VrfNameProtocolsOspfAccessList) ResourceSchemaAttributes() map[string]sc
 `,
 		},
 
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"export": schema.StringAttribute{
-			Optional: true,
+		"export": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Filter for outgoing routing update
 
     |  Format  |  Description  |
@@ -74,41 +88,10 @@ func (o VrfNameProtocolsOspfAccessList) ResourceSchemaAttributes() map[string]sc
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfAccessList) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfAccessListExport.IsNull() && !o.LeafVrfNameProtocolsOspfAccessListExport.IsUnknown() {
-		jsonData["export"] = o.LeafVrfNameProtocolsOspfAccessListExport.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfAccessList) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["export"]; ok {
-		o.LeafVrfNameProtocolsOspfAccessListExport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfAccessListExport = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfAccessList) UnmarshalJSON(_ []byte) error {
 	return nil
 }

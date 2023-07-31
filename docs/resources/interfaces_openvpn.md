@@ -44,7 +44,7 @@ OpenVPN Tunnel Interface
     |----------|---------------|
     |  tun  |  TUN device, required for OSI layer 3  |
     |  tap  |  TAP device, required for OSI layer 2  |
-- `disable` (String) Administratively disable interface
+- `disable` (Boolean) Administratively disable interface
 - `encryption` (Attributes) Data Encryption settings (see [below for nested schema](#nestedatt--encryption))
 - `hash` (String) Hashing Algorithm
 
@@ -64,7 +64,7 @@ OpenVPN Tunnel Interface
     |----------|---------------|
     |  ipv4  |  Local IPv4 address  |
     |  ipv6  |  Local IPv6 address  |
-- `local_port` (String) Local port number to accept connections
+- `local_port` (Number) Local port number to accept connections
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -77,8 +77,8 @@ OpenVPN Tunnel Interface
     |  site-to-site  |  Site-to-site mode  |
     |  client  |  Client in client-server mode  |
     |  server  |  Server in client-server mode  |
-- `openvpn_option` (String) Additional OpenVPN options. You must use the syntax of openvpn.conf in this text-field. Using this without proper knowledge may result in a crashed OpenVPN server. Check system log to look for errors.
-- `persistent_tunnel` (String) Do not close and reopen interface (TUN/TAP device) on client restarts
+- `openvpn_option` (List of String) Additional OpenVPN options. You must use the syntax of openvpn.conf in this text-field. Using this without proper knowledge may result in a crashed OpenVPN server. Check system log to look for errors.
+- `persistent_tunnel` (Boolean) Do not close and reopen interface (TUN/TAP device) on client restarts
 - `protocol` (String) OpenVPN communication protocol
 
     |  Format  |  Description  |
@@ -91,20 +91,20 @@ OpenVPN Tunnel Interface
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Destination interface name  |
-- `remote_address` (String) IP address of remote end of tunnel
+- `remote_address` (List of String) IP address of remote end of tunnel
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  Remote end IPv4 address  |
     |  ipv6  |  Remote end IPv6 address  |
-- `remote_host` (String) Remote host to connect to (dynamic if not set)
+- `remote_host` (List of String) Remote host to connect to (dynamic if not set)
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  IPv4 address of remote host  |
     |  ipv6  |  IPv6 address of remote host  |
     |  txt  |  Hostname of remote host  |
-- `remote_port` (String) Remote port number to connect to
+- `remote_port` (Number) Remote port number to connect to
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -113,7 +113,7 @@ OpenVPN Tunnel Interface
 - `server` (Attributes) Server-mode options (see [below for nested schema](#nestedatt--server))
 - `shared_secret_key` (String) Secret key shared with remote end of tunnel
 - `tls` (Attributes) Transport Layer Security (TLS) options (see [below for nested schema](#nestedatt--tls))
-- `use_lzo_compression` (String) Use fast LZO compression on this TUN/TAP interface
+- `use_lzo_compression` (Boolean) Use fast LZO compression on this TUN/TAP interface
 - `vrf` (String) VRF instance name
 
     |  Format  |  Description  |
@@ -157,7 +157,7 @@ Optional:
     |  aes192gcm  |  AES algorithm with 192-bit key GCM  |
     |  aes256  |  AES algorithm with 256-bit key CBC  |
     |  aes256gcm  |  AES algorithm with 256-bit key GCM  |
-- `ncp_ciphers` (String) Cipher negotiation list for use in server or client mode
+- `ncp_ciphers` (List of String) Cipher negotiation list for use in server or client mode
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -183,19 +183,19 @@ Optional:
     |----------|---------------|
     |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
     |  u32:536-65535  |  TCP Maximum segment size in bytes  |
-- `arp_cache_timeout` (String) ARP cache entry timeout in seconds
+- `arp_cache_timeout` (Number) ARP cache entry timeout in seconds
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-86400  |  ARP cache entry timout in seconds  |
-- `disable_arp_filter` (String) Disable ARP filter on this interface
-- `disable_forwarding` (String) Disable IP forwarding on this interface
-- `enable_arp_accept` (String) Enable ARP accept on this interface
-- `enable_arp_announce` (String) Enable ARP announce on this interface
-- `enable_arp_ignore` (String) Enable ARP ignore on this interface
-- `enable_directed_broadcast` (String) Enable directed broadcast forwarding on this interface
-- `enable_proxy_arp` (String) Enable proxy-arp on this interface
-- `proxy_arp_pvlan` (String) Enable private VLAN proxy ARP on this interface
+- `disable_arp_filter` (Boolean) Disable ARP filter on this interface
+- `disable_forwarding` (Boolean) Disable IP forwarding on this interface
+- `enable_arp_accept` (Boolean) Enable ARP accept on this interface
+- `enable_arp_announce` (Boolean) Enable ARP announce on this interface
+- `enable_arp_ignore` (Boolean) Enable ARP ignore on this interface
+- `enable_directed_broadcast` (Boolean) Enable directed broadcast forwarding on this interface
+- `enable_proxy_arp` (Boolean) Enable proxy-arp on this interface
+- `proxy_arp_pvlan` (Boolean) Enable private VLAN proxy ARP on this interface
 - `source_validation` (String) Source validation by reversed path (RFC3704)
 
     |  Format  |  Description  |
@@ -217,8 +217,8 @@ Optional:
     |----------|---------------|
     |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
     |  u32:536-65535  |  TCP Maximum segment size in bytes  |
-- `disable_forwarding` (String) Disable IP forwarding on this interface
-- `dup_addr_detect_transmits` (String) Number of NS messages to send while performing DAD (default: 1)
+- `disable_forwarding` (Boolean) Disable IP forwarding on this interface
+- `dup_addr_detect_transmits` (Number) Number of NS messages to send while performing DAD (default: 1)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -230,13 +230,13 @@ Optional:
 
 Optional:
 
-- `autoconf` (String) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
-- `eui64` (String) Prefix for IPv6 address with MAC-based EUI-64
+- `autoconf` (Boolean) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
+- `eui64` (List of String) Prefix for IPv6 address with MAC-based EUI-64
 
     |  Format  |  Description  |
     |----------|---------------|
     |  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
-- `no_default_link_local` (String) Remove the default link-local address from the interface
+- `no_default_link_local` (Boolean) Remove the default link-local address from the interface
 
 
 
@@ -245,12 +245,12 @@ Optional:
 
 Optional:
 
-- `failure_count` (String) Maximum number of keepalive packet failures
+- `failure_count` (Number) Maximum number of keepalive packet failures
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-1000  |  Maximum number of keepalive packet failures  |
-- `interval` (String) Keepalive packet interval in seconds
+- `interval` (Number) Keepalive packet interval in seconds
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -294,20 +294,20 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Domain Name Server suffix  |
-- `max_connections` (String) Number of maximum client connections
+- `max_connections` (Number) Number of maximum client connections
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4096  |  Number of concurrent clients  |
 - `mfa` (Attributes) multi-factor authentication (see [below for nested schema](#nestedatt--server--mfa))
-- `name_server` (String) Domain Name Servers (DNS) addresses
+- `name_server` (List of String) Domain Name Servers (DNS) addresses
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
     |  ipv6  |  Domain Name Server (DNS) IPv6 address  |
-- `reject_unconfigured_clients` (String) Reject connections from clients that are not explicitly configured
-- `subnet` (String) Server-mode subnet (from which client IPs are allocated)
+- `reject_unconfigured_clients` (Boolean) Reject connections from clients that are not explicitly configured
+- `subnet` (List of String) Server-mode subnet (from which client IPs are allocated)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -326,7 +326,7 @@ Optional:
 
 Optional:
 
-- `disable` (String) Disable instance
+- `disable` (Boolean) Disable instance
 - `start` (String) First IP address in the pool
 
     |  Format  |  Description  |
@@ -354,7 +354,7 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv6net  |  Client IPv6 pool base address with optional prefix length (defaults: base = server subnet + 0x1000, prefix length = server prefix length)  |
-- `disable` (String) Disable instance
+- `disable` (Boolean) Disable instance
 
 
 <a id="nestedatt--server--mfa"></a>
@@ -405,7 +405,7 @@ Optional:
 Optional:
 
 - `auth_key` (String) TLS shared secret key for tls-auth
-- `ca_certificate` (String) Certificate Authority chain in PKI configuration
+- `ca_certificate` (List of String) Certificate Authority chain in PKI configuration
 
     |  Format  |  Description  |
     |----------|---------------|

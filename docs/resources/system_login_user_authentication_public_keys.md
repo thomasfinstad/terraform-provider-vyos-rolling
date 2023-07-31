@@ -38,6 +38,7 @@ Remote access public keys
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Key identifier used by ssh-keygen (usually of form user@host)  |
+- `user_identifier` (String) Local user account information
 
 ### Optional
 

@@ -46,14 +46,14 @@ Zone-policy
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `enable_default_log` (String) Log packets hitting default-action
-- `interface` (String) Interface associated with zone
+- `enable_default_log` (Boolean) Log packets hitting default-action
+- `interface` (List of String) Interface associated with zone
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Interface associated with zone  |
 - `intra_zone_filtering` (Attributes) Intra-zone filtering (see [below for nested schema](#nestedatt--intra_zone_filtering))
-- `local_zone` (String) Zone to be local-zone
+- `local_zone` (Boolean) Zone to be local-zone
 
 <a id="nestedatt--intra_zone_filtering"></a>
 ### Nested Schema for `intra_zone_filtering`

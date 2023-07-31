@@ -30,12 +30,12 @@ Pre-shared key name
 
 ### Optional
 
-- `dhcp_interface` (String) DHCP interface supplying next-hop IP address
+- `dhcp_interface` (List of String) DHCP interface supplying next-hop IP address
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  DHCP interface name  |
-- `id` (String) ID for authentication
+- `id` (List of String) ID for authentication
 
     |  Format  |  Description  |
     |----------|---------------|

@@ -41,12 +41,12 @@ Specify other caches in a hierarchy
     |----------|---------------|
     |  ipv4  |  Squid cache-peer IPv4 address  |
     |  hostname  |  Squid cache-peer hostname  |
-- `http_port` (String) Default Proxy Port
+- `http_port` (Number) Default Proxy Port
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1025-65535  |  Default port number  |
-- `icp_port` (String) Cache peer ICP port
+- `icp_port` (Number) Cache peer ICP port
 
     |  Format  |  Description  |
     |----------|---------------|

@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallNameRuleOutboundInterface describes the resource data model.
@@ -46,51 +43,10 @@ func (o FirewallNameRuleOutboundInterface) ResourceSchemaAttributes() map[string
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallNameRuleOutboundInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallNameRuleOutboundInterfaceInterfaceName.IsNull() && !o.LeafFirewallNameRuleOutboundInterfaceInterfaceName.IsUnknown() {
-		jsonData["interface-name"] = o.LeafFirewallNameRuleOutboundInterfaceInterfaceName.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleOutboundInterfaceInterfaceGroup.IsNull() && !o.LeafFirewallNameRuleOutboundInterfaceInterfaceGroup.IsUnknown() {
-		jsonData["interface-group"] = o.LeafFirewallNameRuleOutboundInterfaceInterfaceGroup.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallNameRuleOutboundInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["interface-name"]; ok {
-		o.LeafFirewallNameRuleOutboundInterfaceInterfaceName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleOutboundInterfaceInterfaceName = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["interface-group"]; ok {
-		o.LeafFirewallNameRuleOutboundInterfaceInterfaceGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleOutboundInterfaceInterfaceGroup = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallNameRuleOutboundInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

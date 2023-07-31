@@ -50,6 +50,11 @@ Username used for authentication
 
 ### Required
 
+- `connection_identifier` (String) IKEv2 VPN connection name
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Connection name  |
 - `identifier` (String) Username used for authentication
 
     |  Format  |  Description  |
@@ -58,5 +63,5 @@ Username used for authentication
 
 ### Optional
 
-- `disable` (String) Disable instance
+- `disable` (Boolean) Disable instance
 - `password` (String) Password used for authentication

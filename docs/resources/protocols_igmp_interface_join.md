@@ -35,10 +35,11 @@ IGMP join multicast group
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  Multicast group address  |
+- `interface_identifier` (String) IGMP interface
 
 ### Optional
 
-- `source` (String) Source address
+- `source` (List of String) Source address
 
     |  Format  |  Description  |
     |----------|---------------|

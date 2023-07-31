@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBfdPeerSource describes the resource data model.
@@ -55,51 +52,10 @@ func (o ProtocolsBfdPeerSource) ResourceSchemaAttributes() map[string]schema.Att
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBfdPeerSource) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBfdPeerSourceInterface.IsNull() && !o.LeafProtocolsBfdPeerSourceInterface.IsUnknown() {
-		jsonData["interface"] = o.LeafProtocolsBfdPeerSourceInterface.ValueString()
-	}
-
-	if !o.LeafProtocolsBfdPeerSourceAddress.IsNull() && !o.LeafProtocolsBfdPeerSourceAddress.IsUnknown() {
-		jsonData["address"] = o.LeafProtocolsBfdPeerSourceAddress.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBfdPeerSource) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["interface"]; ok {
-		o.LeafProtocolsBfdPeerSourceInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdPeerSourceInterface = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafProtocolsBfdPeerSourceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdPeerSourceAddress = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBfdPeerSource) UnmarshalJSON(_ []byte) error {
 	return nil
 }

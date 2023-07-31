@@ -2,20 +2,17 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesBondingVifIPvsix describes the resource data model.
 type InterfacesBondingVifIPvsix struct {
 	// LeafNodes
 	LeafInterfacesBondingVifIPvsixAdjustMss              types.String `tfsdk:"adjust_mss" vyos:"adjust-mss,omitempty"`
-	LeafInterfacesBondingVifIPvsixDisableForwarding      types.String `tfsdk:"disable_forwarding" vyos:"disable-forwarding,omitempty"`
-	LeafInterfacesBondingVifIPvsixDupAddrDetectTransmits types.String `tfsdk:"dup_addr_detect_transmits" vyos:"dup-addr-detect-transmits,omitempty"`
+	LeafInterfacesBondingVifIPvsixDisableForwarding      types.Bool   `tfsdk:"disable_forwarding" vyos:"disable-forwarding,omitempty"`
+	LeafInterfacesBondingVifIPvsixDupAddrDetectTransmits types.Number `tfsdk:"dup_addr_detect_transmits" vyos:"dup-addr-detect-transmits,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -40,14 +37,16 @@ func (o InterfacesBondingVifIPvsix) ResourceSchemaAttributes() map[string]schema
 `,
 		},
 
-		"disable_forwarding": schema.StringAttribute{
+		"disable_forwarding": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable IP forwarding on this interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"dup_addr_detect_transmits": schema.StringAttribute{
+		"dup_addr_detect_transmits": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of NS messages to send while performing DAD (default: 1)
 
@@ -73,88 +72,10 @@ func (o InterfacesBondingVifIPvsix) ResourceSchemaAttributes() map[string]schema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesBondingVifIPvsix) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesBondingVifIPvsixAdjustMss.IsNull() && !o.LeafInterfacesBondingVifIPvsixAdjustMss.IsUnknown() {
-		jsonData["adjust-mss"] = o.LeafInterfacesBondingVifIPvsixAdjustMss.ValueString()
-	}
-
-	if !o.LeafInterfacesBondingVifIPvsixDisableForwarding.IsNull() && !o.LeafInterfacesBondingVifIPvsixDisableForwarding.IsUnknown() {
-		jsonData["disable-forwarding"] = o.LeafInterfacesBondingVifIPvsixDisableForwarding.ValueString()
-	}
-
-	if !o.LeafInterfacesBondingVifIPvsixDupAddrDetectTransmits.IsNull() && !o.LeafInterfacesBondingVifIPvsixDupAddrDetectTransmits.IsUnknown() {
-		jsonData["dup-addr-detect-transmits"] = o.LeafInterfacesBondingVifIPvsixDupAddrDetectTransmits.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesBondingVifIPvsixAddress).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesBondingVifIPvsixAddress)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["address"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesBondingVifIPvsix) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["adjust-mss"]; ok {
-		o.LeafInterfacesBondingVifIPvsixAdjustMss = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifIPvsixAdjustMss = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable-forwarding"]; ok {
-		o.LeafInterfacesBondingVifIPvsixDisableForwarding = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifIPvsixDisableForwarding = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["dup-addr-detect-transmits"]; ok {
-		o.LeafInterfacesBondingVifIPvsixDupAddrDetectTransmits = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifIPvsixDupAddrDetectTransmits = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["address"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesBondingVifIPvsixAddress = &InterfacesBondingVifIPvsixAddress{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBondingVifIPvsixAddress)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesBondingVifIPvsix) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesTunnelParametersErspan describes the resource data model.
 type InterfacesTunnelParametersErspan struct {
 	// LeafNodes
 	LeafInterfacesTunnelParametersErspanDirection types.String `tfsdk:"direction" vyos:"direction,omitempty"`
-	LeafInterfacesTunnelParametersErspanHwID      types.String `tfsdk:"hw_id" vyos:"hw-id,omitempty"`
-	LeafInterfacesTunnelParametersErspanIndex     types.String `tfsdk:"index" vyos:"index,omitempty"`
+	LeafInterfacesTunnelParametersErspanHwID      types.Number `tfsdk:"hw_id" vyos:"hw-id,omitempty"`
+	LeafInterfacesTunnelParametersErspanIndex     types.Number `tfsdk:"index" vyos:"index,omitempty"`
 	LeafInterfacesTunnelParametersErspanVersion   types.String `tfsdk:"version" vyos:"version,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -39,7 +36,7 @@ func (o InterfacesTunnelParametersErspan) ResourceSchemaAttributes() map[string]
 `,
 		},
 
-		"hw_id": schema.StringAttribute{
+		"hw_id": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Unique identifier of an ERSPAN engine within a system
 
@@ -50,7 +47,7 @@ func (o InterfacesTunnelParametersErspan) ResourceSchemaAttributes() map[string]
 `,
 		},
 
-		"index": schema.StringAttribute{
+		"index": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `ERSPAN version 1 index field
 
@@ -83,71 +80,10 @@ func (o InterfacesTunnelParametersErspan) ResourceSchemaAttributes() map[string]
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesTunnelParametersErspan) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesTunnelParametersErspanDirection.IsNull() && !o.LeafInterfacesTunnelParametersErspanDirection.IsUnknown() {
-		jsonData["direction"] = o.LeafInterfacesTunnelParametersErspanDirection.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelParametersErspanHwID.IsNull() && !o.LeafInterfacesTunnelParametersErspanHwID.IsUnknown() {
-		jsonData["hw-id"] = o.LeafInterfacesTunnelParametersErspanHwID.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelParametersErspanIndex.IsNull() && !o.LeafInterfacesTunnelParametersErspanIndex.IsUnknown() {
-		jsonData["index"] = o.LeafInterfacesTunnelParametersErspanIndex.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelParametersErspanVersion.IsNull() && !o.LeafInterfacesTunnelParametersErspanVersion.IsUnknown() {
-		jsonData["version"] = o.LeafInterfacesTunnelParametersErspanVersion.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesTunnelParametersErspan) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["direction"]; ok {
-		o.LeafInterfacesTunnelParametersErspanDirection = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersErspanDirection = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["hw-id"]; ok {
-		o.LeafInterfacesTunnelParametersErspanHwID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersErspanHwID = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["index"]; ok {
-		o.LeafInterfacesTunnelParametersErspanIndex = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersErspanIndex = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["version"]; ok {
-		o.LeafInterfacesTunnelParametersErspanVersion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersErspanVersion = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesTunnelParametersErspan) UnmarshalJSON(_ []byte) error {
 	return nil
 }

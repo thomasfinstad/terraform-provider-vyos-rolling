@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // LoadBalancingWanRuleSource describes the resource data model.
@@ -62,51 +59,10 @@ func (o LoadBalancingWanRuleSource) ResourceSchemaAttributes() map[string]schema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *LoadBalancingWanRuleSource) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafLoadBalancingWanRuleSourceAddress.IsNull() && !o.LeafLoadBalancingWanRuleSourceAddress.IsUnknown() {
-		jsonData["address"] = o.LeafLoadBalancingWanRuleSourceAddress.ValueString()
-	}
-
-	if !o.LeafLoadBalancingWanRuleSourcePort.IsNull() && !o.LeafLoadBalancingWanRuleSourcePort.IsUnknown() {
-		jsonData["port"] = o.LeafLoadBalancingWanRuleSourcePort.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *LoadBalancingWanRuleSource) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafLoadBalancingWanRuleSourceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanRuleSourceAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafLoadBalancingWanRuleSourcePort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanRuleSourcePort = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *LoadBalancingWanRuleSource) UnmarshalJSON(_ []byte) error {
 	return nil
 }

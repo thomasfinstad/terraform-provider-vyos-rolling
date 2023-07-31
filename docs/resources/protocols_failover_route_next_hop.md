@@ -43,6 +43,11 @@ Next-hop IPv4 router address
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  Next-hop router address  |
+- `route_identifier` (String) Failover IPv4 route
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 failover route  |
 
 ### Optional
 
@@ -52,7 +57,7 @@ Next-hop IPv4 router address
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Gateway interface name  |
-- `metric` (String) Route metric for this gateway
+- `metric` (Number) Route metric for this gateway
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -63,7 +68,7 @@ Next-hop IPv4 router address
 
 Optional:
 
-- `port` (String) Port number used by connection
+- `port` (Number) Port number used by connection
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -73,7 +78,7 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  Address to check  |
-- `timeout` (String) Timeout between checks
+- `timeout` (Number) Timeout between checks
 
     |  Format  |  Description  |
     |----------|---------------|

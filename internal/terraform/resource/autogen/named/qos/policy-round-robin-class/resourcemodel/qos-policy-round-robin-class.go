@@ -2,28 +2,25 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyRoundRobinClass describes the resource data model.
 type QosPolicyRoundRobinClass struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDQosPolicyRoundRobin any `tfsdk:"round_robin" vyos:"round-robin,parent-id"`
+	ParentIDQosPolicyRoundRobin types.String `tfsdk:"round_robin" vyos:"round-robin_identifier,parent-id"`
 
 	// LeafNodes
 	LeafQosPolicyRoundRobinClassDescrIPtion  types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafQosPolicyRoundRobinClassCodelQuantum types.String `tfsdk:"codel_quantum" vyos:"codel-quantum,omitempty"`
-	LeafQosPolicyRoundRobinClassFlows        types.String `tfsdk:"flows" vyos:"flows,omitempty"`
-	LeafQosPolicyRoundRobinClassInterval     types.String `tfsdk:"interval" vyos:"interval,omitempty"`
-	LeafQosPolicyRoundRobinClassQuantum      types.String `tfsdk:"quantum" vyos:"quantum,omitempty"`
-	LeafQosPolicyRoundRobinClassQueueLimit   types.String `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
+	LeafQosPolicyRoundRobinClassCodelQuantum types.Number `tfsdk:"codel_quantum" vyos:"codel-quantum,omitempty"`
+	LeafQosPolicyRoundRobinClassFlows        types.Number `tfsdk:"flows" vyos:"flows,omitempty"`
+	LeafQosPolicyRoundRobinClassInterval     types.Number `tfsdk:"interval" vyos:"interval,omitempty"`
+	LeafQosPolicyRoundRobinClassQuantum      types.Number `tfsdk:"quantum" vyos:"quantum,omitempty"`
+	LeafQosPolicyRoundRobinClassQueueLimit   types.Number `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
 	LeafQosPolicyRoundRobinClassQueueType    types.String `tfsdk:"queue_type" vyos:"queue-type,omitempty"`
-	LeafQosPolicyRoundRobinClassTarget       types.String `tfsdk:"target" vyos:"target,omitempty"`
+	LeafQosPolicyRoundRobinClassTarget       types.Number `tfsdk:"target" vyos:"target,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagQosPolicyRoundRobinClassMatch bool `tfsdk:"match" vyos:"match,child"`
@@ -35,10 +32,14 @@ type QosPolicyRoundRobinClass struct {
 func (o *QosPolicyRoundRobinClass) GetVyosPath() []string {
 	return []string{
 		"qos",
+
 		"policy",
+
 		"round-robin",
+		o.ParentIDQosPolicyRoundRobin.ValueString(),
+
 		"class",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -56,6 +57,17 @@ func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes() map[string]schema.A
 `,
 		},
 
+		"round_robin_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Deficit Round Robin Scheduler
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
@@ -69,7 +81,7 @@ func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes() map[string]schema.A
 `,
 		},
 
-		"codel_quantum": schema.StringAttribute{
+		"codel_quantum": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Deficit in the fair queuing algorithm
 
@@ -83,7 +95,7 @@ func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes() map[string]schema.A
 			Computed: true,
 		},
 
-		"flows": schema.StringAttribute{
+		"flows": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of flows into which the incoming packets are classified
 
@@ -97,7 +109,7 @@ func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes() map[string]schema.A
 			Computed: true,
 		},
 
-		"interval": schema.StringAttribute{
+		"interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval used to measure the delay
 
@@ -111,7 +123,7 @@ func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes() map[string]schema.A
 			Computed: true,
 		},
 
-		"quantum": schema.StringAttribute{
+		"quantum": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Packet scheduling quantum
 
@@ -122,7 +134,7 @@ func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes() map[string]schema.A
 `,
 		},
 
-		"queue_limit": schema.StringAttribute{
+		"queue_limit": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
@@ -151,7 +163,7 @@ func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes() map[string]schema.A
 			Computed: true,
 		},
 
-		"target": schema.StringAttribute{
+		"target": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Acceptable minimum standing/persistent queue delay
 
@@ -172,111 +184,10 @@ func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes() map[string]schema.A
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyRoundRobinClass) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyRoundRobinClassDescrIPtion.IsNull() && !o.LeafQosPolicyRoundRobinClassDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafQosPolicyRoundRobinClassDescrIPtion.ValueString()
-	}
-
-	if !o.LeafQosPolicyRoundRobinClassCodelQuantum.IsNull() && !o.LeafQosPolicyRoundRobinClassCodelQuantum.IsUnknown() {
-		jsonData["codel-quantum"] = o.LeafQosPolicyRoundRobinClassCodelQuantum.ValueString()
-	}
-
-	if !o.LeafQosPolicyRoundRobinClassFlows.IsNull() && !o.LeafQosPolicyRoundRobinClassFlows.IsUnknown() {
-		jsonData["flows"] = o.LeafQosPolicyRoundRobinClassFlows.ValueString()
-	}
-
-	if !o.LeafQosPolicyRoundRobinClassInterval.IsNull() && !o.LeafQosPolicyRoundRobinClassInterval.IsUnknown() {
-		jsonData["interval"] = o.LeafQosPolicyRoundRobinClassInterval.ValueString()
-	}
-
-	if !o.LeafQosPolicyRoundRobinClassQuantum.IsNull() && !o.LeafQosPolicyRoundRobinClassQuantum.IsUnknown() {
-		jsonData["quantum"] = o.LeafQosPolicyRoundRobinClassQuantum.ValueString()
-	}
-
-	if !o.LeafQosPolicyRoundRobinClassQueueLimit.IsNull() && !o.LeafQosPolicyRoundRobinClassQueueLimit.IsUnknown() {
-		jsonData["queue-limit"] = o.LeafQosPolicyRoundRobinClassQueueLimit.ValueString()
-	}
-
-	if !o.LeafQosPolicyRoundRobinClassQueueType.IsNull() && !o.LeafQosPolicyRoundRobinClassQueueType.IsUnknown() {
-		jsonData["queue-type"] = o.LeafQosPolicyRoundRobinClassQueueType.ValueString()
-	}
-
-	if !o.LeafQosPolicyRoundRobinClassTarget.IsNull() && !o.LeafQosPolicyRoundRobinClassTarget.IsUnknown() {
-		jsonData["target"] = o.LeafQosPolicyRoundRobinClassTarget.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyRoundRobinClass) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafQosPolicyRoundRobinClassDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["codel-quantum"]; ok {
-		o.LeafQosPolicyRoundRobinClassCodelQuantum = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassCodelQuantum = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["flows"]; ok {
-		o.LeafQosPolicyRoundRobinClassFlows = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassFlows = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["interval"]; ok {
-		o.LeafQosPolicyRoundRobinClassInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["quantum"]; ok {
-		o.LeafQosPolicyRoundRobinClassQuantum = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassQuantum = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["queue-limit"]; ok {
-		o.LeafQosPolicyRoundRobinClassQueueLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassQueueLimit = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["queue-type"]; ok {
-		o.LeafQosPolicyRoundRobinClassQueueType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassQueueType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["target"]; ok {
-		o.LeafQosPolicyRoundRobinClassTarget = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassTarget = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyRoundRobinClass) UnmarshalJSON(_ []byte) error {
 	return nil
 }

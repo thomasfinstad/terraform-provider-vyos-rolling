@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallIPvsixNameRuleHopLimit describes the resource data model.
 type FirewallIPvsixNameRuleHopLimit struct {
 	// LeafNodes
-	LeafFirewallIPvsixNameRuleHopLimitEq types.String `tfsdk:"eq" vyos:"eq,omitempty"`
-	LeafFirewallIPvsixNameRuleHopLimitGt types.String `tfsdk:"gt" vyos:"gt,omitempty"`
-	LeafFirewallIPvsixNameRuleHopLimitLt types.String `tfsdk:"lt" vyos:"lt,omitempty"`
+	LeafFirewallIPvsixNameRuleHopLimitEq types.Number `tfsdk:"eq" vyos:"eq,omitempty"`
+	LeafFirewallIPvsixNameRuleHopLimitGt types.Number `tfsdk:"gt" vyos:"gt,omitempty"`
+	LeafFirewallIPvsixNameRuleHopLimitLt types.Number `tfsdk:"lt" vyos:"lt,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,7 +23,7 @@ func (o FirewallIPvsixNameRuleHopLimit) ResourceSchemaAttributes() map[string]sc
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"eq": schema.StringAttribute{
+		"eq": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Match on equal value
 
@@ -37,7 +34,7 @@ func (o FirewallIPvsixNameRuleHopLimit) ResourceSchemaAttributes() map[string]sc
 `,
 		},
 
-		"gt": schema.StringAttribute{
+		"gt": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Match on greater then value
 
@@ -48,7 +45,7 @@ func (o FirewallIPvsixNameRuleHopLimit) ResourceSchemaAttributes() map[string]sc
 `,
 		},
 
-		"lt": schema.StringAttribute{
+		"lt": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Match on less then value
 
@@ -66,61 +63,10 @@ func (o FirewallIPvsixNameRuleHopLimit) ResourceSchemaAttributes() map[string]sc
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallIPvsixNameRuleHopLimit) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallIPvsixNameRuleHopLimitEq.IsNull() && !o.LeafFirewallIPvsixNameRuleHopLimitEq.IsUnknown() {
-		jsonData["eq"] = o.LeafFirewallIPvsixNameRuleHopLimitEq.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleHopLimitGt.IsNull() && !o.LeafFirewallIPvsixNameRuleHopLimitGt.IsUnknown() {
-		jsonData["gt"] = o.LeafFirewallIPvsixNameRuleHopLimitGt.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleHopLimitLt.IsNull() && !o.LeafFirewallIPvsixNameRuleHopLimitLt.IsUnknown() {
-		jsonData["lt"] = o.LeafFirewallIPvsixNameRuleHopLimitLt.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallIPvsixNameRuleHopLimit) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["eq"]; ok {
-		o.LeafFirewallIPvsixNameRuleHopLimitEq = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleHopLimitEq = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["gt"]; ok {
-		o.LeafFirewallIPvsixNameRuleHopLimitGt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleHopLimitGt = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["lt"]; ok {
-		o.LeafFirewallIPvsixNameRuleHopLimitLt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleHopLimitLt = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallIPvsixNameRuleHopLimit) UnmarshalJSON(_ []byte) error {
 	return nil
 }

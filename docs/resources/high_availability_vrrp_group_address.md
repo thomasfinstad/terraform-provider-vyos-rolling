@@ -35,6 +35,7 @@ Virtual IP address
 
 ### Required
 
+- `group_identifier` (String) VRRP group
 - `identifier` (String) Virtual IP address
 
     |  Format  |  Description  |

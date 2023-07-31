@@ -2,20 +2,18 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesEthernetVifSVifCDhcpvsixOptions describes the resource data model.
 type InterfacesEthernetVifSVifCDhcpvsixOptions struct {
 	// LeafNodes
 	LeafInterfacesEthernetVifSVifCDhcpvsixOptionsDuID           types.String `tfsdk:"duid" vyos:"duid,omitempty"`
-	LeafInterfacesEthernetVifSVifCDhcpvsixOptionsParametersOnly types.String `tfsdk:"parameters_only" vyos:"parameters-only,omitempty"`
-	LeafInterfacesEthernetVifSVifCDhcpvsixOptionsRAPIDCommit    types.String `tfsdk:"rapid_commit" vyos:"rapid-commit,omitempty"`
-	LeafInterfacesEthernetVifSVifCDhcpvsixOptionsTemporary      types.String `tfsdk:"temporary" vyos:"temporary,omitempty"`
+	LeafInterfacesEthernetVifSVifCDhcpvsixOptionsParametersOnly types.Bool   `tfsdk:"parameters_only" vyos:"parameters-only,omitempty"`
+	LeafInterfacesEthernetVifSVifCDhcpvsixOptionsRAPIDCommit    types.Bool   `tfsdk:"rapid_commit" vyos:"rapid-commit,omitempty"`
+	LeafInterfacesEthernetVifSVifCDhcpvsixOptionsTemporary      types.Bool   `tfsdk:"temporary" vyos:"temporary,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagInterfacesEthernetVifSVifCDhcpvsixOptionsPd bool `tfsdk:"pd" vyos:"pd,child"`
@@ -39,25 +37,31 @@ func (o InterfacesEthernetVifSVifCDhcpvsixOptions) ResourceSchemaAttributes() ma
 `,
 		},
 
-		"parameters_only": schema.StringAttribute{
+		"parameters_only": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Acquire only config parameters, no address
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"rapid_commit": schema.StringAttribute{
+		"rapid_commit": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Wait for immediate reply instead of advertisements
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"temporary": schema.StringAttribute{
+		"temporary": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv6 temporary address
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -67,71 +71,10 @@ func (o InterfacesEthernetVifSVifCDhcpvsixOptions) ResourceSchemaAttributes() ma
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesEthernetVifSVifCDhcpvsixOptions) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsDuID.IsNull() && !o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsDuID.IsUnknown() {
-		jsonData["duid"] = o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsDuID.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsParametersOnly.IsNull() && !o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsParametersOnly.IsUnknown() {
-		jsonData["parameters-only"] = o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsParametersOnly.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsRAPIDCommit.IsNull() && !o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsRAPIDCommit.IsUnknown() {
-		jsonData["rapid-commit"] = o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsRAPIDCommit.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsTemporary.IsNull() && !o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsTemporary.IsUnknown() {
-		jsonData["temporary"] = o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsTemporary.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesEthernetVifSVifCDhcpvsixOptions) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["duid"]; ok {
-		o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsDuID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsDuID = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["parameters-only"]; ok {
-		o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsParametersOnly = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsParametersOnly = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rapid-commit"]; ok {
-		o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsRAPIDCommit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsRAPIDCommit = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["temporary"]; ok {
-		o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsTemporary = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsTemporary = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesEthernetVifSVifCDhcpvsixOptions) UnmarshalJSON(_ []byte) error {
 	return nil
 }

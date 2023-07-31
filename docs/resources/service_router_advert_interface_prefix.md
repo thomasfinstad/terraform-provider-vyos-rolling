@@ -35,13 +35,14 @@ IPv6 prefix to be advertised in Router Advertisements (RAs)
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv6net  |  IPv6 prefix to be advertized  |
+- `interface_identifier` (String) Interface to send RA on
 
 ### Optional
 
-- `decrement_lifetime` (String) Lifetime is decremented by the number of seconds since the last RA - use in conjunction with a DHCPv6-PD prefix
-- `deprecate_prefix` (String) Upon shutdown, this option will deprecate the prefix by announcing it in the shutdown RA
-- `no_autonomous_flag` (String) Prefix can not be used for stateless address auto-configuration
-- `no_on_link_flag` (String) Prefix can not be used for on-link determination
+- `decrement_lifetime` (Boolean) Lifetime is decremented by the number of seconds since the last RA - use in conjunction with a DHCPv6-PD prefix
+- `deprecate_prefix` (Boolean) Upon shutdown, this option will deprecate the prefix by announcing it in the shutdown RA
+- `no_autonomous_flag` (Boolean) Prefix can not be used for stateless address auto-configuration
+- `no_on_link_flag` (Boolean) Prefix can not be used for on-link determination
 - `preferred_lifetime` (String) Time in seconds that the prefix will remain preferred
 
     |  Format  |  Description  |

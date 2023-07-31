@@ -32,7 +32,7 @@ Wireless (WiFi/WLAN) Network Interface
 
 ### Optional
 
-- `address` (String) IP address
+- `address` (List of String) IP address
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -60,10 +60,10 @@ Wireless (WiFi/WLAN) Network Interface
     |  txt  |  Description  |
 - `dhcp_options` (Attributes) DHCP client settings/options (see [below for nested schema](#nestedatt--dhcp_options))
 - `dhcpv6_options` (Attributes) DHCPv6 client settings/options (see [below for nested schema](#nestedatt--dhcpv6_options))
-- `disable` (String) Administratively disable interface
-- `disable_broadcast_ssid` (String) Disable broadcast of SSID from access-point
-- `disable_link_detect` (String) Ignore link state changes
-- `expunge_failing_stations` (String) Disassociate stations based on excessive transmission failures
+- `disable` (Boolean) Administratively disable interface
+- `disable_broadcast_ssid` (Boolean) Disable broadcast of SSID from access-point
+- `disable_link_detect` (Boolean) Ignore link state changes
+- `expunge_failing_stations` (Boolean) Disassociate stations based on excessive transmission failures
 - `hw_id` (String) Associate Ethernet Interface with given Media Access Control (MAC) address
 
     |  Format  |  Description  |
@@ -71,13 +71,13 @@ Wireless (WiFi/WLAN) Network Interface
     |  macaddr  |  Hardware (MAC) address  |
 - `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--ip))
 - `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--ipv6))
-- `isolate_stations` (String) Isolate stations on the AP so they cannot see each other
+- `isolate_stations` (Boolean) Isolate stations on the AP so they cannot see each other
 - `mac` (String) Media Access Control (MAC) address
 
     |  Format  |  Description  |
     |----------|---------------|
     |  macaddr  |  Hardware (MAC) address  |
-- `max_stations` (String) Maximum number of wireless radio stations. Excess stations will be rejected upon authentication request.
+- `max_stations` (Number) Maximum number of wireless radio stations. Excess stations will be rejected upon authentication request.
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -105,7 +105,7 @@ Wireless (WiFi/WLAN) Network Interface
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Destination interface name  |
-- `reduce_transmit_power` (String) Transmission power reduction in dBm
+- `reduce_transmit_power` (Number) Transmission power reduction in dBm
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -131,8 +131,8 @@ Wireless (WiFi/WLAN) Network Interface
 Optional:
 
 - `ht` (Attributes) HT (High Throughput) settings (see [below for nested schema](#nestedatt--capabilities--ht))
-- `require_ht` (String) Require stations to support HT PHY (reject association if they do not)
-- `require_vht` (String) Require stations to support VHT PHY (reject association if they do not)
+- `require_ht` (Boolean) Require stations to support HT PHY (reject association if they do not)
+- `require_vht` (Boolean) Require stations to support VHT PHY (reject association if they do not)
 - `vht` (Attributes) VHT (Very High Throughput) settings (see [below for nested schema](#nestedatt--capabilities--vht))
 
 <a id="nestedatt--capabilities--ht"></a>
@@ -140,27 +140,27 @@ Optional:
 
 Optional:
 
-- `40mhz_incapable` (String) 40MHz intolerance, use 20MHz only!
-- `auto_powersave` (String) Enable WMM-PS unscheduled automatic power aave delivery [U-APSD]
-- `channel_set_width` (String) Supported channel set width
+- `40mhz_incapable` (Boolean) 40MHz intolerance, use 20MHz only!
+- `auto_powersave` (Boolean) Enable WMM-PS unscheduled automatic power aave delivery [U-APSD]
+- `channel_set_width` (List of String) Supported channel set width
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ht20  |  Supported channel set width both 20 MHz only  |
     |  ht40+  |  Supported channel set width both 20 MHz and 40 MHz with secondary channel above primary channel  |
     |  ht40-  |  Supported channel set width both 20 MHz and 40 MHz with secondary channel below primary channel  |
-- `delayed_block_ack` (String) Enable HT-delayed block ack
-- `dsss_cck_40` (String) Enable DSSS_CCK-40
-- `greenfield` (String) Enable HT-greenfield
-- `ldpc` (String) Enable LDPC coding capability
-- `lsig_protection` (String) Enable L-SIG TXOP protection capability
+- `delayed_block_ack` (Boolean) Enable HT-delayed block ack
+- `dsss_cck_40` (Boolean) Enable DSSS_CCK-40
+- `greenfield` (Boolean) Enable HT-greenfield
+- `ldpc` (Boolean) Enable LDPC coding capability
+- `lsig_protection` (Boolean) Enable L-SIG TXOP protection capability
 - `max_amsdu` (String) Set maximum A-MSDU length
 
     |  Format  |  Description  |
     |----------|---------------|
     |  3839  |  Set maximum A-MSDU length to 3839 octets  |
     |  7935  |  Set maximum A-MSDU length to 7935 octets  |
-- `short_gi` (String) Short GI capabilities
+- `short_gi` (List of String) Short GI capabilities
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -184,7 +184,7 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  [1-3]+  |  Number of spacial streams that can use RX STBC  |
-- `tx` (String) Enable sending PPDU using STBC (Space Time Block Coding)
+- `tx` (Boolean) Enable sending PPDU using STBC (Space Time Block Coding)
 
 
 
@@ -193,13 +193,13 @@ Optional:
 
 Optional:
 
-- `antenna_count` (String) Number of antennas on this card
+- `antenna_count` (Number) Number of antennas on this card
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-8  |  Number of antennas for this card  |
-- `antenna_pattern_fixed` (String) Set if antenna pattern does not change during the lifetime of an association
-- `beamform` (String) Beamforming capabilities
+- `antenna_pattern_fixed` (Boolean) Set if antenna pattern does not change during the lifetime of an association
+- `beamform` (List of String) Beamforming capabilities
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -216,7 +216,7 @@ Optional:
     |  1  |  80 MHz channel width  |
     |  2  |  160 MHz channel width  |
     |  3  |  80+80 MHz channel width  |
-- `ldpc` (String) Enable LDPC (Low Density Parity Check) coding capability
+- `ldpc` (Boolean) Enable LDPC (Low Density Parity Check) coding capability
 - `link_adaptation` (String) VHT link adaptation capabilities
 
     |  Format  |  Description  |
@@ -229,32 +229,32 @@ Optional:
     |----------|---------------|
     |  7991  |  ncrease Maximum MPDU length to 7991 octets  |
     |  11454  |  ncrease Maximum MPDU length to 11454 octets  |
-- `max_mpdu_exp` (String) Set the maximum length of A-MPDU pre-EOF padding that the station can receive
+- `max_mpdu_exp` (Number) Set the maximum length of A-MPDU pre-EOF padding that the station can receive
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-7  |  Maximum length of A-MPDU pre-EOF padding = 2 pow(13 + x) -1 octets  |
-- `short_gi` (String) Short GI capabilities
+- `short_gi` (List of String) Short GI capabilities
 
     |  Format  |  Description  |
     |----------|---------------|
     |  80  |  Short GI for 80 MHz  |
     |  160  |  Short GI for 160 MHz  |
 - `stbc` (Attributes) Support for sending and receiving PPDU using STBC (Space Time Block Coding) (see [below for nested schema](#nestedatt--capabilities--vht--stbc))
-- `tx_powersave` (String) Enable VHT TXOP Power Save Mode
-- `vht_cf` (String) Station supports receiving VHT variant HT Control field
+- `tx_powersave` (Boolean) Enable VHT TXOP Power Save Mode
+- `vht_cf` (Boolean) Station supports receiving VHT variant HT Control field
 
 <a id="nestedatt--capabilities--vht--center_channel_freq"></a>
 ### Nested Schema for `capabilities.vht.center_channel_freq`
 
 Optional:
 
-- `freq_1` (String) VHT operating channel center frequency - center freq 1 (for use with 80, 80+80 and 160 modes)
+- `freq_1` (Number) VHT operating channel center frequency - center freq 1 (for use with 80, 80+80 and 160 modes)
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:34-173  |  5Ghz (802.11 a/h/j/n/ac) center channel index (use 42 for primary 80MHz channel 36)  |
-- `freq_2` (String) VHT operating channel center frequency - center freq 2 (for use with the 80+80 mode)
+- `freq_2` (Number) VHT operating channel center frequency - center freq 2 (for use with the 80+80 mode)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -271,7 +271,7 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  [1-4]+  |  Number of spacial streams that can use RX STBC  |
-- `tx` (String) Enable sending PPDU using STBC (Space Time Block Coding)
+- `tx` (Boolean) Enable sending PPDU using STBC (Space Time Block Coding)
 
 
 
@@ -282,15 +282,15 @@ Optional:
 Optional:
 
 - `client_id` (String) Identifier used by client to identify itself to the DHCP server
-- `default_route_distance` (String) Distance for installed default route
+- `default_route_distance` (Number) Distance for installed default route
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Distance for the default route from DHCP server  |
 - `host_name` (String) Override system host-name sent to DHCP server
-- `mtu` (String) Use MTU value from DHCP server - ignore interface setting
-- `no_default_route` (String) Do not install default route to system
-- `reject` (String) IP addresses or subnets from which to reject DHCP leases
+- `mtu` (Boolean) Use MTU value from DHCP server - ignore interface setting
+- `no_default_route` (Boolean) Do not install default route to system
+- `reject` (List of String) IP addresses or subnets from which to reject DHCP leases
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -309,9 +309,9 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  duid  |  DHCP unique identifier (DUID)  |
-- `parameters_only` (String) Acquire only config parameters, no address
-- `rapid_commit` (String) Wait for immediate reply instead of advertisements
-- `temporary` (String) IPv6 temporary address
+- `parameters_only` (Boolean) Acquire only config parameters, no address
+- `rapid_commit` (Boolean) Wait for immediate reply instead of advertisements
+- `temporary` (Boolean) IPv6 temporary address
 
 
 <a id="nestedatt--ip"></a>
@@ -325,19 +325,19 @@ Optional:
     |----------|---------------|
     |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
     |  u32:536-65535  |  TCP Maximum segment size in bytes  |
-- `arp_cache_timeout` (String) ARP cache entry timeout in seconds
+- `arp_cache_timeout` (Number) ARP cache entry timeout in seconds
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-86400  |  ARP cache entry timout in seconds  |
-- `disable_arp_filter` (String) Disable ARP filter on this interface
-- `disable_forwarding` (String) Disable IP forwarding on this interface
-- `enable_arp_accept` (String) Enable ARP accept on this interface
-- `enable_arp_announce` (String) Enable ARP announce on this interface
-- `enable_arp_ignore` (String) Enable ARP ignore on this interface
-- `enable_directed_broadcast` (String) Enable directed broadcast forwarding on this interface
-- `enable_proxy_arp` (String) Enable proxy-arp on this interface
-- `proxy_arp_pvlan` (String) Enable private VLAN proxy ARP on this interface
+- `disable_arp_filter` (Boolean) Disable ARP filter on this interface
+- `disable_forwarding` (Boolean) Disable IP forwarding on this interface
+- `enable_arp_accept` (Boolean) Enable ARP accept on this interface
+- `enable_arp_announce` (Boolean) Enable ARP announce on this interface
+- `enable_arp_ignore` (Boolean) Enable ARP ignore on this interface
+- `enable_directed_broadcast` (Boolean) Enable directed broadcast forwarding on this interface
+- `enable_proxy_arp` (Boolean) Enable proxy-arp on this interface
+- `proxy_arp_pvlan` (Boolean) Enable private VLAN proxy ARP on this interface
 - `source_validation` (String) Source validation by reversed path (RFC3704)
 
     |  Format  |  Description  |
@@ -359,8 +359,8 @@ Optional:
     |----------|---------------|
     |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
     |  u32:536-65535  |  TCP Maximum segment size in bytes  |
-- `disable_forwarding` (String) Disable IP forwarding on this interface
-- `dup_addr_detect_transmits` (String) Number of NS messages to send while performing DAD (default: 1)
+- `disable_forwarding` (Boolean) Disable IP forwarding on this interface
+- `dup_addr_detect_transmits` (Number) Number of NS messages to send while performing DAD (default: 1)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -372,13 +372,13 @@ Optional:
 
 Optional:
 
-- `autoconf` (String) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
-- `eui64` (String) Prefix for IPv6 address with MAC-based EUI-64
+- `autoconf` (Boolean) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
+- `eui64` (List of String) Prefix for IPv6 address with MAC-based EUI-64
 
     |  Format  |  Description  |
     |----------|---------------|
     |  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
-- `no_default_link_local` (String) Remove the default link-local address from the interface
+- `no_default_link_local` (Boolean) Remove the default link-local address from the interface
 
 
 
@@ -412,7 +412,7 @@ Optional:
 
 Optional:
 
-- `key` (String) WEP encryption key
+- `key` (List of String) WEP encryption key
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -424,7 +424,7 @@ Optional:
 
 Optional:
 
-- `cipher` (String) Cipher suite for WPA unicast packets
+- `cipher` (List of String) Cipher suite for WPA unicast packets
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -433,7 +433,7 @@ Optional:
     |  CCMP-256  |  AES in Counter mode with CBC-MAC with 256-bit key  |
     |  CCMP  |  AES in Counter mode with CBC-MAC [RFC 3610, IEEE 802.11i/D7.0] (supported on all WPA2 APs)  |
     |  TKIP  |  Temporal Key Integrity Protocol [IEEE 802.11i/D7.0]  |
-- `group_cipher` (String) Cipher suite for WPA multicast and broadcast packets
+- `group_cipher` (List of String) Cipher suite for WPA multicast and broadcast packets
 
     |  Format  |  Description  |
     |----------|---------------|

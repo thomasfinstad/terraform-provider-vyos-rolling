@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfvthreeAutoCost describes the resource data model.
 type VrfNameProtocolsOspfvthreeAutoCost struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfvthreeAutoCostReferenceBandwIDth types.String `tfsdk:"reference_bandwidth" vyos:"reference-bandwidth,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeAutoCostReferenceBandwIDth types.Number `tfsdk:"reference_bandwidth" vyos:"reference-bandwidth,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,7 +21,7 @@ func (o VrfNameProtocolsOspfvthreeAutoCost) ResourceSchemaAttributes() map[strin
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"reference_bandwidth": schema.StringAttribute{
+		"reference_bandwidth": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Reference bandwidth method to assign cost
 
@@ -45,41 +42,10 @@ func (o VrfNameProtocolsOspfvthreeAutoCost) ResourceSchemaAttributes() map[strin
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfvthreeAutoCost) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfvthreeAutoCostReferenceBandwIDth.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeAutoCostReferenceBandwIDth.IsUnknown() {
-		jsonData["reference-bandwidth"] = o.LeafVrfNameProtocolsOspfvthreeAutoCostReferenceBandwIDth.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfvthreeAutoCost) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["reference-bandwidth"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeAutoCostReferenceBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeAutoCostReferenceBandwIDth = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfvthreeAutoCost) UnmarshalJSON(_ []byte) error {
 	return nil
 }

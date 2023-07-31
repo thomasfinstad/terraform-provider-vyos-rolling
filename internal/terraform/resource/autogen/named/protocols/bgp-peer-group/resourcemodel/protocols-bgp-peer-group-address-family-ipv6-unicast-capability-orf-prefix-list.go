@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixList describes the resource data model.
 type ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixList struct {
 	// LeafNodes
-	LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixListReceive types.String `tfsdk:"receive" vyos:"receive,omitempty"`
-	LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixListSend    types.String `tfsdk:"send" vyos:"send,omitempty"`
+	LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixListReceive types.Bool `tfsdk:"receive" vyos:"receive,omitempty"`
+	LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixListSend    types.Bool `tfsdk:"send" vyos:"send,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,18 +23,22 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixList) 
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"receive": schema.StringAttribute{
+		"receive": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Capability to receive the ORF
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"send": schema.StringAttribute{
+		"send": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Capability to send the ORF
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -46,51 +48,10 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixList) 
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixList) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixListReceive.IsNull() && !o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixListReceive.IsUnknown() {
-		jsonData["receive"] = o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixListReceive.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixListSend.IsNull() && !o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixListSend.IsUnknown() {
-		jsonData["send"] = o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixListSend.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixList) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["receive"]; ok {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixListReceive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixListReceive = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["send"]; ok {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixListSend = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixListSend = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrfPrefixList) UnmarshalJSON(_ []byte) error {
 	return nil
 }

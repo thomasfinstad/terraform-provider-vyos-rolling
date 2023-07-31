@@ -41,42 +41,42 @@ URL filter rule for a source-group
 
 ### Optional
 
-- `allow_category` (String) Category to allow
-- `allow_ipaddr_url` (String) Allow IP address URLs
-- `block_category` (String) Category to block
+- `allow_category` (List of String) Category to allow
+- `allow_ipaddr_url` (Boolean) Allow IP address URLs
+- `block_category` (List of String) Category to block
 - `default_action` (String) Default action (default: allow)
 
     |  Format  |  Description  |
     |----------|---------------|
     |  allow  |  Default filter action is allow)  |
     |  block  |  Default filter action is block  |
-- `enable_safe_search` (String) Enable safe-mode search on popular search engines
-- `local_block` (String) Local site to block
+- `enable_safe_search` (Boolean) Enable safe-mode search on popular search engines
+- `local_block` (List of String) Local site to block
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  IP address of site to block  |
-- `local_block_keyword` (String) Local keyword to block
+- `local_block_keyword` (List of String) Local keyword to block
 
     |  Format  |  Description  |
     |----------|---------------|
     |  keyword  |  Keyword (or regex) to block  |
-- `local_block_url` (String) Local URL to block
+- `local_block_url` (List of String) Local URL to block
 
     |  Format  |  Description  |
     |----------|---------------|
     |  url  |  Local URL to block (without "http://")  |
-- `local_ok` (String) Local site to allow
+- `local_ok` (List of String) Local site to allow
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  IP address of site to allow  |
-- `local_ok_url` (String) Local URL to allow
+- `local_ok_url` (List of String) Local URL to allow
 
     |  Format  |  Description  |
     |----------|---------------|
     |  url  |  Local URL to allow (without "http://")  |
-- `log` (String) Log block category
+- `log` (List of String) Log block category
 - `redirect_url` (String) Redirect URL for filtered websites
 
     |  Format  |  Description  |

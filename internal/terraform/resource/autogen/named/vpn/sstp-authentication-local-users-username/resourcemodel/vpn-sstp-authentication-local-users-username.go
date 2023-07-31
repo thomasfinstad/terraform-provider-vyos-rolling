@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnSstpAuthenticationLocalUsersUsername describes the resource data model.
@@ -15,7 +12,7 @@ type VpnSstpAuthenticationLocalUsersUsername struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafVpnSstpAuthenticationLocalUsersUsernameDisable  types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafVpnSstpAuthenticationLocalUsersUsernameDisable  types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafVpnSstpAuthenticationLocalUsersUsernamePassword types.String `tfsdk:"password" vyos:"password,omitempty"`
 	LeafVpnSstpAuthenticationLocalUsersUsernameStaticIP types.String `tfsdk:"static_ip" vyos:"static-ip,omitempty"`
 
@@ -29,9 +26,13 @@ type VpnSstpAuthenticationLocalUsersUsername struct {
 func (o *VpnSstpAuthenticationLocalUsersUsername) GetVyosPath() []string {
 	return []string{
 		"vpn",
+
 		"sstp",
+
 		"authentication",
+
 		"local-users",
+
 		"username",
 		o.ID.ValueString(),
 	}
@@ -49,11 +50,13 @@ func (o VpnSstpAuthenticationLocalUsersUsername) ResourceSchemaAttributes() map[
 
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"password": schema.StringAttribute{
@@ -87,88 +90,10 @@ func (o VpnSstpAuthenticationLocalUsersUsername) ResourceSchemaAttributes() map[
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnSstpAuthenticationLocalUsersUsername) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnSstpAuthenticationLocalUsersUsernameDisable.IsNull() && !o.LeafVpnSstpAuthenticationLocalUsersUsernameDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafVpnSstpAuthenticationLocalUsersUsernameDisable.ValueString()
-	}
-
-	if !o.LeafVpnSstpAuthenticationLocalUsersUsernamePassword.IsNull() && !o.LeafVpnSstpAuthenticationLocalUsersUsernamePassword.IsUnknown() {
-		jsonData["password"] = o.LeafVpnSstpAuthenticationLocalUsersUsernamePassword.ValueString()
-	}
-
-	if !o.LeafVpnSstpAuthenticationLocalUsersUsernameStaticIP.IsNull() && !o.LeafVpnSstpAuthenticationLocalUsersUsernameStaticIP.IsUnknown() {
-		jsonData["static-ip"] = o.LeafVpnSstpAuthenticationLocalUsersUsernameStaticIP.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVpnSstpAuthenticationLocalUsersUsernameRateLimit).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVpnSstpAuthenticationLocalUsersUsernameRateLimit)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["rate-limit"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnSstpAuthenticationLocalUsersUsername) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafVpnSstpAuthenticationLocalUsersUsernameDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpAuthenticationLocalUsersUsernameDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["password"]; ok {
-		o.LeafVpnSstpAuthenticationLocalUsersUsernamePassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpAuthenticationLocalUsersUsernamePassword = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["static-ip"]; ok {
-		o.LeafVpnSstpAuthenticationLocalUsersUsernameStaticIP = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpAuthenticationLocalUsersUsernameStaticIP = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["rate-limit"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVpnSstpAuthenticationLocalUsersUsernameRateLimit = &VpnSstpAuthenticationLocalUsersUsernameRateLimit{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVpnSstpAuthenticationLocalUsersUsernameRateLimit)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VpnSstpAuthenticationLocalUsersUsername) UnmarshalJSON(_ []byte) error {
 	return nil
 }

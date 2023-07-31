@@ -2,9 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 )
 
@@ -37,58 +34,10 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastCapability) ResourceSche
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastCapability) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastCapabilityOrf).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastCapabilityOrf)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["orf"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastCapability) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["orf"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastCapabilityOrf = &ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastCapabilityOrf{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastCapabilityOrf)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastCapability) UnmarshalJSON(_ []byte) error {
 	return nil
 }

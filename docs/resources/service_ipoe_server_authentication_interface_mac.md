@@ -38,11 +38,12 @@ Media Access Control (MAC) address
     |  Format  |  Description  |
     |----------|---------------|
     |  macaddr  |  Hardware (MAC) address  |
+- `interface_identifier` (String) Network interface for client MAC addresses
 
 ### Optional
 
 - `rate_limit` (Attributes) Upload/Download speed limits (see [below for nested schema](#nestedatt--rate_limit))
-- `vlan` (String) VLAN monitor for automatic creation of VLAN interfaces
+- `vlan` (Number) VLAN monitor for automatic creation of VLAN interfaces
 
     |  Format  |  Description  |
     |----------|---------------|

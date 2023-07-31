@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnIPsecProfileBind describes the resource data model.
 type VpnIPsecProfileBind struct {
 	// LeafNodes
-	LeafVpnIPsecProfileBindTunnel types.String `tfsdk:"tunnel" vyos:"tunnel,omitempty"`
+	LeafVpnIPsecProfileBindTunnel types.List `tfsdk:"tunnel" vyos:"tunnel,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,8 +21,9 @@ func (o VpnIPsecProfileBind) ResourceSchemaAttributes() map[string]schema.Attrib
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"tunnel": schema.StringAttribute{
-			Optional: true,
+		"tunnel": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Tunnel interface associated with this profile
 
     |  Format  |  Description  |
@@ -42,41 +40,10 @@ func (o VpnIPsecProfileBind) ResourceSchemaAttributes() map[string]schema.Attrib
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnIPsecProfileBind) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnIPsecProfileBindTunnel.IsNull() && !o.LeafVpnIPsecProfileBindTunnel.IsUnknown() {
-		jsonData["tunnel"] = o.LeafVpnIPsecProfileBindTunnel.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnIPsecProfileBind) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["tunnel"]; ok {
-		o.LeafVpnIPsecProfileBindTunnel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecProfileBindTunnel = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VpnIPsecProfileBind) UnmarshalJSON(_ []byte) error {
 	return nil
 }

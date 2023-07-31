@@ -32,10 +32,15 @@ Next-hop interface
 ### Required
 
 - `identifier` (String) Next-hop interface
+- `interface_route_identifier` (String) Multicast interface based route
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  Network  |
 
 ### Optional
 
-- `distance` (String) Distance value for this route
+- `distance` (Number) Distance value for this route
 
     |  Format  |  Description  |
     |----------|---------------|

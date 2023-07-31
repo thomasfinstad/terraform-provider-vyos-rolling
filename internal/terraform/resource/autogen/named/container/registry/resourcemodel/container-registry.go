@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ContainerRegistry describes the resource data model.
@@ -15,7 +12,7 @@ type ContainerRegistry struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafContainerRegistryDisable types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafContainerRegistryDisable types.Bool `tfsdk:"disable" vyos:"disable,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,6 +24,7 @@ type ContainerRegistry struct {
 func (o *ContainerRegistry) GetVyosPath() []string {
 	return []string{
 		"container",
+
 		"registry",
 		o.ID.ValueString(),
 	}
@@ -44,11 +42,13 @@ func (o ContainerRegistry) ResourceSchemaAttributes() map[string]schema.Attribut
 
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -65,68 +65,10 @@ func (o ContainerRegistry) ResourceSchemaAttributes() map[string]schema.Attribut
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ContainerRegistry) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafContainerRegistryDisable.IsNull() && !o.LeafContainerRegistryDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafContainerRegistryDisable.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeContainerRegistryAuthentication).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeContainerRegistryAuthentication)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["authentication"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ContainerRegistry) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafContainerRegistryDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerRegistryDisable = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["authentication"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeContainerRegistryAuthentication = &ContainerRegistryAuthentication{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeContainerRegistryAuthentication)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ContainerRegistry) UnmarshalJSON(_ []byte) error {
 	return nil
 }

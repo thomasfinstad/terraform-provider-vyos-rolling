@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyLimiterClassMatchIPvsixTCP describes the resource data model.
 type QosPolicyLimiterClassMatchIPvsixTCP struct {
 	// LeafNodes
-	LeafQosPolicyLimiterClassMatchIPvsixTCPAck types.String `tfsdk:"ack" vyos:"ack,omitempty"`
-	LeafQosPolicyLimiterClassMatchIPvsixTCPSyn types.String `tfsdk:"syn" vyos:"syn,omitempty"`
+	LeafQosPolicyLimiterClassMatchIPvsixTCPAck types.Bool `tfsdk:"ack" vyos:"ack,omitempty"`
+	LeafQosPolicyLimiterClassMatchIPvsixTCPSyn types.Bool `tfsdk:"syn" vyos:"syn,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,18 +23,22 @@ func (o QosPolicyLimiterClassMatchIPvsixTCP) ResourceSchemaAttributes() map[stri
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"ack": schema.StringAttribute{
+		"ack": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Match TCP ACK
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"syn": schema.StringAttribute{
+		"syn": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Match TCP SYN
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -46,51 +48,10 @@ func (o QosPolicyLimiterClassMatchIPvsixTCP) ResourceSchemaAttributes() map[stri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyLimiterClassMatchIPvsixTCP) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyLimiterClassMatchIPvsixTCPAck.IsNull() && !o.LeafQosPolicyLimiterClassMatchIPvsixTCPAck.IsUnknown() {
-		jsonData["ack"] = o.LeafQosPolicyLimiterClassMatchIPvsixTCPAck.ValueString()
-	}
-
-	if !o.LeafQosPolicyLimiterClassMatchIPvsixTCPSyn.IsNull() && !o.LeafQosPolicyLimiterClassMatchIPvsixTCPSyn.IsUnknown() {
-		jsonData["syn"] = o.LeafQosPolicyLimiterClassMatchIPvsixTCPSyn.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyLimiterClassMatchIPvsixTCP) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["ack"]; ok {
-		o.LeafQosPolicyLimiterClassMatchIPvsixTCPAck = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterClassMatchIPvsixTCPAck = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["syn"]; ok {
-		o.LeafQosPolicyLimiterClassMatchIPvsixTCPSyn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterClassMatchIPvsixTCPSyn = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyLimiterClassMatchIPvsixTCP) UnmarshalJSON(_ []byte) error {
 	return nil
 }

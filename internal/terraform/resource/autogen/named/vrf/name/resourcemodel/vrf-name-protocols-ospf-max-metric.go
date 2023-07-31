@@ -2,9 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 )
 
@@ -37,58 +34,10 @@ func (o VrfNameProtocolsOspfMaxMetric) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfMaxMetric) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfMaxMetricRouterLsa).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfMaxMetricRouterLsa)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["router-lsa"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfMaxMetric) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["router-lsa"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsOspfMaxMetricRouterLsa = &VrfNameProtocolsOspfMaxMetricRouterLsa{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfMaxMetricRouterLsa)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VrfNameProtocolsOspfMaxMetric) UnmarshalJSON(_ []byte) error {
 	return nil
 }

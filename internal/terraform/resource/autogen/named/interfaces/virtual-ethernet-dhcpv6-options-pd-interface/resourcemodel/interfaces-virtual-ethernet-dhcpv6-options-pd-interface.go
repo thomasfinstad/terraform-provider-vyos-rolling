@@ -2,24 +2,21 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesVirtualEthernetDhcpvsixOptionsPdInterface describes the resource data model.
 type InterfacesVirtualEthernetDhcpvsixOptionsPdInterface struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDInterfacesVirtualEthernet any `tfsdk:"virtual_ethernet" vyos:"virtual-ethernet,parent-id"`
+	ParentIDInterfacesVirtualEthernet types.String `tfsdk:"virtual_ethernet" vyos:"virtual-ethernet_identifier,parent-id"`
 
-	ParentIDInterfacesVirtualEthernetDhcpvsixOptionsPd any `tfsdk:"pd" vyos:"pd,parent-id"`
+	ParentIDInterfacesVirtualEthernetDhcpvsixOptionsPd types.String `tfsdk:"pd" vyos:"pd_identifier,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesVirtualEthernetDhcpvsixOptionsPdInterfaceAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
-	LeafInterfacesVirtualEthernetDhcpvsixOptionsPdInterfaceSLAID   types.String `tfsdk:"sla_id" vyos:"sla-id,omitempty"`
+	LeafInterfacesVirtualEthernetDhcpvsixOptionsPdInterfaceSLAID   types.Number `tfsdk:"sla_id" vyos:"sla-id,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -30,9 +27,15 @@ type InterfacesVirtualEthernetDhcpvsixOptionsPdInterface struct {
 func (o *InterfacesVirtualEthernetDhcpvsixOptionsPdInterface) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"virtual-ethernet",
+		o.ParentIDInterfacesVirtualEthernet.ValueString(),
+
 		"dhcpv6-options",
+
 		"pd",
+		o.ParentIDInterfacesVirtualEthernetDhcpvsixOptionsPd.ValueString(),
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -44,6 +47,28 @@ func (o InterfacesVirtualEthernetDhcpvsixOptionsPdInterface) ResourceSchemaAttri
 		"identifier": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Delegate IPv6 prefix from provider to this interface
+
+`,
+		},
+
+		"virtual_ethernet_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Ethernet (veth) Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  vethN  |  Virtual Ethernet interface name  |
+
+`,
+		},
+
+		"pd_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `DHCPv6 prefix delegation interface statement
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  instance number  |  Prefix delegation instance (>= 0)  |
 
 `,
 		},
@@ -61,7 +86,7 @@ func (o InterfacesVirtualEthernetDhcpvsixOptionsPdInterface) ResourceSchemaAttri
 `,
 		},
 
-		"sla_id": schema.StringAttribute{
+		"sla_id": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface site-Level aggregator (SLA)
 
@@ -79,51 +104,10 @@ func (o InterfacesVirtualEthernetDhcpvsixOptionsPdInterface) ResourceSchemaAttri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesVirtualEthernetDhcpvsixOptionsPdInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesVirtualEthernetDhcpvsixOptionsPdInterfaceAddress.IsNull() && !o.LeafInterfacesVirtualEthernetDhcpvsixOptionsPdInterfaceAddress.IsUnknown() {
-		jsonData["address"] = o.LeafInterfacesVirtualEthernetDhcpvsixOptionsPdInterfaceAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesVirtualEthernetDhcpvsixOptionsPdInterfaceSLAID.IsNull() && !o.LeafInterfacesVirtualEthernetDhcpvsixOptionsPdInterfaceSLAID.IsUnknown() {
-		jsonData["sla-id"] = o.LeafInterfacesVirtualEthernetDhcpvsixOptionsPdInterfaceSLAID.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesVirtualEthernetDhcpvsixOptionsPdInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafInterfacesVirtualEthernetDhcpvsixOptionsPdInterfaceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVirtualEthernetDhcpvsixOptionsPdInterfaceAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["sla-id"]; ok {
-		o.LeafInterfacesVirtualEthernetDhcpvsixOptionsPdInterfaceSLAID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVirtualEthernetDhcpvsixOptionsPdInterfaceSLAID = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesVirtualEthernetDhcpvsixOptionsPdInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

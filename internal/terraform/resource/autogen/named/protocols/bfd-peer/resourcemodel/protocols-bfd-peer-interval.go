@@ -2,20 +2,17 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBfdPeerInterval describes the resource data model.
 type ProtocolsBfdPeerInterval struct {
 	// LeafNodes
-	LeafProtocolsBfdPeerIntervalReceive      types.String `tfsdk:"receive" vyos:"receive,omitempty"`
-	LeafProtocolsBfdPeerIntervalTransmit     types.String `tfsdk:"transmit" vyos:"transmit,omitempty"`
-	LeafProtocolsBfdPeerIntervalMultIPlier   types.String `tfsdk:"multiplier" vyos:"multiplier,omitempty"`
-	LeafProtocolsBfdPeerIntervalEchoInterval types.String `tfsdk:"echo_interval" vyos:"echo-interval,omitempty"`
+	LeafProtocolsBfdPeerIntervalReceive      types.Number `tfsdk:"receive" vyos:"receive,omitempty"`
+	LeafProtocolsBfdPeerIntervalTransmit     types.Number `tfsdk:"transmit" vyos:"transmit,omitempty"`
+	LeafProtocolsBfdPeerIntervalMultIPlier   types.Number `tfsdk:"multiplier" vyos:"multiplier,omitempty"`
+	LeafProtocolsBfdPeerIntervalEchoInterval types.Number `tfsdk:"echo_interval" vyos:"echo-interval,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,7 +24,7 @@ func (o ProtocolsBfdPeerInterval) ResourceSchemaAttributes() map[string]schema.A
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"receive": schema.StringAttribute{
+		"receive": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum interval of receiving control packets
 
@@ -41,7 +38,7 @@ func (o ProtocolsBfdPeerInterval) ResourceSchemaAttributes() map[string]schema.A
 			Computed: true,
 		},
 
-		"transmit": schema.StringAttribute{
+		"transmit": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum interval of transmitting control packets
 
@@ -55,7 +52,7 @@ func (o ProtocolsBfdPeerInterval) ResourceSchemaAttributes() map[string]schema.A
 			Computed: true,
 		},
 
-		"multiplier": schema.StringAttribute{
+		"multiplier": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Multiplier to determine packet loss
 
@@ -69,7 +66,7 @@ func (o ProtocolsBfdPeerInterval) ResourceSchemaAttributes() map[string]schema.A
 			Computed: true,
 		},
 
-		"echo_interval": schema.StringAttribute{
+		"echo_interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Echo receive transmission interval
 
@@ -87,71 +84,10 @@ func (o ProtocolsBfdPeerInterval) ResourceSchemaAttributes() map[string]schema.A
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBfdPeerInterval) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBfdPeerIntervalReceive.IsNull() && !o.LeafProtocolsBfdPeerIntervalReceive.IsUnknown() {
-		jsonData["receive"] = o.LeafProtocolsBfdPeerIntervalReceive.ValueString()
-	}
-
-	if !o.LeafProtocolsBfdPeerIntervalTransmit.IsNull() && !o.LeafProtocolsBfdPeerIntervalTransmit.IsUnknown() {
-		jsonData["transmit"] = o.LeafProtocolsBfdPeerIntervalTransmit.ValueString()
-	}
-
-	if !o.LeafProtocolsBfdPeerIntervalMultIPlier.IsNull() && !o.LeafProtocolsBfdPeerIntervalMultIPlier.IsUnknown() {
-		jsonData["multiplier"] = o.LeafProtocolsBfdPeerIntervalMultIPlier.ValueString()
-	}
-
-	if !o.LeafProtocolsBfdPeerIntervalEchoInterval.IsNull() && !o.LeafProtocolsBfdPeerIntervalEchoInterval.IsUnknown() {
-		jsonData["echo-interval"] = o.LeafProtocolsBfdPeerIntervalEchoInterval.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBfdPeerInterval) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["receive"]; ok {
-		o.LeafProtocolsBfdPeerIntervalReceive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdPeerIntervalReceive = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["transmit"]; ok {
-		o.LeafProtocolsBfdPeerIntervalTransmit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdPeerIntervalTransmit = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["multiplier"]; ok {
-		o.LeafProtocolsBfdPeerIntervalMultIPlier = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdPeerIntervalMultIPlier = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["echo-interval"]; ok {
-		o.LeafProtocolsBfdPeerIntervalEchoInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdPeerIntervalEchoInterval = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBfdPeerInterval) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -36,7 +36,7 @@ UPnP Rule
 ### Optional
 
 - `action` (String) Actions against the rule (REQUIRE)
-- `disable` (String) Disable instance
+- `disable` (Boolean) Disable instance
 - `external_port_range` (String) Port range (REQUIRE)
 
     |  Format  |  Description  |

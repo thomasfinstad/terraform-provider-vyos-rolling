@@ -2,26 +2,24 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesVxlanIP describes the resource data model.
 type InterfacesVxlanIP struct {
 	// LeafNodes
 	LeafInterfacesVxlanIPAdjustMss               types.String `tfsdk:"adjust_mss" vyos:"adjust-mss,omitempty"`
-	LeafInterfacesVxlanIPArpCacheTimeout         types.String `tfsdk:"arp_cache_timeout" vyos:"arp-cache-timeout,omitempty"`
-	LeafInterfacesVxlanIPDisableArpFilter        types.String `tfsdk:"disable_arp_filter" vyos:"disable-arp-filter,omitempty"`
-	LeafInterfacesVxlanIPDisableForwarding       types.String `tfsdk:"disable_forwarding" vyos:"disable-forwarding,omitempty"`
-	LeafInterfacesVxlanIPEnableDirectedBroadcast types.String `tfsdk:"enable_directed_broadcast" vyos:"enable-directed-broadcast,omitempty"`
-	LeafInterfacesVxlanIPEnableArpAccept         types.String `tfsdk:"enable_arp_accept" vyos:"enable-arp-accept,omitempty"`
-	LeafInterfacesVxlanIPEnableArpAnnounce       types.String `tfsdk:"enable_arp_announce" vyos:"enable-arp-announce,omitempty"`
-	LeafInterfacesVxlanIPEnableArpIgnore         types.String `tfsdk:"enable_arp_ignore" vyos:"enable-arp-ignore,omitempty"`
-	LeafInterfacesVxlanIPEnableProxyArp          types.String `tfsdk:"enable_proxy_arp" vyos:"enable-proxy-arp,omitempty"`
-	LeafInterfacesVxlanIPProxyArpPvlan           types.String `tfsdk:"proxy_arp_pvlan" vyos:"proxy-arp-pvlan,omitempty"`
+	LeafInterfacesVxlanIPArpCacheTimeout         types.Number `tfsdk:"arp_cache_timeout" vyos:"arp-cache-timeout,omitempty"`
+	LeafInterfacesVxlanIPDisableArpFilter        types.Bool   `tfsdk:"disable_arp_filter" vyos:"disable-arp-filter,omitempty"`
+	LeafInterfacesVxlanIPDisableForwarding       types.Bool   `tfsdk:"disable_forwarding" vyos:"disable-forwarding,omitempty"`
+	LeafInterfacesVxlanIPEnableDirectedBroadcast types.Bool   `tfsdk:"enable_directed_broadcast" vyos:"enable-directed-broadcast,omitempty"`
+	LeafInterfacesVxlanIPEnableArpAccept         types.Bool   `tfsdk:"enable_arp_accept" vyos:"enable-arp-accept,omitempty"`
+	LeafInterfacesVxlanIPEnableArpAnnounce       types.Bool   `tfsdk:"enable_arp_announce" vyos:"enable-arp-announce,omitempty"`
+	LeafInterfacesVxlanIPEnableArpIgnore         types.Bool   `tfsdk:"enable_arp_ignore" vyos:"enable-arp-ignore,omitempty"`
+	LeafInterfacesVxlanIPEnableProxyArp          types.Bool   `tfsdk:"enable_proxy_arp" vyos:"enable-proxy-arp,omitempty"`
+	LeafInterfacesVxlanIPProxyArpPvlan           types.Bool   `tfsdk:"proxy_arp_pvlan" vyos:"proxy-arp-pvlan,omitempty"`
 	LeafInterfacesVxlanIPSourceValIDation        types.String `tfsdk:"source_validation" vyos:"source-validation,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -46,7 +44,7 @@ func (o InterfacesVxlanIP) ResourceSchemaAttributes() map[string]schema.Attribut
 `,
 		},
 
-		"arp_cache_timeout": schema.StringAttribute{
+		"arp_cache_timeout": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `ARP cache entry timeout in seconds
 
@@ -60,60 +58,76 @@ func (o InterfacesVxlanIP) ResourceSchemaAttributes() map[string]schema.Attribut
 			Computed: true,
 		},
 
-		"disable_arp_filter": schema.StringAttribute{
+		"disable_arp_filter": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable ARP filter on this interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"disable_forwarding": schema.StringAttribute{
+		"disable_forwarding": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable IP forwarding on this interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"enable_directed_broadcast": schema.StringAttribute{
+		"enable_directed_broadcast": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable directed broadcast forwarding on this interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"enable_arp_accept": schema.StringAttribute{
+		"enable_arp_accept": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable ARP accept on this interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"enable_arp_announce": schema.StringAttribute{
+		"enable_arp_announce": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable ARP announce on this interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"enable_arp_ignore": schema.StringAttribute{
+		"enable_arp_ignore": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable ARP ignore on this interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"enable_proxy_arp": schema.StringAttribute{
+		"enable_proxy_arp": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable proxy-arp on this interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"proxy_arp_pvlan": schema.StringAttribute{
+		"proxy_arp_pvlan": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable private VLAN proxy ARP on this interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"source_validation": schema.StringAttribute{
@@ -136,141 +150,10 @@ func (o InterfacesVxlanIP) ResourceSchemaAttributes() map[string]schema.Attribut
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesVxlanIP) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesVxlanIPAdjustMss.IsNull() && !o.LeafInterfacesVxlanIPAdjustMss.IsUnknown() {
-		jsonData["adjust-mss"] = o.LeafInterfacesVxlanIPAdjustMss.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanIPArpCacheTimeout.IsNull() && !o.LeafInterfacesVxlanIPArpCacheTimeout.IsUnknown() {
-		jsonData["arp-cache-timeout"] = o.LeafInterfacesVxlanIPArpCacheTimeout.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanIPDisableArpFilter.IsNull() && !o.LeafInterfacesVxlanIPDisableArpFilter.IsUnknown() {
-		jsonData["disable-arp-filter"] = o.LeafInterfacesVxlanIPDisableArpFilter.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanIPDisableForwarding.IsNull() && !o.LeafInterfacesVxlanIPDisableForwarding.IsUnknown() {
-		jsonData["disable-forwarding"] = o.LeafInterfacesVxlanIPDisableForwarding.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanIPEnableDirectedBroadcast.IsNull() && !o.LeafInterfacesVxlanIPEnableDirectedBroadcast.IsUnknown() {
-		jsonData["enable-directed-broadcast"] = o.LeafInterfacesVxlanIPEnableDirectedBroadcast.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanIPEnableArpAccept.IsNull() && !o.LeafInterfacesVxlanIPEnableArpAccept.IsUnknown() {
-		jsonData["enable-arp-accept"] = o.LeafInterfacesVxlanIPEnableArpAccept.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanIPEnableArpAnnounce.IsNull() && !o.LeafInterfacesVxlanIPEnableArpAnnounce.IsUnknown() {
-		jsonData["enable-arp-announce"] = o.LeafInterfacesVxlanIPEnableArpAnnounce.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanIPEnableArpIgnore.IsNull() && !o.LeafInterfacesVxlanIPEnableArpIgnore.IsUnknown() {
-		jsonData["enable-arp-ignore"] = o.LeafInterfacesVxlanIPEnableArpIgnore.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanIPEnableProxyArp.IsNull() && !o.LeafInterfacesVxlanIPEnableProxyArp.IsUnknown() {
-		jsonData["enable-proxy-arp"] = o.LeafInterfacesVxlanIPEnableProxyArp.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanIPProxyArpPvlan.IsNull() && !o.LeafInterfacesVxlanIPProxyArpPvlan.IsUnknown() {
-		jsonData["proxy-arp-pvlan"] = o.LeafInterfacesVxlanIPProxyArpPvlan.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanIPSourceValIDation.IsNull() && !o.LeafInterfacesVxlanIPSourceValIDation.IsUnknown() {
-		jsonData["source-validation"] = o.LeafInterfacesVxlanIPSourceValIDation.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesVxlanIP) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["adjust-mss"]; ok {
-		o.LeafInterfacesVxlanIPAdjustMss = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanIPAdjustMss = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["arp-cache-timeout"]; ok {
-		o.LeafInterfacesVxlanIPArpCacheTimeout = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanIPArpCacheTimeout = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable-arp-filter"]; ok {
-		o.LeafInterfacesVxlanIPDisableArpFilter = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanIPDisableArpFilter = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable-forwarding"]; ok {
-		o.LeafInterfacesVxlanIPDisableForwarding = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanIPDisableForwarding = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["enable-directed-broadcast"]; ok {
-		o.LeafInterfacesVxlanIPEnableDirectedBroadcast = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanIPEnableDirectedBroadcast = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["enable-arp-accept"]; ok {
-		o.LeafInterfacesVxlanIPEnableArpAccept = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanIPEnableArpAccept = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["enable-arp-announce"]; ok {
-		o.LeafInterfacesVxlanIPEnableArpAnnounce = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanIPEnableArpAnnounce = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["enable-arp-ignore"]; ok {
-		o.LeafInterfacesVxlanIPEnableArpIgnore = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanIPEnableArpIgnore = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["enable-proxy-arp"]; ok {
-		o.LeafInterfacesVxlanIPEnableProxyArp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanIPEnableProxyArp = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["proxy-arp-pvlan"]; ok {
-		o.LeafInterfacesVxlanIPProxyArpPvlan = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanIPProxyArpPvlan = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["source-validation"]; ok {
-		o.LeafInterfacesVxlanIPSourceValIDation = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanIPSourceValIDation = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesVxlanIP) UnmarshalJSON(_ []byte) error {
 	return nil
 }

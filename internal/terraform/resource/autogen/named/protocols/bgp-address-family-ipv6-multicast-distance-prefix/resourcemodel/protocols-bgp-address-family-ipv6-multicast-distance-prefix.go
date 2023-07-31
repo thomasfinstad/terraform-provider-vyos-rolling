@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefix describes the resource data model.
@@ -14,7 +11,7 @@ type ProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefix struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefixDistance types.String `tfsdk:"distance" vyos:"distance,omitempty"`
+	LeafProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefixDistance types.Number `tfsdk:"distance" vyos:"distance,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,10 +22,15 @@ type ProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefix struct {
 func (o *ProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefix) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"bgp",
+
 		"address-family",
+
 		"ipv6-multicast",
+
 		"distance",
+
 		"prefix",
 		o.ID.ValueString(),
 	}
@@ -50,7 +52,7 @@ func (o ProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefix) ResourceSchemaAt
 
 		// LeafNodes
 
-		"distance": schema.StringAttribute{
+		"distance": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Administrative distance for prefix
 
@@ -68,41 +70,10 @@ func (o ProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefix) ResourceSchemaAt
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefix) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefixDistance.IsNull() && !o.LeafProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefixDistance.IsUnknown() {
-		jsonData["distance"] = o.LeafProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefixDistance.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefix) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["distance"]; ok {
-		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefixDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefixDistance = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefix) UnmarshalJSON(_ []byte) error {
 	return nil
 }

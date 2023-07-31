@@ -2,11 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpAddressFamilyIPvfourMulticastNetwork describes the resource data model.
@@ -14,7 +12,7 @@ type ProtocolsBgpAddressFamilyIPvfourMulticastNetwork struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkBackdoor types.String `tfsdk:"backdoor" vyos:"backdoor,omitempty"`
+	LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkBackdoor types.Bool   `tfsdk:"backdoor" vyos:"backdoor,omitempty"`
 	LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkRouteMap types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -26,9 +24,13 @@ type ProtocolsBgpAddressFamilyIPvfourMulticastNetwork struct {
 func (o *ProtocolsBgpAddressFamilyIPvfourMulticastNetwork) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"bgp",
+
 		"address-family",
+
 		"ipv4-multicast",
+
 		"network",
 		o.ID.ValueString(),
 	}
@@ -50,11 +52,13 @@ func (o ProtocolsBgpAddressFamilyIPvfourMulticastNetwork) ResourceSchemaAttribut
 
 		// LeafNodes
 
-		"backdoor": schema.StringAttribute{
+		"backdoor": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use BGP network/prefix as a backdoor route
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"route_map": schema.StringAttribute{
@@ -75,51 +79,10 @@ func (o ProtocolsBgpAddressFamilyIPvfourMulticastNetwork) ResourceSchemaAttribut
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpAddressFamilyIPvfourMulticastNetwork) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkBackdoor.IsNull() && !o.LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkBackdoor.IsUnknown() {
-		jsonData["backdoor"] = o.LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkBackdoor.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkRouteMap.IsNull() && !o.LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkRouteMap.IsUnknown() {
-		jsonData["route-map"] = o.LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkRouteMap.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpAddressFamilyIPvfourMulticastNetwork) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["backdoor"]; ok {
-		o.LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkBackdoor = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkBackdoor = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["route-map"]; ok {
-		o.LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkRouteMap = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpAddressFamilyIPvfourMulticastNetwork) UnmarshalJSON(_ []byte) error {
 	return nil
 }

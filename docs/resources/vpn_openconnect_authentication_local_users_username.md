@@ -41,7 +41,7 @@ Username used for authentication
 
 ### Optional
 
-- `disable` (String) Disable instance
+- `disable` (Boolean) Disable instance
 - `otp` (Attributes) 2FA OTP authentication parameters (see [below for nested schema](#nestedatt--otp))
 - `password` (String) Password used for authentication
 
@@ -50,7 +50,7 @@ Username used for authentication
 
 Optional:
 
-- `interval` (String) Time tokens interval in seconds
+- `interval` (Number) Time tokens interval in seconds
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -60,7 +60,7 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  OTP key in hex-encoded format  |
-- `otp_length` (String) Number of digits in OTP code
+- `otp_length` (Number) Number of digits in OTP code
 
     |  Format  |  Description  |
     |----------|---------------|

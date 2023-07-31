@@ -2,19 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspf describes the resource data model.
 type VrfNameProtocolsOspf struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfDefaultMetric    types.String `tfsdk:"default_metric" vyos:"default-metric,omitempty"`
-	LeafVrfNameProtocolsOspfMaximumPaths     types.String `tfsdk:"maximum_paths" vyos:"maximum-paths,omitempty"`
+	LeafVrfNameProtocolsOspfDefaultMetric    types.Number `tfsdk:"default_metric" vyos:"default-metric,omitempty"`
+	LeafVrfNameProtocolsOspfMaximumPaths     types.Number `tfsdk:"maximum_paths" vyos:"maximum-paths,omitempty"`
 	LeafVrfNameProtocolsOspfPassiveInterface types.String `tfsdk:"passive_interface" vyos:"passive-interface,omitempty"`
 	LeafVrfNameProtocolsOspfRouteMap         types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
@@ -43,7 +39,7 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"default_metric": schema.StringAttribute{
+		"default_metric": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Metric of redistributed routes
 
@@ -54,7 +50,7 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 
-		"maximum_paths": schema.StringAttribute{
+		"maximum_paths": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum multiple paths (ECMP)
 
@@ -181,368 +177,10 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspf) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfDefaultMetric.IsNull() && !o.LeafVrfNameProtocolsOspfDefaultMetric.IsUnknown() {
-		jsonData["default-metric"] = o.LeafVrfNameProtocolsOspfDefaultMetric.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfMaximumPaths.IsNull() && !o.LeafVrfNameProtocolsOspfMaximumPaths.IsUnknown() {
-		jsonData["maximum-paths"] = o.LeafVrfNameProtocolsOspfMaximumPaths.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfPassiveInterface.IsNull() && !o.LeafVrfNameProtocolsOspfPassiveInterface.IsUnknown() {
-		jsonData["passive-interface"] = o.LeafVrfNameProtocolsOspfPassiveInterface.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfRouteMap.IsNull() && !o.LeafVrfNameProtocolsOspfRouteMap.IsUnknown() {
-		jsonData["route-map"] = o.LeafVrfNameProtocolsOspfRouteMap.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfAutoCost).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfAutoCost)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["auto-cost"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfDefaultInformation).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfDefaultInformation)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["default-information"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfDistance).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfDistance)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["distance"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfLogAdjacencyChanges).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfLogAdjacencyChanges)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["log-adjacency-changes"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfMaxMetric).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfMaxMetric)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["max-metric"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfMplsTe).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfMplsTe)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["mpls-te"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfParameters).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfParameters)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["parameters"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfSegmentRouting).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfSegmentRouting)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["segment-routing"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfRedistribute).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfRedistribute)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["redistribute"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfRefresh).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfRefresh)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["refresh"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfTimers).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfTimers)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["timers"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspf) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["default-metric"]; ok {
-		o.LeafVrfNameProtocolsOspfDefaultMetric = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfDefaultMetric = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["maximum-paths"]; ok {
-		o.LeafVrfNameProtocolsOspfMaximumPaths = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfMaximumPaths = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["passive-interface"]; ok {
-		o.LeafVrfNameProtocolsOspfPassiveInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfPassiveInterface = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["route-map"]; ok {
-		o.LeafVrfNameProtocolsOspfRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfRouteMap = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["auto-cost"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsOspfAutoCost = &VrfNameProtocolsOspfAutoCost{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfAutoCost)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["default-information"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsOspfDefaultInformation = &VrfNameProtocolsOspfDefaultInformation{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfDefaultInformation)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["distance"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsOspfDistance = &VrfNameProtocolsOspfDistance{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfDistance)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["log-adjacency-changes"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsOspfLogAdjacencyChanges = &VrfNameProtocolsOspfLogAdjacencyChanges{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfLogAdjacencyChanges)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["max-metric"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsOspfMaxMetric = &VrfNameProtocolsOspfMaxMetric{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfMaxMetric)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["mpls-te"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsOspfMplsTe = &VrfNameProtocolsOspfMplsTe{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfMplsTe)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["parameters"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsOspfParameters = &VrfNameProtocolsOspfParameters{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfParameters)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["segment-routing"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsOspfSegmentRouting = &VrfNameProtocolsOspfSegmentRouting{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfSegmentRouting)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["redistribute"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsOspfRedistribute = &VrfNameProtocolsOspfRedistribute{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfRedistribute)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["refresh"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsOspfRefresh = &VrfNameProtocolsOspfRefresh{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfRefresh)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["timers"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsOspfTimers = &VrfNameProtocolsOspfTimers{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfTimers)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VrfNameProtocolsOspf) UnmarshalJSON(_ []byte) error {
 	return nil
 }

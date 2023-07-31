@@ -2,17 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration describes the resource data model.
 type VrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfigurationInbound types.String `tfsdk:"inbound" vyos:"inbound,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfigurationInbound types.Bool `tfsdk:"inbound" vyos:"inbound,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,11 +22,13 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguratio
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"inbound": schema.StringAttribute{
+		"inbound": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable inbound soft reconfiguration
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -38,41 +38,10 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguratio
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfigurationInbound.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfigurationInbound.IsUnknown() {
-		jsonData["inbound"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfigurationInbound.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["inbound"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfigurationInbound = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfigurationInbound = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration) UnmarshalJSON(_ []byte) error {
 	return nil
 }

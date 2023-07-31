@@ -2,17 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfvthreeAreaAreaTypeStub describes the resource data model.
 type VrfNameProtocolsOspfvthreeAreaAreaTypeStub struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfvthreeAreaAreaTypeStubNoSummary types.String `tfsdk:"no_summary" vyos:"no-summary,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeAreaAreaTypeStubNoSummary types.Bool `tfsdk:"no_summary" vyos:"no-summary,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,11 +22,13 @@ func (o VrfNameProtocolsOspfvthreeAreaAreaTypeStub) ResourceSchemaAttributes() m
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"no_summary": schema.StringAttribute{
+		"no_summary": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not inject inter-area routes into the stub
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -38,41 +38,10 @@ func (o VrfNameProtocolsOspfvthreeAreaAreaTypeStub) ResourceSchemaAttributes() m
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfvthreeAreaAreaTypeStub) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeStubNoSummary.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeStubNoSummary.IsUnknown() {
-		jsonData["no-summary"] = o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeStubNoSummary.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfvthreeAreaAreaTypeStub) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["no-summary"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeStubNoSummary = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeStubNoSummary = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfvthreeAreaAreaTypeStub) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -49,6 +49,11 @@ Interface configuration
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Interface name  |
+- `name_identifier` (String) Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 ### Optional
 
@@ -59,33 +64,33 @@ Interface configuration
     |  u32  |  OSPF area ID as decimal notation  |
     |  ipv4  |  OSPF area ID in IP address notation  |
 - `authentication` (Attributes) Authentication (see [below for nested schema](#nestedatt--authentication))
-- `bandwidth` (String) Interface bandwidth (Mbit/s)
+- `bandwidth` (Number) Interface bandwidth (Mbit/s)
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-100000  |  Bandwidth in Megabit/sec (for calculating OSPF cost)  |
 - `bfd` (Attributes) Enable Bidirectional Forwarding Detection (BFD) (see [below for nested schema](#nestedatt--bfd))
-- `cost` (String) Interface cost
+- `cost` (Number) Interface cost
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  OSPF interface cost  |
-- `dead_interval` (String) Interval after which a neighbor is declared dead
+- `dead_interval` (Number) Interval after which a neighbor is declared dead
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Neighbor dead interval (seconds)  |
-- `hello_interval` (String) Interval between hello packets
+- `hello_interval` (Number) Interval between hello packets
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Hello interval (seconds)  |
-- `hello_multiplier` (String) Hello multiplier factor
+- `hello_multiplier` (Number) Hello multiplier factor
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-10  |  Number of Hellos to send each second  |
-- `mtu_ignore` (String) Disable Maximum Transmission Unit (MTU) mismatch detection
+- `mtu_ignore` (Boolean) Disable Maximum Transmission Unit (MTU) mismatch detection
 - `network` (String) Network type
 
     |  Format  |  Description  |
@@ -95,17 +100,17 @@ Interface configuration
     |  point-to-multipoint  |  Point-to-multipoint network type  |
     |  point-to-point  |  Point-to-point network type  |
 - `passive` (Attributes) Suppress routing updates on an interface (see [below for nested schema](#nestedatt--passive))
-- `priority` (String) Router priority
+- `priority` (Number) Router priority
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-255  |  OSPF router priority cost  |
-- `retransmit_interval` (String) Interval between retransmitting lost link state advertisements
+- `retransmit_interval` (Number) Interval between retransmitting lost link state advertisements
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Retransmit interval (seconds)  |
-- `transmit_delay` (String) Link state transmit delay
+- `transmit_delay` (Number) Link state transmit delay
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -145,4 +150,4 @@ Optional:
 
 Optional:
 
-- `disable` (String) Disable instance
+- `disable` (Boolean) Disable instance

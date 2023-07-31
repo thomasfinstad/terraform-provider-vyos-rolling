@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallZoneIntraZoneFilteringFirewall describes the resource data model.
@@ -46,51 +43,10 @@ func (o FirewallZoneIntraZoneFilteringFirewall) ResourceSchemaAttributes() map[s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallZoneIntraZoneFilteringFirewall) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallZoneIntraZoneFilteringFirewallIPvsixName.IsNull() && !o.LeafFirewallZoneIntraZoneFilteringFirewallIPvsixName.IsUnknown() {
-		jsonData["ipv6-name"] = o.LeafFirewallZoneIntraZoneFilteringFirewallIPvsixName.ValueString()
-	}
-
-	if !o.LeafFirewallZoneIntraZoneFilteringFirewallName.IsNull() && !o.LeafFirewallZoneIntraZoneFilteringFirewallName.IsUnknown() {
-		jsonData["name"] = o.LeafFirewallZoneIntraZoneFilteringFirewallName.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallZoneIntraZoneFilteringFirewall) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["ipv6-name"]; ok {
-		o.LeafFirewallZoneIntraZoneFilteringFirewallIPvsixName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallZoneIntraZoneFilteringFirewallIPvsixName = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["name"]; ok {
-		o.LeafFirewallZoneIntraZoneFilteringFirewallName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallZoneIntraZoneFilteringFirewallName = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallZoneIntraZoneFilteringFirewall) UnmarshalJSON(_ []byte) error {
 	return nil
 }

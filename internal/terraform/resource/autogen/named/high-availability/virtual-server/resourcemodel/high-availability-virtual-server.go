@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // HighAvailabilityVirtualServer describes the resource data model.
@@ -15,11 +12,11 @@ type HighAvailabilityVirtualServer struct {
 
 	// LeafNodes
 	LeafHighAvailabilityVirtualServerAlgorithm          types.String `tfsdk:"algorithm" vyos:"algorithm,omitempty"`
-	LeafHighAvailabilityVirtualServerDelayLoop          types.String `tfsdk:"delay_loop" vyos:"delay-loop,omitempty"`
+	LeafHighAvailabilityVirtualServerDelayLoop          types.Number `tfsdk:"delay_loop" vyos:"delay-loop,omitempty"`
 	LeafHighAvailabilityVirtualServerForwardMethod      types.String `tfsdk:"forward_method" vyos:"forward-method,omitempty"`
-	LeafHighAvailabilityVirtualServerFwmark             types.String `tfsdk:"fwmark" vyos:"fwmark,omitempty"`
-	LeafHighAvailabilityVirtualServerPort               types.String `tfsdk:"port" vyos:"port,omitempty"`
-	LeafHighAvailabilityVirtualServerPersistenceTimeout types.String `tfsdk:"persistence_timeout" vyos:"persistence-timeout,omitempty"`
+	LeafHighAvailabilityVirtualServerFwmark             types.Number `tfsdk:"fwmark" vyos:"fwmark,omitempty"`
+	LeafHighAvailabilityVirtualServerPort               types.Number `tfsdk:"port" vyos:"port,omitempty"`
+	LeafHighAvailabilityVirtualServerPersistenceTimeout types.Number `tfsdk:"persistence_timeout" vyos:"persistence-timeout,omitempty"`
 	LeafHighAvailabilityVirtualServerProtocol           types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -32,6 +29,7 @@ type HighAvailabilityVirtualServer struct {
 func (o *HighAvailabilityVirtualServer) GetVyosPath() []string {
 	return []string{
 		"high-availability",
+
 		"virtual-server",
 		o.ID.ValueString(),
 	}
@@ -69,7 +67,7 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 			Computed: true,
 		},
 
-		"delay_loop": schema.StringAttribute{
+		"delay_loop": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval between health-checks (in seconds)
 
@@ -99,7 +97,7 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 			Computed: true,
 		},
 
-		"fwmark": schema.StringAttribute{
+		"fwmark": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Match fwmark value
 
@@ -110,7 +108,7 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
@@ -121,7 +119,7 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 
-		"persistence_timeout": schema.StringAttribute{
+		"persistence_timeout": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Timeout for persistent connections
 
@@ -157,101 +155,10 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *HighAvailabilityVirtualServer) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafHighAvailabilityVirtualServerAlgorithm.IsNull() && !o.LeafHighAvailabilityVirtualServerAlgorithm.IsUnknown() {
-		jsonData["algorithm"] = o.LeafHighAvailabilityVirtualServerAlgorithm.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVirtualServerDelayLoop.IsNull() && !o.LeafHighAvailabilityVirtualServerDelayLoop.IsUnknown() {
-		jsonData["delay-loop"] = o.LeafHighAvailabilityVirtualServerDelayLoop.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVirtualServerForwardMethod.IsNull() && !o.LeafHighAvailabilityVirtualServerForwardMethod.IsUnknown() {
-		jsonData["forward-method"] = o.LeafHighAvailabilityVirtualServerForwardMethod.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVirtualServerFwmark.IsNull() && !o.LeafHighAvailabilityVirtualServerFwmark.IsUnknown() {
-		jsonData["fwmark"] = o.LeafHighAvailabilityVirtualServerFwmark.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVirtualServerPort.IsNull() && !o.LeafHighAvailabilityVirtualServerPort.IsUnknown() {
-		jsonData["port"] = o.LeafHighAvailabilityVirtualServerPort.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVirtualServerPersistenceTimeout.IsNull() && !o.LeafHighAvailabilityVirtualServerPersistenceTimeout.IsUnknown() {
-		jsonData["persistence-timeout"] = o.LeafHighAvailabilityVirtualServerPersistenceTimeout.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVirtualServerProtocol.IsNull() && !o.LeafHighAvailabilityVirtualServerProtocol.IsUnknown() {
-		jsonData["protocol"] = o.LeafHighAvailabilityVirtualServerProtocol.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *HighAvailabilityVirtualServer) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["algorithm"]; ok {
-		o.LeafHighAvailabilityVirtualServerAlgorithm = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVirtualServerAlgorithm = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["delay-loop"]; ok {
-		o.LeafHighAvailabilityVirtualServerDelayLoop = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVirtualServerDelayLoop = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["forward-method"]; ok {
-		o.LeafHighAvailabilityVirtualServerForwardMethod = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVirtualServerForwardMethod = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["fwmark"]; ok {
-		o.LeafHighAvailabilityVirtualServerFwmark = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVirtualServerFwmark = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafHighAvailabilityVirtualServerPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVirtualServerPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["persistence-timeout"]; ok {
-		o.LeafHighAvailabilityVirtualServerPersistenceTimeout = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVirtualServerPersistenceTimeout = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["protocol"]; ok {
-		o.LeafHighAvailabilityVirtualServerProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVirtualServerProtocol = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *HighAvailabilityVirtualServer) UnmarshalJSON(_ []byte) error {
 	return nil
 }

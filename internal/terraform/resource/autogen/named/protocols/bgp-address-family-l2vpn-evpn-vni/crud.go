@@ -7,7 +7,6 @@ import (
 	"fmt"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -54,8 +53,7 @@ func (r protocolsBgpAddressFamilyLtwovpnEvpnVni) Create(ctx context.Context, req
 		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
 	}
 
-	// Save ID into the Terraform state.
-	data.ID = types.StringValue(data.ID.ValueString())
+	// Save ID into the Terraform state.data.ID = types.NumberValue(data.ID.ValueBigFloat().String())
 
 	// Save data to Terraform state
 	tflog.Trace(ctx, "resource created")
@@ -139,8 +137,7 @@ func (r protocolsBgpAddressFamilyLtwovpnEvpnVni) Update(ctx context.Context, req
 		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
 	}
 
-	// Save ID into the Terraform state.
-	data.ID = types.StringValue(data.ID.ValueString())
+	// Save ID into the Terraform state.data.ID = types.NumberValue(data.ID.ValueBigFloat().String())
 
 	// Save data to Terraform state
 	tflog.Trace(ctx, "resource created")

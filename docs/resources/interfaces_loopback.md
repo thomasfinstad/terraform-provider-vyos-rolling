@@ -32,7 +32,7 @@ Loopback Interface
 
 ### Optional
 
-- `address` (String) IP address
+- `address` (List of String) IP address
 
     |  Format  |  Description  |
     |----------|---------------|

@@ -59,7 +59,14 @@ Local role for BGP neighbor (RFC9234)
     |  provider  |  Providing Transit  |
     |  rs-client  |  RS Client  |
     |  rs-server  |  Route Server  |
+- `neighbor_identifier` (String) BGP neighbor
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  BGP neighbor IP address  |
+    |  ipv6  |  BGP neighbor IPv6 address  |
+    |  txt  |  Interface name  |
 
 ### Optional
 
-- `strict` (String) Neighbor must send this exact capability, otherwise a role missmatch notification will be sent
+- `strict` (Boolean) Neighbor must send this exact capability, otherwise a role missmatch notification will be sent

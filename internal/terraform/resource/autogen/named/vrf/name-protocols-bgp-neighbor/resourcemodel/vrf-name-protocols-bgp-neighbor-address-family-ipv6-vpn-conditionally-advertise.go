@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnConditionallyAdvertise describes the resource data model.
@@ -66,61 +63,10 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnConditionallyAdvertise)
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnConditionallyAdvertise) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnConditionallyAdvertiseAdvertiseMap.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnConditionallyAdvertiseAdvertiseMap.IsUnknown() {
-		jsonData["advertise-map"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnConditionallyAdvertiseAdvertiseMap.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnConditionallyAdvertiseExistMap.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnConditionallyAdvertiseExistMap.IsUnknown() {
-		jsonData["exist-map"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnConditionallyAdvertiseExistMap.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnConditionallyAdvertiseNonExistMap.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnConditionallyAdvertiseNonExistMap.IsUnknown() {
-		jsonData["non-exist-map"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnConditionallyAdvertiseNonExistMap.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnConditionallyAdvertise) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["advertise-map"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnConditionallyAdvertiseAdvertiseMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnConditionallyAdvertiseAdvertiseMap = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["exist-map"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnConditionallyAdvertiseExistMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnConditionallyAdvertiseExistMap = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["non-exist-map"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnConditionallyAdvertiseNonExistMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnConditionallyAdvertiseNonExistMap = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnConditionallyAdvertise) UnmarshalJSON(_ []byte) error {
 	return nil
 }

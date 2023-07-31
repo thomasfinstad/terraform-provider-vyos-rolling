@@ -2,19 +2,17 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute describes the resource data model.
 type VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute struct {
 	// LeafNodes
-	LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteValue        types.String `tfsdk:"value" vyos:"value,omitempty"`
-	LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteExplicitNull types.String `tfsdk:"explicit_null" vyos:"explicit-null,omitempty"`
-	LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteNoPhpFlag    types.String `tfsdk:"no_php_flag" vyos:"no-php-flag,omitempty"`
+	LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteValue        types.Number `tfsdk:"value" vyos:"value,omitempty"`
+	LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteExplicitNull types.Bool   `tfsdk:"explicit_null" vyos:"explicit-null,omitempty"`
+	LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteNoPhpFlag    types.Bool   `tfsdk:"no_php_flag" vyos:"no-php-flag,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,7 +24,7 @@ func (o VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute) ResourceSchemaAttribut
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"value": schema.StringAttribute{
+		"value": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Specify the absolute value of prefix segment/label ID
 
@@ -37,18 +35,22 @@ func (o VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute) ResourceSchemaAttribut
 `,
 		},
 
-		"explicit_null": schema.StringAttribute{
+		"explicit_null": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Request upstream neighbor to replace segment/label with explicit null label
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"no_php_flag": schema.StringAttribute{
+		"no_php_flag": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not request penultimate hop popping for segment/label
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -58,61 +60,10 @@ func (o VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute) ResourceSchemaAttribut
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteValue.IsNull() && !o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteValue.IsUnknown() {
-		jsonData["value"] = o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteValue.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteExplicitNull.IsNull() && !o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteExplicitNull.IsUnknown() {
-		jsonData["explicit-null"] = o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteExplicitNull.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteNoPhpFlag.IsNull() && !o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteNoPhpFlag.IsUnknown() {
-		jsonData["no-php-flag"] = o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteNoPhpFlag.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["value"]; ok {
-		o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteValue = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteValue = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["explicit-null"]; ok {
-		o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteExplicitNull = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteExplicitNull = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["no-php-flag"]; ok {
-		o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteNoPhpFlag = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixAbsoluteNoPhpFlag = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeList describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeList struct {
 	// LeafNodes
-	LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeListExport types.String `tfsdk:"export" vyos:"export,omitempty"`
-	LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeListImport types.String `tfsdk:"import" vyos:"import,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeListExport types.Number `tfsdk:"export" vyos:"export,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeListImport types.Number `tfsdk:"import" vyos:"import,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +22,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeList) ResourceSc
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"export": schema.StringAttribute{
+		"export": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Access-list to filter outgoing route updates to this peer-group
 
@@ -36,7 +33,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeList) ResourceSc
 `,
 		},
 
-		"import": schema.StringAttribute{
+		"import": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Access-list to filter incoming route updates from this peer-group
 
@@ -54,51 +51,10 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeList) ResourceSc
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeList) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeListExport.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeListExport.IsUnknown() {
-		jsonData["export"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeListExport.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeListImport.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeListImport.IsUnknown() {
-		jsonData["import"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeListImport.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeList) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["export"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeListExport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeListExport = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["import"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeListImport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeListImport = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeList) UnmarshalJSON(_ []byte) error {
 	return nil
 }

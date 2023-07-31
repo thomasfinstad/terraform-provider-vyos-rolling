@@ -39,7 +39,7 @@ LDP neighbor parameters
 ### Optional
 
 - `password` (String) Neighbor password
-- `session_holdtime` (String) Session IPv4 hold time
+- `session_holdtime` (Number) Session IPv4 hold time
 
     |  Format  |  Description  |
     |----------|---------------|

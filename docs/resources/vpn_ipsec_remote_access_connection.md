@@ -47,7 +47,7 @@ IKEv2 VPN connection name
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `disable` (String) Disable instance
+- `disable` (Boolean) Disable instance
 - `esp_group` (String) Encapsulating Security Payloads (ESP) group name
 - `ike_group` (String) Internet Key Exchange (IKE) group name
 - `local` (Attributes) Local parameters for interesting traffic (see [below for nested schema](#nestedatt--local))
@@ -58,14 +58,14 @@ IKEv2 VPN connection name
     |  ipv4  |  IPv4 address of a local interface for VPN  |
     |  ipv6  |  IPv6 address of a local interface for VPN  |
     |  any  |  Allow any IPv4 address present on the system to be used for VPN  |
-- `pool` (String) IP address pool
+- `pool` (List of String) IP address pool
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Predefined IP pool name  |
     |  dhcp  |  Forward requests for virtual IP addresses to a DHCP server  |
     |  radius  |  Forward requests for virtual IP addresses to a RADIUS server  |
-- `timeout` (String) Timeout to close connection if no data is transmitted
+- `timeout` (Number) Timeout to close connection if no data is transmitted
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -142,12 +142,12 @@ Optional:
 
 Optional:
 
-- `port` (String) Port number used by connection
+- `port` (Number) Port number used by connection
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Numeric IP port  |
-- `prefix` (String) Local IPv4 or IPv6 prefix
+- `prefix` (List of String) Local IPv4 or IPv6 prefix
 
     |  Format  |  Description  |
     |----------|---------------|

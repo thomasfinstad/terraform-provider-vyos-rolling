@@ -43,6 +43,11 @@ Rule for this BGP extended community list
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Large community-list rule number  |
+- `large_community_list_identifier` (String) Add a BGP large community list entry
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  BGP large-community-list name  |
 
 ### Optional
 

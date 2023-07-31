@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsIsisRedistributeIPvfourStaticLevelOne describes the resource data model.
 type VrfNameProtocolsIsisRedistributeIPvfourStaticLevelOne struct {
 	// LeafNodes
-	LeafVrfNameProtocolsIsisRedistributeIPvfourStaticLevelOneMetric   types.String `tfsdk:"metric" vyos:"metric,omitempty"`
+	LeafVrfNameProtocolsIsisRedistributeIPvfourStaticLevelOneMetric   types.Number `tfsdk:"metric" vyos:"metric,omitempty"`
 	LeafVrfNameProtocolsIsisRedistributeIPvfourStaticLevelOneRouteMap types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -25,7 +22,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvfourStaticLevelOne) ResourceSchemaAtt
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"metric": schema.StringAttribute{
+		"metric": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set default metric for circuit
 
@@ -54,51 +51,10 @@ func (o VrfNameProtocolsIsisRedistributeIPvfourStaticLevelOne) ResourceSchemaAtt
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsIsisRedistributeIPvfourStaticLevelOne) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsIsisRedistributeIPvfourStaticLevelOneMetric.IsNull() && !o.LeafVrfNameProtocolsIsisRedistributeIPvfourStaticLevelOneMetric.IsUnknown() {
-		jsonData["metric"] = o.LeafVrfNameProtocolsIsisRedistributeIPvfourStaticLevelOneMetric.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsIsisRedistributeIPvfourStaticLevelOneRouteMap.IsNull() && !o.LeafVrfNameProtocolsIsisRedistributeIPvfourStaticLevelOneRouteMap.IsUnknown() {
-		jsonData["route-map"] = o.LeafVrfNameProtocolsIsisRedistributeIPvfourStaticLevelOneRouteMap.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsIsisRedistributeIPvfourStaticLevelOne) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["metric"]; ok {
-		o.LeafVrfNameProtocolsIsisRedistributeIPvfourStaticLevelOneMetric = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisRedistributeIPvfourStaticLevelOneMetric = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["route-map"]; ok {
-		o.LeafVrfNameProtocolsIsisRedistributeIPvfourStaticLevelOneRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisRedistributeIPvfourStaticLevelOneRouteMap = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsIsisRedistributeIPvfourStaticLevelOne) UnmarshalJSON(_ []byte) error {
 	return nil
 }

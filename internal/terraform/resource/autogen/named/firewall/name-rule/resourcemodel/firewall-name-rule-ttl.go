@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallNameRuleTTL describes the resource data model.
 type FirewallNameRuleTTL struct {
 	// LeafNodes
-	LeafFirewallNameRuleTTLEq types.String `tfsdk:"eq" vyos:"eq,omitempty"`
-	LeafFirewallNameRuleTTLGt types.String `tfsdk:"gt" vyos:"gt,omitempty"`
-	LeafFirewallNameRuleTTLLt types.String `tfsdk:"lt" vyos:"lt,omitempty"`
+	LeafFirewallNameRuleTTLEq types.Number `tfsdk:"eq" vyos:"eq,omitempty"`
+	LeafFirewallNameRuleTTLGt types.Number `tfsdk:"gt" vyos:"gt,omitempty"`
+	LeafFirewallNameRuleTTLLt types.Number `tfsdk:"lt" vyos:"lt,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,7 +23,7 @@ func (o FirewallNameRuleTTL) ResourceSchemaAttributes() map[string]schema.Attrib
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"eq": schema.StringAttribute{
+		"eq": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Match on equal value
 
@@ -37,7 +34,7 @@ func (o FirewallNameRuleTTL) ResourceSchemaAttributes() map[string]schema.Attrib
 `,
 		},
 
-		"gt": schema.StringAttribute{
+		"gt": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Match on greater then value
 
@@ -48,7 +45,7 @@ func (o FirewallNameRuleTTL) ResourceSchemaAttributes() map[string]schema.Attrib
 `,
 		},
 
-		"lt": schema.StringAttribute{
+		"lt": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Match on less then value
 
@@ -66,61 +63,10 @@ func (o FirewallNameRuleTTL) ResourceSchemaAttributes() map[string]schema.Attrib
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallNameRuleTTL) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallNameRuleTTLEq.IsNull() && !o.LeafFirewallNameRuleTTLEq.IsUnknown() {
-		jsonData["eq"] = o.LeafFirewallNameRuleTTLEq.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleTTLGt.IsNull() && !o.LeafFirewallNameRuleTTLGt.IsUnknown() {
-		jsonData["gt"] = o.LeafFirewallNameRuleTTLGt.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleTTLLt.IsNull() && !o.LeafFirewallNameRuleTTLLt.IsUnknown() {
-		jsonData["lt"] = o.LeafFirewallNameRuleTTLLt.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallNameRuleTTL) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["eq"]; ok {
-		o.LeafFirewallNameRuleTTLEq = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleTTLEq = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["gt"]; ok {
-		o.LeafFirewallNameRuleTTLGt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleTTLGt = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["lt"]; ok {
-		o.LeafFirewallNameRuleTTLLt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleTTLLt = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallNameRuleTTL) UnmarshalJSON(_ []byte) error {
 	return nil
 }

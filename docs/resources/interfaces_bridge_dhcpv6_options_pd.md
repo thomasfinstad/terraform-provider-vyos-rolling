@@ -38,6 +38,11 @@ DHCPv6 prefix delegation interface statement
 
 ### Required
 
+- `bridge_identifier` (String) Bridge Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  brN  |  Bridge interface name  |
 - `identifier` (String) DHCPv6 prefix delegation interface statement
 
     |  Format  |  Description  |
@@ -46,7 +51,7 @@ DHCPv6 prefix delegation interface statement
 
 ### Optional
 
-- `length` (String) Request IPv6 prefix length from peer
+- `length` (Number) Request IPv6 prefix length from peer
 
     |  Format  |  Description  |
     |----------|---------------|

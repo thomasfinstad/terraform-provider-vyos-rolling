@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastConditionallyAdvertise describes the resource data model.
@@ -66,61 +63,10 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastConditionallyAdver
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastConditionallyAdvertise) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastConditionallyAdvertiseAdvertiseMap.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastConditionallyAdvertiseAdvertiseMap.IsUnknown() {
-		jsonData["advertise-map"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastConditionallyAdvertiseAdvertiseMap.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastConditionallyAdvertiseExistMap.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastConditionallyAdvertiseExistMap.IsUnknown() {
-		jsonData["exist-map"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastConditionallyAdvertiseExistMap.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastConditionallyAdvertiseNonExistMap.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastConditionallyAdvertiseNonExistMap.IsUnknown() {
-		jsonData["non-exist-map"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastConditionallyAdvertiseNonExistMap.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastConditionallyAdvertise) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["advertise-map"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastConditionallyAdvertiseAdvertiseMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastConditionallyAdvertiseAdvertiseMap = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["exist-map"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastConditionallyAdvertiseExistMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastConditionallyAdvertiseExistMap = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["non-exist-map"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastConditionallyAdvertiseNonExistMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastConditionallyAdvertiseNonExistMap = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastConditionallyAdvertise) UnmarshalJSON(_ []byte) error {
 	return nil
 }

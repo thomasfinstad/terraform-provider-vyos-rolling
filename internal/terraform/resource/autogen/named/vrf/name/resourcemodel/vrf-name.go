@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfName describes the resource data model.
@@ -16,9 +13,9 @@ type VrfName struct {
 
 	// LeafNodes
 	LeafVrfNameDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafVrfNameDisable     types.String `tfsdk:"disable" vyos:"disable,omitempty"`
-	LeafVrfNameTable       types.String `tfsdk:"table" vyos:"table,omitempty"`
-	LeafVrfNameVni         types.String `tfsdk:"vni" vyos:"vni,omitempty"`
+	LeafVrfNameDisable     types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafVrfNameTable       types.Number `tfsdk:"table" vyos:"table,omitempty"`
+	LeafVrfNameVni         types.Number `tfsdk:"vni" vyos:"vni,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -32,6 +29,7 @@ type VrfName struct {
 func (o *VrfName) GetVyosPath() []string {
 	return []string{
 		"vrf",
+
 		"name",
 		o.ID.ValueString(),
 	}
@@ -64,14 +62,16 @@ func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"table": schema.StringAttribute{
+		"table": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Routing table associated with this instance
 
@@ -82,7 +82,7 @@ func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 
-		"vni": schema.StringAttribute{
+		"vni": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Virtual Network Identifier
 
@@ -123,152 +123,10 @@ func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfName) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameDescrIPtion.IsNull() && !o.LeafVrfNameDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafVrfNameDescrIPtion.ValueString()
-	}
-
-	if !o.LeafVrfNameDisable.IsNull() && !o.LeafVrfNameDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafVrfNameDisable.ValueString()
-	}
-
-	if !o.LeafVrfNameTable.IsNull() && !o.LeafVrfNameTable.IsUnknown() {
-		jsonData["table"] = o.LeafVrfNameTable.ValueString()
-	}
-
-	if !o.LeafVrfNameVni.IsNull() && !o.LeafVrfNameVni.IsUnknown() {
-		jsonData["vni"] = o.LeafVrfNameVni.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVrfNameIP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameIP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ip"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameIPvsix).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameIPvsix)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipv6"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocols).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocols)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["protocols"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfName) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafVrfNameDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafVrfNameDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["table"]; ok {
-		o.LeafVrfNameTable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameTable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vni"]; ok {
-		o.LeafVrfNameVni = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameVni = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["ip"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameIP = &VrfNameIP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameIP)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ipv6"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameIPvsix = &VrfNameIPvsix{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameIPvsix)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["protocols"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocols = &VrfNameProtocols{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocols)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VrfName) UnmarshalJSON(_ []byte) error {
 	return nil
 }

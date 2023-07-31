@@ -2,9 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -26,8 +23,11 @@ type ProtocolsRIPngDistributeListInterface struct {
 func (o *ProtocolsRIPngDistributeListInterface) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"ripng",
+
 		"distribute-list",
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -71,85 +71,10 @@ func (o ProtocolsRIPngDistributeListInterface) ResourceSchemaAttributes() map[st
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsRIPngDistributeListInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeProtocolsRIPngDistributeListInterfaceAccessList).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsRIPngDistributeListInterfaceAccessList)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["access-list"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsRIPngDistributeListInterfacePrefixList).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsRIPngDistributeListInterfacePrefixList)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["prefix-list"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsRIPngDistributeListInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["access-list"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsRIPngDistributeListInterfaceAccessList = &ProtocolsRIPngDistributeListInterfaceAccessList{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsRIPngDistributeListInterfaceAccessList)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["prefix-list"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsRIPngDistributeListInterfacePrefixList = &ProtocolsRIPngDistributeListInterfacePrefixList{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsRIPngDistributeListInterfacePrefixList)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ProtocolsRIPngDistributeListInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // NatSourceRuleTranSLAtionOptions describes the resource data model.
@@ -63,51 +60,10 @@ func (o NatSourceRuleTranSLAtionOptions) ResourceSchemaAttributes() map[string]s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *NatSourceRuleTranSLAtionOptions) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafNatSourceRuleTranSLAtionOptionsAddressMapping.IsNull() && !o.LeafNatSourceRuleTranSLAtionOptionsAddressMapping.IsUnknown() {
-		jsonData["address-mapping"] = o.LeafNatSourceRuleTranSLAtionOptionsAddressMapping.ValueString()
-	}
-
-	if !o.LeafNatSourceRuleTranSLAtionOptionsPortMapping.IsNull() && !o.LeafNatSourceRuleTranSLAtionOptionsPortMapping.IsUnknown() {
-		jsonData["port-mapping"] = o.LeafNatSourceRuleTranSLAtionOptionsPortMapping.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *NatSourceRuleTranSLAtionOptions) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address-mapping"]; ok {
-		o.LeafNatSourceRuleTranSLAtionOptionsAddressMapping = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatSourceRuleTranSLAtionOptionsAddressMapping = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port-mapping"]; ok {
-		o.LeafNatSourceRuleTranSLAtionOptionsPortMapping = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatSourceRuleTranSLAtionOptionsPortMapping = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *NatSourceRuleTranSLAtionOptions) UnmarshalJSON(_ []byte) error {
 	return nil
 }

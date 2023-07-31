@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsOspfAreaVirtualLinkAuthentication describes the resource data model.
@@ -51,68 +47,10 @@ func (o ProtocolsOspfAreaVirtualLinkAuthentication) ResourceSchemaAttributes() m
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsOspfAreaVirtualLinkAuthentication) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsOspfAreaVirtualLinkAuthenticationPlaintextPassword.IsNull() && !o.LeafProtocolsOspfAreaVirtualLinkAuthenticationPlaintextPassword.IsUnknown() {
-		jsonData["plaintext-password"] = o.LeafProtocolsOspfAreaVirtualLinkAuthenticationPlaintextPassword.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeProtocolsOspfAreaVirtualLinkAuthenticationMdfive).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsOspfAreaVirtualLinkAuthenticationMdfive)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["md5"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsOspfAreaVirtualLinkAuthentication) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["plaintext-password"]; ok {
-		o.LeafProtocolsOspfAreaVirtualLinkAuthenticationPlaintextPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfAreaVirtualLinkAuthenticationPlaintextPassword = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["md5"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsOspfAreaVirtualLinkAuthenticationMdfive = &ProtocolsOspfAreaVirtualLinkAuthenticationMdfive{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsOspfAreaVirtualLinkAuthenticationMdfive)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ProtocolsOspfAreaVirtualLinkAuthentication) UnmarshalJSON(_ []byte) error {
 	return nil
 }

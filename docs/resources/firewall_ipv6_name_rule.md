@@ -35,6 +35,7 @@ Firewall rule number (IPv6)
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-999999  |  Number for this Firewall rule  |
+- `ipv6_name_identifier` (String) IPv6 firewall rule-set name
 
 ### Optional
 
@@ -48,7 +49,7 @@ Firewall rule number (IPv6)
     |  return  |  Return from the current chain and continue at the next rule of the                       last chain  |
     |  drop  |  Drop matching entries  |
     |  queue  |  Enqueue packet to userspace  |
-- `connection_mark` (String) Connection mark
+- `connection_mark` (List of Number) Connection mark
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -60,14 +61,14 @@ Firewall rule number (IPv6)
     |----------|---------------|
     |  txt  |  Description  |
 - `destination` (Attributes) Destination parameters (see [below for nested schema](#nestedatt--destination))
-- `disable` (String) Option to disable firewall rule
-- `dscp` (String) DSCP value
+- `disable` (Boolean) Option to disable firewall rule
+- `dscp` (List of String) DSCP value
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-63  |  DSCP value to match  |
     |  <start-end>  |  DSCP range to match  |
-- `dscp_exclude` (String) DSCP value not to match
+- `dscp_exclude` (List of String) DSCP value not to match
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -99,13 +100,13 @@ Firewall rule number (IPv6)
     |  info  |  Info log level  |
     |  debug  |  Debug log level  |
 - `outbound_interface` (Attributes) Match outbound-interface (see [below for nested schema](#nestedatt--outbound_interface))
-- `packet_length` (String) Payload size in bytes, including header and data to match
+- `packet_length` (List of String) Payload size in bytes, including header and data to match
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Packet length to match  |
     |  <start-end>  |  Packet length range to match  |
-- `packet_length_exclude` (String) Payload size in bytes, including header and data not to match
+- `packet_length_exclude` (List of String) Payload size in bytes, including header and data not to match
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -128,12 +129,12 @@ Firewall rule number (IPv6)
     |  u32:0-255  |  IP protocol number  |
     |  <protocol>  |  IP protocol name  |
     |  !<protocol>  |  IP protocol name  |
-- `queue` (String) Queue target to use. Action queue must be defined to use this setting
+- `queue` (Number) Queue target to use. Action queue must be defined to use this setting
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-65535  |  Queue target  |
-- `queue_options` (String) Options used for queue target. Action queue must be defined to use this
+- `queue_options` (List of String) Options used for queue target. Action queue must be defined to use this
                     setting
 
     |  Format  |  Description  |
@@ -206,12 +207,12 @@ Optional:
 
 Optional:
 
-- `country_code` (String) GeoIP country code
+- `country_code` (List of String) GeoIP country code
 
     |  Format  |  Description  |
     |----------|---------------|
     |  <country>  |  Country code (2 characters)  |
-- `inverse_match` (String) Inverse match of country-codes
+- `inverse_match` (Boolean) Inverse match of country-codes
 
 
 <a id="nestedatt--destination--group"></a>
@@ -232,8 +233,8 @@ Optional:
 
 Optional:
 
-- `match_frag` (String) Second and further fragments of fragmented packets
-- `match_non_frag` (String) Head fragments or unfragmented packets
+- `match_frag` (Boolean) Second and further fragments of fragmented packets
+- `match_non_frag` (Boolean) Head fragments or unfragmented packets
 
 
 <a id="nestedatt--hop_limit"></a>
@@ -241,17 +242,17 @@ Optional:
 
 Optional:
 
-- `eq` (String) Match on equal value
+- `eq` (Number) Match on equal value
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-255  |  Equal to value  |
-- `gt` (String) Match on greater then value
+- `gt` (Number) Match on greater then value
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-255  |  Greater then value  |
-- `lt` (String) Match on less then value
+- `lt` (Number) Match on less then value
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -263,12 +264,12 @@ Optional:
 
 Optional:
 
-- `code` (String) ICMPv6 code
+- `code` (Number) ICMPv6 code
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-255  |  ICMPv6 code (0-255)  |
-- `type` (String) ICMPv6 type
+- `type` (Number) ICMPv6 type
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -311,8 +312,8 @@ Optional:
 
 Optional:
 
-- `match_ipsec` (String) Inbound IPsec packets
-- `match_none` (String) Inbound non-IPsec packets
+- `match_ipsec` (Boolean) Inbound IPsec packets
+- `match_none` (Boolean) Inbound non-IPsec packets
 
 
 <a id="nestedatt--limit"></a>
@@ -320,7 +321,7 @@ Optional:
 
 Optional:
 
-- `burst` (String) Maximum number of packets to allow in excess of rate
+- `burst` (Number) Maximum number of packets to allow in excess of rate
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -346,7 +347,7 @@ Optional:
 
 Optional:
 
-- `count` (String) Source addresses seen more than N times
+- `count` (Number) Source addresses seen more than N times
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -407,12 +408,12 @@ Optional:
 
 Optional:
 
-- `country_code` (String) GeoIP country code
+- `country_code` (List of String) GeoIP country code
 
     |  Format  |  Description  |
     |----------|---------------|
     |  <country>  |  Country code (2 characters)  |
-- `inverse_match` (String) Inverse match of country-codes
+- `inverse_match` (Boolean) Inverse match of country-codes
 
 
 <a id="nestedatt--source--group"></a>
@@ -477,29 +478,29 @@ Optional:
 
 Optional:
 
-- `ack` (String) Acknowledge flag
-- `cwr` (String) Congestion Window Reduced flag
-- `ecn` (String) Explicit Congestion Notification flag
-- `fin` (String) Finish flag
+- `ack` (Boolean) Acknowledge flag
+- `cwr` (Boolean) Congestion Window Reduced flag
+- `ecn` (Boolean) Explicit Congestion Notification flag
+- `fin` (Boolean) Finish flag
 - `not` (Attributes) Match flags not set (see [below for nested schema](#nestedatt--tcp--flags--not))
-- `psh` (String) Push flag
-- `rst` (String) Reset flag
-- `syn` (String) Synchronise flag
-- `urg` (String) Urgent flag
+- `psh` (Boolean) Push flag
+- `rst` (Boolean) Reset flag
+- `syn` (Boolean) Synchronise flag
+- `urg` (Boolean) Urgent flag
 
 <a id="nestedatt--tcp--flags--not"></a>
 ### Nested Schema for `tcp.flags.not`
 
 Optional:
 
-- `ack` (String) Acknowledge flag
-- `cwr` (String) Congestion Window Reduced flag
-- `ecn` (String) Explicit Congestion Notification flag
-- `fin` (String) Finish flag
-- `psh` (String) Push flag
-- `rst` (String) Reset flag
-- `syn` (String) Synchronise flag
-- `urg` (String) Urgent flag
+- `ack` (Boolean) Acknowledge flag
+- `cwr` (Boolean) Congestion Window Reduced flag
+- `ecn` (Boolean) Explicit Congestion Notification flag
+- `fin` (Boolean) Finish flag
+- `psh` (Boolean) Push flag
+- `rst` (Boolean) Reset flag
+- `syn` (Boolean) Synchronise flag
+- `urg` (Boolean) Urgent flag
 
 
 

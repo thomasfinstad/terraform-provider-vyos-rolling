@@ -55,11 +55,16 @@ BGP neighbor
     |  ipv4  |  BGP neighbor IP address  |
     |  ipv6  |  BGP neighbor IPv6 address  |
     |  txt  |  Interface name  |
+- `name_identifier` (String) Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 ### Optional
 
 - `address_family` (Attributes) Address-family parameters (see [below for nested schema](#nestedatt--address_family))
-- `advertisement_interval` (String) Minimum interval for sending routing updates
+- `advertisement_interval` (Number) Minimum interval for sending routing updates
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -71,9 +76,9 @@ BGP neighbor
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `disable_capability_negotiation` (String) Disable capability negotiation with this neighbor
-- `disable_connected_check` (String) Disable check to see if eBGP peer address is a connected route
-- `ebgp_multihop` (String) Allow this EBGP neighbor to not be on a directly connected network
+- `disable_capability_negotiation` (Boolean) Disable capability negotiation with this neighbor
+- `disable_connected_check` (Boolean) Disable check to see if eBGP peer address is a connected route
+- `ebgp_multihop` (Number) Allow this EBGP neighbor to not be on a directly connected network
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -86,15 +91,15 @@ BGP neighbor
     |  disable  |  Disable BGP graceful restart at peer level  |
     |  restart-helper  |  Enable BGP graceful restart helper only functionality  |
 - `interface` (Attributes) Interface parameters (see [below for nested schema](#nestedatt--interface))
-- `override_capability` (String) Ignore capability negotiation with specified neighbor
-- `passive` (String) Do not initiate a session with this neighbor
+- `override_capability` (Boolean) Ignore capability negotiation with specified neighbor
+- `passive` (Boolean) Do not initiate a session with this neighbor
 - `password` (String) BGP MD5 password
 - `peer_group` (String) Peer group for this peer
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Peer-group name  |
-- `port` (String) Neighbor BGP port
+- `port` (Number) Neighbor BGP port
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -106,9 +111,9 @@ BGP neighbor
     |  u32:1-4294967294  |  Neighbor AS number  |
     |  external  |  Any AS different from the local AS  |
     |  internal  |  Neighbor AS number  |
-- `shutdown` (String) Administratively shutdown this neighbor
-- `solo` (String) Do not send back prefixes learned from the neighbor
-- `strict_capability_match` (String) Enable strict capability negotiation
+- `shutdown` (Boolean) Administratively shutdown this neighbor
+- `solo` (Boolean) Do not send back prefixes learned from the neighbor
+- `strict_capability_match` (Boolean) Enable strict capability negotiation
 - `timers` (Attributes) Neighbor timers (see [below for nested schema](#nestedatt--timers))
 - `ttl_security` (Attributes) Ttl security mechanism (see [below for nested schema](#nestedatt--ttl_security))
 - `update_source` (String) Source IP of routing updates
@@ -144,8 +149,8 @@ Optional:
 - `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_flowspec--filter_list))
 - `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_flowspec--prefix_list))
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_flowspec--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
+- `route_reflector_client` (Boolean) Peer is a route reflector client
+- `route_server_client` (Boolean) Peer is a route server client
 - `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv4_flowspec--soft_reconfiguration))
 
 <a id="nestedatt--address_family--ipv4_flowspec--filter_list"></a>
@@ -196,7 +201,7 @@ Optional:
 
 Optional:
 
-- `inbound` (String) Enable inbound soft reconfiguration
+- `inbound` (Boolean) Enable inbound soft reconfiguration
 
 
 
@@ -205,10 +210,10 @@ Optional:
 
 Optional:
 
-- `addpath_tx_all` (String) Use addpath to advertise all paths to a neighbor
-- `addpath_tx_per_as` (String) Use addpath to advertise the bestpath per each neighboring AS
+- `addpath_tx_all` (Boolean) Use addpath to advertise all paths to a neighbor
+- `addpath_tx_per_as` (Boolean) Use addpath to advertise the bestpath per each neighboring AS
 - `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--allowas_in))
-- `as_override` (String) Override ASN in outbound updates to configured neighbor local-as
+- `as_override` (Boolean) Override ASN in outbound updates to configured neighbor local-as
 - `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--attribute_unchanged))
 - `capability` (Attributes) Advertise capabilities to this neighbor (IPv4) (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--capability))
 - `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--conditionally_advertise))
@@ -216,29 +221,29 @@ Optional:
 - `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--disable_send_community))
 - `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--distribute_list))
 - `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--filter_list))
-- `maximum_prefix` (String) Maximum number of prefixes to accept from this peer
+- `maximum_prefix` (Number) Maximum number of prefixes to accept from this peer
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4294967295  |  Prefix limit  |
-- `maximum_prefix_out` (String) Maximum number of prefixes to be sent to this peer
+- `maximum_prefix_out` (Number) Maximum number of prefixes to be sent to this peer
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4294967295  |  Prefix limit  |
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--nexthop_self))
 - `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--prefix_list))
-- `remove_private_as` (String) Remove private AS numbers from AS path in outbound route updates
+- `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
+- `route_reflector_client` (Boolean) Peer is a route reflector client
+- `route_server_client` (Boolean) Peer is a route server client
 - `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--soft_reconfiguration))
 - `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Route map name  |
-- `weight` (String) Default weight for routes from this peer
+- `weight` (Number) Default weight for routes from this peer
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -249,7 +254,7 @@ Optional:
 
 Optional:
 
-- `number` (String) Number of occurrences of AS number
+- `number` (Number) Number of occurrences of AS number
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -261,9 +266,9 @@ Optional:
 
 Optional:
 
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
+- `as_path` (Boolean) Send AS path unchanged
+- `med` (Boolean) Send multi-exit discriminator unchanged
+- `next_hop` (Boolean) Send nexthop unchanged
 
 
 <a id="nestedatt--address_family--ipv4_labeled_unicast--capability"></a>
@@ -285,8 +290,8 @@ Optional:
 
 Optional:
 
-- `receive` (String) Capability to receive the ORF
-- `send` (String) Capability to send the ORF
+- `receive` (Boolean) Capability to receive the ORF
+- `send` (Boolean) Capability to send the ORF
 
 
 
@@ -330,8 +335,8 @@ Optional:
 
 Optional:
 
-- `extended` (String) Disable sending extended community attributes to this peer
-- `standard` (String) Disable sending standard community attributes to this peer
+- `extended` (Boolean) Disable sending extended community attributes to this peer
+- `standard` (Boolean) Disable sending standard community attributes to this peer
 
 
 <a id="nestedatt--address_family--ipv4_labeled_unicast--distribute_list"></a>
@@ -339,12 +344,12 @@ Optional:
 
 Optional:
 
-- `export` (String) Access-list to filter outgoing route updates to this peer-group
+- `export` (Number) Access-list to filter outgoing route updates to this peer-group
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
-- `import` (String) Access-list to filter incoming route updates from this peer-group
+- `import` (Number) Access-list to filter incoming route updates from this peer-group
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -365,7 +370,7 @@ Optional:
 
 Optional:
 
-- `force` (String) Set the next hop to self for reflected routes
+- `force` (Boolean) Set the next hop to self for reflected routes
 
 
 <a id="nestedatt--address_family--ipv4_labeled_unicast--prefix_list"></a>
@@ -407,7 +412,7 @@ Optional:
 
 Optional:
 
-- `inbound` (String) Enable inbound soft reconfiguration
+- `inbound` (Boolean) Enable inbound soft reconfiguration
 
 
 
@@ -416,10 +421,10 @@ Optional:
 
 Optional:
 
-- `addpath_tx_all` (String) Use addpath to advertise all paths to a neighbor
-- `addpath_tx_per_as` (String) Use addpath to advertise the bestpath per each neighboring AS
+- `addpath_tx_all` (Boolean) Use addpath to advertise all paths to a neighbor
+- `addpath_tx_per_as` (Boolean) Use addpath to advertise the bestpath per each neighboring AS
 - `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--address_family--ipv4_multicast--allowas_in))
-- `as_override` (String) Override ASN in outbound updates to configured neighbor local-as
+- `as_override` (Boolean) Override ASN in outbound updates to configured neighbor local-as
 - `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--address_family--ipv4_multicast--attribute_unchanged))
 - `capability` (Attributes) Advertise capabilities to this neighbor (IPv4) (see [below for nested schema](#nestedatt--address_family--ipv4_multicast--capability))
 - `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--address_family--ipv4_multicast--conditionally_advertise))
@@ -427,29 +432,29 @@ Optional:
 - `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--address_family--ipv4_multicast--disable_send_community))
 - `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--address_family--ipv4_multicast--distribute_list))
 - `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_multicast--filter_list))
-- `maximum_prefix` (String) Maximum number of prefixes to accept from this peer
+- `maximum_prefix` (Number) Maximum number of prefixes to accept from this peer
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4294967295  |  Prefix limit  |
-- `maximum_prefix_out` (String) Maximum number of prefixes to be sent to this peer
+- `maximum_prefix_out` (Number) Maximum number of prefixes to be sent to this peer
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4294967295  |  Prefix limit  |
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv4_multicast--nexthop_self))
 - `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_multicast--prefix_list))
-- `remove_private_as` (String) Remove private AS numbers from AS path in outbound route updates
+- `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_multicast--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
+- `route_reflector_client` (Boolean) Peer is a route reflector client
+- `route_server_client` (Boolean) Peer is a route server client
 - `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv4_multicast--soft_reconfiguration))
 - `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Route map name  |
-- `weight` (String) Default weight for routes from this peer
+- `weight` (Number) Default weight for routes from this peer
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -460,7 +465,7 @@ Optional:
 
 Optional:
 
-- `number` (String) Number of occurrences of AS number
+- `number` (Number) Number of occurrences of AS number
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -472,9 +477,9 @@ Optional:
 
 Optional:
 
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
+- `as_path` (Boolean) Send AS path unchanged
+- `med` (Boolean) Send multi-exit discriminator unchanged
+- `next_hop` (Boolean) Send nexthop unchanged
 
 
 <a id="nestedatt--address_family--ipv4_multicast--capability"></a>
@@ -496,8 +501,8 @@ Optional:
 
 Optional:
 
-- `receive` (String) Capability to receive the ORF
-- `send` (String) Capability to send the ORF
+- `receive` (Boolean) Capability to receive the ORF
+- `send` (Boolean) Capability to send the ORF
 
 
 
@@ -541,8 +546,8 @@ Optional:
 
 Optional:
 
-- `extended` (String) Disable sending extended community attributes to this peer
-- `standard` (String) Disable sending standard community attributes to this peer
+- `extended` (Boolean) Disable sending extended community attributes to this peer
+- `standard` (Boolean) Disable sending standard community attributes to this peer
 
 
 <a id="nestedatt--address_family--ipv4_multicast--distribute_list"></a>
@@ -550,12 +555,12 @@ Optional:
 
 Optional:
 
-- `export` (String) Access-list to filter outgoing route updates to this peer-group
+- `export` (Number) Access-list to filter outgoing route updates to this peer-group
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
-- `import` (String) Access-list to filter incoming route updates from this peer-group
+- `import` (Number) Access-list to filter incoming route updates from this peer-group
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -576,7 +581,7 @@ Optional:
 
 Optional:
 
-- `force` (String) Set the next hop to self for reflected routes
+- `force` (Boolean) Set the next hop to self for reflected routes
 
 
 <a id="nestedatt--address_family--ipv4_multicast--prefix_list"></a>
@@ -618,7 +623,7 @@ Optional:
 
 Optional:
 
-- `inbound` (String) Enable inbound soft reconfiguration
+- `inbound` (Boolean) Enable inbound soft reconfiguration
 
 
 
@@ -627,10 +632,10 @@ Optional:
 
 Optional:
 
-- `addpath_tx_all` (String) Use addpath to advertise all paths to a neighbor
-- `addpath_tx_per_as` (String) Use addpath to advertise the bestpath per each neighboring AS
+- `addpath_tx_all` (Boolean) Use addpath to advertise all paths to a neighbor
+- `addpath_tx_per_as` (Boolean) Use addpath to advertise the bestpath per each neighboring AS
 - `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--allowas_in))
-- `as_override` (String) Override ASN in outbound updates to configured neighbor local-as
+- `as_override` (Boolean) Override ASN in outbound updates to configured neighbor local-as
 - `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--attribute_unchanged))
 - `capability` (Attributes) Advertise capabilities to this neighbor (IPv4) (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--capability))
 - `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--conditionally_advertise))
@@ -638,29 +643,29 @@ Optional:
 - `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--disable_send_community))
 - `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--distribute_list))
 - `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--filter_list))
-- `maximum_prefix` (String) Maximum number of prefixes to accept from this peer
+- `maximum_prefix` (Number) Maximum number of prefixes to accept from this peer
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4294967295  |  Prefix limit  |
-- `maximum_prefix_out` (String) Maximum number of prefixes to be sent to this peer
+- `maximum_prefix_out` (Number) Maximum number of prefixes to be sent to this peer
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4294967295  |  Prefix limit  |
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--nexthop_self))
 - `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--prefix_list))
-- `remove_private_as` (String) Remove private AS numbers from AS path in outbound route updates
+- `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
+- `route_reflector_client` (Boolean) Peer is a route reflector client
+- `route_server_client` (Boolean) Peer is a route server client
 - `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--soft_reconfiguration))
 - `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Route map name  |
-- `weight` (String) Default weight for routes from this peer
+- `weight` (Number) Default weight for routes from this peer
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -671,7 +676,7 @@ Optional:
 
 Optional:
 
-- `number` (String) Number of occurrences of AS number
+- `number` (Number) Number of occurrences of AS number
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -683,9 +688,9 @@ Optional:
 
 Optional:
 
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
+- `as_path` (Boolean) Send AS path unchanged
+- `med` (Boolean) Send multi-exit discriminator unchanged
+- `next_hop` (Boolean) Send nexthop unchanged
 
 
 <a id="nestedatt--address_family--ipv4_unicast--capability"></a>
@@ -707,8 +712,8 @@ Optional:
 
 Optional:
 
-- `receive` (String) Capability to receive the ORF
-- `send` (String) Capability to send the ORF
+- `receive` (Boolean) Capability to receive the ORF
+- `send` (Boolean) Capability to send the ORF
 
 
 
@@ -752,8 +757,8 @@ Optional:
 
 Optional:
 
-- `extended` (String) Disable sending extended community attributes to this peer
-- `standard` (String) Disable sending standard community attributes to this peer
+- `extended` (Boolean) Disable sending extended community attributes to this peer
+- `standard` (Boolean) Disable sending standard community attributes to this peer
 
 
 <a id="nestedatt--address_family--ipv4_unicast--distribute_list"></a>
@@ -761,12 +766,12 @@ Optional:
 
 Optional:
 
-- `export` (String) Access-list to filter outgoing route updates to this peer-group
+- `export` (Number) Access-list to filter outgoing route updates to this peer-group
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
-- `import` (String) Access-list to filter incoming route updates from this peer-group
+- `import` (Number) Access-list to filter incoming route updates from this peer-group
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -787,7 +792,7 @@ Optional:
 
 Optional:
 
-- `force` (String) Set the next hop to self for reflected routes
+- `force` (Boolean) Set the next hop to self for reflected routes
 
 
 <a id="nestedatt--address_family--ipv4_unicast--prefix_list"></a>
@@ -829,7 +834,7 @@ Optional:
 
 Optional:
 
-- `inbound` (String) Enable inbound soft reconfiguration
+- `inbound` (Boolean) Enable inbound soft reconfiguration
 
 
 
@@ -838,38 +843,38 @@ Optional:
 
 Optional:
 
-- `addpath_tx_all` (String) Use addpath to advertise all paths to a neighbor
-- `addpath_tx_per_as` (String) Use addpath to advertise the bestpath per each neighboring AS
+- `addpath_tx_all` (Boolean) Use addpath to advertise all paths to a neighbor
+- `addpath_tx_per_as` (Boolean) Use addpath to advertise the bestpath per each neighboring AS
 - `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--allowas_in))
-- `as_override` (String) Override ASN in outbound updates to configured neighbor local-as
+- `as_override` (Boolean) Override ASN in outbound updates to configured neighbor local-as
 - `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--attribute_unchanged))
 - `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--conditionally_advertise))
 - `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--disable_send_community))
 - `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--distribute_list))
 - `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--filter_list))
-- `maximum_prefix` (String) Maximum number of prefixes to accept from this peer
+- `maximum_prefix` (Number) Maximum number of prefixes to accept from this peer
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4294967295  |  Prefix limit  |
-- `maximum_prefix_out` (String) Maximum number of prefixes to be sent to this peer
+- `maximum_prefix_out` (Number) Maximum number of prefixes to be sent to this peer
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4294967295  |  Prefix limit  |
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--nexthop_self))
 - `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--prefix_list))
-- `remove_private_as` (String) Remove private AS numbers from AS path in outbound route updates
+- `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
+- `route_reflector_client` (Boolean) Peer is a route reflector client
+- `route_server_client` (Boolean) Peer is a route server client
 - `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--soft_reconfiguration))
 - `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Route map name  |
-- `weight` (String) Default weight for routes from this peer
+- `weight` (Number) Default weight for routes from this peer
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -880,7 +885,7 @@ Optional:
 
 Optional:
 
-- `number` (String) Number of occurrences of AS number
+- `number` (Number) Number of occurrences of AS number
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -892,9 +897,9 @@ Optional:
 
 Optional:
 
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
+- `as_path` (Boolean) Send AS path unchanged
+- `med` (Boolean) Send multi-exit discriminator unchanged
+- `next_hop` (Boolean) Send nexthop unchanged
 
 
 <a id="nestedatt--address_family--ipv4_vpn--conditionally_advertise"></a>
@@ -924,8 +929,8 @@ Optional:
 
 Optional:
 
-- `extended` (String) Disable sending extended community attributes to this peer
-- `standard` (String) Disable sending standard community attributes to this peer
+- `extended` (Boolean) Disable sending extended community attributes to this peer
+- `standard` (Boolean) Disable sending standard community attributes to this peer
 
 
 <a id="nestedatt--address_family--ipv4_vpn--distribute_list"></a>
@@ -933,12 +938,12 @@ Optional:
 
 Optional:
 
-- `export` (String) Access-list to filter outgoing route updates to this peer-group
+- `export` (Number) Access-list to filter outgoing route updates to this peer-group
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
-- `import` (String) Access-list to filter incoming route updates from this peer-group
+- `import` (Number) Access-list to filter incoming route updates from this peer-group
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -959,7 +964,7 @@ Optional:
 
 Optional:
 
-- `force` (String) Set the next hop to self for reflected routes
+- `force` (Boolean) Set the next hop to self for reflected routes
 
 
 <a id="nestedatt--address_family--ipv4_vpn--prefix_list"></a>
@@ -1001,7 +1006,7 @@ Optional:
 
 Optional:
 
-- `inbound` (String) Enable inbound soft reconfiguration
+- `inbound` (Boolean) Enable inbound soft reconfiguration
 
 
 
@@ -1013,8 +1018,8 @@ Optional:
 - `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_flowspec--filter_list))
 - `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_flowspec--prefix_list))
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_flowspec--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
+- `route_reflector_client` (Boolean) Peer is a route reflector client
+- `route_server_client` (Boolean) Peer is a route server client
 - `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv6_flowspec--soft_reconfiguration))
 
 <a id="nestedatt--address_family--ipv6_flowspec--filter_list"></a>
@@ -1065,7 +1070,7 @@ Optional:
 
 Optional:
 
-- `inbound` (String) Enable inbound soft reconfiguration
+- `inbound` (Boolean) Enable inbound soft reconfiguration
 
 
 
@@ -1074,10 +1079,10 @@ Optional:
 
 Optional:
 
-- `addpath_tx_all` (String) Use addpath to advertise all paths to a neighbor
-- `addpath_tx_per_as` (String) Use addpath to advertise the bestpath per each neighboring AS
+- `addpath_tx_all` (Boolean) Use addpath to advertise all paths to a neighbor
+- `addpath_tx_per_as` (Boolean) Use addpath to advertise the bestpath per each neighboring AS
 - `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--allowas_in))
-- `as_override` (String) Override ASN in outbound updates to configured neighbor local-as
+- `as_override` (Boolean) Override ASN in outbound updates to configured neighbor local-as
 - `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--attribute_unchanged))
 - `capability` (Attributes) Advertise capabilities to this neighbor (IPv6) (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--capability))
 - `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--conditionally_advertise))
@@ -1085,12 +1090,12 @@ Optional:
 - `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--disable_send_community))
 - `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--distribute_list))
 - `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--filter_list))
-- `maximum_prefix` (String) Maximum number of prefixes to accept from this peer
+- `maximum_prefix` (Number) Maximum number of prefixes to accept from this peer
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4294967295  |  Prefix limit  |
-- `maximum_prefix_out` (String) Maximum number of prefixes to be sent to this peer
+- `maximum_prefix_out` (Number) Maximum number of prefixes to be sent to this peer
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1098,17 +1103,17 @@ Optional:
 - `nexthop_local` (Attributes) Nexthop attributes (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--nexthop_local))
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--nexthop_self))
 - `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--prefix_list))
-- `remove_private_as` (String) Remove private AS numbers from AS path in outbound route updates
+- `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
+- `route_reflector_client` (Boolean) Peer is a route reflector client
+- `route_server_client` (Boolean) Peer is a route server client
 - `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--soft_reconfiguration))
 - `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Route map name  |
-- `weight` (String) Default weight for routes from this peer
+- `weight` (Number) Default weight for routes from this peer
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1119,7 +1124,7 @@ Optional:
 
 Optional:
 
-- `number` (String) Number of occurrences of AS number
+- `number` (Number) Number of occurrences of AS number
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1131,9 +1136,9 @@ Optional:
 
 Optional:
 
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
+- `as_path` (Boolean) Send AS path unchanged
+- `med` (Boolean) Send multi-exit discriminator unchanged
+- `next_hop` (Boolean) Send nexthop unchanged
 
 
 <a id="nestedatt--address_family--ipv6_labeled_unicast--capability"></a>
@@ -1155,8 +1160,8 @@ Optional:
 
 Optional:
 
-- `receive` (String) Capability to receive the ORF
-- `send` (String) Capability to send the ORF
+- `receive` (Boolean) Capability to receive the ORF
+- `send` (Boolean) Capability to send the ORF
 
 
 
@@ -1200,8 +1205,8 @@ Optional:
 
 Optional:
 
-- `extended` (String) Disable sending extended community attributes to this peer
-- `standard` (String) Disable sending standard community attributes to this peer
+- `extended` (Boolean) Disable sending extended community attributes to this peer
+- `standard` (Boolean) Disable sending standard community attributes to this peer
 
 
 <a id="nestedatt--address_family--ipv6_labeled_unicast--distribute_list"></a>
@@ -1209,12 +1214,12 @@ Optional:
 
 Optional:
 
-- `export` (String) Access-list to filter outgoing route updates to this peer-group
+- `export` (Number) Access-list to filter outgoing route updates to this peer-group
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
-- `import` (String) Access-list to filter incoming route updates from this peer-group
+- `import` (Number) Access-list to filter incoming route updates from this peer-group
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1235,7 +1240,7 @@ Optional:
 
 Optional:
 
-- `unchanged` (String) Leave link-local nexthop unchanged for this peer
+- `unchanged` (Boolean) Leave link-local nexthop unchanged for this peer
 
 
 <a id="nestedatt--address_family--ipv6_labeled_unicast--nexthop_self"></a>
@@ -1243,7 +1248,7 @@ Optional:
 
 Optional:
 
-- `force` (String) Set the next hop to self for reflected routes
+- `force` (Boolean) Set the next hop to self for reflected routes
 
 
 <a id="nestedatt--address_family--ipv6_labeled_unicast--prefix_list"></a>
@@ -1285,7 +1290,7 @@ Optional:
 
 Optional:
 
-- `inbound` (String) Enable inbound soft reconfiguration
+- `inbound` (Boolean) Enable inbound soft reconfiguration
 
 
 
@@ -1294,22 +1299,22 @@ Optional:
 
 Optional:
 
-- `addpath_tx_all` (String) Use addpath to advertise all paths to a neighbor
-- `addpath_tx_per_as` (String) Use addpath to advertise the bestpath per each neighboring AS
+- `addpath_tx_all` (Boolean) Use addpath to advertise all paths to a neighbor
+- `addpath_tx_per_as` (Boolean) Use addpath to advertise the bestpath per each neighboring AS
 - `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--allowas_in))
-- `as_override` (String) Override ASN in outbound updates to configured neighbor local-as
+- `as_override` (Boolean) Override ASN in outbound updates to configured neighbor local-as
 - `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--attribute_unchanged))
 - `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--conditionally_advertise))
 - `default_originate` (Attributes) Originate default route to this peer (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--default_originate))
 - `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--disable_send_community))
 - `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--distribute_list))
 - `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--filter_list))
-- `maximum_prefix` (String) Maximum number of prefixes to accept from this peer
+- `maximum_prefix` (Number) Maximum number of prefixes to accept from this peer
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4294967295  |  Prefix limit  |
-- `maximum_prefix_out` (String) Maximum number of prefixes to be sent to this peer
+- `maximum_prefix_out` (Number) Maximum number of prefixes to be sent to this peer
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1317,17 +1322,17 @@ Optional:
 - `nexthop_local` (Attributes) Nexthop attributes (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--nexthop_local))
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--nexthop_self))
 - `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--prefix_list))
-- `remove_private_as` (String) Remove private AS numbers from AS path in outbound route updates
+- `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
+- `route_reflector_client` (Boolean) Peer is a route reflector client
+- `route_server_client` (Boolean) Peer is a route server client
 - `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--soft_reconfiguration))
 - `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Route map name  |
-- `weight` (String) Default weight for routes from this peer
+- `weight` (Number) Default weight for routes from this peer
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1338,7 +1343,7 @@ Optional:
 
 Optional:
 
-- `number` (String) Number of occurrences of AS number
+- `number` (Number) Number of occurrences of AS number
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1350,9 +1355,9 @@ Optional:
 
 Optional:
 
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
+- `as_path` (Boolean) Send AS path unchanged
+- `med` (Boolean) Send multi-exit discriminator unchanged
+- `next_hop` (Boolean) Send nexthop unchanged
 
 
 <a id="nestedatt--address_family--ipv6_multicast--conditionally_advertise"></a>
@@ -1394,8 +1399,8 @@ Optional:
 
 Optional:
 
-- `extended` (String) Disable sending extended community attributes to this peer
-- `standard` (String) Disable sending standard community attributes to this peer
+- `extended` (Boolean) Disable sending extended community attributes to this peer
+- `standard` (Boolean) Disable sending standard community attributes to this peer
 
 
 <a id="nestedatt--address_family--ipv6_multicast--distribute_list"></a>
@@ -1403,12 +1408,12 @@ Optional:
 
 Optional:
 
-- `export` (String) Access-list to filter outgoing route updates to this peer-group
+- `export` (Number) Access-list to filter outgoing route updates to this peer-group
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
-- `import` (String) Access-list to filter incoming route updates from this peer-group
+- `import` (Number) Access-list to filter incoming route updates from this peer-group
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1429,7 +1434,7 @@ Optional:
 
 Optional:
 
-- `unchanged` (String) Leave link-local nexthop unchanged for this peer
+- `unchanged` (Boolean) Leave link-local nexthop unchanged for this peer
 
 
 <a id="nestedatt--address_family--ipv6_multicast--nexthop_self"></a>
@@ -1437,7 +1442,7 @@ Optional:
 
 Optional:
 
-- `force` (String) Set the next hop to self for reflected routes
+- `force` (Boolean) Set the next hop to self for reflected routes
 
 
 <a id="nestedatt--address_family--ipv6_multicast--prefix_list"></a>
@@ -1479,7 +1484,7 @@ Optional:
 
 Optional:
 
-- `inbound` (String) Enable inbound soft reconfiguration
+- `inbound` (Boolean) Enable inbound soft reconfiguration
 
 
 
@@ -1488,10 +1493,10 @@ Optional:
 
 Optional:
 
-- `addpath_tx_all` (String) Use addpath to advertise all paths to a neighbor
-- `addpath_tx_per_as` (String) Use addpath to advertise the bestpath per each neighboring AS
+- `addpath_tx_all` (Boolean) Use addpath to advertise all paths to a neighbor
+- `addpath_tx_per_as` (Boolean) Use addpath to advertise the bestpath per each neighboring AS
 - `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--allowas_in))
-- `as_override` (String) Override ASN in outbound updates to configured neighbor local-as
+- `as_override` (Boolean) Override ASN in outbound updates to configured neighbor local-as
 - `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--attribute_unchanged))
 - `capability` (Attributes) Advertise capabilities to this neighbor (IPv6) (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--capability))
 - `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--conditionally_advertise))
@@ -1499,12 +1504,12 @@ Optional:
 - `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--disable_send_community))
 - `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--distribute_list))
 - `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--filter_list))
-- `maximum_prefix` (String) Maximum number of prefixes to accept from this peer
+- `maximum_prefix` (Number) Maximum number of prefixes to accept from this peer
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4294967295  |  Prefix limit  |
-- `maximum_prefix_out` (String) Maximum number of prefixes to be sent to this peer
+- `maximum_prefix_out` (Number) Maximum number of prefixes to be sent to this peer
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1512,17 +1517,17 @@ Optional:
 - `nexthop_local` (Attributes) Nexthop attributes (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--nexthop_local))
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--nexthop_self))
 - `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--prefix_list))
-- `remove_private_as` (String) Remove private AS numbers from AS path in outbound route updates
+- `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
+- `route_reflector_client` (Boolean) Peer is a route reflector client
+- `route_server_client` (Boolean) Peer is a route server client
 - `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--soft_reconfiguration))
 - `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Route map name  |
-- `weight` (String) Default weight for routes from this peer
+- `weight` (Number) Default weight for routes from this peer
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1533,7 +1538,7 @@ Optional:
 
 Optional:
 
-- `number` (String) Number of occurrences of AS number
+- `number` (Number) Number of occurrences of AS number
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1545,9 +1550,9 @@ Optional:
 
 Optional:
 
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
+- `as_path` (Boolean) Send AS path unchanged
+- `med` (Boolean) Send multi-exit discriminator unchanged
+- `next_hop` (Boolean) Send nexthop unchanged
 
 
 <a id="nestedatt--address_family--ipv6_unicast--capability"></a>
@@ -1569,8 +1574,8 @@ Optional:
 
 Optional:
 
-- `receive` (String) Capability to receive the ORF
-- `send` (String) Capability to send the ORF
+- `receive` (Boolean) Capability to receive the ORF
+- `send` (Boolean) Capability to send the ORF
 
 
 
@@ -1614,8 +1619,8 @@ Optional:
 
 Optional:
 
-- `extended` (String) Disable sending extended community attributes to this peer
-- `standard` (String) Disable sending standard community attributes to this peer
+- `extended` (Boolean) Disable sending extended community attributes to this peer
+- `standard` (Boolean) Disable sending standard community attributes to this peer
 
 
 <a id="nestedatt--address_family--ipv6_unicast--distribute_list"></a>
@@ -1623,12 +1628,12 @@ Optional:
 
 Optional:
 
-- `export` (String) Access-list to filter outgoing route updates to this peer-group
+- `export` (Number) Access-list to filter outgoing route updates to this peer-group
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
-- `import` (String) Access-list to filter incoming route updates from this peer-group
+- `import` (Number) Access-list to filter incoming route updates from this peer-group
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1649,7 +1654,7 @@ Optional:
 
 Optional:
 
-- `unchanged` (String) Leave link-local nexthop unchanged for this peer
+- `unchanged` (Boolean) Leave link-local nexthop unchanged for this peer
 
 
 <a id="nestedatt--address_family--ipv6_unicast--nexthop_self"></a>
@@ -1657,7 +1662,7 @@ Optional:
 
 Optional:
 
-- `force` (String) Set the next hop to self for reflected routes
+- `force` (Boolean) Set the next hop to self for reflected routes
 
 
 <a id="nestedatt--address_family--ipv6_unicast--prefix_list"></a>
@@ -1699,7 +1704,7 @@ Optional:
 
 Optional:
 
-- `inbound` (String) Enable inbound soft reconfiguration
+- `inbound` (Boolean) Enable inbound soft reconfiguration
 
 
 
@@ -1708,21 +1713,21 @@ Optional:
 
 Optional:
 
-- `addpath_tx_all` (String) Use addpath to advertise all paths to a neighbor
-- `addpath_tx_per_as` (String) Use addpath to advertise the bestpath per each neighboring AS
+- `addpath_tx_all` (Boolean) Use addpath to advertise all paths to a neighbor
+- `addpath_tx_per_as` (Boolean) Use addpath to advertise the bestpath per each neighboring AS
 - `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--allowas_in))
-- `as_override` (String) Override ASN in outbound updates to configured neighbor local-as
+- `as_override` (Boolean) Override ASN in outbound updates to configured neighbor local-as
 - `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--attribute_unchanged))
 - `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--conditionally_advertise))
 - `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--disable_send_community))
 - `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--distribute_list))
 - `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--filter_list))
-- `maximum_prefix` (String) Maximum number of prefixes to accept from this peer
+- `maximum_prefix` (Number) Maximum number of prefixes to accept from this peer
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4294967295  |  Prefix limit  |
-- `maximum_prefix_out` (String) Maximum number of prefixes to be sent to this peer
+- `maximum_prefix_out` (Number) Maximum number of prefixes to be sent to this peer
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1730,17 +1735,17 @@ Optional:
 - `nexthop_local` (Attributes) Nexthop attributes (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--nexthop_local))
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--nexthop_self))
 - `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--prefix_list))
-- `remove_private_as` (String) Remove private AS numbers from AS path in outbound route updates
+- `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
+- `route_reflector_client` (Boolean) Peer is a route reflector client
+- `route_server_client` (Boolean) Peer is a route server client
 - `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--soft_reconfiguration))
 - `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Route map name  |
-- `weight` (String) Default weight for routes from this peer
+- `weight` (Number) Default weight for routes from this peer
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1751,7 +1756,7 @@ Optional:
 
 Optional:
 
-- `number` (String) Number of occurrences of AS number
+- `number` (Number) Number of occurrences of AS number
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1763,9 +1768,9 @@ Optional:
 
 Optional:
 
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
+- `as_path` (Boolean) Send AS path unchanged
+- `med` (Boolean) Send multi-exit discriminator unchanged
+- `next_hop` (Boolean) Send nexthop unchanged
 
 
 <a id="nestedatt--address_family--ipv6_vpn--conditionally_advertise"></a>
@@ -1795,8 +1800,8 @@ Optional:
 
 Optional:
 
-- `extended` (String) Disable sending extended community attributes to this peer
-- `standard` (String) Disable sending standard community attributes to this peer
+- `extended` (Boolean) Disable sending extended community attributes to this peer
+- `standard` (Boolean) Disable sending standard community attributes to this peer
 
 
 <a id="nestedatt--address_family--ipv6_vpn--distribute_list"></a>
@@ -1804,12 +1809,12 @@ Optional:
 
 Optional:
 
-- `export` (String) Access-list to filter outgoing route updates to this peer-group
+- `export` (Number) Access-list to filter outgoing route updates to this peer-group
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
-- `import` (String) Access-list to filter incoming route updates from this peer-group
+- `import` (Number) Access-list to filter incoming route updates from this peer-group
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1830,7 +1835,7 @@ Optional:
 
 Optional:
 
-- `unchanged` (String) Leave link-local nexthop unchanged for this peer
+- `unchanged` (Boolean) Leave link-local nexthop unchanged for this peer
 
 
 <a id="nestedatt--address_family--ipv6_vpn--nexthop_self"></a>
@@ -1838,7 +1843,7 @@ Optional:
 
 Optional:
 
-- `force` (String) Set the next hop to self for reflected routes
+- `force` (Boolean) Set the next hop to self for reflected routes
 
 
 <a id="nestedatt--address_family--ipv6_vpn--prefix_list"></a>
@@ -1880,7 +1885,7 @@ Optional:
 
 Optional:
 
-- `inbound` (String) Enable inbound soft reconfiguration
+- `inbound` (Boolean) Enable inbound soft reconfiguration
 
 
 
@@ -1893,8 +1898,8 @@ Optional:
 - `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--address_family--l2vpn_evpn--attribute_unchanged))
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--l2vpn_evpn--nexthop_self))
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--l2vpn_evpn--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
+- `route_reflector_client` (Boolean) Peer is a route reflector client
+- `route_server_client` (Boolean) Peer is a route server client
 - `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--l2vpn_evpn--soft_reconfiguration))
 
 <a id="nestedatt--address_family--l2vpn_evpn--allowas_in"></a>
@@ -1902,7 +1907,7 @@ Optional:
 
 Optional:
 
-- `number` (String) Number of occurrences of AS number
+- `number` (Number) Number of occurrences of AS number
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1914,9 +1919,9 @@ Optional:
 
 Optional:
 
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
+- `as_path` (Boolean) Send AS path unchanged
+- `med` (Boolean) Send multi-exit discriminator unchanged
+- `next_hop` (Boolean) Send nexthop unchanged
 
 
 <a id="nestedatt--address_family--l2vpn_evpn--nexthop_self"></a>
@@ -1924,7 +1929,7 @@ Optional:
 
 Optional:
 
-- `force` (String) Set the next hop to self for reflected routes
+- `force` (Boolean) Set the next hop to self for reflected routes
 
 
 <a id="nestedatt--address_family--l2vpn_evpn--route_map"></a>
@@ -1949,7 +1954,7 @@ Optional:
 
 Optional:
 
-- `inbound` (String) Enable inbound soft reconfiguration
+- `inbound` (Boolean) Enable inbound soft reconfiguration
 
 
 
@@ -1959,7 +1964,7 @@ Optional:
 
 Optional:
 
-- `check_control_plane_failure` (String) Allow to write CBIT independence in BFD outgoing packets and read both C-BIT value of BFD and lookup BGP peer status
+- `check_control_plane_failure` (Boolean) Allow to write CBIT independence in BFD outgoing packets and read both C-BIT value of BFD and lookup BGP peer status
 - `profile` (String) Use settings from BFD profile
 
     |  Format  |  Description  |
@@ -1972,8 +1977,8 @@ Optional:
 
 Optional:
 
-- `dynamic` (String) Advertise dynamic capability to this neighbor
-- `extended_nexthop` (String) Advertise extended-nexthop capability to this neighbor
+- `dynamic` (Boolean) Advertise dynamic capability to this neighbor
+- `extended_nexthop` (Boolean) Advertise extended-nexthop capability to this neighbor
 
 
 <a id="nestedatt--interface"></a>
@@ -2037,7 +2042,7 @@ Optional:
     |----------|---------------|
     |  u32:1-65535  |  Hold timer in seconds  |
     |  0  |  Hold timer disabled  |
-- `keepalive` (String) BGP keepalive interval for this neighbor
+- `keepalive` (Number) BGP keepalive interval for this neighbor
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2049,7 +2054,7 @@ Optional:
 
 Optional:
 
-- `hops` (String) Number of the maximum number of hops to the BGP peer
+- `hops` (Number) Number of the maximum number of hops to the BGP peer
 
     |  Format  |  Description  |
     |----------|---------------|

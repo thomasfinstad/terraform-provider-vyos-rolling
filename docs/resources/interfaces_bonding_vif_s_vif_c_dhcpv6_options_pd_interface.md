@@ -56,7 +56,23 @@ Delegate IPv6 prefix from provider to this interface
 
 ### Required
 
+- `bonding_identifier` (String) Bonding Interface/Link Aggregation
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  bondN  |  Bonding interface name  |
 - `identifier` (String) Delegate IPv6 prefix from provider to this interface
+- `pd_identifier` (String) DHCPv6 prefix delegation interface statement
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  instance number  |  Prefix delegation instance (>= 0)  |
+- `vif_c_identifier` (String) QinQ TAG-C Virtual Local Area Network (VLAN) ID
+- `vif_s_identifier` (String) QinQ TAG-S Virtual Local Area Network (VLAN) ID
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
 
 ### Optional
 
@@ -65,7 +81,7 @@ Delegate IPv6 prefix from provider to this interface
     |  Format  |  Description  |
     |----------|---------------|
     |  >0  |  Used to form IPv6 interface address  |
-- `sla_id` (String) Interface site-Level aggregator (SLA)
+- `sla_id` (Number) Interface site-Level aggregator (SLA)
 
     |  Format  |  Description  |
     |----------|---------------|

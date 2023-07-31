@@ -2,21 +2,18 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesMacsecDhcpvsixOptionsPd describes the resource data model.
 type InterfacesMacsecDhcpvsixOptionsPd struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDInterfacesMacsec any `tfsdk:"macsec" vyos:"macsec,parent-id"`
+	ParentIDInterfacesMacsec types.String `tfsdk:"macsec" vyos:"macsec_identifier,parent-id"`
 
 	// LeafNodes
-	LeafInterfacesMacsecDhcpvsixOptionsPdLength types.String `tfsdk:"length" vyos:"length,omitempty"`
+	LeafInterfacesMacsecDhcpvsixOptionsPdLength types.Number `tfsdk:"length" vyos:"length,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagInterfacesMacsecDhcpvsixOptionsPdInterface bool `tfsdk:"interface" vyos:"interface,child"`
@@ -28,8 +25,12 @@ type InterfacesMacsecDhcpvsixOptionsPd struct {
 func (o *InterfacesMacsecDhcpvsixOptionsPd) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"macsec",
+		o.ParentIDInterfacesMacsec.ValueString(),
+
 		"dhcpv6-options",
+
 		"pd",
 		o.ID.ValueString(),
 	}
@@ -49,9 +50,20 @@ func (o InterfacesMacsecDhcpvsixOptionsPd) ResourceSchemaAttributes() map[string
 `,
 		},
 
+		"macsec_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `MACsec Interface (802.1ae)
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  macsecN  |  MACsec interface name  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"length": schema.StringAttribute{
+		"length": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Request IPv6 prefix length from peer
 
@@ -72,41 +84,10 @@ func (o InterfacesMacsecDhcpvsixOptionsPd) ResourceSchemaAttributes() map[string
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesMacsecDhcpvsixOptionsPd) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesMacsecDhcpvsixOptionsPdLength.IsNull() && !o.LeafInterfacesMacsecDhcpvsixOptionsPdLength.IsUnknown() {
-		jsonData["length"] = o.LeafInterfacesMacsecDhcpvsixOptionsPdLength.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesMacsecDhcpvsixOptionsPd) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["length"]; ok {
-		o.LeafInterfacesMacsecDhcpvsixOptionsPdLength = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesMacsecDhcpvsixOptionsPdLength = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesMacsecDhcpvsixOptionsPd) UnmarshalJSON(_ []byte) error {
 	return nil
 }

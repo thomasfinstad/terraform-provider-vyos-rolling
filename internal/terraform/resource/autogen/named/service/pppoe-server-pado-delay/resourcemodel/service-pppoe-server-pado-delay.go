@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServicePppoeServerPadoDelay describes the resource data model.
 type ServicePppoeServerPadoDelay struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafServicePppoeServerPadoDelaySessions types.String `tfsdk:"sessions" vyos:"sessions,omitempty"`
+	LeafServicePppoeServerPadoDelaySessions types.Number `tfsdk:"sessions" vyos:"sessions,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,9 +22,11 @@ type ServicePppoeServerPadoDelay struct {
 func (o *ServicePppoeServerPadoDelay) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"pppoe-server",
+
 		"pado-delay",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -47,7 +46,7 @@ func (o ServicePppoeServerPadoDelay) ResourceSchemaAttributes() map[string]schem
 
 		// LeafNodes
 
-		"sessions": schema.StringAttribute{
+		"sessions": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of sessions
 
@@ -65,41 +64,10 @@ func (o ServicePppoeServerPadoDelay) ResourceSchemaAttributes() map[string]schem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServicePppoeServerPadoDelay) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServicePppoeServerPadoDelaySessions.IsNull() && !o.LeafServicePppoeServerPadoDelaySessions.IsUnknown() {
-		jsonData["sessions"] = o.LeafServicePppoeServerPadoDelaySessions.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServicePppoeServerPadoDelay) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["sessions"]; ok {
-		o.LeafServicePppoeServerPadoDelaySessions = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServicePppoeServerPadoDelaySessions = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServicePppoeServerPadoDelay) UnmarshalJSON(_ []byte) error {
 	return nil
 }

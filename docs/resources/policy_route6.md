@@ -26,8 +26,8 @@ Policy route rule set name for IPv6
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `enable_default_log` (String) Log packets hitting default-action
-- `interface` (String) Interface to use
+- `enable_default_log` (Boolean) Log packets hitting default-action
+- `interface` (List of String) Interface to use
 
     |  Format  |  Description  |
     |----------|---------------|

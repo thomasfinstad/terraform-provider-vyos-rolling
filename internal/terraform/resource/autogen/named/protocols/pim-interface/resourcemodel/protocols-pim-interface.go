@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsPimInterface describes the resource data model.
@@ -14,8 +11,8 @@ type ProtocolsPimInterface struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafProtocolsPimInterfaceDrPriority types.String `tfsdk:"dr_priority" vyos:"dr-priority,omitempty"`
-	LeafProtocolsPimInterfaceHello      types.String `tfsdk:"hello" vyos:"hello,omitempty"`
+	LeafProtocolsPimInterfaceDrPriority types.Number `tfsdk:"dr_priority" vyos:"dr-priority,omitempty"`
+	LeafProtocolsPimInterfaceHello      types.Number `tfsdk:"hello" vyos:"hello,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,7 +23,9 @@ type ProtocolsPimInterface struct {
 func (o *ProtocolsPimInterface) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"pim",
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -44,7 +43,7 @@ func (o ProtocolsPimInterface) ResourceSchemaAttributes() map[string]schema.Attr
 
 		// LeafNodes
 
-		"dr_priority": schema.StringAttribute{
+		"dr_priority": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Designated Router Election Priority
 
@@ -55,7 +54,7 @@ func (o ProtocolsPimInterface) ResourceSchemaAttributes() map[string]schema.Attr
 `,
 		},
 
-		"hello": schema.StringAttribute{
+		"hello": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Hello Interval
 
@@ -73,51 +72,10 @@ func (o ProtocolsPimInterface) ResourceSchemaAttributes() map[string]schema.Attr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsPimInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsPimInterfaceDrPriority.IsNull() && !o.LeafProtocolsPimInterfaceDrPriority.IsUnknown() {
-		jsonData["dr-priority"] = o.LeafProtocolsPimInterfaceDrPriority.ValueString()
-	}
-
-	if !o.LeafProtocolsPimInterfaceHello.IsNull() && !o.LeafProtocolsPimInterfaceHello.IsUnknown() {
-		jsonData["hello"] = o.LeafProtocolsPimInterfaceHello.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsPimInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["dr-priority"]; ok {
-		o.LeafProtocolsPimInterfaceDrPriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsPimInterfaceDrPriority = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["hello"]; ok {
-		o.LeafProtocolsPimInterfaceHello = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsPimInterfaceHello = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsPimInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

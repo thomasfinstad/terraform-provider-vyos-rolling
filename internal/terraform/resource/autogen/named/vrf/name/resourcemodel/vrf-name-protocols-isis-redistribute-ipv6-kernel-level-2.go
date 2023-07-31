@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsIsisRedistributeIPvsixKernelLevelTwo describes the resource data model.
 type VrfNameProtocolsIsisRedistributeIPvsixKernelLevelTwo struct {
 	// LeafNodes
-	LeafVrfNameProtocolsIsisRedistributeIPvsixKernelLevelTwoMetric   types.String `tfsdk:"metric" vyos:"metric,omitempty"`
+	LeafVrfNameProtocolsIsisRedistributeIPvsixKernelLevelTwoMetric   types.Number `tfsdk:"metric" vyos:"metric,omitempty"`
 	LeafVrfNameProtocolsIsisRedistributeIPvsixKernelLevelTwoRouteMap types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -25,7 +22,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvsixKernelLevelTwo) ResourceSchemaAttr
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"metric": schema.StringAttribute{
+		"metric": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set default metric for circuit
 
@@ -54,51 +51,10 @@ func (o VrfNameProtocolsIsisRedistributeIPvsixKernelLevelTwo) ResourceSchemaAttr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsIsisRedistributeIPvsixKernelLevelTwo) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsIsisRedistributeIPvsixKernelLevelTwoMetric.IsNull() && !o.LeafVrfNameProtocolsIsisRedistributeIPvsixKernelLevelTwoMetric.IsUnknown() {
-		jsonData["metric"] = o.LeafVrfNameProtocolsIsisRedistributeIPvsixKernelLevelTwoMetric.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsIsisRedistributeIPvsixKernelLevelTwoRouteMap.IsNull() && !o.LeafVrfNameProtocolsIsisRedistributeIPvsixKernelLevelTwoRouteMap.IsUnknown() {
-		jsonData["route-map"] = o.LeafVrfNameProtocolsIsisRedistributeIPvsixKernelLevelTwoRouteMap.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsIsisRedistributeIPvsixKernelLevelTwo) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["metric"]; ok {
-		o.LeafVrfNameProtocolsIsisRedistributeIPvsixKernelLevelTwoMetric = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisRedistributeIPvsixKernelLevelTwoMetric = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["route-map"]; ok {
-		o.LeafVrfNameProtocolsIsisRedistributeIPvsixKernelLevelTwoRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisRedistributeIPvsixKernelLevelTwoRouteMap = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsIsisRedistributeIPvsixKernelLevelTwo) UnmarshalJSON(_ []byte) error {
 	return nil
 }

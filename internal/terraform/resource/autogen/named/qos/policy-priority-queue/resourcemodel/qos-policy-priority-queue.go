@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyPriorityQueue describes the resource data model.
@@ -28,7 +24,9 @@ type QosPolicyPriorityQueue struct {
 func (o *QosPolicyPriorityQueue) GetVyosPath() []string {
 	return []string{
 		"qos",
+
 		"policy",
+
 		"priority-queue",
 		o.ID.ValueString(),
 	}
@@ -75,68 +73,10 @@ func (o QosPolicyPriorityQueue) ResourceSchemaAttributes() map[string]schema.Att
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyPriorityQueue) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyPriorityQueueDescrIPtion.IsNull() && !o.LeafQosPolicyPriorityQueueDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafQosPolicyPriorityQueueDescrIPtion.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeQosPolicyPriorityQueueDefault).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyPriorityQueueDefault)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["default"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyPriorityQueue) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafQosPolicyPriorityQueueDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["default"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyPriorityQueueDefault = &QosPolicyPriorityQueueDefault{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyPriorityQueueDefault)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *QosPolicyPriorityQueue) UnmarshalJSON(_ []byte) error {
 	return nil
 }

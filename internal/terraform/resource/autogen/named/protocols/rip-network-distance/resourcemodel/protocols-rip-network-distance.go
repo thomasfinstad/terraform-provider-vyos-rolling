@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsRIPNetworkDistance describes the resource data model.
@@ -15,7 +12,7 @@ type ProtocolsRIPNetworkDistance struct {
 
 	// LeafNodes
 	LeafProtocolsRIPNetworkDistanceAccessList types.String `tfsdk:"access_list" vyos:"access-list,omitempty"`
-	LeafProtocolsRIPNetworkDistanceDistance   types.String `tfsdk:"distance" vyos:"distance,omitempty"`
+	LeafProtocolsRIPNetworkDistanceDistance   types.Number `tfsdk:"distance" vyos:"distance,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,7 +23,9 @@ type ProtocolsRIPNetworkDistance struct {
 func (o *ProtocolsRIPNetworkDistance) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"rip",
+
 		"network-distance",
 		o.ID.ValueString(),
 	}
@@ -59,7 +58,7 @@ func (o ProtocolsRIPNetworkDistance) ResourceSchemaAttributes() map[string]schem
 `,
 		},
 
-		"distance": schema.StringAttribute{
+		"distance": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Distance for this route
 
@@ -77,51 +76,10 @@ func (o ProtocolsRIPNetworkDistance) ResourceSchemaAttributes() map[string]schem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsRIPNetworkDistance) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsRIPNetworkDistanceAccessList.IsNull() && !o.LeafProtocolsRIPNetworkDistanceAccessList.IsUnknown() {
-		jsonData["access-list"] = o.LeafProtocolsRIPNetworkDistanceAccessList.ValueString()
-	}
-
-	if !o.LeafProtocolsRIPNetworkDistanceDistance.IsNull() && !o.LeafProtocolsRIPNetworkDistanceDistance.IsUnknown() {
-		jsonData["distance"] = o.LeafProtocolsRIPNetworkDistanceDistance.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsRIPNetworkDistance) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["access-list"]; ok {
-		o.LeafProtocolsRIPNetworkDistanceAccessList = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsRIPNetworkDistanceAccessList = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["distance"]; ok {
-		o.LeafProtocolsRIPNetworkDistanceDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsRIPNetworkDistanceDistance = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsRIPNetworkDistance) UnmarshalJSON(_ []byte) error {
 	return nil
 }

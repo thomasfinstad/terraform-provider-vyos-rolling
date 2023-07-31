@@ -2,9 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 )
 
@@ -55,112 +52,10 @@ func (o ProtocolsBgpPeerGroupAddressFamily) ResourceSchemaAttributes() map[strin
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpPeerGroupAddressFamily) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipv4-unicast"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipv6-unicast"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["l2vpn-evpn"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpPeerGroupAddressFamily) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["ipv4-unicast"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast = &ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ipv6-unicast"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast = &ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["l2vpn-evpn"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn = &ProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ProtocolsBgpPeerGroupAddressFamily) UnmarshalJSON(_ []byte) error {
 	return nil
 }

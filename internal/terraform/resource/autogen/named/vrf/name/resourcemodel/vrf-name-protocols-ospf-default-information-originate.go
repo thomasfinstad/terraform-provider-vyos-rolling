@@ -2,19 +2,17 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfDefaultInformationOriginate describes the resource data model.
 type VrfNameProtocolsOspfDefaultInformationOriginate struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways     types.String `tfsdk:"always" vyos:"always,omitempty"`
-	LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric     types.String `tfsdk:"metric" vyos:"metric,omitempty"`
-	LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType types.String `tfsdk:"metric_type" vyos:"metric-type,omitempty"`
+	LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways     types.Bool   `tfsdk:"always" vyos:"always,omitempty"`
+	LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric     types.Number `tfsdk:"metric" vyos:"metric,omitempty"`
+	LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType types.Number `tfsdk:"metric_type" vyos:"metric-type,omitempty"`
 	LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap   types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -27,14 +25,16 @@ func (o VrfNameProtocolsOspfDefaultInformationOriginate) ResourceSchemaAttribute
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"always": schema.StringAttribute{
+		"always": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Always advertise a default route
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"metric": schema.StringAttribute{
+		"metric": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `OSPF default metric
 
@@ -45,7 +45,7 @@ func (o VrfNameProtocolsOspfDefaultInformationOriginate) ResourceSchemaAttribute
 `,
 		},
 
-		"metric_type": schema.StringAttribute{
+		"metric_type": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `OSPF metric type for default routes
 
@@ -77,71 +77,10 @@ func (o VrfNameProtocolsOspfDefaultInformationOriginate) ResourceSchemaAttribute
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfDefaultInformationOriginate) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways.IsNull() && !o.LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways.IsUnknown() {
-		jsonData["always"] = o.LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric.IsNull() && !o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric.IsUnknown() {
-		jsonData["metric"] = o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType.IsNull() && !o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType.IsUnknown() {
-		jsonData["metric-type"] = o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap.IsNull() && !o.LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap.IsUnknown() {
-		jsonData["route-map"] = o.LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfDefaultInformationOriginate) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["always"]; ok {
-		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["metric"]; ok {
-		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["metric-type"]; ok {
-		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["route-map"]; ok {
-		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfDefaultInformationOriginate) UnmarshalJSON(_ []byte) error {
 	return nil
 }

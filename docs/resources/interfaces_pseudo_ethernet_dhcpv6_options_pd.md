@@ -43,10 +43,15 @@ DHCPv6 prefix delegation interface statement
     |  Format  |  Description  |
     |----------|---------------|
     |  instance number  |  Prefix delegation instance (>= 0)  |
+- `pseudo_ethernet_identifier` (String) Pseudo Ethernet Interface (Macvlan)
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  pethN  |  Pseudo Ethernet interface name  |
 
 ### Optional
 
-- `length` (String) Request IPv6 prefix length from peer
+- `length` (Number) Request IPv6 prefix length from peer
 
     |  Format  |  Description  |
     |----------|---------------|

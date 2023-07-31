@@ -37,7 +37,7 @@ Input Functional Block (IFB) interface name
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `disable` (String) Administratively disable interface
+- `disable` (Boolean) Administratively disable interface
 - `redirect` (String) Redirect incoming packet to destination
 
     |  Format  |  Description  |

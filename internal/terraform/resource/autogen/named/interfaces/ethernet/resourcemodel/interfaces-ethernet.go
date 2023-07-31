@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesEthernet describes the resource data model.
@@ -15,19 +12,19 @@ type InterfacesEthernet struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafInterfacesEthernetAddress            types.String `tfsdk:"address" vyos:"address,omitempty"`
+	LeafInterfacesEthernetAddress            types.List   `tfsdk:"address" vyos:"address,omitempty"`
 	LeafInterfacesEthernetDescrIPtion        types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafInterfacesEthernetDisableFlowControl types.String `tfsdk:"disable_flow_control" vyos:"disable-flow-control,omitempty"`
-	LeafInterfacesEthernetDisableLinkDetect  types.String `tfsdk:"disable_link_detect" vyos:"disable-link-detect,omitempty"`
-	LeafInterfacesEthernetDisable            types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafInterfacesEthernetDisableFlowControl types.Bool   `tfsdk:"disable_flow_control" vyos:"disable-flow-control,omitempty"`
+	LeafInterfacesEthernetDisableLinkDetect  types.Bool   `tfsdk:"disable_link_detect" vyos:"disable-link-detect,omitempty"`
+	LeafInterfacesEthernetDisable            types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafInterfacesEthernetDuplex             types.String `tfsdk:"duplex" vyos:"duplex,omitempty"`
 	LeafInterfacesEthernetHwID               types.String `tfsdk:"hw_id" vyos:"hw-id,omitempty"`
 	LeafInterfacesEthernetMac                types.String `tfsdk:"mac" vyos:"mac,omitempty"`
-	LeafInterfacesEthernetMtu                types.String `tfsdk:"mtu" vyos:"mtu,omitempty"`
+	LeafInterfacesEthernetMtu                types.Number `tfsdk:"mtu" vyos:"mtu,omitempty"`
 	LeafInterfacesEthernetSpeed              types.String `tfsdk:"speed" vyos:"speed,omitempty"`
 	LeafInterfacesEthernetRedirect           types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 	LeafInterfacesEthernetVrf                types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
-	LeafInterfacesEthernetXdp                types.String `tfsdk:"xdp" vyos:"xdp,omitempty"`
+	LeafInterfacesEthernetXdp                types.Bool   `tfsdk:"xdp" vyos:"xdp,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagInterfacesEthernetVifS bool `tfsdk:"vif_s" vyos:"vif-s,child"`
@@ -48,6 +45,7 @@ type InterfacesEthernet struct {
 func (o *InterfacesEthernet) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"ethernet",
 		o.ID.ValueString(),
 	}
@@ -69,8 +67,9 @@ func (o InterfacesEthernet) ResourceSchemaAttributes() map[string]schema.Attribu
 
 		// LeafNodes
 
-		"address": schema.StringAttribute{
-			Optional: true,
+		"address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address
 
     |  Format  |  Description  |
@@ -94,25 +93,31 @@ func (o InterfacesEthernet) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 
-		"disable_flow_control": schema.StringAttribute{
+		"disable_flow_control": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable Ethernet flow control (pause frames)
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"disable_link_detect": schema.StringAttribute{
+		"disable_link_detect": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ignore link state changes
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"duplex": schema.StringAttribute{
@@ -153,7 +158,7 @@ func (o InterfacesEthernet) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 
-		"mtu": schema.StringAttribute{
+		"mtu": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
@@ -213,11 +218,13 @@ func (o InterfacesEthernet) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 
-		"xdp": schema.StringAttribute{
+		"xdp": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable eXpress Data Path
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -290,377 +297,10 @@ func (o InterfacesEthernet) ResourceSchemaAttributes() map[string]schema.Attribu
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesEthernet) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesEthernetAddress.IsNull() && !o.LeafInterfacesEthernetAddress.IsUnknown() {
-		jsonData["address"] = o.LeafInterfacesEthernetAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetDescrIPtion.IsNull() && !o.LeafInterfacesEthernetDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafInterfacesEthernetDescrIPtion.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetDisableFlowControl.IsNull() && !o.LeafInterfacesEthernetDisableFlowControl.IsUnknown() {
-		jsonData["disable-flow-control"] = o.LeafInterfacesEthernetDisableFlowControl.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetDisableLinkDetect.IsNull() && !o.LeafInterfacesEthernetDisableLinkDetect.IsUnknown() {
-		jsonData["disable-link-detect"] = o.LeafInterfacesEthernetDisableLinkDetect.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetDisable.IsNull() && !o.LeafInterfacesEthernetDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafInterfacesEthernetDisable.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetDuplex.IsNull() && !o.LeafInterfacesEthernetDuplex.IsUnknown() {
-		jsonData["duplex"] = o.LeafInterfacesEthernetDuplex.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetHwID.IsNull() && !o.LeafInterfacesEthernetHwID.IsUnknown() {
-		jsonData["hw-id"] = o.LeafInterfacesEthernetHwID.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetMac.IsNull() && !o.LeafInterfacesEthernetMac.IsUnknown() {
-		jsonData["mac"] = o.LeafInterfacesEthernetMac.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetMtu.IsNull() && !o.LeafInterfacesEthernetMtu.IsUnknown() {
-		jsonData["mtu"] = o.LeafInterfacesEthernetMtu.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetSpeed.IsNull() && !o.LeafInterfacesEthernetSpeed.IsUnknown() {
-		jsonData["speed"] = o.LeafInterfacesEthernetSpeed.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetRedirect.IsNull() && !o.LeafInterfacesEthernetRedirect.IsUnknown() {
-		jsonData["redirect"] = o.LeafInterfacesEthernetRedirect.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetVrf.IsNull() && !o.LeafInterfacesEthernetVrf.IsUnknown() {
-		jsonData["vrf"] = o.LeafInterfacesEthernetVrf.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetXdp.IsNull() && !o.LeafInterfacesEthernetXdp.IsUnknown() {
-		jsonData["xdp"] = o.LeafInterfacesEthernetXdp.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesEthernetDhcpOptions).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesEthernetDhcpOptions)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["dhcp-options"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesEthernetDhcpvsixOptions).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesEthernetDhcpvsixOptions)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["dhcpv6-options"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesEthernetEapol).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesEthernetEapol)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["eapol"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesEthernetIP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesEthernetIP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ip"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesEthernetIPvsix).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesEthernetIPvsix)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipv6"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesEthernetMirror).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesEthernetMirror)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["mirror"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesEthernetOffload).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesEthernetOffload)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["offload"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesEthernetRingBuffer).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesEthernetRingBuffer)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ring-buffer"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesEthernet) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafInterfacesEthernetAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafInterfacesEthernetDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable-flow-control"]; ok {
-		o.LeafInterfacesEthernetDisableFlowControl = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetDisableFlowControl = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable-link-detect"]; ok {
-		o.LeafInterfacesEthernetDisableLinkDetect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetDisableLinkDetect = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafInterfacesEthernetDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["duplex"]; ok {
-		o.LeafInterfacesEthernetDuplex = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetDuplex = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["hw-id"]; ok {
-		o.LeafInterfacesEthernetHwID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetHwID = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mac"]; ok {
-		o.LeafInterfacesEthernetMac = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetMac = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mtu"]; ok {
-		o.LeafInterfacesEthernetMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetMtu = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["speed"]; ok {
-		o.LeafInterfacesEthernetSpeed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetSpeed = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["redirect"]; ok {
-		o.LeafInterfacesEthernetRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetRedirect = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vrf"]; ok {
-		o.LeafInterfacesEthernetVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVrf = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["xdp"]; ok {
-		o.LeafInterfacesEthernetXdp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetXdp = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["dhcp-options"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesEthernetDhcpOptions = &InterfacesEthernetDhcpOptions{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesEthernetDhcpOptions)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["dhcpv6-options"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesEthernetDhcpvsixOptions = &InterfacesEthernetDhcpvsixOptions{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesEthernetDhcpvsixOptions)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["eapol"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesEthernetEapol = &InterfacesEthernetEapol{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesEthernetEapol)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ip"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesEthernetIP = &InterfacesEthernetIP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesEthernetIP)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ipv6"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesEthernetIPvsix = &InterfacesEthernetIPvsix{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesEthernetIPvsix)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["mirror"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesEthernetMirror = &InterfacesEthernetMirror{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesEthernetMirror)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["offload"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesEthernetOffload = &InterfacesEthernetOffload{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesEthernetOffload)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ring-buffer"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesEthernetRingBuffer = &InterfacesEthernetRingBuffer{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesEthernetRingBuffer)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesEthernet) UnmarshalJSON(_ []byte) error {
 	return nil
 }

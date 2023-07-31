@@ -35,7 +35,7 @@ PADO delays
 
 ### Optional
 
-- `sessions` (String) Number of sessions
+- `sessions` (Number) Number of sessions
 
     |  Format  |  Description  |
     |----------|---------------|

@@ -2,11 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesWirelessVifSVifCDhcpOptions describes the resource data model.
@@ -14,11 +12,11 @@ type InterfacesWirelessVifSVifCDhcpOptions struct {
 	// LeafNodes
 	LeafInterfacesWirelessVifSVifCDhcpOptionsClientID             types.String `tfsdk:"client_id" vyos:"client-id,omitempty"`
 	LeafInterfacesWirelessVifSVifCDhcpOptionsHostName             types.String `tfsdk:"host_name" vyos:"host-name,omitempty"`
-	LeafInterfacesWirelessVifSVifCDhcpOptionsMtu                  types.String `tfsdk:"mtu" vyos:"mtu,omitempty"`
+	LeafInterfacesWirelessVifSVifCDhcpOptionsMtu                  types.Bool   `tfsdk:"mtu" vyos:"mtu,omitempty"`
 	LeafInterfacesWirelessVifSVifCDhcpOptionsVendorClassID        types.String `tfsdk:"vendor_class_id" vyos:"vendor-class-id,omitempty"`
-	LeafInterfacesWirelessVifSVifCDhcpOptionsNoDefaultRoute       types.String `tfsdk:"no_default_route" vyos:"no-default-route,omitempty"`
-	LeafInterfacesWirelessVifSVifCDhcpOptionsDefaultRouteDistance types.String `tfsdk:"default_route_distance" vyos:"default-route-distance,omitempty"`
-	LeafInterfacesWirelessVifSVifCDhcpOptionsReject               types.String `tfsdk:"reject" vyos:"reject,omitempty"`
+	LeafInterfacesWirelessVifSVifCDhcpOptionsNoDefaultRoute       types.Bool   `tfsdk:"no_default_route" vyos:"no-default-route,omitempty"`
+	LeafInterfacesWirelessVifSVifCDhcpOptionsDefaultRouteDistance types.Number `tfsdk:"default_route_distance" vyos:"default-route-distance,omitempty"`
+	LeafInterfacesWirelessVifSVifCDhcpOptionsReject               types.List   `tfsdk:"reject" vyos:"reject,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -44,11 +42,13 @@ func (o InterfacesWirelessVifSVifCDhcpOptions) ResourceSchemaAttributes() map[st
 `,
 		},
 
-		"mtu": schema.StringAttribute{
+		"mtu": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use MTU value from DHCP server - ignore interface setting
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"vendor_class_id": schema.StringAttribute{
@@ -58,14 +58,16 @@ func (o InterfacesWirelessVifSVifCDhcpOptions) ResourceSchemaAttributes() map[st
 `,
 		},
 
-		"no_default_route": schema.StringAttribute{
+		"no_default_route": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not install default route to system
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"default_route_distance": schema.StringAttribute{
+		"default_route_distance": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Distance for installed default route
 
@@ -79,8 +81,9 @@ func (o InterfacesWirelessVifSVifCDhcpOptions) ResourceSchemaAttributes() map[st
 			Computed: true,
 		},
 
-		"reject": schema.StringAttribute{
-			Optional: true,
+		"reject": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP addresses or subnets from which to reject DHCP leases
 
     |  Format  |  Description  |
@@ -98,101 +101,10 @@ func (o InterfacesWirelessVifSVifCDhcpOptions) ResourceSchemaAttributes() map[st
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesWirelessVifSVifCDhcpOptions) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesWirelessVifSVifCDhcpOptionsClientID.IsNull() && !o.LeafInterfacesWirelessVifSVifCDhcpOptionsClientID.IsUnknown() {
-		jsonData["client-id"] = o.LeafInterfacesWirelessVifSVifCDhcpOptionsClientID.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessVifSVifCDhcpOptionsHostName.IsNull() && !o.LeafInterfacesWirelessVifSVifCDhcpOptionsHostName.IsUnknown() {
-		jsonData["host-name"] = o.LeafInterfacesWirelessVifSVifCDhcpOptionsHostName.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessVifSVifCDhcpOptionsMtu.IsNull() && !o.LeafInterfacesWirelessVifSVifCDhcpOptionsMtu.IsUnknown() {
-		jsonData["mtu"] = o.LeafInterfacesWirelessVifSVifCDhcpOptionsMtu.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessVifSVifCDhcpOptionsVendorClassID.IsNull() && !o.LeafInterfacesWirelessVifSVifCDhcpOptionsVendorClassID.IsUnknown() {
-		jsonData["vendor-class-id"] = o.LeafInterfacesWirelessVifSVifCDhcpOptionsVendorClassID.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessVifSVifCDhcpOptionsNoDefaultRoute.IsNull() && !o.LeafInterfacesWirelessVifSVifCDhcpOptionsNoDefaultRoute.IsUnknown() {
-		jsonData["no-default-route"] = o.LeafInterfacesWirelessVifSVifCDhcpOptionsNoDefaultRoute.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessVifSVifCDhcpOptionsDefaultRouteDistance.IsNull() && !o.LeafInterfacesWirelessVifSVifCDhcpOptionsDefaultRouteDistance.IsUnknown() {
-		jsonData["default-route-distance"] = o.LeafInterfacesWirelessVifSVifCDhcpOptionsDefaultRouteDistance.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessVifSVifCDhcpOptionsReject.IsNull() && !o.LeafInterfacesWirelessVifSVifCDhcpOptionsReject.IsUnknown() {
-		jsonData["reject"] = o.LeafInterfacesWirelessVifSVifCDhcpOptionsReject.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWirelessVifSVifCDhcpOptions) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["client-id"]; ok {
-		o.LeafInterfacesWirelessVifSVifCDhcpOptionsClientID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSVifCDhcpOptionsClientID = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["host-name"]; ok {
-		o.LeafInterfacesWirelessVifSVifCDhcpOptionsHostName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSVifCDhcpOptionsHostName = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mtu"]; ok {
-		o.LeafInterfacesWirelessVifSVifCDhcpOptionsMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSVifCDhcpOptionsMtu = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vendor-class-id"]; ok {
-		o.LeafInterfacesWirelessVifSVifCDhcpOptionsVendorClassID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSVifCDhcpOptionsVendorClassID = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["no-default-route"]; ok {
-		o.LeafInterfacesWirelessVifSVifCDhcpOptionsNoDefaultRoute = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSVifCDhcpOptionsNoDefaultRoute = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["default-route-distance"]; ok {
-		o.LeafInterfacesWirelessVifSVifCDhcpOptionsDefaultRouteDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSVifCDhcpOptionsDefaultRouteDistance = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["reject"]; ok {
-		o.LeafInterfacesWirelessVifSVifCDhcpOptionsReject = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSVifCDhcpOptionsReject = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesWirelessVifSVifCDhcpOptions) UnmarshalJSON(_ []byte) error {
 	return nil
 }

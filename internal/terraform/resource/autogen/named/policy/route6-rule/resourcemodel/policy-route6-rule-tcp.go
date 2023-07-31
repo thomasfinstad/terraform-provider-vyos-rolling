@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRoutesixRuleTCP describes the resource data model.
@@ -52,68 +48,10 @@ func (o PolicyRoutesixRuleTCP) ResourceSchemaAttributes() map[string]schema.Attr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRoutesixRuleTCP) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRoutesixRuleTCPMss.IsNull() && !o.LeafPolicyRoutesixRuleTCPMss.IsUnknown() {
-		jsonData["mss"] = o.LeafPolicyRoutesixRuleTCPMss.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodePolicyRoutesixRuleTCPFlags).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRoutesixRuleTCPFlags)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["flags"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRoutesixRuleTCP) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["mss"]; ok {
-		o.LeafPolicyRoutesixRuleTCPMss = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleTCPMss = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["flags"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRoutesixRuleTCPFlags = &PolicyRoutesixRuleTCPFlags{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRoutesixRuleTCPFlags)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *PolicyRoutesixRuleTCP) UnmarshalJSON(_ []byte) error {
 	return nil
 }

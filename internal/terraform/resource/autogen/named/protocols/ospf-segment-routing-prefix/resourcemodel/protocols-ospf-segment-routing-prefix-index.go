@@ -2,19 +2,17 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsOspfSegmentRoutingPrefixIndex describes the resource data model.
 type ProtocolsOspfSegmentRoutingPrefixIndex struct {
 	// LeafNodes
-	LeafProtocolsOspfSegmentRoutingPrefixIndexValue        types.String `tfsdk:"value" vyos:"value,omitempty"`
-	LeafProtocolsOspfSegmentRoutingPrefixIndexExplicitNull types.String `tfsdk:"explicit_null" vyos:"explicit-null,omitempty"`
-	LeafProtocolsOspfSegmentRoutingPrefixIndexNoPhpFlag    types.String `tfsdk:"no_php_flag" vyos:"no-php-flag,omitempty"`
+	LeafProtocolsOspfSegmentRoutingPrefixIndexValue        types.Number `tfsdk:"value" vyos:"value,omitempty"`
+	LeafProtocolsOspfSegmentRoutingPrefixIndexExplicitNull types.Bool   `tfsdk:"explicit_null" vyos:"explicit-null,omitempty"`
+	LeafProtocolsOspfSegmentRoutingPrefixIndexNoPhpFlag    types.Bool   `tfsdk:"no_php_flag" vyos:"no-php-flag,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,7 +24,7 @@ func (o ProtocolsOspfSegmentRoutingPrefixIndex) ResourceSchemaAttributes() map[s
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"value": schema.StringAttribute{
+		"value": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Specify the index value of prefix segment/label ID
 
@@ -37,18 +35,22 @@ func (o ProtocolsOspfSegmentRoutingPrefixIndex) ResourceSchemaAttributes() map[s
 `,
 		},
 
-		"explicit_null": schema.StringAttribute{
+		"explicit_null": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Request upstream neighbor to replace segment/label with explicit null label
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"no_php_flag": schema.StringAttribute{
+		"no_php_flag": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not request penultimate hop popping for segment/label
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -58,61 +60,10 @@ func (o ProtocolsOspfSegmentRoutingPrefixIndex) ResourceSchemaAttributes() map[s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsOspfSegmentRoutingPrefixIndex) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsOspfSegmentRoutingPrefixIndexValue.IsNull() && !o.LeafProtocolsOspfSegmentRoutingPrefixIndexValue.IsUnknown() {
-		jsonData["value"] = o.LeafProtocolsOspfSegmentRoutingPrefixIndexValue.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfSegmentRoutingPrefixIndexExplicitNull.IsNull() && !o.LeafProtocolsOspfSegmentRoutingPrefixIndexExplicitNull.IsUnknown() {
-		jsonData["explicit-null"] = o.LeafProtocolsOspfSegmentRoutingPrefixIndexExplicitNull.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfSegmentRoutingPrefixIndexNoPhpFlag.IsNull() && !o.LeafProtocolsOspfSegmentRoutingPrefixIndexNoPhpFlag.IsUnknown() {
-		jsonData["no-php-flag"] = o.LeafProtocolsOspfSegmentRoutingPrefixIndexNoPhpFlag.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsOspfSegmentRoutingPrefixIndex) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["value"]; ok {
-		o.LeafProtocolsOspfSegmentRoutingPrefixIndexValue = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfSegmentRoutingPrefixIndexValue = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["explicit-null"]; ok {
-		o.LeafProtocolsOspfSegmentRoutingPrefixIndexExplicitNull = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfSegmentRoutingPrefixIndexExplicitNull = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["no-php-flag"]; ok {
-		o.LeafProtocolsOspfSegmentRoutingPrefixIndexNoPhpFlag = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfSegmentRoutingPrefixIndexNoPhpFlag = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsOspfSegmentRoutingPrefixIndex) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,20 +2,18 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesWirelessVifDhcpvsixOptions describes the resource data model.
 type InterfacesWirelessVifDhcpvsixOptions struct {
 	// LeafNodes
 	LeafInterfacesWirelessVifDhcpvsixOptionsDuID           types.String `tfsdk:"duid" vyos:"duid,omitempty"`
-	LeafInterfacesWirelessVifDhcpvsixOptionsParametersOnly types.String `tfsdk:"parameters_only" vyos:"parameters-only,omitempty"`
-	LeafInterfacesWirelessVifDhcpvsixOptionsRAPIDCommit    types.String `tfsdk:"rapid_commit" vyos:"rapid-commit,omitempty"`
-	LeafInterfacesWirelessVifDhcpvsixOptionsTemporary      types.String `tfsdk:"temporary" vyos:"temporary,omitempty"`
+	LeafInterfacesWirelessVifDhcpvsixOptionsParametersOnly types.Bool   `tfsdk:"parameters_only" vyos:"parameters-only,omitempty"`
+	LeafInterfacesWirelessVifDhcpvsixOptionsRAPIDCommit    types.Bool   `tfsdk:"rapid_commit" vyos:"rapid-commit,omitempty"`
+	LeafInterfacesWirelessVifDhcpvsixOptionsTemporary      types.Bool   `tfsdk:"temporary" vyos:"temporary,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagInterfacesWirelessVifDhcpvsixOptionsPd bool `tfsdk:"pd" vyos:"pd,child"`
@@ -39,25 +37,31 @@ func (o InterfacesWirelessVifDhcpvsixOptions) ResourceSchemaAttributes() map[str
 `,
 		},
 
-		"parameters_only": schema.StringAttribute{
+		"parameters_only": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Acquire only config parameters, no address
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"rapid_commit": schema.StringAttribute{
+		"rapid_commit": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Wait for immediate reply instead of advertisements
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"temporary": schema.StringAttribute{
+		"temporary": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv6 temporary address
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -67,71 +71,10 @@ func (o InterfacesWirelessVifDhcpvsixOptions) ResourceSchemaAttributes() map[str
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesWirelessVifDhcpvsixOptions) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesWirelessVifDhcpvsixOptionsDuID.IsNull() && !o.LeafInterfacesWirelessVifDhcpvsixOptionsDuID.IsUnknown() {
-		jsonData["duid"] = o.LeafInterfacesWirelessVifDhcpvsixOptionsDuID.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessVifDhcpvsixOptionsParametersOnly.IsNull() && !o.LeafInterfacesWirelessVifDhcpvsixOptionsParametersOnly.IsUnknown() {
-		jsonData["parameters-only"] = o.LeafInterfacesWirelessVifDhcpvsixOptionsParametersOnly.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessVifDhcpvsixOptionsRAPIDCommit.IsNull() && !o.LeafInterfacesWirelessVifDhcpvsixOptionsRAPIDCommit.IsUnknown() {
-		jsonData["rapid-commit"] = o.LeafInterfacesWirelessVifDhcpvsixOptionsRAPIDCommit.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessVifDhcpvsixOptionsTemporary.IsNull() && !o.LeafInterfacesWirelessVifDhcpvsixOptionsTemporary.IsUnknown() {
-		jsonData["temporary"] = o.LeafInterfacesWirelessVifDhcpvsixOptionsTemporary.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWirelessVifDhcpvsixOptions) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["duid"]; ok {
-		o.LeafInterfacesWirelessVifDhcpvsixOptionsDuID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifDhcpvsixOptionsDuID = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["parameters-only"]; ok {
-		o.LeafInterfacesWirelessVifDhcpvsixOptionsParametersOnly = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifDhcpvsixOptionsParametersOnly = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rapid-commit"]; ok {
-		o.LeafInterfacesWirelessVifDhcpvsixOptionsRAPIDCommit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifDhcpvsixOptionsRAPIDCommit = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["temporary"]; ok {
-		o.LeafInterfacesWirelessVifDhcpvsixOptionsTemporary = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifDhcpvsixOptionsTemporary = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesWirelessVifDhcpvsixOptions) UnmarshalJSON(_ []byte) error {
 	return nil
 }

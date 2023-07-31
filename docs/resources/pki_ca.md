@@ -25,10 +25,10 @@ Certificate Authority
 ### Optional
 
 - `certificate` (String) CA certificate in PEM format
-- `crl` (String) Certificate revocation list in PEM format
+- `crl` (List of String) Certificate revocation list in PEM format
 - `description` (String) Description
 - `private` (Attributes) CA private key in PEM format (see [below for nested schema](#nestedatt--private))
-- `revoke` (String) If parent CA is present, this CA certificate will be included in generated CRLs
+- `revoke` (Boolean) If parent CA is present, this CA certificate will be included in generated CRLs
 
 <a id="nestedatt--private"></a>
 ### Nested Schema for `private`
@@ -36,4 +36,4 @@ Certificate Authority
 Optional:
 
 - `key` (String) CA private key in PEM format
-- `password_protected` (String) CA private key is password protected
+- `password_protected` (Boolean) CA private key is password protected

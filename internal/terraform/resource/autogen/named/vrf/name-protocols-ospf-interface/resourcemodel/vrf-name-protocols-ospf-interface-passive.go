@@ -2,17 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfInterfacePassive describes the resource data model.
 type VrfNameProtocolsOspfInterfacePassive struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfInterfacePassiveDisable types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafVrfNameProtocolsOspfInterfacePassiveDisable types.Bool `tfsdk:"disable" vyos:"disable,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,11 +22,13 @@ func (o VrfNameProtocolsOspfInterfacePassive) ResourceSchemaAttributes() map[str
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -38,41 +38,10 @@ func (o VrfNameProtocolsOspfInterfacePassive) ResourceSchemaAttributes() map[str
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfInterfacePassive) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfInterfacePassiveDisable.IsNull() && !o.LeafVrfNameProtocolsOspfInterfacePassiveDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafVrfNameProtocolsOspfInterfacePassiveDisable.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfInterfacePassive) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafVrfNameProtocolsOspfInterfacePassiveDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfInterfacePassiveDisable = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfInterfacePassive) UnmarshalJSON(_ []byte) error {
 	return nil
 }

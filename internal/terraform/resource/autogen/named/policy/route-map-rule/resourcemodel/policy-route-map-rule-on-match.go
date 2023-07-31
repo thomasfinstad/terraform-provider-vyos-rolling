@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteMapRuleOnMatch describes the resource data model.
 type PolicyRouteMapRuleOnMatch struct {
 	// LeafNodes
-	LeafPolicyRouteMapRuleOnMatchGoto types.String `tfsdk:"goto" vyos:"goto,omitempty"`
-	LeafPolicyRouteMapRuleOnMatchNext types.String `tfsdk:"next" vyos:"next,omitempty"`
+	LeafPolicyRouteMapRuleOnMatchGoto types.Number `tfsdk:"goto" vyos:"goto,omitempty"`
+	LeafPolicyRouteMapRuleOnMatchNext types.Bool   `tfsdk:"next" vyos:"next,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +23,7 @@ func (o PolicyRouteMapRuleOnMatch) ResourceSchemaAttributes() map[string]schema.
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"goto": schema.StringAttribute{
+		"goto": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Rule number to goto on match
 
@@ -36,11 +34,13 @@ func (o PolicyRouteMapRuleOnMatch) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 
-		"next": schema.StringAttribute{
+		"next": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Next sequence number to goto on match
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -50,51 +50,10 @@ func (o PolicyRouteMapRuleOnMatch) ResourceSchemaAttributes() map[string]schema.
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteMapRuleOnMatch) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteMapRuleOnMatchGoto.IsNull() && !o.LeafPolicyRouteMapRuleOnMatchGoto.IsUnknown() {
-		jsonData["goto"] = o.LeafPolicyRouteMapRuleOnMatchGoto.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleOnMatchNext.IsNull() && !o.LeafPolicyRouteMapRuleOnMatchNext.IsUnknown() {
-		jsonData["next"] = o.LeafPolicyRouteMapRuleOnMatchNext.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteMapRuleOnMatch) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["goto"]; ok {
-		o.LeafPolicyRouteMapRuleOnMatchGoto = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleOnMatchGoto = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["next"]; ok {
-		o.LeafPolicyRouteMapRuleOnMatchNext = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleOnMatchNext = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRouteMapRuleOnMatch) UnmarshalJSON(_ []byte) error {
 	return nil
 }

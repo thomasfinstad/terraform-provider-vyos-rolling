@@ -2,17 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvsixMulticastNexthopSelf describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyIPvsixMulticastNexthopSelf struct {
 	// LeafNodes
-	LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastNexthopSelfForce types.String `tfsdk:"force" vyos:"force,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastNexthopSelfForce types.Bool `tfsdk:"force" vyos:"force,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,11 +22,13 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixMulticastNexthopSelf) ResourceSch
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"force": schema.StringAttribute{
+		"force": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Set the next hop to self for reflected routes
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -38,41 +38,10 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixMulticastNexthopSelf) ResourceSch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpNeighborAddressFamilyIPvsixMulticastNexthopSelf) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastNexthopSelfForce.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastNexthopSelfForce.IsUnknown() {
-		jsonData["force"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastNexthopSelfForce.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighborAddressFamilyIPvsixMulticastNexthopSelf) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["force"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastNexthopSelfForce = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastNexthopSelfForce = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpNeighborAddressFamilyIPvsixMulticastNexthopSelf) UnmarshalJSON(_ []byte) error {
 	return nil
 }

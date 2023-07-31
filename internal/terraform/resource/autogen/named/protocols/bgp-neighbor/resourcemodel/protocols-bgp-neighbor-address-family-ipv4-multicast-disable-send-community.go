@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity struct {
 	// LeafNodes
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityExtended types.String `tfsdk:"extended" vyos:"extended,omitempty"`
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityStandard types.String `tfsdk:"standard" vyos:"standard,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityExtended types.Bool `tfsdk:"extended" vyos:"extended,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityStandard types.Bool `tfsdk:"standard" vyos:"standard,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,18 +23,22 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity) R
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"extended": schema.StringAttribute{
+		"extended": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable sending extended community attributes to this peer
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"standard": schema.StringAttribute{
+		"standard": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable sending standard community attributes to this peer
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -46,51 +48,10 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity) R
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityExtended.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityExtended.IsUnknown() {
-		jsonData["extended"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityExtended.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityStandard.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityStandard.IsUnknown() {
-		jsonData["standard"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityStandard.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["extended"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityExtended = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityExtended = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["standard"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityStandard = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityStandard = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity) UnmarshalJSON(_ []byte) error {
 	return nil
 }

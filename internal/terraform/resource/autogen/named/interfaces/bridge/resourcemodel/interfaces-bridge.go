@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesBrIDge describes the resource data model.
@@ -15,20 +12,20 @@ type InterfacesBrIDge struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafInterfacesBrIDgeAddress           types.String `tfsdk:"address" vyos:"address,omitempty"`
-	LeafInterfacesBrIDgeAging             types.String `tfsdk:"aging" vyos:"aging,omitempty"`
+	LeafInterfacesBrIDgeAddress           types.List   `tfsdk:"address" vyos:"address,omitempty"`
+	LeafInterfacesBrIDgeAging             types.Number `tfsdk:"aging" vyos:"aging,omitempty"`
 	LeafInterfacesBrIDgeDescrIPtion       types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafInterfacesBrIDgeDisableLinkDetect types.String `tfsdk:"disable_link_detect" vyos:"disable-link-detect,omitempty"`
-	LeafInterfacesBrIDgeDisable           types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafInterfacesBrIDgeDisableLinkDetect types.Bool   `tfsdk:"disable_link_detect" vyos:"disable-link-detect,omitempty"`
+	LeafInterfacesBrIDgeDisable           types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafInterfacesBrIDgeVrf               types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
-	LeafInterfacesBrIDgeMtu               types.String `tfsdk:"mtu" vyos:"mtu,omitempty"`
-	LeafInterfacesBrIDgeForwardingDelay   types.String `tfsdk:"forwarding_delay" vyos:"forwarding-delay,omitempty"`
-	LeafInterfacesBrIDgeHelloTime         types.String `tfsdk:"hello_time" vyos:"hello-time,omitempty"`
+	LeafInterfacesBrIDgeMtu               types.Number `tfsdk:"mtu" vyos:"mtu,omitempty"`
+	LeafInterfacesBrIDgeForwardingDelay   types.Number `tfsdk:"forwarding_delay" vyos:"forwarding-delay,omitempty"`
+	LeafInterfacesBrIDgeHelloTime         types.Number `tfsdk:"hello_time" vyos:"hello-time,omitempty"`
 	LeafInterfacesBrIDgeMac               types.String `tfsdk:"mac" vyos:"mac,omitempty"`
-	LeafInterfacesBrIDgeEnableVlan        types.String `tfsdk:"enable_vlan" vyos:"enable-vlan,omitempty"`
-	LeafInterfacesBrIDgeMaxAge            types.String `tfsdk:"max_age" vyos:"max-age,omitempty"`
-	LeafInterfacesBrIDgePriority          types.String `tfsdk:"priority" vyos:"priority,omitempty"`
-	LeafInterfacesBrIDgeStp               types.String `tfsdk:"stp" vyos:"stp,omitempty"`
+	LeafInterfacesBrIDgeEnableVlan        types.Bool   `tfsdk:"enable_vlan" vyos:"enable-vlan,omitempty"`
+	LeafInterfacesBrIDgeMaxAge            types.Number `tfsdk:"max_age" vyos:"max-age,omitempty"`
+	LeafInterfacesBrIDgePriority          types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
+	LeafInterfacesBrIDgeStp               types.Bool   `tfsdk:"stp" vyos:"stp,omitempty"`
 	LeafInterfacesBrIDgeRedirect          types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -48,6 +45,7 @@ type InterfacesBrIDge struct {
 func (o *InterfacesBrIDge) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"bridge",
 		o.ID.ValueString(),
 	}
@@ -69,8 +67,9 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 
 		// LeafNodes
 
-		"address": schema.StringAttribute{
-			Optional: true,
+		"address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address
 
     |  Format  |  Description  |
@@ -83,7 +82,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 
-		"aging": schema.StringAttribute{
+		"aging": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `MAC address aging interval
 
@@ -109,18 +108,22 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 
-		"disable_link_detect": schema.StringAttribute{
+		"disable_link_detect": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ignore link state changes
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"vrf": schema.StringAttribute{
@@ -134,7 +137,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 
-		"mtu": schema.StringAttribute{
+		"mtu": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
@@ -148,7 +151,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 			Computed: true,
 		},
 
-		"forwarding_delay": schema.StringAttribute{
+		"forwarding_delay": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Forwarding delay
 
@@ -162,7 +165,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 			Computed: true,
 		},
 
-		"hello_time": schema.StringAttribute{
+		"hello_time": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Hello packet advertisement interval
 
@@ -187,14 +190,16 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 
-		"enable_vlan": schema.StringAttribute{
+		"enable_vlan": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable VLAN aware bridge
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"max_age": schema.StringAttribute{
+		"max_age": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval at which neighbor bridges are removed
 
@@ -208,7 +213,7 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 			Computed: true,
 		},
 
-		"priority": schema.StringAttribute{
+		"priority": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Priority for this bridge
 
@@ -222,11 +227,13 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 			Computed: true,
 		},
 
-		"stp": schema.StringAttribute{
+		"stp": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable spanning tree protocol
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"redirect": schema.StringAttribute{
@@ -302,370 +309,10 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesBrIDge) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesBrIDgeAddress.IsNull() && !o.LeafInterfacesBrIDgeAddress.IsUnknown() {
-		jsonData["address"] = o.LeafInterfacesBrIDgeAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesBrIDgeAging.IsNull() && !o.LeafInterfacesBrIDgeAging.IsUnknown() {
-		jsonData["aging"] = o.LeafInterfacesBrIDgeAging.ValueString()
-	}
-
-	if !o.LeafInterfacesBrIDgeDescrIPtion.IsNull() && !o.LeafInterfacesBrIDgeDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafInterfacesBrIDgeDescrIPtion.ValueString()
-	}
-
-	if !o.LeafInterfacesBrIDgeDisableLinkDetect.IsNull() && !o.LeafInterfacesBrIDgeDisableLinkDetect.IsUnknown() {
-		jsonData["disable-link-detect"] = o.LeafInterfacesBrIDgeDisableLinkDetect.ValueString()
-	}
-
-	if !o.LeafInterfacesBrIDgeDisable.IsNull() && !o.LeafInterfacesBrIDgeDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafInterfacesBrIDgeDisable.ValueString()
-	}
-
-	if !o.LeafInterfacesBrIDgeVrf.IsNull() && !o.LeafInterfacesBrIDgeVrf.IsUnknown() {
-		jsonData["vrf"] = o.LeafInterfacesBrIDgeVrf.ValueString()
-	}
-
-	if !o.LeafInterfacesBrIDgeMtu.IsNull() && !o.LeafInterfacesBrIDgeMtu.IsUnknown() {
-		jsonData["mtu"] = o.LeafInterfacesBrIDgeMtu.ValueString()
-	}
-
-	if !o.LeafInterfacesBrIDgeForwardingDelay.IsNull() && !o.LeafInterfacesBrIDgeForwardingDelay.IsUnknown() {
-		jsonData["forwarding-delay"] = o.LeafInterfacesBrIDgeForwardingDelay.ValueString()
-	}
-
-	if !o.LeafInterfacesBrIDgeHelloTime.IsNull() && !o.LeafInterfacesBrIDgeHelloTime.IsUnknown() {
-		jsonData["hello-time"] = o.LeafInterfacesBrIDgeHelloTime.ValueString()
-	}
-
-	if !o.LeafInterfacesBrIDgeMac.IsNull() && !o.LeafInterfacesBrIDgeMac.IsUnknown() {
-		jsonData["mac"] = o.LeafInterfacesBrIDgeMac.ValueString()
-	}
-
-	if !o.LeafInterfacesBrIDgeEnableVlan.IsNull() && !o.LeafInterfacesBrIDgeEnableVlan.IsUnknown() {
-		jsonData["enable-vlan"] = o.LeafInterfacesBrIDgeEnableVlan.ValueString()
-	}
-
-	if !o.LeafInterfacesBrIDgeMaxAge.IsNull() && !o.LeafInterfacesBrIDgeMaxAge.IsUnknown() {
-		jsonData["max-age"] = o.LeafInterfacesBrIDgeMaxAge.ValueString()
-	}
-
-	if !o.LeafInterfacesBrIDgePriority.IsNull() && !o.LeafInterfacesBrIDgePriority.IsUnknown() {
-		jsonData["priority"] = o.LeafInterfacesBrIDgePriority.ValueString()
-	}
-
-	if !o.LeafInterfacesBrIDgeStp.IsNull() && !o.LeafInterfacesBrIDgeStp.IsUnknown() {
-		jsonData["stp"] = o.LeafInterfacesBrIDgeStp.ValueString()
-	}
-
-	if !o.LeafInterfacesBrIDgeRedirect.IsNull() && !o.LeafInterfacesBrIDgeRedirect.IsUnknown() {
-		jsonData["redirect"] = o.LeafInterfacesBrIDgeRedirect.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesBrIDgeDhcpOptions).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesBrIDgeDhcpOptions)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["dhcp-options"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesBrIDgeDhcpvsixOptions).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesBrIDgeDhcpvsixOptions)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["dhcpv6-options"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesBrIDgeIgmp).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesBrIDgeIgmp)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["igmp"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesBrIDgeIP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesBrIDgeIP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ip"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesBrIDgeIPvsix).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesBrIDgeIPvsix)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipv6"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesBrIDgeMirror).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesBrIDgeMirror)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["mirror"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesBrIDgeMember).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesBrIDgeMember)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["member"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesBrIDge) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafInterfacesBrIDgeAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["aging"]; ok {
-		o.LeafInterfacesBrIDgeAging = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeAging = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafInterfacesBrIDgeDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable-link-detect"]; ok {
-		o.LeafInterfacesBrIDgeDisableLinkDetect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeDisableLinkDetect = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafInterfacesBrIDgeDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vrf"]; ok {
-		o.LeafInterfacesBrIDgeVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeVrf = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mtu"]; ok {
-		o.LeafInterfacesBrIDgeMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeMtu = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["forwarding-delay"]; ok {
-		o.LeafInterfacesBrIDgeForwardingDelay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeForwardingDelay = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["hello-time"]; ok {
-		o.LeafInterfacesBrIDgeHelloTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeHelloTime = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mac"]; ok {
-		o.LeafInterfacesBrIDgeMac = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeMac = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["enable-vlan"]; ok {
-		o.LeafInterfacesBrIDgeEnableVlan = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeEnableVlan = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["max-age"]; ok {
-		o.LeafInterfacesBrIDgeMaxAge = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeMaxAge = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["priority"]; ok {
-		o.LeafInterfacesBrIDgePriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgePriority = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["stp"]; ok {
-		o.LeafInterfacesBrIDgeStp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeStp = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["redirect"]; ok {
-		o.LeafInterfacesBrIDgeRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeRedirect = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["dhcp-options"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesBrIDgeDhcpOptions = &InterfacesBrIDgeDhcpOptions{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBrIDgeDhcpOptions)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["dhcpv6-options"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesBrIDgeDhcpvsixOptions = &InterfacesBrIDgeDhcpvsixOptions{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBrIDgeDhcpvsixOptions)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["igmp"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesBrIDgeIgmp = &InterfacesBrIDgeIgmp{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBrIDgeIgmp)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ip"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesBrIDgeIP = &InterfacesBrIDgeIP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBrIDgeIP)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ipv6"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesBrIDgeIPvsix = &InterfacesBrIDgeIPvsix{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBrIDgeIPvsix)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["mirror"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesBrIDgeMirror = &InterfacesBrIDgeMirror{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBrIDgeMirror)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["member"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesBrIDgeMember = &InterfacesBrIDgeMember{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBrIDgeMember)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesBrIDge) UnmarshalJSON(_ []byte) error {
 	return nil
 }

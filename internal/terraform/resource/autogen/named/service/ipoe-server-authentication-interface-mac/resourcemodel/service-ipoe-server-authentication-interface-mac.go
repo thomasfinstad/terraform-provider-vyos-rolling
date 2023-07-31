@@ -2,22 +2,18 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceIPoeServerAuthenticationInterfaceMac describes the resource data model.
 type ServiceIPoeServerAuthenticationInterfaceMac struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDServiceIPoeServerAuthenticationInterface any `tfsdk:"interface" vyos:"interface,parent-id"`
+	ParentIDServiceIPoeServerAuthenticationInterface types.String `tfsdk:"interface" vyos:"interface_identifier,parent-id"`
 
 	// LeafNodes
-	LeafServiceIPoeServerAuthenticationInterfaceMacVlan types.String `tfsdk:"vlan" vyos:"vlan,omitempty"`
+	LeafServiceIPoeServerAuthenticationInterfaceMacVlan types.Number `tfsdk:"vlan" vyos:"vlan,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -29,9 +25,14 @@ type ServiceIPoeServerAuthenticationInterfaceMac struct {
 func (o *ServiceIPoeServerAuthenticationInterfaceMac) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"ipoe-server",
+
 		"authentication",
+
 		"interface",
+		o.ParentIDServiceIPoeServerAuthenticationInterface.ValueString(),
+
 		"mac",
 		o.ID.ValueString(),
 	}
@@ -51,9 +52,16 @@ func (o ServiceIPoeServerAuthenticationInterfaceMac) ResourceSchemaAttributes() 
 `,
 		},
 
+		"interface_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Network interface for client MAC addresses
+
+`,
+		},
+
 		// LeafNodes
 
-		"vlan": schema.StringAttribute{
+		"vlan": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `VLAN monitor for automatic creation of VLAN interfaces
 
@@ -78,68 +86,10 @@ func (o ServiceIPoeServerAuthenticationInterfaceMac) ResourceSchemaAttributes() 
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceIPoeServerAuthenticationInterfaceMac) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceIPoeServerAuthenticationInterfaceMacVlan.IsNull() && !o.LeafServiceIPoeServerAuthenticationInterfaceMacVlan.IsUnknown() {
-		jsonData["vlan"] = o.LeafServiceIPoeServerAuthenticationInterfaceMacVlan.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeServiceIPoeServerAuthenticationInterfaceMacRateLimit).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeServiceIPoeServerAuthenticationInterfaceMacRateLimit)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["rate-limit"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceIPoeServerAuthenticationInterfaceMac) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["vlan"]; ok {
-		o.LeafServiceIPoeServerAuthenticationInterfaceMacVlan = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerAuthenticationInterfaceMacVlan = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["rate-limit"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeServiceIPoeServerAuthenticationInterfaceMacRateLimit = &ServiceIPoeServerAuthenticationInterfaceMacRateLimit{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeServiceIPoeServerAuthenticationInterfaceMacRateLimit)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ServiceIPoeServerAuthenticationInterfaceMac) UnmarshalJSON(_ []byte) error {
 	return nil
 }

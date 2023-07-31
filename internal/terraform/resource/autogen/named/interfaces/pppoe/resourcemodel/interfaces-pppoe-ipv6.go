@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesPppoeIPvsix describes the resource data model.
 type InterfacesPppoeIPvsix struct {
 	// LeafNodes
 	LeafInterfacesPppoeIPvsixAdjustMss         types.String `tfsdk:"adjust_mss" vyos:"adjust-mss,omitempty"`
-	LeafInterfacesPppoeIPvsixDisableForwarding types.String `tfsdk:"disable_forwarding" vyos:"disable-forwarding,omitempty"`
+	LeafInterfacesPppoeIPvsixDisableForwarding types.Bool   `tfsdk:"disable_forwarding" vyos:"disable-forwarding,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -39,11 +36,13 @@ func (o InterfacesPppoeIPvsix) ResourceSchemaAttributes() map[string]schema.Attr
 `,
 		},
 
-		"disable_forwarding": schema.StringAttribute{
+		"disable_forwarding": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable IP forwarding on this interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -60,78 +59,10 @@ func (o InterfacesPppoeIPvsix) ResourceSchemaAttributes() map[string]schema.Attr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesPppoeIPvsix) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesPppoeIPvsixAdjustMss.IsNull() && !o.LeafInterfacesPppoeIPvsixAdjustMss.IsUnknown() {
-		jsonData["adjust-mss"] = o.LeafInterfacesPppoeIPvsixAdjustMss.ValueString()
-	}
-
-	if !o.LeafInterfacesPppoeIPvsixDisableForwarding.IsNull() && !o.LeafInterfacesPppoeIPvsixDisableForwarding.IsUnknown() {
-		jsonData["disable-forwarding"] = o.LeafInterfacesPppoeIPvsixDisableForwarding.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesPppoeIPvsixAddress).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesPppoeIPvsixAddress)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["address"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesPppoeIPvsix) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["adjust-mss"]; ok {
-		o.LeafInterfacesPppoeIPvsixAdjustMss = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPppoeIPvsixAdjustMss = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable-forwarding"]; ok {
-		o.LeafInterfacesPppoeIPvsixDisableForwarding = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPppoeIPvsixDisableForwarding = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["address"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesPppoeIPvsixAddress = &InterfacesPppoeIPvsixAddress{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesPppoeIPvsixAddress)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesPppoeIPvsix) UnmarshalJSON(_ []byte) error {
 	return nil
 }

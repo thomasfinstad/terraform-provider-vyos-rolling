@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity describes the resource data model.
 type VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityExtended types.String `tfsdk:"extended" vyos:"extended,omitempty"`
-	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityStandard types.String `tfsdk:"standard" vyos:"standard,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityExtended types.Bool `tfsdk:"extended" vyos:"extended,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityStandard types.Bool `tfsdk:"standard" vyos:"standard,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,18 +23,22 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommu
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"extended": schema.StringAttribute{
+		"extended": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable sending extended community attributes to this peer
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"standard": schema.StringAttribute{
+		"standard": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable sending standard community attributes to this peer
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -46,51 +48,10 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommu
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityExtended.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityExtended.IsUnknown() {
-		jsonData["extended"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityExtended.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityStandard.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityStandard.IsUnknown() {
-		jsonData["standard"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityStandard.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["extended"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityExtended = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityExtended = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["standard"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityStandard = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunityStandard = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity) UnmarshalJSON(_ []byte) error {
 	return nil
 }

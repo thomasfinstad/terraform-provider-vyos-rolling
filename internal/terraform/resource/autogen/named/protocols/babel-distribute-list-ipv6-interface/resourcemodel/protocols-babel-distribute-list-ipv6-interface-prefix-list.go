@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBabelDistributeListIPvsixInterfacePrefixList describes the resource data model.
@@ -54,51 +51,10 @@ func (o ProtocolsBabelDistributeListIPvsixInterfacePrefixList) ResourceSchemaAtt
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBabelDistributeListIPvsixInterfacePrefixList) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBabelDistributeListIPvsixInterfacePrefixListIn.IsNull() && !o.LeafProtocolsBabelDistributeListIPvsixInterfacePrefixListIn.IsUnknown() {
-		jsonData["in"] = o.LeafProtocolsBabelDistributeListIPvsixInterfacePrefixListIn.ValueString()
-	}
-
-	if !o.LeafProtocolsBabelDistributeListIPvsixInterfacePrefixListOut.IsNull() && !o.LeafProtocolsBabelDistributeListIPvsixInterfacePrefixListOut.IsUnknown() {
-		jsonData["out"] = o.LeafProtocolsBabelDistributeListIPvsixInterfacePrefixListOut.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBabelDistributeListIPvsixInterfacePrefixList) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["in"]; ok {
-		o.LeafProtocolsBabelDistributeListIPvsixInterfacePrefixListIn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBabelDistributeListIPvsixInterfacePrefixListIn = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["out"]; ok {
-		o.LeafProtocolsBabelDistributeListIPvsixInterfacePrefixListOut = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBabelDistributeListIPvsixInterfacePrefixListOut = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBabelDistributeListIPvsixInterfacePrefixList) UnmarshalJSON(_ []byte) error {
 	return nil
 }

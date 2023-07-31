@@ -44,10 +44,10 @@ Rule number for NAT
     |----------|---------------|
     |  txt  |  Description  |
 - `destination` (Attributes) NAT destination parameters (see [below for nested schema](#nestedatt--destination))
-- `disable` (String) Disable instance
-- `exclude` (String) Exclude packets matching this rule from NAT
+- `disable` (Boolean) Disable instance
+- `exclude` (Boolean) Exclude packets matching this rule from NAT
 - `inbound_interface` (String) Inbound interface of NAT traffic
-- `log` (String) NAT rule logging
+- `log` (Boolean) NAT rule logging
 - `packet_type` (String) Packet type
 
     |  Format  |  Description  |

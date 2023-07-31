@@ -2,36 +2,33 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallIPvsixNameRule describes the resource data model.
 type FirewallIPvsixNameRule struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDFirewallIPvsixName any `tfsdk:"ipv6_name" vyos:"ipv6-name,parent-id"`
+	ParentIDFirewallIPvsixName types.String `tfsdk:"ipv6_name" vyos:"ipv6-name_identifier,parent-id"`
 
 	// LeafNodes
 	LeafFirewallIPvsixNameRuleAction              types.String `tfsdk:"action" vyos:"action,omitempty"`
 	LeafFirewallIPvsixNameRuleDescrIPtion         types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafFirewallIPvsixNameRuleDisable             types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafFirewallIPvsixNameRuleDisable             types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafFirewallIPvsixNameRuleLog                 types.String `tfsdk:"log" vyos:"log,omitempty"`
 	LeafFirewallIPvsixNameRuleLogLevel            types.String `tfsdk:"log_level" vyos:"log-level,omitempty"`
 	LeafFirewallIPvsixNameRuleProtocol            types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
-	LeafFirewallIPvsixNameRuleDscp                types.String `tfsdk:"dscp" vyos:"dscp,omitempty"`
-	LeafFirewallIPvsixNameRuleDscpExclude         types.String `tfsdk:"dscp_exclude" vyos:"dscp-exclude,omitempty"`
-	LeafFirewallIPvsixNameRulePacketLength        types.String `tfsdk:"packet_length" vyos:"packet-length,omitempty"`
-	LeafFirewallIPvsixNameRulePacketLengthExclude types.String `tfsdk:"packet_length_exclude" vyos:"packet-length-exclude,omitempty"`
+	LeafFirewallIPvsixNameRuleDscp                types.List   `tfsdk:"dscp" vyos:"dscp,omitempty"`
+	LeafFirewallIPvsixNameRuleDscpExclude         types.List   `tfsdk:"dscp_exclude" vyos:"dscp-exclude,omitempty"`
+	LeafFirewallIPvsixNameRulePacketLength        types.List   `tfsdk:"packet_length" vyos:"packet-length,omitempty"`
+	LeafFirewallIPvsixNameRulePacketLengthExclude types.List   `tfsdk:"packet_length_exclude" vyos:"packet-length-exclude,omitempty"`
 	LeafFirewallIPvsixNameRulePacketType          types.String `tfsdk:"packet_type" vyos:"packet-type,omitempty"`
-	LeafFirewallIPvsixNameRuleConnectionMark      types.String `tfsdk:"connection_mark" vyos:"connection-mark,omitempty"`
+	LeafFirewallIPvsixNameRuleConnectionMark      types.List   `tfsdk:"connection_mark" vyos:"connection-mark,omitempty"`
 	LeafFirewallIPvsixNameRuleJumpTarget          types.String `tfsdk:"jump_target" vyos:"jump-target,omitempty"`
-	LeafFirewallIPvsixNameRuleQueue               types.String `tfsdk:"queue" vyos:"queue,omitempty"`
-	LeafFirewallIPvsixNameRuleQueueOptions        types.String `tfsdk:"queue_options" vyos:"queue-options,omitempty"`
+	LeafFirewallIPvsixNameRuleQueue               types.Number `tfsdk:"queue" vyos:"queue,omitempty"`
+	LeafFirewallIPvsixNameRuleQueueOptions        types.List   `tfsdk:"queue_options" vyos:"queue-options,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -56,9 +53,12 @@ type FirewallIPvsixNameRule struct {
 func (o *FirewallIPvsixNameRule) GetVyosPath() []string {
 	return []string{
 		"firewall",
+
 		"ipv6-name",
+		o.ParentIDFirewallIPvsixName.ValueString(),
+
 		"rule",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -72,6 +72,13 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-999999  |  Number for this Firewall rule  |
+
+`,
+		},
+
+		"ipv6_name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `IPv6 firewall rule-set name
 
 `,
 		},
@@ -105,11 +112,13 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Option to disable firewall rule
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"log": schema.StringAttribute{
@@ -157,8 +166,9 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"dscp": schema.StringAttribute{
-			Optional: true,
+		"dscp": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `DSCP value
 
     |  Format  |  Description  |
@@ -169,8 +179,9 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"dscp_exclude": schema.StringAttribute{
-			Optional: true,
+		"dscp_exclude": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `DSCP value not to match
 
     |  Format  |  Description  |
@@ -181,8 +192,9 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"packet_length": schema.StringAttribute{
-			Optional: true,
+		"packet_length": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Payload size in bytes, including header and data to match
 
     |  Format  |  Description  |
@@ -193,8 +205,9 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"packet_length_exclude": schema.StringAttribute{
-			Optional: true,
+		"packet_length_exclude": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Payload size in bytes, including header and data not to match
 
     |  Format  |  Description  |
@@ -219,8 +232,9 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"connection_mark": schema.StringAttribute{
-			Optional: true,
+		"connection_mark": schema.ListAttribute{
+			ElementType: types.NumberType,
+			Optional:    true,
 			MarkdownDescription: `Connection mark
 
     |  Format  |  Description  |
@@ -237,7 +251,7 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"queue": schema.StringAttribute{
+		"queue": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Queue target to use. Action queue must be defined to use this setting
 
@@ -248,8 +262,9 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"queue_options": schema.StringAttribute{
-			Optional: true,
+		"queue_options": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Options used for queue target. Action queue must be defined to use this
                     setting
 
@@ -379,559 +394,10 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallIPvsixNameRule) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallIPvsixNameRuleAction.IsNull() && !o.LeafFirewallIPvsixNameRuleAction.IsUnknown() {
-		jsonData["action"] = o.LeafFirewallIPvsixNameRuleAction.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleDescrIPtion.IsNull() && !o.LeafFirewallIPvsixNameRuleDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafFirewallIPvsixNameRuleDescrIPtion.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleDisable.IsNull() && !o.LeafFirewallIPvsixNameRuleDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafFirewallIPvsixNameRuleDisable.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleLog.IsNull() && !o.LeafFirewallIPvsixNameRuleLog.IsUnknown() {
-		jsonData["log"] = o.LeafFirewallIPvsixNameRuleLog.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleLogLevel.IsNull() && !o.LeafFirewallIPvsixNameRuleLogLevel.IsUnknown() {
-		jsonData["log-level"] = o.LeafFirewallIPvsixNameRuleLogLevel.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleProtocol.IsNull() && !o.LeafFirewallIPvsixNameRuleProtocol.IsUnknown() {
-		jsonData["protocol"] = o.LeafFirewallIPvsixNameRuleProtocol.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleDscp.IsNull() && !o.LeafFirewallIPvsixNameRuleDscp.IsUnknown() {
-		jsonData["dscp"] = o.LeafFirewallIPvsixNameRuleDscp.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleDscpExclude.IsNull() && !o.LeafFirewallIPvsixNameRuleDscpExclude.IsUnknown() {
-		jsonData["dscp-exclude"] = o.LeafFirewallIPvsixNameRuleDscpExclude.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRulePacketLength.IsNull() && !o.LeafFirewallIPvsixNameRulePacketLength.IsUnknown() {
-		jsonData["packet-length"] = o.LeafFirewallIPvsixNameRulePacketLength.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRulePacketLengthExclude.IsNull() && !o.LeafFirewallIPvsixNameRulePacketLengthExclude.IsUnknown() {
-		jsonData["packet-length-exclude"] = o.LeafFirewallIPvsixNameRulePacketLengthExclude.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRulePacketType.IsNull() && !o.LeafFirewallIPvsixNameRulePacketType.IsUnknown() {
-		jsonData["packet-type"] = o.LeafFirewallIPvsixNameRulePacketType.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleConnectionMark.IsNull() && !o.LeafFirewallIPvsixNameRuleConnectionMark.IsUnknown() {
-		jsonData["connection-mark"] = o.LeafFirewallIPvsixNameRuleConnectionMark.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleJumpTarget.IsNull() && !o.LeafFirewallIPvsixNameRuleJumpTarget.IsUnknown() {
-		jsonData["jump-target"] = o.LeafFirewallIPvsixNameRuleJumpTarget.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleQueue.IsNull() && !o.LeafFirewallIPvsixNameRuleQueue.IsUnknown() {
-		jsonData["queue"] = o.LeafFirewallIPvsixNameRuleQueue.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleQueueOptions.IsNull() && !o.LeafFirewallIPvsixNameRuleQueueOptions.IsUnknown() {
-		jsonData["queue-options"] = o.LeafFirewallIPvsixNameRuleQueueOptions.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeFirewallIPvsixNameRuleDestination).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallIPvsixNameRuleDestination)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["destination"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallIPvsixNameRuleSource).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallIPvsixNameRuleSource)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["source"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallIPvsixNameRuleFragment).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallIPvsixNameRuleFragment)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["fragment"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallIPvsixNameRuleInboundInterface).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallIPvsixNameRuleInboundInterface)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["inbound-interface"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallIPvsixNameRuleOutboundInterface).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallIPvsixNameRuleOutboundInterface)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["outbound-interface"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallIPvsixNameRuleIPsec).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallIPvsixNameRuleIPsec)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipsec"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallIPvsixNameRuleLimit).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallIPvsixNameRuleLimit)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["limit"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallIPvsixNameRuleConnectionStatus).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallIPvsixNameRuleConnectionStatus)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["connection-status"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallIPvsixNameRuleRecent).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallIPvsixNameRuleRecent)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["recent"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallIPvsixNameRuleState).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallIPvsixNameRuleState)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["state"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallIPvsixNameRuleTCP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallIPvsixNameRuleTCP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["tcp"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallIPvsixNameRuleTime).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallIPvsixNameRuleTime)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["time"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallIPvsixNameRuleHopLimit).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallIPvsixNameRuleHopLimit)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["hop-limit"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallIPvsixNameRuleIcmpvsix).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallIPvsixNameRuleIcmpvsix)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["icmpv6"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallIPvsixNameRule) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["action"]; ok {
-		o.LeafFirewallIPvsixNameRuleAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleAction = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafFirewallIPvsixNameRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafFirewallIPvsixNameRuleDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["log"]; ok {
-		o.LeafFirewallIPvsixNameRuleLog = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleLog = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["log-level"]; ok {
-		o.LeafFirewallIPvsixNameRuleLogLevel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleLogLevel = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["protocol"]; ok {
-		o.LeafFirewallIPvsixNameRuleProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleProtocol = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["dscp"]; ok {
-		o.LeafFirewallIPvsixNameRuleDscp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleDscp = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["dscp-exclude"]; ok {
-		o.LeafFirewallIPvsixNameRuleDscpExclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleDscpExclude = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["packet-length"]; ok {
-		o.LeafFirewallIPvsixNameRulePacketLength = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRulePacketLength = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["packet-length-exclude"]; ok {
-		o.LeafFirewallIPvsixNameRulePacketLengthExclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRulePacketLengthExclude = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["packet-type"]; ok {
-		o.LeafFirewallIPvsixNameRulePacketType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRulePacketType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["connection-mark"]; ok {
-		o.LeafFirewallIPvsixNameRuleConnectionMark = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleConnectionMark = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["jump-target"]; ok {
-		o.LeafFirewallIPvsixNameRuleJumpTarget = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleJumpTarget = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["queue"]; ok {
-		o.LeafFirewallIPvsixNameRuleQueue = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleQueue = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["queue-options"]; ok {
-		o.LeafFirewallIPvsixNameRuleQueueOptions = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleQueueOptions = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["destination"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallIPvsixNameRuleDestination = &FirewallIPvsixNameRuleDestination{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallIPvsixNameRuleDestination)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["source"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallIPvsixNameRuleSource = &FirewallIPvsixNameRuleSource{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallIPvsixNameRuleSource)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["fragment"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallIPvsixNameRuleFragment = &FirewallIPvsixNameRuleFragment{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallIPvsixNameRuleFragment)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["inbound-interface"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallIPvsixNameRuleInboundInterface = &FirewallIPvsixNameRuleInboundInterface{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallIPvsixNameRuleInboundInterface)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["outbound-interface"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallIPvsixNameRuleOutboundInterface = &FirewallIPvsixNameRuleOutboundInterface{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallIPvsixNameRuleOutboundInterface)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ipsec"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallIPvsixNameRuleIPsec = &FirewallIPvsixNameRuleIPsec{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallIPvsixNameRuleIPsec)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["limit"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallIPvsixNameRuleLimit = &FirewallIPvsixNameRuleLimit{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallIPvsixNameRuleLimit)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["connection-status"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallIPvsixNameRuleConnectionStatus = &FirewallIPvsixNameRuleConnectionStatus{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallIPvsixNameRuleConnectionStatus)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["recent"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallIPvsixNameRuleRecent = &FirewallIPvsixNameRuleRecent{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallIPvsixNameRuleRecent)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["state"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallIPvsixNameRuleState = &FirewallIPvsixNameRuleState{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallIPvsixNameRuleState)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["tcp"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallIPvsixNameRuleTCP = &FirewallIPvsixNameRuleTCP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallIPvsixNameRuleTCP)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["time"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallIPvsixNameRuleTime = &FirewallIPvsixNameRuleTime{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallIPvsixNameRuleTime)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["hop-limit"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallIPvsixNameRuleHopLimit = &FirewallIPvsixNameRuleHopLimit{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallIPvsixNameRuleHopLimit)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["icmpv6"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallIPvsixNameRuleIcmpvsix = &FirewallIPvsixNameRuleIcmpvsix{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallIPvsixNameRuleIcmpvsix)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *FirewallIPvsixNameRule) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -41,6 +41,6 @@ Network Time Protocol (NTP) server
 
 ### Optional
 
-- `noselect` (String) Marks the server as unused
-- `pool` (String) Associate with a number of remote servers
-- `prefer` (String) Marks the server as preferred
+- `noselect` (Boolean) Marks the server as unused
+- `pool` (Boolean) Associate with a number of remote servers
+- `prefer` (Boolean) Marks the server as preferred

@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpn describes the resource data model.
@@ -66,61 +63,10 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpn) ResourceSc
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpn) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpnBoth.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpnBoth.IsUnknown() {
-		jsonData["both"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpnBoth.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpnImport.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpnImport.IsUnknown() {
-		jsonData["import"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpnImport.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpnExport.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpnExport.IsUnknown() {
-		jsonData["export"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpnExport.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpn) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["both"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpnBoth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpnBoth = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["import"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpnImport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpnImport = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["export"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpnExport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpnExport = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpn) UnmarshalJSON(_ []byte) error {
 	return nil
 }

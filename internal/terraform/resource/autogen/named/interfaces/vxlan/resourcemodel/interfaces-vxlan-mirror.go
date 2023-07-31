@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesVxlanMirror describes the resource data model.
@@ -54,51 +51,10 @@ func (o InterfacesVxlanMirror) ResourceSchemaAttributes() map[string]schema.Attr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesVxlanMirror) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesVxlanMirrorIngress.IsNull() && !o.LeafInterfacesVxlanMirrorIngress.IsUnknown() {
-		jsonData["ingress"] = o.LeafInterfacesVxlanMirrorIngress.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanMirrorEgress.IsNull() && !o.LeafInterfacesVxlanMirrorEgress.IsUnknown() {
-		jsonData["egress"] = o.LeafInterfacesVxlanMirrorEgress.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesVxlanMirror) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["ingress"]; ok {
-		o.LeafInterfacesVxlanMirrorIngress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanMirrorIngress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["egress"]; ok {
-		o.LeafInterfacesVxlanMirrorEgress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanMirrorEgress = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesVxlanMirror) UnmarshalJSON(_ []byte) error {
 	return nil
 }

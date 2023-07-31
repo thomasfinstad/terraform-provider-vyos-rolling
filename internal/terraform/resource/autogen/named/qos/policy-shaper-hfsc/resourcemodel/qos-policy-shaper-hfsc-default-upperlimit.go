@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyShaperHfscDefaultUpperlimit describes the resource data model.
@@ -82,61 +79,10 @@ func (o QosPolicyShaperHfscDefaultUpperlimit) ResourceSchemaAttributes() map[str
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyShaperHfscDefaultUpperlimit) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyShaperHfscDefaultUpperlimitD.IsNull() && !o.LeafQosPolicyShaperHfscDefaultUpperlimitD.IsUnknown() {
-		jsonData["d"] = o.LeafQosPolicyShaperHfscDefaultUpperlimitD.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperHfscDefaultUpperlimitMone.IsNull() && !o.LeafQosPolicyShaperHfscDefaultUpperlimitMone.IsUnknown() {
-		jsonData["m1"] = o.LeafQosPolicyShaperHfscDefaultUpperlimitMone.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperHfscDefaultUpperlimitMtwo.IsNull() && !o.LeafQosPolicyShaperHfscDefaultUpperlimitMtwo.IsUnknown() {
-		jsonData["m2"] = o.LeafQosPolicyShaperHfscDefaultUpperlimitMtwo.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyShaperHfscDefaultUpperlimit) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["d"]; ok {
-		o.LeafQosPolicyShaperHfscDefaultUpperlimitD = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscDefaultUpperlimitD = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["m1"]; ok {
-		o.LeafQosPolicyShaperHfscDefaultUpperlimitMone = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscDefaultUpperlimitMone = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["m2"]; ok {
-		o.LeafQosPolicyShaperHfscDefaultUpperlimitMtwo = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscDefaultUpperlimitMtwo = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyShaperHfscDefaultUpperlimit) UnmarshalJSON(_ []byte) error {
 	return nil
 }

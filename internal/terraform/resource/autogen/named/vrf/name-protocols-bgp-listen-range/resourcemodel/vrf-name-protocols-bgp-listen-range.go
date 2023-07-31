@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpListenRange describes the resource data model.
 type VrfNameProtocolsBgpListenRange struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVrfName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsBgpListenRangePeerGroup types.String `tfsdk:"peer_group" vyos:"peer-group,omitempty"`
@@ -27,10 +24,16 @@ type VrfNameProtocolsBgpListenRange struct {
 func (o *VrfNameProtocolsBgpListenRange) GetVyosPath() []string {
 	return []string{
 		"vrf",
+
 		"name",
+		o.ParentIDVrfName.ValueString(),
+
 		"protocols",
+
 		"bgp",
+
 		"listen",
+
 		"range",
 		o.ID.ValueString(),
 	}
@@ -47,6 +50,17 @@ func (o VrfNameProtocolsBgpListenRange) ResourceSchemaAttributes() map[string]sc
     |----------|---------------|
     |  ipv4net  |  IPv4 dynamic neighbors listen range  |
     |  ipv6net  |  IPv6 dynamic neighbors listen range  |
+
+`,
+		},
+
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 `,
 		},
@@ -71,41 +85,10 @@ func (o VrfNameProtocolsBgpListenRange) ResourceSchemaAttributes() map[string]sc
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpListenRange) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpListenRangePeerGroup.IsNull() && !o.LeafVrfNameProtocolsBgpListenRangePeerGroup.IsUnknown() {
-		jsonData["peer-group"] = o.LeafVrfNameProtocolsBgpListenRangePeerGroup.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpListenRange) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["peer-group"]; ok {
-		o.LeafVrfNameProtocolsBgpListenRangePeerGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpListenRangePeerGroup = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpListenRange) UnmarshalJSON(_ []byte) error {
 	return nil
 }

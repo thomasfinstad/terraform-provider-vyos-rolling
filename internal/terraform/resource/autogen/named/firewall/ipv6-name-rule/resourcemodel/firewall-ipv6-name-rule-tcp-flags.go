@@ -2,25 +2,22 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallIPvsixNameRuleTCPFlags describes the resource data model.
 type FirewallIPvsixNameRuleTCPFlags struct {
 	// LeafNodes
-	LeafFirewallIPvsixNameRuleTCPFlagsSyn types.String `tfsdk:"syn" vyos:"syn,omitempty"`
-	LeafFirewallIPvsixNameRuleTCPFlagsAck types.String `tfsdk:"ack" vyos:"ack,omitempty"`
-	LeafFirewallIPvsixNameRuleTCPFlagsFin types.String `tfsdk:"fin" vyos:"fin,omitempty"`
-	LeafFirewallIPvsixNameRuleTCPFlagsRst types.String `tfsdk:"rst" vyos:"rst,omitempty"`
-	LeafFirewallIPvsixNameRuleTCPFlagsUrg types.String `tfsdk:"urg" vyos:"urg,omitempty"`
-	LeafFirewallIPvsixNameRuleTCPFlagsPsh types.String `tfsdk:"psh" vyos:"psh,omitempty"`
-	LeafFirewallIPvsixNameRuleTCPFlagsEcn types.String `tfsdk:"ecn" vyos:"ecn,omitempty"`
-	LeafFirewallIPvsixNameRuleTCPFlagsCwr types.String `tfsdk:"cwr" vyos:"cwr,omitempty"`
+	LeafFirewallIPvsixNameRuleTCPFlagsSyn types.Bool `tfsdk:"syn" vyos:"syn,omitempty"`
+	LeafFirewallIPvsixNameRuleTCPFlagsAck types.Bool `tfsdk:"ack" vyos:"ack,omitempty"`
+	LeafFirewallIPvsixNameRuleTCPFlagsFin types.Bool `tfsdk:"fin" vyos:"fin,omitempty"`
+	LeafFirewallIPvsixNameRuleTCPFlagsRst types.Bool `tfsdk:"rst" vyos:"rst,omitempty"`
+	LeafFirewallIPvsixNameRuleTCPFlagsUrg types.Bool `tfsdk:"urg" vyos:"urg,omitempty"`
+	LeafFirewallIPvsixNameRuleTCPFlagsPsh types.Bool `tfsdk:"psh" vyos:"psh,omitempty"`
+	LeafFirewallIPvsixNameRuleTCPFlagsEcn types.Bool `tfsdk:"ecn" vyos:"ecn,omitempty"`
+	LeafFirewallIPvsixNameRuleTCPFlagsCwr types.Bool `tfsdk:"cwr" vyos:"cwr,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -33,60 +30,76 @@ func (o FirewallIPvsixNameRuleTCPFlags) ResourceSchemaAttributes() map[string]sc
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"syn": schema.StringAttribute{
+		"syn": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Synchronise flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"ack": schema.StringAttribute{
+		"ack": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Acknowledge flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"fin": schema.StringAttribute{
+		"fin": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Finish flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"rst": schema.StringAttribute{
+		"rst": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Reset flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"urg": schema.StringAttribute{
+		"urg": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Urgent flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"psh": schema.StringAttribute{
+		"psh": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Push flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"ecn": schema.StringAttribute{
+		"ecn": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Explicit Congestion Notification flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"cwr": schema.StringAttribute{
+		"cwr": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Congestion Window Reduced flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -103,138 +116,10 @@ func (o FirewallIPvsixNameRuleTCPFlags) ResourceSchemaAttributes() map[string]sc
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallIPvsixNameRuleTCPFlags) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallIPvsixNameRuleTCPFlagsSyn.IsNull() && !o.LeafFirewallIPvsixNameRuleTCPFlagsSyn.IsUnknown() {
-		jsonData["syn"] = o.LeafFirewallIPvsixNameRuleTCPFlagsSyn.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleTCPFlagsAck.IsNull() && !o.LeafFirewallIPvsixNameRuleTCPFlagsAck.IsUnknown() {
-		jsonData["ack"] = o.LeafFirewallIPvsixNameRuleTCPFlagsAck.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleTCPFlagsFin.IsNull() && !o.LeafFirewallIPvsixNameRuleTCPFlagsFin.IsUnknown() {
-		jsonData["fin"] = o.LeafFirewallIPvsixNameRuleTCPFlagsFin.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleTCPFlagsRst.IsNull() && !o.LeafFirewallIPvsixNameRuleTCPFlagsRst.IsUnknown() {
-		jsonData["rst"] = o.LeafFirewallIPvsixNameRuleTCPFlagsRst.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleTCPFlagsUrg.IsNull() && !o.LeafFirewallIPvsixNameRuleTCPFlagsUrg.IsUnknown() {
-		jsonData["urg"] = o.LeafFirewallIPvsixNameRuleTCPFlagsUrg.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleTCPFlagsPsh.IsNull() && !o.LeafFirewallIPvsixNameRuleTCPFlagsPsh.IsUnknown() {
-		jsonData["psh"] = o.LeafFirewallIPvsixNameRuleTCPFlagsPsh.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleTCPFlagsEcn.IsNull() && !o.LeafFirewallIPvsixNameRuleTCPFlagsEcn.IsUnknown() {
-		jsonData["ecn"] = o.LeafFirewallIPvsixNameRuleTCPFlagsEcn.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleTCPFlagsCwr.IsNull() && !o.LeafFirewallIPvsixNameRuleTCPFlagsCwr.IsUnknown() {
-		jsonData["cwr"] = o.LeafFirewallIPvsixNameRuleTCPFlagsCwr.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeFirewallIPvsixNameRuleTCPFlagsNot).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallIPvsixNameRuleTCPFlagsNot)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["not"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallIPvsixNameRuleTCPFlags) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["syn"]; ok {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsSyn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsSyn = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ack"]; ok {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsAck = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsAck = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["fin"]; ok {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsFin = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsFin = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rst"]; ok {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsRst = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsRst = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["urg"]; ok {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsUrg = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsUrg = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["psh"]; ok {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsPsh = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsPsh = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ecn"]; ok {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsEcn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsEcn = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["cwr"]; ok {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsCwr = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsCwr = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["not"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallIPvsixNameRuleTCPFlagsNot = &FirewallIPvsixNameRuleTCPFlagsNot{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallIPvsixNameRuleTCPFlagsNot)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *FirewallIPvsixNameRuleTCPFlags) UnmarshalJSON(_ []byte) error {
 	return nil
 }

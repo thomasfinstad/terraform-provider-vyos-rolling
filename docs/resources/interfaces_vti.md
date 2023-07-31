@@ -32,7 +32,7 @@ Virtual Tunnel Interface (XFRM)
 
 ### Optional
 
-- `address` (String) IP address
+- `address` (List of String) IP address
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -43,11 +43,11 @@ Virtual Tunnel Interface (XFRM)
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `disable` (String) Administratively disable interface
+- `disable` (Boolean) Administratively disable interface
 - `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--ip))
 - `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--ipv6))
 - `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--mirror))
-- `mtu` (String) Maximum Transmission Unit (MTU)
+- `mtu` (Number) Maximum Transmission Unit (MTU)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -74,19 +74,19 @@ Optional:
     |----------|---------------|
     |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
     |  u32:536-65535  |  TCP Maximum segment size in bytes  |
-- `arp_cache_timeout` (String) ARP cache entry timeout in seconds
+- `arp_cache_timeout` (Number) ARP cache entry timeout in seconds
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-86400  |  ARP cache entry timout in seconds  |
-- `disable_arp_filter` (String) Disable ARP filter on this interface
-- `disable_forwarding` (String) Disable IP forwarding on this interface
-- `enable_arp_accept` (String) Enable ARP accept on this interface
-- `enable_arp_announce` (String) Enable ARP announce on this interface
-- `enable_arp_ignore` (String) Enable ARP ignore on this interface
-- `enable_directed_broadcast` (String) Enable directed broadcast forwarding on this interface
-- `enable_proxy_arp` (String) Enable proxy-arp on this interface
-- `proxy_arp_pvlan` (String) Enable private VLAN proxy ARP on this interface
+- `disable_arp_filter` (Boolean) Disable ARP filter on this interface
+- `disable_forwarding` (Boolean) Disable IP forwarding on this interface
+- `enable_arp_accept` (Boolean) Enable ARP accept on this interface
+- `enable_arp_announce` (Boolean) Enable ARP announce on this interface
+- `enable_arp_ignore` (Boolean) Enable ARP ignore on this interface
+- `enable_directed_broadcast` (Boolean) Enable directed broadcast forwarding on this interface
+- `enable_proxy_arp` (Boolean) Enable proxy-arp on this interface
+- `proxy_arp_pvlan` (Boolean) Enable private VLAN proxy ARP on this interface
 - `source_validation` (String) Source validation by reversed path (RFC3704)
 
     |  Format  |  Description  |
@@ -108,8 +108,8 @@ Optional:
     |----------|---------------|
     |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
     |  u32:536-65535  |  TCP Maximum segment size in bytes  |
-- `disable_forwarding` (String) Disable IP forwarding on this interface
-- `dup_addr_detect_transmits` (String) Number of NS messages to send while performing DAD (default: 1)
+- `disable_forwarding` (Boolean) Disable IP forwarding on this interface
+- `dup_addr_detect_transmits` (Number) Number of NS messages to send while performing DAD (default: 1)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -121,13 +121,13 @@ Optional:
 
 Optional:
 
-- `autoconf` (String) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
-- `eui64` (String) Prefix for IPv6 address with MAC-based EUI-64
+- `autoconf` (Boolean) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
+- `eui64` (List of String) Prefix for IPv6 address with MAC-based EUI-64
 
     |  Format  |  Description  |
     |----------|---------------|
     |  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
-- `no_default_link_local` (String) Remove the default link-local address from the interface
+- `no_default_link_local` (Boolean) Remove the default link-local address from the interface
 
 
 

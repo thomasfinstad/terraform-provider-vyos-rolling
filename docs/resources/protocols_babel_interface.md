@@ -42,33 +42,33 @@ Interface name
     |  u32:1-254  |  Interfaces with a channel number interfere with interfering interfaces and interfaces with the same channel number  |
     |  interfering  |  Interfering interfaces are assumed to interfere with all other channels except non-interfering channels  |
     |  non-interfering  |  Non-interfering interfaces only interfere with themselves  |
-- `enable_timestamps` (String) Enable timestamps with each Hello and IHU message in order to compute RTT values
-- `hello_interval` (String) Time between scheduled hellos
+- `enable_timestamps` (Boolean) Enable timestamps with each Hello and IHU message in order to compute RTT values
+- `hello_interval` (Number) Time between scheduled hellos
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:20-655340  |  Milliseconds  |
-- `max_rtt_penalty` (String) Maximum additional cost due to RTT
+- `max_rtt_penalty` (Number) Maximum additional cost due to RTT
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-65535  |  Milliseconds (0 to disable the use of RTT-based cost)  |
-- `rtt_decay` (String) Decay factor for exponential moving average of RTT samples
+- `rtt_decay` (Number) Decay factor for exponential moving average of RTT samples
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-256  |  Decay factor, in units of 1/256  |
-- `rtt_max` (String) Maximum RTT
+- `rtt_max` (Number) Maximum RTT
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Milliseconds  |
-- `rtt_min` (String) Minimum RTT
+- `rtt_min` (Number) Minimum RTT
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Milliseconds  |
-- `rxcost` (String) Base receive cost for this interface
+- `rxcost` (Number) Base receive cost for this interface
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -87,7 +87,7 @@ Interface name
     |  auto  |  Automatically detect interface type  |
     |  wired  |  Wired interface  |
     |  wireless  |  Wireless interface  |
-- `update_interval` (String) Time between scheduled updates
+- `update_interval` (Number) Time between scheduled updates
 
     |  Format  |  Description  |
     |----------|---------------|

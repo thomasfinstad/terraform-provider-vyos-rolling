@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceSnmpCommunity describes the resource data model.
@@ -15,8 +12,8 @@ type ServiceSnmpCommunity struct {
 
 	// LeafNodes
 	LeafServiceSnmpCommunityAuthorization types.String `tfsdk:"authorization" vyos:"authorization,omitempty"`
-	LeafServiceSnmpCommunityClient        types.String `tfsdk:"client" vyos:"client,omitempty"`
-	LeafServiceSnmpCommunityNetwork       types.String `tfsdk:"network" vyos:"network,omitempty"`
+	LeafServiceSnmpCommunityClient        types.List   `tfsdk:"client" vyos:"client,omitempty"`
+	LeafServiceSnmpCommunityNetwork       types.List   `tfsdk:"network" vyos:"network,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,7 +24,9 @@ type ServiceSnmpCommunity struct {
 func (o *ServiceSnmpCommunity) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"snmp",
+
 		"community",
 		o.ID.ValueString(),
 	}
@@ -60,15 +59,17 @@ func (o ServiceSnmpCommunity) ResourceSchemaAttributes() map[string]schema.Attri
 			Computed: true,
 		},
 
-		"client": schema.StringAttribute{
-			Optional: true,
+		"client": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address of SNMP client allowed to contact system
 
 `,
 		},
 
-		"network": schema.StringAttribute{
-			Optional: true,
+		"network": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Subnet of SNMP client(s) allowed to contact system
 
     |  Format  |  Description  |
@@ -89,61 +90,10 @@ func (o ServiceSnmpCommunity) ResourceSchemaAttributes() map[string]schema.Attri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceSnmpCommunity) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceSnmpCommunityAuthorization.IsNull() && !o.LeafServiceSnmpCommunityAuthorization.IsUnknown() {
-		jsonData["authorization"] = o.LeafServiceSnmpCommunityAuthorization.ValueString()
-	}
-
-	if !o.LeafServiceSnmpCommunityClient.IsNull() && !o.LeafServiceSnmpCommunityClient.IsUnknown() {
-		jsonData["client"] = o.LeafServiceSnmpCommunityClient.ValueString()
-	}
-
-	if !o.LeafServiceSnmpCommunityNetwork.IsNull() && !o.LeafServiceSnmpCommunityNetwork.IsUnknown() {
-		jsonData["network"] = o.LeafServiceSnmpCommunityNetwork.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceSnmpCommunity) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["authorization"]; ok {
-		o.LeafServiceSnmpCommunityAuthorization = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpCommunityAuthorization = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["client"]; ok {
-		o.LeafServiceSnmpCommunityClient = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpCommunityClient = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["network"]; ok {
-		o.LeafServiceSnmpCommunityNetwork = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpCommunityNetwork = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceSnmpCommunity) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,21 +2,18 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVrfName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit types.String `tfsdk:"path_limit" vyos:"path-limit,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit types.Number `tfsdk:"path_limit" vyos:"path-limit,omitempty"`
 	LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap  types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -28,11 +25,18 @@ type VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork struct {
 func (o *VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork) GetVyosPath() []string {
 	return []string{
 		"vrf",
+
 		"name",
+		o.ParentIDVrfName.ValueString(),
+
 		"protocols",
+
 		"bgp",
+
 		"address-family",
+
 		"ipv6-multicast",
+
 		"network",
 		o.ID.ValueString(),
 	}
@@ -52,9 +56,20 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork) ResourceSchemaAt
 `,
 		},
 
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"path_limit": schema.StringAttribute{
+		"path_limit": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `AS-path hopcount limit
 
@@ -83,51 +98,10 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork) ResourceSchemaAt
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit.IsUnknown() {
-		jsonData["path-limit"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap.IsUnknown() {
-		jsonData["route-map"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["path-limit"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["route-map"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork) UnmarshalJSON(_ []byte) error {
 	return nil
 }

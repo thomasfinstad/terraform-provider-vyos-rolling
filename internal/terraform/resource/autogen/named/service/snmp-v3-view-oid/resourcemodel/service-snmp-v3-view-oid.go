@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceSnmpVthreeViewOID describes the resource data model.
 type ServiceSnmpVthreeViewOID struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDServiceSnmpVthreeView any `tfsdk:"view" vyos:"view,parent-id"`
+	ParentIDServiceSnmpVthreeView types.String `tfsdk:"view" vyos:"view_identifier,parent-id"`
 
 	// LeafNodes
 	LeafServiceSnmpVthreeViewOIDExclude types.String `tfsdk:"exclude" vyos:"exclude,omitempty"`
@@ -28,9 +25,14 @@ type ServiceSnmpVthreeViewOID struct {
 func (o *ServiceSnmpVthreeViewOID) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"snmp",
+
 		"v3",
+
 		"view",
+		o.ParentIDServiceSnmpVthreeView.ValueString(),
+
 		"oid",
 		o.ID.ValueString(),
 	}
@@ -42,6 +44,13 @@ func (o ServiceSnmpVthreeViewOID) ResourceSchemaAttributes() map[string]schema.A
 		"identifier": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Specifies the oid
+
+`,
+		},
+
+		"view_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Specifies the view with name viewname
 
 `,
 		},
@@ -69,51 +78,10 @@ func (o ServiceSnmpVthreeViewOID) ResourceSchemaAttributes() map[string]schema.A
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceSnmpVthreeViewOID) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceSnmpVthreeViewOIDExclude.IsNull() && !o.LeafServiceSnmpVthreeViewOIDExclude.IsUnknown() {
-		jsonData["exclude"] = o.LeafServiceSnmpVthreeViewOIDExclude.ValueString()
-	}
-
-	if !o.LeafServiceSnmpVthreeViewOIDMask.IsNull() && !o.LeafServiceSnmpVthreeViewOIDMask.IsUnknown() {
-		jsonData["mask"] = o.LeafServiceSnmpVthreeViewOIDMask.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceSnmpVthreeViewOID) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["exclude"]; ok {
-		o.LeafServiceSnmpVthreeViewOIDExclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeViewOIDExclude = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mask"]; ok {
-		o.LeafServiceSnmpVthreeViewOIDMask = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeViewOIDMask = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceSnmpVthreeViewOID) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,8 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -24,8 +22,11 @@ type ServiceIPoeServerAuthenticationInterface struct {
 func (o *ServiceIPoeServerAuthenticationInterface) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"ipoe-server",
+
 		"authentication",
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -50,31 +51,10 @@ func (o ServiceIPoeServerAuthenticationInterface) ResourceSchemaAttributes() map
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceIPoeServerAuthenticationInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceIPoeServerAuthenticationInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-
+func (o *ServiceIPoeServerAuthenticationInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

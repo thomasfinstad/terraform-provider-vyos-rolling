@@ -32,8 +32,8 @@ Firewall ipv6-network-group
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `include` (String) Include another ipv6-network-group
-- `network` (String) Network-group member
+- `include` (List of String) Include another ipv6-network-group
+- `network` (List of String) Network-group member
 
     |  Format  |  Description  |
     |----------|---------------|

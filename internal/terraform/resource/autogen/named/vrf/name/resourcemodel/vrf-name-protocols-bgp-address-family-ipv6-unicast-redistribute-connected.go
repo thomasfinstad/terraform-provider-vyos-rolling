@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnectedMetric   types.String `tfsdk:"metric" vyos:"metric,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnectedMetric   types.Number `tfsdk:"metric" vyos:"metric,omitempty"`
 	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnectedRouteMap types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -25,7 +22,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected) Reso
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"metric": schema.StringAttribute{
+		"metric": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Metric for redistributed routes
 
@@ -54,51 +51,10 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected) Reso
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnectedMetric.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnectedMetric.IsUnknown() {
-		jsonData["metric"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnectedMetric.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnectedRouteMap.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnectedRouteMap.IsUnknown() {
-		jsonData["route-map"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnectedRouteMap.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["metric"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnectedMetric = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnectedMetric = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["route-map"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnectedRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnectedRouteMap = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -42,7 +42,7 @@ Defines SNMP target for inform or traps for IP
 ### Optional
 
 - `auth` (Attributes) Defines the privacy (see [below for nested schema](#nestedatt--auth))
-- `port` (String) Port number used by connection
+- `port` (Number) Port number used by connection
 
     |  Format  |  Description  |
     |----------|---------------|

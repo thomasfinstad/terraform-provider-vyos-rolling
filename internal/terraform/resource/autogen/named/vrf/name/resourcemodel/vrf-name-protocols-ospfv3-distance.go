@@ -2,18 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfvthreeDistance describes the resource data model.
 type VrfNameProtocolsOspfvthreeDistance struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfvthreeDistanceGlobal types.String `tfsdk:"global" vyos:"global,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeDistanceGlobal types.Number `tfsdk:"global" vyos:"global,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,7 +22,7 @@ func (o VrfNameProtocolsOspfvthreeDistance) ResourceSchemaAttributes() map[strin
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"global": schema.StringAttribute{
+		"global": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Administrative distance
 
@@ -51,68 +47,10 @@ func (o VrfNameProtocolsOspfvthreeDistance) ResourceSchemaAttributes() map[strin
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfvthreeDistance) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfvthreeDistanceGlobal.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeDistanceGlobal.IsUnknown() {
-		jsonData["global"] = o.LeafVrfNameProtocolsOspfvthreeDistanceGlobal.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ospfv3"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfvthreeDistance) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["global"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeDistanceGlobal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeDistanceGlobal = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["ospfv3"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree = &VrfNameProtocolsOspfvthreeDistanceOspfvthree{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VrfNameProtocolsOspfvthreeDistance) UnmarshalJSON(_ []byte) error {
 	return nil
 }

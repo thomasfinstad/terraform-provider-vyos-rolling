@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfTimersThroTTLeSpf describes the resource data model.
 type VrfNameProtocolsOspfTimersThroTTLeSpf struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfTimersThroTTLeSpfDelay           types.String `tfsdk:"delay" vyos:"delay,omitempty"`
-	LeafVrfNameProtocolsOspfTimersThroTTLeSpfInitialHoldtime types.String `tfsdk:"initial_holdtime" vyos:"initial-holdtime,omitempty"`
-	LeafVrfNameProtocolsOspfTimersThroTTLeSpfMaxHoldtime     types.String `tfsdk:"max_holdtime" vyos:"max-holdtime,omitempty"`
+	LeafVrfNameProtocolsOspfTimersThroTTLeSpfDelay           types.Number `tfsdk:"delay" vyos:"delay,omitempty"`
+	LeafVrfNameProtocolsOspfTimersThroTTLeSpfInitialHoldtime types.Number `tfsdk:"initial_holdtime" vyos:"initial-holdtime,omitempty"`
+	LeafVrfNameProtocolsOspfTimersThroTTLeSpfMaxHoldtime     types.Number `tfsdk:"max_holdtime" vyos:"max-holdtime,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,7 +23,7 @@ func (o VrfNameProtocolsOspfTimersThroTTLeSpf) ResourceSchemaAttributes() map[st
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"delay": schema.StringAttribute{
+		"delay": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Delay from the first change received to SPF calculation
 
@@ -40,7 +37,7 @@ func (o VrfNameProtocolsOspfTimersThroTTLeSpf) ResourceSchemaAttributes() map[st
 			Computed: true,
 		},
 
-		"initial_holdtime": schema.StringAttribute{
+		"initial_holdtime": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Initial hold time between consecutive SPF calculations
 
@@ -54,7 +51,7 @@ func (o VrfNameProtocolsOspfTimersThroTTLeSpf) ResourceSchemaAttributes() map[st
 			Computed: true,
 		},
 
-		"max_holdtime": schema.StringAttribute{
+		"max_holdtime": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum hold time
 
@@ -75,61 +72,10 @@ func (o VrfNameProtocolsOspfTimersThroTTLeSpf) ResourceSchemaAttributes() map[st
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfTimersThroTTLeSpf) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfDelay.IsNull() && !o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfDelay.IsUnknown() {
-		jsonData["delay"] = o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfDelay.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfInitialHoldtime.IsNull() && !o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfInitialHoldtime.IsUnknown() {
-		jsonData["initial-holdtime"] = o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfInitialHoldtime.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfMaxHoldtime.IsNull() && !o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfMaxHoldtime.IsUnknown() {
-		jsonData["max-holdtime"] = o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfMaxHoldtime.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfTimersThroTTLeSpf) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["delay"]; ok {
-		o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfDelay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfDelay = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["initial-holdtime"]; ok {
-		o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfInitialHoldtime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfInitialHoldtime = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["max-holdtime"]; ok {
-		o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfMaxHoldtime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfMaxHoldtime = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfTimersThroTTLeSpf) UnmarshalJSON(_ []byte) error {
 	return nil
 }

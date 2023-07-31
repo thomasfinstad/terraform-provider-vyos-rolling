@@ -35,6 +35,7 @@ DHCP subnet for shared network
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4net  |  IPv4 address and prefix length  |
+- `shared_network_name_identifier` (String) Name of DHCP shared network
 
 ### Optional
 
@@ -45,12 +46,12 @@ DHCP subnet for shared network
     |----------|---------------|
     |  ipv4  |  Bootfile server IPv4 address  |
     |  hostname  |  Bootfile server FQDN  |
-- `bootfile_size` (String) Bootstrap file size
+- `bootfile_size` (Number) Bootstrap file size
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-16  |  Bootstrap file size in 512 byte blocks  |
-- `client_prefix_length` (String) Specifies the clients subnet mask as per RFC 950. If unset, subnet declaration is used.
+- `client_prefix_length` (Number) Specifies the clients subnet mask as per RFC 950. If unset, subnet declaration is used.
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -66,36 +67,36 @@ DHCP subnet for shared network
     |----------|---------------|
     |  txt  |  Description  |
 - `domain_name` (String) Client Domain Name
-- `domain_search` (String) Client Domain Name search list
-- `enable_failover` (String) Enable DHCP failover support for this subnet
-- `exclude` (String) IP address to exclude from DHCP lease range
+- `domain_search` (List of String) Client Domain Name search list
+- `enable_failover` (Boolean) Enable DHCP failover support for this subnet
+- `exclude` (List of String) IP address to exclude from DHCP lease range
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  IPv4 address to exclude from lease range  |
-- `ip_forwarding` (String) Enable IP forwarding on client
-- `ipv6_only_preferred` (String) Disable IPv4 on IPv6 only hosts (RFC 8925)
+- `ip_forwarding` (Boolean) Enable IP forwarding on client
+- `ipv6_only_preferred` (Number) Disable IPv4 on IPv6 only hosts (RFC 8925)
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32  |  Seconds  |
-- `lease` (String) Lease timeout in seconds
+- `lease` (Number) Lease timeout in seconds
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32  |  DHCP lease time in seconds  |
-- `name_server` (String) Domain Name Servers (DNS) addresses
+- `name_server` (List of String) Domain Name Servers (DNS) addresses
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
-- `ntp_server` (String) IP address of NTP server
+- `ntp_server` (List of String) IP address of NTP server
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  NTP server IPv4 address  |
-- `ping_check` (String) Sends ICMP Echo request to the address being assigned
-- `pop_server` (String) IP address of POP3 server
+- `ping_check` (Boolean) Sends ICMP Echo request to the address being assigned
+- `pop_server` (List of String) IP address of POP3 server
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -105,12 +106,12 @@ DHCP subnet for shared network
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  DHCP server identifier IPv4 address  |
-- `smtp_server` (String) IP address of SMTP server
+- `smtp_server` (List of String) IP address of SMTP server
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  SMTP server IPv4 address  |
-- `subnet_parameters` (String) Additional subnet parameters for DHCP server. You must use the syntax of dhcpd.conf in this text-field. Using this without proper knowledge may result in a crashed DHCP server. Check system log to look for errors.
+- `subnet_parameters` (List of String) Additional subnet parameters for DHCP server. You must use the syntax of dhcpd.conf in this text-field. Using this without proper knowledge may result in a crashed DHCP server. Check system log to look for errors.
 - `tftp_server_name` (String) TFTP server name
 
     |  Format  |  Description  |
@@ -122,13 +123,13 @@ DHCP subnet for shared network
     |  Format  |  Description  |
     |----------|---------------|
     |  [-]N  |  Time offset (number, may be negative)  |
-- `time_server` (String) IP address of time server
+- `time_server` (List of String) IP address of time server
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  Time server IPv4 address  |
 - `vendor_option` (Attributes) Vendor Specific Options (see [below for nested schema](#nestedatt--vendor_option))
-- `wins_server` (String) IP address for Windows Internet Name Service (WINS) server
+- `wins_server` (List of String) IP address for Windows Internet Name Service (WINS) server
 
     |  Format  |  Description  |
     |----------|---------------|

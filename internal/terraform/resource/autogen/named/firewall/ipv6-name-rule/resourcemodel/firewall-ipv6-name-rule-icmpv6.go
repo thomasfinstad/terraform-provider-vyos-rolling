@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallIPvsixNameRuleIcmpvsix describes the resource data model.
 type FirewallIPvsixNameRuleIcmpvsix struct {
 	// LeafNodes
-	LeafFirewallIPvsixNameRuleIcmpvsixCode     types.String `tfsdk:"code" vyos:"code,omitempty"`
-	LeafFirewallIPvsixNameRuleIcmpvsixType     types.String `tfsdk:"type" vyos:"type,omitempty"`
+	LeafFirewallIPvsixNameRuleIcmpvsixCode     types.Number `tfsdk:"code" vyos:"code,omitempty"`
+	LeafFirewallIPvsixNameRuleIcmpvsixType     types.Number `tfsdk:"type" vyos:"type,omitempty"`
 	LeafFirewallIPvsixNameRuleIcmpvsixTypeName types.String `tfsdk:"type_name" vyos:"type-name,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -26,7 +23,7 @@ func (o FirewallIPvsixNameRuleIcmpvsix) ResourceSchemaAttributes() map[string]sc
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"code": schema.StringAttribute{
+		"code": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `ICMPv6 code
 
@@ -37,7 +34,7 @@ func (o FirewallIPvsixNameRuleIcmpvsix) ResourceSchemaAttributes() map[string]sc
 `,
 		},
 
-		"type": schema.StringAttribute{
+		"type": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `ICMPv6 type
 
@@ -83,61 +80,10 @@ func (o FirewallIPvsixNameRuleIcmpvsix) ResourceSchemaAttributes() map[string]sc
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallIPvsixNameRuleIcmpvsix) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallIPvsixNameRuleIcmpvsixCode.IsNull() && !o.LeafFirewallIPvsixNameRuleIcmpvsixCode.IsUnknown() {
-		jsonData["code"] = o.LeafFirewallIPvsixNameRuleIcmpvsixCode.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleIcmpvsixType.IsNull() && !o.LeafFirewallIPvsixNameRuleIcmpvsixType.IsUnknown() {
-		jsonData["type"] = o.LeafFirewallIPvsixNameRuleIcmpvsixType.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleIcmpvsixTypeName.IsNull() && !o.LeafFirewallIPvsixNameRuleIcmpvsixTypeName.IsUnknown() {
-		jsonData["type-name"] = o.LeafFirewallIPvsixNameRuleIcmpvsixTypeName.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallIPvsixNameRuleIcmpvsix) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["code"]; ok {
-		o.LeafFirewallIPvsixNameRuleIcmpvsixCode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleIcmpvsixCode = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["type"]; ok {
-		o.LeafFirewallIPvsixNameRuleIcmpvsixType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleIcmpvsixType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["type-name"]; ok {
-		o.LeafFirewallIPvsixNameRuleIcmpvsixTypeName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleIcmpvsixTypeName = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallIPvsixNameRuleIcmpvsix) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnIPsecRemoteAccessPool describes the resource data model.
@@ -14,9 +11,9 @@ type VpnIPsecRemoteAccessPool struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafVpnIPsecRemoteAccessPoolExclude    types.String `tfsdk:"exclude" vyos:"exclude,omitempty"`
+	LeafVpnIPsecRemoteAccessPoolExclude    types.List   `tfsdk:"exclude" vyos:"exclude,omitempty"`
 	LeafVpnIPsecRemoteAccessPoolPrefix     types.String `tfsdk:"prefix" vyos:"prefix,omitempty"`
-	LeafVpnIPsecRemoteAccessPoolNameServer types.String `tfsdk:"name_server" vyos:"name-server,omitempty"`
+	LeafVpnIPsecRemoteAccessPoolNameServer types.List   `tfsdk:"name_server" vyos:"name-server,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,8 +24,11 @@ type VpnIPsecRemoteAccessPool struct {
 func (o *VpnIPsecRemoteAccessPool) GetVyosPath() []string {
 	return []string{
 		"vpn",
+
 		"ipsec",
+
 		"remote-access",
+
 		"pool",
 		o.ID.ValueString(),
 	}
@@ -46,8 +46,9 @@ func (o VpnIPsecRemoteAccessPool) ResourceSchemaAttributes() map[string]schema.A
 
 		// LeafNodes
 
-		"exclude": schema.StringAttribute{
-			Optional: true,
+		"exclude": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Local IPv4 or IPv6 pool prefix exclusions
 
     |  Format  |  Description  |
@@ -70,8 +71,9 @@ func (o VpnIPsecRemoteAccessPool) ResourceSchemaAttributes() map[string]schema.A
 `,
 		},
 
-		"name_server": schema.StringAttribute{
-			Optional: true,
+		"name_server": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Domain Name Servers (DNS) addresses
 
     |  Format  |  Description  |
@@ -89,61 +91,10 @@ func (o VpnIPsecRemoteAccessPool) ResourceSchemaAttributes() map[string]schema.A
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnIPsecRemoteAccessPool) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnIPsecRemoteAccessPoolExclude.IsNull() && !o.LeafVpnIPsecRemoteAccessPoolExclude.IsUnknown() {
-		jsonData["exclude"] = o.LeafVpnIPsecRemoteAccessPoolExclude.ValueString()
-	}
-
-	if !o.LeafVpnIPsecRemoteAccessPoolPrefix.IsNull() && !o.LeafVpnIPsecRemoteAccessPoolPrefix.IsUnknown() {
-		jsonData["prefix"] = o.LeafVpnIPsecRemoteAccessPoolPrefix.ValueString()
-	}
-
-	if !o.LeafVpnIPsecRemoteAccessPoolNameServer.IsNull() && !o.LeafVpnIPsecRemoteAccessPoolNameServer.IsUnknown() {
-		jsonData["name-server"] = o.LeafVpnIPsecRemoteAccessPoolNameServer.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnIPsecRemoteAccessPool) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["exclude"]; ok {
-		o.LeafVpnIPsecRemoteAccessPoolExclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessPoolExclude = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["prefix"]; ok {
-		o.LeafVpnIPsecRemoteAccessPoolPrefix = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessPoolPrefix = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["name-server"]; ok {
-		o.LeafVpnIPsecRemoteAccessPoolNameServer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessPoolNameServer = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VpnIPsecRemoteAccessPool) UnmarshalJSON(_ []byte) error {
 	return nil
 }

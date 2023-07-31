@@ -2,36 +2,33 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpNeighbor describes the resource data model.
 type VrfNameProtocolsBgpNeighbor struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVrfName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
 	// LeafNodes
-	LeafVrfNameProtocolsBgpNeighborAdvertisementInterval        types.String `tfsdk:"advertisement_interval" vyos:"advertisement-interval,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborAdvertisementInterval        types.Number `tfsdk:"advertisement_interval" vyos:"advertisement-interval,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborDescrIPtion                  types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafVrfNameProtocolsBgpNeighborDisableCapabilityNegotiation types.String `tfsdk:"disable_capability_negotiation" vyos:"disable-capability-negotiation,omitempty"`
-	LeafVrfNameProtocolsBgpNeighborDisableConnectedCheck        types.String `tfsdk:"disable_connected_check" vyos:"disable-connected-check,omitempty"`
-	LeafVrfNameProtocolsBgpNeighborEbgpMultihop                 types.String `tfsdk:"ebgp_multihop" vyos:"ebgp-multihop,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborDisableCapabilityNegotiation types.Bool   `tfsdk:"disable_capability_negotiation" vyos:"disable-capability-negotiation,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborDisableConnectedCheck        types.Bool   `tfsdk:"disable_connected_check" vyos:"disable-connected-check,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborEbgpMultihop                 types.Number `tfsdk:"ebgp_multihop" vyos:"ebgp-multihop,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborGracefulRestart              types.String `tfsdk:"graceful_restart" vyos:"graceful-restart,omitempty"`
-	LeafVrfNameProtocolsBgpNeighborOverrIDeCapability           types.String `tfsdk:"override_capability" vyos:"override-capability,omitempty"`
-	LeafVrfNameProtocolsBgpNeighborPassive                      types.String `tfsdk:"passive" vyos:"passive,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborOverrIDeCapability           types.Bool   `tfsdk:"override_capability" vyos:"override-capability,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborPassive                      types.Bool   `tfsdk:"passive" vyos:"passive,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborPassword                     types.String `tfsdk:"password" vyos:"password,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborPeerGroup                    types.String `tfsdk:"peer_group" vyos:"peer-group,omitempty"`
-	LeafVrfNameProtocolsBgpNeighborPort                         types.String `tfsdk:"port" vyos:"port,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborPort                         types.Number `tfsdk:"port" vyos:"port,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborRemoteAs                     types.String `tfsdk:"remote_as" vyos:"remote-as,omitempty"`
-	LeafVrfNameProtocolsBgpNeighborShutdown                     types.String `tfsdk:"shutdown" vyos:"shutdown,omitempty"`
-	LeafVrfNameProtocolsBgpNeighborSolo                         types.String `tfsdk:"solo" vyos:"solo,omitempty"`
-	LeafVrfNameProtocolsBgpNeighborStrictCapabilityMatch        types.String `tfsdk:"strict_capability_match" vyos:"strict-capability-match,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborShutdown                     types.Bool   `tfsdk:"shutdown" vyos:"shutdown,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborSolo                         types.Bool   `tfsdk:"solo" vyos:"solo,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborStrictCapabilityMatch        types.Bool   `tfsdk:"strict_capability_match" vyos:"strict-capability-match,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborUpdateSource                 types.String `tfsdk:"update_source" vyos:"update-source,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -51,9 +48,14 @@ type VrfNameProtocolsBgpNeighbor struct {
 func (o *VrfNameProtocolsBgpNeighbor) GetVyosPath() []string {
 	return []string{
 		"vrf",
+
 		"name",
+		o.ParentIDVrfName.ValueString(),
+
 		"protocols",
+
 		"bgp",
+
 		"neighbor",
 		o.ID.ValueString(),
 	}
@@ -75,9 +77,20 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 `,
 		},
 
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"advertisement_interval": schema.StringAttribute{
+		"advertisement_interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum interval for sending routing updates
 
@@ -99,21 +112,25 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 `,
 		},
 
-		"disable_capability_negotiation": schema.StringAttribute{
+		"disable_capability_negotiation": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable capability negotiation with this neighbor
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"disable_connected_check": schema.StringAttribute{
+		"disable_connected_check": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable check to see if eBGP peer address is a connected route
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"ebgp_multihop": schema.StringAttribute{
+		"ebgp_multihop": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow this EBGP neighbor to not be on a directly connected network
 
@@ -137,18 +154,22 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 `,
 		},
 
-		"override_capability": schema.StringAttribute{
+		"override_capability": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ignore capability negotiation with specified neighbor
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"passive": schema.StringAttribute{
+		"passive": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not initiate a session with this neighbor
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"password": schema.StringAttribute{
@@ -169,7 +190,7 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 `,
 		},
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Neighbor BGP port
 
@@ -193,25 +214,31 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 `,
 		},
 
-		"shutdown": schema.StringAttribute{
+		"shutdown": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively shutdown this neighbor
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"solo": schema.StringAttribute{
+		"solo": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not send back prefixes learned from the neighbor
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"strict_capability_match": schema.StringAttribute{
+		"strict_capability_match": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable strict capability negotiation
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"update_source": schema.StringAttribute{
@@ -281,353 +308,10 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpNeighbor) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpNeighborAdvertisementInterval.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborAdvertisementInterval.IsUnknown() {
-		jsonData["advertisement-interval"] = o.LeafVrfNameProtocolsBgpNeighborAdvertisementInterval.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborDescrIPtion.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafVrfNameProtocolsBgpNeighborDescrIPtion.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborDisableCapabilityNegotiation.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborDisableCapabilityNegotiation.IsUnknown() {
-		jsonData["disable-capability-negotiation"] = o.LeafVrfNameProtocolsBgpNeighborDisableCapabilityNegotiation.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborDisableConnectedCheck.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborDisableConnectedCheck.IsUnknown() {
-		jsonData["disable-connected-check"] = o.LeafVrfNameProtocolsBgpNeighborDisableConnectedCheck.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborEbgpMultihop.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborEbgpMultihop.IsUnknown() {
-		jsonData["ebgp-multihop"] = o.LeafVrfNameProtocolsBgpNeighborEbgpMultihop.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborGracefulRestart.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborGracefulRestart.IsUnknown() {
-		jsonData["graceful-restart"] = o.LeafVrfNameProtocolsBgpNeighborGracefulRestart.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborOverrIDeCapability.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborOverrIDeCapability.IsUnknown() {
-		jsonData["override-capability"] = o.LeafVrfNameProtocolsBgpNeighborOverrIDeCapability.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborPassive.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborPassive.IsUnknown() {
-		jsonData["passive"] = o.LeafVrfNameProtocolsBgpNeighborPassive.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborPassword.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborPassword.IsUnknown() {
-		jsonData["password"] = o.LeafVrfNameProtocolsBgpNeighborPassword.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborPeerGroup.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborPeerGroup.IsUnknown() {
-		jsonData["peer-group"] = o.LeafVrfNameProtocolsBgpNeighborPeerGroup.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborPort.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborPort.IsUnknown() {
-		jsonData["port"] = o.LeafVrfNameProtocolsBgpNeighborPort.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborRemoteAs.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborRemoteAs.IsUnknown() {
-		jsonData["remote-as"] = o.LeafVrfNameProtocolsBgpNeighborRemoteAs.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborShutdown.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborShutdown.IsUnknown() {
-		jsonData["shutdown"] = o.LeafVrfNameProtocolsBgpNeighborShutdown.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborSolo.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborSolo.IsUnknown() {
-		jsonData["solo"] = o.LeafVrfNameProtocolsBgpNeighborSolo.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborStrictCapabilityMatch.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborStrictCapabilityMatch.IsUnknown() {
-		jsonData["strict-capability-match"] = o.LeafVrfNameProtocolsBgpNeighborStrictCapabilityMatch.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborUpdateSource.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborUpdateSource.IsUnknown() {
-		jsonData["update-source"] = o.LeafVrfNameProtocolsBgpNeighborUpdateSource.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpNeighborAddressFamily).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpNeighborAddressFamily)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["address-family"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpNeighborBfd).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpNeighborBfd)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["bfd"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpNeighborCapability).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpNeighborCapability)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["capability"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpNeighborInterface).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpNeighborInterface)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["interface"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpNeighborTimers).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpNeighborTimers)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["timers"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpNeighborTTLSecURIty).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpNeighborTTLSecURIty)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ttl-security"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpNeighbor) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["advertisement-interval"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborAdvertisementInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborAdvertisementInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable-capability-negotiation"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborDisableCapabilityNegotiation = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborDisableCapabilityNegotiation = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable-connected-check"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborDisableConnectedCheck = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborDisableConnectedCheck = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ebgp-multihop"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborEbgpMultihop = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborEbgpMultihop = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["graceful-restart"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborGracefulRestart = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborGracefulRestart = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["override-capability"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborOverrIDeCapability = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborOverrIDeCapability = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["passive"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborPassive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborPassive = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["password"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborPassword = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["peer-group"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborPeerGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborPeerGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["remote-as"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborRemoteAs = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborRemoteAs = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["shutdown"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborShutdown = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborShutdown = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["solo"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborSolo = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborSolo = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["strict-capability-match"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborStrictCapabilityMatch = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborStrictCapabilityMatch = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["update-source"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborUpdateSource = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborUpdateSource = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["address-family"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpNeighborAddressFamily = &VrfNameProtocolsBgpNeighborAddressFamily{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpNeighborAddressFamily)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["bfd"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpNeighborBfd = &VrfNameProtocolsBgpNeighborBfd{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpNeighborBfd)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["capability"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpNeighborCapability = &VrfNameProtocolsBgpNeighborCapability{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpNeighborCapability)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["interface"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpNeighborInterface = &VrfNameProtocolsBgpNeighborInterface{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpNeighborInterface)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["timers"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpNeighborTimers = &VrfNameProtocolsBgpNeighborTimers{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpNeighborTimers)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ttl-security"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpNeighborTTLSecURIty = &VrfNameProtocolsBgpNeighborTTLSecURIty{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpNeighborTTLSecURIty)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VrfNameProtocolsBgpNeighbor) UnmarshalJSON(_ []byte) error {
 	return nil
 }

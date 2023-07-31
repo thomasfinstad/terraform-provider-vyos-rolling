@@ -2,23 +2,20 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesBondingVifSDhcpvsixOptionsPd describes the resource data model.
 type InterfacesBondingVifSDhcpvsixOptionsPd struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDInterfacesBonding any `tfsdk:"bonding" vyos:"bonding,parent-id"`
+	ParentIDInterfacesBonding types.String `tfsdk:"bonding" vyos:"bonding_identifier,parent-id"`
 
-	ParentIDInterfacesBondingVifS any `tfsdk:"vif_s" vyos:"vif-s,parent-id"`
+	ParentIDInterfacesBondingVifS types.String `tfsdk:"vif_s" vyos:"vif-s_identifier,parent-id"`
 
 	// LeafNodes
-	LeafInterfacesBondingVifSDhcpvsixOptionsPdLength types.String `tfsdk:"length" vyos:"length,omitempty"`
+	LeafInterfacesBondingVifSDhcpvsixOptionsPdLength types.Number `tfsdk:"length" vyos:"length,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagInterfacesBondingVifSDhcpvsixOptionsPdInterface bool `tfsdk:"interface" vyos:"interface,child"`
@@ -30,9 +27,15 @@ type InterfacesBondingVifSDhcpvsixOptionsPd struct {
 func (o *InterfacesBondingVifSDhcpvsixOptionsPd) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"bonding",
+		o.ParentIDInterfacesBonding.ValueString(),
+
 		"vif-s",
+		o.ParentIDInterfacesBondingVifS.ValueString(),
+
 		"dhcpv6-options",
+
 		"pd",
 		o.ID.ValueString(),
 	}
@@ -52,9 +55,31 @@ func (o InterfacesBondingVifSDhcpvsixOptionsPd) ResourceSchemaAttributes() map[s
 `,
 		},
 
+		"bonding_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Bonding Interface/Link Aggregation
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  bondN  |  Bonding interface name  |
+
+`,
+		},
+
+		"vif_s_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `QinQ TAG-S Virtual Local Area Network (VLAN) ID
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"length": schema.StringAttribute{
+		"length": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Request IPv6 prefix length from peer
 
@@ -75,41 +100,10 @@ func (o InterfacesBondingVifSDhcpvsixOptionsPd) ResourceSchemaAttributes() map[s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesBondingVifSDhcpvsixOptionsPd) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesBondingVifSDhcpvsixOptionsPdLength.IsNull() && !o.LeafInterfacesBondingVifSDhcpvsixOptionsPdLength.IsUnknown() {
-		jsonData["length"] = o.LeafInterfacesBondingVifSDhcpvsixOptionsPdLength.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesBondingVifSDhcpvsixOptionsPd) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["length"]; ok {
-		o.LeafInterfacesBondingVifSDhcpvsixOptionsPdLength = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifSDhcpvsixOptionsPdLength = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesBondingVifSDhcpvsixOptionsPd) UnmarshalJSON(_ []byte) error {
 	return nil
 }

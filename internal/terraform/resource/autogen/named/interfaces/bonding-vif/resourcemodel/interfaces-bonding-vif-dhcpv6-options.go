@@ -2,20 +2,18 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesBondingVifDhcpvsixOptions describes the resource data model.
 type InterfacesBondingVifDhcpvsixOptions struct {
 	// LeafNodes
 	LeafInterfacesBondingVifDhcpvsixOptionsDuID           types.String `tfsdk:"duid" vyos:"duid,omitempty"`
-	LeafInterfacesBondingVifDhcpvsixOptionsParametersOnly types.String `tfsdk:"parameters_only" vyos:"parameters-only,omitempty"`
-	LeafInterfacesBondingVifDhcpvsixOptionsRAPIDCommit    types.String `tfsdk:"rapid_commit" vyos:"rapid-commit,omitempty"`
-	LeafInterfacesBondingVifDhcpvsixOptionsTemporary      types.String `tfsdk:"temporary" vyos:"temporary,omitempty"`
+	LeafInterfacesBondingVifDhcpvsixOptionsParametersOnly types.Bool   `tfsdk:"parameters_only" vyos:"parameters-only,omitempty"`
+	LeafInterfacesBondingVifDhcpvsixOptionsRAPIDCommit    types.Bool   `tfsdk:"rapid_commit" vyos:"rapid-commit,omitempty"`
+	LeafInterfacesBondingVifDhcpvsixOptionsTemporary      types.Bool   `tfsdk:"temporary" vyos:"temporary,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagInterfacesBondingVifDhcpvsixOptionsPd bool `tfsdk:"pd" vyos:"pd,child"`
@@ -39,25 +37,31 @@ func (o InterfacesBondingVifDhcpvsixOptions) ResourceSchemaAttributes() map[stri
 `,
 		},
 
-		"parameters_only": schema.StringAttribute{
+		"parameters_only": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Acquire only config parameters, no address
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"rapid_commit": schema.StringAttribute{
+		"rapid_commit": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Wait for immediate reply instead of advertisements
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"temporary": schema.StringAttribute{
+		"temporary": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv6 temporary address
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -67,71 +71,10 @@ func (o InterfacesBondingVifDhcpvsixOptions) ResourceSchemaAttributes() map[stri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesBondingVifDhcpvsixOptions) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesBondingVifDhcpvsixOptionsDuID.IsNull() && !o.LeafInterfacesBondingVifDhcpvsixOptionsDuID.IsUnknown() {
-		jsonData["duid"] = o.LeafInterfacesBondingVifDhcpvsixOptionsDuID.ValueString()
-	}
-
-	if !o.LeafInterfacesBondingVifDhcpvsixOptionsParametersOnly.IsNull() && !o.LeafInterfacesBondingVifDhcpvsixOptionsParametersOnly.IsUnknown() {
-		jsonData["parameters-only"] = o.LeafInterfacesBondingVifDhcpvsixOptionsParametersOnly.ValueString()
-	}
-
-	if !o.LeafInterfacesBondingVifDhcpvsixOptionsRAPIDCommit.IsNull() && !o.LeafInterfacesBondingVifDhcpvsixOptionsRAPIDCommit.IsUnknown() {
-		jsonData["rapid-commit"] = o.LeafInterfacesBondingVifDhcpvsixOptionsRAPIDCommit.ValueString()
-	}
-
-	if !o.LeafInterfacesBondingVifDhcpvsixOptionsTemporary.IsNull() && !o.LeafInterfacesBondingVifDhcpvsixOptionsTemporary.IsUnknown() {
-		jsonData["temporary"] = o.LeafInterfacesBondingVifDhcpvsixOptionsTemporary.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesBondingVifDhcpvsixOptions) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["duid"]; ok {
-		o.LeafInterfacesBondingVifDhcpvsixOptionsDuID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifDhcpvsixOptionsDuID = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["parameters-only"]; ok {
-		o.LeafInterfacesBondingVifDhcpvsixOptionsParametersOnly = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifDhcpvsixOptionsParametersOnly = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rapid-commit"]; ok {
-		o.LeafInterfacesBondingVifDhcpvsixOptionsRAPIDCommit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifDhcpvsixOptionsRAPIDCommit = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["temporary"]; ok {
-		o.LeafInterfacesBondingVifDhcpvsixOptionsTemporary = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifDhcpvsixOptionsTemporary = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesBondingVifDhcpvsixOptions) UnmarshalJSON(_ []byte) error {
 	return nil
 }

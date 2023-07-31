@@ -2,11 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallIPvsixName describes the resource data model.
@@ -15,7 +13,7 @@ type FirewallIPvsixName struct {
 
 	// LeafNodes
 	LeafFirewallIPvsixNameDefaultAction     types.String `tfsdk:"default_action" vyos:"default-action,omitempty"`
-	LeafFirewallIPvsixNameEnableDefaultLog  types.String `tfsdk:"enable_default_log" vyos:"enable-default-log,omitempty"`
+	LeafFirewallIPvsixNameEnableDefaultLog  types.Bool   `tfsdk:"enable_default_log" vyos:"enable-default-log,omitempty"`
 	LeafFirewallIPvsixNameDescrIPtion       types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafFirewallIPvsixNameDefaultJumpTarget types.String `tfsdk:"default_jump_target" vyos:"default-jump-target,omitempty"`
 
@@ -29,6 +27,7 @@ type FirewallIPvsixName struct {
 func (o *FirewallIPvsixName) GetVyosPath() []string {
 	return []string{
 		"firewall",
+
 		"ipv6-name",
 		o.ID.ValueString(),
 	}
@@ -64,11 +63,13 @@ func (o FirewallIPvsixName) ResourceSchemaAttributes() map[string]schema.Attribu
 			Computed: true,
 		},
 
-		"enable_default_log": schema.StringAttribute{
+		"enable_default_log": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Log packets hitting default-action
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"description": schema.StringAttribute{
@@ -97,71 +98,10 @@ func (o FirewallIPvsixName) ResourceSchemaAttributes() map[string]schema.Attribu
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallIPvsixName) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallIPvsixNameDefaultAction.IsNull() && !o.LeafFirewallIPvsixNameDefaultAction.IsUnknown() {
-		jsonData["default-action"] = o.LeafFirewallIPvsixNameDefaultAction.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameEnableDefaultLog.IsNull() && !o.LeafFirewallIPvsixNameEnableDefaultLog.IsUnknown() {
-		jsonData["enable-default-log"] = o.LeafFirewallIPvsixNameEnableDefaultLog.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameDescrIPtion.IsNull() && !o.LeafFirewallIPvsixNameDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafFirewallIPvsixNameDescrIPtion.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameDefaultJumpTarget.IsNull() && !o.LeafFirewallIPvsixNameDefaultJumpTarget.IsUnknown() {
-		jsonData["default-jump-target"] = o.LeafFirewallIPvsixNameDefaultJumpTarget.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallIPvsixName) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["default-action"]; ok {
-		o.LeafFirewallIPvsixNameDefaultAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameDefaultAction = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["enable-default-log"]; ok {
-		o.LeafFirewallIPvsixNameEnableDefaultLog = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameEnableDefaultLog = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafFirewallIPvsixNameDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["default-jump-target"]; ok {
-		o.LeafFirewallIPvsixNameDefaultJumpTarget = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameDefaultJumpTarget = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallIPvsixName) UnmarshalJSON(_ []byte) error {
 	return nil
 }

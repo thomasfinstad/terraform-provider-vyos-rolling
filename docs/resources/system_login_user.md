@@ -47,17 +47,17 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Base32 encoded key/token  |
-- `rate_limit` (String) Limit number of logins (rate-limit) per rate-time
+- `rate_limit` (Number) Limit number of logins (rate-limit) per rate-time
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-10  |  Number of attempts  |
-- `rate_time` (String) Limit number of logins (rate-limit) per rate-time
+- `rate_time` (Number) Limit number of logins (rate-limit) per rate-time
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:15-600  |  Time interval  |
-- `window_size` (String) Set window of concurrently valid codes
+- `window_size` (Number) Set window of concurrently valid codes
 
     |  Format  |  Description  |
     |----------|---------------|

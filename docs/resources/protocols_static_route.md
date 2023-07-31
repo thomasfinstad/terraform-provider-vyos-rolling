@@ -56,12 +56,12 @@ Static IPv4 route
 
 Optional:
 
-- `distance` (String) Distance for this route
+- `distance` (Number) Distance for this route
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Distance for this route  |
-- `tag` (String) Tag value for this route
+- `tag` (Number) Tag value for this route
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -73,12 +73,12 @@ Optional:
 
 Optional:
 
-- `distance` (String) Distance for this route
+- `distance` (Number) Distance for this route
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Distance for this route  |
-- `tag` (String) Tag value for this route
+- `tag` (Number) Tag value for this route
 
     |  Format  |  Description  |
     |----------|---------------|

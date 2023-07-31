@@ -2,9 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -25,8 +22,11 @@ type ProtocolsOspfSegmentRoutingPrefix struct {
 func (o *ProtocolsOspfSegmentRoutingPrefix) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"ospf",
+
 		"segment-routing",
+
 		"prefix",
 		o.ID.ValueString(),
 	}
@@ -62,58 +62,10 @@ func (o ProtocolsOspfSegmentRoutingPrefix) ResourceSchemaAttributes() map[string
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsOspfSegmentRoutingPrefix) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeProtocolsOspfSegmentRoutingPrefixIndex).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsOspfSegmentRoutingPrefixIndex)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["index"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsOspfSegmentRoutingPrefix) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["index"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsOspfSegmentRoutingPrefixIndex = &ProtocolsOspfSegmentRoutingPrefixIndex{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsOspfSegmentRoutingPrefixIndex)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ProtocolsOspfSegmentRoutingPrefix) UnmarshalJSON(_ []byte) error {
 	return nil
 }

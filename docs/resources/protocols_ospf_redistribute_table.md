@@ -38,12 +38,12 @@ Redistribute non-main Kernel Routing Table
 
 ### Optional
 
-- `metric` (String) OSPF default metric
+- `metric` (Number) OSPF default metric
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-16777214  |  Default metric  |
-- `metric_type` (String) OSPF metric type for default routes
+- `metric_type` (Number) OSPF metric type for default routes
 
     |  Format  |  Description  |
     |----------|---------------|

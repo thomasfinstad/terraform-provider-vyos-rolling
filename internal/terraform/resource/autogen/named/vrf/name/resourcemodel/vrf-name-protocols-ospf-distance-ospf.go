@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfDistanceOspf describes the resource data model.
 type VrfNameProtocolsOspfDistanceOspf struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfDistanceOspfExternal  types.String `tfsdk:"external" vyos:"external,omitempty"`
-	LeafVrfNameProtocolsOspfDistanceOspfInterArea types.String `tfsdk:"inter_area" vyos:"inter-area,omitempty"`
-	LeafVrfNameProtocolsOspfDistanceOspfIntraArea types.String `tfsdk:"intra_area" vyos:"intra-area,omitempty"`
+	LeafVrfNameProtocolsOspfDistanceOspfExternal  types.Number `tfsdk:"external" vyos:"external,omitempty"`
+	LeafVrfNameProtocolsOspfDistanceOspfInterArea types.Number `tfsdk:"inter_area" vyos:"inter-area,omitempty"`
+	LeafVrfNameProtocolsOspfDistanceOspfIntraArea types.Number `tfsdk:"intra_area" vyos:"intra-area,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,7 +23,7 @@ func (o VrfNameProtocolsOspfDistanceOspf) ResourceSchemaAttributes() map[string]
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"external": schema.StringAttribute{
+		"external": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Distance for external routes
 
@@ -37,7 +34,7 @@ func (o VrfNameProtocolsOspfDistanceOspf) ResourceSchemaAttributes() map[string]
 `,
 		},
 
-		"inter_area": schema.StringAttribute{
+		"inter_area": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Distance for inter-area routes
 
@@ -48,7 +45,7 @@ func (o VrfNameProtocolsOspfDistanceOspf) ResourceSchemaAttributes() map[string]
 `,
 		},
 
-		"intra_area": schema.StringAttribute{
+		"intra_area": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Distance for intra-area routes
 
@@ -66,61 +63,10 @@ func (o VrfNameProtocolsOspfDistanceOspf) ResourceSchemaAttributes() map[string]
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfDistanceOspf) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfDistanceOspfExternal.IsNull() && !o.LeafVrfNameProtocolsOspfDistanceOspfExternal.IsUnknown() {
-		jsonData["external"] = o.LeafVrfNameProtocolsOspfDistanceOspfExternal.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfDistanceOspfInterArea.IsNull() && !o.LeafVrfNameProtocolsOspfDistanceOspfInterArea.IsUnknown() {
-		jsonData["inter-area"] = o.LeafVrfNameProtocolsOspfDistanceOspfInterArea.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfDistanceOspfIntraArea.IsNull() && !o.LeafVrfNameProtocolsOspfDistanceOspfIntraArea.IsUnknown() {
-		jsonData["intra-area"] = o.LeafVrfNameProtocolsOspfDistanceOspfIntraArea.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfDistanceOspf) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["external"]; ok {
-		o.LeafVrfNameProtocolsOspfDistanceOspfExternal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfDistanceOspfExternal = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["inter-area"]; ok {
-		o.LeafVrfNameProtocolsOspfDistanceOspfInterArea = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfDistanceOspfInterArea = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["intra-area"]; ok {
-		o.LeafVrfNameProtocolsOspfDistanceOspfIntraArea = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfDistanceOspfIntraArea = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfDistanceOspf) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesPseudoEthernetVifMirror describes the resource data model.
@@ -54,51 +51,10 @@ func (o InterfacesPseudoEthernetVifMirror) ResourceSchemaAttributes() map[string
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesPseudoEthernetVifMirror) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesPseudoEthernetVifMirrorIngress.IsNull() && !o.LeafInterfacesPseudoEthernetVifMirrorIngress.IsUnknown() {
-		jsonData["ingress"] = o.LeafInterfacesPseudoEthernetVifMirrorIngress.ValueString()
-	}
-
-	if !o.LeafInterfacesPseudoEthernetVifMirrorEgress.IsNull() && !o.LeafInterfacesPseudoEthernetVifMirrorEgress.IsUnknown() {
-		jsonData["egress"] = o.LeafInterfacesPseudoEthernetVifMirrorEgress.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesPseudoEthernetVifMirror) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["ingress"]; ok {
-		o.LeafInterfacesPseudoEthernetVifMirrorIngress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPseudoEthernetVifMirrorIngress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["egress"]; ok {
-		o.LeafInterfacesPseudoEthernetVifMirrorEgress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPseudoEthernetVifMirrorEgress = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesPseudoEthernetVifMirror) UnmarshalJSON(_ []byte) error {
 	return nil
 }

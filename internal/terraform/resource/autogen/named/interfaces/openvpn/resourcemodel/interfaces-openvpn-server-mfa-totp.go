@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesOpenvpnServerMfaTotp describes the resource data model.
@@ -106,81 +103,10 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceSchemaAttributes() map[string]sc
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesOpenvpnServerMfaTotp) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesOpenvpnServerMfaTotpSlop.IsNull() && !o.LeafInterfacesOpenvpnServerMfaTotpSlop.IsUnknown() {
-		jsonData["slop"] = o.LeafInterfacesOpenvpnServerMfaTotpSlop.ValueString()
-	}
-
-	if !o.LeafInterfacesOpenvpnServerMfaTotpDrift.IsNull() && !o.LeafInterfacesOpenvpnServerMfaTotpDrift.IsUnknown() {
-		jsonData["drift"] = o.LeafInterfacesOpenvpnServerMfaTotpDrift.ValueString()
-	}
-
-	if !o.LeafInterfacesOpenvpnServerMfaTotpStep.IsNull() && !o.LeafInterfacesOpenvpnServerMfaTotpStep.IsUnknown() {
-		jsonData["step"] = o.LeafInterfacesOpenvpnServerMfaTotpStep.ValueString()
-	}
-
-	if !o.LeafInterfacesOpenvpnServerMfaTotpDigits.IsNull() && !o.LeafInterfacesOpenvpnServerMfaTotpDigits.IsUnknown() {
-		jsonData["digits"] = o.LeafInterfacesOpenvpnServerMfaTotpDigits.ValueString()
-	}
-
-	if !o.LeafInterfacesOpenvpnServerMfaTotpChallenge.IsNull() && !o.LeafInterfacesOpenvpnServerMfaTotpChallenge.IsUnknown() {
-		jsonData["challenge"] = o.LeafInterfacesOpenvpnServerMfaTotpChallenge.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesOpenvpnServerMfaTotp) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["slop"]; ok {
-		o.LeafInterfacesOpenvpnServerMfaTotpSlop = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerMfaTotpSlop = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["drift"]; ok {
-		o.LeafInterfacesOpenvpnServerMfaTotpDrift = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerMfaTotpDrift = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["step"]; ok {
-		o.LeafInterfacesOpenvpnServerMfaTotpStep = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerMfaTotpStep = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["digits"]; ok {
-		o.LeafInterfacesOpenvpnServerMfaTotpDigits = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerMfaTotpDigits = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["challenge"]; ok {
-		o.LeafInterfacesOpenvpnServerMfaTotpChallenge = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerMfaTotpChallenge = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesOpenvpnServerMfaTotp) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceConsoleServerDevice describes the resource data model.
@@ -32,7 +28,9 @@ type ServiceConsoleServerDevice struct {
 func (o *ServiceConsoleServerDevice) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"console-server",
+
 		"device",
 		o.ID.ValueString(),
 	}
@@ -124,118 +122,10 @@ func (o ServiceConsoleServerDevice) ResourceSchemaAttributes() map[string]schema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceConsoleServerDevice) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceConsoleServerDeviceDescrIPtion.IsNull() && !o.LeafServiceConsoleServerDeviceDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafServiceConsoleServerDeviceDescrIPtion.ValueString()
-	}
-
-	if !o.LeafServiceConsoleServerDeviceAlias.IsNull() && !o.LeafServiceConsoleServerDeviceAlias.IsUnknown() {
-		jsonData["alias"] = o.LeafServiceConsoleServerDeviceAlias.ValueString()
-	}
-
-	if !o.LeafServiceConsoleServerDeviceSpeed.IsNull() && !o.LeafServiceConsoleServerDeviceSpeed.IsUnknown() {
-		jsonData["speed"] = o.LeafServiceConsoleServerDeviceSpeed.ValueString()
-	}
-
-	if !o.LeafServiceConsoleServerDeviceDataBits.IsNull() && !o.LeafServiceConsoleServerDeviceDataBits.IsUnknown() {
-		jsonData["data-bits"] = o.LeafServiceConsoleServerDeviceDataBits.ValueString()
-	}
-
-	if !o.LeafServiceConsoleServerDeviceStopBits.IsNull() && !o.LeafServiceConsoleServerDeviceStopBits.IsUnknown() {
-		jsonData["stop-bits"] = o.LeafServiceConsoleServerDeviceStopBits.ValueString()
-	}
-
-	if !o.LeafServiceConsoleServerDeviceParity.IsNull() && !o.LeafServiceConsoleServerDeviceParity.IsUnknown() {
-		jsonData["parity"] = o.LeafServiceConsoleServerDeviceParity.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeServiceConsoleServerDeviceTCP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeServiceConsoleServerDeviceTCP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ssh"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceConsoleServerDevice) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafServiceConsoleServerDeviceDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceConsoleServerDeviceDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["alias"]; ok {
-		o.LeafServiceConsoleServerDeviceAlias = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceConsoleServerDeviceAlias = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["speed"]; ok {
-		o.LeafServiceConsoleServerDeviceSpeed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceConsoleServerDeviceSpeed = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["data-bits"]; ok {
-		o.LeafServiceConsoleServerDeviceDataBits = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceConsoleServerDeviceDataBits = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["stop-bits"]; ok {
-		o.LeafServiceConsoleServerDeviceStopBits = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceConsoleServerDeviceStopBits = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["parity"]; ok {
-		o.LeafServiceConsoleServerDeviceParity = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceConsoleServerDeviceParity = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["ssh"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeServiceConsoleServerDeviceTCP = &ServiceConsoleServerDeviceTCP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeServiceConsoleServerDeviceTCP)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ServiceConsoleServerDevice) UnmarshalJSON(_ []byte) error {
 	return nil
 }

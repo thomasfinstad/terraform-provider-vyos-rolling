@@ -2,17 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastNexthopSelf describes the resource data model.
 type VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastNexthopSelf struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastNexthopSelfForce types.String `tfsdk:"force" vyos:"force,omitempty"`
+	LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastNexthopSelfForce types.Bool `tfsdk:"force" vyos:"force,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,11 +22,13 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastNexthopSelf) Reso
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"force": schema.StringAttribute{
+		"force": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Set the next hop to self for reflected routes
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -38,41 +38,10 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastNexthopSelf) Reso
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastNexthopSelf) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastNexthopSelfForce.IsNull() && !o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastNexthopSelfForce.IsUnknown() {
-		jsonData["force"] = o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastNexthopSelfForce.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastNexthopSelf) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["force"]; ok {
-		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastNexthopSelfForce = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastNexthopSelfForce = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastNexthopSelf) UnmarshalJSON(_ []byte) error {
 	return nil
 }

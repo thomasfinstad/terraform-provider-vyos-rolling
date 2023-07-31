@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn describes the resource data model.
 type VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteReflectorClient types.String `tfsdk:"route_reflector_client" vyos:"route-reflector-client,omitempty"`
-	LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteServerClient    types.String `tfsdk:"route_server_client" vyos:"route-server-client,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteReflectorClient types.Bool `tfsdk:"route_reflector_client" vyos:"route-reflector-client,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteServerClient    types.Bool `tfsdk:"route_server_client" vyos:"route-server-client,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -31,18 +28,22 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn) ResourceSchemaAttri
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"route_reflector_client": schema.StringAttribute{
+		"route_reflector_client": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer is a route reflector client
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"route_server_client": schema.StringAttribute{
+		"route_server_client": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer is a route server client
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -91,186 +92,10 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn) ResourceSchemaAttri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteReflectorClient.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteReflectorClient.IsUnknown() {
-		jsonData["route-reflector-client"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteReflectorClient.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteServerClient.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteServerClient.IsUnknown() {
-		jsonData["route-server-client"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteServerClient.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasIn).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasIn)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["allowas-in"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchanged).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchanged)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["attribute-unchanged"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnNexthopSelf).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnNexthopSelf)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["nexthop-self"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMap).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMap)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["route-map"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnSoftReconfiguration).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnSoftReconfiguration)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["soft-reconfiguration"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["route-reflector-client"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteReflectorClient = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteReflectorClient = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["route-server-client"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteServerClient = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteServerClient = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["allowas-in"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasIn = &VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasIn{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasIn)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["attribute-unchanged"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchanged = &VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchanged{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchanged)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["nexthop-self"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnNexthopSelf = &VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnNexthopSelf{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnNexthopSelf)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["route-map"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMap = &VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMap{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMap)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["soft-reconfiguration"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnSoftReconfiguration = &VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnSoftReconfiguration{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnSoftReconfiguration)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn) UnmarshalJSON(_ []byte) error {
 	return nil
 }

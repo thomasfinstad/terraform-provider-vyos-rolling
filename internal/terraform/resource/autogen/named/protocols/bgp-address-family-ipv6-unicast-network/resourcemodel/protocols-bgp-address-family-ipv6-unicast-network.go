@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpAddressFamilyIPvsixUnicastNetwork describes the resource data model.
@@ -14,7 +11,7 @@ type ProtocolsBgpAddressFamilyIPvsixUnicastNetwork struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafProtocolsBgpAddressFamilyIPvsixUnicastNetworkPathLimit types.String `tfsdk:"path_limit" vyos:"path-limit,omitempty"`
+	LeafProtocolsBgpAddressFamilyIPvsixUnicastNetworkPathLimit types.Number `tfsdk:"path_limit" vyos:"path-limit,omitempty"`
 	LeafProtocolsBgpAddressFamilyIPvsixUnicastNetworkRouteMap  types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -26,9 +23,13 @@ type ProtocolsBgpAddressFamilyIPvsixUnicastNetwork struct {
 func (o *ProtocolsBgpAddressFamilyIPvsixUnicastNetwork) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"bgp",
+
 		"address-family",
+
 		"ipv6-unicast",
+
 		"network",
 		o.ID.ValueString(),
 	}
@@ -50,7 +51,7 @@ func (o ProtocolsBgpAddressFamilyIPvsixUnicastNetwork) ResourceSchemaAttributes(
 
 		// LeafNodes
 
-		"path_limit": schema.StringAttribute{
+		"path_limit": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `AS-path hopcount limit
 
@@ -79,51 +80,10 @@ func (o ProtocolsBgpAddressFamilyIPvsixUnicastNetwork) ResourceSchemaAttributes(
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpAddressFamilyIPvsixUnicastNetwork) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpAddressFamilyIPvsixUnicastNetworkPathLimit.IsNull() && !o.LeafProtocolsBgpAddressFamilyIPvsixUnicastNetworkPathLimit.IsUnknown() {
-		jsonData["path-limit"] = o.LeafProtocolsBgpAddressFamilyIPvsixUnicastNetworkPathLimit.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpAddressFamilyIPvsixUnicastNetworkRouteMap.IsNull() && !o.LeafProtocolsBgpAddressFamilyIPvsixUnicastNetworkRouteMap.IsUnknown() {
-		jsonData["route-map"] = o.LeafProtocolsBgpAddressFamilyIPvsixUnicastNetworkRouteMap.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpAddressFamilyIPvsixUnicastNetwork) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["path-limit"]; ok {
-		o.LeafProtocolsBgpAddressFamilyIPvsixUnicastNetworkPathLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpAddressFamilyIPvsixUnicastNetworkPathLimit = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["route-map"]; ok {
-		o.LeafProtocolsBgpAddressFamilyIPvsixUnicastNetworkRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpAddressFamilyIPvsixUnicastNetworkRouteMap = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpAddressFamilyIPvsixUnicastNetwork) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -27,7 +27,7 @@ Firewall ipv6-address-group
 
 ### Optional
 
-- `address` (String) Address-group member
+- `address` (List of String) Address-group member
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -38,4 +38,4 @@ Firewall ipv6-address-group
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `include` (String) Include another ipv6-address-group
+- `include` (List of String) Include another ipv6-address-group

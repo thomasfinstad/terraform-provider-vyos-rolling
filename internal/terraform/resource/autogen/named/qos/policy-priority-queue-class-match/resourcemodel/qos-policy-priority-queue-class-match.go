@@ -2,27 +2,23 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyPriorityQueueClassMatch describes the resource data model.
 type QosPolicyPriorityQueueClassMatch struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDQosPolicyPriorityQueue any `tfsdk:"priority_queue" vyos:"priority-queue,parent-id"`
+	ParentIDQosPolicyPriorityQueue types.String `tfsdk:"priority_queue" vyos:"priority-queue_identifier,parent-id"`
 
-	ParentIDQosPolicyPriorityQueueClass any `tfsdk:"class" vyos:"class,parent-id"`
+	ParentIDQosPolicyPriorityQueueClass types.String `tfsdk:"class" vyos:"class_identifier,parent-id"`
 
 	// LeafNodes
 	LeafQosPolicyPriorityQueueClassMatchDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafQosPolicyPriorityQueueClassMatchInterface   types.String `tfsdk:"interface" vyos:"interface,omitempty"`
-	LeafQosPolicyPriorityQueueClassMatchMark        types.String `tfsdk:"mark" vyos:"mark,omitempty"`
-	LeafQosPolicyPriorityQueueClassMatchVif         types.String `tfsdk:"vif" vyos:"vif,omitempty"`
+	LeafQosPolicyPriorityQueueClassMatchMark        types.Number `tfsdk:"mark" vyos:"mark,omitempty"`
+	LeafQosPolicyPriorityQueueClassMatchVif         types.Number `tfsdk:"vif" vyos:"vif,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -36,9 +32,15 @@ type QosPolicyPriorityQueueClassMatch struct {
 func (o *QosPolicyPriorityQueueClassMatch) GetVyosPath() []string {
 	return []string{
 		"qos",
+
 		"policy",
+
 		"priority-queue",
+		o.ParentIDQosPolicyPriorityQueue.ValueString(),
+
 		"class",
+		o.ParentIDQosPolicyPriorityQueueClass.ValueString(),
+
 		"match",
 		o.ID.ValueString(),
 	}
@@ -50,6 +52,28 @@ func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes() map[string]
 		"identifier": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Class matching rule name
+
+`,
+		},
+
+		"priority_queue_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Priority queuing based policy
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
+
+`,
+		},
+
+		"class_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Class Handle
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-7  |  Priority  |
 
 `,
 		},
@@ -78,7 +102,7 @@ func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes() map[string]
 `,
 		},
 
-		"mark": schema.StringAttribute{
+		"mark": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Match on mark applied by firewall
 
@@ -89,7 +113,7 @@ func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes() map[string]
 `,
 		},
 
-		"vif": schema.StringAttribute{
+		"vif": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Virtual Local Area Network (VLAN) ID for this match
 
@@ -130,152 +154,10 @@ func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes() map[string]
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyPriorityQueueClassMatch) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyPriorityQueueClassMatchDescrIPtion.IsNull() && !o.LeafQosPolicyPriorityQueueClassMatchDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafQosPolicyPriorityQueueClassMatchDescrIPtion.ValueString()
-	}
-
-	if !o.LeafQosPolicyPriorityQueueClassMatchInterface.IsNull() && !o.LeafQosPolicyPriorityQueueClassMatchInterface.IsUnknown() {
-		jsonData["interface"] = o.LeafQosPolicyPriorityQueueClassMatchInterface.ValueString()
-	}
-
-	if !o.LeafQosPolicyPriorityQueueClassMatchMark.IsNull() && !o.LeafQosPolicyPriorityQueueClassMatchMark.IsUnknown() {
-		jsonData["mark"] = o.LeafQosPolicyPriorityQueueClassMatchMark.ValueString()
-	}
-
-	if !o.LeafQosPolicyPriorityQueueClassMatchVif.IsNull() && !o.LeafQosPolicyPriorityQueueClassMatchVif.IsUnknown() {
-		jsonData["vif"] = o.LeafQosPolicyPriorityQueueClassMatchVif.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeQosPolicyPriorityQueueClassMatchEther).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyPriorityQueueClassMatchEther)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ether"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeQosPolicyPriorityQueueClassMatchIP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyPriorityQueueClassMatchIP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ip"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeQosPolicyPriorityQueueClassMatchIPvsix).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyPriorityQueueClassMatchIPvsix)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipv6"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyPriorityQueueClassMatch) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafQosPolicyPriorityQueueClassMatchDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassMatchDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["interface"]; ok {
-		o.LeafQosPolicyPriorityQueueClassMatchInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassMatchInterface = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mark"]; ok {
-		o.LeafQosPolicyPriorityQueueClassMatchMark = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassMatchMark = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vif"]; ok {
-		o.LeafQosPolicyPriorityQueueClassMatchVif = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassMatchVif = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["ether"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyPriorityQueueClassMatchEther = &QosPolicyPriorityQueueClassMatchEther{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyPriorityQueueClassMatchEther)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ip"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyPriorityQueueClassMatchIP = &QosPolicyPriorityQueueClassMatchIP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyPriorityQueueClassMatchIP)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ipv6"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyPriorityQueueClassMatchIPvsix = &QosPolicyPriorityQueueClassMatchIPvsix{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyPriorityQueueClassMatchIPvsix)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *QosPolicyPriorityQueueClassMatch) UnmarshalJSON(_ []byte) error {
 	return nil
 }

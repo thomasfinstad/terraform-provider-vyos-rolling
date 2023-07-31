@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsOspfInterface describes the resource data model.
@@ -16,15 +13,15 @@ type ProtocolsOspfInterface struct {
 
 	// LeafNodes
 	LeafProtocolsOspfInterfaceArea               types.String `tfsdk:"area" vyos:"area,omitempty"`
-	LeafProtocolsOspfInterfaceDeadInterval       types.String `tfsdk:"dead_interval" vyos:"dead-interval,omitempty"`
-	LeafProtocolsOspfInterfaceHelloInterval      types.String `tfsdk:"hello_interval" vyos:"hello-interval,omitempty"`
-	LeafProtocolsOspfInterfaceRetransmitInterval types.String `tfsdk:"retransmit_interval" vyos:"retransmit-interval,omitempty"`
-	LeafProtocolsOspfInterfaceTransmitDelay      types.String `tfsdk:"transmit_delay" vyos:"transmit-delay,omitempty"`
-	LeafProtocolsOspfInterfaceCost               types.String `tfsdk:"cost" vyos:"cost,omitempty"`
-	LeafProtocolsOspfInterfaceMtuIgnore          types.String `tfsdk:"mtu_ignore" vyos:"mtu-ignore,omitempty"`
-	LeafProtocolsOspfInterfacePriority           types.String `tfsdk:"priority" vyos:"priority,omitempty"`
-	LeafProtocolsOspfInterfaceBandwIDth          types.String `tfsdk:"bandwidth" vyos:"bandwidth,omitempty"`
-	LeafProtocolsOspfInterfaceHelloMultIPlier    types.String `tfsdk:"hello_multiplier" vyos:"hello-multiplier,omitempty"`
+	LeafProtocolsOspfInterfaceDeadInterval       types.Number `tfsdk:"dead_interval" vyos:"dead-interval,omitempty"`
+	LeafProtocolsOspfInterfaceHelloInterval      types.Number `tfsdk:"hello_interval" vyos:"hello-interval,omitempty"`
+	LeafProtocolsOspfInterfaceRetransmitInterval types.Number `tfsdk:"retransmit_interval" vyos:"retransmit-interval,omitempty"`
+	LeafProtocolsOspfInterfaceTransmitDelay      types.Number `tfsdk:"transmit_delay" vyos:"transmit-delay,omitempty"`
+	LeafProtocolsOspfInterfaceCost               types.Number `tfsdk:"cost" vyos:"cost,omitempty"`
+	LeafProtocolsOspfInterfaceMtuIgnore          types.Bool   `tfsdk:"mtu_ignore" vyos:"mtu-ignore,omitempty"`
+	LeafProtocolsOspfInterfacePriority           types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
+	LeafProtocolsOspfInterfaceBandwIDth          types.Number `tfsdk:"bandwidth" vyos:"bandwidth,omitempty"`
+	LeafProtocolsOspfInterfaceHelloMultIPlier    types.Number `tfsdk:"hello_multiplier" vyos:"hello-multiplier,omitempty"`
 	LeafProtocolsOspfInterfaceNetwork            types.String `tfsdk:"network" vyos:"network,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -39,7 +36,9 @@ type ProtocolsOspfInterface struct {
 func (o *ProtocolsOspfInterface) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"ospf",
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -73,7 +72,7 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"dead_interval": schema.StringAttribute{
+		"dead_interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval after which a neighbor is declared dead
 
@@ -87,7 +86,7 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Att
 			Computed: true,
 		},
 
-		"hello_interval": schema.StringAttribute{
+		"hello_interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval between hello packets
 
@@ -101,7 +100,7 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Att
 			Computed: true,
 		},
 
-		"retransmit_interval": schema.StringAttribute{
+		"retransmit_interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval between retransmitting lost link state advertisements
 
@@ -115,7 +114,7 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Att
 			Computed: true,
 		},
 
-		"transmit_delay": schema.StringAttribute{
+		"transmit_delay": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Link state transmit delay
 
@@ -129,7 +128,7 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Att
 			Computed: true,
 		},
 
-		"cost": schema.StringAttribute{
+		"cost": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface cost
 
@@ -140,14 +139,16 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"mtu_ignore": schema.StringAttribute{
+		"mtu_ignore": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable Maximum Transmission Unit (MTU) mismatch detection
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"priority": schema.StringAttribute{
+		"priority": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Router priority
 
@@ -161,7 +162,7 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Att
 			Computed: true,
 		},
 
-		"bandwidth": schema.StringAttribute{
+		"bandwidth": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface bandwidth (Mbit/s)
 
@@ -172,7 +173,7 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"hello_multiplier": schema.StringAttribute{
+		"hello_multiplier": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Hello multiplier factor
 
@@ -227,222 +228,10 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Att
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsOspfInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsOspfInterfaceArea.IsNull() && !o.LeafProtocolsOspfInterfaceArea.IsUnknown() {
-		jsonData["area"] = o.LeafProtocolsOspfInterfaceArea.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfInterfaceDeadInterval.IsNull() && !o.LeafProtocolsOspfInterfaceDeadInterval.IsUnknown() {
-		jsonData["dead-interval"] = o.LeafProtocolsOspfInterfaceDeadInterval.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfInterfaceHelloInterval.IsNull() && !o.LeafProtocolsOspfInterfaceHelloInterval.IsUnknown() {
-		jsonData["hello-interval"] = o.LeafProtocolsOspfInterfaceHelloInterval.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfInterfaceRetransmitInterval.IsNull() && !o.LeafProtocolsOspfInterfaceRetransmitInterval.IsUnknown() {
-		jsonData["retransmit-interval"] = o.LeafProtocolsOspfInterfaceRetransmitInterval.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfInterfaceTransmitDelay.IsNull() && !o.LeafProtocolsOspfInterfaceTransmitDelay.IsUnknown() {
-		jsonData["transmit-delay"] = o.LeafProtocolsOspfInterfaceTransmitDelay.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfInterfaceCost.IsNull() && !o.LeafProtocolsOspfInterfaceCost.IsUnknown() {
-		jsonData["cost"] = o.LeafProtocolsOspfInterfaceCost.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfInterfaceMtuIgnore.IsNull() && !o.LeafProtocolsOspfInterfaceMtuIgnore.IsUnknown() {
-		jsonData["mtu-ignore"] = o.LeafProtocolsOspfInterfaceMtuIgnore.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfInterfacePriority.IsNull() && !o.LeafProtocolsOspfInterfacePriority.IsUnknown() {
-		jsonData["priority"] = o.LeafProtocolsOspfInterfacePriority.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfInterfaceBandwIDth.IsNull() && !o.LeafProtocolsOspfInterfaceBandwIDth.IsUnknown() {
-		jsonData["bandwidth"] = o.LeafProtocolsOspfInterfaceBandwIDth.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfInterfaceHelloMultIPlier.IsNull() && !o.LeafProtocolsOspfInterfaceHelloMultIPlier.IsUnknown() {
-		jsonData["hello-multiplier"] = o.LeafProtocolsOspfInterfaceHelloMultIPlier.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfInterfaceNetwork.IsNull() && !o.LeafProtocolsOspfInterfaceNetwork.IsUnknown() {
-		jsonData["network"] = o.LeafProtocolsOspfInterfaceNetwork.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeProtocolsOspfInterfaceAuthentication).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsOspfInterfaceAuthentication)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["authentication"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsOspfInterfaceBfd).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsOspfInterfaceBfd)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["bfd"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsOspfInterfacePassive).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsOspfInterfacePassive)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["passive"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsOspfInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["area"]; ok {
-		o.LeafProtocolsOspfInterfaceArea = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfInterfaceArea = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["dead-interval"]; ok {
-		o.LeafProtocolsOspfInterfaceDeadInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfInterfaceDeadInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["hello-interval"]; ok {
-		o.LeafProtocolsOspfInterfaceHelloInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfInterfaceHelloInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["retransmit-interval"]; ok {
-		o.LeafProtocolsOspfInterfaceRetransmitInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfInterfaceRetransmitInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["transmit-delay"]; ok {
-		o.LeafProtocolsOspfInterfaceTransmitDelay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfInterfaceTransmitDelay = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["cost"]; ok {
-		o.LeafProtocolsOspfInterfaceCost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfInterfaceCost = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mtu-ignore"]; ok {
-		o.LeafProtocolsOspfInterfaceMtuIgnore = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfInterfaceMtuIgnore = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["priority"]; ok {
-		o.LeafProtocolsOspfInterfacePriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfInterfacePriority = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["bandwidth"]; ok {
-		o.LeafProtocolsOspfInterfaceBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfInterfaceBandwIDth = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["hello-multiplier"]; ok {
-		o.LeafProtocolsOspfInterfaceHelloMultIPlier = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfInterfaceHelloMultIPlier = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["network"]; ok {
-		o.LeafProtocolsOspfInterfaceNetwork = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfInterfaceNetwork = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["authentication"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsOspfInterfaceAuthentication = &ProtocolsOspfInterfaceAuthentication{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsOspfInterfaceAuthentication)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["bfd"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsOspfInterfaceBfd = &ProtocolsOspfInterfaceBfd{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsOspfInterfaceBfd)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["passive"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsOspfInterfacePassive = &ProtocolsOspfInterfacePassive{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsOspfInterfacePassive)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ProtocolsOspfInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

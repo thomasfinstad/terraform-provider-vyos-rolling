@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceIPoeServerAuthenticationInterfaceMacRateLimit describes the resource data model.
@@ -46,51 +43,10 @@ func (o ServiceIPoeServerAuthenticationInterfaceMacRateLimit) ResourceSchemaAttr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceIPoeServerAuthenticationInterfaceMacRateLimit) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitUpload.IsNull() && !o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitUpload.IsUnknown() {
-		jsonData["upload"] = o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitUpload.ValueString()
-	}
-
-	if !o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitDownload.IsNull() && !o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitDownload.IsUnknown() {
-		jsonData["download"] = o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitDownload.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceIPoeServerAuthenticationInterfaceMacRateLimit) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["upload"]; ok {
-		o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitUpload = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitUpload = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["download"]; ok {
-		o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitDownload = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitDownload = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceIPoeServerAuthenticationInterfaceMacRateLimit) UnmarshalJSON(_ []byte) error {
 	return nil
 }

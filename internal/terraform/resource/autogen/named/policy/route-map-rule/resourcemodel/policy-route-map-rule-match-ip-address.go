@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteMapRuleMatchIPAddress describes the resource data model.
 type PolicyRouteMapRuleMatchIPAddress struct {
 	// LeafNodes
-	LeafPolicyRouteMapRuleMatchIPAddressAccessList types.String `tfsdk:"access_list" vyos:"access-list,omitempty"`
+	LeafPolicyRouteMapRuleMatchIPAddressAccessList types.Number `tfsdk:"access_list" vyos:"access-list,omitempty"`
 	LeafPolicyRouteMapRuleMatchIPAddressPrefixList types.String `tfsdk:"prefix_list" vyos:"prefix-list,omitempty"`
-	LeafPolicyRouteMapRuleMatchIPAddressPrefixLen  types.String `tfsdk:"prefix_len" vyos:"prefix-len,omitempty"`
+	LeafPolicyRouteMapRuleMatchIPAddressPrefixLen  types.Number `tfsdk:"prefix_len" vyos:"prefix-len,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,7 +23,7 @@ func (o PolicyRouteMapRuleMatchIPAddress) ResourceSchemaAttributes() map[string]
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"access_list": schema.StringAttribute{
+		"access_list": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `IP access-list to match
 
@@ -47,7 +44,7 @@ func (o PolicyRouteMapRuleMatchIPAddress) ResourceSchemaAttributes() map[string]
 `,
 		},
 
-		"prefix_len": schema.StringAttribute{
+		"prefix_len": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `IP prefix-length to match (can be used for kernel routes only)
 
@@ -65,61 +62,10 @@ func (o PolicyRouteMapRuleMatchIPAddress) ResourceSchemaAttributes() map[string]
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteMapRuleMatchIPAddress) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteMapRuleMatchIPAddressAccessList.IsNull() && !o.LeafPolicyRouteMapRuleMatchIPAddressAccessList.IsUnknown() {
-		jsonData["access-list"] = o.LeafPolicyRouteMapRuleMatchIPAddressAccessList.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleMatchIPAddressPrefixList.IsNull() && !o.LeafPolicyRouteMapRuleMatchIPAddressPrefixList.IsUnknown() {
-		jsonData["prefix-list"] = o.LeafPolicyRouteMapRuleMatchIPAddressPrefixList.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleMatchIPAddressPrefixLen.IsNull() && !o.LeafPolicyRouteMapRuleMatchIPAddressPrefixLen.IsUnknown() {
-		jsonData["prefix-len"] = o.LeafPolicyRouteMapRuleMatchIPAddressPrefixLen.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteMapRuleMatchIPAddress) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["access-list"]; ok {
-		o.LeafPolicyRouteMapRuleMatchIPAddressAccessList = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleMatchIPAddressAccessList = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["prefix-list"]; ok {
-		o.LeafPolicyRouteMapRuleMatchIPAddressPrefixList = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleMatchIPAddressPrefixList = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["prefix-len"]; ok {
-		o.LeafPolicyRouteMapRuleMatchIPAddressPrefixLen = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleMatchIPAddressPrefixLen = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRouteMapRuleMatchIPAddress) UnmarshalJSON(_ []byte) error {
 	return nil
 }

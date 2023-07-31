@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyCake describes the resource data model.
@@ -17,7 +13,7 @@ type QosPolicyCake struct {
 	// LeafNodes
 	LeafQosPolicyCakeDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafQosPolicyCakeBandwIDth   types.String `tfsdk:"bandwidth" vyos:"bandwidth,omitempty"`
-	LeafQosPolicyCakeRtt         types.String `tfsdk:"rtt" vyos:"rtt,omitempty"`
+	LeafQosPolicyCakeRtt         types.Number `tfsdk:"rtt" vyos:"rtt,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -29,7 +25,9 @@ type QosPolicyCake struct {
 func (o *QosPolicyCake) GetVyosPath() []string {
 	return []string{
 		"qos",
+
 		"policy",
+
 		"cake",
 		o.ID.ValueString(),
 	}
@@ -79,7 +77,7 @@ func (o QosPolicyCake) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 
-		"rtt": schema.StringAttribute{
+		"rtt": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Round-Trip-Time for Active Queue Management (AQM)
 
@@ -107,88 +105,10 @@ func (o QosPolicyCake) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyCake) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyCakeDescrIPtion.IsNull() && !o.LeafQosPolicyCakeDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafQosPolicyCakeDescrIPtion.ValueString()
-	}
-
-	if !o.LeafQosPolicyCakeBandwIDth.IsNull() && !o.LeafQosPolicyCakeBandwIDth.IsUnknown() {
-		jsonData["bandwidth"] = o.LeafQosPolicyCakeBandwIDth.ValueString()
-	}
-
-	if !o.LeafQosPolicyCakeRtt.IsNull() && !o.LeafQosPolicyCakeRtt.IsUnknown() {
-		jsonData["rtt"] = o.LeafQosPolicyCakeRtt.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeQosPolicyCakeFlowIsolation).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyCakeFlowIsolation)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["flow-isolation"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyCake) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafQosPolicyCakeDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["bandwidth"]; ok {
-		o.LeafQosPolicyCakeBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeBandwIDth = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rtt"]; ok {
-		o.LeafQosPolicyCakeRtt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeRtt = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["flow-isolation"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyCakeFlowIsolation = &QosPolicyCakeFlowIsolation{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyCakeFlowIsolation)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *QosPolicyCake) UnmarshalJSON(_ []byte) error {
 	return nil
 }

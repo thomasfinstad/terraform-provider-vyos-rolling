@@ -57,11 +57,22 @@ Service entry
 
 ### Required
 
+- `authoritative_domain_identifier` (String) Domain to host authoritative records for
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  text  |  An absolute DNS name  |
 - `identifier` (String) Service entry
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-65535  |  Entry number  |
+- `srv_identifier` (String) "SRV" record
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  text  |  A DNS name relative to the root record  |
+    |  @  |  Root record  |
 
 ### Optional
 
@@ -70,17 +81,17 @@ Service entry
     |  Format  |  Description  |
     |----------|---------------|
     |  name.example.com  |  An absolute DNS name  |
-- `port` (String) Port number
+- `port` (Number) Port number
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-65535  |  TCP/UDP port number  |
-- `priority` (String) Entry priority
+- `priority` (Number) Entry priority
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-65535  |  Entry priority (lower numbers are higher priority)  |
-- `weight` (String) Entry weight
+- `weight` (Number) Entry weight
 
     |  Format  |  Description  |
     |----------|---------------|

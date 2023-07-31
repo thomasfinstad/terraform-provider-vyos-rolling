@@ -52,6 +52,12 @@ Specify alternate ASN for this BGP process
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4294967294  |  Autonomous System Number (ASN)  |
+- `name_identifier` (String) Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
+- `peer_group_identifier` (String) Name of peer-group
 
 ### Optional
 
@@ -62,4 +68,4 @@ Specify alternate ASN for this BGP process
 
 Optional:
 
-- `replace_as` (String) Prepend only local-as from/to updates for eBGP peers
+- `replace_as` (Boolean) Prepend only local-as from/to updates for eBGP peers

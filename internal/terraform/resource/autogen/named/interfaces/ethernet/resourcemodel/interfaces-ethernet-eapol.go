@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesEthernetEapol describes the resource data model.
@@ -66,61 +63,10 @@ func (o InterfacesEthernetEapol) ResourceSchemaAttributes() map[string]schema.At
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesEthernetEapol) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesEthernetEapolCaCertificate.IsNull() && !o.LeafInterfacesEthernetEapolCaCertificate.IsUnknown() {
-		jsonData["ca-certificate"] = o.LeafInterfacesEthernetEapolCaCertificate.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetEapolCertificate.IsNull() && !o.LeafInterfacesEthernetEapolCertificate.IsUnknown() {
-		jsonData["certificate"] = o.LeafInterfacesEthernetEapolCertificate.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetEapolPassphrase.IsNull() && !o.LeafInterfacesEthernetEapolPassphrase.IsUnknown() {
-		jsonData["passphrase"] = o.LeafInterfacesEthernetEapolPassphrase.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesEthernetEapol) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["ca-certificate"]; ok {
-		o.LeafInterfacesEthernetEapolCaCertificate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetEapolCaCertificate = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["certificate"]; ok {
-		o.LeafInterfacesEthernetEapolCertificate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetEapolCertificate = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["passphrase"]; ok {
-		o.LeafInterfacesEthernetEapolPassphrase = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetEapolPassphrase = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesEthernetEapol) UnmarshalJSON(_ []byte) error {
 	return nil
 }

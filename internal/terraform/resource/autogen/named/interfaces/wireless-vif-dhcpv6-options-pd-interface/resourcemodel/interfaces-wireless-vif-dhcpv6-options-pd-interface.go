@@ -2,26 +2,23 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesWirelessVifDhcpvsixOptionsPdInterface describes the resource data model.
 type InterfacesWirelessVifDhcpvsixOptionsPdInterface struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDInterfacesWireless any `tfsdk:"wireless" vyos:"wireless,parent-id"`
+	ParentIDInterfacesWireless types.String `tfsdk:"wireless" vyos:"wireless_identifier,parent-id"`
 
-	ParentIDInterfacesWirelessVif any `tfsdk:"vif" vyos:"vif,parent-id"`
+	ParentIDInterfacesWirelessVif types.String `tfsdk:"vif" vyos:"vif_identifier,parent-id"`
 
-	ParentIDInterfacesWirelessVifDhcpvsixOptionsPd any `tfsdk:"pd" vyos:"pd,parent-id"`
+	ParentIDInterfacesWirelessVifDhcpvsixOptionsPd types.String `tfsdk:"pd" vyos:"pd_identifier,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesWirelessVifDhcpvsixOptionsPdInterfaceAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
-	LeafInterfacesWirelessVifDhcpvsixOptionsPdInterfaceSLAID   types.String `tfsdk:"sla_id" vyos:"sla-id,omitempty"`
+	LeafInterfacesWirelessVifDhcpvsixOptionsPdInterfaceSLAID   types.Number `tfsdk:"sla_id" vyos:"sla-id,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -32,10 +29,18 @@ type InterfacesWirelessVifDhcpvsixOptionsPdInterface struct {
 func (o *InterfacesWirelessVifDhcpvsixOptionsPdInterface) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"wireless",
+		o.ParentIDInterfacesWireless.ValueString(),
+
 		"vif",
+		o.ParentIDInterfacesWirelessVif.ValueString(),
+
 		"dhcpv6-options",
+
 		"pd",
+		o.ParentIDInterfacesWirelessVifDhcpvsixOptionsPd.ValueString(),
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -47,6 +52,39 @@ func (o InterfacesWirelessVifDhcpvsixOptionsPdInterface) ResourceSchemaAttribute
 		"identifier": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Delegate IPv6 prefix from provider to this interface
+
+`,
+		},
+
+		"wireless_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Wireless (WiFi/WLAN) Network Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
+
+`,
+		},
+
+		"vif_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Local Area Network (VLAN) ID
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
+
+`,
+		},
+
+		"pd_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `DHCPv6 prefix delegation interface statement
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  instance number  |  Prefix delegation instance (>= 0)  |
 
 `,
 		},
@@ -64,7 +102,7 @@ func (o InterfacesWirelessVifDhcpvsixOptionsPdInterface) ResourceSchemaAttribute
 `,
 		},
 
-		"sla_id": schema.StringAttribute{
+		"sla_id": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface site-Level aggregator (SLA)
 
@@ -82,51 +120,10 @@ func (o InterfacesWirelessVifDhcpvsixOptionsPdInterface) ResourceSchemaAttribute
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesWirelessVifDhcpvsixOptionsPdInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesWirelessVifDhcpvsixOptionsPdInterfaceAddress.IsNull() && !o.LeafInterfacesWirelessVifDhcpvsixOptionsPdInterfaceAddress.IsUnknown() {
-		jsonData["address"] = o.LeafInterfacesWirelessVifDhcpvsixOptionsPdInterfaceAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessVifDhcpvsixOptionsPdInterfaceSLAID.IsNull() && !o.LeafInterfacesWirelessVifDhcpvsixOptionsPdInterfaceSLAID.IsUnknown() {
-		jsonData["sla-id"] = o.LeafInterfacesWirelessVifDhcpvsixOptionsPdInterfaceSLAID.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWirelessVifDhcpvsixOptionsPdInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafInterfacesWirelessVifDhcpvsixOptionsPdInterfaceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifDhcpvsixOptionsPdInterfaceAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["sla-id"]; ok {
-		o.LeafInterfacesWirelessVifDhcpvsixOptionsPdInterfaceSLAID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifDhcpvsixOptionsPdInterfaceSLAID = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesWirelessVifDhcpvsixOptionsPdInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

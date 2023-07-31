@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetBoth   types.String `tfsdk:"both" vyos:"both,omitempty"`
-	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetImport types.String `tfsdk:"import" vyos:"import,omitempty"`
-	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetExport types.String `tfsdk:"export" vyos:"export,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetBoth   types.List `tfsdk:"both" vyos:"both,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetImport types.List `tfsdk:"import" vyos:"import,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetExport types.List `tfsdk:"export" vyos:"export,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,8 +23,9 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget) ResourceSchemaAt
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"both": schema.StringAttribute{
-			Optional: true,
+		"both": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Route Target both import and export
 
     |  Format  |  Description  |
@@ -37,8 +35,9 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget) ResourceSchemaAt
 `,
 		},
 
-		"import": schema.StringAttribute{
-			Optional: true,
+		"import": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Route Target import
 
     |  Format  |  Description  |
@@ -48,8 +47,9 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget) ResourceSchemaAt
 `,
 		},
 
-		"export": schema.StringAttribute{
-			Optional: true,
+		"export": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Route Target export
 
     |  Format  |  Description  |
@@ -66,61 +66,10 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget) ResourceSchemaAt
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetBoth.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetBoth.IsUnknown() {
-		jsonData["both"] = o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetBoth.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetImport.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetImport.IsUnknown() {
-		jsonData["import"] = o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetImport.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetExport.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetExport.IsUnknown() {
-		jsonData["export"] = o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetExport.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["both"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetBoth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetBoth = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["import"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetImport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetImport = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["export"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetExport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetExport = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -165,11 +165,33 @@ func (o *LeafNode) AncestorDescription() string {
 }
 
 // ValueType the type of value that can be expected for this node, one of:
-// string
-// number (not implemented)
-// bool (not implemented)
+// string (default)
+// number (if value help only lists u32)
+// bool (if valueless is defined)
 func (o *LeafNode) ValueType() string {
+	if len(o.Properties[0].Valueless) > 0 {
+		return "bool"
+	}
+
+	isNum := false
+	for _, vh := range o.Properties[0].ValueHelp {
+		if strings.HasPrefix(vh.Format, "u32") {
+			isNum = true
+		} else {
+			isNum = false
+			break
+		}
+	}
+	if isNum {
+		return "number"
+	}
+
 	return "string"
+}
+
+// MultiValue returns true if multiple values (list of values) are allowed
+func (o *LeafNode) MultiValue() bool {
+	return len(o.Properties[0].Multi) > 0
 }
 
 // NodeType returns a string of node type

@@ -43,6 +43,11 @@ Rule for this prefix-list6
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Prefix-list rule number  |
+- `prefix_list6_identifier` (String) IPv6 prefix-list filter
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Name of IPv6 prefix-list  |
 
 ### Optional
 
@@ -57,12 +62,12 @@ Rule for this prefix-list6
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `ge` (String) Prefix length to match a netmask greater than or equal to it
+- `ge` (Number) Prefix length to match a netmask greater than or equal to it
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-128  |  Netmask greater than length  |
-- `le` (String) Prefix length to match a netmask less than or equal to it
+- `le` (Number) Prefix length to match a netmask less than or equal to it
 
     |  Format  |  Description  |
     |----------|---------------|

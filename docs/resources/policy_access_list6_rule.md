@@ -38,6 +38,11 @@ Rule for this access-list6
 
 ### Required
 
+- `access_list6_identifier` (String) IPv6 access-list filter
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Name of IPv6 access-list  |
 - `identifier` (String) Rule for this access-list6
 
     |  Format  |  Description  |
@@ -64,8 +69,8 @@ Rule for this access-list6
 
 Optional:
 
-- `any` (String) Any IP address to match
-- `exact_match` (String) Exact match of the network prefixes
+- `any` (Boolean) Any IP address to match
+- `exact_match` (Boolean) Exact match of the network prefixes
 - `network` (String) Network/netmask to match
 
     |  Format  |  Description  |

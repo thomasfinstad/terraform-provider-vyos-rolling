@@ -109,6 +109,11 @@ Facility for logging
     |  local5  |  Local facility 5  |
     |  local6  |  Local facility 6  |
     |  local7  |  Local facility 7  |
+- `user_identifier` (String) Logging to specific terminal of given user
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  username  |  user login name  |
 
 ### Optional
 

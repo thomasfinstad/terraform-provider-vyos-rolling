@@ -2,11 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnOpenconnectAuthenticationRadiusServer describes the resource data model.
@@ -14,9 +12,9 @@ type VpnOpenconnectAuthenticationRadiusServer struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafVpnOpenconnectAuthenticationRadiusServerDisable types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafVpnOpenconnectAuthenticationRadiusServerDisable types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafVpnOpenconnectAuthenticationRadiusServerKey     types.String `tfsdk:"key" vyos:"key,omitempty"`
-	LeafVpnOpenconnectAuthenticationRadiusServerPort    types.String `tfsdk:"port" vyos:"port,omitempty"`
+	LeafVpnOpenconnectAuthenticationRadiusServerPort    types.Number `tfsdk:"port" vyos:"port,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,9 +25,13 @@ type VpnOpenconnectAuthenticationRadiusServer struct {
 func (o *VpnOpenconnectAuthenticationRadiusServer) GetVyosPath() []string {
 	return []string{
 		"vpn",
+
 		"openconnect",
+
 		"authentication",
+
 		"radius",
+
 		"server",
 		o.ID.ValueString(),
 	}
@@ -51,11 +53,13 @@ func (o VpnOpenconnectAuthenticationRadiusServer) ResourceSchemaAttributes() map
 
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"key": schema.StringAttribute{
@@ -65,7 +69,7 @@ func (o VpnOpenconnectAuthenticationRadiusServer) ResourceSchemaAttributes() map
 `,
 		},
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Authentication port
 
@@ -86,61 +90,10 @@ func (o VpnOpenconnectAuthenticationRadiusServer) ResourceSchemaAttributes() map
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnOpenconnectAuthenticationRadiusServer) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnOpenconnectAuthenticationRadiusServerDisable.IsNull() && !o.LeafVpnOpenconnectAuthenticationRadiusServerDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafVpnOpenconnectAuthenticationRadiusServerDisable.ValueString()
-	}
-
-	if !o.LeafVpnOpenconnectAuthenticationRadiusServerKey.IsNull() && !o.LeafVpnOpenconnectAuthenticationRadiusServerKey.IsUnknown() {
-		jsonData["key"] = o.LeafVpnOpenconnectAuthenticationRadiusServerKey.ValueString()
-	}
-
-	if !o.LeafVpnOpenconnectAuthenticationRadiusServerPort.IsNull() && !o.LeafVpnOpenconnectAuthenticationRadiusServerPort.IsUnknown() {
-		jsonData["port"] = o.LeafVpnOpenconnectAuthenticationRadiusServerPort.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnOpenconnectAuthenticationRadiusServer) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafVpnOpenconnectAuthenticationRadiusServerDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnOpenconnectAuthenticationRadiusServerDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["key"]; ok {
-		o.LeafVpnOpenconnectAuthenticationRadiusServerKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnOpenconnectAuthenticationRadiusServerKey = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafVpnOpenconnectAuthenticationRadiusServerPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnOpenconnectAuthenticationRadiusServerPort = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VpnOpenconnectAuthenticationRadiusServer) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,26 +2,23 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesBondingVifDhcpvsixOptionsPdInterface describes the resource data model.
 type InterfacesBondingVifDhcpvsixOptionsPdInterface struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDInterfacesBonding any `tfsdk:"bonding" vyos:"bonding,parent-id"`
+	ParentIDInterfacesBonding types.String `tfsdk:"bonding" vyos:"bonding_identifier,parent-id"`
 
-	ParentIDInterfacesBondingVif any `tfsdk:"vif" vyos:"vif,parent-id"`
+	ParentIDInterfacesBondingVif types.String `tfsdk:"vif" vyos:"vif_identifier,parent-id"`
 
-	ParentIDInterfacesBondingVifDhcpvsixOptionsPd any `tfsdk:"pd" vyos:"pd,parent-id"`
+	ParentIDInterfacesBondingVifDhcpvsixOptionsPd types.String `tfsdk:"pd" vyos:"pd_identifier,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesBondingVifDhcpvsixOptionsPdInterfaceAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
-	LeafInterfacesBondingVifDhcpvsixOptionsPdInterfaceSLAID   types.String `tfsdk:"sla_id" vyos:"sla-id,omitempty"`
+	LeafInterfacesBondingVifDhcpvsixOptionsPdInterfaceSLAID   types.Number `tfsdk:"sla_id" vyos:"sla-id,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -32,10 +29,18 @@ type InterfacesBondingVifDhcpvsixOptionsPdInterface struct {
 func (o *InterfacesBondingVifDhcpvsixOptionsPdInterface) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"bonding",
+		o.ParentIDInterfacesBonding.ValueString(),
+
 		"vif",
+		o.ParentIDInterfacesBondingVif.ValueString(),
+
 		"dhcpv6-options",
+
 		"pd",
+		o.ParentIDInterfacesBondingVifDhcpvsixOptionsPd.ValueString(),
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -47,6 +52,39 @@ func (o InterfacesBondingVifDhcpvsixOptionsPdInterface) ResourceSchemaAttributes
 		"identifier": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Delegate IPv6 prefix from provider to this interface
+
+`,
+		},
+
+		"bonding_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Bonding Interface/Link Aggregation
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  bondN  |  Bonding interface name  |
+
+`,
+		},
+
+		"vif_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Local Area Network (VLAN) ID
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
+
+`,
+		},
+
+		"pd_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `DHCPv6 prefix delegation interface statement
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  instance number  |  Prefix delegation instance (>= 0)  |
 
 `,
 		},
@@ -64,7 +102,7 @@ func (o InterfacesBondingVifDhcpvsixOptionsPdInterface) ResourceSchemaAttributes
 `,
 		},
 
-		"sla_id": schema.StringAttribute{
+		"sla_id": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface site-Level aggregator (SLA)
 
@@ -82,51 +120,10 @@ func (o InterfacesBondingVifDhcpvsixOptionsPdInterface) ResourceSchemaAttributes
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesBondingVifDhcpvsixOptionsPdInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesBondingVifDhcpvsixOptionsPdInterfaceAddress.IsNull() && !o.LeafInterfacesBondingVifDhcpvsixOptionsPdInterfaceAddress.IsUnknown() {
-		jsonData["address"] = o.LeafInterfacesBondingVifDhcpvsixOptionsPdInterfaceAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesBondingVifDhcpvsixOptionsPdInterfaceSLAID.IsNull() && !o.LeafInterfacesBondingVifDhcpvsixOptionsPdInterfaceSLAID.IsUnknown() {
-		jsonData["sla-id"] = o.LeafInterfacesBondingVifDhcpvsixOptionsPdInterfaceSLAID.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesBondingVifDhcpvsixOptionsPdInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafInterfacesBondingVifDhcpvsixOptionsPdInterfaceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifDhcpvsixOptionsPdInterfaceAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["sla-id"]; ok {
-		o.LeafInterfacesBondingVifDhcpvsixOptionsPdInterfaceSLAID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifDhcpvsixOptionsPdInterfaceSLAID = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesBondingVifDhcpvsixOptionsPdInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

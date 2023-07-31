@@ -46,10 +46,15 @@ Class Handle
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-7  |  Priority  |
+- `priority_queue_identifier` (String) Priority queuing based policy
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
 
 ### Optional
 
-- `codel_quantum` (String) Deficit in the fair queuing algorithm
+- `codel_quantum` (Number) Deficit in the fair queuing algorithm
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -59,17 +64,17 @@ Class Handle
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `flows` (String) Number of flows into which the incoming packets are classified
+- `flows` (Number) Number of flows into which the incoming packets are classified
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65536  |  Number of flows  |
-- `interval` (String) Interval used to measure the delay
+- `interval` (Number) Interval used to measure the delay
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32  |  Interval in milliseconds  |
-- `queue_limit` (String) Maximum queue size
+- `queue_limit` (Number) Maximum queue size
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -83,7 +88,7 @@ Class Handle
     |  fq-codel  |  Fair Queue Codel  |
     |  priority  |  Priority queuing  |
     |  random-detect  |  Random Early Detection (RED)  |
-- `target` (String) Acceptable minimum standing/persistent queue delay
+- `target` (Number) Acceptable minimum standing/persistent queue delay
 
     |  Format  |  Description  |
     |----------|---------------|

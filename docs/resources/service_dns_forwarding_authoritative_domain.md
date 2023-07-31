@@ -38,7 +38,7 @@ Domain to host authoritative records for
 
 ### Optional
 
-- `disable` (String) Disable instance
+- `disable` (Boolean) Disable instance
 - `records` (Attributes) DNS zone records (see [below for nested schema](#nestedatt--records))
 
 <a id="nestedatt--records"></a>

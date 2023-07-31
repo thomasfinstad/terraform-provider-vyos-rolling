@@ -44,11 +44,11 @@ Rule number (1-9999)
     |----------|---------------|
     |  txt  |  Description for this rule  |
 - `destination` (Attributes) Destination (see [below for nested schema](#nestedatt--destination))
-- `exclude` (String) Exclude packets matching this rule from WAN load balance
-- `failover` (String) Enable failover for packets matching this rule from WAN load balance
+- `exclude` (Boolean) Exclude packets matching this rule from WAN load balance
+- `failover` (Boolean) Enable failover for packets matching this rule from WAN load balance
 - `inbound_interface` (String) Inbound interface name (e.g., "eth0") [REQUIRED]
 - `limit` (Attributes) Enable packet limit for this rule (see [below for nested schema](#nestedatt--limit))
-- `per_packet_balancing` (String) Option to match traffic per-packet instead of the default, per-flow
+- `per_packet_balancing` (Boolean) Option to match traffic per-packet instead of the default, per-flow
 - `protocol` (String) Protocol to match (protocol name, number, or "all")
 
     |  Format  |  Description  |
@@ -90,7 +90,7 @@ Optional:
 
 Optional:
 
-- `burst` (String) Burst limit for matching packets
+- `burst` (Number) Burst limit for matching packets
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -102,7 +102,7 @@ Optional:
     |  hour  |  hour  |
     |  minute  |  minute  |
     |  second  |  second  |
-- `rate` (String) Number of packets used for rate limit
+- `rate` (Number) Number of packets used for rate limit
 
     |  Format  |  Description  |
     |----------|---------------|

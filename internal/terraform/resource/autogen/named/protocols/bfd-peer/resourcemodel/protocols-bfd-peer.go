@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBfdPeer describes the resource data model.
@@ -16,10 +13,10 @@ type ProtocolsBfdPeer struct {
 
 	// LeafNodes
 	LeafProtocolsBfdPeerProfile  types.String `tfsdk:"profile" vyos:"profile,omitempty"`
-	LeafProtocolsBfdPeerEchoMode types.String `tfsdk:"echo_mode" vyos:"echo-mode,omitempty"`
-	LeafProtocolsBfdPeerPassive  types.String `tfsdk:"passive" vyos:"passive,omitempty"`
-	LeafProtocolsBfdPeerShutdown types.String `tfsdk:"shutdown" vyos:"shutdown,omitempty"`
-	LeafProtocolsBfdPeerMultihop types.String `tfsdk:"multihop" vyos:"multihop,omitempty"`
+	LeafProtocolsBfdPeerEchoMode types.Bool   `tfsdk:"echo_mode" vyos:"echo-mode,omitempty"`
+	LeafProtocolsBfdPeerPassive  types.Bool   `tfsdk:"passive" vyos:"passive,omitempty"`
+	LeafProtocolsBfdPeerShutdown types.Bool   `tfsdk:"shutdown" vyos:"shutdown,omitempty"`
+	LeafProtocolsBfdPeerMultihop types.Bool   `tfsdk:"multihop" vyos:"multihop,omitempty"`
 	LeafProtocolsBfdPeerVrf      types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -33,7 +30,9 @@ type ProtocolsBfdPeer struct {
 func (o *ProtocolsBfdPeer) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"bfd",
+
 		"peer",
 		o.ID.ValueString(),
 	}
@@ -67,32 +66,40 @@ func (o ProtocolsBfdPeer) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 
-		"echo_mode": schema.StringAttribute{
+		"echo_mode": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enables the echo transmission mode
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"passive": schema.StringAttribute{
+		"passive": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not attempt to start sessions
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"shutdown": schema.StringAttribute{
+		"shutdown": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable this peer
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"multihop": schema.StringAttribute{
+		"multihop": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow this BFD peer to not be directly connected
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"vrf": schema.StringAttribute{
@@ -128,145 +135,10 @@ func (o ProtocolsBfdPeer) ResourceSchemaAttributes() map[string]schema.Attribute
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBfdPeer) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBfdPeerProfile.IsNull() && !o.LeafProtocolsBfdPeerProfile.IsUnknown() {
-		jsonData["profile"] = o.LeafProtocolsBfdPeerProfile.ValueString()
-	}
-
-	if !o.LeafProtocolsBfdPeerEchoMode.IsNull() && !o.LeafProtocolsBfdPeerEchoMode.IsUnknown() {
-		jsonData["echo-mode"] = o.LeafProtocolsBfdPeerEchoMode.ValueString()
-	}
-
-	if !o.LeafProtocolsBfdPeerPassive.IsNull() && !o.LeafProtocolsBfdPeerPassive.IsUnknown() {
-		jsonData["passive"] = o.LeafProtocolsBfdPeerPassive.ValueString()
-	}
-
-	if !o.LeafProtocolsBfdPeerShutdown.IsNull() && !o.LeafProtocolsBfdPeerShutdown.IsUnknown() {
-		jsonData["shutdown"] = o.LeafProtocolsBfdPeerShutdown.ValueString()
-	}
-
-	if !o.LeafProtocolsBfdPeerMultihop.IsNull() && !o.LeafProtocolsBfdPeerMultihop.IsUnknown() {
-		jsonData["multihop"] = o.LeafProtocolsBfdPeerMultihop.ValueString()
-	}
-
-	if !o.LeafProtocolsBfdPeerVrf.IsNull() && !o.LeafProtocolsBfdPeerVrf.IsUnknown() {
-		jsonData["vrf"] = o.LeafProtocolsBfdPeerVrf.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeProtocolsBfdPeerSource).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBfdPeerSource)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["source"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsBfdPeerInterval).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBfdPeerInterval)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["interval"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBfdPeer) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["profile"]; ok {
-		o.LeafProtocolsBfdPeerProfile = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdPeerProfile = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["echo-mode"]; ok {
-		o.LeafProtocolsBfdPeerEchoMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdPeerEchoMode = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["passive"]; ok {
-		o.LeafProtocolsBfdPeerPassive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdPeerPassive = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["shutdown"]; ok {
-		o.LeafProtocolsBfdPeerShutdown = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdPeerShutdown = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["multihop"]; ok {
-		o.LeafProtocolsBfdPeerMultihop = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdPeerMultihop = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vrf"]; ok {
-		o.LeafProtocolsBfdPeerVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdPeerVrf = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["source"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBfdPeerSource = &ProtocolsBfdPeerSource{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBfdPeerSource)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["interval"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBfdPeerInterval = &ProtocolsBfdPeerInterval{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBfdPeerInterval)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ProtocolsBfdPeer) UnmarshalJSON(_ []byte) error {
 	return nil
 }

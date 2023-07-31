@@ -52,6 +52,11 @@ OSPF area settings
     |----------|---------------|
     |  u32  |  OSPF area number in decimal notation  |
     |  ipv4  |  OSPF area number in dotted decimal notation  |
+- `name_identifier` (String) Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 ### Optional
 
@@ -62,17 +67,17 @@ OSPF area settings
     |----------|---------------|
     |  plaintext-password  |  Use plain-text authentication  |
     |  md5  |  Use MD5 authentication  |
-- `export_list` (String) Set the filter for networks announced to other areas
+- `export_list` (Number) Set the filter for networks announced to other areas
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32  |  Access-list number  |
-- `import_list` (String) Set the filter for networks from other areas announced
+- `import_list` (Number) Set the filter for networks from other areas announced
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32  |  Access-list number  |
-- `network` (String) OSPF network
+- `network` (List of String) OSPF network
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -90,7 +95,7 @@ OSPF area settings
 
 Optional:
 
-- `normal` (String) Normal OSPF area
+- `normal` (Boolean) Normal OSPF area
 - `nssa` (Attributes) Not-So-Stubby OSPF area (see [below for nested schema](#nestedatt--area_type--nssa))
 - `stub` (Attributes) Stub OSPF area (see [below for nested schema](#nestedatt--area_type--stub))
 
@@ -99,12 +104,12 @@ Optional:
 
 Optional:
 
-- `default_cost` (String) Summary-default cost of an NSSA area
+- `default_cost` (Number) Summary-default cost of an NSSA area
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-16777215  |  Summary default cost  |
-- `no_summary` (String) Do not inject inter-area routes into stub
+- `no_summary` (Boolean) Do not inject inter-area routes into stub
 - `translate` (String) Configure NSSA-ABR
 
     |  Format  |  Description  |
@@ -119,9 +124,9 @@ Optional:
 
 Optional:
 
-- `default_cost` (String) Summary-default cost
+- `default_cost` (Number) Summary-default cost
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-16777215  |  Summary default cost  |
-- `no_summary` (String) Do not inject inter-area routes into the stub
+- `no_summary` (Boolean) Do not inject inter-area routes into the stub

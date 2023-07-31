@@ -41,7 +41,7 @@ NetFlow destination server
 
 ### Optional
 
-- `port` (String) NetFlow port number
+- `port` (Number) NetFlow port number
 
     |  Format  |  Description  |
     |----------|---------------|

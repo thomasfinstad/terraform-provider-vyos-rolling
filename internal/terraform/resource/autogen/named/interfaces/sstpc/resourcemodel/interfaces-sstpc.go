@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesSstpc describes the resource data model.
@@ -16,13 +13,13 @@ type InterfacesSstpc struct {
 
 	// LeafNodes
 	LeafInterfacesSstpcDescrIPtion          types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafInterfacesSstpcDisable              types.String `tfsdk:"disable" vyos:"disable,omitempty"`
-	LeafInterfacesSstpcNoDefaultRoute       types.String `tfsdk:"no_default_route" vyos:"no-default-route,omitempty"`
-	LeafInterfacesSstpcDefaultRouteDistance types.String `tfsdk:"default_route_distance" vyos:"default-route-distance,omitempty"`
-	LeafInterfacesSstpcNoPeerDNS            types.String `tfsdk:"no_peer_dns" vyos:"no-peer-dns,omitempty"`
-	LeafInterfacesSstpcMtu                  types.String `tfsdk:"mtu" vyos:"mtu,omitempty"`
+	LeafInterfacesSstpcDisable              types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafInterfacesSstpcNoDefaultRoute       types.Bool   `tfsdk:"no_default_route" vyos:"no-default-route,omitempty"`
+	LeafInterfacesSstpcDefaultRouteDistance types.Number `tfsdk:"default_route_distance" vyos:"default-route-distance,omitempty"`
+	LeafInterfacesSstpcNoPeerDNS            types.Bool   `tfsdk:"no_peer_dns" vyos:"no-peer-dns,omitempty"`
+	LeafInterfacesSstpcMtu                  types.Number `tfsdk:"mtu" vyos:"mtu,omitempty"`
 	LeafInterfacesSstpcServer               types.String `tfsdk:"server" vyos:"server,omitempty"`
-	LeafInterfacesSstpcPort                 types.String `tfsdk:"port" vyos:"port,omitempty"`
+	LeafInterfacesSstpcPort                 types.Number `tfsdk:"port" vyos:"port,omitempty"`
 	LeafInterfacesSstpcVrf                  types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -36,6 +33,7 @@ type InterfacesSstpc struct {
 func (o *InterfacesSstpc) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"sstpc",
 		o.ID.ValueString(),
 	}
@@ -68,21 +66,25 @@ func (o InterfacesSstpc) ResourceSchemaAttributes() map[string]schema.Attribute 
 `,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"no_default_route": schema.StringAttribute{
+		"no_default_route": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not install default route to system
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"default_route_distance": schema.StringAttribute{
+		"default_route_distance": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Distance for installed default route
 
@@ -96,14 +98,16 @@ func (o InterfacesSstpc) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Computed: true,
 		},
 
-		"no_peer_dns": schema.StringAttribute{
+		"no_peer_dns": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not use DNS servers provided by the peer
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"mtu": schema.StringAttribute{
+		"mtu": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
@@ -129,7 +133,7 @@ func (o InterfacesSstpc) ResourceSchemaAttributes() map[string]schema.Attribute 
 `,
 		},
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
@@ -176,175 +180,10 @@ func (o InterfacesSstpc) ResourceSchemaAttributes() map[string]schema.Attribute 
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesSstpc) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesSstpcDescrIPtion.IsNull() && !o.LeafInterfacesSstpcDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafInterfacesSstpcDescrIPtion.ValueString()
-	}
-
-	if !o.LeafInterfacesSstpcDisable.IsNull() && !o.LeafInterfacesSstpcDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafInterfacesSstpcDisable.ValueString()
-	}
-
-	if !o.LeafInterfacesSstpcNoDefaultRoute.IsNull() && !o.LeafInterfacesSstpcNoDefaultRoute.IsUnknown() {
-		jsonData["no-default-route"] = o.LeafInterfacesSstpcNoDefaultRoute.ValueString()
-	}
-
-	if !o.LeafInterfacesSstpcDefaultRouteDistance.IsNull() && !o.LeafInterfacesSstpcDefaultRouteDistance.IsUnknown() {
-		jsonData["default-route-distance"] = o.LeafInterfacesSstpcDefaultRouteDistance.ValueString()
-	}
-
-	if !o.LeafInterfacesSstpcNoPeerDNS.IsNull() && !o.LeafInterfacesSstpcNoPeerDNS.IsUnknown() {
-		jsonData["no-peer-dns"] = o.LeafInterfacesSstpcNoPeerDNS.ValueString()
-	}
-
-	if !o.LeafInterfacesSstpcMtu.IsNull() && !o.LeafInterfacesSstpcMtu.IsUnknown() {
-		jsonData["mtu"] = o.LeafInterfacesSstpcMtu.ValueString()
-	}
-
-	if !o.LeafInterfacesSstpcServer.IsNull() && !o.LeafInterfacesSstpcServer.IsUnknown() {
-		jsonData["server"] = o.LeafInterfacesSstpcServer.ValueString()
-	}
-
-	if !o.LeafInterfacesSstpcPort.IsNull() && !o.LeafInterfacesSstpcPort.IsUnknown() {
-		jsonData["port"] = o.LeafInterfacesSstpcPort.ValueString()
-	}
-
-	if !o.LeafInterfacesSstpcVrf.IsNull() && !o.LeafInterfacesSstpcVrf.IsUnknown() {
-		jsonData["vrf"] = o.LeafInterfacesSstpcVrf.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesSstpcAuthentication).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesSstpcAuthentication)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["authentication"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesSstpcSsl).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesSstpcSsl)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ssl"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesSstpc) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafInterfacesSstpcDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafInterfacesSstpcDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["no-default-route"]; ok {
-		o.LeafInterfacesSstpcNoDefaultRoute = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcNoDefaultRoute = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["default-route-distance"]; ok {
-		o.LeafInterfacesSstpcDefaultRouteDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcDefaultRouteDistance = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["no-peer-dns"]; ok {
-		o.LeafInterfacesSstpcNoPeerDNS = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcNoPeerDNS = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mtu"]; ok {
-		o.LeafInterfacesSstpcMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcMtu = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["server"]; ok {
-		o.LeafInterfacesSstpcServer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcServer = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafInterfacesSstpcPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vrf"]; ok {
-		o.LeafInterfacesSstpcVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcVrf = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["authentication"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesSstpcAuthentication = &InterfacesSstpcAuthentication{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesSstpcAuthentication)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ssl"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesSstpcSsl = &InterfacesSstpcSsl{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesSstpcSsl)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesSstpc) UnmarshalJSON(_ []byte) error {
 	return nil
 }

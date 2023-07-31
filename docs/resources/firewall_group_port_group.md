@@ -32,8 +32,8 @@ Firewall port-group
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `include` (String) Include another port-group
-- `port` (String) Port-group member
+- `include` (List of String) Include another port-group
+- `port` (List of String) Port-group member
 
     |  Format  |  Description  |
     |----------|---------------|

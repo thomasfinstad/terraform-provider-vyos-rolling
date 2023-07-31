@@ -2,19 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsStaticRoute describes the resource data model.
 type VrfNameProtocolsStaticRoute struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVrfName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsStaticRouteDhcpInterface types.String `tfsdk:"dhcp_interface" vyos:"dhcp-interface,omitempty"`
@@ -33,9 +29,14 @@ type VrfNameProtocolsStaticRoute struct {
 func (o *VrfNameProtocolsStaticRoute) GetVyosPath() []string {
 	return []string{
 		"vrf",
+
 		"name",
+		o.ParentIDVrfName.ValueString(),
+
 		"protocols",
+
 		"static",
+
 		"route",
 		o.ID.ValueString(),
 	}
@@ -51,6 +52,17 @@ func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schem
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4net  |  IPv4 static route  |
+
+`,
+		},
+
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 `,
 		},
@@ -101,105 +113,10 @@ func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsStaticRoute) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsStaticRouteDhcpInterface.IsNull() && !o.LeafVrfNameProtocolsStaticRouteDhcpInterface.IsUnknown() {
-		jsonData["dhcp-interface"] = o.LeafVrfNameProtocolsStaticRouteDhcpInterface.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsStaticRouteDescrIPtion.IsNull() && !o.LeafVrfNameProtocolsStaticRouteDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafVrfNameProtocolsStaticRouteDescrIPtion.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsStaticRouteBlackhole).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsStaticRouteBlackhole)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["blackhole"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsStaticRouteReject).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsStaticRouteReject)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["reject"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsStaticRoute) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["dhcp-interface"]; ok {
-		o.LeafVrfNameProtocolsStaticRouteDhcpInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsStaticRouteDhcpInterface = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafVrfNameProtocolsStaticRouteDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsStaticRouteDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["blackhole"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsStaticRouteBlackhole = &VrfNameProtocolsStaticRouteBlackhole{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsStaticRouteBlackhole)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["reject"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsStaticRouteReject = &VrfNameProtocolsStaticRouteReject{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsStaticRouteReject)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VrfNameProtocolsStaticRoute) UnmarshalJSON(_ []byte) error {
 	return nil
 }

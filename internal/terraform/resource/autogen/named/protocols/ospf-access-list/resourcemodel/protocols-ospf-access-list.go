@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsOspfAccessList describes the resource data model.
 type ProtocolsOspfAccessList struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafProtocolsOspfAccessListExport types.String `tfsdk:"export" vyos:"export,omitempty"`
+	LeafProtocolsOspfAccessListExport types.List `tfsdk:"export" vyos:"export,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,9 +22,11 @@ type ProtocolsOspfAccessList struct {
 func (o *ProtocolsOspfAccessList) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"ospf",
+
 		"access-list",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -47,8 +46,9 @@ func (o ProtocolsOspfAccessList) ResourceSchemaAttributes() map[string]schema.At
 
 		// LeafNodes
 
-		"export": schema.StringAttribute{
-			Optional: true,
+		"export": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Filter for outgoing routing update
 
     |  Format  |  Description  |
@@ -70,41 +70,10 @@ func (o ProtocolsOspfAccessList) ResourceSchemaAttributes() map[string]schema.At
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsOspfAccessList) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsOspfAccessListExport.IsNull() && !o.LeafProtocolsOspfAccessListExport.IsUnknown() {
-		jsonData["export"] = o.LeafProtocolsOspfAccessListExport.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsOspfAccessList) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["export"]; ok {
-		o.LeafProtocolsOspfAccessListExport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfAccessListExport = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsOspfAccessList) UnmarshalJSON(_ []byte) error {
 	return nil
 }

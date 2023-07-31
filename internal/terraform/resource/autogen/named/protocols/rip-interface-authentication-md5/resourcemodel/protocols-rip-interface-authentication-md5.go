@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsRIPInterfaceAuthenticationMdfive describes the resource data model.
 type ProtocolsRIPInterfaceAuthenticationMdfive struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDProtocolsRIPInterface any `tfsdk:"interface" vyos:"interface,parent-id"`
+	ParentIDProtocolsRIPInterface types.String `tfsdk:"interface" vyos:"interface_identifier,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsRIPInterfaceAuthenticationMdfivePassword types.String `tfsdk:"password" vyos:"password,omitempty"`
@@ -27,11 +24,16 @@ type ProtocolsRIPInterfaceAuthenticationMdfive struct {
 func (o *ProtocolsRIPInterfaceAuthenticationMdfive) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"rip",
+
 		"interface",
+		o.ParentIDProtocolsRIPInterface.ValueString(),
+
 		"authentication",
+
 		"md5",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -45,6 +47,17 @@ func (o ProtocolsRIPInterfaceAuthenticationMdfive) ResourceSchemaAttributes() ma
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  OSPF key id  |
+
+`,
+		},
+
+		"interface_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Interface name
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Interface name  |
 
 `,
 		},
@@ -69,41 +82,10 @@ func (o ProtocolsRIPInterfaceAuthenticationMdfive) ResourceSchemaAttributes() ma
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsRIPInterfaceAuthenticationMdfive) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsRIPInterfaceAuthenticationMdfivePassword.IsNull() && !o.LeafProtocolsRIPInterfaceAuthenticationMdfivePassword.IsUnknown() {
-		jsonData["password"] = o.LeafProtocolsRIPInterfaceAuthenticationMdfivePassword.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsRIPInterfaceAuthenticationMdfive) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["password"]; ok {
-		o.LeafProtocolsRIPInterfaceAuthenticationMdfivePassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsRIPInterfaceAuthenticationMdfivePassword = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsRIPInterfaceAuthenticationMdfive) UnmarshalJSON(_ []byte) error {
 	return nil
 }

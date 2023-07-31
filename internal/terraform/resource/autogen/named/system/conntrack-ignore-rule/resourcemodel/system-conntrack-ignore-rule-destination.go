@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemConntrackIgnoreRuleDestination describes the resource data model.
@@ -62,51 +59,10 @@ func (o SystemConntrackIgnoreRuleDestination) ResourceSchemaAttributes() map[str
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemConntrackIgnoreRuleDestination) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafSystemConntrackIgnoreRuleDestinationAddress.IsNull() && !o.LeafSystemConntrackIgnoreRuleDestinationAddress.IsUnknown() {
-		jsonData["address"] = o.LeafSystemConntrackIgnoreRuleDestinationAddress.ValueString()
-	}
-
-	if !o.LeafSystemConntrackIgnoreRuleDestinationPort.IsNull() && !o.LeafSystemConntrackIgnoreRuleDestinationPort.IsUnknown() {
-		jsonData["port"] = o.LeafSystemConntrackIgnoreRuleDestinationPort.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemConntrackIgnoreRuleDestination) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafSystemConntrackIgnoreRuleDestinationAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemConntrackIgnoreRuleDestinationAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafSystemConntrackIgnoreRuleDestinationPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemConntrackIgnoreRuleDestinationPort = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *SystemConntrackIgnoreRuleDestination) UnmarshalJSON(_ []byte) error {
 	return nil
 }

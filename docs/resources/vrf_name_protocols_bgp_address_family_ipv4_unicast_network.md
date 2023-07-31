@@ -55,10 +55,15 @@ BGP network
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4net  |  BGP network  |
+- `name_identifier` (String) Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 ### Optional
 
-- `backdoor` (String) Network as a backdoor route
+- `backdoor` (Boolean) Network as a backdoor route
 - `route_map` (String) Specify route-map name to use
 
     |  Format  |  Description  |

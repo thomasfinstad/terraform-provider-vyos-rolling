@@ -2,17 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfLogAdjacencyChanges describes the resource data model.
 type VrfNameProtocolsOspfLogAdjacencyChanges struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfLogAdjacencyChangesDetail types.String `tfsdk:"detail" vyos:"detail,omitempty"`
+	LeafVrfNameProtocolsOspfLogAdjacencyChangesDetail types.Bool `tfsdk:"detail" vyos:"detail,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,11 +22,13 @@ func (o VrfNameProtocolsOspfLogAdjacencyChanges) ResourceSchemaAttributes() map[
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"detail": schema.StringAttribute{
+		"detail": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Log all state changes
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -38,41 +38,10 @@ func (o VrfNameProtocolsOspfLogAdjacencyChanges) ResourceSchemaAttributes() map[
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfLogAdjacencyChanges) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfLogAdjacencyChangesDetail.IsNull() && !o.LeafVrfNameProtocolsOspfLogAdjacencyChangesDetail.IsUnknown() {
-		jsonData["detail"] = o.LeafVrfNameProtocolsOspfLogAdjacencyChangesDetail.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfLogAdjacencyChanges) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["detail"]; ok {
-		o.LeafVrfNameProtocolsOspfLogAdjacencyChangesDetail = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfLogAdjacencyChangesDetail = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfLogAdjacencyChanges) UnmarshalJSON(_ []byte) error {
 	return nil
 }

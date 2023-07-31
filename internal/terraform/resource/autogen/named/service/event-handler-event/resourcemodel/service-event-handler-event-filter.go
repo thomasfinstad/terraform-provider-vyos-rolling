@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceEventHandlerEventFilter describes the resource data model.
@@ -46,51 +43,10 @@ func (o ServiceEventHandlerEventFilter) ResourceSchemaAttributes() map[string]sc
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceEventHandlerEventFilter) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceEventHandlerEventFilterPattern.IsNull() && !o.LeafServiceEventHandlerEventFilterPattern.IsUnknown() {
-		jsonData["pattern"] = o.LeafServiceEventHandlerEventFilterPattern.ValueString()
-	}
-
-	if !o.LeafServiceEventHandlerEventFilterSyslogIDentifier.IsNull() && !o.LeafServiceEventHandlerEventFilterSyslogIDentifier.IsUnknown() {
-		jsonData["syslog-identifier"] = o.LeafServiceEventHandlerEventFilterSyslogIDentifier.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceEventHandlerEventFilter) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["pattern"]; ok {
-		o.LeafServiceEventHandlerEventFilterPattern = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceEventHandlerEventFilterPattern = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["syslog-identifier"]; ok {
-		o.LeafServiceEventHandlerEventFilterSyslogIDentifier = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceEventHandlerEventFilterSyslogIDentifier = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceEventHandlerEventFilter) UnmarshalJSON(_ []byte) error {
 	return nil
 }

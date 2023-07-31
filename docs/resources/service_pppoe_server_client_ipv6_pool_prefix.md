@@ -38,7 +38,7 @@ Pool of addresses used to assign to clients
 
 ### Optional
 
-- `mask` (String) Prefix length used for individual client
+- `mask` (Number) Prefix length used for individual client
 
     |  Format  |  Description  |
     |----------|---------------|

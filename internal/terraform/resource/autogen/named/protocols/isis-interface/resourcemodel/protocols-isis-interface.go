@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsIsisInterface describes the resource data model.
@@ -16,14 +13,14 @@ type ProtocolsIsisInterface struct {
 
 	// LeafNodes
 	LeafProtocolsIsisInterfaceCircuitType         types.String `tfsdk:"circuit_type" vyos:"circuit-type,omitempty"`
-	LeafProtocolsIsisInterfaceHelloPadding        types.String `tfsdk:"hello_padding" vyos:"hello-padding,omitempty"`
-	LeafProtocolsIsisInterfaceHelloInterval       types.String `tfsdk:"hello_interval" vyos:"hello-interval,omitempty"`
-	LeafProtocolsIsisInterfaceHelloMultIPlier     types.String `tfsdk:"hello_multiplier" vyos:"hello-multiplier,omitempty"`
-	LeafProtocolsIsisInterfaceMetric              types.String `tfsdk:"metric" vyos:"metric,omitempty"`
-	LeafProtocolsIsisInterfacePassive             types.String `tfsdk:"passive" vyos:"passive,omitempty"`
-	LeafProtocolsIsisInterfacePriority            types.String `tfsdk:"priority" vyos:"priority,omitempty"`
-	LeafProtocolsIsisInterfacePsnpInterval        types.String `tfsdk:"psnp_interval" vyos:"psnp-interval,omitempty"`
-	LeafProtocolsIsisInterfaceNoThreeWayHandshake types.String `tfsdk:"no_three_way_handshake" vyos:"no-three-way-handshake,omitempty"`
+	LeafProtocolsIsisInterfaceHelloPadding        types.Bool   `tfsdk:"hello_padding" vyos:"hello-padding,omitempty"`
+	LeafProtocolsIsisInterfaceHelloInterval       types.Number `tfsdk:"hello_interval" vyos:"hello-interval,omitempty"`
+	LeafProtocolsIsisInterfaceHelloMultIPlier     types.Number `tfsdk:"hello_multiplier" vyos:"hello-multiplier,omitempty"`
+	LeafProtocolsIsisInterfaceMetric              types.Number `tfsdk:"metric" vyos:"metric,omitempty"`
+	LeafProtocolsIsisInterfacePassive             types.Bool   `tfsdk:"passive" vyos:"passive,omitempty"`
+	LeafProtocolsIsisInterfacePriority            types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
+	LeafProtocolsIsisInterfacePsnpInterval        types.Number `tfsdk:"psnp_interval" vyos:"psnp-interval,omitempty"`
+	LeafProtocolsIsisInterfaceNoThreeWayHandshake types.Bool   `tfsdk:"no_three_way_handshake" vyos:"no-three-way-handshake,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -37,7 +34,9 @@ type ProtocolsIsisInterface struct {
 func (o *ProtocolsIsisInterface) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"isis",
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -68,14 +67,16 @@ func (o ProtocolsIsisInterface) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"hello_padding": schema.StringAttribute{
+		"hello_padding": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Add padding to IS-IS hello packets
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"hello_interval": schema.StringAttribute{
+		"hello_interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set Hello interval
 
@@ -86,7 +87,7 @@ func (o ProtocolsIsisInterface) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"hello_multiplier": schema.StringAttribute{
+		"hello_multiplier": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set Hello interval
 
@@ -97,7 +98,7 @@ func (o ProtocolsIsisInterface) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"metric": schema.StringAttribute{
+		"metric": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set default metric for circuit
 
@@ -108,14 +109,16 @@ func (o ProtocolsIsisInterface) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"passive": schema.StringAttribute{
+		"passive": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Configure passive mode for interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"priority": schema.StringAttribute{
+		"priority": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set priority for Designated Router election
 
@@ -126,7 +129,7 @@ func (o ProtocolsIsisInterface) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"psnp_interval": schema.StringAttribute{
+		"psnp_interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set PSNP interval
 
@@ -137,11 +140,13 @@ func (o ProtocolsIsisInterface) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"no_three_way_handshake": schema.StringAttribute{
+		"no_three_way_handshake": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable three-way handshake
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -174,202 +179,10 @@ func (o ProtocolsIsisInterface) ResourceSchemaAttributes() map[string]schema.Att
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsIsisInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsIsisInterfaceCircuitType.IsNull() && !o.LeafProtocolsIsisInterfaceCircuitType.IsUnknown() {
-		jsonData["circuit-type"] = o.LeafProtocolsIsisInterfaceCircuitType.ValueString()
-	}
-
-	if !o.LeafProtocolsIsisInterfaceHelloPadding.IsNull() && !o.LeafProtocolsIsisInterfaceHelloPadding.IsUnknown() {
-		jsonData["hello-padding"] = o.LeafProtocolsIsisInterfaceHelloPadding.ValueString()
-	}
-
-	if !o.LeafProtocolsIsisInterfaceHelloInterval.IsNull() && !o.LeafProtocolsIsisInterfaceHelloInterval.IsUnknown() {
-		jsonData["hello-interval"] = o.LeafProtocolsIsisInterfaceHelloInterval.ValueString()
-	}
-
-	if !o.LeafProtocolsIsisInterfaceHelloMultIPlier.IsNull() && !o.LeafProtocolsIsisInterfaceHelloMultIPlier.IsUnknown() {
-		jsonData["hello-multiplier"] = o.LeafProtocolsIsisInterfaceHelloMultIPlier.ValueString()
-	}
-
-	if !o.LeafProtocolsIsisInterfaceMetric.IsNull() && !o.LeafProtocolsIsisInterfaceMetric.IsUnknown() {
-		jsonData["metric"] = o.LeafProtocolsIsisInterfaceMetric.ValueString()
-	}
-
-	if !o.LeafProtocolsIsisInterfacePassive.IsNull() && !o.LeafProtocolsIsisInterfacePassive.IsUnknown() {
-		jsonData["passive"] = o.LeafProtocolsIsisInterfacePassive.ValueString()
-	}
-
-	if !o.LeafProtocolsIsisInterfacePriority.IsNull() && !o.LeafProtocolsIsisInterfacePriority.IsUnknown() {
-		jsonData["priority"] = o.LeafProtocolsIsisInterfacePriority.ValueString()
-	}
-
-	if !o.LeafProtocolsIsisInterfacePsnpInterval.IsNull() && !o.LeafProtocolsIsisInterfacePsnpInterval.IsUnknown() {
-		jsonData["psnp-interval"] = o.LeafProtocolsIsisInterfacePsnpInterval.ValueString()
-	}
-
-	if !o.LeafProtocolsIsisInterfaceNoThreeWayHandshake.IsNull() && !o.LeafProtocolsIsisInterfaceNoThreeWayHandshake.IsUnknown() {
-		jsonData["no-three-way-handshake"] = o.LeafProtocolsIsisInterfaceNoThreeWayHandshake.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeProtocolsIsisInterfaceBfd).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsIsisInterfaceBfd)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["bfd"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsIsisInterfaceNetwork).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsIsisInterfaceNetwork)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["network"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsIsisInterfacePassword).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsIsisInterfacePassword)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["password"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsIsisInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["circuit-type"]; ok {
-		o.LeafProtocolsIsisInterfaceCircuitType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIsisInterfaceCircuitType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["hello-padding"]; ok {
-		o.LeafProtocolsIsisInterfaceHelloPadding = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIsisInterfaceHelloPadding = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["hello-interval"]; ok {
-		o.LeafProtocolsIsisInterfaceHelloInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIsisInterfaceHelloInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["hello-multiplier"]; ok {
-		o.LeafProtocolsIsisInterfaceHelloMultIPlier = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIsisInterfaceHelloMultIPlier = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["metric"]; ok {
-		o.LeafProtocolsIsisInterfaceMetric = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIsisInterfaceMetric = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["passive"]; ok {
-		o.LeafProtocolsIsisInterfacePassive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIsisInterfacePassive = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["priority"]; ok {
-		o.LeafProtocolsIsisInterfacePriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIsisInterfacePriority = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["psnp-interval"]; ok {
-		o.LeafProtocolsIsisInterfacePsnpInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIsisInterfacePsnpInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["no-three-way-handshake"]; ok {
-		o.LeafProtocolsIsisInterfaceNoThreeWayHandshake = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIsisInterfaceNoThreeWayHandshake = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["bfd"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsIsisInterfaceBfd = &ProtocolsIsisInterfaceBfd{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsIsisInterfaceBfd)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["network"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsIsisInterfaceNetwork = &ProtocolsIsisInterfaceNetwork{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsIsisInterfaceNetwork)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["password"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsIsisInterfacePassword = &ProtocolsIsisInterfacePassword{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsIsisInterfacePassword)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ProtocolsIsisInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

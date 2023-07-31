@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyPriorityQueueClassMatchEther describes the resource data model.
@@ -74,61 +71,10 @@ func (o QosPolicyPriorityQueueClassMatchEther) ResourceSchemaAttributes() map[st
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyPriorityQueueClassMatchEther) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyPriorityQueueClassMatchEtherDestination.IsNull() && !o.LeafQosPolicyPriorityQueueClassMatchEtherDestination.IsUnknown() {
-		jsonData["destination"] = o.LeafQosPolicyPriorityQueueClassMatchEtherDestination.ValueString()
-	}
-
-	if !o.LeafQosPolicyPriorityQueueClassMatchEtherProtocol.IsNull() && !o.LeafQosPolicyPriorityQueueClassMatchEtherProtocol.IsUnknown() {
-		jsonData["protocol"] = o.LeafQosPolicyPriorityQueueClassMatchEtherProtocol.ValueString()
-	}
-
-	if !o.LeafQosPolicyPriorityQueueClassMatchEtherSource.IsNull() && !o.LeafQosPolicyPriorityQueueClassMatchEtherSource.IsUnknown() {
-		jsonData["source"] = o.LeafQosPolicyPriorityQueueClassMatchEtherSource.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyPriorityQueueClassMatchEther) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["destination"]; ok {
-		o.LeafQosPolicyPriorityQueueClassMatchEtherDestination = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassMatchEtherDestination = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["protocol"]; ok {
-		o.LeafQosPolicyPriorityQueueClassMatchEtherProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassMatchEtherProtocol = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["source"]; ok {
-		o.LeafQosPolicyPriorityQueueClassMatchEtherSource = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassMatchEtherSource = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyPriorityQueueClassMatchEther) UnmarshalJSON(_ []byte) error {
 	return nil
 }

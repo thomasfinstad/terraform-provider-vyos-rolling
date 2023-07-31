@@ -39,7 +39,7 @@ Address of trap target
 ### Optional
 
 - `community` (String) Community used when sending trap information
-- `port` (String) Port number used by connection
+- `port` (Number) Port number used by connection
 
     |  Format  |  Description  |
     |----------|---------------|

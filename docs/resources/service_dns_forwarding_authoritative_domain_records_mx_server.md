@@ -57,15 +57,26 @@ Mail server
 
 ### Required
 
+- `authoritative_domain_identifier` (String) Domain to host authoritative records for
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  text  |  An absolute DNS name  |
 - `identifier` (String) Mail server
 
     |  Format  |  Description  |
     |----------|---------------|
     |  name.example.com  |  An absolute DNS name  |
+- `mx_identifier` (String) "MX" record
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  text  |  A DNS name relative to the root record  |
+    |  @  |  Root record  |
 
 ### Optional
 
-- `priority` (String) Server priority
+- `priority` (Number) Server priority
 
     |  Format  |  Description  |
     |----------|---------------|

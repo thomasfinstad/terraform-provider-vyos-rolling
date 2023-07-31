@@ -2,17 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpParametersBestpathPeerType describes the resource data model.
 type VrfNameProtocolsBgpParametersBestpathPeerType struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpParametersBestpathPeerTypeMultIPathRelax types.String `tfsdk:"multipath_relax" vyos:"multipath-relax,omitempty"`
+	LeafVrfNameProtocolsBgpParametersBestpathPeerTypeMultIPathRelax types.Bool `tfsdk:"multipath_relax" vyos:"multipath-relax,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,11 +22,13 @@ func (o VrfNameProtocolsBgpParametersBestpathPeerType) ResourceSchemaAttributes(
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"multipath_relax": schema.StringAttribute{
+		"multipath_relax": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow load sharing across routes learned from different peer types
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -38,41 +38,10 @@ func (o VrfNameProtocolsBgpParametersBestpathPeerType) ResourceSchemaAttributes(
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpParametersBestpathPeerType) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpParametersBestpathPeerTypeMultIPathRelax.IsNull() && !o.LeafVrfNameProtocolsBgpParametersBestpathPeerTypeMultIPathRelax.IsUnknown() {
-		jsonData["multipath-relax"] = o.LeafVrfNameProtocolsBgpParametersBestpathPeerTypeMultIPathRelax.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpParametersBestpathPeerType) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["multipath-relax"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersBestpathPeerTypeMultIPathRelax = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersBestpathPeerTypeMultIPathRelax = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpParametersBestpathPeerType) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceConntrackSyncInterface describes the resource data model.
@@ -15,7 +12,7 @@ type ServiceConntrackSyncInterface struct {
 
 	// LeafNodes
 	LeafServiceConntrackSyncInterfacePeer types.String `tfsdk:"peer" vyos:"peer,omitempty"`
-	LeafServiceConntrackSyncInterfacePort types.String `tfsdk:"port" vyos:"port,omitempty"`
+	LeafServiceConntrackSyncInterfacePort types.Number `tfsdk:"port" vyos:"port,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,7 +23,9 @@ type ServiceConntrackSyncInterface struct {
 func (o *ServiceConntrackSyncInterface) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"conntrack-sync",
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -55,7 +54,7 @@ func (o ServiceConntrackSyncInterface) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
@@ -73,51 +72,10 @@ func (o ServiceConntrackSyncInterface) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceConntrackSyncInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceConntrackSyncInterfacePeer.IsNull() && !o.LeafServiceConntrackSyncInterfacePeer.IsUnknown() {
-		jsonData["peer"] = o.LeafServiceConntrackSyncInterfacePeer.ValueString()
-	}
-
-	if !o.LeafServiceConntrackSyncInterfacePort.IsNull() && !o.LeafServiceConntrackSyncInterfacePort.IsUnknown() {
-		jsonData["port"] = o.LeafServiceConntrackSyncInterfacePort.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceConntrackSyncInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["peer"]; ok {
-		o.LeafServiceConntrackSyncInterfacePeer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceConntrackSyncInterfacePeer = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafServiceConntrackSyncInterfacePort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceConntrackSyncInterfacePort = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceConntrackSyncInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

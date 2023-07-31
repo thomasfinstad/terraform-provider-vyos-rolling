@@ -2,19 +2,17 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteMapRuleSetLargeCommunity describes the resource data model.
 type PolicyRouteMapRuleSetLargeCommunity struct {
 	// LeafNodes
-	LeafPolicyRouteMapRuleSetLargeCommunityAdd     types.String `tfsdk:"add" vyos:"add,omitempty"`
-	LeafPolicyRouteMapRuleSetLargeCommunityReplace types.String `tfsdk:"replace" vyos:"replace,omitempty"`
-	LeafPolicyRouteMapRuleSetLargeCommunityNone    types.String `tfsdk:"none" vyos:"none,omitempty"`
+	LeafPolicyRouteMapRuleSetLargeCommunityAdd     types.List   `tfsdk:"add" vyos:"add,omitempty"`
+	LeafPolicyRouteMapRuleSetLargeCommunityReplace types.List   `tfsdk:"replace" vyos:"replace,omitempty"`
+	LeafPolicyRouteMapRuleSetLargeCommunityNone    types.Bool   `tfsdk:"none" vyos:"none,omitempty"`
 	LeafPolicyRouteMapRuleSetLargeCommunityDelete  types.String `tfsdk:"delete" vyos:"delete,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -27,8 +25,9 @@ func (o PolicyRouteMapRuleSetLargeCommunity) ResourceSchemaAttributes() map[stri
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"add": schema.StringAttribute{
-			Optional: true,
+		"add": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Add large communities to a prefix ;
 
     |  Format  |  Description  |
@@ -38,8 +37,9 @@ func (o PolicyRouteMapRuleSetLargeCommunity) ResourceSchemaAttributes() map[stri
 `,
 		},
 
-		"replace": schema.StringAttribute{
-			Optional: true,
+		"replace": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Set large communities for a prefix
 
     |  Format  |  Description  |
@@ -49,11 +49,13 @@ func (o PolicyRouteMapRuleSetLargeCommunity) ResourceSchemaAttributes() map[stri
 `,
 		},
 
-		"none": schema.StringAttribute{
+		"none": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Completely remove communities attribute from a prefix
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"delete": schema.StringAttribute{
@@ -74,71 +76,10 @@ func (o PolicyRouteMapRuleSetLargeCommunity) ResourceSchemaAttributes() map[stri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteMapRuleSetLargeCommunity) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteMapRuleSetLargeCommunityAdd.IsNull() && !o.LeafPolicyRouteMapRuleSetLargeCommunityAdd.IsUnknown() {
-		jsonData["add"] = o.LeafPolicyRouteMapRuleSetLargeCommunityAdd.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetLargeCommunityReplace.IsNull() && !o.LeafPolicyRouteMapRuleSetLargeCommunityReplace.IsUnknown() {
-		jsonData["replace"] = o.LeafPolicyRouteMapRuleSetLargeCommunityReplace.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetLargeCommunityNone.IsNull() && !o.LeafPolicyRouteMapRuleSetLargeCommunityNone.IsUnknown() {
-		jsonData["none"] = o.LeafPolicyRouteMapRuleSetLargeCommunityNone.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetLargeCommunityDelete.IsNull() && !o.LeafPolicyRouteMapRuleSetLargeCommunityDelete.IsUnknown() {
-		jsonData["delete"] = o.LeafPolicyRouteMapRuleSetLargeCommunityDelete.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteMapRuleSetLargeCommunity) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["add"]; ok {
-		o.LeafPolicyRouteMapRuleSetLargeCommunityAdd = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetLargeCommunityAdd = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["replace"]; ok {
-		o.LeafPolicyRouteMapRuleSetLargeCommunityReplace = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetLargeCommunityReplace = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["none"]; ok {
-		o.LeafPolicyRouteMapRuleSetLargeCommunityNone = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetLargeCommunityNone = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["delete"]; ok {
-		o.LeafPolicyRouteMapRuleSetLargeCommunityDelete = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetLargeCommunityDelete = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRouteMapRuleSetLargeCommunity) UnmarshalJSON(_ []byte) error {
 	return nil
 }

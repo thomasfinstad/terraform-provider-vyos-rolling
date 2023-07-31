@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsRpkiCache describes the resource data model.
@@ -15,8 +11,8 @@ type ProtocolsRpkiCache struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafProtocolsRpkiCachePort       types.String `tfsdk:"port" vyos:"port,omitempty"`
-	LeafProtocolsRpkiCachePreference types.String `tfsdk:"preference" vyos:"preference,omitempty"`
+	LeafProtocolsRpkiCachePort       types.Number `tfsdk:"port" vyos:"port,omitempty"`
+	LeafProtocolsRpkiCachePreference types.Number `tfsdk:"preference" vyos:"preference,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -28,7 +24,9 @@ type ProtocolsRpkiCache struct {
 func (o *ProtocolsRpkiCache) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"rpki",
+
 		"cache",
 		o.ID.ValueString(),
 	}
@@ -52,7 +50,7 @@ func (o ProtocolsRpkiCache) ResourceSchemaAttributes() map[string]schema.Attribu
 
 		// LeafNodes
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
@@ -63,7 +61,7 @@ func (o ProtocolsRpkiCache) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 
-		"preference": schema.StringAttribute{
+		"preference": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Preference of the cache server
 
@@ -88,78 +86,10 @@ func (o ProtocolsRpkiCache) ResourceSchemaAttributes() map[string]schema.Attribu
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsRpkiCache) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsRpkiCachePort.IsNull() && !o.LeafProtocolsRpkiCachePort.IsUnknown() {
-		jsonData["port"] = o.LeafProtocolsRpkiCachePort.ValueString()
-	}
-
-	if !o.LeafProtocolsRpkiCachePreference.IsNull() && !o.LeafProtocolsRpkiCachePreference.IsUnknown() {
-		jsonData["preference"] = o.LeafProtocolsRpkiCachePreference.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeProtocolsRpkiCacheTCP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsRpkiCacheTCP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ssh"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsRpkiCache) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafProtocolsRpkiCachePort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsRpkiCachePort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["preference"]; ok {
-		o.LeafProtocolsRpkiCachePreference = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsRpkiCachePreference = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["ssh"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsRpkiCacheTCP = &ProtocolsRpkiCacheTCP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsRpkiCacheTCP)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ProtocolsRpkiCache) UnmarshalJSON(_ []byte) error {
 	return nil
 }

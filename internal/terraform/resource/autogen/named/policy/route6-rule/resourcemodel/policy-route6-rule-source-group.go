@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRoutesixRuleSourceGroup describes the resource data model.
@@ -70,81 +67,10 @@ func (o PolicyRoutesixRuleSourceGroup) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRoutesixRuleSourceGroup) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRoutesixRuleSourceGroupAddressGroup.IsNull() && !o.LeafPolicyRoutesixRuleSourceGroupAddressGroup.IsUnknown() {
-		jsonData["address-group"] = o.LeafPolicyRoutesixRuleSourceGroupAddressGroup.ValueString()
-	}
-
-	if !o.LeafPolicyRoutesixRuleSourceGroupDomainGroup.IsNull() && !o.LeafPolicyRoutesixRuleSourceGroupDomainGroup.IsUnknown() {
-		jsonData["domain-group"] = o.LeafPolicyRoutesixRuleSourceGroupDomainGroup.ValueString()
-	}
-
-	if !o.LeafPolicyRoutesixRuleSourceGroupMacGroup.IsNull() && !o.LeafPolicyRoutesixRuleSourceGroupMacGroup.IsUnknown() {
-		jsonData["mac-group"] = o.LeafPolicyRoutesixRuleSourceGroupMacGroup.ValueString()
-	}
-
-	if !o.LeafPolicyRoutesixRuleSourceGroupNetworkGroup.IsNull() && !o.LeafPolicyRoutesixRuleSourceGroupNetworkGroup.IsUnknown() {
-		jsonData["network-group"] = o.LeafPolicyRoutesixRuleSourceGroupNetworkGroup.ValueString()
-	}
-
-	if !o.LeafPolicyRoutesixRuleSourceGroupPortGroup.IsNull() && !o.LeafPolicyRoutesixRuleSourceGroupPortGroup.IsUnknown() {
-		jsonData["port-group"] = o.LeafPolicyRoutesixRuleSourceGroupPortGroup.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRoutesixRuleSourceGroup) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address-group"]; ok {
-		o.LeafPolicyRoutesixRuleSourceGroupAddressGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleSourceGroupAddressGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["domain-group"]; ok {
-		o.LeafPolicyRoutesixRuleSourceGroupDomainGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleSourceGroupDomainGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mac-group"]; ok {
-		o.LeafPolicyRoutesixRuleSourceGroupMacGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleSourceGroupMacGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["network-group"]; ok {
-		o.LeafPolicyRoutesixRuleSourceGroupNetworkGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleSourceGroupNetworkGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port-group"]; ok {
-		o.LeafPolicyRoutesixRuleSourceGroupPortGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleSourceGroupPortGroup = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRoutesixRuleSourceGroup) UnmarshalJSON(_ []byte) error {
 	return nil
 }

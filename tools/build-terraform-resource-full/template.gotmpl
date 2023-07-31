@@ -74,13 +74,100 @@ import (
 	}
 {{end}}
 
-{{define "resource-model-parent-hack"}}
+{{define "resource-model-parent-id-hack"}}
 	{{if .Parent}}
-		{{template "resource-model-parent-hack" .Parent}}
+		{{template "resource-model-parent-id-hack" .Parent}}
 	{{end}}
 	{{if eq .NodeType "TagNode"}}
-		ParentID{{.BaseNameCG}} any `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},parent-id"`
+		ParentID{{.BaseNameCG}} types.String `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}}_identifier,parent-id"`
 	{{end}}
+{{end}}
+
+{{define "resource-model-parent-vyos-path-hack"}}
+	{{- if .Parent}}
+		{{template "resource-model-parent-vyos-path-hack" .Parent}}
+	{{- end}}
+	"{{.BaseName}}",
+	{{- if eq .NodeType "TagNode"}}
+		o.ParentID{{.BaseNameCG}}.ValueString(),
+	{{- end}}
+{{end}}
+
+{{define "resource-model-parent-schema-hack"}}
+	{{if .Parent}}
+		{{template "resource-model-parent-schema-hack" .Parent}}
+		{{- if eq .NodeType "TagNode" -}}
+			"{{.BaseNameS}}_identifier":         schema.StringAttribute{
+				Required:            true,
+				MarkdownDescription: `{{.Description}}`,
+			},
+		{{end}}
+	{{end}}
+{{end}}
+
+{{define "resource-model-schema-attrtype"}}
+	{{if eq .ValueType "string" -}}
+		schema.StringAttribute{
+			Optional:            true,
+			MarkdownDescription: `{{.Description}}`,
+			{{if .Default }}
+				// Default:          stringdefault.StaticString({{.Default}}),
+				Computed:            true,
+			{{end}}
+		},
+	{{- else  if eq .ValueType "number" -}}
+		schema.NumberAttribute{
+			Optional:            true,
+			MarkdownDescription: `{{.Description}}`,
+			{{if .Default }}
+				// Default:          stringdefault.StaticString({{.Default}}),
+				Computed:            true,
+			{{end}}
+		},
+	{{- else if eq .ValueType "bool" -}}
+		schema.BoolAttribute{
+			Optional:            true,
+			MarkdownDescription: `{{.Description}}`,
+			Default: booldefault.StaticBool(false),
+			Computed:            true,
+		},
+	{{- else -}}
+		UNKNOWN TYPE: {{.ValueType}}
+	{{- end}}
+{{end}}
+
+{{define "resource-model-schema-attrtype-multi"}}
+	{{if eq .ValueType "string" -}}
+		schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:            true,
+			MarkdownDescription: `{{.Description}}`,
+			{{if .Default }}
+				// Default:          stringdefault.StaticString({{.Default}}),
+				Computed:            true,
+			{{end}}
+		},
+	{{- else  if eq .ValueType "number" -}}
+		schema.ListAttribute{
+			ElementType: types.NumberType,
+			Optional:            true,
+			MarkdownDescription: `{{.Description}}`,
+			{{if .Default }}
+				// Default:          stringdefault.StaticString({{.Default}}),
+				Computed:            true,
+			{{end}}
+		},
+	{{- else if eq .ValueType "bool" -}}
+		schema.ListAttribute{
+			ElementType: types.BoolType,
+			Optional:            true,
+			MarkdownDescription: `{{.Description}}`,
+			Default: booldefault.StaticBool(false),
+			Computed:            true,
+		},
+	{{- else -}}
+		UNKNOWN TYPE: {{.ValueType}}
+	{{- end}}
 {{end}}
 
 // TODO look into using the json tags during unmarshalling,
@@ -89,22 +176,28 @@ import (
 	// {{.BaseNameCG}} describes the resource data model.
 	type {{.BaseNameCG}} struct {
 		{{if .IsBaseNode }}
-			ID         types.String `tfsdk:"identifier" vyos:",self-id"`
-
+			ID	{{ if eq .ValueType "string" -}}
+					types.String
+				{{- else  if eq .ValueType "number" -}}
+					types.Number
+				{{- end -}}
+			`tfsdk:"identifier" vyos:",self-id"`
 			{{if .Parent}}
-				{{template "resource-model-parent-hack" .Parent}}
+				{{template "resource-model-parent-id-hack" .Parent}}
 			{{end}}
 		{{end}}
 
 		{{with .GetChildren }}
 			// LeafNodes
 			{{range .LeafNodes -}}
-				Leaf{{.BaseNameCG}} 	{{if eq .ValueType "string" -}}
+				Leaf{{.BaseNameCG}} 	{{if .MultiValue -}}
+											types.List
+										{{- else if eq .ValueType "string" -}}
 											types.String
 										{{- else  if eq .ValueType "number" -}}
-											NOT IMPLEMENTED
+											types.Number
 										{{- else if eq .ValueType "bool" -}}
-											NOT IMPLEMENTED
+											types.Bool
 										{{- else -}}
 											UNKNOWN TYPE: {{.ValueType}}
 										{{- end}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
@@ -124,74 +217,43 @@ import (
 		// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 		func (o *{{.BaseNameCG}}) GetVyosPath() []string {
 			return []string{
-				{{range .AbsName}}
-					"{{.}}",
+				{{- if .Parent -}}
+					{{template "resource-model-parent-vyos-path-hack" .Parent}}
 				{{- end}}
-				o.ID.ValueString(),
+				"{{.BaseName}}",
+				{{if eq .ValueType "string" -}}
+					o.ID.ValueString(),
+				{{- else  if eq .ValueType "number" -}}
+					o.ID.ValueBigFloat().String(),
+				{{- else -}}
+					UNSUPPORTED TYPE
+				{{- end}}
 			}
 		}
 	{{end}}
-
-	{{/* // AttributeTypes generates the attribute types for the resource at this level
-	func (o {{.BaseNameCG}}) AttributeTypes() map[string]attr.Type {
-		return map[string]attr.Type{
-			{{with .GetChildren}}
-				// Leafs
-				{{range .LeafNodes -}}
-					"{{.BaseNameS}}": 	{{if eq .ValueType "string" -}}
-											types.StringType
-										{{- else  if eq .ValueType "number" -}}
-											NOT IMPLEMENTED
-										{{- else if eq .ValueType "bool" -}}
-											NOT IMPLEMENTED
-										{{- else -}}
-											UNKNOWN TYPE: {{.ValueType}}
-										{{- end}},
-				{{end}}
-				// Tags
-				{{range .TagNodes -}}
-					"{{.BaseNameS}}": types.MapType{ElemType: types.ObjectType{AttrTypes: {{.BaseNameCG}}{}.AttributeTypes()} },
-				{{end}}
-				// Nodes
-				{{range .Nodes -}}
-					"{{.BaseNameS}}": types.ObjectType{AttrTypes: {{.BaseNameCG}}{}.AttributeTypes()},
-				{{end}}
-			{{end}}
-		}
-	} */}}
 
 	// ResourceSchemaAttributes generates the schema attributes for the resource at this level
 	func (o {{.BaseNameCG}}) ResourceSchemaAttributes() map[string]schema.Attribute {
 		return map[string]schema.Attribute{
 			{{if .IsBaseNode }}
 				"identifier":         schema.StringAttribute{
-						Required:            true,
-						MarkdownDescription: `{{.Description}}`,
-					},
+					Required:            true,
+					MarkdownDescription: `{{.Description}}`,
+				},
+				{{if .Parent}}
+					{{template "resource-model-parent-schema-hack" .Parent}}
+				{{end}}
 			{{end}}
 			{{with .GetChildren }}
 				// LeafNodes
 				{{range .LeafNodes }}
-					"{{.BaseNameS}}": schema.StringAttribute{
-						Optional:            true,
-						MarkdownDescription: `{{.Description}}`,
-						{{if .Default }}
-						// Default:          stringdefault.StaticString({{.Default}}),
-						Computed:            true,
-						{{end}}
-					},
+					"{{.BaseNameS}}": 	{{if .MultiValue -}}
+						{{template "resource-model-schema-attrtype-multi" .}}
+					{{else}}
+						{{template "resource-model-schema-attrtype" .}}
+					{{- end}}
 				{{end}}
 
-				{{/* // TagNodes
-				{{range .TagNodes }}
-					"{{.BaseNameS}}": schema.MapNestedAttribute{
-						NestedObject: schema.NestedAttributeObject{
-							Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(),
-						},
-						Optional:            true,
-						MarkdownDescription: `{{.Description}}`,
-					},
-				{{end}} */}}
 				// Nodes
 				{{range .Nodes }}
 					"{{.BaseNameS}}": schema.SingleNestedAttribute{
@@ -206,119 +268,11 @@ import (
 
 	// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 	func (o *{{.BaseNameCG}}) MarshalJSON() ([]byte, error) {
-		jsonData := make(map[string]interface{})
-
-		{{with .GetChildren }}
-			// Leafs
-			{{range .LeafNodes }}
-				if !o.Leaf{{.BaseNameCG}}.IsNull() && !o.Leaf{{.BaseNameCG}}.IsUnknown() {
-					jsonData["{{.BaseName}}"] = o.Leaf{{.BaseNameCG}}.ValueString()
-				}
-			{{end}}
-
-			{{/* // Tags
-			{{range .TagNodes }}
-				if ! reflect.ValueOf(o.Tag{{.BaseNameCG}}).IsZero()  {
-					subJSONStr, err := json.Marshal(o.Tag{{.BaseNameCG}})
-					if err != nil {
-						return nil, err
-					}
-
-					subData :=  make(map[string]interface{})
-					err = json.Unmarshal(subJSONStr, &subData)
-					if err != nil {
-						return nil, err
-					}
-					jsonData["{{.BaseName}}"] = subData
-				}
-			{{end}} */}}
-
-			// Nodes
-			{{range .Nodes }}
-				if ! reflect.ValueOf(o.Node{{.BaseNameCG}}).IsZero()  {
-					subJSONStr, err := json.Marshal(o.Node{{.BaseNameCG}})
-					if err != nil {
-						return nil, err
-					}
-
-					subData :=  make(map[string]interface{})
-					err = json.Unmarshal(subJSONStr, &subData)
-					if err != nil {
-						return nil, err
-					}
-					jsonData["{{.BaseName}}"] = subData
-				}
-			{{end}}
-		{{end}}
-
-		// Return compiled data
-		ret, err := json.Marshal(jsonData)
-		if err != nil {
-			return nil, err
-		}
-		return ret, nil
+		return nil, nil
 	}
 
 	// UnmarshalJSON unmarshals json byte array into this object
-	func (o *{{.BaseNameCG}}) UnmarshalJSON(jsonStr []byte) error {
-		jsonData := make(map[string]interface{})
-		err := json.Unmarshal(jsonStr, &jsonData)
-		if err != nil {
-			return err
-		}
-
-		{{with .GetChildren }}
-			// Leafs
-			{{range .LeafNodes }}
-				{{if eq .ValueType "string" -}}
-					if value, ok := jsonData["{{.BaseName}}"]; ok {
-						o.Leaf{{.BaseNameCG}} = basetypes.NewStringValue(value.(string))
-					} else {
-						o.Leaf{{.BaseNameCG}} = basetypes.NewStringNull()
-					}
-				{{- else  if eq .ValueType "number" -}}
-					NUMBER NOT IMPLEMENTED
-				{{- else if eq .ValueType "bool" -}}
-					BOOL NOT IMPLEMENTED
-				{{- else -}}
-					UNKNOWN TYPE: {{.ValueType}}
-				{{- end}}
-			{{end}}
-
-			{{/* // TagNodes
-			{{range .TagNodes -}}
-				if value, ok := jsonData["{{.BaseName}}"]; ok {
-					subJSONStr, err := json.Marshal(value)
-					if err != nil {
-						return err
-					}
-
-					o.Tag{{.BaseNameCG}} = &map[string]{{.BaseNameCG}}{}
-
-					err = json.Unmarshal(subJSONStr, o.Tag{{.BaseNameCG}})
-					if err != nil {
-						return err
-					}
-				}
-			{{end}} */}}
-			// Nodes
-			{{range .Nodes -}}
-				if value, ok := jsonData["{{.BaseName}}"]; ok {
-					subJSONStr, err := json.Marshal(value)
-					if err != nil {
-						return err
-					}
-
-					o.Node{{.BaseNameCG}} = &{{.BaseNameCG}}{}
-
-					err = json.Unmarshal(subJSONStr, o.Node{{.BaseNameCG}})
-					if err != nil {
-						return err
-					}
-				}
-			{{end}}
-		{{end}}
-
+	func (o *{{.BaseNameCG}}) UnmarshalJSON(_ []byte) error {
 		return nil
 	}
 {{end}}
@@ -387,7 +341,13 @@ func (r {{.BaseNameG}}) Schema(ctx context.Context, req resource.SchemaRequest, 
 		}
 
 		// Save ID into the Terraform state.
-		data.ID = types.StringValue(data.ID.ValueString())
+		{{- if eq .ValueType "string" -}}
+			data.ID = types.StringValue(data.ID.ValueString())
+		{{- else  if eq .ValueType "number" -}}
+			data.ID = types.NumberValue(data.ID.ValueBigFloat().String())
+		{{else}}
+			UNSUPPORTED TYPE
+		{{end}}
 
 		// Save data to Terraform state
 		tflog.Trace(ctx, "resource created")
@@ -472,7 +432,13 @@ func (r {{.BaseNameG}}) Schema(ctx context.Context, req resource.SchemaRequest, 
 		}
 
 		// Save ID into the Terraform state.
-		data.ID = types.StringValue(data.ID.ValueString())
+		{{- if eq .ValueType "string" -}}
+			data.ID = types.StringValue(data.ID.ValueString())
+		{{- else  if eq .ValueType "number" -}}
+			data.ID = types.NumberValue(data.ID.ValueBigFloat().String())
+		{{else}}
+			UNSUPPORTED TYPE
+		{{end}}
 
 		// Save data to Terraform state
 		tflog.Trace(ctx, "resource created")

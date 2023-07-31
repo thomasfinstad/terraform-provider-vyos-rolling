@@ -2,19 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyShaperHfscClass describes the resource data model.
 type QosPolicyShaperHfscClass struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDQosPolicyShaperHfsc any `tfsdk:"shaper_hfsc" vyos:"shaper-hfsc,parent-id"`
+	ParentIDQosPolicyShaperHfsc types.String `tfsdk:"shaper_hfsc" vyos:"shaper-hfsc_identifier,parent-id"`
 
 	// LeafNodes
 	LeafQosPolicyShaperHfscClassDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -32,10 +28,14 @@ type QosPolicyShaperHfscClass struct {
 func (o *QosPolicyShaperHfscClass) GetVyosPath() []string {
 	return []string{
 		"qos",
+
 		"policy",
+
 		"shaper-hfsc",
+		o.ParentIDQosPolicyShaperHfsc.ValueString(),
+
 		"class",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -49,6 +49,17 @@ func (o QosPolicyShaperHfscClass) ResourceSchemaAttributes() map[string]schema.A
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4095  |  Class Identifier  |
+
+`,
+		},
+
+		"shaper_hfsc_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Hierarchical Fair Service Curve's policy
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
 
 `,
 		},
@@ -96,122 +107,10 @@ func (o QosPolicyShaperHfscClass) ResourceSchemaAttributes() map[string]schema.A
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyShaperHfscClass) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyShaperHfscClassDescrIPtion.IsNull() && !o.LeafQosPolicyShaperHfscClassDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafQosPolicyShaperHfscClassDescrIPtion.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeQosPolicyShaperHfscClassLinkshare).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyShaperHfscClassLinkshare)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["linkshare"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeQosPolicyShaperHfscClassRealtime).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyShaperHfscClassRealtime)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["realtime"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeQosPolicyShaperHfscClassUpperlimit).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyShaperHfscClassUpperlimit)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["upperlimit"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyShaperHfscClass) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafQosPolicyShaperHfscClassDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["linkshare"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyShaperHfscClassLinkshare = &QosPolicyShaperHfscClassLinkshare{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyShaperHfscClassLinkshare)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["realtime"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyShaperHfscClassRealtime = &QosPolicyShaperHfscClassRealtime{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyShaperHfscClassRealtime)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["upperlimit"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyShaperHfscClassUpperlimit = &QosPolicyShaperHfscClassUpperlimit{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyShaperHfscClassUpperlimit)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *QosPolicyShaperHfscClass) UnmarshalJSON(_ []byte) error {
 	return nil
 }

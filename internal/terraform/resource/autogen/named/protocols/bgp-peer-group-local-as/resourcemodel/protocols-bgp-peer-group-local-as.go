@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
 // ProtocolsBgpPeerGroupLocalAs describes the resource data model.
 type ProtocolsBgpPeerGroupLocalAs struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDProtocolsBgpPeerGroup any `tfsdk:"peer_group" vyos:"peer-group,parent-id"`
+	ParentIDProtocolsBgpPeerGroup types.String `tfsdk:"peer_group" vyos:"peer-group_identifier,parent-id"`
 
 	// LeafNodes
 
@@ -27,10 +24,14 @@ type ProtocolsBgpPeerGroupLocalAs struct {
 func (o *ProtocolsBgpPeerGroupLocalAs) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"bgp",
+
 		"peer-group",
+		o.ParentIDProtocolsBgpPeerGroup.ValueString(),
+
 		"local-as",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -44,6 +45,13 @@ func (o ProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[string]sche
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4294967294  |  Autonomous System Number (ASN)  |
+
+`,
+		},
+
+		"peer_group_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Name of peer-group
 
 `,
 		},
@@ -64,58 +72,10 @@ func (o ProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[string]sche
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpPeerGroupLocalAs) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpPeerGroupLocalAsNoPrepend).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpPeerGroupLocalAsNoPrepend)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["no-prepend"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpPeerGroupLocalAs) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["no-prepend"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpPeerGroupLocalAsNoPrepend = &ProtocolsBgpPeerGroupLocalAsNoPrepend{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpPeerGroupLocalAsNoPrepend)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ProtocolsBgpPeerGroupLocalAs) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceHTTPSAPIKeysID describes the resource data model.
@@ -25,9 +22,13 @@ type ServiceHTTPSAPIKeysID struct {
 func (o *ServiceHTTPSAPIKeysID) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"https",
+
 		"api",
+
 		"keys",
+
 		"id",
 		o.ID.ValueString(),
 	}
@@ -59,41 +60,10 @@ func (o ServiceHTTPSAPIKeysID) ResourceSchemaAttributes() map[string]schema.Attr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceHTTPSAPIKeysID) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceHTTPSAPIKeysIDKey.IsNull() && !o.LeafServiceHTTPSAPIKeysIDKey.IsUnknown() {
-		jsonData["key"] = o.LeafServiceHTTPSAPIKeysIDKey.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceHTTPSAPIKeysID) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["key"]; ok {
-		o.LeafServiceHTTPSAPIKeysIDKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceHTTPSAPIKeysIDKey = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceHTTPSAPIKeysID) UnmarshalJSON(_ []byte) error {
 	return nil
 }

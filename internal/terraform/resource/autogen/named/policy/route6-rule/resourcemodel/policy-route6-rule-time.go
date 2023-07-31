@@ -2,11 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRoutesixRuleTime describes the resource data model.
@@ -17,7 +15,7 @@ type PolicyRoutesixRuleTime struct {
 	LeafPolicyRoutesixRuleTimeStarttime types.String `tfsdk:"starttime" vyos:"starttime,omitempty"`
 	LeafPolicyRoutesixRuleTimeStopdate  types.String `tfsdk:"stopdate" vyos:"stopdate,omitempty"`
 	LeafPolicyRoutesixRuleTimeStoptime  types.String `tfsdk:"stoptime" vyos:"stoptime,omitempty"`
-	LeafPolicyRoutesixRuleTimeUtc       types.String `tfsdk:"utc" vyos:"utc,omitempty"`
+	LeafPolicyRoutesixRuleTimeUtc       types.Bool   `tfsdk:"utc" vyos:"utc,omitempty"`
 	LeafPolicyRoutesixRuleTimeWeekdays  types.String `tfsdk:"weekdays" vyos:"weekdays,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -65,11 +63,13 @@ func (o PolicyRoutesixRuleTime) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"utc": schema.StringAttribute{
+		"utc": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Interpret times for startdate, stopdate, starttime and stoptime to be UTC
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"weekdays": schema.StringAttribute{
@@ -86,101 +86,10 @@ func (o PolicyRoutesixRuleTime) ResourceSchemaAttributes() map[string]schema.Att
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRoutesixRuleTime) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRoutesixRuleTimeMonthdays.IsNull() && !o.LeafPolicyRoutesixRuleTimeMonthdays.IsUnknown() {
-		jsonData["monthdays"] = o.LeafPolicyRoutesixRuleTimeMonthdays.ValueString()
-	}
-
-	if !o.LeafPolicyRoutesixRuleTimeStartdate.IsNull() && !o.LeafPolicyRoutesixRuleTimeStartdate.IsUnknown() {
-		jsonData["startdate"] = o.LeafPolicyRoutesixRuleTimeStartdate.ValueString()
-	}
-
-	if !o.LeafPolicyRoutesixRuleTimeStarttime.IsNull() && !o.LeafPolicyRoutesixRuleTimeStarttime.IsUnknown() {
-		jsonData["starttime"] = o.LeafPolicyRoutesixRuleTimeStarttime.ValueString()
-	}
-
-	if !o.LeafPolicyRoutesixRuleTimeStopdate.IsNull() && !o.LeafPolicyRoutesixRuleTimeStopdate.IsUnknown() {
-		jsonData["stopdate"] = o.LeafPolicyRoutesixRuleTimeStopdate.ValueString()
-	}
-
-	if !o.LeafPolicyRoutesixRuleTimeStoptime.IsNull() && !o.LeafPolicyRoutesixRuleTimeStoptime.IsUnknown() {
-		jsonData["stoptime"] = o.LeafPolicyRoutesixRuleTimeStoptime.ValueString()
-	}
-
-	if !o.LeafPolicyRoutesixRuleTimeUtc.IsNull() && !o.LeafPolicyRoutesixRuleTimeUtc.IsUnknown() {
-		jsonData["utc"] = o.LeafPolicyRoutesixRuleTimeUtc.ValueString()
-	}
-
-	if !o.LeafPolicyRoutesixRuleTimeWeekdays.IsNull() && !o.LeafPolicyRoutesixRuleTimeWeekdays.IsUnknown() {
-		jsonData["weekdays"] = o.LeafPolicyRoutesixRuleTimeWeekdays.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRoutesixRuleTime) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["monthdays"]; ok {
-		o.LeafPolicyRoutesixRuleTimeMonthdays = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleTimeMonthdays = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["startdate"]; ok {
-		o.LeafPolicyRoutesixRuleTimeStartdate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleTimeStartdate = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["starttime"]; ok {
-		o.LeafPolicyRoutesixRuleTimeStarttime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleTimeStarttime = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["stopdate"]; ok {
-		o.LeafPolicyRoutesixRuleTimeStopdate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleTimeStopdate = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["stoptime"]; ok {
-		o.LeafPolicyRoutesixRuleTimeStoptime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleTimeStoptime = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["utc"]; ok {
-		o.LeafPolicyRoutesixRuleTimeUtc = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleTimeUtc = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["weekdays"]; ok {
-		o.LeafPolicyRoutesixRuleTimeWeekdays = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleTimeWeekdays = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRoutesixRuleTime) UnmarshalJSON(_ []byte) error {
 	return nil
 }

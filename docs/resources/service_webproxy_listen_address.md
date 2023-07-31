@@ -35,8 +35,8 @@ IPv4 listen-address for WebProxy
 
 ### Optional
 
-- `disable_transparent` (String) Disable transparent mode
-- `port` (String) Default Proxy Port
+- `disable_transparent` (Boolean) Disable transparent mode
+- `port` (Number) Default Proxy Port
 
     |  Format  |  Description  |
     |----------|---------------|

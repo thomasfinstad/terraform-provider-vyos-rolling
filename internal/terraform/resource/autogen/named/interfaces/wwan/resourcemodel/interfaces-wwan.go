@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesWwan describes the resource data model.
@@ -15,13 +12,13 @@ type InterfacesWwan struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafInterfacesWwanAddress           types.String `tfsdk:"address" vyos:"address,omitempty"`
+	LeafInterfacesWwanAddress           types.List   `tfsdk:"address" vyos:"address,omitempty"`
 	LeafInterfacesWwanApn               types.String `tfsdk:"apn" vyos:"apn,omitempty"`
 	LeafInterfacesWwanDescrIPtion       types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafInterfacesWwanDisable           types.String `tfsdk:"disable" vyos:"disable,omitempty"`
-	LeafInterfacesWwanDisableLinkDetect types.String `tfsdk:"disable_link_detect" vyos:"disable-link-detect,omitempty"`
-	LeafInterfacesWwanMtu               types.String `tfsdk:"mtu" vyos:"mtu,omitempty"`
-	LeafInterfacesWwanConnectOnDemand   types.String `tfsdk:"connect_on_demand" vyos:"connect-on-demand,omitempty"`
+	LeafInterfacesWwanDisable           types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafInterfacesWwanDisableLinkDetect types.Bool   `tfsdk:"disable_link_detect" vyos:"disable-link-detect,omitempty"`
+	LeafInterfacesWwanMtu               types.Number `tfsdk:"mtu" vyos:"mtu,omitempty"`
+	LeafInterfacesWwanConnectOnDemand   types.Bool   `tfsdk:"connect_on_demand" vyos:"connect-on-demand,omitempty"`
 	LeafInterfacesWwanRedirect          types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 	LeafInterfacesWwanVrf               types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
@@ -40,6 +37,7 @@ type InterfacesWwan struct {
 func (o *InterfacesWwan) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"wwan",
 		o.ID.ValueString(),
 	}
@@ -61,8 +59,9 @@ func (o InterfacesWwan) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 		// LeafNodes
 
-		"address": schema.StringAttribute{
-			Optional: true,
+		"address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address
 
     |  Format  |  Description  |
@@ -93,21 +92,25 @@ func (o InterfacesWwan) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"disable_link_detect": schema.StringAttribute{
+		"disable_link_detect": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ignore link state changes
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"mtu": schema.StringAttribute{
+		"mtu": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
@@ -121,11 +124,13 @@ func (o InterfacesWwan) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Computed: true,
 		},
 
-		"connect_on_demand": schema.StringAttribute{
+		"connect_on_demand": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Establishment connection automatically when traffic is sent
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"redirect": schema.StringAttribute{
@@ -204,283 +209,10 @@ func (o InterfacesWwan) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesWwan) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesWwanAddress.IsNull() && !o.LeafInterfacesWwanAddress.IsUnknown() {
-		jsonData["address"] = o.LeafInterfacesWwanAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesWwanApn.IsNull() && !o.LeafInterfacesWwanApn.IsUnknown() {
-		jsonData["apn"] = o.LeafInterfacesWwanApn.ValueString()
-	}
-
-	if !o.LeafInterfacesWwanDescrIPtion.IsNull() && !o.LeafInterfacesWwanDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafInterfacesWwanDescrIPtion.ValueString()
-	}
-
-	if !o.LeafInterfacesWwanDisable.IsNull() && !o.LeafInterfacesWwanDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafInterfacesWwanDisable.ValueString()
-	}
-
-	if !o.LeafInterfacesWwanDisableLinkDetect.IsNull() && !o.LeafInterfacesWwanDisableLinkDetect.IsUnknown() {
-		jsonData["disable-link-detect"] = o.LeafInterfacesWwanDisableLinkDetect.ValueString()
-	}
-
-	if !o.LeafInterfacesWwanMtu.IsNull() && !o.LeafInterfacesWwanMtu.IsUnknown() {
-		jsonData["mtu"] = o.LeafInterfacesWwanMtu.ValueString()
-	}
-
-	if !o.LeafInterfacesWwanConnectOnDemand.IsNull() && !o.LeafInterfacesWwanConnectOnDemand.IsUnknown() {
-		jsonData["connect-on-demand"] = o.LeafInterfacesWwanConnectOnDemand.ValueString()
-	}
-
-	if !o.LeafInterfacesWwanRedirect.IsNull() && !o.LeafInterfacesWwanRedirect.IsUnknown() {
-		jsonData["redirect"] = o.LeafInterfacesWwanRedirect.ValueString()
-	}
-
-	if !o.LeafInterfacesWwanVrf.IsNull() && !o.LeafInterfacesWwanVrf.IsUnknown() {
-		jsonData["vrf"] = o.LeafInterfacesWwanVrf.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesWwanDhcpOptions).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWwanDhcpOptions)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["dhcp-options"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesWwanDhcpvsixOptions).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWwanDhcpvsixOptions)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["dhcpv6-options"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesWwanAuthentication).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWwanAuthentication)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["authentication"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesWwanMirror).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWwanMirror)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["mirror"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesWwanIP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWwanIP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ip"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesWwanIPvsix).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWwanIPvsix)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipv6"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWwan) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafInterfacesWwanAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["apn"]; ok {
-		o.LeafInterfacesWwanApn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanApn = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafInterfacesWwanDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafInterfacesWwanDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable-link-detect"]; ok {
-		o.LeafInterfacesWwanDisableLinkDetect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanDisableLinkDetect = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mtu"]; ok {
-		o.LeafInterfacesWwanMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanMtu = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["connect-on-demand"]; ok {
-		o.LeafInterfacesWwanConnectOnDemand = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanConnectOnDemand = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["redirect"]; ok {
-		o.LeafInterfacesWwanRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanRedirect = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vrf"]; ok {
-		o.LeafInterfacesWwanVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanVrf = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["dhcp-options"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWwanDhcpOptions = &InterfacesWwanDhcpOptions{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWwanDhcpOptions)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["dhcpv6-options"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWwanDhcpvsixOptions = &InterfacesWwanDhcpvsixOptions{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWwanDhcpvsixOptions)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["authentication"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWwanAuthentication = &InterfacesWwanAuthentication{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWwanAuthentication)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["mirror"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWwanMirror = &InterfacesWwanMirror{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWwanMirror)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ip"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWwanIP = &InterfacesWwanIP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWwanIP)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ipv6"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWwanIPvsix = &InterfacesWwanIPvsix{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWwanIPvsix)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesWwan) UnmarshalJSON(_ []byte) error {
 	return nil
 }

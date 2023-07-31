@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemSyslogFileArchive describes the resource data model.
@@ -46,51 +43,10 @@ func (o SystemSyslogFileArchive) ResourceSchemaAttributes() map[string]schema.At
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemSyslogFileArchive) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafSystemSyslogFileArchiveFile.IsNull() && !o.LeafSystemSyslogFileArchiveFile.IsUnknown() {
-		jsonData["file"] = o.LeafSystemSyslogFileArchiveFile.ValueString()
-	}
-
-	if !o.LeafSystemSyslogFileArchiveSize.IsNull() && !o.LeafSystemSyslogFileArchiveSize.IsUnknown() {
-		jsonData["size"] = o.LeafSystemSyslogFileArchiveSize.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemSyslogFileArchive) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["file"]; ok {
-		o.LeafSystemSyslogFileArchiveFile = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemSyslogFileArchiveFile = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["size"]; ok {
-		o.LeafSystemSyslogFileArchiveSize = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemSyslogFileArchiveSize = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *SystemSyslogFileArchive) UnmarshalJSON(_ []byte) error {
 	return nil
 }

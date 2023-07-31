@@ -52,15 +52,26 @@ DHCPv6 prefix delegation interface statement
 
 ### Required
 
+- `bonding_identifier` (String) Bonding Interface/Link Aggregation
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  bondN  |  Bonding interface name  |
 - `identifier` (String) DHCPv6 prefix delegation interface statement
 
     |  Format  |  Description  |
     |----------|---------------|
     |  instance number  |  Prefix delegation instance (>= 0)  |
+- `vif_c_identifier` (String) QinQ TAG-C Virtual Local Area Network (VLAN) ID
+- `vif_s_identifier` (String) QinQ TAG-S Virtual Local Area Network (VLAN) ID
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
 
 ### Optional
 
-- `length` (String) Request IPv6 prefix length from peer
+- `length` (Number) Request IPv6 prefix length from peer
 
     |  Format  |  Description  |
     |----------|---------------|

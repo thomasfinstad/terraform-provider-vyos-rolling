@@ -38,7 +38,7 @@ IP address to listen for incoming SNMP requests
 
 ### Optional
 
-- `port` (String) Port number used by connection
+- `port` (Number) Port number used by connection
 
     |  Format  |  Description  |
     |----------|---------------|

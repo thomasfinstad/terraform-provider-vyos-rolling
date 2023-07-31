@@ -49,15 +49,25 @@ DHCPv6 prefix delegation interface statement
 
 ### Required
 
+- `bridge_identifier` (String) Bridge Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  brN  |  Bridge interface name  |
 - `identifier` (String) DHCPv6 prefix delegation interface statement
 
     |  Format  |  Description  |
     |----------|---------------|
     |  instance number  |  Prefix delegation instance (>= 0)  |
+- `vif_identifier` (String) Virtual Local Area Network (VLAN) ID
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
 
 ### Optional
 
-- `length` (String) Request IPv6 prefix length from peer
+- `length` (Number) Request IPv6 prefix length from peer
 
     |  Format  |  Description  |
     |----------|---------------|

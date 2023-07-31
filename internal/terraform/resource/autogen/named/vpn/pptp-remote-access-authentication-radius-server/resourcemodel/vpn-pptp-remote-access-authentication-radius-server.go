@@ -2,11 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnPptpRemoteAccessAuthenticationRadiusServer describes the resource data model.
@@ -14,12 +12,12 @@ type VpnPptpRemoteAccessAuthenticationRadiusServer struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisable           types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisable           types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafVpnPptpRemoteAccessAuthenticationRadiusServerKey               types.String `tfsdk:"key" vyos:"key,omitempty"`
-	LeafVpnPptpRemoteAccessAuthenticationRadiusServerPort              types.String `tfsdk:"port" vyos:"port,omitempty"`
-	LeafVpnPptpRemoteAccessAuthenticationRadiusServerAcctPort          types.String `tfsdk:"acct_port" vyos:"acct-port,omitempty"`
-	LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisableAccounting types.String `tfsdk:"disable_accounting" vyos:"disable-accounting,omitempty"`
-	LeafVpnPptpRemoteAccessAuthenticationRadiusServerFailTime          types.String `tfsdk:"fail_time" vyos:"fail-time,omitempty"`
+	LeafVpnPptpRemoteAccessAuthenticationRadiusServerPort              types.Number `tfsdk:"port" vyos:"port,omitempty"`
+	LeafVpnPptpRemoteAccessAuthenticationRadiusServerAcctPort          types.Number `tfsdk:"acct_port" vyos:"acct-port,omitempty"`
+	LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisableAccounting types.Bool   `tfsdk:"disable_accounting" vyos:"disable-accounting,omitempty"`
+	LeafVpnPptpRemoteAccessAuthenticationRadiusServerFailTime          types.Number `tfsdk:"fail_time" vyos:"fail-time,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -30,10 +28,15 @@ type VpnPptpRemoteAccessAuthenticationRadiusServer struct {
 func (o *VpnPptpRemoteAccessAuthenticationRadiusServer) GetVyosPath() []string {
 	return []string{
 		"vpn",
+
 		"pptp",
+
 		"remote-access",
+
 		"authentication",
+
 		"radius",
+
 		"server",
 		o.ID.ValueString(),
 	}
@@ -55,11 +58,13 @@ func (o VpnPptpRemoteAccessAuthenticationRadiusServer) ResourceSchemaAttributes(
 
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"key": schema.StringAttribute{
@@ -69,7 +74,7 @@ func (o VpnPptpRemoteAccessAuthenticationRadiusServer) ResourceSchemaAttributes(
 `,
 		},
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Authentication port
 
@@ -83,7 +88,7 @@ func (o VpnPptpRemoteAccessAuthenticationRadiusServer) ResourceSchemaAttributes(
 			Computed: true,
 		},
 
-		"acct_port": schema.StringAttribute{
+		"acct_port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Accounting port
 
@@ -97,14 +102,16 @@ func (o VpnPptpRemoteAccessAuthenticationRadiusServer) ResourceSchemaAttributes(
 			Computed: true,
 		},
 
-		"disable_accounting": schema.StringAttribute{
+		"disable_accounting": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable accounting
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"fail_time": schema.StringAttribute{
+		"fail_time": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Mark server unavailable for <n> seconds on failure
 
@@ -125,91 +132,10 @@ func (o VpnPptpRemoteAccessAuthenticationRadiusServer) ResourceSchemaAttributes(
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnPptpRemoteAccessAuthenticationRadiusServer) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisable.IsNull() && !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisable.ValueString()
-	}
-
-	if !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerKey.IsNull() && !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerKey.IsUnknown() {
-		jsonData["key"] = o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerKey.ValueString()
-	}
-
-	if !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerPort.IsNull() && !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerPort.IsUnknown() {
-		jsonData["port"] = o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerPort.ValueString()
-	}
-
-	if !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerAcctPort.IsNull() && !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerAcctPort.IsUnknown() {
-		jsonData["acct-port"] = o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerAcctPort.ValueString()
-	}
-
-	if !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisableAccounting.IsNull() && !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisableAccounting.IsUnknown() {
-		jsonData["disable-accounting"] = o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisableAccounting.ValueString()
-	}
-
-	if !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerFailTime.IsNull() && !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerFailTime.IsUnknown() {
-		jsonData["fail-time"] = o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerFailTime.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnPptpRemoteAccessAuthenticationRadiusServer) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["key"]; ok {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerKey = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["acct-port"]; ok {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerAcctPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerAcctPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable-accounting"]; ok {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisableAccounting = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisableAccounting = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["fail-time"]; ok {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerFailTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerFailTime = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VpnPptpRemoteAccessAuthenticationRadiusServer) UnmarshalJSON(_ []byte) error {
 	return nil
 }

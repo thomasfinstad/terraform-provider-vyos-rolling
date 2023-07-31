@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastFilterList describes the resource data model.
@@ -46,51 +43,10 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastFilterList) Resou
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastFilterList) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastFilterListExport.IsNull() && !o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastFilterListExport.IsUnknown() {
-		jsonData["export"] = o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastFilterListExport.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastFilterListImport.IsNull() && !o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastFilterListImport.IsUnknown() {
-		jsonData["import"] = o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastFilterListImport.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastFilterList) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["export"]; ok {
-		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastFilterListExport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastFilterListExport = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["import"]; ok {
-		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastFilterListImport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastFilterListImport = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastFilterList) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -39,7 +39,7 @@ Logging to a remote host
 ### Optional
 
 - `format` (Attributes) Logging format (see [below for nested schema](#nestedatt--format))
-- `port` (String) Port number used by connection
+- `port` (Number) Port number used by connection
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -50,4 +50,4 @@ Logging to a remote host
 
 Optional:
 
-- `octet_counted` (String) Allows for the transmission of all characters inside a syslog message
+- `octet_counted` (Boolean) Allows for the transmission of all characters inside a syslog message

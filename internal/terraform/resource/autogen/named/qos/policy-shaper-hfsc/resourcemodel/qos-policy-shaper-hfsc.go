@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyShaperHfsc describes the resource data model.
@@ -29,7 +25,9 @@ type QosPolicyShaperHfsc struct {
 func (o *QosPolicyShaperHfsc) GetVyosPath() []string {
 	return []string{
 		"qos",
+
 		"policy",
+
 		"shaper-hfsc",
 		o.ID.ValueString(),
 	}
@@ -97,78 +95,10 @@ func (o QosPolicyShaperHfsc) ResourceSchemaAttributes() map[string]schema.Attrib
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyShaperHfsc) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyShaperHfscDescrIPtion.IsNull() && !o.LeafQosPolicyShaperHfscDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafQosPolicyShaperHfscDescrIPtion.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperHfscBandwIDth.IsNull() && !o.LeafQosPolicyShaperHfscBandwIDth.IsUnknown() {
-		jsonData["bandwidth"] = o.LeafQosPolicyShaperHfscBandwIDth.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeQosPolicyShaperHfscDefault).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyShaperHfscDefault)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["default"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyShaperHfsc) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafQosPolicyShaperHfscDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["bandwidth"]; ok {
-		o.LeafQosPolicyShaperHfscBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscBandwIDth = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["default"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyShaperHfscDefault = &QosPolicyShaperHfscDefault{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyShaperHfscDefault)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *QosPolicyShaperHfsc) UnmarshalJSON(_ []byte) error {
 	return nil
 }

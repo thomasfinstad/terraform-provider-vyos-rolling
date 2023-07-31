@@ -2,11 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBabelInterface describes the resource data model.
@@ -16,14 +14,14 @@ type ProtocolsBabelInterface struct {
 	// LeafNodes
 	LeafProtocolsBabelInterfaceType             types.String `tfsdk:"type" vyos:"type,omitempty"`
 	LeafProtocolsBabelInterfaceSplitHorizon     types.String `tfsdk:"split_horizon" vyos:"split-horizon,omitempty"`
-	LeafProtocolsBabelInterfaceHelloInterval    types.String `tfsdk:"hello_interval" vyos:"hello-interval,omitempty"`
-	LeafProtocolsBabelInterfaceUpdateInterval   types.String `tfsdk:"update_interval" vyos:"update-interval,omitempty"`
-	LeafProtocolsBabelInterfaceRxcost           types.String `tfsdk:"rxcost" vyos:"rxcost,omitempty"`
-	LeafProtocolsBabelInterfaceRttDecay         types.String `tfsdk:"rtt_decay" vyos:"rtt-decay,omitempty"`
-	LeafProtocolsBabelInterfaceRttMin           types.String `tfsdk:"rtt_min" vyos:"rtt-min,omitempty"`
-	LeafProtocolsBabelInterfaceRttMax           types.String `tfsdk:"rtt_max" vyos:"rtt-max,omitempty"`
-	LeafProtocolsBabelInterfaceMaxRttPenalty    types.String `tfsdk:"max_rtt_penalty" vyos:"max-rtt-penalty,omitempty"`
-	LeafProtocolsBabelInterfaceEnableTimestamps types.String `tfsdk:"enable_timestamps" vyos:"enable-timestamps,omitempty"`
+	LeafProtocolsBabelInterfaceHelloInterval    types.Number `tfsdk:"hello_interval" vyos:"hello-interval,omitempty"`
+	LeafProtocolsBabelInterfaceUpdateInterval   types.Number `tfsdk:"update_interval" vyos:"update-interval,omitempty"`
+	LeafProtocolsBabelInterfaceRxcost           types.Number `tfsdk:"rxcost" vyos:"rxcost,omitempty"`
+	LeafProtocolsBabelInterfaceRttDecay         types.Number `tfsdk:"rtt_decay" vyos:"rtt-decay,omitempty"`
+	LeafProtocolsBabelInterfaceRttMin           types.Number `tfsdk:"rtt_min" vyos:"rtt-min,omitempty"`
+	LeafProtocolsBabelInterfaceRttMax           types.Number `tfsdk:"rtt_max" vyos:"rtt-max,omitempty"`
+	LeafProtocolsBabelInterfaceMaxRttPenalty    types.Number `tfsdk:"max_rtt_penalty" vyos:"max-rtt-penalty,omitempty"`
+	LeafProtocolsBabelInterfaceEnableTimestamps types.Bool   `tfsdk:"enable_timestamps" vyos:"enable-timestamps,omitempty"`
 	LeafProtocolsBabelInterfaceChannel          types.String `tfsdk:"channel" vyos:"channel,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -35,7 +33,9 @@ type ProtocolsBabelInterface struct {
 func (o *ProtocolsBabelInterface) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"babel",
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -89,7 +89,7 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes() map[string]schema.At
 			Computed: true,
 		},
 
-		"hello_interval": schema.StringAttribute{
+		"hello_interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Time between scheduled hellos
 
@@ -103,7 +103,7 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes() map[string]schema.At
 			Computed: true,
 		},
 
-		"update_interval": schema.StringAttribute{
+		"update_interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Time between scheduled updates
 
@@ -117,7 +117,7 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes() map[string]schema.At
 			Computed: true,
 		},
 
-		"rxcost": schema.StringAttribute{
+		"rxcost": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Base receive cost for this interface
 
@@ -128,7 +128,7 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes() map[string]schema.At
 `,
 		},
 
-		"rtt_decay": schema.StringAttribute{
+		"rtt_decay": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Decay factor for exponential moving average of RTT samples
 
@@ -142,7 +142,7 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes() map[string]schema.At
 			Computed: true,
 		},
 
-		"rtt_min": schema.StringAttribute{
+		"rtt_min": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum RTT
 
@@ -156,7 +156,7 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes() map[string]schema.At
 			Computed: true,
 		},
 
-		"rtt_max": schema.StringAttribute{
+		"rtt_max": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum RTT
 
@@ -170,7 +170,7 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes() map[string]schema.At
 			Computed: true,
 		},
 
-		"max_rtt_penalty": schema.StringAttribute{
+		"max_rtt_penalty": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum additional cost due to RTT
 
@@ -184,11 +184,13 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes() map[string]schema.At
 			Computed: true,
 		},
 
-		"enable_timestamps": schema.StringAttribute{
+		"enable_timestamps": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable timestamps with each Hello and IHU message in order to compute RTT values
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"channel": schema.StringAttribute{
@@ -211,141 +213,10 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes() map[string]schema.At
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBabelInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBabelInterfaceType.IsNull() && !o.LeafProtocolsBabelInterfaceType.IsUnknown() {
-		jsonData["type"] = o.LeafProtocolsBabelInterfaceType.ValueString()
-	}
-
-	if !o.LeafProtocolsBabelInterfaceSplitHorizon.IsNull() && !o.LeafProtocolsBabelInterfaceSplitHorizon.IsUnknown() {
-		jsonData["split-horizon"] = o.LeafProtocolsBabelInterfaceSplitHorizon.ValueString()
-	}
-
-	if !o.LeafProtocolsBabelInterfaceHelloInterval.IsNull() && !o.LeafProtocolsBabelInterfaceHelloInterval.IsUnknown() {
-		jsonData["hello-interval"] = o.LeafProtocolsBabelInterfaceHelloInterval.ValueString()
-	}
-
-	if !o.LeafProtocolsBabelInterfaceUpdateInterval.IsNull() && !o.LeafProtocolsBabelInterfaceUpdateInterval.IsUnknown() {
-		jsonData["update-interval"] = o.LeafProtocolsBabelInterfaceUpdateInterval.ValueString()
-	}
-
-	if !o.LeafProtocolsBabelInterfaceRxcost.IsNull() && !o.LeafProtocolsBabelInterfaceRxcost.IsUnknown() {
-		jsonData["rxcost"] = o.LeafProtocolsBabelInterfaceRxcost.ValueString()
-	}
-
-	if !o.LeafProtocolsBabelInterfaceRttDecay.IsNull() && !o.LeafProtocolsBabelInterfaceRttDecay.IsUnknown() {
-		jsonData["rtt-decay"] = o.LeafProtocolsBabelInterfaceRttDecay.ValueString()
-	}
-
-	if !o.LeafProtocolsBabelInterfaceRttMin.IsNull() && !o.LeafProtocolsBabelInterfaceRttMin.IsUnknown() {
-		jsonData["rtt-min"] = o.LeafProtocolsBabelInterfaceRttMin.ValueString()
-	}
-
-	if !o.LeafProtocolsBabelInterfaceRttMax.IsNull() && !o.LeafProtocolsBabelInterfaceRttMax.IsUnknown() {
-		jsonData["rtt-max"] = o.LeafProtocolsBabelInterfaceRttMax.ValueString()
-	}
-
-	if !o.LeafProtocolsBabelInterfaceMaxRttPenalty.IsNull() && !o.LeafProtocolsBabelInterfaceMaxRttPenalty.IsUnknown() {
-		jsonData["max-rtt-penalty"] = o.LeafProtocolsBabelInterfaceMaxRttPenalty.ValueString()
-	}
-
-	if !o.LeafProtocolsBabelInterfaceEnableTimestamps.IsNull() && !o.LeafProtocolsBabelInterfaceEnableTimestamps.IsUnknown() {
-		jsonData["enable-timestamps"] = o.LeafProtocolsBabelInterfaceEnableTimestamps.ValueString()
-	}
-
-	if !o.LeafProtocolsBabelInterfaceChannel.IsNull() && !o.LeafProtocolsBabelInterfaceChannel.IsUnknown() {
-		jsonData["channel"] = o.LeafProtocolsBabelInterfaceChannel.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBabelInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["type"]; ok {
-		o.LeafProtocolsBabelInterfaceType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBabelInterfaceType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["split-horizon"]; ok {
-		o.LeafProtocolsBabelInterfaceSplitHorizon = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBabelInterfaceSplitHorizon = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["hello-interval"]; ok {
-		o.LeafProtocolsBabelInterfaceHelloInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBabelInterfaceHelloInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["update-interval"]; ok {
-		o.LeafProtocolsBabelInterfaceUpdateInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBabelInterfaceUpdateInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rxcost"]; ok {
-		o.LeafProtocolsBabelInterfaceRxcost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBabelInterfaceRxcost = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rtt-decay"]; ok {
-		o.LeafProtocolsBabelInterfaceRttDecay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBabelInterfaceRttDecay = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rtt-min"]; ok {
-		o.LeafProtocolsBabelInterfaceRttMin = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBabelInterfaceRttMin = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rtt-max"]; ok {
-		o.LeafProtocolsBabelInterfaceRttMax = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBabelInterfaceRttMax = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["max-rtt-penalty"]; ok {
-		o.LeafProtocolsBabelInterfaceMaxRttPenalty = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBabelInterfaceMaxRttPenalty = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["enable-timestamps"]; ok {
-		o.LeafProtocolsBabelInterfaceEnableTimestamps = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBabelInterfaceEnableTimestamps = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["channel"]; ok {
-		o.LeafProtocolsBabelInterfaceChannel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBabelInterfaceChannel = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBabelInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

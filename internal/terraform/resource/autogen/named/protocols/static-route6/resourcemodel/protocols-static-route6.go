@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsStaticRoutesix describes the resource data model.
@@ -30,7 +26,9 @@ type ProtocolsStaticRoutesix struct {
 func (o *ProtocolsStaticRoutesix) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"static",
+
 		"route6",
 		o.ID.ValueString(),
 	}
@@ -85,95 +83,10 @@ func (o ProtocolsStaticRoutesix) ResourceSchemaAttributes() map[string]schema.At
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsStaticRoutesix) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsStaticRoutesixDescrIPtion.IsNull() && !o.LeafProtocolsStaticRoutesixDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafProtocolsStaticRoutesixDescrIPtion.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeProtocolsStaticRoutesixBlackhole).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsStaticRoutesixBlackhole)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["blackhole"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsStaticRoutesixReject).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsStaticRoutesixReject)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["reject"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsStaticRoutesix) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafProtocolsStaticRoutesixDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticRoutesixDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["blackhole"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsStaticRoutesixBlackhole = &ProtocolsStaticRoutesixBlackhole{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsStaticRoutesixBlackhole)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["reject"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsStaticRoutesixReject = &ProtocolsStaticRoutesixReject{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsStaticRoutesixReject)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ProtocolsStaticRoutesix) UnmarshalJSON(_ []byte) error {
 	return nil
 }

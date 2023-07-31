@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunity describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunity struct {
 	// LeafNodes
-	LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityExtended types.String `tfsdk:"extended" vyos:"extended,omitempty"`
-	LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityStandard types.String `tfsdk:"standard" vyos:"standard,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityExtended types.Bool `tfsdk:"extended" vyos:"extended,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityStandard types.Bool `tfsdk:"standard" vyos:"standard,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,18 +23,22 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunity) Re
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"extended": schema.StringAttribute{
+		"extended": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable sending extended community attributes to this peer
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"standard": schema.StringAttribute{
+		"standard": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable sending standard community attributes to this peer
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -46,51 +48,10 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunity) Re
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunity) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityExtended.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityExtended.IsUnknown() {
-		jsonData["extended"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityExtended.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityStandard.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityStandard.IsUnknown() {
-		jsonData["standard"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityStandard.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunity) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["extended"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityExtended = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityExtended = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["standard"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityStandard = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityStandard = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunity) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnSstpClientIPvsixPoolPrefix describes the resource data model.
@@ -14,7 +11,7 @@ type VpnSstpClientIPvsixPoolPrefix struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafVpnSstpClientIPvsixPoolPrefixMask types.String `tfsdk:"mask" vyos:"mask,omitempty"`
+	LeafVpnSstpClientIPvsixPoolPrefixMask types.Number `tfsdk:"mask" vyos:"mask,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,8 +22,11 @@ type VpnSstpClientIPvsixPoolPrefix struct {
 func (o *VpnSstpClientIPvsixPoolPrefix) GetVyosPath() []string {
 	return []string{
 		"vpn",
+
 		"sstp",
+
 		"client-ipv6-pool",
+
 		"prefix",
 		o.ID.ValueString(),
 	}
@@ -48,7 +48,7 @@ func (o VpnSstpClientIPvsixPoolPrefix) ResourceSchemaAttributes() map[string]sch
 
 		// LeafNodes
 
-		"mask": schema.StringAttribute{
+		"mask": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Prefix length used for individual client
 
@@ -69,41 +69,10 @@ func (o VpnSstpClientIPvsixPoolPrefix) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnSstpClientIPvsixPoolPrefix) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnSstpClientIPvsixPoolPrefixMask.IsNull() && !o.LeafVpnSstpClientIPvsixPoolPrefixMask.IsUnknown() {
-		jsonData["mask"] = o.LeafVpnSstpClientIPvsixPoolPrefixMask.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnSstpClientIPvsixPoolPrefix) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["mask"]; ok {
-		o.LeafVpnSstpClientIPvsixPoolPrefixMask = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpClientIPvsixPoolPrefixMask = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VpnSstpClientIPvsixPoolPrefix) UnmarshalJSON(_ []byte) error {
 	return nil
 }

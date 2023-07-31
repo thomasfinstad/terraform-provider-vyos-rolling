@@ -2,27 +2,24 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvfourMulticast describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyIPvfourMulticast struct {
 	// LeafNodes
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxAll         types.String `tfsdk:"addpath_tx_all" vyos:"addpath-tx-all,omitempty"`
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxPerAs       types.String `tfsdk:"addpath_tx_per_as" vyos:"addpath-tx-per-as,omitempty"`
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAsOverrIDe           types.String `tfsdk:"as_override" vyos:"as-override,omitempty"`
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefix        types.String `tfsdk:"maximum_prefix" vyos:"maximum-prefix,omitempty"`
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefixOut     types.String `tfsdk:"maximum_prefix_out" vyos:"maximum-prefix-out,omitempty"`
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs      types.String `tfsdk:"remove_private_as" vyos:"remove-private-as,omitempty"`
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteReflectorClient types.String `tfsdk:"route_reflector_client" vyos:"route-reflector-client,omitempty"`
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteServerClient    types.String `tfsdk:"route_server_client" vyos:"route-server-client,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxAll         types.Bool   `tfsdk:"addpath_tx_all" vyos:"addpath-tx-all,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxPerAs       types.Bool   `tfsdk:"addpath_tx_per_as" vyos:"addpath-tx-per-as,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAsOverrIDe           types.Bool   `tfsdk:"as_override" vyos:"as-override,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefix        types.Number `tfsdk:"maximum_prefix" vyos:"maximum-prefix,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefixOut     types.Number `tfsdk:"maximum_prefix_out" vyos:"maximum-prefix-out,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs      types.Bool   `tfsdk:"remove_private_as" vyos:"remove-private-as,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteReflectorClient types.Bool   `tfsdk:"route_reflector_client" vyos:"route-reflector-client,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteServerClient    types.Bool   `tfsdk:"route_server_client" vyos:"route-server-client,omitempty"`
 	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastUnsuppressMap        types.String `tfsdk:"unsuppress_map" vyos:"unsuppress-map,omitempty"`
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastWeight               types.String `tfsdk:"weight" vyos:"weight,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastWeight               types.Number `tfsdk:"weight" vyos:"weight,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -46,28 +43,34 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceSchemaAttribu
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"addpath_tx_all": schema.StringAttribute{
+		"addpath_tx_all": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use addpath to advertise all paths to a neighbor
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"addpath_tx_per_as": schema.StringAttribute{
+		"addpath_tx_per_as": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use addpath to advertise the bestpath per each neighboring AS
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"as_override": schema.StringAttribute{
+		"as_override": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Override ASN in outbound updates to configured neighbor local-as
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"maximum_prefix": schema.StringAttribute{
+		"maximum_prefix": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum number of prefixes to accept from this peer
 
@@ -78,7 +81,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceSchemaAttribu
 `,
 		},
 
-		"maximum_prefix_out": schema.StringAttribute{
+		"maximum_prefix_out": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum number of prefixes to be sent to this peer
 
@@ -89,25 +92,31 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceSchemaAttribu
 `,
 		},
 
-		"remove_private_as": schema.StringAttribute{
+		"remove_private_as": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Remove private AS numbers from AS path in outbound route updates
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"route_reflector_client": schema.StringAttribute{
+		"route_reflector_client": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer is a route reflector client
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"route_server_client": schema.StringAttribute{
+		"route_server_client": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer is a route server client
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"unsuppress_map": schema.StringAttribute{
@@ -121,7 +130,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceSchemaAttribu
 `,
 		},
 
-		"weight": schema.StringAttribute{
+		"weight": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Default weight for routes from this peer
 
@@ -234,455 +243,10 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceSchemaAttribu
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxAll.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxAll.IsUnknown() {
-		jsonData["addpath-tx-all"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxAll.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxPerAs.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxPerAs.IsUnknown() {
-		jsonData["addpath-tx-per-as"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxPerAs.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAsOverrIDe.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAsOverrIDe.IsUnknown() {
-		jsonData["as-override"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAsOverrIDe.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefix.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefix.IsUnknown() {
-		jsonData["maximum-prefix"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefix.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefixOut.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefixOut.IsUnknown() {
-		jsonData["maximum-prefix-out"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefixOut.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs.IsUnknown() {
-		jsonData["remove-private-as"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteReflectorClient.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteReflectorClient.IsUnknown() {
-		jsonData["route-reflector-client"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteReflectorClient.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteServerClient.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteServerClient.IsUnknown() {
-		jsonData["route-server-client"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteServerClient.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastUnsuppressMap.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastUnsuppressMap.IsUnknown() {
-		jsonData["unsuppress-map"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastUnsuppressMap.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastWeight.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastWeight.IsUnknown() {
-		jsonData["weight"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastWeight.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["capability"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["prefix-list"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["conditionally-advertise"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["allowas-in"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["attribute-unchanged"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["disable-send-community"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["distribute-list"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["filter-list"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["nexthop-self"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["route-map"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["soft-reconfiguration"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["default-originate"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["addpath-tx-all"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxAll = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxAll = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["addpath-tx-per-as"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxPerAs = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxPerAs = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["as-override"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAsOverrIDe = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAsOverrIDe = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["maximum-prefix"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefix = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefix = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["maximum-prefix-out"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefixOut = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefixOut = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["remove-private-as"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["route-reflector-client"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteReflectorClient = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteReflectorClient = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["route-server-client"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteServerClient = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteServerClient = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["unsuppress-map"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastUnsuppressMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastUnsuppressMap = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["weight"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastWeight = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastWeight = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["capability"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability = &ProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["prefix-list"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList = &ProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["conditionally-advertise"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise = &ProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["allowas-in"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn = &ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["attribute-unchanged"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged = &ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["disable-send-community"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity = &ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["distribute-list"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList = &ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["filter-list"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList = &ProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["nexthop-self"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf = &ProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["route-map"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap = &ProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["soft-reconfiguration"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration = &ProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["default-originate"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate = &ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) UnmarshalJSON(_ []byte) error {
 	return nil
 }

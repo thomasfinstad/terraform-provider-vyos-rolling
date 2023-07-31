@@ -2,27 +2,24 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyPriorityQueueClass describes the resource data model.
 type QosPolicyPriorityQueueClass struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDQosPolicyPriorityQueue any `tfsdk:"priority_queue" vyos:"priority-queue,parent-id"`
+	ParentIDQosPolicyPriorityQueue types.String `tfsdk:"priority_queue" vyos:"priority-queue_identifier,parent-id"`
 
 	// LeafNodes
 	LeafQosPolicyPriorityQueueClassDescrIPtion  types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafQosPolicyPriorityQueueClassCodelQuantum types.String `tfsdk:"codel_quantum" vyos:"codel-quantum,omitempty"`
-	LeafQosPolicyPriorityQueueClassFlows        types.String `tfsdk:"flows" vyos:"flows,omitempty"`
-	LeafQosPolicyPriorityQueueClassInterval     types.String `tfsdk:"interval" vyos:"interval,omitempty"`
-	LeafQosPolicyPriorityQueueClassQueueLimit   types.String `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
+	LeafQosPolicyPriorityQueueClassCodelQuantum types.Number `tfsdk:"codel_quantum" vyos:"codel-quantum,omitempty"`
+	LeafQosPolicyPriorityQueueClassFlows        types.Number `tfsdk:"flows" vyos:"flows,omitempty"`
+	LeafQosPolicyPriorityQueueClassInterval     types.Number `tfsdk:"interval" vyos:"interval,omitempty"`
+	LeafQosPolicyPriorityQueueClassQueueLimit   types.Number `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
 	LeafQosPolicyPriorityQueueClassQueueType    types.String `tfsdk:"queue_type" vyos:"queue-type,omitempty"`
-	LeafQosPolicyPriorityQueueClassTarget       types.String `tfsdk:"target" vyos:"target,omitempty"`
+	LeafQosPolicyPriorityQueueClassTarget       types.Number `tfsdk:"target" vyos:"target,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagQosPolicyPriorityQueueClassMatch bool `tfsdk:"match" vyos:"match,child"`
@@ -34,10 +31,14 @@ type QosPolicyPriorityQueueClass struct {
 func (o *QosPolicyPriorityQueueClass) GetVyosPath() []string {
 	return []string{
 		"qos",
+
 		"policy",
+
 		"priority-queue",
+		o.ParentIDQosPolicyPriorityQueue.ValueString(),
+
 		"class",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -55,6 +56,17 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 `,
 		},
 
+		"priority_queue_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Priority queuing based policy
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
@@ -68,7 +80,7 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 `,
 		},
 
-		"codel_quantum": schema.StringAttribute{
+		"codel_quantum": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Deficit in the fair queuing algorithm
 
@@ -82,7 +94,7 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Computed: true,
 		},
 
-		"flows": schema.StringAttribute{
+		"flows": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of flows into which the incoming packets are classified
 
@@ -96,7 +108,7 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Computed: true,
 		},
 
-		"interval": schema.StringAttribute{
+		"interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval used to measure the delay
 
@@ -110,7 +122,7 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Computed: true,
 		},
 
-		"queue_limit": schema.StringAttribute{
+		"queue_limit": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
@@ -139,7 +151,7 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Computed: true,
 		},
 
-		"target": schema.StringAttribute{
+		"target": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Acceptable minimum standing/persistent queue delay
 
@@ -160,101 +172,10 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyPriorityQueueClass) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyPriorityQueueClassDescrIPtion.IsNull() && !o.LeafQosPolicyPriorityQueueClassDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafQosPolicyPriorityQueueClassDescrIPtion.ValueString()
-	}
-
-	if !o.LeafQosPolicyPriorityQueueClassCodelQuantum.IsNull() && !o.LeafQosPolicyPriorityQueueClassCodelQuantum.IsUnknown() {
-		jsonData["codel-quantum"] = o.LeafQosPolicyPriorityQueueClassCodelQuantum.ValueString()
-	}
-
-	if !o.LeafQosPolicyPriorityQueueClassFlows.IsNull() && !o.LeafQosPolicyPriorityQueueClassFlows.IsUnknown() {
-		jsonData["flows"] = o.LeafQosPolicyPriorityQueueClassFlows.ValueString()
-	}
-
-	if !o.LeafQosPolicyPriorityQueueClassInterval.IsNull() && !o.LeafQosPolicyPriorityQueueClassInterval.IsUnknown() {
-		jsonData["interval"] = o.LeafQosPolicyPriorityQueueClassInterval.ValueString()
-	}
-
-	if !o.LeafQosPolicyPriorityQueueClassQueueLimit.IsNull() && !o.LeafQosPolicyPriorityQueueClassQueueLimit.IsUnknown() {
-		jsonData["queue-limit"] = o.LeafQosPolicyPriorityQueueClassQueueLimit.ValueString()
-	}
-
-	if !o.LeafQosPolicyPriorityQueueClassQueueType.IsNull() && !o.LeafQosPolicyPriorityQueueClassQueueType.IsUnknown() {
-		jsonData["queue-type"] = o.LeafQosPolicyPriorityQueueClassQueueType.ValueString()
-	}
-
-	if !o.LeafQosPolicyPriorityQueueClassTarget.IsNull() && !o.LeafQosPolicyPriorityQueueClassTarget.IsUnknown() {
-		jsonData["target"] = o.LeafQosPolicyPriorityQueueClassTarget.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyPriorityQueueClass) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafQosPolicyPriorityQueueClassDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["codel-quantum"]; ok {
-		o.LeafQosPolicyPriorityQueueClassCodelQuantum = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassCodelQuantum = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["flows"]; ok {
-		o.LeafQosPolicyPriorityQueueClassFlows = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassFlows = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["interval"]; ok {
-		o.LeafQosPolicyPriorityQueueClassInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["queue-limit"]; ok {
-		o.LeafQosPolicyPriorityQueueClassQueueLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassQueueLimit = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["queue-type"]; ok {
-		o.LeafQosPolicyPriorityQueueClassQueueType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassQueueType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["target"]; ok {
-		o.LeafQosPolicyPriorityQueueClassTarget = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassTarget = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyPriorityQueueClass) UnmarshalJSON(_ []byte) error {
 	return nil
 }

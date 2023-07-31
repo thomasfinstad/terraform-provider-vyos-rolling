@@ -34,8 +34,8 @@ Point-to-Point Protocol over Ethernet (PPPoE) Interface
 
 - `access_concentrator` (String) Access concentrator name
 - `authentication` (Attributes) Authentication settings (see [below for nested schema](#nestedatt--authentication))
-- `connect_on_demand` (String) Establishment connection automatically when traffic is sent
-- `default_route_distance` (String) Distance for installed default route
+- `connect_on_demand` (Boolean) Establishment connection automatically when traffic is sent
+- `default_route_distance` (Number) Distance for installed default route
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -46,13 +46,13 @@ Point-to-Point Protocol over Ethernet (PPPoE) Interface
     |----------|---------------|
     |  txt  |  Description  |
 - `dhcpv6_options` (Attributes) DHCPv6 client settings/options (see [below for nested schema](#nestedatt--dhcpv6_options))
-- `disable` (String) Administratively disable interface
+- `disable` (Boolean) Administratively disable interface
 - `host_uniq` (String) PPPoE RFC2516 host-uniq tag
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Host-uniq tag as byte string in HEX  |
-- `idle_timeout` (String) Delay before disconnecting idle session (in seconds)
+- `idle_timeout` (Number) Delay before disconnecting idle session (in seconds)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -65,13 +65,13 @@ Point-to-Point Protocol over Ethernet (PPPoE) Interface
     |----------|---------------|
     |  ipv4  |  Address of local end of the PPPoE link  |
 - `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--mirror))
-- `mtu` (String) Maximum Transmission Unit (MTU)
+- `mtu` (Number) Maximum Transmission Unit (MTU)
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:68-1500  |  Maximum Transmission Unit in byte  |
-- `no_default_route` (String) Do not install default route to system
-- `no_peer_dns` (String) Do not use DNS servers provided by the peer
+- `no_default_route` (Boolean) Do not install default route to system
+- `no_peer_dns` (Boolean) Do not use DNS servers provided by the peer
 - `redirect` (String) Redirect incoming packet to destination
 
     |  Format  |  Description  |
@@ -121,9 +121,9 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  duid  |  DHCP unique identifier (DUID)  |
-- `parameters_only` (String) Acquire only config parameters, no address
-- `rapid_commit` (String) Wait for immediate reply instead of advertisements
-- `temporary` (String) IPv6 temporary address
+- `parameters_only` (Boolean) Acquire only config parameters, no address
+- `rapid_commit` (Boolean) Wait for immediate reply instead of advertisements
+- `temporary` (Boolean) IPv6 temporary address
 
 
 <a id="nestedatt--ip"></a>
@@ -137,7 +137,7 @@ Optional:
     |----------|---------------|
     |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
     |  u32:536-65535  |  TCP Maximum segment size in bytes  |
-- `disable_forwarding` (String) Disable IP forwarding on this interface
+- `disable_forwarding` (Boolean) Disable IP forwarding on this interface
 - `source_validation` (String) Source validation by reversed path (RFC3704)
 
     |  Format  |  Description  |
@@ -159,14 +159,14 @@ Optional:
     |----------|---------------|
     |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
     |  u32:536-65535  |  TCP Maximum segment size in bytes  |
-- `disable_forwarding` (String) Disable IP forwarding on this interface
+- `disable_forwarding` (Boolean) Disable IP forwarding on this interface
 
 <a id="nestedatt--ipv6--address"></a>
 ### Nested Schema for `ipv6.address`
 
 Optional:
 
-- `autoconf` (String) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
+- `autoconf` (Boolean) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
 
 
 

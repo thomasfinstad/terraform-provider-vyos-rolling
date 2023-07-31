@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceWebproxyURLFilteringSquIDguardTimePeriodDays describes the resource data model.
 type ServiceWebproxyURLFilteringSquIDguardTimePeriodDays struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDServiceWebproxyURLFilteringSquIDguardTimePeriod any `tfsdk:"time_period" vyos:"time-period,parent-id"`
+	ParentIDServiceWebproxyURLFilteringSquIDguardTimePeriod types.String `tfsdk:"time_period" vyos:"time-period_identifier,parent-id"`
 
 	// LeafNodes
 	LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDaysTime types.String `tfsdk:"time" vyos:"time,omitempty"`
@@ -27,10 +24,16 @@ type ServiceWebproxyURLFilteringSquIDguardTimePeriodDays struct {
 func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"webproxy",
+
 		"url-filtering",
+
 		"squidguard",
+
 		"time-period",
+		o.ParentIDServiceWebproxyURLFilteringSquIDguardTimePeriod.ValueString(),
+
 		"days",
 		o.ID.ValueString(),
 	}
@@ -59,6 +62,13 @@ func (o ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) ResourceSchemaAttri
 `,
 		},
 
+		"time_period_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Time period name
+
+`,
+		},
+
 		// LeafNodes
 
 		"time": schema.StringAttribute{
@@ -79,41 +89,10 @@ func (o ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) ResourceSchemaAttri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDaysTime.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDaysTime.IsUnknown() {
-		jsonData["time"] = o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDaysTime.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["time"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDaysTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDaysTime = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) UnmarshalJSON(_ []byte) error {
 	return nil
 }

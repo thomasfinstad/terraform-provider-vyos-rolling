@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallNameRuleConnectionStatus describes the resource data model.
@@ -43,41 +40,10 @@ func (o FirewallNameRuleConnectionStatus) ResourceSchemaAttributes() map[string]
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallNameRuleConnectionStatus) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallNameRuleConnectionStatusNat.IsNull() && !o.LeafFirewallNameRuleConnectionStatusNat.IsUnknown() {
-		jsonData["nat"] = o.LeafFirewallNameRuleConnectionStatusNat.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallNameRuleConnectionStatus) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["nat"]; ok {
-		o.LeafFirewallNameRuleConnectionStatusNat = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleConnectionStatusNat = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallNameRuleConnectionStatus) UnmarshalJSON(_ []byte) error {
 	return nil
 }

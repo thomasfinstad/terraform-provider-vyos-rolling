@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnIPsecAuthenticationPsk describes the resource data model.
@@ -14,8 +11,8 @@ type VpnIPsecAuthenticationPsk struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafVpnIPsecAuthenticationPskDhcpInterface types.String `tfsdk:"dhcp_interface" vyos:"dhcp-interface,omitempty"`
-	LeafVpnIPsecAuthenticationPskID            types.String `tfsdk:"id" vyos:"id,omitempty"`
+	LeafVpnIPsecAuthenticationPskDhcpInterface types.List   `tfsdk:"dhcp_interface" vyos:"dhcp-interface,omitempty"`
+	LeafVpnIPsecAuthenticationPskID            types.List   `tfsdk:"id" vyos:"id,omitempty"`
 	LeafVpnIPsecAuthenticationPskSecret        types.String `tfsdk:"secret" vyos:"secret,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -27,8 +24,11 @@ type VpnIPsecAuthenticationPsk struct {
 func (o *VpnIPsecAuthenticationPsk) GetVyosPath() []string {
 	return []string{
 		"vpn",
+
 		"ipsec",
+
 		"authentication",
+
 		"psk",
 		o.ID.ValueString(),
 	}
@@ -46,8 +46,9 @@ func (o VpnIPsecAuthenticationPsk) ResourceSchemaAttributes() map[string]schema.
 
 		// LeafNodes
 
-		"dhcp_interface": schema.StringAttribute{
-			Optional: true,
+		"dhcp_interface": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `DHCP interface supplying next-hop IP address
 
     |  Format  |  Description  |
@@ -57,8 +58,9 @@ func (o VpnIPsecAuthenticationPsk) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 
-		"id": schema.StringAttribute{
-			Optional: true,
+		"id": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `ID for authentication
 
     |  Format  |  Description  |
@@ -86,61 +88,10 @@ func (o VpnIPsecAuthenticationPsk) ResourceSchemaAttributes() map[string]schema.
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnIPsecAuthenticationPsk) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnIPsecAuthenticationPskDhcpInterface.IsNull() && !o.LeafVpnIPsecAuthenticationPskDhcpInterface.IsUnknown() {
-		jsonData["dhcp-interface"] = o.LeafVpnIPsecAuthenticationPskDhcpInterface.ValueString()
-	}
-
-	if !o.LeafVpnIPsecAuthenticationPskID.IsNull() && !o.LeafVpnIPsecAuthenticationPskID.IsUnknown() {
-		jsonData["id"] = o.LeafVpnIPsecAuthenticationPskID.ValueString()
-	}
-
-	if !o.LeafVpnIPsecAuthenticationPskSecret.IsNull() && !o.LeafVpnIPsecAuthenticationPskSecret.IsUnknown() {
-		jsonData["secret"] = o.LeafVpnIPsecAuthenticationPskSecret.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnIPsecAuthenticationPsk) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["dhcp-interface"]; ok {
-		o.LeafVpnIPsecAuthenticationPskDhcpInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecAuthenticationPskDhcpInterface = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["id"]; ok {
-		o.LeafVpnIPsecAuthenticationPskID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecAuthenticationPskID = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["secret"]; ok {
-		o.LeafVpnIPsecAuthenticationPskSecret = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecAuthenticationPskSecret = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VpnIPsecAuthenticationPsk) UnmarshalJSON(_ []byte) error {
 	return nil
 }

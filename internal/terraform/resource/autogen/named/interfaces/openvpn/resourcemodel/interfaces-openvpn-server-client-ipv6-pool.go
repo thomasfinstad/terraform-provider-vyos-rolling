@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesOpenvpnServerClientIPvsixPool describes the resource data model.
 type InterfacesOpenvpnServerClientIPvsixPool struct {
 	// LeafNodes
 	LeafInterfacesOpenvpnServerClientIPvsixPoolBase    types.String `tfsdk:"base" vyos:"base,omitempty"`
-	LeafInterfacesOpenvpnServerClientIPvsixPoolDisable types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafInterfacesOpenvpnServerClientIPvsixPoolDisable types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -36,11 +34,13 @@ func (o InterfacesOpenvpnServerClientIPvsixPool) ResourceSchemaAttributes() map[
 `,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -50,51 +50,10 @@ func (o InterfacesOpenvpnServerClientIPvsixPool) ResourceSchemaAttributes() map[
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesOpenvpnServerClientIPvsixPool) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesOpenvpnServerClientIPvsixPoolBase.IsNull() && !o.LeafInterfacesOpenvpnServerClientIPvsixPoolBase.IsUnknown() {
-		jsonData["base"] = o.LeafInterfacesOpenvpnServerClientIPvsixPoolBase.ValueString()
-	}
-
-	if !o.LeafInterfacesOpenvpnServerClientIPvsixPoolDisable.IsNull() && !o.LeafInterfacesOpenvpnServerClientIPvsixPoolDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafInterfacesOpenvpnServerClientIPvsixPoolDisable.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesOpenvpnServerClientIPvsixPool) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["base"]; ok {
-		o.LeafInterfacesOpenvpnServerClientIPvsixPoolBase = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerClientIPvsixPoolBase = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafInterfacesOpenvpnServerClientIPvsixPoolDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerClientIPvsixPoolDisable = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesOpenvpnServerClientIPvsixPool) UnmarshalJSON(_ []byte) error {
 	return nil
 }

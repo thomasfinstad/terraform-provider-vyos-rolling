@@ -27,7 +27,7 @@ VRRP group
 
 ### Optional
 
-- `advertise_interval` (String) Advertise interval
+- `advertise_interval` (Number) Advertise interval
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -38,8 +38,8 @@ VRRP group
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `disable` (String) Disable instance
-- `excluded_address` (String) Virtual address (If you need additional IPv4 and IPv6 in same group)
+- `disable` (Boolean) Disable instance
+- `excluded_address` (List of String) Virtual address (If you need additional IPv4 and IPv6 in same group)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -58,27 +58,27 @@ VRRP group
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Interface name  |
-- `no_preempt` (String) Disable master preemption
+- `no_preempt` (Boolean) Disable master preemption
 - `peer_address` (String) Unicast VRRP peer address
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  IPv4 unicast peer address  |
     |  ipv6  |  IPv6 unicast peer address  |
-- `preempt_delay` (String) Preempt delay (in seconds)
+- `preempt_delay` (Number) Preempt delay (in seconds)
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-1000  |  preempt delay  |
-- `priority` (String) Router priority
+- `priority` (Number) Router priority
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Router priority  |
-- `rfc3768_compatibility` (String) Use VRRP virtual MAC address as per RFC3768
+- `rfc3768_compatibility` (Boolean) Use VRRP virtual MAC address as per RFC3768
 - `track` (Attributes) Track settings (see [below for nested schema](#nestedatt--track))
 - `transition_script` (Attributes) VRRP transition scripts (see [below for nested schema](#nestedatt--transition_script))
-- `vrid` (String) Virtual router identifier
+- `vrid` (Number) Virtual router identifier
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -112,23 +112,23 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  <0.000-1000>  |  Interval in seconds, resolution microseconds  |
-- `master_delay` (String) Delay for second set of gratuitous ARPs after transition to master
+- `master_delay` (Number) Delay for second set of gratuitous ARPs after transition to master
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-1000  |  Delay in seconds  |
-- `master_refresh` (String) Minimum time interval for refreshing gratuitous ARPs while beeing master
+- `master_refresh` (Number) Minimum time interval for refreshing gratuitous ARPs while beeing master
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0  |  No refresh  |
     |  u32:1-255  |  Interval in seconds  |
-- `master_refresh_repeat` (String) Number of gratuitous ARP messages to send at a time while beeing master
+- `master_refresh_repeat` (Number) Number of gratuitous ARP messages to send at a time while beeing master
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Number of gratuitous ARP messages  |
-- `master_repeat` (String) Number of gratuitous ARP messages to send at a time after transition to master
+- `master_repeat` (Number) Number of gratuitous ARP messages to send at a time after transition to master
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -150,8 +150,8 @@ Optional:
 
 Optional:
 
-- `exclude_vrrp_interface` (String) Disable track state of main interface
-- `interface` (String) Interface name state check
+- `exclude_vrrp_interface` (Boolean) Disable track state of main interface
+- `interface` (List of String) Interface name state check
 
     |  Format  |  Description  |
     |----------|---------------|

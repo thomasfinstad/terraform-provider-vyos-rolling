@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyFqCodel describes the resource data model.
@@ -15,11 +12,11 @@ type QosPolicyFqCodel struct {
 
 	// LeafNodes
 	LeafQosPolicyFqCodelDescrIPtion  types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafQosPolicyFqCodelCodelQuantum types.String `tfsdk:"codel_quantum" vyos:"codel-quantum,omitempty"`
-	LeafQosPolicyFqCodelFlows        types.String `tfsdk:"flows" vyos:"flows,omitempty"`
-	LeafQosPolicyFqCodelInterval     types.String `tfsdk:"interval" vyos:"interval,omitempty"`
-	LeafQosPolicyFqCodelQueueLimit   types.String `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
-	LeafQosPolicyFqCodelTarget       types.String `tfsdk:"target" vyos:"target,omitempty"`
+	LeafQosPolicyFqCodelCodelQuantum types.Number `tfsdk:"codel_quantum" vyos:"codel-quantum,omitempty"`
+	LeafQosPolicyFqCodelFlows        types.Number `tfsdk:"flows" vyos:"flows,omitempty"`
+	LeafQosPolicyFqCodelInterval     types.Number `tfsdk:"interval" vyos:"interval,omitempty"`
+	LeafQosPolicyFqCodelQueueLimit   types.Number `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
+	LeafQosPolicyFqCodelTarget       types.Number `tfsdk:"target" vyos:"target,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -30,7 +27,9 @@ type QosPolicyFqCodel struct {
 func (o *QosPolicyFqCodel) GetVyosPath() []string {
 	return []string{
 		"qos",
+
 		"policy",
+
 		"fq-codel",
 		o.ID.ValueString(),
 	}
@@ -63,7 +62,7 @@ func (o QosPolicyFqCodel) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 
-		"codel_quantum": schema.StringAttribute{
+		"codel_quantum": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Deficit in the fair queuing algorithm
 
@@ -77,7 +76,7 @@ func (o QosPolicyFqCodel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Computed: true,
 		},
 
-		"flows": schema.StringAttribute{
+		"flows": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of flows into which the incoming packets are classified
 
@@ -91,7 +90,7 @@ func (o QosPolicyFqCodel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Computed: true,
 		},
 
-		"interval": schema.StringAttribute{
+		"interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval used to measure the delay
 
@@ -105,7 +104,7 @@ func (o QosPolicyFqCodel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Computed: true,
 		},
 
-		"queue_limit": schema.StringAttribute{
+		"queue_limit": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Upper limit of the queue
 
@@ -119,7 +118,7 @@ func (o QosPolicyFqCodel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Computed: true,
 		},
 
-		"target": schema.StringAttribute{
+		"target": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Acceptable minimum standing/persistent queue delay
 
@@ -140,91 +139,10 @@ func (o QosPolicyFqCodel) ResourceSchemaAttributes() map[string]schema.Attribute
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyFqCodel) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyFqCodelDescrIPtion.IsNull() && !o.LeafQosPolicyFqCodelDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafQosPolicyFqCodelDescrIPtion.ValueString()
-	}
-
-	if !o.LeafQosPolicyFqCodelCodelQuantum.IsNull() && !o.LeafQosPolicyFqCodelCodelQuantum.IsUnknown() {
-		jsonData["codel-quantum"] = o.LeafQosPolicyFqCodelCodelQuantum.ValueString()
-	}
-
-	if !o.LeafQosPolicyFqCodelFlows.IsNull() && !o.LeafQosPolicyFqCodelFlows.IsUnknown() {
-		jsonData["flows"] = o.LeafQosPolicyFqCodelFlows.ValueString()
-	}
-
-	if !o.LeafQosPolicyFqCodelInterval.IsNull() && !o.LeafQosPolicyFqCodelInterval.IsUnknown() {
-		jsonData["interval"] = o.LeafQosPolicyFqCodelInterval.ValueString()
-	}
-
-	if !o.LeafQosPolicyFqCodelQueueLimit.IsNull() && !o.LeafQosPolicyFqCodelQueueLimit.IsUnknown() {
-		jsonData["queue-limit"] = o.LeafQosPolicyFqCodelQueueLimit.ValueString()
-	}
-
-	if !o.LeafQosPolicyFqCodelTarget.IsNull() && !o.LeafQosPolicyFqCodelTarget.IsUnknown() {
-		jsonData["target"] = o.LeafQosPolicyFqCodelTarget.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyFqCodel) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafQosPolicyFqCodelDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyFqCodelDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["codel-quantum"]; ok {
-		o.LeafQosPolicyFqCodelCodelQuantum = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyFqCodelCodelQuantum = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["flows"]; ok {
-		o.LeafQosPolicyFqCodelFlows = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyFqCodelFlows = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["interval"]; ok {
-		o.LeafQosPolicyFqCodelInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyFqCodelInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["queue-limit"]; ok {
-		o.LeafQosPolicyFqCodelQueueLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyFqCodelQueueLimit = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["target"]; ok {
-		o.LeafQosPolicyFqCodelTarget = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyFqCodelTarget = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyFqCodel) UnmarshalJSON(_ []byte) error {
 	return nil
 }

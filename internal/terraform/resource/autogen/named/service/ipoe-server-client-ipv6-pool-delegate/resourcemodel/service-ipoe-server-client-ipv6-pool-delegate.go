@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceIPoeServerClientIPvsixPoolDelegate describes the resource data model.
@@ -14,7 +11,7 @@ type ServiceIPoeServerClientIPvsixPoolDelegate struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafServiceIPoeServerClientIPvsixPoolDelegateDelegationPrefix types.String `tfsdk:"delegation_prefix" vyos:"delegation-prefix,omitempty"`
+	LeafServiceIPoeServerClientIPvsixPoolDelegateDelegationPrefix types.Number `tfsdk:"delegation_prefix" vyos:"delegation-prefix,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,8 +22,11 @@ type ServiceIPoeServerClientIPvsixPoolDelegate struct {
 func (o *ServiceIPoeServerClientIPvsixPoolDelegate) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"ipoe-server",
+
 		"client-ipv6-pool",
+
 		"delegate",
 		o.ID.ValueString(),
 	}
@@ -48,7 +48,7 @@ func (o ServiceIPoeServerClientIPvsixPoolDelegate) ResourceSchemaAttributes() ma
 
 		// LeafNodes
 
-		"delegation_prefix": schema.StringAttribute{
+		"delegation_prefix": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Prefix length delegated to client
 
@@ -66,41 +66,10 @@ func (o ServiceIPoeServerClientIPvsixPoolDelegate) ResourceSchemaAttributes() ma
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceIPoeServerClientIPvsixPoolDelegate) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceIPoeServerClientIPvsixPoolDelegateDelegationPrefix.IsNull() && !o.LeafServiceIPoeServerClientIPvsixPoolDelegateDelegationPrefix.IsUnknown() {
-		jsonData["delegation-prefix"] = o.LeafServiceIPoeServerClientIPvsixPoolDelegateDelegationPrefix.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceIPoeServerClientIPvsixPoolDelegate) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["delegation-prefix"]; ok {
-		o.LeafServiceIPoeServerClientIPvsixPoolDelegateDelegationPrefix = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerClientIPvsixPoolDelegateDelegationPrefix = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceIPoeServerClientIPvsixPoolDelegate) UnmarshalJSON(_ []byte) error {
 	return nil
 }

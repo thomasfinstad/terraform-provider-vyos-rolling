@@ -84,6 +84,12 @@ Facility for logging
 
 ### Required
 
+- `host_identifier` (String) Logging to a remote host
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Remote syslog server IPv4 address  |
+    |  hostname  |  Remote syslog server FQDN  |
 - `identifier` (String) Facility for logging
 
     |  Format  |  Description  |

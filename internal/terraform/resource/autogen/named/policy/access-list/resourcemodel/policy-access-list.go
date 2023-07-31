@@ -2,16 +2,13 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyAccessList describes the resource data model.
 type PolicyAccessList struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
 	LeafPolicyAccessListDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -26,8 +23,9 @@ type PolicyAccessList struct {
 func (o *PolicyAccessList) GetVyosPath() []string {
 	return []string{
 		"policy",
+
 		"access-list",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -68,41 +66,10 @@ func (o PolicyAccessList) ResourceSchemaAttributes() map[string]schema.Attribute
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyAccessList) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyAccessListDescrIPtion.IsNull() && !o.LeafPolicyAccessListDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafPolicyAccessListDescrIPtion.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyAccessList) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafPolicyAccessListDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyAccessListDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyAccessList) UnmarshalJSON(_ []byte) error {
 	return nil
 }

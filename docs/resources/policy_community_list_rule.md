@@ -38,6 +38,11 @@ Rule for this BGP community list
 
 ### Required
 
+- `community_list_identifier` (String) Add a BGP community list entry
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  BGP community-list name  |
 - `identifier` (String) Rule for this BGP community list
 
     |  Format  |  Description  |

@@ -2,11 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnPptpRemoteAccessAuthenticationLocalUsersUsername describes the resource data model.
@@ -14,7 +12,7 @@ type VpnPptpRemoteAccessAuthenticationLocalUsersUsername struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafVpnPptpRemoteAccessAuthenticationLocalUsersUsernameDisable  types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafVpnPptpRemoteAccessAuthenticationLocalUsersUsernameDisable  types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafVpnPptpRemoteAccessAuthenticationLocalUsersUsernamePassword types.String `tfsdk:"password" vyos:"password,omitempty"`
 	LeafVpnPptpRemoteAccessAuthenticationLocalUsersUsernameStaticIP types.String `tfsdk:"static_ip" vyos:"static-ip,omitempty"`
 
@@ -27,10 +25,15 @@ type VpnPptpRemoteAccessAuthenticationLocalUsersUsername struct {
 func (o *VpnPptpRemoteAccessAuthenticationLocalUsersUsername) GetVyosPath() []string {
 	return []string{
 		"vpn",
+
 		"pptp",
+
 		"remote-access",
+
 		"authentication",
+
 		"local-users",
+
 		"username",
 		o.ID.ValueString(),
 	}
@@ -48,11 +51,13 @@ func (o VpnPptpRemoteAccessAuthenticationLocalUsersUsername) ResourceSchemaAttri
 
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"password": schema.StringAttribute{
@@ -76,61 +81,10 @@ func (o VpnPptpRemoteAccessAuthenticationLocalUsersUsername) ResourceSchemaAttri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnPptpRemoteAccessAuthenticationLocalUsersUsername) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnPptpRemoteAccessAuthenticationLocalUsersUsernameDisable.IsNull() && !o.LeafVpnPptpRemoteAccessAuthenticationLocalUsersUsernameDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafVpnPptpRemoteAccessAuthenticationLocalUsersUsernameDisable.ValueString()
-	}
-
-	if !o.LeafVpnPptpRemoteAccessAuthenticationLocalUsersUsernamePassword.IsNull() && !o.LeafVpnPptpRemoteAccessAuthenticationLocalUsersUsernamePassword.IsUnknown() {
-		jsonData["password"] = o.LeafVpnPptpRemoteAccessAuthenticationLocalUsersUsernamePassword.ValueString()
-	}
-
-	if !o.LeafVpnPptpRemoteAccessAuthenticationLocalUsersUsernameStaticIP.IsNull() && !o.LeafVpnPptpRemoteAccessAuthenticationLocalUsersUsernameStaticIP.IsUnknown() {
-		jsonData["static-ip"] = o.LeafVpnPptpRemoteAccessAuthenticationLocalUsersUsernameStaticIP.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnPptpRemoteAccessAuthenticationLocalUsersUsername) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafVpnPptpRemoteAccessAuthenticationLocalUsersUsernameDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnPptpRemoteAccessAuthenticationLocalUsersUsernameDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["password"]; ok {
-		o.LeafVpnPptpRemoteAccessAuthenticationLocalUsersUsernamePassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnPptpRemoteAccessAuthenticationLocalUsersUsernamePassword = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["static-ip"]; ok {
-		o.LeafVpnPptpRemoteAccessAuthenticationLocalUsersUsernameStaticIP = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnPptpRemoteAccessAuthenticationLocalUsersUsernameStaticIP = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VpnPptpRemoteAccessAuthenticationLocalUsersUsername) UnmarshalJSON(_ []byte) error {
 	return nil
 }

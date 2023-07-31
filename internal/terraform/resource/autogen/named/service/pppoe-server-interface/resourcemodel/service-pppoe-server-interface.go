@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServicePppoeServerInterface describes the resource data model.
@@ -14,7 +11,7 @@ type ServicePppoeServerInterface struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafServicePppoeServerInterfaceVlan types.String `tfsdk:"vlan" vyos:"vlan,omitempty"`
+	LeafServicePppoeServerInterfaceVlan types.List `tfsdk:"vlan" vyos:"vlan,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +22,9 @@ type ServicePppoeServerInterface struct {
 func (o *ServicePppoeServerInterface) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"pppoe-server",
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -43,8 +42,9 @@ func (o ServicePppoeServerInterface) ResourceSchemaAttributes() map[string]schem
 
 		// LeafNodes
 
-		"vlan": schema.StringAttribute{
-			Optional: true,
+		"vlan": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `VLAN monitor for automatic creation of VLAN interfaces
 
     |  Format  |  Description  |
@@ -62,41 +62,10 @@ func (o ServicePppoeServerInterface) ResourceSchemaAttributes() map[string]schem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServicePppoeServerInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServicePppoeServerInterfaceVlan.IsNull() && !o.LeafServicePppoeServerInterfaceVlan.IsUnknown() {
-		jsonData["vlan"] = o.LeafServicePppoeServerInterfaceVlan.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServicePppoeServerInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["vlan"]; ok {
-		o.LeafServicePppoeServerInterfaceVlan = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServicePppoeServerInterfaceVlan = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServicePppoeServerInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

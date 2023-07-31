@@ -24,6 +24,7 @@ Mount a volume into the container
 ### Required
 
 - `identifier` (String) Mount a volume into the container
+- `name_identifier` (String) Container name
 
 ### Optional
 

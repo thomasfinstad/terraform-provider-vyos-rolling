@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsMplsLdpNeighbor describes the resource data model.
@@ -16,7 +13,7 @@ type ProtocolsMplsLdpNeighbor struct {
 	// LeafNodes
 	LeafProtocolsMplsLdpNeighborPassword        types.String `tfsdk:"password" vyos:"password,omitempty"`
 	LeafProtocolsMplsLdpNeighborTTLSecURIty     types.String `tfsdk:"ttl_security" vyos:"ttl-security,omitempty"`
-	LeafProtocolsMplsLdpNeighborSessionHoldtime types.String `tfsdk:"session_holdtime" vyos:"session-holdtime,omitempty"`
+	LeafProtocolsMplsLdpNeighborSessionHoldtime types.Number `tfsdk:"session_holdtime" vyos:"session-holdtime,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,8 +24,11 @@ type ProtocolsMplsLdpNeighbor struct {
 func (o *ProtocolsMplsLdpNeighbor) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"mpls",
+
 		"ldp",
+
 		"neighbor",
 		o.ID.ValueString(),
 	}
@@ -69,7 +69,7 @@ func (o ProtocolsMplsLdpNeighbor) ResourceSchemaAttributes() map[string]schema.A
 `,
 		},
 
-		"session_holdtime": schema.StringAttribute{
+		"session_holdtime": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Session IPv4 hold time
 
@@ -87,61 +87,10 @@ func (o ProtocolsMplsLdpNeighbor) ResourceSchemaAttributes() map[string]schema.A
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsMplsLdpNeighbor) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsMplsLdpNeighborPassword.IsNull() && !o.LeafProtocolsMplsLdpNeighborPassword.IsUnknown() {
-		jsonData["password"] = o.LeafProtocolsMplsLdpNeighborPassword.ValueString()
-	}
-
-	if !o.LeafProtocolsMplsLdpNeighborTTLSecURIty.IsNull() && !o.LeafProtocolsMplsLdpNeighborTTLSecURIty.IsUnknown() {
-		jsonData["ttl-security"] = o.LeafProtocolsMplsLdpNeighborTTLSecURIty.ValueString()
-	}
-
-	if !o.LeafProtocolsMplsLdpNeighborSessionHoldtime.IsNull() && !o.LeafProtocolsMplsLdpNeighborSessionHoldtime.IsUnknown() {
-		jsonData["session-holdtime"] = o.LeafProtocolsMplsLdpNeighborSessionHoldtime.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsMplsLdpNeighbor) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["password"]; ok {
-		o.LeafProtocolsMplsLdpNeighborPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsMplsLdpNeighborPassword = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ttl-security"]; ok {
-		o.LeafProtocolsMplsLdpNeighborTTLSecURIty = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsMplsLdpNeighborTTLSecURIty = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["session-holdtime"]; ok {
-		o.LeafProtocolsMplsLdpNeighborSessionHoldtime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsMplsLdpNeighborSessionHoldtime = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsMplsLdpNeighbor) UnmarshalJSON(_ []byte) error {
 	return nil
 }

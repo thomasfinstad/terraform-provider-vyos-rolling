@@ -46,10 +46,15 @@ IP precedence
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-7  |  IP precedence value  |
+- `random_detect_identifier` (String) Weighted Random Early Detect policy
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
 
 ### Optional
 
-- `average_packet` (String) Average packet size (bytes)
+- `average_packet` (Number) Average packet size (bytes)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -59,17 +64,17 @@ IP precedence
     |  Format  |  Description  |
     |----------|---------------|
     |  <number>  |  Numeric value (1/N)  |
-- `maximum_threshold` (String) Maximum threshold for random detection
+- `maximum_threshold` (Number) Maximum threshold for random detection
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-4096  |  Maximum Threshold in packets  |
-- `minimum_threshold` (String) Minimum  threshold for random detection
+- `minimum_threshold` (Number) Minimum  threshold for random detection
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-4096  |  Maximum Threshold in packets  |
-- `queue_limit` (String) Maximum queue size
+- `queue_limit` (Number) Maximum queue size
 
     |  Format  |  Description  |
     |----------|---------------|

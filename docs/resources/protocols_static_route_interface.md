@@ -46,11 +46,16 @@ Next-hop IPv4 router interface
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Gateway interface name  |
+- `route_identifier` (String) Static IPv4 route
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 static route  |
 
 ### Optional
 
-- `disable` (String) Disable instance
-- `distance` (String) Distance for this route
+- `disable` (Boolean) Disable instance
+- `distance` (Number) Distance for this route
 
     |  Format  |  Description  |
     |----------|---------------|

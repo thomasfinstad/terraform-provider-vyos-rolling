@@ -2,45 +2,42 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceDhcpServerSharedNetworkNameSubnet describes the resource data model.
 type ServiceDhcpServerSharedNetworkNameSubnet struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDServiceDhcpServerSharedNetworkName any `tfsdk:"shared_network_name" vyos:"shared-network-name,parent-id"`
+	ParentIDServiceDhcpServerSharedNetworkName types.String `tfsdk:"shared_network_name" vyos:"shared-network-name_identifier,parent-id"`
 
 	// LeafNodes
 	LeafServiceDhcpServerSharedNetworkNameSubnetBootfileName        types.String `tfsdk:"bootfile_name" vyos:"bootfile-name,omitempty"`
 	LeafServiceDhcpServerSharedNetworkNameSubnetBootfileServer      types.String `tfsdk:"bootfile_server" vyos:"bootfile-server,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameSubnetBootfileSize        types.String `tfsdk:"bootfile_size" vyos:"bootfile-size,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameSubnetClientPrefixLength  types.String `tfsdk:"client_prefix_length" vyos:"client-prefix-length,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetBootfileSize        types.Number `tfsdk:"bootfile_size" vyos:"bootfile-size,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetClientPrefixLength  types.Number `tfsdk:"client_prefix_length" vyos:"client-prefix-length,omitempty"`
 	LeafServiceDhcpServerSharedNetworkNameSubnetDefaultRouter       types.String `tfsdk:"default_router" vyos:"default-router,omitempty"`
 	LeafServiceDhcpServerSharedNetworkNameSubnetDomainName          types.String `tfsdk:"domain_name" vyos:"domain-name,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameSubnetDomainSearch        types.String `tfsdk:"domain_search" vyos:"domain-search,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetDomainSearch        types.List   `tfsdk:"domain_search" vyos:"domain-search,omitempty"`
 	LeafServiceDhcpServerSharedNetworkNameSubnetDescrIPtion         types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameSubnetNameServer          types.String `tfsdk:"name_server" vyos:"name-server,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameSubnetEnableFailover      types.String `tfsdk:"enable_failover" vyos:"enable-failover,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameSubnetExclude             types.String `tfsdk:"exclude" vyos:"exclude,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameSubnetIPForwarding        types.String `tfsdk:"ip_forwarding" vyos:"ip-forwarding,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameSubnetLease               types.String `tfsdk:"lease" vyos:"lease,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameSubnetNtpServer           types.String `tfsdk:"ntp_server" vyos:"ntp-server,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameSubnetPingCheck           types.String `tfsdk:"ping_check" vyos:"ping-check,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameSubnetPopServer           types.String `tfsdk:"pop_server" vyos:"pop-server,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetNameServer          types.List   `tfsdk:"name_server" vyos:"name-server,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetEnableFailover      types.Bool   `tfsdk:"enable_failover" vyos:"enable-failover,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetExclude             types.List   `tfsdk:"exclude" vyos:"exclude,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetIPForwarding        types.Bool   `tfsdk:"ip_forwarding" vyos:"ip-forwarding,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetLease               types.Number `tfsdk:"lease" vyos:"lease,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetNtpServer           types.List   `tfsdk:"ntp_server" vyos:"ntp-server,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetPingCheck           types.Bool   `tfsdk:"ping_check" vyos:"ping-check,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetPopServer           types.List   `tfsdk:"pop_server" vyos:"pop-server,omitempty"`
 	LeafServiceDhcpServerSharedNetworkNameSubnetServerIDentifier    types.String `tfsdk:"server_identifier" vyos:"server-identifier,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameSubnetSMTPServer          types.String `tfsdk:"smtp_server" vyos:"smtp-server,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameSubnetIPvsixOnlyPreferred types.String `tfsdk:"ipv6_only_preferred" vyos:"ipv6-only-preferred,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameSubnetSubnetParameters    types.String `tfsdk:"subnet_parameters" vyos:"subnet-parameters,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetSMTPServer          types.List   `tfsdk:"smtp_server" vyos:"smtp-server,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetIPvsixOnlyPreferred types.Number `tfsdk:"ipv6_only_preferred" vyos:"ipv6-only-preferred,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetSubnetParameters    types.List   `tfsdk:"subnet_parameters" vyos:"subnet-parameters,omitempty"`
 	LeafServiceDhcpServerSharedNetworkNameSubnetTftpServerName      types.String `tfsdk:"tftp_server_name" vyos:"tftp-server-name,omitempty"`
 	LeafServiceDhcpServerSharedNetworkNameSubnetTimeOffset          types.String `tfsdk:"time_offset" vyos:"time-offset,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameSubnetTimeServer          types.String `tfsdk:"time_server" vyos:"time-server,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameSubnetWinsServer          types.String `tfsdk:"wins_server" vyos:"wins-server,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetTimeServer          types.List   `tfsdk:"time_server" vyos:"time-server,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetWinsServer          types.List   `tfsdk:"wins_server" vyos:"wins-server,omitempty"`
 	LeafServiceDhcpServerSharedNetworkNameSubnetWpadURL             types.String `tfsdk:"wpad_url" vyos:"wpad-url,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -56,8 +53,12 @@ type ServiceDhcpServerSharedNetworkNameSubnet struct {
 func (o *ServiceDhcpServerSharedNetworkNameSubnet) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"dhcp-server",
+
 		"shared-network-name",
+		o.ParentIDServiceDhcpServerSharedNetworkName.ValueString(),
+
 		"subnet",
 		o.ID.ValueString(),
 	}
@@ -73,6 +74,13 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4net  |  IPv4 address and prefix length  |
+
+`,
+		},
+
+		"shared_network_name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Name of DHCP shared network
 
 `,
 		},
@@ -98,7 +106,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 `,
 		},
 
-		"bootfile_size": schema.StringAttribute{
+		"bootfile_size": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Bootstrap file size
 
@@ -109,7 +117,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 `,
 		},
 
-		"client_prefix_length": schema.StringAttribute{
+		"client_prefix_length": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Specifies the clients subnet mask as per RFC 950. If unset, subnet declaration is used.
 
@@ -138,8 +146,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 `,
 		},
 
-		"domain_search": schema.StringAttribute{
-			Optional: true,
+		"domain_search": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Client Domain Name search list
 
 `,
@@ -156,8 +165,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 `,
 		},
 
-		"name_server": schema.StringAttribute{
-			Optional: true,
+		"name_server": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Domain Name Servers (DNS) addresses
 
     |  Format  |  Description  |
@@ -167,15 +177,18 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 `,
 		},
 
-		"enable_failover": schema.StringAttribute{
+		"enable_failover": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable DHCP failover support for this subnet
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"exclude": schema.StringAttribute{
-			Optional: true,
+		"exclude": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address to exclude from DHCP lease range
 
     |  Format  |  Description  |
@@ -185,14 +198,16 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 `,
 		},
 
-		"ip_forwarding": schema.StringAttribute{
+		"ip_forwarding": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable IP forwarding on client
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"lease": schema.StringAttribute{
+		"lease": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Lease timeout in seconds
 
@@ -206,8 +221,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 			Computed: true,
 		},
 
-		"ntp_server": schema.StringAttribute{
-			Optional: true,
+		"ntp_server": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address of NTP server
 
     |  Format  |  Description  |
@@ -217,15 +233,18 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 `,
 		},
 
-		"ping_check": schema.StringAttribute{
+		"ping_check": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Sends ICMP Echo request to the address being assigned
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"pop_server": schema.StringAttribute{
-			Optional: true,
+		"pop_server": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address of POP3 server
 
     |  Format  |  Description  |
@@ -246,8 +265,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 `,
 		},
 
-		"smtp_server": schema.StringAttribute{
-			Optional: true,
+		"smtp_server": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address of SMTP server
 
     |  Format  |  Description  |
@@ -257,7 +277,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 `,
 		},
 
-		"ipv6_only_preferred": schema.StringAttribute{
+		"ipv6_only_preferred": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable IPv4 on IPv6 only hosts (RFC 8925)
 
@@ -268,8 +288,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 `,
 		},
 
-		"subnet_parameters": schema.StringAttribute{
-			Optional: true,
+		"subnet_parameters": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Additional subnet parameters for DHCP server. You must use the syntax of dhcpd.conf in this text-field. Using this without proper knowledge may result in a crashed DHCP server. Check system log to look for errors.
 
 `,
@@ -298,8 +319,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 `,
 		},
 
-		"time_server": schema.StringAttribute{
-			Optional: true,
+		"time_server": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address of time server
 
     |  Format  |  Description  |
@@ -309,8 +331,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 `,
 		},
 
-		"wins_server": schema.StringAttribute{
-			Optional: true,
+		"wins_server": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address for Windows Internet Name Service (WINS) server
 
     |  Format  |  Description  |
@@ -341,308 +364,10 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceDhcpServerSharedNetworkNameSubnet) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetBootfileName.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetBootfileName.IsUnknown() {
-		jsonData["bootfile-name"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetBootfileName.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetBootfileServer.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetBootfileServer.IsUnknown() {
-		jsonData["bootfile-server"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetBootfileServer.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetBootfileSize.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetBootfileSize.IsUnknown() {
-		jsonData["bootfile-size"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetBootfileSize.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetClientPrefixLength.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetClientPrefixLength.IsUnknown() {
-		jsonData["client-prefix-length"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetClientPrefixLength.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetDefaultRouter.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetDefaultRouter.IsUnknown() {
-		jsonData["default-router"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetDefaultRouter.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetDomainName.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetDomainName.IsUnknown() {
-		jsonData["domain-name"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetDomainName.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetDomainSearch.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetDomainSearch.IsUnknown() {
-		jsonData["domain-search"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetDomainSearch.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetDescrIPtion.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetDescrIPtion.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetNameServer.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetNameServer.IsUnknown() {
-		jsonData["name-server"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetNameServer.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetEnableFailover.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetEnableFailover.IsUnknown() {
-		jsonData["enable-failover"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetEnableFailover.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetExclude.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetExclude.IsUnknown() {
-		jsonData["exclude"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetExclude.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetIPForwarding.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetIPForwarding.IsUnknown() {
-		jsonData["ip-forwarding"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetIPForwarding.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetLease.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetLease.IsUnknown() {
-		jsonData["lease"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetLease.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetNtpServer.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetNtpServer.IsUnknown() {
-		jsonData["ntp-server"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetNtpServer.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetPingCheck.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetPingCheck.IsUnknown() {
-		jsonData["ping-check"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetPingCheck.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetPopServer.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetPopServer.IsUnknown() {
-		jsonData["pop-server"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetPopServer.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetServerIDentifier.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetServerIDentifier.IsUnknown() {
-		jsonData["server-identifier"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetServerIDentifier.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetSMTPServer.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetSMTPServer.IsUnknown() {
-		jsonData["smtp-server"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetSMTPServer.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetIPvsixOnlyPreferred.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetIPvsixOnlyPreferred.IsUnknown() {
-		jsonData["ipv6-only-preferred"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetIPvsixOnlyPreferred.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetSubnetParameters.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetSubnetParameters.IsUnknown() {
-		jsonData["subnet-parameters"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetSubnetParameters.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetTftpServerName.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetTftpServerName.IsUnknown() {
-		jsonData["tftp-server-name"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetTftpServerName.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetTimeOffset.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetTimeOffset.IsUnknown() {
-		jsonData["time-offset"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetTimeOffset.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetTimeServer.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetTimeServer.IsUnknown() {
-		jsonData["time-server"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetTimeServer.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetWinsServer.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetWinsServer.IsUnknown() {
-		jsonData["wins-server"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetWinsServer.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetWpadURL.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetWpadURL.IsUnknown() {
-		jsonData["wpad-url"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetWpadURL.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeServiceDhcpServerSharedNetworkNameSubnetVendorOption).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeServiceDhcpServerSharedNetworkNameSubnetVendorOption)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["vendor-option"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceDhcpServerSharedNetworkNameSubnet) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["bootfile-name"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetBootfileName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetBootfileName = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["bootfile-server"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetBootfileServer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetBootfileServer = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["bootfile-size"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetBootfileSize = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetBootfileSize = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["client-prefix-length"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetClientPrefixLength = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetClientPrefixLength = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["default-router"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetDefaultRouter = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetDefaultRouter = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["domain-name"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetDomainName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetDomainName = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["domain-search"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetDomainSearch = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetDomainSearch = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["name-server"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetNameServer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetNameServer = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["enable-failover"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetEnableFailover = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetEnableFailover = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["exclude"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetExclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetExclude = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ip-forwarding"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetIPForwarding = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetIPForwarding = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["lease"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetLease = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetLease = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ntp-server"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetNtpServer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetNtpServer = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ping-check"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetPingCheck = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetPingCheck = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["pop-server"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetPopServer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetPopServer = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["server-identifier"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetServerIDentifier = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetServerIDentifier = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["smtp-server"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetSMTPServer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetSMTPServer = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ipv6-only-preferred"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetIPvsixOnlyPreferred = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetIPvsixOnlyPreferred = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["subnet-parameters"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetSubnetParameters = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetSubnetParameters = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["tftp-server-name"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetTftpServerName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetTftpServerName = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["time-offset"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetTimeOffset = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetTimeOffset = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["time-server"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetTimeServer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetTimeServer = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["wins-server"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetWinsServer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetWinsServer = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["wpad-url"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetWpadURL = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetWpadURL = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["vendor-option"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeServiceDhcpServerSharedNetworkNameSubnetVendorOption = &ServiceDhcpServerSharedNetworkNameSubnetVendorOption{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeServiceDhcpServerSharedNetworkNameSubnetVendorOption)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ServiceDhcpServerSharedNetworkNameSubnet) UnmarshalJSON(_ []byte) error {
 	return nil
 }

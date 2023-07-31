@@ -24,6 +24,7 @@ Publish port to the container
 ### Required
 
 - `identifier` (String) Publish port to the container
+- `name_identifier` (String) Container name
 
 ### Optional
 

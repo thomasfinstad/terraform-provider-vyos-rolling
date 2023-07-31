@@ -2,20 +2,17 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceDhcpServerSharedNetworkNameSubnetRange describes the resource data model.
 type ServiceDhcpServerSharedNetworkNameSubnetRange struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDServiceDhcpServerSharedNetworkName any `tfsdk:"shared_network_name" vyos:"shared-network-name,parent-id"`
+	ParentIDServiceDhcpServerSharedNetworkName types.String `tfsdk:"shared_network_name" vyos:"shared-network-name_identifier,parent-id"`
 
-	ParentIDServiceDhcpServerSharedNetworkNameSubnet any `tfsdk:"subnet" vyos:"subnet,parent-id"`
+	ParentIDServiceDhcpServerSharedNetworkNameSubnet types.String `tfsdk:"subnet" vyos:"subnet_identifier,parent-id"`
 
 	// LeafNodes
 	LeafServiceDhcpServerSharedNetworkNameSubnetRangeStart types.String `tfsdk:"start" vyos:"start,omitempty"`
@@ -30,9 +27,15 @@ type ServiceDhcpServerSharedNetworkNameSubnetRange struct {
 func (o *ServiceDhcpServerSharedNetworkNameSubnetRange) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"dhcp-server",
+
 		"shared-network-name",
+		o.ParentIDServiceDhcpServerSharedNetworkName.ValueString(),
+
 		"subnet",
+		o.ParentIDServiceDhcpServerSharedNetworkNameSubnet.ValueString(),
+
 		"range",
 		o.ID.ValueString(),
 	}
@@ -44,6 +47,24 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRange) ResourceSchemaAttributes(
 		"identifier": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `DHCP lease range
+
+`,
+		},
+
+		"shared_network_name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Name of DHCP shared network
+
+`,
+		},
+
+		"subnet_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `DHCP subnet for shared network
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 address and prefix length  |
 
 `,
 		},
@@ -79,51 +100,10 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRange) ResourceSchemaAttributes(
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceDhcpServerSharedNetworkNameSubnetRange) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetRangeStart.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetRangeStart.IsUnknown() {
-		jsonData["start"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetRangeStart.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetRangeStop.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetRangeStop.IsUnknown() {
-		jsonData["stop"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetRangeStop.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceDhcpServerSharedNetworkNameSubnetRange) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["start"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetRangeStart = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetRangeStart = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["stop"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetRangeStop = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetRangeStop = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceDhcpServerSharedNetworkNameSubnetRange) UnmarshalJSON(_ []byte) error {
 	return nil
 }

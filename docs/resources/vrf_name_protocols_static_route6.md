@@ -49,6 +49,11 @@ Static IPv6 route
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv6net  |  IPv6 static route  |
+- `name_identifier` (String) Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 ### Optional
 
@@ -65,12 +70,12 @@ Static IPv6 route
 
 Optional:
 
-- `distance` (String) Distance for this route
+- `distance` (Number) Distance for this route
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Distance for this route  |
-- `tag` (String) Tag value for this route
+- `tag` (Number) Tag value for this route
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -82,12 +87,12 @@ Optional:
 
 Optional:
 
-- `distance` (String) Distance for this route
+- `distance` (Number) Distance for this route
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Distance for this route  |
-- `tag` (String) Tag value for this route
+- `tag` (Number) Tag value for this route
 
     |  Format  |  Description  |
     |----------|---------------|

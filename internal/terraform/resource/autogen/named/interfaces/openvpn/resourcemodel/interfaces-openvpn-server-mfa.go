@@ -2,9 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 )
 
@@ -37,58 +34,10 @@ func (o InterfacesOpenvpnServerMfa) ResourceSchemaAttributes() map[string]schema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesOpenvpnServerMfa) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesOpenvpnServerMfaTotp).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesOpenvpnServerMfaTotp)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["totp"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesOpenvpnServerMfa) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["totp"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesOpenvpnServerMfaTotp = &InterfacesOpenvpnServerMfaTotp{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesOpenvpnServerMfaTotp)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesOpenvpnServerMfa) UnmarshalJSON(_ []byte) error {
 	return nil
 }

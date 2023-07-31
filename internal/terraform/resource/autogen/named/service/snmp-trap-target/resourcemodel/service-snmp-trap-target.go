@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceSnmpTrapTarget describes the resource data model.
@@ -15,7 +12,7 @@ type ServiceSnmpTrapTarget struct {
 
 	// LeafNodes
 	LeafServiceSnmpTrapTargetCommunity types.String `tfsdk:"community" vyos:"community,omitempty"`
-	LeafServiceSnmpTrapTargetPort      types.String `tfsdk:"port" vyos:"port,omitempty"`
+	LeafServiceSnmpTrapTargetPort      types.Number `tfsdk:"port" vyos:"port,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,7 +23,9 @@ type ServiceSnmpTrapTarget struct {
 func (o *ServiceSnmpTrapTarget) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"snmp",
+
 		"trap-target",
 		o.ID.ValueString(),
 	}
@@ -56,7 +55,7 @@ func (o ServiceSnmpTrapTarget) ResourceSchemaAttributes() map[string]schema.Attr
 `,
 		},
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
@@ -77,51 +76,10 @@ func (o ServiceSnmpTrapTarget) ResourceSchemaAttributes() map[string]schema.Attr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceSnmpTrapTarget) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceSnmpTrapTargetCommunity.IsNull() && !o.LeafServiceSnmpTrapTargetCommunity.IsUnknown() {
-		jsonData["community"] = o.LeafServiceSnmpTrapTargetCommunity.ValueString()
-	}
-
-	if !o.LeafServiceSnmpTrapTargetPort.IsNull() && !o.LeafServiceSnmpTrapTargetPort.IsUnknown() {
-		jsonData["port"] = o.LeafServiceSnmpTrapTargetPort.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceSnmpTrapTarget) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["community"]; ok {
-		o.LeafServiceSnmpTrapTargetCommunity = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpTrapTargetCommunity = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafServiceSnmpTrapTargetPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpTrapTargetPort = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceSnmpTrapTarget) UnmarshalJSON(_ []byte) error {
 	return nil
 }

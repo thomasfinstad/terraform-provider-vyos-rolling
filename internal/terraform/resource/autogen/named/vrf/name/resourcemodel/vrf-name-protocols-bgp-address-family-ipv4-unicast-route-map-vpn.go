@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpn describes the resource data model.
@@ -54,51 +51,10 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpn) ResourceSchem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpn) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpnExport.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpnExport.IsUnknown() {
-		jsonData["export"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpnExport.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpnImport.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpnImport.IsUnknown() {
-		jsonData["import"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpnImport.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpn) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["export"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpnExport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpnExport = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["import"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpnImport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpnImport = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpn) UnmarshalJSON(_ []byte) error {
 	return nil
 }

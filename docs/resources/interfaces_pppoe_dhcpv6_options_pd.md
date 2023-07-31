@@ -43,10 +43,15 @@ DHCPv6 prefix delegation interface statement
     |  Format  |  Description  |
     |----------|---------------|
     |  instance number  |  Prefix delegation instance (>= 0)  |
+- `pppoe_identifier` (String) Point-to-Point Protocol over Ethernet (PPPoE) Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  pppoeN  |  PPPoE dialer interface name  |
 
 ### Optional
 
-- `length` (String) Request IPv6 prefix length from peer
+- `length` (Number) Request IPv6 prefix length from peer
 
     |  Format  |  Description  |
     |----------|---------------|

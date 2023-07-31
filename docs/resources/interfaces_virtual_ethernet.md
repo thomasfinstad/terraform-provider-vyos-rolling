@@ -32,7 +32,7 @@ Virtual Ethernet (veth) Interface
 
 ### Optional
 
-- `address` (String) IP address
+- `address` (List of String) IP address
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -47,7 +47,7 @@ Virtual Ethernet (veth) Interface
     |  txt  |  Description  |
 - `dhcp_options` (Attributes) DHCP client settings/options (see [below for nested schema](#nestedatt--dhcp_options))
 - `dhcpv6_options` (Attributes) DHCPv6 client settings/options (see [below for nested schema](#nestedatt--dhcpv6_options))
-- `disable` (String) Administratively disable interface
+- `disable` (Boolean) Administratively disable interface
 - `peer_name` (String) Virtual ethernet peer interface name
 
     |  Format  |  Description  |
@@ -65,15 +65,15 @@ Virtual Ethernet (veth) Interface
 Optional:
 
 - `client_id` (String) Identifier used by client to identify itself to the DHCP server
-- `default_route_distance` (String) Distance for installed default route
+- `default_route_distance` (Number) Distance for installed default route
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Distance for the default route from DHCP server  |
 - `host_name` (String) Override system host-name sent to DHCP server
-- `mtu` (String) Use MTU value from DHCP server - ignore interface setting
-- `no_default_route` (String) Do not install default route to system
-- `reject` (String) IP addresses or subnets from which to reject DHCP leases
+- `mtu` (Boolean) Use MTU value from DHCP server - ignore interface setting
+- `no_default_route` (Boolean) Do not install default route to system
+- `reject` (List of String) IP addresses or subnets from which to reject DHCP leases
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -92,6 +92,6 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  duid  |  DHCP unique identifier (DUID)  |
-- `parameters_only` (String) Acquire only config parameters, no address
-- `rapid_commit` (String) Wait for immediate reply instead of advertisements
-- `temporary` (String) IPv6 temporary address
+- `parameters_only` (Boolean) Acquire only config parameters, no address
+- `rapid_commit` (Boolean) Wait for immediate reply instead of advertisements
+- `temporary` (Boolean) IPv6 temporary address

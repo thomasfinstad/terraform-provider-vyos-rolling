@@ -2,21 +2,19 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpPeerGroupLocalRole describes the resource data model.
 type ProtocolsBgpPeerGroupLocalRole struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDProtocolsBgpPeerGroup any `tfsdk:"peer_group" vyos:"peer-group,parent-id"`
+	ParentIDProtocolsBgpPeerGroup types.String `tfsdk:"peer_group" vyos:"peer-group_identifier,parent-id"`
 
 	// LeafNodes
-	LeafProtocolsBgpPeerGroupLocalRoleStrict types.String `tfsdk:"strict" vyos:"strict,omitempty"`
+	LeafProtocolsBgpPeerGroupLocalRoleStrict types.Bool `tfsdk:"strict" vyos:"strict,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,8 +25,12 @@ type ProtocolsBgpPeerGroupLocalRole struct {
 func (o *ProtocolsBgpPeerGroupLocalRole) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"bgp",
+
 		"peer-group",
+		o.ParentIDProtocolsBgpPeerGroup.ValueString(),
+
 		"local-role",
 		o.ID.ValueString(),
 	}
@@ -52,13 +54,22 @@ func (o ProtocolsBgpPeerGroupLocalRole) ResourceSchemaAttributes() map[string]sc
 `,
 		},
 
+		"peer_group_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Name of peer-group
+
+`,
+		},
+
 		// LeafNodes
 
-		"strict": schema.StringAttribute{
+		"strict": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Neighbor must send this exact capability, otherwise a role missmatch notification will be sent
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -68,41 +79,10 @@ func (o ProtocolsBgpPeerGroupLocalRole) ResourceSchemaAttributes() map[string]sc
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpPeerGroupLocalRole) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpPeerGroupLocalRoleStrict.IsNull() && !o.LeafProtocolsBgpPeerGroupLocalRoleStrict.IsUnknown() {
-		jsonData["strict"] = o.LeafProtocolsBgpPeerGroupLocalRoleStrict.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpPeerGroupLocalRole) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["strict"]; ok {
-		o.LeafProtocolsBgpPeerGroupLocalRoleStrict = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpPeerGroupLocalRoleStrict = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpPeerGroupLocalRole) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnIPsecRemoteAccessConnectionAuthentication describes the resource data model.
@@ -105,125 +101,10 @@ func (o VpnIPsecRemoteAccessConnectionAuthentication) ResourceSchemaAttributes()
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnIPsecRemoteAccessConnectionAuthentication) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalID.IsNull() && !o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalID.IsUnknown() {
-		jsonData["local-id"] = o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalID.ValueString()
-	}
-
-	if !o.LeafVpnIPsecRemoteAccessConnectionAuthenticationClientMode.IsNull() && !o.LeafVpnIPsecRemoteAccessConnectionAuthenticationClientMode.IsUnknown() {
-		jsonData["client-mode"] = o.LeafVpnIPsecRemoteAccessConnectionAuthenticationClientMode.ValueString()
-	}
-
-	if !o.LeafVpnIPsecRemoteAccessConnectionAuthenticationServerMode.IsNull() && !o.LeafVpnIPsecRemoteAccessConnectionAuthenticationServerMode.IsUnknown() {
-		jsonData["server-mode"] = o.LeafVpnIPsecRemoteAccessConnectionAuthenticationServerMode.ValueString()
-	}
-
-	if !o.LeafVpnIPsecRemoteAccessConnectionAuthenticationPreSharedSecret.IsNull() && !o.LeafVpnIPsecRemoteAccessConnectionAuthenticationPreSharedSecret.IsUnknown() {
-		jsonData["pre-shared-secret"] = o.LeafVpnIPsecRemoteAccessConnectionAuthenticationPreSharedSecret.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["x509"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVpnIPsecRemoteAccessConnectionAuthenticationLocalUsers).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVpnIPsecRemoteAccessConnectionAuthenticationLocalUsers)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["local-users"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnIPsecRemoteAccessConnectionAuthentication) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["local-id"]; ok {
-		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalID = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["client-mode"]; ok {
-		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationClientMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationClientMode = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["server-mode"]; ok {
-		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationServerMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationServerMode = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["pre-shared-secret"]; ok {
-		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationPreSharedSecret = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationPreSharedSecret = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["x509"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine = &VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["local-users"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVpnIPsecRemoteAccessConnectionAuthenticationLocalUsers = &VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVpnIPsecRemoteAccessConnectionAuthenticationLocalUsers)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VpnIPsecRemoteAccessConnectionAuthentication) UnmarshalJSON(_ []byte) error {
 	return nil
 }

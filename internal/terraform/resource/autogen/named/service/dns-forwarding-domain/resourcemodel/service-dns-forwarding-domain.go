@@ -2,11 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceDNSForwardingDomain describes the resource data model.
@@ -14,9 +12,9 @@ type ServiceDNSForwardingDomain struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafServiceDNSForwardingDomainServer           types.String `tfsdk:"server" vyos:"server,omitempty"`
-	LeafServiceDNSForwardingDomainAddnta           types.String `tfsdk:"addnta" vyos:"addnta,omitempty"`
-	LeafServiceDNSForwardingDomainRecursionDesired types.String `tfsdk:"recursion_desired" vyos:"recursion-desired,omitempty"`
+	LeafServiceDNSForwardingDomainServer           types.List `tfsdk:"server" vyos:"server,omitempty"`
+	LeafServiceDNSForwardingDomainAddnta           types.Bool `tfsdk:"addnta" vyos:"addnta,omitempty"`
+	LeafServiceDNSForwardingDomainRecursionDesired types.Bool `tfsdk:"recursion_desired" vyos:"recursion-desired,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,8 +25,11 @@ type ServiceDNSForwardingDomain struct {
 func (o *ServiceDNSForwardingDomain) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"dns",
+
 		"forwarding",
+
 		"domain",
 		o.ID.ValueString(),
 	}
@@ -46,8 +47,9 @@ func (o ServiceDNSForwardingDomain) ResourceSchemaAttributes() map[string]schema
 
 		// LeafNodes
 
-		"server": schema.StringAttribute{
-			Optional: true,
+		"server": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Domain Name Server (DNS) to forward queries to
 
     |  Format  |  Description  |
@@ -58,18 +60,22 @@ func (o ServiceDNSForwardingDomain) ResourceSchemaAttributes() map[string]schema
 `,
 		},
 
-		"addnta": schema.StringAttribute{
+		"addnta": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Add NTA (negative trust anchor) for this domain (must be set if the domain does not support DNSSEC)
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"recursion_desired": schema.StringAttribute{
+		"recursion_desired": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Set the "recursion desired" bit in requests to the upstream nameserver
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -79,61 +85,10 @@ func (o ServiceDNSForwardingDomain) ResourceSchemaAttributes() map[string]schema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceDNSForwardingDomain) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceDNSForwardingDomainServer.IsNull() && !o.LeafServiceDNSForwardingDomainServer.IsUnknown() {
-		jsonData["server"] = o.LeafServiceDNSForwardingDomainServer.ValueString()
-	}
-
-	if !o.LeafServiceDNSForwardingDomainAddnta.IsNull() && !o.LeafServiceDNSForwardingDomainAddnta.IsUnknown() {
-		jsonData["addnta"] = o.LeafServiceDNSForwardingDomainAddnta.ValueString()
-	}
-
-	if !o.LeafServiceDNSForwardingDomainRecursionDesired.IsNull() && !o.LeafServiceDNSForwardingDomainRecursionDesired.IsUnknown() {
-		jsonData["recursion-desired"] = o.LeafServiceDNSForwardingDomainRecursionDesired.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceDNSForwardingDomain) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["server"]; ok {
-		o.LeafServiceDNSForwardingDomainServer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingDomainServer = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["addnta"]; ok {
-		o.LeafServiceDNSForwardingDomainAddnta = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingDomainAddnta = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["recursion-desired"]; ok {
-		o.LeafServiceDNSForwardingDomainRecursionDesired = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingDomainRecursionDesired = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceDNSForwardingDomain) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -25,7 +25,7 @@ Network name
 ### Optional
 
 - `description` (String) Network description
-- `prefix` (String) Prefix which allocated to that network
+- `prefix` (List of String) Prefix which allocated to that network
 
     |  Format  |  Description  |
     |----------|---------------|

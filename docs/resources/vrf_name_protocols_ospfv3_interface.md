@@ -49,6 +49,11 @@ Enable routing on an IPv6 interface
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Interface used for routing information exchange  |
+- `name_identifier` (String) Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 ### Optional
 
@@ -59,50 +64,50 @@ Enable routing on an IPv6 interface
     |  u32  |  OSPF area ID as decimal notation  |
     |  ipv4  |  OSPF area ID in IP address notation  |
 - `bfd` (Attributes) Enable Bidirectional Forwarding Detection (BFD) (see [below for nested schema](#nestedatt--bfd))
-- `cost` (String) Interface cost
+- `cost` (Number) Interface cost
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  OSPF interface cost  |
-- `dead_interval` (String) Interval after which a neighbor is declared dead
+- `dead_interval` (Number) Interval after which a neighbor is declared dead
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Neighbor dead interval (seconds)  |
-- `hello_interval` (String) Interval between hello packets
+- `hello_interval` (Number) Interval between hello packets
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Hello interval (seconds)  |
-- `ifmtu` (String) Interface MTU
+- `ifmtu` (Number) Interface MTU
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Interface MTU  |
-- `instance_id` (String) Instance ID
+- `instance_id` (Number) Instance ID
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-255  |  Instance Id  |
-- `mtu_ignore` (String) Disable Maximum Transmission Unit (MTU) mismatch detection
+- `mtu_ignore` (Boolean) Disable Maximum Transmission Unit (MTU) mismatch detection
 - `network` (String) Network type
 
     |  Format  |  Description  |
     |----------|---------------|
     |  broadcast  |  Broadcast network type  |
     |  point-to-point  |  Point-to-point network type  |
-- `passive` (String) Configure passive mode for interface
-- `priority` (String) Router priority
+- `passive` (Boolean) Configure passive mode for interface
+- `priority` (Number) Router priority
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-255  |  OSPF router priority cost  |
-- `retransmit_interval` (String) Interval between retransmitting lost link state advertisements
+- `retransmit_interval` (Number) Interval between retransmitting lost link state advertisements
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Retransmit interval (seconds)  |
-- `transmit_delay` (String) Link state transmit delay
+- `transmit_delay` (Number) Link state transmit delay
 
     |  Format  |  Description  |
     |----------|---------------|

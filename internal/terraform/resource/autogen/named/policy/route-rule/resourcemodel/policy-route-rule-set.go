@@ -2,21 +2,18 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteRuleSet describes the resource data model.
 type PolicyRouteRuleSet struct {
 	// LeafNodes
-	LeafPolicyRouteRuleSetConnectionMark types.String `tfsdk:"connection_mark" vyos:"connection-mark,omitempty"`
-	LeafPolicyRouteRuleSetDscp           types.String `tfsdk:"dscp" vyos:"dscp,omitempty"`
-	LeafPolicyRouteRuleSetMark           types.String `tfsdk:"mark" vyos:"mark,omitempty"`
+	LeafPolicyRouteRuleSetConnectionMark types.Number `tfsdk:"connection_mark" vyos:"connection-mark,omitempty"`
+	LeafPolicyRouteRuleSetDscp           types.Number `tfsdk:"dscp" vyos:"dscp,omitempty"`
+	LeafPolicyRouteRuleSetMark           types.Number `tfsdk:"mark" vyos:"mark,omitempty"`
 	LeafPolicyRouteRuleSetTable          types.String `tfsdk:"table" vyos:"table,omitempty"`
-	LeafPolicyRouteRuleSetTCPMss         types.String `tfsdk:"tcp_mss" vyos:"tcp-mss,omitempty"`
+	LeafPolicyRouteRuleSetTCPMss         types.Number `tfsdk:"tcp_mss" vyos:"tcp-mss,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -28,7 +25,7 @@ func (o PolicyRouteRuleSet) ResourceSchemaAttributes() map[string]schema.Attribu
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"connection_mark": schema.StringAttribute{
+		"connection_mark": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Connection marking
 
@@ -39,7 +36,7 @@ func (o PolicyRouteRuleSet) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 
-		"dscp": schema.StringAttribute{
+		"dscp": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Packet Differentiated Services Codepoint (DSCP)
 
@@ -50,7 +47,7 @@ func (o PolicyRouteRuleSet) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 
-		"mark": schema.StringAttribute{
+		"mark": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Packet marking
 
@@ -73,7 +70,7 @@ func (o PolicyRouteRuleSet) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 
-		"tcp_mss": schema.StringAttribute{
+		"tcp_mss": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TCP Maximum Segment Size
 
@@ -91,81 +88,10 @@ func (o PolicyRouteRuleSet) ResourceSchemaAttributes() map[string]schema.Attribu
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteRuleSet) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteRuleSetConnectionMark.IsNull() && !o.LeafPolicyRouteRuleSetConnectionMark.IsUnknown() {
-		jsonData["connection-mark"] = o.LeafPolicyRouteRuleSetConnectionMark.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleSetDscp.IsNull() && !o.LeafPolicyRouteRuleSetDscp.IsUnknown() {
-		jsonData["dscp"] = o.LeafPolicyRouteRuleSetDscp.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleSetMark.IsNull() && !o.LeafPolicyRouteRuleSetMark.IsUnknown() {
-		jsonData["mark"] = o.LeafPolicyRouteRuleSetMark.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleSetTable.IsNull() && !o.LeafPolicyRouteRuleSetTable.IsUnknown() {
-		jsonData["table"] = o.LeafPolicyRouteRuleSetTable.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleSetTCPMss.IsNull() && !o.LeafPolicyRouteRuleSetTCPMss.IsUnknown() {
-		jsonData["tcp-mss"] = o.LeafPolicyRouteRuleSetTCPMss.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteRuleSet) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["connection-mark"]; ok {
-		o.LeafPolicyRouteRuleSetConnectionMark = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleSetConnectionMark = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["dscp"]; ok {
-		o.LeafPolicyRouteRuleSetDscp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleSetDscp = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mark"]; ok {
-		o.LeafPolicyRouteRuleSetMark = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleSetMark = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["table"]; ok {
-		o.LeafPolicyRouteRuleSetTable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleSetTable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["tcp-mss"]; ok {
-		o.LeafPolicyRouteRuleSetTCPMss = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleSetTCPMss = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRouteRuleSet) UnmarshalJSON(_ []byte) error {
 	return nil
 }

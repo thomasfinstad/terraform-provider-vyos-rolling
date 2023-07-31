@@ -27,7 +27,7 @@ VRRP sync group
 
 ### Optional
 
-- `member` (String) Sync group member
+- `member` (List of String) Sync group member
 
     |  Format  |  Description  |
     |----------|---------------|

@@ -2,9 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -26,6 +23,7 @@ type PkiKeyPair struct {
 func (o *PkiKeyPair) GetVyosPath() []string {
 	return []string{
 		"pki",
+
 		"key-pair",
 		o.ID.ValueString(),
 	}
@@ -65,85 +63,10 @@ func (o PkiKeyPair) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PkiKeyPair) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodePkiKeyPairPublic).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePkiKeyPairPublic)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["public"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePkiKeyPairPrivate).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePkiKeyPairPrivate)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["private"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PkiKeyPair) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["public"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePkiKeyPairPublic = &PkiKeyPairPublic{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePkiKeyPairPublic)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["private"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePkiKeyPairPrivate = &PkiKeyPairPrivate{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePkiKeyPairPrivate)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *PkiKeyPair) UnmarshalJSON(_ []byte) error {
 	return nil
 }

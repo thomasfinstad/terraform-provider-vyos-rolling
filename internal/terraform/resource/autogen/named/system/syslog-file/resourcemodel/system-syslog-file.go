@@ -2,9 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -26,7 +23,9 @@ type SystemSyslogFile struct {
 func (o *SystemSyslogFile) GetVyosPath() []string {
 	return []string{
 		"system",
+
 		"syslog",
+
 		"file",
 		o.ID.ValueString(),
 	}
@@ -58,58 +57,10 @@ func (o SystemSyslogFile) ResourceSchemaAttributes() map[string]schema.Attribute
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemSyslogFile) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeSystemSyslogFileArchive).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeSystemSyslogFileArchive)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["archive"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemSyslogFile) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["archive"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeSystemSyslogFileArchive = &SystemSyslogFileArchive{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeSystemSyslogFileArchive)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *SystemSyslogFile) UnmarshalJSON(_ []byte) error {
 	return nil
 }

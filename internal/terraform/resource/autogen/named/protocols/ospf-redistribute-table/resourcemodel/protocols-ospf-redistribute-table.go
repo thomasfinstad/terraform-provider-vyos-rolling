@@ -2,20 +2,17 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsOspfRedistributeTable describes the resource data model.
 type ProtocolsOspfRedistributeTable struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafProtocolsOspfRedistributeTableMetric     types.String `tfsdk:"metric" vyos:"metric,omitempty"`
-	LeafProtocolsOspfRedistributeTableMetricType types.String `tfsdk:"metric_type" vyos:"metric-type,omitempty"`
+	LeafProtocolsOspfRedistributeTableMetric     types.Number `tfsdk:"metric" vyos:"metric,omitempty"`
+	LeafProtocolsOspfRedistributeTableMetricType types.Number `tfsdk:"metric_type" vyos:"metric-type,omitempty"`
 	LeafProtocolsOspfRedistributeTableRouteMap   types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -27,10 +24,13 @@ type ProtocolsOspfRedistributeTable struct {
 func (o *ProtocolsOspfRedistributeTable) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"ospf",
+
 		"redistribute",
+
 		"table",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -50,7 +50,7 @@ func (o ProtocolsOspfRedistributeTable) ResourceSchemaAttributes() map[string]sc
 
 		// LeafNodes
 
-		"metric": schema.StringAttribute{
+		"metric": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `OSPF default metric
 
@@ -61,7 +61,7 @@ func (o ProtocolsOspfRedistributeTable) ResourceSchemaAttributes() map[string]sc
 `,
 		},
 
-		"metric_type": schema.StringAttribute{
+		"metric_type": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `OSPF metric type for default routes
 
@@ -93,61 +93,10 @@ func (o ProtocolsOspfRedistributeTable) ResourceSchemaAttributes() map[string]sc
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsOspfRedistributeTable) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsOspfRedistributeTableMetric.IsNull() && !o.LeafProtocolsOspfRedistributeTableMetric.IsUnknown() {
-		jsonData["metric"] = o.LeafProtocolsOspfRedistributeTableMetric.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfRedistributeTableMetricType.IsNull() && !o.LeafProtocolsOspfRedistributeTableMetricType.IsUnknown() {
-		jsonData["metric-type"] = o.LeafProtocolsOspfRedistributeTableMetricType.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfRedistributeTableRouteMap.IsNull() && !o.LeafProtocolsOspfRedistributeTableRouteMap.IsUnknown() {
-		jsonData["route-map"] = o.LeafProtocolsOspfRedistributeTableRouteMap.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsOspfRedistributeTable) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["metric"]; ok {
-		o.LeafProtocolsOspfRedistributeTableMetric = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfRedistributeTableMetric = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["metric-type"]; ok {
-		o.LeafProtocolsOspfRedistributeTableMetricType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfRedistributeTableMetricType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["route-map"]; ok {
-		o.LeafProtocolsOspfRedistributeTableRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfRedistributeTableRouteMap = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsOspfRedistributeTable) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,25 +2,22 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyRandomDetectPrecedence describes the resource data model.
 type QosPolicyRandomDetectPrecedence struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDQosPolicyRandomDetect any `tfsdk:"random_detect" vyos:"random-detect,parent-id"`
+	ParentIDQosPolicyRandomDetect types.String `tfsdk:"random_detect" vyos:"random-detect_identifier,parent-id"`
 
 	// LeafNodes
-	LeafQosPolicyRandomDetectPrecedenceQueueLimit       types.String `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
-	LeafQosPolicyRandomDetectPrecedenceAveragePacket    types.String `tfsdk:"average_packet" vyos:"average-packet,omitempty"`
+	LeafQosPolicyRandomDetectPrecedenceQueueLimit       types.Number `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
+	LeafQosPolicyRandomDetectPrecedenceAveragePacket    types.Number `tfsdk:"average_packet" vyos:"average-packet,omitempty"`
 	LeafQosPolicyRandomDetectPrecedenceMarkProbability  types.String `tfsdk:"mark_probability" vyos:"mark-probability,omitempty"`
-	LeafQosPolicyRandomDetectPrecedenceMaximumThreshold types.String `tfsdk:"maximum_threshold" vyos:"maximum-threshold,omitempty"`
-	LeafQosPolicyRandomDetectPrecedenceMinimumThreshold types.String `tfsdk:"minimum_threshold" vyos:"minimum-threshold,omitempty"`
+	LeafQosPolicyRandomDetectPrecedenceMaximumThreshold types.Number `tfsdk:"maximum_threshold" vyos:"maximum-threshold,omitempty"`
+	LeafQosPolicyRandomDetectPrecedenceMinimumThreshold types.Number `tfsdk:"minimum_threshold" vyos:"minimum-threshold,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -31,10 +28,14 @@ type QosPolicyRandomDetectPrecedence struct {
 func (o *QosPolicyRandomDetectPrecedence) GetVyosPath() []string {
 	return []string{
 		"qos",
+
 		"policy",
+
 		"random-detect",
+		o.ParentIDQosPolicyRandomDetect.ValueString(),
+
 		"precedence",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -52,9 +53,20 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 `,
 		},
 
+		"random_detect_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Weighted Random Early Detect policy
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"queue_limit": schema.StringAttribute{
+		"queue_limit": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
@@ -65,7 +77,7 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 `,
 		},
 
-		"average_packet": schema.StringAttribute{
+		"average_packet": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Average packet size (bytes)
 
@@ -93,7 +105,7 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 			Computed: true,
 		},
 
-		"maximum_threshold": schema.StringAttribute{
+		"maximum_threshold": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum threshold for random detection
 
@@ -107,7 +119,7 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 			Computed: true,
 		},
 
-		"minimum_threshold": schema.StringAttribute{
+		"minimum_threshold": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum  threshold for random detection
 
@@ -125,81 +137,10 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyRandomDetectPrecedence) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyRandomDetectPrecedenceQueueLimit.IsNull() && !o.LeafQosPolicyRandomDetectPrecedenceQueueLimit.IsUnknown() {
-		jsonData["queue-limit"] = o.LeafQosPolicyRandomDetectPrecedenceQueueLimit.ValueString()
-	}
-
-	if !o.LeafQosPolicyRandomDetectPrecedenceAveragePacket.IsNull() && !o.LeafQosPolicyRandomDetectPrecedenceAveragePacket.IsUnknown() {
-		jsonData["average-packet"] = o.LeafQosPolicyRandomDetectPrecedenceAveragePacket.ValueString()
-	}
-
-	if !o.LeafQosPolicyRandomDetectPrecedenceMarkProbability.IsNull() && !o.LeafQosPolicyRandomDetectPrecedenceMarkProbability.IsUnknown() {
-		jsonData["mark-probability"] = o.LeafQosPolicyRandomDetectPrecedenceMarkProbability.ValueString()
-	}
-
-	if !o.LeafQosPolicyRandomDetectPrecedenceMaximumThreshold.IsNull() && !o.LeafQosPolicyRandomDetectPrecedenceMaximumThreshold.IsUnknown() {
-		jsonData["maximum-threshold"] = o.LeafQosPolicyRandomDetectPrecedenceMaximumThreshold.ValueString()
-	}
-
-	if !o.LeafQosPolicyRandomDetectPrecedenceMinimumThreshold.IsNull() && !o.LeafQosPolicyRandomDetectPrecedenceMinimumThreshold.IsUnknown() {
-		jsonData["minimum-threshold"] = o.LeafQosPolicyRandomDetectPrecedenceMinimumThreshold.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyRandomDetectPrecedence) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["queue-limit"]; ok {
-		o.LeafQosPolicyRandomDetectPrecedenceQueueLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRandomDetectPrecedenceQueueLimit = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["average-packet"]; ok {
-		o.LeafQosPolicyRandomDetectPrecedenceAveragePacket = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRandomDetectPrecedenceAveragePacket = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mark-probability"]; ok {
-		o.LeafQosPolicyRandomDetectPrecedenceMarkProbability = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRandomDetectPrecedenceMarkProbability = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["maximum-threshold"]; ok {
-		o.LeafQosPolicyRandomDetectPrecedenceMaximumThreshold = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRandomDetectPrecedenceMaximumThreshold = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["minimum-threshold"]; ok {
-		o.LeafQosPolicyRandomDetectPrecedenceMinimumThreshold = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRandomDetectPrecedenceMinimumThreshold = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyRandomDetectPrecedence) UnmarshalJSON(_ []byte) error {
 	return nil
 }

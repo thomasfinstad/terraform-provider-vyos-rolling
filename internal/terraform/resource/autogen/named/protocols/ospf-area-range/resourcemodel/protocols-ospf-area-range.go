@@ -2,22 +2,20 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsOspfAreaRange describes the resource data model.
 type ProtocolsOspfAreaRange struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDProtocolsOspfArea any `tfsdk:"area" vyos:"area,parent-id"`
+	ParentIDProtocolsOspfArea types.String `tfsdk:"area" vyos:"area_identifier,parent-id"`
 
 	// LeafNodes
-	LeafProtocolsOspfAreaRangeCost         types.String `tfsdk:"cost" vyos:"cost,omitempty"`
-	LeafProtocolsOspfAreaRangeNotAdvertise types.String `tfsdk:"not_advertise" vyos:"not-advertise,omitempty"`
+	LeafProtocolsOspfAreaRangeCost         types.Number `tfsdk:"cost" vyos:"cost,omitempty"`
+	LeafProtocolsOspfAreaRangeNotAdvertise types.Bool   `tfsdk:"not_advertise" vyos:"not-advertise,omitempty"`
 	LeafProtocolsOspfAreaRangeSubstitute   types.String `tfsdk:"substitute" vyos:"substitute,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -29,8 +27,12 @@ type ProtocolsOspfAreaRange struct {
 func (o *ProtocolsOspfAreaRange) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"ospf",
+
 		"area",
+		o.ParentIDProtocolsOspfArea.ValueString(),
+
 		"range",
 		o.ID.ValueString(),
 	}
@@ -50,9 +52,21 @@ func (o ProtocolsOspfAreaRange) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
+		"area_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `OSPF area settings
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32  |  OSPF area number in decimal notation  |
+    |  ipv4  |  OSPF area number in dotted decimal notation  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"cost": schema.StringAttribute{
+		"cost": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Metric for this range
 
@@ -63,11 +77,13 @@ func (o ProtocolsOspfAreaRange) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"not_advertise": schema.StringAttribute{
+		"not_advertise": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not advertise this range
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"substitute": schema.StringAttribute{
@@ -88,61 +104,10 @@ func (o ProtocolsOspfAreaRange) ResourceSchemaAttributes() map[string]schema.Att
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsOspfAreaRange) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsOspfAreaRangeCost.IsNull() && !o.LeafProtocolsOspfAreaRangeCost.IsUnknown() {
-		jsonData["cost"] = o.LeafProtocolsOspfAreaRangeCost.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfAreaRangeNotAdvertise.IsNull() && !o.LeafProtocolsOspfAreaRangeNotAdvertise.IsUnknown() {
-		jsonData["not-advertise"] = o.LeafProtocolsOspfAreaRangeNotAdvertise.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfAreaRangeSubstitute.IsNull() && !o.LeafProtocolsOspfAreaRangeSubstitute.IsUnknown() {
-		jsonData["substitute"] = o.LeafProtocolsOspfAreaRangeSubstitute.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsOspfAreaRange) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["cost"]; ok {
-		o.LeafProtocolsOspfAreaRangeCost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfAreaRangeCost = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["not-advertise"]; ok {
-		o.LeafProtocolsOspfAreaRangeNotAdvertise = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfAreaRangeNotAdvertise = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["substitute"]; ok {
-		o.LeafProtocolsOspfAreaRangeSubstitute = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfAreaRangeSubstitute = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsOspfAreaRange) UnmarshalJSON(_ []byte) error {
 	return nil
 }

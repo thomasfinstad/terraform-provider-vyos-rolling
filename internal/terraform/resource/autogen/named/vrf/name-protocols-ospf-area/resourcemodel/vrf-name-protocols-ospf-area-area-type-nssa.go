@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfAreaAreaTypeNssa describes the resource data model.
 type VrfNameProtocolsOspfAreaAreaTypeNssa struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost types.String `tfsdk:"default_cost" vyos:"default-cost,omitempty"`
-	LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary   types.String `tfsdk:"no_summary" vyos:"no-summary,omitempty"`
+	LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost types.Number `tfsdk:"default_cost" vyos:"default-cost,omitempty"`
+	LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary   types.Bool   `tfsdk:"no_summary" vyos:"no-summary,omitempty"`
 	LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte   types.String `tfsdk:"translate" vyos:"translate,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -26,7 +24,7 @@ func (o VrfNameProtocolsOspfAreaAreaTypeNssa) ResourceSchemaAttributes() map[str
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"default_cost": schema.StringAttribute{
+		"default_cost": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Summary-default cost of an NSSA area
 
@@ -37,11 +35,13 @@ func (o VrfNameProtocolsOspfAreaAreaTypeNssa) ResourceSchemaAttributes() map[str
 `,
 		},
 
-		"no_summary": schema.StringAttribute{
+		"no_summary": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not inject inter-area routes into stub
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"translate": schema.StringAttribute{
@@ -67,61 +67,10 @@ func (o VrfNameProtocolsOspfAreaAreaTypeNssa) ResourceSchemaAttributes() map[str
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfAreaAreaTypeNssa) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost.IsNull() && !o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost.IsUnknown() {
-		jsonData["default-cost"] = o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary.IsNull() && !o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary.IsUnknown() {
-		jsonData["no-summary"] = o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte.IsNull() && !o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte.IsUnknown() {
-		jsonData["translate"] = o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfAreaAreaTypeNssa) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["default-cost"]; ok {
-		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["no-summary"]; ok {
-		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["translate"]; ok {
-		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfAreaAreaTypeNssa) UnmarshalJSON(_ []byte) error {
 	return nil
 }

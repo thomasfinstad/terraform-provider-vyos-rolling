@@ -25,7 +25,7 @@ Registry Name
 ### Optional
 
 - `authentication` (Attributes) Authentication settings (see [below for nested schema](#nestedatt--authentication))
-- `disable` (String) Disable instance
+- `disable` (Boolean) Disable instance
 
 <a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`

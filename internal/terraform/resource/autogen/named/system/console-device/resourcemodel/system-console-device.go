@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemConsoleDevice describes the resource data model.
@@ -25,7 +22,9 @@ type SystemConsoleDevice struct {
 func (o *SystemConsoleDevice) GetVyosPath() []string {
 	return []string{
 		"system",
+
 		"console",
+
 		"device",
 		o.ID.ValueString(),
 	}
@@ -77,41 +76,10 @@ func (o SystemConsoleDevice) ResourceSchemaAttributes() map[string]schema.Attrib
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemConsoleDevice) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafSystemConsoleDeviceSpeed.IsNull() && !o.LeafSystemConsoleDeviceSpeed.IsUnknown() {
-		jsonData["speed"] = o.LeafSystemConsoleDeviceSpeed.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemConsoleDevice) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["speed"]; ok {
-		o.LeafSystemConsoleDeviceSpeed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemConsoleDeviceSpeed = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *SystemConsoleDevice) UnmarshalJSON(_ []byte) error {
 	return nil
 }

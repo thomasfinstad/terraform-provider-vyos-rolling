@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteRuleSource describes the resource data model.
@@ -84,88 +80,10 @@ func (o PolicyRouteRuleSource) ResourceSchemaAttributes() map[string]schema.Attr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteRuleSource) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteRuleSourceAddress.IsNull() && !o.LeafPolicyRouteRuleSourceAddress.IsUnknown() {
-		jsonData["address"] = o.LeafPolicyRouteRuleSourceAddress.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleSourcePort.IsNull() && !o.LeafPolicyRouteRuleSourcePort.IsUnknown() {
-		jsonData["port"] = o.LeafPolicyRouteRuleSourcePort.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleSourceMacAddress.IsNull() && !o.LeafPolicyRouteRuleSourceMacAddress.IsUnknown() {
-		jsonData["mac-address"] = o.LeafPolicyRouteRuleSourceMacAddress.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodePolicyRouteRuleSourceGroup).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleSourceGroup)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["group"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteRuleSource) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafPolicyRouteRuleSourceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleSourceAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafPolicyRouteRuleSourcePort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleSourcePort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mac-address"]; ok {
-		o.LeafPolicyRouteRuleSourceMacAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleSourceMacAddress = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["group"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteRuleSourceGroup = &PolicyRouteRuleSourceGroup{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleSourceGroup)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *PolicyRouteRuleSource) UnmarshalJSON(_ []byte) error {
 	return nil
 }

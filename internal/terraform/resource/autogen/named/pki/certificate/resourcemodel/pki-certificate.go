@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PkiCertificate describes the resource data model.
@@ -17,7 +14,7 @@ type PkiCertificate struct {
 	// LeafNodes
 	LeafPkiCertificateCertificate types.String `tfsdk:"certificate" vyos:"certificate,omitempty"`
 	LeafPkiCertificateDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafPkiCertificateRevoke      types.String `tfsdk:"revoke" vyos:"revoke,omitempty"`
+	LeafPkiCertificateRevoke      types.Bool   `tfsdk:"revoke" vyos:"revoke,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -29,6 +26,7 @@ type PkiCertificate struct {
 func (o *PkiCertificate) GetVyosPath() []string {
 	return []string{
 		"pki",
+
 		"certificate",
 		o.ID.ValueString(),
 	}
@@ -60,11 +58,13 @@ func (o PkiCertificate) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 
-		"revoke": schema.StringAttribute{
+		"revoke": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `If CA is present, this certificate will be included in generated CRLs
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -81,88 +81,10 @@ func (o PkiCertificate) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PkiCertificate) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPkiCertificateCertificate.IsNull() && !o.LeafPkiCertificateCertificate.IsUnknown() {
-		jsonData["certificate"] = o.LeafPkiCertificateCertificate.ValueString()
-	}
-
-	if !o.LeafPkiCertificateDescrIPtion.IsNull() && !o.LeafPkiCertificateDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafPkiCertificateDescrIPtion.ValueString()
-	}
-
-	if !o.LeafPkiCertificateRevoke.IsNull() && !o.LeafPkiCertificateRevoke.IsUnknown() {
-		jsonData["revoke"] = o.LeafPkiCertificateRevoke.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodePkiCertificatePrivate).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePkiCertificatePrivate)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["private"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PkiCertificate) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["certificate"]; ok {
-		o.LeafPkiCertificateCertificate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiCertificateCertificate = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafPkiCertificateDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiCertificateDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["revoke"]; ok {
-		o.LeafPkiCertificateRevoke = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiCertificateRevoke = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["private"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePkiCertificatePrivate = &PkiCertificatePrivate{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePkiCertificatePrivate)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *PkiCertificate) UnmarshalJSON(_ []byte) error {
 	return nil
 }

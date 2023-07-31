@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyAsPathListRule describes the resource data model.
 type PolicyAsPathListRule struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDPolicyAsPathList any `tfsdk:"as_path_list" vyos:"as-path-list,parent-id"`
+	ParentIDPolicyAsPathList types.String `tfsdk:"as_path_list" vyos:"as-path-list_identifier,parent-id"`
 
 	// LeafNodes
 	LeafPolicyAsPathListRuleAction      types.String `tfsdk:"action" vyos:"action,omitempty"`
@@ -29,9 +26,12 @@ type PolicyAsPathListRule struct {
 func (o *PolicyAsPathListRule) GetVyosPath() []string {
 	return []string{
 		"policy",
+
 		"as-path-list",
+		o.ParentIDPolicyAsPathList.ValueString(),
+
 		"rule",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -45,6 +45,17 @@ func (o PolicyAsPathListRule) ResourceSchemaAttributes() map[string]schema.Attri
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  AS path list rule number  |
+
+`,
+		},
+
+		"as_path_list_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Add a BGP autonomous system path filter
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  AS path list name  |
 
 `,
 		},
@@ -92,61 +103,10 @@ func (o PolicyAsPathListRule) ResourceSchemaAttributes() map[string]schema.Attri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyAsPathListRule) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyAsPathListRuleAction.IsNull() && !o.LeafPolicyAsPathListRuleAction.IsUnknown() {
-		jsonData["action"] = o.LeafPolicyAsPathListRuleAction.ValueString()
-	}
-
-	if !o.LeafPolicyAsPathListRuleDescrIPtion.IsNull() && !o.LeafPolicyAsPathListRuleDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafPolicyAsPathListRuleDescrIPtion.ValueString()
-	}
-
-	if !o.LeafPolicyAsPathListRuleRegex.IsNull() && !o.LeafPolicyAsPathListRuleRegex.IsUnknown() {
-		jsonData["regex"] = o.LeafPolicyAsPathListRuleRegex.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyAsPathListRule) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["action"]; ok {
-		o.LeafPolicyAsPathListRuleAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyAsPathListRuleAction = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafPolicyAsPathListRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyAsPathListRuleDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["regex"]; ok {
-		o.LeafPolicyAsPathListRuleRegex = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyAsPathListRuleRegex = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyAsPathListRule) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,11 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnSstpAuthenticationRadiusServer describes the resource data model.
@@ -14,12 +12,12 @@ type VpnSstpAuthenticationRadiusServer struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafVpnSstpAuthenticationRadiusServerDisable           types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafVpnSstpAuthenticationRadiusServerDisable           types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafVpnSstpAuthenticationRadiusServerKey               types.String `tfsdk:"key" vyos:"key,omitempty"`
-	LeafVpnSstpAuthenticationRadiusServerPort              types.String `tfsdk:"port" vyos:"port,omitempty"`
-	LeafVpnSstpAuthenticationRadiusServerAcctPort          types.String `tfsdk:"acct_port" vyos:"acct-port,omitempty"`
-	LeafVpnSstpAuthenticationRadiusServerDisableAccounting types.String `tfsdk:"disable_accounting" vyos:"disable-accounting,omitempty"`
-	LeafVpnSstpAuthenticationRadiusServerFailTime          types.String `tfsdk:"fail_time" vyos:"fail-time,omitempty"`
+	LeafVpnSstpAuthenticationRadiusServerPort              types.Number `tfsdk:"port" vyos:"port,omitempty"`
+	LeafVpnSstpAuthenticationRadiusServerAcctPort          types.Number `tfsdk:"acct_port" vyos:"acct-port,omitempty"`
+	LeafVpnSstpAuthenticationRadiusServerDisableAccounting types.Bool   `tfsdk:"disable_accounting" vyos:"disable-accounting,omitempty"`
+	LeafVpnSstpAuthenticationRadiusServerFailTime          types.Number `tfsdk:"fail_time" vyos:"fail-time,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -30,9 +28,13 @@ type VpnSstpAuthenticationRadiusServer struct {
 func (o *VpnSstpAuthenticationRadiusServer) GetVyosPath() []string {
 	return []string{
 		"vpn",
+
 		"sstp",
+
 		"authentication",
+
 		"radius",
+
 		"server",
 		o.ID.ValueString(),
 	}
@@ -54,11 +56,13 @@ func (o VpnSstpAuthenticationRadiusServer) ResourceSchemaAttributes() map[string
 
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"key": schema.StringAttribute{
@@ -68,7 +72,7 @@ func (o VpnSstpAuthenticationRadiusServer) ResourceSchemaAttributes() map[string
 `,
 		},
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Authentication port
 
@@ -82,7 +86,7 @@ func (o VpnSstpAuthenticationRadiusServer) ResourceSchemaAttributes() map[string
 			Computed: true,
 		},
 
-		"acct_port": schema.StringAttribute{
+		"acct_port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Accounting port
 
@@ -96,14 +100,16 @@ func (o VpnSstpAuthenticationRadiusServer) ResourceSchemaAttributes() map[string
 			Computed: true,
 		},
 
-		"disable_accounting": schema.StringAttribute{
+		"disable_accounting": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable accounting
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"fail_time": schema.StringAttribute{
+		"fail_time": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Mark server unavailable for <n> seconds on failure
 
@@ -124,91 +130,10 @@ func (o VpnSstpAuthenticationRadiusServer) ResourceSchemaAttributes() map[string
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnSstpAuthenticationRadiusServer) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnSstpAuthenticationRadiusServerDisable.IsNull() && !o.LeafVpnSstpAuthenticationRadiusServerDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafVpnSstpAuthenticationRadiusServerDisable.ValueString()
-	}
-
-	if !o.LeafVpnSstpAuthenticationRadiusServerKey.IsNull() && !o.LeafVpnSstpAuthenticationRadiusServerKey.IsUnknown() {
-		jsonData["key"] = o.LeafVpnSstpAuthenticationRadiusServerKey.ValueString()
-	}
-
-	if !o.LeafVpnSstpAuthenticationRadiusServerPort.IsNull() && !o.LeafVpnSstpAuthenticationRadiusServerPort.IsUnknown() {
-		jsonData["port"] = o.LeafVpnSstpAuthenticationRadiusServerPort.ValueString()
-	}
-
-	if !o.LeafVpnSstpAuthenticationRadiusServerAcctPort.IsNull() && !o.LeafVpnSstpAuthenticationRadiusServerAcctPort.IsUnknown() {
-		jsonData["acct-port"] = o.LeafVpnSstpAuthenticationRadiusServerAcctPort.ValueString()
-	}
-
-	if !o.LeafVpnSstpAuthenticationRadiusServerDisableAccounting.IsNull() && !o.LeafVpnSstpAuthenticationRadiusServerDisableAccounting.IsUnknown() {
-		jsonData["disable-accounting"] = o.LeafVpnSstpAuthenticationRadiusServerDisableAccounting.ValueString()
-	}
-
-	if !o.LeafVpnSstpAuthenticationRadiusServerFailTime.IsNull() && !o.LeafVpnSstpAuthenticationRadiusServerFailTime.IsUnknown() {
-		jsonData["fail-time"] = o.LeafVpnSstpAuthenticationRadiusServerFailTime.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnSstpAuthenticationRadiusServer) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafVpnSstpAuthenticationRadiusServerDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpAuthenticationRadiusServerDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["key"]; ok {
-		o.LeafVpnSstpAuthenticationRadiusServerKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpAuthenticationRadiusServerKey = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafVpnSstpAuthenticationRadiusServerPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpAuthenticationRadiusServerPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["acct-port"]; ok {
-		o.LeafVpnSstpAuthenticationRadiusServerAcctPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpAuthenticationRadiusServerAcctPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable-accounting"]; ok {
-		o.LeafVpnSstpAuthenticationRadiusServerDisableAccounting = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpAuthenticationRadiusServerDisableAccounting = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["fail-time"]; ok {
-		o.LeafVpnSstpAuthenticationRadiusServerFailTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpAuthenticationRadiusServerFailTime = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VpnSstpAuthenticationRadiusServer) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,26 +2,23 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDServiceDNSForwardingAuthoritativeDomain any `tfsdk:"authoritative_domain" vyos:"authoritative-domain,parent-id"`
+	ParentIDServiceDNSForwardingAuthoritativeDomain types.String `tfsdk:"authoritative_domain" vyos:"authoritative-domain_identifier,parent-id"`
 
-	ParentIDServiceDNSForwardingAuthoritativeDomainRecordsSrv any `tfsdk:"srv" vyos:"srv,parent-id"`
+	ParentIDServiceDNSForwardingAuthoritativeDomainRecordsSrv types.String `tfsdk:"srv" vyos:"srv_identifier,parent-id"`
 
 	// LeafNodes
 	LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryHostname types.String `tfsdk:"hostname" vyos:"hostname,omitempty"`
-	LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryPort     types.String `tfsdk:"port" vyos:"port,omitempty"`
-	LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryPriority types.String `tfsdk:"priority" vyos:"priority,omitempty"`
-	LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryWeight   types.String `tfsdk:"weight" vyos:"weight,omitempty"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryPort     types.Number `tfsdk:"port" vyos:"port,omitempty"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryPriority types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryWeight   types.Number `tfsdk:"weight" vyos:"weight,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -32,13 +29,21 @@ type ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry struct {
 func (o *ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"dns",
+
 		"forwarding",
+
 		"authoritative-domain",
+		o.ParentIDServiceDNSForwardingAuthoritativeDomain.ValueString(),
+
 		"records",
+
 		"srv",
+		o.ParentIDServiceDNSForwardingAuthoritativeDomainRecordsSrv.ValueString(),
+
 		"entry",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -56,6 +61,29 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceSchemaAt
 `,
 		},
 
+		"authoritative_domain_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Domain to host authoritative records for
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  text  |  An absolute DNS name  |
+
+`,
+		},
+
+		"srv_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `"SRV" record
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  text  |  A DNS name relative to the root record  |
+    |  @  |  Root record  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"hostname": schema.StringAttribute{
@@ -69,7 +97,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceSchemaAt
 `,
 		},
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number
 
@@ -80,7 +108,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceSchemaAt
 `,
 		},
 
-		"priority": schema.StringAttribute{
+		"priority": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Entry priority
 
@@ -94,7 +122,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceSchemaAt
 			Computed: true,
 		},
 
-		"weight": schema.StringAttribute{
+		"weight": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Entry weight
 
@@ -115,71 +143,10 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceSchemaAt
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryHostname.IsNull() && !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryHostname.IsUnknown() {
-		jsonData["hostname"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryHostname.ValueString()
-	}
-
-	if !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryPort.IsNull() && !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryPort.IsUnknown() {
-		jsonData["port"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryPort.ValueString()
-	}
-
-	if !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryPriority.IsNull() && !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryPriority.IsUnknown() {
-		jsonData["priority"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryPriority.ValueString()
-	}
-
-	if !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryWeight.IsNull() && !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryWeight.IsUnknown() {
-		jsonData["weight"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryWeight.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["hostname"]; ok {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryHostname = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryHostname = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["priority"]; ok {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryPriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryPriority = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["weight"]; ok {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryWeight = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryWeight = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -38,6 +38,7 @@ IKE proposal
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  IKE group proposal  |
+- `ike_group_identifier` (String) Internet Key Exchange (IKE) group name
 
 ### Optional
 

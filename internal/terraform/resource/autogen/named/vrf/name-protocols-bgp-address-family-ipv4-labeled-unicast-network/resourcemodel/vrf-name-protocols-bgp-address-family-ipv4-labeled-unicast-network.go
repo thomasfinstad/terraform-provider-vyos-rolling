@@ -2,21 +2,19 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVrfName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor types.String `tfsdk:"backdoor" vyos:"backdoor,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor types.Bool   `tfsdk:"backdoor" vyos:"backdoor,omitempty"`
 	LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -28,11 +26,18 @@ type VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork struct {
 func (o *VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) GetVyosPath() []string {
 	return []string{
 		"vrf",
+
 		"name",
+		o.ParentIDVrfName.ValueString(),
+
 		"protocols",
+
 		"bgp",
+
 		"address-family",
+
 		"ipv4-labeled-unicast",
+
 		"network",
 		o.ID.ValueString(),
 	}
@@ -52,13 +57,26 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) ResourceSc
 `,
 		},
 
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"backdoor": schema.StringAttribute{
+		"backdoor": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use BGP network/prefix as a backdoor route
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"route_map": schema.StringAttribute{
@@ -79,51 +97,10 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) ResourceSc
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor.IsUnknown() {
-		jsonData["backdoor"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap.IsUnknown() {
-		jsonData["route-map"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["backdoor"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["route-map"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) UnmarshalJSON(_ []byte) error {
 	return nil
 }

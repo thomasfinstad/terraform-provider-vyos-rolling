@@ -2,23 +2,21 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesEthernetOffload describes the resource data model.
 type InterfacesEthernetOffload struct {
 	// LeafNodes
-	LeafInterfacesEthernetOffloadGro types.String `tfsdk:"gro" vyos:"gro,omitempty"`
-	LeafInterfacesEthernetOffloadGso types.String `tfsdk:"gso" vyos:"gso,omitempty"`
-	LeafInterfacesEthernetOffloadLro types.String `tfsdk:"lro" vyos:"lro,omitempty"`
-	LeafInterfacesEthernetOffloadRps types.String `tfsdk:"rps" vyos:"rps,omitempty"`
-	LeafInterfacesEthernetOffloadRfs types.String `tfsdk:"rfs" vyos:"rfs,omitempty"`
-	LeafInterfacesEthernetOffloadSg  types.String `tfsdk:"sg" vyos:"sg,omitempty"`
-	LeafInterfacesEthernetOffloadTso types.String `tfsdk:"tso" vyos:"tso,omitempty"`
+	LeafInterfacesEthernetOffloadGro types.Bool `tfsdk:"gro" vyos:"gro,omitempty"`
+	LeafInterfacesEthernetOffloadGso types.Bool `tfsdk:"gso" vyos:"gso,omitempty"`
+	LeafInterfacesEthernetOffloadLro types.Bool `tfsdk:"lro" vyos:"lro,omitempty"`
+	LeafInterfacesEthernetOffloadRps types.Bool `tfsdk:"rps" vyos:"rps,omitempty"`
+	LeafInterfacesEthernetOffloadRfs types.Bool `tfsdk:"rfs" vyos:"rfs,omitempty"`
+	LeafInterfacesEthernetOffloadSg  types.Bool `tfsdk:"sg" vyos:"sg,omitempty"`
+	LeafInterfacesEthernetOffloadTso types.Bool `tfsdk:"tso" vyos:"tso,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -30,53 +28,67 @@ func (o InterfacesEthernetOffload) ResourceSchemaAttributes() map[string]schema.
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"gro": schema.StringAttribute{
+		"gro": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable Generic Receive Offload
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"gso": schema.StringAttribute{
+		"gso": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable Generic Segmentation Offload
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"lro": schema.StringAttribute{
+		"lro": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable Large Receive Offload
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"rps": schema.StringAttribute{
+		"rps": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable Receive Packet Steering
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"rfs": schema.StringAttribute{
+		"rfs": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable Receive Flow Steering
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"sg": schema.StringAttribute{
+		"sg": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable Scatter-Gather
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"tso": schema.StringAttribute{
+		"tso": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable TCP Segmentation Offloading
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -86,101 +98,10 @@ func (o InterfacesEthernetOffload) ResourceSchemaAttributes() map[string]schema.
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesEthernetOffload) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesEthernetOffloadGro.IsNull() && !o.LeafInterfacesEthernetOffloadGro.IsUnknown() {
-		jsonData["gro"] = o.LeafInterfacesEthernetOffloadGro.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetOffloadGso.IsNull() && !o.LeafInterfacesEthernetOffloadGso.IsUnknown() {
-		jsonData["gso"] = o.LeafInterfacesEthernetOffloadGso.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetOffloadLro.IsNull() && !o.LeafInterfacesEthernetOffloadLro.IsUnknown() {
-		jsonData["lro"] = o.LeafInterfacesEthernetOffloadLro.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetOffloadRps.IsNull() && !o.LeafInterfacesEthernetOffloadRps.IsUnknown() {
-		jsonData["rps"] = o.LeafInterfacesEthernetOffloadRps.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetOffloadRfs.IsNull() && !o.LeafInterfacesEthernetOffloadRfs.IsUnknown() {
-		jsonData["rfs"] = o.LeafInterfacesEthernetOffloadRfs.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetOffloadSg.IsNull() && !o.LeafInterfacesEthernetOffloadSg.IsUnknown() {
-		jsonData["sg"] = o.LeafInterfacesEthernetOffloadSg.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetOffloadTso.IsNull() && !o.LeafInterfacesEthernetOffloadTso.IsUnknown() {
-		jsonData["tso"] = o.LeafInterfacesEthernetOffloadTso.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesEthernetOffload) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["gro"]; ok {
-		o.LeafInterfacesEthernetOffloadGro = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetOffloadGro = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["gso"]; ok {
-		o.LeafInterfacesEthernetOffloadGso = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetOffloadGso = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["lro"]; ok {
-		o.LeafInterfacesEthernetOffloadLro = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetOffloadLro = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rps"]; ok {
-		o.LeafInterfacesEthernetOffloadRps = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetOffloadRps = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rfs"]; ok {
-		o.LeafInterfacesEthernetOffloadRfs = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetOffloadRfs = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["sg"]; ok {
-		o.LeafInterfacesEthernetOffloadSg = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetOffloadSg = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["tso"]; ok {
-		o.LeafInterfacesEthernetOffloadTso = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetOffloadTso = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesEthernetOffload) UnmarshalJSON(_ []byte) error {
 	return nil
 }

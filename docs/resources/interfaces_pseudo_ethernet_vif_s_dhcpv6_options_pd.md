@@ -54,10 +54,20 @@ DHCPv6 prefix delegation interface statement
     |  Format  |  Description  |
     |----------|---------------|
     |  instance number  |  Prefix delegation instance (>= 0)  |
+- `pseudo_ethernet_identifier` (String) Pseudo Ethernet Interface (Macvlan)
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  pethN  |  Pseudo Ethernet interface name  |
+- `vif_s_identifier` (String) QinQ TAG-S Virtual Local Area Network (VLAN) ID
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
 
 ### Optional
 
-- `length` (String) Request IPv6 prefix length from peer
+- `length` (Number) Request IPv6 prefix length from peer
 
     |  Format  |  Description  |
     |----------|---------------|

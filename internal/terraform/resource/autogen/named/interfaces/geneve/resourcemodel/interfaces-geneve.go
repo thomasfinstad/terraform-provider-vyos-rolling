@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesGeneve describes the resource data model.
@@ -15,14 +12,14 @@ type InterfacesGeneve struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafInterfacesGeneveAddress     types.String `tfsdk:"address" vyos:"address,omitempty"`
+	LeafInterfacesGeneveAddress     types.List   `tfsdk:"address" vyos:"address,omitempty"`
 	LeafInterfacesGeneveDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafInterfacesGeneveDisable     types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafInterfacesGeneveDisable     types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafInterfacesGeneveMac         types.String `tfsdk:"mac" vyos:"mac,omitempty"`
-	LeafInterfacesGeneveMtu         types.String `tfsdk:"mtu" vyos:"mtu,omitempty"`
+	LeafInterfacesGeneveMtu         types.Number `tfsdk:"mtu" vyos:"mtu,omitempty"`
 	LeafInterfacesGeneveRedirect    types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 	LeafInterfacesGeneveRemote      types.String `tfsdk:"remote" vyos:"remote,omitempty"`
-	LeafInterfacesGeneveVni         types.String `tfsdk:"vni" vyos:"vni,omitempty"`
+	LeafInterfacesGeneveVni         types.Number `tfsdk:"vni" vyos:"vni,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -37,6 +34,7 @@ type InterfacesGeneve struct {
 func (o *InterfacesGeneve) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"geneve",
 		o.ID.ValueString(),
 	}
@@ -58,8 +56,9 @@ func (o InterfacesGeneve) ResourceSchemaAttributes() map[string]schema.Attribute
 
 		// LeafNodes
 
-		"address": schema.StringAttribute{
-			Optional: true,
+		"address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address
 
     |  Format  |  Description  |
@@ -81,11 +80,13 @@ func (o InterfacesGeneve) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"mac": schema.StringAttribute{
@@ -99,7 +100,7 @@ func (o InterfacesGeneve) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 
-		"mtu": schema.StringAttribute{
+		"mtu": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
@@ -136,7 +137,7 @@ func (o InterfacesGeneve) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 
-		"vni": schema.StringAttribute{
+		"vni": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Virtual Network Identifier
 
@@ -185,219 +186,10 @@ func (o InterfacesGeneve) ResourceSchemaAttributes() map[string]schema.Attribute
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesGeneve) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesGeneveAddress.IsNull() && !o.LeafInterfacesGeneveAddress.IsUnknown() {
-		jsonData["address"] = o.LeafInterfacesGeneveAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesGeneveDescrIPtion.IsNull() && !o.LeafInterfacesGeneveDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafInterfacesGeneveDescrIPtion.ValueString()
-	}
-
-	if !o.LeafInterfacesGeneveDisable.IsNull() && !o.LeafInterfacesGeneveDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafInterfacesGeneveDisable.ValueString()
-	}
-
-	if !o.LeafInterfacesGeneveMac.IsNull() && !o.LeafInterfacesGeneveMac.IsUnknown() {
-		jsonData["mac"] = o.LeafInterfacesGeneveMac.ValueString()
-	}
-
-	if !o.LeafInterfacesGeneveMtu.IsNull() && !o.LeafInterfacesGeneveMtu.IsUnknown() {
-		jsonData["mtu"] = o.LeafInterfacesGeneveMtu.ValueString()
-	}
-
-	if !o.LeafInterfacesGeneveRedirect.IsNull() && !o.LeafInterfacesGeneveRedirect.IsUnknown() {
-		jsonData["redirect"] = o.LeafInterfacesGeneveRedirect.ValueString()
-	}
-
-	if !o.LeafInterfacesGeneveRemote.IsNull() && !o.LeafInterfacesGeneveRemote.IsUnknown() {
-		jsonData["remote"] = o.LeafInterfacesGeneveRemote.ValueString()
-	}
-
-	if !o.LeafInterfacesGeneveVni.IsNull() && !o.LeafInterfacesGeneveVni.IsUnknown() {
-		jsonData["vni"] = o.LeafInterfacesGeneveVni.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesGeneveIP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesGeneveIP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ip"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesGeneveIPvsix).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesGeneveIPvsix)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipv6"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesGeneveParameters).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesGeneveParameters)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["parameters"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesGeneveMirror).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesGeneveMirror)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["mirror"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesGeneve) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafInterfacesGeneveAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesGeneveAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafInterfacesGeneveDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesGeneveDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafInterfacesGeneveDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesGeneveDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mac"]; ok {
-		o.LeafInterfacesGeneveMac = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesGeneveMac = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mtu"]; ok {
-		o.LeafInterfacesGeneveMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesGeneveMtu = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["redirect"]; ok {
-		o.LeafInterfacesGeneveRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesGeneveRedirect = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["remote"]; ok {
-		o.LeafInterfacesGeneveRemote = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesGeneveRemote = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vni"]; ok {
-		o.LeafInterfacesGeneveVni = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesGeneveVni = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["ip"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesGeneveIP = &InterfacesGeneveIP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesGeneveIP)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ipv6"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesGeneveIPvsix = &InterfacesGeneveIPvsix{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesGeneveIPvsix)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["parameters"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesGeneveParameters = &InterfacesGeneveParameters{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesGeneveParameters)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["mirror"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesGeneveMirror = &InterfacesGeneveMirror{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesGeneveMirror)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesGeneve) UnmarshalJSON(_ []byte) error {
 	return nil
 }

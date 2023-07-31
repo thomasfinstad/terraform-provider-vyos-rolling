@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsStaticArpInterfaceAddress describes the resource data model.
 type ProtocolsStaticArpInterfaceAddress struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDProtocolsStaticArpInterface any `tfsdk:"interface" vyos:"interface,parent-id"`
+	ParentIDProtocolsStaticArpInterface types.String `tfsdk:"interface" vyos:"interface_identifier,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsStaticArpInterfaceAddressDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -28,9 +25,14 @@ type ProtocolsStaticArpInterfaceAddress struct {
 func (o *ProtocolsStaticArpInterfaceAddress) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"static",
+
 		"arp",
+
 		"interface",
+		o.ParentIDProtocolsStaticArpInterface.ValueString(),
+
 		"address",
 		o.ID.ValueString(),
 	}
@@ -46,6 +48,17 @@ func (o ProtocolsStaticArpInterfaceAddress) ResourceSchemaAttributes() map[strin
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  IPv4 destination address  |
+
+`,
+		},
+
+		"interface_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Interface configuration
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Interface name  |
 
 `,
 		},
@@ -81,51 +94,10 @@ func (o ProtocolsStaticArpInterfaceAddress) ResourceSchemaAttributes() map[strin
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsStaticArpInterfaceAddress) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsStaticArpInterfaceAddressDescrIPtion.IsNull() && !o.LeafProtocolsStaticArpInterfaceAddressDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafProtocolsStaticArpInterfaceAddressDescrIPtion.ValueString()
-	}
-
-	if !o.LeafProtocolsStaticArpInterfaceAddressMac.IsNull() && !o.LeafProtocolsStaticArpInterfaceAddressMac.IsUnknown() {
-		jsonData["mac"] = o.LeafProtocolsStaticArpInterfaceAddressMac.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsStaticArpInterfaceAddress) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafProtocolsStaticArpInterfaceAddressDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticArpInterfaceAddressDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mac"]; ok {
-		o.LeafProtocolsStaticArpInterfaceAddressMac = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticArpInterfaceAddressMac = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsStaticArpInterfaceAddress) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceEventHandlerEventScrIPtEnvironment describes the resource data model.
 type ServiceEventHandlerEventScrIPtEnvironment struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDServiceEventHandlerEvent any `tfsdk:"event" vyos:"event,parent-id"`
+	ParentIDServiceEventHandlerEvent types.String `tfsdk:"event" vyos:"event_identifier,parent-id"`
 
 	// LeafNodes
 	LeafServiceEventHandlerEventScrIPtEnvironmentValue types.String `tfsdk:"value" vyos:"value,omitempty"`
@@ -27,9 +24,14 @@ type ServiceEventHandlerEventScrIPtEnvironment struct {
 func (o *ServiceEventHandlerEventScrIPtEnvironment) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"event-handler",
+
 		"event",
+		o.ParentIDServiceEventHandlerEvent.ValueString(),
+
 		"script",
+
 		"environment",
 		o.ID.ValueString(),
 	}
@@ -41,6 +43,13 @@ func (o ServiceEventHandlerEventScrIPtEnvironment) ResourceSchemaAttributes() ma
 		"identifier": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Script environment arguments
+
+`,
+		},
+
+		"event_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Event handler name
 
 `,
 		},
@@ -61,41 +70,10 @@ func (o ServiceEventHandlerEventScrIPtEnvironment) ResourceSchemaAttributes() ma
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceEventHandlerEventScrIPtEnvironment) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceEventHandlerEventScrIPtEnvironmentValue.IsNull() && !o.LeafServiceEventHandlerEventScrIPtEnvironmentValue.IsUnknown() {
-		jsonData["value"] = o.LeafServiceEventHandlerEventScrIPtEnvironmentValue.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceEventHandlerEventScrIPtEnvironment) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["value"]; ok {
-		o.LeafServiceEventHandlerEventScrIPtEnvironmentValue = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceEventHandlerEventScrIPtEnvironmentValue = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceEventHandlerEventScrIPtEnvironment) UnmarshalJSON(_ []byte) error {
 	return nil
 }

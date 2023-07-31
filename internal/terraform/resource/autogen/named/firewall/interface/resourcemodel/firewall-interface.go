@@ -2,9 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -27,6 +24,7 @@ type FirewallInterface struct {
 func (o *FirewallInterface) GetVyosPath() []string {
 	return []string{
 		"firewall",
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -74,112 +72,10 @@ func (o FirewallInterface) ResourceSchemaAttributes() map[string]schema.Attribut
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeFirewallInterfaceIn).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallInterfaceIn)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["in"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallInterfaceOut).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallInterfaceOut)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["out"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallInterfaceLocal).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallInterfaceLocal)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["local"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["in"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallInterfaceIn = &FirewallInterfaceIn{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallInterfaceIn)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["out"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallInterfaceOut = &FirewallInterfaceOut{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallInterfaceOut)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["local"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallInterfaceLocal = &FirewallInterfaceLocal{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallInterfaceLocal)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *FirewallInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

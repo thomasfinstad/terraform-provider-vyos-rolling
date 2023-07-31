@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsStaticRouteReject describes the resource data model.
 type VrfNameProtocolsStaticRouteReject struct {
 	// LeafNodes
-	LeafVrfNameProtocolsStaticRouteRejectDistance types.String `tfsdk:"distance" vyos:"distance,omitempty"`
-	LeafVrfNameProtocolsStaticRouteRejectTag      types.String `tfsdk:"tag" vyos:"tag,omitempty"`
+	LeafVrfNameProtocolsStaticRouteRejectDistance types.Number `tfsdk:"distance" vyos:"distance,omitempty"`
+	LeafVrfNameProtocolsStaticRouteRejectTag      types.Number `tfsdk:"tag" vyos:"tag,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +22,7 @@ func (o VrfNameProtocolsStaticRouteReject) ResourceSchemaAttributes() map[string
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"distance": schema.StringAttribute{
+		"distance": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Distance for this route
 
@@ -36,7 +33,7 @@ func (o VrfNameProtocolsStaticRouteReject) ResourceSchemaAttributes() map[string
 `,
 		},
 
-		"tag": schema.StringAttribute{
+		"tag": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Tag value for this route
 
@@ -54,51 +51,10 @@ func (o VrfNameProtocolsStaticRouteReject) ResourceSchemaAttributes() map[string
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsStaticRouteReject) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsStaticRouteRejectDistance.IsNull() && !o.LeafVrfNameProtocolsStaticRouteRejectDistance.IsUnknown() {
-		jsonData["distance"] = o.LeafVrfNameProtocolsStaticRouteRejectDistance.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsStaticRouteRejectTag.IsNull() && !o.LeafVrfNameProtocolsStaticRouteRejectTag.IsUnknown() {
-		jsonData["tag"] = o.LeafVrfNameProtocolsStaticRouteRejectTag.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsStaticRouteReject) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["distance"]; ok {
-		o.LeafVrfNameProtocolsStaticRouteRejectDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsStaticRouteRejectDistance = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["tag"]; ok {
-		o.LeafVrfNameProtocolsStaticRouteRejectTag = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsStaticRouteRejectTag = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsStaticRouteReject) UnmarshalJSON(_ []byte) error {
 	return nil
 }

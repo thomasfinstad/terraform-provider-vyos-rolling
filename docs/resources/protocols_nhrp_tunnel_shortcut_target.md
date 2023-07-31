@@ -32,6 +32,11 @@ Defines an off-NBMA network prefix for which the GRE interface will act as a gat
 ### Required
 
 - `identifier` (String) Defines an off-NBMA network prefix for which the GRE interface will act as a gateway
+- `tunnel_identifier` (String) Tunnel for NHRP
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  tunN  |  NHRP tunnel name  |
 
 ### Optional
 

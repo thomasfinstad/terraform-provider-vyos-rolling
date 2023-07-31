@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteMapRuleSetEvpnGateway describes the resource data model.
@@ -54,51 +51,10 @@ func (o PolicyRouteMapRuleSetEvpnGateway) ResourceSchemaAttributes() map[string]
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteMapRuleSetEvpnGateway) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour.IsNull() && !o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour.IsUnknown() {
-		jsonData["ipv4"] = o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix.IsNull() && !o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix.IsUnknown() {
-		jsonData["ipv6"] = o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteMapRuleSetEvpnGateway) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["ipv4"]; ok {
-		o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ipv6"]; ok {
-		o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRouteMapRuleSetEvpnGateway) UnmarshalJSON(_ []byte) error {
 	return nil
 }

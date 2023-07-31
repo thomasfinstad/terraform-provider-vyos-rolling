@@ -2,28 +2,25 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesWirelessCapabilitiesVht describes the resource data model.
 type InterfacesWirelessCapabilitiesVht struct {
 	// LeafNodes
-	LeafInterfacesWirelessCapabilitiesVhtAntennaCount        types.String `tfsdk:"antenna_count" vyos:"antenna-count,omitempty"`
-	LeafInterfacesWirelessCapabilitiesVhtAntennaPatternFixed types.String `tfsdk:"antenna_pattern_fixed" vyos:"antenna-pattern-fixed,omitempty"`
-	LeafInterfacesWirelessCapabilitiesVhtBeamform            types.String `tfsdk:"beamform" vyos:"beamform,omitempty"`
+	LeafInterfacesWirelessCapabilitiesVhtAntennaCount        types.Number `tfsdk:"antenna_count" vyos:"antenna-count,omitempty"`
+	LeafInterfacesWirelessCapabilitiesVhtAntennaPatternFixed types.Bool   `tfsdk:"antenna_pattern_fixed" vyos:"antenna-pattern-fixed,omitempty"`
+	LeafInterfacesWirelessCapabilitiesVhtBeamform            types.List   `tfsdk:"beamform" vyos:"beamform,omitempty"`
 	LeafInterfacesWirelessCapabilitiesVhtChannelSetWIDth     types.String `tfsdk:"channel_set_width" vyos:"channel-set-width,omitempty"`
-	LeafInterfacesWirelessCapabilitiesVhtLdpc                types.String `tfsdk:"ldpc" vyos:"ldpc,omitempty"`
+	LeafInterfacesWirelessCapabilitiesVhtLdpc                types.Bool   `tfsdk:"ldpc" vyos:"ldpc,omitempty"`
 	LeafInterfacesWirelessCapabilitiesVhtLinkAdaptation      types.String `tfsdk:"link_adaptation" vyos:"link-adaptation,omitempty"`
-	LeafInterfacesWirelessCapabilitiesVhtMaxMpduExp          types.String `tfsdk:"max_mpdu_exp" vyos:"max-mpdu-exp,omitempty"`
+	LeafInterfacesWirelessCapabilitiesVhtMaxMpduExp          types.Number `tfsdk:"max_mpdu_exp" vyos:"max-mpdu-exp,omitempty"`
 	LeafInterfacesWirelessCapabilitiesVhtMaxMpdu             types.String `tfsdk:"max_mpdu" vyos:"max-mpdu,omitempty"`
-	LeafInterfacesWirelessCapabilitiesVhtShortGi             types.String `tfsdk:"short_gi" vyos:"short-gi,omitempty"`
-	LeafInterfacesWirelessCapabilitiesVhtTxPowersave         types.String `tfsdk:"tx_powersave" vyos:"tx-powersave,omitempty"`
-	LeafInterfacesWirelessCapabilitiesVhtVhtCf               types.String `tfsdk:"vht_cf" vyos:"vht-cf,omitempty"`
+	LeafInterfacesWirelessCapabilitiesVhtShortGi             types.List   `tfsdk:"short_gi" vyos:"short-gi,omitempty"`
+	LeafInterfacesWirelessCapabilitiesVhtTxPowersave         types.Bool   `tfsdk:"tx_powersave" vyos:"tx-powersave,omitempty"`
+	LeafInterfacesWirelessCapabilitiesVhtVhtCf               types.Bool   `tfsdk:"vht_cf" vyos:"vht-cf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -37,7 +34,7 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes() map[string
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"antenna_count": schema.StringAttribute{
+		"antenna_count": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of antennas on this card
 
@@ -48,15 +45,18 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes() map[string
 `,
 		},
 
-		"antenna_pattern_fixed": schema.StringAttribute{
+		"antenna_pattern_fixed": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Set if antenna pattern does not change during the lifetime of an association
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"beamform": schema.StringAttribute{
-			Optional: true,
+		"beamform": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Beamforming capabilities
 
     |  Format  |  Description  |
@@ -83,11 +83,13 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes() map[string
 `,
 		},
 
-		"ldpc": schema.StringAttribute{
+		"ldpc": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable LDPC (Low Density Parity Check) coding capability
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"link_adaptation": schema.StringAttribute{
@@ -102,7 +104,7 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes() map[string
 `,
 		},
 
-		"max_mpdu_exp": schema.StringAttribute{
+		"max_mpdu_exp": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set the maximum length of A-MPDU pre-EOF padding that the station can receive
 
@@ -125,8 +127,9 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes() map[string
 `,
 		},
 
-		"short_gi": schema.StringAttribute{
-			Optional: true,
+		"short_gi": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Short GI capabilities
 
     |  Format  |  Description  |
@@ -137,18 +140,22 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes() map[string
 `,
 		},
 
-		"tx_powersave": schema.StringAttribute{
+		"tx_powersave": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable VHT TXOP Power Save Mode
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"vht_cf": schema.StringAttribute{
+		"vht_cf": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Station supports receiving VHT variant HT Control field
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -173,195 +180,10 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes() map[string
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesWirelessCapabilitiesVht) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesWirelessCapabilitiesVhtAntennaCount.IsNull() && !o.LeafInterfacesWirelessCapabilitiesVhtAntennaCount.IsUnknown() {
-		jsonData["antenna-count"] = o.LeafInterfacesWirelessCapabilitiesVhtAntennaCount.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesVhtAntennaPatternFixed.IsNull() && !o.LeafInterfacesWirelessCapabilitiesVhtAntennaPatternFixed.IsUnknown() {
-		jsonData["antenna-pattern-fixed"] = o.LeafInterfacesWirelessCapabilitiesVhtAntennaPatternFixed.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesVhtBeamform.IsNull() && !o.LeafInterfacesWirelessCapabilitiesVhtBeamform.IsUnknown() {
-		jsonData["beamform"] = o.LeafInterfacesWirelessCapabilitiesVhtBeamform.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesVhtChannelSetWIDth.IsNull() && !o.LeafInterfacesWirelessCapabilitiesVhtChannelSetWIDth.IsUnknown() {
-		jsonData["channel-set-width"] = o.LeafInterfacesWirelessCapabilitiesVhtChannelSetWIDth.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesVhtLdpc.IsNull() && !o.LeafInterfacesWirelessCapabilitiesVhtLdpc.IsUnknown() {
-		jsonData["ldpc"] = o.LeafInterfacesWirelessCapabilitiesVhtLdpc.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesVhtLinkAdaptation.IsNull() && !o.LeafInterfacesWirelessCapabilitiesVhtLinkAdaptation.IsUnknown() {
-		jsonData["link-adaptation"] = o.LeafInterfacesWirelessCapabilitiesVhtLinkAdaptation.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesVhtMaxMpduExp.IsNull() && !o.LeafInterfacesWirelessCapabilitiesVhtMaxMpduExp.IsUnknown() {
-		jsonData["max-mpdu-exp"] = o.LeafInterfacesWirelessCapabilitiesVhtMaxMpduExp.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesVhtMaxMpdu.IsNull() && !o.LeafInterfacesWirelessCapabilitiesVhtMaxMpdu.IsUnknown() {
-		jsonData["max-mpdu"] = o.LeafInterfacesWirelessCapabilitiesVhtMaxMpdu.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesVhtShortGi.IsNull() && !o.LeafInterfacesWirelessCapabilitiesVhtShortGi.IsUnknown() {
-		jsonData["short-gi"] = o.LeafInterfacesWirelessCapabilitiesVhtShortGi.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesVhtTxPowersave.IsNull() && !o.LeafInterfacesWirelessCapabilitiesVhtTxPowersave.IsUnknown() {
-		jsonData["tx-powersave"] = o.LeafInterfacesWirelessCapabilitiesVhtTxPowersave.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesVhtVhtCf.IsNull() && !o.LeafInterfacesWirelessCapabilitiesVhtVhtCf.IsUnknown() {
-		jsonData["vht-cf"] = o.LeafInterfacesWirelessCapabilitiesVhtVhtCf.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesWirelessCapabilitiesVhtCenterChannelFreq).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessCapabilitiesVhtCenterChannelFreq)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["center-channel-freq"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesWirelessCapabilitiesVhtStbc).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessCapabilitiesVhtStbc)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["stbc"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWirelessCapabilitiesVht) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["antenna-count"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesVhtAntennaCount = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesVhtAntennaCount = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["antenna-pattern-fixed"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesVhtAntennaPatternFixed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesVhtAntennaPatternFixed = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["beamform"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesVhtBeamform = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesVhtBeamform = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["channel-set-width"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesVhtChannelSetWIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesVhtChannelSetWIDth = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ldpc"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesVhtLdpc = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesVhtLdpc = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["link-adaptation"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesVhtLinkAdaptation = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesVhtLinkAdaptation = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["max-mpdu-exp"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesVhtMaxMpduExp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesVhtMaxMpduExp = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["max-mpdu"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesVhtMaxMpdu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesVhtMaxMpdu = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["short-gi"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesVhtShortGi = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesVhtShortGi = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["tx-powersave"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesVhtTxPowersave = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesVhtTxPowersave = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vht-cf"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesVhtVhtCf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesVhtVhtCf = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["center-channel-freq"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWirelessCapabilitiesVhtCenterChannelFreq = &InterfacesWirelessCapabilitiesVhtCenterChannelFreq{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessCapabilitiesVhtCenterChannelFreq)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["stbc"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWirelessCapabilitiesVhtStbc = &InterfacesWirelessCapabilitiesVhtStbc{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessCapabilitiesVhtStbc)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesWirelessCapabilitiesVht) UnmarshalJSON(_ []byte) error {
 	return nil
 }

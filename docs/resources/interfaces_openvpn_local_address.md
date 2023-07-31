@@ -29,6 +29,11 @@ Local IP address of tunnel (IPv4 or IPv6)
 ### Required
 
 - `identifier` (String) Local IP address of tunnel (IPv4 or IPv6)
+- `openvpn_identifier` (String) OpenVPN Tunnel Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  vtunN  |  OpenVPN interface name  |
 
 ### Optional
 

@@ -2,19 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsStaticTableRoutesix describes the resource data model.
 type ProtocolsStaticTableRoutesix struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDProtocolsStaticTable any `tfsdk:"table" vyos:"table,parent-id"`
+	ParentIDProtocolsStaticTable types.String `tfsdk:"table" vyos:"table_identifier,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsStaticTableRoutesixDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -32,8 +28,12 @@ type ProtocolsStaticTableRoutesix struct {
 func (o *ProtocolsStaticTableRoutesix) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"static",
+
 		"table",
+		o.ParentIDProtocolsStaticTable.ValueString(),
+
 		"route6",
 		o.ID.ValueString(),
 	}
@@ -49,6 +49,17 @@ func (o ProtocolsStaticTableRoutesix) ResourceSchemaAttributes() map[string]sche
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv6net  |  IPv6 static route  |
+
+`,
+		},
+
+		"table_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Policy route table number
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-200  |  Policy route table number  |
 
 `,
 		},
@@ -88,95 +99,10 @@ func (o ProtocolsStaticTableRoutesix) ResourceSchemaAttributes() map[string]sche
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsStaticTableRoutesix) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsStaticTableRoutesixDescrIPtion.IsNull() && !o.LeafProtocolsStaticTableRoutesixDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafProtocolsStaticTableRoutesixDescrIPtion.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeProtocolsStaticTableRoutesixBlackhole).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsStaticTableRoutesixBlackhole)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["blackhole"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsStaticTableRoutesixReject).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsStaticTableRoutesixReject)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["reject"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsStaticTableRoutesix) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafProtocolsStaticTableRoutesixDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticTableRoutesixDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["blackhole"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsStaticTableRoutesixBlackhole = &ProtocolsStaticTableRoutesixBlackhole{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsStaticTableRoutesixBlackhole)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["reject"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsStaticTableRoutesixReject = &ProtocolsStaticTableRoutesixReject{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsStaticTableRoutesixReject)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ProtocolsStaticTableRoutesix) UnmarshalJSON(_ []byte) error {
 	return nil
 }

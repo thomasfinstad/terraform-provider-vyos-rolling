@@ -43,23 +43,28 @@ Client-specific settings
     |  Format  |  Description  |
     |----------|---------------|
     |  name  |  Client common-name in the certificate  |
+- `openvpn_identifier` (String) OpenVPN Tunnel Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  vtunN  |  OpenVPN interface name  |
 
 ### Optional
 
-- `disable` (String) Disable instance
-- `ip` (String) IP address of the client
+- `disable` (Boolean) Disable instance
+- `ip` (List of String) IP address of the client
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  Client IPv4 address  |
     |  ipv6  |  Client IPv6 address  |
-- `push_route` (String) Route to be pushed to the client
+- `push_route` (List of String) Route to be pushed to the client
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4net  |  IPv4 network and prefix length  |
     |  ipv6net  |  IPv6 network and prefix length  |
-- `subnet` (String) Subnet belonging to the client (iroute)
+- `subnet` (List of String) Subnet belonging to the client (iroute)
 
     |  Format  |  Description  |
     |----------|---------------|

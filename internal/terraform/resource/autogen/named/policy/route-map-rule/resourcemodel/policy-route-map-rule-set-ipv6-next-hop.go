@@ -2,11 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteMapRuleSetIPvsixNextHop describes the resource data model.
@@ -14,8 +12,8 @@ type PolicyRouteMapRuleSetIPvsixNextHop struct {
 	// LeafNodes
 	LeafPolicyRouteMapRuleSetIPvsixNextHopGlobal       types.String `tfsdk:"global" vyos:"global,omitempty"`
 	LeafPolicyRouteMapRuleSetIPvsixNextHopLocal        types.String `tfsdk:"local" vyos:"local,omitempty"`
-	LeafPolicyRouteMapRuleSetIPvsixNextHopPeerAddress  types.String `tfsdk:"peer_address" vyos:"peer-address,omitempty"`
-	LeafPolicyRouteMapRuleSetIPvsixNextHopPreferGlobal types.String `tfsdk:"prefer_global" vyos:"prefer-global,omitempty"`
+	LeafPolicyRouteMapRuleSetIPvsixNextHopPeerAddress  types.Bool   `tfsdk:"peer_address" vyos:"peer-address,omitempty"`
+	LeafPolicyRouteMapRuleSetIPvsixNextHopPreferGlobal types.Bool   `tfsdk:"prefer_global" vyos:"prefer-global,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -49,18 +47,22 @@ func (o PolicyRouteMapRuleSetIPvsixNextHop) ResourceSchemaAttributes() map[strin
 `,
 		},
 
-		"peer_address": schema.StringAttribute{
+		"peer_address": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use peer address (for BGP only)
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"prefer_global": schema.StringAttribute{
+		"prefer_global": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Prefer global address as the nexthop
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -70,71 +72,10 @@ func (o PolicyRouteMapRuleSetIPvsixNextHop) ResourceSchemaAttributes() map[strin
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteMapRuleSetIPvsixNextHop) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteMapRuleSetIPvsixNextHopGlobal.IsNull() && !o.LeafPolicyRouteMapRuleSetIPvsixNextHopGlobal.IsUnknown() {
-		jsonData["global"] = o.LeafPolicyRouteMapRuleSetIPvsixNextHopGlobal.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetIPvsixNextHopLocal.IsNull() && !o.LeafPolicyRouteMapRuleSetIPvsixNextHopLocal.IsUnknown() {
-		jsonData["local"] = o.LeafPolicyRouteMapRuleSetIPvsixNextHopLocal.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetIPvsixNextHopPeerAddress.IsNull() && !o.LeafPolicyRouteMapRuleSetIPvsixNextHopPeerAddress.IsUnknown() {
-		jsonData["peer-address"] = o.LeafPolicyRouteMapRuleSetIPvsixNextHopPeerAddress.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetIPvsixNextHopPreferGlobal.IsNull() && !o.LeafPolicyRouteMapRuleSetIPvsixNextHopPreferGlobal.IsUnknown() {
-		jsonData["prefer-global"] = o.LeafPolicyRouteMapRuleSetIPvsixNextHopPreferGlobal.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteMapRuleSetIPvsixNextHop) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["global"]; ok {
-		o.LeafPolicyRouteMapRuleSetIPvsixNextHopGlobal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetIPvsixNextHopGlobal = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["local"]; ok {
-		o.LeafPolicyRouteMapRuleSetIPvsixNextHopLocal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetIPvsixNextHopLocal = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["peer-address"]; ok {
-		o.LeafPolicyRouteMapRuleSetIPvsixNextHopPeerAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetIPvsixNextHopPeerAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["prefer-global"]; ok {
-		o.LeafPolicyRouteMapRuleSetIPvsixNextHopPreferGlobal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetIPvsixNextHopPreferGlobal = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRouteMapRuleSetIPvsixNextHop) UnmarshalJSON(_ []byte) error {
 	return nil
 }

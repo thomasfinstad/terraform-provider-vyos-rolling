@@ -41,7 +41,7 @@ Import BGP network/prefix into labeled unicast IPv4 RIB
 
 ### Optional
 
-- `backdoor` (String) Use BGP network/prefix as a backdoor route
+- `backdoor` (Boolean) Use BGP network/prefix as a backdoor route
 - `route_map` (String) Specify route-map name to use
 
     |  Format  |  Description  |

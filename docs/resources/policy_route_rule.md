@@ -32,6 +32,7 @@ Policy rule number
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-999999  |  Number of policy rule  |
+- `route_identifier` (String) Policy route rule set name for IPv4
 
 ### Optional
 
@@ -43,7 +44,7 @@ Policy rule number
     |  reject  |  Reject matching entries  |
     |  return  |  Return from the current chain and continue at the next rule of the last chain  |
     |  drop  |  Drop matching entries  |
-- `connection_mark` (String) Connection mark
+- `connection_mark` (List of Number) Connection mark
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -54,14 +55,14 @@ Policy rule number
     |----------|---------------|
     |  txt  |  Description  |
 - `destination` (Attributes) Destination parameters (see [below for nested schema](#nestedatt--destination))
-- `disable` (String) Option to disable firewall rule
-- `dscp` (String) DSCP value
+- `disable` (Boolean) Option to disable firewall rule
+- `dscp` (List of String) DSCP value
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-63  |  DSCP value to match  |
     |  <start-end>  |  DSCP range to match  |
-- `dscp_exclude` (String) DSCP value not to match
+- `dscp_exclude` (List of String) DSCP value not to match
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -77,13 +78,13 @@ Policy rule number
     |----------|---------------|
     |  enable  |  Enable log  |
     |  disable  |  Disable log  |
-- `packet_length` (String) Payload size in bytes, including header and data to match
+- `packet_length` (List of String) Payload size in bytes, including header and data to match
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Packet length to match  |
     |  <start-end>  |  Packet length range to match  |
-- `packet_length_exclude` (String) Payload size in bytes, including header and data not to match
+- `packet_length_exclude` (List of String) Payload size in bytes, including header and data not to match
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -156,8 +157,8 @@ Optional:
 
 Optional:
 
-- `match_frag` (String) Second and further fragments of fragmented packets
-- `match_non_frag` (String) Head fragments or unfragmented packets
+- `match_frag` (Boolean) Second and further fragments of fragmented packets
+- `match_non_frag` (Boolean) Head fragments or unfragmented packets
 
 
 <a id="nestedatt--icmp"></a>
@@ -165,12 +166,12 @@ Optional:
 
 Optional:
 
-- `code` (String) ICMP code (0-255)
+- `code` (Number) ICMP code (0-255)
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-255  |  ICMP code (0-255)  |
-- `type` (String) ICMP type (0-255)
+- `type` (Number) ICMP type (0-255)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -201,8 +202,8 @@ Optional:
 
 Optional:
 
-- `match_ipsec` (String) Inbound IPsec packets
-- `match_none` (String) Inbound non-IPsec packets
+- `match_ipsec` (Boolean) Inbound IPsec packets
+- `match_none` (Boolean) Inbound non-IPsec packets
 
 
 <a id="nestedatt--limit"></a>
@@ -210,12 +211,12 @@ Optional:
 
 Optional:
 
-- `burst` (String) Maximum number of packets to allow in excess of rate
+- `burst` (Number) Maximum number of packets to allow in excess of rate
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-4294967295  |  Maximum number of packets to allow in excess of rate  |
-- `rate` (String) Maximum average matching rate
+- `rate` (Number) Maximum average matching rate
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -227,12 +228,12 @@ Optional:
 
 Optional:
 
-- `count` (String) Source addresses seen more than N times
+- `count` (Number) Source addresses seen more than N times
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Source addresses seen more than N times  |
-- `time` (String) Source addresses seen in the last N seconds
+- `time` (Number) Source addresses seen in the last N seconds
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -244,17 +245,17 @@ Optional:
 
 Optional:
 
-- `connection_mark` (String) Connection marking
+- `connection_mark` (Number) Connection marking
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-2147483647  |  Connection marking  |
-- `dscp` (String) Packet Differentiated Services Codepoint (DSCP)
+- `dscp` (Number) Packet Differentiated Services Codepoint (DSCP)
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-63  |  DSCP number  |
-- `mark` (String) Packet marking
+- `mark` (Number) Packet marking
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -265,7 +266,7 @@ Optional:
     |----------|---------------|
     |  u32:1-200  |  Table number  |
     |  main  |  Main table  |
-- `tcp_mss` (String) TCP Maximum Segment Size
+- `tcp_mss` (Number) TCP Maximum Segment Size
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -365,29 +366,29 @@ Optional:
 
 Optional:
 
-- `ack` (String) Acknowledge flag
-- `cwr` (String) Congestion Window Reduced flag
-- `ecn` (String) Explicit Congestion Notification flag
-- `fin` (String) Finish flag
+- `ack` (Boolean) Acknowledge flag
+- `cwr` (Boolean) Congestion Window Reduced flag
+- `ecn` (Boolean) Explicit Congestion Notification flag
+- `fin` (Boolean) Finish flag
 - `not` (Attributes) Match flags not set (see [below for nested schema](#nestedatt--tcp--flags--not))
-- `psh` (String) Push flag
-- `rst` (String) Reset flag
-- `syn` (String) Synchronise flag
-- `urg` (String) Urgent flag
+- `psh` (Boolean) Push flag
+- `rst` (Boolean) Reset flag
+- `syn` (Boolean) Synchronise flag
+- `urg` (Boolean) Urgent flag
 
 <a id="nestedatt--tcp--flags--not"></a>
 ### Nested Schema for `tcp.flags.not`
 
 Optional:
 
-- `ack` (String) Acknowledge flag
-- `cwr` (String) Congestion Window Reduced flag
-- `ecn` (String) Explicit Congestion Notification flag
-- `fin` (String) Finish flag
-- `psh` (String) Push flag
-- `rst` (String) Reset flag
-- `syn` (String) Synchronise flag
-- `urg` (String) Urgent flag
+- `ack` (Boolean) Acknowledge flag
+- `cwr` (Boolean) Congestion Window Reduced flag
+- `ecn` (Boolean) Explicit Congestion Notification flag
+- `fin` (Boolean) Finish flag
+- `psh` (Boolean) Push flag
+- `rst` (Boolean) Reset flag
+- `syn` (Boolean) Synchronise flag
+- `urg` (Boolean) Urgent flag
 
 
 
@@ -402,7 +403,7 @@ Optional:
 - `starttime` (String) Time of day to start matching rule
 - `stopdate` (String) Date to stop matching rule
 - `stoptime` (String) Time of day to stop matching rule
-- `utc` (String) Interpret times for startdate, stopdate, starttime and stoptime to be UTC
+- `utc` (Boolean) Interpret times for startdate, stopdate, starttime and stoptime to be UTC
 - `weekdays` (String) Weekdays to match rule on
 
 
@@ -411,17 +412,17 @@ Optional:
 
 Optional:
 
-- `eq` (String) Match on equal value
+- `eq` (Number) Match on equal value
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-255  |  Equal to value  |
-- `gt` (String) Match on greater then value
+- `gt` (Number) Match on greater then value
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-255  |  Greater then value  |
-- `lt` (String) Match on less then value
+- `lt` (Number) Match on less then value
 
     |  Format  |  Description  |
     |----------|---------------|

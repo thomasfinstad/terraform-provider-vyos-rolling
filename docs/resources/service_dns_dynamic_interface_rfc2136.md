@@ -27,6 +27,7 @@ RFC2136 Update name
 ### Required
 
 - `identifier` (String) RFC2136 Update name
+- `interface_identifier` (String) Interface to send DDNS updates for
 
 ### Optional
 
@@ -35,9 +36,9 @@ RFC2136 Update name
     |  Format  |  Description  |
     |----------|---------------|
     |  filename  |  File in /config/auth directory  |
-- `record` (String) Record to be updated
+- `record` (List of String) Record to be updated
 - `server` (String) Server to be updated
-- `ttl` (String) Time To Live (default: 600)
+- `ttl` (Number) Time To Live (default: 600)
 
     |  Format  |  Description  |
     |----------|---------------|

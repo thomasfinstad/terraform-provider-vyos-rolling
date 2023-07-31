@@ -27,7 +27,7 @@ Interface name
 
 ### Optional
 
-- `failure_count` (String) Failure count
+- `failure_count` (Number) Failure count
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -38,7 +38,7 @@ Interface name
     |----------|---------------|
     |  ipv4  |  Nexthop IP address  |
     |  dhcp  |  Set the nexthop via DHCP  |
-- `success_count` (String) Success count
+- `success_count` (Number) Success count
 
     |  Format  |  Description  |
     |----------|---------------|

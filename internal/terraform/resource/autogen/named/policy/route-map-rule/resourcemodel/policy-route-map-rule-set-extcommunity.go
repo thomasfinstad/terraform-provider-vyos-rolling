@@ -2,21 +2,19 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteMapRuleSetExtcommunity describes the resource data model.
 type PolicyRouteMapRuleSetExtcommunity struct {
 	// LeafNodes
 	LeafPolicyRouteMapRuleSetExtcommunityBandwIDth              types.String `tfsdk:"bandwidth" vyos:"bandwidth,omitempty"`
-	LeafPolicyRouteMapRuleSetExtcommunityBandwIDthNonTransitive types.String `tfsdk:"bandwidth_non_transitive" vyos:"bandwidth-non-transitive,omitempty"`
-	LeafPolicyRouteMapRuleSetExtcommunityRt                     types.String `tfsdk:"rt" vyos:"rt,omitempty"`
-	LeafPolicyRouteMapRuleSetExtcommunitySoo                    types.String `tfsdk:"soo" vyos:"soo,omitempty"`
-	LeafPolicyRouteMapRuleSetExtcommunityNone                   types.String `tfsdk:"none" vyos:"none,omitempty"`
+	LeafPolicyRouteMapRuleSetExtcommunityBandwIDthNonTransitive types.Bool   `tfsdk:"bandwidth_non_transitive" vyos:"bandwidth-non-transitive,omitempty"`
+	LeafPolicyRouteMapRuleSetExtcommunityRt                     types.List   `tfsdk:"rt" vyos:"rt,omitempty"`
+	LeafPolicyRouteMapRuleSetExtcommunitySoo                    types.List   `tfsdk:"soo" vyos:"soo,omitempty"`
+	LeafPolicyRouteMapRuleSetExtcommunityNone                   types.Bool   `tfsdk:"none" vyos:"none,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -41,15 +39,18 @@ func (o PolicyRouteMapRuleSetExtcommunity) ResourceSchemaAttributes() map[string
 `,
 		},
 
-		"bandwidth_non_transitive": schema.StringAttribute{
+		"bandwidth_non_transitive": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `The link bandwidth extended community is encoded as non-transitive
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"rt": schema.StringAttribute{
-			Optional: true,
+		"rt": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Set route target value
 
     |  Format  |  Description  |
@@ -60,8 +61,9 @@ func (o PolicyRouteMapRuleSetExtcommunity) ResourceSchemaAttributes() map[string
 `,
 		},
 
-		"soo": schema.StringAttribute{
-			Optional: true,
+		"soo": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Set Site of Origin value
 
     |  Format  |  Description  |
@@ -72,11 +74,13 @@ func (o PolicyRouteMapRuleSetExtcommunity) ResourceSchemaAttributes() map[string
 `,
 		},
 
-		"none": schema.StringAttribute{
+		"none": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Completely remove communities attribute from a prefix
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -86,81 +90,10 @@ func (o PolicyRouteMapRuleSetExtcommunity) ResourceSchemaAttributes() map[string
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteMapRuleSetExtcommunity) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDth.IsNull() && !o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDth.IsUnknown() {
-		jsonData["bandwidth"] = o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDth.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDthNonTransitive.IsNull() && !o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDthNonTransitive.IsUnknown() {
-		jsonData["bandwidth-non-transitive"] = o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDthNonTransitive.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetExtcommunityRt.IsNull() && !o.LeafPolicyRouteMapRuleSetExtcommunityRt.IsUnknown() {
-		jsonData["rt"] = o.LeafPolicyRouteMapRuleSetExtcommunityRt.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetExtcommunitySoo.IsNull() && !o.LeafPolicyRouteMapRuleSetExtcommunitySoo.IsUnknown() {
-		jsonData["soo"] = o.LeafPolicyRouteMapRuleSetExtcommunitySoo.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetExtcommunityNone.IsNull() && !o.LeafPolicyRouteMapRuleSetExtcommunityNone.IsUnknown() {
-		jsonData["none"] = o.LeafPolicyRouteMapRuleSetExtcommunityNone.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteMapRuleSetExtcommunity) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["bandwidth"]; ok {
-		o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDth = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["bandwidth-non-transitive"]; ok {
-		o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDthNonTransitive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDthNonTransitive = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rt"]; ok {
-		o.LeafPolicyRouteMapRuleSetExtcommunityRt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetExtcommunityRt = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["soo"]; ok {
-		o.LeafPolicyRouteMapRuleSetExtcommunitySoo = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetExtcommunitySoo = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["none"]; ok {
-		o.LeafPolicyRouteMapRuleSetExtcommunityNone = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetExtcommunityNone = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRouteMapRuleSetExtcommunity) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfvthreeAreaAreaTypeNssa describes the resource data model.
 type VrfNameProtocolsOspfvthreeAreaAreaTypeNssa struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaDefaultInformationOriginate types.String `tfsdk:"default_information_originate" vyos:"default-information-originate,omitempty"`
-	LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaNoSummary                   types.String `tfsdk:"no_summary" vyos:"no-summary,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaDefaultInformationOriginate types.Bool `tfsdk:"default_information_originate" vyos:"default-information-originate,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaNoSummary                   types.Bool `tfsdk:"no_summary" vyos:"no-summary,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,18 +23,22 @@ func (o VrfNameProtocolsOspfvthreeAreaAreaTypeNssa) ResourceSchemaAttributes() m
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"default_information_originate": schema.StringAttribute{
+		"default_information_originate": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Originate Type 7 default into NSSA area
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"no_summary": schema.StringAttribute{
+		"no_summary": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not inject inter-area routes into the stub
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -46,51 +48,10 @@ func (o VrfNameProtocolsOspfvthreeAreaAreaTypeNssa) ResourceSchemaAttributes() m
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfvthreeAreaAreaTypeNssa) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaDefaultInformationOriginate.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaDefaultInformationOriginate.IsUnknown() {
-		jsonData["default-information-originate"] = o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaDefaultInformationOriginate.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaNoSummary.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaNoSummary.IsUnknown() {
-		jsonData["no-summary"] = o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaNoSummary.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfvthreeAreaAreaTypeNssa) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["default-information-originate"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaDefaultInformationOriginate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaDefaultInformationOriginate = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["no-summary"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaNoSummary = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaNoSummary = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfvthreeAreaAreaTypeNssa) UnmarshalJSON(_ []byte) error {
 	return nil
 }

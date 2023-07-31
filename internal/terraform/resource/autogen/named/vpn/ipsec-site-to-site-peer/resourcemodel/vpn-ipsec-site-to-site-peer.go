@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnIPsecSiteToSitePeer describes the resource data model.
@@ -15,17 +12,17 @@ type VpnIPsecSiteToSitePeer struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafVpnIPsecSiteToSitePeerDisable               types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafVpnIPsecSiteToSitePeerDisable               types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafVpnIPsecSiteToSitePeerConnectionType        types.String `tfsdk:"connection_type" vyos:"connection-type,omitempty"`
 	LeafVpnIPsecSiteToSitePeerDefaultEspGroup       types.String `tfsdk:"default_esp_group" vyos:"default-esp-group,omitempty"`
 	LeafVpnIPsecSiteToSitePeerDescrIPtion           types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafVpnIPsecSiteToSitePeerDhcpInterface         types.String `tfsdk:"dhcp_interface" vyos:"dhcp-interface,omitempty"`
-	LeafVpnIPsecSiteToSitePeerForceUDPEncapsulation types.String `tfsdk:"force_udp_encapsulation" vyos:"force-udp-encapsulation,omitempty"`
+	LeafVpnIPsecSiteToSitePeerForceUDPEncapsulation types.Bool   `tfsdk:"force_udp_encapsulation" vyos:"force-udp-encapsulation,omitempty"`
 	LeafVpnIPsecSiteToSitePeerIkeGroup              types.String `tfsdk:"ike_group" vyos:"ike-group,omitempty"`
 	LeafVpnIPsecSiteToSitePeerIkevtwoReauth         types.String `tfsdk:"ikev2_reauth" vyos:"ikev2-reauth,omitempty"`
 	LeafVpnIPsecSiteToSitePeerLocalAddress          types.String `tfsdk:"local_address" vyos:"local-address,omitempty"`
-	LeafVpnIPsecSiteToSitePeerRemoteAddress         types.String `tfsdk:"remote_address" vyos:"remote-address,omitempty"`
-	LeafVpnIPsecSiteToSitePeerVirtualAddress        types.String `tfsdk:"virtual_address" vyos:"virtual-address,omitempty"`
+	LeafVpnIPsecSiteToSitePeerRemoteAddress         types.List   `tfsdk:"remote_address" vyos:"remote-address,omitempty"`
+	LeafVpnIPsecSiteToSitePeerVirtualAddress        types.List   `tfsdk:"virtual_address" vyos:"virtual-address,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagVpnIPsecSiteToSitePeerTunnel bool `tfsdk:"tunnel" vyos:"tunnel,child"`
@@ -39,8 +36,11 @@ type VpnIPsecSiteToSitePeer struct {
 func (o *VpnIPsecSiteToSitePeer) GetVyosPath() []string {
 	return []string{
 		"vpn",
+
 		"ipsec",
+
 		"site-to-site",
+
 		"peer",
 		o.ID.ValueString(),
 	}
@@ -62,11 +62,13 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes() map[string]schema.Att
 
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"connection_type": schema.StringAttribute{
@@ -111,11 +113,13 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"force_udp_encapsulation": schema.StringAttribute{
+		"force_udp_encapsulation": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Force UDP encapsulation
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"ike_group": schema.StringAttribute{
@@ -151,8 +155,9 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"remote_address": schema.StringAttribute{
-			Optional: true,
+		"remote_address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IPv4 or IPv6 address of the remote peer
 
     |  Format  |  Description  |
@@ -165,8 +170,9 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 
-		"virtual_address": schema.StringAttribute{
-			Optional: true,
+		"virtual_address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Initiator request virtual-address from peer
 
     |  Format  |  Description  |
@@ -199,195 +205,10 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes() map[string]schema.Att
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnIPsecSiteToSitePeer) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnIPsecSiteToSitePeerDisable.IsNull() && !o.LeafVpnIPsecSiteToSitePeerDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafVpnIPsecSiteToSitePeerDisable.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerConnectionType.IsNull() && !o.LeafVpnIPsecSiteToSitePeerConnectionType.IsUnknown() {
-		jsonData["connection-type"] = o.LeafVpnIPsecSiteToSitePeerConnectionType.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerDefaultEspGroup.IsNull() && !o.LeafVpnIPsecSiteToSitePeerDefaultEspGroup.IsUnknown() {
-		jsonData["default-esp-group"] = o.LeafVpnIPsecSiteToSitePeerDefaultEspGroup.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerDescrIPtion.IsNull() && !o.LeafVpnIPsecSiteToSitePeerDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafVpnIPsecSiteToSitePeerDescrIPtion.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerDhcpInterface.IsNull() && !o.LeafVpnIPsecSiteToSitePeerDhcpInterface.IsUnknown() {
-		jsonData["dhcp-interface"] = o.LeafVpnIPsecSiteToSitePeerDhcpInterface.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerForceUDPEncapsulation.IsNull() && !o.LeafVpnIPsecSiteToSitePeerForceUDPEncapsulation.IsUnknown() {
-		jsonData["force-udp-encapsulation"] = o.LeafVpnIPsecSiteToSitePeerForceUDPEncapsulation.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerIkeGroup.IsNull() && !o.LeafVpnIPsecSiteToSitePeerIkeGroup.IsUnknown() {
-		jsonData["ike-group"] = o.LeafVpnIPsecSiteToSitePeerIkeGroup.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerIkevtwoReauth.IsNull() && !o.LeafVpnIPsecSiteToSitePeerIkevtwoReauth.IsUnknown() {
-		jsonData["ikev2-reauth"] = o.LeafVpnIPsecSiteToSitePeerIkevtwoReauth.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerLocalAddress.IsNull() && !o.LeafVpnIPsecSiteToSitePeerLocalAddress.IsUnknown() {
-		jsonData["local-address"] = o.LeafVpnIPsecSiteToSitePeerLocalAddress.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerRemoteAddress.IsNull() && !o.LeafVpnIPsecSiteToSitePeerRemoteAddress.IsUnknown() {
-		jsonData["remote-address"] = o.LeafVpnIPsecSiteToSitePeerRemoteAddress.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerVirtualAddress.IsNull() && !o.LeafVpnIPsecSiteToSitePeerVirtualAddress.IsUnknown() {
-		jsonData["virtual-address"] = o.LeafVpnIPsecSiteToSitePeerVirtualAddress.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVpnIPsecSiteToSitePeerAuthentication).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVpnIPsecSiteToSitePeerAuthentication)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["authentication"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVpnIPsecSiteToSitePeerVti).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVpnIPsecSiteToSitePeerVti)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["vti"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnIPsecSiteToSitePeer) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["connection-type"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerConnectionType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerConnectionType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["default-esp-group"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerDefaultEspGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerDefaultEspGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["dhcp-interface"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerDhcpInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerDhcpInterface = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["force-udp-encapsulation"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerForceUDPEncapsulation = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerForceUDPEncapsulation = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ike-group"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerIkeGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerIkeGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ikev2-reauth"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerIkevtwoReauth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerIkevtwoReauth = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["local-address"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerLocalAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerLocalAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["remote-address"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerRemoteAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerRemoteAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["virtual-address"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerVirtualAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerVirtualAddress = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["authentication"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVpnIPsecSiteToSitePeerAuthentication = &VpnIPsecSiteToSitePeerAuthentication{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVpnIPsecSiteToSitePeerAuthentication)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["vti"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVpnIPsecSiteToSitePeerVti = &VpnIPsecSiteToSitePeerVti{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVpnIPsecSiteToSitePeerVti)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VpnIPsecSiteToSitePeer) UnmarshalJSON(_ []byte) error {
 	return nil
 }

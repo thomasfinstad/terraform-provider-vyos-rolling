@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ContainerNamePort describes the resource data model.
 type ContainerNamePort struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDContainerName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDContainerName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
 	// LeafNodes
 	LeafContainerNamePortSource      types.String `tfsdk:"source" vyos:"source,omitempty"`
@@ -29,7 +26,10 @@ type ContainerNamePort struct {
 func (o *ContainerNamePort) GetVyosPath() []string {
 	return []string{
 		"container",
+
 		"name",
+		o.ParentIDContainerName.ValueString(),
+
 		"port",
 		o.ID.ValueString(),
 	}
@@ -41,6 +41,13 @@ func (o ContainerNamePort) ResourceSchemaAttributes() map[string]schema.Attribut
 		"identifier": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Publish port to the container
+
+`,
+		},
+
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Container name
 
 `,
 		},
@@ -93,61 +100,10 @@ func (o ContainerNamePort) ResourceSchemaAttributes() map[string]schema.Attribut
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ContainerNamePort) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafContainerNamePortSource.IsNull() && !o.LeafContainerNamePortSource.IsUnknown() {
-		jsonData["source"] = o.LeafContainerNamePortSource.ValueString()
-	}
-
-	if !o.LeafContainerNamePortDestination.IsNull() && !o.LeafContainerNamePortDestination.IsUnknown() {
-		jsonData["destination"] = o.LeafContainerNamePortDestination.ValueString()
-	}
-
-	if !o.LeafContainerNamePortProtocol.IsNull() && !o.LeafContainerNamePortProtocol.IsUnknown() {
-		jsonData["protocol"] = o.LeafContainerNamePortProtocol.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ContainerNamePort) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["source"]; ok {
-		o.LeafContainerNamePortSource = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNamePortSource = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["destination"]; ok {
-		o.LeafContainerNamePortDestination = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNamePortDestination = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["protocol"]; ok {
-		o.LeafContainerNamePortProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNamePortProtocol = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ContainerNamePort) UnmarshalJSON(_ []byte) error {
 	return nil
 }

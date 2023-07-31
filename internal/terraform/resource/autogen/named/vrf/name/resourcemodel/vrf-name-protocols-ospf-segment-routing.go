@@ -2,18 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfSegmentRouting describes the resource data model.
 type VrfNameProtocolsOspfSegmentRouting struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfSegmentRoutingMaximumLabelDepth types.String `tfsdk:"maximum_label_depth" vyos:"maximum-label-depth,omitempty"`
+	LeafVrfNameProtocolsOspfSegmentRoutingMaximumLabelDepth types.Number `tfsdk:"maximum_label_depth" vyos:"maximum-label-depth,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagVrfNameProtocolsOspfSegmentRoutingPrefix bool `tfsdk:"prefix" vyos:"prefix,child"`
@@ -28,7 +24,7 @@ func (o VrfNameProtocolsOspfSegmentRouting) ResourceSchemaAttributes() map[strin
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"maximum_label_depth": schema.StringAttribute{
+		"maximum_label_depth": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum MPLS labels allowed for this router
 
@@ -61,95 +57,10 @@ func (o VrfNameProtocolsOspfSegmentRouting) ResourceSchemaAttributes() map[strin
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfSegmentRouting) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfSegmentRoutingMaximumLabelDepth.IsNull() && !o.LeafVrfNameProtocolsOspfSegmentRoutingMaximumLabelDepth.IsUnknown() {
-		jsonData["maximum-label-depth"] = o.LeafVrfNameProtocolsOspfSegmentRoutingMaximumLabelDepth.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfSegmentRoutingGlobalBlock).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfSegmentRoutingGlobalBlock)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["global-block"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfSegmentRoutingLocalBlock).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfSegmentRoutingLocalBlock)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["local-block"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfSegmentRouting) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["maximum-label-depth"]; ok {
-		o.LeafVrfNameProtocolsOspfSegmentRoutingMaximumLabelDepth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfSegmentRoutingMaximumLabelDepth = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["global-block"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsOspfSegmentRoutingGlobalBlock = &VrfNameProtocolsOspfSegmentRoutingGlobalBlock{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfSegmentRoutingGlobalBlock)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["local-block"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsOspfSegmentRoutingLocalBlock = &VrfNameProtocolsOspfSegmentRoutingLocalBlock{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfSegmentRoutingLocalBlock)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VrfNameProtocolsOspfSegmentRouting) UnmarshalJSON(_ []byte) error {
 	return nil
 }

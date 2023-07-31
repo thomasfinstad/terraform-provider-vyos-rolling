@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceLldpInterfaceLocationCoordinateBased describes the resource data model.
@@ -87,71 +84,10 @@ func (o ServiceLldpInterfaceLocationCoordinateBased) ResourceSchemaAttributes() 
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceLldpInterfaceLocationCoordinateBased) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceLldpInterfaceLocationCoordinateBasedAltitude.IsNull() && !o.LeafServiceLldpInterfaceLocationCoordinateBasedAltitude.IsUnknown() {
-		jsonData["altitude"] = o.LeafServiceLldpInterfaceLocationCoordinateBasedAltitude.ValueString()
-	}
-
-	if !o.LeafServiceLldpInterfaceLocationCoordinateBasedDatum.IsNull() && !o.LeafServiceLldpInterfaceLocationCoordinateBasedDatum.IsUnknown() {
-		jsonData["datum"] = o.LeafServiceLldpInterfaceLocationCoordinateBasedDatum.ValueString()
-	}
-
-	if !o.LeafServiceLldpInterfaceLocationCoordinateBasedLatitude.IsNull() && !o.LeafServiceLldpInterfaceLocationCoordinateBasedLatitude.IsUnknown() {
-		jsonData["latitude"] = o.LeafServiceLldpInterfaceLocationCoordinateBasedLatitude.ValueString()
-	}
-
-	if !o.LeafServiceLldpInterfaceLocationCoordinateBasedLongitude.IsNull() && !o.LeafServiceLldpInterfaceLocationCoordinateBasedLongitude.IsUnknown() {
-		jsonData["longitude"] = o.LeafServiceLldpInterfaceLocationCoordinateBasedLongitude.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceLldpInterfaceLocationCoordinateBased) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["altitude"]; ok {
-		o.LeafServiceLldpInterfaceLocationCoordinateBasedAltitude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceLldpInterfaceLocationCoordinateBasedAltitude = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["datum"]; ok {
-		o.LeafServiceLldpInterfaceLocationCoordinateBasedDatum = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceLldpInterfaceLocationCoordinateBasedDatum = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["latitude"]; ok {
-		o.LeafServiceLldpInterfaceLocationCoordinateBasedLatitude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceLldpInterfaceLocationCoordinateBasedLatitude = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["longitude"]; ok {
-		o.LeafServiceLldpInterfaceLocationCoordinateBasedLongitude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceLldpInterfaceLocationCoordinateBasedLongitude = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceLldpInterfaceLocationCoordinateBased) UnmarshalJSON(_ []byte) error {
 	return nil
 }

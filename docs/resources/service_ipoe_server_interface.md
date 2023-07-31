@@ -42,7 +42,7 @@ Interface to listen dhcp or unclassified packets
     |----------|---------------|
     |  shared  |  Multiple clients share the same network  |
     |  vlan  |  One VLAN per client  |
-- `vlan` (String) VLAN monitor for automatic creation of VLAN interfaces
+- `vlan` (List of String) VLAN monitor for automatic creation of VLAN interfaces
 
     |  Format  |  Description  |
     |----------|---------------|

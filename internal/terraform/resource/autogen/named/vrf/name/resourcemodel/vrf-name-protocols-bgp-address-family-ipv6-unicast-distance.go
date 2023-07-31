@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceExternal types.String `tfsdk:"external" vyos:"external,omitempty"`
-	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceInternal types.String `tfsdk:"internal" vyos:"internal,omitempty"`
-	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceLocal    types.String `tfsdk:"local" vyos:"local,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceExternal types.Number `tfsdk:"external" vyos:"external,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceInternal types.Number `tfsdk:"internal" vyos:"internal,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceLocal    types.Number `tfsdk:"local" vyos:"local,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistancePrefix bool `tfsdk:"prefix" vyos:"prefix,child"`
@@ -27,7 +24,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance) ResourceSchemaAtt
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"external": schema.StringAttribute{
+		"external": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `eBGP routes administrative distance
 
@@ -38,7 +35,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance) ResourceSchemaAtt
 `,
 		},
 
-		"internal": schema.StringAttribute{
+		"internal": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `iBGP routes administrative distance
 
@@ -49,7 +46,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance) ResourceSchemaAtt
 `,
 		},
 
-		"local": schema.StringAttribute{
+		"local": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Locally originated BGP routes administrative distance
 
@@ -67,61 +64,10 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance) ResourceSchemaAtt
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceExternal.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceExternal.IsUnknown() {
-		jsonData["external"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceExternal.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceInternal.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceInternal.IsUnknown() {
-		jsonData["internal"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceInternal.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceLocal.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceLocal.IsUnknown() {
-		jsonData["local"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceLocal.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["external"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceExternal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceExternal = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["internal"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceInternal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceInternal = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["local"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceLocal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistanceLocal = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance) UnmarshalJSON(_ []byte) error {
 	return nil
 }

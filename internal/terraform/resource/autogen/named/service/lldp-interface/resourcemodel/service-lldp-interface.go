@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceLldpInterface describes the resource data model.
@@ -15,7 +12,7 @@ type ServiceLldpInterface struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafServiceLldpInterfaceDisable types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafServiceLldpInterfaceDisable types.Bool `tfsdk:"disable" vyos:"disable,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,7 +24,9 @@ type ServiceLldpInterface struct {
 func (o *ServiceLldpInterface) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"lldp",
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -50,11 +49,13 @@ func (o ServiceLldpInterface) ResourceSchemaAttributes() map[string]schema.Attri
 
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -71,68 +72,10 @@ func (o ServiceLldpInterface) ResourceSchemaAttributes() map[string]schema.Attri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceLldpInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceLldpInterfaceDisable.IsNull() && !o.LeafServiceLldpInterfaceDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafServiceLldpInterfaceDisable.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeServiceLldpInterfaceLocation).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeServiceLldpInterfaceLocation)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["location"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceLldpInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafServiceLldpInterfaceDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceLldpInterfaceDisable = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["location"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeServiceLldpInterfaceLocation = &ServiceLldpInterfaceLocation{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeServiceLldpInterfaceLocation)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ServiceLldpInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

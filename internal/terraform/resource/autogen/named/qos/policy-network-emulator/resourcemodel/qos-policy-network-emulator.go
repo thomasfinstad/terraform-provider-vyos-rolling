@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyNetworkEmulator describes the resource data model.
@@ -21,7 +18,7 @@ type QosPolicyNetworkEmulator struct {
 	LeafQosPolicyNetworkEmulatorDuplicate   types.String `tfsdk:"duplicate" vyos:"duplicate,omitempty"`
 	LeafQosPolicyNetworkEmulatorLoss        types.String `tfsdk:"loss" vyos:"loss,omitempty"`
 	LeafQosPolicyNetworkEmulatorReordering  types.String `tfsdk:"reordering" vyos:"reordering,omitempty"`
-	LeafQosPolicyNetworkEmulatorQueueLimit  types.String `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
+	LeafQosPolicyNetworkEmulatorQueueLimit  types.Number `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -32,7 +29,9 @@ type QosPolicyNetworkEmulator struct {
 func (o *QosPolicyNetworkEmulator) GetVyosPath() []string {
 	return []string{
 		"qos",
+
 		"policy",
+
 		"network-emulator",
 		o.ID.ValueString(),
 	}
@@ -137,7 +136,7 @@ func (o QosPolicyNetworkEmulator) ResourceSchemaAttributes() map[string]schema.A
 `,
 		},
 
-		"queue_limit": schema.StringAttribute{
+		"queue_limit": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
@@ -155,111 +154,10 @@ func (o QosPolicyNetworkEmulator) ResourceSchemaAttributes() map[string]schema.A
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyNetworkEmulator) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyNetworkEmulatorDescrIPtion.IsNull() && !o.LeafQosPolicyNetworkEmulatorDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafQosPolicyNetworkEmulatorDescrIPtion.ValueString()
-	}
-
-	if !o.LeafQosPolicyNetworkEmulatorBandwIDth.IsNull() && !o.LeafQosPolicyNetworkEmulatorBandwIDth.IsUnknown() {
-		jsonData["bandwidth"] = o.LeafQosPolicyNetworkEmulatorBandwIDth.ValueString()
-	}
-
-	if !o.LeafQosPolicyNetworkEmulatorDelay.IsNull() && !o.LeafQosPolicyNetworkEmulatorDelay.IsUnknown() {
-		jsonData["delay"] = o.LeafQosPolicyNetworkEmulatorDelay.ValueString()
-	}
-
-	if !o.LeafQosPolicyNetworkEmulatorCorruption.IsNull() && !o.LeafQosPolicyNetworkEmulatorCorruption.IsUnknown() {
-		jsonData["corruption"] = o.LeafQosPolicyNetworkEmulatorCorruption.ValueString()
-	}
-
-	if !o.LeafQosPolicyNetworkEmulatorDuplicate.IsNull() && !o.LeafQosPolicyNetworkEmulatorDuplicate.IsUnknown() {
-		jsonData["duplicate"] = o.LeafQosPolicyNetworkEmulatorDuplicate.ValueString()
-	}
-
-	if !o.LeafQosPolicyNetworkEmulatorLoss.IsNull() && !o.LeafQosPolicyNetworkEmulatorLoss.IsUnknown() {
-		jsonData["loss"] = o.LeafQosPolicyNetworkEmulatorLoss.ValueString()
-	}
-
-	if !o.LeafQosPolicyNetworkEmulatorReordering.IsNull() && !o.LeafQosPolicyNetworkEmulatorReordering.IsUnknown() {
-		jsonData["reordering"] = o.LeafQosPolicyNetworkEmulatorReordering.ValueString()
-	}
-
-	if !o.LeafQosPolicyNetworkEmulatorQueueLimit.IsNull() && !o.LeafQosPolicyNetworkEmulatorQueueLimit.IsUnknown() {
-		jsonData["queue-limit"] = o.LeafQosPolicyNetworkEmulatorQueueLimit.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyNetworkEmulator) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafQosPolicyNetworkEmulatorDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyNetworkEmulatorDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["bandwidth"]; ok {
-		o.LeafQosPolicyNetworkEmulatorBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyNetworkEmulatorBandwIDth = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["delay"]; ok {
-		o.LeafQosPolicyNetworkEmulatorDelay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyNetworkEmulatorDelay = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["corruption"]; ok {
-		o.LeafQosPolicyNetworkEmulatorCorruption = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyNetworkEmulatorCorruption = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["duplicate"]; ok {
-		o.LeafQosPolicyNetworkEmulatorDuplicate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyNetworkEmulatorDuplicate = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["loss"]; ok {
-		o.LeafQosPolicyNetworkEmulatorLoss = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyNetworkEmulatorLoss = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["reordering"]; ok {
-		o.LeafQosPolicyNetworkEmulatorReordering = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyNetworkEmulatorReordering = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["queue-limit"]; ok {
-		o.LeafQosPolicyNetworkEmulatorQueueLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyNetworkEmulatorQueueLimit = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyNetworkEmulator) UnmarshalJSON(_ []byte) error {
 	return nil
 }

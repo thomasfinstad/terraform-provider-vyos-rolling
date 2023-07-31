@@ -2,19 +2,17 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchanged describes the resource data model.
 type VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchanged struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedAsPath  types.String `tfsdk:"as_path" vyos:"as-path,omitempty"`
-	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedMed     types.String `tfsdk:"med" vyos:"med,omitempty"`
-	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedNextHop types.String `tfsdk:"next_hop" vyos:"next-hop,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedAsPath  types.Bool `tfsdk:"as_path" vyos:"as-path,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedMed     types.Bool `tfsdk:"med" vyos:"med,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedNextHop types.Bool `tfsdk:"next_hop" vyos:"next-hop,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,25 +24,31 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchanged) Re
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"as_path": schema.StringAttribute{
+		"as_path": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Send AS path unchanged
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"med": schema.StringAttribute{
+		"med": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Send multi-exit discriminator unchanged
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"next_hop": schema.StringAttribute{
+		"next_hop": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Send nexthop unchanged
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -54,61 +58,10 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchanged) Re
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchanged) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedAsPath.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedAsPath.IsUnknown() {
-		jsonData["as-path"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedAsPath.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedMed.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedMed.IsUnknown() {
-		jsonData["med"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedMed.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedNextHop.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedNextHop.IsUnknown() {
-		jsonData["next-hop"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedNextHop.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchanged) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["as-path"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedAsPath = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedAsPath = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["med"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedMed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedMed = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["next-hop"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedNextHop = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedNextHop = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchanged) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesEthernetVifSVifCMirror describes the resource data model.
@@ -54,51 +51,10 @@ func (o InterfacesEthernetVifSVifCMirror) ResourceSchemaAttributes() map[string]
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesEthernetVifSVifCMirror) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesEthernetVifSVifCMirrorIngress.IsNull() && !o.LeafInterfacesEthernetVifSVifCMirrorIngress.IsUnknown() {
-		jsonData["ingress"] = o.LeafInterfacesEthernetVifSVifCMirrorIngress.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetVifSVifCMirrorEgress.IsNull() && !o.LeafInterfacesEthernetVifSVifCMirrorEgress.IsUnknown() {
-		jsonData["egress"] = o.LeafInterfacesEthernetVifSVifCMirrorEgress.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesEthernetVifSVifCMirror) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["ingress"]; ok {
-		o.LeafInterfacesEthernetVifSVifCMirrorIngress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCMirrorIngress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["egress"]; ok {
-		o.LeafInterfacesEthernetVifSVifCMirrorEgress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCMirrorEgress = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesEthernetVifSVifCMirror) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,17 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastExportVpn types.String `tfsdk:"vpn" vyos:"vpn,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastExportVpn types.Bool `tfsdk:"vpn" vyos:"vpn,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,11 +22,13 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport) ResourceSchemaAttri
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"vpn": schema.StringAttribute{
+		"vpn": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `to/from default instance VPN RIB
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -38,41 +38,10 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport) ResourceSchemaAttri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastExportVpn.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastExportVpn.IsUnknown() {
-		jsonData["vpn"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastExportVpn.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["vpn"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastExportVpn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastExportVpn = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport) UnmarshalJSON(_ []byte) error {
 	return nil
 }

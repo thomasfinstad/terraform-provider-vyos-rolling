@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemConntrackIgnoreRuleSource describes the resource data model.
@@ -62,51 +59,10 @@ func (o SystemConntrackIgnoreRuleSource) ResourceSchemaAttributes() map[string]s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemConntrackIgnoreRuleSource) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafSystemConntrackIgnoreRuleSourceAddress.IsNull() && !o.LeafSystemConntrackIgnoreRuleSourceAddress.IsUnknown() {
-		jsonData["address"] = o.LeafSystemConntrackIgnoreRuleSourceAddress.ValueString()
-	}
-
-	if !o.LeafSystemConntrackIgnoreRuleSourcePort.IsNull() && !o.LeafSystemConntrackIgnoreRuleSourcePort.IsUnknown() {
-		jsonData["port"] = o.LeafSystemConntrackIgnoreRuleSourcePort.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemConntrackIgnoreRuleSource) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafSystemConntrackIgnoreRuleSourceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemConntrackIgnoreRuleSourceAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafSystemConntrackIgnoreRuleSourcePort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemConntrackIgnoreRuleSourcePort = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *SystemConntrackIgnoreRuleSource) UnmarshalJSON(_ []byte) error {
 	return nil
 }

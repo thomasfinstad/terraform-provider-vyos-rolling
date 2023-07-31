@@ -2,19 +2,17 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesEthernetIPvsixAddress describes the resource data model.
 type InterfacesEthernetIPvsixAddress struct {
 	// LeafNodes
-	LeafInterfacesEthernetIPvsixAddressAutoconf           types.String `tfsdk:"autoconf" vyos:"autoconf,omitempty"`
-	LeafInterfacesEthernetIPvsixAddressEuisixfour         types.String `tfsdk:"eui64" vyos:"eui64,omitempty"`
-	LeafInterfacesEthernetIPvsixAddressNoDefaultLinkLocal types.String `tfsdk:"no_default_link_local" vyos:"no-default-link-local,omitempty"`
+	LeafInterfacesEthernetIPvsixAddressAutoconf           types.Bool `tfsdk:"autoconf" vyos:"autoconf,omitempty"`
+	LeafInterfacesEthernetIPvsixAddressEuisixfour         types.List `tfsdk:"eui64" vyos:"eui64,omitempty"`
+	LeafInterfacesEthernetIPvsixAddressNoDefaultLinkLocal types.Bool `tfsdk:"no_default_link_local" vyos:"no-default-link-local,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,15 +24,18 @@ func (o InterfacesEthernetIPvsixAddress) ResourceSchemaAttributes() map[string]s
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"autoconf": schema.StringAttribute{
+		"autoconf": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"eui64": schema.StringAttribute{
-			Optional: true,
+		"eui64": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Prefix for IPv6 address with MAC-based EUI-64
 
     |  Format  |  Description  |
@@ -44,11 +45,13 @@ func (o InterfacesEthernetIPvsixAddress) ResourceSchemaAttributes() map[string]s
 `,
 		},
 
-		"no_default_link_local": schema.StringAttribute{
+		"no_default_link_local": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Remove the default link-local address from the interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -58,61 +61,10 @@ func (o InterfacesEthernetIPvsixAddress) ResourceSchemaAttributes() map[string]s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesEthernetIPvsixAddress) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesEthernetIPvsixAddressAutoconf.IsNull() && !o.LeafInterfacesEthernetIPvsixAddressAutoconf.IsUnknown() {
-		jsonData["autoconf"] = o.LeafInterfacesEthernetIPvsixAddressAutoconf.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetIPvsixAddressEuisixfour.IsNull() && !o.LeafInterfacesEthernetIPvsixAddressEuisixfour.IsUnknown() {
-		jsonData["eui64"] = o.LeafInterfacesEthernetIPvsixAddressEuisixfour.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetIPvsixAddressNoDefaultLinkLocal.IsNull() && !o.LeafInterfacesEthernetIPvsixAddressNoDefaultLinkLocal.IsUnknown() {
-		jsonData["no-default-link-local"] = o.LeafInterfacesEthernetIPvsixAddressNoDefaultLinkLocal.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesEthernetIPvsixAddress) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["autoconf"]; ok {
-		o.LeafInterfacesEthernetIPvsixAddressAutoconf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetIPvsixAddressAutoconf = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["eui64"]; ok {
-		o.LeafInterfacesEthernetIPvsixAddressEuisixfour = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetIPvsixAddressEuisixfour = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["no-default-link-local"]; ok {
-		o.LeafInterfacesEthernetIPvsixAddressNoDefaultLinkLocal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetIPvsixAddressNoDefaultLinkLocal = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesEthernetIPvsixAddress) UnmarshalJSON(_ []byte) error {
 	return nil
 }

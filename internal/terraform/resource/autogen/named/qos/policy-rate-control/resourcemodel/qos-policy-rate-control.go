@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyRateControl describes the resource data model.
@@ -28,7 +25,9 @@ type QosPolicyRateControl struct {
 func (o *QosPolicyRateControl) GetVyosPath() []string {
 	return []string{
 		"qos",
+
 		"policy",
+
 		"rate-control",
 		o.ID.ValueString(),
 	}
@@ -114,71 +113,10 @@ func (o QosPolicyRateControl) ResourceSchemaAttributes() map[string]schema.Attri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyRateControl) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyRateControlDescrIPtion.IsNull() && !o.LeafQosPolicyRateControlDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafQosPolicyRateControlDescrIPtion.ValueString()
-	}
-
-	if !o.LeafQosPolicyRateControlBandwIDth.IsNull() && !o.LeafQosPolicyRateControlBandwIDth.IsUnknown() {
-		jsonData["bandwidth"] = o.LeafQosPolicyRateControlBandwIDth.ValueString()
-	}
-
-	if !o.LeafQosPolicyRateControlBurst.IsNull() && !o.LeafQosPolicyRateControlBurst.IsUnknown() {
-		jsonData["burst"] = o.LeafQosPolicyRateControlBurst.ValueString()
-	}
-
-	if !o.LeafQosPolicyRateControlLatency.IsNull() && !o.LeafQosPolicyRateControlLatency.IsUnknown() {
-		jsonData["latency"] = o.LeafQosPolicyRateControlLatency.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyRateControl) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafQosPolicyRateControlDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRateControlDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["bandwidth"]; ok {
-		o.LeafQosPolicyRateControlBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRateControlBandwIDth = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["burst"]; ok {
-		o.LeafQosPolicyRateControlBurst = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRateControlBurst = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["latency"]; ok {
-		o.LeafQosPolicyRateControlLatency = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRateControlLatency = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyRateControl) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,22 +2,20 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsMx describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsMx struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDServiceDNSForwardingAuthoritativeDomain any `tfsdk:"authoritative_domain" vyos:"authoritative-domain,parent-id"`
+	ParentIDServiceDNSForwardingAuthoritativeDomain types.String `tfsdk:"authoritative_domain" vyos:"authoritative-domain_identifier,parent-id"`
 
 	// LeafNodes
-	LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL     types.String `tfsdk:"ttl" vyos:"ttl,omitempty"`
-	LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL     types.Number `tfsdk:"ttl" vyos:"ttl,omitempty"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsMxServer bool `tfsdk:"server" vyos:"server,child"`
@@ -29,10 +27,16 @@ type ServiceDNSForwardingAuthoritativeDomainRecordsMx struct {
 func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMx) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"dns",
+
 		"forwarding",
+
 		"authoritative-domain",
+		o.ParentIDServiceDNSForwardingAuthoritativeDomain.ValueString(),
+
 		"records",
+
 		"mx",
 		o.ID.ValueString(),
 	}
@@ -53,9 +57,20 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsMx) ResourceSchemaAttribut
 `,
 		},
 
+		"authoritative_domain_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Domain to host authoritative records for
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  text  |  An absolute DNS name  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"ttl": schema.StringAttribute{
+		"ttl": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Time-to-live (TTL)
 
@@ -69,11 +84,13 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsMx) ResourceSchemaAttribut
 			Computed: true,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -83,51 +100,10 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsMx) ResourceSchemaAttribut
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMx) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL.IsNull() && !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL.IsUnknown() {
-		jsonData["ttl"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL.ValueString()
-	}
-
-	if !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable.IsNull() && !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMx) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["ttl"]; ok {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMx) UnmarshalJSON(_ []byte) error {
 	return nil
 }

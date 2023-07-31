@@ -2,27 +2,24 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesWirelessCapabilitiesHt describes the resource data model.
 type InterfacesWirelessCapabilitiesHt struct {
 	// LeafNodes
-	LeafInterfacesWirelessCapabilitiesHtFourzeromhzIncapable types.String `tfsdk:"40mhz_incapable" vyos:"40mhz-incapable,omitempty"`
-	LeafInterfacesWirelessCapabilitiesHtAutoPowersave        types.String `tfsdk:"auto_powersave" vyos:"auto-powersave,omitempty"`
-	LeafInterfacesWirelessCapabilitiesHtChannelSetWIDth      types.String `tfsdk:"channel_set_width" vyos:"channel-set-width,omitempty"`
-	LeafInterfacesWirelessCapabilitiesHtDelayedBlockAck      types.String `tfsdk:"delayed_block_ack" vyos:"delayed-block-ack,omitempty"`
-	LeafInterfacesWirelessCapabilitiesHtDsssCckFourzero      types.String `tfsdk:"dsss_cck_40" vyos:"dsss-cck-40,omitempty"`
-	LeafInterfacesWirelessCapabilitiesHtGreenfield           types.String `tfsdk:"greenfield" vyos:"greenfield,omitempty"`
-	LeafInterfacesWirelessCapabilitiesHtLdpc                 types.String `tfsdk:"ldpc" vyos:"ldpc,omitempty"`
-	LeafInterfacesWirelessCapabilitiesHtLsigProtection       types.String `tfsdk:"lsig_protection" vyos:"lsig-protection,omitempty"`
+	LeafInterfacesWirelessCapabilitiesHtFourzeromhzIncapable types.Bool   `tfsdk:"40mhz_incapable" vyos:"40mhz-incapable,omitempty"`
+	LeafInterfacesWirelessCapabilitiesHtAutoPowersave        types.Bool   `tfsdk:"auto_powersave" vyos:"auto-powersave,omitempty"`
+	LeafInterfacesWirelessCapabilitiesHtChannelSetWIDth      types.List   `tfsdk:"channel_set_width" vyos:"channel-set-width,omitempty"`
+	LeafInterfacesWirelessCapabilitiesHtDelayedBlockAck      types.Bool   `tfsdk:"delayed_block_ack" vyos:"delayed-block-ack,omitempty"`
+	LeafInterfacesWirelessCapabilitiesHtDsssCckFourzero      types.Bool   `tfsdk:"dsss_cck_40" vyos:"dsss-cck-40,omitempty"`
+	LeafInterfacesWirelessCapabilitiesHtGreenfield           types.Bool   `tfsdk:"greenfield" vyos:"greenfield,omitempty"`
+	LeafInterfacesWirelessCapabilitiesHtLdpc                 types.Bool   `tfsdk:"ldpc" vyos:"ldpc,omitempty"`
+	LeafInterfacesWirelessCapabilitiesHtLsigProtection       types.Bool   `tfsdk:"lsig_protection" vyos:"lsig-protection,omitempty"`
 	LeafInterfacesWirelessCapabilitiesHtMaxAmsdu             types.String `tfsdk:"max_amsdu" vyos:"max-amsdu,omitempty"`
-	LeafInterfacesWirelessCapabilitiesHtShortGi              types.String `tfsdk:"short_gi" vyos:"short-gi,omitempty"`
+	LeafInterfacesWirelessCapabilitiesHtShortGi              types.List   `tfsdk:"short_gi" vyos:"short-gi,omitempty"`
 	LeafInterfacesWirelessCapabilitiesHtSmps                 types.String `tfsdk:"smps" vyos:"smps,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -36,22 +33,27 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes() map[string]
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"40mhz_incapable": schema.StringAttribute{
+		"40mhz_incapable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `40MHz intolerance, use 20MHz only!
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"auto_powersave": schema.StringAttribute{
+		"auto_powersave": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable WMM-PS unscheduled automatic power aave delivery [U-APSD]
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"channel_set_width": schema.StringAttribute{
-			Optional: true,
+		"channel_set_width": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Supported channel set width
 
     |  Format  |  Description  |
@@ -63,39 +65,49 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes() map[string]
 `,
 		},
 
-		"delayed_block_ack": schema.StringAttribute{
+		"delayed_block_ack": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable HT-delayed block ack
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"dsss_cck_40": schema.StringAttribute{
+		"dsss_cck_40": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable DSSS_CCK-40
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"greenfield": schema.StringAttribute{
+		"greenfield": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable HT-greenfield
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"ldpc": schema.StringAttribute{
+		"ldpc": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable LDPC coding capability
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"lsig_protection": schema.StringAttribute{
+		"lsig_protection": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable L-SIG TXOP protection capability
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"max_amsdu": schema.StringAttribute{
@@ -110,8 +122,9 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes() map[string]
 `,
 		},
 
-		"short_gi": schema.StringAttribute{
-			Optional: true,
+		"short_gi": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Short GI capabilities
 
     |  Format  |  Description  |
@@ -148,168 +161,10 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes() map[string]
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesWirelessCapabilitiesHt) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesWirelessCapabilitiesHtFourzeromhzIncapable.IsNull() && !o.LeafInterfacesWirelessCapabilitiesHtFourzeromhzIncapable.IsUnknown() {
-		jsonData["40mhz-incapable"] = o.LeafInterfacesWirelessCapabilitiesHtFourzeromhzIncapable.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesHtAutoPowersave.IsNull() && !o.LeafInterfacesWirelessCapabilitiesHtAutoPowersave.IsUnknown() {
-		jsonData["auto-powersave"] = o.LeafInterfacesWirelessCapabilitiesHtAutoPowersave.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesHtChannelSetWIDth.IsNull() && !o.LeafInterfacesWirelessCapabilitiesHtChannelSetWIDth.IsUnknown() {
-		jsonData["channel-set-width"] = o.LeafInterfacesWirelessCapabilitiesHtChannelSetWIDth.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesHtDelayedBlockAck.IsNull() && !o.LeafInterfacesWirelessCapabilitiesHtDelayedBlockAck.IsUnknown() {
-		jsonData["delayed-block-ack"] = o.LeafInterfacesWirelessCapabilitiesHtDelayedBlockAck.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesHtDsssCckFourzero.IsNull() && !o.LeafInterfacesWirelessCapabilitiesHtDsssCckFourzero.IsUnknown() {
-		jsonData["dsss-cck-40"] = o.LeafInterfacesWirelessCapabilitiesHtDsssCckFourzero.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesHtGreenfield.IsNull() && !o.LeafInterfacesWirelessCapabilitiesHtGreenfield.IsUnknown() {
-		jsonData["greenfield"] = o.LeafInterfacesWirelessCapabilitiesHtGreenfield.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesHtLdpc.IsNull() && !o.LeafInterfacesWirelessCapabilitiesHtLdpc.IsUnknown() {
-		jsonData["ldpc"] = o.LeafInterfacesWirelessCapabilitiesHtLdpc.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesHtLsigProtection.IsNull() && !o.LeafInterfacesWirelessCapabilitiesHtLsigProtection.IsUnknown() {
-		jsonData["lsig-protection"] = o.LeafInterfacesWirelessCapabilitiesHtLsigProtection.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesHtMaxAmsdu.IsNull() && !o.LeafInterfacesWirelessCapabilitiesHtMaxAmsdu.IsUnknown() {
-		jsonData["max-amsdu"] = o.LeafInterfacesWirelessCapabilitiesHtMaxAmsdu.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesHtShortGi.IsNull() && !o.LeafInterfacesWirelessCapabilitiesHtShortGi.IsUnknown() {
-		jsonData["short-gi"] = o.LeafInterfacesWirelessCapabilitiesHtShortGi.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesHtSmps.IsNull() && !o.LeafInterfacesWirelessCapabilitiesHtSmps.IsUnknown() {
-		jsonData["smps"] = o.LeafInterfacesWirelessCapabilitiesHtSmps.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesWirelessCapabilitiesHtStbc).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessCapabilitiesHtStbc)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["stbc"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWirelessCapabilitiesHt) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["40mhz-incapable"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesHtFourzeromhzIncapable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesHtFourzeromhzIncapable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["auto-powersave"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesHtAutoPowersave = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesHtAutoPowersave = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["channel-set-width"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesHtChannelSetWIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesHtChannelSetWIDth = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["delayed-block-ack"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesHtDelayedBlockAck = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesHtDelayedBlockAck = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["dsss-cck-40"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesHtDsssCckFourzero = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesHtDsssCckFourzero = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["greenfield"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesHtGreenfield = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesHtGreenfield = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ldpc"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesHtLdpc = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesHtLdpc = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["lsig-protection"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesHtLsigProtection = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesHtLsigProtection = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["max-amsdu"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesHtMaxAmsdu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesHtMaxAmsdu = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["short-gi"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesHtShortGi = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesHtShortGi = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["smps"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesHtSmps = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesHtSmps = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["stbc"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWirelessCapabilitiesHtStbc = &InterfacesWirelessCapabilitiesHtStbc{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessCapabilitiesHtStbc)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesWirelessCapabilitiesHt) UnmarshalJSON(_ []byte) error {
 	return nil
 }

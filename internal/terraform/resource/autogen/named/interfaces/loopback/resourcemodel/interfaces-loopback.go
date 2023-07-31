@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesLoopback describes the resource data model.
@@ -15,7 +11,7 @@ type InterfacesLoopback struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafInterfacesLoopbackAddress     types.String `tfsdk:"address" vyos:"address,omitempty"`
+	LeafInterfacesLoopbackAddress     types.List   `tfsdk:"address" vyos:"address,omitempty"`
 	LeafInterfacesLoopbackDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafInterfacesLoopbackRedirect    types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 
@@ -30,6 +26,7 @@ type InterfacesLoopback struct {
 func (o *InterfacesLoopback) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"loopback",
 		o.ID.ValueString(),
 	}
@@ -51,8 +48,9 @@ func (o InterfacesLoopback) ResourceSchemaAttributes() map[string]schema.Attribu
 
 		// LeafNodes
 
-		"address": schema.StringAttribute{
-			Optional: true,
+		"address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address
 
     |  Format  |  Description  |
@@ -107,115 +105,10 @@ func (o InterfacesLoopback) ResourceSchemaAttributes() map[string]schema.Attribu
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesLoopback) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesLoopbackAddress.IsNull() && !o.LeafInterfacesLoopbackAddress.IsUnknown() {
-		jsonData["address"] = o.LeafInterfacesLoopbackAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesLoopbackDescrIPtion.IsNull() && !o.LeafInterfacesLoopbackDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafInterfacesLoopbackDescrIPtion.ValueString()
-	}
-
-	if !o.LeafInterfacesLoopbackRedirect.IsNull() && !o.LeafInterfacesLoopbackRedirect.IsUnknown() {
-		jsonData["redirect"] = o.LeafInterfacesLoopbackRedirect.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesLoopbackIP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesLoopbackIP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ip"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesLoopbackMirror).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesLoopbackMirror)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["mirror"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesLoopback) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafInterfacesLoopbackAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesLoopbackAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafInterfacesLoopbackDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesLoopbackDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["redirect"]; ok {
-		o.LeafInterfacesLoopbackRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesLoopbackRedirect = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["ip"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesLoopbackIP = &InterfacesLoopbackIP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesLoopbackIP)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["mirror"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesLoopbackMirror = &InterfacesLoopbackMirror{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesLoopbackMirror)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesLoopback) UnmarshalJSON(_ []byte) error {
 	return nil
 }

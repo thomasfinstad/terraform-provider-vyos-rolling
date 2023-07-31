@@ -2,17 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesOpenvpnServerClientIPPool describes the resource data model.
 type InterfacesOpenvpnServerClientIPPool struct {
 	// LeafNodes
-	LeafInterfacesOpenvpnServerClientIPPoolDisable    types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafInterfacesOpenvpnServerClientIPPoolDisable    types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafInterfacesOpenvpnServerClientIPPoolStart      types.String `tfsdk:"start" vyos:"start,omitempty"`
 	LeafInterfacesOpenvpnServerClientIPPoolStop       types.String `tfsdk:"stop" vyos:"stop,omitempty"`
 	LeafInterfacesOpenvpnServerClientIPPoolSubnetMask types.String `tfsdk:"subnet_mask" vyos:"subnet-mask,omitempty"`
@@ -27,11 +25,13 @@ func (o InterfacesOpenvpnServerClientIPPool) ResourceSchemaAttributes() map[stri
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"start": schema.StringAttribute{
@@ -74,71 +74,10 @@ func (o InterfacesOpenvpnServerClientIPPool) ResourceSchemaAttributes() map[stri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesOpenvpnServerClientIPPool) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesOpenvpnServerClientIPPoolDisable.IsNull() && !o.LeafInterfacesOpenvpnServerClientIPPoolDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafInterfacesOpenvpnServerClientIPPoolDisable.ValueString()
-	}
-
-	if !o.LeafInterfacesOpenvpnServerClientIPPoolStart.IsNull() && !o.LeafInterfacesOpenvpnServerClientIPPoolStart.IsUnknown() {
-		jsonData["start"] = o.LeafInterfacesOpenvpnServerClientIPPoolStart.ValueString()
-	}
-
-	if !o.LeafInterfacesOpenvpnServerClientIPPoolStop.IsNull() && !o.LeafInterfacesOpenvpnServerClientIPPoolStop.IsUnknown() {
-		jsonData["stop"] = o.LeafInterfacesOpenvpnServerClientIPPoolStop.ValueString()
-	}
-
-	if !o.LeafInterfacesOpenvpnServerClientIPPoolSubnetMask.IsNull() && !o.LeafInterfacesOpenvpnServerClientIPPoolSubnetMask.IsUnknown() {
-		jsonData["subnet-mask"] = o.LeafInterfacesOpenvpnServerClientIPPoolSubnetMask.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesOpenvpnServerClientIPPool) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafInterfacesOpenvpnServerClientIPPoolDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerClientIPPoolDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["start"]; ok {
-		o.LeafInterfacesOpenvpnServerClientIPPoolStart = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerClientIPPoolStart = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["stop"]; ok {
-		o.LeafInterfacesOpenvpnServerClientIPPoolStop = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerClientIPPoolStop = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["subnet-mask"]; ok {
-		o.LeafInterfacesOpenvpnServerClientIPPoolSubnetMask = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerClientIPPoolSubnetMask = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesOpenvpnServerClientIPPool) UnmarshalJSON(_ []byte) error {
 	return nil
 }

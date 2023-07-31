@@ -2,24 +2,22 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfvthreeAreaRange describes the resource data model.
 type VrfNameProtocolsOspfvthreeAreaRange struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVrfName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
-	ParentIDVrfNameProtocolsOspfvthreeArea any `tfsdk:"area" vyos:"area,parent-id"`
+	ParentIDVrfNameProtocolsOspfvthreeArea types.String `tfsdk:"area" vyos:"area_identifier,parent-id"`
 
 	// LeafNodes
-	LeafVrfNameProtocolsOspfvthreeAreaRangeAdvertise    types.String `tfsdk:"advertise" vyos:"advertise,omitempty"`
-	LeafVrfNameProtocolsOspfvthreeAreaRangeNotAdvertise types.String `tfsdk:"not_advertise" vyos:"not-advertise,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeAreaRangeAdvertise    types.Bool `tfsdk:"advertise" vyos:"advertise,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeAreaRangeNotAdvertise types.Bool `tfsdk:"not_advertise" vyos:"not-advertise,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -30,10 +28,17 @@ type VrfNameProtocolsOspfvthreeAreaRange struct {
 func (o *VrfNameProtocolsOspfvthreeAreaRange) GetVyosPath() []string {
 	return []string{
 		"vrf",
+
 		"name",
+		o.ParentIDVrfName.ValueString(),
+
 		"protocols",
+
 		"ospfv3",
+
 		"area",
+		o.ParentIDVrfNameProtocolsOspfvthreeArea.ValueString(),
+
 		"range",
 		o.ID.ValueString(),
 	}
@@ -53,20 +58,47 @@ func (o VrfNameProtocolsOspfvthreeAreaRange) ResourceSchemaAttributes() map[stri
 `,
 		},
 
-		// LeafNodes
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-		"advertise": schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `Advertise this range
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 `,
 		},
 
-		"not_advertise": schema.StringAttribute{
+		"area_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `OSPFv3 Area
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32  |  Area ID as a decimal value  |
+    |  ipv4  |  Area ID in IP address forma  |
+
+`,
+		},
+
+		// LeafNodes
+
+		"advertise": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Advertise this range
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
+		"not_advertise": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not advertise this range
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -76,51 +108,10 @@ func (o VrfNameProtocolsOspfvthreeAreaRange) ResourceSchemaAttributes() map[stri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfvthreeAreaRange) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfvthreeAreaRangeAdvertise.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeAreaRangeAdvertise.IsUnknown() {
-		jsonData["advertise"] = o.LeafVrfNameProtocolsOspfvthreeAreaRangeAdvertise.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfvthreeAreaRangeNotAdvertise.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeAreaRangeNotAdvertise.IsUnknown() {
-		jsonData["not-advertise"] = o.LeafVrfNameProtocolsOspfvthreeAreaRangeNotAdvertise.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfvthreeAreaRange) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["advertise"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeAreaRangeAdvertise = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeAreaRangeAdvertise = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["not-advertise"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeAreaRangeNotAdvertise = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeAreaRangeNotAdvertise = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfvthreeAreaRange) UnmarshalJSON(_ []byte) error {
 	return nil
 }

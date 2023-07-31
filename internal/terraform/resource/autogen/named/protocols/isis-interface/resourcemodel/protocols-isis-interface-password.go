@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsIsisInterfacePassword describes the resource data model.
@@ -54,51 +51,10 @@ func (o ProtocolsIsisInterfacePassword) ResourceSchemaAttributes() map[string]sc
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsIsisInterfacePassword) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsIsisInterfacePasswordPlaintextPassword.IsNull() && !o.LeafProtocolsIsisInterfacePasswordPlaintextPassword.IsUnknown() {
-		jsonData["plaintext-password"] = o.LeafProtocolsIsisInterfacePasswordPlaintextPassword.ValueString()
-	}
-
-	if !o.LeafProtocolsIsisInterfacePasswordMdfive.IsNull() && !o.LeafProtocolsIsisInterfacePasswordMdfive.IsUnknown() {
-		jsonData["md5"] = o.LeafProtocolsIsisInterfacePasswordMdfive.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsIsisInterfacePassword) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["plaintext-password"]; ok {
-		o.LeafProtocolsIsisInterfacePasswordPlaintextPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIsisInterfacePasswordPlaintextPassword = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["md5"]; ok {
-		o.LeafProtocolsIsisInterfacePasswordMdfive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIsisInterfacePasswordMdfive = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsIsisInterfacePassword) UnmarshalJSON(_ []byte) error {
 	return nil
 }

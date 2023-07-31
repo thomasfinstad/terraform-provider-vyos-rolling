@@ -2,24 +2,22 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceRouterAdvertInterfacePrefix describes the resource data model.
 type ServiceRouterAdvertInterfacePrefix struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDServiceRouterAdvertInterface any `tfsdk:"interface" vyos:"interface,parent-id"`
+	ParentIDServiceRouterAdvertInterface types.String `tfsdk:"interface" vyos:"interface_identifier,parent-id"`
 
 	// LeafNodes
-	LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag  types.String `tfsdk:"no_autonomous_flag" vyos:"no-autonomous-flag,omitempty"`
-	LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag      types.String `tfsdk:"no_on_link_flag" vyos:"no-on-link-flag,omitempty"`
-	LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix   types.String `tfsdk:"deprecate_prefix" vyos:"deprecate-prefix,omitempty"`
-	LeafServiceRouterAdvertInterfacePrefixDecrementLifetime types.String `tfsdk:"decrement_lifetime" vyos:"decrement-lifetime,omitempty"`
+	LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag  types.Bool   `tfsdk:"no_autonomous_flag" vyos:"no-autonomous-flag,omitempty"`
+	LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag      types.Bool   `tfsdk:"no_on_link_flag" vyos:"no-on-link-flag,omitempty"`
+	LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix   types.Bool   `tfsdk:"deprecate_prefix" vyos:"deprecate-prefix,omitempty"`
+	LeafServiceRouterAdvertInterfacePrefixDecrementLifetime types.Bool   `tfsdk:"decrement_lifetime" vyos:"decrement-lifetime,omitempty"`
 	LeafServiceRouterAdvertInterfacePrefixPreferredLifetime types.String `tfsdk:"preferred_lifetime" vyos:"preferred-lifetime,omitempty"`
 	LeafServiceRouterAdvertInterfacePrefixValIDLifetime     types.String `tfsdk:"valid_lifetime" vyos:"valid-lifetime,omitempty"`
 
@@ -32,8 +30,12 @@ type ServiceRouterAdvertInterfacePrefix struct {
 func (o *ServiceRouterAdvertInterfacePrefix) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"router-advert",
+
 		"interface",
+		o.ParentIDServiceRouterAdvertInterface.ValueString(),
+
 		"prefix",
 		o.ID.ValueString(),
 	}
@@ -53,34 +55,49 @@ func (o ServiceRouterAdvertInterfacePrefix) ResourceSchemaAttributes() map[strin
 `,
 		},
 
+		"interface_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Interface to send RA on
+
+`,
+		},
+
 		// LeafNodes
 
-		"no_autonomous_flag": schema.StringAttribute{
+		"no_autonomous_flag": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Prefix can not be used for stateless address auto-configuration
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"no_on_link_flag": schema.StringAttribute{
+		"no_on_link_flag": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Prefix can not be used for on-link determination
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"deprecate_prefix": schema.StringAttribute{
+		"deprecate_prefix": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Upon shutdown, this option will deprecate the prefix by announcing it in the shutdown RA
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"decrement_lifetime": schema.StringAttribute{
+		"decrement_lifetime": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Lifetime is decremented by the number of seconds since the last RA - use in conjunction with a DHCPv6-PD prefix
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"preferred_lifetime": schema.StringAttribute{
@@ -120,91 +137,10 @@ func (o ServiceRouterAdvertInterfacePrefix) ResourceSchemaAttributes() map[strin
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceRouterAdvertInterfacePrefix) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag.IsNull() && !o.LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag.IsUnknown() {
-		jsonData["no-autonomous-flag"] = o.LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag.ValueString()
-	}
-
-	if !o.LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag.IsNull() && !o.LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag.IsUnknown() {
-		jsonData["no-on-link-flag"] = o.LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag.ValueString()
-	}
-
-	if !o.LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix.IsNull() && !o.LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix.IsUnknown() {
-		jsonData["deprecate-prefix"] = o.LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix.ValueString()
-	}
-
-	if !o.LeafServiceRouterAdvertInterfacePrefixDecrementLifetime.IsNull() && !o.LeafServiceRouterAdvertInterfacePrefixDecrementLifetime.IsUnknown() {
-		jsonData["decrement-lifetime"] = o.LeafServiceRouterAdvertInterfacePrefixDecrementLifetime.ValueString()
-	}
-
-	if !o.LeafServiceRouterAdvertInterfacePrefixPreferredLifetime.IsNull() && !o.LeafServiceRouterAdvertInterfacePrefixPreferredLifetime.IsUnknown() {
-		jsonData["preferred-lifetime"] = o.LeafServiceRouterAdvertInterfacePrefixPreferredLifetime.ValueString()
-	}
-
-	if !o.LeafServiceRouterAdvertInterfacePrefixValIDLifetime.IsNull() && !o.LeafServiceRouterAdvertInterfacePrefixValIDLifetime.IsUnknown() {
-		jsonData["valid-lifetime"] = o.LeafServiceRouterAdvertInterfacePrefixValIDLifetime.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceRouterAdvertInterfacePrefix) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["no-autonomous-flag"]; ok {
-		o.LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["no-on-link-flag"]; ok {
-		o.LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["deprecate-prefix"]; ok {
-		o.LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["decrement-lifetime"]; ok {
-		o.LeafServiceRouterAdvertInterfacePrefixDecrementLifetime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfacePrefixDecrementLifetime = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["preferred-lifetime"]; ok {
-		o.LeafServiceRouterAdvertInterfacePrefixPreferredLifetime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfacePrefixPreferredLifetime = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["valid-lifetime"]; ok {
-		o.LeafServiceRouterAdvertInterfacePrefixValIDLifetime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfacePrefixValIDLifetime = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceRouterAdvertInterfacePrefix) UnmarshalJSON(_ []byte) error {
 	return nil
 }

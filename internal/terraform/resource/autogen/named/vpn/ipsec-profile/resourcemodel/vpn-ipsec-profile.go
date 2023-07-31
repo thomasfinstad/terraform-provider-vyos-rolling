@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnIPsecProfile describes the resource data model.
@@ -15,7 +12,7 @@ type VpnIPsecProfile struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafVpnIPsecProfileDisable  types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafVpnIPsecProfileDisable  types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafVpnIPsecProfileEspGroup types.String `tfsdk:"esp_group" vyos:"esp-group,omitempty"`
 	LeafVpnIPsecProfileIkeGroup types.String `tfsdk:"ike_group" vyos:"ike-group,omitempty"`
 
@@ -30,7 +27,9 @@ type VpnIPsecProfile struct {
 func (o *VpnIPsecProfile) GetVyosPath() []string {
 	return []string{
 		"vpn",
+
 		"ipsec",
+
 		"profile",
 		o.ID.ValueString(),
 	}
@@ -52,11 +51,13 @@ func (o VpnIPsecProfile) ResourceSchemaAttributes() map[string]schema.Attribute 
 
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"esp_group": schema.StringAttribute{
@@ -95,115 +96,10 @@ func (o VpnIPsecProfile) ResourceSchemaAttributes() map[string]schema.Attribute 
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnIPsecProfile) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnIPsecProfileDisable.IsNull() && !o.LeafVpnIPsecProfileDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafVpnIPsecProfileDisable.ValueString()
-	}
-
-	if !o.LeafVpnIPsecProfileEspGroup.IsNull() && !o.LeafVpnIPsecProfileEspGroup.IsUnknown() {
-		jsonData["esp-group"] = o.LeafVpnIPsecProfileEspGroup.ValueString()
-	}
-
-	if !o.LeafVpnIPsecProfileIkeGroup.IsNull() && !o.LeafVpnIPsecProfileIkeGroup.IsUnknown() {
-		jsonData["ike-group"] = o.LeafVpnIPsecProfileIkeGroup.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVpnIPsecProfileAuthentication).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVpnIPsecProfileAuthentication)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["authentication"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVpnIPsecProfileBind).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVpnIPsecProfileBind)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["bind"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnIPsecProfile) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafVpnIPsecProfileDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecProfileDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["esp-group"]; ok {
-		o.LeafVpnIPsecProfileEspGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecProfileEspGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ike-group"]; ok {
-		o.LeafVpnIPsecProfileIkeGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecProfileIkeGroup = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["authentication"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVpnIPsecProfileAuthentication = &VpnIPsecProfileAuthentication{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVpnIPsecProfileAuthentication)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["bind"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVpnIPsecProfileBind = &VpnIPsecProfileBind{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVpnIPsecProfileBind)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VpnIPsecProfile) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -57,10 +57,21 @@ DHCPv6 prefix delegation interface statement
     |  Format  |  Description  |
     |----------|---------------|
     |  instance number  |  Prefix delegation instance (>= 0)  |
+- `vif_c_identifier` (String) QinQ TAG-C Virtual Local Area Network (VLAN) ID
+- `vif_s_identifier` (String) QinQ TAG-S Virtual Local Area Network (VLAN) ID
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
+- `wireless_identifier` (String) Wireless (WiFi/WLAN) Network Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
 
 ### Optional
 
-- `length` (String) Request IPv6 prefix length from peer
+- `length` (Number) Request IPv6 prefix length from peer
 
     |  Format  |  Description  |
     |----------|---------------|

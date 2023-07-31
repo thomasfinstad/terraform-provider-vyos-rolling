@@ -32,32 +32,32 @@ Interface params
     |  level-1  |  Level-1 only adjacencies are formed  |
     |  level-1-2  |  Level-1-2 adjacencies are formed  |
     |  level-2-only  |  Level-2 only adjacencies are formed  |
-- `hello_interval` (String) Set Hello interval
+- `hello_interval` (Number) Set Hello interval
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-600  |  Set Hello interval  |
-- `hello_multiplier` (String) Set Hello interval
+- `hello_multiplier` (Number) Set Hello interval
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:2-100  |  Set multiplier for Hello holding time  |
-- `hello_padding` (String) Add padding to IS-IS hello packets
-- `metric` (String) Set default metric for circuit
+- `hello_padding` (Boolean) Add padding to IS-IS hello packets
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-16777215  |  Default metric value  |
 - `network` (Attributes) Set network type (see [below for nested schema](#nestedatt--network))
-- `no_three_way_handshake` (String) Disable three-way handshake
-- `passive` (String) Configure passive mode for interface
+- `no_three_way_handshake` (Boolean) Disable three-way handshake
+- `passive` (Boolean) Configure passive mode for interface
 - `password` (Attributes) Configure the authentication password for a circuit (see [below for nested schema](#nestedatt--password))
-- `priority` (String) Set priority for Designated Router election
+- `priority` (Number) Set priority for Designated Router election
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-127  |  Priority value  |
-- `psnp_interval` (String) Set PSNP interval
+- `psnp_interval` (Number) Set PSNP interval
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -80,7 +80,7 @@ Optional:
 
 Optional:
 
-- `point_to_point` (String) point-to-point network type
+- `point_to_point` (Boolean) point-to-point network type
 
 
 <a id="nestedatt--password"></a>

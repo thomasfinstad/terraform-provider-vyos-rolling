@@ -38,16 +38,16 @@ Configures BFD peer to listen and talk to
 
 ### Optional
 
-- `echo_mode` (String) Enables the echo transmission mode
+- `echo_mode` (Boolean) Enables the echo transmission mode
 - `interval` (Attributes) Configure timer intervals (see [below for nested schema](#nestedatt--interval))
-- `multihop` (String) Allow this BFD peer to not be directly connected
-- `passive` (String) Do not attempt to start sessions
+- `multihop` (Boolean) Allow this BFD peer to not be directly connected
+- `passive` (Boolean) Do not attempt to start sessions
 - `profile` (String) Use settings from BFD profile
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  BFD profile name  |
-- `shutdown` (String) Disable this peer
+- `shutdown` (Boolean) Disable this peer
 - `source` (Attributes) Bind listener to specified interface/address, mandatory for IPv6 (see [below for nested schema](#nestedatt--source))
 - `vrf` (String) VRF instance name
 
@@ -60,22 +60,22 @@ Configures BFD peer to listen and talk to
 
 Optional:
 
-- `echo_interval` (String) Echo receive transmission interval
+- `echo_interval` (Number) Echo receive transmission interval
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:10-60000  |  The minimal echo receive transmission interval that this system is capable of handling  |
-- `multiplier` (String) Multiplier to determine packet loss
+- `multiplier` (Number) Multiplier to determine packet loss
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:2-255  |  Remote transmission interval will be multiplied by this value  |
-- `receive` (String) Minimum interval of receiving control packets
+- `receive` (Number) Minimum interval of receiving control packets
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:10-60000  |  Interval in milliseconds  |
-- `transmit` (String) Minimum interval of transmitting control packets
+- `transmit` (Number) Minimum interval of transmitting control packets
 
     |  Format  |  Description  |
     |----------|---------------|

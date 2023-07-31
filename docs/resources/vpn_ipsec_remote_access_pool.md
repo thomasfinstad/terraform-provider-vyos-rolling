@@ -30,13 +30,13 @@ IP address pool for remote access users
 
 ### Optional
 
-- `exclude` (String) Local IPv4 or IPv6 pool prefix exclusions
+- `exclude` (List of String) Local IPv4 or IPv6 pool prefix exclusions
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4net  |  Local IPv4 pool prefix exclusion  |
     |  ipv6net  |  Local IPv6 pool prefix exclusion  |
-- `name_server` (String) Domain Name Servers (DNS) addresses
+- `name_server` (List of String) Domain Name Servers (DNS) addresses
 
     |  Format  |  Description  |
     |----------|---------------|

@@ -2,17 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesPppoeIPvsixAddress describes the resource data model.
 type InterfacesPppoeIPvsixAddress struct {
 	// LeafNodes
-	LeafInterfacesPppoeIPvsixAddressAutoconf types.String `tfsdk:"autoconf" vyos:"autoconf,omitempty"`
+	LeafInterfacesPppoeIPvsixAddressAutoconf types.Bool `tfsdk:"autoconf" vyos:"autoconf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,11 +22,13 @@ func (o InterfacesPppoeIPvsixAddress) ResourceSchemaAttributes() map[string]sche
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"autoconf": schema.StringAttribute{
+		"autoconf": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -38,41 +38,10 @@ func (o InterfacesPppoeIPvsixAddress) ResourceSchemaAttributes() map[string]sche
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesPppoeIPvsixAddress) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesPppoeIPvsixAddressAutoconf.IsNull() && !o.LeafInterfacesPppoeIPvsixAddressAutoconf.IsUnknown() {
-		jsonData["autoconf"] = o.LeafInterfacesPppoeIPvsixAddressAutoconf.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesPppoeIPvsixAddress) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["autoconf"]; ok {
-		o.LeafInterfacesPppoeIPvsixAddressAutoconf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPppoeIPvsixAddressAutoconf = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesPppoeIPvsixAddress) UnmarshalJSON(_ []byte) error {
 	return nil
 }

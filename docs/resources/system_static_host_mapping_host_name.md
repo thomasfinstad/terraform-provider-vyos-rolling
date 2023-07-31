@@ -24,8 +24,8 @@ Host name for static address mapping
 
 ### Optional
 
-- `alias` (String) Alias for this address
-- `inet` (String) IP Address
+- `alias` (List of String) Alias for this address
+- `inet` (List of String) IP Address
 
     |  Format  |  Description  |
     |----------|---------------|

@@ -33,6 +33,6 @@ User name for authentication
 
 ### Optional
 
-- `disable` (String) Disable instance
+- `disable` (Boolean) Disable instance
 - `password` (String) Password for authentication
 - `static_ip` (String) Static client IP address

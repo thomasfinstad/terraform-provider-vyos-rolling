@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasIn describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasIn struct {
 	// LeafNodes
-	LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasInNumber types.String `tfsdk:"number" vyos:"number,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasInNumber types.Number `tfsdk:"number" vyos:"number,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,7 +21,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasIn) Resource
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"number": schema.StringAttribute{
+		"number": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of occurrences of AS number
 
@@ -42,41 +39,10 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasIn) Resource
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasIn) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasInNumber.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasInNumber.IsUnknown() {
-		jsonData["number"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasInNumber.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasIn) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["number"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasInNumber = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasInNumber = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasIn) UnmarshalJSON(_ []byte) error {
 	return nil
 }

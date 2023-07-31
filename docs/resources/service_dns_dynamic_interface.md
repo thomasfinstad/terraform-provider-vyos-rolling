@@ -27,7 +27,7 @@ Interface to send DDNS updates for
 
 ### Optional
 
-- `ipv6_enable` (String) Allow explicit IPv6 addresses for Dynamic DNS for this interface
+- `ipv6_enable` (Boolean) Allow explicit IPv6 addresses for Dynamic DNS for this interface
 - `use_web` (Attributes) Web check used for obtaining the external IP address (see [below for nested schema](#nestedatt--use_web))
 
 <a id="nestedatt--use_web"></a>

@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyDropTail describes the resource data model.
@@ -15,7 +12,7 @@ type QosPolicyDropTail struct {
 
 	// LeafNodes
 	LeafQosPolicyDropTailDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafQosPolicyDropTailQueueLimit  types.String `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
+	LeafQosPolicyDropTailQueueLimit  types.Number `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,7 +23,9 @@ type QosPolicyDropTail struct {
 func (o *QosPolicyDropTail) GetVyosPath() []string {
 	return []string{
 		"qos",
+
 		"policy",
+
 		"drop-tail",
 		o.ID.ValueString(),
 	}
@@ -59,7 +58,7 @@ func (o QosPolicyDropTail) ResourceSchemaAttributes() map[string]schema.Attribut
 `,
 		},
 
-		"queue_limit": schema.StringAttribute{
+		"queue_limit": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
@@ -77,51 +76,10 @@ func (o QosPolicyDropTail) ResourceSchemaAttributes() map[string]schema.Attribut
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyDropTail) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyDropTailDescrIPtion.IsNull() && !o.LeafQosPolicyDropTailDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafQosPolicyDropTailDescrIPtion.ValueString()
-	}
-
-	if !o.LeafQosPolicyDropTailQueueLimit.IsNull() && !o.LeafQosPolicyDropTailQueueLimit.IsUnknown() {
-		jsonData["queue-limit"] = o.LeafQosPolicyDropTailQueueLimit.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyDropTail) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafQosPolicyDropTailDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyDropTailDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["queue-limit"]; ok {
-		o.LeafQosPolicyDropTailQueueLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyDropTailQueueLimit = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyDropTail) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,23 +2,21 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpPeerGroupLocalRole describes the resource data model.
 type VrfNameProtocolsBgpPeerGroupLocalRole struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVrfName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
-	ParentIDVrfNameProtocolsBgpPeerGroup any `tfsdk:"peer_group" vyos:"peer-group,parent-id"`
+	ParentIDVrfNameProtocolsBgpPeerGroup types.String `tfsdk:"peer_group" vyos:"peer-group_identifier,parent-id"`
 
 	// LeafNodes
-	LeafVrfNameProtocolsBgpPeerGroupLocalRoleStrict types.String `tfsdk:"strict" vyos:"strict,omitempty"`
+	LeafVrfNameProtocolsBgpPeerGroupLocalRoleStrict types.Bool `tfsdk:"strict" vyos:"strict,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -29,10 +27,17 @@ type VrfNameProtocolsBgpPeerGroupLocalRole struct {
 func (o *VrfNameProtocolsBgpPeerGroupLocalRole) GetVyosPath() []string {
 	return []string{
 		"vrf",
+
 		"name",
+		o.ParentIDVrfName.ValueString(),
+
 		"protocols",
+
 		"bgp",
+
 		"peer-group",
+		o.ParentIDVrfNameProtocolsBgpPeerGroup.ValueString(),
+
 		"local-role",
 		o.ID.ValueString(),
 	}
@@ -56,13 +61,33 @@ func (o VrfNameProtocolsBgpPeerGroupLocalRole) ResourceSchemaAttributes() map[st
 `,
 		},
 
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
+
+`,
+		},
+
+		"peer_group_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Name of peer-group
+
+`,
+		},
+
 		// LeafNodes
 
-		"strict": schema.StringAttribute{
+		"strict": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Neighbor must send this exact capability, otherwise a role missmatch notification will be sent
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -72,41 +97,10 @@ func (o VrfNameProtocolsBgpPeerGroupLocalRole) ResourceSchemaAttributes() map[st
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpPeerGroupLocalRole) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpPeerGroupLocalRoleStrict.IsNull() && !o.LeafVrfNameProtocolsBgpPeerGroupLocalRoleStrict.IsUnknown() {
-		jsonData["strict"] = o.LeafVrfNameProtocolsBgpPeerGroupLocalRoleStrict.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpPeerGroupLocalRole) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["strict"]; ok {
-		o.LeafVrfNameProtocolsBgpPeerGroupLocalRoleStrict = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpPeerGroupLocalRoleStrict = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpPeerGroupLocalRole) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PkiCa describes the resource data model.
@@ -17,8 +14,8 @@ type PkiCa struct {
 	// LeafNodes
 	LeafPkiCaCertificate types.String `tfsdk:"certificate" vyos:"certificate,omitempty"`
 	LeafPkiCaDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafPkiCaCrl         types.String `tfsdk:"crl" vyos:"crl,omitempty"`
-	LeafPkiCaRevoke      types.String `tfsdk:"revoke" vyos:"revoke,omitempty"`
+	LeafPkiCaCrl         types.List   `tfsdk:"crl" vyos:"crl,omitempty"`
+	LeafPkiCaRevoke      types.Bool   `tfsdk:"revoke" vyos:"revoke,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -30,6 +27,7 @@ type PkiCa struct {
 func (o *PkiCa) GetVyosPath() []string {
 	return []string{
 		"pki",
+
 		"ca",
 		o.ID.ValueString(),
 	}
@@ -61,18 +59,21 @@ func (o PkiCa) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 
-		"crl": schema.StringAttribute{
-			Optional: true,
+		"crl": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Certificate revocation list in PEM format
 
 `,
 		},
 
-		"revoke": schema.StringAttribute{
+		"revoke": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `If parent CA is present, this CA certificate will be included in generated CRLs
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -89,98 +90,10 @@ func (o PkiCa) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PkiCa) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPkiCaCertificate.IsNull() && !o.LeafPkiCaCertificate.IsUnknown() {
-		jsonData["certificate"] = o.LeafPkiCaCertificate.ValueString()
-	}
-
-	if !o.LeafPkiCaDescrIPtion.IsNull() && !o.LeafPkiCaDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafPkiCaDescrIPtion.ValueString()
-	}
-
-	if !o.LeafPkiCaCrl.IsNull() && !o.LeafPkiCaCrl.IsUnknown() {
-		jsonData["crl"] = o.LeafPkiCaCrl.ValueString()
-	}
-
-	if !o.LeafPkiCaRevoke.IsNull() && !o.LeafPkiCaRevoke.IsUnknown() {
-		jsonData["revoke"] = o.LeafPkiCaRevoke.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodePkiCaPrivate).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePkiCaPrivate)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["private"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PkiCa) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["certificate"]; ok {
-		o.LeafPkiCaCertificate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiCaCertificate = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafPkiCaDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiCaDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["crl"]; ok {
-		o.LeafPkiCaCrl = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiCaCrl = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["revoke"]; ok {
-		o.LeafPkiCaRevoke = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiCaRevoke = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["private"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePkiCaPrivate = &PkiCaPrivate{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePkiCaPrivate)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *PkiCa) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -46,6 +46,11 @@ MD5 key id
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  OSPF key id  |
+- `interface_identifier` (String) Interface name
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Interface name  |
 
 ### Optional
 

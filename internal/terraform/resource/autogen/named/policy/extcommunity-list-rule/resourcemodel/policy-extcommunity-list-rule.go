@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyExtcommunityListRule describes the resource data model.
 type PolicyExtcommunityListRule struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDPolicyExtcommunityList any `tfsdk:"extcommunity_list" vyos:"extcommunity-list,parent-id"`
+	ParentIDPolicyExtcommunityList types.String `tfsdk:"extcommunity_list" vyos:"extcommunity-list_identifier,parent-id"`
 
 	// LeafNodes
 	LeafPolicyExtcommunityListRuleAction      types.String `tfsdk:"action" vyos:"action,omitempty"`
@@ -29,9 +26,12 @@ type PolicyExtcommunityListRule struct {
 func (o *PolicyExtcommunityListRule) GetVyosPath() []string {
 	return []string{
 		"policy",
+
 		"extcommunity-list",
+		o.ParentIDPolicyExtcommunityList.ValueString(),
+
 		"rule",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -45,6 +45,17 @@ func (o PolicyExtcommunityListRule) ResourceSchemaAttributes() map[string]schema
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Extended community-list rule number  |
+
+`,
+		},
+
+		"extcommunity_list_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Add a BGP extended community list entry
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  BGP extended community-list name  |
 
 `,
 		},
@@ -94,61 +105,10 @@ func (o PolicyExtcommunityListRule) ResourceSchemaAttributes() map[string]schema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyExtcommunityListRule) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyExtcommunityListRuleAction.IsNull() && !o.LeafPolicyExtcommunityListRuleAction.IsUnknown() {
-		jsonData["action"] = o.LeafPolicyExtcommunityListRuleAction.ValueString()
-	}
-
-	if !o.LeafPolicyExtcommunityListRuleDescrIPtion.IsNull() && !o.LeafPolicyExtcommunityListRuleDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafPolicyExtcommunityListRuleDescrIPtion.ValueString()
-	}
-
-	if !o.LeafPolicyExtcommunityListRuleRegex.IsNull() && !o.LeafPolicyExtcommunityListRuleRegex.IsUnknown() {
-		jsonData["regex"] = o.LeafPolicyExtcommunityListRuleRegex.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyExtcommunityListRule) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["action"]; ok {
-		o.LeafPolicyExtcommunityListRuleAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyExtcommunityListRuleAction = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafPolicyExtcommunityListRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyExtcommunityListRuleDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["regex"]; ok {
-		o.LeafPolicyExtcommunityListRuleRegex = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyExtcommunityListRuleRegex = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyExtcommunityListRule) UnmarshalJSON(_ []byte) error {
 	return nil
 }

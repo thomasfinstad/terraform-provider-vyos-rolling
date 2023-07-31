@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceWebproxyURLFilteringSquIDguardTimePeriod describes the resource data model.
@@ -26,9 +23,13 @@ type ServiceWebproxyURLFilteringSquIDguardTimePeriod struct {
 func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriod) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"webproxy",
+
 		"url-filtering",
+
 		"squidguard",
+
 		"time-period",
 		o.ID.ValueString(),
 	}
@@ -60,41 +61,10 @@ func (o ServiceWebproxyURLFilteringSquIDguardTimePeriod) ResourceSchemaAttribute
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriod) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDescrIPtion.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDescrIPtion.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriod) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriod) UnmarshalJSON(_ []byte) error {
 	return nil
 }

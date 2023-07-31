@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsStaticRouteBlackhole describes the resource data model.
 type ProtocolsStaticRouteBlackhole struct {
 	// LeafNodes
-	LeafProtocolsStaticRouteBlackholeDistance types.String `tfsdk:"distance" vyos:"distance,omitempty"`
-	LeafProtocolsStaticRouteBlackholeTag      types.String `tfsdk:"tag" vyos:"tag,omitempty"`
+	LeafProtocolsStaticRouteBlackholeDistance types.Number `tfsdk:"distance" vyos:"distance,omitempty"`
+	LeafProtocolsStaticRouteBlackholeTag      types.Number `tfsdk:"tag" vyos:"tag,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +22,7 @@ func (o ProtocolsStaticRouteBlackhole) ResourceSchemaAttributes() map[string]sch
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"distance": schema.StringAttribute{
+		"distance": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Distance for this route
 
@@ -36,7 +33,7 @@ func (o ProtocolsStaticRouteBlackhole) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 
-		"tag": schema.StringAttribute{
+		"tag": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Tag value for this route
 
@@ -54,51 +51,10 @@ func (o ProtocolsStaticRouteBlackhole) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsStaticRouteBlackhole) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsStaticRouteBlackholeDistance.IsNull() && !o.LeafProtocolsStaticRouteBlackholeDistance.IsUnknown() {
-		jsonData["distance"] = o.LeafProtocolsStaticRouteBlackholeDistance.ValueString()
-	}
-
-	if !o.LeafProtocolsStaticRouteBlackholeTag.IsNull() && !o.LeafProtocolsStaticRouteBlackholeTag.IsUnknown() {
-		jsonData["tag"] = o.LeafProtocolsStaticRouteBlackholeTag.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsStaticRouteBlackhole) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["distance"]; ok {
-		o.LeafProtocolsStaticRouteBlackholeDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticRouteBlackholeDistance = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["tag"]; ok {
-		o.LeafProtocolsStaticRouteBlackholeTag = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticRouteBlackholeTag = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsStaticRouteBlackhole) UnmarshalJSON(_ []byte) error {
 	return nil
 }

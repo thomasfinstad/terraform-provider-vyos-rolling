@@ -29,7 +29,7 @@ Interface to use for syncing conntrack entries
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  IP address to listen for incoming connections  |
-- `port` (String) Port number used by connection
+- `port` (Number) Port number used by connection
 
     |  Format  |  Description  |
     |----------|---------------|

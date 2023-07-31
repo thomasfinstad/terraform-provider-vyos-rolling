@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfRedistributeBabel describes the resource data model.
 type VrfNameProtocolsOspfRedistributeBabel struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfRedistributeBabelMetric     types.String `tfsdk:"metric" vyos:"metric,omitempty"`
-	LeafVrfNameProtocolsOspfRedistributeBabelMetricType types.String `tfsdk:"metric_type" vyos:"metric-type,omitempty"`
+	LeafVrfNameProtocolsOspfRedistributeBabelMetric     types.Number `tfsdk:"metric" vyos:"metric,omitempty"`
+	LeafVrfNameProtocolsOspfRedistributeBabelMetricType types.Number `tfsdk:"metric_type" vyos:"metric-type,omitempty"`
 	LeafVrfNameProtocolsOspfRedistributeBabelRouteMap   types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -26,7 +23,7 @@ func (o VrfNameProtocolsOspfRedistributeBabel) ResourceSchemaAttributes() map[st
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"metric": schema.StringAttribute{
+		"metric": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `OSPF default metric
 
@@ -37,7 +34,7 @@ func (o VrfNameProtocolsOspfRedistributeBabel) ResourceSchemaAttributes() map[st
 `,
 		},
 
-		"metric_type": schema.StringAttribute{
+		"metric_type": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `OSPF metric type for default routes
 
@@ -69,61 +66,10 @@ func (o VrfNameProtocolsOspfRedistributeBabel) ResourceSchemaAttributes() map[st
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfRedistributeBabel) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfRedistributeBabelMetric.IsNull() && !o.LeafVrfNameProtocolsOspfRedistributeBabelMetric.IsUnknown() {
-		jsonData["metric"] = o.LeafVrfNameProtocolsOspfRedistributeBabelMetric.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfRedistributeBabelMetricType.IsNull() && !o.LeafVrfNameProtocolsOspfRedistributeBabelMetricType.IsUnknown() {
-		jsonData["metric-type"] = o.LeafVrfNameProtocolsOspfRedistributeBabelMetricType.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfRedistributeBabelRouteMap.IsNull() && !o.LeafVrfNameProtocolsOspfRedistributeBabelRouteMap.IsUnknown() {
-		jsonData["route-map"] = o.LeafVrfNameProtocolsOspfRedistributeBabelRouteMap.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfRedistributeBabel) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["metric"]; ok {
-		o.LeafVrfNameProtocolsOspfRedistributeBabelMetric = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfRedistributeBabelMetric = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["metric-type"]; ok {
-		o.LeafVrfNameProtocolsOspfRedistributeBabelMetricType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfRedistributeBabelMetricType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["route-map"]; ok {
-		o.LeafVrfNameProtocolsOspfRedistributeBabelRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfRedistributeBabelRouteMap = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfRedistributeBabel) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,24 +2,21 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // LoadBalancingWanInterfaceHealthTest describes the resource data model.
 type LoadBalancingWanInterfaceHealthTest struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDLoadBalancingWanInterfaceHealth any `tfsdk:"interface_health" vyos:"interface-health,parent-id"`
+	ParentIDLoadBalancingWanInterfaceHealth types.String `tfsdk:"interface_health" vyos:"interface-health_identifier,parent-id"`
 
 	// LeafNodes
-	LeafLoadBalancingWanInterfaceHealthTestRespTime   types.String `tfsdk:"resp_time" vyos:"resp-time,omitempty"`
+	LeafLoadBalancingWanInterfaceHealthTestRespTime   types.Number `tfsdk:"resp_time" vyos:"resp-time,omitempty"`
 	LeafLoadBalancingWanInterfaceHealthTestTarget     types.String `tfsdk:"target" vyos:"target,omitempty"`
 	LeafLoadBalancingWanInterfaceHealthTestTestScrIPt types.String `tfsdk:"test_script" vyos:"test-script,omitempty"`
-	LeafLoadBalancingWanInterfaceHealthTestTTLLimit   types.String `tfsdk:"ttl_limit" vyos:"ttl-limit,omitempty"`
+	LeafLoadBalancingWanInterfaceHealthTestTTLLimit   types.Number `tfsdk:"ttl_limit" vyos:"ttl-limit,omitempty"`
 	LeafLoadBalancingWanInterfaceHealthTestType       types.String `tfsdk:"type" vyos:"type,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -31,10 +28,14 @@ type LoadBalancingWanInterfaceHealthTest struct {
 func (o *LoadBalancingWanInterfaceHealthTest) GetVyosPath() []string {
 	return []string{
 		"load-balancing",
+
 		"wan",
+
 		"interface-health",
+		o.ParentIDLoadBalancingWanInterfaceHealth.ValueString(),
+
 		"test",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -52,9 +53,16 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceSchemaAttributes() map[stri
 `,
 		},
 
+		"interface_health_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Interface name
+
+`,
+		},
+
 		// LeafNodes
 
-		"resp_time": schema.StringAttribute{
+		"resp_time": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Ping response time (seconds)
 
@@ -87,7 +95,7 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceSchemaAttributes() map[stri
 `,
 		},
 
-		"ttl_limit": schema.StringAttribute{
+		"ttl_limit": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TTL limit (hop count)
 
@@ -118,81 +126,10 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceSchemaAttributes() map[stri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *LoadBalancingWanInterfaceHealthTest) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafLoadBalancingWanInterfaceHealthTestRespTime.IsNull() && !o.LeafLoadBalancingWanInterfaceHealthTestRespTime.IsUnknown() {
-		jsonData["resp-time"] = o.LeafLoadBalancingWanInterfaceHealthTestRespTime.ValueString()
-	}
-
-	if !o.LeafLoadBalancingWanInterfaceHealthTestTarget.IsNull() && !o.LeafLoadBalancingWanInterfaceHealthTestTarget.IsUnknown() {
-		jsonData["target"] = o.LeafLoadBalancingWanInterfaceHealthTestTarget.ValueString()
-	}
-
-	if !o.LeafLoadBalancingWanInterfaceHealthTestTestScrIPt.IsNull() && !o.LeafLoadBalancingWanInterfaceHealthTestTestScrIPt.IsUnknown() {
-		jsonData["test-script"] = o.LeafLoadBalancingWanInterfaceHealthTestTestScrIPt.ValueString()
-	}
-
-	if !o.LeafLoadBalancingWanInterfaceHealthTestTTLLimit.IsNull() && !o.LeafLoadBalancingWanInterfaceHealthTestTTLLimit.IsUnknown() {
-		jsonData["ttl-limit"] = o.LeafLoadBalancingWanInterfaceHealthTestTTLLimit.ValueString()
-	}
-
-	if !o.LeafLoadBalancingWanInterfaceHealthTestType.IsNull() && !o.LeafLoadBalancingWanInterfaceHealthTestType.IsUnknown() {
-		jsonData["type"] = o.LeafLoadBalancingWanInterfaceHealthTestType.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *LoadBalancingWanInterfaceHealthTest) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["resp-time"]; ok {
-		o.LeafLoadBalancingWanInterfaceHealthTestRespTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanInterfaceHealthTestRespTime = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["target"]; ok {
-		o.LeafLoadBalancingWanInterfaceHealthTestTarget = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanInterfaceHealthTestTarget = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["test-script"]; ok {
-		o.LeafLoadBalancingWanInterfaceHealthTestTestScrIPt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanInterfaceHealthTestTestScrIPt = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ttl-limit"]; ok {
-		o.LeafLoadBalancingWanInterfaceHealthTestTTLLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanInterfaceHealthTestTTLLimit = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["type"]; ok {
-		o.LeafLoadBalancingWanInterfaceHealthTestType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanInterfaceHealthTestType = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *LoadBalancingWanInterfaceHealthTest) UnmarshalJSON(_ []byte) error {
 	return nil
 }

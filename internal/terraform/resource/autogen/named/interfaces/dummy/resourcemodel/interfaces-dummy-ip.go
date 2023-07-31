@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesDummyIP describes the resource data model.
 type InterfacesDummyIP struct {
 	// LeafNodes
 	LeafInterfacesDummyIPSourceValIDation  types.String `tfsdk:"source_validation" vyos:"source-validation,omitempty"`
-	LeafInterfacesDummyIPDisableForwarding types.String `tfsdk:"disable_forwarding" vyos:"disable-forwarding,omitempty"`
+	LeafInterfacesDummyIPDisableForwarding types.Bool   `tfsdk:"disable_forwarding" vyos:"disable-forwarding,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -38,11 +36,13 @@ func (o InterfacesDummyIP) ResourceSchemaAttributes() map[string]schema.Attribut
 `,
 		},
 
-		"disable_forwarding": schema.StringAttribute{
+		"disable_forwarding": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable IP forwarding on this interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -52,51 +52,10 @@ func (o InterfacesDummyIP) ResourceSchemaAttributes() map[string]schema.Attribut
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesDummyIP) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesDummyIPSourceValIDation.IsNull() && !o.LeafInterfacesDummyIPSourceValIDation.IsUnknown() {
-		jsonData["source-validation"] = o.LeafInterfacesDummyIPSourceValIDation.ValueString()
-	}
-
-	if !o.LeafInterfacesDummyIPDisableForwarding.IsNull() && !o.LeafInterfacesDummyIPDisableForwarding.IsUnknown() {
-		jsonData["disable-forwarding"] = o.LeafInterfacesDummyIPDisableForwarding.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesDummyIP) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["source-validation"]; ok {
-		o.LeafInterfacesDummyIPSourceValIDation = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesDummyIPSourceValIDation = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable-forwarding"]; ok {
-		o.LeafInterfacesDummyIPDisableForwarding = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesDummyIPDisableForwarding = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesDummyIP) UnmarshalJSON(_ []byte) error {
 	return nil
 }

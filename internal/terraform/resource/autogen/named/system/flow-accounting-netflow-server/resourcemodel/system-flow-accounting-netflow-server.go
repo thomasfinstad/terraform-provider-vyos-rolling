@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemFlowAccountingNetflowServer describes the resource data model.
@@ -14,7 +11,7 @@ type SystemFlowAccountingNetflowServer struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafSystemFlowAccountingNetflowServerPort types.String `tfsdk:"port" vyos:"port,omitempty"`
+	LeafSystemFlowAccountingNetflowServerPort types.Number `tfsdk:"port" vyos:"port,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,8 +22,11 @@ type SystemFlowAccountingNetflowServer struct {
 func (o *SystemFlowAccountingNetflowServer) GetVyosPath() []string {
 	return []string{
 		"system",
+
 		"flow-accounting",
+
 		"netflow",
+
 		"server",
 		o.ID.ValueString(),
 	}
@@ -49,7 +49,7 @@ func (o SystemFlowAccountingNetflowServer) ResourceSchemaAttributes() map[string
 
 		// LeafNodes
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `NetFlow port number
 
@@ -70,41 +70,10 @@ func (o SystemFlowAccountingNetflowServer) ResourceSchemaAttributes() map[string
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemFlowAccountingNetflowServer) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafSystemFlowAccountingNetflowServerPort.IsNull() && !o.LeafSystemFlowAccountingNetflowServerPort.IsUnknown() {
-		jsonData["port"] = o.LeafSystemFlowAccountingNetflowServerPort.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemFlowAccountingNetflowServer) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafSystemFlowAccountingNetflowServerPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemFlowAccountingNetflowServerPort = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *SystemFlowAccountingNetflowServer) UnmarshalJSON(_ []byte) error {
 	return nil
 }

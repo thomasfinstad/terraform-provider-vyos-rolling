@@ -2,11 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServicePppoeServerAuthenticationRadiusServer describes the resource data model.
@@ -14,12 +12,12 @@ type ServicePppoeServerAuthenticationRadiusServer struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafServicePppoeServerAuthenticationRadiusServerDisable           types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafServicePppoeServerAuthenticationRadiusServerDisable           types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafServicePppoeServerAuthenticationRadiusServerKey               types.String `tfsdk:"key" vyos:"key,omitempty"`
-	LeafServicePppoeServerAuthenticationRadiusServerPort              types.String `tfsdk:"port" vyos:"port,omitempty"`
-	LeafServicePppoeServerAuthenticationRadiusServerAcctPort          types.String `tfsdk:"acct_port" vyos:"acct-port,omitempty"`
-	LeafServicePppoeServerAuthenticationRadiusServerDisableAccounting types.String `tfsdk:"disable_accounting" vyos:"disable-accounting,omitempty"`
-	LeafServicePppoeServerAuthenticationRadiusServerFailTime          types.String `tfsdk:"fail_time" vyos:"fail-time,omitempty"`
+	LeafServicePppoeServerAuthenticationRadiusServerPort              types.Number `tfsdk:"port" vyos:"port,omitempty"`
+	LeafServicePppoeServerAuthenticationRadiusServerAcctPort          types.Number `tfsdk:"acct_port" vyos:"acct-port,omitempty"`
+	LeafServicePppoeServerAuthenticationRadiusServerDisableAccounting types.Bool   `tfsdk:"disable_accounting" vyos:"disable-accounting,omitempty"`
+	LeafServicePppoeServerAuthenticationRadiusServerFailTime          types.Number `tfsdk:"fail_time" vyos:"fail-time,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -30,9 +28,13 @@ type ServicePppoeServerAuthenticationRadiusServer struct {
 func (o *ServicePppoeServerAuthenticationRadiusServer) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"pppoe-server",
+
 		"authentication",
+
 		"radius",
+
 		"server",
 		o.ID.ValueString(),
 	}
@@ -54,11 +56,13 @@ func (o ServicePppoeServerAuthenticationRadiusServer) ResourceSchemaAttributes()
 
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"key": schema.StringAttribute{
@@ -68,7 +72,7 @@ func (o ServicePppoeServerAuthenticationRadiusServer) ResourceSchemaAttributes()
 `,
 		},
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Authentication port
 
@@ -82,7 +86,7 @@ func (o ServicePppoeServerAuthenticationRadiusServer) ResourceSchemaAttributes()
 			Computed: true,
 		},
 
-		"acct_port": schema.StringAttribute{
+		"acct_port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Accounting port
 
@@ -96,14 +100,16 @@ func (o ServicePppoeServerAuthenticationRadiusServer) ResourceSchemaAttributes()
 			Computed: true,
 		},
 
-		"disable_accounting": schema.StringAttribute{
+		"disable_accounting": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable accounting
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"fail_time": schema.StringAttribute{
+		"fail_time": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Mark server unavailable for <n> seconds on failure
 
@@ -124,91 +130,10 @@ func (o ServicePppoeServerAuthenticationRadiusServer) ResourceSchemaAttributes()
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServicePppoeServerAuthenticationRadiusServer) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServicePppoeServerAuthenticationRadiusServerDisable.IsNull() && !o.LeafServicePppoeServerAuthenticationRadiusServerDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafServicePppoeServerAuthenticationRadiusServerDisable.ValueString()
-	}
-
-	if !o.LeafServicePppoeServerAuthenticationRadiusServerKey.IsNull() && !o.LeafServicePppoeServerAuthenticationRadiusServerKey.IsUnknown() {
-		jsonData["key"] = o.LeafServicePppoeServerAuthenticationRadiusServerKey.ValueString()
-	}
-
-	if !o.LeafServicePppoeServerAuthenticationRadiusServerPort.IsNull() && !o.LeafServicePppoeServerAuthenticationRadiusServerPort.IsUnknown() {
-		jsonData["port"] = o.LeafServicePppoeServerAuthenticationRadiusServerPort.ValueString()
-	}
-
-	if !o.LeafServicePppoeServerAuthenticationRadiusServerAcctPort.IsNull() && !o.LeafServicePppoeServerAuthenticationRadiusServerAcctPort.IsUnknown() {
-		jsonData["acct-port"] = o.LeafServicePppoeServerAuthenticationRadiusServerAcctPort.ValueString()
-	}
-
-	if !o.LeafServicePppoeServerAuthenticationRadiusServerDisableAccounting.IsNull() && !o.LeafServicePppoeServerAuthenticationRadiusServerDisableAccounting.IsUnknown() {
-		jsonData["disable-accounting"] = o.LeafServicePppoeServerAuthenticationRadiusServerDisableAccounting.ValueString()
-	}
-
-	if !o.LeafServicePppoeServerAuthenticationRadiusServerFailTime.IsNull() && !o.LeafServicePppoeServerAuthenticationRadiusServerFailTime.IsUnknown() {
-		jsonData["fail-time"] = o.LeafServicePppoeServerAuthenticationRadiusServerFailTime.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServicePppoeServerAuthenticationRadiusServer) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafServicePppoeServerAuthenticationRadiusServerDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServicePppoeServerAuthenticationRadiusServerDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["key"]; ok {
-		o.LeafServicePppoeServerAuthenticationRadiusServerKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServicePppoeServerAuthenticationRadiusServerKey = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafServicePppoeServerAuthenticationRadiusServerPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServicePppoeServerAuthenticationRadiusServerPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["acct-port"]; ok {
-		o.LeafServicePppoeServerAuthenticationRadiusServerAcctPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServicePppoeServerAuthenticationRadiusServerAcctPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable-accounting"]; ok {
-		o.LeafServicePppoeServerAuthenticationRadiusServerDisableAccounting = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServicePppoeServerAuthenticationRadiusServerDisableAccounting = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["fail-time"]; ok {
-		o.LeafServicePppoeServerAuthenticationRadiusServerFailTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServicePppoeServerAuthenticationRadiusServerFailTime = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServicePppoeServerAuthenticationRadiusServer) UnmarshalJSON(_ []byte) error {
 	return nil
 }

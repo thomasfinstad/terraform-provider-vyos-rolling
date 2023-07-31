@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesMacsecSecURItyMka describes the resource data model.
@@ -14,7 +11,7 @@ type InterfacesMacsecSecURItyMka struct {
 	// LeafNodes
 	LeafInterfacesMacsecSecURItyMkaCak      types.String `tfsdk:"cak" vyos:"cak,omitempty"`
 	LeafInterfacesMacsecSecURItyMkaCkn      types.String `tfsdk:"ckn" vyos:"ckn,omitempty"`
-	LeafInterfacesMacsecSecURItyMkaPriority types.String `tfsdk:"priority" vyos:"priority,omitempty"`
+	LeafInterfacesMacsecSecURItyMkaPriority types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -48,7 +45,7 @@ func (o InterfacesMacsecSecURItyMka) ResourceSchemaAttributes() map[string]schem
 `,
 		},
 
-		"priority": schema.StringAttribute{
+		"priority": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Priority of MACsec Key Agreement protocol (MKA) actor
 
@@ -69,61 +66,10 @@ func (o InterfacesMacsecSecURItyMka) ResourceSchemaAttributes() map[string]schem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesMacsecSecURItyMka) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesMacsecSecURItyMkaCak.IsNull() && !o.LeafInterfacesMacsecSecURItyMkaCak.IsUnknown() {
-		jsonData["cak"] = o.LeafInterfacesMacsecSecURItyMkaCak.ValueString()
-	}
-
-	if !o.LeafInterfacesMacsecSecURItyMkaCkn.IsNull() && !o.LeafInterfacesMacsecSecURItyMkaCkn.IsUnknown() {
-		jsonData["ckn"] = o.LeafInterfacesMacsecSecURItyMkaCkn.ValueString()
-	}
-
-	if !o.LeafInterfacesMacsecSecURItyMkaPriority.IsNull() && !o.LeafInterfacesMacsecSecURItyMkaPriority.IsUnknown() {
-		jsonData["priority"] = o.LeafInterfacesMacsecSecURItyMkaPriority.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesMacsecSecURItyMka) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["cak"]; ok {
-		o.LeafInterfacesMacsecSecURItyMkaCak = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesMacsecSecURItyMkaCak = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ckn"]; ok {
-		o.LeafInterfacesMacsecSecURItyMkaCkn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesMacsecSecURItyMkaCkn = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["priority"]; ok {
-		o.LeafInterfacesMacsecSecURItyMkaPriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesMacsecSecURItyMkaPriority = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesMacsecSecURItyMka) UnmarshalJSON(_ []byte) error {
 	return nil
 }

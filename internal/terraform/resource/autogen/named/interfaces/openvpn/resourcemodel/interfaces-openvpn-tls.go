@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesOpenvpnTLS describes the resource data model.
@@ -14,7 +11,7 @@ type InterfacesOpenvpnTLS struct {
 	// LeafNodes
 	LeafInterfacesOpenvpnTLSAuthKey       types.String `tfsdk:"auth_key" vyos:"auth-key,omitempty"`
 	LeafInterfacesOpenvpnTLSCertificate   types.String `tfsdk:"certificate" vyos:"certificate,omitempty"`
-	LeafInterfacesOpenvpnTLSCaCertificate types.String `tfsdk:"ca_certificate" vyos:"ca-certificate,omitempty"`
+	LeafInterfacesOpenvpnTLSCaCertificate types.List   `tfsdk:"ca_certificate" vyos:"ca-certificate,omitempty"`
 	LeafInterfacesOpenvpnTLSDhParams      types.String `tfsdk:"dh_params" vyos:"dh-params,omitempty"`
 	LeafInterfacesOpenvpnTLSCryptKey      types.String `tfsdk:"crypt_key" vyos:"crypt-key,omitempty"`
 	LeafInterfacesOpenvpnTLSTLSVersionMin types.String `tfsdk:"tls_version_min" vyos:"tls-version-min,omitempty"`
@@ -48,8 +45,9 @@ func (o InterfacesOpenvpnTLS) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 
-		"ca_certificate": schema.StringAttribute{
-			Optional: true,
+		"ca_certificate": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Certificate Authority chain in PKI configuration
 
     |  Format  |  Description  |
@@ -106,101 +104,10 @@ func (o InterfacesOpenvpnTLS) ResourceSchemaAttributes() map[string]schema.Attri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesOpenvpnTLS) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesOpenvpnTLSAuthKey.IsNull() && !o.LeafInterfacesOpenvpnTLSAuthKey.IsUnknown() {
-		jsonData["auth-key"] = o.LeafInterfacesOpenvpnTLSAuthKey.ValueString()
-	}
-
-	if !o.LeafInterfacesOpenvpnTLSCertificate.IsNull() && !o.LeafInterfacesOpenvpnTLSCertificate.IsUnknown() {
-		jsonData["certificate"] = o.LeafInterfacesOpenvpnTLSCertificate.ValueString()
-	}
-
-	if !o.LeafInterfacesOpenvpnTLSCaCertificate.IsNull() && !o.LeafInterfacesOpenvpnTLSCaCertificate.IsUnknown() {
-		jsonData["ca-certificate"] = o.LeafInterfacesOpenvpnTLSCaCertificate.ValueString()
-	}
-
-	if !o.LeafInterfacesOpenvpnTLSDhParams.IsNull() && !o.LeafInterfacesOpenvpnTLSDhParams.IsUnknown() {
-		jsonData["dh-params"] = o.LeafInterfacesOpenvpnTLSDhParams.ValueString()
-	}
-
-	if !o.LeafInterfacesOpenvpnTLSCryptKey.IsNull() && !o.LeafInterfacesOpenvpnTLSCryptKey.IsUnknown() {
-		jsonData["crypt-key"] = o.LeafInterfacesOpenvpnTLSCryptKey.ValueString()
-	}
-
-	if !o.LeafInterfacesOpenvpnTLSTLSVersionMin.IsNull() && !o.LeafInterfacesOpenvpnTLSTLSVersionMin.IsUnknown() {
-		jsonData["tls-version-min"] = o.LeafInterfacesOpenvpnTLSTLSVersionMin.ValueString()
-	}
-
-	if !o.LeafInterfacesOpenvpnTLSRole.IsNull() && !o.LeafInterfacesOpenvpnTLSRole.IsUnknown() {
-		jsonData["role"] = o.LeafInterfacesOpenvpnTLSRole.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesOpenvpnTLS) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["auth-key"]; ok {
-		o.LeafInterfacesOpenvpnTLSAuthKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnTLSAuthKey = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["certificate"]; ok {
-		o.LeafInterfacesOpenvpnTLSCertificate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnTLSCertificate = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ca-certificate"]; ok {
-		o.LeafInterfacesOpenvpnTLSCaCertificate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnTLSCaCertificate = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["dh-params"]; ok {
-		o.LeafInterfacesOpenvpnTLSDhParams = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnTLSDhParams = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["crypt-key"]; ok {
-		o.LeafInterfacesOpenvpnTLSCryptKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnTLSCryptKey = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["tls-version-min"]; ok {
-		o.LeafInterfacesOpenvpnTLSTLSVersionMin = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnTLSTLSVersionMin = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["role"]; ok {
-		o.LeafInterfacesOpenvpnTLSRole = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnTLSRole = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesOpenvpnTLS) UnmarshalJSON(_ []byte) error {
 	return nil
 }

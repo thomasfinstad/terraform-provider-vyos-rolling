@@ -42,5 +42,5 @@ Interface name
 
 Optional:
 
-- `disable` (String) Disable split horizon on specified interface
-- `poison_reverse` (String) Disable split horizon on specified interface
+- `disable` (Boolean) Disable split horizon on specified interface
+- `poison_reverse` (Boolean) Disable split horizon on specified interface

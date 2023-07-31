@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemTaskSchedulerTask describes the resource data model.
@@ -28,7 +24,9 @@ type SystemTaskSchedulerTask struct {
 func (o *SystemTaskSchedulerTask) GetVyosPath() []string {
 	return []string{
 		"system",
+
 		"task-scheduler",
+
 		"task",
 		o.ID.ValueString(),
 	}
@@ -85,78 +83,10 @@ func (o SystemTaskSchedulerTask) ResourceSchemaAttributes() map[string]schema.At
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemTaskSchedulerTask) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafSystemTaskSchedulerTaskCrontabSpec.IsNull() && !o.LeafSystemTaskSchedulerTaskCrontabSpec.IsUnknown() {
-		jsonData["crontab-spec"] = o.LeafSystemTaskSchedulerTaskCrontabSpec.ValueString()
-	}
-
-	if !o.LeafSystemTaskSchedulerTaskInterval.IsNull() && !o.LeafSystemTaskSchedulerTaskInterval.IsUnknown() {
-		jsonData["interval"] = o.LeafSystemTaskSchedulerTaskInterval.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeSystemTaskSchedulerTaskExecutable).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeSystemTaskSchedulerTaskExecutable)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["executable"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemTaskSchedulerTask) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["crontab-spec"]; ok {
-		o.LeafSystemTaskSchedulerTaskCrontabSpec = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemTaskSchedulerTaskCrontabSpec = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["interval"]; ok {
-		o.LeafSystemTaskSchedulerTaskInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemTaskSchedulerTaskInterval = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["executable"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeSystemTaskSchedulerTaskExecutable = &SystemTaskSchedulerTaskExecutable{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeSystemTaskSchedulerTaskExecutable)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *SystemTaskSchedulerTask) UnmarshalJSON(_ []byte) error {
 	return nil
 }

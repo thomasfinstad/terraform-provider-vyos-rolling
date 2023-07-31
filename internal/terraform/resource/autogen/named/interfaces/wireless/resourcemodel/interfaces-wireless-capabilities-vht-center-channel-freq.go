@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesWirelessCapabilitiesVhtCenterChannelFreq describes the resource data model.
 type InterfacesWirelessCapabilitiesVhtCenterChannelFreq struct {
 	// LeafNodes
-	LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqOne types.String `tfsdk:"freq_1" vyos:"freq-1,omitempty"`
-	LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqTwo types.String `tfsdk:"freq_2" vyos:"freq-2,omitempty"`
+	LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqOne types.Number `tfsdk:"freq_1" vyos:"freq-1,omitempty"`
+	LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqTwo types.Number `tfsdk:"freq_2" vyos:"freq-2,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +22,7 @@ func (o InterfacesWirelessCapabilitiesVhtCenterChannelFreq) ResourceSchemaAttrib
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"freq_1": schema.StringAttribute{
+		"freq_1": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `VHT operating channel center frequency - center freq 1 (for use with 80, 80+80 and 160 modes)
 
@@ -36,7 +33,7 @@ func (o InterfacesWirelessCapabilitiesVhtCenterChannelFreq) ResourceSchemaAttrib
 `,
 		},
 
-		"freq_2": schema.StringAttribute{
+		"freq_2": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `VHT operating channel center frequency - center freq 2 (for use with the 80+80 mode)
 
@@ -54,51 +51,10 @@ func (o InterfacesWirelessCapabilitiesVhtCenterChannelFreq) ResourceSchemaAttrib
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesWirelessCapabilitiesVhtCenterChannelFreq) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqOne.IsNull() && !o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqOne.IsUnknown() {
-		jsonData["freq-1"] = o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqOne.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqTwo.IsNull() && !o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqTwo.IsUnknown() {
-		jsonData["freq-2"] = o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqTwo.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWirelessCapabilitiesVhtCenterChannelFreq) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["freq-1"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqOne = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqOne = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["freq-2"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqTwo = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqTwo = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesWirelessCapabilitiesVhtCenterChannelFreq) UnmarshalJSON(_ []byte) error {
 	return nil
 }

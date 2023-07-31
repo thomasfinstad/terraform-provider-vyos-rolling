@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // NetnsName describes the resource data model.
@@ -25,6 +22,7 @@ type NetnsName struct {
 func (o *NetnsName) GetVyosPath() []string {
 	return []string{
 		"netns",
+
 		"name",
 		o.ID.ValueString(),
 	}
@@ -60,41 +58,10 @@ func (o NetnsName) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *NetnsName) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafNetnsNameDescrIPtion.IsNull() && !o.LeafNetnsNameDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafNetnsNameDescrIPtion.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *NetnsName) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafNetnsNameDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNetnsNameDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *NetnsName) UnmarshalJSON(_ []byte) error {
 	return nil
 }

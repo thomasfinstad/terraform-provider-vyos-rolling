@@ -41,6 +41,11 @@ DHCPv6 prefix delegation interface statement
 
 ### Required
 
+- `ethernet_identifier` (String) Ethernet Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ethN  |  Ethernet interface name  |
 - `identifier` (String) DHCPv6 prefix delegation interface statement
 
     |  Format  |  Description  |
@@ -49,7 +54,7 @@ DHCPv6 prefix delegation interface statement
 
 ### Optional
 
-- `length` (String) Request IPv6 prefix length from peer
+- `length` (Number) Request IPv6 prefix length from peer
 
     |  Format  |  Description  |
     |----------|---------------|

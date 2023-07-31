@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesSstpcSsl describes the resource data model.
@@ -42,41 +39,10 @@ func (o InterfacesSstpcSsl) ResourceSchemaAttributes() map[string]schema.Attribu
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesSstpcSsl) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesSstpcSslCaCertificate.IsNull() && !o.LeafInterfacesSstpcSslCaCertificate.IsUnknown() {
-		jsonData["ca-certificate"] = o.LeafInterfacesSstpcSslCaCertificate.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesSstpcSsl) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["ca-certificate"]; ok {
-		o.LeafInterfacesSstpcSslCaCertificate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcSslCaCertificate = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesSstpcSsl) UnmarshalJSON(_ []byte) error {
 	return nil
 }

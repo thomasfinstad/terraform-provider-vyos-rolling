@@ -2,9 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 )
 
@@ -46,85 +43,10 @@ func (o VrfNameProtocolsOspfvthreeAreaAreaType) ResourceSchemaAttributes() map[s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfvthreeAreaAreaType) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfvthreeAreaAreaTypeNssa).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfvthreeAreaAreaTypeNssa)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["nssa"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfvthreeAreaAreaTypeStub).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfvthreeAreaAreaTypeStub)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["stub"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfvthreeAreaAreaType) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["nssa"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsOspfvthreeAreaAreaTypeNssa = &VrfNameProtocolsOspfvthreeAreaAreaTypeNssa{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfvthreeAreaAreaTypeNssa)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["stub"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsOspfvthreeAreaAreaTypeStub = &VrfNameProtocolsOspfvthreeAreaAreaTypeStub{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfvthreeAreaAreaTypeStub)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VrfNameProtocolsOspfvthreeAreaAreaType) UnmarshalJSON(_ []byte) error {
 	return nil
 }

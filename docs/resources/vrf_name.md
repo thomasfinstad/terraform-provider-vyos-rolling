@@ -40,16 +40,16 @@ Virtual Routing and Forwarding instance
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `disable` (String) Administratively disable interface
+- `disable` (Boolean) Administratively disable interface
 - `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--ip))
 - `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--ipv6))
 - `protocols` (Attributes) Routing protocol parameters (see [below for nested schema](#nestedatt--protocols))
-- `table` (String) Routing table associated with this instance
+- `table` (Number) Routing table associated with this instance
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:100-65535  |  Routing table ID  |
-- `vni` (String) Virtual Network Identifier
+- `vni` (Number) Virtual Network Identifier
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -60,7 +60,7 @@ Virtual Routing and Forwarding instance
 
 Optional:
 
-- `disable_forwarding` (String) Disable IP forwarding on this interface
+- `disable_forwarding` (Boolean) Disable IP forwarding on this interface
 
 
 <a id="nestedatt--ipv6"></a>
@@ -68,7 +68,7 @@ Optional:
 
 Optional:
 
-- `disable_forwarding` (String) Disable IP forwarding on this interface
+- `disable_forwarding` (Boolean) Disable IP forwarding on this interface
 
 
 <a id="nestedatt--protocols"></a>
@@ -96,7 +96,7 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Route map name  |
-- `system_as` (String) Autonomous System Number (ASN)
+- `system_as` (Number) Autonomous System Number (ASN)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -132,7 +132,7 @@ Optional:
 
 Optional:
 
-- `interface` (String) Interface
+- `interface` (List of String) Interface
 
 
 
@@ -152,17 +152,17 @@ Optional:
 
 Optional:
 
-- `external` (String) eBGP routes administrative distance
+- `external` (Number) eBGP routes administrative distance
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  eBGP routes administrative distance  |
-- `internal` (String) iBGP routes administrative distance
+- `internal` (Number) iBGP routes administrative distance
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  iBGP routes administrative distance  |
-- `local` (String) Locally originated BGP routes administrative distance
+- `local` (Number) Locally originated BGP routes administrative distance
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -190,17 +190,17 @@ Optional:
 
 Optional:
 
-- `external` (String) eBGP routes administrative distance
+- `external` (Number) eBGP routes administrative distance
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  eBGP routes administrative distance  |
-- `internal` (String) iBGP routes administrative distance
+- `internal` (Number) iBGP routes administrative distance
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  iBGP routes administrative distance  |
-- `local` (String) Locally originated BGP routes administrative distance
+- `local` (Number) Locally originated BGP routes administrative distance
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -212,7 +212,7 @@ Optional:
 
 Optional:
 
-- `vpn` (String) to/from default instance VPN RIB
+- `vpn` (Boolean) to/from default instance VPN RIB
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--import"></a>
@@ -220,8 +220,8 @@ Optional:
 
 Optional:
 
-- `vpn` (String) to/from default instance VPN RIB
-- `vrf` (String) VRF to import from
+- `vpn` (Boolean) to/from default instance VPN RIB
+- `vrf` (List of String) VRF to import from
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -254,12 +254,12 @@ Optional:
 
 Optional:
 
-- `ebgp` (String) eBGP maximum paths
+- `ebgp` (Number) eBGP maximum paths
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-256  |  Number of paths to consider  |
-- `ibgp` (String) iBGP maximum paths
+- `ibgp` (Number) iBGP maximum paths
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -305,7 +305,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Metric for redistributed routes
+- `metric` (Number) Metric for redistributed routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -322,7 +322,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Metric for redistributed routes
+- `metric` (Number) Metric for redistributed routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -339,7 +339,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Metric for redistributed routes
+- `metric` (Number) Metric for redistributed routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -356,7 +356,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Metric for redistributed routes
+- `metric` (Number) Metric for redistributed routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -373,7 +373,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Metric for redistributed routes
+- `metric` (Number) Metric for redistributed routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -390,7 +390,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Metric for redistributed routes
+- `metric` (Number) Metric for redistributed routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -407,7 +407,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Metric for redistributed routes
+- `metric` (Number) Metric for redistributed routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -492,7 +492,7 @@ Optional:
 
 Optional:
 
-- `interface` (String) Interface
+- `interface` (List of String) Interface
 
 
 
@@ -512,17 +512,17 @@ Optional:
 
 Optional:
 
-- `external` (String) eBGP routes administrative distance
+- `external` (Number) eBGP routes administrative distance
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  eBGP routes administrative distance  |
-- `internal` (String) iBGP routes administrative distance
+- `internal` (Number) iBGP routes administrative distance
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  iBGP routes administrative distance  |
-- `local` (String) Locally originated BGP routes administrative distance
+- `local` (Number) Locally originated BGP routes administrative distance
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -550,17 +550,17 @@ Optional:
 
 Optional:
 
-- `external` (String) eBGP routes administrative distance
+- `external` (Number) eBGP routes administrative distance
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  eBGP routes administrative distance  |
-- `internal` (String) iBGP routes administrative distance
+- `internal` (Number) iBGP routes administrative distance
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  iBGP routes administrative distance  |
-- `local` (String) Locally originated BGP routes administrative distance
+- `local` (Number) Locally originated BGP routes administrative distance
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -572,7 +572,7 @@ Optional:
 
 Optional:
 
-- `vpn` (String) to/from default instance VPN RIB
+- `vpn` (Boolean) to/from default instance VPN RIB
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--import"></a>
@@ -580,8 +580,8 @@ Optional:
 
 Optional:
 
-- `vpn` (String) to/from default instance VPN RIB
-- `vrf` (String) VRF to import from
+- `vpn` (Boolean) to/from default instance VPN RIB
+- `vrf` (List of String) VRF to import from
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -614,12 +614,12 @@ Optional:
 
 Optional:
 
-- `ebgp` (String) eBGP maximum paths
+- `ebgp` (Number) eBGP maximum paths
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-256  |  Number of paths to consider  |
-- `ibgp` (String) iBGP maximum paths
+- `ibgp` (Number) iBGP maximum paths
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -664,7 +664,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Metric for redistributed routes
+- `metric` (Number) Metric for redistributed routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -681,7 +681,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Metric for redistributed routes
+- `metric` (Number) Metric for redistributed routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -698,7 +698,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Metric for redistributed routes
+- `metric` (Number) Metric for redistributed routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -715,7 +715,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Metric for redistributed routes
+- `metric` (Number) Metric for redistributed routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -732,7 +732,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Metric for redistributed routes
+- `metric` (Number) Metric for redistributed routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -749,7 +749,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Metric for redistributed routes
+- `metric` (Number) Metric for redistributed routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -828,14 +828,14 @@ Optional:
 Optional:
 
 - `advertise` (Attributes) Advertise prefix routes (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--advertise))
-- `advertise_all_vni` (String) Advertise All local VNIs
-- `advertise_default_gw` (String) Advertise All default g/w mac-ip routes in EVPN
+- `advertise_all_vni` (Boolean) Advertise All local VNIs
+- `advertise_default_gw` (Boolean) Advertise All default g/w mac-ip routes in EVPN
 - `advertise_pip` (String) EVPN system primary IP
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  IP address  |
-- `advertise_svi_ip` (String) Advertise svi mac-ip routes in EVPN
+- `advertise_svi_ip` (Boolean) Advertise svi mac-ip routes in EVPN
 - `flooding` (Attributes) Specify handling for BUM packets (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--flooding))
 - `rd` (String) Route Distinguisher
 
@@ -843,7 +843,7 @@ Optional:
     |----------|---------------|
     |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 - `route_target` (Attributes) Route Target (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_target))
-- `rt_auto_derive` (String) Auto derivation of Route Target (RFC8365)
+- `rt_auto_derive` (Boolean) Auto derivation of Route Target (RFC8365)
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--advertise"></a>
 ### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.advertise`
@@ -899,8 +899,8 @@ Optional:
 
 Optional:
 
-- `disable` (String) Do not flood any BUM packets
-- `head_end_replication` (String) Flood BUM packets using head-end replication
+- `disable` (Boolean) Do not flood any BUM packets
+- `head_end_replication` (Boolean) Flood BUM packets using head-end replication
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_target"></a>
@@ -908,17 +908,17 @@ Optional:
 
 Optional:
 
-- `both` (String) Route Target both import and export
+- `both` (List of String) Route Target both import and export
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
-- `export` (String) Route Target export
+- `export` (List of String) Route Target export
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
-- `import` (String) Route Target import
+- `import` (List of String) Route Target import
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -932,7 +932,7 @@ Optional:
 
 Optional:
 
-- `limit` (String) Maximum number of dynamic neighbors that can be created
+- `limit` (Number) Maximum number of dynamic neighbors that can be created
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -944,7 +944,7 @@ Optional:
 
 Optional:
 
-- `always_compare_med` (String) Always compare MEDs from different neighbors
+- `always_compare_med` (Boolean) Always compare MEDs from different neighbors
 - `bestpath` (Attributes) Default bestpath selection mechanism (see [below for nested schema](#nestedatt--protocols--bgp--parameters--bestpath))
 - `cluster_id` (String) Route-reflector cluster-id
 
@@ -955,31 +955,31 @@ Optional:
 - `confederation` (Attributes) AS confederation parameters (see [below for nested schema](#nestedatt--protocols--bgp--parameters--confederation))
 - `dampening` (Attributes) Enable route-flap dampening (see [below for nested schema](#nestedatt--protocols--bgp--parameters--dampening))
 - `default` (Attributes) BGP defaults (see [below for nested schema](#nestedatt--protocols--bgp--parameters--default))
-- `deterministic_med` (String) Compare MEDs between different peers in the same AS
+- `deterministic_med` (Boolean) Compare MEDs between different peers in the same AS
 - `distance` (Attributes) Administratives distances for BGP routes (see [below for nested schema](#nestedatt--protocols--bgp--parameters--distance))
-- `ebgp_requires_policy` (String) Require in and out policy for eBGP peers (RFC8212)
-- `fast_convergence` (String) Teardown sessions immediately whenever peer becomes unreachable
+- `ebgp_requires_policy` (Boolean) Require in and out policy for eBGP peers (RFC8212)
+- `fast_convergence` (Boolean) Teardown sessions immediately whenever peer becomes unreachable
 - `graceful_restart` (Attributes) Graceful restart capability parameters (see [below for nested schema](#nestedatt--protocols--bgp--parameters--graceful_restart))
-- `graceful_shutdown` (String) Graceful shutdown
-- `log_neighbor_changes` (String) Log neighbor up/down changes and reset reason
-- `minimum_holdtime` (String) BGP minimum holdtime
+- `graceful_shutdown` (Boolean) Graceful shutdown
+- `log_neighbor_changes` (Boolean) Log neighbor up/down changes and reset reason
+- `minimum_holdtime` (Number) BGP minimum holdtime
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Minimum holdtime in seconds  |
-- `network_import_check` (String) Enable IGP route check for network statements
-- `no_client_to_client_reflection` (String) Disable client to client route reflection
-- `no_fast_external_failover` (String) Disable immediate session reset on peer link down event
-- `no_suppress_duplicates` (String) Disable suppress duplicate updates if the route actually not changed
-- `reject_as_sets` (String) Reject routes with AS_SET or AS_CONFED_SET flag
-- `route_reflector_allow_outbound_policy` (String) Route reflector client allow policy outbound
+- `network_import_check` (Boolean) Enable IGP route check for network statements
+- `no_client_to_client_reflection` (Boolean) Disable client to client route reflection
+- `no_fast_external_failover` (Boolean) Disable immediate session reset on peer link down event
+- `no_suppress_duplicates` (Boolean) Disable suppress duplicate updates if the route actually not changed
+- `reject_as_sets` (Boolean) Reject routes with AS_SET or AS_CONFED_SET flag
+- `route_reflector_allow_outbound_policy` (Boolean) Route reflector client allow policy outbound
 - `router_id` (String) Override default router identifier
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  Router-ID in IP address format  |
-- `shutdown` (String) Administrative shutdown of the BGP instance
-- `suppress_fib_pending` (String) Advertise only routes that are programmed in kernel to peers
+- `shutdown` (Boolean) Administrative shutdown of the BGP instance
+- `suppress_fib_pending` (Boolean) Advertise only routes that are programmed in kernel to peers
 
 <a id="nestedatt--protocols--bgp--parameters--bestpath"></a>
 ### Nested Schema for `protocols.bgp.parameters.suppress_fib_pending`
@@ -994,7 +994,7 @@ Optional:
     |  default-weight-for-missing  |  Assign low default weight (1) to paths not having link bandwidth  |
     |  ignore  |  Ignore link bandwidth (do regular ECMP, not weighted)  |
     |  skip-missing  |  Ignore paths without link bandwidth for ECMP (if other paths have it)  |
-- `compare_routerid` (String) Compare the router-id for identical EBGP paths
+- `compare_routerid` (Boolean) Compare the router-id for identical EBGP paths
 - `med` (Attributes) MED attribute comparison parameters (see [below for nested schema](#nestedatt--protocols--bgp--parameters--suppress_fib_pending--med))
 - `peer_type` (Attributes) Peer type (see [below for nested schema](#nestedatt--protocols--bgp--parameters--suppress_fib_pending--peer_type))
 
@@ -1003,9 +1003,9 @@ Optional:
 
 Optional:
 
-- `confed` (String) Compare AS-path lengths including confederation sets and sequences
-- `ignore` (String) Ignore AS-path length in selecting a route
-- `multipath_relax` (String) Allow load sharing across routes that have different AS paths (but same length)
+- `confed` (Boolean) Compare AS-path lengths including confederation sets and sequences
+- `ignore` (Boolean) Ignore AS-path length in selecting a route
+- `multipath_relax` (Boolean) Allow load sharing across routes that have different AS paths (but same length)
 
 
 <a id="nestedatt--protocols--bgp--parameters--suppress_fib_pending--med"></a>
@@ -1013,8 +1013,8 @@ Optional:
 
 Optional:
 
-- `confed` (String) Compare MEDs among confederation paths
-- `missing_as_worst` (String) Treat missing route as a MED as the least preferred one
+- `confed` (Boolean) Compare MEDs among confederation paths
+- `missing_as_worst` (Boolean) Treat missing route as a MED as the least preferred one
 
 
 <a id="nestedatt--protocols--bgp--parameters--suppress_fib_pending--peer_type"></a>
@@ -1022,7 +1022,7 @@ Optional:
 
 Optional:
 
-- `multipath_relax` (String) Allow load sharing across routes learned from different peer types
+- `multipath_relax` (Boolean) Allow load sharing across routes learned from different peer types
 
 
 
@@ -1031,7 +1031,7 @@ Optional:
 
 Optional:
 
-- `timer` (String) Set period to rescan BGP table to check if condition is met
+- `timer` (Number) Set period to rescan BGP table to check if condition is met
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1043,12 +1043,12 @@ Optional:
 
 Optional:
 
-- `identifier` (String) Confederation AS identifier
+- `identifier` (Number) Confederation AS identifier
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4294967294  |  Confederation AS id  |
-- `peers` (String) Peer ASs in the BGP confederation
+- `peers` (List of Number) Peer ASs in the BGP confederation
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1060,22 +1060,22 @@ Optional:
 
 Optional:
 
-- `half_life` (String) Half-life time for dampening
+- `half_life` (Number) Half-life time for dampening
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-45  |  Half-life penalty in minutes  |
-- `max_suppress_time` (String) Maximum duration to suppress a stable route
+- `max_suppress_time` (Number) Maximum duration to suppress a stable route
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Maximum suppress duration in minutes  |
-- `re_use` (String) Threshold to start reusing a route
+- `re_use` (Number) Threshold to start reusing a route
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-20000  |  Re-use penalty points  |
-- `start_suppress_time` (String) When to start suppressing a route
+- `start_suppress_time` (Number) When to start suppressing a route
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1087,7 +1087,7 @@ Optional:
 
 Optional:
 
-- `local_pref` (String) Default local preference
+- `local_pref` (Number) Default local preference
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1106,17 +1106,17 @@ Optional:
 
 Optional:
 
-- `external` (String) Administrative distance for external BGP routes
+- `external` (Number) Administrative distance for external BGP routes
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Administrative distance for external BGP routes  |
-- `internal` (String) Administrative distance for internal BGP routes
+- `internal` (Number) Administrative distance for internal BGP routes
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Administrative distance for internal BGP routes  |
-- `local` (String) Administrative distance for local BGP routes
+- `local` (Number) Administrative distance for local BGP routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1129,7 +1129,7 @@ Optional:
 
 Optional:
 
-- `stalepath_time` (String) Maximum time to hold onto restarting neighbors stale paths
+- `stalepath_time` (Number) Maximum time to hold onto restarting neighbors stale paths
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1148,7 +1148,7 @@ Optional:
     |----------|---------------|
     |  u32:1-65535  |  Hold timer in seconds  |
     |  0  |  Hold timer disabled  |
-- `keepalive` (String) BGP keepalive interval for this neighbor
+- `keepalive` (Number) BGP keepalive interval for this neighbor
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1161,24 +1161,24 @@ Optional:
 
 Optional:
 
-- `local_as` (String) Autonomous System Number (ASN)
+- `local_as` (Number) Autonomous System Number (ASN)
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Autonomous System Number  |
-- `maximum_paths` (String) Forward packets over multiple paths
+- `maximum_paths` (Number) Forward packets over multiple paths
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-32  |  Number of paths  |
 - `metric` (Attributes) Modify metrics and parameters for advertisement (see [below for nested schema](#nestedatt--protocols--eigrp--metric))
-- `network` (String) Enable routing on an IP network
+- `network` (List of String) Enable routing on an IP network
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4net  |  EIGRP network prefix  |
 - `passive_interface` (String) Suppress routing updates on an interface
-- `redistribute` (String) Redistribute information from another routing protocol
+- `redistribute` (List of String) Redistribute information from another routing protocol
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1200,7 +1200,7 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  Router-ID in IP address format  |
-- `variance` (String) Control load balancing variance
+- `variance` (Number) Control load balancing variance
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1211,7 +1211,7 @@ Optional:
 
 Optional:
 
-- `weights` (String) Modify metric coefficients
+- `weights` (Number) Modify metric coefficients
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1227,7 +1227,7 @@ Optional:
 - `area_password` (Attributes) Configure the authentication password for an area (see [below for nested schema](#nestedatt--protocols--isis--area_password))
 - `default_information` (Attributes) Control distribution of default information (see [below for nested schema](#nestedatt--protocols--isis--default_information))
 - `domain_password` (Attributes) Set the authentication password for a routing domain (see [below for nested schema](#nestedatt--protocols--isis--domain_password))
-- `dynamic_hostname` (String) Dynamic hostname for IS-IS
+- `dynamic_hostname` (Boolean) Dynamic hostname for IS-IS
 - `level` (String) IS-IS level number
 
     |  Format  |  Description  |
@@ -1235,23 +1235,23 @@ Optional:
     |  level-1  |  Act as a station router  |
     |  level-1-2  |  Act as both a station and an area router  |
     |  level-2  |  Act as an area router  |
-- `log_adjacency_changes` (String) Log adjacency state changes
-- `lsp_gen_interval` (String) Minimum interval between regenerating same LSP
+- `log_adjacency_changes` (Boolean) Log adjacency state changes
+- `lsp_gen_interval` (Number) Minimum interval between regenerating same LSP
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-120  |  Minimum interval in seconds  |
-- `lsp_mtu` (String) Configure the maximum size of generated LSPs
+- `lsp_mtu` (Number) Configure the maximum size of generated LSPs
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:128-4352  |  Maximum size of generated LSPs  |
-- `lsp_refresh_interval` (String) LSP refresh interval
+- `lsp_refresh_interval` (Number) LSP refresh interval
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65235  |  LSP refresh interval in seconds  |
-- `max_lsp_lifetime` (String) Maximum LSP lifetime
+- `max_lsp_lifetime` (Number) Maximum LSP lifetime
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1268,7 +1268,7 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  XX.XXXX. ... .XXX.XX  |  Network entity title (NET)  |
-- `purge_originator` (String) Use the RFC 6232 purge-originator
+- `purge_originator` (Boolean) Use the RFC 6232 purge-originator
 - `redistribute` (Attributes) Redistribute information from another routing protocol (see [below for nested schema](#nestedatt--protocols--isis--redistribute))
 - `route_map` (String) Specify route-map name to use
 
@@ -1276,10 +1276,10 @@ Optional:
     |----------|---------------|
     |  txt  |  Route map name  |
 - `segment_routing` (Attributes) Segment-Routing (SPRING) settings (see [below for nested schema](#nestedatt--protocols--isis--segment_routing))
-- `set_attached_bit` (String) Set attached bit to identify as L1/L2 router for inter-area traffic
-- `set_overload_bit` (String) Set overload bit to avoid any transit traffic
+- `set_attached_bit` (Boolean) Set attached bit to identify as L1/L2 router for inter-area traffic
+- `set_overload_bit` (Boolean) Set overload bit to avoid any transit traffic
 - `spf_delay_ietf` (Attributes) IETF SPF delay algorithm (see [below for nested schema](#nestedatt--protocols--isis--spf_delay_ietf))
-- `spf_interval` (String) Minimum interval between SPF calculations
+- `spf_interval` (Number) Minimum interval between SPF calculations
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1331,8 +1331,8 @@ Optional:
 
 Optional:
 
-- `always` (String) Always advertise default route
-- `metric` (String) Set default metric for circuit
+- `always` (Boolean) Always advertise default route
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1349,8 +1349,8 @@ Optional:
 
 Optional:
 
-- `always` (String) Always advertise default route
-- `metric` (String) Set default metric for circuit
+- `always` (Boolean) Always advertise default route
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1376,8 +1376,8 @@ Optional:
 
 Optional:
 
-- `always` (String) Always advertise default route
-- `metric` (String) Set default metric for circuit
+- `always` (Boolean) Always advertise default route
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1394,8 +1394,8 @@ Optional:
 
 Optional:
 
-- `always` (String) Always advertise default route
-- `metric` (String) Set default metric for circuit
+- `always` (Boolean) Always advertise default route
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1461,7 +1461,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1478,7 +1478,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1504,7 +1504,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1521,7 +1521,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1547,7 +1547,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1564,7 +1564,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1590,7 +1590,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1607,7 +1607,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1633,7 +1633,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1650,7 +1650,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1676,7 +1676,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1693,7 +1693,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1719,7 +1719,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1736,7 +1736,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1776,7 +1776,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1793,7 +1793,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1819,7 +1819,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1836,7 +1836,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1862,7 +1862,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1879,7 +1879,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1905,7 +1905,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1922,7 +1922,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1948,7 +1948,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1965,7 +1965,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -1991,7 +1991,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2008,7 +2008,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2034,7 +2034,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2051,7 +2051,7 @@ Optional:
 
 Optional:
 
-- `metric` (String) Set default metric for circuit
+- `metric` (Number) Set default metric for circuit
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2073,7 +2073,7 @@ Optional:
 
 - `global_block` (Attributes) Segment Routing Global Block label range (see [below for nested schema](#nestedatt--protocols--isis--segment_routing--global_block))
 - `local_block` (Attributes) Segment Routing Local Block label range (see [below for nested schema](#nestedatt--protocols--isis--segment_routing--local_block))
-- `maximum_label_depth` (String) Maximum MPLS labels allowed for this router
+- `maximum_label_depth` (Number) Maximum MPLS labels allowed for this router
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2084,12 +2084,12 @@ Optional:
 
 Optional:
 
-- `high_label_value` (String) MPLS label upper bound
+- `high_label_value` (Number) MPLS label upper bound
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:16-1048575  |  Label value  |
-- `low_label_value` (String) MPLS label lower bound
+- `low_label_value` (Number) MPLS label lower bound
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2101,12 +2101,12 @@ Optional:
 
 Optional:
 
-- `high_label_value` (String) MPLS label upper bound
+- `high_label_value` (Number) MPLS label upper bound
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:16-1048575  |  Label value  |
-- `low_label_value` (String) MPLS label lower bound
+- `low_label_value` (Number) MPLS label lower bound
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2119,27 +2119,27 @@ Optional:
 
 Optional:
 
-- `holddown` (String) Time with no received IGP events before considering IGP stable
+- `holddown` (Number) Time with no received IGP events before considering IGP stable
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-60000  |  Time with no received IGP events before considering IGP stable in ms  |
-- `init_delay` (String) Delay used while in QUIET state
+- `init_delay` (Number) Delay used while in QUIET state
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-60000  |  Delay used while in QUIET state (in ms)  |
-- `long_delay` (String) Delay used while in LONG_WAIT
+- `long_delay` (Number) Delay used while in LONG_WAIT
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-60000  |  Delay used while in LONG_WAIT state in ms  |
-- `short_delay` (String) Delay used while in SHORT_WAIT state
+- `short_delay` (Number) Delay used while in SHORT_WAIT state
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-60000  |  Delay used while in SHORT_WAIT state (in ms)  |
-- `time_to_learn` (String) Maximum duration needed to learn all the events related to a single failure
+- `time_to_learn` (Number) Maximum duration needed to learn all the events related to a single failure
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2156,7 +2156,7 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  IPv4 address  |
-- `enable` (String) Enable MPLS traffic engineering extensions
+- `enable` (Boolean) Enable MPLS traffic engineering extensions
 
 
 
@@ -2167,7 +2167,7 @@ Optional:
 
 - `auto_cost` (Attributes) Calculate interface cost according to bandwidth (see [below for nested schema](#nestedatt--protocols--ospf--auto_cost))
 - `default_information` (Attributes) Default route advertisment settings (see [below for nested schema](#nestedatt--protocols--ospf--default_information))
-- `default_metric` (String) Metric of redistributed routes
+- `default_metric` (Number) Metric of redistributed routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2175,7 +2175,7 @@ Optional:
 - `distance` (Attributes) Administrative distance (see [below for nested schema](#nestedatt--protocols--ospf--distance))
 - `log_adjacency_changes` (Attributes) Log adjacency state changes (see [below for nested schema](#nestedatt--protocols--ospf--log_adjacency_changes))
 - `max_metric` (Attributes) OSPF maximum and infinite-distance metric (see [below for nested schema](#nestedatt--protocols--ospf--max_metric))
-- `maximum_paths` (String) Maximum multiple paths (ECMP)
+- `maximum_paths` (Number) Maximum multiple paths (ECMP)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2202,7 +2202,7 @@ Optional:
 
 Optional:
 
-- `reference_bandwidth` (String) Reference bandwidth method to assign cost
+- `reference_bandwidth` (Number) Reference bandwidth method to assign cost
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2221,13 +2221,13 @@ Optional:
 
 Optional:
 
-- `always` (String) Always advertise a default route
-- `metric` (String) OSPF default metric
+- `always` (Boolean) Always advertise a default route
+- `metric` (Number) OSPF default metric
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-16777214  |  Default metric  |
-- `metric_type` (String) OSPF metric type for default routes
+- `metric_type` (Number) OSPF metric type for default routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2245,7 +2245,7 @@ Optional:
 
 Optional:
 
-- `global` (String) Administrative distance
+- `global` (Number) Administrative distance
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2257,17 +2257,17 @@ Optional:
 
 Optional:
 
-- `external` (String) Distance for external routes
+- `external` (Number) Distance for external routes
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Distance for external routes  |
-- `inter_area` (String) Distance for inter-area routes
+- `inter_area` (Number) Distance for inter-area routes
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Distance for inter-area routes  |
-- `intra_area` (String) Distance for intra-area routes
+- `intra_area` (Number) Distance for intra-area routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2280,7 +2280,7 @@ Optional:
 
 Optional:
 
-- `detail` (String) Log all state changes
+- `detail` (Boolean) Log all state changes
 
 
 <a id="nestedatt--protocols--ospf--max_metric"></a>
@@ -2295,13 +2295,13 @@ Optional:
 
 Optional:
 
-- `administrative` (String) Administratively apply, for an indefinite period
-- `on_shutdown` (String) Advertise stub-router prior to full shutdown of OSPF
+- `administrative` (Boolean) Administratively apply, for an indefinite period
+- `on_shutdown` (Number) Advertise stub-router prior to full shutdown of OSPF
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:5-100  |  Time (seconds) to advertise self as stub-router  |
-- `on_startup` (String) Automatically advertise stub Router-LSA on startup of OSPF
+- `on_startup` (Number) Automatically advertise stub Router-LSA on startup of OSPF
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2314,7 +2314,7 @@ Optional:
 
 Optional:
 
-- `enable` (String) Enable MPLS-TE functionality
+- `enable` (Boolean) Enable MPLS-TE functionality
 - `router_address` (String) Stable IP address of the advertising router
 
     |  Format  |  Description  |
@@ -2335,8 +2335,8 @@ Optional:
     |  ibm  |  IBM ABR type  |
     |  shortcut  |  Shortcut ABR type  |
     |  standard  |  Standard ABR type  |
-- `opaque_lsa` (String) Enable the Opaque-LSA capability (rfc2370)
-- `rfc1583_compatibility` (String) Enable RFC1583 criteria for handling AS external routes
+- `opaque_lsa` (Boolean) Enable the Opaque-LSA capability (rfc2370)
+- `rfc1583_compatibility` (Boolean) Enable RFC1583 criteria for handling AS external routes
 - `router_id` (String) Override default router identifier
 
     |  Format  |  Description  |
@@ -2362,12 +2362,12 @@ Optional:
 
 Optional:
 
-- `metric` (String) OSPF default metric
+- `metric` (Number) OSPF default metric
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-16777214  |  Default metric  |
-- `metric_type` (String) OSPF metric type for default routes
+- `metric_type` (Number) OSPF metric type for default routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2384,12 +2384,12 @@ Optional:
 
 Optional:
 
-- `metric` (String) OSPF default metric
+- `metric` (Number) OSPF default metric
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-16777214  |  Default metric  |
-- `metric_type` (String) OSPF metric type for default routes
+- `metric_type` (Number) OSPF metric type for default routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2406,12 +2406,12 @@ Optional:
 
 Optional:
 
-- `metric` (String) OSPF default metric
+- `metric` (Number) OSPF default metric
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-16777214  |  Default metric  |
-- `metric_type` (String) OSPF metric type for default routes
+- `metric_type` (Number) OSPF metric type for default routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2428,12 +2428,12 @@ Optional:
 
 Optional:
 
-- `metric` (String) OSPF default metric
+- `metric` (Number) OSPF default metric
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-16777214  |  Default metric  |
-- `metric_type` (String) OSPF metric type for default routes
+- `metric_type` (Number) OSPF metric type for default routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2450,12 +2450,12 @@ Optional:
 
 Optional:
 
-- `metric` (String) OSPF default metric
+- `metric` (Number) OSPF default metric
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-16777214  |  Default metric  |
-- `metric_type` (String) OSPF metric type for default routes
+- `metric_type` (Number) OSPF metric type for default routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2472,12 +2472,12 @@ Optional:
 
 Optional:
 
-- `metric` (String) OSPF default metric
+- `metric` (Number) OSPF default metric
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-16777214  |  Default metric  |
-- `metric_type` (String) OSPF metric type for default routes
+- `metric_type` (Number) OSPF metric type for default routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2494,12 +2494,12 @@ Optional:
 
 Optional:
 
-- `metric` (String) OSPF default metric
+- `metric` (Number) OSPF default metric
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-16777214  |  Default metric  |
-- `metric_type` (String) OSPF metric type for default routes
+- `metric_type` (Number) OSPF metric type for default routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2517,7 +2517,7 @@ Optional:
 
 Optional:
 
-- `timers` (String) Refresh timer
+- `timers` (Number) Refresh timer
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2531,7 +2531,7 @@ Optional:
 
 - `global_block` (Attributes) Segment Routing Global Block label range (see [below for nested schema](#nestedatt--protocols--ospf--segment_routing--global_block))
 - `local_block` (Attributes) Segment Routing Local Block label range (see [below for nested schema](#nestedatt--protocols--ospf--segment_routing--local_block))
-- `maximum_label_depth` (String) Maximum MPLS labels allowed for this router
+- `maximum_label_depth` (Number) Maximum MPLS labels allowed for this router
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2542,12 +2542,12 @@ Optional:
 
 Optional:
 
-- `high_label_value` (String) MPLS label upper bound
+- `high_label_value` (Number) MPLS label upper bound
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:16-1048575  |  Label value  |
-- `low_label_value` (String) MPLS label lower bound
+- `low_label_value` (Number) MPLS label lower bound
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2559,12 +2559,12 @@ Optional:
 
 Optional:
 
-- `high_label_value` (String) MPLS label upper bound
+- `high_label_value` (Number) MPLS label upper bound
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:16-1048575  |  Label value  |
-- `low_label_value` (String) MPLS label lower bound
+- `low_label_value` (Number) MPLS label lower bound
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2591,17 +2591,17 @@ Optional:
 
 Optional:
 
-- `delay` (String) Delay from the first change received to SPF calculation
+- `delay` (Number) Delay from the first change received to SPF calculation
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-600000  |  Delay in milliseconds  |
-- `initial_holdtime` (String) Initial hold time between consecutive SPF calculations
+- `initial_holdtime` (Number) Initial hold time between consecutive SPF calculations
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-600000  |  Initial hold time in milliseconds  |
-- `max_holdtime` (String) Maximum hold time
+- `max_holdtime` (Number) Maximum hold time
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2633,7 +2633,7 @@ Optional:
 
 Optional:
 
-- `reference_bandwidth` (String) Reference bandwidth method to assign cost
+- `reference_bandwidth` (Number) Reference bandwidth method to assign cost
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2652,13 +2652,13 @@ Optional:
 
 Optional:
 
-- `always` (String) Always advertise a default route
-- `metric` (String) OSPF default metric
+- `always` (Boolean) Always advertise a default route
+- `metric` (Number) OSPF default metric
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-16777214  |  Default metric  |
-- `metric_type` (String) OSPF metric type for default routes
+- `metric_type` (Number) OSPF metric type for default routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2676,7 +2676,7 @@ Optional:
 
 Optional:
 
-- `global` (String) Administrative distance
+- `global` (Number) Administrative distance
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2688,17 +2688,17 @@ Optional:
 
 Optional:
 
-- `external` (String) Distance for external routes
+- `external` (Number) Distance for external routes
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Distance for external routes  |
-- `inter_area` (String) Distance for inter-area routes
+- `inter_area` (Number) Distance for inter-area routes
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Distance for inter-area routes  |
-- `intra_area` (String) Distance for intra-area routes
+- `intra_area` (Number) Distance for intra-area routes
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -2711,7 +2711,7 @@ Optional:
 
 Optional:
 
-- `detail` (String) Log all state changes
+- `detail` (Boolean) Log all state changes
 
 
 <a id="nestedatt--protocols--ospfv3--parameters"></a>

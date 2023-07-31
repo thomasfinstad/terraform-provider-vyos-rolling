@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesBondingMember describes the resource data model.
 type InterfacesBondingMember struct {
 	// LeafNodes
-	LeafInterfacesBondingMemberInterface types.String `tfsdk:"interface" vyos:"interface,omitempty"`
+	LeafInterfacesBondingMemberInterface types.List `tfsdk:"interface" vyos:"interface,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,8 +21,9 @@ func (o InterfacesBondingMember) ResourceSchemaAttributes() map[string]schema.At
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"interface": schema.StringAttribute{
-			Optional: true,
+		"interface": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Member interface name
 
     |  Format  |  Description  |
@@ -42,41 +40,10 @@ func (o InterfacesBondingMember) ResourceSchemaAttributes() map[string]schema.At
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesBondingMember) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesBondingMemberInterface.IsNull() && !o.LeafInterfacesBondingMemberInterface.IsUnknown() {
-		jsonData["interface"] = o.LeafInterfacesBondingMemberInterface.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesBondingMember) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["interface"]; ok {
-		o.LeafInterfacesBondingMemberInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingMemberInterface = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesBondingMember) UnmarshalJSON(_ []byte) error {
 	return nil
 }

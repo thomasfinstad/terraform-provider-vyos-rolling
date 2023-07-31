@@ -2,21 +2,18 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesPseudoEthernetDhcpvsixOptionsPd describes the resource data model.
 type InterfacesPseudoEthernetDhcpvsixOptionsPd struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDInterfacesPseudoEthernet any `tfsdk:"pseudo_ethernet" vyos:"pseudo-ethernet,parent-id"`
+	ParentIDInterfacesPseudoEthernet types.String `tfsdk:"pseudo_ethernet" vyos:"pseudo-ethernet_identifier,parent-id"`
 
 	// LeafNodes
-	LeafInterfacesPseudoEthernetDhcpvsixOptionsPdLength types.String `tfsdk:"length" vyos:"length,omitempty"`
+	LeafInterfacesPseudoEthernetDhcpvsixOptionsPdLength types.Number `tfsdk:"length" vyos:"length,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagInterfacesPseudoEthernetDhcpvsixOptionsPdInterface bool `tfsdk:"interface" vyos:"interface,child"`
@@ -28,8 +25,12 @@ type InterfacesPseudoEthernetDhcpvsixOptionsPd struct {
 func (o *InterfacesPseudoEthernetDhcpvsixOptionsPd) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"pseudo-ethernet",
+		o.ParentIDInterfacesPseudoEthernet.ValueString(),
+
 		"dhcpv6-options",
+
 		"pd",
 		o.ID.ValueString(),
 	}
@@ -49,9 +50,20 @@ func (o InterfacesPseudoEthernetDhcpvsixOptionsPd) ResourceSchemaAttributes() ma
 `,
 		},
 
+		"pseudo_ethernet_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Pseudo Ethernet Interface (Macvlan)
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  pethN  |  Pseudo Ethernet interface name  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"length": schema.StringAttribute{
+		"length": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Request IPv6 prefix length from peer
 
@@ -72,41 +84,10 @@ func (o InterfacesPseudoEthernetDhcpvsixOptionsPd) ResourceSchemaAttributes() ma
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesPseudoEthernetDhcpvsixOptionsPd) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesPseudoEthernetDhcpvsixOptionsPdLength.IsNull() && !o.LeafInterfacesPseudoEthernetDhcpvsixOptionsPdLength.IsUnknown() {
-		jsonData["length"] = o.LeafInterfacesPseudoEthernetDhcpvsixOptionsPdLength.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesPseudoEthernetDhcpvsixOptionsPd) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["length"]; ok {
-		o.LeafInterfacesPseudoEthernetDhcpvsixOptionsPdLength = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPseudoEthernetDhcpvsixOptionsPdLength = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesPseudoEthernetDhcpvsixOptionsPd) UnmarshalJSON(_ []byte) error {
 	return nil
 }

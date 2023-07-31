@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // NatDestinationRuleSourceGroup describes the resource data model.
@@ -70,81 +67,10 @@ func (o NatDestinationRuleSourceGroup) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *NatDestinationRuleSourceGroup) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafNatDestinationRuleSourceGroupAddressGroup.IsNull() && !o.LeafNatDestinationRuleSourceGroupAddressGroup.IsUnknown() {
-		jsonData["address-group"] = o.LeafNatDestinationRuleSourceGroupAddressGroup.ValueString()
-	}
-
-	if !o.LeafNatDestinationRuleSourceGroupDomainGroup.IsNull() && !o.LeafNatDestinationRuleSourceGroupDomainGroup.IsUnknown() {
-		jsonData["domain-group"] = o.LeafNatDestinationRuleSourceGroupDomainGroup.ValueString()
-	}
-
-	if !o.LeafNatDestinationRuleSourceGroupMacGroup.IsNull() && !o.LeafNatDestinationRuleSourceGroupMacGroup.IsUnknown() {
-		jsonData["mac-group"] = o.LeafNatDestinationRuleSourceGroupMacGroup.ValueString()
-	}
-
-	if !o.LeafNatDestinationRuleSourceGroupNetworkGroup.IsNull() && !o.LeafNatDestinationRuleSourceGroupNetworkGroup.IsUnknown() {
-		jsonData["network-group"] = o.LeafNatDestinationRuleSourceGroupNetworkGroup.ValueString()
-	}
-
-	if !o.LeafNatDestinationRuleSourceGroupPortGroup.IsNull() && !o.LeafNatDestinationRuleSourceGroupPortGroup.IsUnknown() {
-		jsonData["port-group"] = o.LeafNatDestinationRuleSourceGroupPortGroup.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *NatDestinationRuleSourceGroup) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address-group"]; ok {
-		o.LeafNatDestinationRuleSourceGroupAddressGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleSourceGroupAddressGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["domain-group"]; ok {
-		o.LeafNatDestinationRuleSourceGroupDomainGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleSourceGroupDomainGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mac-group"]; ok {
-		o.LeafNatDestinationRuleSourceGroupMacGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleSourceGroupMacGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["network-group"]; ok {
-		o.LeafNatDestinationRuleSourceGroupNetworkGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleSourceGroupNetworkGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port-group"]; ok {
-		o.LeafNatDestinationRuleSourceGroupPortGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleSourceGroupPortGroup = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *NatDestinationRuleSourceGroup) UnmarshalJSON(_ []byte) error {
 	return nil
 }

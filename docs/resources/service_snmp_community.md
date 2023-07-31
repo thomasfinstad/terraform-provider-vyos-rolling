@@ -30,8 +30,8 @@ Community name
     |----------|---------------|
     |  ro  |  Read-Only  |
     |  rw  |  Read-Write  |
-- `client` (String) IP address of SNMP client allowed to contact system
-- `network` (String) Subnet of SNMP client(s) allowed to contact system
+- `client` (List of String) IP address of SNMP client allowed to contact system
+- `network` (List of String) Subnet of SNMP client(s) allowed to contact system
 
     |  Format  |  Description  |
     |----------|---------------|

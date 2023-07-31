@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsStaticRoute describes the resource data model.
@@ -31,7 +27,9 @@ type ProtocolsStaticRoute struct {
 func (o *ProtocolsStaticRoute) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"static",
+
 		"route",
 		o.ID.ValueString(),
 	}
@@ -97,105 +95,10 @@ func (o ProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schema.Attri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsStaticRoute) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsStaticRouteDhcpInterface.IsNull() && !o.LeafProtocolsStaticRouteDhcpInterface.IsUnknown() {
-		jsonData["dhcp-interface"] = o.LeafProtocolsStaticRouteDhcpInterface.ValueString()
-	}
-
-	if !o.LeafProtocolsStaticRouteDescrIPtion.IsNull() && !o.LeafProtocolsStaticRouteDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafProtocolsStaticRouteDescrIPtion.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeProtocolsStaticRouteBlackhole).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsStaticRouteBlackhole)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["blackhole"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsStaticRouteReject).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsStaticRouteReject)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["reject"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsStaticRoute) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["dhcp-interface"]; ok {
-		o.LeafProtocolsStaticRouteDhcpInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticRouteDhcpInterface = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafProtocolsStaticRouteDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticRouteDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["blackhole"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsStaticRouteBlackhole = &ProtocolsStaticRouteBlackhole{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsStaticRouteBlackhole)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["reject"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsStaticRouteReject = &ProtocolsStaticRouteReject{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsStaticRouteReject)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ProtocolsStaticRoute) UnmarshalJSON(_ []byte) error {
 	return nil
 }

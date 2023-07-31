@@ -2,24 +2,21 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceDNSDynamicInterfaceRfctwoonethreesix describes the resource data model.
 type ServiceDNSDynamicInterfaceRfctwoonethreesix struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDServiceDNSDynamicInterface any `tfsdk:"interface" vyos:"interface,parent-id"`
+	ParentIDServiceDNSDynamicInterface types.String `tfsdk:"interface" vyos:"interface_identifier,parent-id"`
 
 	// LeafNodes
 	LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey    types.String `tfsdk:"key" vyos:"key,omitempty"`
-	LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord types.String `tfsdk:"record" vyos:"record,omitempty"`
+	LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord types.List   `tfsdk:"record" vyos:"record,omitempty"`
 	LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer types.String `tfsdk:"server" vyos:"server,omitempty"`
-	LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL    types.String `tfsdk:"ttl" vyos:"ttl,omitempty"`
+	LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL    types.Number `tfsdk:"ttl" vyos:"ttl,omitempty"`
 	LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone   types.String `tfsdk:"zone" vyos:"zone,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -31,9 +28,14 @@ type ServiceDNSDynamicInterfaceRfctwoonethreesix struct {
 func (o *ServiceDNSDynamicInterfaceRfctwoonethreesix) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"dns",
+
 		"dynamic",
+
 		"interface",
+		o.ParentIDServiceDNSDynamicInterface.ValueString(),
+
 		"rfc2136",
 		o.ID.ValueString(),
 	}
@@ -45,6 +47,13 @@ func (o ServiceDNSDynamicInterfaceRfctwoonethreesix) ResourceSchemaAttributes() 
 		"identifier": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `RFC2136 Update name
+
+`,
+		},
+
+		"interface_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Interface to send DDNS updates for
 
 `,
 		},
@@ -62,8 +71,9 @@ func (o ServiceDNSDynamicInterfaceRfctwoonethreesix) ResourceSchemaAttributes() 
 `,
 		},
 
-		"record": schema.StringAttribute{
-			Optional: true,
+		"record": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Record to be updated
 
 `,
@@ -76,7 +86,7 @@ func (o ServiceDNSDynamicInterfaceRfctwoonethreesix) ResourceSchemaAttributes() 
 `,
 		},
 
-		"ttl": schema.StringAttribute{
+		"ttl": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Time To Live (default: 600)
 
@@ -104,81 +114,10 @@ func (o ServiceDNSDynamicInterfaceRfctwoonethreesix) ResourceSchemaAttributes() 
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceDNSDynamicInterfaceRfctwoonethreesix) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey.IsNull() && !o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey.IsUnknown() {
-		jsonData["key"] = o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey.ValueString()
-	}
-
-	if !o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord.IsNull() && !o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord.IsUnknown() {
-		jsonData["record"] = o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord.ValueString()
-	}
-
-	if !o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer.IsNull() && !o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer.IsUnknown() {
-		jsonData["server"] = o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer.ValueString()
-	}
-
-	if !o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL.IsNull() && !o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL.IsUnknown() {
-		jsonData["ttl"] = o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL.ValueString()
-	}
-
-	if !o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone.IsNull() && !o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone.IsUnknown() {
-		jsonData["zone"] = o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceDNSDynamicInterfaceRfctwoonethreesix) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["key"]; ok {
-		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["record"]; ok {
-		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["server"]; ok {
-		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ttl"]; ok {
-		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["zone"]; ok {
-		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceDNSDynamicInterfaceRfctwoonethreesix) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,25 +2,23 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesBrIDgeMemberInterface describes the resource data model.
 type InterfacesBrIDgeMemberInterface struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDInterfacesBrIDge any `tfsdk:"bridge" vyos:"bridge,parent-id"`
+	ParentIDInterfacesBrIDge types.String `tfsdk:"bridge" vyos:"bridge_identifier,parent-id"`
 
 	// LeafNodes
-	LeafInterfacesBrIDgeMemberInterfaceNativeVlan  types.String `tfsdk:"native_vlan" vyos:"native-vlan,omitempty"`
-	LeafInterfacesBrIDgeMemberInterfaceAllowedVlan types.String `tfsdk:"allowed_vlan" vyos:"allowed-vlan,omitempty"`
-	LeafInterfacesBrIDgeMemberInterfaceCost        types.String `tfsdk:"cost" vyos:"cost,omitempty"`
-	LeafInterfacesBrIDgeMemberInterfacePriority    types.String `tfsdk:"priority" vyos:"priority,omitempty"`
-	LeafInterfacesBrIDgeMemberInterfaceIsolated    types.String `tfsdk:"isolated" vyos:"isolated,omitempty"`
+	LeafInterfacesBrIDgeMemberInterfaceNativeVlan  types.Number `tfsdk:"native_vlan" vyos:"native-vlan,omitempty"`
+	LeafInterfacesBrIDgeMemberInterfaceAllowedVlan types.List   `tfsdk:"allowed_vlan" vyos:"allowed-vlan,omitempty"`
+	LeafInterfacesBrIDgeMemberInterfaceCost        types.Number `tfsdk:"cost" vyos:"cost,omitempty"`
+	LeafInterfacesBrIDgeMemberInterfacePriority    types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
+	LeafInterfacesBrIDgeMemberInterfaceIsolated    types.Bool   `tfsdk:"isolated" vyos:"isolated,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -31,8 +29,12 @@ type InterfacesBrIDgeMemberInterface struct {
 func (o *InterfacesBrIDgeMemberInterface) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"bridge",
+		o.ParentIDInterfacesBrIDge.ValueString(),
+
 		"member",
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -48,9 +50,20 @@ func (o InterfacesBrIDgeMemberInterface) ResourceSchemaAttributes() map[string]s
 `,
 		},
 
+		"bridge_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Bridge Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  brN  |  Bridge interface name  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"native_vlan": schema.StringAttribute{
+		"native_vlan": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Specify VLAN id which should natively be present on the link
 
@@ -61,8 +74,9 @@ func (o InterfacesBrIDgeMemberInterface) ResourceSchemaAttributes() map[string]s
 `,
 		},
 
-		"allowed_vlan": schema.StringAttribute{
-			Optional: true,
+		"allowed_vlan": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Specify VLAN id which is allowed in this trunk interface
 
     |  Format  |  Description  |
@@ -73,7 +87,7 @@ func (o InterfacesBrIDgeMemberInterface) ResourceSchemaAttributes() map[string]s
 `,
 		},
 
-		"cost": schema.StringAttribute{
+		"cost": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Bridge port cost
 
@@ -87,7 +101,7 @@ func (o InterfacesBrIDgeMemberInterface) ResourceSchemaAttributes() map[string]s
 			Computed: true,
 		},
 
-		"priority": schema.StringAttribute{
+		"priority": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Bridge port priority
 
@@ -101,11 +115,13 @@ func (o InterfacesBrIDgeMemberInterface) ResourceSchemaAttributes() map[string]s
 			Computed: true,
 		},
 
-		"isolated": schema.StringAttribute{
+		"isolated": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Port is isolated (also known as Private-VLAN)
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -115,81 +131,10 @@ func (o InterfacesBrIDgeMemberInterface) ResourceSchemaAttributes() map[string]s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesBrIDgeMemberInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesBrIDgeMemberInterfaceNativeVlan.IsNull() && !o.LeafInterfacesBrIDgeMemberInterfaceNativeVlan.IsUnknown() {
-		jsonData["native-vlan"] = o.LeafInterfacesBrIDgeMemberInterfaceNativeVlan.ValueString()
-	}
-
-	if !o.LeafInterfacesBrIDgeMemberInterfaceAllowedVlan.IsNull() && !o.LeafInterfacesBrIDgeMemberInterfaceAllowedVlan.IsUnknown() {
-		jsonData["allowed-vlan"] = o.LeafInterfacesBrIDgeMemberInterfaceAllowedVlan.ValueString()
-	}
-
-	if !o.LeafInterfacesBrIDgeMemberInterfaceCost.IsNull() && !o.LeafInterfacesBrIDgeMemberInterfaceCost.IsUnknown() {
-		jsonData["cost"] = o.LeafInterfacesBrIDgeMemberInterfaceCost.ValueString()
-	}
-
-	if !o.LeafInterfacesBrIDgeMemberInterfacePriority.IsNull() && !o.LeafInterfacesBrIDgeMemberInterfacePriority.IsUnknown() {
-		jsonData["priority"] = o.LeafInterfacesBrIDgeMemberInterfacePriority.ValueString()
-	}
-
-	if !o.LeafInterfacesBrIDgeMemberInterfaceIsolated.IsNull() && !o.LeafInterfacesBrIDgeMemberInterfaceIsolated.IsUnknown() {
-		jsonData["isolated"] = o.LeafInterfacesBrIDgeMemberInterfaceIsolated.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesBrIDgeMemberInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["native-vlan"]; ok {
-		o.LeafInterfacesBrIDgeMemberInterfaceNativeVlan = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeMemberInterfaceNativeVlan = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["allowed-vlan"]; ok {
-		o.LeafInterfacesBrIDgeMemberInterfaceAllowedVlan = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeMemberInterfaceAllowedVlan = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["cost"]; ok {
-		o.LeafInterfacesBrIDgeMemberInterfaceCost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeMemberInterfaceCost = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["priority"]; ok {
-		o.LeafInterfacesBrIDgeMemberInterfacePriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeMemberInterfacePriority = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["isolated"]; ok {
-		o.LeafInterfacesBrIDgeMemberInterfaceIsolated = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeMemberInterfaceIsolated = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesBrIDgeMemberInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

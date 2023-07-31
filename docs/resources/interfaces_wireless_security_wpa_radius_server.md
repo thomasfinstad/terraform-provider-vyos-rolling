@@ -49,13 +49,18 @@ RADIUS server configuration
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  RADIUS server IPv4 address  |
+- `wireless_identifier` (String) Wireless (WiFi/WLAN) Network Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
 
 ### Optional
 
-- `accounting` (String) Enable RADIUS server to receive accounting info
-- `disable` (String) Disable instance
+- `accounting` (Boolean) Enable RADIUS server to receive accounting info
+- `disable` (Boolean) Disable instance
 - `key` (String) Shared secret key
-- `port` (String) Authentication port
+- `port` (Number) Authentication port
 
     |  Format  |  Description  |
     |----------|---------------|

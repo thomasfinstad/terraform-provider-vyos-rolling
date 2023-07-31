@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemTaskSchedulerTaskExecutable describes the resource data model.
@@ -46,51 +43,10 @@ func (o SystemTaskSchedulerTaskExecutable) ResourceSchemaAttributes() map[string
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemTaskSchedulerTaskExecutable) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafSystemTaskSchedulerTaskExecutablePath.IsNull() && !o.LeafSystemTaskSchedulerTaskExecutablePath.IsUnknown() {
-		jsonData["path"] = o.LeafSystemTaskSchedulerTaskExecutablePath.ValueString()
-	}
-
-	if !o.LeafSystemTaskSchedulerTaskExecutableArguments.IsNull() && !o.LeafSystemTaskSchedulerTaskExecutableArguments.IsUnknown() {
-		jsonData["arguments"] = o.LeafSystemTaskSchedulerTaskExecutableArguments.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemTaskSchedulerTaskExecutable) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["path"]; ok {
-		o.LeafSystemTaskSchedulerTaskExecutablePath = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemTaskSchedulerTaskExecutablePath = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["arguments"]; ok {
-		o.LeafSystemTaskSchedulerTaskExecutableArguments = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemTaskSchedulerTaskExecutableArguments = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *SystemTaskSchedulerTaskExecutable) UnmarshalJSON(_ []byte) error {
 	return nil
 }

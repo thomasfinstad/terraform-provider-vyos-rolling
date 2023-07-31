@@ -2,17 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpPeerGroupLocalAsNoPrepend describes the resource data model.
 type VrfNameProtocolsBgpPeerGroupLocalAsNoPrepend struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpPeerGroupLocalAsNoPrependReplaceAs types.String `tfsdk:"replace_as" vyos:"replace-as,omitempty"`
+	LeafVrfNameProtocolsBgpPeerGroupLocalAsNoPrependReplaceAs types.Bool `tfsdk:"replace_as" vyos:"replace-as,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,11 +22,13 @@ func (o VrfNameProtocolsBgpPeerGroupLocalAsNoPrepend) ResourceSchemaAttributes()
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"replace_as": schema.StringAttribute{
+		"replace_as": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Prepend only local-as from/to updates for eBGP peers
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -38,41 +38,10 @@ func (o VrfNameProtocolsBgpPeerGroupLocalAsNoPrepend) ResourceSchemaAttributes()
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpPeerGroupLocalAsNoPrepend) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpPeerGroupLocalAsNoPrependReplaceAs.IsNull() && !o.LeafVrfNameProtocolsBgpPeerGroupLocalAsNoPrependReplaceAs.IsUnknown() {
-		jsonData["replace-as"] = o.LeafVrfNameProtocolsBgpPeerGroupLocalAsNoPrependReplaceAs.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpPeerGroupLocalAsNoPrepend) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["replace-as"]; ok {
-		o.LeafVrfNameProtocolsBgpPeerGroupLocalAsNoPrependReplaceAs = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpPeerGroupLocalAsNoPrependReplaceAs = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpPeerGroupLocalAsNoPrepend) UnmarshalJSON(_ []byte) error {
 	return nil
 }

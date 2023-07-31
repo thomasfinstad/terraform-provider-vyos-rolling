@@ -2,19 +2,17 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged struct {
 	// LeafNodes
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedAsPath  types.String `tfsdk:"as_path" vyos:"as-path,omitempty"`
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedMed     types.String `tfsdk:"med" vyos:"med,omitempty"`
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedNextHop types.String `tfsdk:"next_hop" vyos:"next-hop,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedAsPath  types.Bool `tfsdk:"as_path" vyos:"as-path,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedMed     types.Bool `tfsdk:"med" vyos:"med,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedNextHop types.Bool `tfsdk:"next_hop" vyos:"next-hop,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,25 +24,31 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged) Res
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"as_path": schema.StringAttribute{
+		"as_path": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Send AS path unchanged
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"med": schema.StringAttribute{
+		"med": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Send multi-exit discriminator unchanged
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"next_hop": schema.StringAttribute{
+		"next_hop": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Send nexthop unchanged
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -54,61 +58,10 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged) Res
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedAsPath.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedAsPath.IsUnknown() {
-		jsonData["as-path"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedAsPath.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedMed.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedMed.IsUnknown() {
-		jsonData["med"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedMed.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedNextHop.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedNextHop.IsUnknown() {
-		jsonData["next-hop"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedNextHop.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["as-path"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedAsPath = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedAsPath = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["med"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedMed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedMed = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["next-hop"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedNextHop = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedNextHop = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged) UnmarshalJSON(_ []byte) error {
 	return nil
 }

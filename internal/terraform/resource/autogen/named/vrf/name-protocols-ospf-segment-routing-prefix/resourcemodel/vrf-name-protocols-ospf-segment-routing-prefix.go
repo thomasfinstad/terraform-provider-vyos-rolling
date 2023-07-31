@@ -2,9 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -13,7 +10,7 @@ import (
 type VrfNameProtocolsOspfSegmentRoutingPrefix struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVrfName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
 	// LeafNodes
 
@@ -27,10 +24,16 @@ type VrfNameProtocolsOspfSegmentRoutingPrefix struct {
 func (o *VrfNameProtocolsOspfSegmentRoutingPrefix) GetVyosPath() []string {
 	return []string{
 		"vrf",
+
 		"name",
+		o.ParentIDVrfName.ValueString(),
+
 		"protocols",
+
 		"ospf",
+
 		"segment-routing",
+
 		"prefix",
 		o.ID.ValueString(),
 	}
@@ -46,6 +49,17 @@ func (o VrfNameProtocolsOspfSegmentRoutingPrefix) ResourceSchemaAttributes() map
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4net  |  IPv4 prefix segment  |
+
+`,
+		},
+
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 `,
 		},
@@ -66,58 +80,10 @@ func (o VrfNameProtocolsOspfSegmentRoutingPrefix) ResourceSchemaAttributes() map
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfSegmentRoutingPrefix) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfSegmentRoutingPrefixIndex).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfSegmentRoutingPrefixIndex)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["index"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfSegmentRoutingPrefix) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["index"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsOspfSegmentRoutingPrefixIndex = &VrfNameProtocolsOspfSegmentRoutingPrefixIndex{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfSegmentRoutingPrefixIndex)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VrfNameProtocolsOspfSegmentRoutingPrefix) UnmarshalJSON(_ []byte) error {
 	return nil
 }

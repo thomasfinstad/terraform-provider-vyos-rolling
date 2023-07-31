@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesVti describes the resource data model.
@@ -15,10 +12,10 @@ type InterfacesVti struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafInterfacesVtiAddress     types.String `tfsdk:"address" vyos:"address,omitempty"`
+	LeafInterfacesVtiAddress     types.List   `tfsdk:"address" vyos:"address,omitempty"`
 	LeafInterfacesVtiDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafInterfacesVtiDisable     types.String `tfsdk:"disable" vyos:"disable,omitempty"`
-	LeafInterfacesVtiMtu         types.String `tfsdk:"mtu" vyos:"mtu,omitempty"`
+	LeafInterfacesVtiDisable     types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafInterfacesVtiMtu         types.Number `tfsdk:"mtu" vyos:"mtu,omitempty"`
 	LeafInterfacesVtiRedirect    types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 	LeafInterfacesVtiVrf         types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
@@ -34,6 +31,7 @@ type InterfacesVti struct {
 func (o *InterfacesVti) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"vti",
 		o.ID.ValueString(),
 	}
@@ -55,8 +53,9 @@ func (o InterfacesVti) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 		// LeafNodes
 
-		"address": schema.StringAttribute{
-			Optional: true,
+		"address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address
 
     |  Format  |  Description  |
@@ -78,14 +77,16 @@ func (o InterfacesVti) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"mtu": schema.StringAttribute{
+		"mtu": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
@@ -151,172 +152,10 @@ func (o InterfacesVti) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesVti) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesVtiAddress.IsNull() && !o.LeafInterfacesVtiAddress.IsUnknown() {
-		jsonData["address"] = o.LeafInterfacesVtiAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesVtiDescrIPtion.IsNull() && !o.LeafInterfacesVtiDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafInterfacesVtiDescrIPtion.ValueString()
-	}
-
-	if !o.LeafInterfacesVtiDisable.IsNull() && !o.LeafInterfacesVtiDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafInterfacesVtiDisable.ValueString()
-	}
-
-	if !o.LeafInterfacesVtiMtu.IsNull() && !o.LeafInterfacesVtiMtu.IsUnknown() {
-		jsonData["mtu"] = o.LeafInterfacesVtiMtu.ValueString()
-	}
-
-	if !o.LeafInterfacesVtiRedirect.IsNull() && !o.LeafInterfacesVtiRedirect.IsUnknown() {
-		jsonData["redirect"] = o.LeafInterfacesVtiRedirect.ValueString()
-	}
-
-	if !o.LeafInterfacesVtiVrf.IsNull() && !o.LeafInterfacesVtiVrf.IsUnknown() {
-		jsonData["vrf"] = o.LeafInterfacesVtiVrf.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesVtiIP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesVtiIP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ip"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesVtiIPvsix).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesVtiIPvsix)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipv6"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesVtiMirror).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesVtiMirror)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["mirror"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesVti) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafInterfacesVtiAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVtiAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafInterfacesVtiDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVtiDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafInterfacesVtiDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVtiDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mtu"]; ok {
-		o.LeafInterfacesVtiMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVtiMtu = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["redirect"]; ok {
-		o.LeafInterfacesVtiRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVtiRedirect = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vrf"]; ok {
-		o.LeafInterfacesVtiVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVtiVrf = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["ip"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesVtiIP = &InterfacesVtiIP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesVtiIP)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ipv6"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesVtiIPvsix = &InterfacesVtiIPvsix{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesVtiIPvsix)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["mirror"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesVtiMirror = &InterfacesVtiMirror{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesVtiMirror)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesVti) UnmarshalJSON(_ []byte) error {
 	return nil
 }

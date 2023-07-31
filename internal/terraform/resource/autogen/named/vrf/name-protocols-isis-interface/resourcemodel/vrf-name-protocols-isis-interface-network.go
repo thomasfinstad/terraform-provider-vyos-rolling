@@ -2,17 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsIsisInterfaceNetwork describes the resource data model.
 type VrfNameProtocolsIsisInterfaceNetwork struct {
 	// LeafNodes
-	LeafVrfNameProtocolsIsisInterfaceNetworkPointToPoint types.String `tfsdk:"point_to_point" vyos:"point-to-point,omitempty"`
+	LeafVrfNameProtocolsIsisInterfaceNetworkPointToPoint types.Bool `tfsdk:"point_to_point" vyos:"point-to-point,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,11 +22,13 @@ func (o VrfNameProtocolsIsisInterfaceNetwork) ResourceSchemaAttributes() map[str
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"point_to_point": schema.StringAttribute{
+		"point_to_point": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `point-to-point network type
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -38,41 +38,10 @@ func (o VrfNameProtocolsIsisInterfaceNetwork) ResourceSchemaAttributes() map[str
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsIsisInterfaceNetwork) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsIsisInterfaceNetworkPointToPoint.IsNull() && !o.LeafVrfNameProtocolsIsisInterfaceNetworkPointToPoint.IsUnknown() {
-		jsonData["point-to-point"] = o.LeafVrfNameProtocolsIsisInterfaceNetworkPointToPoint.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsIsisInterfaceNetwork) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["point-to-point"]; ok {
-		o.LeafVrfNameProtocolsIsisInterfaceNetworkPointToPoint = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisInterfaceNetworkPointToPoint = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsIsisInterfaceNetwork) UnmarshalJSON(_ []byte) error {
 	return nil
 }

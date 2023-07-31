@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsPimRpAddress describes the resource data model.
@@ -14,7 +11,7 @@ type ProtocolsPimRpAddress struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafProtocolsPimRpAddressGroup types.String `tfsdk:"group" vyos:"group,omitempty"`
+	LeafProtocolsPimRpAddressGroup types.List `tfsdk:"group" vyos:"group,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,8 +22,11 @@ type ProtocolsPimRpAddress struct {
 func (o *ProtocolsPimRpAddress) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"pim",
+
 		"rp",
+
 		"address",
 		o.ID.ValueString(),
 	}
@@ -48,8 +48,9 @@ func (o ProtocolsPimRpAddress) ResourceSchemaAttributes() map[string]schema.Attr
 
 		// LeafNodes
 
-		"group": schema.StringAttribute{
-			Optional: true,
+		"group": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Group Address range
 
     |  Format  |  Description  |
@@ -66,41 +67,10 @@ func (o ProtocolsPimRpAddress) ResourceSchemaAttributes() map[string]schema.Attr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsPimRpAddress) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsPimRpAddressGroup.IsNull() && !o.LeafProtocolsPimRpAddressGroup.IsUnknown() {
-		jsonData["group"] = o.LeafProtocolsPimRpAddressGroup.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsPimRpAddress) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["group"]; ok {
-		o.LeafProtocolsPimRpAddressGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsPimRpAddressGroup = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsPimRpAddress) UnmarshalJSON(_ []byte) error {
 	return nil
 }

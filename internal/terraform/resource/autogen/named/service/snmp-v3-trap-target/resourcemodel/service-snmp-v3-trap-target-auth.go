@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceSnmpVthreeTrapTargetAuth describes the resource data model.
@@ -62,61 +59,10 @@ func (o ServiceSnmpVthreeTrapTargetAuth) ResourceSchemaAttributes() map[string]s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceSnmpVthreeTrapTargetAuth) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceSnmpVthreeTrapTargetAuthEncryptedPassword.IsNull() && !o.LeafServiceSnmpVthreeTrapTargetAuthEncryptedPassword.IsUnknown() {
-		jsonData["encrypted-password"] = o.LeafServiceSnmpVthreeTrapTargetAuthEncryptedPassword.ValueString()
-	}
-
-	if !o.LeafServiceSnmpVthreeTrapTargetAuthPlaintextPassword.IsNull() && !o.LeafServiceSnmpVthreeTrapTargetAuthPlaintextPassword.IsUnknown() {
-		jsonData["plaintext-password"] = o.LeafServiceSnmpVthreeTrapTargetAuthPlaintextPassword.ValueString()
-	}
-
-	if !o.LeafServiceSnmpVthreeTrapTargetAuthType.IsNull() && !o.LeafServiceSnmpVthreeTrapTargetAuthType.IsUnknown() {
-		jsonData["type"] = o.LeafServiceSnmpVthreeTrapTargetAuthType.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceSnmpVthreeTrapTargetAuth) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["encrypted-password"]; ok {
-		o.LeafServiceSnmpVthreeTrapTargetAuthEncryptedPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeTrapTargetAuthEncryptedPassword = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["plaintext-password"]; ok {
-		o.LeafServiceSnmpVthreeTrapTargetAuthPlaintextPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeTrapTargetAuthPlaintextPassword = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["type"]; ok {
-		o.LeafServiceSnmpVthreeTrapTargetAuthType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeTrapTargetAuthType = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceSnmpVthreeTrapTargetAuth) UnmarshalJSON(_ []byte) error {
 	return nil
 }

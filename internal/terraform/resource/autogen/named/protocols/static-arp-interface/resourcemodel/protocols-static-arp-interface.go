@@ -2,8 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -24,8 +22,11 @@ type ProtocolsStaticArpInterface struct {
 func (o *ProtocolsStaticArpInterface) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"static",
+
 		"arp",
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -54,31 +55,10 @@ func (o ProtocolsStaticArpInterface) ResourceSchemaAttributes() map[string]schem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsStaticArpInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsStaticArpInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-
+func (o *ProtocolsStaticArpInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

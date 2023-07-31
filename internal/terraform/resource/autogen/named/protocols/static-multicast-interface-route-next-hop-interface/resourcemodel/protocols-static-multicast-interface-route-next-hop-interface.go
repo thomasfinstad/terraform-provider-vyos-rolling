@@ -2,21 +2,18 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsStaticMulticastInterfaceRouteNextHopInterface describes the resource data model.
 type ProtocolsStaticMulticastInterfaceRouteNextHopInterface struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDProtocolsStaticMulticastInterfaceRoute any `tfsdk:"interface_route" vyos:"interface-route,parent-id"`
+	ParentIDProtocolsStaticMulticastInterfaceRoute types.String `tfsdk:"interface_route" vyos:"interface-route_identifier,parent-id"`
 
 	// LeafNodes
-	LeafProtocolsStaticMulticastInterfaceRouteNextHopInterfaceDistance types.String `tfsdk:"distance" vyos:"distance,omitempty"`
+	LeafProtocolsStaticMulticastInterfaceRouteNextHopInterfaceDistance types.Number `tfsdk:"distance" vyos:"distance,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,9 +24,14 @@ type ProtocolsStaticMulticastInterfaceRouteNextHopInterface struct {
 func (o *ProtocolsStaticMulticastInterfaceRouteNextHopInterface) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"static",
+
 		"multicast",
+
 		"interface-route",
+		o.ParentIDProtocolsStaticMulticastInterfaceRoute.ValueString(),
+
 		"next-hop-interface",
 		o.ID.ValueString(),
 	}
@@ -45,9 +47,20 @@ func (o ProtocolsStaticMulticastInterfaceRouteNextHopInterface) ResourceSchemaAt
 `,
 		},
 
+		"interface_route_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Multicast interface based route
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  Network  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"distance": schema.StringAttribute{
+		"distance": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Distance value for this route
 
@@ -65,41 +78,10 @@ func (o ProtocolsStaticMulticastInterfaceRouteNextHopInterface) ResourceSchemaAt
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsStaticMulticastInterfaceRouteNextHopInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsStaticMulticastInterfaceRouteNextHopInterfaceDistance.IsNull() && !o.LeafProtocolsStaticMulticastInterfaceRouteNextHopInterfaceDistance.IsUnknown() {
-		jsonData["distance"] = o.LeafProtocolsStaticMulticastInterfaceRouteNextHopInterfaceDistance.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsStaticMulticastInterfaceRouteNextHopInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["distance"]; ok {
-		o.LeafProtocolsStaticMulticastInterfaceRouteNextHopInterfaceDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticMulticastInterfaceRouteNextHopInterfaceDistance = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsStaticMulticastInterfaceRouteNextHopInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

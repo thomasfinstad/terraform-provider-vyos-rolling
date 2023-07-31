@@ -35,10 +35,11 @@ IPv6 route to be advertised in Router Advertisements (RAs)
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv6net  |  IPv6 route to be advertized  |
+- `interface_identifier` (String) Interface to send RA on
 
 ### Optional
 
-- `no_remove_route` (String) Do not announce this route with a zero second lifetime upon shutdown
+- `no_remove_route` (Boolean) Do not announce this route with a zero second lifetime upon shutdown
 - `route_preference` (String) Preference associated with the route,
 
     |  Format  |  Description  |

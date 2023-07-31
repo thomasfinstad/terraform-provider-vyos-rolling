@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallNameRuleTCP describes the resource data model.
@@ -52,68 +48,10 @@ func (o FirewallNameRuleTCP) ResourceSchemaAttributes() map[string]schema.Attrib
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallNameRuleTCP) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallNameRuleTCPMss.IsNull() && !o.LeafFirewallNameRuleTCPMss.IsUnknown() {
-		jsonData["mss"] = o.LeafFirewallNameRuleTCPMss.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeFirewallNameRuleTCPFlags).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleTCPFlags)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["flags"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallNameRuleTCP) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["mss"]; ok {
-		o.LeafFirewallNameRuleTCPMss = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleTCPMss = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["flags"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallNameRuleTCPFlags = &FirewallNameRuleTCPFlags{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleTCPFlags)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *FirewallNameRuleTCP) UnmarshalJSON(_ []byte) error {
 	return nil
 }

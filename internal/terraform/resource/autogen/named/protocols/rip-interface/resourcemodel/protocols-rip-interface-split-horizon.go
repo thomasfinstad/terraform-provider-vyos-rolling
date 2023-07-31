@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsRIPInterfaceSplitHorizon describes the resource data model.
 type ProtocolsRIPInterfaceSplitHorizon struct {
 	// LeafNodes
-	LeafProtocolsRIPInterfaceSplitHorizonDisable       types.String `tfsdk:"disable" vyos:"disable,omitempty"`
-	LeafProtocolsRIPInterfaceSplitHorizonPoisonReverse types.String `tfsdk:"poison_reverse" vyos:"poison-reverse,omitempty"`
+	LeafProtocolsRIPInterfaceSplitHorizonDisable       types.Bool `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafProtocolsRIPInterfaceSplitHorizonPoisonReverse types.Bool `tfsdk:"poison_reverse" vyos:"poison-reverse,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,18 +23,22 @@ func (o ProtocolsRIPInterfaceSplitHorizon) ResourceSchemaAttributes() map[string
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable split horizon on specified interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"poison_reverse": schema.StringAttribute{
+		"poison_reverse": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable split horizon on specified interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -46,51 +48,10 @@ func (o ProtocolsRIPInterfaceSplitHorizon) ResourceSchemaAttributes() map[string
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsRIPInterfaceSplitHorizon) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsRIPInterfaceSplitHorizonDisable.IsNull() && !o.LeafProtocolsRIPInterfaceSplitHorizonDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafProtocolsRIPInterfaceSplitHorizonDisable.ValueString()
-	}
-
-	if !o.LeafProtocolsRIPInterfaceSplitHorizonPoisonReverse.IsNull() && !o.LeafProtocolsRIPInterfaceSplitHorizonPoisonReverse.IsUnknown() {
-		jsonData["poison-reverse"] = o.LeafProtocolsRIPInterfaceSplitHorizonPoisonReverse.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsRIPInterfaceSplitHorizon) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafProtocolsRIPInterfaceSplitHorizonDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsRIPInterfaceSplitHorizonDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["poison-reverse"]; ok {
-		o.LeafProtocolsRIPInterfaceSplitHorizonPoisonReverse = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsRIPInterfaceSplitHorizonPoisonReverse = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsRIPInterfaceSplitHorizon) UnmarshalJSON(_ []byte) error {
 	return nil
 }

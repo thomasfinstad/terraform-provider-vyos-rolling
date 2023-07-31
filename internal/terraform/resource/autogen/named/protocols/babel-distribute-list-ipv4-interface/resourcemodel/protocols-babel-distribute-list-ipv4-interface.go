@@ -2,9 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -26,9 +23,13 @@ type ProtocolsBabelDistributeListIPvfourInterface struct {
 func (o *ProtocolsBabelDistributeListIPvfourInterface) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"babel",
+
 		"distribute-list",
+
 		"ipv4",
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -72,85 +73,10 @@ func (o ProtocolsBabelDistributeListIPvfourInterface) ResourceSchemaAttributes()
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBabelDistributeListIPvfourInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["access-list"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["prefix-list"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBabelDistributeListIPvfourInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["access-list"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList = &ProtocolsBabelDistributeListIPvfourInterfaceAccessList{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["prefix-list"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList = &ProtocolsBabelDistributeListIPvfourInterfacePrefixList{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ProtocolsBabelDistributeListIPvfourInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -46,10 +46,15 @@ Class ID
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4095  |  Class Identifier  |
+- `round_robin_identifier` (String) Deficit Round Robin Scheduler
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
 
 ### Optional
 
-- `codel_quantum` (String) Deficit in the fair queuing algorithm
+- `codel_quantum` (Number) Deficit in the fair queuing algorithm
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -59,22 +64,22 @@ Class ID
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `flows` (String) Number of flows into which the incoming packets are classified
+- `flows` (Number) Number of flows into which the incoming packets are classified
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65536  |  Number of flows  |
-- `interval` (String) Interval used to measure the delay
+- `interval` (Number) Interval used to measure the delay
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32  |  Interval in milliseconds  |
-- `quantum` (String) Packet scheduling quantum
+- `quantum` (Number) Packet scheduling quantum
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4294967295  |  Packet scheduling quantum (bytes)  |
-- `queue_limit` (String) Maximum queue size
+- `queue_limit` (Number) Maximum queue size
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -88,7 +93,7 @@ Class ID
     |  fq-codel  |  Fair Queue Codel  |
     |  priority  |  Priority queuing  |
     |  random-detect  |  Random Early Detection (RED)  |
-- `target` (String) Acceptable minimum standing/persistent queue delay
+- `target` (Number) Acceptable minimum standing/persistent queue delay
 
     |  Format  |  Description  |
     |----------|---------------|

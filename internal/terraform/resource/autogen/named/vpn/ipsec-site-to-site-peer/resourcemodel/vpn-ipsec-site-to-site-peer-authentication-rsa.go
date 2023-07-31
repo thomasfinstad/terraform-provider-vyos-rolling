@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnIPsecSiteToSitePeerAuthenticationRsa describes the resource data model.
@@ -54,61 +51,10 @@ func (o VpnIPsecSiteToSitePeerAuthenticationRsa) ResourceSchemaAttributes() map[
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnIPsecSiteToSitePeerAuthenticationRsa) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaLocalKey.IsNull() && !o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaLocalKey.IsUnknown() {
-		jsonData["local-key"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaLocalKey.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaPassphrase.IsNull() && !o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaPassphrase.IsUnknown() {
-		jsonData["passphrase"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaPassphrase.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaRemoteKey.IsNull() && !o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaRemoteKey.IsUnknown() {
-		jsonData["remote-key"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaRemoteKey.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnIPsecSiteToSitePeerAuthenticationRsa) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["local-key"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaLocalKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaLocalKey = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["passphrase"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaPassphrase = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaPassphrase = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["remote-key"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaRemoteKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaRemoteKey = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VpnIPsecSiteToSitePeerAuthenticationRsa) UnmarshalJSON(_ []byte) error {
 	return nil
 }

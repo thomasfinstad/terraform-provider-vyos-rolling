@@ -2,17 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastNexthopLocal describes the resource data model.
 type ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastNexthopLocal struct {
 	// LeafNodes
-	LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastNexthopLocalUnchanged types.String `tfsdk:"unchanged" vyos:"unchanged,omitempty"`
+	LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastNexthopLocalUnchanged types.Bool `tfsdk:"unchanged" vyos:"unchanged,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,11 +22,13 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastNexthopLocal) ResourceSch
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"unchanged": schema.StringAttribute{
+		"unchanged": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Leave link-local nexthop unchanged for this peer
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -38,41 +38,10 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastNexthopLocal) ResourceSch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastNexthopLocal) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastNexthopLocalUnchanged.IsNull() && !o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastNexthopLocalUnchanged.IsUnknown() {
-		jsonData["unchanged"] = o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastNexthopLocalUnchanged.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastNexthopLocal) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["unchanged"]; ok {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastNexthopLocalUnchanged = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastNexthopLocalUnchanged = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastNexthopLocal) UnmarshalJSON(_ []byte) error {
 	return nil
 }

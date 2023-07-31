@@ -40,7 +40,7 @@ VPN IPsec profile
 
 - `authentication` (Attributes) Authentication (see [below for nested schema](#nestedatt--authentication))
 - `bind` (Attributes) DMVPN tunnel configuration (see [below for nested schema](#nestedatt--bind))
-- `disable` (String) Disable instance
+- `disable` (Boolean) Disable instance
 - `esp_group` (String) Encapsulating Security Payloads (ESP) group name
 - `ike_group` (String) Internet Key Exchange (IKE) group name
 
@@ -66,7 +66,7 @@ Optional:
 
 Optional:
 
-- `tunnel` (String) Tunnel interface associated with this profile
+- `tunnel` (List of String) Tunnel interface associated with this profile
 
     |  Format  |  Description  |
     |----------|---------------|

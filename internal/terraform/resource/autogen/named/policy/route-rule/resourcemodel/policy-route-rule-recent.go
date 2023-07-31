@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteRuleRecent describes the resource data model.
 type PolicyRouteRuleRecent struct {
 	// LeafNodes
-	LeafPolicyRouteRuleRecentCount types.String `tfsdk:"count" vyos:"count,omitempty"`
-	LeafPolicyRouteRuleRecentTime  types.String `tfsdk:"time" vyos:"time,omitempty"`
+	LeafPolicyRouteRuleRecentCount types.Number `tfsdk:"count" vyos:"count,omitempty"`
+	LeafPolicyRouteRuleRecentTime  types.Number `tfsdk:"time" vyos:"time,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +22,7 @@ func (o PolicyRouteRuleRecent) ResourceSchemaAttributes() map[string]schema.Attr
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"count": schema.StringAttribute{
+		"count": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Source addresses seen more than N times
 
@@ -36,7 +33,7 @@ func (o PolicyRouteRuleRecent) ResourceSchemaAttributes() map[string]schema.Attr
 `,
 		},
 
-		"time": schema.StringAttribute{
+		"time": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Source addresses seen in the last N seconds
 
@@ -54,51 +51,10 @@ func (o PolicyRouteRuleRecent) ResourceSchemaAttributes() map[string]schema.Attr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteRuleRecent) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteRuleRecentCount.IsNull() && !o.LeafPolicyRouteRuleRecentCount.IsUnknown() {
-		jsonData["count"] = o.LeafPolicyRouteRuleRecentCount.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleRecentTime.IsNull() && !o.LeafPolicyRouteRuleRecentTime.IsUnknown() {
-		jsonData["time"] = o.LeafPolicyRouteRuleRecentTime.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteRuleRecent) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["count"]; ok {
-		o.LeafPolicyRouteRuleRecentCount = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleRecentCount = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["time"]; ok {
-		o.LeafPolicyRouteRuleRecentTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleRecentTime = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRouteRuleRecent) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,9 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -25,7 +22,9 @@ type ProtocolsRIPngInterface struct {
 func (o *ProtocolsRIPngInterface) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"ripng",
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -61,58 +60,10 @@ func (o ProtocolsRIPngInterface) ResourceSchemaAttributes() map[string]schema.At
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsRIPngInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeProtocolsRIPngInterfaceSplitHorizon).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsRIPngInterfaceSplitHorizon)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["split-horizon"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsRIPngInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["split-horizon"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsRIPngInterfaceSplitHorizon = &ProtocolsRIPngInterfaceSplitHorizon{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsRIPngInterfaceSplitHorizon)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ProtocolsRIPngInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

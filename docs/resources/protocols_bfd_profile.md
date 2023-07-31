@@ -35,32 +35,32 @@ Configure BFD profile used by individual peer
 
 ### Optional
 
-- `echo_mode` (String) Enables the echo transmission mode
+- `echo_mode` (Boolean) Enables the echo transmission mode
 - `interval` (Attributes) Configure timer intervals (see [below for nested schema](#nestedatt--interval))
-- `passive` (String) Do not attempt to start sessions
-- `shutdown` (String) Disable this peer
+- `passive` (Boolean) Do not attempt to start sessions
+- `shutdown` (Boolean) Disable this peer
 
 <a id="nestedatt--interval"></a>
 ### Nested Schema for `interval`
 
 Optional:
 
-- `echo_interval` (String) Echo receive transmission interval
+- `echo_interval` (Number) Echo receive transmission interval
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:10-60000  |  The minimal echo receive transmission interval that this system is capable of handling  |
-- `multiplier` (String) Multiplier to determine packet loss
+- `multiplier` (Number) Multiplier to determine packet loss
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:2-255  |  Remote transmission interval will be multiplied by this value  |
-- `receive` (String) Minimum interval of receiving control packets
+- `receive` (Number) Minimum interval of receiving control packets
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:10-60000  |  Interval in milliseconds  |
-- `transmit` (String) Minimum interval of transmitting control packets
+- `transmit` (Number) Minimum interval of transmitting control packets
 
     |  Format  |  Description  |
     |----------|---------------|

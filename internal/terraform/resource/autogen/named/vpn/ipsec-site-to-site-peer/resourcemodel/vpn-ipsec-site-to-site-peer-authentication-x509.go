@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnIPsecSiteToSitePeerAuthenticationXfivezeronine describes the resource data model.
@@ -66,61 +63,10 @@ func (o VpnIPsecSiteToSitePeerAuthenticationXfivezeronine) ResourceSchemaAttribu
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnIPsecSiteToSitePeerAuthenticationXfivezeronine) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate.IsNull() && !o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate.IsUnknown() {
-		jsonData["certificate"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase.IsNull() && !o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase.IsUnknown() {
-		jsonData["passphrase"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate.IsNull() && !o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate.IsUnknown() {
-		jsonData["ca-certificate"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnIPsecSiteToSitePeerAuthenticationXfivezeronine) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["certificate"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["passphrase"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ca-certificate"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VpnIPsecSiteToSitePeerAuthenticationXfivezeronine) UnmarshalJSON(_ []byte) error {
 	return nil
 }

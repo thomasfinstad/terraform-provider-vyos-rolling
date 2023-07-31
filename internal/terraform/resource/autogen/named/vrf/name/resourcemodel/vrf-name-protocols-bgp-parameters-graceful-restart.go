@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpParametersGracefulRestart describes the resource data model.
 type VrfNameProtocolsBgpParametersGracefulRestart struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpParametersGracefulRestartStalepathTime types.String `tfsdk:"stalepath_time" vyos:"stalepath-time,omitempty"`
+	LeafVrfNameProtocolsBgpParametersGracefulRestartStalepathTime types.Number `tfsdk:"stalepath_time" vyos:"stalepath-time,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,7 +21,7 @@ func (o VrfNameProtocolsBgpParametersGracefulRestart) ResourceSchemaAttributes()
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"stalepath_time": schema.StringAttribute{
+		"stalepath_time": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum time to hold onto restarting neighbors stale paths
 
@@ -42,41 +39,10 @@ func (o VrfNameProtocolsBgpParametersGracefulRestart) ResourceSchemaAttributes()
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpParametersGracefulRestart) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpParametersGracefulRestartStalepathTime.IsNull() && !o.LeafVrfNameProtocolsBgpParametersGracefulRestartStalepathTime.IsUnknown() {
-		jsonData["stalepath-time"] = o.LeafVrfNameProtocolsBgpParametersGracefulRestartStalepathTime.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpParametersGracefulRestart) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["stalepath-time"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersGracefulRestartStalepathTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersGracefulRestartStalepathTime = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpParametersGracefulRestart) UnmarshalJSON(_ []byte) error {
 	return nil
 }

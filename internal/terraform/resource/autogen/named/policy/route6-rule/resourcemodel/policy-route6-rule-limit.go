@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRoutesixRuleLimit describes the resource data model.
 type PolicyRoutesixRuleLimit struct {
 	// LeafNodes
-	LeafPolicyRoutesixRuleLimitBurst types.String `tfsdk:"burst" vyos:"burst,omitempty"`
-	LeafPolicyRoutesixRuleLimitRate  types.String `tfsdk:"rate" vyos:"rate,omitempty"`
+	LeafPolicyRoutesixRuleLimitBurst types.Number `tfsdk:"burst" vyos:"burst,omitempty"`
+	LeafPolicyRoutesixRuleLimitRate  types.Number `tfsdk:"rate" vyos:"rate,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +22,7 @@ func (o PolicyRoutesixRuleLimit) ResourceSchemaAttributes() map[string]schema.At
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"burst": schema.StringAttribute{
+		"burst": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum number of packets to allow in excess of rate
 
@@ -36,7 +33,7 @@ func (o PolicyRoutesixRuleLimit) ResourceSchemaAttributes() map[string]schema.At
 `,
 		},
 
-		"rate": schema.StringAttribute{
+		"rate": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum average matching rate
 
@@ -54,51 +51,10 @@ func (o PolicyRoutesixRuleLimit) ResourceSchemaAttributes() map[string]schema.At
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRoutesixRuleLimit) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRoutesixRuleLimitBurst.IsNull() && !o.LeafPolicyRoutesixRuleLimitBurst.IsUnknown() {
-		jsonData["burst"] = o.LeafPolicyRoutesixRuleLimitBurst.ValueString()
-	}
-
-	if !o.LeafPolicyRoutesixRuleLimitRate.IsNull() && !o.LeafPolicyRoutesixRuleLimitRate.IsUnknown() {
-		jsonData["rate"] = o.LeafPolicyRoutesixRuleLimitRate.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRoutesixRuleLimit) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["burst"]; ok {
-		o.LeafPolicyRoutesixRuleLimitBurst = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleLimitBurst = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rate"]; ok {
-		o.LeafPolicyRoutesixRuleLimitRate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleLimitRate = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRoutesixRuleLimit) UnmarshalJSON(_ []byte) error {
 	return nil
 }

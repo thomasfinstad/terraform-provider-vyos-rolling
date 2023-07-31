@@ -38,7 +38,7 @@ Fair Queuing (FQ) with Controlled Delay (CoDel)
 
 ### Optional
 
-- `codel_quantum` (String) Deficit in the fair queuing algorithm
+- `codel_quantum` (Number) Deficit in the fair queuing algorithm
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -48,22 +48,22 @@ Fair Queuing (FQ) with Controlled Delay (CoDel)
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `flows` (String) Number of flows into which the incoming packets are classified
+- `flows` (Number) Number of flows into which the incoming packets are classified
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65536  |  Number of flows  |
-- `interval` (String) Interval used to measure the delay
+- `interval` (Number) Interval used to measure the delay
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32  |  Interval in milliseconds  |
-- `queue_limit` (String) Upper limit of the queue
+- `queue_limit` (Number) Upper limit of the queue
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:2-10999  |  Queue size in packets  |
-- `target` (String) Acceptable minimum standing/persistent queue delay
+- `target` (Number) Acceptable minimum standing/persistent queue delay
 
     |  Format  |  Description  |
     |----------|---------------|

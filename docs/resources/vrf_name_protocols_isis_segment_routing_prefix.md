@@ -55,6 +55,11 @@ Static IPv4/IPv6 prefix segment/label mapping
     |----------|---------------|
     |  ipv4net  |  IPv4 prefix segment  |
     |  ipv6net  |  IPv6 prefix segment  |
+- `name_identifier` (String) Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 ### Optional
 
@@ -66,9 +71,9 @@ Static IPv4/IPv6 prefix segment/label mapping
 
 Optional:
 
-- `explicit_null` (String) Request upstream neighbor to replace segment/label with explicit null label
-- `no_php_flag` (String) Do not request penultimate hop popping for segment/label
-- `value` (String) Specify the absolute value of prefix segment/label ID
+- `explicit_null` (Boolean) Request upstream neighbor to replace segment/label with explicit null label
+- `no_php_flag` (Boolean) Do not request penultimate hop popping for segment/label
+- `value` (Number) Specify the absolute value of prefix segment/label ID
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -80,9 +85,9 @@ Optional:
 
 Optional:
 
-- `explicit_null` (String) Request upstream neighbor to replace segment/label with explicit null label
-- `no_php_flag` (String) Do not request penultimate hop popping for segment/label
-- `value` (String) Specify the index value of prefix segment/label ID
+- `explicit_null` (Boolean) Request upstream neighbor to replace segment/label with explicit null label
+- `no_php_flag` (Boolean) Do not request penultimate hop popping for segment/label
+- `value` (Number) Specify the index value of prefix segment/label ID
 
     |  Format  |  Description  |
     |----------|---------------|

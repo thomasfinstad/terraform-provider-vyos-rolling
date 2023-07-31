@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteRuleTTL describes the resource data model.
 type PolicyRouteRuleTTL struct {
 	// LeafNodes
-	LeafPolicyRouteRuleTTLEq types.String `tfsdk:"eq" vyos:"eq,omitempty"`
-	LeafPolicyRouteRuleTTLGt types.String `tfsdk:"gt" vyos:"gt,omitempty"`
-	LeafPolicyRouteRuleTTLLt types.String `tfsdk:"lt" vyos:"lt,omitempty"`
+	LeafPolicyRouteRuleTTLEq types.Number `tfsdk:"eq" vyos:"eq,omitempty"`
+	LeafPolicyRouteRuleTTLGt types.Number `tfsdk:"gt" vyos:"gt,omitempty"`
+	LeafPolicyRouteRuleTTLLt types.Number `tfsdk:"lt" vyos:"lt,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,7 +23,7 @@ func (o PolicyRouteRuleTTL) ResourceSchemaAttributes() map[string]schema.Attribu
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"eq": schema.StringAttribute{
+		"eq": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Match on equal value
 
@@ -37,7 +34,7 @@ func (o PolicyRouteRuleTTL) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 
-		"gt": schema.StringAttribute{
+		"gt": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Match on greater then value
 
@@ -48,7 +45,7 @@ func (o PolicyRouteRuleTTL) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 
-		"lt": schema.StringAttribute{
+		"lt": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Match on less then value
 
@@ -66,61 +63,10 @@ func (o PolicyRouteRuleTTL) ResourceSchemaAttributes() map[string]schema.Attribu
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteRuleTTL) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteRuleTTLEq.IsNull() && !o.LeafPolicyRouteRuleTTLEq.IsUnknown() {
-		jsonData["eq"] = o.LeafPolicyRouteRuleTTLEq.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleTTLGt.IsNull() && !o.LeafPolicyRouteRuleTTLGt.IsUnknown() {
-		jsonData["gt"] = o.LeafPolicyRouteRuleTTLGt.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleTTLLt.IsNull() && !o.LeafPolicyRouteRuleTTLLt.IsUnknown() {
-		jsonData["lt"] = o.LeafPolicyRouteRuleTTLLt.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteRuleTTL) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["eq"]; ok {
-		o.LeafPolicyRouteRuleTTLEq = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleTTLEq = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["gt"]; ok {
-		o.LeafPolicyRouteRuleTTLGt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleTTLGt = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["lt"]; ok {
-		o.LeafPolicyRouteRuleTTLLt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleTTLLt = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRouteRuleTTL) UnmarshalJSON(_ []byte) error {
 	return nil
 }

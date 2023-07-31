@@ -43,6 +43,11 @@ Set an HUB tunnel address
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4net  |  Set the IP address and prefix length  |
+- `tunnel_identifier` (String) Tunnel for NHRP
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  tunN  |  NHRP tunnel name  |
 
 ### Optional
 

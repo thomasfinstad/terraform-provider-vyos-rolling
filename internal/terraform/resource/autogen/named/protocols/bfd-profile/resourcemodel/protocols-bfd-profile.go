@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBfdProfile describes the resource data model.
@@ -15,9 +12,9 @@ type ProtocolsBfdProfile struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafProtocolsBfdProfileEchoMode types.String `tfsdk:"echo_mode" vyos:"echo-mode,omitempty"`
-	LeafProtocolsBfdProfilePassive  types.String `tfsdk:"passive" vyos:"passive,omitempty"`
-	LeafProtocolsBfdProfileShutdown types.String `tfsdk:"shutdown" vyos:"shutdown,omitempty"`
+	LeafProtocolsBfdProfileEchoMode types.Bool `tfsdk:"echo_mode" vyos:"echo-mode,omitempty"`
+	LeafProtocolsBfdProfilePassive  types.Bool `tfsdk:"passive" vyos:"passive,omitempty"`
+	LeafProtocolsBfdProfileShutdown types.Bool `tfsdk:"shutdown" vyos:"shutdown,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -29,7 +26,9 @@ type ProtocolsBfdProfile struct {
 func (o *ProtocolsBfdProfile) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"bfd",
+
 		"profile",
 		o.ID.ValueString(),
 	}
@@ -51,25 +50,31 @@ func (o ProtocolsBfdProfile) ResourceSchemaAttributes() map[string]schema.Attrib
 
 		// LeafNodes
 
-		"echo_mode": schema.StringAttribute{
+		"echo_mode": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enables the echo transmission mode
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"passive": schema.StringAttribute{
+		"passive": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not attempt to start sessions
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"shutdown": schema.StringAttribute{
+		"shutdown": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable this peer
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -86,88 +91,10 @@ func (o ProtocolsBfdProfile) ResourceSchemaAttributes() map[string]schema.Attrib
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBfdProfile) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBfdProfileEchoMode.IsNull() && !o.LeafProtocolsBfdProfileEchoMode.IsUnknown() {
-		jsonData["echo-mode"] = o.LeafProtocolsBfdProfileEchoMode.ValueString()
-	}
-
-	if !o.LeafProtocolsBfdProfilePassive.IsNull() && !o.LeafProtocolsBfdProfilePassive.IsUnknown() {
-		jsonData["passive"] = o.LeafProtocolsBfdProfilePassive.ValueString()
-	}
-
-	if !o.LeafProtocolsBfdProfileShutdown.IsNull() && !o.LeafProtocolsBfdProfileShutdown.IsUnknown() {
-		jsonData["shutdown"] = o.LeafProtocolsBfdProfileShutdown.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeProtocolsBfdProfileInterval).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBfdProfileInterval)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["interval"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBfdProfile) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["echo-mode"]; ok {
-		o.LeafProtocolsBfdProfileEchoMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdProfileEchoMode = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["passive"]; ok {
-		o.LeafProtocolsBfdProfilePassive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdProfilePassive = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["shutdown"]; ok {
-		o.LeafProtocolsBfdProfileShutdown = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdProfileShutdown = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["interval"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBfdProfileInterval = &ProtocolsBfdProfileInterval{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBfdProfileInterval)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ProtocolsBfdProfile) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteMap describes the resource data model.
@@ -26,6 +23,7 @@ type PolicyRouteMap struct {
 func (o *PolicyRouteMap) GetVyosPath() []string {
 	return []string{
 		"policy",
+
 		"route-map",
 		o.ID.ValueString(),
 	}
@@ -65,41 +63,10 @@ func (o PolicyRouteMap) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteMap) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteMapDescrIPtion.IsNull() && !o.LeafPolicyRouteMapDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafPolicyRouteMapDescrIPtion.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteMap) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafPolicyRouteMapDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRouteMap) UnmarshalJSON(_ []byte) error {
 	return nil
 }

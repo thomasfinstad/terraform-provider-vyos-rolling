@@ -2,23 +2,20 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesWirelessVifSDhcpvsixOptionsPd describes the resource data model.
 type InterfacesWirelessVifSDhcpvsixOptionsPd struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDInterfacesWireless any `tfsdk:"wireless" vyos:"wireless,parent-id"`
+	ParentIDInterfacesWireless types.String `tfsdk:"wireless" vyos:"wireless_identifier,parent-id"`
 
-	ParentIDInterfacesWirelessVifS any `tfsdk:"vif_s" vyos:"vif-s,parent-id"`
+	ParentIDInterfacesWirelessVifS types.String `tfsdk:"vif_s" vyos:"vif-s_identifier,parent-id"`
 
 	// LeafNodes
-	LeafInterfacesWirelessVifSDhcpvsixOptionsPdLength types.String `tfsdk:"length" vyos:"length,omitempty"`
+	LeafInterfacesWirelessVifSDhcpvsixOptionsPdLength types.Number `tfsdk:"length" vyos:"length,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagInterfacesWirelessVifSDhcpvsixOptionsPdInterface bool `tfsdk:"interface" vyos:"interface,child"`
@@ -30,9 +27,15 @@ type InterfacesWirelessVifSDhcpvsixOptionsPd struct {
 func (o *InterfacesWirelessVifSDhcpvsixOptionsPd) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"wireless",
+		o.ParentIDInterfacesWireless.ValueString(),
+
 		"vif-s",
+		o.ParentIDInterfacesWirelessVifS.ValueString(),
+
 		"dhcpv6-options",
+
 		"pd",
 		o.ID.ValueString(),
 	}
@@ -52,9 +55,31 @@ func (o InterfacesWirelessVifSDhcpvsixOptionsPd) ResourceSchemaAttributes() map[
 `,
 		},
 
+		"wireless_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Wireless (WiFi/WLAN) Network Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
+
+`,
+		},
+
+		"vif_s_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `QinQ TAG-S Virtual Local Area Network (VLAN) ID
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"length": schema.StringAttribute{
+		"length": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Request IPv6 prefix length from peer
 
@@ -75,41 +100,10 @@ func (o InterfacesWirelessVifSDhcpvsixOptionsPd) ResourceSchemaAttributes() map[
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesWirelessVifSDhcpvsixOptionsPd) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesWirelessVifSDhcpvsixOptionsPdLength.IsNull() && !o.LeafInterfacesWirelessVifSDhcpvsixOptionsPdLength.IsUnknown() {
-		jsonData["length"] = o.LeafInterfacesWirelessVifSDhcpvsixOptionsPdLength.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWirelessVifSDhcpvsixOptionsPd) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["length"]; ok {
-		o.LeafInterfacesWirelessVifSDhcpvsixOptionsPdLength = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSDhcpvsixOptionsPdLength = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesWirelessVifSDhcpvsixOptionsPd) UnmarshalJSON(_ []byte) error {
 	return nil
 }

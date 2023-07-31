@@ -2,9 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 )
 
@@ -55,112 +52,10 @@ func (o InterfacesTunnelParameters) ResourceSchemaAttributes() map[string]schema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesTunnelParameters) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesTunnelParametersErspan).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesTunnelParametersErspan)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["erspan"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesTunnelParametersIP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesTunnelParametersIP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ip"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesTunnelParametersIPvsix).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesTunnelParametersIPvsix)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipv6"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesTunnelParameters) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["erspan"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesTunnelParametersErspan = &InterfacesTunnelParametersErspan{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesTunnelParametersErspan)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ip"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesTunnelParametersIP = &InterfacesTunnelParametersIP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesTunnelParametersIP)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ipv6"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesTunnelParametersIPvsix = &InterfacesTunnelParametersIPvsix{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesTunnelParametersIPvsix)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesTunnelParameters) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,18 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceLldpInterfaceLocation describes the resource data model.
 type ServiceLldpInterfaceLocation struct {
 	// LeafNodes
-	LeafServiceLldpInterfaceLocationElin types.String `tfsdk:"elin" vyos:"elin,omitempty"`
+	LeafServiceLldpInterfaceLocationElin types.Number `tfsdk:"elin" vyos:"elin,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,7 +22,7 @@ func (o ServiceLldpInterfaceLocation) ResourceSchemaAttributes() map[string]sche
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"elin": schema.StringAttribute{
+		"elin": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `ECS ELIN (Emergency location identifier number)
 
@@ -51,68 +47,10 @@ func (o ServiceLldpInterfaceLocation) ResourceSchemaAttributes() map[string]sche
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceLldpInterfaceLocation) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceLldpInterfaceLocationElin.IsNull() && !o.LeafServiceLldpInterfaceLocationElin.IsUnknown() {
-		jsonData["elin"] = o.LeafServiceLldpInterfaceLocationElin.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeServiceLldpInterfaceLocationCoordinateBased).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeServiceLldpInterfaceLocationCoordinateBased)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["coordinate-based"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceLldpInterfaceLocation) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["elin"]; ok {
-		o.LeafServiceLldpInterfaceLocationElin = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceLldpInterfaceLocationElin = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["coordinate-based"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeServiceLldpInterfaceLocationCoordinateBased = &ServiceLldpInterfaceLocationCoordinateBased{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeServiceLldpInterfaceLocationCoordinateBased)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ServiceLldpInterfaceLocation) UnmarshalJSON(_ []byte) error {
 	return nil
 }

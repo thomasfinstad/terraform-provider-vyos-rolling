@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfAreaAreaType describes the resource data model.
 type VrfNameProtocolsOspfAreaAreaType struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfAreaAreaTypeNormal types.String `tfsdk:"normal" vyos:"normal,omitempty"`
+	LeafVrfNameProtocolsOspfAreaAreaTypeNormal types.Bool `tfsdk:"normal" vyos:"normal,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,11 +24,13 @@ func (o VrfNameProtocolsOspfAreaAreaType) ResourceSchemaAttributes() map[string]
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"normal": schema.StringAttribute{
+		"normal": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Normal OSPF area
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -56,95 +55,10 @@ func (o VrfNameProtocolsOspfAreaAreaType) ResourceSchemaAttributes() map[string]
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfAreaAreaType) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfAreaAreaTypeNormal.IsNull() && !o.LeafVrfNameProtocolsOspfAreaAreaTypeNormal.IsUnknown() {
-		jsonData["normal"] = o.LeafVrfNameProtocolsOspfAreaAreaTypeNormal.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfAreaAreaTypeNssa).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfAreaAreaTypeNssa)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["nssa"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfAreaAreaTypeStub).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfAreaAreaTypeStub)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["stub"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfAreaAreaType) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["normal"]; ok {
-		o.LeafVrfNameProtocolsOspfAreaAreaTypeNormal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfAreaAreaTypeNormal = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["nssa"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsOspfAreaAreaTypeNssa = &VrfNameProtocolsOspfAreaAreaTypeNssa{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfAreaAreaTypeNssa)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["stub"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsOspfAreaAreaTypeStub = &VrfNameProtocolsOspfAreaAreaTypeStub{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfAreaAreaTypeStub)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VrfNameProtocolsOspfAreaAreaType) UnmarshalJSON(_ []byte) error {
 	return nil
 }

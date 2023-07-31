@@ -52,6 +52,11 @@ OSPFv3 Area
     |----------|---------------|
     |  u32  |  Area ID as a decimal value  |
     |  ipv4  |  Area ID in IP address forma  |
+- `name_identifier` (String) Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 ### Optional
 
@@ -72,8 +77,8 @@ Optional:
 
 Optional:
 
-- `default_information_originate` (String) Originate Type 7 default into NSSA area
-- `no_summary` (String) Do not inject inter-area routes into the stub
+- `default_information_originate` (Boolean) Originate Type 7 default into NSSA area
+- `no_summary` (Boolean) Do not inject inter-area routes into the stub
 
 
 <a id="nestedatt--area_type--stub"></a>
@@ -81,4 +86,4 @@ Optional:
 
 Optional:
 
-- `no_summary` (String) Do not inject inter-area routes into the stub
+- `no_summary` (Boolean) Do not inject inter-area routes into the stub

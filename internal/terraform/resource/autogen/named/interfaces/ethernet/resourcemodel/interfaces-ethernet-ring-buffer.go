@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesEthernetRingBuffer describes the resource data model.
 type InterfacesEthernetRingBuffer struct {
 	// LeafNodes
-	LeafInterfacesEthernetRingBufferRx types.String `tfsdk:"rx" vyos:"rx,omitempty"`
-	LeafInterfacesEthernetRingBufferTx types.String `tfsdk:"tx" vyos:"tx,omitempty"`
+	LeafInterfacesEthernetRingBufferRx types.Number `tfsdk:"rx" vyos:"rx,omitempty"`
+	LeafInterfacesEthernetRingBufferTx types.Number `tfsdk:"tx" vyos:"tx,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +22,7 @@ func (o InterfacesEthernetRingBuffer) ResourceSchemaAttributes() map[string]sche
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"rx": schema.StringAttribute{
+		"rx": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `RX ring buffer
 
@@ -36,7 +33,7 @@ func (o InterfacesEthernetRingBuffer) ResourceSchemaAttributes() map[string]sche
 `,
 		},
 
-		"tx": schema.StringAttribute{
+		"tx": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `TX ring buffer
 
@@ -54,51 +51,10 @@ func (o InterfacesEthernetRingBuffer) ResourceSchemaAttributes() map[string]sche
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesEthernetRingBuffer) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesEthernetRingBufferRx.IsNull() && !o.LeafInterfacesEthernetRingBufferRx.IsUnknown() {
-		jsonData["rx"] = o.LeafInterfacesEthernetRingBufferRx.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetRingBufferTx.IsNull() && !o.LeafInterfacesEthernetRingBufferTx.IsUnknown() {
-		jsonData["tx"] = o.LeafInterfacesEthernetRingBufferTx.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesEthernetRingBuffer) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["rx"]; ok {
-		o.LeafInterfacesEthernetRingBufferRx = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetRingBufferRx = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["tx"]; ok {
-		o.LeafInterfacesEthernetRingBufferTx = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetRingBufferTx = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesEthernetRingBuffer) UnmarshalJSON(_ []byte) error {
 	return nil
 }

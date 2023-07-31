@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallIPvsixNameRuleRecent describes the resource data model.
 type FirewallIPvsixNameRuleRecent struct {
 	// LeafNodes
-	LeafFirewallIPvsixNameRuleRecentCount types.String `tfsdk:"count" vyos:"count,omitempty"`
+	LeafFirewallIPvsixNameRuleRecentCount types.Number `tfsdk:"count" vyos:"count,omitempty"`
 	LeafFirewallIPvsixNameRuleRecentTime  types.String `tfsdk:"time" vyos:"time,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -25,7 +22,7 @@ func (o FirewallIPvsixNameRuleRecent) ResourceSchemaAttributes() map[string]sche
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"count": schema.StringAttribute{
+		"count": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Source addresses seen more than N times
 
@@ -56,51 +53,10 @@ func (o FirewallIPvsixNameRuleRecent) ResourceSchemaAttributes() map[string]sche
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallIPvsixNameRuleRecent) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallIPvsixNameRuleRecentCount.IsNull() && !o.LeafFirewallIPvsixNameRuleRecentCount.IsUnknown() {
-		jsonData["count"] = o.LeafFirewallIPvsixNameRuleRecentCount.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleRecentTime.IsNull() && !o.LeafFirewallIPvsixNameRuleRecentTime.IsUnknown() {
-		jsonData["time"] = o.LeafFirewallIPvsixNameRuleRecentTime.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallIPvsixNameRuleRecent) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["count"]; ok {
-		o.LeafFirewallIPvsixNameRuleRecentCount = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleRecentCount = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["time"]; ok {
-		o.LeafFirewallIPvsixNameRuleRecentTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleRecentTime = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallIPvsixNameRuleRecent) UnmarshalJSON(_ []byte) error {
 	return nil
 }

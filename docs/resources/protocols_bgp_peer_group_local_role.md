@@ -47,7 +47,8 @@ Local role for BGP neighbor (RFC9234)
     |  provider  |  Providing Transit  |
     |  rs-client  |  RS Client  |
     |  rs-server  |  Route Server  |
+- `peer_group_identifier` (String) Name of peer-group
 
 ### Optional
 
-- `strict` (String) Neighbor must send this exact capability, otherwise a role missmatch notification will be sent
+- `strict` (Boolean) Neighbor must send this exact capability, otherwise a role missmatch notification will be sent

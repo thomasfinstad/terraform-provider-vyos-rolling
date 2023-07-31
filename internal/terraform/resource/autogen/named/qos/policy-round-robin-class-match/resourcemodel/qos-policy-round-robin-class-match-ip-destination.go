@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyRoundRobinClassMatchIPDestination describes the resource data model.
 type QosPolicyRoundRobinClassMatchIPDestination struct {
 	// LeafNodes
 	LeafQosPolicyRoundRobinClassMatchIPDestinationAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
-	LeafQosPolicyRoundRobinClassMatchIPDestinationPort    types.String `tfsdk:"port" vyos:"port,omitempty"`
+	LeafQosPolicyRoundRobinClassMatchIPDestinationPort    types.Number `tfsdk:"port" vyos:"port,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -37,7 +34,7 @@ func (o QosPolicyRoundRobinClassMatchIPDestination) ResourceSchemaAttributes() m
 `,
 		},
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
@@ -55,51 +52,10 @@ func (o QosPolicyRoundRobinClassMatchIPDestination) ResourceSchemaAttributes() m
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyRoundRobinClassMatchIPDestination) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyRoundRobinClassMatchIPDestinationAddress.IsNull() && !o.LeafQosPolicyRoundRobinClassMatchIPDestinationAddress.IsUnknown() {
-		jsonData["address"] = o.LeafQosPolicyRoundRobinClassMatchIPDestinationAddress.ValueString()
-	}
-
-	if !o.LeafQosPolicyRoundRobinClassMatchIPDestinationPort.IsNull() && !o.LeafQosPolicyRoundRobinClassMatchIPDestinationPort.IsUnknown() {
-		jsonData["port"] = o.LeafQosPolicyRoundRobinClassMatchIPDestinationPort.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyRoundRobinClassMatchIPDestination) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafQosPolicyRoundRobinClassMatchIPDestinationAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassMatchIPDestinationAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafQosPolicyRoundRobinClassMatchIPDestinationPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassMatchIPDestinationPort = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyRoundRobinClassMatchIPDestination) UnmarshalJSON(_ []byte) error {
 	return nil
 }

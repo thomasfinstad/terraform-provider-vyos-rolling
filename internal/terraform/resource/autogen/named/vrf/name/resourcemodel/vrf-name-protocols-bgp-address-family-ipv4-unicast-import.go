@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVpn types.String `tfsdk:"vpn" vyos:"vpn,omitempty"`
-	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVrf types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVpn types.Bool `tfsdk:"vpn" vyos:"vpn,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVrf types.List `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,15 +23,18 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport) ResourceSchemaAttr
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"vpn": schema.StringAttribute{
+		"vpn": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `to/from default instance VPN RIB
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"vrf": schema.StringAttribute{
-			Optional: true,
+		"vrf": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `VRF to import from
 
     |  Format  |  Description  |
@@ -50,51 +51,10 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport) ResourceSchemaAttr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVpn.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVpn.IsUnknown() {
-		jsonData["vpn"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVpn.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVrf.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVrf.IsUnknown() {
-		jsonData["vrf"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVrf.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["vpn"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVpn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVpn = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vrf"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVrf = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpNeighborInterfaceVsixonly describes the resource data model.
@@ -56,51 +53,10 @@ func (o ProtocolsBgpNeighborInterfaceVsixonly) ResourceSchemaAttributes() map[st
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpNeighborInterfaceVsixonly) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpNeighborInterfaceVsixonlyPeerGroup.IsNull() && !o.LeafProtocolsBgpNeighborInterfaceVsixonlyPeerGroup.IsUnknown() {
-		jsonData["peer-group"] = o.LeafProtocolsBgpNeighborInterfaceVsixonlyPeerGroup.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborInterfaceVsixonlyRemoteAs.IsNull() && !o.LeafProtocolsBgpNeighborInterfaceVsixonlyRemoteAs.IsUnknown() {
-		jsonData["remote-as"] = o.LeafProtocolsBgpNeighborInterfaceVsixonlyRemoteAs.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighborInterfaceVsixonly) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["peer-group"]; ok {
-		o.LeafProtocolsBgpNeighborInterfaceVsixonlyPeerGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborInterfaceVsixonlyPeerGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["remote-as"]; ok {
-		o.LeafProtocolsBgpNeighborInterfaceVsixonlyRemoteAs = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborInterfaceVsixonlyRemoteAs = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpNeighborInterfaceVsixonly) UnmarshalJSON(_ []byte) error {
 	return nil
 }

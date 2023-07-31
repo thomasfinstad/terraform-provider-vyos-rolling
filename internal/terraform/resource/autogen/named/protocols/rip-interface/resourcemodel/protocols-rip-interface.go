@@ -2,9 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -28,7 +25,9 @@ type ProtocolsRIPInterface struct {
 func (o *ProtocolsRIPInterface) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"rip",
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -88,139 +87,10 @@ func (o ProtocolsRIPInterface) ResourceSchemaAttributes() map[string]schema.Attr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsRIPInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeProtocolsRIPInterfaceSplitHorizon).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsRIPInterfaceSplitHorizon)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["split-horizon"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsRIPInterfaceAuthentication).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsRIPInterfaceAuthentication)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["authentication"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsRIPInterfaceReceive).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsRIPInterfaceReceive)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["receive"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsRIPInterfaceSend).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsRIPInterfaceSend)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["send"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsRIPInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["split-horizon"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsRIPInterfaceSplitHorizon = &ProtocolsRIPInterfaceSplitHorizon{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsRIPInterfaceSplitHorizon)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["authentication"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsRIPInterfaceAuthentication = &ProtocolsRIPInterfaceAuthentication{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsRIPInterfaceAuthentication)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["receive"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsRIPInterfaceReceive = &ProtocolsRIPInterfaceReceive{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsRIPInterfaceReceive)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["send"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsRIPInterfaceSend = &ProtocolsRIPInterfaceSend{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsRIPInterfaceSend)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ProtocolsRIPInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

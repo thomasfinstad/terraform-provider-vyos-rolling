@@ -2,20 +2,17 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
 // VrfNameProtocolsBgpNeighborLocalAs describes the resource data model.
 type VrfNameProtocolsBgpNeighborLocalAs struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVrfName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
-	ParentIDVrfNameProtocolsBgpNeighbor any `tfsdk:"neighbor" vyos:"neighbor,parent-id"`
+	ParentIDVrfNameProtocolsBgpNeighbor types.String `tfsdk:"neighbor" vyos:"neighbor_identifier,parent-id"`
 
 	// LeafNodes
 
@@ -29,12 +26,19 @@ type VrfNameProtocolsBgpNeighborLocalAs struct {
 func (o *VrfNameProtocolsBgpNeighborLocalAs) GetVyosPath() []string {
 	return []string{
 		"vrf",
+
 		"name",
+		o.ParentIDVrfName.ValueString(),
+
 		"protocols",
+
 		"bgp",
+
 		"neighbor",
+		o.ParentIDVrfNameProtocolsBgpNeighbor.ValueString(),
+
 		"local-as",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -48,6 +52,30 @@ func (o VrfNameProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes() map[strin
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4294967294  |  Autonomous System Number (ASN)  |
+
+`,
+		},
+
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
+
+`,
+		},
+
+		"neighbor_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `BGP neighbor
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  BGP neighbor IP address  |
+    |  ipv6  |  BGP neighbor IPv6 address  |
+    |  txt  |  Interface name  |
 
 `,
 		},
@@ -68,58 +96,10 @@ func (o VrfNameProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes() map[strin
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpNeighborLocalAs) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpNeighborLocalAsNoPrepend).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpNeighborLocalAsNoPrepend)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["no-prepend"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpNeighborLocalAs) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["no-prepend"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpNeighborLocalAsNoPrepend = &VrfNameProtocolsBgpNeighborLocalAsNoPrepend{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpNeighborLocalAsNoPrepend)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VrfNameProtocolsBgpNeighborLocalAs) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -35,12 +35,12 @@ Specify neighbor router
 
 ### Optional
 
-- `poll_interval` (String) Dead neighbor polling interval
+- `poll_interval` (Number) Dead neighbor polling interval
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Seconds between dead neighbor polling interval  |
-- `priority` (String) Neighbor priority in seconds
+- `priority` (Number) Neighbor priority in seconds
 
     |  Format  |  Description  |
     |----------|---------------|

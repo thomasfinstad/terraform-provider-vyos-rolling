@@ -2,28 +2,26 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDServiceDNSForwardingAuthoritativeDomain any `tfsdk:"authoritative_domain" vyos:"authoritative-domain,parent-id"`
+	ParentIDServiceDNSForwardingAuthoritativeDomain types.String `tfsdk:"authoritative_domain" vyos:"authoritative-domain_identifier,parent-id"`
 
-	ParentIDServiceDNSForwardingAuthoritativeDomainRecordsNaptr any `tfsdk:"naptr" vyos:"naptr,parent-id"`
+	ParentIDServiceDNSForwardingAuthoritativeDomainRecordsNaptr types.String `tfsdk:"naptr" vyos:"naptr_identifier,parent-id"`
 
 	// LeafNodes
-	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleOrder            types.String `tfsdk:"order" vyos:"order,omitempty"`
-	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRulePreference       types.String `tfsdk:"preference" vyos:"preference,omitempty"`
-	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupSrv        types.String `tfsdk:"lookup_srv" vyos:"lookup-srv,omitempty"`
-	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupA          types.String `tfsdk:"lookup_a" vyos:"lookup-a,omitempty"`
-	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleResolveURI       types.String `tfsdk:"resolve_uri" vyos:"resolve-uri,omitempty"`
-	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleProtocolSpecific types.String `tfsdk:"protocol_specific" vyos:"protocol-specific,omitempty"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleOrder            types.Number `tfsdk:"order" vyos:"order,omitempty"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRulePreference       types.Number `tfsdk:"preference" vyos:"preference,omitempty"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupSrv        types.Bool   `tfsdk:"lookup_srv" vyos:"lookup-srv,omitempty"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupA          types.Bool   `tfsdk:"lookup_a" vyos:"lookup-a,omitempty"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleResolveURI       types.Bool   `tfsdk:"resolve_uri" vyos:"resolve-uri,omitempty"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleProtocolSpecific types.Bool   `tfsdk:"protocol_specific" vyos:"protocol-specific,omitempty"`
 	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleService          types.String `tfsdk:"service" vyos:"service,omitempty"`
 	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleRegexp           types.String `tfsdk:"regexp" vyos:"regexp,omitempty"`
 	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleReplacement      types.String `tfsdk:"replacement" vyos:"replacement,omitempty"`
@@ -37,13 +35,21 @@ type ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule struct {
 func (o *ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"dns",
+
 		"forwarding",
+
 		"authoritative-domain",
+		o.ParentIDServiceDNSForwardingAuthoritativeDomain.ValueString(),
+
 		"records",
+
 		"naptr",
+		o.ParentIDServiceDNSForwardingAuthoritativeDomainRecordsNaptr.ValueString(),
+
 		"rule",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -61,9 +67,32 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
 `,
 		},
 
+		"authoritative_domain_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Domain to host authoritative records for
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  text  |  An absolute DNS name  |
+
+`,
+		},
+
+		"naptr_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `"NAPTR" record
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  text  |  A DNS name relative to the root record  |
+    |  @  |  Root record  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"order": schema.StringAttribute{
+		"order": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Rule order
 
@@ -74,7 +103,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
 `,
 		},
 
-		"preference": schema.StringAttribute{
+		"preference": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Rule preference
 
@@ -88,32 +117,40 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
 			Computed: true,
 		},
 
-		"lookup_srv": schema.StringAttribute{
+		"lookup_srv": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `"S" flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"lookup_a": schema.StringAttribute{
+		"lookup_a": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `"A" flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"resolve_uri": schema.StringAttribute{
+		"resolve_uri": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `"U" flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"protocol_specific": schema.StringAttribute{
+		"protocol_specific": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `"P" flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"service": schema.StringAttribute{
@@ -148,121 +185,10 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleOrder.IsNull() && !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleOrder.IsUnknown() {
-		jsonData["order"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleOrder.ValueString()
-	}
-
-	if !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRulePreference.IsNull() && !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRulePreference.IsUnknown() {
-		jsonData["preference"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRulePreference.ValueString()
-	}
-
-	if !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupSrv.IsNull() && !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupSrv.IsUnknown() {
-		jsonData["lookup-srv"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupSrv.ValueString()
-	}
-
-	if !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupA.IsNull() && !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupA.IsUnknown() {
-		jsonData["lookup-a"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupA.ValueString()
-	}
-
-	if !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleResolveURI.IsNull() && !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleResolveURI.IsUnknown() {
-		jsonData["resolve-uri"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleResolveURI.ValueString()
-	}
-
-	if !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleProtocolSpecific.IsNull() && !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleProtocolSpecific.IsUnknown() {
-		jsonData["protocol-specific"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleProtocolSpecific.ValueString()
-	}
-
-	if !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleService.IsNull() && !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleService.IsUnknown() {
-		jsonData["service"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleService.ValueString()
-	}
-
-	if !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleRegexp.IsNull() && !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleRegexp.IsUnknown() {
-		jsonData["regexp"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleRegexp.ValueString()
-	}
-
-	if !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleReplacement.IsNull() && !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleReplacement.IsUnknown() {
-		jsonData["replacement"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleReplacement.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["order"]; ok {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleOrder = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleOrder = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["preference"]; ok {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRulePreference = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRulePreference = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["lookup-srv"]; ok {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupSrv = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupSrv = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["lookup-a"]; ok {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupA = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupA = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["resolve-uri"]; ok {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleResolveURI = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleResolveURI = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["protocol-specific"]; ok {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleProtocolSpecific = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleProtocolSpecific = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["service"]; ok {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleService = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleService = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["regexp"]; ok {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleRegexp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleRegexp = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["replacement"]; ok {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleReplacement = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleReplacement = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) UnmarshalJSON(_ []byte) error {
 	return nil
 }

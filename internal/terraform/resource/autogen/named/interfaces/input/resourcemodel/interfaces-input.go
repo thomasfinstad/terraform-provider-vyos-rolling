@@ -2,11 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesInput describes the resource data model.
@@ -15,7 +13,7 @@ type InterfacesInput struct {
 
 	// LeafNodes
 	LeafInterfacesInputDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafInterfacesInputDisable     types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafInterfacesInputDisable     types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafInterfacesInputRedirect    types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -27,6 +25,7 @@ type InterfacesInput struct {
 func (o *InterfacesInput) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"input",
 		o.ID.ValueString(),
 	}
@@ -59,11 +58,13 @@ func (o InterfacesInput) ResourceSchemaAttributes() map[string]schema.Attribute 
 `,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"redirect": schema.StringAttribute{
@@ -84,61 +85,10 @@ func (o InterfacesInput) ResourceSchemaAttributes() map[string]schema.Attribute 
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesInput) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesInputDescrIPtion.IsNull() && !o.LeafInterfacesInputDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafInterfacesInputDescrIPtion.ValueString()
-	}
-
-	if !o.LeafInterfacesInputDisable.IsNull() && !o.LeafInterfacesInputDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafInterfacesInputDisable.ValueString()
-	}
-
-	if !o.LeafInterfacesInputRedirect.IsNull() && !o.LeafInterfacesInputRedirect.IsUnknown() {
-		jsonData["redirect"] = o.LeafInterfacesInputRedirect.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesInput) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafInterfacesInputDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesInputDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafInterfacesInputDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesInputDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["redirect"]; ok {
-		o.LeafInterfacesInputRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesInputRedirect = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesInput) UnmarshalJSON(_ []byte) error {
 	return nil
 }

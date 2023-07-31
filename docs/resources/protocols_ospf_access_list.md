@@ -35,7 +35,7 @@ Access list to filter networks in routing updates
 
 ### Optional
 
-- `export` (String) Filter for outgoing routing update
+- `export` (List of String) Filter for outgoing routing update
 
     |  Format  |  Description  |
     |----------|---------------|

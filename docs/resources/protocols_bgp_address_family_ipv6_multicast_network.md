@@ -41,7 +41,7 @@ Import BGP network/prefix into multicast IPv6 RIB
 
 ### Optional
 
-- `path_limit` (String) AS-path hopcount limit
+- `path_limit` (Number) AS-path hopcount limit
 
     |  Format  |  Description  |
     |----------|---------------|

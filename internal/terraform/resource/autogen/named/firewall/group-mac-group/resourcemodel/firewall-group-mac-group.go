@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallGroupMacGroup describes the resource data model.
@@ -15,8 +12,8 @@ type FirewallGroupMacGroup struct {
 
 	// LeafNodes
 	LeafFirewallGroupMacGroupDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafFirewallGroupMacGroupMacAddress  types.String `tfsdk:"mac_address" vyos:"mac-address,omitempty"`
-	LeafFirewallGroupMacGroupInclude     types.String `tfsdk:"include" vyos:"include,omitempty"`
+	LeafFirewallGroupMacGroupMacAddress  types.List   `tfsdk:"mac_address" vyos:"mac-address,omitempty"`
+	LeafFirewallGroupMacGroupInclude     types.List   `tfsdk:"include" vyos:"include,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,7 +24,9 @@ type FirewallGroupMacGroup struct {
 func (o *FirewallGroupMacGroup) GetVyosPath() []string {
 	return []string{
 		"firewall",
+
 		"group",
+
 		"mac-group",
 		o.ID.ValueString(),
 	}
@@ -56,8 +55,9 @@ func (o FirewallGroupMacGroup) ResourceSchemaAttributes() map[string]schema.Attr
 `,
 		},
 
-		"mac_address": schema.StringAttribute{
-			Optional: true,
+		"mac_address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Mac-group member
 
     |  Format  |  Description  |
@@ -67,8 +67,9 @@ func (o FirewallGroupMacGroup) ResourceSchemaAttributes() map[string]schema.Attr
 `,
 		},
 
-		"include": schema.StringAttribute{
-			Optional: true,
+		"include": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Include another mac-group
 
 `,
@@ -81,61 +82,10 @@ func (o FirewallGroupMacGroup) ResourceSchemaAttributes() map[string]schema.Attr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallGroupMacGroup) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallGroupMacGroupDescrIPtion.IsNull() && !o.LeafFirewallGroupMacGroupDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafFirewallGroupMacGroupDescrIPtion.ValueString()
-	}
-
-	if !o.LeafFirewallGroupMacGroupMacAddress.IsNull() && !o.LeafFirewallGroupMacGroupMacAddress.IsUnknown() {
-		jsonData["mac-address"] = o.LeafFirewallGroupMacGroupMacAddress.ValueString()
-	}
-
-	if !o.LeafFirewallGroupMacGroupInclude.IsNull() && !o.LeafFirewallGroupMacGroupInclude.IsUnknown() {
-		jsonData["include"] = o.LeafFirewallGroupMacGroupInclude.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallGroupMacGroup) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafFirewallGroupMacGroupDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallGroupMacGroupDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mac-address"]; ok {
-		o.LeafFirewallGroupMacGroupMacAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallGroupMacGroupMacAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["include"]; ok {
-		o.LeafFirewallGroupMacGroupInclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallGroupMacGroupInclude = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallGroupMacGroup) UnmarshalJSON(_ []byte) error {
 	return nil
 }

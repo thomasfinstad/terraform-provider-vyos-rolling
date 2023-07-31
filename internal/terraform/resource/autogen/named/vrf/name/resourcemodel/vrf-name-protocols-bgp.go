@@ -2,18 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgp describes the resource data model.
 type VrfNameProtocolsBgp struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpSystemAs types.String `tfsdk:"system_as" vyos:"system-as,omitempty"`
+	LeafVrfNameProtocolsBgpSystemAs types.Number `tfsdk:"system_as" vyos:"system-as,omitempty"`
 	LeafVrfNameProtocolsBgpRouteMap types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -32,7 +28,7 @@ func (o VrfNameProtocolsBgp) ResourceSchemaAttributes() map[string]schema.Attrib
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"system_as": schema.StringAttribute{
+		"system_as": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Autonomous System Number (ASN)
 
@@ -92,159 +88,10 @@ func (o VrfNameProtocolsBgp) ResourceSchemaAttributes() map[string]schema.Attrib
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgp) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpSystemAs.IsNull() && !o.LeafVrfNameProtocolsBgpSystemAs.IsUnknown() {
-		jsonData["system-as"] = o.LeafVrfNameProtocolsBgpSystemAs.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpRouteMap.IsNull() && !o.LeafVrfNameProtocolsBgpRouteMap.IsUnknown() {
-		jsonData["route-map"] = o.LeafVrfNameProtocolsBgpRouteMap.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamily).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamily)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["address-family"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpListen).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpListen)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["listen"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParameters).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParameters)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["parameters"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpTimers).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpTimers)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["timers"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgp) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["system-as"]; ok {
-		o.LeafVrfNameProtocolsBgpSystemAs = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpSystemAs = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["route-map"]; ok {
-		o.LeafVrfNameProtocolsBgpRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpRouteMap = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["address-family"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpAddressFamily = &VrfNameProtocolsBgpAddressFamily{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamily)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["listen"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpListen = &VrfNameProtocolsBgpListen{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpListen)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["parameters"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpParameters = &VrfNameProtocolsBgpParameters{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParameters)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["timers"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpTimers = &VrfNameProtocolsBgpTimers{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpTimers)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VrfNameProtocolsBgp) UnmarshalJSON(_ []byte) error {
 	return nil
 }

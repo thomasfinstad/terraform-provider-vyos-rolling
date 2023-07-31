@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesVxlanParametersIPvsix describes the resource data model.
@@ -43,41 +40,10 @@ func (o InterfacesVxlanParametersIPvsix) ResourceSchemaAttributes() map[string]s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesVxlanParametersIPvsix) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesVxlanParametersIPvsixFlowlabel.IsNull() && !o.LeafInterfacesVxlanParametersIPvsixFlowlabel.IsUnknown() {
-		jsonData["flowlabel"] = o.LeafInterfacesVxlanParametersIPvsixFlowlabel.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesVxlanParametersIPvsix) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["flowlabel"]; ok {
-		o.LeafInterfacesVxlanParametersIPvsixFlowlabel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanParametersIPvsixFlowlabel = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesVxlanParametersIPvsix) UnmarshalJSON(_ []byte) error {
 	return nil
 }

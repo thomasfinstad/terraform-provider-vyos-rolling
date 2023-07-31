@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpPeerGroupCapability describes the resource data model.
 type VrfNameProtocolsBgpPeerGroupCapability struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpPeerGroupCapabilityDynamic         types.String `tfsdk:"dynamic" vyos:"dynamic,omitempty"`
-	LeafVrfNameProtocolsBgpPeerGroupCapabilityExtendedNexthop types.String `tfsdk:"extended_nexthop" vyos:"extended-nexthop,omitempty"`
+	LeafVrfNameProtocolsBgpPeerGroupCapabilityDynamic         types.Bool `tfsdk:"dynamic" vyos:"dynamic,omitempty"`
+	LeafVrfNameProtocolsBgpPeerGroupCapabilityExtendedNexthop types.Bool `tfsdk:"extended_nexthop" vyos:"extended-nexthop,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,18 +23,22 @@ func (o VrfNameProtocolsBgpPeerGroupCapability) ResourceSchemaAttributes() map[s
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"dynamic": schema.StringAttribute{
+		"dynamic": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise dynamic capability to this neighbor
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"extended_nexthop": schema.StringAttribute{
+		"extended_nexthop": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise extended-nexthop capability to this neighbor
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -46,51 +48,10 @@ func (o VrfNameProtocolsBgpPeerGroupCapability) ResourceSchemaAttributes() map[s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpPeerGroupCapability) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpPeerGroupCapabilityDynamic.IsNull() && !o.LeafVrfNameProtocolsBgpPeerGroupCapabilityDynamic.IsUnknown() {
-		jsonData["dynamic"] = o.LeafVrfNameProtocolsBgpPeerGroupCapabilityDynamic.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpPeerGroupCapabilityExtendedNexthop.IsNull() && !o.LeafVrfNameProtocolsBgpPeerGroupCapabilityExtendedNexthop.IsUnknown() {
-		jsonData["extended-nexthop"] = o.LeafVrfNameProtocolsBgpPeerGroupCapabilityExtendedNexthop.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpPeerGroupCapability) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["dynamic"]; ok {
-		o.LeafVrfNameProtocolsBgpPeerGroupCapabilityDynamic = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpPeerGroupCapabilityDynamic = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["extended-nexthop"]; ok {
-		o.LeafVrfNameProtocolsBgpPeerGroupCapabilityExtendedNexthop = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpPeerGroupCapabilityExtendedNexthop = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpPeerGroupCapability) UnmarshalJSON(_ []byte) error {
 	return nil
 }

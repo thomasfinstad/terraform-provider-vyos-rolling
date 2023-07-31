@@ -2,21 +2,18 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsIsisSpfDelayIetf describes the resource data model.
 type VrfNameProtocolsIsisSpfDelayIetf struct {
 	// LeafNodes
-	LeafVrfNameProtocolsIsisSpfDelayIetfInitDelay   types.String `tfsdk:"init_delay" vyos:"init-delay,omitempty"`
-	LeafVrfNameProtocolsIsisSpfDelayIetfShortDelay  types.String `tfsdk:"short_delay" vyos:"short-delay,omitempty"`
-	LeafVrfNameProtocolsIsisSpfDelayIetfLongDelay   types.String `tfsdk:"long_delay" vyos:"long-delay,omitempty"`
-	LeafVrfNameProtocolsIsisSpfDelayIetfHolddown    types.String `tfsdk:"holddown" vyos:"holddown,omitempty"`
-	LeafVrfNameProtocolsIsisSpfDelayIetfTimeToLearn types.String `tfsdk:"time_to_learn" vyos:"time-to-learn,omitempty"`
+	LeafVrfNameProtocolsIsisSpfDelayIetfInitDelay   types.Number `tfsdk:"init_delay" vyos:"init-delay,omitempty"`
+	LeafVrfNameProtocolsIsisSpfDelayIetfShortDelay  types.Number `tfsdk:"short_delay" vyos:"short-delay,omitempty"`
+	LeafVrfNameProtocolsIsisSpfDelayIetfLongDelay   types.Number `tfsdk:"long_delay" vyos:"long-delay,omitempty"`
+	LeafVrfNameProtocolsIsisSpfDelayIetfHolddown    types.Number `tfsdk:"holddown" vyos:"holddown,omitempty"`
+	LeafVrfNameProtocolsIsisSpfDelayIetfTimeToLearn types.Number `tfsdk:"time_to_learn" vyos:"time-to-learn,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -28,7 +25,7 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes() map[string]
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"init_delay": schema.StringAttribute{
+		"init_delay": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Delay used while in QUIET state
 
@@ -39,7 +36,7 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes() map[string]
 `,
 		},
 
-		"short_delay": schema.StringAttribute{
+		"short_delay": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Delay used while in SHORT_WAIT state
 
@@ -50,7 +47,7 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes() map[string]
 `,
 		},
 
-		"long_delay": schema.StringAttribute{
+		"long_delay": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Delay used while in LONG_WAIT
 
@@ -61,7 +58,7 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes() map[string]
 `,
 		},
 
-		"holddown": schema.StringAttribute{
+		"holddown": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Time with no received IGP events before considering IGP stable
 
@@ -72,7 +69,7 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes() map[string]
 `,
 		},
 
-		"time_to_learn": schema.StringAttribute{
+		"time_to_learn": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum duration needed to learn all the events related to a single failure
 
@@ -90,81 +87,10 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes() map[string]
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsIsisSpfDelayIetf) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsIsisSpfDelayIetfInitDelay.IsNull() && !o.LeafVrfNameProtocolsIsisSpfDelayIetfInitDelay.IsUnknown() {
-		jsonData["init-delay"] = o.LeafVrfNameProtocolsIsisSpfDelayIetfInitDelay.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsIsisSpfDelayIetfShortDelay.IsNull() && !o.LeafVrfNameProtocolsIsisSpfDelayIetfShortDelay.IsUnknown() {
-		jsonData["short-delay"] = o.LeafVrfNameProtocolsIsisSpfDelayIetfShortDelay.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsIsisSpfDelayIetfLongDelay.IsNull() && !o.LeafVrfNameProtocolsIsisSpfDelayIetfLongDelay.IsUnknown() {
-		jsonData["long-delay"] = o.LeafVrfNameProtocolsIsisSpfDelayIetfLongDelay.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsIsisSpfDelayIetfHolddown.IsNull() && !o.LeafVrfNameProtocolsIsisSpfDelayIetfHolddown.IsUnknown() {
-		jsonData["holddown"] = o.LeafVrfNameProtocolsIsisSpfDelayIetfHolddown.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsIsisSpfDelayIetfTimeToLearn.IsNull() && !o.LeafVrfNameProtocolsIsisSpfDelayIetfTimeToLearn.IsUnknown() {
-		jsonData["time-to-learn"] = o.LeafVrfNameProtocolsIsisSpfDelayIetfTimeToLearn.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsIsisSpfDelayIetf) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["init-delay"]; ok {
-		o.LeafVrfNameProtocolsIsisSpfDelayIetfInitDelay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisSpfDelayIetfInitDelay = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["short-delay"]; ok {
-		o.LeafVrfNameProtocolsIsisSpfDelayIetfShortDelay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisSpfDelayIetfShortDelay = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["long-delay"]; ok {
-		o.LeafVrfNameProtocolsIsisSpfDelayIetfLongDelay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisSpfDelayIetfLongDelay = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["holddown"]; ok {
-		o.LeafVrfNameProtocolsIsisSpfDelayIetfHolddown = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisSpfDelayIetfHolddown = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["time-to-learn"]; ok {
-		o.LeafVrfNameProtocolsIsisSpfDelayIetfTimeToLearn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisSpfDelayIetfTimeToLearn = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsIsisSpfDelayIetf) UnmarshalJSON(_ []byte) error {
 	return nil
 }

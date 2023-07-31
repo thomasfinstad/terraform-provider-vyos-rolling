@@ -2,22 +2,20 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsStaticRouteInterface describes the resource data model.
 type ProtocolsStaticRouteInterface struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDProtocolsStaticRoute any `tfsdk:"route" vyos:"route,parent-id"`
+	ParentIDProtocolsStaticRoute types.String `tfsdk:"route" vyos:"route_identifier,parent-id"`
 
 	// LeafNodes
-	LeafProtocolsStaticRouteInterfaceDisable  types.String `tfsdk:"disable" vyos:"disable,omitempty"`
-	LeafProtocolsStaticRouteInterfaceDistance types.String `tfsdk:"distance" vyos:"distance,omitempty"`
+	LeafProtocolsStaticRouteInterfaceDisable  types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafProtocolsStaticRouteInterfaceDistance types.Number `tfsdk:"distance" vyos:"distance,omitempty"`
 	LeafProtocolsStaticRouteInterfaceVrf      types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -29,8 +27,12 @@ type ProtocolsStaticRouteInterface struct {
 func (o *ProtocolsStaticRouteInterface) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"static",
+
 		"route",
+		o.ParentIDProtocolsStaticRoute.ValueString(),
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -50,16 +52,29 @@ func (o ProtocolsStaticRouteInterface) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 
-		// LeafNodes
+		"route_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Static IPv4 route
 
-		"disable": schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `Disable instance
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 static route  |
 
 `,
 		},
 
-		"distance": schema.StringAttribute{
+		// LeafNodes
+
+		"disable": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Disable instance
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
+		"distance": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Distance for this route
 
@@ -88,61 +103,10 @@ func (o ProtocolsStaticRouteInterface) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsStaticRouteInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsStaticRouteInterfaceDisable.IsNull() && !o.LeafProtocolsStaticRouteInterfaceDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafProtocolsStaticRouteInterfaceDisable.ValueString()
-	}
-
-	if !o.LeafProtocolsStaticRouteInterfaceDistance.IsNull() && !o.LeafProtocolsStaticRouteInterfaceDistance.IsUnknown() {
-		jsonData["distance"] = o.LeafProtocolsStaticRouteInterfaceDistance.ValueString()
-	}
-
-	if !o.LeafProtocolsStaticRouteInterfaceVrf.IsNull() && !o.LeafProtocolsStaticRouteInterfaceVrf.IsUnknown() {
-		jsonData["vrf"] = o.LeafProtocolsStaticRouteInterfaceVrf.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsStaticRouteInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafProtocolsStaticRouteInterfaceDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticRouteInterfaceDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["distance"]; ok {
-		o.LeafProtocolsStaticRouteInterfaceDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticRouteInterfaceDistance = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vrf"]; ok {
-		o.LeafProtocolsStaticRouteInterfaceVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticRouteInterfaceVrf = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsStaticRouteInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

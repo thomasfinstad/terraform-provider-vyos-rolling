@@ -2,28 +2,25 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesEthernetVifSVifCDhcpvsixOptionsPdInterface describes the resource data model.
 type InterfacesEthernetVifSVifCDhcpvsixOptionsPdInterface struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDInterfacesEthernet any `tfsdk:"ethernet" vyos:"ethernet,parent-id"`
+	ParentIDInterfacesEthernet types.String `tfsdk:"ethernet" vyos:"ethernet_identifier,parent-id"`
 
-	ParentIDInterfacesEthernetVifS any `tfsdk:"vif_s" vyos:"vif-s,parent-id"`
+	ParentIDInterfacesEthernetVifS types.String `tfsdk:"vif_s" vyos:"vif-s_identifier,parent-id"`
 
-	ParentIDInterfacesEthernetVifSVifC any `tfsdk:"vif_c" vyos:"vif-c,parent-id"`
+	ParentIDInterfacesEthernetVifSVifC types.String `tfsdk:"vif_c" vyos:"vif-c_identifier,parent-id"`
 
-	ParentIDInterfacesEthernetVifSVifCDhcpvsixOptionsPd any `tfsdk:"pd" vyos:"pd,parent-id"`
+	ParentIDInterfacesEthernetVifSVifCDhcpvsixOptionsPd types.String `tfsdk:"pd" vyos:"pd_identifier,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesEthernetVifSVifCDhcpvsixOptionsPdInterfaceAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
-	LeafInterfacesEthernetVifSVifCDhcpvsixOptionsPdInterfaceSLAID   types.String `tfsdk:"sla_id" vyos:"sla-id,omitempty"`
+	LeafInterfacesEthernetVifSVifCDhcpvsixOptionsPdInterfaceSLAID   types.Number `tfsdk:"sla_id" vyos:"sla-id,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -34,11 +31,21 @@ type InterfacesEthernetVifSVifCDhcpvsixOptionsPdInterface struct {
 func (o *InterfacesEthernetVifSVifCDhcpvsixOptionsPdInterface) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"ethernet",
+		o.ParentIDInterfacesEthernet.ValueString(),
+
 		"vif-s",
+		o.ParentIDInterfacesEthernetVifS.ValueString(),
+
 		"vif-c",
+		o.ParentIDInterfacesEthernetVifSVifC.ValueString(),
+
 		"dhcpv6-options",
+
 		"pd",
+		o.ParentIDInterfacesEthernetVifSVifCDhcpvsixOptionsPd.ValueString(),
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -50,6 +57,46 @@ func (o InterfacesEthernetVifSVifCDhcpvsixOptionsPdInterface) ResourceSchemaAttr
 		"identifier": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Delegate IPv6 prefix from provider to this interface
+
+`,
+		},
+
+		"ethernet_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Ethernet Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ethN  |  Ethernet interface name  |
+
+`,
+		},
+
+		"vif_s_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `QinQ TAG-S Virtual Local Area Network (VLAN) ID
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
+
+`,
+		},
+
+		"vif_c_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `QinQ TAG-C Virtual Local Area Network (VLAN) ID
+
+`,
+		},
+
+		"pd_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `DHCPv6 prefix delegation interface statement
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  instance number  |  Prefix delegation instance (>= 0)  |
 
 `,
 		},
@@ -67,7 +114,7 @@ func (o InterfacesEthernetVifSVifCDhcpvsixOptionsPdInterface) ResourceSchemaAttr
 `,
 		},
 
-		"sla_id": schema.StringAttribute{
+		"sla_id": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interface site-Level aggregator (SLA)
 
@@ -85,51 +132,10 @@ func (o InterfacesEthernetVifSVifCDhcpvsixOptionsPdInterface) ResourceSchemaAttr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesEthernetVifSVifCDhcpvsixOptionsPdInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsPdInterfaceAddress.IsNull() && !o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsPdInterfaceAddress.IsUnknown() {
-		jsonData["address"] = o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsPdInterfaceAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsPdInterfaceSLAID.IsNull() && !o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsPdInterfaceSLAID.IsUnknown() {
-		jsonData["sla-id"] = o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsPdInterfaceSLAID.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesEthernetVifSVifCDhcpvsixOptionsPdInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsPdInterfaceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsPdInterfaceAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["sla-id"]; ok {
-		o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsPdInterfaceSLAID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCDhcpvsixOptionsPdInterfaceSLAID = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesEthernetVifSVifCDhcpvsixOptionsPdInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

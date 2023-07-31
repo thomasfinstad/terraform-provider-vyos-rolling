@@ -40,7 +40,7 @@ Source network
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Access list  |
-- `distance` (String) Distance for this route
+- `distance` (Number) Distance for this route
 
     |  Format  |  Description  |
     |----------|---------------|

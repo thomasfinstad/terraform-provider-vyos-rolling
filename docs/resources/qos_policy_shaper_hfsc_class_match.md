@@ -45,7 +45,17 @@ Class matching rule name
 
 ### Required
 
+- `class_identifier` (String) Class ID
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4095  |  Class Identifier  |
 - `identifier` (String) Class matching rule name
+- `shaper_hfsc_identifier` (String) Hierarchical Fair Service Curve's policy
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
 
 ### Optional
 
@@ -62,12 +72,12 @@ Class matching rule name
     |  txt  |  Interface name  |
 - `ip` (Attributes) Match IP protocol header (see [below for nested schema](#nestedatt--ip))
 - `ipv6` (Attributes) Match IPv6 protocol header (see [below for nested schema](#nestedatt--ipv6))
-- `mark` (String) Match on mark applied by firewall
+- `mark` (Number) Match on mark applied by firewall
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32  |  FW mark to match  |
-- `vif` (String) Virtual Local Area Network (VLAN) ID for this match
+- `vif` (Number) Virtual Local Area Network (VLAN) ID for this match
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -145,7 +155,7 @@ Optional:
     |  CS6  |  Network control  |
     |  CS7  |    |
     |  EF  |  Expedited Forwarding  |
-- `max_length` (String) Maximum packet length
+- `max_length` (Number) Maximum packet length
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -169,7 +179,7 @@ Optional:
     |----------|---------------|
     |  ipv4  |  IPv4 address  |
     |  ipv4net  |  IPv4 prefix  |
-- `port` (String) Port number used by connection
+- `port` (Number) Port number used by connection
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -187,7 +197,7 @@ Optional:
     |----------|---------------|
     |  ipv4  |  IPv4 address  |
     |  ipv4net  |  IPv4 prefix  |
-- `port` (String) Port number used by connection
+- `port` (Number) Port number used by connection
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -199,8 +209,8 @@ Optional:
 
 Optional:
 
-- `ack` (String) Match TCP ACK
-- `syn` (String) Match TCP SYN
+- `ack` (Boolean) Match TCP ACK
+- `syn` (Boolean) Match TCP SYN
 
 
 
@@ -246,7 +256,7 @@ Optional:
     |  CS6  |  Network control  |
     |  CS7  |    |
     |  EF  |  Expedited Forwarding  |
-- `max_length` (String) Maximum packet length
+- `max_length` (Number) Maximum packet length
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -269,7 +279,7 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv6net  |  IPv6 address and prefix length  |
-- `port` (String) Port number used by connection
+- `port` (Number) Port number used by connection
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -286,7 +296,7 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv6net  |  IPv6 address and prefix length  |
-- `port` (String) Port number used by connection
+- `port` (Number) Port number used by connection
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -298,5 +308,5 @@ Optional:
 
 Optional:
 
-- `ack` (String) Match TCP ACK
-- `syn` (String) Match TCP SYN
+- `ack` (Boolean) Match TCP ACK
+- `syn` (Boolean) Match TCP SYN

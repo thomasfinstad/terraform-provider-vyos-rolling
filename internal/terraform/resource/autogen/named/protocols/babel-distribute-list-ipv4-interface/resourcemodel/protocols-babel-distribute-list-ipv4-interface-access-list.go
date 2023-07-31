@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBabelDistributeListIPvfourInterfaceAccessList describes the resource data model.
 type ProtocolsBabelDistributeListIPvfourInterfaceAccessList struct {
 	// LeafNodes
-	LeafProtocolsBabelDistributeListIPvfourInterfaceAccessListIn  types.String `tfsdk:"in" vyos:"in,omitempty"`
-	LeafProtocolsBabelDistributeListIPvfourInterfaceAccessListOut types.String `tfsdk:"out" vyos:"out,omitempty"`
+	LeafProtocolsBabelDistributeListIPvfourInterfaceAccessListIn  types.Number `tfsdk:"in" vyos:"in,omitempty"`
+	LeafProtocolsBabelDistributeListIPvfourInterfaceAccessListOut types.Number `tfsdk:"out" vyos:"out,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +22,7 @@ func (o ProtocolsBabelDistributeListIPvfourInterfaceAccessList) ResourceSchemaAt
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"in": schema.StringAttribute{
+		"in": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Access list to apply to input packets
 
@@ -36,7 +33,7 @@ func (o ProtocolsBabelDistributeListIPvfourInterfaceAccessList) ResourceSchemaAt
 `,
 		},
 
-		"out": schema.StringAttribute{
+		"out": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Access list to apply to output packets
 
@@ -54,51 +51,10 @@ func (o ProtocolsBabelDistributeListIPvfourInterfaceAccessList) ResourceSchemaAt
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBabelDistributeListIPvfourInterfaceAccessList) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBabelDistributeListIPvfourInterfaceAccessListIn.IsNull() && !o.LeafProtocolsBabelDistributeListIPvfourInterfaceAccessListIn.IsUnknown() {
-		jsonData["in"] = o.LeafProtocolsBabelDistributeListIPvfourInterfaceAccessListIn.ValueString()
-	}
-
-	if !o.LeafProtocolsBabelDistributeListIPvfourInterfaceAccessListOut.IsNull() && !o.LeafProtocolsBabelDistributeListIPvfourInterfaceAccessListOut.IsUnknown() {
-		jsonData["out"] = o.LeafProtocolsBabelDistributeListIPvfourInterfaceAccessListOut.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBabelDistributeListIPvfourInterfaceAccessList) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["in"]; ok {
-		o.LeafProtocolsBabelDistributeListIPvfourInterfaceAccessListIn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBabelDistributeListIPvfourInterfaceAccessListIn = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["out"]; ok {
-		o.LeafProtocolsBabelDistributeListIPvfourInterfaceAccessListOut = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBabelDistributeListIPvfourInterfaceAccessListOut = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBabelDistributeListIPvfourInterfaceAccessList) UnmarshalJSON(_ []byte) error {
 	return nil
 }

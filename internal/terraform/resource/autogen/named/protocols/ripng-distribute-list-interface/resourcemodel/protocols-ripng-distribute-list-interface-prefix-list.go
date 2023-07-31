@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsRIPngDistributeListInterfacePrefixList describes the resource data model.
@@ -54,51 +51,10 @@ func (o ProtocolsRIPngDistributeListInterfacePrefixList) ResourceSchemaAttribute
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsRIPngDistributeListInterfacePrefixList) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsRIPngDistributeListInterfacePrefixListIn.IsNull() && !o.LeafProtocolsRIPngDistributeListInterfacePrefixListIn.IsUnknown() {
-		jsonData["in"] = o.LeafProtocolsRIPngDistributeListInterfacePrefixListIn.ValueString()
-	}
-
-	if !o.LeafProtocolsRIPngDistributeListInterfacePrefixListOut.IsNull() && !o.LeafProtocolsRIPngDistributeListInterfacePrefixListOut.IsUnknown() {
-		jsonData["out"] = o.LeafProtocolsRIPngDistributeListInterfacePrefixListOut.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsRIPngDistributeListInterfacePrefixList) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["in"]; ok {
-		o.LeafProtocolsRIPngDistributeListInterfacePrefixListIn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsRIPngDistributeListInterfacePrefixListIn = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["out"]; ok {
-		o.LeafProtocolsRIPngDistributeListInterfacePrefixListOut = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsRIPngDistributeListInterfacePrefixListOut = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsRIPngDistributeListInterfacePrefixList) UnmarshalJSON(_ []byte) error {
 	return nil
 }

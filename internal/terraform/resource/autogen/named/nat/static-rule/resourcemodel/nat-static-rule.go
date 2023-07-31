@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // NatStaticRule describes the resource data model.
@@ -29,7 +25,9 @@ type NatStaticRule struct {
 func (o *NatStaticRule) GetVyosPath() []string {
 	return []string{
 		"nat",
+
 		"static",
+
 		"rule",
 		o.ID.ValueString(),
 	}
@@ -87,105 +85,10 @@ func (o NatStaticRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *NatStaticRule) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafNatStaticRuleDescrIPtion.IsNull() && !o.LeafNatStaticRuleDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafNatStaticRuleDescrIPtion.ValueString()
-	}
-
-	if !o.LeafNatStaticRuleInboundInterface.IsNull() && !o.LeafNatStaticRuleInboundInterface.IsUnknown() {
-		jsonData["inbound-interface"] = o.LeafNatStaticRuleInboundInterface.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeNatStaticRuleDestination).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeNatStaticRuleDestination)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["destination"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeNatStaticRuleTranSLAtion).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeNatStaticRuleTranSLAtion)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["translation"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *NatStaticRule) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafNatStaticRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatStaticRuleDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["inbound-interface"]; ok {
-		o.LeafNatStaticRuleInboundInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatStaticRuleInboundInterface = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["destination"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeNatStaticRuleDestination = &NatStaticRuleDestination{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeNatStaticRuleDestination)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["translation"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeNatStaticRuleTranSLAtion = &NatStaticRuleTranSLAtion{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeNatStaticRuleTranSLAtion)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *NatStaticRule) UnmarshalJSON(_ []byte) error {
 	return nil
 }

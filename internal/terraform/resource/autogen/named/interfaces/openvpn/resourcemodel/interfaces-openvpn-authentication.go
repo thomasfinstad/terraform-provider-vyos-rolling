@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesOpenvpnAuthentication describes the resource data model.
@@ -54,51 +51,10 @@ func (o InterfacesOpenvpnAuthentication) ResourceSchemaAttributes() map[string]s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesOpenvpnAuthentication) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesOpenvpnAuthenticationUsername.IsNull() && !o.LeafInterfacesOpenvpnAuthenticationUsername.IsUnknown() {
-		jsonData["username"] = o.LeafInterfacesOpenvpnAuthenticationUsername.ValueString()
-	}
-
-	if !o.LeafInterfacesOpenvpnAuthenticationPassword.IsNull() && !o.LeafInterfacesOpenvpnAuthenticationPassword.IsUnknown() {
-		jsonData["password"] = o.LeafInterfacesOpenvpnAuthenticationPassword.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesOpenvpnAuthentication) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["username"]; ok {
-		o.LeafInterfacesOpenvpnAuthenticationUsername = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnAuthenticationUsername = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["password"]; ok {
-		o.LeafInterfacesOpenvpnAuthenticationPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnAuthenticationPassword = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesOpenvpnAuthentication) UnmarshalJSON(_ []byte) error {
 	return nil
 }

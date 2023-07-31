@@ -43,10 +43,15 @@ DHCPv6 prefix delegation interface statement
     |  Format  |  Description  |
     |----------|---------------|
     |  instance number  |  Prefix delegation instance (>= 0)  |
+- `wwan_identifier` (String) Wireless Modem (WWAN) Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  wwanN  |  Wireless Wide Area Network interface name  |
 
 ### Optional
 
-- `length` (String) Request IPv6 prefix length from peer
+- `length` (Number) Request IPv6 prefix length from peer
 
     |  Format  |  Description  |
     |----------|---------------|

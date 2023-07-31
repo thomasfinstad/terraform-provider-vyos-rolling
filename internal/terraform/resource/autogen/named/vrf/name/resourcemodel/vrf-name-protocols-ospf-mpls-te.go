@@ -2,17 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfMplsTe describes the resource data model.
 type VrfNameProtocolsOspfMplsTe struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfMplsTeEnable        types.String `tfsdk:"enable" vyos:"enable,omitempty"`
+	LeafVrfNameProtocolsOspfMplsTeEnable        types.Bool   `tfsdk:"enable" vyos:"enable,omitempty"`
 	LeafVrfNameProtocolsOspfMplsTeRouterAddress types.String `tfsdk:"router_address" vyos:"router-address,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -25,11 +23,13 @@ func (o VrfNameProtocolsOspfMplsTe) ResourceSchemaAttributes() map[string]schema
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"enable": schema.StringAttribute{
+		"enable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable MPLS-TE functionality
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"router_address": schema.StringAttribute{
@@ -53,51 +53,10 @@ func (o VrfNameProtocolsOspfMplsTe) ResourceSchemaAttributes() map[string]schema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfMplsTe) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfMplsTeEnable.IsNull() && !o.LeafVrfNameProtocolsOspfMplsTeEnable.IsUnknown() {
-		jsonData["enable"] = o.LeafVrfNameProtocolsOspfMplsTeEnable.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfMplsTeRouterAddress.IsNull() && !o.LeafVrfNameProtocolsOspfMplsTeRouterAddress.IsUnknown() {
-		jsonData["router-address"] = o.LeafVrfNameProtocolsOspfMplsTeRouterAddress.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfMplsTe) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["enable"]; ok {
-		o.LeafVrfNameProtocolsOspfMplsTeEnable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfMplsTeEnable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["router-address"]; ok {
-		o.LeafVrfNameProtocolsOspfMplsTeRouterAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfMplsTeRouterAddress = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfMplsTe) UnmarshalJSON(_ []byte) error {
 	return nil
 }

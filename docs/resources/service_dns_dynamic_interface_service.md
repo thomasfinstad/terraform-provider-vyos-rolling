@@ -71,10 +71,11 @@ Service being used for Dynamic DNS
     |  noip  |  noip.com Services  |
     |  sitelutions  |  sitelutions.com Services  |
     |  zoneedit  |  zoneedit.com Services  |
+- `interface_identifier` (String) Interface to send DDNS updates for
 
 ### Optional
 
-- `host_name` (String) Hostname registered with DDNS service
+- `host_name` (List of String) Hostname registered with DDNS service
 - `login` (String) Login for DDNS service
 - `password` (String) Password for DDNS service
 - `protocol` (String) ddclient protocol used for DDNS service

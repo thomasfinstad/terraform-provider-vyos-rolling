@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesWirelessSecURItyWpaRadius describes the resource data model.
@@ -43,41 +40,10 @@ func (o InterfacesWirelessSecURItyWpaRadius) ResourceSchemaAttributes() map[stri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesWirelessSecURItyWpaRadius) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesWirelessSecURItyWpaRadiusSourceAddress.IsNull() && !o.LeafInterfacesWirelessSecURItyWpaRadiusSourceAddress.IsUnknown() {
-		jsonData["source-address"] = o.LeafInterfacesWirelessSecURItyWpaRadiusSourceAddress.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWirelessSecURItyWpaRadius) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["source-address"]; ok {
-		o.LeafInterfacesWirelessSecURItyWpaRadiusSourceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessSecURItyWpaRadiusSourceAddress = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesWirelessSecURItyWpaRadius) UnmarshalJSON(_ []byte) error {
 	return nil
 }

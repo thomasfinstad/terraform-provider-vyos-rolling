@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteMapRuleMatchIPvsixNexthop describes the resource data model.
@@ -74,71 +71,10 @@ func (o PolicyRouteMapRuleMatchIPvsixNexthop) ResourceSchemaAttributes() map[str
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteMapRuleMatchIPvsixNexthop) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress.IsNull() && !o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress.IsUnknown() {
-		jsonData["address"] = o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList.IsNull() && !o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList.IsUnknown() {
-		jsonData["access-list"] = o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList.IsNull() && !o.LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList.IsUnknown() {
-		jsonData["prefix-list"] = o.LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleMatchIPvsixNexthopType.IsNull() && !o.LeafPolicyRouteMapRuleMatchIPvsixNexthopType.IsUnknown() {
-		jsonData["type"] = o.LeafPolicyRouteMapRuleMatchIPvsixNexthopType.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteMapRuleMatchIPvsixNexthop) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["access-list"]; ok {
-		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["prefix-list"]; ok {
-		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["type"]; ok {
-		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopType = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRouteMapRuleMatchIPvsixNexthop) UnmarshalJSON(_ []byte) error {
 	return nil
 }

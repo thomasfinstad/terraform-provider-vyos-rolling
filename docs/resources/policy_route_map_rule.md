@@ -43,6 +43,11 @@ Rule for this route-map
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Route-map rule number  |
+- `route_map_identifier` (String) IP route-map
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 ### Optional
 
@@ -57,7 +62,7 @@ Rule for this route-map
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Route map name  |
-- `continue` (String) Jump to a different rule in this route-map on a match
+- `continue` (Number) Jump to a different rule in this route-map on a match
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -88,12 +93,12 @@ Optional:
 - `ip` (Attributes) IP prefix parameters to match (see [below for nested schema](#nestedatt--match--ip))
 - `ipv6` (Attributes) IPv6 prefix parameters to match (see [below for nested schema](#nestedatt--match--ipv6))
 - `large_community` (Attributes) Match BGP large communities (see [below for nested schema](#nestedatt--match--large_community))
-- `local_preference` (String) Local Preference
+- `local_preference` (Number) Local Preference
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-4294967295  |  Local Preference  |
-- `metric` (String) Metric of route to match
+- `metric` (Number) Metric of route to match
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -118,7 +123,7 @@ Optional:
     |  invalid  |  Match invalid entries  |
     |  notfound  |  Match notfound entries  |
     |  valid  |  Match valid entries  |
-- `tag` (String) Route tag to match
+- `tag` (Number) Route tag to match
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -130,7 +135,7 @@ Optional:
 Optional:
 
 - `community_list` (String) BGP community-list to match
-- `exact_match` (String) Community-list to exactly match
+- `exact_match` (Boolean) Community-list to exactly match
 
 
 <a id="nestedatt--match--evpn"></a>
@@ -138,7 +143,7 @@ Optional:
 
 Optional:
 
-- `default_route` (String) Default EVPN type-5 route
+- `default_route` (Boolean) Default EVPN type-5 route
 - `rd` (String) Route Distinguisher
 
     |  Format  |  Description  |
@@ -151,7 +156,7 @@ Optional:
     |  macip  |  mac-ip route  |
     |  multicast  |  IMET route  |
     |  prefix  |  Prefix route  |
-- `vni` (String) Virtual Network Identifier
+- `vni` (Number) Virtual Network Identifier
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -172,7 +177,7 @@ Optional:
 
 Optional:
 
-- `access_list` (String) IP access-list to match
+- `access_list` (Number) IP access-list to match
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -180,7 +185,7 @@ Optional:
     |  u32:100-199  |  IP extended access list  |
     |  u32:1300-1999  |  IP standard access list (expanded range)  |
     |  u32:2000-2699  |  IP extended access list (expanded range)  |
-- `prefix_len` (String) IP prefix-length to match (can be used for kernel routes only)
+- `prefix_len` (Number) IP prefix-length to match (can be used for kernel routes only)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -193,7 +198,7 @@ Optional:
 
 Optional:
 
-- `access_list` (String) IP access-list to match
+- `access_list` (Number) IP access-list to match
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -206,7 +211,7 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  Nexthop IP address  |
-- `prefix_len` (String) IP prefix-length to match
+- `prefix_len` (Number) IP prefix-length to match
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -224,7 +229,7 @@ Optional:
 
 Optional:
 
-- `access_list` (String) IP access-list to match
+- `access_list` (Number) IP access-list to match
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -254,7 +259,7 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  IPV6 access list name  |
-- `prefix_len` (String) IPv6 prefix-length to match (can be used for kernel routes only)
+- `prefix_len` (Number) IPv6 prefix-length to match (can be used for kernel routes only)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -300,12 +305,12 @@ Optional:
 
 Optional:
 
-- `goto` (String) Rule number to goto on match
+- `goto` (Number) Rule number to goto on match
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Rule number  |
-- `next` (String) Next sequence number to goto on match
+- `next` (Boolean) Next sequence number to goto on match
 
 
 <a id="nestedatt--set"></a>
@@ -315,9 +320,9 @@ Optional:
 
 - `aggregator` (Attributes) BGP aggregator attribute (see [below for nested schema](#nestedatt--set--aggregator))
 - `as_path` (Attributes) Transform BGP AS_PATH attribute (see [below for nested schema](#nestedatt--set--as_path))
-- `atomic_aggregate` (String) BGP atomic aggregate attribute
+- `atomic_aggregate` (Boolean) BGP atomic aggregate attribute
 - `community` (Attributes) BGP community attribute (see [below for nested schema](#nestedatt--set--community))
-- `distance` (String) Locally significant administrative distance
+- `distance` (Number) Locally significant administrative distance
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -334,7 +339,7 @@ Optional:
 - `ipv6_next_hop` (Attributes) Nexthop IPv6 address (see [below for nested schema](#nestedatt--set--ipv6_next_hop))
 - `l3vpn_nexthop` (Attributes) Next hop Information (see [below for nested schema](#nestedatt--set--l3vpn_nexthop))
 - `large_community` (Attributes) BGP large community attribute (see [below for nested schema](#nestedatt--set--large_community))
-- `local_preference` (String) BGP local preference attribute
+- `local_preference` (Number) BGP local preference attribute
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -369,17 +374,17 @@ Optional:
     |----------|---------------|
     |  ipv4  |  IPv4 address  |
     |  ipv6  |  IPv6 address  |
-- `table` (String) Set prefixes to table
+- `table` (Number) Set prefixes to table
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-200  |  Table value  |
-- `tag` (String) Tag value for routing protocol
+- `tag` (Number) Tag value for routing protocol
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Tag value  |
-- `weight` (String) BGP weight attribute
+- `weight` (Number) BGP weight attribute
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -390,7 +395,7 @@ Optional:
 
 Optional:
 
-- `as` (String) AS number of an aggregation
+- `as` (Number) AS number of an aggregation
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -407,17 +412,17 @@ Optional:
 
 Optional:
 
-- `exclude` (String) Remove/exclude from the as-path attribute
+- `exclude` (Number) Remove/exclude from the as-path attribute
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32  |  AS number  |
-- `prepend` (String) Prepend to the as-path
+- `prepend` (Number) Prepend to the as-path
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32  |  AS number  |
-- `prepend_last_as` (String) Use the last AS-number in the as-path
+- `prepend_last_as` (Number) Use the last AS-number in the as-path
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -429,7 +434,7 @@ Optional:
 
 Optional:
 
-- `add` (String) Add communities to a prefix
+- `add` (List of String) Add communities to a prefix
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -454,8 +459,8 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Community-list  |
-- `none` (String) Completely remove communities attribute from a prefix
-- `replace` (String) Set communities for a prefix
+- `none` (Boolean) Completely remove communities attribute from a prefix
+- `replace` (List of String) Set communities for a prefix
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -514,15 +519,15 @@ Optional:
     |  u32:1-25600  |  Bandwidth value in Mbps  |
     |  cumulative  |  Cumulative bandwidth of all multipaths (outbound-only)  |
     |  num-multipaths  |  Internally computed bandwidth based on number of multipaths (outbound-only)  |
-- `bandwidth_non_transitive` (String) The link bandwidth extended community is encoded as non-transitive
-- `none` (String) Completely remove communities attribute from a prefix
-- `rt` (String) Set route target value
+- `bandwidth_non_transitive` (Boolean) The link bandwidth extended community is encoded as non-transitive
+- `none` (Boolean) Completely remove communities attribute from a prefix
+- `rt` (List of String) Set route target value
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ASN:NN  |  based on autonomous system number in format <0-65535:0-4294967295>  |
     |  IP:NN  |  Based on a router-id IP address in format <IP:0-65535>  |
-- `soo` (String) Set Site of Origin value
+- `soo` (List of String) Set Site of Origin value
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -545,8 +550,8 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv6  |  IPv6 address and prefix length  |
-- `peer_address` (String) Use peer address (for BGP only)
-- `prefer_global` (String) Prefer global address as the nexthop
+- `peer_address` (Boolean) Use peer address (for BGP only)
+- `prefer_global` (Boolean) Prefer global address as the nexthop
 
 
 <a id="nestedatt--set--l3vpn_nexthop"></a>
@@ -561,7 +566,7 @@ Optional:
 
 Optional:
 
-- `gre` (String) Accept L3VPN traffic over GRE encapsulation
+- `gre` (Boolean) Accept L3VPN traffic over GRE encapsulation
 
 
 
@@ -570,7 +575,7 @@ Optional:
 
 Optional:
 
-- `add` (String) Add large communities to a prefix ;
+- `add` (List of String) Add large communities to a prefix ;
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -580,8 +585,8 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Community-list  |
-- `none` (String) Completely remove communities attribute from a prefix
-- `replace` (String) Set large communities for a prefix
+- `none` (Boolean) Completely remove communities attribute from a prefix
+- `replace` (List of String) Set large communities for a prefix
 
     |  Format  |  Description  |
     |----------|---------------|

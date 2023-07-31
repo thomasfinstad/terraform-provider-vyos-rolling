@@ -2,22 +2,18 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyLocalRouteRule describes the resource data model.
 type PolicyLocalRouteRule struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafPolicyLocalRouteRuleFwmark           types.String `tfsdk:"fwmark" vyos:"fwmark,omitempty"`
-	LeafPolicyLocalRouteRuleSource           types.String `tfsdk:"source" vyos:"source,omitempty"`
-	LeafPolicyLocalRouteRuleDestination      types.String `tfsdk:"destination" vyos:"destination,omitempty"`
+	LeafPolicyLocalRouteRuleFwmark           types.Number `tfsdk:"fwmark" vyos:"fwmark,omitempty"`
+	LeafPolicyLocalRouteRuleSource           types.List   `tfsdk:"source" vyos:"source,omitempty"`
+	LeafPolicyLocalRouteRuleDestination      types.List   `tfsdk:"destination" vyos:"destination,omitempty"`
 	LeafPolicyLocalRouteRuleInboundInterface types.String `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -30,9 +26,11 @@ type PolicyLocalRouteRule struct {
 func (o *PolicyLocalRouteRule) GetVyosPath() []string {
 	return []string{
 		"policy",
+
 		"local-route",
+
 		"rule",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -52,7 +50,7 @@ func (o PolicyLocalRouteRule) ResourceSchemaAttributes() map[string]schema.Attri
 
 		// LeafNodes
 
-		"fwmark": schema.StringAttribute{
+		"fwmark": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Match fwmark value
 
@@ -63,8 +61,9 @@ func (o PolicyLocalRouteRule) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 
-		"source": schema.StringAttribute{
-			Optional: true,
+		"source": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Source address or prefix
 
     |  Format  |  Description  |
@@ -75,8 +74,9 @@ func (o PolicyLocalRouteRule) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 
-		"destination": schema.StringAttribute{
-			Optional: true,
+		"destination": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Destination address or prefix
 
     |  Format  |  Description  |
@@ -108,98 +108,10 @@ func (o PolicyLocalRouteRule) ResourceSchemaAttributes() map[string]schema.Attri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyLocalRouteRule) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyLocalRouteRuleFwmark.IsNull() && !o.LeafPolicyLocalRouteRuleFwmark.IsUnknown() {
-		jsonData["fwmark"] = o.LeafPolicyLocalRouteRuleFwmark.ValueString()
-	}
-
-	if !o.LeafPolicyLocalRouteRuleSource.IsNull() && !o.LeafPolicyLocalRouteRuleSource.IsUnknown() {
-		jsonData["source"] = o.LeafPolicyLocalRouteRuleSource.ValueString()
-	}
-
-	if !o.LeafPolicyLocalRouteRuleDestination.IsNull() && !o.LeafPolicyLocalRouteRuleDestination.IsUnknown() {
-		jsonData["destination"] = o.LeafPolicyLocalRouteRuleDestination.ValueString()
-	}
-
-	if !o.LeafPolicyLocalRouteRuleInboundInterface.IsNull() && !o.LeafPolicyLocalRouteRuleInboundInterface.IsUnknown() {
-		jsonData["inbound-interface"] = o.LeafPolicyLocalRouteRuleInboundInterface.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodePolicyLocalRouteRuleSet).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyLocalRouteRuleSet)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["set"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyLocalRouteRule) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["fwmark"]; ok {
-		o.LeafPolicyLocalRouteRuleFwmark = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyLocalRouteRuleFwmark = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["source"]; ok {
-		o.LeafPolicyLocalRouteRuleSource = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyLocalRouteRuleSource = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["destination"]; ok {
-		o.LeafPolicyLocalRouteRuleDestination = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyLocalRouteRuleDestination = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["inbound-interface"]; ok {
-		o.LeafPolicyLocalRouteRuleInboundInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyLocalRouteRuleInboundInterface = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["set"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyLocalRouteRuleSet = &PolicyLocalRouteRuleSet{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyLocalRouteRuleSet)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *PolicyLocalRouteRule) UnmarshalJSON(_ []byte) error {
 	return nil
 }

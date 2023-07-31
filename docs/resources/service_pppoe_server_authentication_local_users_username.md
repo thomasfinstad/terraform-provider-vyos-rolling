@@ -30,7 +30,7 @@ User name for authentication
 
 ### Optional
 
-- `disable` (String) Disable instance
+- `disable` (Boolean) Disable instance
 - `password` (String) Password for authentication
 - `rate_limit` (Attributes) Upload/Download speed limits (see [below for nested schema](#nestedatt--rate_limit))
 - `static_ip` (String) Static client IP address

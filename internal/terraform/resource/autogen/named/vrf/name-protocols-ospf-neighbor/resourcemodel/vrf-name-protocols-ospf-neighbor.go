@@ -2,22 +2,19 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfNeighbor describes the resource data model.
 type VrfNameProtocolsOspfNeighbor struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVrfName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
 	// LeafNodes
-	LeafVrfNameProtocolsOspfNeighborPollInterval types.String `tfsdk:"poll_interval" vyos:"poll-interval,omitempty"`
-	LeafVrfNameProtocolsOspfNeighborPriority     types.String `tfsdk:"priority" vyos:"priority,omitempty"`
+	LeafVrfNameProtocolsOspfNeighborPollInterval types.Number `tfsdk:"poll_interval" vyos:"poll-interval,omitempty"`
+	LeafVrfNameProtocolsOspfNeighborPriority     types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -28,9 +25,14 @@ type VrfNameProtocolsOspfNeighbor struct {
 func (o *VrfNameProtocolsOspfNeighbor) GetVyosPath() []string {
 	return []string{
 		"vrf",
+
 		"name",
+		o.ParentIDVrfName.ValueString(),
+
 		"protocols",
+
 		"ospf",
+
 		"neighbor",
 		o.ID.ValueString(),
 	}
@@ -50,9 +52,20 @@ func (o VrfNameProtocolsOspfNeighbor) ResourceSchemaAttributes() map[string]sche
 `,
 		},
 
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"poll_interval": schema.StringAttribute{
+		"poll_interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Dead neighbor polling interval
 
@@ -66,7 +79,7 @@ func (o VrfNameProtocolsOspfNeighbor) ResourceSchemaAttributes() map[string]sche
 			Computed: true,
 		},
 
-		"priority": schema.StringAttribute{
+		"priority": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Neighbor priority in seconds
 
@@ -87,51 +100,10 @@ func (o VrfNameProtocolsOspfNeighbor) ResourceSchemaAttributes() map[string]sche
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfNeighbor) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfNeighborPollInterval.IsNull() && !o.LeafVrfNameProtocolsOspfNeighborPollInterval.IsUnknown() {
-		jsonData["poll-interval"] = o.LeafVrfNameProtocolsOspfNeighborPollInterval.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfNeighborPriority.IsNull() && !o.LeafVrfNameProtocolsOspfNeighborPriority.IsUnknown() {
-		jsonData["priority"] = o.LeafVrfNameProtocolsOspfNeighborPriority.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfNeighbor) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["poll-interval"]; ok {
-		o.LeafVrfNameProtocolsOspfNeighborPollInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfNeighborPollInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["priority"]; ok {
-		o.LeafVrfNameProtocolsOspfNeighborPriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfNeighborPriority = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfNeighbor) UnmarshalJSON(_ []byte) error {
 	return nil
 }

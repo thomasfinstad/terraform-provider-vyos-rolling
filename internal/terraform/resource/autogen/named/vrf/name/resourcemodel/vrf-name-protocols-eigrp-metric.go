@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsEigrpMetric describes the resource data model.
 type VrfNameProtocolsEigrpMetric struct {
 	// LeafNodes
-	LeafVrfNameProtocolsEigrpMetricWeights types.String `tfsdk:"weights" vyos:"weights,omitempty"`
+	LeafVrfNameProtocolsEigrpMetricWeights types.Number `tfsdk:"weights" vyos:"weights,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,7 +21,7 @@ func (o VrfNameProtocolsEigrpMetric) ResourceSchemaAttributes() map[string]schem
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"weights": schema.StringAttribute{
+		"weights": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Modify metric coefficients
 
@@ -42,41 +39,10 @@ func (o VrfNameProtocolsEigrpMetric) ResourceSchemaAttributes() map[string]schem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsEigrpMetric) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsEigrpMetricWeights.IsNull() && !o.LeafVrfNameProtocolsEigrpMetricWeights.IsUnknown() {
-		jsonData["weights"] = o.LeafVrfNameProtocolsEigrpMetricWeights.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsEigrpMetric) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["weights"]; ok {
-		o.LeafVrfNameProtocolsEigrpMetricWeights = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsEigrpMetricWeights = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsEigrpMetric) UnmarshalJSON(_ []byte) error {
 	return nil
 }

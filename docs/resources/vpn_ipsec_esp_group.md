@@ -27,18 +27,18 @@ Encapsulating Security Payload (ESP) group name
 
 ### Optional
 
-- `compression` (String) Enable ESP compression
-- `life_bytes` (String) Security Association byte count to expire
+- `compression` (Boolean) Enable ESP compression
+- `life_bytes` (Number) Security Association byte count to expire
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1024-26843545600000  |  SA life in bytes  |
-- `life_packets` (String) Security Association packet count to expire
+- `life_packets` (Number) Security Association packet count to expire
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1000-26843545600000  |  SA life in packets  |
-- `lifetime` (String) Security Association time to expire
+- `lifetime` (Number) Security Association time to expire
 
     |  Format  |  Description  |
     |----------|---------------|

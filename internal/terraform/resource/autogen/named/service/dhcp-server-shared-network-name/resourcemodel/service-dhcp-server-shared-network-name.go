@@ -2,11 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceDhcpServerSharedNetworkName describes the resource data model.
@@ -14,15 +12,15 @@ type ServiceDhcpServerSharedNetworkName struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafServiceDhcpServerSharedNetworkNameAuthoritative           types.String `tfsdk:"authoritative" vyos:"authoritative,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameAuthoritative           types.Bool   `tfsdk:"authoritative" vyos:"authoritative,omitempty"`
 	LeafServiceDhcpServerSharedNetworkNameDomainName              types.String `tfsdk:"domain_name" vyos:"domain-name,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameDomainSearch            types.String `tfsdk:"domain_search" vyos:"domain-search,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameNtpServer               types.String `tfsdk:"ntp_server" vyos:"ntp-server,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNamePingCheck               types.String `tfsdk:"ping_check" vyos:"ping-check,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameDomainSearch            types.List   `tfsdk:"domain_search" vyos:"domain-search,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameNtpServer               types.List   `tfsdk:"ntp_server" vyos:"ntp-server,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNamePingCheck               types.Bool   `tfsdk:"ping_check" vyos:"ping-check,omitempty"`
 	LeafServiceDhcpServerSharedNetworkNameDescrIPtion             types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameDisable                 types.String `tfsdk:"disable" vyos:"disable,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameNameServer              types.String `tfsdk:"name_server" vyos:"name-server,omitempty"`
-	LeafServiceDhcpServerSharedNetworkNameSharedNetworkParameters types.String `tfsdk:"shared_network_parameters" vyos:"shared-network-parameters,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameDisable                 types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameNameServer              types.List   `tfsdk:"name_server" vyos:"name-server,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSharedNetworkParameters types.List   `tfsdk:"shared_network_parameters" vyos:"shared-network-parameters,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagServiceDhcpServerSharedNetworkNameSubnet bool `tfsdk:"subnet" vyos:"subnet,child"`
@@ -34,7 +32,9 @@ type ServiceDhcpServerSharedNetworkName struct {
 func (o *ServiceDhcpServerSharedNetworkName) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"dhcp-server",
+
 		"shared-network-name",
 		o.ID.ValueString(),
 	}
@@ -52,11 +52,13 @@ func (o ServiceDhcpServerSharedNetworkName) ResourceSchemaAttributes() map[strin
 
 		// LeafNodes
 
-		"authoritative": schema.StringAttribute{
+		"authoritative": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Option to make DHCP server authoritative for this physical network
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"domain_name": schema.StringAttribute{
@@ -66,15 +68,17 @@ func (o ServiceDhcpServerSharedNetworkName) ResourceSchemaAttributes() map[strin
 `,
 		},
 
-		"domain_search": schema.StringAttribute{
-			Optional: true,
+		"domain_search": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Client Domain Name search list
 
 `,
 		},
 
-		"ntp_server": schema.StringAttribute{
-			Optional: true,
+		"ntp_server": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address of NTP server
 
     |  Format  |  Description  |
@@ -84,11 +88,13 @@ func (o ServiceDhcpServerSharedNetworkName) ResourceSchemaAttributes() map[strin
 `,
 		},
 
-		"ping_check": schema.StringAttribute{
+		"ping_check": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Sends ICMP Echo request to the address being assigned
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"description": schema.StringAttribute{
@@ -102,15 +108,18 @@ func (o ServiceDhcpServerSharedNetworkName) ResourceSchemaAttributes() map[strin
 `,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"name_server": schema.StringAttribute{
-			Optional: true,
+		"name_server": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Domain Name Servers (DNS) addresses
 
     |  Format  |  Description  |
@@ -120,8 +129,9 @@ func (o ServiceDhcpServerSharedNetworkName) ResourceSchemaAttributes() map[strin
 `,
 		},
 
-		"shared_network_parameters": schema.StringAttribute{
-			Optional: true,
+		"shared_network_parameters": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Additional shared-network parameters for DHCP server. You must use the syntax of dhcpd.conf in this text-field. Using this without proper knowledge may result in a crashed DHCP server. Check system log to look for errors.
 
 `,
@@ -134,121 +144,10 @@ func (o ServiceDhcpServerSharedNetworkName) ResourceSchemaAttributes() map[strin
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceDhcpServerSharedNetworkName) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameAuthoritative.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameAuthoritative.IsUnknown() {
-		jsonData["authoritative"] = o.LeafServiceDhcpServerSharedNetworkNameAuthoritative.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameDomainName.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameDomainName.IsUnknown() {
-		jsonData["domain-name"] = o.LeafServiceDhcpServerSharedNetworkNameDomainName.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameDomainSearch.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameDomainSearch.IsUnknown() {
-		jsonData["domain-search"] = o.LeafServiceDhcpServerSharedNetworkNameDomainSearch.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameNtpServer.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameNtpServer.IsUnknown() {
-		jsonData["ntp-server"] = o.LeafServiceDhcpServerSharedNetworkNameNtpServer.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNamePingCheck.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNamePingCheck.IsUnknown() {
-		jsonData["ping-check"] = o.LeafServiceDhcpServerSharedNetworkNamePingCheck.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameDescrIPtion.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafServiceDhcpServerSharedNetworkNameDescrIPtion.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameDisable.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafServiceDhcpServerSharedNetworkNameDisable.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameNameServer.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameNameServer.IsUnknown() {
-		jsonData["name-server"] = o.LeafServiceDhcpServerSharedNetworkNameNameServer.ValueString()
-	}
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSharedNetworkParameters.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSharedNetworkParameters.IsUnknown() {
-		jsonData["shared-network-parameters"] = o.LeafServiceDhcpServerSharedNetworkNameSharedNetworkParameters.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceDhcpServerSharedNetworkName) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["authoritative"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameAuthoritative = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameAuthoritative = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["domain-name"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameDomainName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameDomainName = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["domain-search"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameDomainSearch = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameDomainSearch = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ntp-server"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameNtpServer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameNtpServer = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ping-check"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNamePingCheck = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNamePingCheck = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["name-server"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameNameServer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameNameServer = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["shared-network-parameters"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSharedNetworkParameters = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSharedNetworkParameters = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceDhcpServerSharedNetworkName) UnmarshalJSON(_ []byte) error {
 	return nil
 }

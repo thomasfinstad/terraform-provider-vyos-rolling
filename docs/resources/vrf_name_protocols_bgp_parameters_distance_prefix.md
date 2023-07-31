@@ -55,10 +55,15 @@ Administrative distance for a specific BGP prefix
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4net  |  Administrative distance for a specific BGP prefix  |
+- `name_identifier` (String) Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 ### Optional
 
-- `distance` (String) Administrative distance for prefix
+- `distance` (Number) Administrative distance for prefix
 
     |  Format  |  Description  |
     |----------|---------------|

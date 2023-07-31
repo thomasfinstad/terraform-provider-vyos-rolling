@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnIPsecEspGroupProposal describes the resource data model.
 type VpnIPsecEspGroupProposal struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVpnIPsecEspGroup any `tfsdk:"esp_group" vyos:"esp-group,parent-id"`
+	ParentIDVpnIPsecEspGroup types.String `tfsdk:"esp_group" vyos:"esp-group_identifier,parent-id"`
 
 	// LeafNodes
 	LeafVpnIPsecEspGroupProposalEncryption types.String `tfsdk:"encryption" vyos:"encryption,omitempty"`
@@ -28,10 +25,14 @@ type VpnIPsecEspGroupProposal struct {
 func (o *VpnIPsecEspGroupProposal) GetVyosPath() []string {
 	return []string{
 		"vpn",
+
 		"ipsec",
+
 		"esp-group",
+		o.ParentIDVpnIPsecEspGroup.ValueString(),
+
 		"proposal",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -45,6 +46,13 @@ func (o VpnIPsecEspGroupProposal) ResourceSchemaAttributes() map[string]schema.A
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  ESP group proposal number  |
+
+`,
+		},
+
+		"esp_group_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Encapsulating Security Payload (ESP) group name
 
 `,
 		},
@@ -152,51 +160,10 @@ func (o VpnIPsecEspGroupProposal) ResourceSchemaAttributes() map[string]schema.A
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnIPsecEspGroupProposal) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnIPsecEspGroupProposalEncryption.IsNull() && !o.LeafVpnIPsecEspGroupProposalEncryption.IsUnknown() {
-		jsonData["encryption"] = o.LeafVpnIPsecEspGroupProposalEncryption.ValueString()
-	}
-
-	if !o.LeafVpnIPsecEspGroupProposalHash.IsNull() && !o.LeafVpnIPsecEspGroupProposalHash.IsUnknown() {
-		jsonData["hash"] = o.LeafVpnIPsecEspGroupProposalHash.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnIPsecEspGroupProposal) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["encryption"]; ok {
-		o.LeafVpnIPsecEspGroupProposalEncryption = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecEspGroupProposalEncryption = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["hash"]; ok {
-		o.LeafVpnIPsecEspGroupProposalHash = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecEspGroupProposalHash = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VpnIPsecEspGroupProposal) UnmarshalJSON(_ []byte) error {
 	return nil
 }

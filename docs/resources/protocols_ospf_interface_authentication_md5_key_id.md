@@ -49,6 +49,11 @@ MD5 key id
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  MD5 key id  |
+- `interface_identifier` (String) Interface configuration
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Interface name  |
 
 ### Optional
 

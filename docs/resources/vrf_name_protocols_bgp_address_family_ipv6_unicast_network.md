@@ -55,10 +55,15 @@ BGP network
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv6net  |  Aggregate network  |
+- `name_identifier` (String) Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 ### Optional
 
-- `path_limit` (String) AS-path hopcount limit
+- `path_limit` (Number) AS-path hopcount limit
 
     |  Format  |  Description  |
     |----------|---------------|

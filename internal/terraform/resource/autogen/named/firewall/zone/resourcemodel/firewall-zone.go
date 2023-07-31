@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallZone describes the resource data model.
@@ -16,10 +13,10 @@ type FirewallZone struct {
 
 	// LeafNodes
 	LeafFirewallZoneDescrIPtion      types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafFirewallZoneEnableDefaultLog types.String `tfsdk:"enable_default_log" vyos:"enable-default-log,omitempty"`
+	LeafFirewallZoneEnableDefaultLog types.Bool   `tfsdk:"enable_default_log" vyos:"enable-default-log,omitempty"`
 	LeafFirewallZoneDefaultAction    types.String `tfsdk:"default_action" vyos:"default-action,omitempty"`
-	LeafFirewallZoneInterface        types.String `tfsdk:"interface" vyos:"interface,omitempty"`
-	LeafFirewallZoneLocalZone        types.String `tfsdk:"local_zone" vyos:"local-zone,omitempty"`
+	LeafFirewallZoneInterface        types.List   `tfsdk:"interface" vyos:"interface,omitempty"`
+	LeafFirewallZoneLocalZone        types.Bool   `tfsdk:"local_zone" vyos:"local-zone,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagFirewallZoneFrom bool `tfsdk:"from" vyos:"from,child"`
@@ -32,6 +29,7 @@ type FirewallZone struct {
 func (o *FirewallZone) GetVyosPath() []string {
 	return []string{
 		"firewall",
+
 		"zone",
 		o.ID.ValueString(),
 	}
@@ -64,11 +62,13 @@ func (o FirewallZone) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 
-		"enable_default_log": schema.StringAttribute{
+		"enable_default_log": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Log packets hitting default-action
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"default_action": schema.StringAttribute{
@@ -86,8 +86,9 @@ func (o FirewallZone) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Computed: true,
 		},
 
-		"interface": schema.StringAttribute{
-			Optional: true,
+		"interface": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Interface associated with zone
 
     |  Format  |  Description  |
@@ -97,11 +98,13 @@ func (o FirewallZone) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 
-		"local_zone": schema.StringAttribute{
+		"local_zone": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Zone to be local-zone
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -118,108 +121,10 @@ func (o FirewallZone) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallZone) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallZoneDescrIPtion.IsNull() && !o.LeafFirewallZoneDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafFirewallZoneDescrIPtion.ValueString()
-	}
-
-	if !o.LeafFirewallZoneEnableDefaultLog.IsNull() && !o.LeafFirewallZoneEnableDefaultLog.IsUnknown() {
-		jsonData["enable-default-log"] = o.LeafFirewallZoneEnableDefaultLog.ValueString()
-	}
-
-	if !o.LeafFirewallZoneDefaultAction.IsNull() && !o.LeafFirewallZoneDefaultAction.IsUnknown() {
-		jsonData["default-action"] = o.LeafFirewallZoneDefaultAction.ValueString()
-	}
-
-	if !o.LeafFirewallZoneInterface.IsNull() && !o.LeafFirewallZoneInterface.IsUnknown() {
-		jsonData["interface"] = o.LeafFirewallZoneInterface.ValueString()
-	}
-
-	if !o.LeafFirewallZoneLocalZone.IsNull() && !o.LeafFirewallZoneLocalZone.IsUnknown() {
-		jsonData["local-zone"] = o.LeafFirewallZoneLocalZone.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeFirewallZoneIntraZoneFiltering).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallZoneIntraZoneFiltering)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["intra-zone-filtering"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallZone) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafFirewallZoneDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallZoneDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["enable-default-log"]; ok {
-		o.LeafFirewallZoneEnableDefaultLog = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallZoneEnableDefaultLog = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["default-action"]; ok {
-		o.LeafFirewallZoneDefaultAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallZoneDefaultAction = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["interface"]; ok {
-		o.LeafFirewallZoneInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallZoneInterface = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["local-zone"]; ok {
-		o.LeafFirewallZoneLocalZone = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallZoneLocalZone = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["intra-zone-filtering"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallZoneIntraZoneFiltering = &FirewallZoneIntraZoneFiltering{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallZoneIntraZoneFiltering)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *FirewallZone) UnmarshalJSON(_ []byte) error {
 	return nil
 }

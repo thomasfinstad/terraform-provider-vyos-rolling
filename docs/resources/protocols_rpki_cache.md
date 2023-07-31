@@ -41,12 +41,12 @@ RPKI cache server address
 
 ### Optional
 
-- `port` (String) Port number used by connection
+- `port` (Number) Port number used by connection
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Numeric IP port  |
-- `preference` (String) Preference of the cache server
+- `preference` (Number) Preference of the cache server
 
     |  Format  |  Description  |
     |----------|---------------|

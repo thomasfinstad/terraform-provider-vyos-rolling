@@ -2,23 +2,21 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceBroadcastRelayID describes the resource data model.
 type ServiceBroadcastRelayID struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafServiceBroadcastRelayIDDisable     types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafServiceBroadcastRelayIDDisable     types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafServiceBroadcastRelayIDAddress     types.String `tfsdk:"address" vyos:"address,omitempty"`
 	LeafServiceBroadcastRelayIDDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafServiceBroadcastRelayIDInterface   types.String `tfsdk:"interface" vyos:"interface,omitempty"`
-	LeafServiceBroadcastRelayIDPort        types.String `tfsdk:"port" vyos:"port,omitempty"`
+	LeafServiceBroadcastRelayIDInterface   types.List   `tfsdk:"interface" vyos:"interface,omitempty"`
+	LeafServiceBroadcastRelayIDPort        types.Number `tfsdk:"port" vyos:"port,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -29,9 +27,11 @@ type ServiceBroadcastRelayID struct {
 func (o *ServiceBroadcastRelayID) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"broadcast-relay",
+
 		"id",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -51,11 +51,13 @@ func (o ServiceBroadcastRelayID) ResourceSchemaAttributes() map[string]schema.At
 
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"address": schema.StringAttribute{
@@ -76,8 +78,9 @@ func (o ServiceBroadcastRelayID) ResourceSchemaAttributes() map[string]schema.At
 `,
 		},
 
-		"interface": schema.StringAttribute{
-			Optional: true,
+		"interface": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Interface to use
 
     |  Format  |  Description  |
@@ -87,7 +90,7 @@ func (o ServiceBroadcastRelayID) ResourceSchemaAttributes() map[string]schema.At
 `,
 		},
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
@@ -105,81 +108,10 @@ func (o ServiceBroadcastRelayID) ResourceSchemaAttributes() map[string]schema.At
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceBroadcastRelayID) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceBroadcastRelayIDDisable.IsNull() && !o.LeafServiceBroadcastRelayIDDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafServiceBroadcastRelayIDDisable.ValueString()
-	}
-
-	if !o.LeafServiceBroadcastRelayIDAddress.IsNull() && !o.LeafServiceBroadcastRelayIDAddress.IsUnknown() {
-		jsonData["address"] = o.LeafServiceBroadcastRelayIDAddress.ValueString()
-	}
-
-	if !o.LeafServiceBroadcastRelayIDDescrIPtion.IsNull() && !o.LeafServiceBroadcastRelayIDDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafServiceBroadcastRelayIDDescrIPtion.ValueString()
-	}
-
-	if !o.LeafServiceBroadcastRelayIDInterface.IsNull() && !o.LeafServiceBroadcastRelayIDInterface.IsUnknown() {
-		jsonData["interface"] = o.LeafServiceBroadcastRelayIDInterface.ValueString()
-	}
-
-	if !o.LeafServiceBroadcastRelayIDPort.IsNull() && !o.LeafServiceBroadcastRelayIDPort.IsUnknown() {
-		jsonData["port"] = o.LeafServiceBroadcastRelayIDPort.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceBroadcastRelayID) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafServiceBroadcastRelayIDDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceBroadcastRelayIDDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafServiceBroadcastRelayIDAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceBroadcastRelayIDAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafServiceBroadcastRelayIDDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceBroadcastRelayIDDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["interface"]; ok {
-		o.LeafServiceBroadcastRelayIDInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceBroadcastRelayIDInterface = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafServiceBroadcastRelayIDPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceBroadcastRelayIDPort = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceBroadcastRelayID) UnmarshalJSON(_ []byte) error {
 	return nil
 }

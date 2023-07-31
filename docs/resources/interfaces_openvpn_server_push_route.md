@@ -46,10 +46,15 @@ Route to be pushed to all clients
     |----------|---------------|
     |  ipv4net  |  IPv4 network and prefix length  |
     |  ipv6net  |  IPv6 network and prefix length  |
+- `openvpn_identifier` (String) OpenVPN Tunnel Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  vtunN  |  OpenVPN interface name  |
 
 ### Optional
 
-- `metric` (String) Set metric for this route
+- `metric` (Number) Set metric for this route
 
     |  Format  |  Description  |
     |----------|---------------|

@@ -2,21 +2,18 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsIgmpInterfaceJoin describes the resource data model.
 type ProtocolsIgmpInterfaceJoin struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDProtocolsIgmpInterface any `tfsdk:"interface" vyos:"interface,parent-id"`
+	ParentIDProtocolsIgmpInterface types.String `tfsdk:"interface" vyos:"interface_identifier,parent-id"`
 
 	// LeafNodes
-	LeafProtocolsIgmpInterfaceJoinSource types.String `tfsdk:"source" vyos:"source,omitempty"`
+	LeafProtocolsIgmpInterfaceJoinSource types.List `tfsdk:"source" vyos:"source,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,8 +24,12 @@ type ProtocolsIgmpInterfaceJoin struct {
 func (o *ProtocolsIgmpInterfaceJoin) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"igmp",
+
 		"interface",
+		o.ParentIDProtocolsIgmpInterface.ValueString(),
+
 		"join",
 		o.ID.ValueString(),
 	}
@@ -48,10 +49,18 @@ func (o ProtocolsIgmpInterfaceJoin) ResourceSchemaAttributes() map[string]schema
 `,
 		},
 
+		"interface_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `IGMP interface
+
+`,
+		},
+
 		// LeafNodes
 
-		"source": schema.StringAttribute{
-			Optional: true,
+		"source": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Source address
 
     |  Format  |  Description  |
@@ -68,41 +77,10 @@ func (o ProtocolsIgmpInterfaceJoin) ResourceSchemaAttributes() map[string]schema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsIgmpInterfaceJoin) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsIgmpInterfaceJoinSource.IsNull() && !o.LeafProtocolsIgmpInterfaceJoinSource.IsUnknown() {
-		jsonData["source"] = o.LeafProtocolsIgmpInterfaceJoinSource.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsIgmpInterfaceJoin) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["source"]; ok {
-		o.LeafProtocolsIgmpInterfaceJoinSource = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIgmpInterfaceJoinSource = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsIgmpInterfaceJoin) UnmarshalJSON(_ []byte) error {
 	return nil
 }

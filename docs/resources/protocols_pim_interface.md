@@ -24,12 +24,12 @@ PIM interface
 
 ### Optional
 
-- `dr_priority` (String) Designated Router Election Priority
+- `dr_priority` (Number) Designated Router Election Priority
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4294967295  |  Value of the new DR Priority  |
-- `hello` (String) Hello Interval
+- `hello` (Number) Hello Interval
 
     |  Format  |  Description  |
     |----------|---------------|

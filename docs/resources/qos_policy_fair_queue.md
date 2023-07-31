@@ -43,13 +43,13 @@ Stochastic Fairness Queueing
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `hash_interval` (String) Interval in seconds for queue algorithm perturbation
+- `hash_interval` (Number) Interval in seconds for queue algorithm perturbation
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0  |  No perturbation  |
     |  u32:1-127  |  Interval in seconds for queue algorithm perturbation (advised: 10)  |
-- `queue_limit` (String) Upper limit of the SFQ
+- `queue_limit` (Number) Upper limit of the SFQ
 
     |  Format  |  Description  |
     |----------|---------------|

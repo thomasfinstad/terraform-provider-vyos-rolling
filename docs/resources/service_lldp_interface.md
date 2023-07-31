@@ -38,7 +38,7 @@ Location data for interface
 
 ### Optional
 
-- `disable` (String) Disable instance
+- `disable` (Boolean) Disable instance
 - `location` (Attributes) LLDP-MED location data (see [below for nested schema](#nestedatt--location))
 
 <a id="nestedatt--location"></a>
@@ -47,7 +47,7 @@ Location data for interface
 Optional:
 
 - `coordinate_based` (Attributes) Coordinate based location (see [below for nested schema](#nestedatt--location--coordinate_based))
-- `elin` (String) ECS ELIN (Emergency location identifier number)
+- `elin` (Number) ECS ELIN (Emergency location identifier number)
 
     |  Format  |  Description  |
     |----------|---------------|

@@ -2,27 +2,25 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesWireguardPeer describes the resource data model.
 type InterfacesWireguardPeer struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDInterfacesWireguard any `tfsdk:"wireguard" vyos:"wireguard,parent-id"`
+	ParentIDInterfacesWireguard types.String `tfsdk:"wireguard" vyos:"wireguard_identifier,parent-id"`
 
 	// LeafNodes
-	LeafInterfacesWireguardPeerDisable             types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafInterfacesWireguardPeerDisable             types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafInterfacesWireguardPeerPublicKey           types.String `tfsdk:"public_key" vyos:"public-key,omitempty"`
 	LeafInterfacesWireguardPeerPresharedKey        types.String `tfsdk:"preshared_key" vyos:"preshared-key,omitempty"`
-	LeafInterfacesWireguardPeerAllowedIPs          types.String `tfsdk:"allowed_ips" vyos:"allowed-ips,omitempty"`
+	LeafInterfacesWireguardPeerAllowedIPs          types.List   `tfsdk:"allowed_ips" vyos:"allowed-ips,omitempty"`
 	LeafInterfacesWireguardPeerAddress             types.String `tfsdk:"address" vyos:"address,omitempty"`
-	LeafInterfacesWireguardPeerPort                types.String `tfsdk:"port" vyos:"port,omitempty"`
-	LeafInterfacesWireguardPeerPersistentKeepalive types.String `tfsdk:"persistent_keepalive" vyos:"persistent-keepalive,omitempty"`
+	LeafInterfacesWireguardPeerPort                types.Number `tfsdk:"port" vyos:"port,omitempty"`
+	LeafInterfacesWireguardPeerPersistentKeepalive types.Number `tfsdk:"persistent_keepalive" vyos:"persistent-keepalive,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -33,7 +31,10 @@ type InterfacesWireguardPeer struct {
 func (o *InterfacesWireguardPeer) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"wireguard",
+		o.ParentIDInterfacesWireguard.ValueString(),
+
 		"peer",
 		o.ID.ValueString(),
 	}
@@ -49,13 +50,26 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes() map[string]schema.At
 `,
 		},
 
+		"wireguard_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `WireGuard Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  wgN  |  WireGuard interface name  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"public_key": schema.StringAttribute{
@@ -72,8 +86,9 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes() map[string]schema.At
 `,
 		},
 
-		"allowed_ips": schema.StringAttribute{
-			Optional: true,
+		"allowed_ips": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP addresses allowed to traverse the peer
 
 `,
@@ -91,7 +106,7 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes() map[string]schema.At
 `,
 		},
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
@@ -102,7 +117,7 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes() map[string]schema.At
 `,
 		},
 
-		"persistent_keepalive": schema.StringAttribute{
+		"persistent_keepalive": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval to send keepalive messages
 
@@ -120,101 +135,10 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes() map[string]schema.At
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesWireguardPeer) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesWireguardPeerDisable.IsNull() && !o.LeafInterfacesWireguardPeerDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafInterfacesWireguardPeerDisable.ValueString()
-	}
-
-	if !o.LeafInterfacesWireguardPeerPublicKey.IsNull() && !o.LeafInterfacesWireguardPeerPublicKey.IsUnknown() {
-		jsonData["public-key"] = o.LeafInterfacesWireguardPeerPublicKey.ValueString()
-	}
-
-	if !o.LeafInterfacesWireguardPeerPresharedKey.IsNull() && !o.LeafInterfacesWireguardPeerPresharedKey.IsUnknown() {
-		jsonData["preshared-key"] = o.LeafInterfacesWireguardPeerPresharedKey.ValueString()
-	}
-
-	if !o.LeafInterfacesWireguardPeerAllowedIPs.IsNull() && !o.LeafInterfacesWireguardPeerAllowedIPs.IsUnknown() {
-		jsonData["allowed-ips"] = o.LeafInterfacesWireguardPeerAllowedIPs.ValueString()
-	}
-
-	if !o.LeafInterfacesWireguardPeerAddress.IsNull() && !o.LeafInterfacesWireguardPeerAddress.IsUnknown() {
-		jsonData["address"] = o.LeafInterfacesWireguardPeerAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesWireguardPeerPort.IsNull() && !o.LeafInterfacesWireguardPeerPort.IsUnknown() {
-		jsonData["port"] = o.LeafInterfacesWireguardPeerPort.ValueString()
-	}
-
-	if !o.LeafInterfacesWireguardPeerPersistentKeepalive.IsNull() && !o.LeafInterfacesWireguardPeerPersistentKeepalive.IsUnknown() {
-		jsonData["persistent-keepalive"] = o.LeafInterfacesWireguardPeerPersistentKeepalive.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWireguardPeer) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafInterfacesWireguardPeerDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardPeerDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["public-key"]; ok {
-		o.LeafInterfacesWireguardPeerPublicKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardPeerPublicKey = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["preshared-key"]; ok {
-		o.LeafInterfacesWireguardPeerPresharedKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardPeerPresharedKey = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["allowed-ips"]; ok {
-		o.LeafInterfacesWireguardPeerAllowedIPs = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardPeerAllowedIPs = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafInterfacesWireguardPeerAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardPeerAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafInterfacesWireguardPeerPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardPeerPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["persistent-keepalive"]; ok {
-		o.LeafInterfacesWireguardPeerPersistentKeepalive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardPeerPersistentKeepalive = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesWireguardPeer) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,23 +2,20 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVrfName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw types.String `tfsdk:"advertise_default_gw" vyos:"advertise-default-gw,omitempty"`
-	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseSviIP     types.String `tfsdk:"advertise_svi_ip" vyos:"advertise-svi-ip,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw types.Bool   `tfsdk:"advertise_default_gw" vyos:"advertise-default-gw,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseSviIP     types.Bool   `tfsdk:"advertise_svi_ip" vyos:"advertise-svi-ip,omitempty"`
 	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRd                 types.String `tfsdk:"rd" vyos:"rd,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -31,13 +28,20 @@ type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni struct {
 func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) GetVyosPath() []string {
 	return []string{
 		"vrf",
+
 		"name",
+		o.ParentIDVrfName.ValueString(),
+
 		"protocols",
+
 		"bgp",
+
 		"address-family",
+
 		"l2vpn-evpn",
+
 		"vni",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -55,20 +59,35 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes
 `,
 		},
 
-		// LeafNodes
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-		"advertise_default_gw": schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `Advertise All default g/w mac-ip routes in EVPN
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 `,
 		},
 
-		"advertise_svi_ip": schema.StringAttribute{
+		// LeafNodes
+
+		"advertise_default_gw": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Advertise All default g/w mac-ip routes in EVPN
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
+		"advertise_svi_ip": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise svi mac-ip routes in EVPN
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"rd": schema.StringAttribute{
@@ -96,88 +115,10 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw.IsUnknown() {
-		jsonData["advertise-default-gw"] = o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseSviIP.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseSviIP.IsUnknown() {
-		jsonData["advertise-svi-ip"] = o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseSviIP.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRd.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRd.IsUnknown() {
-		jsonData["rd"] = o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRd.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["route-target"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["advertise-default-gw"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["advertise-svi-ip"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseSviIP = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseSviIP = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rd"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRd = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRd = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["route-target"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget = &VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnOpenconnectAuthenticationLocalUsersUsernameOtp describes the resource data model.
 type VpnOpenconnectAuthenticationLocalUsersUsernameOtp struct {
 	// LeafNodes
 	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey       types.String `tfsdk:"key" vyos:"key,omitempty"`
-	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength types.String `tfsdk:"otp_length" vyos:"otp-length,omitempty"`
-	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval  types.String `tfsdk:"interval" vyos:"interval,omitempty"`
+	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength types.Number `tfsdk:"otp_length" vyos:"otp-length,omitempty"`
+	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval  types.Number `tfsdk:"interval" vyos:"interval,omitempty"`
 	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType types.String `tfsdk:"token_type" vyos:"token-type,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -38,7 +35,7 @@ func (o VpnOpenconnectAuthenticationLocalUsersUsernameOtp) ResourceSchemaAttribu
 `,
 		},
 
-		"otp_length": schema.StringAttribute{
+		"otp_length": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of digits in OTP code
 
@@ -52,7 +49,7 @@ func (o VpnOpenconnectAuthenticationLocalUsersUsernameOtp) ResourceSchemaAttribu
 			Computed: true,
 		},
 
-		"interval": schema.StringAttribute{
+		"interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Time tokens interval in seconds
 
@@ -88,71 +85,10 @@ func (o VpnOpenconnectAuthenticationLocalUsersUsernameOtp) ResourceSchemaAttribu
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnOpenconnectAuthenticationLocalUsersUsernameOtp) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey.IsNull() && !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey.IsUnknown() {
-		jsonData["key"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey.ValueString()
-	}
-
-	if !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength.IsNull() && !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength.IsUnknown() {
-		jsonData["otp-length"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength.ValueString()
-	}
-
-	if !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval.IsNull() && !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval.IsUnknown() {
-		jsonData["interval"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval.ValueString()
-	}
-
-	if !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType.IsNull() && !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType.IsUnknown() {
-		jsonData["token-type"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnOpenconnectAuthenticationLocalUsersUsernameOtp) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["key"]; ok {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["otp-length"]; ok {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["interval"]; ok {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["token-type"]; ok {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VpnOpenconnectAuthenticationLocalUsersUsernameOtp) UnmarshalJSON(_ []byte) error {
 	return nil
 }

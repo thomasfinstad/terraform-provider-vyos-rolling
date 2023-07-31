@@ -2,23 +2,21 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceRouterAdvertInterfaceRoute describes the resource data model.
 type ServiceRouterAdvertInterfaceRoute struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDServiceRouterAdvertInterface any `tfsdk:"interface" vyos:"interface,parent-id"`
+	ParentIDServiceRouterAdvertInterface types.String `tfsdk:"interface" vyos:"interface_identifier,parent-id"`
 
 	// LeafNodes
 	LeafServiceRouterAdvertInterfaceRouteValIDLifetime   types.String `tfsdk:"valid_lifetime" vyos:"valid-lifetime,omitempty"`
 	LeafServiceRouterAdvertInterfaceRouteRoutePreference types.String `tfsdk:"route_preference" vyos:"route-preference,omitempty"`
-	LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute   types.String `tfsdk:"no_remove_route" vyos:"no-remove-route,omitempty"`
+	LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute   types.Bool   `tfsdk:"no_remove_route" vyos:"no-remove-route,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -29,8 +27,12 @@ type ServiceRouterAdvertInterfaceRoute struct {
 func (o *ServiceRouterAdvertInterfaceRoute) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"router-advert",
+
 		"interface",
+		o.ParentIDServiceRouterAdvertInterface.ValueString(),
+
 		"route",
 		o.ID.ValueString(),
 	}
@@ -46,6 +48,13 @@ func (o ServiceRouterAdvertInterfaceRoute) ResourceSchemaAttributes() map[string
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv6net  |  IPv6 route to be advertized  |
+
+`,
+		},
+
+		"interface_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Interface to send RA on
 
 `,
 		},
@@ -83,11 +92,13 @@ func (o ServiceRouterAdvertInterfaceRoute) ResourceSchemaAttributes() map[string
 			Computed: true,
 		},
 
-		"no_remove_route": schema.StringAttribute{
+		"no_remove_route": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not announce this route with a zero second lifetime upon shutdown
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -97,61 +108,10 @@ func (o ServiceRouterAdvertInterfaceRoute) ResourceSchemaAttributes() map[string
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceRouterAdvertInterfaceRoute) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceRouterAdvertInterfaceRouteValIDLifetime.IsNull() && !o.LeafServiceRouterAdvertInterfaceRouteValIDLifetime.IsUnknown() {
-		jsonData["valid-lifetime"] = o.LeafServiceRouterAdvertInterfaceRouteValIDLifetime.ValueString()
-	}
-
-	if !o.LeafServiceRouterAdvertInterfaceRouteRoutePreference.IsNull() && !o.LeafServiceRouterAdvertInterfaceRouteRoutePreference.IsUnknown() {
-		jsonData["route-preference"] = o.LeafServiceRouterAdvertInterfaceRouteRoutePreference.ValueString()
-	}
-
-	if !o.LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute.IsNull() && !o.LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute.IsUnknown() {
-		jsonData["no-remove-route"] = o.LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceRouterAdvertInterfaceRoute) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["valid-lifetime"]; ok {
-		o.LeafServiceRouterAdvertInterfaceRouteValIDLifetime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceRouteValIDLifetime = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["route-preference"]; ok {
-		o.LeafServiceRouterAdvertInterfaceRouteRoutePreference = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceRouteRoutePreference = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["no-remove-route"]; ok {
-		o.LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceRouterAdvertInterfaceRoute) UnmarshalJSON(_ []byte) error {
 	return nil
 }

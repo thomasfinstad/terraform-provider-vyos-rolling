@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceSnmpScrIPtExtensionsExtensionName describes the resource data model.
@@ -25,8 +22,11 @@ type ServiceSnmpScrIPtExtensionsExtensionName struct {
 func (o *ServiceSnmpScrIPtExtensionsExtensionName) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"snmp",
+
 		"script-extensions",
+
 		"extension-name",
 		o.ID.ValueString(),
 	}
@@ -58,41 +58,10 @@ func (o ServiceSnmpScrIPtExtensionsExtensionName) ResourceSchemaAttributes() map
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceSnmpScrIPtExtensionsExtensionName) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceSnmpScrIPtExtensionsExtensionNameScrIPt.IsNull() && !o.LeafServiceSnmpScrIPtExtensionsExtensionNameScrIPt.IsUnknown() {
-		jsonData["script"] = o.LeafServiceSnmpScrIPtExtensionsExtensionNameScrIPt.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceSnmpScrIPtExtensionsExtensionName) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["script"]; ok {
-		o.LeafServiceSnmpScrIPtExtensionsExtensionNameScrIPt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpScrIPtExtensionsExtensionNameScrIPt = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceSnmpScrIPtExtensionsExtensionName) UnmarshalJSON(_ []byte) error {
 	return nil
 }

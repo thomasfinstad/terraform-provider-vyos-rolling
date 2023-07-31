@@ -31,28 +31,33 @@ Member interface name
 
 ### Required
 
+- `bridge_identifier` (String) Bridge Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  brN  |  Bridge interface name  |
 - `identifier` (String) Member interface name
 
 ### Optional
 
-- `allowed_vlan` (String) Specify VLAN id which is allowed in this trunk interface
+- `allowed_vlan` (List of String) Specify VLAN id which is allowed in this trunk interface
 
     |  Format  |  Description  |
     |----------|---------------|
     |  <id>  |  VLAN id allowed to pass this interface  |
     |  <idN>-<idM>  |  VLAN id range allowed on this interface (use '-' as delimiter)  |
-- `cost` (String) Bridge port cost
+- `cost` (Number) Bridge port cost
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Path cost value for Spanning Tree Protocol  |
-- `isolated` (String) Port is isolated (also known as Private-VLAN)
-- `native_vlan` (String) Specify VLAN id which should natively be present on the link
+- `isolated` (Boolean) Port is isolated (also known as Private-VLAN)
+- `native_vlan` (Number) Specify VLAN id which should natively be present on the link
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4094  |  Virtual Local Area Network (VLAN) ID  |
-- `priority` (String) Bridge port priority
+- `priority` (Number) Bridge port priority
 
     |  Format  |  Description  |
     |----------|---------------|

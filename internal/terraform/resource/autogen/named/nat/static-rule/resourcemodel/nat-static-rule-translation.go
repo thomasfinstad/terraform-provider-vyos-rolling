@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // NatStaticRuleTranSLAtion describes the resource data model.
@@ -43,41 +40,10 @@ func (o NatStaticRuleTranSLAtion) ResourceSchemaAttributes() map[string]schema.A
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *NatStaticRuleTranSLAtion) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafNatStaticRuleTranSLAtionAddress.IsNull() && !o.LeafNatStaticRuleTranSLAtionAddress.IsUnknown() {
-		jsonData["address"] = o.LeafNatStaticRuleTranSLAtionAddress.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *NatStaticRuleTranSLAtion) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafNatStaticRuleTranSLAtionAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatStaticRuleTranSLAtionAddress = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *NatStaticRuleTranSLAtion) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpParametersDefault describes the resource data model.
 type VrfNameProtocolsBgpParametersDefault struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpParametersDefaultLocalPref types.String `tfsdk:"local_pref" vyos:"local-pref,omitempty"`
+	LeafVrfNameProtocolsBgpParametersDefaultLocalPref types.Number `tfsdk:"local_pref" vyos:"local-pref,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,7 +21,7 @@ func (o VrfNameProtocolsBgpParametersDefault) ResourceSchemaAttributes() map[str
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"local_pref": schema.StringAttribute{
+		"local_pref": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Default local preference
 
@@ -42,41 +39,10 @@ func (o VrfNameProtocolsBgpParametersDefault) ResourceSchemaAttributes() map[str
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpParametersDefault) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpParametersDefaultLocalPref.IsNull() && !o.LeafVrfNameProtocolsBgpParametersDefaultLocalPref.IsUnknown() {
-		jsonData["local-pref"] = o.LeafVrfNameProtocolsBgpParametersDefaultLocalPref.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpParametersDefault) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["local-pref"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersDefaultLocalPref = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersDefaultLocalPref = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpParametersDefault) UnmarshalJSON(_ []byte) error {
 	return nil
 }

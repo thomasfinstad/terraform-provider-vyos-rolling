@@ -41,7 +41,7 @@ Import BGP network/prefix into unicast VPN IPv4 RIB
 
 ### Optional
 
-- `label` (String) MPLS label value assigned to route
+- `label` (Number) MPLS label value assigned to route
 
     |  Format  |  Description  |
     |----------|---------------|

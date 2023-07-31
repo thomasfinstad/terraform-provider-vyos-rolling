@@ -2,17 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsIsisTrafficEngineering describes the resource data model.
 type VrfNameProtocolsIsisTrafficEngineering struct {
 	// LeafNodes
-	LeafVrfNameProtocolsIsisTrafficEngineeringEnable  types.String `tfsdk:"enable" vyos:"enable,omitempty"`
+	LeafVrfNameProtocolsIsisTrafficEngineeringEnable  types.Bool   `tfsdk:"enable" vyos:"enable,omitempty"`
 	LeafVrfNameProtocolsIsisTrafficEngineeringAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -25,11 +23,13 @@ func (o VrfNameProtocolsIsisTrafficEngineering) ResourceSchemaAttributes() map[s
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"enable": schema.StringAttribute{
+		"enable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable MPLS traffic engineering extensions
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"address": schema.StringAttribute{
@@ -50,51 +50,10 @@ func (o VrfNameProtocolsIsisTrafficEngineering) ResourceSchemaAttributes() map[s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsIsisTrafficEngineering) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsIsisTrafficEngineeringEnable.IsNull() && !o.LeafVrfNameProtocolsIsisTrafficEngineeringEnable.IsUnknown() {
-		jsonData["enable"] = o.LeafVrfNameProtocolsIsisTrafficEngineeringEnable.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsIsisTrafficEngineeringAddress.IsNull() && !o.LeafVrfNameProtocolsIsisTrafficEngineeringAddress.IsUnknown() {
-		jsonData["address"] = o.LeafVrfNameProtocolsIsisTrafficEngineeringAddress.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsIsisTrafficEngineering) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["enable"]; ok {
-		o.LeafVrfNameProtocolsIsisTrafficEngineeringEnable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisTrafficEngineeringEnable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafVrfNameProtocolsIsisTrafficEngineeringAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisTrafficEngineeringAddress = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsIsisTrafficEngineering) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyShaperHfscClassRealtime describes the resource data model.
@@ -82,61 +79,10 @@ func (o QosPolicyShaperHfscClassRealtime) ResourceSchemaAttributes() map[string]
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyShaperHfscClassRealtime) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyShaperHfscClassRealtimeD.IsNull() && !o.LeafQosPolicyShaperHfscClassRealtimeD.IsUnknown() {
-		jsonData["d"] = o.LeafQosPolicyShaperHfscClassRealtimeD.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperHfscClassRealtimeMone.IsNull() && !o.LeafQosPolicyShaperHfscClassRealtimeMone.IsUnknown() {
-		jsonData["m1"] = o.LeafQosPolicyShaperHfscClassRealtimeMone.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperHfscClassRealtimeMtwo.IsNull() && !o.LeafQosPolicyShaperHfscClassRealtimeMtwo.IsUnknown() {
-		jsonData["m2"] = o.LeafQosPolicyShaperHfscClassRealtimeMtwo.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyShaperHfscClassRealtime) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["d"]; ok {
-		o.LeafQosPolicyShaperHfscClassRealtimeD = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassRealtimeD = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["m1"]; ok {
-		o.LeafQosPolicyShaperHfscClassRealtimeMone = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassRealtimeMone = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["m2"]; ok {
-		o.LeafQosPolicyShaperHfscClassRealtimeMtwo = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassRealtimeMtwo = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyShaperHfscClassRealtime) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnSstpClientIPvsixPoolDelegate describes the resource data model.
@@ -14,7 +11,7 @@ type VpnSstpClientIPvsixPoolDelegate struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafVpnSstpClientIPvsixPoolDelegateDelegationPrefix types.String `tfsdk:"delegation_prefix" vyos:"delegation-prefix,omitempty"`
+	LeafVpnSstpClientIPvsixPoolDelegateDelegationPrefix types.Number `tfsdk:"delegation_prefix" vyos:"delegation-prefix,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,8 +22,11 @@ type VpnSstpClientIPvsixPoolDelegate struct {
 func (o *VpnSstpClientIPvsixPoolDelegate) GetVyosPath() []string {
 	return []string{
 		"vpn",
+
 		"sstp",
+
 		"client-ipv6-pool",
+
 		"delegate",
 		o.ID.ValueString(),
 	}
@@ -48,7 +48,7 @@ func (o VpnSstpClientIPvsixPoolDelegate) ResourceSchemaAttributes() map[string]s
 
 		// LeafNodes
 
-		"delegation_prefix": schema.StringAttribute{
+		"delegation_prefix": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Prefix length delegated to client
 
@@ -66,41 +66,10 @@ func (o VpnSstpClientIPvsixPoolDelegate) ResourceSchemaAttributes() map[string]s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnSstpClientIPvsixPoolDelegate) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnSstpClientIPvsixPoolDelegateDelegationPrefix.IsNull() && !o.LeafVpnSstpClientIPvsixPoolDelegateDelegationPrefix.IsUnknown() {
-		jsonData["delegation-prefix"] = o.LeafVpnSstpClientIPvsixPoolDelegateDelegationPrefix.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnSstpClientIPvsixPoolDelegate) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["delegation-prefix"]; ok {
-		o.LeafVpnSstpClientIPvsixPoolDelegateDelegationPrefix = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpClientIPvsixPoolDelegateDelegationPrefix = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VpnSstpClientIPvsixPoolDelegate) UnmarshalJSON(_ []byte) error {
 	return nil
 }

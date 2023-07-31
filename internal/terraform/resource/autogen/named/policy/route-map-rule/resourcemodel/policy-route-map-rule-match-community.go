@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteMapRuleMatchCommunity describes the resource data model.
 type PolicyRouteMapRuleMatchCommunity struct {
 	// LeafNodes
 	LeafPolicyRouteMapRuleMatchCommunityCommunityList types.String `tfsdk:"community_list" vyos:"community-list,omitempty"`
-	LeafPolicyRouteMapRuleMatchCommunityExactMatch    types.String `tfsdk:"exact_match" vyos:"exact-match,omitempty"`
+	LeafPolicyRouteMapRuleMatchCommunityExactMatch    types.Bool   `tfsdk:"exact_match" vyos:"exact-match,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -32,11 +30,13 @@ func (o PolicyRouteMapRuleMatchCommunity) ResourceSchemaAttributes() map[string]
 `,
 		},
 
-		"exact_match": schema.StringAttribute{
+		"exact_match": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Community-list to exactly match
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -46,51 +46,10 @@ func (o PolicyRouteMapRuleMatchCommunity) ResourceSchemaAttributes() map[string]
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteMapRuleMatchCommunity) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteMapRuleMatchCommunityCommunityList.IsNull() && !o.LeafPolicyRouteMapRuleMatchCommunityCommunityList.IsUnknown() {
-		jsonData["community-list"] = o.LeafPolicyRouteMapRuleMatchCommunityCommunityList.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleMatchCommunityExactMatch.IsNull() && !o.LeafPolicyRouteMapRuleMatchCommunityExactMatch.IsUnknown() {
-		jsonData["exact-match"] = o.LeafPolicyRouteMapRuleMatchCommunityExactMatch.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteMapRuleMatchCommunity) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["community-list"]; ok {
-		o.LeafPolicyRouteMapRuleMatchCommunityCommunityList = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleMatchCommunityCommunityList = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["exact-match"]; ok {
-		o.LeafPolicyRouteMapRuleMatchCommunityExactMatch = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleMatchCommunityExactMatch = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRouteMapRuleMatchCommunity) UnmarshalJSON(_ []byte) error {
 	return nil
 }

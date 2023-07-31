@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallIPvsixNameRuleInboundInterface describes the resource data model.
@@ -46,51 +43,10 @@ func (o FirewallIPvsixNameRuleInboundInterface) ResourceSchemaAttributes() map[s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallIPvsixNameRuleInboundInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallIPvsixNameRuleInboundInterfaceInterfaceName.IsNull() && !o.LeafFirewallIPvsixNameRuleInboundInterfaceInterfaceName.IsUnknown() {
-		jsonData["interface-name"] = o.LeafFirewallIPvsixNameRuleInboundInterfaceInterfaceName.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleInboundInterfaceInterfaceGroup.IsNull() && !o.LeafFirewallIPvsixNameRuleInboundInterfaceInterfaceGroup.IsUnknown() {
-		jsonData["interface-group"] = o.LeafFirewallIPvsixNameRuleInboundInterfaceInterfaceGroup.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallIPvsixNameRuleInboundInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["interface-name"]; ok {
-		o.LeafFirewallIPvsixNameRuleInboundInterfaceInterfaceName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleInboundInterfaceInterfaceName = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["interface-group"]; ok {
-		o.LeafFirewallIPvsixNameRuleInboundInterfaceInterfaceGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleInboundInterfaceInterfaceGroup = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallIPvsixNameRuleInboundInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

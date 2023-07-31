@@ -43,10 +43,15 @@ Nexthop IPv4 address
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  Nexthop IPv4 address  |
+- `route_identifier` (String) Configure static unicast route into MRIB for multicast RPF lookup
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  Network  |
 
 ### Optional
 
-- `distance` (String) Distance value for this route
+- `distance` (Number) Distance value for this route
 
     |  Format  |  Description  |
     |----------|---------------|

@@ -2,22 +2,19 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID describes the resource data model.
 type VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVrfName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
-	ParentIDVrfNameProtocolsOspfArea any `tfsdk:"area" vyos:"area,parent-id"`
+	ParentIDVrfNameProtocolsOspfArea types.String `tfsdk:"area" vyos:"area_identifier,parent-id"`
 
-	ParentIDVrfNameProtocolsOspfAreaVirtualLink any `tfsdk:"virtual_link" vyos:"virtual-link,parent-id"`
+	ParentIDVrfNameProtocolsOspfAreaVirtualLink types.String `tfsdk:"virtual_link" vyos:"virtual-link_identifier,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyIDMdfiveKey types.String `tfsdk:"md5_key" vyos:"md5-key,omitempty"`
@@ -31,15 +28,26 @@ type VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID struct {
 func (o *VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) GetVyosPath() []string {
 	return []string{
 		"vrf",
+
 		"name",
+		o.ParentIDVrfName.ValueString(),
+
 		"protocols",
+
 		"ospf",
+
 		"area",
+		o.ParentIDVrfNameProtocolsOspfArea.ValueString(),
+
 		"virtual-link",
+		o.ParentIDVrfNameProtocolsOspfAreaVirtualLink.ValueString(),
+
 		"authentication",
+
 		"md5",
+
 		"key-id",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -53,6 +61,40 @@ func (o VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSc
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  MD5 key id  |
+
+`,
+		},
+
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
+
+`,
+		},
+
+		"area_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `OSPF area settings
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32  |  OSPF area number in decimal notation  |
+    |  ipv4  |  OSPF area number in dotted decimal notation  |
+
+`,
+		},
+
+		"virtual_link_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual link
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  OSPF area in dotted decimal notation  |
 
 `,
 		},
@@ -77,41 +119,10 @@ func (o VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSc
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyIDMdfiveKey.IsNull() && !o.LeafVrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyIDMdfiveKey.IsUnknown() {
-		jsonData["md5-key"] = o.LeafVrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyIDMdfiveKey.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["md5-key"]; ok {
-		o.LeafVrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyIDMdfiveKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyIDMdfiveKey = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) UnmarshalJSON(_ []byte) error {
 	return nil
 }

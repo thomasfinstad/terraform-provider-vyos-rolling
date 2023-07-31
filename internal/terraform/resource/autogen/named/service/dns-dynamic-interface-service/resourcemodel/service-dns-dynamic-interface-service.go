@@ -2,21 +2,18 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceDNSDynamicInterfaceService describes the resource data model.
 type ServiceDNSDynamicInterfaceService struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDServiceDNSDynamicInterface any `tfsdk:"interface" vyos:"interface,parent-id"`
+	ParentIDServiceDNSDynamicInterface types.String `tfsdk:"interface" vyos:"interface_identifier,parent-id"`
 
 	// LeafNodes
-	LeafServiceDNSDynamicInterfaceServiceHostName types.String `tfsdk:"host_name" vyos:"host-name,omitempty"`
+	LeafServiceDNSDynamicInterfaceServiceHostName types.List   `tfsdk:"host_name" vyos:"host-name,omitempty"`
 	LeafServiceDNSDynamicInterfaceServiceLogin    types.String `tfsdk:"login" vyos:"login,omitempty"`
 	LeafServiceDNSDynamicInterfaceServicePassword types.String `tfsdk:"password" vyos:"password,omitempty"`
 	LeafServiceDNSDynamicInterfaceServiceProtocol types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
@@ -32,9 +29,14 @@ type ServiceDNSDynamicInterfaceService struct {
 func (o *ServiceDNSDynamicInterfaceService) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"dns",
+
 		"dynamic",
+
 		"interface",
+		o.ParentIDServiceDNSDynamicInterface.ValueString(),
+
 		"service",
 		o.ID.ValueString(),
 	}
@@ -65,10 +67,18 @@ func (o ServiceDNSDynamicInterfaceService) ResourceSchemaAttributes() map[string
 `,
 		},
 
+		"interface_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Interface to send DDNS updates for
+
+`,
+		},
+
 		// LeafNodes
 
-		"host_name": schema.StringAttribute{
-			Optional: true,
+		"host_name": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Hostname registered with DDNS service
 
 `,
@@ -145,91 +155,10 @@ func (o ServiceDNSDynamicInterfaceService) ResourceSchemaAttributes() map[string
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceDNSDynamicInterfaceService) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceDNSDynamicInterfaceServiceHostName.IsNull() && !o.LeafServiceDNSDynamicInterfaceServiceHostName.IsUnknown() {
-		jsonData["host-name"] = o.LeafServiceDNSDynamicInterfaceServiceHostName.ValueString()
-	}
-
-	if !o.LeafServiceDNSDynamicInterfaceServiceLogin.IsNull() && !o.LeafServiceDNSDynamicInterfaceServiceLogin.IsUnknown() {
-		jsonData["login"] = o.LeafServiceDNSDynamicInterfaceServiceLogin.ValueString()
-	}
-
-	if !o.LeafServiceDNSDynamicInterfaceServicePassword.IsNull() && !o.LeafServiceDNSDynamicInterfaceServicePassword.IsUnknown() {
-		jsonData["password"] = o.LeafServiceDNSDynamicInterfaceServicePassword.ValueString()
-	}
-
-	if !o.LeafServiceDNSDynamicInterfaceServiceProtocol.IsNull() && !o.LeafServiceDNSDynamicInterfaceServiceProtocol.IsUnknown() {
-		jsonData["protocol"] = o.LeafServiceDNSDynamicInterfaceServiceProtocol.ValueString()
-	}
-
-	if !o.LeafServiceDNSDynamicInterfaceServiceServer.IsNull() && !o.LeafServiceDNSDynamicInterfaceServiceServer.IsUnknown() {
-		jsonData["server"] = o.LeafServiceDNSDynamicInterfaceServiceServer.ValueString()
-	}
-
-	if !o.LeafServiceDNSDynamicInterfaceServiceZone.IsNull() && !o.LeafServiceDNSDynamicInterfaceServiceZone.IsUnknown() {
-		jsonData["zone"] = o.LeafServiceDNSDynamicInterfaceServiceZone.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceDNSDynamicInterfaceService) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["host-name"]; ok {
-		o.LeafServiceDNSDynamicInterfaceServiceHostName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSDynamicInterfaceServiceHostName = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["login"]; ok {
-		o.LeafServiceDNSDynamicInterfaceServiceLogin = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSDynamicInterfaceServiceLogin = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["password"]; ok {
-		o.LeafServiceDNSDynamicInterfaceServicePassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSDynamicInterfaceServicePassword = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["protocol"]; ok {
-		o.LeafServiceDNSDynamicInterfaceServiceProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSDynamicInterfaceServiceProtocol = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["server"]; ok {
-		o.LeafServiceDNSDynamicInterfaceServiceServer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSDynamicInterfaceServiceServer = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["zone"]; ok {
-		o.LeafServiceDNSDynamicInterfaceServiceZone = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSDynamicInterfaceServiceZone = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceDNSDynamicInterfaceService) UnmarshalJSON(_ []byte) error {
 	return nil
 }

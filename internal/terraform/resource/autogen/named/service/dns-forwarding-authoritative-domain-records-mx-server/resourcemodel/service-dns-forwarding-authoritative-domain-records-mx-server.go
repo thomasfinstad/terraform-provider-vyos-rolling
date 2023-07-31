@@ -2,23 +2,20 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsMxServer describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsMxServer struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDServiceDNSForwardingAuthoritativeDomain any `tfsdk:"authoritative_domain" vyos:"authoritative-domain,parent-id"`
+	ParentIDServiceDNSForwardingAuthoritativeDomain types.String `tfsdk:"authoritative_domain" vyos:"authoritative-domain_identifier,parent-id"`
 
-	ParentIDServiceDNSForwardingAuthoritativeDomainRecordsMx any `tfsdk:"mx" vyos:"mx,parent-id"`
+	ParentIDServiceDNSForwardingAuthoritativeDomainRecordsMx types.String `tfsdk:"mx" vyos:"mx_identifier,parent-id"`
 
 	// LeafNodes
-	LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority types.String `tfsdk:"priority" vyos:"priority,omitempty"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -29,11 +26,19 @@ type ServiceDNSForwardingAuthoritativeDomainRecordsMxServer struct {
 func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"dns",
+
 		"forwarding",
+
 		"authoritative-domain",
+		o.ParentIDServiceDNSForwardingAuthoritativeDomain.ValueString(),
+
 		"records",
+
 		"mx",
+		o.ParentIDServiceDNSForwardingAuthoritativeDomainRecordsMx.ValueString(),
+
 		"server",
 		o.ID.ValueString(),
 	}
@@ -53,9 +58,32 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) ResourceSchemaAt
 `,
 		},
 
+		"authoritative_domain_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Domain to host authoritative records for
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  text  |  An absolute DNS name  |
+
+`,
+		},
+
+		"mx_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `"MX" record
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  text  |  A DNS name relative to the root record  |
+    |  @  |  Root record  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"priority": schema.StringAttribute{
+		"priority": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Server priority
 
@@ -76,41 +104,10 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) ResourceSchemaAt
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority.IsNull() && !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority.IsUnknown() {
-		jsonData["priority"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["priority"]; ok {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) UnmarshalJSON(_ []byte) error {
 	return nil
 }

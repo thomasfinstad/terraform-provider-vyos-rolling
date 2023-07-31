@@ -27,7 +27,7 @@ Firewall address-group
 
 ### Optional
 
-- `address` (String) Address-group member
+- `address` (List of String) Address-group member
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -38,4 +38,4 @@ Firewall address-group
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `include` (String) Include another address-group
+- `include` (List of String) Include another address-group

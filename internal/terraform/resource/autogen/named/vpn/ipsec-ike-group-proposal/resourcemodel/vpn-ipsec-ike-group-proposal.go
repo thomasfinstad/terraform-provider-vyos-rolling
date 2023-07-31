@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnIPsecIkeGroupProposal describes the resource data model.
 type VpnIPsecIkeGroupProposal struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVpnIPsecIkeGroup any `tfsdk:"ike_group" vyos:"ike-group,parent-id"`
+	ParentIDVpnIPsecIkeGroup types.String `tfsdk:"ike_group" vyos:"ike-group_identifier,parent-id"`
 
 	// LeafNodes
 	LeafVpnIPsecIkeGroupProposalDhGroup    types.String `tfsdk:"dh_group" vyos:"dh-group,omitempty"`
@@ -30,10 +27,14 @@ type VpnIPsecIkeGroupProposal struct {
 func (o *VpnIPsecIkeGroupProposal) GetVyosPath() []string {
 	return []string{
 		"vpn",
+
 		"ipsec",
+
 		"ike-group",
+		o.ParentIDVpnIPsecIkeGroup.ValueString(),
+
 		"proposal",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -47,6 +48,13 @@ func (o VpnIPsecIkeGroupProposal) ResourceSchemaAttributes() map[string]schema.A
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  IKE group proposal  |
+
+`,
+		},
+
+		"ike_group_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Internet Key Exchange (IKE) group name
 
 `,
 		},
@@ -206,71 +214,10 @@ func (o VpnIPsecIkeGroupProposal) ResourceSchemaAttributes() map[string]schema.A
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnIPsecIkeGroupProposal) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnIPsecIkeGroupProposalDhGroup.IsNull() && !o.LeafVpnIPsecIkeGroupProposalDhGroup.IsUnknown() {
-		jsonData["dh-group"] = o.LeafVpnIPsecIkeGroupProposalDhGroup.ValueString()
-	}
-
-	if !o.LeafVpnIPsecIkeGroupProposalPrf.IsNull() && !o.LeafVpnIPsecIkeGroupProposalPrf.IsUnknown() {
-		jsonData["prf"] = o.LeafVpnIPsecIkeGroupProposalPrf.ValueString()
-	}
-
-	if !o.LeafVpnIPsecIkeGroupProposalEncryption.IsNull() && !o.LeafVpnIPsecIkeGroupProposalEncryption.IsUnknown() {
-		jsonData["encryption"] = o.LeafVpnIPsecIkeGroupProposalEncryption.ValueString()
-	}
-
-	if !o.LeafVpnIPsecIkeGroupProposalHash.IsNull() && !o.LeafVpnIPsecIkeGroupProposalHash.IsUnknown() {
-		jsonData["hash"] = o.LeafVpnIPsecIkeGroupProposalHash.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnIPsecIkeGroupProposal) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["dh-group"]; ok {
-		o.LeafVpnIPsecIkeGroupProposalDhGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecIkeGroupProposalDhGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["prf"]; ok {
-		o.LeafVpnIPsecIkeGroupProposalPrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecIkeGroupProposalPrf = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["encryption"]; ok {
-		o.LeafVpnIPsecIkeGroupProposalEncryption = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecIkeGroupProposalEncryption = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["hash"]; ok {
-		o.LeafVpnIPsecIkeGroupProposalHash = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecIkeGroupProposalHash = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VpnIPsecIkeGroupProposal) UnmarshalJSON(_ []byte) error {
 	return nil
 }

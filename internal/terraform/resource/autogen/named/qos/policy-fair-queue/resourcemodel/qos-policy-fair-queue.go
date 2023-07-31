@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyFairQueue describes the resource data model.
@@ -15,8 +12,8 @@ type QosPolicyFairQueue struct {
 
 	// LeafNodes
 	LeafQosPolicyFairQueueDescrIPtion  types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafQosPolicyFairQueueHashInterval types.String `tfsdk:"hash_interval" vyos:"hash-interval,omitempty"`
-	LeafQosPolicyFairQueueQueueLimit   types.String `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
+	LeafQosPolicyFairQueueHashInterval types.Number `tfsdk:"hash_interval" vyos:"hash-interval,omitempty"`
+	LeafQosPolicyFairQueueQueueLimit   types.Number `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,7 +24,9 @@ type QosPolicyFairQueue struct {
 func (o *QosPolicyFairQueue) GetVyosPath() []string {
 	return []string{
 		"qos",
+
 		"policy",
+
 		"fair-queue",
 		o.ID.ValueString(),
 	}
@@ -60,7 +59,7 @@ func (o QosPolicyFairQueue) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 
-		"hash_interval": schema.StringAttribute{
+		"hash_interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval in seconds for queue algorithm perturbation
 
@@ -75,7 +74,7 @@ func (o QosPolicyFairQueue) ResourceSchemaAttributes() map[string]schema.Attribu
 			Computed: true,
 		},
 
-		"queue_limit": schema.StringAttribute{
+		"queue_limit": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Upper limit of the SFQ
 
@@ -96,61 +95,10 @@ func (o QosPolicyFairQueue) ResourceSchemaAttributes() map[string]schema.Attribu
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyFairQueue) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyFairQueueDescrIPtion.IsNull() && !o.LeafQosPolicyFairQueueDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafQosPolicyFairQueueDescrIPtion.ValueString()
-	}
-
-	if !o.LeafQosPolicyFairQueueHashInterval.IsNull() && !o.LeafQosPolicyFairQueueHashInterval.IsUnknown() {
-		jsonData["hash-interval"] = o.LeafQosPolicyFairQueueHashInterval.ValueString()
-	}
-
-	if !o.LeafQosPolicyFairQueueQueueLimit.IsNull() && !o.LeafQosPolicyFairQueueQueueLimit.IsUnknown() {
-		jsonData["queue-limit"] = o.LeafQosPolicyFairQueueQueueLimit.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyFairQueue) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafQosPolicyFairQueueDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyFairQueueDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["hash-interval"]; ok {
-		o.LeafQosPolicyFairQueueHashInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyFairQueueHashInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["queue-limit"]; ok {
-		o.LeafQosPolicyFairQueueQueueLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyFairQueueQueueLimit = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyFairQueue) UnmarshalJSON(_ []byte) error {
 	return nil
 }

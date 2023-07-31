@@ -35,10 +35,15 @@ Interface name [REQUIRED]
 ### Required
 
 - `identifier` (String) Interface name [REQUIRED]
+- `rule_identifier` (String) Rule number (1-9999)
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-9999  |  Rule number  |
 
 ### Optional
 
-- `weight` (String) Load-balance weight
+- `weight` (Number) Load-balance weight
 
     |  Format  |  Description  |
     |----------|---------------|

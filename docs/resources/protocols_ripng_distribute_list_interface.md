@@ -46,12 +46,12 @@ Apply filtering to an interface
 
 Optional:
 
-- `in` (String) Access list to apply to input packets
+- `in` (Number) Access list to apply to input packets
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32  |  Access list to apply to input packets  |
-- `out` (String) Access list to apply to output packets
+- `out` (Number) Access list to apply to output packets
 
     |  Format  |  Description  |
     |----------|---------------|

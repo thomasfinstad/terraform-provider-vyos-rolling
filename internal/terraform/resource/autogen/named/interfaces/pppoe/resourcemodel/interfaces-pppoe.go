@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesPppoe describes the resource data model.
@@ -16,17 +13,17 @@ type InterfacesPppoe struct {
 
 	// LeafNodes
 	LeafInterfacesPppoeAccessConcentrator   types.String `tfsdk:"access_concentrator" vyos:"access-concentrator,omitempty"`
-	LeafInterfacesPppoeConnectOnDemand      types.String `tfsdk:"connect_on_demand" vyos:"connect-on-demand,omitempty"`
-	LeafInterfacesPppoeNoDefaultRoute       types.String `tfsdk:"no_default_route" vyos:"no-default-route,omitempty"`
-	LeafInterfacesPppoeDefaultRouteDistance types.String `tfsdk:"default_route_distance" vyos:"default-route-distance,omitempty"`
+	LeafInterfacesPppoeConnectOnDemand      types.Bool   `tfsdk:"connect_on_demand" vyos:"connect-on-demand,omitempty"`
+	LeafInterfacesPppoeNoDefaultRoute       types.Bool   `tfsdk:"no_default_route" vyos:"no-default-route,omitempty"`
+	LeafInterfacesPppoeDefaultRouteDistance types.Number `tfsdk:"default_route_distance" vyos:"default-route-distance,omitempty"`
 	LeafInterfacesPppoeDescrIPtion          types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafInterfacesPppoeDisable              types.String `tfsdk:"disable" vyos:"disable,omitempty"`
-	LeafInterfacesPppoeIDleTimeout          types.String `tfsdk:"idle_timeout" vyos:"idle-timeout,omitempty"`
+	LeafInterfacesPppoeDisable              types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafInterfacesPppoeIDleTimeout          types.Number `tfsdk:"idle_timeout" vyos:"idle-timeout,omitempty"`
 	LeafInterfacesPppoeHostUniq             types.String `tfsdk:"host_uniq" vyos:"host-uniq,omitempty"`
 	LeafInterfacesPppoeSourceInterface      types.String `tfsdk:"source_interface" vyos:"source-interface,omitempty"`
 	LeafInterfacesPppoeLocalAddress         types.String `tfsdk:"local_address" vyos:"local-address,omitempty"`
-	LeafInterfacesPppoeMtu                  types.String `tfsdk:"mtu" vyos:"mtu,omitempty"`
-	LeafInterfacesPppoeNoPeerDNS            types.String `tfsdk:"no_peer_dns" vyos:"no-peer-dns,omitempty"`
+	LeafInterfacesPppoeMtu                  types.Number `tfsdk:"mtu" vyos:"mtu,omitempty"`
+	LeafInterfacesPppoeNoPeerDNS            types.Bool   `tfsdk:"no_peer_dns" vyos:"no-peer-dns,omitempty"`
 	LeafInterfacesPppoeRemoteAddress        types.String `tfsdk:"remote_address" vyos:"remote-address,omitempty"`
 	LeafInterfacesPppoeServiceName          types.String `tfsdk:"service_name" vyos:"service-name,omitempty"`
 	LeafInterfacesPppoeRedirect             types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
@@ -46,6 +43,7 @@ type InterfacesPppoe struct {
 func (o *InterfacesPppoe) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"pppoe",
 		o.ID.ValueString(),
 	}
@@ -74,21 +72,25 @@ func (o InterfacesPppoe) ResourceSchemaAttributes() map[string]schema.Attribute 
 `,
 		},
 
-		"connect_on_demand": schema.StringAttribute{
+		"connect_on_demand": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Establishment connection automatically when traffic is sent
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"no_default_route": schema.StringAttribute{
+		"no_default_route": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not install default route to system
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"default_route_distance": schema.StringAttribute{
+		"default_route_distance": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Distance for installed default route
 
@@ -113,14 +115,16 @@ func (o InterfacesPppoe) ResourceSchemaAttributes() map[string]schema.Attribute 
 `,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"idle_timeout": schema.StringAttribute{
+		"idle_timeout": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Delay before disconnecting idle session (in seconds)
 
@@ -164,7 +168,7 @@ func (o InterfacesPppoe) ResourceSchemaAttributes() map[string]schema.Attribute 
 `,
 		},
 
-		"mtu": schema.StringAttribute{
+		"mtu": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
@@ -178,11 +182,13 @@ func (o InterfacesPppoe) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Computed: true,
 		},
 
-		"no_peer_dns": schema.StringAttribute{
+		"no_peer_dns": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not use DNS servers provided by the peer
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"remote_address": schema.StringAttribute{
@@ -271,326 +277,10 @@ func (o InterfacesPppoe) ResourceSchemaAttributes() map[string]schema.Attribute 
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesPppoe) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesPppoeAccessConcentrator.IsNull() && !o.LeafInterfacesPppoeAccessConcentrator.IsUnknown() {
-		jsonData["access-concentrator"] = o.LeafInterfacesPppoeAccessConcentrator.ValueString()
-	}
-
-	if !o.LeafInterfacesPppoeConnectOnDemand.IsNull() && !o.LeafInterfacesPppoeConnectOnDemand.IsUnknown() {
-		jsonData["connect-on-demand"] = o.LeafInterfacesPppoeConnectOnDemand.ValueString()
-	}
-
-	if !o.LeafInterfacesPppoeNoDefaultRoute.IsNull() && !o.LeafInterfacesPppoeNoDefaultRoute.IsUnknown() {
-		jsonData["no-default-route"] = o.LeafInterfacesPppoeNoDefaultRoute.ValueString()
-	}
-
-	if !o.LeafInterfacesPppoeDefaultRouteDistance.IsNull() && !o.LeafInterfacesPppoeDefaultRouteDistance.IsUnknown() {
-		jsonData["default-route-distance"] = o.LeafInterfacesPppoeDefaultRouteDistance.ValueString()
-	}
-
-	if !o.LeafInterfacesPppoeDescrIPtion.IsNull() && !o.LeafInterfacesPppoeDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafInterfacesPppoeDescrIPtion.ValueString()
-	}
-
-	if !o.LeafInterfacesPppoeDisable.IsNull() && !o.LeafInterfacesPppoeDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafInterfacesPppoeDisable.ValueString()
-	}
-
-	if !o.LeafInterfacesPppoeIDleTimeout.IsNull() && !o.LeafInterfacesPppoeIDleTimeout.IsUnknown() {
-		jsonData["idle-timeout"] = o.LeafInterfacesPppoeIDleTimeout.ValueString()
-	}
-
-	if !o.LeafInterfacesPppoeHostUniq.IsNull() && !o.LeafInterfacesPppoeHostUniq.IsUnknown() {
-		jsonData["host-uniq"] = o.LeafInterfacesPppoeHostUniq.ValueString()
-	}
-
-	if !o.LeafInterfacesPppoeSourceInterface.IsNull() && !o.LeafInterfacesPppoeSourceInterface.IsUnknown() {
-		jsonData["source-interface"] = o.LeafInterfacesPppoeSourceInterface.ValueString()
-	}
-
-	if !o.LeafInterfacesPppoeLocalAddress.IsNull() && !o.LeafInterfacesPppoeLocalAddress.IsUnknown() {
-		jsonData["local-address"] = o.LeafInterfacesPppoeLocalAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesPppoeMtu.IsNull() && !o.LeafInterfacesPppoeMtu.IsUnknown() {
-		jsonData["mtu"] = o.LeafInterfacesPppoeMtu.ValueString()
-	}
-
-	if !o.LeafInterfacesPppoeNoPeerDNS.IsNull() && !o.LeafInterfacesPppoeNoPeerDNS.IsUnknown() {
-		jsonData["no-peer-dns"] = o.LeafInterfacesPppoeNoPeerDNS.ValueString()
-	}
-
-	if !o.LeafInterfacesPppoeRemoteAddress.IsNull() && !o.LeafInterfacesPppoeRemoteAddress.IsUnknown() {
-		jsonData["remote-address"] = o.LeafInterfacesPppoeRemoteAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesPppoeServiceName.IsNull() && !o.LeafInterfacesPppoeServiceName.IsUnknown() {
-		jsonData["service-name"] = o.LeafInterfacesPppoeServiceName.ValueString()
-	}
-
-	if !o.LeafInterfacesPppoeRedirect.IsNull() && !o.LeafInterfacesPppoeRedirect.IsUnknown() {
-		jsonData["redirect"] = o.LeafInterfacesPppoeRedirect.ValueString()
-	}
-
-	if !o.LeafInterfacesPppoeVrf.IsNull() && !o.LeafInterfacesPppoeVrf.IsUnknown() {
-		jsonData["vrf"] = o.LeafInterfacesPppoeVrf.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesPppoeAuthentication).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesPppoeAuthentication)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["authentication"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesPppoeDhcpvsixOptions).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesPppoeDhcpvsixOptions)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["dhcpv6-options"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesPppoeIP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesPppoeIP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ip"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesPppoeIPvsix).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesPppoeIPvsix)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipv6"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesPppoeMirror).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesPppoeMirror)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["mirror"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesPppoe) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["access-concentrator"]; ok {
-		o.LeafInterfacesPppoeAccessConcentrator = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPppoeAccessConcentrator = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["connect-on-demand"]; ok {
-		o.LeafInterfacesPppoeConnectOnDemand = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPppoeConnectOnDemand = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["no-default-route"]; ok {
-		o.LeafInterfacesPppoeNoDefaultRoute = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPppoeNoDefaultRoute = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["default-route-distance"]; ok {
-		o.LeafInterfacesPppoeDefaultRouteDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPppoeDefaultRouteDistance = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafInterfacesPppoeDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPppoeDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafInterfacesPppoeDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPppoeDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["idle-timeout"]; ok {
-		o.LeafInterfacesPppoeIDleTimeout = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPppoeIDleTimeout = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["host-uniq"]; ok {
-		o.LeafInterfacesPppoeHostUniq = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPppoeHostUniq = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["source-interface"]; ok {
-		o.LeafInterfacesPppoeSourceInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPppoeSourceInterface = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["local-address"]; ok {
-		o.LeafInterfacesPppoeLocalAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPppoeLocalAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mtu"]; ok {
-		o.LeafInterfacesPppoeMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPppoeMtu = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["no-peer-dns"]; ok {
-		o.LeafInterfacesPppoeNoPeerDNS = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPppoeNoPeerDNS = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["remote-address"]; ok {
-		o.LeafInterfacesPppoeRemoteAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPppoeRemoteAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["service-name"]; ok {
-		o.LeafInterfacesPppoeServiceName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPppoeServiceName = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["redirect"]; ok {
-		o.LeafInterfacesPppoeRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPppoeRedirect = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vrf"]; ok {
-		o.LeafInterfacesPppoeVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPppoeVrf = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["authentication"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesPppoeAuthentication = &InterfacesPppoeAuthentication{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesPppoeAuthentication)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["dhcpv6-options"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesPppoeDhcpvsixOptions = &InterfacesPppoeDhcpvsixOptions{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesPppoeDhcpvsixOptions)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ip"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesPppoeIP = &InterfacesPppoeIP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesPppoeIP)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ipv6"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesPppoeIPvsix = &InterfacesPppoeIPvsix{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesPppoeIPvsix)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["mirror"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesPppoeMirror = &InterfacesPppoeMirror{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesPppoeMirror)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesPppoe) UnmarshalJSON(_ []byte) error {
 	return nil
 }

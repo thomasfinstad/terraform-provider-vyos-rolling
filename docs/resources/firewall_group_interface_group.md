@@ -32,5 +32,5 @@ Firewall interface-group
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `include` (String) Include another interface-group
-- `interface` (String) Interface-group member
+- `include` (List of String) Include another interface-group
+- `interface` (List of String) Interface-group member

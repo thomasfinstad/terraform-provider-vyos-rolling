@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesWirelessCapabilitiesVhtStbc describes the resource data model.
 type InterfacesWirelessCapabilitiesVhtStbc struct {
 	// LeafNodes
 	LeafInterfacesWirelessCapabilitiesVhtStbcRx types.String `tfsdk:"rx" vyos:"rx,omitempty"`
-	LeafInterfacesWirelessCapabilitiesVhtStbcTx types.String `tfsdk:"tx" vyos:"tx,omitempty"`
+	LeafInterfacesWirelessCapabilitiesVhtStbcTx types.Bool   `tfsdk:"tx" vyos:"tx,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -36,11 +34,13 @@ func (o InterfacesWirelessCapabilitiesVhtStbc) ResourceSchemaAttributes() map[st
 `,
 		},
 
-		"tx": schema.StringAttribute{
+		"tx": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable sending PPDU using STBC (Space Time Block Coding)
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -50,51 +50,10 @@ func (o InterfacesWirelessCapabilitiesVhtStbc) ResourceSchemaAttributes() map[st
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesWirelessCapabilitiesVhtStbc) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesWirelessCapabilitiesVhtStbcRx.IsNull() && !o.LeafInterfacesWirelessCapabilitiesVhtStbcRx.IsUnknown() {
-		jsonData["rx"] = o.LeafInterfacesWirelessCapabilitiesVhtStbcRx.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesVhtStbcTx.IsNull() && !o.LeafInterfacesWirelessCapabilitiesVhtStbcTx.IsUnknown() {
-		jsonData["tx"] = o.LeafInterfacesWirelessCapabilitiesVhtStbcTx.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWirelessCapabilitiesVhtStbc) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["rx"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesVhtStbcRx = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesVhtStbcRx = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["tx"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesVhtStbcTx = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesVhtStbcTx = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesWirelessCapabilitiesVhtStbc) UnmarshalJSON(_ []byte) error {
 	return nil
 }

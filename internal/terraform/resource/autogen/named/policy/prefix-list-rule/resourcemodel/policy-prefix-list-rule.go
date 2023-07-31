@@ -2,24 +2,21 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyPrefixListRule describes the resource data model.
 type PolicyPrefixListRule struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDPolicyPrefixList any `tfsdk:"prefix_list" vyos:"prefix-list,parent-id"`
+	ParentIDPolicyPrefixList types.String `tfsdk:"prefix_list" vyos:"prefix-list_identifier,parent-id"`
 
 	// LeafNodes
 	LeafPolicyPrefixListRuleAction      types.String `tfsdk:"action" vyos:"action,omitempty"`
 	LeafPolicyPrefixListRuleDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafPolicyPrefixListRuleGe          types.String `tfsdk:"ge" vyos:"ge,omitempty"`
-	LeafPolicyPrefixListRuleLe          types.String `tfsdk:"le" vyos:"le,omitempty"`
+	LeafPolicyPrefixListRuleGe          types.Number `tfsdk:"ge" vyos:"ge,omitempty"`
+	LeafPolicyPrefixListRuleLe          types.Number `tfsdk:"le" vyos:"le,omitempty"`
 	LeafPolicyPrefixListRulePrefix      types.String `tfsdk:"prefix" vyos:"prefix,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -31,9 +28,12 @@ type PolicyPrefixListRule struct {
 func (o *PolicyPrefixListRule) GetVyosPath() []string {
 	return []string{
 		"policy",
+
 		"prefix-list",
+		o.ParentIDPolicyPrefixList.ValueString(),
+
 		"rule",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -47,6 +47,17 @@ func (o PolicyPrefixListRule) ResourceSchemaAttributes() map[string]schema.Attri
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Prefix-list rule number  |
+
+`,
+		},
+
+		"prefix_list_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `IP prefix-list filter
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Name of IPv4 prefix-list  |
 
 `,
 		},
@@ -76,7 +87,7 @@ func (o PolicyPrefixListRule) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 
-		"ge": schema.StringAttribute{
+		"ge": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Prefix length to match a netmask greater than or equal to it
 
@@ -87,7 +98,7 @@ func (o PolicyPrefixListRule) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 
-		"le": schema.StringAttribute{
+		"le": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Prefix length to match a netmask less than or equal to it
 
@@ -116,81 +127,10 @@ func (o PolicyPrefixListRule) ResourceSchemaAttributes() map[string]schema.Attri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyPrefixListRule) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyPrefixListRuleAction.IsNull() && !o.LeafPolicyPrefixListRuleAction.IsUnknown() {
-		jsonData["action"] = o.LeafPolicyPrefixListRuleAction.ValueString()
-	}
-
-	if !o.LeafPolicyPrefixListRuleDescrIPtion.IsNull() && !o.LeafPolicyPrefixListRuleDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafPolicyPrefixListRuleDescrIPtion.ValueString()
-	}
-
-	if !o.LeafPolicyPrefixListRuleGe.IsNull() && !o.LeafPolicyPrefixListRuleGe.IsUnknown() {
-		jsonData["ge"] = o.LeafPolicyPrefixListRuleGe.ValueString()
-	}
-
-	if !o.LeafPolicyPrefixListRuleLe.IsNull() && !o.LeafPolicyPrefixListRuleLe.IsUnknown() {
-		jsonData["le"] = o.LeafPolicyPrefixListRuleLe.ValueString()
-	}
-
-	if !o.LeafPolicyPrefixListRulePrefix.IsNull() && !o.LeafPolicyPrefixListRulePrefix.IsUnknown() {
-		jsonData["prefix"] = o.LeafPolicyPrefixListRulePrefix.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyPrefixListRule) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["action"]; ok {
-		o.LeafPolicyPrefixListRuleAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyPrefixListRuleAction = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafPolicyPrefixListRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyPrefixListRuleDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ge"]; ok {
-		o.LeafPolicyPrefixListRuleGe = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyPrefixListRuleGe = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["le"]; ok {
-		o.LeafPolicyPrefixListRuleLe = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyPrefixListRuleLe = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["prefix"]; ok {
-		o.LeafPolicyPrefixListRulePrefix = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyPrefixListRulePrefix = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyPrefixListRule) UnmarshalJSON(_ []byte) error {
 	return nil
 }

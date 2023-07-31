@@ -43,7 +43,7 @@ Packet limited First In, First Out queue
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `queue_limit` (String) Maximum queue size
+- `queue_limit` (Number) Maximum queue size
 
     |  Format  |  Description  |
     |----------|---------------|

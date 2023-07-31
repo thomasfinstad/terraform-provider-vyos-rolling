@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnIPsecRemoteAccessConnectionLocal describes the resource data model.
 type VpnIPsecRemoteAccessConnectionLocal struct {
 	// LeafNodes
-	LeafVpnIPsecRemoteAccessConnectionLocalPort   types.String `tfsdk:"port" vyos:"port,omitempty"`
-	LeafVpnIPsecRemoteAccessConnectionLocalPrefix types.String `tfsdk:"prefix" vyos:"prefix,omitempty"`
+	LeafVpnIPsecRemoteAccessConnectionLocalPort   types.Number `tfsdk:"port" vyos:"port,omitempty"`
+	LeafVpnIPsecRemoteAccessConnectionLocalPrefix types.List   `tfsdk:"prefix" vyos:"prefix,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +22,7 @@ func (o VpnIPsecRemoteAccessConnectionLocal) ResourceSchemaAttributes() map[stri
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
@@ -36,8 +33,9 @@ func (o VpnIPsecRemoteAccessConnectionLocal) ResourceSchemaAttributes() map[stri
 `,
 		},
 
-		"prefix": schema.StringAttribute{
-			Optional: true,
+		"prefix": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Local IPv4 or IPv6 prefix
 
     |  Format  |  Description  |
@@ -55,51 +53,10 @@ func (o VpnIPsecRemoteAccessConnectionLocal) ResourceSchemaAttributes() map[stri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnIPsecRemoteAccessConnectionLocal) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnIPsecRemoteAccessConnectionLocalPort.IsNull() && !o.LeafVpnIPsecRemoteAccessConnectionLocalPort.IsUnknown() {
-		jsonData["port"] = o.LeafVpnIPsecRemoteAccessConnectionLocalPort.ValueString()
-	}
-
-	if !o.LeafVpnIPsecRemoteAccessConnectionLocalPrefix.IsNull() && !o.LeafVpnIPsecRemoteAccessConnectionLocalPrefix.IsUnknown() {
-		jsonData["prefix"] = o.LeafVpnIPsecRemoteAccessConnectionLocalPrefix.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnIPsecRemoteAccessConnectionLocal) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafVpnIPsecRemoteAccessConnectionLocalPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessConnectionLocalPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["prefix"]; ok {
-		o.LeafVpnIPsecRemoteAccessConnectionLocalPrefix = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessConnectionLocalPrefix = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VpnIPsecRemoteAccessConnectionLocal) UnmarshalJSON(_ []byte) error {
 	return nil
 }

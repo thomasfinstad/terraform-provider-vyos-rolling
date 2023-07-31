@@ -55,6 +55,11 @@ BGP dynamic neighbors listen range
     |----------|---------------|
     |  ipv4net  |  IPv4 dynamic neighbors listen range  |
     |  ipv6net  |  IPv6 dynamic neighbors listen range  |
+- `name_identifier` (String) Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 ### Optional
 

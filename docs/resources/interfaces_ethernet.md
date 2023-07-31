@@ -35,7 +35,7 @@ Ethernet Interface
 
 ### Optional
 
-- `address` (String) IP address
+- `address` (List of String) IP address
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -50,9 +50,9 @@ Ethernet Interface
     |  txt  |  Description  |
 - `dhcp_options` (Attributes) DHCP client settings/options (see [below for nested schema](#nestedatt--dhcp_options))
 - `dhcpv6_options` (Attributes) DHCPv6 client settings/options (see [below for nested schema](#nestedatt--dhcpv6_options))
-- `disable` (String) Administratively disable interface
-- `disable_flow_control` (String) Disable Ethernet flow control (pause frames)
-- `disable_link_detect` (String) Ignore link state changes
+- `disable` (Boolean) Administratively disable interface
+- `disable_flow_control` (Boolean) Disable Ethernet flow control (pause frames)
+- `disable_link_detect` (Boolean) Ignore link state changes
 - `duplex` (String) Duplex mode
 
     |  Format  |  Description  |
@@ -74,7 +74,7 @@ Ethernet Interface
     |----------|---------------|
     |  macaddr  |  Hardware (MAC) address  |
 - `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--mirror))
-- `mtu` (String) Maximum Transmission Unit (MTU)
+- `mtu` (Number) Maximum Transmission Unit (MTU)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -106,7 +106,7 @@ Ethernet Interface
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  VRF instance name  |
-- `xdp` (String) Enable eXpress Data Path
+- `xdp` (Boolean) Enable eXpress Data Path
 
 <a id="nestedatt--dhcp_options"></a>
 ### Nested Schema for `dhcp_options`
@@ -114,15 +114,15 @@ Ethernet Interface
 Optional:
 
 - `client_id` (String) Identifier used by client to identify itself to the DHCP server
-- `default_route_distance` (String) Distance for installed default route
+- `default_route_distance` (Number) Distance for installed default route
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Distance for the default route from DHCP server  |
 - `host_name` (String) Override system host-name sent to DHCP server
-- `mtu` (String) Use MTU value from DHCP server - ignore interface setting
-- `no_default_route` (String) Do not install default route to system
-- `reject` (String) IP addresses or subnets from which to reject DHCP leases
+- `mtu` (Boolean) Use MTU value from DHCP server - ignore interface setting
+- `no_default_route` (Boolean) Do not install default route to system
+- `reject` (List of String) IP addresses or subnets from which to reject DHCP leases
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -141,9 +141,9 @@ Optional:
     |  Format  |  Description  |
     |----------|---------------|
     |  duid  |  DHCP unique identifier (DUID)  |
-- `parameters_only` (String) Acquire only config parameters, no address
-- `rapid_commit` (String) Wait for immediate reply instead of advertisements
-- `temporary` (String) IPv6 temporary address
+- `parameters_only` (Boolean) Acquire only config parameters, no address
+- `rapid_commit` (Boolean) Wait for immediate reply instead of advertisements
+- `temporary` (Boolean) IPv6 temporary address
 
 
 <a id="nestedatt--eapol"></a>
@@ -179,19 +179,19 @@ Optional:
     |----------|---------------|
     |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
     |  u32:536-65535  |  TCP Maximum segment size in bytes  |
-- `arp_cache_timeout` (String) ARP cache entry timeout in seconds
+- `arp_cache_timeout` (Number) ARP cache entry timeout in seconds
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-86400  |  ARP cache entry timout in seconds  |
-- `disable_arp_filter` (String) Disable ARP filter on this interface
-- `disable_forwarding` (String) Disable IP forwarding on this interface
-- `enable_arp_accept` (String) Enable ARP accept on this interface
-- `enable_arp_announce` (String) Enable ARP announce on this interface
-- `enable_arp_ignore` (String) Enable ARP ignore on this interface
-- `enable_directed_broadcast` (String) Enable directed broadcast forwarding on this interface
-- `enable_proxy_arp` (String) Enable proxy-arp on this interface
-- `proxy_arp_pvlan` (String) Enable private VLAN proxy ARP on this interface
+- `disable_arp_filter` (Boolean) Disable ARP filter on this interface
+- `disable_forwarding` (Boolean) Disable IP forwarding on this interface
+- `enable_arp_accept` (Boolean) Enable ARP accept on this interface
+- `enable_arp_announce` (Boolean) Enable ARP announce on this interface
+- `enable_arp_ignore` (Boolean) Enable ARP ignore on this interface
+- `enable_directed_broadcast` (Boolean) Enable directed broadcast forwarding on this interface
+- `enable_proxy_arp` (Boolean) Enable proxy-arp on this interface
+- `proxy_arp_pvlan` (Boolean) Enable private VLAN proxy ARP on this interface
 - `source_validation` (String) Source validation by reversed path (RFC3704)
 
     |  Format  |  Description  |
@@ -213,8 +213,8 @@ Optional:
     |----------|---------------|
     |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
     |  u32:536-65535  |  TCP Maximum segment size in bytes  |
-- `disable_forwarding` (String) Disable IP forwarding on this interface
-- `dup_addr_detect_transmits` (String) Number of NS messages to send while performing DAD (default: 1)
+- `disable_forwarding` (Boolean) Disable IP forwarding on this interface
+- `dup_addr_detect_transmits` (Number) Number of NS messages to send while performing DAD (default: 1)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -226,13 +226,13 @@ Optional:
 
 Optional:
 
-- `autoconf` (String) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
-- `eui64` (String) Prefix for IPv6 address with MAC-based EUI-64
+- `autoconf` (Boolean) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
+- `eui64` (List of String) Prefix for IPv6 address with MAC-based EUI-64
 
     |  Format  |  Description  |
     |----------|---------------|
     |  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
-- `no_default_link_local` (String) Remove the default link-local address from the interface
+- `no_default_link_local` (Boolean) Remove the default link-local address from the interface
 
 
 
@@ -258,13 +258,13 @@ Optional:
 
 Optional:
 
-- `gro` (String) Enable Generic Receive Offload
-- `gso` (String) Enable Generic Segmentation Offload
-- `lro` (String) Enable Large Receive Offload
-- `rfs` (String) Enable Receive Flow Steering
-- `rps` (String) Enable Receive Packet Steering
-- `sg` (String) Enable Scatter-Gather
-- `tso` (String) Enable TCP Segmentation Offloading
+- `gro` (Boolean) Enable Generic Receive Offload
+- `gso` (Boolean) Enable Generic Segmentation Offload
+- `lro` (Boolean) Enable Large Receive Offload
+- `rfs` (Boolean) Enable Receive Flow Steering
+- `rps` (Boolean) Enable Receive Packet Steering
+- `sg` (Boolean) Enable Scatter-Gather
+- `tso` (Boolean) Enable TCP Segmentation Offloading
 
 
 <a id="nestedatt--ring_buffer"></a>
@@ -272,12 +272,12 @@ Optional:
 
 Optional:
 
-- `rx` (String) RX ring buffer
+- `rx` (Number) RX ring buffer
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:80-16384  |  ring buffer size  |
-- `tx` (String) TX ring buffer
+- `tx` (Number) TX ring buffer
 
     |  Format  |  Description  |
     |----------|---------------|

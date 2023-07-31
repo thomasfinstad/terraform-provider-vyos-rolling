@@ -2,22 +2,19 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyPriorityQueueDefault describes the resource data model.
 type QosPolicyPriorityQueueDefault struct {
 	// LeafNodes
-	LeafQosPolicyPriorityQueueDefaultCodelQuantum types.String `tfsdk:"codel_quantum" vyos:"codel-quantum,omitempty"`
-	LeafQosPolicyPriorityQueueDefaultFlows        types.String `tfsdk:"flows" vyos:"flows,omitempty"`
-	LeafQosPolicyPriorityQueueDefaultInterval     types.String `tfsdk:"interval" vyos:"interval,omitempty"`
-	LeafQosPolicyPriorityQueueDefaultQueueLimit   types.String `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
+	LeafQosPolicyPriorityQueueDefaultCodelQuantum types.Number `tfsdk:"codel_quantum" vyos:"codel-quantum,omitempty"`
+	LeafQosPolicyPriorityQueueDefaultFlows        types.Number `tfsdk:"flows" vyos:"flows,omitempty"`
+	LeafQosPolicyPriorityQueueDefaultInterval     types.Number `tfsdk:"interval" vyos:"interval,omitempty"`
+	LeafQosPolicyPriorityQueueDefaultQueueLimit   types.Number `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
 	LeafQosPolicyPriorityQueueDefaultQueueType    types.String `tfsdk:"queue_type" vyos:"queue-type,omitempty"`
-	LeafQosPolicyPriorityQueueDefaultTarget       types.String `tfsdk:"target" vyos:"target,omitempty"`
+	LeafQosPolicyPriorityQueueDefaultTarget       types.Number `tfsdk:"target" vyos:"target,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -29,7 +26,7 @@ func (o QosPolicyPriorityQueueDefault) ResourceSchemaAttributes() map[string]sch
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"codel_quantum": schema.StringAttribute{
+		"codel_quantum": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Deficit in the fair queuing algorithm
 
@@ -43,7 +40,7 @@ func (o QosPolicyPriorityQueueDefault) ResourceSchemaAttributes() map[string]sch
 			Computed: true,
 		},
 
-		"flows": schema.StringAttribute{
+		"flows": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of flows into which the incoming packets are classified
 
@@ -57,7 +54,7 @@ func (o QosPolicyPriorityQueueDefault) ResourceSchemaAttributes() map[string]sch
 			Computed: true,
 		},
 
-		"interval": schema.StringAttribute{
+		"interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval used to measure the delay
 
@@ -71,7 +68,7 @@ func (o QosPolicyPriorityQueueDefault) ResourceSchemaAttributes() map[string]sch
 			Computed: true,
 		},
 
-		"queue_limit": schema.StringAttribute{
+		"queue_limit": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
@@ -100,7 +97,7 @@ func (o QosPolicyPriorityQueueDefault) ResourceSchemaAttributes() map[string]sch
 			Computed: true,
 		},
 
-		"target": schema.StringAttribute{
+		"target": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Acceptable minimum standing/persistent queue delay
 
@@ -121,91 +118,10 @@ func (o QosPolicyPriorityQueueDefault) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyPriorityQueueDefault) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyPriorityQueueDefaultCodelQuantum.IsNull() && !o.LeafQosPolicyPriorityQueueDefaultCodelQuantum.IsUnknown() {
-		jsonData["codel-quantum"] = o.LeafQosPolicyPriorityQueueDefaultCodelQuantum.ValueString()
-	}
-
-	if !o.LeafQosPolicyPriorityQueueDefaultFlows.IsNull() && !o.LeafQosPolicyPriorityQueueDefaultFlows.IsUnknown() {
-		jsonData["flows"] = o.LeafQosPolicyPriorityQueueDefaultFlows.ValueString()
-	}
-
-	if !o.LeafQosPolicyPriorityQueueDefaultInterval.IsNull() && !o.LeafQosPolicyPriorityQueueDefaultInterval.IsUnknown() {
-		jsonData["interval"] = o.LeafQosPolicyPriorityQueueDefaultInterval.ValueString()
-	}
-
-	if !o.LeafQosPolicyPriorityQueueDefaultQueueLimit.IsNull() && !o.LeafQosPolicyPriorityQueueDefaultQueueLimit.IsUnknown() {
-		jsonData["queue-limit"] = o.LeafQosPolicyPriorityQueueDefaultQueueLimit.ValueString()
-	}
-
-	if !o.LeafQosPolicyPriorityQueueDefaultQueueType.IsNull() && !o.LeafQosPolicyPriorityQueueDefaultQueueType.IsUnknown() {
-		jsonData["queue-type"] = o.LeafQosPolicyPriorityQueueDefaultQueueType.ValueString()
-	}
-
-	if !o.LeafQosPolicyPriorityQueueDefaultTarget.IsNull() && !o.LeafQosPolicyPriorityQueueDefaultTarget.IsUnknown() {
-		jsonData["target"] = o.LeafQosPolicyPriorityQueueDefaultTarget.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyPriorityQueueDefault) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["codel-quantum"]; ok {
-		o.LeafQosPolicyPriorityQueueDefaultCodelQuantum = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueDefaultCodelQuantum = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["flows"]; ok {
-		o.LeafQosPolicyPriorityQueueDefaultFlows = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueDefaultFlows = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["interval"]; ok {
-		o.LeafQosPolicyPriorityQueueDefaultInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueDefaultInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["queue-limit"]; ok {
-		o.LeafQosPolicyPriorityQueueDefaultQueueLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueDefaultQueueLimit = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["queue-type"]; ok {
-		o.LeafQosPolicyPriorityQueueDefaultQueueType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueDefaultQueueType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["target"]; ok {
-		o.LeafQosPolicyPriorityQueueDefaultTarget = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueDefaultTarget = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyPriorityQueueDefault) UnmarshalJSON(_ []byte) error {
 	return nil
 }

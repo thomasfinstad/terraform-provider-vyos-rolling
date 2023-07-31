@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesOpenvpnLocalAddress describes the resource data model.
 type InterfacesOpenvpnLocalAddress struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDInterfacesOpenvpn any `tfsdk:"openvpn" vyos:"openvpn,parent-id"`
+	ParentIDInterfacesOpenvpn types.String `tfsdk:"openvpn" vyos:"openvpn_identifier,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesOpenvpnLocalAddressSubnetMask types.String `tfsdk:"subnet_mask" vyos:"subnet-mask,omitempty"`
@@ -27,7 +24,10 @@ type InterfacesOpenvpnLocalAddress struct {
 func (o *InterfacesOpenvpnLocalAddress) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"openvpn",
+		o.ParentIDInterfacesOpenvpn.ValueString(),
+
 		"local-address",
 		o.ID.ValueString(),
 	}
@@ -39,6 +39,17 @@ func (o InterfacesOpenvpnLocalAddress) ResourceSchemaAttributes() map[string]sch
 		"identifier": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Local IP address of tunnel (IPv4 or IPv6)
+
+`,
+		},
+
+		"openvpn_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `OpenVPN Tunnel Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  vtunN  |  OpenVPN interface name  |
 
 `,
 		},
@@ -59,41 +70,10 @@ func (o InterfacesOpenvpnLocalAddress) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesOpenvpnLocalAddress) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesOpenvpnLocalAddressSubnetMask.IsNull() && !o.LeafInterfacesOpenvpnLocalAddressSubnetMask.IsUnknown() {
-		jsonData["subnet-mask"] = o.LeafInterfacesOpenvpnLocalAddressSubnetMask.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesOpenvpnLocalAddress) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["subnet-mask"]; ok {
-		o.LeafInterfacesOpenvpnLocalAddressSubnetMask = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnLocalAddressSubnetMask = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesOpenvpnLocalAddress) UnmarshalJSON(_ []byte) error {
 	return nil
 }

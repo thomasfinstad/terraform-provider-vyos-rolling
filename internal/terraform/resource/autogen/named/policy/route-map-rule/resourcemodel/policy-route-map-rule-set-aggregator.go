@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteMapRuleSetAggregator describes the resource data model.
 type PolicyRouteMapRuleSetAggregator struct {
 	// LeafNodes
-	LeafPolicyRouteMapRuleSetAggregatorAs types.String `tfsdk:"as" vyos:"as,omitempty"`
+	LeafPolicyRouteMapRuleSetAggregatorAs types.Number `tfsdk:"as" vyos:"as,omitempty"`
 	LeafPolicyRouteMapRuleSetAggregatorIP types.String `tfsdk:"ip" vyos:"ip,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -25,7 +22,7 @@ func (o PolicyRouteMapRuleSetAggregator) ResourceSchemaAttributes() map[string]s
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"as": schema.StringAttribute{
+		"as": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `AS number of an aggregation
 
@@ -54,51 +51,10 @@ func (o PolicyRouteMapRuleSetAggregator) ResourceSchemaAttributes() map[string]s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteMapRuleSetAggregator) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteMapRuleSetAggregatorAs.IsNull() && !o.LeafPolicyRouteMapRuleSetAggregatorAs.IsUnknown() {
-		jsonData["as"] = o.LeafPolicyRouteMapRuleSetAggregatorAs.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetAggregatorIP.IsNull() && !o.LeafPolicyRouteMapRuleSetAggregatorIP.IsUnknown() {
-		jsonData["ip"] = o.LeafPolicyRouteMapRuleSetAggregatorIP.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteMapRuleSetAggregator) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["as"]; ok {
-		o.LeafPolicyRouteMapRuleSetAggregatorAs = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetAggregatorAs = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ip"]; ok {
-		o.LeafPolicyRouteMapRuleSetAggregatorIP = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetAggregatorIP = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRouteMapRuleSetAggregator) UnmarshalJSON(_ []byte) error {
 	return nil
 }

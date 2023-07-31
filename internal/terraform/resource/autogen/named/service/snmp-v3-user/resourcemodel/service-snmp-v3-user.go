@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceSnmpVthreeUser describes the resource data model.
@@ -29,8 +25,11 @@ type ServiceSnmpVthreeUser struct {
 func (o *ServiceSnmpVthreeUser) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"snmp",
+
 		"v3",
+
 		"user",
 		o.ID.ValueString(),
 	}
@@ -92,105 +91,10 @@ func (o ServiceSnmpVthreeUser) ResourceSchemaAttributes() map[string]schema.Attr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceSnmpVthreeUser) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceSnmpVthreeUserGroup.IsNull() && !o.LeafServiceSnmpVthreeUserGroup.IsUnknown() {
-		jsonData["group"] = o.LeafServiceSnmpVthreeUserGroup.ValueString()
-	}
-
-	if !o.LeafServiceSnmpVthreeUserMode.IsNull() && !o.LeafServiceSnmpVthreeUserMode.IsUnknown() {
-		jsonData["mode"] = o.LeafServiceSnmpVthreeUserMode.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeServiceSnmpVthreeUserAuth).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeServiceSnmpVthreeUserAuth)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["auth"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeServiceSnmpVthreeUserPrivacy).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeServiceSnmpVthreeUserPrivacy)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["privacy"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceSnmpVthreeUser) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["group"]; ok {
-		o.LeafServiceSnmpVthreeUserGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeUserGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mode"]; ok {
-		o.LeafServiceSnmpVthreeUserMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeUserMode = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["auth"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeServiceSnmpVthreeUserAuth = &ServiceSnmpVthreeUserAuth{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeServiceSnmpVthreeUserAuth)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["privacy"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeServiceSnmpVthreeUserPrivacy = &ServiceSnmpVthreeUserPrivacy{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeServiceSnmpVthreeUserPrivacy)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ServiceSnmpVthreeUser) UnmarshalJSON(_ []byte) error {
 	return nil
 }

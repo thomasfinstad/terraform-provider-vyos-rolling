@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesBondingArpMonitor describes the resource data model.
 type InterfacesBondingArpMonitor struct {
 	// LeafNodes
-	LeafInterfacesBondingArpMonitorInterval types.String `tfsdk:"interval" vyos:"interval,omitempty"`
-	LeafInterfacesBondingArpMonitorTarget   types.String `tfsdk:"target" vyos:"target,omitempty"`
+	LeafInterfacesBondingArpMonitorInterval types.Number `tfsdk:"interval" vyos:"interval,omitempty"`
+	LeafInterfacesBondingArpMonitorTarget   types.List   `tfsdk:"target" vyos:"target,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +22,7 @@ func (o InterfacesBondingArpMonitor) ResourceSchemaAttributes() map[string]schem
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"interval": schema.StringAttribute{
+		"interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `ARP link monitoring interval
 
@@ -36,8 +33,9 @@ func (o InterfacesBondingArpMonitor) ResourceSchemaAttributes() map[string]schem
 `,
 		},
 
-		"target": schema.StringAttribute{
-			Optional: true,
+		"target": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address used for ARP monitoring
 
     |  Format  |  Description  |
@@ -54,51 +52,10 @@ func (o InterfacesBondingArpMonitor) ResourceSchemaAttributes() map[string]schem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesBondingArpMonitor) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesBondingArpMonitorInterval.IsNull() && !o.LeafInterfacesBondingArpMonitorInterval.IsUnknown() {
-		jsonData["interval"] = o.LeafInterfacesBondingArpMonitorInterval.ValueString()
-	}
-
-	if !o.LeafInterfacesBondingArpMonitorTarget.IsNull() && !o.LeafInterfacesBondingArpMonitorTarget.IsUnknown() {
-		jsonData["target"] = o.LeafInterfacesBondingArpMonitorTarget.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesBondingArpMonitor) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["interval"]; ok {
-		o.LeafInterfacesBondingArpMonitorInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingArpMonitorInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["target"]; ok {
-		o.LeafInterfacesBondingArpMonitorTarget = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingArpMonitorTarget = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesBondingArpMonitor) UnmarshalJSON(_ []byte) error {
 	return nil
 }

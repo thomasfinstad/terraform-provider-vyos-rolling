@@ -2,29 +2,26 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteMapRuleSet describes the resource data model.
 type PolicyRouteMapRuleSet struct {
 	// LeafNodes
-	LeafPolicyRouteMapRuleSetAtomicAggregate types.String `tfsdk:"atomic_aggregate" vyos:"atomic-aggregate,omitempty"`
-	LeafPolicyRouteMapRuleSetDistance        types.String `tfsdk:"distance" vyos:"distance,omitempty"`
+	LeafPolicyRouteMapRuleSetAtomicAggregate types.Bool   `tfsdk:"atomic_aggregate" vyos:"atomic-aggregate,omitempty"`
+	LeafPolicyRouteMapRuleSetDistance        types.Number `tfsdk:"distance" vyos:"distance,omitempty"`
 	LeafPolicyRouteMapRuleSetIPNextHop       types.String `tfsdk:"ip_next_hop" vyos:"ip-next-hop,omitempty"`
-	LeafPolicyRouteMapRuleSetLocalPreference types.String `tfsdk:"local_preference" vyos:"local-preference,omitempty"`
+	LeafPolicyRouteMapRuleSetLocalPreference types.Number `tfsdk:"local_preference" vyos:"local-preference,omitempty"`
 	LeafPolicyRouteMapRuleSetMetric          types.String `tfsdk:"metric" vyos:"metric,omitempty"`
 	LeafPolicyRouteMapRuleSetMetricType      types.String `tfsdk:"metric_type" vyos:"metric-type,omitempty"`
 	LeafPolicyRouteMapRuleSetOrigin          types.String `tfsdk:"origin" vyos:"origin,omitempty"`
 	LeafPolicyRouteMapRuleSetOriginatorID    types.String `tfsdk:"originator_id" vyos:"originator-id,omitempty"`
 	LeafPolicyRouteMapRuleSetSrc             types.String `tfsdk:"src" vyos:"src,omitempty"`
-	LeafPolicyRouteMapRuleSetTable           types.String `tfsdk:"table" vyos:"table,omitempty"`
-	LeafPolicyRouteMapRuleSetTag             types.String `tfsdk:"tag" vyos:"tag,omitempty"`
-	LeafPolicyRouteMapRuleSetWeight          types.String `tfsdk:"weight" vyos:"weight,omitempty"`
+	LeafPolicyRouteMapRuleSetTable           types.Number `tfsdk:"table" vyos:"table,omitempty"`
+	LeafPolicyRouteMapRuleSetTag             types.Number `tfsdk:"tag" vyos:"tag,omitempty"`
+	LeafPolicyRouteMapRuleSetWeight          types.Number `tfsdk:"weight" vyos:"weight,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -44,14 +41,16 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"atomic_aggregate": schema.StringAttribute{
+		"atomic_aggregate": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP atomic aggregate attribute
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"distance": schema.StringAttribute{
+		"distance": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Locally significant administrative distance
 
@@ -75,7 +74,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 `,
 		},
 
-		"local_preference": schema.StringAttribute{
+		"local_preference": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP local preference attribute
 
@@ -146,7 +145,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 `,
 		},
 
-		"table": schema.StringAttribute{
+		"table": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set prefixes to table
 
@@ -157,7 +156,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 `,
 		},
 
-		"tag": schema.StringAttribute{
+		"tag": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Tag value for routing protocol
 
@@ -168,7 +167,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 `,
 		},
 
-		"weight": schema.StringAttribute{
+		"weight": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP weight attribute
 
@@ -249,367 +248,10 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteMapRuleSet) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteMapRuleSetAtomicAggregate.IsNull() && !o.LeafPolicyRouteMapRuleSetAtomicAggregate.IsUnknown() {
-		jsonData["atomic-aggregate"] = o.LeafPolicyRouteMapRuleSetAtomicAggregate.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetDistance.IsNull() && !o.LeafPolicyRouteMapRuleSetDistance.IsUnknown() {
-		jsonData["distance"] = o.LeafPolicyRouteMapRuleSetDistance.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetIPNextHop.IsNull() && !o.LeafPolicyRouteMapRuleSetIPNextHop.IsUnknown() {
-		jsonData["ip-next-hop"] = o.LeafPolicyRouteMapRuleSetIPNextHop.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetLocalPreference.IsNull() && !o.LeafPolicyRouteMapRuleSetLocalPreference.IsUnknown() {
-		jsonData["local-preference"] = o.LeafPolicyRouteMapRuleSetLocalPreference.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetMetric.IsNull() && !o.LeafPolicyRouteMapRuleSetMetric.IsUnknown() {
-		jsonData["metric"] = o.LeafPolicyRouteMapRuleSetMetric.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetMetricType.IsNull() && !o.LeafPolicyRouteMapRuleSetMetricType.IsUnknown() {
-		jsonData["metric-type"] = o.LeafPolicyRouteMapRuleSetMetricType.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetOrigin.IsNull() && !o.LeafPolicyRouteMapRuleSetOrigin.IsUnknown() {
-		jsonData["origin"] = o.LeafPolicyRouteMapRuleSetOrigin.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetOriginatorID.IsNull() && !o.LeafPolicyRouteMapRuleSetOriginatorID.IsUnknown() {
-		jsonData["originator-id"] = o.LeafPolicyRouteMapRuleSetOriginatorID.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetSrc.IsNull() && !o.LeafPolicyRouteMapRuleSetSrc.IsUnknown() {
-		jsonData["src"] = o.LeafPolicyRouteMapRuleSetSrc.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetTable.IsNull() && !o.LeafPolicyRouteMapRuleSetTable.IsUnknown() {
-		jsonData["table"] = o.LeafPolicyRouteMapRuleSetTable.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetTag.IsNull() && !o.LeafPolicyRouteMapRuleSetTag.IsUnknown() {
-		jsonData["tag"] = o.LeafPolicyRouteMapRuleSetTag.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleSetWeight.IsNull() && !o.LeafPolicyRouteMapRuleSetWeight.IsUnknown() {
-		jsonData["weight"] = o.LeafPolicyRouteMapRuleSetWeight.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodePolicyRouteMapRuleSetAggregator).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleSetAggregator)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["aggregator"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteMapRuleSetAsPath).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleSetAsPath)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["as-path"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteMapRuleSetCommunity).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleSetCommunity)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["community"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteMapRuleSetLargeCommunity).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleSetLargeCommunity)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["large-community"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteMapRuleSetExtcommunity).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleSetExtcommunity)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["extcommunity"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteMapRuleSetEvpn).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleSetEvpn)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["evpn"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteMapRuleSetIPvsixNextHop).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleSetIPvsixNextHop)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipv6-next-hop"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteMapRuleSetLthreevpnNexthop).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleSetLthreevpnNexthop)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["l3vpn-nexthop"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteMapRuleSet) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["atomic-aggregate"]; ok {
-		o.LeafPolicyRouteMapRuleSetAtomicAggregate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetAtomicAggregate = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["distance"]; ok {
-		o.LeafPolicyRouteMapRuleSetDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetDistance = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ip-next-hop"]; ok {
-		o.LeafPolicyRouteMapRuleSetIPNextHop = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetIPNextHop = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["local-preference"]; ok {
-		o.LeafPolicyRouteMapRuleSetLocalPreference = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetLocalPreference = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["metric"]; ok {
-		o.LeafPolicyRouteMapRuleSetMetric = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetMetric = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["metric-type"]; ok {
-		o.LeafPolicyRouteMapRuleSetMetricType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetMetricType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["origin"]; ok {
-		o.LeafPolicyRouteMapRuleSetOrigin = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetOrigin = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["originator-id"]; ok {
-		o.LeafPolicyRouteMapRuleSetOriginatorID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetOriginatorID = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["src"]; ok {
-		o.LeafPolicyRouteMapRuleSetSrc = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetSrc = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["table"]; ok {
-		o.LeafPolicyRouteMapRuleSetTable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetTable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["tag"]; ok {
-		o.LeafPolicyRouteMapRuleSetTag = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetTag = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["weight"]; ok {
-		o.LeafPolicyRouteMapRuleSetWeight = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetWeight = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["aggregator"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteMapRuleSetAggregator = &PolicyRouteMapRuleSetAggregator{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleSetAggregator)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["as-path"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteMapRuleSetAsPath = &PolicyRouteMapRuleSetAsPath{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleSetAsPath)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["community"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteMapRuleSetCommunity = &PolicyRouteMapRuleSetCommunity{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleSetCommunity)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["large-community"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteMapRuleSetLargeCommunity = &PolicyRouteMapRuleSetLargeCommunity{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleSetLargeCommunity)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["extcommunity"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteMapRuleSetExtcommunity = &PolicyRouteMapRuleSetExtcommunity{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleSetExtcommunity)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["evpn"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteMapRuleSetEvpn = &PolicyRouteMapRuleSetEvpn{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleSetEvpn)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ipv6-next-hop"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteMapRuleSetIPvsixNextHop = &PolicyRouteMapRuleSetIPvsixNextHop{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleSetIPvsixNextHop)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["l3vpn-nexthop"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteMapRuleSetLthreevpnNexthop = &PolicyRouteMapRuleSetLthreevpnNexthop{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleSetLthreevpnNexthop)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *PolicyRouteMapRuleSet) UnmarshalJSON(_ []byte) error {
 	return nil
 }

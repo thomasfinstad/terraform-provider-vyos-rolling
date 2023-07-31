@@ -2,28 +2,25 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesPseudoEthernetVifS describes the resource data model.
 type InterfacesPseudoEthernetVifS struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDInterfacesPseudoEthernet any `tfsdk:"pseudo_ethernet" vyos:"pseudo-ethernet,parent-id"`
+	ParentIDInterfacesPseudoEthernet types.String `tfsdk:"pseudo_ethernet" vyos:"pseudo-ethernet_identifier,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesPseudoEthernetVifSDescrIPtion       types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafInterfacesPseudoEthernetVifSAddress           types.String `tfsdk:"address" vyos:"address,omitempty"`
-	LeafInterfacesPseudoEthernetVifSDisableLinkDetect types.String `tfsdk:"disable_link_detect" vyos:"disable-link-detect,omitempty"`
-	LeafInterfacesPseudoEthernetVifSDisable           types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafInterfacesPseudoEthernetVifSAddress           types.List   `tfsdk:"address" vyos:"address,omitempty"`
+	LeafInterfacesPseudoEthernetVifSDisableLinkDetect types.Bool   `tfsdk:"disable_link_detect" vyos:"disable-link-detect,omitempty"`
+	LeafInterfacesPseudoEthernetVifSDisable           types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafInterfacesPseudoEthernetVifSProtocol          types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 	LeafInterfacesPseudoEthernetVifSMac               types.String `tfsdk:"mac" vyos:"mac,omitempty"`
-	LeafInterfacesPseudoEthernetVifSMtu               types.String `tfsdk:"mtu" vyos:"mtu,omitempty"`
+	LeafInterfacesPseudoEthernetVifSMtu               types.Number `tfsdk:"mtu" vyos:"mtu,omitempty"`
 	LeafInterfacesPseudoEthernetVifSRedirect          types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 	LeafInterfacesPseudoEthernetVifSVrf               types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
@@ -42,9 +39,12 @@ type InterfacesPseudoEthernetVifS struct {
 func (o *InterfacesPseudoEthernetVifS) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"pseudo-ethernet",
+		o.ParentIDInterfacesPseudoEthernet.ValueString(),
+
 		"vif-s",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -62,6 +62,17 @@ func (o InterfacesPseudoEthernetVifS) ResourceSchemaAttributes() map[string]sche
 `,
 		},
 
+		"pseudo_ethernet_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Pseudo Ethernet Interface (Macvlan)
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  pethN  |  Pseudo Ethernet interface name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
@@ -75,8 +86,9 @@ func (o InterfacesPseudoEthernetVifS) ResourceSchemaAttributes() map[string]sche
 `,
 		},
 
-		"address": schema.StringAttribute{
-			Optional: true,
+		"address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address
 
     |  Format  |  Description  |
@@ -89,18 +101,22 @@ func (o InterfacesPseudoEthernetVifS) ResourceSchemaAttributes() map[string]sche
 `,
 		},
 
-		"disable_link_detect": schema.StringAttribute{
+		"disable_link_detect": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ignore link state changes
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"protocol": schema.StringAttribute{
@@ -129,7 +145,7 @@ func (o InterfacesPseudoEthernetVifS) ResourceSchemaAttributes() map[string]sche
 `,
 		},
 
-		"mtu": schema.StringAttribute{
+		"mtu": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
@@ -211,256 +227,10 @@ func (o InterfacesPseudoEthernetVifS) ResourceSchemaAttributes() map[string]sche
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesPseudoEthernetVifS) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesPseudoEthernetVifSDescrIPtion.IsNull() && !o.LeafInterfacesPseudoEthernetVifSDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafInterfacesPseudoEthernetVifSDescrIPtion.ValueString()
-	}
-
-	if !o.LeafInterfacesPseudoEthernetVifSAddress.IsNull() && !o.LeafInterfacesPseudoEthernetVifSAddress.IsUnknown() {
-		jsonData["address"] = o.LeafInterfacesPseudoEthernetVifSAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesPseudoEthernetVifSDisableLinkDetect.IsNull() && !o.LeafInterfacesPseudoEthernetVifSDisableLinkDetect.IsUnknown() {
-		jsonData["disable-link-detect"] = o.LeafInterfacesPseudoEthernetVifSDisableLinkDetect.ValueString()
-	}
-
-	if !o.LeafInterfacesPseudoEthernetVifSDisable.IsNull() && !o.LeafInterfacesPseudoEthernetVifSDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafInterfacesPseudoEthernetVifSDisable.ValueString()
-	}
-
-	if !o.LeafInterfacesPseudoEthernetVifSProtocol.IsNull() && !o.LeafInterfacesPseudoEthernetVifSProtocol.IsUnknown() {
-		jsonData["protocol"] = o.LeafInterfacesPseudoEthernetVifSProtocol.ValueString()
-	}
-
-	if !o.LeafInterfacesPseudoEthernetVifSMac.IsNull() && !o.LeafInterfacesPseudoEthernetVifSMac.IsUnknown() {
-		jsonData["mac"] = o.LeafInterfacesPseudoEthernetVifSMac.ValueString()
-	}
-
-	if !o.LeafInterfacesPseudoEthernetVifSMtu.IsNull() && !o.LeafInterfacesPseudoEthernetVifSMtu.IsUnknown() {
-		jsonData["mtu"] = o.LeafInterfacesPseudoEthernetVifSMtu.ValueString()
-	}
-
-	if !o.LeafInterfacesPseudoEthernetVifSRedirect.IsNull() && !o.LeafInterfacesPseudoEthernetVifSRedirect.IsUnknown() {
-		jsonData["redirect"] = o.LeafInterfacesPseudoEthernetVifSRedirect.ValueString()
-	}
-
-	if !o.LeafInterfacesPseudoEthernetVifSVrf.IsNull() && !o.LeafInterfacesPseudoEthernetVifSVrf.IsUnknown() {
-		jsonData["vrf"] = o.LeafInterfacesPseudoEthernetVifSVrf.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesPseudoEthernetVifSDhcpOptions).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesPseudoEthernetVifSDhcpOptions)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["dhcp-options"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesPseudoEthernetVifSDhcpvsixOptions).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesPseudoEthernetVifSDhcpvsixOptions)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["dhcpv6-options"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesPseudoEthernetVifSIP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesPseudoEthernetVifSIP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ip"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesPseudoEthernetVifSIPvsix).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesPseudoEthernetVifSIPvsix)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipv6"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesPseudoEthernetVifSMirror).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesPseudoEthernetVifSMirror)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["mirror"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesPseudoEthernetVifS) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafInterfacesPseudoEthernetVifSDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPseudoEthernetVifSDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafInterfacesPseudoEthernetVifSAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPseudoEthernetVifSAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable-link-detect"]; ok {
-		o.LeafInterfacesPseudoEthernetVifSDisableLinkDetect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPseudoEthernetVifSDisableLinkDetect = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafInterfacesPseudoEthernetVifSDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPseudoEthernetVifSDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["protocol"]; ok {
-		o.LeafInterfacesPseudoEthernetVifSProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPseudoEthernetVifSProtocol = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mac"]; ok {
-		o.LeafInterfacesPseudoEthernetVifSMac = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPseudoEthernetVifSMac = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mtu"]; ok {
-		o.LeafInterfacesPseudoEthernetVifSMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPseudoEthernetVifSMtu = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["redirect"]; ok {
-		o.LeafInterfacesPseudoEthernetVifSRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPseudoEthernetVifSRedirect = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vrf"]; ok {
-		o.LeafInterfacesPseudoEthernetVifSVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPseudoEthernetVifSVrf = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["dhcp-options"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesPseudoEthernetVifSDhcpOptions = &InterfacesPseudoEthernetVifSDhcpOptions{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesPseudoEthernetVifSDhcpOptions)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["dhcpv6-options"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesPseudoEthernetVifSDhcpvsixOptions = &InterfacesPseudoEthernetVifSDhcpvsixOptions{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesPseudoEthernetVifSDhcpvsixOptions)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ip"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesPseudoEthernetVifSIP = &InterfacesPseudoEthernetVifSIP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesPseudoEthernetVifSIP)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ipv6"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesPseudoEthernetVifSIPvsix = &InterfacesPseudoEthernetVifSIPvsix{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesPseudoEthernetVifSIPvsix)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["mirror"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesPseudoEthernetVifSMirror = &InterfacesPseudoEthernetVifSMirror{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesPseudoEthernetVifSMirror)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesPseudoEthernetVifS) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesWirelessCapabilities describes the resource data model.
 type InterfacesWirelessCapabilities struct {
 	// LeafNodes
-	LeafInterfacesWirelessCapabilitiesRequireHt  types.String `tfsdk:"require_ht" vyos:"require-ht,omitempty"`
-	LeafInterfacesWirelessCapabilitiesRequireVht types.String `tfsdk:"require_vht" vyos:"require-vht,omitempty"`
+	LeafInterfacesWirelessCapabilitiesRequireHt  types.Bool `tfsdk:"require_ht" vyos:"require-ht,omitempty"`
+	LeafInterfacesWirelessCapabilitiesRequireVht types.Bool `tfsdk:"require_vht" vyos:"require-vht,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -28,18 +25,22 @@ func (o InterfacesWirelessCapabilities) ResourceSchemaAttributes() map[string]sc
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"require_ht": schema.StringAttribute{
+		"require_ht": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Require stations to support HT PHY (reject association if they do not)
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"require_vht": schema.StringAttribute{
+		"require_vht": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Require stations to support VHT PHY (reject association if they do not)
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -64,105 +65,10 @@ func (o InterfacesWirelessCapabilities) ResourceSchemaAttributes() map[string]sc
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesWirelessCapabilities) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesWirelessCapabilitiesRequireHt.IsNull() && !o.LeafInterfacesWirelessCapabilitiesRequireHt.IsUnknown() {
-		jsonData["require-ht"] = o.LeafInterfacesWirelessCapabilitiesRequireHt.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCapabilitiesRequireVht.IsNull() && !o.LeafInterfacesWirelessCapabilitiesRequireVht.IsUnknown() {
-		jsonData["require-vht"] = o.LeafInterfacesWirelessCapabilitiesRequireVht.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesWirelessCapabilitiesHt).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessCapabilitiesHt)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ht"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesWirelessCapabilitiesVht).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessCapabilitiesVht)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["vht"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWirelessCapabilities) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["require-ht"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesRequireHt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesRequireHt = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["require-vht"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesRequireVht = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesRequireVht = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["ht"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWirelessCapabilitiesHt = &InterfacesWirelessCapabilitiesHt{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessCapabilitiesHt)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["vht"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWirelessCapabilitiesVht = &InterfacesWirelessCapabilitiesVht{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessCapabilitiesVht)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesWirelessCapabilities) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceHTTPSVirtualHost describes the resource data model.
@@ -15,8 +12,8 @@ type ServiceHTTPSVirtualHost struct {
 
 	// LeafNodes
 	LeafServiceHTTPSVirtualHostListenAddress types.String `tfsdk:"listen_address" vyos:"listen-address,omitempty"`
-	LeafServiceHTTPSVirtualHostListenPort    types.String `tfsdk:"listen_port" vyos:"listen-port,omitempty"`
-	LeafServiceHTTPSVirtualHostServerName    types.String `tfsdk:"server_name" vyos:"server-name,omitempty"`
+	LeafServiceHTTPSVirtualHostListenPort    types.Number `tfsdk:"listen_port" vyos:"listen-port,omitempty"`
+	LeafServiceHTTPSVirtualHostServerName    types.List   `tfsdk:"server_name" vyos:"server-name,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,7 +24,9 @@ type ServiceHTTPSVirtualHost struct {
 func (o *ServiceHTTPSVirtualHost) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"https",
+
 		"virtual-host",
 		o.ID.ValueString(),
 	}
@@ -58,7 +57,7 @@ func (o ServiceHTTPSVirtualHost) ResourceSchemaAttributes() map[string]schema.At
 `,
 		},
 
-		"listen_port": schema.StringAttribute{
+		"listen_port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port to listen for HTTPS requests; default 443
 
@@ -69,8 +68,9 @@ func (o ServiceHTTPSVirtualHost) ResourceSchemaAttributes() map[string]schema.At
 `,
 		},
 
-		"server_name": schema.StringAttribute{
-			Optional: true,
+		"server_name": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Server names: exact, wildcard, or regex
 
 `,
@@ -83,61 +83,10 @@ func (o ServiceHTTPSVirtualHost) ResourceSchemaAttributes() map[string]schema.At
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceHTTPSVirtualHost) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceHTTPSVirtualHostListenAddress.IsNull() && !o.LeafServiceHTTPSVirtualHostListenAddress.IsUnknown() {
-		jsonData["listen-address"] = o.LeafServiceHTTPSVirtualHostListenAddress.ValueString()
-	}
-
-	if !o.LeafServiceHTTPSVirtualHostListenPort.IsNull() && !o.LeafServiceHTTPSVirtualHostListenPort.IsUnknown() {
-		jsonData["listen-port"] = o.LeafServiceHTTPSVirtualHostListenPort.ValueString()
-	}
-
-	if !o.LeafServiceHTTPSVirtualHostServerName.IsNull() && !o.LeafServiceHTTPSVirtualHostServerName.IsUnknown() {
-		jsonData["server-name"] = o.LeafServiceHTTPSVirtualHostServerName.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceHTTPSVirtualHost) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["listen-address"]; ok {
-		o.LeafServiceHTTPSVirtualHostListenAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceHTTPSVirtualHostListenAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["listen-port"]; ok {
-		o.LeafServiceHTTPSVirtualHostListenPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceHTTPSVirtualHostListenPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["server-name"]; ok {
-		o.LeafServiceHTTPSVirtualHostServerName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceHTTPSVirtualHostServerName = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceHTTPSVirtualHost) UnmarshalJSON(_ []byte) error {
 	return nil
 }

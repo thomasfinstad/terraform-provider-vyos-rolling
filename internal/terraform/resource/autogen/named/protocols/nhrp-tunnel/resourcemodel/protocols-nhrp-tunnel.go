@@ -2,11 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsNhrpTunnel describes the resource data model.
@@ -17,10 +15,10 @@ type ProtocolsNhrpTunnel struct {
 	LeafProtocolsNhrpTunnelCiscoAuthentication types.String `tfsdk:"cisco_authentication" vyos:"cisco-authentication,omitempty"`
 	LeafProtocolsNhrpTunnelHoldingTime         types.String `tfsdk:"holding_time" vyos:"holding-time,omitempty"`
 	LeafProtocolsNhrpTunnelMulticast           types.String `tfsdk:"multicast" vyos:"multicast,omitempty"`
-	LeafProtocolsNhrpTunnelNonCaching          types.String `tfsdk:"non_caching" vyos:"non-caching,omitempty"`
-	LeafProtocolsNhrpTunnelRedirect            types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
-	LeafProtocolsNhrpTunnelShortcutDestination types.String `tfsdk:"shortcut_destination" vyos:"shortcut-destination,omitempty"`
-	LeafProtocolsNhrpTunnelShortcut            types.String `tfsdk:"shortcut" vyos:"shortcut,omitempty"`
+	LeafProtocolsNhrpTunnelNonCaching          types.Bool   `tfsdk:"non_caching" vyos:"non-caching,omitempty"`
+	LeafProtocolsNhrpTunnelRedirect            types.Bool   `tfsdk:"redirect" vyos:"redirect,omitempty"`
+	LeafProtocolsNhrpTunnelShortcutDestination types.Bool   `tfsdk:"shortcut_destination" vyos:"shortcut-destination,omitempty"`
+	LeafProtocolsNhrpTunnelShortcut            types.Bool   `tfsdk:"shortcut" vyos:"shortcut,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagProtocolsNhrpTunnelDynamicMap     bool `tfsdk:"dynamic_map" vyos:"dynamic-map,child"`
@@ -34,7 +32,9 @@ type ProtocolsNhrpTunnel struct {
 func (o *ProtocolsNhrpTunnel) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"nhrp",
+
 		"tunnel",
 		o.ID.ValueString(),
 	}
@@ -81,32 +81,40 @@ func (o ProtocolsNhrpTunnel) ResourceSchemaAttributes() map[string]schema.Attrib
 `,
 		},
 
-		"non_caching": schema.StringAttribute{
+		"non_caching": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `This can be used to reduce memory consumption on big NBMA subnets
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"redirect": schema.StringAttribute{
+		"redirect": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable sending of Cisco style NHRP Traffic Indication packets
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"shortcut_destination": schema.StringAttribute{
+		"shortcut_destination": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `This instructs opennhrp to reply with authorative answers on NHRP Resolution Requests destined to addresses in this interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"shortcut": schema.StringAttribute{
+		"shortcut": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable creation of shortcut routes. A received NHRP Traffic Indication will trigger the resolution and establishment of a shortcut route
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -116,101 +124,10 @@ func (o ProtocolsNhrpTunnel) ResourceSchemaAttributes() map[string]schema.Attrib
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsNhrpTunnel) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsNhrpTunnelCiscoAuthentication.IsNull() && !o.LeafProtocolsNhrpTunnelCiscoAuthentication.IsUnknown() {
-		jsonData["cisco-authentication"] = o.LeafProtocolsNhrpTunnelCiscoAuthentication.ValueString()
-	}
-
-	if !o.LeafProtocolsNhrpTunnelHoldingTime.IsNull() && !o.LeafProtocolsNhrpTunnelHoldingTime.IsUnknown() {
-		jsonData["holding-time"] = o.LeafProtocolsNhrpTunnelHoldingTime.ValueString()
-	}
-
-	if !o.LeafProtocolsNhrpTunnelMulticast.IsNull() && !o.LeafProtocolsNhrpTunnelMulticast.IsUnknown() {
-		jsonData["multicast"] = o.LeafProtocolsNhrpTunnelMulticast.ValueString()
-	}
-
-	if !o.LeafProtocolsNhrpTunnelNonCaching.IsNull() && !o.LeafProtocolsNhrpTunnelNonCaching.IsUnknown() {
-		jsonData["non-caching"] = o.LeafProtocolsNhrpTunnelNonCaching.ValueString()
-	}
-
-	if !o.LeafProtocolsNhrpTunnelRedirect.IsNull() && !o.LeafProtocolsNhrpTunnelRedirect.IsUnknown() {
-		jsonData["redirect"] = o.LeafProtocolsNhrpTunnelRedirect.ValueString()
-	}
-
-	if !o.LeafProtocolsNhrpTunnelShortcutDestination.IsNull() && !o.LeafProtocolsNhrpTunnelShortcutDestination.IsUnknown() {
-		jsonData["shortcut-destination"] = o.LeafProtocolsNhrpTunnelShortcutDestination.ValueString()
-	}
-
-	if !o.LeafProtocolsNhrpTunnelShortcut.IsNull() && !o.LeafProtocolsNhrpTunnelShortcut.IsUnknown() {
-		jsonData["shortcut"] = o.LeafProtocolsNhrpTunnelShortcut.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsNhrpTunnel) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["cisco-authentication"]; ok {
-		o.LeafProtocolsNhrpTunnelCiscoAuthentication = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsNhrpTunnelCiscoAuthentication = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["holding-time"]; ok {
-		o.LeafProtocolsNhrpTunnelHoldingTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsNhrpTunnelHoldingTime = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["multicast"]; ok {
-		o.LeafProtocolsNhrpTunnelMulticast = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsNhrpTunnelMulticast = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["non-caching"]; ok {
-		o.LeafProtocolsNhrpTunnelNonCaching = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsNhrpTunnelNonCaching = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["redirect"]; ok {
-		o.LeafProtocolsNhrpTunnelRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsNhrpTunnelRedirect = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["shortcut-destination"]; ok {
-		o.LeafProtocolsNhrpTunnelShortcutDestination = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsNhrpTunnelShortcutDestination = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["shortcut"]; ok {
-		o.LeafProtocolsNhrpTunnelShortcut = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsNhrpTunnelShortcut = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsNhrpTunnel) UnmarshalJSON(_ []byte) error {
 	return nil
 }

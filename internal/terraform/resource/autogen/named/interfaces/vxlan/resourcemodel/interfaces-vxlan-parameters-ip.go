@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesVxlanParametersIP describes the resource data model.
 type InterfacesVxlanParametersIP struct {
 	// LeafNodes
 	LeafInterfacesVxlanParametersIPDf  types.String `tfsdk:"df" vyos:"df,omitempty"`
-	LeafInterfacesVxlanParametersIPTos types.String `tfsdk:"tos" vyos:"tos,omitempty"`
-	LeafInterfacesVxlanParametersIPTTL types.String `tfsdk:"ttl" vyos:"ttl,omitempty"`
+	LeafInterfacesVxlanParametersIPTos types.Number `tfsdk:"tos" vyos:"tos,omitempty"`
+	LeafInterfacesVxlanParametersIPTTL types.Number `tfsdk:"ttl" vyos:"ttl,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -42,7 +39,7 @@ func (o InterfacesVxlanParametersIP) ResourceSchemaAttributes() map[string]schem
 			Computed: true,
 		},
 
-		"tos": schema.StringAttribute{
+		"tos": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Specifies TOS value to use in outgoing packets
 
@@ -56,7 +53,7 @@ func (o InterfacesVxlanParametersIP) ResourceSchemaAttributes() map[string]schem
 			Computed: true,
 		},
 
-		"ttl": schema.StringAttribute{
+		"ttl": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Specifies TTL value to use in outgoing packets
 
@@ -78,61 +75,10 @@ func (o InterfacesVxlanParametersIP) ResourceSchemaAttributes() map[string]schem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesVxlanParametersIP) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesVxlanParametersIPDf.IsNull() && !o.LeafInterfacesVxlanParametersIPDf.IsUnknown() {
-		jsonData["df"] = o.LeafInterfacesVxlanParametersIPDf.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanParametersIPTos.IsNull() && !o.LeafInterfacesVxlanParametersIPTos.IsUnknown() {
-		jsonData["tos"] = o.LeafInterfacesVxlanParametersIPTos.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanParametersIPTTL.IsNull() && !o.LeafInterfacesVxlanParametersIPTTL.IsUnknown() {
-		jsonData["ttl"] = o.LeafInterfacesVxlanParametersIPTTL.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesVxlanParametersIP) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["df"]; ok {
-		o.LeafInterfacesVxlanParametersIPDf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanParametersIPDf = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["tos"]; ok {
-		o.LeafInterfacesVxlanParametersIPTos = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanParametersIPTos = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ttl"]; ok {
-		o.LeafInterfacesVxlanParametersIPTTL = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanParametersIPTTL = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesVxlanParametersIP) UnmarshalJSON(_ []byte) error {
 	return nil
 }

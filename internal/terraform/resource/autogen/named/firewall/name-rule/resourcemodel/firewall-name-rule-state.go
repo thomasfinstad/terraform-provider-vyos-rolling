@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallNameRuleState describes the resource data model.
@@ -82,71 +79,10 @@ func (o FirewallNameRuleState) ResourceSchemaAttributes() map[string]schema.Attr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallNameRuleState) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallNameRuleStateEstablished.IsNull() && !o.LeafFirewallNameRuleStateEstablished.IsUnknown() {
-		jsonData["established"] = o.LeafFirewallNameRuleStateEstablished.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleStateInvalID.IsNull() && !o.LeafFirewallNameRuleStateInvalID.IsUnknown() {
-		jsonData["invalid"] = o.LeafFirewallNameRuleStateInvalID.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleStateNew.IsNull() && !o.LeafFirewallNameRuleStateNew.IsUnknown() {
-		jsonData["new"] = o.LeafFirewallNameRuleStateNew.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleStateRelated.IsNull() && !o.LeafFirewallNameRuleStateRelated.IsUnknown() {
-		jsonData["related"] = o.LeafFirewallNameRuleStateRelated.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallNameRuleState) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["established"]; ok {
-		o.LeafFirewallNameRuleStateEstablished = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleStateEstablished = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["invalid"]; ok {
-		o.LeafFirewallNameRuleStateInvalID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleStateInvalID = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["new"]; ok {
-		o.LeafFirewallNameRuleStateNew = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleStateNew = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["related"]; ok {
-		o.LeafFirewallNameRuleStateRelated = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleStateRelated = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallNameRuleState) UnmarshalJSON(_ []byte) error {
 	return nil
 }

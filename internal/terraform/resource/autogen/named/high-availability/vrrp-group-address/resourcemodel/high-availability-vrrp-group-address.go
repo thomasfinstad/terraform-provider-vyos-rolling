@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // HighAvailabilityVrrpGroupAddress describes the resource data model.
 type HighAvailabilityVrrpGroupAddress struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDHighAvailabilityVrrpGroup any `tfsdk:"group" vyos:"group,parent-id"`
+	ParentIDHighAvailabilityVrrpGroup types.String `tfsdk:"group" vyos:"group_identifier,parent-id"`
 
 	// LeafNodes
 	LeafHighAvailabilityVrrpGroupAddressInterface types.String `tfsdk:"interface" vyos:"interface,omitempty"`
@@ -27,8 +24,12 @@ type HighAvailabilityVrrpGroupAddress struct {
 func (o *HighAvailabilityVrrpGroupAddress) GetVyosPath() []string {
 	return []string{
 		"high-availability",
+
 		"vrrp",
+
 		"group",
+		o.ParentIDHighAvailabilityVrrpGroup.ValueString(),
+
 		"address",
 		o.ID.ValueString(),
 	}
@@ -45,6 +46,13 @@ func (o HighAvailabilityVrrpGroupAddress) ResourceSchemaAttributes() map[string]
     |----------|---------------|
     |  ipv4net  |  IPv4 address and prefix length  |
     |  ipv6net  |  IPv6 address and prefix length  |
+
+`,
+		},
+
+		"group_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `VRRP group
 
 `,
 		},
@@ -69,41 +77,10 @@ func (o HighAvailabilityVrrpGroupAddress) ResourceSchemaAttributes() map[string]
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *HighAvailabilityVrrpGroupAddress) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafHighAvailabilityVrrpGroupAddressInterface.IsNull() && !o.LeafHighAvailabilityVrrpGroupAddressInterface.IsUnknown() {
-		jsonData["interface"] = o.LeafHighAvailabilityVrrpGroupAddressInterface.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *HighAvailabilityVrrpGroupAddress) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["interface"]; ok {
-		o.LeafHighAvailabilityVrrpGroupAddressInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupAddressInterface = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *HighAvailabilityVrrpGroupAddress) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,17 +2,13 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemConntrackIgnoreRule describes the resource data model.
 type SystemConntrackIgnoreRule struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
 	LeafSystemConntrackIgnoreRuleDescrIPtion      types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -30,10 +26,13 @@ type SystemConntrackIgnoreRule struct {
 func (o *SystemConntrackIgnoreRule) GetVyosPath() []string {
 	return []string{
 		"system",
+
 		"conntrack",
+
 		"ignore",
+
 		"rule",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -104,115 +103,10 @@ func (o SystemConntrackIgnoreRule) ResourceSchemaAttributes() map[string]schema.
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemConntrackIgnoreRule) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafSystemConntrackIgnoreRuleDescrIPtion.IsNull() && !o.LeafSystemConntrackIgnoreRuleDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafSystemConntrackIgnoreRuleDescrIPtion.ValueString()
-	}
-
-	if !o.LeafSystemConntrackIgnoreRuleInboundInterface.IsNull() && !o.LeafSystemConntrackIgnoreRuleInboundInterface.IsUnknown() {
-		jsonData["inbound-interface"] = o.LeafSystemConntrackIgnoreRuleInboundInterface.ValueString()
-	}
-
-	if !o.LeafSystemConntrackIgnoreRuleProtocol.IsNull() && !o.LeafSystemConntrackIgnoreRuleProtocol.IsUnknown() {
-		jsonData["protocol"] = o.LeafSystemConntrackIgnoreRuleProtocol.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeSystemConntrackIgnoreRuleDestination).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeSystemConntrackIgnoreRuleDestination)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["destination"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeSystemConntrackIgnoreRuleSource).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeSystemConntrackIgnoreRuleSource)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["source"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemConntrackIgnoreRule) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafSystemConntrackIgnoreRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemConntrackIgnoreRuleDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["inbound-interface"]; ok {
-		o.LeafSystemConntrackIgnoreRuleInboundInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemConntrackIgnoreRuleInboundInterface = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["protocol"]; ok {
-		o.LeafSystemConntrackIgnoreRuleProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemConntrackIgnoreRuleProtocol = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["destination"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeSystemConntrackIgnoreRuleDestination = &SystemConntrackIgnoreRuleDestination{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeSystemConntrackIgnoreRuleDestination)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["source"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeSystemConntrackIgnoreRuleSource = &SystemConntrackIgnoreRuleSource{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeSystemConntrackIgnoreRuleSource)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *SystemConntrackIgnoreRule) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceDNSDynamicInterface describes the resource data model.
@@ -15,7 +12,7 @@ type ServiceDNSDynamicInterface struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafServiceDNSDynamicInterfaceIPvsixEnable types.String `tfsdk:"ipv6_enable" vyos:"ipv6-enable,omitempty"`
+	LeafServiceDNSDynamicInterfaceIPvsixEnable types.Bool `tfsdk:"ipv6_enable" vyos:"ipv6-enable,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagServiceDNSDynamicInterfaceRfctwoonethreesix bool `tfsdk:"rfc2136" vyos:"rfc2136,child"`
@@ -29,8 +26,11 @@ type ServiceDNSDynamicInterface struct {
 func (o *ServiceDNSDynamicInterface) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"dns",
+
 		"dynamic",
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -48,11 +48,13 @@ func (o ServiceDNSDynamicInterface) ResourceSchemaAttributes() map[string]schema
 
 		// LeafNodes
 
-		"ipv6_enable": schema.StringAttribute{
+		"ipv6_enable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow explicit IPv6 addresses for Dynamic DNS for this interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -69,68 +71,10 @@ func (o ServiceDNSDynamicInterface) ResourceSchemaAttributes() map[string]schema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceDNSDynamicInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceDNSDynamicInterfaceIPvsixEnable.IsNull() && !o.LeafServiceDNSDynamicInterfaceIPvsixEnable.IsUnknown() {
-		jsonData["ipv6-enable"] = o.LeafServiceDNSDynamicInterfaceIPvsixEnable.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeServiceDNSDynamicInterfaceUseWeb).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeServiceDNSDynamicInterfaceUseWeb)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["use-web"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceDNSDynamicInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["ipv6-enable"]; ok {
-		o.LeafServiceDNSDynamicInterfaceIPvsixEnable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSDynamicInterfaceIPvsixEnable = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["use-web"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeServiceDNSDynamicInterfaceUseWeb = &ServiceDNSDynamicInterfaceUseWeb{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeServiceDNSDynamicInterfaceUseWeb)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ServiceDNSDynamicInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

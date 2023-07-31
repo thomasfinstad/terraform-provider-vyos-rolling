@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallInterfaceOut describes the resource data model.
@@ -46,51 +43,10 @@ func (o FirewallInterfaceOut) ResourceSchemaAttributes() map[string]schema.Attri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallInterfaceOut) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallInterfaceOutName.IsNull() && !o.LeafFirewallInterfaceOutName.IsUnknown() {
-		jsonData["name"] = o.LeafFirewallInterfaceOutName.ValueString()
-	}
-
-	if !o.LeafFirewallInterfaceOutIPvsixName.IsNull() && !o.LeafFirewallInterfaceOutIPvsixName.IsUnknown() {
-		jsonData["ipv6-name"] = o.LeafFirewallInterfaceOutIPvsixName.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallInterfaceOut) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["name"]; ok {
-		o.LeafFirewallInterfaceOutName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallInterfaceOutName = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ipv6-name"]; ok {
-		o.LeafFirewallInterfaceOutIPvsixName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallInterfaceOutIPvsixName = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallInterfaceOut) UnmarshalJSON(_ []byte) error {
 	return nil
 }

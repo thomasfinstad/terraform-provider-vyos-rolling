@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPathsEbgp types.String `tfsdk:"ebgp" vyos:"ebgp,omitempty"`
-	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPathsIbgp types.String `tfsdk:"ibgp" vyos:"ibgp,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPathsEbgp types.Number `tfsdk:"ebgp" vyos:"ebgp,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPathsIbgp types.Number `tfsdk:"ibgp" vyos:"ibgp,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +22,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths) ResourceSchem
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"ebgp": schema.StringAttribute{
+		"ebgp": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `eBGP maximum paths
 
@@ -36,7 +33,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths) ResourceSchem
 `,
 		},
 
-		"ibgp": schema.StringAttribute{
+		"ibgp": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `iBGP maximum paths
 
@@ -54,51 +51,10 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths) ResourceSchem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPathsEbgp.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPathsEbgp.IsUnknown() {
-		jsonData["ebgp"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPathsEbgp.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPathsIbgp.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPathsIbgp.IsUnknown() {
-		jsonData["ibgp"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPathsIbgp.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["ebgp"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPathsEbgp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPathsEbgp = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ibgp"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPathsIbgp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPathsIbgp = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths) UnmarshalJSON(_ []byte) error {
 	return nil
 }

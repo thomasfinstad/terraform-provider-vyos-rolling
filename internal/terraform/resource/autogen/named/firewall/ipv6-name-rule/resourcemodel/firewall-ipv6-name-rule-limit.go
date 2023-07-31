@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallIPvsixNameRuleLimit describes the resource data model.
 type FirewallIPvsixNameRuleLimit struct {
 	// LeafNodes
-	LeafFirewallIPvsixNameRuleLimitBurst types.String `tfsdk:"burst" vyos:"burst,omitempty"`
+	LeafFirewallIPvsixNameRuleLimitBurst types.Number `tfsdk:"burst" vyos:"burst,omitempty"`
 	LeafFirewallIPvsixNameRuleLimitRate  types.String `tfsdk:"rate" vyos:"rate,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -25,7 +22,7 @@ func (o FirewallIPvsixNameRuleLimit) ResourceSchemaAttributes() map[string]schem
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"burst": schema.StringAttribute{
+		"burst": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum number of packets to allow in excess of rate
 
@@ -54,51 +51,10 @@ func (o FirewallIPvsixNameRuleLimit) ResourceSchemaAttributes() map[string]schem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallIPvsixNameRuleLimit) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallIPvsixNameRuleLimitBurst.IsNull() && !o.LeafFirewallIPvsixNameRuleLimitBurst.IsUnknown() {
-		jsonData["burst"] = o.LeafFirewallIPvsixNameRuleLimitBurst.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleLimitRate.IsNull() && !o.LeafFirewallIPvsixNameRuleLimitRate.IsUnknown() {
-		jsonData["rate"] = o.LeafFirewallIPvsixNameRuleLimitRate.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallIPvsixNameRuleLimit) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["burst"]; ok {
-		o.LeafFirewallIPvsixNameRuleLimitBurst = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleLimitBurst = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rate"]; ok {
-		o.LeafFirewallIPvsixNameRuleLimitRate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleLimitRate = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallIPvsixNameRuleLimit) UnmarshalJSON(_ []byte) error {
 	return nil
 }

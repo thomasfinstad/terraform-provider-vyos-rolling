@@ -2,8 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -24,7 +22,9 @@ type ProtocolsFailoverRoute struct {
 func (o *ProtocolsFailoverRoute) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"failover",
+
 		"route",
 		o.ID.ValueString(),
 	}
@@ -53,31 +53,10 @@ func (o ProtocolsFailoverRoute) ResourceSchemaAttributes() map[string]schema.Att
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsFailoverRoute) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsFailoverRoute) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-
+func (o *ProtocolsFailoverRoute) UnmarshalJSON(_ []byte) error {
 	return nil
 }

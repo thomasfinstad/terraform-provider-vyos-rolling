@@ -2,21 +2,18 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // HighAvailabilityVrrpGroupGarp describes the resource data model.
 type HighAvailabilityVrrpGroupGarp struct {
 	// LeafNodes
 	LeafHighAvailabilityVrrpGroupGarpInterval            types.String `tfsdk:"interval" vyos:"interval,omitempty"`
-	LeafHighAvailabilityVrrpGroupGarpMasterDelay         types.String `tfsdk:"master_delay" vyos:"master-delay,omitempty"`
-	LeafHighAvailabilityVrrpGroupGarpMasterRefresh       types.String `tfsdk:"master_refresh" vyos:"master-refresh,omitempty"`
-	LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat types.String `tfsdk:"master_refresh_repeat" vyos:"master-refresh-repeat,omitempty"`
-	LeafHighAvailabilityVrrpGroupGarpMasterRepeat        types.String `tfsdk:"master_repeat" vyos:"master-repeat,omitempty"`
+	LeafHighAvailabilityVrrpGroupGarpMasterDelay         types.Number `tfsdk:"master_delay" vyos:"master-delay,omitempty"`
+	LeafHighAvailabilityVrrpGroupGarpMasterRefresh       types.Number `tfsdk:"master_refresh" vyos:"master-refresh,omitempty"`
+	LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat types.Number `tfsdk:"master_refresh_repeat" vyos:"master-refresh-repeat,omitempty"`
+	LeafHighAvailabilityVrrpGroupGarpMasterRepeat        types.Number `tfsdk:"master_repeat" vyos:"master-repeat,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -42,7 +39,7 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes() map[string]sch
 			Computed: true,
 		},
 
-		"master_delay": schema.StringAttribute{
+		"master_delay": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Delay for second set of gratuitous ARPs after transition to master
 
@@ -56,7 +53,7 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes() map[string]sch
 			Computed: true,
 		},
 
-		"master_refresh": schema.StringAttribute{
+		"master_refresh": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum time interval for refreshing gratuitous ARPs while beeing master
 
@@ -71,7 +68,7 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes() map[string]sch
 			Computed: true,
 		},
 
-		"master_refresh_repeat": schema.StringAttribute{
+		"master_refresh_repeat": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of gratuitous ARP messages to send at a time while beeing master
 
@@ -85,7 +82,7 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes() map[string]sch
 			Computed: true,
 		},
 
-		"master_repeat": schema.StringAttribute{
+		"master_repeat": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of gratuitous ARP messages to send at a time after transition to master
 
@@ -106,81 +103,10 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *HighAvailabilityVrrpGroupGarp) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafHighAvailabilityVrrpGroupGarpInterval.IsNull() && !o.LeafHighAvailabilityVrrpGroupGarpInterval.IsUnknown() {
-		jsonData["interval"] = o.LeafHighAvailabilityVrrpGroupGarpInterval.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupGarpMasterDelay.IsNull() && !o.LeafHighAvailabilityVrrpGroupGarpMasterDelay.IsUnknown() {
-		jsonData["master-delay"] = o.LeafHighAvailabilityVrrpGroupGarpMasterDelay.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupGarpMasterRefresh.IsNull() && !o.LeafHighAvailabilityVrrpGroupGarpMasterRefresh.IsUnknown() {
-		jsonData["master-refresh"] = o.LeafHighAvailabilityVrrpGroupGarpMasterRefresh.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat.IsNull() && !o.LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat.IsUnknown() {
-		jsonData["master-refresh-repeat"] = o.LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupGarpMasterRepeat.IsNull() && !o.LeafHighAvailabilityVrrpGroupGarpMasterRepeat.IsUnknown() {
-		jsonData["master-repeat"] = o.LeafHighAvailabilityVrrpGroupGarpMasterRepeat.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *HighAvailabilityVrrpGroupGarp) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["interval"]; ok {
-		o.LeafHighAvailabilityVrrpGroupGarpInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupGarpInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["master-delay"]; ok {
-		o.LeafHighAvailabilityVrrpGroupGarpMasterDelay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupGarpMasterDelay = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["master-refresh"]; ok {
-		o.LeafHighAvailabilityVrrpGroupGarpMasterRefresh = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupGarpMasterRefresh = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["master-refresh-repeat"]; ok {
-		o.LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["master-repeat"]; ok {
-		o.LeafHighAvailabilityVrrpGroupGarpMasterRepeat = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupGarpMasterRepeat = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *HighAvailabilityVrrpGroupGarp) UnmarshalJSON(_ []byte) error {
 	return nil
 }

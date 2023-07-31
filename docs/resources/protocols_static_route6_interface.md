@@ -46,11 +46,16 @@ IPv6 gateway interface name
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Gateway interface name  |
+- `route6_identifier` (String) Static IPv6 route
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv6net  |  IPv6 static route  |
 
 ### Optional
 
-- `disable` (String) Disable instance
-- `distance` (String) Distance for this route
+- `disable` (Boolean) Disable instance
+- `distance` (Number) Distance for this route
 
     |  Format  |  Description  |
     |----------|---------------|

@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsOspfAreaAreaTypeStub describes the resource data model.
 type ProtocolsOspfAreaAreaTypeStub struct {
 	// LeafNodes
-	LeafProtocolsOspfAreaAreaTypeStubDefaultCost types.String `tfsdk:"default_cost" vyos:"default-cost,omitempty"`
-	LeafProtocolsOspfAreaAreaTypeStubNoSummary   types.String `tfsdk:"no_summary" vyos:"no-summary,omitempty"`
+	LeafProtocolsOspfAreaAreaTypeStubDefaultCost types.Number `tfsdk:"default_cost" vyos:"default-cost,omitempty"`
+	LeafProtocolsOspfAreaAreaTypeStubNoSummary   types.Bool   `tfsdk:"no_summary" vyos:"no-summary,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +23,7 @@ func (o ProtocolsOspfAreaAreaTypeStub) ResourceSchemaAttributes() map[string]sch
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"default_cost": schema.StringAttribute{
+		"default_cost": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Summary-default cost
 
@@ -36,11 +34,13 @@ func (o ProtocolsOspfAreaAreaTypeStub) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 
-		"no_summary": schema.StringAttribute{
+		"no_summary": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not inject inter-area routes into the stub
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -50,51 +50,10 @@ func (o ProtocolsOspfAreaAreaTypeStub) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsOspfAreaAreaTypeStub) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsOspfAreaAreaTypeStubDefaultCost.IsNull() && !o.LeafProtocolsOspfAreaAreaTypeStubDefaultCost.IsUnknown() {
-		jsonData["default-cost"] = o.LeafProtocolsOspfAreaAreaTypeStubDefaultCost.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfAreaAreaTypeStubNoSummary.IsNull() && !o.LeafProtocolsOspfAreaAreaTypeStubNoSummary.IsUnknown() {
-		jsonData["no-summary"] = o.LeafProtocolsOspfAreaAreaTypeStubNoSummary.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsOspfAreaAreaTypeStub) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["default-cost"]; ok {
-		o.LeafProtocolsOspfAreaAreaTypeStubDefaultCost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfAreaAreaTypeStubDefaultCost = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["no-summary"]; ok {
-		o.LeafProtocolsOspfAreaAreaTypeStubNoSummary = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfAreaAreaTypeStubNoSummary = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsOspfAreaAreaTypeStub) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,19 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyAccessListsixRule describes the resource data model.
 type PolicyAccessListsixRule struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDPolicyAccessListsix any `tfsdk:"access_list6" vyos:"access-list6,parent-id"`
+	ParentIDPolicyAccessListsix types.String `tfsdk:"access_list6" vyos:"access-list6_identifier,parent-id"`
 
 	// LeafNodes
 	LeafPolicyAccessListsixRuleAction      types.String `tfsdk:"action" vyos:"action,omitempty"`
@@ -30,9 +26,12 @@ type PolicyAccessListsixRule struct {
 func (o *PolicyAccessListsixRule) GetVyosPath() []string {
 	return []string{
 		"policy",
+
 		"access-list6",
+		o.ParentIDPolicyAccessListsix.ValueString(),
+
 		"rule",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -46,6 +45,17 @@ func (o PolicyAccessListsixRule) ResourceSchemaAttributes() map[string]schema.At
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Access-list6 rule number  |
+
+`,
+		},
+
+		"access_list6_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `IPv6 access-list filter
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Name of IPv6 access-list  |
 
 `,
 		},
@@ -89,78 +99,10 @@ func (o PolicyAccessListsixRule) ResourceSchemaAttributes() map[string]schema.At
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyAccessListsixRule) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyAccessListsixRuleAction.IsNull() && !o.LeafPolicyAccessListsixRuleAction.IsUnknown() {
-		jsonData["action"] = o.LeafPolicyAccessListsixRuleAction.ValueString()
-	}
-
-	if !o.LeafPolicyAccessListsixRuleDescrIPtion.IsNull() && !o.LeafPolicyAccessListsixRuleDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafPolicyAccessListsixRuleDescrIPtion.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodePolicyAccessListsixRuleSource).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyAccessListsixRuleSource)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["source"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyAccessListsixRule) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["action"]; ok {
-		o.LeafPolicyAccessListsixRuleAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyAccessListsixRuleAction = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafPolicyAccessListsixRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyAccessListsixRuleDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["source"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyAccessListsixRuleSource = &PolicyAccessListsixRuleSource{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyAccessListsixRuleSource)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *PolicyAccessListsixRule) UnmarshalJSON(_ []byte) error {
 	return nil
 }

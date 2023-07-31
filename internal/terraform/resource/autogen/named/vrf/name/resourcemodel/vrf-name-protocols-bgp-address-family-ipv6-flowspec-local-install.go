@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvsixFlowspecLocalInstall describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvsixFlowspecLocalInstall struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyIPvsixFlowspecLocalInstallInterface types.String `tfsdk:"interface" vyos:"interface,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixFlowspecLocalInstallInterface types.List `tfsdk:"interface" vyos:"interface,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,8 +21,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixFlowspecLocalInstall) ResourceSche
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"interface": schema.StringAttribute{
-			Optional: true,
+		"interface": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Interface
 
 `,
@@ -38,41 +36,10 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixFlowspecLocalInstall) ResourceSche
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpAddressFamilyIPvsixFlowspecLocalInstall) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixFlowspecLocalInstallInterface.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixFlowspecLocalInstallInterface.IsUnknown() {
-		jsonData["interface"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixFlowspecLocalInstallInterface.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpAddressFamilyIPvsixFlowspecLocalInstall) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["interface"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixFlowspecLocalInstallInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixFlowspecLocalInstallInterface = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixFlowspecLocalInstall) UnmarshalJSON(_ []byte) error {
 	return nil
 }

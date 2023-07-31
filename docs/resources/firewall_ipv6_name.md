@@ -40,4 +40,4 @@ IPv6 firewall rule-set name
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `enable_default_log` (String) Log packets hitting default-action
+- `enable_default_log` (Boolean) Log packets hitting default-action

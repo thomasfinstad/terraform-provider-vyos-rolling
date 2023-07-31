@@ -2,24 +2,22 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallNameRuleTCPFlagsNot describes the resource data model.
 type FirewallNameRuleTCPFlagsNot struct {
 	// LeafNodes
-	LeafFirewallNameRuleTCPFlagsNotSyn types.String `tfsdk:"syn" vyos:"syn,omitempty"`
-	LeafFirewallNameRuleTCPFlagsNotAck types.String `tfsdk:"ack" vyos:"ack,omitempty"`
-	LeafFirewallNameRuleTCPFlagsNotFin types.String `tfsdk:"fin" vyos:"fin,omitempty"`
-	LeafFirewallNameRuleTCPFlagsNotRst types.String `tfsdk:"rst" vyos:"rst,omitempty"`
-	LeafFirewallNameRuleTCPFlagsNotUrg types.String `tfsdk:"urg" vyos:"urg,omitempty"`
-	LeafFirewallNameRuleTCPFlagsNotPsh types.String `tfsdk:"psh" vyos:"psh,omitempty"`
-	LeafFirewallNameRuleTCPFlagsNotEcn types.String `tfsdk:"ecn" vyos:"ecn,omitempty"`
-	LeafFirewallNameRuleTCPFlagsNotCwr types.String `tfsdk:"cwr" vyos:"cwr,omitempty"`
+	LeafFirewallNameRuleTCPFlagsNotSyn types.Bool `tfsdk:"syn" vyos:"syn,omitempty"`
+	LeafFirewallNameRuleTCPFlagsNotAck types.Bool `tfsdk:"ack" vyos:"ack,omitempty"`
+	LeafFirewallNameRuleTCPFlagsNotFin types.Bool `tfsdk:"fin" vyos:"fin,omitempty"`
+	LeafFirewallNameRuleTCPFlagsNotRst types.Bool `tfsdk:"rst" vyos:"rst,omitempty"`
+	LeafFirewallNameRuleTCPFlagsNotUrg types.Bool `tfsdk:"urg" vyos:"urg,omitempty"`
+	LeafFirewallNameRuleTCPFlagsNotPsh types.Bool `tfsdk:"psh" vyos:"psh,omitempty"`
+	LeafFirewallNameRuleTCPFlagsNotEcn types.Bool `tfsdk:"ecn" vyos:"ecn,omitempty"`
+	LeafFirewallNameRuleTCPFlagsNotCwr types.Bool `tfsdk:"cwr" vyos:"cwr,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -31,60 +29,76 @@ func (o FirewallNameRuleTCPFlagsNot) ResourceSchemaAttributes() map[string]schem
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"syn": schema.StringAttribute{
+		"syn": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Synchronise flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"ack": schema.StringAttribute{
+		"ack": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Acknowledge flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"fin": schema.StringAttribute{
+		"fin": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Finish flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"rst": schema.StringAttribute{
+		"rst": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Reset flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"urg": schema.StringAttribute{
+		"urg": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Urgent flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"psh": schema.StringAttribute{
+		"psh": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Push flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"ecn": schema.StringAttribute{
+		"ecn": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Explicit Congestion Notification flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"cwr": schema.StringAttribute{
+		"cwr": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Congestion Window Reduced flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -94,111 +108,10 @@ func (o FirewallNameRuleTCPFlagsNot) ResourceSchemaAttributes() map[string]schem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallNameRuleTCPFlagsNot) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallNameRuleTCPFlagsNotSyn.IsNull() && !o.LeafFirewallNameRuleTCPFlagsNotSyn.IsUnknown() {
-		jsonData["syn"] = o.LeafFirewallNameRuleTCPFlagsNotSyn.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleTCPFlagsNotAck.IsNull() && !o.LeafFirewallNameRuleTCPFlagsNotAck.IsUnknown() {
-		jsonData["ack"] = o.LeafFirewallNameRuleTCPFlagsNotAck.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleTCPFlagsNotFin.IsNull() && !o.LeafFirewallNameRuleTCPFlagsNotFin.IsUnknown() {
-		jsonData["fin"] = o.LeafFirewallNameRuleTCPFlagsNotFin.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleTCPFlagsNotRst.IsNull() && !o.LeafFirewallNameRuleTCPFlagsNotRst.IsUnknown() {
-		jsonData["rst"] = o.LeafFirewallNameRuleTCPFlagsNotRst.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleTCPFlagsNotUrg.IsNull() && !o.LeafFirewallNameRuleTCPFlagsNotUrg.IsUnknown() {
-		jsonData["urg"] = o.LeafFirewallNameRuleTCPFlagsNotUrg.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleTCPFlagsNotPsh.IsNull() && !o.LeafFirewallNameRuleTCPFlagsNotPsh.IsUnknown() {
-		jsonData["psh"] = o.LeafFirewallNameRuleTCPFlagsNotPsh.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleTCPFlagsNotEcn.IsNull() && !o.LeafFirewallNameRuleTCPFlagsNotEcn.IsUnknown() {
-		jsonData["ecn"] = o.LeafFirewallNameRuleTCPFlagsNotEcn.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleTCPFlagsNotCwr.IsNull() && !o.LeafFirewallNameRuleTCPFlagsNotCwr.IsUnknown() {
-		jsonData["cwr"] = o.LeafFirewallNameRuleTCPFlagsNotCwr.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallNameRuleTCPFlagsNot) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["syn"]; ok {
-		o.LeafFirewallNameRuleTCPFlagsNotSyn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleTCPFlagsNotSyn = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ack"]; ok {
-		o.LeafFirewallNameRuleTCPFlagsNotAck = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleTCPFlagsNotAck = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["fin"]; ok {
-		o.LeafFirewallNameRuleTCPFlagsNotFin = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleTCPFlagsNotFin = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rst"]; ok {
-		o.LeafFirewallNameRuleTCPFlagsNotRst = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleTCPFlagsNotRst = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["urg"]; ok {
-		o.LeafFirewallNameRuleTCPFlagsNotUrg = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleTCPFlagsNotUrg = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["psh"]; ok {
-		o.LeafFirewallNameRuleTCPFlagsNotPsh = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleTCPFlagsNotPsh = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ecn"]; ok {
-		o.LeafFirewallNameRuleTCPFlagsNotEcn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleTCPFlagsNotEcn = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["cwr"]; ok {
-		o.LeafFirewallNameRuleTCPFlagsNotCwr = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleTCPFlagsNotCwr = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallNameRuleTCPFlagsNot) UnmarshalJSON(_ []byte) error {
 	return nil
 }

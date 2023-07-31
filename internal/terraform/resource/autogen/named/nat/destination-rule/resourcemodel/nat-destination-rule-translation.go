@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // NatDestinationRuleTranSLAtion describes the resource data model.
@@ -66,78 +62,10 @@ func (o NatDestinationRuleTranSLAtion) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *NatDestinationRuleTranSLAtion) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafNatDestinationRuleTranSLAtionAddress.IsNull() && !o.LeafNatDestinationRuleTranSLAtionAddress.IsUnknown() {
-		jsonData["address"] = o.LeafNatDestinationRuleTranSLAtionAddress.ValueString()
-	}
-
-	if !o.LeafNatDestinationRuleTranSLAtionPort.IsNull() && !o.LeafNatDestinationRuleTranSLAtionPort.IsUnknown() {
-		jsonData["port"] = o.LeafNatDestinationRuleTranSLAtionPort.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeNatDestinationRuleTranSLAtionOptions).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeNatDestinationRuleTranSLAtionOptions)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["options"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *NatDestinationRuleTranSLAtion) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafNatDestinationRuleTranSLAtionAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleTranSLAtionAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafNatDestinationRuleTranSLAtionPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleTranSLAtionPort = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["options"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeNatDestinationRuleTranSLAtionOptions = &NatDestinationRuleTranSLAtionOptions{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeNatDestinationRuleTranSLAtionOptions)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *NatDestinationRuleTranSLAtion) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesTunnel describes the resource data model.
@@ -16,17 +13,17 @@ type InterfacesTunnel struct {
 
 	// LeafNodes
 	LeafInterfacesTunnelDescrIPtion       types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafInterfacesTunnelAddress           types.String `tfsdk:"address" vyos:"address,omitempty"`
-	LeafInterfacesTunnelDisable           types.String `tfsdk:"disable" vyos:"disable,omitempty"`
-	LeafInterfacesTunnelDisableLinkDetect types.String `tfsdk:"disable_link_detect" vyos:"disable-link-detect,omitempty"`
-	LeafInterfacesTunnelMtu               types.String `tfsdk:"mtu" vyos:"mtu,omitempty"`
+	LeafInterfacesTunnelAddress           types.List   `tfsdk:"address" vyos:"address,omitempty"`
+	LeafInterfacesTunnelDisable           types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafInterfacesTunnelDisableLinkDetect types.Bool   `tfsdk:"disable_link_detect" vyos:"disable-link-detect,omitempty"`
+	LeafInterfacesTunnelMtu               types.Number `tfsdk:"mtu" vyos:"mtu,omitempty"`
 	LeafInterfacesTunnelSourceAddress     types.String `tfsdk:"source_address" vyos:"source-address,omitempty"`
 	LeafInterfacesTunnelRemote            types.String `tfsdk:"remote" vyos:"remote,omitempty"`
 	LeafInterfacesTunnelSourceInterface   types.String `tfsdk:"source_interface" vyos:"source-interface,omitempty"`
 	LeafInterfacesTunnelSixrdPrefix       types.String `tfsdk:"6rd_prefix" vyos:"6rd-prefix,omitempty"`
 	LeafInterfacesTunnelSixrdRelayPrefix  types.String `tfsdk:"6rd_relay_prefix" vyos:"6rd-relay-prefix,omitempty"`
 	LeafInterfacesTunnelEncapsulation     types.String `tfsdk:"encapsulation" vyos:"encapsulation,omitempty"`
-	LeafInterfacesTunnelEnableMulticast   types.String `tfsdk:"enable_multicast" vyos:"enable-multicast,omitempty"`
+	LeafInterfacesTunnelEnableMulticast   types.Bool   `tfsdk:"enable_multicast" vyos:"enable-multicast,omitempty"`
 	LeafInterfacesTunnelVrf               types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 	LeafInterfacesTunnelRedirect          types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 
@@ -43,6 +40,7 @@ type InterfacesTunnel struct {
 func (o *InterfacesTunnel) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"tunnel",
 		o.ID.ValueString(),
 	}
@@ -75,8 +73,9 @@ func (o InterfacesTunnel) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 
-		"address": schema.StringAttribute{
-			Optional: true,
+		"address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address
 
     |  Format  |  Description  |
@@ -87,21 +86,25 @@ func (o InterfacesTunnel) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"disable_link_detect": schema.StringAttribute{
+		"disable_link_detect": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ignore link state changes
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"mtu": schema.StringAttribute{
+		"mtu": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
@@ -192,11 +195,13 @@ func (o InterfacesTunnel) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 
-		"enable_multicast": schema.StringAttribute{
+		"enable_multicast": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable multicast operation over tunnel
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"vrf": schema.StringAttribute{
@@ -259,279 +264,10 @@ func (o InterfacesTunnel) ResourceSchemaAttributes() map[string]schema.Attribute
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesTunnel) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesTunnelDescrIPtion.IsNull() && !o.LeafInterfacesTunnelDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafInterfacesTunnelDescrIPtion.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelAddress.IsNull() && !o.LeafInterfacesTunnelAddress.IsUnknown() {
-		jsonData["address"] = o.LeafInterfacesTunnelAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelDisable.IsNull() && !o.LeafInterfacesTunnelDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafInterfacesTunnelDisable.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelDisableLinkDetect.IsNull() && !o.LeafInterfacesTunnelDisableLinkDetect.IsUnknown() {
-		jsonData["disable-link-detect"] = o.LeafInterfacesTunnelDisableLinkDetect.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelMtu.IsNull() && !o.LeafInterfacesTunnelMtu.IsUnknown() {
-		jsonData["mtu"] = o.LeafInterfacesTunnelMtu.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelSourceAddress.IsNull() && !o.LeafInterfacesTunnelSourceAddress.IsUnknown() {
-		jsonData["source-address"] = o.LeafInterfacesTunnelSourceAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelRemote.IsNull() && !o.LeafInterfacesTunnelRemote.IsUnknown() {
-		jsonData["remote"] = o.LeafInterfacesTunnelRemote.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelSourceInterface.IsNull() && !o.LeafInterfacesTunnelSourceInterface.IsUnknown() {
-		jsonData["source-interface"] = o.LeafInterfacesTunnelSourceInterface.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelSixrdPrefix.IsNull() && !o.LeafInterfacesTunnelSixrdPrefix.IsUnknown() {
-		jsonData["6rd-prefix"] = o.LeafInterfacesTunnelSixrdPrefix.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelSixrdRelayPrefix.IsNull() && !o.LeafInterfacesTunnelSixrdRelayPrefix.IsUnknown() {
-		jsonData["6rd-relay-prefix"] = o.LeafInterfacesTunnelSixrdRelayPrefix.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelEncapsulation.IsNull() && !o.LeafInterfacesTunnelEncapsulation.IsUnknown() {
-		jsonData["encapsulation"] = o.LeafInterfacesTunnelEncapsulation.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelEnableMulticast.IsNull() && !o.LeafInterfacesTunnelEnableMulticast.IsUnknown() {
-		jsonData["enable-multicast"] = o.LeafInterfacesTunnelEnableMulticast.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelVrf.IsNull() && !o.LeafInterfacesTunnelVrf.IsUnknown() {
-		jsonData["vrf"] = o.LeafInterfacesTunnelVrf.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelRedirect.IsNull() && !o.LeafInterfacesTunnelRedirect.IsUnknown() {
-		jsonData["redirect"] = o.LeafInterfacesTunnelRedirect.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesTunnelIP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesTunnelIP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ip"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesTunnelIPvsix).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesTunnelIPvsix)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipv6"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesTunnelMirror).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesTunnelMirror)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["mirror"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesTunnelParameters).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesTunnelParameters)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["parameters"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesTunnel) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafInterfacesTunnelDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafInterfacesTunnelAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafInterfacesTunnelDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable-link-detect"]; ok {
-		o.LeafInterfacesTunnelDisableLinkDetect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelDisableLinkDetect = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mtu"]; ok {
-		o.LeafInterfacesTunnelMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelMtu = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["source-address"]; ok {
-		o.LeafInterfacesTunnelSourceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelSourceAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["remote"]; ok {
-		o.LeafInterfacesTunnelRemote = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelRemote = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["source-interface"]; ok {
-		o.LeafInterfacesTunnelSourceInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelSourceInterface = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["6rd-prefix"]; ok {
-		o.LeafInterfacesTunnelSixrdPrefix = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelSixrdPrefix = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["6rd-relay-prefix"]; ok {
-		o.LeafInterfacesTunnelSixrdRelayPrefix = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelSixrdRelayPrefix = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["encapsulation"]; ok {
-		o.LeafInterfacesTunnelEncapsulation = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelEncapsulation = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["enable-multicast"]; ok {
-		o.LeafInterfacesTunnelEnableMulticast = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelEnableMulticast = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vrf"]; ok {
-		o.LeafInterfacesTunnelVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelVrf = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["redirect"]; ok {
-		o.LeafInterfacesTunnelRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelRedirect = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["ip"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesTunnelIP = &InterfacesTunnelIP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesTunnelIP)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ipv6"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesTunnelIPvsix = &InterfacesTunnelIPvsix{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesTunnelIPvsix)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["mirror"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesTunnelMirror = &InterfacesTunnelMirror{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesTunnelMirror)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["parameters"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesTunnelParameters = &InterfacesTunnelParameters{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesTunnelParameters)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesTunnel) UnmarshalJSON(_ []byte) error {
 	return nil
 }

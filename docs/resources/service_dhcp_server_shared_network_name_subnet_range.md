@@ -35,6 +35,12 @@ DHCP lease range
 ### Required
 
 - `identifier` (String) DHCP lease range
+- `shared_network_name_identifier` (String) Name of DHCP shared network
+- `subnet_identifier` (String) DHCP subnet for shared network
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 address and prefix length  |
 
 ### Optional
 

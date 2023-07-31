@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // HighAvailabilityVrrpGroup describes the resource data model.
@@ -16,17 +13,17 @@ type HighAvailabilityVrrpGroup struct {
 
 	// LeafNodes
 	LeafHighAvailabilityVrrpGroupInterface                          types.String `tfsdk:"interface" vyos:"interface,omitempty"`
-	LeafHighAvailabilityVrrpGroupAdvertiseInterval                  types.String `tfsdk:"advertise_interval" vyos:"advertise-interval,omitempty"`
+	LeafHighAvailabilityVrrpGroupAdvertiseInterval                  types.Number `tfsdk:"advertise_interval" vyos:"advertise-interval,omitempty"`
 	LeafHighAvailabilityVrrpGroupDescrIPtion                        types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafHighAvailabilityVrrpGroupDisable                            types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafHighAvailabilityVrrpGroupDisable                            types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafHighAvailabilityVrrpGroupHelloSourceAddress                 types.String `tfsdk:"hello_source_address" vyos:"hello-source-address,omitempty"`
 	LeafHighAvailabilityVrrpGroupPeerAddress                        types.String `tfsdk:"peer_address" vyos:"peer-address,omitempty"`
-	LeafHighAvailabilityVrrpGroupNoPreempt                          types.String `tfsdk:"no_preempt" vyos:"no-preempt,omitempty"`
-	LeafHighAvailabilityVrrpGroupPreemptDelay                       types.String `tfsdk:"preempt_delay" vyos:"preempt-delay,omitempty"`
-	LeafHighAvailabilityVrrpGroupPriority                           types.String `tfsdk:"priority" vyos:"priority,omitempty"`
-	LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility types.String `tfsdk:"rfc3768_compatibility" vyos:"rfc3768-compatibility,omitempty"`
-	LeafHighAvailabilityVrrpGroupExcludedAddress                    types.String `tfsdk:"excluded_address" vyos:"excluded-address,omitempty"`
-	LeafHighAvailabilityVrrpGroupVrID                               types.String `tfsdk:"vrid" vyos:"vrid,omitempty"`
+	LeafHighAvailabilityVrrpGroupNoPreempt                          types.Bool   `tfsdk:"no_preempt" vyos:"no-preempt,omitempty"`
+	LeafHighAvailabilityVrrpGroupPreemptDelay                       types.Number `tfsdk:"preempt_delay" vyos:"preempt-delay,omitempty"`
+	LeafHighAvailabilityVrrpGroupPriority                           types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
+	LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility types.Bool   `tfsdk:"rfc3768_compatibility" vyos:"rfc3768-compatibility,omitempty"`
+	LeafHighAvailabilityVrrpGroupExcludedAddress                    types.List   `tfsdk:"excluded_address" vyos:"excluded-address,omitempty"`
+	LeafHighAvailabilityVrrpGroupVrID                               types.Number `tfsdk:"vrid" vyos:"vrid,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagHighAvailabilityVrrpGroupAddress bool `tfsdk:"address" vyos:"address,child"`
@@ -43,7 +40,9 @@ type HighAvailabilityVrrpGroup struct {
 func (o *HighAvailabilityVrrpGroup) GetVyosPath() []string {
 	return []string{
 		"high-availability",
+
 		"vrrp",
+
 		"group",
 		o.ID.ValueString(),
 	}
@@ -72,7 +71,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 
-		"advertise_interval": schema.StringAttribute{
+		"advertise_interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise interval
 
@@ -97,11 +96,13 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"hello_source_address": schema.StringAttribute{
@@ -128,14 +129,16 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 
-		"no_preempt": schema.StringAttribute{
+		"no_preempt": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable master preemption
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"preempt_delay": schema.StringAttribute{
+		"preempt_delay": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Preempt delay (in seconds)
 
@@ -149,7 +152,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Computed: true,
 		},
 
-		"priority": schema.StringAttribute{
+		"priority": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Router priority
 
@@ -163,15 +166,18 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Computed: true,
 		},
 
-		"rfc3768_compatibility": schema.StringAttribute{
+		"rfc3768_compatibility": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use VRRP virtual MAC address as per RFC3768
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"excluded_address": schema.StringAttribute{
-			Optional: true,
+		"excluded_address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Virtual address (If you need additional IPv4 and IPv6 in same group)
 
     |  Format  |  Description  |
@@ -182,7 +188,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 
-		"vrid": schema.StringAttribute{
+		"vrid": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Virtual router identifier
 
@@ -239,286 +245,10 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *HighAvailabilityVrrpGroup) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafHighAvailabilityVrrpGroupInterface.IsNull() && !o.LeafHighAvailabilityVrrpGroupInterface.IsUnknown() {
-		jsonData["interface"] = o.LeafHighAvailabilityVrrpGroupInterface.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupAdvertiseInterval.IsNull() && !o.LeafHighAvailabilityVrrpGroupAdvertiseInterval.IsUnknown() {
-		jsonData["advertise-interval"] = o.LeafHighAvailabilityVrrpGroupAdvertiseInterval.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupDescrIPtion.IsNull() && !o.LeafHighAvailabilityVrrpGroupDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafHighAvailabilityVrrpGroupDescrIPtion.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupDisable.IsNull() && !o.LeafHighAvailabilityVrrpGroupDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafHighAvailabilityVrrpGroupDisable.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupHelloSourceAddress.IsNull() && !o.LeafHighAvailabilityVrrpGroupHelloSourceAddress.IsUnknown() {
-		jsonData["hello-source-address"] = o.LeafHighAvailabilityVrrpGroupHelloSourceAddress.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupPeerAddress.IsNull() && !o.LeafHighAvailabilityVrrpGroupPeerAddress.IsUnknown() {
-		jsonData["peer-address"] = o.LeafHighAvailabilityVrrpGroupPeerAddress.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupNoPreempt.IsNull() && !o.LeafHighAvailabilityVrrpGroupNoPreempt.IsUnknown() {
-		jsonData["no-preempt"] = o.LeafHighAvailabilityVrrpGroupNoPreempt.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupPreemptDelay.IsNull() && !o.LeafHighAvailabilityVrrpGroupPreemptDelay.IsUnknown() {
-		jsonData["preempt-delay"] = o.LeafHighAvailabilityVrrpGroupPreemptDelay.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupPriority.IsNull() && !o.LeafHighAvailabilityVrrpGroupPriority.IsUnknown() {
-		jsonData["priority"] = o.LeafHighAvailabilityVrrpGroupPriority.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility.IsNull() && !o.LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility.IsUnknown() {
-		jsonData["rfc3768-compatibility"] = o.LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupExcludedAddress.IsNull() && !o.LeafHighAvailabilityVrrpGroupExcludedAddress.IsUnknown() {
-		jsonData["excluded-address"] = o.LeafHighAvailabilityVrrpGroupExcludedAddress.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupVrID.IsNull() && !o.LeafHighAvailabilityVrrpGroupVrID.IsUnknown() {
-		jsonData["vrid"] = o.LeafHighAvailabilityVrrpGroupVrID.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeHighAvailabilityVrrpGroupGarp).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeHighAvailabilityVrrpGroupGarp)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["garp"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeHighAvailabilityVrrpGroupAuthentication).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeHighAvailabilityVrrpGroupAuthentication)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["authentication"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeHighAvailabilityVrrpGroupHealthCheck).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeHighAvailabilityVrrpGroupHealthCheck)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["health-check"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeHighAvailabilityVrrpGroupTrack).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeHighAvailabilityVrrpGroupTrack)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["track"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeHighAvailabilityVrrpGroupTransitionScrIPt).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeHighAvailabilityVrrpGroupTransitionScrIPt)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["transition-script"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *HighAvailabilityVrrpGroup) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["interface"]; ok {
-		o.LeafHighAvailabilityVrrpGroupInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupInterface = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["advertise-interval"]; ok {
-		o.LeafHighAvailabilityVrrpGroupAdvertiseInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupAdvertiseInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafHighAvailabilityVrrpGroupDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafHighAvailabilityVrrpGroupDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["hello-source-address"]; ok {
-		o.LeafHighAvailabilityVrrpGroupHelloSourceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupHelloSourceAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["peer-address"]; ok {
-		o.LeafHighAvailabilityVrrpGroupPeerAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupPeerAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["no-preempt"]; ok {
-		o.LeafHighAvailabilityVrrpGroupNoPreempt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupNoPreempt = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["preempt-delay"]; ok {
-		o.LeafHighAvailabilityVrrpGroupPreemptDelay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupPreemptDelay = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["priority"]; ok {
-		o.LeafHighAvailabilityVrrpGroupPriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupPriority = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rfc3768-compatibility"]; ok {
-		o.LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["excluded-address"]; ok {
-		o.LeafHighAvailabilityVrrpGroupExcludedAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupExcludedAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vrid"]; ok {
-		o.LeafHighAvailabilityVrrpGroupVrID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupVrID = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["garp"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeHighAvailabilityVrrpGroupGarp = &HighAvailabilityVrrpGroupGarp{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeHighAvailabilityVrrpGroupGarp)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["authentication"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeHighAvailabilityVrrpGroupAuthentication = &HighAvailabilityVrrpGroupAuthentication{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeHighAvailabilityVrrpGroupAuthentication)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["health-check"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeHighAvailabilityVrrpGroupHealthCheck = &HighAvailabilityVrrpGroupHealthCheck{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeHighAvailabilityVrrpGroupHealthCheck)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["track"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeHighAvailabilityVrrpGroupTrack = &HighAvailabilityVrrpGroupTrack{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeHighAvailabilityVrrpGroupTrack)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["transition-script"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeHighAvailabilityVrrpGroupTransitionScrIPt = &HighAvailabilityVrrpGroupTransitionScrIPt{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeHighAvailabilityVrrpGroupTransitionScrIPt)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *HighAvailabilityVrrpGroup) UnmarshalJSON(_ []byte) error {
 	return nil
 }

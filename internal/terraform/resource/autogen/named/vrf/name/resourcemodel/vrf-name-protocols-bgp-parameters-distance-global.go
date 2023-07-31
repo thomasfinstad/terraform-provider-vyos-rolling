@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpParametersDistanceGlobal describes the resource data model.
 type VrfNameProtocolsBgpParametersDistanceGlobal struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpParametersDistanceGlobalExternal types.String `tfsdk:"external" vyos:"external,omitempty"`
-	LeafVrfNameProtocolsBgpParametersDistanceGlobalInternal types.String `tfsdk:"internal" vyos:"internal,omitempty"`
-	LeafVrfNameProtocolsBgpParametersDistanceGlobalLocal    types.String `tfsdk:"local" vyos:"local,omitempty"`
+	LeafVrfNameProtocolsBgpParametersDistanceGlobalExternal types.Number `tfsdk:"external" vyos:"external,omitempty"`
+	LeafVrfNameProtocolsBgpParametersDistanceGlobalInternal types.Number `tfsdk:"internal" vyos:"internal,omitempty"`
+	LeafVrfNameProtocolsBgpParametersDistanceGlobalLocal    types.Number `tfsdk:"local" vyos:"local,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,7 +23,7 @@ func (o VrfNameProtocolsBgpParametersDistanceGlobal) ResourceSchemaAttributes() 
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"external": schema.StringAttribute{
+		"external": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Administrative distance for external BGP routes
 
@@ -37,7 +34,7 @@ func (o VrfNameProtocolsBgpParametersDistanceGlobal) ResourceSchemaAttributes() 
 `,
 		},
 
-		"internal": schema.StringAttribute{
+		"internal": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Administrative distance for internal BGP routes
 
@@ -48,7 +45,7 @@ func (o VrfNameProtocolsBgpParametersDistanceGlobal) ResourceSchemaAttributes() 
 `,
 		},
 
-		"local": schema.StringAttribute{
+		"local": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Administrative distance for local BGP routes
 
@@ -66,61 +63,10 @@ func (o VrfNameProtocolsBgpParametersDistanceGlobal) ResourceSchemaAttributes() 
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpParametersDistanceGlobal) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpParametersDistanceGlobalExternal.IsNull() && !o.LeafVrfNameProtocolsBgpParametersDistanceGlobalExternal.IsUnknown() {
-		jsonData["external"] = o.LeafVrfNameProtocolsBgpParametersDistanceGlobalExternal.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersDistanceGlobalInternal.IsNull() && !o.LeafVrfNameProtocolsBgpParametersDistanceGlobalInternal.IsUnknown() {
-		jsonData["internal"] = o.LeafVrfNameProtocolsBgpParametersDistanceGlobalInternal.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersDistanceGlobalLocal.IsNull() && !o.LeafVrfNameProtocolsBgpParametersDistanceGlobalLocal.IsUnknown() {
-		jsonData["local"] = o.LeafVrfNameProtocolsBgpParametersDistanceGlobalLocal.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpParametersDistanceGlobal) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["external"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersDistanceGlobalExternal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersDistanceGlobalExternal = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["internal"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersDistanceGlobalInternal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersDistanceGlobalInternal = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["local"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersDistanceGlobalLocal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersDistanceGlobalLocal = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpParametersDistanceGlobal) UnmarshalJSON(_ []byte) error {
 	return nil
 }

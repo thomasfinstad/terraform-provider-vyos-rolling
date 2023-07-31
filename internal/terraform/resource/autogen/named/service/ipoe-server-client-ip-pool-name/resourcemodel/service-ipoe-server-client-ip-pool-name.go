@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceIPoeServerClientIPPoolName describes the resource data model.
@@ -26,8 +23,11 @@ type ServiceIPoeServerClientIPPoolName struct {
 func (o *ServiceIPoeServerClientIPPoolName) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"ipoe-server",
+
 		"client-ip-pool",
+
 		"name",
 		o.ID.ValueString(),
 	}
@@ -78,51 +78,10 @@ func (o ServiceIPoeServerClientIPPoolName) ResourceSchemaAttributes() map[string
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceIPoeServerClientIPPoolName) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceIPoeServerClientIPPoolNameGatewayAddress.IsNull() && !o.LeafServiceIPoeServerClientIPPoolNameGatewayAddress.IsUnknown() {
-		jsonData["gateway-address"] = o.LeafServiceIPoeServerClientIPPoolNameGatewayAddress.ValueString()
-	}
-
-	if !o.LeafServiceIPoeServerClientIPPoolNameSubnet.IsNull() && !o.LeafServiceIPoeServerClientIPPoolNameSubnet.IsUnknown() {
-		jsonData["subnet"] = o.LeafServiceIPoeServerClientIPPoolNameSubnet.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceIPoeServerClientIPPoolName) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["gateway-address"]; ok {
-		o.LeafServiceIPoeServerClientIPPoolNameGatewayAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerClientIPPoolNameGatewayAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["subnet"]; ok {
-		o.LeafServiceIPoeServerClientIPPoolNameSubnet = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerClientIPPoolNameSubnet = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceIPoeServerClientIPPoolName) UnmarshalJSON(_ []byte) error {
 	return nil
 }

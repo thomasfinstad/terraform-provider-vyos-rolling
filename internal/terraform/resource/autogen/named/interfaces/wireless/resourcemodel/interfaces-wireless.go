@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesWireless describes the resource data model.
@@ -15,23 +12,23 @@ type InterfacesWireless struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafInterfacesWirelessAddress                types.String `tfsdk:"address" vyos:"address,omitempty"`
+	LeafInterfacesWirelessAddress                types.List   `tfsdk:"address" vyos:"address,omitempty"`
 	LeafInterfacesWirelessChannel                types.String `tfsdk:"channel" vyos:"channel,omitempty"`
 	LeafInterfacesWirelessCountryCode            types.String `tfsdk:"country_code" vyos:"country-code,omitempty"`
 	LeafInterfacesWirelessDescrIPtion            types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafInterfacesWirelessDisableBroadcastSsID   types.String `tfsdk:"disable_broadcast_ssid" vyos:"disable-broadcast-ssid,omitempty"`
-	LeafInterfacesWirelessDisableLinkDetect      types.String `tfsdk:"disable_link_detect" vyos:"disable-link-detect,omitempty"`
-	LeafInterfacesWirelessDisable                types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafInterfacesWirelessDisableBroadcastSsID   types.Bool   `tfsdk:"disable_broadcast_ssid" vyos:"disable-broadcast-ssid,omitempty"`
+	LeafInterfacesWirelessDisableLinkDetect      types.Bool   `tfsdk:"disable_link_detect" vyos:"disable-link-detect,omitempty"`
+	LeafInterfacesWirelessDisable                types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafInterfacesWirelessVrf                    types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
-	LeafInterfacesWirelessExpungeFailingStations types.String `tfsdk:"expunge_failing_stations" vyos:"expunge-failing-stations,omitempty"`
+	LeafInterfacesWirelessExpungeFailingStations types.Bool   `tfsdk:"expunge_failing_stations" vyos:"expunge-failing-stations,omitempty"`
 	LeafInterfacesWirelessHwID                   types.String `tfsdk:"hw_id" vyos:"hw-id,omitempty"`
-	LeafInterfacesWirelessIsolateStations        types.String `tfsdk:"isolate_stations" vyos:"isolate-stations,omitempty"`
+	LeafInterfacesWirelessIsolateStations        types.Bool   `tfsdk:"isolate_stations" vyos:"isolate-stations,omitempty"`
 	LeafInterfacesWirelessMac                    types.String `tfsdk:"mac" vyos:"mac,omitempty"`
-	LeafInterfacesWirelessMaxStations            types.String `tfsdk:"max_stations" vyos:"max-stations,omitempty"`
+	LeafInterfacesWirelessMaxStations            types.Number `tfsdk:"max_stations" vyos:"max-stations,omitempty"`
 	LeafInterfacesWirelessMgmtFrameProtection    types.String `tfsdk:"mgmt_frame_protection" vyos:"mgmt-frame-protection,omitempty"`
 	LeafInterfacesWirelessMode                   types.String `tfsdk:"mode" vyos:"mode,omitempty"`
 	LeafInterfacesWirelessPhysicalDevice         types.String `tfsdk:"physical_device" vyos:"physical-device,omitempty"`
-	LeafInterfacesWirelessReduceTransmitPower    types.String `tfsdk:"reduce_transmit_power" vyos:"reduce-transmit-power,omitempty"`
+	LeafInterfacesWirelessReduceTransmitPower    types.Number `tfsdk:"reduce_transmit_power" vyos:"reduce-transmit-power,omitempty"`
 	LeafInterfacesWirelessSsID                   types.String `tfsdk:"ssid" vyos:"ssid,omitempty"`
 	LeafInterfacesWirelessType                   types.String `tfsdk:"type" vyos:"type,omitempty"`
 	LeafInterfacesWirelessRedirect               types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
@@ -54,6 +51,7 @@ type InterfacesWireless struct {
 func (o *InterfacesWireless) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"wireless",
 		o.ID.ValueString(),
 	}
@@ -75,8 +73,9 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 
 		// LeafNodes
 
-		"address": schema.StringAttribute{
-			Optional: true,
+		"address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address
 
     |  Format  |  Description  |
@@ -127,25 +126,31 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 
-		"disable_broadcast_ssid": schema.StringAttribute{
+		"disable_broadcast_ssid": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable broadcast of SSID from access-point
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"disable_link_detect": schema.StringAttribute{
+		"disable_link_detect": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ignore link state changes
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"vrf": schema.StringAttribute{
@@ -159,11 +164,13 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 
-		"expunge_failing_stations": schema.StringAttribute{
+		"expunge_failing_stations": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disassociate stations based on excessive transmission failures
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"hw_id": schema.StringAttribute{
@@ -177,11 +184,13 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 
-		"isolate_stations": schema.StringAttribute{
+		"isolate_stations": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Isolate stations on the AP so they cannot see each other
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"mac": schema.StringAttribute{
@@ -195,7 +204,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 
-		"max_stations": schema.StringAttribute{
+		"max_stations": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum number of wireless radio stations. Excess stations will be rejected upon authentication request.
 
@@ -250,7 +259,7 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 			Computed: true,
 		},
 
-		"reduce_transmit_power": schema.StringAttribute{
+		"reduce_transmit_power": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Transmission power reduction in dBm
 
@@ -357,420 +366,10 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesWireless) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesWirelessAddress.IsNull() && !o.LeafInterfacesWirelessAddress.IsUnknown() {
-		jsonData["address"] = o.LeafInterfacesWirelessAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessChannel.IsNull() && !o.LeafInterfacesWirelessChannel.IsUnknown() {
-		jsonData["channel"] = o.LeafInterfacesWirelessChannel.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessCountryCode.IsNull() && !o.LeafInterfacesWirelessCountryCode.IsUnknown() {
-		jsonData["country-code"] = o.LeafInterfacesWirelessCountryCode.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessDescrIPtion.IsNull() && !o.LeafInterfacesWirelessDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafInterfacesWirelessDescrIPtion.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessDisableBroadcastSsID.IsNull() && !o.LeafInterfacesWirelessDisableBroadcastSsID.IsUnknown() {
-		jsonData["disable-broadcast-ssid"] = o.LeafInterfacesWirelessDisableBroadcastSsID.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessDisableLinkDetect.IsNull() && !o.LeafInterfacesWirelessDisableLinkDetect.IsUnknown() {
-		jsonData["disable-link-detect"] = o.LeafInterfacesWirelessDisableLinkDetect.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessDisable.IsNull() && !o.LeafInterfacesWirelessDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafInterfacesWirelessDisable.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessVrf.IsNull() && !o.LeafInterfacesWirelessVrf.IsUnknown() {
-		jsonData["vrf"] = o.LeafInterfacesWirelessVrf.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessExpungeFailingStations.IsNull() && !o.LeafInterfacesWirelessExpungeFailingStations.IsUnknown() {
-		jsonData["expunge-failing-stations"] = o.LeafInterfacesWirelessExpungeFailingStations.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessHwID.IsNull() && !o.LeafInterfacesWirelessHwID.IsUnknown() {
-		jsonData["hw-id"] = o.LeafInterfacesWirelessHwID.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessIsolateStations.IsNull() && !o.LeafInterfacesWirelessIsolateStations.IsUnknown() {
-		jsonData["isolate-stations"] = o.LeafInterfacesWirelessIsolateStations.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessMac.IsNull() && !o.LeafInterfacesWirelessMac.IsUnknown() {
-		jsonData["mac"] = o.LeafInterfacesWirelessMac.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessMaxStations.IsNull() && !o.LeafInterfacesWirelessMaxStations.IsUnknown() {
-		jsonData["max-stations"] = o.LeafInterfacesWirelessMaxStations.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessMgmtFrameProtection.IsNull() && !o.LeafInterfacesWirelessMgmtFrameProtection.IsUnknown() {
-		jsonData["mgmt-frame-protection"] = o.LeafInterfacesWirelessMgmtFrameProtection.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessMode.IsNull() && !o.LeafInterfacesWirelessMode.IsUnknown() {
-		jsonData["mode"] = o.LeafInterfacesWirelessMode.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessPhysicalDevice.IsNull() && !o.LeafInterfacesWirelessPhysicalDevice.IsUnknown() {
-		jsonData["physical-device"] = o.LeafInterfacesWirelessPhysicalDevice.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessReduceTransmitPower.IsNull() && !o.LeafInterfacesWirelessReduceTransmitPower.IsUnknown() {
-		jsonData["reduce-transmit-power"] = o.LeafInterfacesWirelessReduceTransmitPower.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessSsID.IsNull() && !o.LeafInterfacesWirelessSsID.IsUnknown() {
-		jsonData["ssid"] = o.LeafInterfacesWirelessSsID.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessType.IsNull() && !o.LeafInterfacesWirelessType.IsUnknown() {
-		jsonData["type"] = o.LeafInterfacesWirelessType.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessRedirect.IsNull() && !o.LeafInterfacesWirelessRedirect.IsUnknown() {
-		jsonData["redirect"] = o.LeafInterfacesWirelessRedirect.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesWirelessCapabilities).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessCapabilities)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["capabilities"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesWirelessDhcpOptions).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessDhcpOptions)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["dhcp-options"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesWirelessDhcpvsixOptions).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessDhcpvsixOptions)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["dhcpv6-options"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesWirelessIP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessIP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ip"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesWirelessIPvsix).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessIPvsix)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipv6"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesWirelessMirror).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessMirror)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["mirror"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesWirelessSecURIty).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessSecURIty)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["security"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWireless) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafInterfacesWirelessAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["channel"]; ok {
-		o.LeafInterfacesWirelessChannel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessChannel = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["country-code"]; ok {
-		o.LeafInterfacesWirelessCountryCode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCountryCode = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafInterfacesWirelessDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable-broadcast-ssid"]; ok {
-		o.LeafInterfacesWirelessDisableBroadcastSsID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessDisableBroadcastSsID = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable-link-detect"]; ok {
-		o.LeafInterfacesWirelessDisableLinkDetect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessDisableLinkDetect = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafInterfacesWirelessDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vrf"]; ok {
-		o.LeafInterfacesWirelessVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVrf = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["expunge-failing-stations"]; ok {
-		o.LeafInterfacesWirelessExpungeFailingStations = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessExpungeFailingStations = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["hw-id"]; ok {
-		o.LeafInterfacesWirelessHwID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessHwID = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["isolate-stations"]; ok {
-		o.LeafInterfacesWirelessIsolateStations = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessIsolateStations = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mac"]; ok {
-		o.LeafInterfacesWirelessMac = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessMac = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["max-stations"]; ok {
-		o.LeafInterfacesWirelessMaxStations = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessMaxStations = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mgmt-frame-protection"]; ok {
-		o.LeafInterfacesWirelessMgmtFrameProtection = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessMgmtFrameProtection = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mode"]; ok {
-		o.LeafInterfacesWirelessMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessMode = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["physical-device"]; ok {
-		o.LeafInterfacesWirelessPhysicalDevice = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessPhysicalDevice = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["reduce-transmit-power"]; ok {
-		o.LeafInterfacesWirelessReduceTransmitPower = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessReduceTransmitPower = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ssid"]; ok {
-		o.LeafInterfacesWirelessSsID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessSsID = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["type"]; ok {
-		o.LeafInterfacesWirelessType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["redirect"]; ok {
-		o.LeafInterfacesWirelessRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessRedirect = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["capabilities"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWirelessCapabilities = &InterfacesWirelessCapabilities{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessCapabilities)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["dhcp-options"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWirelessDhcpOptions = &InterfacesWirelessDhcpOptions{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessDhcpOptions)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["dhcpv6-options"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWirelessDhcpvsixOptions = &InterfacesWirelessDhcpvsixOptions{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessDhcpvsixOptions)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ip"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWirelessIP = &InterfacesWirelessIP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessIP)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ipv6"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWirelessIPvsix = &InterfacesWirelessIPvsix{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessIPvsix)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["mirror"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWirelessMirror = &InterfacesWirelessMirror{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessMirror)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["security"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWirelessSecURIty = &InterfacesWirelessSecURIty{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessSecURIty)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesWireless) UnmarshalJSON(_ []byte) error {
 	return nil
 }

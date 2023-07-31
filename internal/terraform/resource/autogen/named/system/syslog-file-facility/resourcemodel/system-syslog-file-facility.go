@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemSyslogFileFacility describes the resource data model.
 type SystemSyslogFileFacility struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDSystemSyslogFile any `tfsdk:"file" vyos:"file,parent-id"`
+	ParentIDSystemSyslogFile types.String `tfsdk:"file" vyos:"file_identifier,parent-id"`
 
 	// LeafNodes
 	LeafSystemSyslogFileFacilityLevel types.String `tfsdk:"level" vyos:"level,omitempty"`
@@ -27,8 +24,12 @@ type SystemSyslogFileFacility struct {
 func (o *SystemSyslogFileFacility) GetVyosPath() []string {
 	return []string{
 		"system",
+
 		"syslog",
+
 		"file",
+		o.ParentIDSystemSyslogFile.ValueString(),
+
 		"facility",
 		o.ID.ValueString(),
 	}
@@ -70,6 +71,13 @@ func (o SystemSyslogFileFacility) ResourceSchemaAttributes() map[string]schema.A
 `,
 		},
 
+		"file_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Logging to a file
+
+`,
+		},
+
 		// LeafNodes
 
 		"level": schema.StringAttribute{
@@ -98,41 +106,10 @@ func (o SystemSyslogFileFacility) ResourceSchemaAttributes() map[string]schema.A
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemSyslogFileFacility) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafSystemSyslogFileFacilityLevel.IsNull() && !o.LeafSystemSyslogFileFacilityLevel.IsUnknown() {
-		jsonData["level"] = o.LeafSystemSyslogFileFacilityLevel.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemSyslogFileFacility) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["level"]; ok {
-		o.LeafSystemSyslogFileFacilityLevel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemSyslogFileFacilityLevel = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *SystemSyslogFileFacility) UnmarshalJSON(_ []byte) error {
 	return nil
 }

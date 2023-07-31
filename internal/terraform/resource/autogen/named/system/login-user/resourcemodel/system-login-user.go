@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemLoginUser describes the resource data model.
@@ -28,7 +24,9 @@ type SystemLoginUser struct {
 func (o *SystemLoginUser) GetVyosPath() []string {
 	return []string{
 		"system",
+
 		"login",
+
 		"user",
 		o.ID.ValueString(),
 	}
@@ -74,78 +72,10 @@ func (o SystemLoginUser) ResourceSchemaAttributes() map[string]schema.Attribute 
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemLoginUser) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafSystemLoginUserFullName.IsNull() && !o.LeafSystemLoginUserFullName.IsUnknown() {
-		jsonData["full-name"] = o.LeafSystemLoginUserFullName.ValueString()
-	}
-
-	if !o.LeafSystemLoginUserHomeDirectory.IsNull() && !o.LeafSystemLoginUserHomeDirectory.IsUnknown() {
-		jsonData["home-directory"] = o.LeafSystemLoginUserHomeDirectory.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeSystemLoginUserAuthentication).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeSystemLoginUserAuthentication)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["authentication"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemLoginUser) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["full-name"]; ok {
-		o.LeafSystemLoginUserFullName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginUserFullName = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["home-directory"]; ok {
-		o.LeafSystemLoginUserHomeDirectory = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginUserHomeDirectory = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["authentication"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeSystemLoginUserAuthentication = &SystemLoginUserAuthentication{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeSystemLoginUserAuthentication)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *SystemLoginUser) UnmarshalJSON(_ []byte) error {
 	return nil
 }

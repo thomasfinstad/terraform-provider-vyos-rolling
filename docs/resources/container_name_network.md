@@ -24,6 +24,7 @@ Attach user defined network to container
 ### Required
 
 - `identifier` (String) Attach user defined network to container
+- `name_identifier` (String) Container name
 
 ### Optional
 

@@ -27,6 +27,7 @@ Specifies the oid
 ### Required
 
 - `identifier` (String) Specifies the oid
+- `view_identifier` (String) Specifies the view with name viewname
 
 ### Optional
 

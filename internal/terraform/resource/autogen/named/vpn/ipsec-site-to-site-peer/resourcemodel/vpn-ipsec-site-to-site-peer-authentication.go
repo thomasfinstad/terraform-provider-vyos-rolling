@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnIPsecSiteToSitePeerAuthentication describes the resource data model.
@@ -16,7 +13,7 @@ type VpnIPsecSiteToSitePeerAuthentication struct {
 	LeafVpnIPsecSiteToSitePeerAuthenticationLocalID            types.String `tfsdk:"local_id" vyos:"local-id,omitempty"`
 	LeafVpnIPsecSiteToSitePeerAuthenticationMode               types.String `tfsdk:"mode" vyos:"mode,omitempty"`
 	LeafVpnIPsecSiteToSitePeerAuthenticationRemoteID           types.String `tfsdk:"remote_id" vyos:"remote-id,omitempty"`
-	LeafVpnIPsecSiteToSitePeerAuthenticationUseXfivezeronineID types.String `tfsdk:"use_x509_id" vyos:"use-x509-id,omitempty"`
+	LeafVpnIPsecSiteToSitePeerAuthenticationUseXfivezeronineID types.Bool   `tfsdk:"use_x509_id" vyos:"use-x509-id,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -68,11 +65,13 @@ func (o VpnIPsecSiteToSitePeerAuthentication) ResourceSchemaAttributes() map[str
 			Computed: true,
 		},
 
-		"use_x509_id": schema.StringAttribute{
+		"use_x509_id": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use certificate common name as ID
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -97,125 +96,10 @@ func (o VpnIPsecSiteToSitePeerAuthentication) ResourceSchemaAttributes() map[str
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnIPsecSiteToSitePeerAuthentication) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnIPsecSiteToSitePeerAuthenticationLocalID.IsNull() && !o.LeafVpnIPsecSiteToSitePeerAuthenticationLocalID.IsUnknown() {
-		jsonData["local-id"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationLocalID.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerAuthenticationMode.IsNull() && !o.LeafVpnIPsecSiteToSitePeerAuthenticationMode.IsUnknown() {
-		jsonData["mode"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationMode.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerAuthenticationRemoteID.IsNull() && !o.LeafVpnIPsecSiteToSitePeerAuthenticationRemoteID.IsUnknown() {
-		jsonData["remote-id"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationRemoteID.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerAuthenticationUseXfivezeronineID.IsNull() && !o.LeafVpnIPsecSiteToSitePeerAuthenticationUseXfivezeronineID.IsUnknown() {
-		jsonData["use-x509-id"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationUseXfivezeronineID.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVpnIPsecSiteToSitePeerAuthenticationRsa).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVpnIPsecSiteToSitePeerAuthenticationRsa)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["rsa"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVpnIPsecSiteToSitePeerAuthenticationXfivezeronine).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVpnIPsecSiteToSitePeerAuthenticationXfivezeronine)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["x509"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnIPsecSiteToSitePeerAuthentication) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["local-id"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationLocalID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationLocalID = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mode"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationMode = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["remote-id"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationRemoteID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationRemoteID = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["use-x509-id"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationUseXfivezeronineID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationUseXfivezeronineID = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["rsa"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVpnIPsecSiteToSitePeerAuthenticationRsa = &VpnIPsecSiteToSitePeerAuthenticationRsa{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVpnIPsecSiteToSitePeerAuthenticationRsa)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["x509"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVpnIPsecSiteToSitePeerAuthenticationXfivezeronine = &VpnIPsecSiteToSitePeerAuthenticationXfivezeronine{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVpnIPsecSiteToSitePeerAuthenticationXfivezeronine)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VpnIPsecSiteToSitePeerAuthentication) UnmarshalJSON(_ []byte) error {
 	return nil
 }

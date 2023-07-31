@@ -2,19 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyAccessListRule describes the resource data model.
 type PolicyAccessListRule struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDPolicyAccessList any `tfsdk:"access_list" vyos:"access-list,parent-id"`
+	ParentIDPolicyAccessList types.String `tfsdk:"access_list" vyos:"access-list_identifier,parent-id"`
 
 	// LeafNodes
 	LeafPolicyAccessListRuleAction      types.String `tfsdk:"action" vyos:"action,omitempty"`
@@ -31,9 +27,12 @@ type PolicyAccessListRule struct {
 func (o *PolicyAccessListRule) GetVyosPath() []string {
 	return []string{
 		"policy",
+
 		"access-list",
+		o.ParentIDPolicyAccessList.ValueString(),
+
 		"rule",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -47,6 +46,20 @@ func (o PolicyAccessListRule) ResourceSchemaAttributes() map[string]schema.Attri
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Access-list rule number  |
+
+`,
+		},
+
+		"access_list_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `IP access-list filter
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-99  |  IP standard access list  |
+    |  u32:100-199  |  IP extended access list  |
+    |  u32:1300-1999  |  IP standard access list (expanded range)  |
+    |  u32:2000-2699  |  IP extended access list (expanded range)  |
 
 `,
 		},
@@ -98,105 +111,10 @@ func (o PolicyAccessListRule) ResourceSchemaAttributes() map[string]schema.Attri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyAccessListRule) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyAccessListRuleAction.IsNull() && !o.LeafPolicyAccessListRuleAction.IsUnknown() {
-		jsonData["action"] = o.LeafPolicyAccessListRuleAction.ValueString()
-	}
-
-	if !o.LeafPolicyAccessListRuleDescrIPtion.IsNull() && !o.LeafPolicyAccessListRuleDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafPolicyAccessListRuleDescrIPtion.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodePolicyAccessListRuleDestination).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyAccessListRuleDestination)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["destination"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyAccessListRuleSource).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyAccessListRuleSource)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["source"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyAccessListRule) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["action"]; ok {
-		o.LeafPolicyAccessListRuleAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyAccessListRuleAction = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafPolicyAccessListRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyAccessListRuleDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["destination"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyAccessListRuleDestination = &PolicyAccessListRuleDestination{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyAccessListRuleDestination)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["source"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyAccessListRuleSource = &PolicyAccessListRuleSource{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyAccessListRuleSource)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *PolicyAccessListRule) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -33,7 +33,7 @@ Secure Socket Tunneling Protocol (SSTP) client Interface
 ### Optional
 
 - `authentication` (Attributes) Authentication settings (see [below for nested schema](#nestedatt--authentication))
-- `default_route_distance` (String) Distance for installed default route
+- `default_route_distance` (Number) Distance for installed default route
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -43,15 +43,15 @@ Secure Socket Tunneling Protocol (SSTP) client Interface
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `disable` (String) Administratively disable interface
-- `mtu` (String) Maximum Transmission Unit (MTU)
+- `disable` (Boolean) Administratively disable interface
+- `mtu` (Number) Maximum Transmission Unit (MTU)
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:68-1500  |  Maximum Transmission Unit in byte  |
-- `no_default_route` (String) Do not install default route to system
-- `no_peer_dns` (String) Do not use DNS servers provided by the peer
-- `port` (String) Port number used by connection
+- `no_default_route` (Boolean) Do not install default route to system
+- `no_peer_dns` (Boolean) Do not use DNS servers provided by the peer
+- `port` (Number) Port number used by connection
 
     |  Format  |  Description  |
     |----------|---------------|

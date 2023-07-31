@@ -42,7 +42,7 @@ Tunnel for NHRP
     |  txt  |  Pass phrase for cisco authentication  |
 - `holding_time` (String) Holding time in seconds
 - `multicast` (String) Set multicast for NHRP
-- `non_caching` (String) This can be used to reduce memory consumption on big NBMA subnets
-- `redirect` (String) Enable sending of Cisco style NHRP Traffic Indication packets
-- `shortcut` (String) Enable creation of shortcut routes. A received NHRP Traffic Indication will trigger the resolution and establishment of a shortcut route
-- `shortcut_destination` (String) This instructs opennhrp to reply with authorative answers on NHRP Resolution Requests destined to addresses in this interface
+- `non_caching` (Boolean) This can be used to reduce memory consumption on big NBMA subnets
+- `redirect` (Boolean) Enable sending of Cisco style NHRP Traffic Indication packets
+- `shortcut` (Boolean) Enable creation of shortcut routes. A received NHRP Traffic Indication will trigger the resolution and establishment of a shortcut route
+- `shortcut_destination` (Boolean) This instructs opennhrp to reply with authorative answers on NHRP Resolution Requests destined to addresses in this interface

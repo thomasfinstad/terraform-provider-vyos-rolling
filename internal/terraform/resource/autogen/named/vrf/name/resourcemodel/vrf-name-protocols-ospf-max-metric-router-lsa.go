@@ -2,19 +2,17 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfMaxMetricRouterLsa describes the resource data model.
 type VrfNameProtocolsOspfMaxMetricRouterLsa struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfMaxMetricRouterLsaAdministrative types.String `tfsdk:"administrative" vyos:"administrative,omitempty"`
-	LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnShutdown     types.String `tfsdk:"on_shutdown" vyos:"on-shutdown,omitempty"`
-	LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnStartup      types.String `tfsdk:"on_startup" vyos:"on-startup,omitempty"`
+	LeafVrfNameProtocolsOspfMaxMetricRouterLsaAdministrative types.Bool   `tfsdk:"administrative" vyos:"administrative,omitempty"`
+	LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnShutdown     types.Number `tfsdk:"on_shutdown" vyos:"on-shutdown,omitempty"`
+	LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnStartup      types.Number `tfsdk:"on_startup" vyos:"on-startup,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,14 +24,16 @@ func (o VrfNameProtocolsOspfMaxMetricRouterLsa) ResourceSchemaAttributes() map[s
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"administrative": schema.StringAttribute{
+		"administrative": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively apply, for an indefinite period
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"on_shutdown": schema.StringAttribute{
+		"on_shutdown": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise stub-router prior to full shutdown of OSPF
 
@@ -44,7 +44,7 @@ func (o VrfNameProtocolsOspfMaxMetricRouterLsa) ResourceSchemaAttributes() map[s
 `,
 		},
 
-		"on_startup": schema.StringAttribute{
+		"on_startup": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Automatically advertise stub Router-LSA on startup of OSPF
 
@@ -62,61 +62,10 @@ func (o VrfNameProtocolsOspfMaxMetricRouterLsa) ResourceSchemaAttributes() map[s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfMaxMetricRouterLsa) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaAdministrative.IsNull() && !o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaAdministrative.IsUnknown() {
-		jsonData["administrative"] = o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaAdministrative.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnShutdown.IsNull() && !o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnShutdown.IsUnknown() {
-		jsonData["on-shutdown"] = o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnShutdown.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnStartup.IsNull() && !o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnStartup.IsUnknown() {
-		jsonData["on-startup"] = o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnStartup.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfMaxMetricRouterLsa) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["administrative"]; ok {
-		o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaAdministrative = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaAdministrative = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["on-shutdown"]; ok {
-		o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnShutdown = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnShutdown = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["on-startup"]; ok {
-		o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnStartup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnStartup = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfMaxMetricRouterLsa) UnmarshalJSON(_ []byte) error {
 	return nil
 }

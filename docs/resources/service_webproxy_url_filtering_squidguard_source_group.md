@@ -41,7 +41,7 @@ Source group name
 
 ### Optional
 
-- `address` (String) Address for source-group
+- `address` (List of String) Address for source-group
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -49,11 +49,11 @@ Source group name
     |  ipv4net  |  IPv4 prefix to match  |
     |  ipv4range  |  IPv4 address range to match  |
 - `description` (String) Description for source-group
-- `domain` (String) Domain for source-group
+- `domain` (List of String) Domain for source-group
 
     |  Format  |  Description  |
     |----------|---------------|
     |  domain  |  Domain name for the source-group  |
-- `ldap_ip_search` (String) LDAP search expression for an IP address list
-- `ldap_user_search` (String) LDAP search expression for a user group
+- `ldap_ip_search` (List of String) LDAP search expression for an IP address list
+- `ldap_user_search` (List of String) LDAP search expression for a user group
 - `user` (String) List of user names

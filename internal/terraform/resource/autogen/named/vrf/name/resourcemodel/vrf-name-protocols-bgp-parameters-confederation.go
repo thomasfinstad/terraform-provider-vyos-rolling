@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpParametersConfederation describes the resource data model.
 type VrfNameProtocolsBgpParametersConfederation struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpParametersConfederationIDentifier types.String `tfsdk:"identifier" vyos:"identifier,omitempty"`
-	LeafVrfNameProtocolsBgpParametersConfederationPeers      types.String `tfsdk:"peers" vyos:"peers,omitempty"`
+	LeafVrfNameProtocolsBgpParametersConfederationIDentifier types.Number `tfsdk:"identifier" vyos:"identifier,omitempty"`
+	LeafVrfNameProtocolsBgpParametersConfederationPeers      types.List   `tfsdk:"peers" vyos:"peers,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +22,7 @@ func (o VrfNameProtocolsBgpParametersConfederation) ResourceSchemaAttributes() m
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"identifier": schema.StringAttribute{
+		"identifier": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Confederation AS identifier
 
@@ -36,8 +33,9 @@ func (o VrfNameProtocolsBgpParametersConfederation) ResourceSchemaAttributes() m
 `,
 		},
 
-		"peers": schema.StringAttribute{
-			Optional: true,
+		"peers": schema.ListAttribute{
+			ElementType: types.NumberType,
+			Optional:    true,
 			MarkdownDescription: `Peer ASs in the BGP confederation
 
     |  Format  |  Description  |
@@ -54,51 +52,10 @@ func (o VrfNameProtocolsBgpParametersConfederation) ResourceSchemaAttributes() m
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpParametersConfederation) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpParametersConfederationIDentifier.IsNull() && !o.LeafVrfNameProtocolsBgpParametersConfederationIDentifier.IsUnknown() {
-		jsonData["identifier"] = o.LeafVrfNameProtocolsBgpParametersConfederationIDentifier.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersConfederationPeers.IsNull() && !o.LeafVrfNameProtocolsBgpParametersConfederationPeers.IsUnknown() {
-		jsonData["peers"] = o.LeafVrfNameProtocolsBgpParametersConfederationPeers.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpParametersConfederation) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["identifier"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersConfederationIDentifier = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersConfederationIDentifier = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["peers"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersConfederationPeers = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersConfederationPeers = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpParametersConfederation) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemSyslogConsoleFacility describes the resource data model.
@@ -25,8 +22,11 @@ type SystemSyslogConsoleFacility struct {
 func (o *SystemSyslogConsoleFacility) GetVyosPath() []string {
 	return []string{
 		"system",
+
 		"syslog",
+
 		"console",
+
 		"facility",
 		o.ID.ValueString(),
 	}
@@ -96,41 +96,10 @@ func (o SystemSyslogConsoleFacility) ResourceSchemaAttributes() map[string]schem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemSyslogConsoleFacility) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafSystemSyslogConsoleFacilityLevel.IsNull() && !o.LeafSystemSyslogConsoleFacilityLevel.IsUnknown() {
-		jsonData["level"] = o.LeafSystemSyslogConsoleFacilityLevel.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemSyslogConsoleFacility) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["level"]; ok {
-		o.LeafSystemSyslogConsoleFacilityLevel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemSyslogConsoleFacilityLevel = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *SystemSyslogConsoleFacility) UnmarshalJSON(_ []byte) error {
 	return nil
 }

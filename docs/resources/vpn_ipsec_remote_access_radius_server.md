@@ -44,10 +44,10 @@ RADIUS server configuration
 
 ### Optional
 
-- `disable` (String) Disable instance
-- `disable_accounting` (String) Disable accounting
+- `disable` (Boolean) Disable instance
+- `disable_accounting` (Boolean) Disable accounting
 - `key` (String) Shared secret key
-- `port` (String) Authentication port
+- `port` (Number) Authentication port
 
     |  Format  |  Description  |
     |----------|---------------|

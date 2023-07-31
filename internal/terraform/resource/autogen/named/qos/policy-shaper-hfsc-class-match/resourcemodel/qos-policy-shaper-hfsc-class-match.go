@@ -2,27 +2,23 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyShaperHfscClassMatch describes the resource data model.
 type QosPolicyShaperHfscClassMatch struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDQosPolicyShaperHfsc any `tfsdk:"shaper_hfsc" vyos:"shaper-hfsc,parent-id"`
+	ParentIDQosPolicyShaperHfsc types.String `tfsdk:"shaper_hfsc" vyos:"shaper-hfsc_identifier,parent-id"`
 
-	ParentIDQosPolicyShaperHfscClass any `tfsdk:"class" vyos:"class,parent-id"`
+	ParentIDQosPolicyShaperHfscClass types.String `tfsdk:"class" vyos:"class_identifier,parent-id"`
 
 	// LeafNodes
 	LeafQosPolicyShaperHfscClassMatchDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafQosPolicyShaperHfscClassMatchInterface   types.String `tfsdk:"interface" vyos:"interface,omitempty"`
-	LeafQosPolicyShaperHfscClassMatchMark        types.String `tfsdk:"mark" vyos:"mark,omitempty"`
-	LeafQosPolicyShaperHfscClassMatchVif         types.String `tfsdk:"vif" vyos:"vif,omitempty"`
+	LeafQosPolicyShaperHfscClassMatchMark        types.Number `tfsdk:"mark" vyos:"mark,omitempty"`
+	LeafQosPolicyShaperHfscClassMatchVif         types.Number `tfsdk:"vif" vyos:"vif,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -36,9 +32,15 @@ type QosPolicyShaperHfscClassMatch struct {
 func (o *QosPolicyShaperHfscClassMatch) GetVyosPath() []string {
 	return []string{
 		"qos",
+
 		"policy",
+
 		"shaper-hfsc",
+		o.ParentIDQosPolicyShaperHfsc.ValueString(),
+
 		"class",
+		o.ParentIDQosPolicyShaperHfscClass.ValueString(),
+
 		"match",
 		o.ID.ValueString(),
 	}
@@ -50,6 +52,28 @@ func (o QosPolicyShaperHfscClassMatch) ResourceSchemaAttributes() map[string]sch
 		"identifier": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Class matching rule name
+
+`,
+		},
+
+		"shaper_hfsc_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Hierarchical Fair Service Curve's policy
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
+
+`,
+		},
+
+		"class_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Class ID
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4095  |  Class Identifier  |
 
 `,
 		},
@@ -78,7 +102,7 @@ func (o QosPolicyShaperHfscClassMatch) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 
-		"mark": schema.StringAttribute{
+		"mark": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Match on mark applied by firewall
 
@@ -89,7 +113,7 @@ func (o QosPolicyShaperHfscClassMatch) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 
-		"vif": schema.StringAttribute{
+		"vif": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Virtual Local Area Network (VLAN) ID for this match
 
@@ -130,152 +154,10 @@ func (o QosPolicyShaperHfscClassMatch) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyShaperHfscClassMatch) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyShaperHfscClassMatchDescrIPtion.IsNull() && !o.LeafQosPolicyShaperHfscClassMatchDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafQosPolicyShaperHfscClassMatchDescrIPtion.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperHfscClassMatchInterface.IsNull() && !o.LeafQosPolicyShaperHfscClassMatchInterface.IsUnknown() {
-		jsonData["interface"] = o.LeafQosPolicyShaperHfscClassMatchInterface.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperHfscClassMatchMark.IsNull() && !o.LeafQosPolicyShaperHfscClassMatchMark.IsUnknown() {
-		jsonData["mark"] = o.LeafQosPolicyShaperHfscClassMatchMark.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperHfscClassMatchVif.IsNull() && !o.LeafQosPolicyShaperHfscClassMatchVif.IsUnknown() {
-		jsonData["vif"] = o.LeafQosPolicyShaperHfscClassMatchVif.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeQosPolicyShaperHfscClassMatchEther).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyShaperHfscClassMatchEther)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ether"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeQosPolicyShaperHfscClassMatchIP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyShaperHfscClassMatchIP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ip"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeQosPolicyShaperHfscClassMatchIPvsix).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyShaperHfscClassMatchIPvsix)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipv6"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyShaperHfscClassMatch) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafQosPolicyShaperHfscClassMatchDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassMatchDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["interface"]; ok {
-		o.LeafQosPolicyShaperHfscClassMatchInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassMatchInterface = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mark"]; ok {
-		o.LeafQosPolicyShaperHfscClassMatchMark = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassMatchMark = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vif"]; ok {
-		o.LeafQosPolicyShaperHfscClassMatchVif = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassMatchVif = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["ether"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyShaperHfscClassMatchEther = &QosPolicyShaperHfscClassMatchEther{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyShaperHfscClassMatchEther)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ip"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyShaperHfscClassMatchIP = &QosPolicyShaperHfscClassMatchIP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyShaperHfscClassMatchIP)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ipv6"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyShaperHfscClassMatchIPvsix = &QosPolicyShaperHfscClassMatchIPvsix{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyShaperHfscClassMatchIPvsix)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *QosPolicyShaperHfscClassMatch) UnmarshalJSON(_ []byte) error {
 	return nil
 }

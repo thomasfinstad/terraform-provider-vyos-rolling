@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsNhrpTunnelShortcutTarget describes the resource data model.
 type ProtocolsNhrpTunnelShortcutTarget struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDProtocolsNhrpTunnel any `tfsdk:"tunnel" vyos:"tunnel,parent-id"`
+	ParentIDProtocolsNhrpTunnel types.String `tfsdk:"tunnel" vyos:"tunnel_identifier,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsNhrpTunnelShortcutTargetHoldingTime types.String `tfsdk:"holding_time" vyos:"holding-time,omitempty"`
@@ -27,8 +24,12 @@ type ProtocolsNhrpTunnelShortcutTarget struct {
 func (o *ProtocolsNhrpTunnelShortcutTarget) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"nhrp",
+
 		"tunnel",
+		o.ParentIDProtocolsNhrpTunnel.ValueString(),
+
 		"shortcut-target",
 		o.ID.ValueString(),
 	}
@@ -40,6 +41,17 @@ func (o ProtocolsNhrpTunnelShortcutTarget) ResourceSchemaAttributes() map[string
 		"identifier": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Defines an off-NBMA network prefix for which the GRE interface will act as a gateway
+
+`,
+		},
+
+		"tunnel_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Tunnel for NHRP
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  tunN  |  NHRP tunnel name  |
 
 `,
 		},
@@ -60,41 +72,10 @@ func (o ProtocolsNhrpTunnelShortcutTarget) ResourceSchemaAttributes() map[string
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsNhrpTunnelShortcutTarget) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsNhrpTunnelShortcutTargetHoldingTime.IsNull() && !o.LeafProtocolsNhrpTunnelShortcutTargetHoldingTime.IsUnknown() {
-		jsonData["holding-time"] = o.LeafProtocolsNhrpTunnelShortcutTargetHoldingTime.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsNhrpTunnelShortcutTarget) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["holding-time"]; ok {
-		o.LeafProtocolsNhrpTunnelShortcutTargetHoldingTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsNhrpTunnelShortcutTargetHoldingTime = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsNhrpTunnelShortcutTarget) UnmarshalJSON(_ []byte) error {
 	return nil
 }

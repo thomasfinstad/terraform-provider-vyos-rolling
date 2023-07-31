@@ -55,7 +55,7 @@ System serial interface name (ttyS or ttyUSB)
 
 Optional:
 
-- `port` (String) Port number used by connection
+- `port` (Number) Port number used by connection
 
     |  Format  |  Description  |
     |----------|---------------|

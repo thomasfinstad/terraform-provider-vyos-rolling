@@ -41,13 +41,13 @@ Unique ID for each UDP port to forward
     |----------|---------------|
     |  ipv4  |  Optional source address for forwarded packets  |
 - `description` (String) Description
-- `disable` (String) Disable instance
-- `interface` (String) Interface to use
+- `disable` (Boolean) Disable instance
+- `interface` (List of String) Interface to use
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Interface name  |
-- `port` (String) Port number used by connection
+- `port` (Number) Port number used by connection
 
     |  Format  |  Description  |
     |----------|---------------|

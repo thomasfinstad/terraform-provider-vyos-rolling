@@ -2,20 +2,17 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesMacsecSecURIty describes the resource data model.
 type InterfacesMacsecSecURIty struct {
 	// LeafNodes
 	LeafInterfacesMacsecSecURItyCIPher       types.String `tfsdk:"cipher" vyos:"cipher,omitempty"`
-	LeafInterfacesMacsecSecURItyEncrypt      types.String `tfsdk:"encrypt" vyos:"encrypt,omitempty"`
-	LeafInterfacesMacsecSecURItyReplayWindow types.String `tfsdk:"replay_window" vyos:"replay-window,omitempty"`
+	LeafInterfacesMacsecSecURItyEncrypt      types.Bool   `tfsdk:"encrypt" vyos:"encrypt,omitempty"`
+	LeafInterfacesMacsecSecURItyReplayWindow types.Number `tfsdk:"replay_window" vyos:"replay-window,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -40,14 +37,16 @@ func (o InterfacesMacsecSecURIty) ResourceSchemaAttributes() map[string]schema.A
 `,
 		},
 
-		"encrypt": schema.StringAttribute{
+		"encrypt": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable optional MACsec encryption
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"replay_window": schema.StringAttribute{
+		"replay_window": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `IEEE 802.1X/MACsec replay protection window
 
@@ -73,88 +72,10 @@ func (o InterfacesMacsecSecURIty) ResourceSchemaAttributes() map[string]schema.A
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesMacsecSecURIty) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesMacsecSecURItyCIPher.IsNull() && !o.LeafInterfacesMacsecSecURItyCIPher.IsUnknown() {
-		jsonData["cipher"] = o.LeafInterfacesMacsecSecURItyCIPher.ValueString()
-	}
-
-	if !o.LeafInterfacesMacsecSecURItyEncrypt.IsNull() && !o.LeafInterfacesMacsecSecURItyEncrypt.IsUnknown() {
-		jsonData["encrypt"] = o.LeafInterfacesMacsecSecURItyEncrypt.ValueString()
-	}
-
-	if !o.LeafInterfacesMacsecSecURItyReplayWindow.IsNull() && !o.LeafInterfacesMacsecSecURItyReplayWindow.IsUnknown() {
-		jsonData["replay-window"] = o.LeafInterfacesMacsecSecURItyReplayWindow.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesMacsecSecURItyMka).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesMacsecSecURItyMka)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["mka"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesMacsecSecURIty) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["cipher"]; ok {
-		o.LeafInterfacesMacsecSecURItyCIPher = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesMacsecSecURItyCIPher = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["encrypt"]; ok {
-		o.LeafInterfacesMacsecSecURItyEncrypt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesMacsecSecURItyEncrypt = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["replay-window"]; ok {
-		o.LeafInterfacesMacsecSecURItyReplayWindow = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesMacsecSecURItyReplayWindow = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["mka"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesMacsecSecURItyMka = &InterfacesMacsecSecURItyMka{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesMacsecSecURItyMka)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesMacsecSecURIty) UnmarshalJSON(_ []byte) error {
 	return nil
 }

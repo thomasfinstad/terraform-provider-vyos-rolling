@@ -32,6 +32,11 @@ Zone from which to filter traffic
 ### Required
 
 - `identifier` (String) Zone from which to filter traffic
+- `zone_identifier` (String) Zone-policy
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Zone name  |
 
 ### Optional
 

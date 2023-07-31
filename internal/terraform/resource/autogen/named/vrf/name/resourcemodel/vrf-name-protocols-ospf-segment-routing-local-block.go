@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfSegmentRoutingLocalBlock describes the resource data model.
 type VrfNameProtocolsOspfSegmentRoutingLocalBlock struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfSegmentRoutingLocalBlockLowLabelValue  types.String `tfsdk:"low_label_value" vyos:"low-label-value,omitempty"`
-	LeafVrfNameProtocolsOspfSegmentRoutingLocalBlockHighLabelValue types.String `tfsdk:"high_label_value" vyos:"high-label-value,omitempty"`
+	LeafVrfNameProtocolsOspfSegmentRoutingLocalBlockLowLabelValue  types.Number `tfsdk:"low_label_value" vyos:"low-label-value,omitempty"`
+	LeafVrfNameProtocolsOspfSegmentRoutingLocalBlockHighLabelValue types.Number `tfsdk:"high_label_value" vyos:"high-label-value,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +22,7 @@ func (o VrfNameProtocolsOspfSegmentRoutingLocalBlock) ResourceSchemaAttributes()
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"low_label_value": schema.StringAttribute{
+		"low_label_value": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `MPLS label lower bound
 
@@ -36,7 +33,7 @@ func (o VrfNameProtocolsOspfSegmentRoutingLocalBlock) ResourceSchemaAttributes()
 `,
 		},
 
-		"high_label_value": schema.StringAttribute{
+		"high_label_value": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `MPLS label upper bound
 
@@ -54,51 +51,10 @@ func (o VrfNameProtocolsOspfSegmentRoutingLocalBlock) ResourceSchemaAttributes()
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfSegmentRoutingLocalBlock) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfSegmentRoutingLocalBlockLowLabelValue.IsNull() && !o.LeafVrfNameProtocolsOspfSegmentRoutingLocalBlockLowLabelValue.IsUnknown() {
-		jsonData["low-label-value"] = o.LeafVrfNameProtocolsOspfSegmentRoutingLocalBlockLowLabelValue.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfSegmentRoutingLocalBlockHighLabelValue.IsNull() && !o.LeafVrfNameProtocolsOspfSegmentRoutingLocalBlockHighLabelValue.IsUnknown() {
-		jsonData["high-label-value"] = o.LeafVrfNameProtocolsOspfSegmentRoutingLocalBlockHighLabelValue.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfSegmentRoutingLocalBlock) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["low-label-value"]; ok {
-		o.LeafVrfNameProtocolsOspfSegmentRoutingLocalBlockLowLabelValue = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfSegmentRoutingLocalBlockLowLabelValue = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["high-label-value"]; ok {
-		o.LeafVrfNameProtocolsOspfSegmentRoutingLocalBlockHighLabelValue = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfSegmentRoutingLocalBlockHighLabelValue = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfSegmentRoutingLocalBlock) UnmarshalJSON(_ []byte) error {
 	return nil
 }

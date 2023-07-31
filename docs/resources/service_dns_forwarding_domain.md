@@ -27,9 +27,9 @@ Domain to forward to a custom DNS server
 
 ### Optional
 
-- `addnta` (String) Add NTA (negative trust anchor) for this domain (must be set if the domain does not support DNSSEC)
-- `recursion_desired` (String) Set the "recursion desired" bit in requests to the upstream nameserver
-- `server` (String) Domain Name Server (DNS) to forward queries to
+- `addnta` (Boolean) Add NTA (negative trust anchor) for this domain (must be set if the domain does not support DNSSEC)
+- `recursion_desired` (Boolean) Set the "recursion desired" bit in requests to the upstream nameserver
+- `server` (List of String) Domain Name Server (DNS) to forward queries to
 
     |  Format  |  Description  |
     |----------|---------------|

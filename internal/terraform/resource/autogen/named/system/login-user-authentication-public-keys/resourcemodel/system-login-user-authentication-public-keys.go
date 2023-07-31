@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemLoginUserAuthenticationPublicKeys describes the resource data model.
 type SystemLoginUserAuthenticationPublicKeys struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDSystemLoginUser any `tfsdk:"user" vyos:"user,parent-id"`
+	ParentIDSystemLoginUser types.String `tfsdk:"user" vyos:"user_identifier,parent-id"`
 
 	// LeafNodes
 	LeafSystemLoginUserAuthenticationPublicKeysKey     types.String `tfsdk:"key" vyos:"key,omitempty"`
@@ -29,9 +26,14 @@ type SystemLoginUserAuthenticationPublicKeys struct {
 func (o *SystemLoginUserAuthenticationPublicKeys) GetVyosPath() []string {
 	return []string{
 		"system",
+
 		"login",
+
 		"user",
+		o.ParentIDSystemLoginUser.ValueString(),
+
 		"authentication",
+
 		"public-keys",
 		o.ID.ValueString(),
 	}
@@ -47,6 +49,13 @@ func (o SystemLoginUserAuthenticationPublicKeys) ResourceSchemaAttributes() map[
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Key identifier used by ssh-keygen (usually of form user@host)  |
+
+`,
+		},
+
+		"user_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Local user account information
 
 `,
 		},
@@ -92,61 +101,10 @@ func (o SystemLoginUserAuthenticationPublicKeys) ResourceSchemaAttributes() map[
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemLoginUserAuthenticationPublicKeys) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafSystemLoginUserAuthenticationPublicKeysKey.IsNull() && !o.LeafSystemLoginUserAuthenticationPublicKeysKey.IsUnknown() {
-		jsonData["key"] = o.LeafSystemLoginUserAuthenticationPublicKeysKey.ValueString()
-	}
-
-	if !o.LeafSystemLoginUserAuthenticationPublicKeysOptions.IsNull() && !o.LeafSystemLoginUserAuthenticationPublicKeysOptions.IsUnknown() {
-		jsonData["options"] = o.LeafSystemLoginUserAuthenticationPublicKeysOptions.ValueString()
-	}
-
-	if !o.LeafSystemLoginUserAuthenticationPublicKeysType.IsNull() && !o.LeafSystemLoginUserAuthenticationPublicKeysType.IsUnknown() {
-		jsonData["type"] = o.LeafSystemLoginUserAuthenticationPublicKeysType.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemLoginUserAuthenticationPublicKeys) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["key"]; ok {
-		o.LeafSystemLoginUserAuthenticationPublicKeysKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginUserAuthenticationPublicKeysKey = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["options"]; ok {
-		o.LeafSystemLoginUserAuthenticationPublicKeysOptions = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginUserAuthenticationPublicKeysOptions = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["type"]; ok {
-		o.LeafSystemLoginUserAuthenticationPublicKeysType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginUserAuthenticationPublicKeysType = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *SystemLoginUserAuthenticationPublicKeys) UnmarshalJSON(_ []byte) error {
 	return nil
 }

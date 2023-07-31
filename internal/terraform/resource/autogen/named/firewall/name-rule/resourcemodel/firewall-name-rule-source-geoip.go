@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallNameRuleSourceGeoIP describes the resource data model.
 type FirewallNameRuleSourceGeoIP struct {
 	// LeafNodes
-	LeafFirewallNameRuleSourceGeoIPCountryCode  types.String `tfsdk:"country_code" vyos:"country-code,omitempty"`
-	LeafFirewallNameRuleSourceGeoIPInverseMatch types.String `tfsdk:"inverse_match" vyos:"inverse-match,omitempty"`
+	LeafFirewallNameRuleSourceGeoIPCountryCode  types.List `tfsdk:"country_code" vyos:"country-code,omitempty"`
+	LeafFirewallNameRuleSourceGeoIPInverseMatch types.Bool `tfsdk:"inverse_match" vyos:"inverse-match,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,8 +23,9 @@ func (o FirewallNameRuleSourceGeoIP) ResourceSchemaAttributes() map[string]schem
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"country_code": schema.StringAttribute{
-			Optional: true,
+		"country_code": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `GeoIP country code
 
     |  Format  |  Description  |
@@ -36,11 +35,13 @@ func (o FirewallNameRuleSourceGeoIP) ResourceSchemaAttributes() map[string]schem
 `,
 		},
 
-		"inverse_match": schema.StringAttribute{
+		"inverse_match": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Inverse match of country-codes
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -50,51 +51,10 @@ func (o FirewallNameRuleSourceGeoIP) ResourceSchemaAttributes() map[string]schem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallNameRuleSourceGeoIP) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallNameRuleSourceGeoIPCountryCode.IsNull() && !o.LeafFirewallNameRuleSourceGeoIPCountryCode.IsUnknown() {
-		jsonData["country-code"] = o.LeafFirewallNameRuleSourceGeoIPCountryCode.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleSourceGeoIPInverseMatch.IsNull() && !o.LeafFirewallNameRuleSourceGeoIPInverseMatch.IsUnknown() {
-		jsonData["inverse-match"] = o.LeafFirewallNameRuleSourceGeoIPInverseMatch.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallNameRuleSourceGeoIP) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["country-code"]; ok {
-		o.LeafFirewallNameRuleSourceGeoIPCountryCode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleSourceGeoIPCountryCode = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["inverse-match"]; ok {
-		o.LeafFirewallNameRuleSourceGeoIPInverseMatch = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleSourceGeoIPInverseMatch = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallNameRuleSourceGeoIP) UnmarshalJSON(_ []byte) error {
 	return nil
 }

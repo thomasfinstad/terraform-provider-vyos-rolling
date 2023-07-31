@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallNameRuleIcmp describes the resource data model.
 type FirewallNameRuleIcmp struct {
 	// LeafNodes
-	LeafFirewallNameRuleIcmpCode     types.String `tfsdk:"code" vyos:"code,omitempty"`
-	LeafFirewallNameRuleIcmpType     types.String `tfsdk:"type" vyos:"type,omitempty"`
+	LeafFirewallNameRuleIcmpCode     types.Number `tfsdk:"code" vyos:"code,omitempty"`
+	LeafFirewallNameRuleIcmpType     types.Number `tfsdk:"type" vyos:"type,omitempty"`
 	LeafFirewallNameRuleIcmpTypeName types.String `tfsdk:"type_name" vyos:"type-name,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -26,7 +23,7 @@ func (o FirewallNameRuleIcmp) ResourceSchemaAttributes() map[string]schema.Attri
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"code": schema.StringAttribute{
+		"code": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `ICMP code
 
@@ -37,7 +34,7 @@ func (o FirewallNameRuleIcmp) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 
-		"type": schema.StringAttribute{
+		"type": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `ICMP type
 
@@ -80,61 +77,10 @@ func (o FirewallNameRuleIcmp) ResourceSchemaAttributes() map[string]schema.Attri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallNameRuleIcmp) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallNameRuleIcmpCode.IsNull() && !o.LeafFirewallNameRuleIcmpCode.IsUnknown() {
-		jsonData["code"] = o.LeafFirewallNameRuleIcmpCode.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleIcmpType.IsNull() && !o.LeafFirewallNameRuleIcmpType.IsUnknown() {
-		jsonData["type"] = o.LeafFirewallNameRuleIcmpType.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleIcmpTypeName.IsNull() && !o.LeafFirewallNameRuleIcmpTypeName.IsUnknown() {
-		jsonData["type-name"] = o.LeafFirewallNameRuleIcmpTypeName.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallNameRuleIcmp) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["code"]; ok {
-		o.LeafFirewallNameRuleIcmpCode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleIcmpCode = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["type"]; ok {
-		o.LeafFirewallNameRuleIcmpType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleIcmpType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["type-name"]; ok {
-		o.LeafFirewallNameRuleIcmpTypeName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleIcmpTypeName = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallNameRuleIcmp) UnmarshalJSON(_ []byte) error {
 	return nil
 }

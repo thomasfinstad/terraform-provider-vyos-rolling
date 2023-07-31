@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ContainerNameDevice describes the resource data model.
 type ContainerNameDevice struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDContainerName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDContainerName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
 	// LeafNodes
 	LeafContainerNameDeviceSource      types.String `tfsdk:"source" vyos:"source,omitempty"`
@@ -28,7 +25,10 @@ type ContainerNameDevice struct {
 func (o *ContainerNameDevice) GetVyosPath() []string {
 	return []string{
 		"container",
+
 		"name",
+		o.ParentIDContainerName.ValueString(),
+
 		"device",
 		o.ID.ValueString(),
 	}
@@ -40,6 +40,13 @@ func (o ContainerNameDevice) ResourceSchemaAttributes() map[string]schema.Attrib
 		"identifier": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Add a host device to the container
+
+`,
+		},
+
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Container name
 
 `,
 		},
@@ -75,51 +82,10 @@ func (o ContainerNameDevice) ResourceSchemaAttributes() map[string]schema.Attrib
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ContainerNameDevice) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafContainerNameDeviceSource.IsNull() && !o.LeafContainerNameDeviceSource.IsUnknown() {
-		jsonData["source"] = o.LeafContainerNameDeviceSource.ValueString()
-	}
-
-	if !o.LeafContainerNameDeviceDestination.IsNull() && !o.LeafContainerNameDeviceDestination.IsUnknown() {
-		jsonData["destination"] = o.LeafContainerNameDeviceDestination.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ContainerNameDevice) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["source"]; ok {
-		o.LeafContainerNameDeviceSource = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameDeviceSource = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["destination"]; ok {
-		o.LeafContainerNameDeviceDestination = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameDeviceDestination = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ContainerNameDevice) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -29,6 +29,11 @@ peer alias
 ### Required
 
 - `identifier` (String) peer alias
+- `wireguard_identifier` (String) WireGuard Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  wgN  |  WireGuard interface name  |
 
 ### Optional
 
@@ -38,14 +43,14 @@ peer alias
     |----------|---------------|
     |  ipv4  |  IPv4 address of remote tunnel endpoint  |
     |  ipv6  |  IPv6 address of remote tunnel endpoint  |
-- `allowed_ips` (String) IP addresses allowed to traverse the peer
-- `disable` (String) Disable instance
-- `persistent_keepalive` (String) Interval to send keepalive messages
+- `allowed_ips` (List of String) IP addresses allowed to traverse the peer
+- `disable` (Boolean) Disable instance
+- `persistent_keepalive` (Number) Interval to send keepalive messages
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Interval in seconds  |
-- `port` (String) Port number used by connection
+- `port` (Number) Port number used by connection
 
     |  Format  |  Description  |
     |----------|---------------|

@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // LoadBalancingWanInterfaceHealth describes the resource data model.
@@ -14,9 +11,9 @@ type LoadBalancingWanInterfaceHealth struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafLoadBalancingWanInterfaceHealthFailureCount types.String `tfsdk:"failure_count" vyos:"failure-count,omitempty"`
+	LeafLoadBalancingWanInterfaceHealthFailureCount types.Number `tfsdk:"failure_count" vyos:"failure-count,omitempty"`
 	LeafLoadBalancingWanInterfaceHealthNexthop      types.String `tfsdk:"nexthop" vyos:"nexthop,omitempty"`
-	LeafLoadBalancingWanInterfaceHealthSuccessCount types.String `tfsdk:"success_count" vyos:"success-count,omitempty"`
+	LeafLoadBalancingWanInterfaceHealthSuccessCount types.Number `tfsdk:"success_count" vyos:"success-count,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagLoadBalancingWanInterfaceHealthTest bool `tfsdk:"test" vyos:"test,child"`
@@ -28,7 +25,9 @@ type LoadBalancingWanInterfaceHealth struct {
 func (o *LoadBalancingWanInterfaceHealth) GetVyosPath() []string {
 	return []string{
 		"load-balancing",
+
 		"wan",
+
 		"interface-health",
 		o.ID.ValueString(),
 	}
@@ -46,7 +45,7 @@ func (o LoadBalancingWanInterfaceHealth) ResourceSchemaAttributes() map[string]s
 
 		// LeafNodes
 
-		"failure_count": schema.StringAttribute{
+		"failure_count": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Failure count
 
@@ -69,7 +68,7 @@ func (o LoadBalancingWanInterfaceHealth) ResourceSchemaAttributes() map[string]s
 `,
 		},
 
-		"success_count": schema.StringAttribute{
+		"success_count": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Success count
 
@@ -87,61 +86,10 @@ func (o LoadBalancingWanInterfaceHealth) ResourceSchemaAttributes() map[string]s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *LoadBalancingWanInterfaceHealth) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafLoadBalancingWanInterfaceHealthFailureCount.IsNull() && !o.LeafLoadBalancingWanInterfaceHealthFailureCount.IsUnknown() {
-		jsonData["failure-count"] = o.LeafLoadBalancingWanInterfaceHealthFailureCount.ValueString()
-	}
-
-	if !o.LeafLoadBalancingWanInterfaceHealthNexthop.IsNull() && !o.LeafLoadBalancingWanInterfaceHealthNexthop.IsUnknown() {
-		jsonData["nexthop"] = o.LeafLoadBalancingWanInterfaceHealthNexthop.ValueString()
-	}
-
-	if !o.LeafLoadBalancingWanInterfaceHealthSuccessCount.IsNull() && !o.LeafLoadBalancingWanInterfaceHealthSuccessCount.IsUnknown() {
-		jsonData["success-count"] = o.LeafLoadBalancingWanInterfaceHealthSuccessCount.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *LoadBalancingWanInterfaceHealth) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["failure-count"]; ok {
-		o.LeafLoadBalancingWanInterfaceHealthFailureCount = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanInterfaceHealthFailureCount = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["nexthop"]; ok {
-		o.LeafLoadBalancingWanInterfaceHealthNexthop = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanInterfaceHealthNexthop = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["success-count"]; ok {
-		o.LeafLoadBalancingWanInterfaceHealthSuccessCount = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanInterfaceHealthSuccessCount = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *LoadBalancingWanInterfaceHealth) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpParametersBestpathMed describes the resource data model.
 type VrfNameProtocolsBgpParametersBestpathMed struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpParametersBestpathMedConfed         types.String `tfsdk:"confed" vyos:"confed,omitempty"`
-	LeafVrfNameProtocolsBgpParametersBestpathMedMissingAsWorst types.String `tfsdk:"missing_as_worst" vyos:"missing-as-worst,omitempty"`
+	LeafVrfNameProtocolsBgpParametersBestpathMedConfed         types.Bool `tfsdk:"confed" vyos:"confed,omitempty"`
+	LeafVrfNameProtocolsBgpParametersBestpathMedMissingAsWorst types.Bool `tfsdk:"missing_as_worst" vyos:"missing-as-worst,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,18 +23,22 @@ func (o VrfNameProtocolsBgpParametersBestpathMed) ResourceSchemaAttributes() map
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"confed": schema.StringAttribute{
+		"confed": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Compare MEDs among confederation paths
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"missing_as_worst": schema.StringAttribute{
+		"missing_as_worst": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Treat missing route as a MED as the least preferred one
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -46,51 +48,10 @@ func (o VrfNameProtocolsBgpParametersBestpathMed) ResourceSchemaAttributes() map
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpParametersBestpathMed) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpParametersBestpathMedConfed.IsNull() && !o.LeafVrfNameProtocolsBgpParametersBestpathMedConfed.IsUnknown() {
-		jsonData["confed"] = o.LeafVrfNameProtocolsBgpParametersBestpathMedConfed.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersBestpathMedMissingAsWorst.IsNull() && !o.LeafVrfNameProtocolsBgpParametersBestpathMedMissingAsWorst.IsUnknown() {
-		jsonData["missing-as-worst"] = o.LeafVrfNameProtocolsBgpParametersBestpathMedMissingAsWorst.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpParametersBestpathMed) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["confed"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersBestpathMedConfed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersBestpathMedConfed = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["missing-as-worst"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersBestpathMedMissingAsWorst = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersBestpathMedMissingAsWorst = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpParametersBestpathMed) UnmarshalJSON(_ []byte) error {
 	return nil
 }

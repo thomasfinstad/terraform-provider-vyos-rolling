@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBabelDistributeListIPvsixInterfaceAccessList describes the resource data model.
 type ProtocolsBabelDistributeListIPvsixInterfaceAccessList struct {
 	// LeafNodes
-	LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn  types.String `tfsdk:"in" vyos:"in,omitempty"`
-	LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut types.String `tfsdk:"out" vyos:"out,omitempty"`
+	LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn  types.Number `tfsdk:"in" vyos:"in,omitempty"`
+	LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut types.Number `tfsdk:"out" vyos:"out,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +22,7 @@ func (o ProtocolsBabelDistributeListIPvsixInterfaceAccessList) ResourceSchemaAtt
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"in": schema.StringAttribute{
+		"in": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Access list to apply to input packets
 
@@ -36,7 +33,7 @@ func (o ProtocolsBabelDistributeListIPvsixInterfaceAccessList) ResourceSchemaAtt
 `,
 		},
 
-		"out": schema.StringAttribute{
+		"out": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Access list to apply to output packets
 
@@ -54,51 +51,10 @@ func (o ProtocolsBabelDistributeListIPvsixInterfaceAccessList) ResourceSchemaAtt
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBabelDistributeListIPvsixInterfaceAccessList) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn.IsNull() && !o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn.IsUnknown() {
-		jsonData["in"] = o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn.ValueString()
-	}
-
-	if !o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut.IsNull() && !o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut.IsUnknown() {
-		jsonData["out"] = o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBabelDistributeListIPvsixInterfaceAccessList) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["in"]; ok {
-		o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["out"]; ok {
-		o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBabelDistributeListIPvsixInterfaceAccessList) UnmarshalJSON(_ []byte) error {
 	return nil
 }

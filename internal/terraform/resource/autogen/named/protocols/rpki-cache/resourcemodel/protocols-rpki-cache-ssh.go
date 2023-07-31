@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsRpkiCacheTCP describes the resource data model.
@@ -66,71 +63,10 @@ func (o ProtocolsRpkiCacheTCP) ResourceSchemaAttributes() map[string]schema.Attr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsRpkiCacheTCP) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsRpkiCacheTCPKnownHostsFile.IsNull() && !o.LeafProtocolsRpkiCacheTCPKnownHostsFile.IsUnknown() {
-		jsonData["known-hosts-file"] = o.LeafProtocolsRpkiCacheTCPKnownHostsFile.ValueString()
-	}
-
-	if !o.LeafProtocolsRpkiCacheTCPPrivateKeyFile.IsNull() && !o.LeafProtocolsRpkiCacheTCPPrivateKeyFile.IsUnknown() {
-		jsonData["private-key-file"] = o.LeafProtocolsRpkiCacheTCPPrivateKeyFile.ValueString()
-	}
-
-	if !o.LeafProtocolsRpkiCacheTCPPublicKeyFile.IsNull() && !o.LeafProtocolsRpkiCacheTCPPublicKeyFile.IsUnknown() {
-		jsonData["public-key-file"] = o.LeafProtocolsRpkiCacheTCPPublicKeyFile.ValueString()
-	}
-
-	if !o.LeafProtocolsRpkiCacheTCPUsername.IsNull() && !o.LeafProtocolsRpkiCacheTCPUsername.IsUnknown() {
-		jsonData["username"] = o.LeafProtocolsRpkiCacheTCPUsername.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsRpkiCacheTCP) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["known-hosts-file"]; ok {
-		o.LeafProtocolsRpkiCacheTCPKnownHostsFile = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsRpkiCacheTCPKnownHostsFile = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["private-key-file"]; ok {
-		o.LeafProtocolsRpkiCacheTCPPrivateKeyFile = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsRpkiCacheTCPPrivateKeyFile = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["public-key-file"]; ok {
-		o.LeafProtocolsRpkiCacheTCPPublicKeyFile = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsRpkiCacheTCPPublicKeyFile = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["username"]; ok {
-		o.LeafProtocolsRpkiCacheTCPUsername = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsRpkiCacheTCPUsername = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsRpkiCacheTCP) UnmarshalJSON(_ []byte) error {
 	return nil
 }

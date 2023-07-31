@@ -41,7 +41,7 @@ BGP network
 
 ### Optional
 
-- `backdoor` (String) Network as a backdoor route
+- `backdoor` (Boolean) Network as a backdoor route
 - `route_map` (String) Specify route-map name to use
 
     |  Format  |  Description  |

@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpTimers describes the resource data model.
 type VrfNameProtocolsBgpTimers struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpTimersHoldtime  types.String `tfsdk:"holdtime" vyos:"holdtime,omitempty"`
-	LeafVrfNameProtocolsBgpTimersKeepalive types.String `tfsdk:"keepalive" vyos:"keepalive,omitempty"`
+	LeafVrfNameProtocolsBgpTimersKeepalive types.Number `tfsdk:"keepalive" vyos:"keepalive,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -37,7 +34,7 @@ func (o VrfNameProtocolsBgpTimers) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 
-		"keepalive": schema.StringAttribute{
+		"keepalive": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP keepalive interval for this neighbor
 
@@ -55,51 +52,10 @@ func (o VrfNameProtocolsBgpTimers) ResourceSchemaAttributes() map[string]schema.
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpTimers) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpTimersHoldtime.IsNull() && !o.LeafVrfNameProtocolsBgpTimersHoldtime.IsUnknown() {
-		jsonData["holdtime"] = o.LeafVrfNameProtocolsBgpTimersHoldtime.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpTimersKeepalive.IsNull() && !o.LeafVrfNameProtocolsBgpTimersKeepalive.IsUnknown() {
-		jsonData["keepalive"] = o.LeafVrfNameProtocolsBgpTimersKeepalive.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpTimers) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["holdtime"]; ok {
-		o.LeafVrfNameProtocolsBgpTimersHoldtime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpTimersHoldtime = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["keepalive"]; ok {
-		o.LeafVrfNameProtocolsBgpTimersKeepalive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpTimersKeepalive = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpTimers) UnmarshalJSON(_ []byte) error {
 	return nil
 }

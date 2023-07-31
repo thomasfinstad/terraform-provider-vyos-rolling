@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceRouterAdvertInterfaceInterval describes the resource data model.
 type ServiceRouterAdvertInterfaceInterval struct {
 	// LeafNodes
-	LeafServiceRouterAdvertInterfaceIntervalMax types.String `tfsdk:"max" vyos:"max,omitempty"`
-	LeafServiceRouterAdvertInterfaceIntervalMin types.String `tfsdk:"min" vyos:"min,omitempty"`
+	LeafServiceRouterAdvertInterfaceIntervalMax types.Number `tfsdk:"max" vyos:"max,omitempty"`
+	LeafServiceRouterAdvertInterfaceIntervalMin types.Number `tfsdk:"min" vyos:"min,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +22,7 @@ func (o ServiceRouterAdvertInterfaceInterval) ResourceSchemaAttributes() map[str
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"max": schema.StringAttribute{
+		"max": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum interval between unsolicited multicast RAs
 
@@ -39,7 +36,7 @@ func (o ServiceRouterAdvertInterfaceInterval) ResourceSchemaAttributes() map[str
 			Computed: true,
 		},
 
-		"min": schema.StringAttribute{
+		"min": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum interval between unsolicited multicast RAs
 
@@ -57,51 +54,10 @@ func (o ServiceRouterAdvertInterfaceInterval) ResourceSchemaAttributes() map[str
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceRouterAdvertInterfaceInterval) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceRouterAdvertInterfaceIntervalMax.IsNull() && !o.LeafServiceRouterAdvertInterfaceIntervalMax.IsUnknown() {
-		jsonData["max"] = o.LeafServiceRouterAdvertInterfaceIntervalMax.ValueString()
-	}
-
-	if !o.LeafServiceRouterAdvertInterfaceIntervalMin.IsNull() && !o.LeafServiceRouterAdvertInterfaceIntervalMin.IsUnknown() {
-		jsonData["min"] = o.LeafServiceRouterAdvertInterfaceIntervalMin.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceRouterAdvertInterfaceInterval) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["max"]; ok {
-		o.LeafServiceRouterAdvertInterfaceIntervalMax = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceIntervalMax = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["min"]; ok {
-		o.LeafServiceRouterAdvertInterfaceIntervalMin = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceIntervalMin = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceRouterAdvertInterfaceInterval) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesOpenvpnEncryption describes the resource data model.
 type InterfacesOpenvpnEncryption struct {
 	// LeafNodes
 	LeafInterfacesOpenvpnEncryptionCIPher     types.String `tfsdk:"cipher" vyos:"cipher,omitempty"`
-	LeafInterfacesOpenvpnEncryptionNcpCIPhers types.String `tfsdk:"ncp_ciphers" vyos:"ncp-ciphers,omitempty"`
+	LeafInterfacesOpenvpnEncryptionNcpCIPhers types.List   `tfsdk:"ncp_ciphers" vyos:"ncp-ciphers,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -46,8 +43,9 @@ func (o InterfacesOpenvpnEncryption) ResourceSchemaAttributes() map[string]schem
 `,
 		},
 
-		"ncp_ciphers": schema.StringAttribute{
-			Optional: true,
+		"ncp_ciphers": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Cipher negotiation list for use in server or client mode
 
     |  Format  |  Description  |
@@ -72,51 +70,10 @@ func (o InterfacesOpenvpnEncryption) ResourceSchemaAttributes() map[string]schem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesOpenvpnEncryption) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesOpenvpnEncryptionCIPher.IsNull() && !o.LeafInterfacesOpenvpnEncryptionCIPher.IsUnknown() {
-		jsonData["cipher"] = o.LeafInterfacesOpenvpnEncryptionCIPher.ValueString()
-	}
-
-	if !o.LeafInterfacesOpenvpnEncryptionNcpCIPhers.IsNull() && !o.LeafInterfacesOpenvpnEncryptionNcpCIPhers.IsUnknown() {
-		jsonData["ncp-ciphers"] = o.LeafInterfacesOpenvpnEncryptionNcpCIPhers.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesOpenvpnEncryption) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["cipher"]; ok {
-		o.LeafInterfacesOpenvpnEncryptionCIPher = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnEncryptionCIPher = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ncp-ciphers"]; ok {
-		o.LeafInterfacesOpenvpnEncryptionNcpCIPhers = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnEncryptionNcpCIPhers = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesOpenvpnEncryption) UnmarshalJSON(_ []byte) error {
 	return nil
 }

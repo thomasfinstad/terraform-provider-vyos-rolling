@@ -35,20 +35,20 @@ IPv6 policy local-route rule set number
 
 ### Optional
 
-- `destination` (String) Destination address or prefix
+- `destination` (List of String) Destination address or prefix
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv6  |  Address to match against  |
     |  ipv6net  |  Prefix to match against  |
-- `fwmark` (String) Match fwmark value
+- `fwmark` (Number) Match fwmark value
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-2147483647  |  Address to match against  |
 - `inbound_interface` (String) Inbound Interface
 - `set` (Attributes) Packet modifications (see [below for nested schema](#nestedatt--set))
-- `source` (String) Source address or prefix
+- `source` (List of String) Source address or prefix
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -60,7 +60,7 @@ IPv6 policy local-route rule set number
 
 Optional:
 
-- `table` (String) Routing table to forward packet with
+- `table` (Number) Routing table to forward packet with
 
     |  Format  |  Description  |
     |----------|---------------|

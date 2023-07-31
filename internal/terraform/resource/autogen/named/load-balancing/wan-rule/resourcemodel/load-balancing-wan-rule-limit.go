@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // LoadBalancingWanRuleLimit describes the resource data model.
 type LoadBalancingWanRuleLimit struct {
 	// LeafNodes
-	LeafLoadBalancingWanRuleLimitBurst     types.String `tfsdk:"burst" vyos:"burst,omitempty"`
+	LeafLoadBalancingWanRuleLimitBurst     types.Number `tfsdk:"burst" vyos:"burst,omitempty"`
 	LeafLoadBalancingWanRuleLimitPeriod    types.String `tfsdk:"period" vyos:"period,omitempty"`
-	LeafLoadBalancingWanRuleLimitRate      types.String `tfsdk:"rate" vyos:"rate,omitempty"`
+	LeafLoadBalancingWanRuleLimitRate      types.Number `tfsdk:"rate" vyos:"rate,omitempty"`
 	LeafLoadBalancingWanRuleLimitThreshold types.String `tfsdk:"threshold" vyos:"threshold,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -27,7 +24,7 @@ func (o LoadBalancingWanRuleLimit) ResourceSchemaAttributes() map[string]schema.
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"burst": schema.StringAttribute{
+		"burst": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Burst limit for matching packets
 
@@ -51,7 +48,7 @@ func (o LoadBalancingWanRuleLimit) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 
-		"rate": schema.StringAttribute{
+		"rate": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of packets used for rate limit
 
@@ -81,71 +78,10 @@ func (o LoadBalancingWanRuleLimit) ResourceSchemaAttributes() map[string]schema.
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *LoadBalancingWanRuleLimit) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafLoadBalancingWanRuleLimitBurst.IsNull() && !o.LeafLoadBalancingWanRuleLimitBurst.IsUnknown() {
-		jsonData["burst"] = o.LeafLoadBalancingWanRuleLimitBurst.ValueString()
-	}
-
-	if !o.LeafLoadBalancingWanRuleLimitPeriod.IsNull() && !o.LeafLoadBalancingWanRuleLimitPeriod.IsUnknown() {
-		jsonData["period"] = o.LeafLoadBalancingWanRuleLimitPeriod.ValueString()
-	}
-
-	if !o.LeafLoadBalancingWanRuleLimitRate.IsNull() && !o.LeafLoadBalancingWanRuleLimitRate.IsUnknown() {
-		jsonData["rate"] = o.LeafLoadBalancingWanRuleLimitRate.ValueString()
-	}
-
-	if !o.LeafLoadBalancingWanRuleLimitThreshold.IsNull() && !o.LeafLoadBalancingWanRuleLimitThreshold.IsUnknown() {
-		jsonData["threshold"] = o.LeafLoadBalancingWanRuleLimitThreshold.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *LoadBalancingWanRuleLimit) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["burst"]; ok {
-		o.LeafLoadBalancingWanRuleLimitBurst = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanRuleLimitBurst = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["period"]; ok {
-		o.LeafLoadBalancingWanRuleLimitPeriod = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanRuleLimitPeriod = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rate"]; ok {
-		o.LeafLoadBalancingWanRuleLimitRate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanRuleLimitRate = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["threshold"]; ok {
-		o.LeafLoadBalancingWanRuleLimitThreshold = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanRuleLimitThreshold = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *LoadBalancingWanRuleLimit) UnmarshalJSON(_ []byte) error {
 	return nil
 }

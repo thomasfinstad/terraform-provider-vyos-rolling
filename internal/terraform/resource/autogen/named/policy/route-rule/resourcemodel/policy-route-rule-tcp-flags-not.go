@@ -2,24 +2,22 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteRuleTCPFlagsNot describes the resource data model.
 type PolicyRouteRuleTCPFlagsNot struct {
 	// LeafNodes
-	LeafPolicyRouteRuleTCPFlagsNotSyn types.String `tfsdk:"syn" vyos:"syn,omitempty"`
-	LeafPolicyRouteRuleTCPFlagsNotAck types.String `tfsdk:"ack" vyos:"ack,omitempty"`
-	LeafPolicyRouteRuleTCPFlagsNotFin types.String `tfsdk:"fin" vyos:"fin,omitempty"`
-	LeafPolicyRouteRuleTCPFlagsNotRst types.String `tfsdk:"rst" vyos:"rst,omitempty"`
-	LeafPolicyRouteRuleTCPFlagsNotUrg types.String `tfsdk:"urg" vyos:"urg,omitempty"`
-	LeafPolicyRouteRuleTCPFlagsNotPsh types.String `tfsdk:"psh" vyos:"psh,omitempty"`
-	LeafPolicyRouteRuleTCPFlagsNotEcn types.String `tfsdk:"ecn" vyos:"ecn,omitempty"`
-	LeafPolicyRouteRuleTCPFlagsNotCwr types.String `tfsdk:"cwr" vyos:"cwr,omitempty"`
+	LeafPolicyRouteRuleTCPFlagsNotSyn types.Bool `tfsdk:"syn" vyos:"syn,omitempty"`
+	LeafPolicyRouteRuleTCPFlagsNotAck types.Bool `tfsdk:"ack" vyos:"ack,omitempty"`
+	LeafPolicyRouteRuleTCPFlagsNotFin types.Bool `tfsdk:"fin" vyos:"fin,omitempty"`
+	LeafPolicyRouteRuleTCPFlagsNotRst types.Bool `tfsdk:"rst" vyos:"rst,omitempty"`
+	LeafPolicyRouteRuleTCPFlagsNotUrg types.Bool `tfsdk:"urg" vyos:"urg,omitempty"`
+	LeafPolicyRouteRuleTCPFlagsNotPsh types.Bool `tfsdk:"psh" vyos:"psh,omitempty"`
+	LeafPolicyRouteRuleTCPFlagsNotEcn types.Bool `tfsdk:"ecn" vyos:"ecn,omitempty"`
+	LeafPolicyRouteRuleTCPFlagsNotCwr types.Bool `tfsdk:"cwr" vyos:"cwr,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -31,60 +29,76 @@ func (o PolicyRouteRuleTCPFlagsNot) ResourceSchemaAttributes() map[string]schema
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"syn": schema.StringAttribute{
+		"syn": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Synchronise flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"ack": schema.StringAttribute{
+		"ack": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Acknowledge flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"fin": schema.StringAttribute{
+		"fin": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Finish flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"rst": schema.StringAttribute{
+		"rst": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Reset flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"urg": schema.StringAttribute{
+		"urg": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Urgent flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"psh": schema.StringAttribute{
+		"psh": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Push flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"ecn": schema.StringAttribute{
+		"ecn": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Explicit Congestion Notification flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"cwr": schema.StringAttribute{
+		"cwr": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Congestion Window Reduced flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -94,111 +108,10 @@ func (o PolicyRouteRuleTCPFlagsNot) ResourceSchemaAttributes() map[string]schema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteRuleTCPFlagsNot) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteRuleTCPFlagsNotSyn.IsNull() && !o.LeafPolicyRouteRuleTCPFlagsNotSyn.IsUnknown() {
-		jsonData["syn"] = o.LeafPolicyRouteRuleTCPFlagsNotSyn.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleTCPFlagsNotAck.IsNull() && !o.LeafPolicyRouteRuleTCPFlagsNotAck.IsUnknown() {
-		jsonData["ack"] = o.LeafPolicyRouteRuleTCPFlagsNotAck.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleTCPFlagsNotFin.IsNull() && !o.LeafPolicyRouteRuleTCPFlagsNotFin.IsUnknown() {
-		jsonData["fin"] = o.LeafPolicyRouteRuleTCPFlagsNotFin.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleTCPFlagsNotRst.IsNull() && !o.LeafPolicyRouteRuleTCPFlagsNotRst.IsUnknown() {
-		jsonData["rst"] = o.LeafPolicyRouteRuleTCPFlagsNotRst.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleTCPFlagsNotUrg.IsNull() && !o.LeafPolicyRouteRuleTCPFlagsNotUrg.IsUnknown() {
-		jsonData["urg"] = o.LeafPolicyRouteRuleTCPFlagsNotUrg.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleTCPFlagsNotPsh.IsNull() && !o.LeafPolicyRouteRuleTCPFlagsNotPsh.IsUnknown() {
-		jsonData["psh"] = o.LeafPolicyRouteRuleTCPFlagsNotPsh.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleTCPFlagsNotEcn.IsNull() && !o.LeafPolicyRouteRuleTCPFlagsNotEcn.IsUnknown() {
-		jsonData["ecn"] = o.LeafPolicyRouteRuleTCPFlagsNotEcn.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleTCPFlagsNotCwr.IsNull() && !o.LeafPolicyRouteRuleTCPFlagsNotCwr.IsUnknown() {
-		jsonData["cwr"] = o.LeafPolicyRouteRuleTCPFlagsNotCwr.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteRuleTCPFlagsNot) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["syn"]; ok {
-		o.LeafPolicyRouteRuleTCPFlagsNotSyn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleTCPFlagsNotSyn = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ack"]; ok {
-		o.LeafPolicyRouteRuleTCPFlagsNotAck = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleTCPFlagsNotAck = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["fin"]; ok {
-		o.LeafPolicyRouteRuleTCPFlagsNotFin = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleTCPFlagsNotFin = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rst"]; ok {
-		o.LeafPolicyRouteRuleTCPFlagsNotRst = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleTCPFlagsNotRst = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["urg"]; ok {
-		o.LeafPolicyRouteRuleTCPFlagsNotUrg = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleTCPFlagsNotUrg = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["psh"]; ok {
-		o.LeafPolicyRouteRuleTCPFlagsNotPsh = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleTCPFlagsNotPsh = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ecn"]; ok {
-		o.LeafPolicyRouteRuleTCPFlagsNotEcn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleTCPFlagsNotEcn = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["cwr"]; ok {
-		o.LeafPolicyRouteRuleTCPFlagsNotCwr = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleTCPFlagsNotCwr = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRouteRuleTCPFlagsNot) UnmarshalJSON(_ []byte) error {
 	return nil
 }

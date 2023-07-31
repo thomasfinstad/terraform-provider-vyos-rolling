@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceWebproxyURLFilteringSquIDguardSourceGroup describes the resource data model.
@@ -14,11 +11,11 @@ type ServiceWebproxyURLFilteringSquIDguardSourceGroup struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafServiceWebproxyURLFilteringSquIDguardSourceGroupAddress        types.String `tfsdk:"address" vyos:"address,omitempty"`
+	LeafServiceWebproxyURLFilteringSquIDguardSourceGroupAddress        types.List   `tfsdk:"address" vyos:"address,omitempty"`
 	LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDescrIPtion    types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDomain         types.String `tfsdk:"domain" vyos:"domain,omitempty"`
-	LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapIPSearch   types.String `tfsdk:"ldap_ip_search" vyos:"ldap-ip-search,omitempty"`
-	LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapUserSearch types.String `tfsdk:"ldap_user_search" vyos:"ldap-user-search,omitempty"`
+	LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDomain         types.List   `tfsdk:"domain" vyos:"domain,omitempty"`
+	LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapIPSearch   types.List   `tfsdk:"ldap_ip_search" vyos:"ldap-ip-search,omitempty"`
+	LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapUserSearch types.List   `tfsdk:"ldap_user_search" vyos:"ldap-user-search,omitempty"`
 	LeafServiceWebproxyURLFilteringSquIDguardSourceGroupUser           types.String `tfsdk:"user" vyos:"user,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -30,9 +27,13 @@ type ServiceWebproxyURLFilteringSquIDguardSourceGroup struct {
 func (o *ServiceWebproxyURLFilteringSquIDguardSourceGroup) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"webproxy",
+
 		"url-filtering",
+
 		"squidguard",
+
 		"source-group",
 		o.ID.ValueString(),
 	}
@@ -54,8 +55,9 @@ func (o ServiceWebproxyURLFilteringSquIDguardSourceGroup) ResourceSchemaAttribut
 
 		// LeafNodes
 
-		"address": schema.StringAttribute{
-			Optional: true,
+		"address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Address for source-group
 
     |  Format  |  Description  |
@@ -74,8 +76,9 @@ func (o ServiceWebproxyURLFilteringSquIDguardSourceGroup) ResourceSchemaAttribut
 `,
 		},
 
-		"domain": schema.StringAttribute{
-			Optional: true,
+		"domain": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Domain for source-group
 
     |  Format  |  Description  |
@@ -85,15 +88,17 @@ func (o ServiceWebproxyURLFilteringSquIDguardSourceGroup) ResourceSchemaAttribut
 `,
 		},
 
-		"ldap_ip_search": schema.StringAttribute{
-			Optional: true,
+		"ldap_ip_search": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `LDAP search expression for an IP address list
 
 `,
 		},
 
-		"ldap_user_search": schema.StringAttribute{
-			Optional: true,
+		"ldap_user_search": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `LDAP search expression for a user group
 
 `,
@@ -113,91 +118,10 @@ func (o ServiceWebproxyURLFilteringSquIDguardSourceGroup) ResourceSchemaAttribut
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceWebproxyURLFilteringSquIDguardSourceGroup) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupAddress.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupAddress.IsUnknown() {
-		jsonData["address"] = o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupAddress.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDescrIPtion.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDescrIPtion.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDomain.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDomain.IsUnknown() {
-		jsonData["domain"] = o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDomain.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapIPSearch.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapIPSearch.IsUnknown() {
-		jsonData["ldap-ip-search"] = o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapIPSearch.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapUserSearch.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapUserSearch.IsUnknown() {
-		jsonData["ldap-user-search"] = o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapUserSearch.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupUser.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupUser.IsUnknown() {
-		jsonData["user"] = o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupUser.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceWebproxyURLFilteringSquIDguardSourceGroup) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["domain"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDomain = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDomain = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ldap-ip-search"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapIPSearch = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapIPSearch = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ldap-user-search"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapUserSearch = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapUserSearch = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["user"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupUser = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupUser = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceWebproxyURLFilteringSquIDguardSourceGroup) UnmarshalJSON(_ []byte) error {
 	return nil
 }

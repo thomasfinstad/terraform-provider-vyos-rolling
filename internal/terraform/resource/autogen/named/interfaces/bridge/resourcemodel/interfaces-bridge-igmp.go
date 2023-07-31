@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesBrIDgeIgmp describes the resource data model.
 type InterfacesBrIDgeIgmp struct {
 	// LeafNodes
-	LeafInterfacesBrIDgeIgmpQuerier  types.String `tfsdk:"querier" vyos:"querier,omitempty"`
-	LeafInterfacesBrIDgeIgmpSnooping types.String `tfsdk:"snooping" vyos:"snooping,omitempty"`
+	LeafInterfacesBrIDgeIgmpQuerier  types.Bool `tfsdk:"querier" vyos:"querier,omitempty"`
+	LeafInterfacesBrIDgeIgmpSnooping types.Bool `tfsdk:"snooping" vyos:"snooping,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,18 +23,22 @@ func (o InterfacesBrIDgeIgmp) ResourceSchemaAttributes() map[string]schema.Attri
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"querier": schema.StringAttribute{
+		"querier": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable IGMP/MLD querier
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"snooping": schema.StringAttribute{
+		"snooping": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable IGMP/MLD snooping
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -46,51 +48,10 @@ func (o InterfacesBrIDgeIgmp) ResourceSchemaAttributes() map[string]schema.Attri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesBrIDgeIgmp) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesBrIDgeIgmpQuerier.IsNull() && !o.LeafInterfacesBrIDgeIgmpQuerier.IsUnknown() {
-		jsonData["querier"] = o.LeafInterfacesBrIDgeIgmpQuerier.ValueString()
-	}
-
-	if !o.LeafInterfacesBrIDgeIgmpSnooping.IsNull() && !o.LeafInterfacesBrIDgeIgmpSnooping.IsUnknown() {
-		jsonData["snooping"] = o.LeafInterfacesBrIDgeIgmpSnooping.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesBrIDgeIgmp) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["querier"]; ok {
-		o.LeafInterfacesBrIDgeIgmpQuerier = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeIgmpQuerier = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["snooping"]; ok {
-		o.LeafInterfacesBrIDgeIgmpSnooping = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeIgmpSnooping = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesBrIDgeIgmp) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpNeighborBfd describes the resource data model.
 type VrfNameProtocolsBgpNeighborBfd struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpNeighborBfdProfile                  types.String `tfsdk:"profile" vyos:"profile,omitempty"`
-	LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure types.String `tfsdk:"check_control_plane_failure" vyos:"check-control-plane-failure,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure types.Bool   `tfsdk:"check_control_plane_failure" vyos:"check-control-plane-failure,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -36,11 +34,13 @@ func (o VrfNameProtocolsBgpNeighborBfd) ResourceSchemaAttributes() map[string]sc
 `,
 		},
 
-		"check_control_plane_failure": schema.StringAttribute{
+		"check_control_plane_failure": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow to write CBIT independence in BFD outgoing packets and read both C-BIT value of BFD and lookup BGP peer status
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -50,51 +50,10 @@ func (o VrfNameProtocolsBgpNeighborBfd) ResourceSchemaAttributes() map[string]sc
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpNeighborBfd) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpNeighborBfdProfile.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborBfdProfile.IsUnknown() {
-		jsonData["profile"] = o.LeafVrfNameProtocolsBgpNeighborBfdProfile.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure.IsUnknown() {
-		jsonData["check-control-plane-failure"] = o.LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpNeighborBfd) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["profile"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborBfdProfile = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborBfdProfile = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["check-control-plane-failure"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpNeighborBfd) UnmarshalJSON(_ []byte) error {
 	return nil
 }

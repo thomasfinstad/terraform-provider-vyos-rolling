@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemLoginUserAuthentication describes the resource data model.
@@ -59,78 +55,10 @@ func (o SystemLoginUserAuthentication) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemLoginUserAuthentication) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafSystemLoginUserAuthenticationEncryptedPassword.IsNull() && !o.LeafSystemLoginUserAuthenticationEncryptedPassword.IsUnknown() {
-		jsonData["encrypted-password"] = o.LeafSystemLoginUserAuthenticationEncryptedPassword.ValueString()
-	}
-
-	if !o.LeafSystemLoginUserAuthenticationPlaintextPassword.IsNull() && !o.LeafSystemLoginUserAuthenticationPlaintextPassword.IsUnknown() {
-		jsonData["plaintext-password"] = o.LeafSystemLoginUserAuthenticationPlaintextPassword.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeSystemLoginUserAuthenticationOtp).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeSystemLoginUserAuthenticationOtp)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["otp"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemLoginUserAuthentication) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["encrypted-password"]; ok {
-		o.LeafSystemLoginUserAuthenticationEncryptedPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginUserAuthenticationEncryptedPassword = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["plaintext-password"]; ok {
-		o.LeafSystemLoginUserAuthenticationPlaintextPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginUserAuthenticationPlaintextPassword = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["otp"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeSystemLoginUserAuthenticationOtp = &SystemLoginUserAuthenticationOtp{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeSystemLoginUserAuthenticationOtp)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *SystemLoginUserAuthentication) UnmarshalJSON(_ []byte) error {
 	return nil
 }

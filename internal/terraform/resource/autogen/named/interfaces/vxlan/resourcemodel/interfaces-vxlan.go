@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesVxlan describes the resource data model.
@@ -15,21 +12,21 @@ type InterfacesVxlan struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafInterfacesVxlanAddress         types.String `tfsdk:"address" vyos:"address,omitempty"`
+	LeafInterfacesVxlanAddress         types.List   `tfsdk:"address" vyos:"address,omitempty"`
 	LeafInterfacesVxlanDescrIPtion     types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafInterfacesVxlanDisable         types.String `tfsdk:"disable" vyos:"disable,omitempty"`
-	LeafInterfacesVxlanExternal        types.String `tfsdk:"external" vyos:"external,omitempty"`
-	LeafInterfacesVxlanGpe             types.String `tfsdk:"gpe" vyos:"gpe,omitempty"`
+	LeafInterfacesVxlanDisable         types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafInterfacesVxlanExternal        types.Bool   `tfsdk:"external" vyos:"external,omitempty"`
+	LeafInterfacesVxlanGpe             types.Bool   `tfsdk:"gpe" vyos:"gpe,omitempty"`
 	LeafInterfacesVxlanGroup           types.String `tfsdk:"group" vyos:"group,omitempty"`
 	LeafInterfacesVxlanMac             types.String `tfsdk:"mac" vyos:"mac,omitempty"`
-	LeafInterfacesVxlanMtu             types.String `tfsdk:"mtu" vyos:"mtu,omitempty"`
-	LeafInterfacesVxlanPort            types.String `tfsdk:"port" vyos:"port,omitempty"`
+	LeafInterfacesVxlanMtu             types.Number `tfsdk:"mtu" vyos:"mtu,omitempty"`
+	LeafInterfacesVxlanPort            types.Number `tfsdk:"port" vyos:"port,omitempty"`
 	LeafInterfacesVxlanSourceAddress   types.String `tfsdk:"source_address" vyos:"source-address,omitempty"`
 	LeafInterfacesVxlanSourceInterface types.String `tfsdk:"source_interface" vyos:"source-interface,omitempty"`
-	LeafInterfacesVxlanRemote          types.String `tfsdk:"remote" vyos:"remote,omitempty"`
+	LeafInterfacesVxlanRemote          types.List   `tfsdk:"remote" vyos:"remote,omitempty"`
 	LeafInterfacesVxlanRedirect        types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 	LeafInterfacesVxlanVrf             types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
-	LeafInterfacesVxlanVni             types.String `tfsdk:"vni" vyos:"vni,omitempty"`
+	LeafInterfacesVxlanVni             types.Number `tfsdk:"vni" vyos:"vni,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -44,6 +41,7 @@ type InterfacesVxlan struct {
 func (o *InterfacesVxlan) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"vxlan",
 		o.ID.ValueString(),
 	}
@@ -65,8 +63,9 @@ func (o InterfacesVxlan) ResourceSchemaAttributes() map[string]schema.Attribute 
 
 		// LeafNodes
 
-		"address": schema.StringAttribute{
-			Optional: true,
+		"address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address
 
     |  Format  |  Description  |
@@ -88,25 +87,31 @@ func (o InterfacesVxlan) ResourceSchemaAttributes() map[string]schema.Attribute 
 `,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"external": schema.StringAttribute{
+		"external": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use external control plane
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"gpe": schema.StringAttribute{
+		"gpe": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable Generic Protocol extension (VXLAN-GPE)
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"group": schema.StringAttribute{
@@ -132,7 +137,7 @@ func (o InterfacesVxlan) ResourceSchemaAttributes() map[string]schema.Attribute 
 `,
 		},
 
-		"mtu": schema.StringAttribute{
+		"mtu": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
@@ -146,7 +151,7 @@ func (o InterfacesVxlan) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Computed: true,
 		},
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
@@ -183,8 +188,9 @@ func (o InterfacesVxlan) ResourceSchemaAttributes() map[string]schema.Attribute 
 `,
 		},
 
-		"remote": schema.StringAttribute{
-			Optional: true,
+		"remote": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Tunnel remote address
 
     |  Format  |  Description  |
@@ -217,7 +223,7 @@ func (o InterfacesVxlan) ResourceSchemaAttributes() map[string]schema.Attribute 
 `,
 		},
 
-		"vni": schema.StringAttribute{
+		"vni": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Virtual Network Identifier
 
@@ -266,289 +272,10 @@ func (o InterfacesVxlan) ResourceSchemaAttributes() map[string]schema.Attribute 
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesVxlan) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesVxlanAddress.IsNull() && !o.LeafInterfacesVxlanAddress.IsUnknown() {
-		jsonData["address"] = o.LeafInterfacesVxlanAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanDescrIPtion.IsNull() && !o.LeafInterfacesVxlanDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafInterfacesVxlanDescrIPtion.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanDisable.IsNull() && !o.LeafInterfacesVxlanDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafInterfacesVxlanDisable.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanExternal.IsNull() && !o.LeafInterfacesVxlanExternal.IsUnknown() {
-		jsonData["external"] = o.LeafInterfacesVxlanExternal.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanGpe.IsNull() && !o.LeafInterfacesVxlanGpe.IsUnknown() {
-		jsonData["gpe"] = o.LeafInterfacesVxlanGpe.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanGroup.IsNull() && !o.LeafInterfacesVxlanGroup.IsUnknown() {
-		jsonData["group"] = o.LeafInterfacesVxlanGroup.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanMac.IsNull() && !o.LeafInterfacesVxlanMac.IsUnknown() {
-		jsonData["mac"] = o.LeafInterfacesVxlanMac.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanMtu.IsNull() && !o.LeafInterfacesVxlanMtu.IsUnknown() {
-		jsonData["mtu"] = o.LeafInterfacesVxlanMtu.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanPort.IsNull() && !o.LeafInterfacesVxlanPort.IsUnknown() {
-		jsonData["port"] = o.LeafInterfacesVxlanPort.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanSourceAddress.IsNull() && !o.LeafInterfacesVxlanSourceAddress.IsUnknown() {
-		jsonData["source-address"] = o.LeafInterfacesVxlanSourceAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanSourceInterface.IsNull() && !o.LeafInterfacesVxlanSourceInterface.IsUnknown() {
-		jsonData["source-interface"] = o.LeafInterfacesVxlanSourceInterface.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanRemote.IsNull() && !o.LeafInterfacesVxlanRemote.IsUnknown() {
-		jsonData["remote"] = o.LeafInterfacesVxlanRemote.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanRedirect.IsNull() && !o.LeafInterfacesVxlanRedirect.IsUnknown() {
-		jsonData["redirect"] = o.LeafInterfacesVxlanRedirect.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanVrf.IsNull() && !o.LeafInterfacesVxlanVrf.IsUnknown() {
-		jsonData["vrf"] = o.LeafInterfacesVxlanVrf.ValueString()
-	}
-
-	if !o.LeafInterfacesVxlanVni.IsNull() && !o.LeafInterfacesVxlanVni.IsUnknown() {
-		jsonData["vni"] = o.LeafInterfacesVxlanVni.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesVxlanIP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesVxlanIP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ip"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesVxlanIPvsix).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesVxlanIPvsix)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipv6"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesVxlanMirror).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesVxlanMirror)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["mirror"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesVxlanParameters).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesVxlanParameters)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["parameters"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesVxlan) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafInterfacesVxlanAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafInterfacesVxlanDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafInterfacesVxlanDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["external"]; ok {
-		o.LeafInterfacesVxlanExternal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanExternal = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["gpe"]; ok {
-		o.LeafInterfacesVxlanGpe = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanGpe = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["group"]; ok {
-		o.LeafInterfacesVxlanGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mac"]; ok {
-		o.LeafInterfacesVxlanMac = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanMac = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mtu"]; ok {
-		o.LeafInterfacesVxlanMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanMtu = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafInterfacesVxlanPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["source-address"]; ok {
-		o.LeafInterfacesVxlanSourceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanSourceAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["source-interface"]; ok {
-		o.LeafInterfacesVxlanSourceInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanSourceInterface = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["remote"]; ok {
-		o.LeafInterfacesVxlanRemote = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanRemote = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["redirect"]; ok {
-		o.LeafInterfacesVxlanRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanRedirect = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vrf"]; ok {
-		o.LeafInterfacesVxlanVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanVrf = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vni"]; ok {
-		o.LeafInterfacesVxlanVni = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanVni = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["ip"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesVxlanIP = &InterfacesVxlanIP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesVxlanIP)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ipv6"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesVxlanIPvsix = &InterfacesVxlanIPvsix{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesVxlanIPvsix)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["mirror"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesVxlanMirror = &InterfacesVxlanMirror{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesVxlanMirror)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["parameters"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesVxlanParameters = &InterfacesVxlanParameters{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesVxlanParameters)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesVxlan) UnmarshalJSON(_ []byte) error {
 	return nil
 }

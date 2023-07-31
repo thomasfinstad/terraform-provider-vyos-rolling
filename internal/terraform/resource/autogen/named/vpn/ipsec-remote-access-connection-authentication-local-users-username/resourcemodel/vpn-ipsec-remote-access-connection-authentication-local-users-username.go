@@ -2,21 +2,19 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername describes the resource data model.
 type VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVpnIPsecRemoteAccessConnection any `tfsdk:"connection" vyos:"connection,parent-id"`
+	ParentIDVpnIPsecRemoteAccessConnection types.String `tfsdk:"connection" vyos:"connection_identifier,parent-id"`
 
 	// LeafNodes
-	LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsernameDisable  types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsernameDisable  types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsernamePassword types.String `tfsdk:"password" vyos:"password,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -28,11 +26,18 @@ type VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername struct {
 func (o *VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername) GetVyosPath() []string {
 	return []string{
 		"vpn",
+
 		"ipsec",
+
 		"remote-access",
+
 		"connection",
+		o.ParentIDVpnIPsecRemoteAccessConnection.ValueString(),
+
 		"authentication",
+
 		"local-users",
+
 		"username",
 		o.ID.ValueString(),
 	}
@@ -52,13 +57,26 @@ func (o VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername) Resource
 `,
 		},
 
+		"connection_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `IKEv2 VPN connection name
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Connection name  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"password": schema.StringAttribute{
@@ -75,51 +93,10 @@ func (o VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername) Resource
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsernameDisable.IsNull() && !o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsernameDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsernameDisable.ValueString()
-	}
-
-	if !o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsernamePassword.IsNull() && !o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsernamePassword.IsUnknown() {
-		jsonData["password"] = o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsernamePassword.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsernameDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsernameDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["password"]; ok {
-		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsernamePassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsernamePassword = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername) UnmarshalJSON(_ []byte) error {
 	return nil
 }

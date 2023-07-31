@@ -2,19 +2,17 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpParametersBestpathAsPath describes the resource data model.
 type VrfNameProtocolsBgpParametersBestpathAsPath struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed         types.String `tfsdk:"confed" vyos:"confed,omitempty"`
-	LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore         types.String `tfsdk:"ignore" vyos:"ignore,omitempty"`
-	LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax types.String `tfsdk:"multipath_relax" vyos:"multipath-relax,omitempty"`
+	LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed         types.Bool `tfsdk:"confed" vyos:"confed,omitempty"`
+	LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore         types.Bool `tfsdk:"ignore" vyos:"ignore,omitempty"`
+	LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax types.Bool `tfsdk:"multipath_relax" vyos:"multipath-relax,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,25 +24,31 @@ func (o VrfNameProtocolsBgpParametersBestpathAsPath) ResourceSchemaAttributes() 
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"confed": schema.StringAttribute{
+		"confed": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Compare AS-path lengths including confederation sets and sequences
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"ignore": schema.StringAttribute{
+		"ignore": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ignore AS-path length in selecting a route
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"multipath_relax": schema.StringAttribute{
+		"multipath_relax": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow load sharing across routes that have different AS paths (but same length)
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -54,61 +58,10 @@ func (o VrfNameProtocolsBgpParametersBestpathAsPath) ResourceSchemaAttributes() 
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpParametersBestpathAsPath) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed.IsNull() && !o.LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed.IsUnknown() {
-		jsonData["confed"] = o.LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore.IsNull() && !o.LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore.IsUnknown() {
-		jsonData["ignore"] = o.LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax.IsNull() && !o.LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax.IsUnknown() {
-		jsonData["multipath-relax"] = o.LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpParametersBestpathAsPath) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["confed"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ignore"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["multipath-relax"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpParametersBestpathAsPath) UnmarshalJSON(_ []byte) error {
 	return nil
 }

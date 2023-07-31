@@ -2,8 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -24,8 +22,11 @@ type ProtocolsStaticMulticastRoute struct {
 func (o *ProtocolsStaticMulticastRoute) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"static",
+
 		"multicast",
+
 		"route",
 		o.ID.ValueString(),
 	}
@@ -54,31 +55,10 @@ func (o ProtocolsStaticMulticastRoute) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsStaticMulticastRoute) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsStaticMulticastRoute) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-
+func (o *ProtocolsStaticMulticastRoute) UnmarshalJSON(_ []byte) error {
 	return nil
 }

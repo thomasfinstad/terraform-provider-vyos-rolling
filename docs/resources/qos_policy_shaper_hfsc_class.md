@@ -46,6 +46,11 @@ Class ID
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4095  |  Class Identifier  |
+- `shaper_hfsc_identifier` (String) Hierarchical Fair Service Curve's policy
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
 
 ### Optional
 

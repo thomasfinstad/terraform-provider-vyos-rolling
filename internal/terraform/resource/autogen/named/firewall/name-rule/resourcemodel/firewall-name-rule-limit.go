@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallNameRuleLimit describes the resource data model.
 type FirewallNameRuleLimit struct {
 	// LeafNodes
-	LeafFirewallNameRuleLimitBurst types.String `tfsdk:"burst" vyos:"burst,omitempty"`
+	LeafFirewallNameRuleLimitBurst types.Number `tfsdk:"burst" vyos:"burst,omitempty"`
 	LeafFirewallNameRuleLimitRate  types.String `tfsdk:"rate" vyos:"rate,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -25,7 +22,7 @@ func (o FirewallNameRuleLimit) ResourceSchemaAttributes() map[string]schema.Attr
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"burst": schema.StringAttribute{
+		"burst": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum number of packets to allow in excess of rate
 
@@ -54,51 +51,10 @@ func (o FirewallNameRuleLimit) ResourceSchemaAttributes() map[string]schema.Attr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallNameRuleLimit) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallNameRuleLimitBurst.IsNull() && !o.LeafFirewallNameRuleLimitBurst.IsUnknown() {
-		jsonData["burst"] = o.LeafFirewallNameRuleLimitBurst.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleLimitRate.IsNull() && !o.LeafFirewallNameRuleLimitRate.IsUnknown() {
-		jsonData["rate"] = o.LeafFirewallNameRuleLimitRate.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallNameRuleLimit) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["burst"]; ok {
-		o.LeafFirewallNameRuleLimitBurst = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleLimitBurst = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rate"]; ok {
-		o.LeafFirewallNameRuleLimitRate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleLimitRate = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallNameRuleLimit) UnmarshalJSON(_ []byte) error {
 	return nil
 }

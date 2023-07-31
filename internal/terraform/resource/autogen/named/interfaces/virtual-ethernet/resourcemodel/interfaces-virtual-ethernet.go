@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesVirtualEthernet describes the resource data model.
@@ -15,9 +12,9 @@ type InterfacesVirtualEthernet struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafInterfacesVirtualEthernetAddress     types.String `tfsdk:"address" vyos:"address,omitempty"`
+	LeafInterfacesVirtualEthernetAddress     types.List   `tfsdk:"address" vyos:"address,omitempty"`
 	LeafInterfacesVirtualEthernetDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafInterfacesVirtualEthernetDisable     types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafInterfacesVirtualEthernetDisable     types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafInterfacesVirtualEthernetVrf         types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 	LeafInterfacesVirtualEthernetPeerName    types.String `tfsdk:"peer_name" vyos:"peer-name,omitempty"`
 
@@ -32,6 +29,7 @@ type InterfacesVirtualEthernet struct {
 func (o *InterfacesVirtualEthernet) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"virtual-ethernet",
 		o.ID.ValueString(),
 	}
@@ -53,8 +51,9 @@ func (o InterfacesVirtualEthernet) ResourceSchemaAttributes() map[string]schema.
 
 		// LeafNodes
 
-		"address": schema.StringAttribute{
-			Optional: true,
+		"address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP address
 
     |  Format  |  Description  |
@@ -78,11 +77,13 @@ func (o InterfacesVirtualEthernet) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"vrf": schema.StringAttribute{
@@ -129,135 +130,10 @@ func (o InterfacesVirtualEthernet) ResourceSchemaAttributes() map[string]schema.
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesVirtualEthernet) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesVirtualEthernetAddress.IsNull() && !o.LeafInterfacesVirtualEthernetAddress.IsUnknown() {
-		jsonData["address"] = o.LeafInterfacesVirtualEthernetAddress.ValueString()
-	}
-
-	if !o.LeafInterfacesVirtualEthernetDescrIPtion.IsNull() && !o.LeafInterfacesVirtualEthernetDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafInterfacesVirtualEthernetDescrIPtion.ValueString()
-	}
-
-	if !o.LeafInterfacesVirtualEthernetDisable.IsNull() && !o.LeafInterfacesVirtualEthernetDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafInterfacesVirtualEthernetDisable.ValueString()
-	}
-
-	if !o.LeafInterfacesVirtualEthernetVrf.IsNull() && !o.LeafInterfacesVirtualEthernetVrf.IsUnknown() {
-		jsonData["vrf"] = o.LeafInterfacesVirtualEthernetVrf.ValueString()
-	}
-
-	if !o.LeafInterfacesVirtualEthernetPeerName.IsNull() && !o.LeafInterfacesVirtualEthernetPeerName.IsUnknown() {
-		jsonData["peer-name"] = o.LeafInterfacesVirtualEthernetPeerName.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesVirtualEthernetDhcpOptions).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesVirtualEthernetDhcpOptions)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["dhcp-options"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeInterfacesVirtualEthernetDhcpvsixOptions).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesVirtualEthernetDhcpvsixOptions)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["dhcpv6-options"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesVirtualEthernet) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafInterfacesVirtualEthernetAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVirtualEthernetAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafInterfacesVirtualEthernetDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVirtualEthernetDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafInterfacesVirtualEthernetDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVirtualEthernetDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["vrf"]; ok {
-		o.LeafInterfacesVirtualEthernetVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVirtualEthernetVrf = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["peer-name"]; ok {
-		o.LeafInterfacesVirtualEthernetPeerName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVirtualEthernetPeerName = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["dhcp-options"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesVirtualEthernetDhcpOptions = &InterfacesVirtualEthernetDhcpOptions{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesVirtualEthernetDhcpOptions)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["dhcpv6-options"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesVirtualEthernetDhcpvsixOptions = &InterfacesVirtualEthernetDhcpvsixOptions{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesVirtualEthernetDhcpvsixOptions)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesVirtualEthernet) UnmarshalJSON(_ []byte) error {
 	return nil
 }

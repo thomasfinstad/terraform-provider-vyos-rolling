@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsIsisDomainPassword describes the resource data model.
@@ -54,51 +51,10 @@ func (o VrfNameProtocolsIsisDomainPassword) ResourceSchemaAttributes() map[strin
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsIsisDomainPassword) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsIsisDomainPasswordPlaintextPassword.IsNull() && !o.LeafVrfNameProtocolsIsisDomainPasswordPlaintextPassword.IsUnknown() {
-		jsonData["plaintext-password"] = o.LeafVrfNameProtocolsIsisDomainPasswordPlaintextPassword.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsIsisDomainPasswordMdfive.IsNull() && !o.LeafVrfNameProtocolsIsisDomainPasswordMdfive.IsUnknown() {
-		jsonData["md5"] = o.LeafVrfNameProtocolsIsisDomainPasswordMdfive.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsIsisDomainPassword) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["plaintext-password"]; ok {
-		o.LeafVrfNameProtocolsIsisDomainPasswordPlaintextPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisDomainPasswordPlaintextPassword = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["md5"]; ok {
-		o.LeafVrfNameProtocolsIsisDomainPasswordMdfive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisDomainPasswordMdfive = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsIsisDomainPassword) UnmarshalJSON(_ []byte) error {
 	return nil
 }

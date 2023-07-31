@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceWebproxyCachePeer describes the resource data model.
@@ -15,8 +12,8 @@ type ServiceWebproxyCachePeer struct {
 
 	// LeafNodes
 	LeafServiceWebproxyCachePeerAddress  types.String `tfsdk:"address" vyos:"address,omitempty"`
-	LeafServiceWebproxyCachePeerHTTPPort types.String `tfsdk:"http_port" vyos:"http-port,omitempty"`
-	LeafServiceWebproxyCachePeerIcpPort  types.String `tfsdk:"icp_port" vyos:"icp-port,omitempty"`
+	LeafServiceWebproxyCachePeerHTTPPort types.Number `tfsdk:"http_port" vyos:"http-port,omitempty"`
+	LeafServiceWebproxyCachePeerIcpPort  types.Number `tfsdk:"icp_port" vyos:"icp-port,omitempty"`
 	LeafServiceWebproxyCachePeerOptions  types.String `tfsdk:"options" vyos:"options,omitempty"`
 	LeafServiceWebproxyCachePeerType     types.String `tfsdk:"type" vyos:"type,omitempty"`
 
@@ -29,7 +26,9 @@ type ServiceWebproxyCachePeer struct {
 func (o *ServiceWebproxyCachePeer) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"webproxy",
+
 		"cache-peer",
 		o.ID.ValueString(),
 	}
@@ -63,7 +62,7 @@ func (o ServiceWebproxyCachePeer) ResourceSchemaAttributes() map[string]schema.A
 `,
 		},
 
-		"http_port": schema.StringAttribute{
+		"http_port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Default Proxy Port
 
@@ -77,7 +76,7 @@ func (o ServiceWebproxyCachePeer) ResourceSchemaAttributes() map[string]schema.A
 			Computed: true,
 		},
 
-		"icp_port": schema.StringAttribute{
+		"icp_port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Cache peer ICP port
 
@@ -129,81 +128,10 @@ func (o ServiceWebproxyCachePeer) ResourceSchemaAttributes() map[string]schema.A
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceWebproxyCachePeer) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceWebproxyCachePeerAddress.IsNull() && !o.LeafServiceWebproxyCachePeerAddress.IsUnknown() {
-		jsonData["address"] = o.LeafServiceWebproxyCachePeerAddress.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyCachePeerHTTPPort.IsNull() && !o.LeafServiceWebproxyCachePeerHTTPPort.IsUnknown() {
-		jsonData["http-port"] = o.LeafServiceWebproxyCachePeerHTTPPort.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyCachePeerIcpPort.IsNull() && !o.LeafServiceWebproxyCachePeerIcpPort.IsUnknown() {
-		jsonData["icp-port"] = o.LeafServiceWebproxyCachePeerIcpPort.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyCachePeerOptions.IsNull() && !o.LeafServiceWebproxyCachePeerOptions.IsUnknown() {
-		jsonData["options"] = o.LeafServiceWebproxyCachePeerOptions.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyCachePeerType.IsNull() && !o.LeafServiceWebproxyCachePeerType.IsUnknown() {
-		jsonData["type"] = o.LeafServiceWebproxyCachePeerType.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceWebproxyCachePeer) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafServiceWebproxyCachePeerAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyCachePeerAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["http-port"]; ok {
-		o.LeafServiceWebproxyCachePeerHTTPPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyCachePeerHTTPPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["icp-port"]; ok {
-		o.LeafServiceWebproxyCachePeerIcpPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyCachePeerIcpPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["options"]; ok {
-		o.LeafServiceWebproxyCachePeerOptions = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyCachePeerOptions = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["type"]; ok {
-		o.LeafServiceWebproxyCachePeerType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyCachePeerType = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceWebproxyCachePeer) UnmarshalJSON(_ []byte) error {
 	return nil
 }

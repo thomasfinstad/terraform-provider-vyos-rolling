@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemLoginUserAuthenticationOtp describes the resource data model.
 type SystemLoginUserAuthenticationOtp struct {
 	// LeafNodes
-	LeafSystemLoginUserAuthenticationOtpRateLimit  types.String `tfsdk:"rate_limit" vyos:"rate-limit,omitempty"`
-	LeafSystemLoginUserAuthenticationOtpRateTime   types.String `tfsdk:"rate_time" vyos:"rate-time,omitempty"`
-	LeafSystemLoginUserAuthenticationOtpWindowSize types.String `tfsdk:"window_size" vyos:"window-size,omitempty"`
+	LeafSystemLoginUserAuthenticationOtpRateLimit  types.Number `tfsdk:"rate_limit" vyos:"rate-limit,omitempty"`
+	LeafSystemLoginUserAuthenticationOtpRateTime   types.Number `tfsdk:"rate_time" vyos:"rate-time,omitempty"`
+	LeafSystemLoginUserAuthenticationOtpWindowSize types.Number `tfsdk:"window_size" vyos:"window-size,omitempty"`
 	LeafSystemLoginUserAuthenticationOtpKey        types.String `tfsdk:"key" vyos:"key,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -27,7 +24,7 @@ func (o SystemLoginUserAuthenticationOtp) ResourceSchemaAttributes() map[string]
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"rate_limit": schema.StringAttribute{
+		"rate_limit": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Limit number of logins (rate-limit) per rate-time
 
@@ -41,7 +38,7 @@ func (o SystemLoginUserAuthenticationOtp) ResourceSchemaAttributes() map[string]
 			Computed: true,
 		},
 
-		"rate_time": schema.StringAttribute{
+		"rate_time": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Limit number of logins (rate-limit) per rate-time
 
@@ -55,7 +52,7 @@ func (o SystemLoginUserAuthenticationOtp) ResourceSchemaAttributes() map[string]
 			Computed: true,
 		},
 
-		"window_size": schema.StringAttribute{
+		"window_size": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set window of concurrently valid codes
 
@@ -87,71 +84,10 @@ func (o SystemLoginUserAuthenticationOtp) ResourceSchemaAttributes() map[string]
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemLoginUserAuthenticationOtp) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafSystemLoginUserAuthenticationOtpRateLimit.IsNull() && !o.LeafSystemLoginUserAuthenticationOtpRateLimit.IsUnknown() {
-		jsonData["rate-limit"] = o.LeafSystemLoginUserAuthenticationOtpRateLimit.ValueString()
-	}
-
-	if !o.LeafSystemLoginUserAuthenticationOtpRateTime.IsNull() && !o.LeafSystemLoginUserAuthenticationOtpRateTime.IsUnknown() {
-		jsonData["rate-time"] = o.LeafSystemLoginUserAuthenticationOtpRateTime.ValueString()
-	}
-
-	if !o.LeafSystemLoginUserAuthenticationOtpWindowSize.IsNull() && !o.LeafSystemLoginUserAuthenticationOtpWindowSize.IsUnknown() {
-		jsonData["window-size"] = o.LeafSystemLoginUserAuthenticationOtpWindowSize.ValueString()
-	}
-
-	if !o.LeafSystemLoginUserAuthenticationOtpKey.IsNull() && !o.LeafSystemLoginUserAuthenticationOtpKey.IsUnknown() {
-		jsonData["key"] = o.LeafSystemLoginUserAuthenticationOtpKey.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemLoginUserAuthenticationOtp) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["rate-limit"]; ok {
-		o.LeafSystemLoginUserAuthenticationOtpRateLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginUserAuthenticationOtpRateLimit = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["rate-time"]; ok {
-		o.LeafSystemLoginUserAuthenticationOtpRateTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginUserAuthenticationOtpRateTime = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["window-size"]; ok {
-		o.LeafSystemLoginUserAuthenticationOtpWindowSize = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginUserAuthenticationOtpWindowSize = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["key"]; ok {
-		o.LeafSystemLoginUserAuthenticationOtpKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginUserAuthenticationOtpKey = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *SystemLoginUserAuthenticationOtp) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemSysctlParameter describes the resource data model.
@@ -25,7 +22,9 @@ type SystemSysctlParameter struct {
 func (o *SystemSysctlParameter) GetVyosPath() []string {
 	return []string{
 		"system",
+
 		"sysctl",
+
 		"parameter",
 		o.ID.ValueString(),
 	}
@@ -61,41 +60,10 @@ func (o SystemSysctlParameter) ResourceSchemaAttributes() map[string]schema.Attr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemSysctlParameter) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafSystemSysctlParameterValue.IsNull() && !o.LeafSystemSysctlParameterValue.IsUnknown() {
-		jsonData["value"] = o.LeafSystemSysctlParameterValue.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemSysctlParameter) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["value"]; ok {
-		o.LeafSystemSysctlParameterValue = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemSysctlParameterValue = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *SystemSysctlParameter) UnmarshalJSON(_ []byte) error {
 	return nil
 }

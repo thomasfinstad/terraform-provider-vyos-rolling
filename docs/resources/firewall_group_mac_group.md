@@ -32,8 +32,8 @@ Firewall mac-group
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `include` (String) Include another mac-group
-- `mac_address` (String) Mac-group member
+- `include` (List of String) Include another mac-group
+- `mac_address` (List of String) Mac-group member
 
     |  Format  |  Description  |
     |----------|---------------|

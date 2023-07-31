@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PkiDh describes the resource data model.
@@ -25,6 +22,7 @@ type PkiDh struct {
 func (o *PkiDh) GetVyosPath() []string {
 	return []string{
 		"pki",
+
 		"dh",
 		o.ID.ValueString(),
 	}
@@ -56,41 +54,10 @@ func (o PkiDh) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PkiDh) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPkiDhParameters.IsNull() && !o.LeafPkiDhParameters.IsUnknown() {
-		jsonData["parameters"] = o.LeafPkiDhParameters.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PkiDh) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["parameters"]; ok {
-		o.LeafPkiDhParameters = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiDhParameters = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PkiDh) UnmarshalJSON(_ []byte) error {
 	return nil
 }

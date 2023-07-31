@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap describes the resource data model.
@@ -54,51 +51,10 @@ func (o ProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap) ResourceSchemaAtt
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMapExport.IsNull() && !o.LeafProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMapExport.IsUnknown() {
-		jsonData["export"] = o.LeafProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMapExport.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMapImport.IsNull() && !o.LeafProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMapImport.IsUnknown() {
-		jsonData["import"] = o.LeafProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMapImport.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["export"]; ok {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMapExport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMapExport = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["import"]; ok {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMapImport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMapImport = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap) UnmarshalJSON(_ []byte) error {
 	return nil
 }

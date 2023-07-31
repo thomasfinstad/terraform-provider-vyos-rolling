@@ -57,11 +57,22 @@ MD5 key id
 
 ### Required
 
+- `area_identifier` (String) OSPF area settings
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32  |  OSPF area number in decimal notation  |
+    |  ipv4  |  OSPF area number in dotted decimal notation  |
 - `identifier` (String) MD5 key id
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  MD5 key id  |
+- `virtual_link_identifier` (String) Virtual link
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  OSPF area in dotted decimal notation  |
 
 ### Optional
 

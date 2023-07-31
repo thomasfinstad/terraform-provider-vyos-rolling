@@ -44,6 +44,14 @@ Rule for this access-list
 
 ### Required
 
+- `access_list_identifier` (String) IP access-list filter
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-99  |  IP standard access list  |
+    |  u32:100-199  |  IP extended access list  |
+    |  u32:1300-1999  |  IP standard access list (expanded range)  |
+    |  u32:2000-2699  |  IP extended access list (expanded range)  |
 - `identifier` (String) Rule for this access-list
 
     |  Format  |  Description  |
@@ -71,7 +79,7 @@ Rule for this access-list
 
 Optional:
 
-- `any` (String) Any IP address to match
+- `any` (Boolean) Any IP address to match
 - `host` (String) Single host IP address to match
 
     |  Format  |  Description  |
@@ -94,7 +102,7 @@ Optional:
 
 Optional:
 
-- `any` (String) Any IP address to match
+- `any` (Boolean) Any IP address to match
 - `host` (String) Single host IP address to match
 
     |  Format  |  Description  |

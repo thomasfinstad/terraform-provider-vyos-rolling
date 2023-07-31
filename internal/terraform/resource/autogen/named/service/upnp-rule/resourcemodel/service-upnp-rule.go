@@ -2,19 +2,17 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceUpnpRule describes the resource data model.
 type ServiceUpnpRule struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafServiceUpnpRuleDisable           types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafServiceUpnpRuleDisable           types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafServiceUpnpRuleExternalPortRange types.String `tfsdk:"external_port_range" vyos:"external-port-range,omitempty"`
 	LeafServiceUpnpRuleInternalPortRange types.String `tfsdk:"internal_port_range" vyos:"internal-port-range,omitempty"`
 	LeafServiceUpnpRuleIP                types.String `tfsdk:"ip" vyos:"ip,omitempty"`
@@ -29,9 +27,11 @@ type ServiceUpnpRule struct {
 func (o *ServiceUpnpRule) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"upnp",
+
 		"rule",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -51,11 +51,13 @@ func (o ServiceUpnpRule) ResourceSchemaAttributes() map[string]schema.Attribute 
 
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"external_port_range": schema.StringAttribute{
@@ -108,81 +110,10 @@ func (o ServiceUpnpRule) ResourceSchemaAttributes() map[string]schema.Attribute 
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceUpnpRule) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceUpnpRuleDisable.IsNull() && !o.LeafServiceUpnpRuleDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafServiceUpnpRuleDisable.ValueString()
-	}
-
-	if !o.LeafServiceUpnpRuleExternalPortRange.IsNull() && !o.LeafServiceUpnpRuleExternalPortRange.IsUnknown() {
-		jsonData["external-port-range"] = o.LeafServiceUpnpRuleExternalPortRange.ValueString()
-	}
-
-	if !o.LeafServiceUpnpRuleInternalPortRange.IsNull() && !o.LeafServiceUpnpRuleInternalPortRange.IsUnknown() {
-		jsonData["internal-port-range"] = o.LeafServiceUpnpRuleInternalPortRange.ValueString()
-	}
-
-	if !o.LeafServiceUpnpRuleIP.IsNull() && !o.LeafServiceUpnpRuleIP.IsUnknown() {
-		jsonData["ip"] = o.LeafServiceUpnpRuleIP.ValueString()
-	}
-
-	if !o.LeafServiceUpnpRuleAction.IsNull() && !o.LeafServiceUpnpRuleAction.IsUnknown() {
-		jsonData["action"] = o.LeafServiceUpnpRuleAction.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceUpnpRule) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafServiceUpnpRuleDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceUpnpRuleDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["external-port-range"]; ok {
-		o.LeafServiceUpnpRuleExternalPortRange = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceUpnpRuleExternalPortRange = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["internal-port-range"]; ok {
-		o.LeafServiceUpnpRuleInternalPortRange = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceUpnpRuleInternalPortRange = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ip"]; ok {
-		o.LeafServiceUpnpRuleIP = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceUpnpRuleIP = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["action"]; ok {
-		o.LeafServiceUpnpRuleAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceUpnpRuleAction = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceUpnpRule) UnmarshalJSON(_ []byte) error {
 	return nil
 }

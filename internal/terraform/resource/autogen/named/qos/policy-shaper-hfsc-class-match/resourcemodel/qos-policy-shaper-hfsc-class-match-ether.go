@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyShaperHfscClassMatchEther describes the resource data model.
@@ -74,61 +71,10 @@ func (o QosPolicyShaperHfscClassMatchEther) ResourceSchemaAttributes() map[strin
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyShaperHfscClassMatchEther) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyShaperHfscClassMatchEtherDestination.IsNull() && !o.LeafQosPolicyShaperHfscClassMatchEtherDestination.IsUnknown() {
-		jsonData["destination"] = o.LeafQosPolicyShaperHfscClassMatchEtherDestination.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperHfscClassMatchEtherProtocol.IsNull() && !o.LeafQosPolicyShaperHfscClassMatchEtherProtocol.IsUnknown() {
-		jsonData["protocol"] = o.LeafQosPolicyShaperHfscClassMatchEtherProtocol.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperHfscClassMatchEtherSource.IsNull() && !o.LeafQosPolicyShaperHfscClassMatchEtherSource.IsUnknown() {
-		jsonData["source"] = o.LeafQosPolicyShaperHfscClassMatchEtherSource.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyShaperHfscClassMatchEther) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["destination"]; ok {
-		o.LeafQosPolicyShaperHfscClassMatchEtherDestination = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassMatchEtherDestination = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["protocol"]; ok {
-		o.LeafQosPolicyShaperHfscClassMatchEtherProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassMatchEtherProtocol = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["source"]; ok {
-		o.LeafQosPolicyShaperHfscClassMatchEtherSource = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassMatchEtherSource = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyShaperHfscClassMatchEther) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceRouterAdvertInterface describes the resource data model.
@@ -15,19 +12,19 @@ type ServiceRouterAdvertInterface struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafServiceRouterAdvertInterfaceHopLimit           types.String `tfsdk:"hop_limit" vyos:"hop-limit,omitempty"`
+	LeafServiceRouterAdvertInterfaceHopLimit           types.Number `tfsdk:"hop_limit" vyos:"hop-limit,omitempty"`
 	LeafServiceRouterAdvertInterfaceDefaultLifetime    types.String `tfsdk:"default_lifetime" vyos:"default-lifetime,omitempty"`
 	LeafServiceRouterAdvertInterfaceDefaultPreference  types.String `tfsdk:"default_preference" vyos:"default-preference,omitempty"`
-	LeafServiceRouterAdvertInterfaceDNSsl              types.String `tfsdk:"dnssl" vyos:"dnssl,omitempty"`
-	LeafServiceRouterAdvertInterfaceLinkMtu            types.String `tfsdk:"link_mtu" vyos:"link-mtu,omitempty"`
-	LeafServiceRouterAdvertInterfaceManagedFlag        types.String `tfsdk:"managed_flag" vyos:"managed-flag,omitempty"`
-	LeafServiceRouterAdvertInterfaceNameServer         types.String `tfsdk:"name_server" vyos:"name-server,omitempty"`
-	LeafServiceRouterAdvertInterfaceNameServerLifetime types.String `tfsdk:"name_server_lifetime" vyos:"name-server-lifetime,omitempty"`
-	LeafServiceRouterAdvertInterfaceOtherConfigFlag    types.String `tfsdk:"other_config_flag" vyos:"other-config-flag,omitempty"`
-	LeafServiceRouterAdvertInterfaceSourceAddress      types.String `tfsdk:"source_address" vyos:"source-address,omitempty"`
-	LeafServiceRouterAdvertInterfaceReachableTime      types.String `tfsdk:"reachable_time" vyos:"reachable-time,omitempty"`
-	LeafServiceRouterAdvertInterfaceRetransTimer       types.String `tfsdk:"retrans_timer" vyos:"retrans-timer,omitempty"`
-	LeafServiceRouterAdvertInterfaceNoSendAdvert       types.String `tfsdk:"no_send_advert" vyos:"no-send-advert,omitempty"`
+	LeafServiceRouterAdvertInterfaceDNSsl              types.List   `tfsdk:"dnssl" vyos:"dnssl,omitempty"`
+	LeafServiceRouterAdvertInterfaceLinkMtu            types.Number `tfsdk:"link_mtu" vyos:"link-mtu,omitempty"`
+	LeafServiceRouterAdvertInterfaceManagedFlag        types.Bool   `tfsdk:"managed_flag" vyos:"managed-flag,omitempty"`
+	LeafServiceRouterAdvertInterfaceNameServer         types.List   `tfsdk:"name_server" vyos:"name-server,omitempty"`
+	LeafServiceRouterAdvertInterfaceNameServerLifetime types.Number `tfsdk:"name_server_lifetime" vyos:"name-server-lifetime,omitempty"`
+	LeafServiceRouterAdvertInterfaceOtherConfigFlag    types.Bool   `tfsdk:"other_config_flag" vyos:"other-config-flag,omitempty"`
+	LeafServiceRouterAdvertInterfaceSourceAddress      types.List   `tfsdk:"source_address" vyos:"source-address,omitempty"`
+	LeafServiceRouterAdvertInterfaceReachableTime      types.Number `tfsdk:"reachable_time" vyos:"reachable-time,omitempty"`
+	LeafServiceRouterAdvertInterfaceRetransTimer       types.Number `tfsdk:"retrans_timer" vyos:"retrans-timer,omitempty"`
+	LeafServiceRouterAdvertInterfaceNoSendAdvert       types.Bool   `tfsdk:"no_send_advert" vyos:"no-send-advert,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagServiceRouterAdvertInterfaceRoute  bool `tfsdk:"route" vyos:"route,child"`
@@ -41,7 +38,9 @@ type ServiceRouterAdvertInterface struct {
 func (o *ServiceRouterAdvertInterface) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"router-advert",
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -59,7 +58,7 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes() map[string]sche
 
 		// LeafNodes
 
-		"hop_limit": schema.StringAttribute{
+		"hop_limit": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set Hop Count field of the IP header for outgoing packets
 
@@ -102,14 +101,15 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes() map[string]sche
 			Computed: true,
 		},
 
-		"dnssl": schema.StringAttribute{
-			Optional: true,
+		"dnssl": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `DNS search list
 
 `,
 		},
 
-		"link_mtu": schema.StringAttribute{
+		"link_mtu": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Link MTU value placed in RAs, exluded in RAs if unset
 
@@ -120,15 +120,18 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes() map[string]sche
 `,
 		},
 
-		"managed_flag": schema.StringAttribute{
+		"managed_flag": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Hosts use the administered (stateful) protocol for address autoconfiguration in addition to any addresses autoconfigured using SLAAC
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"name_server": schema.StringAttribute{
-			Optional: true,
+		"name_server": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Domain Name Servers (DNS) addresses
 
     |  Format  |  Description  |
@@ -138,7 +141,7 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes() map[string]sche
 `,
 		},
 
-		"name_server_lifetime": schema.StringAttribute{
+		"name_server_lifetime": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum duration how long the RDNSS entries are used
 
@@ -150,15 +153,18 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes() map[string]sche
 `,
 		},
 
-		"other_config_flag": schema.StringAttribute{
+		"other_config_flag": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Hosts use the administered (stateful) protocol for autoconfiguration of other (non-address) information
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"source_address": schema.StringAttribute{
-			Optional: true,
+		"source_address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Use IPv6 address as source address. Useful with VRRP.
 
     |  Format  |  Description  |
@@ -168,7 +174,7 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes() map[string]sche
 `,
 		},
 
-		"reachable_time": schema.StringAttribute{
+		"reachable_time": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Time, in milliseconds, that a node assumes a neighbor is reachable after having received a reachability confirmation
 
@@ -183,7 +189,7 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes() map[string]sche
 			Computed: true,
 		},
 
-		"retrans_timer": schema.StringAttribute{
+		"retrans_timer": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Time in milliseconds between retransmitted Neighbor Solicitation messages
 
@@ -198,11 +204,13 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes() map[string]sche
 			Computed: true,
 		},
 
-		"no_send_advert": schema.StringAttribute{
+		"no_send_advert": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not send router adverts
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -219,188 +227,10 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes() map[string]sche
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceRouterAdvertInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceRouterAdvertInterfaceHopLimit.IsNull() && !o.LeafServiceRouterAdvertInterfaceHopLimit.IsUnknown() {
-		jsonData["hop-limit"] = o.LeafServiceRouterAdvertInterfaceHopLimit.ValueString()
-	}
-
-	if !o.LeafServiceRouterAdvertInterfaceDefaultLifetime.IsNull() && !o.LeafServiceRouterAdvertInterfaceDefaultLifetime.IsUnknown() {
-		jsonData["default-lifetime"] = o.LeafServiceRouterAdvertInterfaceDefaultLifetime.ValueString()
-	}
-
-	if !o.LeafServiceRouterAdvertInterfaceDefaultPreference.IsNull() && !o.LeafServiceRouterAdvertInterfaceDefaultPreference.IsUnknown() {
-		jsonData["default-preference"] = o.LeafServiceRouterAdvertInterfaceDefaultPreference.ValueString()
-	}
-
-	if !o.LeafServiceRouterAdvertInterfaceDNSsl.IsNull() && !o.LeafServiceRouterAdvertInterfaceDNSsl.IsUnknown() {
-		jsonData["dnssl"] = o.LeafServiceRouterAdvertInterfaceDNSsl.ValueString()
-	}
-
-	if !o.LeafServiceRouterAdvertInterfaceLinkMtu.IsNull() && !o.LeafServiceRouterAdvertInterfaceLinkMtu.IsUnknown() {
-		jsonData["link-mtu"] = o.LeafServiceRouterAdvertInterfaceLinkMtu.ValueString()
-	}
-
-	if !o.LeafServiceRouterAdvertInterfaceManagedFlag.IsNull() && !o.LeafServiceRouterAdvertInterfaceManagedFlag.IsUnknown() {
-		jsonData["managed-flag"] = o.LeafServiceRouterAdvertInterfaceManagedFlag.ValueString()
-	}
-
-	if !o.LeafServiceRouterAdvertInterfaceNameServer.IsNull() && !o.LeafServiceRouterAdvertInterfaceNameServer.IsUnknown() {
-		jsonData["name-server"] = o.LeafServiceRouterAdvertInterfaceNameServer.ValueString()
-	}
-
-	if !o.LeafServiceRouterAdvertInterfaceNameServerLifetime.IsNull() && !o.LeafServiceRouterAdvertInterfaceNameServerLifetime.IsUnknown() {
-		jsonData["name-server-lifetime"] = o.LeafServiceRouterAdvertInterfaceNameServerLifetime.ValueString()
-	}
-
-	if !o.LeafServiceRouterAdvertInterfaceOtherConfigFlag.IsNull() && !o.LeafServiceRouterAdvertInterfaceOtherConfigFlag.IsUnknown() {
-		jsonData["other-config-flag"] = o.LeafServiceRouterAdvertInterfaceOtherConfigFlag.ValueString()
-	}
-
-	if !o.LeafServiceRouterAdvertInterfaceSourceAddress.IsNull() && !o.LeafServiceRouterAdvertInterfaceSourceAddress.IsUnknown() {
-		jsonData["source-address"] = o.LeafServiceRouterAdvertInterfaceSourceAddress.ValueString()
-	}
-
-	if !o.LeafServiceRouterAdvertInterfaceReachableTime.IsNull() && !o.LeafServiceRouterAdvertInterfaceReachableTime.IsUnknown() {
-		jsonData["reachable-time"] = o.LeafServiceRouterAdvertInterfaceReachableTime.ValueString()
-	}
-
-	if !o.LeafServiceRouterAdvertInterfaceRetransTimer.IsNull() && !o.LeafServiceRouterAdvertInterfaceRetransTimer.IsUnknown() {
-		jsonData["retrans-timer"] = o.LeafServiceRouterAdvertInterfaceRetransTimer.ValueString()
-	}
-
-	if !o.LeafServiceRouterAdvertInterfaceNoSendAdvert.IsNull() && !o.LeafServiceRouterAdvertInterfaceNoSendAdvert.IsUnknown() {
-		jsonData["no-send-advert"] = o.LeafServiceRouterAdvertInterfaceNoSendAdvert.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeServiceRouterAdvertInterfaceInterval).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeServiceRouterAdvertInterfaceInterval)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["interval"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceRouterAdvertInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["hop-limit"]; ok {
-		o.LeafServiceRouterAdvertInterfaceHopLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceHopLimit = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["default-lifetime"]; ok {
-		o.LeafServiceRouterAdvertInterfaceDefaultLifetime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceDefaultLifetime = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["default-preference"]; ok {
-		o.LeafServiceRouterAdvertInterfaceDefaultPreference = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceDefaultPreference = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["dnssl"]; ok {
-		o.LeafServiceRouterAdvertInterfaceDNSsl = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceDNSsl = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["link-mtu"]; ok {
-		o.LeafServiceRouterAdvertInterfaceLinkMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceLinkMtu = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["managed-flag"]; ok {
-		o.LeafServiceRouterAdvertInterfaceManagedFlag = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceManagedFlag = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["name-server"]; ok {
-		o.LeafServiceRouterAdvertInterfaceNameServer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceNameServer = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["name-server-lifetime"]; ok {
-		o.LeafServiceRouterAdvertInterfaceNameServerLifetime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceNameServerLifetime = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["other-config-flag"]; ok {
-		o.LeafServiceRouterAdvertInterfaceOtherConfigFlag = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceOtherConfigFlag = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["source-address"]; ok {
-		o.LeafServiceRouterAdvertInterfaceSourceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceSourceAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["reachable-time"]; ok {
-		o.LeafServiceRouterAdvertInterfaceReachableTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceReachableTime = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["retrans-timer"]; ok {
-		o.LeafServiceRouterAdvertInterfaceRetransTimer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceRetransTimer = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["no-send-advert"]; ok {
-		o.LeafServiceRouterAdvertInterfaceNoSendAdvert = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceNoSendAdvert = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["interval"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeServiceRouterAdvertInterfaceInterval = &ServiceRouterAdvertInterfaceInterval{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeServiceRouterAdvertInterfaceInterval)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ServiceRouterAdvertInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

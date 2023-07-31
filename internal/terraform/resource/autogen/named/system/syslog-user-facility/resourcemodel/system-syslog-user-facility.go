@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemSyslogUserFacility describes the resource data model.
 type SystemSyslogUserFacility struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDSystemSyslogUser any `tfsdk:"user" vyos:"user,parent-id"`
+	ParentIDSystemSyslogUser types.String `tfsdk:"user" vyos:"user_identifier,parent-id"`
 
 	// LeafNodes
 	LeafSystemSyslogUserFacilityLevel types.String `tfsdk:"level" vyos:"level,omitempty"`
@@ -27,8 +24,12 @@ type SystemSyslogUserFacility struct {
 func (o *SystemSyslogUserFacility) GetVyosPath() []string {
 	return []string{
 		"system",
+
 		"syslog",
+
 		"user",
+		o.ParentIDSystemSyslogUser.ValueString(),
+
 		"facility",
 		o.ID.ValueString(),
 	}
@@ -70,6 +71,17 @@ func (o SystemSyslogUserFacility) ResourceSchemaAttributes() map[string]schema.A
 `,
 		},
 
+		"user_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Logging to specific terminal of given user
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  username  |  user login name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"level": schema.StringAttribute{
@@ -98,41 +110,10 @@ func (o SystemSyslogUserFacility) ResourceSchemaAttributes() map[string]schema.A
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemSyslogUserFacility) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafSystemSyslogUserFacilityLevel.IsNull() && !o.LeafSystemSyslogUserFacilityLevel.IsUnknown() {
-		jsonData["level"] = o.LeafSystemSyslogUserFacilityLevel.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemSyslogUserFacility) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["level"]; ok {
-		o.LeafSystemSyslogUserFacilityLevel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemSyslogUserFacilityLevel = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *SystemSyslogUserFacility) UnmarshalJSON(_ []byte) error {
 	return nil
 }

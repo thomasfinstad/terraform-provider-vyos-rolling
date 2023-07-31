@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesOpenvpnKeepAlive describes the resource data model.
 type InterfacesOpenvpnKeepAlive struct {
 	// LeafNodes
-	LeafInterfacesOpenvpnKeepAliveFailureCount types.String `tfsdk:"failure_count" vyos:"failure-count,omitempty"`
-	LeafInterfacesOpenvpnKeepAliveInterval     types.String `tfsdk:"interval" vyos:"interval,omitempty"`
+	LeafInterfacesOpenvpnKeepAliveFailureCount types.Number `tfsdk:"failure_count" vyos:"failure-count,omitempty"`
+	LeafInterfacesOpenvpnKeepAliveInterval     types.Number `tfsdk:"interval" vyos:"interval,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +22,7 @@ func (o InterfacesOpenvpnKeepAlive) ResourceSchemaAttributes() map[string]schema
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"failure_count": schema.StringAttribute{
+		"failure_count": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum number of keepalive packet failures
 
@@ -39,7 +36,7 @@ func (o InterfacesOpenvpnKeepAlive) ResourceSchemaAttributes() map[string]schema
 			Computed: true,
 		},
 
-		"interval": schema.StringAttribute{
+		"interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Keepalive packet interval in seconds
 
@@ -60,51 +57,10 @@ func (o InterfacesOpenvpnKeepAlive) ResourceSchemaAttributes() map[string]schema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesOpenvpnKeepAlive) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesOpenvpnKeepAliveFailureCount.IsNull() && !o.LeafInterfacesOpenvpnKeepAliveFailureCount.IsUnknown() {
-		jsonData["failure-count"] = o.LeafInterfacesOpenvpnKeepAliveFailureCount.ValueString()
-	}
-
-	if !o.LeafInterfacesOpenvpnKeepAliveInterval.IsNull() && !o.LeafInterfacesOpenvpnKeepAliveInterval.IsUnknown() {
-		jsonData["interval"] = o.LeafInterfacesOpenvpnKeepAliveInterval.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesOpenvpnKeepAlive) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["failure-count"]; ok {
-		o.LeafInterfacesOpenvpnKeepAliveFailureCount = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnKeepAliveFailureCount = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["interval"]; ok {
-		o.LeafInterfacesOpenvpnKeepAliveInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnKeepAliveInterval = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesOpenvpnKeepAlive) UnmarshalJSON(_ []byte) error {
 	return nil
 }

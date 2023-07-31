@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsOspfAreaAreaTypeNssa describes the resource data model.
 type ProtocolsOspfAreaAreaTypeNssa struct {
 	// LeafNodes
-	LeafProtocolsOspfAreaAreaTypeNssaDefaultCost types.String `tfsdk:"default_cost" vyos:"default-cost,omitempty"`
-	LeafProtocolsOspfAreaAreaTypeNssaNoSummary   types.String `tfsdk:"no_summary" vyos:"no-summary,omitempty"`
+	LeafProtocolsOspfAreaAreaTypeNssaDefaultCost types.Number `tfsdk:"default_cost" vyos:"default-cost,omitempty"`
+	LeafProtocolsOspfAreaAreaTypeNssaNoSummary   types.Bool   `tfsdk:"no_summary" vyos:"no-summary,omitempty"`
 	LeafProtocolsOspfAreaAreaTypeNssaTranSLAte   types.String `tfsdk:"translate" vyos:"translate,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -26,7 +24,7 @@ func (o ProtocolsOspfAreaAreaTypeNssa) ResourceSchemaAttributes() map[string]sch
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"default_cost": schema.StringAttribute{
+		"default_cost": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Summary-default cost of an NSSA area
 
@@ -37,11 +35,13 @@ func (o ProtocolsOspfAreaAreaTypeNssa) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 
-		"no_summary": schema.StringAttribute{
+		"no_summary": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not inject inter-area routes into stub
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"translate": schema.StringAttribute{
@@ -67,61 +67,10 @@ func (o ProtocolsOspfAreaAreaTypeNssa) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsOspfAreaAreaTypeNssa) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsOspfAreaAreaTypeNssaDefaultCost.IsNull() && !o.LeafProtocolsOspfAreaAreaTypeNssaDefaultCost.IsUnknown() {
-		jsonData["default-cost"] = o.LeafProtocolsOspfAreaAreaTypeNssaDefaultCost.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfAreaAreaTypeNssaNoSummary.IsNull() && !o.LeafProtocolsOspfAreaAreaTypeNssaNoSummary.IsUnknown() {
-		jsonData["no-summary"] = o.LeafProtocolsOspfAreaAreaTypeNssaNoSummary.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfAreaAreaTypeNssaTranSLAte.IsNull() && !o.LeafProtocolsOspfAreaAreaTypeNssaTranSLAte.IsUnknown() {
-		jsonData["translate"] = o.LeafProtocolsOspfAreaAreaTypeNssaTranSLAte.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsOspfAreaAreaTypeNssa) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["default-cost"]; ok {
-		o.LeafProtocolsOspfAreaAreaTypeNssaDefaultCost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfAreaAreaTypeNssaDefaultCost = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["no-summary"]; ok {
-		o.LeafProtocolsOspfAreaAreaTypeNssaNoSummary = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfAreaAreaTypeNssaNoSummary = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["translate"]; ok {
-		o.LeafProtocolsOspfAreaAreaTypeNssaTranSLAte = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfAreaAreaTypeNssaTranSLAte = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsOspfAreaAreaTypeNssa) UnmarshalJSON(_ []byte) error {
 	return nil
 }

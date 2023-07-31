@@ -2,22 +2,19 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyRoundRobinDefault describes the resource data model.
 type QosPolicyRoundRobinDefault struct {
 	// LeafNodes
-	LeafQosPolicyRoundRobinDefaultCodelQuantum types.String `tfsdk:"codel_quantum" vyos:"codel-quantum,omitempty"`
-	LeafQosPolicyRoundRobinDefaultFlows        types.String `tfsdk:"flows" vyos:"flows,omitempty"`
-	LeafQosPolicyRoundRobinDefaultInterval     types.String `tfsdk:"interval" vyos:"interval,omitempty"`
-	LeafQosPolicyRoundRobinDefaultQueueLimit   types.String `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
+	LeafQosPolicyRoundRobinDefaultCodelQuantum types.Number `tfsdk:"codel_quantum" vyos:"codel-quantum,omitempty"`
+	LeafQosPolicyRoundRobinDefaultFlows        types.Number `tfsdk:"flows" vyos:"flows,omitempty"`
+	LeafQosPolicyRoundRobinDefaultInterval     types.Number `tfsdk:"interval" vyos:"interval,omitempty"`
+	LeafQosPolicyRoundRobinDefaultQueueLimit   types.Number `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
 	LeafQosPolicyRoundRobinDefaultQueueType    types.String `tfsdk:"queue_type" vyos:"queue-type,omitempty"`
-	LeafQosPolicyRoundRobinDefaultTarget       types.String `tfsdk:"target" vyos:"target,omitempty"`
+	LeafQosPolicyRoundRobinDefaultTarget       types.Number `tfsdk:"target" vyos:"target,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -29,7 +26,7 @@ func (o QosPolicyRoundRobinDefault) ResourceSchemaAttributes() map[string]schema
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"codel_quantum": schema.StringAttribute{
+		"codel_quantum": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Deficit in the fair queuing algorithm
 
@@ -43,7 +40,7 @@ func (o QosPolicyRoundRobinDefault) ResourceSchemaAttributes() map[string]schema
 			Computed: true,
 		},
 
-		"flows": schema.StringAttribute{
+		"flows": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of flows into which the incoming packets are classified
 
@@ -57,7 +54,7 @@ func (o QosPolicyRoundRobinDefault) ResourceSchemaAttributes() map[string]schema
 			Computed: true,
 		},
 
-		"interval": schema.StringAttribute{
+		"interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval used to measure the delay
 
@@ -71,7 +68,7 @@ func (o QosPolicyRoundRobinDefault) ResourceSchemaAttributes() map[string]schema
 			Computed: true,
 		},
 
-		"queue_limit": schema.StringAttribute{
+		"queue_limit": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
@@ -100,7 +97,7 @@ func (o QosPolicyRoundRobinDefault) ResourceSchemaAttributes() map[string]schema
 			Computed: true,
 		},
 
-		"target": schema.StringAttribute{
+		"target": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Acceptable minimum standing/persistent queue delay
 
@@ -121,91 +118,10 @@ func (o QosPolicyRoundRobinDefault) ResourceSchemaAttributes() map[string]schema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyRoundRobinDefault) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyRoundRobinDefaultCodelQuantum.IsNull() && !o.LeafQosPolicyRoundRobinDefaultCodelQuantum.IsUnknown() {
-		jsonData["codel-quantum"] = o.LeafQosPolicyRoundRobinDefaultCodelQuantum.ValueString()
-	}
-
-	if !o.LeafQosPolicyRoundRobinDefaultFlows.IsNull() && !o.LeafQosPolicyRoundRobinDefaultFlows.IsUnknown() {
-		jsonData["flows"] = o.LeafQosPolicyRoundRobinDefaultFlows.ValueString()
-	}
-
-	if !o.LeafQosPolicyRoundRobinDefaultInterval.IsNull() && !o.LeafQosPolicyRoundRobinDefaultInterval.IsUnknown() {
-		jsonData["interval"] = o.LeafQosPolicyRoundRobinDefaultInterval.ValueString()
-	}
-
-	if !o.LeafQosPolicyRoundRobinDefaultQueueLimit.IsNull() && !o.LeafQosPolicyRoundRobinDefaultQueueLimit.IsUnknown() {
-		jsonData["queue-limit"] = o.LeafQosPolicyRoundRobinDefaultQueueLimit.ValueString()
-	}
-
-	if !o.LeafQosPolicyRoundRobinDefaultQueueType.IsNull() && !o.LeafQosPolicyRoundRobinDefaultQueueType.IsUnknown() {
-		jsonData["queue-type"] = o.LeafQosPolicyRoundRobinDefaultQueueType.ValueString()
-	}
-
-	if !o.LeafQosPolicyRoundRobinDefaultTarget.IsNull() && !o.LeafQosPolicyRoundRobinDefaultTarget.IsUnknown() {
-		jsonData["target"] = o.LeafQosPolicyRoundRobinDefaultTarget.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyRoundRobinDefault) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["codel-quantum"]; ok {
-		o.LeafQosPolicyRoundRobinDefaultCodelQuantum = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinDefaultCodelQuantum = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["flows"]; ok {
-		o.LeafQosPolicyRoundRobinDefaultFlows = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinDefaultFlows = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["interval"]; ok {
-		o.LeafQosPolicyRoundRobinDefaultInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinDefaultInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["queue-limit"]; ok {
-		o.LeafQosPolicyRoundRobinDefaultQueueLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinDefaultQueueLimit = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["queue-type"]; ok {
-		o.LeafQosPolicyRoundRobinDefaultQueueType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinDefaultQueueType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["target"]; ok {
-		o.LeafQosPolicyRoundRobinDefaultTarget = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinDefaultTarget = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyRoundRobinDefault) UnmarshalJSON(_ []byte) error {
 	return nil
 }

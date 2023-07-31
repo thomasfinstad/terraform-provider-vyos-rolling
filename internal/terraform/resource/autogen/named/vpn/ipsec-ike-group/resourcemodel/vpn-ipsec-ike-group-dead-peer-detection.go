@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnIPsecIkeGroupDeadPeerDetection describes the resource data model.
 type VpnIPsecIkeGroupDeadPeerDetection struct {
 	// LeafNodes
 	LeafVpnIPsecIkeGroupDeadPeerDetectionAction   types.String `tfsdk:"action" vyos:"action,omitempty"`
-	LeafVpnIPsecIkeGroupDeadPeerDetectionInterval types.String `tfsdk:"interval" vyos:"interval,omitempty"`
-	LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout  types.String `tfsdk:"timeout" vyos:"timeout,omitempty"`
+	LeafVpnIPsecIkeGroupDeadPeerDetectionInterval types.Number `tfsdk:"interval" vyos:"interval,omitempty"`
+	LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout  types.Number `tfsdk:"timeout" vyos:"timeout,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -42,7 +39,7 @@ func (o VpnIPsecIkeGroupDeadPeerDetection) ResourceSchemaAttributes() map[string
 			Computed: true,
 		},
 
-		"interval": schema.StringAttribute{
+		"interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Keep-alive interval
 
@@ -56,7 +53,7 @@ func (o VpnIPsecIkeGroupDeadPeerDetection) ResourceSchemaAttributes() map[string
 			Computed: true,
 		},
 
-		"timeout": schema.StringAttribute{
+		"timeout": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Dead Peer Detection keep-alive timeout (IKEv1 only)
 
@@ -77,61 +74,10 @@ func (o VpnIPsecIkeGroupDeadPeerDetection) ResourceSchemaAttributes() map[string
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnIPsecIkeGroupDeadPeerDetection) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnIPsecIkeGroupDeadPeerDetectionAction.IsNull() && !o.LeafVpnIPsecIkeGroupDeadPeerDetectionAction.IsUnknown() {
-		jsonData["action"] = o.LeafVpnIPsecIkeGroupDeadPeerDetectionAction.ValueString()
-	}
-
-	if !o.LeafVpnIPsecIkeGroupDeadPeerDetectionInterval.IsNull() && !o.LeafVpnIPsecIkeGroupDeadPeerDetectionInterval.IsUnknown() {
-		jsonData["interval"] = o.LeafVpnIPsecIkeGroupDeadPeerDetectionInterval.ValueString()
-	}
-
-	if !o.LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout.IsNull() && !o.LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout.IsUnknown() {
-		jsonData["timeout"] = o.LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnIPsecIkeGroupDeadPeerDetection) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["action"]; ok {
-		o.LeafVpnIPsecIkeGroupDeadPeerDetectionAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecIkeGroupDeadPeerDetectionAction = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["interval"]; ok {
-		o.LeafVpnIPsecIkeGroupDeadPeerDetectionInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecIkeGroupDeadPeerDetectionInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["timeout"]; ok {
-		o.LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VpnIPsecIkeGroupDeadPeerDetection) UnmarshalJSON(_ []byte) error {
 	return nil
 }

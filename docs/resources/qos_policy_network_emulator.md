@@ -74,7 +74,7 @@ Network emulator policy
     |  Format  |  Description  |
     |----------|---------------|
     |  <number>  |  Percentage of packets affected  |
-- `queue_limit` (String) Maximum queue size
+- `queue_limit` (Number) Maximum queue size
 
     |  Format  |  Description  |
     |----------|---------------|

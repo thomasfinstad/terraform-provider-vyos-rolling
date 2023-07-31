@@ -2,24 +2,20 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteMapRule describes the resource data model.
 type PolicyRouteMapRule struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDPolicyRouteMap any `tfsdk:"route_map" vyos:"route-map,parent-id"`
+	ParentIDPolicyRouteMap types.String `tfsdk:"route_map" vyos:"route-map_identifier,parent-id"`
 
 	// LeafNodes
 	LeafPolicyRouteMapRuleAction      types.String `tfsdk:"action" vyos:"action,omitempty"`
 	LeafPolicyRouteMapRuleCall        types.String `tfsdk:"call" vyos:"call,omitempty"`
-	LeafPolicyRouteMapRuleContinue    types.String `tfsdk:"continue" vyos:"continue,omitempty"`
+	LeafPolicyRouteMapRuleContinue    types.Number `tfsdk:"continue" vyos:"continue,omitempty"`
 	LeafPolicyRouteMapRuleDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -34,9 +30,12 @@ type PolicyRouteMapRule struct {
 func (o *PolicyRouteMapRule) GetVyosPath() []string {
 	return []string{
 		"policy",
+
 		"route-map",
+		o.ParentIDPolicyRouteMap.ValueString(),
+
 		"rule",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -50,6 +49,17 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Route-map rule number  |
+
+`,
+		},
+
+		"route_map_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `IP route-map
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 `,
 		},
@@ -79,7 +89,7 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 
-		"continue": schema.StringAttribute{
+		"continue": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Jump to a different rule in this route-map on a match
 
@@ -131,152 +141,10 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteMapRule) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteMapRuleAction.IsNull() && !o.LeafPolicyRouteMapRuleAction.IsUnknown() {
-		jsonData["action"] = o.LeafPolicyRouteMapRuleAction.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleCall.IsNull() && !o.LeafPolicyRouteMapRuleCall.IsUnknown() {
-		jsonData["call"] = o.LeafPolicyRouteMapRuleCall.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleContinue.IsNull() && !o.LeafPolicyRouteMapRuleContinue.IsUnknown() {
-		jsonData["continue"] = o.LeafPolicyRouteMapRuleContinue.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleDescrIPtion.IsNull() && !o.LeafPolicyRouteMapRuleDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafPolicyRouteMapRuleDescrIPtion.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodePolicyRouteMapRuleMatch).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleMatch)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["match"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteMapRuleOnMatch).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleOnMatch)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["on-match"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteMapRuleSet).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleSet)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["set"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteMapRule) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["action"]; ok {
-		o.LeafPolicyRouteMapRuleAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleAction = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["call"]; ok {
-		o.LeafPolicyRouteMapRuleCall = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleCall = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["continue"]; ok {
-		o.LeafPolicyRouteMapRuleContinue = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleContinue = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafPolicyRouteMapRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["match"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteMapRuleMatch = &PolicyRouteMapRuleMatch{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleMatch)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["on-match"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteMapRuleOnMatch = &PolicyRouteMapRuleOnMatch{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleOnMatch)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["set"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteMapRuleSet = &PolicyRouteMapRuleSet{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleSet)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *PolicyRouteMapRule) UnmarshalJSON(_ []byte) error {
 	return nil
 }

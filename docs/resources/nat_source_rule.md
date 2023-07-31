@@ -44,9 +44,9 @@ Rule number for NAT
     |----------|---------------|
     |  txt  |  Description  |
 - `destination` (Attributes) NAT destination parameters (see [below for nested schema](#nestedatt--destination))
-- `disable` (String) Disable instance
-- `exclude` (String) Exclude packets matching this rule from NAT
-- `log` (String) NAT rule logging
+- `disable` (Boolean) Disable instance
+- `exclude` (Boolean) Exclude packets matching this rule from NAT
+- `log` (Boolean) NAT rule logging
 - `outbound_interface` (String) Outbound interface of NAT traffic
 - `packet_type` (String) Packet type
 

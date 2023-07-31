@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PkiCaPrivate describes the resource data model.
 type PkiCaPrivate struct {
 	// LeafNodes
 	LeafPkiCaPrivateKey               types.String `tfsdk:"key" vyos:"key,omitempty"`
-	LeafPkiCaPrivatePasswordProtected types.String `tfsdk:"password_protected" vyos:"password-protected,omitempty"`
+	LeafPkiCaPrivatePasswordProtected types.Bool   `tfsdk:"password_protected" vyos:"password-protected,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -32,11 +30,13 @@ func (o PkiCaPrivate) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 
-		"password_protected": schema.StringAttribute{
+		"password_protected": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `CA private key is password protected
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -46,51 +46,10 @@ func (o PkiCaPrivate) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PkiCaPrivate) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPkiCaPrivateKey.IsNull() && !o.LeafPkiCaPrivateKey.IsUnknown() {
-		jsonData["key"] = o.LeafPkiCaPrivateKey.ValueString()
-	}
-
-	if !o.LeafPkiCaPrivatePasswordProtected.IsNull() && !o.LeafPkiCaPrivatePasswordProtected.IsUnknown() {
-		jsonData["password-protected"] = o.LeafPkiCaPrivatePasswordProtected.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PkiCaPrivate) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["key"]; ok {
-		o.LeafPkiCaPrivateKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiCaPrivateKey = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["password-protected"]; ok {
-		o.LeafPkiCaPrivatePasswordProtected = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiCaPrivatePasswordProtected = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PkiCaPrivate) UnmarshalJSON(_ []byte) error {
 	return nil
 }

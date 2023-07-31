@@ -49,15 +49,20 @@ Specify neighbor router
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  Neighbor IP address  |
+- `name_identifier` (String) Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 ### Optional
 
-- `poll_interval` (String) Dead neighbor polling interval
+- `poll_interval` (Number) Dead neighbor polling interval
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Seconds between dead neighbor polling interval  |
-- `priority` (String) Neighbor priority in seconds
+- `priority` (Number) Neighbor priority in seconds
 
     |  Format  |  Description  |
     |----------|---------------|

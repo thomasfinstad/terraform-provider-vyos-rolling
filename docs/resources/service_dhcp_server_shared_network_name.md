@@ -24,24 +24,24 @@ Name of DHCP shared network
 
 ### Optional
 
-- `authoritative` (String) Option to make DHCP server authoritative for this physical network
+- `authoritative` (Boolean) Option to make DHCP server authoritative for this physical network
 - `description` (String) Description
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `disable` (String) Disable instance
+- `disable` (Boolean) Disable instance
 - `domain_name` (String) Client Domain Name
-- `domain_search` (String) Client Domain Name search list
-- `name_server` (String) Domain Name Servers (DNS) addresses
+- `domain_search` (List of String) Client Domain Name search list
+- `name_server` (List of String) Domain Name Servers (DNS) addresses
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
-- `ntp_server` (String) IP address of NTP server
+- `ntp_server` (List of String) IP address of NTP server
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  NTP server IPv4 address  |
-- `ping_check` (String) Sends ICMP Echo request to the address being assigned
-- `shared_network_parameters` (String) Additional shared-network parameters for DHCP server. You must use the syntax of dhcpd.conf in this text-field. Using this without proper knowledge may result in a crashed DHCP server. Check system log to look for errors.
+- `ping_check` (Boolean) Sends ICMP Echo request to the address being assigned
+- `shared_network_parameters` (List of String) Additional shared-network parameters for DHCP server. You must use the syntax of dhcpd.conf in this text-field. Using this without proper knowledge may result in a crashed DHCP server. Check system log to look for errors.

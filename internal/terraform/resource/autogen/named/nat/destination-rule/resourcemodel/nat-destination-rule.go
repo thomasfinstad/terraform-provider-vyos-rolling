@@ -2,23 +2,20 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // NatDestinationRule describes the resource data model.
 type NatDestinationRule struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
 	LeafNatDestinationRuleDescrIPtion      types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafNatDestinationRuleDisable          types.String `tfsdk:"disable" vyos:"disable,omitempty"`
-	LeafNatDestinationRuleExclude          types.String `tfsdk:"exclude" vyos:"exclude,omitempty"`
-	LeafNatDestinationRuleLog              types.String `tfsdk:"log" vyos:"log,omitempty"`
+	LeafNatDestinationRuleDisable          types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafNatDestinationRuleExclude          types.Bool   `tfsdk:"exclude" vyos:"exclude,omitempty"`
+	LeafNatDestinationRuleLog              types.Bool   `tfsdk:"log" vyos:"log,omitempty"`
 	LeafNatDestinationRulePacketType       types.String `tfsdk:"packet_type" vyos:"packet-type,omitempty"`
 	LeafNatDestinationRuleProtocol         types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 	LeafNatDestinationRuleInboundInterface types.String `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
@@ -35,9 +32,11 @@ type NatDestinationRule struct {
 func (o *NatDestinationRule) GetVyosPath() []string {
 	return []string{
 		"nat",
+
 		"destination",
+
 		"rule",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -68,25 +67,31 @@ func (o NatDestinationRule) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"exclude": schema.StringAttribute{
+		"exclude": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Exclude packets matching this rule from NAT
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"log": schema.StringAttribute{
+		"log": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `NAT rule logging
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"packet_type": schema.StringAttribute{
@@ -212,182 +217,10 @@ func (o NatDestinationRule) ResourceSchemaAttributes() map[string]schema.Attribu
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *NatDestinationRule) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafNatDestinationRuleDescrIPtion.IsNull() && !o.LeafNatDestinationRuleDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafNatDestinationRuleDescrIPtion.ValueString()
-	}
-
-	if !o.LeafNatDestinationRuleDisable.IsNull() && !o.LeafNatDestinationRuleDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafNatDestinationRuleDisable.ValueString()
-	}
-
-	if !o.LeafNatDestinationRuleExclude.IsNull() && !o.LeafNatDestinationRuleExclude.IsUnknown() {
-		jsonData["exclude"] = o.LeafNatDestinationRuleExclude.ValueString()
-	}
-
-	if !o.LeafNatDestinationRuleLog.IsNull() && !o.LeafNatDestinationRuleLog.IsUnknown() {
-		jsonData["log"] = o.LeafNatDestinationRuleLog.ValueString()
-	}
-
-	if !o.LeafNatDestinationRulePacketType.IsNull() && !o.LeafNatDestinationRulePacketType.IsUnknown() {
-		jsonData["packet-type"] = o.LeafNatDestinationRulePacketType.ValueString()
-	}
-
-	if !o.LeafNatDestinationRuleProtocol.IsNull() && !o.LeafNatDestinationRuleProtocol.IsUnknown() {
-		jsonData["protocol"] = o.LeafNatDestinationRuleProtocol.ValueString()
-	}
-
-	if !o.LeafNatDestinationRuleInboundInterface.IsNull() && !o.LeafNatDestinationRuleInboundInterface.IsUnknown() {
-		jsonData["inbound-interface"] = o.LeafNatDestinationRuleInboundInterface.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeNatDestinationRuleDestination).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeNatDestinationRuleDestination)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["destination"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeNatDestinationRuleSource).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeNatDestinationRuleSource)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["source"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeNatDestinationRuleTranSLAtion).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeNatDestinationRuleTranSLAtion)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["translation"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *NatDestinationRule) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafNatDestinationRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafNatDestinationRuleDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["exclude"]; ok {
-		o.LeafNatDestinationRuleExclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleExclude = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["log"]; ok {
-		o.LeafNatDestinationRuleLog = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleLog = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["packet-type"]; ok {
-		o.LeafNatDestinationRulePacketType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRulePacketType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["protocol"]; ok {
-		o.LeafNatDestinationRuleProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleProtocol = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["inbound-interface"]; ok {
-		o.LeafNatDestinationRuleInboundInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleInboundInterface = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["destination"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeNatDestinationRuleDestination = &NatDestinationRuleDestination{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeNatDestinationRuleDestination)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["source"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeNatDestinationRuleSource = &NatDestinationRuleSource{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeNatDestinationRuleSource)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["translation"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeNatDestinationRuleTranSLAtion = &NatDestinationRuleTranSLAtion{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeNatDestinationRuleTranSLAtion)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *NatDestinationRule) UnmarshalJSON(_ []byte) error {
 	return nil
 }

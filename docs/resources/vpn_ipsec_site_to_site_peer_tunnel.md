@@ -49,13 +49,18 @@ Peer tunnel
     |  Format  |  Description  |
     |----------|---------------|
     |  u32  |  Peer tunnel  |
+- `peer_identifier` (String) Connection name of the peer
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Connection name of the peer  |
 
 ### Optional
 
-- `disable` (String) Disable instance
+- `disable` (Boolean) Disable instance
 - `esp_group` (String) Encapsulating Security Payloads (ESP) group name
 - `local` (Attributes) Local parameters for interesting traffic (see [below for nested schema](#nestedatt--local))
-- `priority` (String) Priority for IPsec policy (lowest value more preferable)
+- `priority` (Number) Priority for IPsec policy (lowest value more preferable)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -72,12 +77,12 @@ Peer tunnel
 
 Optional:
 
-- `port` (String) Port number used by connection
+- `port` (Number) Port number used by connection
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Numeric IP port  |
-- `prefix` (String) Local IPv4 or IPv6 prefix
+- `prefix` (List of String) Local IPv4 or IPv6 prefix
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -90,12 +95,12 @@ Optional:
 
 Optional:
 
-- `port` (String) Port number used by connection
+- `port` (Number) Port number used by connection
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Numeric IP port  |
-- `prefix` (String) Remote IPv4 or IPv6 prefix
+- `prefix` (List of String) Remote IPv4 or IPv6 prefix
 
     |  Format  |  Description  |
     |----------|---------------|

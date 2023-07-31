@@ -46,6 +46,11 @@ Static IPv4 route
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4net  |  IPv4 static route  |
+- `table_identifier` (String) Policy route table number
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-200  |  Policy route table number  |
 
 ### Optional
 
@@ -67,12 +72,12 @@ Static IPv4 route
 
 Optional:
 
-- `distance` (String) Distance for this route
+- `distance` (Number) Distance for this route
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Distance for this route  |
-- `tag` (String) Tag value for this route
+- `tag` (Number) Tag value for this route
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -84,12 +89,12 @@ Optional:
 
 Optional:
 
-- `distance` (String) Distance for this route
+- `distance` (Number) Distance for this route
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  Distance for this route  |
-- `tag` (String) Tag value for this route
+- `tag` (Number) Tag value for this route
 
     |  Format  |  Description  |
     |----------|---------------|

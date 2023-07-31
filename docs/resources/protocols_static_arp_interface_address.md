@@ -43,6 +43,11 @@ IP address for static ARP entry
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  IPv4 destination address  |
+- `interface_identifier` (String) Interface configuration
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Interface name  |
 
 ### Optional
 

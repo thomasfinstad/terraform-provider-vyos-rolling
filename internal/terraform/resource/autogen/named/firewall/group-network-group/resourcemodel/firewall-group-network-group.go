@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallGroupNetworkGroup describes the resource data model.
@@ -15,8 +12,8 @@ type FirewallGroupNetworkGroup struct {
 
 	// LeafNodes
 	LeafFirewallGroupNetworkGroupDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafFirewallGroupNetworkGroupNetwork     types.String `tfsdk:"network" vyos:"network,omitempty"`
-	LeafFirewallGroupNetworkGroupInclude     types.String `tfsdk:"include" vyos:"include,omitempty"`
+	LeafFirewallGroupNetworkGroupNetwork     types.List   `tfsdk:"network" vyos:"network,omitempty"`
+	LeafFirewallGroupNetworkGroupInclude     types.List   `tfsdk:"include" vyos:"include,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,7 +24,9 @@ type FirewallGroupNetworkGroup struct {
 func (o *FirewallGroupNetworkGroup) GetVyosPath() []string {
 	return []string{
 		"firewall",
+
 		"group",
+
 		"network-group",
 		o.ID.ValueString(),
 	}
@@ -56,8 +55,9 @@ func (o FirewallGroupNetworkGroup) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 
-		"network": schema.StringAttribute{
-			Optional: true,
+		"network": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Network-group member
 
     |  Format  |  Description  |
@@ -67,8 +67,9 @@ func (o FirewallGroupNetworkGroup) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 
-		"include": schema.StringAttribute{
-			Optional: true,
+		"include": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Include another network-group
 
 `,
@@ -81,61 +82,10 @@ func (o FirewallGroupNetworkGroup) ResourceSchemaAttributes() map[string]schema.
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallGroupNetworkGroup) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallGroupNetworkGroupDescrIPtion.IsNull() && !o.LeafFirewallGroupNetworkGroupDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafFirewallGroupNetworkGroupDescrIPtion.ValueString()
-	}
-
-	if !o.LeafFirewallGroupNetworkGroupNetwork.IsNull() && !o.LeafFirewallGroupNetworkGroupNetwork.IsUnknown() {
-		jsonData["network"] = o.LeafFirewallGroupNetworkGroupNetwork.ValueString()
-	}
-
-	if !o.LeafFirewallGroupNetworkGroupInclude.IsNull() && !o.LeafFirewallGroupNetworkGroupInclude.IsUnknown() {
-		jsonData["include"] = o.LeafFirewallGroupNetworkGroupInclude.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallGroupNetworkGroup) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafFirewallGroupNetworkGroupDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallGroupNetworkGroupDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["network"]; ok {
-		o.LeafFirewallGroupNetworkGroupNetwork = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallGroupNetworkGroupNetwork = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["include"]; ok {
-		o.LeafFirewallGroupNetworkGroupInclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallGroupNetworkGroupInclude = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallGroupNetworkGroup) UnmarshalJSON(_ []byte) error {
 	return nil
 }

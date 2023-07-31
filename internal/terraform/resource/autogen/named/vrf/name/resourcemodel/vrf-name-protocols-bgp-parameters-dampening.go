@@ -2,20 +2,17 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpParametersDampening describes the resource data model.
 type VrfNameProtocolsBgpParametersDampening struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpParametersDampeningHalfLife          types.String `tfsdk:"half_life" vyos:"half-life,omitempty"`
-	LeafVrfNameProtocolsBgpParametersDampeningMaxSuppressTime   types.String `tfsdk:"max_suppress_time" vyos:"max-suppress-time,omitempty"`
-	LeafVrfNameProtocolsBgpParametersDampeningReUse             types.String `tfsdk:"re_use" vyos:"re-use,omitempty"`
-	LeafVrfNameProtocolsBgpParametersDampeningStartSuppressTime types.String `tfsdk:"start_suppress_time" vyos:"start-suppress-time,omitempty"`
+	LeafVrfNameProtocolsBgpParametersDampeningHalfLife          types.Number `tfsdk:"half_life" vyos:"half-life,omitempty"`
+	LeafVrfNameProtocolsBgpParametersDampeningMaxSuppressTime   types.Number `tfsdk:"max_suppress_time" vyos:"max-suppress-time,omitempty"`
+	LeafVrfNameProtocolsBgpParametersDampeningReUse             types.Number `tfsdk:"re_use" vyos:"re-use,omitempty"`
+	LeafVrfNameProtocolsBgpParametersDampeningStartSuppressTime types.Number `tfsdk:"start_suppress_time" vyos:"start-suppress-time,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,7 +24,7 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceSchemaAttributes() map[s
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"half_life": schema.StringAttribute{
+		"half_life": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Half-life time for dampening
 
@@ -38,7 +35,7 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceSchemaAttributes() map[s
 `,
 		},
 
-		"max_suppress_time": schema.StringAttribute{
+		"max_suppress_time": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum duration to suppress a stable route
 
@@ -49,7 +46,7 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceSchemaAttributes() map[s
 `,
 		},
 
-		"re_use": schema.StringAttribute{
+		"re_use": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Threshold to start reusing a route
 
@@ -60,7 +57,7 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceSchemaAttributes() map[s
 `,
 		},
 
-		"start_suppress_time": schema.StringAttribute{
+		"start_suppress_time": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `When to start suppressing a route
 
@@ -78,71 +75,10 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceSchemaAttributes() map[s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpParametersDampening) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpParametersDampeningHalfLife.IsNull() && !o.LeafVrfNameProtocolsBgpParametersDampeningHalfLife.IsUnknown() {
-		jsonData["half-life"] = o.LeafVrfNameProtocolsBgpParametersDampeningHalfLife.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersDampeningMaxSuppressTime.IsNull() && !o.LeafVrfNameProtocolsBgpParametersDampeningMaxSuppressTime.IsUnknown() {
-		jsonData["max-suppress-time"] = o.LeafVrfNameProtocolsBgpParametersDampeningMaxSuppressTime.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersDampeningReUse.IsNull() && !o.LeafVrfNameProtocolsBgpParametersDampeningReUse.IsUnknown() {
-		jsonData["re-use"] = o.LeafVrfNameProtocolsBgpParametersDampeningReUse.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersDampeningStartSuppressTime.IsNull() && !o.LeafVrfNameProtocolsBgpParametersDampeningStartSuppressTime.IsUnknown() {
-		jsonData["start-suppress-time"] = o.LeafVrfNameProtocolsBgpParametersDampeningStartSuppressTime.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpParametersDampening) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["half-life"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersDampeningHalfLife = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersDampeningHalfLife = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["max-suppress-time"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersDampeningMaxSuppressTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersDampeningMaxSuppressTime = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["re-use"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersDampeningReUse = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersDampeningReUse = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["start-suppress-time"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersDampeningStartSuppressTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersDampeningStartSuppressTime = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpParametersDampening) UnmarshalJSON(_ []byte) error {
 	return nil
 }

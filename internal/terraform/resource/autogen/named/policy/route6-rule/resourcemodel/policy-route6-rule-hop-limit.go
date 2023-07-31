@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRoutesixRuleHopLimit describes the resource data model.
 type PolicyRoutesixRuleHopLimit struct {
 	// LeafNodes
-	LeafPolicyRoutesixRuleHopLimitEq types.String `tfsdk:"eq" vyos:"eq,omitempty"`
-	LeafPolicyRoutesixRuleHopLimitGt types.String `tfsdk:"gt" vyos:"gt,omitempty"`
-	LeafPolicyRoutesixRuleHopLimitLt types.String `tfsdk:"lt" vyos:"lt,omitempty"`
+	LeafPolicyRoutesixRuleHopLimitEq types.Number `tfsdk:"eq" vyos:"eq,omitempty"`
+	LeafPolicyRoutesixRuleHopLimitGt types.Number `tfsdk:"gt" vyos:"gt,omitempty"`
+	LeafPolicyRoutesixRuleHopLimitLt types.Number `tfsdk:"lt" vyos:"lt,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,7 +23,7 @@ func (o PolicyRoutesixRuleHopLimit) ResourceSchemaAttributes() map[string]schema
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"eq": schema.StringAttribute{
+		"eq": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Match on equal value
 
@@ -37,7 +34,7 @@ func (o PolicyRoutesixRuleHopLimit) ResourceSchemaAttributes() map[string]schema
 `,
 		},
 
-		"gt": schema.StringAttribute{
+		"gt": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Match on greater then value
 
@@ -48,7 +45,7 @@ func (o PolicyRoutesixRuleHopLimit) ResourceSchemaAttributes() map[string]schema
 `,
 		},
 
-		"lt": schema.StringAttribute{
+		"lt": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Match on less then value
 
@@ -66,61 +63,10 @@ func (o PolicyRoutesixRuleHopLimit) ResourceSchemaAttributes() map[string]schema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRoutesixRuleHopLimit) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRoutesixRuleHopLimitEq.IsNull() && !o.LeafPolicyRoutesixRuleHopLimitEq.IsUnknown() {
-		jsonData["eq"] = o.LeafPolicyRoutesixRuleHopLimitEq.ValueString()
-	}
-
-	if !o.LeafPolicyRoutesixRuleHopLimitGt.IsNull() && !o.LeafPolicyRoutesixRuleHopLimitGt.IsUnknown() {
-		jsonData["gt"] = o.LeafPolicyRoutesixRuleHopLimitGt.ValueString()
-	}
-
-	if !o.LeafPolicyRoutesixRuleHopLimitLt.IsNull() && !o.LeafPolicyRoutesixRuleHopLimitLt.IsUnknown() {
-		jsonData["lt"] = o.LeafPolicyRoutesixRuleHopLimitLt.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRoutesixRuleHopLimit) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["eq"]; ok {
-		o.LeafPolicyRoutesixRuleHopLimitEq = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleHopLimitEq = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["gt"]; ok {
-		o.LeafPolicyRoutesixRuleHopLimitGt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleHopLimitGt = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["lt"]; ok {
-		o.LeafPolicyRoutesixRuleHopLimitLt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleHopLimitLt = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRoutesixRuleHopLimit) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -57,32 +57,43 @@ NAPTR rule
 
 ### Required
 
+- `authoritative_domain_identifier` (String) Domain to host authoritative records for
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  text  |  An absolute DNS name  |
 - `identifier` (String) NAPTR rule
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-65535  |  Rule number  |
+- `naptr_identifier` (String) "NAPTR" record
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  text  |  A DNS name relative to the root record  |
+    |  @  |  Root record  |
 
 ### Optional
 
-- `lookup_a` (String) "A" flag
-- `lookup_srv` (String) "S" flag
-- `order` (String) Rule order
+- `lookup_a` (Boolean) "A" flag
+- `lookup_srv` (Boolean) "S" flag
+- `order` (Number) Rule order
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-65535  |  Rule order (lower order is evaluated first)  |
-- `preference` (String) Rule preference
+- `preference` (Number) Rule preference
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-65535  |  Rule preference  |
-- `protocol_specific` (String) "P" flag
+- `protocol_specific` (Boolean) "P" flag
 - `regexp` (String) Regular expression
 - `replacement` (String) Replacement DNS name
 
     |  Format  |  Description  |
     |----------|---------------|
     |  name.example.com  |  An absolute DNS name  |
-- `resolve_uri` (String) "U" flag
+- `resolve_uri` (Boolean) "U" flag
 - `service` (String) Service type

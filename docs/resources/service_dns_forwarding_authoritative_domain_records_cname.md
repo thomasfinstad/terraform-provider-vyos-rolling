@@ -46,6 +46,11 @@ DNS zone records
 
 ### Required
 
+- `authoritative_domain_identifier` (String) Domain to host authoritative records for
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  text  |  An absolute DNS name  |
 - `identifier` (String) "CNAME" record
 
     |  Format  |  Description  |
@@ -55,13 +60,13 @@ DNS zone records
 
 ### Optional
 
-- `disable` (String) Disable instance
+- `disable` (Boolean) Disable instance
 - `target` (String) Target DNS name
 
     |  Format  |  Description  |
     |----------|---------------|
     |  name.example.com  |  An absolute DNS name  |
-- `ttl` (String) Time-to-live (TTL)
+- `ttl` (Number) Time-to-live (TTL)
 
     |  Format  |  Description  |
     |----------|---------------|

@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallIPvsixNameRuleSource describes the resource data model.
@@ -117,135 +113,10 @@ func (o FirewallIPvsixNameRuleSource) ResourceSchemaAttributes() map[string]sche
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallIPvsixNameRuleSource) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallIPvsixNameRuleSourceAddress.IsNull() && !o.LeafFirewallIPvsixNameRuleSourceAddress.IsUnknown() {
-		jsonData["address"] = o.LeafFirewallIPvsixNameRuleSourceAddress.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleSourceFqdn.IsNull() && !o.LeafFirewallIPvsixNameRuleSourceFqdn.IsUnknown() {
-		jsonData["fqdn"] = o.LeafFirewallIPvsixNameRuleSourceFqdn.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleSourcePort.IsNull() && !o.LeafFirewallIPvsixNameRuleSourcePort.IsUnknown() {
-		jsonData["port"] = o.LeafFirewallIPvsixNameRuleSourcePort.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleSourceAddressMask.IsNull() && !o.LeafFirewallIPvsixNameRuleSourceAddressMask.IsUnknown() {
-		jsonData["address-mask"] = o.LeafFirewallIPvsixNameRuleSourceAddressMask.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleSourceMacAddress.IsNull() && !o.LeafFirewallIPvsixNameRuleSourceMacAddress.IsUnknown() {
-		jsonData["mac-address"] = o.LeafFirewallIPvsixNameRuleSourceMacAddress.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeFirewallIPvsixNameRuleSourceGeoIP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallIPvsixNameRuleSourceGeoIP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["geoip"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallIPvsixNameRuleSourceGroup).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallIPvsixNameRuleSourceGroup)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["group"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallIPvsixNameRuleSource) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafFirewallIPvsixNameRuleSourceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleSourceAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["fqdn"]; ok {
-		o.LeafFirewallIPvsixNameRuleSourceFqdn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleSourceFqdn = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafFirewallIPvsixNameRuleSourcePort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleSourcePort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["address-mask"]; ok {
-		o.LeafFirewallIPvsixNameRuleSourceAddressMask = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleSourceAddressMask = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mac-address"]; ok {
-		o.LeafFirewallIPvsixNameRuleSourceMacAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleSourceMacAddress = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["geoip"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallIPvsixNameRuleSourceGeoIP = &FirewallIPvsixNameRuleSourceGeoIP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallIPvsixNameRuleSourceGeoIP)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["group"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallIPvsixNameRuleSourceGroup = &FirewallIPvsixNameRuleSourceGroup{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallIPvsixNameRuleSourceGroup)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *FirewallIPvsixNameRuleSource) UnmarshalJSON(_ []byte) error {
 	return nil
 }

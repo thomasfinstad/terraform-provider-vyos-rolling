@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsRIPInterfaceReceive describes the resource data model.
@@ -43,41 +40,10 @@ func (o ProtocolsRIPInterfaceReceive) ResourceSchemaAttributes() map[string]sche
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsRIPInterfaceReceive) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsRIPInterfaceReceiveVersion.IsNull() && !o.LeafProtocolsRIPInterfaceReceiveVersion.IsUnknown() {
-		jsonData["version"] = o.LeafProtocolsRIPInterfaceReceiveVersion.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsRIPInterfaceReceive) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["version"]; ok {
-		o.LeafProtocolsRIPInterfaceReceiveVersion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsRIPInterfaceReceiveVersion = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsRIPInterfaceReceive) UnmarshalJSON(_ []byte) error {
 	return nil
 }

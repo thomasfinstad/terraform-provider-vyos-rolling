@@ -41,7 +41,7 @@ sFlow destination server
 
 ### Optional
 
-- `port` (String) sFlow port number
+- `port` (Number) sFlow port number
 
     |  Format  |  Description  |
     |----------|---------------|

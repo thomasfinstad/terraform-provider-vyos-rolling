@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpPeerGroupTTLSecURIty describes the resource data model.
 type VrfNameProtocolsBgpPeerGroupTTLSecURIty struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpPeerGroupTTLSecURItyHops types.String `tfsdk:"hops" vyos:"hops,omitempty"`
+	LeafVrfNameProtocolsBgpPeerGroupTTLSecURItyHops types.Number `tfsdk:"hops" vyos:"hops,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,7 +21,7 @@ func (o VrfNameProtocolsBgpPeerGroupTTLSecURIty) ResourceSchemaAttributes() map[
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"hops": schema.StringAttribute{
+		"hops": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of the maximum number of hops to the BGP peer
 
@@ -42,41 +39,10 @@ func (o VrfNameProtocolsBgpPeerGroupTTLSecURIty) ResourceSchemaAttributes() map[
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpPeerGroupTTLSecURIty) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpPeerGroupTTLSecURItyHops.IsNull() && !o.LeafVrfNameProtocolsBgpPeerGroupTTLSecURItyHops.IsUnknown() {
-		jsonData["hops"] = o.LeafVrfNameProtocolsBgpPeerGroupTTLSecURItyHops.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpPeerGroupTTLSecURIty) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["hops"]; ok {
-		o.LeafVrfNameProtocolsBgpPeerGroupTTLSecURItyHops = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpPeerGroupTTLSecURItyHops = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpPeerGroupTTLSecURIty) UnmarshalJSON(_ []byte) error {
 	return nil
 }

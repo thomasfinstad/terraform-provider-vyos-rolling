@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallIPvsixNameRuleTime describes the resource data model.
@@ -91,81 +88,10 @@ func (o FirewallIPvsixNameRuleTime) ResourceSchemaAttributes() map[string]schema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallIPvsixNameRuleTime) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallIPvsixNameRuleTimeStartdate.IsNull() && !o.LeafFirewallIPvsixNameRuleTimeStartdate.IsUnknown() {
-		jsonData["startdate"] = o.LeafFirewallIPvsixNameRuleTimeStartdate.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleTimeStarttime.IsNull() && !o.LeafFirewallIPvsixNameRuleTimeStarttime.IsUnknown() {
-		jsonData["starttime"] = o.LeafFirewallIPvsixNameRuleTimeStarttime.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleTimeStopdate.IsNull() && !o.LeafFirewallIPvsixNameRuleTimeStopdate.IsUnknown() {
-		jsonData["stopdate"] = o.LeafFirewallIPvsixNameRuleTimeStopdate.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleTimeStoptime.IsNull() && !o.LeafFirewallIPvsixNameRuleTimeStoptime.IsUnknown() {
-		jsonData["stoptime"] = o.LeafFirewallIPvsixNameRuleTimeStoptime.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleTimeWeekdays.IsNull() && !o.LeafFirewallIPvsixNameRuleTimeWeekdays.IsUnknown() {
-		jsonData["weekdays"] = o.LeafFirewallIPvsixNameRuleTimeWeekdays.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallIPvsixNameRuleTime) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["startdate"]; ok {
-		o.LeafFirewallIPvsixNameRuleTimeStartdate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTimeStartdate = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["starttime"]; ok {
-		o.LeafFirewallIPvsixNameRuleTimeStarttime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTimeStarttime = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["stopdate"]; ok {
-		o.LeafFirewallIPvsixNameRuleTimeStopdate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTimeStopdate = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["stoptime"]; ok {
-		o.LeafFirewallIPvsixNameRuleTimeStoptime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTimeStoptime = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["weekdays"]; ok {
-		o.LeafFirewallIPvsixNameRuleTimeWeekdays = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTimeWeekdays = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallIPvsixNameRuleTime) UnmarshalJSON(_ []byte) error {
 	return nil
 }

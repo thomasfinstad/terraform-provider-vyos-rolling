@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceSnmpVthreeGroup describes the resource data model.
@@ -27,8 +24,11 @@ type ServiceSnmpVthreeGroup struct {
 func (o *ServiceSnmpVthreeGroup) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"snmp",
+
 		"v3",
+
 		"group",
 		o.ID.ValueString(),
 	}
@@ -91,61 +91,10 @@ func (o ServiceSnmpVthreeGroup) ResourceSchemaAttributes() map[string]schema.Att
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceSnmpVthreeGroup) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceSnmpVthreeGroupMode.IsNull() && !o.LeafServiceSnmpVthreeGroupMode.IsUnknown() {
-		jsonData["mode"] = o.LeafServiceSnmpVthreeGroupMode.ValueString()
-	}
-
-	if !o.LeafServiceSnmpVthreeGroupSeclevel.IsNull() && !o.LeafServiceSnmpVthreeGroupSeclevel.IsUnknown() {
-		jsonData["seclevel"] = o.LeafServiceSnmpVthreeGroupSeclevel.ValueString()
-	}
-
-	if !o.LeafServiceSnmpVthreeGroupView.IsNull() && !o.LeafServiceSnmpVthreeGroupView.IsUnknown() {
-		jsonData["view"] = o.LeafServiceSnmpVthreeGroupView.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceSnmpVthreeGroup) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["mode"]; ok {
-		o.LeafServiceSnmpVthreeGroupMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeGroupMode = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["seclevel"]; ok {
-		o.LeafServiceSnmpVthreeGroupSeclevel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeGroupSeclevel = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["view"]; ok {
-		o.LeafServiceSnmpVthreeGroupView = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeGroupView = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceSnmpVthreeGroup) UnmarshalJSON(_ []byte) error {
 	return nil
 }

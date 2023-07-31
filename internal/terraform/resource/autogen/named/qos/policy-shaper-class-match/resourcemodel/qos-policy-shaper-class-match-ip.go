@@ -2,19 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyShaperClassMatchIP describes the resource data model.
 type QosPolicyShaperClassMatchIP struct {
 	// LeafNodes
 	LeafQosPolicyShaperClassMatchIPDscp      types.String `tfsdk:"dscp" vyos:"dscp,omitempty"`
-	LeafQosPolicyShaperClassMatchIPMaxLength types.String `tfsdk:"max_length" vyos:"max-length,omitempty"`
+	LeafQosPolicyShaperClassMatchIPMaxLength types.Number `tfsdk:"max_length" vyos:"max-length,omitempty"`
 	LeafQosPolicyShaperClassMatchIPProtocol  types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -72,7 +68,7 @@ func (o QosPolicyShaperClassMatchIP) ResourceSchemaAttributes() map[string]schem
 `,
 		},
 
-		"max_length": schema.StringAttribute{
+		"max_length": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum packet length
 
@@ -124,142 +120,10 @@ func (o QosPolicyShaperClassMatchIP) ResourceSchemaAttributes() map[string]schem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyShaperClassMatchIP) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyShaperClassMatchIPDscp.IsNull() && !o.LeafQosPolicyShaperClassMatchIPDscp.IsUnknown() {
-		jsonData["dscp"] = o.LeafQosPolicyShaperClassMatchIPDscp.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperClassMatchIPMaxLength.IsNull() && !o.LeafQosPolicyShaperClassMatchIPMaxLength.IsUnknown() {
-		jsonData["max-length"] = o.LeafQosPolicyShaperClassMatchIPMaxLength.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperClassMatchIPProtocol.IsNull() && !o.LeafQosPolicyShaperClassMatchIPProtocol.IsUnknown() {
-		jsonData["protocol"] = o.LeafQosPolicyShaperClassMatchIPProtocol.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeQosPolicyShaperClassMatchIPDestination).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyShaperClassMatchIPDestination)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["destination"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeQosPolicyShaperClassMatchIPSource).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyShaperClassMatchIPSource)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["source"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeQosPolicyShaperClassMatchIPTCP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyShaperClassMatchIPTCP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["tcp"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyShaperClassMatchIP) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["dscp"]; ok {
-		o.LeafQosPolicyShaperClassMatchIPDscp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperClassMatchIPDscp = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["max-length"]; ok {
-		o.LeafQosPolicyShaperClassMatchIPMaxLength = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperClassMatchIPMaxLength = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["protocol"]; ok {
-		o.LeafQosPolicyShaperClassMatchIPProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperClassMatchIPProtocol = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["destination"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyShaperClassMatchIPDestination = &QosPolicyShaperClassMatchIPDestination{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyShaperClassMatchIPDestination)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["source"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyShaperClassMatchIPSource = &QosPolicyShaperClassMatchIPSource{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyShaperClassMatchIPSource)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["tcp"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyShaperClassMatchIPTCP = &QosPolicyShaperClassMatchIPTCP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyShaperClassMatchIPTCP)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *QosPolicyShaperClassMatchIP) UnmarshalJSON(_ []byte) error {
 	return nil
 }

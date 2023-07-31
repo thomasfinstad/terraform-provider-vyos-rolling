@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ContainerNameEnvironment describes the resource data model.
 type ContainerNameEnvironment struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDContainerName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDContainerName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
 	// LeafNodes
 	LeafContainerNameEnvironmentValue types.String `tfsdk:"value" vyos:"value,omitempty"`
@@ -27,7 +24,10 @@ type ContainerNameEnvironment struct {
 func (o *ContainerNameEnvironment) GetVyosPath() []string {
 	return []string{
 		"container",
+
 		"name",
+		o.ParentIDContainerName.ValueString(),
+
 		"environment",
 		o.ID.ValueString(),
 	}
@@ -39,6 +39,13 @@ func (o ContainerNameEnvironment) ResourceSchemaAttributes() map[string]schema.A
 		"identifier": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Add custom environment variables
+
+`,
+		},
+
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Container name
 
 `,
 		},
@@ -63,41 +70,10 @@ func (o ContainerNameEnvironment) ResourceSchemaAttributes() map[string]schema.A
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ContainerNameEnvironment) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafContainerNameEnvironmentValue.IsNull() && !o.LeafContainerNameEnvironmentValue.IsUnknown() {
-		jsonData["value"] = o.LeafContainerNameEnvironmentValue.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ContainerNameEnvironment) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["value"]; ok {
-		o.LeafContainerNameEnvironmentValue = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameEnvironmentValue = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ContainerNameEnvironment) UnmarshalJSON(_ []byte) error {
 	return nil
 }

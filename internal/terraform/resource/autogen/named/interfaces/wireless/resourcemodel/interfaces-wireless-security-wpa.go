@@ -2,19 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesWirelessSecURItyWpa describes the resource data model.
 type InterfacesWirelessSecURItyWpa struct {
 	// LeafNodes
-	LeafInterfacesWirelessSecURItyWpaCIPher      types.String `tfsdk:"cipher" vyos:"cipher,omitempty"`
-	LeafInterfacesWirelessSecURItyWpaGroupCIPher types.String `tfsdk:"group_cipher" vyos:"group-cipher,omitempty"`
+	LeafInterfacesWirelessSecURItyWpaCIPher      types.List   `tfsdk:"cipher" vyos:"cipher,omitempty"`
+	LeafInterfacesWirelessSecURItyWpaGroupCIPher types.List   `tfsdk:"group_cipher" vyos:"group-cipher,omitempty"`
 	LeafInterfacesWirelessSecURItyWpaMode        types.String `tfsdk:"mode" vyos:"mode,omitempty"`
 	LeafInterfacesWirelessSecURItyWpaPassphrase  types.String `tfsdk:"passphrase" vyos:"passphrase,omitempty"`
 
@@ -29,8 +25,9 @@ func (o InterfacesWirelessSecURItyWpa) ResourceSchemaAttributes() map[string]sch
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"cipher": schema.StringAttribute{
-			Optional: true,
+		"cipher": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Cipher suite for WPA unicast packets
 
     |  Format  |  Description  |
@@ -44,8 +41,9 @@ func (o InterfacesWirelessSecURItyWpa) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 
-		"group_cipher": schema.StringAttribute{
-			Optional: true,
+		"group_cipher": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Cipher suite for WPA multicast and broadcast packets
 
     |  Format  |  Description  |
@@ -100,98 +98,10 @@ func (o InterfacesWirelessSecURItyWpa) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesWirelessSecURItyWpa) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesWirelessSecURItyWpaCIPher.IsNull() && !o.LeafInterfacesWirelessSecURItyWpaCIPher.IsUnknown() {
-		jsonData["cipher"] = o.LeafInterfacesWirelessSecURItyWpaCIPher.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessSecURItyWpaGroupCIPher.IsNull() && !o.LeafInterfacesWirelessSecURItyWpaGroupCIPher.IsUnknown() {
-		jsonData["group-cipher"] = o.LeafInterfacesWirelessSecURItyWpaGroupCIPher.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessSecURItyWpaMode.IsNull() && !o.LeafInterfacesWirelessSecURItyWpaMode.IsUnknown() {
-		jsonData["mode"] = o.LeafInterfacesWirelessSecURItyWpaMode.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessSecURItyWpaPassphrase.IsNull() && !o.LeafInterfacesWirelessSecURItyWpaPassphrase.IsUnknown() {
-		jsonData["passphrase"] = o.LeafInterfacesWirelessSecURItyWpaPassphrase.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeInterfacesWirelessSecURItyWpaRadius).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessSecURItyWpaRadius)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["radius"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWirelessSecURItyWpa) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["cipher"]; ok {
-		o.LeafInterfacesWirelessSecURItyWpaCIPher = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessSecURItyWpaCIPher = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["group-cipher"]; ok {
-		o.LeafInterfacesWirelessSecURItyWpaGroupCIPher = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessSecURItyWpaGroupCIPher = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mode"]; ok {
-		o.LeafInterfacesWirelessSecURItyWpaMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessSecURItyWpaMode = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["passphrase"]; ok {
-		o.LeafInterfacesWirelessSecURItyWpaPassphrase = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessSecURItyWpaPassphrase = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["radius"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeInterfacesWirelessSecURItyWpaRadius = &InterfacesWirelessSecURItyWpaRadius{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessSecURItyWpaRadius)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *InterfacesWirelessSecURItyWpa) UnmarshalJSON(_ []byte) error {
 	return nil
 }

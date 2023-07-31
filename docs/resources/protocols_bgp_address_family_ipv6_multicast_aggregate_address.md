@@ -41,10 +41,10 @@ BGP aggregate network/prefix
 
 ### Optional
 
-- `as_set` (String) Generate AS-set path information for this aggregate address
+- `as_set` (Boolean) Generate AS-set path information for this aggregate address
 - `route_map` (String) Specify route-map name to use
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Route map name  |
-- `summary_only` (String) Announce the aggregate summary network only
+- `summary_only` (Boolean) Announce the aggregate summary network only

@@ -41,7 +41,7 @@ BGP network
 
 ### Optional
 
-- `path_limit` (String) AS-path hopcount limit
+- `path_limit` (Number) AS-path hopcount limit
 
     |  Format  |  Description  |
     |----------|---------------|

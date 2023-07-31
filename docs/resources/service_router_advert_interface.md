@@ -37,46 +37,46 @@ Interface to send RA on
     |  low  |  Default router has low preference  |
     |  medium  |  Default router has medium preference  |
     |  high  |  Default router has high preference  |
-- `dnssl` (String) DNS search list
-- `hop_limit` (String) Set Hop Count field of the IP header for outgoing packets
+- `dnssl` (List of String) DNS search list
+- `hop_limit` (Number) Set Hop Count field of the IP header for outgoing packets
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0  |  Unspecified (by this router)  |
     |  u32:1-255  |  Value should represent current diameter of the Internet  |
 - `interval` (Attributes) Set interval between unsolicited multicast RAs (see [below for nested schema](#nestedatt--interval))
-- `link_mtu` (String) Link MTU value placed in RAs, exluded in RAs if unset
+- `link_mtu` (Number) Link MTU value placed in RAs, exluded in RAs if unset
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1280-9000  |  Link MTU value in RAs  |
-- `managed_flag` (String) Hosts use the administered (stateful) protocol for address autoconfiguration in addition to any addresses autoconfigured using SLAAC
-- `name_server` (String) Domain Name Servers (DNS) addresses
+- `managed_flag` (Boolean) Hosts use the administered (stateful) protocol for address autoconfiguration in addition to any addresses autoconfigured using SLAAC
+- `name_server` (List of String) Domain Name Servers (DNS) addresses
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv6  |  Domain Name Server (DNS) IPv6 address  |
-- `name_server_lifetime` (String) Maximum duration how long the RDNSS entries are used
+- `name_server_lifetime` (Number) Maximum duration how long the RDNSS entries are used
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0  |  Name-servers should no longer be used  |
     |  u32:1-7200  |  Maximum interval in seconds  |
-- `no_send_advert` (String) Do not send router adverts
-- `other_config_flag` (String) Hosts use the administered (stateful) protocol for autoconfiguration of other (non-address) information
-- `reachable_time` (String) Time, in milliseconds, that a node assumes a neighbor is reachable after having received a reachability confirmation
+- `no_send_advert` (Boolean) Do not send router adverts
+- `other_config_flag` (Boolean) Hosts use the administered (stateful) protocol for autoconfiguration of other (non-address) information
+- `reachable_time` (Number) Time, in milliseconds, that a node assumes a neighbor is reachable after having received a reachability confirmation
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0  |  Reachable Time unspecified by this router  |
     |  u32:1-3600000  |  Reachable Time value in RAs (in milliseconds)  |
-- `retrans_timer` (String) Time in milliseconds between retransmitted Neighbor Solicitation messages
+- `retrans_timer` (Number) Time in milliseconds between retransmitted Neighbor Solicitation messages
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0  |  Time, in milliseconds, between retransmitted Neighbor Solicitation messages  |
     |  u32:1-4294967295  |  Minimum interval in milliseconds  |
-- `source_address` (String) Use IPv6 address as source address. Useful with VRRP.
+- `source_address` (List of String) Use IPv6 address as source address. Useful with VRRP.
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -87,12 +87,12 @@ Interface to send RA on
 
 Optional:
 
-- `max` (String) Maximum interval between unsolicited multicast RAs
+- `max` (Number) Maximum interval between unsolicited multicast RAs
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:4-1800  |  Maximum interval in seconds  |
-- `min` (String) Minimum interval between unsolicited multicast RAs
+- `min` (Number) Minimum interval between unsolicited multicast RAs
 
     |  Format  |  Description  |
     |----------|---------------|

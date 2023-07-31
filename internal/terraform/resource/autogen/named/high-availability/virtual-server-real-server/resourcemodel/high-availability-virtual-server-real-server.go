@@ -2,23 +2,19 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // HighAvailabilityVirtualServerRealServer describes the resource data model.
 type HighAvailabilityVirtualServerRealServer struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDHighAvailabilityVirtualServer any `tfsdk:"virtual_server" vyos:"virtual-server,parent-id"`
+	ParentIDHighAvailabilityVirtualServer types.String `tfsdk:"virtual_server" vyos:"virtual-server_identifier,parent-id"`
 
 	// LeafNodes
-	LeafHighAvailabilityVirtualServerRealServerPort              types.String `tfsdk:"port" vyos:"port,omitempty"`
-	LeafHighAvailabilityVirtualServerRealServerConnectionTimeout types.String `tfsdk:"connection_timeout" vyos:"connection-timeout,omitempty"`
+	LeafHighAvailabilityVirtualServerRealServerPort              types.Number `tfsdk:"port" vyos:"port,omitempty"`
+	LeafHighAvailabilityVirtualServerRealServerConnectionTimeout types.Number `tfsdk:"connection_timeout" vyos:"connection-timeout,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -30,7 +26,10 @@ type HighAvailabilityVirtualServerRealServer struct {
 func (o *HighAvailabilityVirtualServerRealServer) GetVyosPath() []string {
 	return []string{
 		"high-availability",
+
 		"virtual-server",
+		o.ParentIDHighAvailabilityVirtualServer.ValueString(),
+
 		"real-server",
 		o.ID.ValueString(),
 	}
@@ -46,9 +45,16 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes() map[
 `,
 		},
 
+		"virtual_server_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Load-balancing virtual server address
+
+`,
+		},
+
 		// LeafNodes
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
@@ -59,7 +65,7 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes() map[
 `,
 		},
 
-		"connection_timeout": schema.StringAttribute{
+		"connection_timeout": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Server connection timeout
 
@@ -84,78 +90,10 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes() map[
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *HighAvailabilityVirtualServerRealServer) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafHighAvailabilityVirtualServerRealServerPort.IsNull() && !o.LeafHighAvailabilityVirtualServerRealServerPort.IsUnknown() {
-		jsonData["port"] = o.LeafHighAvailabilityVirtualServerRealServerPort.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVirtualServerRealServerConnectionTimeout.IsNull() && !o.LeafHighAvailabilityVirtualServerRealServerConnectionTimeout.IsUnknown() {
-		jsonData["connection-timeout"] = o.LeafHighAvailabilityVirtualServerRealServerConnectionTimeout.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeHighAvailabilityVirtualServerRealServerHealthCheck).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeHighAvailabilityVirtualServerRealServerHealthCheck)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["health-check"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *HighAvailabilityVirtualServerRealServer) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafHighAvailabilityVirtualServerRealServerPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVirtualServerRealServerPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["connection-timeout"]; ok {
-		o.LeafHighAvailabilityVirtualServerRealServerConnectionTimeout = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVirtualServerRealServerConnectionTimeout = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["health-check"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeHighAvailabilityVirtualServerRealServerHealthCheck = &HighAvailabilityVirtualServerRealServerHealthCheck{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeHighAvailabilityVirtualServerRealServerHealthCheck)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *HighAvailabilityVirtualServerRealServer) UnmarshalJSON(_ []byte) error {
 	return nil
 }

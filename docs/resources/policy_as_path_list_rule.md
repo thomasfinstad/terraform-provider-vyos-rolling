@@ -38,6 +38,11 @@ Rule for this as-path-list
 
 ### Required
 
+- `as_path_list_identifier` (String) Add a BGP autonomous system path filter
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  AS path list name  |
 - `identifier` (String) Rule for this as-path-list
 
     |  Format  |  Description  |

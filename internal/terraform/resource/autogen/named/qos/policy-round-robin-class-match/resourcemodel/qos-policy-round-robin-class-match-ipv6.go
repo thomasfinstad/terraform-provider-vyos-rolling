@@ -2,19 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyRoundRobinClassMatchIPvsix describes the resource data model.
 type QosPolicyRoundRobinClassMatchIPvsix struct {
 	// LeafNodes
 	LeafQosPolicyRoundRobinClassMatchIPvsixDscp      types.String `tfsdk:"dscp" vyos:"dscp,omitempty"`
-	LeafQosPolicyRoundRobinClassMatchIPvsixMaxLength types.String `tfsdk:"max_length" vyos:"max-length,omitempty"`
+	LeafQosPolicyRoundRobinClassMatchIPvsixMaxLength types.Number `tfsdk:"max_length" vyos:"max-length,omitempty"`
 	LeafQosPolicyRoundRobinClassMatchIPvsixProtocol  types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -72,7 +68,7 @@ func (o QosPolicyRoundRobinClassMatchIPvsix) ResourceSchemaAttributes() map[stri
 `,
 		},
 
-		"max_length": schema.StringAttribute{
+		"max_length": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum packet length
 
@@ -124,142 +120,10 @@ func (o QosPolicyRoundRobinClassMatchIPvsix) ResourceSchemaAttributes() map[stri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyRoundRobinClassMatchIPvsix) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyRoundRobinClassMatchIPvsixDscp.IsNull() && !o.LeafQosPolicyRoundRobinClassMatchIPvsixDscp.IsUnknown() {
-		jsonData["dscp"] = o.LeafQosPolicyRoundRobinClassMatchIPvsixDscp.ValueString()
-	}
-
-	if !o.LeafQosPolicyRoundRobinClassMatchIPvsixMaxLength.IsNull() && !o.LeafQosPolicyRoundRobinClassMatchIPvsixMaxLength.IsUnknown() {
-		jsonData["max-length"] = o.LeafQosPolicyRoundRobinClassMatchIPvsixMaxLength.ValueString()
-	}
-
-	if !o.LeafQosPolicyRoundRobinClassMatchIPvsixProtocol.IsNull() && !o.LeafQosPolicyRoundRobinClassMatchIPvsixProtocol.IsUnknown() {
-		jsonData["protocol"] = o.LeafQosPolicyRoundRobinClassMatchIPvsixProtocol.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeQosPolicyRoundRobinClassMatchIPvsixDestination).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyRoundRobinClassMatchIPvsixDestination)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["destination"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeQosPolicyRoundRobinClassMatchIPvsixSource).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyRoundRobinClassMatchIPvsixSource)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["source"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeQosPolicyRoundRobinClassMatchIPvsixTCP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyRoundRobinClassMatchIPvsixTCP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["tcp"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyRoundRobinClassMatchIPvsix) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["dscp"]; ok {
-		o.LeafQosPolicyRoundRobinClassMatchIPvsixDscp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassMatchIPvsixDscp = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["max-length"]; ok {
-		o.LeafQosPolicyRoundRobinClassMatchIPvsixMaxLength = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassMatchIPvsixMaxLength = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["protocol"]; ok {
-		o.LeafQosPolicyRoundRobinClassMatchIPvsixProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassMatchIPvsixProtocol = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["destination"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyRoundRobinClassMatchIPvsixDestination = &QosPolicyRoundRobinClassMatchIPvsixDestination{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyRoundRobinClassMatchIPvsixDestination)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["source"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyRoundRobinClassMatchIPvsixSource = &QosPolicyRoundRobinClassMatchIPvsixSource{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyRoundRobinClassMatchIPvsixSource)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["tcp"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyRoundRobinClassMatchIPvsixTCP = &QosPolicyRoundRobinClassMatchIPvsixTCP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyRoundRobinClassMatchIPvsixTCP)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *QosPolicyRoundRobinClassMatchIPvsix) UnmarshalJSON(_ []byte) error {
 	return nil
 }

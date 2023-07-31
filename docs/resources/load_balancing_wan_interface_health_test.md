@@ -38,10 +38,11 @@ Rule number
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-4294967295  |  Rule number  |
+- `interface_health_identifier` (String) Interface name
 
 ### Optional
 
-- `resp_time` (String) Ping response time (seconds)
+- `resp_time` (Number) Ping response time (seconds)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -56,7 +57,7 @@ Rule number
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Script in /config/scripts  |
-- `ttl_limit` (String) TTL limit (hop count)
+- `ttl_limit` (Number) TTL limit (hop count)
 
     |  Format  |  Description  |
     |----------|---------------|

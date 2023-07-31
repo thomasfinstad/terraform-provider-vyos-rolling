@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyRandomDetect describes the resource data model.
@@ -27,7 +24,9 @@ type QosPolicyRandomDetect struct {
 func (o *QosPolicyRandomDetect) GetVyosPath() []string {
 	return []string{
 		"qos",
+
 		"policy",
+
 		"random-detect",
 		o.ID.ValueString(),
 	}
@@ -88,51 +87,10 @@ func (o QosPolicyRandomDetect) ResourceSchemaAttributes() map[string]schema.Attr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyRandomDetect) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyRandomDetectDescrIPtion.IsNull() && !o.LeafQosPolicyRandomDetectDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafQosPolicyRandomDetectDescrIPtion.ValueString()
-	}
-
-	if !o.LeafQosPolicyRandomDetectBandwIDth.IsNull() && !o.LeafQosPolicyRandomDetectBandwIDth.IsUnknown() {
-		jsonData["bandwidth"] = o.LeafQosPolicyRandomDetectBandwIDth.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyRandomDetect) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafQosPolicyRandomDetectDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRandomDetectDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["bandwidth"]; ok {
-		o.LeafQosPolicyRandomDetectBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRandomDetectBandwIDth = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyRandomDetect) UnmarshalJSON(_ []byte) error {
 	return nil
 }

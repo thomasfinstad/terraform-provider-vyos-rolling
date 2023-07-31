@@ -2,25 +2,21 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsOspfAreaVirtualLink describes the resource data model.
 type ProtocolsOspfAreaVirtualLink struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDProtocolsOspfArea any `tfsdk:"area" vyos:"area,parent-id"`
+	ParentIDProtocolsOspfArea types.String `tfsdk:"area" vyos:"area_identifier,parent-id"`
 
 	// LeafNodes
-	LeafProtocolsOspfAreaVirtualLinkDeadInterval       types.String `tfsdk:"dead_interval" vyos:"dead-interval,omitempty"`
-	LeafProtocolsOspfAreaVirtualLinkHelloInterval      types.String `tfsdk:"hello_interval" vyos:"hello-interval,omitempty"`
-	LeafProtocolsOspfAreaVirtualLinkRetransmitInterval types.String `tfsdk:"retransmit_interval" vyos:"retransmit-interval,omitempty"`
-	LeafProtocolsOspfAreaVirtualLinkTransmitDelay      types.String `tfsdk:"transmit_delay" vyos:"transmit-delay,omitempty"`
+	LeafProtocolsOspfAreaVirtualLinkDeadInterval       types.Number `tfsdk:"dead_interval" vyos:"dead-interval,omitempty"`
+	LeafProtocolsOspfAreaVirtualLinkHelloInterval      types.Number `tfsdk:"hello_interval" vyos:"hello-interval,omitempty"`
+	LeafProtocolsOspfAreaVirtualLinkRetransmitInterval types.Number `tfsdk:"retransmit_interval" vyos:"retransmit-interval,omitempty"`
+	LeafProtocolsOspfAreaVirtualLinkTransmitDelay      types.Number `tfsdk:"transmit_delay" vyos:"transmit-delay,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -32,8 +28,12 @@ type ProtocolsOspfAreaVirtualLink struct {
 func (o *ProtocolsOspfAreaVirtualLink) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"ospf",
+
 		"area",
+		o.ParentIDProtocolsOspfArea.ValueString(),
+
 		"virtual-link",
 		o.ID.ValueString(),
 	}
@@ -53,9 +53,21 @@ func (o ProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[string]sche
 `,
 		},
 
+		"area_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `OSPF area settings
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32  |  OSPF area number in decimal notation  |
+    |  ipv4  |  OSPF area number in dotted decimal notation  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"dead_interval": schema.StringAttribute{
+		"dead_interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval after which a neighbor is declared dead
 
@@ -69,7 +81,7 @@ func (o ProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[string]sche
 			Computed: true,
 		},
 
-		"hello_interval": schema.StringAttribute{
+		"hello_interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval between hello packets
 
@@ -83,7 +95,7 @@ func (o ProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[string]sche
 			Computed: true,
 		},
 
-		"retransmit_interval": schema.StringAttribute{
+		"retransmit_interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval between retransmitting lost link state advertisements
 
@@ -97,7 +109,7 @@ func (o ProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[string]sche
 			Computed: true,
 		},
 
-		"transmit_delay": schema.StringAttribute{
+		"transmit_delay": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Link state transmit delay
 
@@ -125,98 +137,10 @@ func (o ProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[string]sche
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsOspfAreaVirtualLink) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsOspfAreaVirtualLinkDeadInterval.IsNull() && !o.LeafProtocolsOspfAreaVirtualLinkDeadInterval.IsUnknown() {
-		jsonData["dead-interval"] = o.LeafProtocolsOspfAreaVirtualLinkDeadInterval.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfAreaVirtualLinkHelloInterval.IsNull() && !o.LeafProtocolsOspfAreaVirtualLinkHelloInterval.IsUnknown() {
-		jsonData["hello-interval"] = o.LeafProtocolsOspfAreaVirtualLinkHelloInterval.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfAreaVirtualLinkRetransmitInterval.IsNull() && !o.LeafProtocolsOspfAreaVirtualLinkRetransmitInterval.IsUnknown() {
-		jsonData["retransmit-interval"] = o.LeafProtocolsOspfAreaVirtualLinkRetransmitInterval.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfAreaVirtualLinkTransmitDelay.IsNull() && !o.LeafProtocolsOspfAreaVirtualLinkTransmitDelay.IsUnknown() {
-		jsonData["transmit-delay"] = o.LeafProtocolsOspfAreaVirtualLinkTransmitDelay.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeProtocolsOspfAreaVirtualLinkAuthentication).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsOspfAreaVirtualLinkAuthentication)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["authentication"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsOspfAreaVirtualLink) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["dead-interval"]; ok {
-		o.LeafProtocolsOspfAreaVirtualLinkDeadInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfAreaVirtualLinkDeadInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["hello-interval"]; ok {
-		o.LeafProtocolsOspfAreaVirtualLinkHelloInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfAreaVirtualLinkHelloInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["retransmit-interval"]; ok {
-		o.LeafProtocolsOspfAreaVirtualLinkRetransmitInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfAreaVirtualLinkRetransmitInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["transmit-delay"]; ok {
-		o.LeafProtocolsOspfAreaVirtualLinkTransmitDelay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfAreaVirtualLinkTransmitDelay = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["authentication"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsOspfAreaVirtualLinkAuthentication = &ProtocolsOspfAreaVirtualLinkAuthentication{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsOspfAreaVirtualLinkAuthentication)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ProtocolsOspfAreaVirtualLink) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -26,6 +26,7 @@ Script environment arguments
 
 ### Required
 
+- `event_identifier` (String) Event handler name
 - `identifier` (String) Script environment arguments
 
 ### Optional

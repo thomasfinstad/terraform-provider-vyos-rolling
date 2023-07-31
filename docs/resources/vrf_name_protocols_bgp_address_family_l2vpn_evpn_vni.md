@@ -55,11 +55,16 @@ VXLAN Network Identifier
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-16777215  |  VNI number  |
+- `name_identifier` (String) Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 ### Optional
 
-- `advertise_default_gw` (String) Advertise All default g/w mac-ip routes in EVPN
-- `advertise_svi_ip` (String) Advertise svi mac-ip routes in EVPN
+- `advertise_default_gw` (Boolean) Advertise All default g/w mac-ip routes in EVPN
+- `advertise_svi_ip` (Boolean) Advertise svi mac-ip routes in EVPN
 - `rd` (String) Route Distinguisher
 
     |  Format  |  Description  |
@@ -72,17 +77,17 @@ VXLAN Network Identifier
 
 Optional:
 
-- `both` (String) Route Target both import and export
+- `both` (List of String) Route Target both import and export
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
-- `export` (String) Route Target export
+- `export` (List of String) Route Target export
 
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
-- `import` (String) Route Target import
+- `import` (List of String) Route Target import
 
     |  Format  |  Description  |
     |----------|---------------|

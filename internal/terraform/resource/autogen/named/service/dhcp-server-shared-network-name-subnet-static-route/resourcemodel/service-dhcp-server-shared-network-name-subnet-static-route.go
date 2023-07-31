@@ -2,20 +2,17 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceDhcpServerSharedNetworkNameSubnetStaticRoute describes the resource data model.
 type ServiceDhcpServerSharedNetworkNameSubnetStaticRoute struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDServiceDhcpServerSharedNetworkName any `tfsdk:"shared_network_name" vyos:"shared-network-name,parent-id"`
+	ParentIDServiceDhcpServerSharedNetworkName types.String `tfsdk:"shared_network_name" vyos:"shared-network-name_identifier,parent-id"`
 
-	ParentIDServiceDhcpServerSharedNetworkNameSubnet any `tfsdk:"subnet" vyos:"subnet,parent-id"`
+	ParentIDServiceDhcpServerSharedNetworkNameSubnet types.String `tfsdk:"subnet" vyos:"subnet_identifier,parent-id"`
 
 	// LeafNodes
 	LeafServiceDhcpServerSharedNetworkNameSubnetStaticRouteNextHop types.String `tfsdk:"next_hop" vyos:"next-hop,omitempty"`
@@ -29,9 +26,15 @@ type ServiceDhcpServerSharedNetworkNameSubnetStaticRoute struct {
 func (o *ServiceDhcpServerSharedNetworkNameSubnetStaticRoute) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"dhcp-server",
+
 		"shared-network-name",
+		o.ParentIDServiceDhcpServerSharedNetworkName.ValueString(),
+
 		"subnet",
+		o.ParentIDServiceDhcpServerSharedNetworkNameSubnet.ValueString(),
+
 		"static-route",
 		o.ID.ValueString(),
 	}
@@ -43,6 +46,24 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetStaticRoute) ResourceSchemaAttri
 		"identifier": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Classless static route destination subnet
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 address and prefix length  |
+
+`,
+		},
+
+		"shared_network_name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Name of DHCP shared network
+
+`,
+		},
+
+		"subnet_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `DHCP subnet for shared network
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -71,41 +92,10 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetStaticRoute) ResourceSchemaAttri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceDhcpServerSharedNetworkNameSubnetStaticRoute) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticRouteNextHop.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticRouteNextHop.IsUnknown() {
-		jsonData["next-hop"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticRouteNextHop.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceDhcpServerSharedNetworkNameSubnetStaticRoute) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["next-hop"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticRouteNextHop = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticRouteNextHop = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceDhcpServerSharedNetworkNameSubnetStaticRoute) UnmarshalJSON(_ []byte) error {
 	return nil
 }

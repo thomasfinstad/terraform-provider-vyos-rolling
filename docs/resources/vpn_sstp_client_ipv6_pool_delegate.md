@@ -38,7 +38,7 @@ Subnet used to delegate prefix through DHCPv6-PD (RFC3633)
 
 ### Optional
 
-- `delegation_prefix` (String) Prefix length delegated to client
+- `delegation_prefix` (Number) Prefix length delegated to client
 
     |  Format  |  Description  |
     |----------|---------------|

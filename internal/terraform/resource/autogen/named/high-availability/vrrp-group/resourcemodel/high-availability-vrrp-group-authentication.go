@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // HighAvailabilityVrrpGroupAuthentication describes the resource data model.
@@ -55,51 +52,10 @@ func (o HighAvailabilityVrrpGroupAuthentication) ResourceSchemaAttributes() map[
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *HighAvailabilityVrrpGroupAuthentication) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafHighAvailabilityVrrpGroupAuthenticationPassword.IsNull() && !o.LeafHighAvailabilityVrrpGroupAuthenticationPassword.IsUnknown() {
-		jsonData["password"] = o.LeafHighAvailabilityVrrpGroupAuthenticationPassword.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupAuthenticationType.IsNull() && !o.LeafHighAvailabilityVrrpGroupAuthenticationType.IsUnknown() {
-		jsonData["type"] = o.LeafHighAvailabilityVrrpGroupAuthenticationType.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *HighAvailabilityVrrpGroupAuthentication) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["password"]; ok {
-		o.LeafHighAvailabilityVrrpGroupAuthenticationPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupAuthenticationPassword = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["type"]; ok {
-		o.LeafHighAvailabilityVrrpGroupAuthenticationType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupAuthenticationType = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *HighAvailabilityVrrpGroupAuthentication) UnmarshalJSON(_ []byte) error {
 	return nil
 }

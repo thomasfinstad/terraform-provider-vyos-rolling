@@ -44,20 +44,20 @@ RADIUS server configuration
 
 ### Optional
 
-- `acct_port` (String) Accounting port
+- `acct_port` (Number) Accounting port
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65535  |  Numeric IP port  |
-- `disable` (String) Disable instance
-- `disable_accounting` (String) Disable accounting
-- `fail_time` (String) Mark server unavailable for <n> seconds on failure
+- `disable` (Boolean) Disable instance
+- `disable_accounting` (Boolean) Disable accounting
+- `fail_time` (Number) Mark server unavailable for <n> seconds on failure
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-600  |  Fail time penalty  |
 - `key` (String) Shared secret key
-- `port` (String) Authentication port
+- `port` (Number) Authentication port
 
     |  Format  |  Description  |
     |----------|---------------|

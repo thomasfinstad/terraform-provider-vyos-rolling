@@ -2,24 +2,21 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // LoadBalancingWanRule describes the resource data model.
 type LoadBalancingWanRule struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
 	LeafLoadBalancingWanRuleDescrIPtion        types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafLoadBalancingWanRuleExclude            types.String `tfsdk:"exclude" vyos:"exclude,omitempty"`
-	LeafLoadBalancingWanRuleFailover           types.String `tfsdk:"failover" vyos:"failover,omitempty"`
+	LeafLoadBalancingWanRuleExclude            types.Bool   `tfsdk:"exclude" vyos:"exclude,omitempty"`
+	LeafLoadBalancingWanRuleFailover           types.Bool   `tfsdk:"failover" vyos:"failover,omitempty"`
 	LeafLoadBalancingWanRuleInboundInterface   types.String `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
-	LeafLoadBalancingWanRulePerPacketBalancing types.String `tfsdk:"per_packet_balancing" vyos:"per-packet-balancing,omitempty"`
+	LeafLoadBalancingWanRulePerPacketBalancing types.Bool   `tfsdk:"per_packet_balancing" vyos:"per-packet-balancing,omitempty"`
 	LeafLoadBalancingWanRuleProtocol           types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -35,9 +32,11 @@ type LoadBalancingWanRule struct {
 func (o *LoadBalancingWanRule) GetVyosPath() []string {
 	return []string{
 		"load-balancing",
+
 		"wan",
+
 		"rule",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -68,18 +67,22 @@ func (o LoadBalancingWanRule) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 
-		"exclude": schema.StringAttribute{
+		"exclude": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Exclude packets matching this rule from WAN load balance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"failover": schema.StringAttribute{
+		"failover": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable failover for packets matching this rule from WAN load balance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"inbound_interface": schema.StringAttribute{
@@ -89,11 +92,13 @@ func (o LoadBalancingWanRule) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 
-		"per_packet_balancing": schema.StringAttribute{
+		"per_packet_balancing": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Option to match traffic per-packet instead of the default, per-flow
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"protocol": schema.StringAttribute{
@@ -141,172 +146,10 @@ func (o LoadBalancingWanRule) ResourceSchemaAttributes() map[string]schema.Attri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *LoadBalancingWanRule) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafLoadBalancingWanRuleDescrIPtion.IsNull() && !o.LeafLoadBalancingWanRuleDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafLoadBalancingWanRuleDescrIPtion.ValueString()
-	}
-
-	if !o.LeafLoadBalancingWanRuleExclude.IsNull() && !o.LeafLoadBalancingWanRuleExclude.IsUnknown() {
-		jsonData["exclude"] = o.LeafLoadBalancingWanRuleExclude.ValueString()
-	}
-
-	if !o.LeafLoadBalancingWanRuleFailover.IsNull() && !o.LeafLoadBalancingWanRuleFailover.IsUnknown() {
-		jsonData["failover"] = o.LeafLoadBalancingWanRuleFailover.ValueString()
-	}
-
-	if !o.LeafLoadBalancingWanRuleInboundInterface.IsNull() && !o.LeafLoadBalancingWanRuleInboundInterface.IsUnknown() {
-		jsonData["inbound-interface"] = o.LeafLoadBalancingWanRuleInboundInterface.ValueString()
-	}
-
-	if !o.LeafLoadBalancingWanRulePerPacketBalancing.IsNull() && !o.LeafLoadBalancingWanRulePerPacketBalancing.IsUnknown() {
-		jsonData["per-packet-balancing"] = o.LeafLoadBalancingWanRulePerPacketBalancing.ValueString()
-	}
-
-	if !o.LeafLoadBalancingWanRuleProtocol.IsNull() && !o.LeafLoadBalancingWanRuleProtocol.IsUnknown() {
-		jsonData["protocol"] = o.LeafLoadBalancingWanRuleProtocol.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeLoadBalancingWanRuleDestination).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeLoadBalancingWanRuleDestination)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["destination"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeLoadBalancingWanRuleLimit).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeLoadBalancingWanRuleLimit)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["limit"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeLoadBalancingWanRuleSource).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeLoadBalancingWanRuleSource)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["source"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *LoadBalancingWanRule) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafLoadBalancingWanRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanRuleDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["exclude"]; ok {
-		o.LeafLoadBalancingWanRuleExclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanRuleExclude = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["failover"]; ok {
-		o.LeafLoadBalancingWanRuleFailover = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanRuleFailover = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["inbound-interface"]; ok {
-		o.LeafLoadBalancingWanRuleInboundInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanRuleInboundInterface = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["per-packet-balancing"]; ok {
-		o.LeafLoadBalancingWanRulePerPacketBalancing = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanRulePerPacketBalancing = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["protocol"]; ok {
-		o.LeafLoadBalancingWanRuleProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanRuleProtocol = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["destination"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeLoadBalancingWanRuleDestination = &LoadBalancingWanRuleDestination{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeLoadBalancingWanRuleDestination)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["limit"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeLoadBalancingWanRuleLimit = &LoadBalancingWanRuleLimit{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeLoadBalancingWanRuleLimit)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["source"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeLoadBalancingWanRuleSource = &LoadBalancingWanRuleSource{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeLoadBalancingWanRuleSource)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *LoadBalancingWanRule) UnmarshalJSON(_ []byte) error {
 	return nil
 }

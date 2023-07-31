@@ -2,11 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemLoginRadiusServer describes the resource data model.
@@ -14,11 +12,11 @@ type SystemLoginRadiusServer struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafSystemLoginRadiusServerDisable  types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafSystemLoginRadiusServerDisable  types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafSystemLoginRadiusServerKey      types.String `tfsdk:"key" vyos:"key,omitempty"`
-	LeafSystemLoginRadiusServerPort     types.String `tfsdk:"port" vyos:"port,omitempty"`
-	LeafSystemLoginRadiusServerTimeout  types.String `tfsdk:"timeout" vyos:"timeout,omitempty"`
-	LeafSystemLoginRadiusServerPriority types.String `tfsdk:"priority" vyos:"priority,omitempty"`
+	LeafSystemLoginRadiusServerPort     types.Number `tfsdk:"port" vyos:"port,omitempty"`
+	LeafSystemLoginRadiusServerTimeout  types.Number `tfsdk:"timeout" vyos:"timeout,omitempty"`
+	LeafSystemLoginRadiusServerPriority types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -29,8 +27,11 @@ type SystemLoginRadiusServer struct {
 func (o *SystemLoginRadiusServer) GetVyosPath() []string {
 	return []string{
 		"system",
+
 		"login",
+
 		"radius",
+
 		"server",
 		o.ID.ValueString(),
 	}
@@ -53,11 +54,13 @@ func (o SystemLoginRadiusServer) ResourceSchemaAttributes() map[string]schema.At
 
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"key": schema.StringAttribute{
@@ -67,7 +70,7 @@ func (o SystemLoginRadiusServer) ResourceSchemaAttributes() map[string]schema.At
 `,
 		},
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Authentication port
 
@@ -81,7 +84,7 @@ func (o SystemLoginRadiusServer) ResourceSchemaAttributes() map[string]schema.At
 			Computed: true,
 		},
 
-		"timeout": schema.StringAttribute{
+		"timeout": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Session timeout
 
@@ -95,7 +98,7 @@ func (o SystemLoginRadiusServer) ResourceSchemaAttributes() map[string]schema.At
 			Computed: true,
 		},
 
-		"priority": schema.StringAttribute{
+		"priority": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Server priority
 
@@ -116,81 +119,10 @@ func (o SystemLoginRadiusServer) ResourceSchemaAttributes() map[string]schema.At
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemLoginRadiusServer) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafSystemLoginRadiusServerDisable.IsNull() && !o.LeafSystemLoginRadiusServerDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafSystemLoginRadiusServerDisable.ValueString()
-	}
-
-	if !o.LeafSystemLoginRadiusServerKey.IsNull() && !o.LeafSystemLoginRadiusServerKey.IsUnknown() {
-		jsonData["key"] = o.LeafSystemLoginRadiusServerKey.ValueString()
-	}
-
-	if !o.LeafSystemLoginRadiusServerPort.IsNull() && !o.LeafSystemLoginRadiusServerPort.IsUnknown() {
-		jsonData["port"] = o.LeafSystemLoginRadiusServerPort.ValueString()
-	}
-
-	if !o.LeafSystemLoginRadiusServerTimeout.IsNull() && !o.LeafSystemLoginRadiusServerTimeout.IsUnknown() {
-		jsonData["timeout"] = o.LeafSystemLoginRadiusServerTimeout.ValueString()
-	}
-
-	if !o.LeafSystemLoginRadiusServerPriority.IsNull() && !o.LeafSystemLoginRadiusServerPriority.IsUnknown() {
-		jsonData["priority"] = o.LeafSystemLoginRadiusServerPriority.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemLoginRadiusServer) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafSystemLoginRadiusServerDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginRadiusServerDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["key"]; ok {
-		o.LeafSystemLoginRadiusServerKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginRadiusServerKey = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafSystemLoginRadiusServerPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginRadiusServerPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["timeout"]; ok {
-		o.LeafSystemLoginRadiusServerTimeout = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginRadiusServerTimeout = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["priority"]; ok {
-		o.LeafSystemLoginRadiusServerPriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginRadiusServerPriority = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *SystemLoginRadiusServer) UnmarshalJSON(_ []byte) error {
 	return nil
 }

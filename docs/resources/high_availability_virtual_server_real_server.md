@@ -24,16 +24,17 @@ Real server address
 ### Required
 
 - `identifier` (String) Real server address
+- `virtual_server_identifier` (String) Load-balancing virtual server address
 
 ### Optional
 
-- `connection_timeout` (String) Server connection timeout
+- `connection_timeout` (Number) Server connection timeout
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-86400  |  Connection timeout to remote server  |
 - `health_check` (Attributes) Health check script (see [below for nested schema](#nestedatt--health_check))
-- `port` (String) Port number used by connection
+- `port` (Number) Port number used by connection
 
     |  Format  |  Description  |
     |----------|---------------|

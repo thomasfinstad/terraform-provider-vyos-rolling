@@ -24,6 +24,7 @@ Add custom environment variables
 ### Required
 
 - `identifier` (String) Add custom environment variables
+- `name_identifier` (String) Container name
 
 ### Optional
 

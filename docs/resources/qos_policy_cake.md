@@ -55,7 +55,7 @@ Common Applications Kept Enhanced (CAKE)
     |----------|---------------|
     |  txt  |  Description  |
 - `flow_isolation` (Attributes) Flow isolation settings (see [below for nested schema](#nestedatt--flow_isolation))
-- `rtt` (String) Round-Trip-Time for Active Queue Management (AQM)
+- `rtt` (Number) Round-Trip-Time for Active Queue Management (AQM)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -66,11 +66,11 @@ Common Applications Kept Enhanced (CAKE)
 
 Optional:
 
-- `blind` (String) Disables flow isolation, all traffic passes through a single queue
-- `dst_host` (String) Flows are defined only by destination address
-- `dual_dst_host` (String) Flows are defined by the 5-tuple, and fairness is applied first over destination addresses, then over individual flows
-- `dual_src_host` (String) Flows are defined by the 5-tuple, and fairness is applied first over source addresses, then over individual flows
-- `flow` (String) Flows are defined by the entire 5-tuple
-- `host` (String) Flows are defined by source-destination host pairs
-- `nat` (String) Perform NAT lookup before applying flow-isolation rules
-- `src_host` (String) Flows are defined only by source address
+- `blind` (Boolean) Disables flow isolation, all traffic passes through a single queue
+- `dst_host` (Boolean) Flows are defined only by destination address
+- `dual_dst_host` (Boolean) Flows are defined by the 5-tuple, and fairness is applied first over destination addresses, then over individual flows
+- `dual_src_host` (Boolean) Flows are defined by the 5-tuple, and fairness is applied first over source addresses, then over individual flows
+- `flow` (Boolean) Flows are defined by the entire 5-tuple
+- `host` (Boolean) Flows are defined by source-destination host pairs
+- `nat` (Boolean) Perform NAT lookup before applying flow-isolation rules
+- `src_host` (Boolean) Flows are defined only by source address

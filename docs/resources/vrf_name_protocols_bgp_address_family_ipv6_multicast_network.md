@@ -55,10 +55,15 @@ Import BGP network/prefix into multicast IPv6 RIB
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv6net  |  Multicast IPv6 BGP network/prefix  |
+- `name_identifier` (String) Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 ### Optional
 
-- `path_limit` (String) AS-path hopcount limit
+- `path_limit` (Number) AS-path hopcount limit
 
     |  Format  |  Description  |
     |----------|---------------|

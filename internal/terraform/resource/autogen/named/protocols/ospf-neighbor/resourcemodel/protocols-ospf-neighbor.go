@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsOspfNeighbor describes the resource data model.
@@ -14,8 +11,8 @@ type ProtocolsOspfNeighbor struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafProtocolsOspfNeighborPollInterval types.String `tfsdk:"poll_interval" vyos:"poll-interval,omitempty"`
-	LeafProtocolsOspfNeighborPriority     types.String `tfsdk:"priority" vyos:"priority,omitempty"`
+	LeafProtocolsOspfNeighborPollInterval types.Number `tfsdk:"poll_interval" vyos:"poll-interval,omitempty"`
+	LeafProtocolsOspfNeighborPriority     types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,7 +23,9 @@ type ProtocolsOspfNeighbor struct {
 func (o *ProtocolsOspfNeighbor) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"ospf",
+
 		"neighbor",
 		o.ID.ValueString(),
 	}
@@ -48,7 +47,7 @@ func (o ProtocolsOspfNeighbor) ResourceSchemaAttributes() map[string]schema.Attr
 
 		// LeafNodes
 
-		"poll_interval": schema.StringAttribute{
+		"poll_interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Dead neighbor polling interval
 
@@ -62,7 +61,7 @@ func (o ProtocolsOspfNeighbor) ResourceSchemaAttributes() map[string]schema.Attr
 			Computed: true,
 		},
 
-		"priority": schema.StringAttribute{
+		"priority": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Neighbor priority in seconds
 
@@ -83,51 +82,10 @@ func (o ProtocolsOspfNeighbor) ResourceSchemaAttributes() map[string]schema.Attr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsOspfNeighbor) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsOspfNeighborPollInterval.IsNull() && !o.LeafProtocolsOspfNeighborPollInterval.IsUnknown() {
-		jsonData["poll-interval"] = o.LeafProtocolsOspfNeighborPollInterval.ValueString()
-	}
-
-	if !o.LeafProtocolsOspfNeighborPriority.IsNull() && !o.LeafProtocolsOspfNeighborPriority.IsUnknown() {
-		jsonData["priority"] = o.LeafProtocolsOspfNeighborPriority.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsOspfNeighbor) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["poll-interval"]; ok {
-		o.LeafProtocolsOspfNeighborPollInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfNeighborPollInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["priority"]; ok {
-		o.LeafProtocolsOspfNeighborPriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfNeighborPriority = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsOspfNeighbor) UnmarshalJSON(_ []byte) error {
 	return nil
 }

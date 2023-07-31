@@ -33,6 +33,7 @@ ESP group proposal
 
 ### Required
 
+- `esp_group_identifier` (String) Encapsulating Security Payload (ESP) group name
 - `identifier` (String) ESP group proposal
 
     |  Format  |  Description  |

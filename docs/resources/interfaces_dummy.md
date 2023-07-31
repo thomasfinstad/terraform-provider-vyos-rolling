@@ -32,7 +32,7 @@ Dummy Interface
 
 ### Optional
 
-- `address` (String) IP address
+- `address` (List of String) IP address
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -43,11 +43,11 @@ Dummy Interface
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `disable` (String) Administratively disable interface
+- `disable` (Boolean) Administratively disable interface
 - `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--ip))
 - `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--ipv6))
 - `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--mirror))
-- `mtu` (String) Maximum Transmission Unit (MTU)
+- `mtu` (Number) Maximum Transmission Unit (MTU)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -73,7 +73,7 @@ Dummy Interface
 
 Optional:
 
-- `disable_forwarding` (String) Disable IP forwarding on this interface
+- `disable_forwarding` (Boolean) Disable IP forwarding on this interface
 - `source_validation` (String) Source validation by reversed path (RFC3704)
 
     |  Format  |  Description  |
@@ -89,19 +89,19 @@ Optional:
 Optional:
 
 - `address` (Attributes) IPv6 address configuration modes (see [below for nested schema](#nestedatt--ipv6--address))
-- `disable_forwarding` (String) Disable IP forwarding on this interface
+- `disable_forwarding` (Boolean) Disable IP forwarding on this interface
 
 <a id="nestedatt--ipv6--address"></a>
 ### Nested Schema for `ipv6.address`
 
 Optional:
 
-- `eui64` (String) Prefix for IPv6 address with MAC-based EUI-64
+- `eui64` (List of String) Prefix for IPv6 address with MAC-based EUI-64
 
     |  Format  |  Description  |
     |----------|---------------|
     |  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
-- `no_default_link_local` (String) Remove the default link-local address from the interface
+- `no_default_link_local` (Boolean) Remove the default link-local address from the interface
 
 
 

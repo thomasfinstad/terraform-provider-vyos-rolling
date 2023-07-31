@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesSstpcAuthentication describes the resource data model.
@@ -54,51 +51,10 @@ func (o InterfacesSstpcAuthentication) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesSstpcAuthentication) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesSstpcAuthenticationUsername.IsNull() && !o.LeafInterfacesSstpcAuthenticationUsername.IsUnknown() {
-		jsonData["username"] = o.LeafInterfacesSstpcAuthenticationUsername.ValueString()
-	}
-
-	if !o.LeafInterfacesSstpcAuthenticationPassword.IsNull() && !o.LeafInterfacesSstpcAuthenticationPassword.IsUnknown() {
-		jsonData["password"] = o.LeafInterfacesSstpcAuthenticationPassword.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesSstpcAuthentication) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["username"]; ok {
-		o.LeafInterfacesSstpcAuthenticationUsername = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcAuthenticationUsername = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["password"]; ok {
-		o.LeafInterfacesSstpcAuthenticationPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcAuthenticationPassword = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesSstpcAuthentication) UnmarshalJSON(_ []byte) error {
 	return nil
 }

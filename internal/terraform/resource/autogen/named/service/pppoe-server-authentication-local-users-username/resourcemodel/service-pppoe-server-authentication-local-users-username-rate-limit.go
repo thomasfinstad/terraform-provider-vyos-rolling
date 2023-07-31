@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServicePppoeServerAuthenticationLocalUsersUsernameRateLimit describes the resource data model.
@@ -46,51 +43,10 @@ func (o ServicePppoeServerAuthenticationLocalUsersUsernameRateLimit) ResourceSch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServicePppoeServerAuthenticationLocalUsersUsernameRateLimit) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServicePppoeServerAuthenticationLocalUsersUsernameRateLimitUpload.IsNull() && !o.LeafServicePppoeServerAuthenticationLocalUsersUsernameRateLimitUpload.IsUnknown() {
-		jsonData["upload"] = o.LeafServicePppoeServerAuthenticationLocalUsersUsernameRateLimitUpload.ValueString()
-	}
-
-	if !o.LeafServicePppoeServerAuthenticationLocalUsersUsernameRateLimitDownload.IsNull() && !o.LeafServicePppoeServerAuthenticationLocalUsersUsernameRateLimitDownload.IsUnknown() {
-		jsonData["download"] = o.LeafServicePppoeServerAuthenticationLocalUsersUsernameRateLimitDownload.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServicePppoeServerAuthenticationLocalUsersUsernameRateLimit) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["upload"]; ok {
-		o.LeafServicePppoeServerAuthenticationLocalUsersUsernameRateLimitUpload = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServicePppoeServerAuthenticationLocalUsersUsernameRateLimitUpload = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["download"]; ok {
-		o.LeafServicePppoeServerAuthenticationLocalUsersUsernameRateLimitDownload = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServicePppoeServerAuthenticationLocalUsersUsernameRateLimitDownload = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServicePppoeServerAuthenticationLocalUsersUsernameRateLimit) UnmarshalJSON(_ []byte) error {
 	return nil
 }

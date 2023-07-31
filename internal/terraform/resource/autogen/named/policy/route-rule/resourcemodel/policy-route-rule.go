@@ -2,32 +2,29 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteRule describes the resource data model.
 type PolicyRouteRule struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDPolicyRoute any `tfsdk:"route" vyos:"route,parent-id"`
+	ParentIDPolicyRoute types.String `tfsdk:"route" vyos:"route_identifier,parent-id"`
 
 	// LeafNodes
 	LeafPolicyRouteRuleAction              types.String `tfsdk:"action" vyos:"action,omitempty"`
 	LeafPolicyRouteRuleDescrIPtion         types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafPolicyRouteRuleDisable             types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafPolicyRouteRuleDisable             types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafPolicyRouteRuleLog                 types.String `tfsdk:"log" vyos:"log,omitempty"`
 	LeafPolicyRouteRuleProtocol            types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
-	LeafPolicyRouteRuleDscp                types.String `tfsdk:"dscp" vyos:"dscp,omitempty"`
-	LeafPolicyRouteRuleDscpExclude         types.String `tfsdk:"dscp_exclude" vyos:"dscp-exclude,omitempty"`
-	LeafPolicyRouteRulePacketLength        types.String `tfsdk:"packet_length" vyos:"packet-length,omitempty"`
-	LeafPolicyRouteRulePacketLengthExclude types.String `tfsdk:"packet_length_exclude" vyos:"packet-length-exclude,omitempty"`
+	LeafPolicyRouteRuleDscp                types.List   `tfsdk:"dscp" vyos:"dscp,omitempty"`
+	LeafPolicyRouteRuleDscpExclude         types.List   `tfsdk:"dscp_exclude" vyos:"dscp-exclude,omitempty"`
+	LeafPolicyRouteRulePacketLength        types.List   `tfsdk:"packet_length" vyos:"packet-length,omitempty"`
+	LeafPolicyRouteRulePacketLengthExclude types.List   `tfsdk:"packet_length_exclude" vyos:"packet-length-exclude,omitempty"`
 	LeafPolicyRouteRulePacketType          types.String `tfsdk:"packet_type" vyos:"packet-type,omitempty"`
-	LeafPolicyRouteRuleConnectionMark      types.String `tfsdk:"connection_mark" vyos:"connection-mark,omitempty"`
+	LeafPolicyRouteRuleConnectionMark      types.List   `tfsdk:"connection_mark" vyos:"connection-mark,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -50,9 +47,12 @@ type PolicyRouteRule struct {
 func (o *PolicyRouteRule) GetVyosPath() []string {
 	return []string{
 		"policy",
+
 		"route",
+		o.ParentIDPolicyRoute.ValueString(),
+
 		"rule",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -66,6 +66,13 @@ func (o PolicyRouteRule) ResourceSchemaAttributes() map[string]schema.Attribute 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-999999  |  Number of policy rule  |
+
+`,
+		},
+
+		"route_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Policy route rule set name for IPv4
 
 `,
 		},
@@ -97,11 +104,13 @@ func (o PolicyRouteRule) ResourceSchemaAttributes() map[string]schema.Attribute 
 `,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Option to disable firewall rule
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"log": schema.StringAttribute{
@@ -133,8 +142,9 @@ func (o PolicyRouteRule) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Computed: true,
 		},
 
-		"dscp": schema.StringAttribute{
-			Optional: true,
+		"dscp": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `DSCP value
 
     |  Format  |  Description  |
@@ -145,8 +155,9 @@ func (o PolicyRouteRule) ResourceSchemaAttributes() map[string]schema.Attribute 
 `,
 		},
 
-		"dscp_exclude": schema.StringAttribute{
-			Optional: true,
+		"dscp_exclude": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `DSCP value not to match
 
     |  Format  |  Description  |
@@ -157,8 +168,9 @@ func (o PolicyRouteRule) ResourceSchemaAttributes() map[string]schema.Attribute 
 `,
 		},
 
-		"packet_length": schema.StringAttribute{
-			Optional: true,
+		"packet_length": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Payload size in bytes, including header and data to match
 
     |  Format  |  Description  |
@@ -169,8 +181,9 @@ func (o PolicyRouteRule) ResourceSchemaAttributes() map[string]schema.Attribute 
 `,
 		},
 
-		"packet_length_exclude": schema.StringAttribute{
-			Optional: true,
+		"packet_length_exclude": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Payload size in bytes, including header and data not to match
 
     |  Format  |  Description  |
@@ -195,8 +208,9 @@ func (o PolicyRouteRule) ResourceSchemaAttributes() map[string]schema.Attribute 
 `,
 		},
 
-		"connection_mark": schema.StringAttribute{
-			Optional: true,
+		"connection_mark": schema.ListAttribute{
+			ElementType: types.NumberType,
+			Optional:    true,
 			MarkdownDescription: `Connection mark
 
     |  Format  |  Description  |
@@ -308,465 +322,10 @@ func (o PolicyRouteRule) ResourceSchemaAttributes() map[string]schema.Attribute 
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteRule) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteRuleAction.IsNull() && !o.LeafPolicyRouteRuleAction.IsUnknown() {
-		jsonData["action"] = o.LeafPolicyRouteRuleAction.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleDescrIPtion.IsNull() && !o.LeafPolicyRouteRuleDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafPolicyRouteRuleDescrIPtion.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleDisable.IsNull() && !o.LeafPolicyRouteRuleDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafPolicyRouteRuleDisable.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleLog.IsNull() && !o.LeafPolicyRouteRuleLog.IsUnknown() {
-		jsonData["log"] = o.LeafPolicyRouteRuleLog.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleProtocol.IsNull() && !o.LeafPolicyRouteRuleProtocol.IsUnknown() {
-		jsonData["protocol"] = o.LeafPolicyRouteRuleProtocol.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleDscp.IsNull() && !o.LeafPolicyRouteRuleDscp.IsUnknown() {
-		jsonData["dscp"] = o.LeafPolicyRouteRuleDscp.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleDscpExclude.IsNull() && !o.LeafPolicyRouteRuleDscpExclude.IsUnknown() {
-		jsonData["dscp-exclude"] = o.LeafPolicyRouteRuleDscpExclude.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRulePacketLength.IsNull() && !o.LeafPolicyRouteRulePacketLength.IsUnknown() {
-		jsonData["packet-length"] = o.LeafPolicyRouteRulePacketLength.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRulePacketLengthExclude.IsNull() && !o.LeafPolicyRouteRulePacketLengthExclude.IsUnknown() {
-		jsonData["packet-length-exclude"] = o.LeafPolicyRouteRulePacketLengthExclude.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRulePacketType.IsNull() && !o.LeafPolicyRouteRulePacketType.IsUnknown() {
-		jsonData["packet-type"] = o.LeafPolicyRouteRulePacketType.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleConnectionMark.IsNull() && !o.LeafPolicyRouteRuleConnectionMark.IsUnknown() {
-		jsonData["connection-mark"] = o.LeafPolicyRouteRuleConnectionMark.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodePolicyRouteRuleDestination).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleDestination)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["destination"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteRuleSource).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleSource)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["source"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteRuleFragment).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleFragment)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["fragment"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteRuleIPsec).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleIPsec)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipsec"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteRuleLimit).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleLimit)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["limit"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteRuleRecent).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleRecent)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["recent"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteRuleSet).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleSet)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["set"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteRuleState).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleState)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["state"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteRuleTCP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleTCP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["tcp"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteRuleTime).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleTime)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["time"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteRuleIcmp).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleIcmp)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["icmp"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodePolicyRouteRuleTTL).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleTTL)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ttl"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteRule) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["action"]; ok {
-		o.LeafPolicyRouteRuleAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleAction = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafPolicyRouteRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafPolicyRouteRuleDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["log"]; ok {
-		o.LeafPolicyRouteRuleLog = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleLog = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["protocol"]; ok {
-		o.LeafPolicyRouteRuleProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleProtocol = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["dscp"]; ok {
-		o.LeafPolicyRouteRuleDscp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleDscp = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["dscp-exclude"]; ok {
-		o.LeafPolicyRouteRuleDscpExclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleDscpExclude = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["packet-length"]; ok {
-		o.LeafPolicyRouteRulePacketLength = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRulePacketLength = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["packet-length-exclude"]; ok {
-		o.LeafPolicyRouteRulePacketLengthExclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRulePacketLengthExclude = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["packet-type"]; ok {
-		o.LeafPolicyRouteRulePacketType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRulePacketType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["connection-mark"]; ok {
-		o.LeafPolicyRouteRuleConnectionMark = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleConnectionMark = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["destination"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteRuleDestination = &PolicyRouteRuleDestination{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleDestination)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["source"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteRuleSource = &PolicyRouteRuleSource{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleSource)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["fragment"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteRuleFragment = &PolicyRouteRuleFragment{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleFragment)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ipsec"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteRuleIPsec = &PolicyRouteRuleIPsec{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleIPsec)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["limit"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteRuleLimit = &PolicyRouteRuleLimit{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleLimit)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["recent"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteRuleRecent = &PolicyRouteRuleRecent{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleRecent)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["set"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteRuleSet = &PolicyRouteRuleSet{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleSet)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["state"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteRuleState = &PolicyRouteRuleState{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleState)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["tcp"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteRuleTCP = &PolicyRouteRuleTCP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleTCP)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["time"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteRuleTime = &PolicyRouteRuleTime{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleTime)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["icmp"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteRuleIcmp = &PolicyRouteRuleIcmp{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleIcmp)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ttl"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodePolicyRouteRuleTTL = &PolicyRouteRuleTTL{}
-
-		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleTTL)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *PolicyRouteRule) UnmarshalJSON(_ []byte) error {
 	return nil
 }

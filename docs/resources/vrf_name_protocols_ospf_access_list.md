@@ -49,10 +49,15 @@ Access list to filter networks in routing updates
     |  Format  |  Description  |
     |----------|---------------|
     |  u32  |  Access-list number  |
+- `name_identifier` (String) Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 ### Optional
 
-- `export` (String) Filter for outgoing routing update
+- `export` (List of String) Filter for outgoing routing update
 
     |  Format  |  Description  |
     |----------|---------------|

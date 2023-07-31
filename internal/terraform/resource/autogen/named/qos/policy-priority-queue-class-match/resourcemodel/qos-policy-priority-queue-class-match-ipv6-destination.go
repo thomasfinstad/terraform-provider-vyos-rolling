@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyPriorityQueueClassMatchIPvsixDestination describes the resource data model.
 type QosPolicyPriorityQueueClassMatchIPvsixDestination struct {
 	// LeafNodes
 	LeafQosPolicyPriorityQueueClassMatchIPvsixDestinationAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
-	LeafQosPolicyPriorityQueueClassMatchIPvsixDestinationPort    types.String `tfsdk:"port" vyos:"port,omitempty"`
+	LeafQosPolicyPriorityQueueClassMatchIPvsixDestinationPort    types.Number `tfsdk:"port" vyos:"port,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -36,7 +33,7 @@ func (o QosPolicyPriorityQueueClassMatchIPvsixDestination) ResourceSchemaAttribu
 `,
 		},
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
@@ -54,51 +51,10 @@ func (o QosPolicyPriorityQueueClassMatchIPvsixDestination) ResourceSchemaAttribu
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyPriorityQueueClassMatchIPvsixDestination) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyPriorityQueueClassMatchIPvsixDestinationAddress.IsNull() && !o.LeafQosPolicyPriorityQueueClassMatchIPvsixDestinationAddress.IsUnknown() {
-		jsonData["address"] = o.LeafQosPolicyPriorityQueueClassMatchIPvsixDestinationAddress.ValueString()
-	}
-
-	if !o.LeafQosPolicyPriorityQueueClassMatchIPvsixDestinationPort.IsNull() && !o.LeafQosPolicyPriorityQueueClassMatchIPvsixDestinationPort.IsUnknown() {
-		jsonData["port"] = o.LeafQosPolicyPriorityQueueClassMatchIPvsixDestinationPort.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyPriorityQueueClassMatchIPvsixDestination) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafQosPolicyPriorityQueueClassMatchIPvsixDestinationAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassMatchIPvsixDestinationAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafQosPolicyPriorityQueueClassMatchIPvsixDestinationPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassMatchIPvsixDestinationPort = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyPriorityQueueClassMatchIPvsixDestination) UnmarshalJSON(_ []byte) error {
 	return nil
 }

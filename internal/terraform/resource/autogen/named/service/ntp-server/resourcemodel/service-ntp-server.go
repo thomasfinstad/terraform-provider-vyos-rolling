@@ -2,11 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceNtpServer describes the resource data model.
@@ -14,9 +12,9 @@ type ServiceNtpServer struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafServiceNtpServerNoselect types.String `tfsdk:"noselect" vyos:"noselect,omitempty"`
-	LeafServiceNtpServerPool     types.String `tfsdk:"pool" vyos:"pool,omitempty"`
-	LeafServiceNtpServerPrefer   types.String `tfsdk:"prefer" vyos:"prefer,omitempty"`
+	LeafServiceNtpServerNoselect types.Bool `tfsdk:"noselect" vyos:"noselect,omitempty"`
+	LeafServiceNtpServerPool     types.Bool `tfsdk:"pool" vyos:"pool,omitempty"`
+	LeafServiceNtpServerPrefer   types.Bool `tfsdk:"prefer" vyos:"prefer,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,7 +25,9 @@ type ServiceNtpServer struct {
 func (o *ServiceNtpServer) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"ntp",
+
 		"server",
 		o.ID.ValueString(),
 	}
@@ -51,25 +51,31 @@ func (o ServiceNtpServer) ResourceSchemaAttributes() map[string]schema.Attribute
 
 		// LeafNodes
 
-		"noselect": schema.StringAttribute{
+		"noselect": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Marks the server as unused
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"pool": schema.StringAttribute{
+		"pool": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Associate with a number of remote servers
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"prefer": schema.StringAttribute{
+		"prefer": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Marks the server as preferred
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -79,61 +85,10 @@ func (o ServiceNtpServer) ResourceSchemaAttributes() map[string]schema.Attribute
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceNtpServer) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceNtpServerNoselect.IsNull() && !o.LeafServiceNtpServerNoselect.IsUnknown() {
-		jsonData["noselect"] = o.LeafServiceNtpServerNoselect.ValueString()
-	}
-
-	if !o.LeafServiceNtpServerPool.IsNull() && !o.LeafServiceNtpServerPool.IsUnknown() {
-		jsonData["pool"] = o.LeafServiceNtpServerPool.ValueString()
-	}
-
-	if !o.LeafServiceNtpServerPrefer.IsNull() && !o.LeafServiceNtpServerPrefer.IsUnknown() {
-		jsonData["prefer"] = o.LeafServiceNtpServerPrefer.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceNtpServer) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["noselect"]; ok {
-		o.LeafServiceNtpServerNoselect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceNtpServerNoselect = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["pool"]; ok {
-		o.LeafServiceNtpServerPool = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceNtpServerPool = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["prefer"]; ok {
-		o.LeafServiceNtpServerPrefer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceNtpServerPrefer = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceNtpServer) UnmarshalJSON(_ []byte) error {
 	return nil
 }

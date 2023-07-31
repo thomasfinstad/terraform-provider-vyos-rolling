@@ -35,15 +35,15 @@ Internet Key Exchange (IKE) group name
     |  hold  |  Attempt to re-negotiate when matching traffic is seen  |
     |  restart  |  Attempt to re-negotiate the connection immediately  |
 - `dead_peer_detection` (Attributes) Dead Peer Detection (DPD) (see [below for nested schema](#nestedatt--dead_peer_detection))
-- `disable_mobike` (String) Disable MOBIKE Support (IKEv2 only)
-- `ikev2_reauth` (String) Re-authentication of the remote peer during an IKE re-key (IKEv2 only)
+- `disable_mobike` (Boolean) Disable MOBIKE Support (IKEv2 only)
+- `ikev2_reauth` (Boolean) Re-authentication of the remote peer during an IKE re-key (IKEv2 only)
 - `key_exchange` (String) IKE version
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ikev1  |  Use IKEv1 for key exchange  |
     |  ikev2  |  Use IKEv2 for key exchange  |
-- `lifetime` (String) IKE lifetime
+- `lifetime` (Number) IKE lifetime
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -67,12 +67,12 @@ Optional:
     |  hold  |  Attempt to re-negotiate the connection when matching traffic is seen  |
     |  clear  |  Remove the connection immediately  |
     |  restart  |  Attempt to re-negotiate the connection immediately  |
-- `interval` (String) Keep-alive interval
+- `interval` (Number) Keep-alive interval
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:2-86400  |  Keep-alive interval in seconds  |
-- `timeout` (String) Dead Peer Detection keep-alive timeout (IKEv1 only)
+- `timeout` (Number) Dead Peer Detection keep-alive timeout (IKEv1 only)
 
     |  Format  |  Description  |
     |----------|---------------|

@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyLimiterDefault describes the resource data model.
@@ -102,71 +99,10 @@ func (o QosPolicyLimiterDefault) ResourceSchemaAttributes() map[string]schema.At
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyLimiterDefault) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyLimiterDefaultBandwIDth.IsNull() && !o.LeafQosPolicyLimiterDefaultBandwIDth.IsUnknown() {
-		jsonData["bandwidth"] = o.LeafQosPolicyLimiterDefaultBandwIDth.ValueString()
-	}
-
-	if !o.LeafQosPolicyLimiterDefaultBurst.IsNull() && !o.LeafQosPolicyLimiterDefaultBurst.IsUnknown() {
-		jsonData["burst"] = o.LeafQosPolicyLimiterDefaultBurst.ValueString()
-	}
-
-	if !o.LeafQosPolicyLimiterDefaultExceed.IsNull() && !o.LeafQosPolicyLimiterDefaultExceed.IsUnknown() {
-		jsonData["exceed"] = o.LeafQosPolicyLimiterDefaultExceed.ValueString()
-	}
-
-	if !o.LeafQosPolicyLimiterDefaultNotExceed.IsNull() && !o.LeafQosPolicyLimiterDefaultNotExceed.IsUnknown() {
-		jsonData["not-exceed"] = o.LeafQosPolicyLimiterDefaultNotExceed.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyLimiterDefault) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["bandwidth"]; ok {
-		o.LeafQosPolicyLimiterDefaultBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterDefaultBandwIDth = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["burst"]; ok {
-		o.LeafQosPolicyLimiterDefaultBurst = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterDefaultBurst = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["exceed"]; ok {
-		o.LeafQosPolicyLimiterDefaultExceed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterDefaultExceed = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["not-exceed"]; ok {
-		o.LeafQosPolicyLimiterDefaultNotExceed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterDefaultNotExceed = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyLimiterDefault) UnmarshalJSON(_ []byte) error {
 	return nil
 }

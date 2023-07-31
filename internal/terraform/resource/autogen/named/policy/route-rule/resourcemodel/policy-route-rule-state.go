@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteRuleState describes the resource data model.
@@ -82,71 +79,10 @@ func (o PolicyRouteRuleState) ResourceSchemaAttributes() map[string]schema.Attri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteRuleState) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteRuleStateEstablished.IsNull() && !o.LeafPolicyRouteRuleStateEstablished.IsUnknown() {
-		jsonData["established"] = o.LeafPolicyRouteRuleStateEstablished.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleStateInvalID.IsNull() && !o.LeafPolicyRouteRuleStateInvalID.IsUnknown() {
-		jsonData["invalid"] = o.LeafPolicyRouteRuleStateInvalID.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleStateNew.IsNull() && !o.LeafPolicyRouteRuleStateNew.IsUnknown() {
-		jsonData["new"] = o.LeafPolicyRouteRuleStateNew.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleStateRelated.IsNull() && !o.LeafPolicyRouteRuleStateRelated.IsUnknown() {
-		jsonData["related"] = o.LeafPolicyRouteRuleStateRelated.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteRuleState) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["established"]; ok {
-		o.LeafPolicyRouteRuleStateEstablished = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleStateEstablished = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["invalid"]; ok {
-		o.LeafPolicyRouteRuleStateInvalID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleStateInvalID = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["new"]; ok {
-		o.LeafPolicyRouteRuleStateNew = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleStateNew = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["related"]; ok {
-		o.LeafPolicyRouteRuleStateRelated = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleStateRelated = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRouteRuleState) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,32 +2,29 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyShaperClass describes the resource data model.
 type QosPolicyShaperClass struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDQosPolicyShaper any `tfsdk:"shaper" vyos:"shaper,parent-id"`
+	ParentIDQosPolicyShaper types.String `tfsdk:"shaper" vyos:"shaper_identifier,parent-id"`
 
 	// LeafNodes
 	LeafQosPolicyShaperClassDescrIPtion  types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafQosPolicyShaperClassBandwIDth    types.String `tfsdk:"bandwidth" vyos:"bandwidth,omitempty"`
 	LeafQosPolicyShaperClassBurst        types.String `tfsdk:"burst" vyos:"burst,omitempty"`
 	LeafQosPolicyShaperClassCeiling      types.String `tfsdk:"ceiling" vyos:"ceiling,omitempty"`
-	LeafQosPolicyShaperClassCodelQuantum types.String `tfsdk:"codel_quantum" vyos:"codel-quantum,omitempty"`
-	LeafQosPolicyShaperClassFlows        types.String `tfsdk:"flows" vyos:"flows,omitempty"`
-	LeafQosPolicyShaperClassInterval     types.String `tfsdk:"interval" vyos:"interval,omitempty"`
-	LeafQosPolicyShaperClassPriority     types.String `tfsdk:"priority" vyos:"priority,omitempty"`
-	LeafQosPolicyShaperClassQueueLimit   types.String `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
+	LeafQosPolicyShaperClassCodelQuantum types.Number `tfsdk:"codel_quantum" vyos:"codel-quantum,omitempty"`
+	LeafQosPolicyShaperClassFlows        types.Number `tfsdk:"flows" vyos:"flows,omitempty"`
+	LeafQosPolicyShaperClassInterval     types.Number `tfsdk:"interval" vyos:"interval,omitempty"`
+	LeafQosPolicyShaperClassPriority     types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
+	LeafQosPolicyShaperClassQueueLimit   types.Number `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
 	LeafQosPolicyShaperClassQueueType    types.String `tfsdk:"queue_type" vyos:"queue-type,omitempty"`
 	LeafQosPolicyShaperClassSetDscp      types.String `tfsdk:"set_dscp" vyos:"set-dscp,omitempty"`
-	LeafQosPolicyShaperClassTarget       types.String `tfsdk:"target" vyos:"target,omitempty"`
+	LeafQosPolicyShaperClassTarget       types.Number `tfsdk:"target" vyos:"target,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagQosPolicyShaperClassMatch bool `tfsdk:"match" vyos:"match,child"`
@@ -39,10 +36,14 @@ type QosPolicyShaperClass struct {
 func (o *QosPolicyShaperClass) GetVyosPath() []string {
 	return []string{
 		"qos",
+
 		"policy",
+
 		"shaper",
+		o.ParentIDQosPolicyShaper.ValueString(),
+
 		"class",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -56,6 +57,17 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:2-4095  |  Class Identifier  |
+
+`,
+		},
+
+		"shaper_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Traffic shaping based policy (Hierarchy Token Bucket)
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
 
 `,
 		},
@@ -125,7 +137,7 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 
-		"codel_quantum": schema.StringAttribute{
+		"codel_quantum": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Deficit in the fair queuing algorithm
 
@@ -139,7 +151,7 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 			Computed: true,
 		},
 
-		"flows": schema.StringAttribute{
+		"flows": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Number of flows into which the incoming packets are classified
 
@@ -153,7 +165,7 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 			Computed: true,
 		},
 
-		"interval": schema.StringAttribute{
+		"interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Interval used to measure the delay
 
@@ -167,7 +179,7 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 			Computed: true,
 		},
 
-		"priority": schema.StringAttribute{
+		"priority": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Priority for rule evaluation
 
@@ -178,7 +190,7 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 
-		"queue_limit": schema.StringAttribute{
+		"queue_limit": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
@@ -249,7 +261,7 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 
-		"target": schema.StringAttribute{
+		"target": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Acceptable minimum standing/persistent queue delay
 
@@ -270,151 +282,10 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyShaperClass) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyShaperClassDescrIPtion.IsNull() && !o.LeafQosPolicyShaperClassDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafQosPolicyShaperClassDescrIPtion.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperClassBandwIDth.IsNull() && !o.LeafQosPolicyShaperClassBandwIDth.IsUnknown() {
-		jsonData["bandwidth"] = o.LeafQosPolicyShaperClassBandwIDth.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperClassBurst.IsNull() && !o.LeafQosPolicyShaperClassBurst.IsUnknown() {
-		jsonData["burst"] = o.LeafQosPolicyShaperClassBurst.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperClassCeiling.IsNull() && !o.LeafQosPolicyShaperClassCeiling.IsUnknown() {
-		jsonData["ceiling"] = o.LeafQosPolicyShaperClassCeiling.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperClassCodelQuantum.IsNull() && !o.LeafQosPolicyShaperClassCodelQuantum.IsUnknown() {
-		jsonData["codel-quantum"] = o.LeafQosPolicyShaperClassCodelQuantum.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperClassFlows.IsNull() && !o.LeafQosPolicyShaperClassFlows.IsUnknown() {
-		jsonData["flows"] = o.LeafQosPolicyShaperClassFlows.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperClassInterval.IsNull() && !o.LeafQosPolicyShaperClassInterval.IsUnknown() {
-		jsonData["interval"] = o.LeafQosPolicyShaperClassInterval.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperClassPriority.IsNull() && !o.LeafQosPolicyShaperClassPriority.IsUnknown() {
-		jsonData["priority"] = o.LeafQosPolicyShaperClassPriority.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperClassQueueLimit.IsNull() && !o.LeafQosPolicyShaperClassQueueLimit.IsUnknown() {
-		jsonData["queue-limit"] = o.LeafQosPolicyShaperClassQueueLimit.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperClassQueueType.IsNull() && !o.LeafQosPolicyShaperClassQueueType.IsUnknown() {
-		jsonData["queue-type"] = o.LeafQosPolicyShaperClassQueueType.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperClassSetDscp.IsNull() && !o.LeafQosPolicyShaperClassSetDscp.IsUnknown() {
-		jsonData["set-dscp"] = o.LeafQosPolicyShaperClassSetDscp.ValueString()
-	}
-
-	if !o.LeafQosPolicyShaperClassTarget.IsNull() && !o.LeafQosPolicyShaperClassTarget.IsUnknown() {
-		jsonData["target"] = o.LeafQosPolicyShaperClassTarget.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyShaperClass) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafQosPolicyShaperClassDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperClassDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["bandwidth"]; ok {
-		o.LeafQosPolicyShaperClassBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperClassBandwIDth = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["burst"]; ok {
-		o.LeafQosPolicyShaperClassBurst = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperClassBurst = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ceiling"]; ok {
-		o.LeafQosPolicyShaperClassCeiling = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperClassCeiling = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["codel-quantum"]; ok {
-		o.LeafQosPolicyShaperClassCodelQuantum = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperClassCodelQuantum = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["flows"]; ok {
-		o.LeafQosPolicyShaperClassFlows = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperClassFlows = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["interval"]; ok {
-		o.LeafQosPolicyShaperClassInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperClassInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["priority"]; ok {
-		o.LeafQosPolicyShaperClassPriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperClassPriority = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["queue-limit"]; ok {
-		o.LeafQosPolicyShaperClassQueueLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperClassQueueLimit = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["queue-type"]; ok {
-		o.LeafQosPolicyShaperClassQueueType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperClassQueueType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["set-dscp"]; ok {
-		o.LeafQosPolicyShaperClassSetDscp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperClassSetDscp = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["target"]; ok {
-		o.LeafQosPolicyShaperClassTarget = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperClassTarget = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyShaperClass) UnmarshalJSON(_ []byte) error {
 	return nil
 }

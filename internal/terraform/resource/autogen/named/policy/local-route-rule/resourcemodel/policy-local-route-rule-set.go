@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyLocalRouteRuleSet describes the resource data model.
 type PolicyLocalRouteRuleSet struct {
 	// LeafNodes
-	LeafPolicyLocalRouteRuleSetTable types.String `tfsdk:"table" vyos:"table,omitempty"`
+	LeafPolicyLocalRouteRuleSetTable types.Number `tfsdk:"table" vyos:"table,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,7 +21,7 @@ func (o PolicyLocalRouteRuleSet) ResourceSchemaAttributes() map[string]schema.At
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"table": schema.StringAttribute{
+		"table": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Routing table to forward packet with
 
@@ -42,41 +39,10 @@ func (o PolicyLocalRouteRuleSet) ResourceSchemaAttributes() map[string]schema.At
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyLocalRouteRuleSet) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyLocalRouteRuleSetTable.IsNull() && !o.LeafPolicyLocalRouteRuleSetTable.IsUnknown() {
-		jsonData["table"] = o.LeafPolicyLocalRouteRuleSetTable.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyLocalRouteRuleSet) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["table"]; ok {
-		o.LeafPolicyLocalRouteRuleSetTable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyLocalRouteRuleSetTable = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyLocalRouteRuleSet) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -24,7 +24,7 @@ interface(s) to listen on
 
 ### Optional
 
-- `vlan` (String) VLAN monitor for automatic creation of VLAN interfaces
+- `vlan` (List of String) VLAN monitor for automatic creation of VLAN interfaces
 
     |  Format  |  Description  |
     |----------|---------------|

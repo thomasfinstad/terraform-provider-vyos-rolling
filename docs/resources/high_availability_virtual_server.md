@@ -35,7 +35,7 @@ Load-balancing virtual server address
     |  source-hashing  |  Source hashing  |
     |  destination-hashing  |  Destination hashing  |
     |  locality-based-least-connection  |  Locality-Based least connection  |
-- `delay_loop` (String) Interval between health-checks (in seconds)
+- `delay_loop` (Number) Interval between health-checks (in seconds)
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -47,17 +47,17 @@ Load-balancing virtual server address
     |  direct  |  Direct routing  |
     |  nat  |  NAT  |
     |  tunnel  |  Tunneling  |
-- `fwmark` (String) Match fwmark value
+- `fwmark` (Number) Match fwmark value
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-2147483647  |  Match firewall mark value  |
-- `persistence_timeout` (String) Timeout for persistent connections
+- `persistence_timeout` (Number) Timeout for persistent connections
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-86400  |  Timeout for persistent connections  |
-- `port` (String) Port number used by connection
+- `port` (Number) Port number used by connection
 
     |  Format  |  Description  |
     |----------|---------------|

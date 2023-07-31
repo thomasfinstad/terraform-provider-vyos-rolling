@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // HighAvailabilityVrrpGroupHealthCheck describes the resource data model.
@@ -60,61 +57,10 @@ func (o HighAvailabilityVrrpGroupHealthCheck) ResourceSchemaAttributes() map[str
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *HighAvailabilityVrrpGroupHealthCheck) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafHighAvailabilityVrrpGroupHealthCheckFailureCount.IsNull() && !o.LeafHighAvailabilityVrrpGroupHealthCheckFailureCount.IsUnknown() {
-		jsonData["failure-count"] = o.LeafHighAvailabilityVrrpGroupHealthCheckFailureCount.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupHealthCheckInterval.IsNull() && !o.LeafHighAvailabilityVrrpGroupHealthCheckInterval.IsUnknown() {
-		jsonData["interval"] = o.LeafHighAvailabilityVrrpGroupHealthCheckInterval.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupHealthCheckScrIPt.IsNull() && !o.LeafHighAvailabilityVrrpGroupHealthCheckScrIPt.IsUnknown() {
-		jsonData["script"] = o.LeafHighAvailabilityVrrpGroupHealthCheckScrIPt.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *HighAvailabilityVrrpGroupHealthCheck) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["failure-count"]; ok {
-		o.LeafHighAvailabilityVrrpGroupHealthCheckFailureCount = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupHealthCheckFailureCount = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["interval"]; ok {
-		o.LeafHighAvailabilityVrrpGroupHealthCheckInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupHealthCheckInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["script"]; ok {
-		o.LeafHighAvailabilityVrrpGroupHealthCheckScrIPt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupHealthCheckScrIPt = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *HighAvailabilityVrrpGroupHealthCheck) UnmarshalJSON(_ []byte) error {
 	return nil
 }

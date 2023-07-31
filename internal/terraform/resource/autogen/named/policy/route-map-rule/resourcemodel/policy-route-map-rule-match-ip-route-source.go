@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteMapRuleMatchIPRouteSource describes the resource data model.
 type PolicyRouteMapRuleMatchIPRouteSource struct {
 	// LeafNodes
-	LeafPolicyRouteMapRuleMatchIPRouteSourceAccessList types.String `tfsdk:"access_list" vyos:"access-list,omitempty"`
+	LeafPolicyRouteMapRuleMatchIPRouteSourceAccessList types.Number `tfsdk:"access_list" vyos:"access-list,omitempty"`
 	LeafPolicyRouteMapRuleMatchIPRouteSourcePrefixList types.String `tfsdk:"prefix_list" vyos:"prefix-list,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -25,7 +22,7 @@ func (o PolicyRouteMapRuleMatchIPRouteSource) ResourceSchemaAttributes() map[str
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"access_list": schema.StringAttribute{
+		"access_list": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `IP access-list to match
 
@@ -53,51 +50,10 @@ func (o PolicyRouteMapRuleMatchIPRouteSource) ResourceSchemaAttributes() map[str
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteMapRuleMatchIPRouteSource) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteMapRuleMatchIPRouteSourceAccessList.IsNull() && !o.LeafPolicyRouteMapRuleMatchIPRouteSourceAccessList.IsUnknown() {
-		jsonData["access-list"] = o.LeafPolicyRouteMapRuleMatchIPRouteSourceAccessList.ValueString()
-	}
-
-	if !o.LeafPolicyRouteMapRuleMatchIPRouteSourcePrefixList.IsNull() && !o.LeafPolicyRouteMapRuleMatchIPRouteSourcePrefixList.IsUnknown() {
-		jsonData["prefix-list"] = o.LeafPolicyRouteMapRuleMatchIPRouteSourcePrefixList.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteMapRuleMatchIPRouteSource) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["access-list"]; ok {
-		o.LeafPolicyRouteMapRuleMatchIPRouteSourceAccessList = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleMatchIPRouteSourceAccessList = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["prefix-list"]; ok {
-		o.LeafPolicyRouteMapRuleMatchIPRouteSourcePrefixList = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleMatchIPRouteSourcePrefixList = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRouteMapRuleMatchIPRouteSource) UnmarshalJSON(_ []byte) error {
 	return nil
 }

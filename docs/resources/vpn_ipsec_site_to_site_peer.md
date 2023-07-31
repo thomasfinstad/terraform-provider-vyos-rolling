@@ -60,8 +60,8 @@ Connection name of the peer
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  DHCP interface name  |
-- `disable` (String) Disable instance
-- `force_udp_encapsulation` (String) Force UDP encapsulation
+- `disable` (Boolean) Disable instance
+- `force_udp_encapsulation` (Boolean) Force UDP encapsulation
 - `ike_group` (String) Internet Key Exchange (IKE) group name
 - `ikev2_reauth` (String) Re-authentication of the remote peer during an IKE re-key (IKEv2 only)
 
@@ -77,7 +77,7 @@ Connection name of the peer
     |  ipv4  |  IPv4 address of a local interface for VPN  |
     |  ipv6  |  IPv6 address of a local interface for VPN  |
     |  any  |  Allow any IPv4 address present on the system to be used for VPN  |
-- `remote_address` (String) IPv4 or IPv6 address of the remote peer
+- `remote_address` (List of String) IPv4 or IPv6 address of the remote peer
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -85,7 +85,7 @@ Connection name of the peer
     |  ipv6  |  IPv6 address of the remote peer  |
     |  hostname  |  Fully qualified domain name of the remote peer  |
     |  any  |  Allow any IP address of the remote peer  |
-- `virtual_address` (String) Initiator request virtual-address from peer
+- `virtual_address` (List of String) Initiator request virtual-address from peer
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -116,7 +116,7 @@ Optional:
     |----------|---------------|
     |  txt  |  ID used for peer authentication  |
 - `rsa` (Attributes) RSA keys (see [below for nested schema](#nestedatt--authentication--rsa))
-- `use_x509_id` (String) Use certificate common name as ID
+- `use_x509_id` (Boolean) Use certificate common name as ID
 - `x509` (Attributes) X.509 certificate (see [below for nested schema](#nestedatt--authentication--x509))
 
 <a id="nestedatt--authentication--rsa"></a>

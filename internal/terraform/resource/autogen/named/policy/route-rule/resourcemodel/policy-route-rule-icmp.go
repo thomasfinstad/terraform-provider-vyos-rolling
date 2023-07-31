@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRouteRuleIcmp describes the resource data model.
 type PolicyRouteRuleIcmp struct {
 	// LeafNodes
-	LeafPolicyRouteRuleIcmpCode     types.String `tfsdk:"code" vyos:"code,omitempty"`
-	LeafPolicyRouteRuleIcmpType     types.String `tfsdk:"type" vyos:"type,omitempty"`
+	LeafPolicyRouteRuleIcmpCode     types.Number `tfsdk:"code" vyos:"code,omitempty"`
+	LeafPolicyRouteRuleIcmpType     types.Number `tfsdk:"type" vyos:"type,omitempty"`
 	LeafPolicyRouteRuleIcmpTypeName types.String `tfsdk:"type_name" vyos:"type-name,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -26,7 +23,7 @@ func (o PolicyRouteRuleIcmp) ResourceSchemaAttributes() map[string]schema.Attrib
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"code": schema.StringAttribute{
+		"code": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `ICMP code (0-255)
 
@@ -37,7 +34,7 @@ func (o PolicyRouteRuleIcmp) ResourceSchemaAttributes() map[string]schema.Attrib
 `,
 		},
 
-		"type": schema.StringAttribute{
+		"type": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `ICMP type (0-255)
 
@@ -80,61 +77,10 @@ func (o PolicyRouteRuleIcmp) ResourceSchemaAttributes() map[string]schema.Attrib
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRouteRuleIcmp) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRouteRuleIcmpCode.IsNull() && !o.LeafPolicyRouteRuleIcmpCode.IsUnknown() {
-		jsonData["code"] = o.LeafPolicyRouteRuleIcmpCode.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleIcmpType.IsNull() && !o.LeafPolicyRouteRuleIcmpType.IsUnknown() {
-		jsonData["type"] = o.LeafPolicyRouteRuleIcmpType.ValueString()
-	}
-
-	if !o.LeafPolicyRouteRuleIcmpTypeName.IsNull() && !o.LeafPolicyRouteRuleIcmpTypeName.IsUnknown() {
-		jsonData["type-name"] = o.LeafPolicyRouteRuleIcmpTypeName.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteRuleIcmp) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["code"]; ok {
-		o.LeafPolicyRouteRuleIcmpCode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleIcmpCode = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["type"]; ok {
-		o.LeafPolicyRouteRuleIcmpType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleIcmpType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["type-name"]; ok {
-		o.LeafPolicyRouteRuleIcmpTypeName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleIcmpTypeName = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRouteRuleIcmp) UnmarshalJSON(_ []byte) error {
 	return nil
 }

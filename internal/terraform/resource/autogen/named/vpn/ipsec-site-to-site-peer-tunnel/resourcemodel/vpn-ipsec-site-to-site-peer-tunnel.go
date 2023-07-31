@@ -2,25 +2,22 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnIPsecSiteToSitePeerTunnel describes the resource data model.
 type VpnIPsecSiteToSitePeerTunnel struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVpnIPsecSiteToSitePeer any `tfsdk:"peer" vyos:"peer,parent-id"`
+	ParentIDVpnIPsecSiteToSitePeer types.String `tfsdk:"peer" vyos:"peer_identifier,parent-id"`
 
 	// LeafNodes
-	LeafVpnIPsecSiteToSitePeerTunnelDisable  types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafVpnIPsecSiteToSitePeerTunnelDisable  types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafVpnIPsecSiteToSitePeerTunnelEspGroup types.String `tfsdk:"esp_group" vyos:"esp-group,omitempty"`
 	LeafVpnIPsecSiteToSitePeerTunnelProtocol types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
-	LeafVpnIPsecSiteToSitePeerTunnelPriority types.String `tfsdk:"priority" vyos:"priority,omitempty"`
+	LeafVpnIPsecSiteToSitePeerTunnelPriority types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -33,11 +30,16 @@ type VpnIPsecSiteToSitePeerTunnel struct {
 func (o *VpnIPsecSiteToSitePeerTunnel) GetVyosPath() []string {
 	return []string{
 		"vpn",
+
 		"ipsec",
+
 		"site-to-site",
+
 		"peer",
+		o.ParentIDVpnIPsecSiteToSitePeer.ValueString(),
+
 		"tunnel",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -55,13 +57,26 @@ func (o VpnIPsecSiteToSitePeerTunnel) ResourceSchemaAttributes() map[string]sche
 `,
 		},
 
+		"peer_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Connection name of the peer
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Connection name of the peer  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"esp_group": schema.StringAttribute{
@@ -82,7 +97,7 @@ func (o VpnIPsecSiteToSitePeerTunnel) ResourceSchemaAttributes() map[string]sche
 `,
 		},
 
-		"priority": schema.StringAttribute{
+		"priority": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Priority for IPsec policy (lowest value more preferable)
 
@@ -115,125 +130,10 @@ func (o VpnIPsecSiteToSitePeerTunnel) ResourceSchemaAttributes() map[string]sche
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnIPsecSiteToSitePeerTunnel) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnIPsecSiteToSitePeerTunnelDisable.IsNull() && !o.LeafVpnIPsecSiteToSitePeerTunnelDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafVpnIPsecSiteToSitePeerTunnelDisable.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerTunnelEspGroup.IsNull() && !o.LeafVpnIPsecSiteToSitePeerTunnelEspGroup.IsUnknown() {
-		jsonData["esp-group"] = o.LeafVpnIPsecSiteToSitePeerTunnelEspGroup.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerTunnelProtocol.IsNull() && !o.LeafVpnIPsecSiteToSitePeerTunnelProtocol.IsUnknown() {
-		jsonData["protocol"] = o.LeafVpnIPsecSiteToSitePeerTunnelProtocol.ValueString()
-	}
-
-	if !o.LeafVpnIPsecSiteToSitePeerTunnelPriority.IsNull() && !o.LeafVpnIPsecSiteToSitePeerTunnelPriority.IsUnknown() {
-		jsonData["priority"] = o.LeafVpnIPsecSiteToSitePeerTunnelPriority.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVpnIPsecSiteToSitePeerTunnelLocal).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVpnIPsecSiteToSitePeerTunnelLocal)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["local"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVpnIPsecSiteToSitePeerTunnelRemote).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVpnIPsecSiteToSitePeerTunnelRemote)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["remote"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnIPsecSiteToSitePeerTunnel) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerTunnelDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerTunnelDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["esp-group"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerTunnelEspGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerTunnelEspGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["protocol"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerTunnelProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerTunnelProtocol = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["priority"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerTunnelPriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerTunnelPriority = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["local"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVpnIPsecSiteToSitePeerTunnelLocal = &VpnIPsecSiteToSitePeerTunnelLocal{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVpnIPsecSiteToSitePeerTunnelLocal)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["remote"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVpnIPsecSiteToSitePeerTunnelRemote = &VpnIPsecSiteToSitePeerTunnelRemote{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVpnIPsecSiteToSitePeerTunnelRemote)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VpnIPsecSiteToSitePeerTunnel) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,24 +2,22 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesWirelessSecURItyWpaRadiusServer describes the resource data model.
 type InterfacesWirelessSecURItyWpaRadiusServer struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDInterfacesWireless any `tfsdk:"wireless" vyos:"wireless,parent-id"`
+	ParentIDInterfacesWireless types.String `tfsdk:"wireless" vyos:"wireless_identifier,parent-id"`
 
 	// LeafNodes
-	LeafInterfacesWirelessSecURItyWpaRadiusServerDisable    types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafInterfacesWirelessSecURItyWpaRadiusServerDisable    types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafInterfacesWirelessSecURItyWpaRadiusServerKey        types.String `tfsdk:"key" vyos:"key,omitempty"`
-	LeafInterfacesWirelessSecURItyWpaRadiusServerPort       types.String `tfsdk:"port" vyos:"port,omitempty"`
-	LeafInterfacesWirelessSecURItyWpaRadiusServerAccounting types.String `tfsdk:"accounting" vyos:"accounting,omitempty"`
+	LeafInterfacesWirelessSecURItyWpaRadiusServerPort       types.Number `tfsdk:"port" vyos:"port,omitempty"`
+	LeafInterfacesWirelessSecURItyWpaRadiusServerAccounting types.Bool   `tfsdk:"accounting" vyos:"accounting,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -30,10 +28,16 @@ type InterfacesWirelessSecURItyWpaRadiusServer struct {
 func (o *InterfacesWirelessSecURItyWpaRadiusServer) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"wireless",
+		o.ParentIDInterfacesWireless.ValueString(),
+
 		"security",
+
 		"wpa",
+
 		"radius",
+
 		"server",
 		o.ID.ValueString(),
 	}
@@ -53,13 +57,26 @@ func (o InterfacesWirelessSecURItyWpaRadiusServer) ResourceSchemaAttributes() ma
 `,
 		},
 
+		"wireless_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Wireless (WiFi/WLAN) Network Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"key": schema.StringAttribute{
@@ -69,7 +86,7 @@ func (o InterfacesWirelessSecURItyWpaRadiusServer) ResourceSchemaAttributes() ma
 `,
 		},
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Authentication port
 
@@ -83,11 +100,13 @@ func (o InterfacesWirelessSecURItyWpaRadiusServer) ResourceSchemaAttributes() ma
 			Computed: true,
 		},
 
-		"accounting": schema.StringAttribute{
+		"accounting": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable RADIUS server to receive accounting info
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -97,71 +116,10 @@ func (o InterfacesWirelessSecURItyWpaRadiusServer) ResourceSchemaAttributes() ma
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesWirelessSecURItyWpaRadiusServer) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesWirelessSecURItyWpaRadiusServerDisable.IsNull() && !o.LeafInterfacesWirelessSecURItyWpaRadiusServerDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafInterfacesWirelessSecURItyWpaRadiusServerDisable.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessSecURItyWpaRadiusServerKey.IsNull() && !o.LeafInterfacesWirelessSecURItyWpaRadiusServerKey.IsUnknown() {
-		jsonData["key"] = o.LeafInterfacesWirelessSecURItyWpaRadiusServerKey.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessSecURItyWpaRadiusServerPort.IsNull() && !o.LeafInterfacesWirelessSecURItyWpaRadiusServerPort.IsUnknown() {
-		jsonData["port"] = o.LeafInterfacesWirelessSecURItyWpaRadiusServerPort.ValueString()
-	}
-
-	if !o.LeafInterfacesWirelessSecURItyWpaRadiusServerAccounting.IsNull() && !o.LeafInterfacesWirelessSecURItyWpaRadiusServerAccounting.IsUnknown() {
-		jsonData["accounting"] = o.LeafInterfacesWirelessSecURItyWpaRadiusServerAccounting.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWirelessSecURItyWpaRadiusServer) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafInterfacesWirelessSecURItyWpaRadiusServerDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessSecURItyWpaRadiusServerDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["key"]; ok {
-		o.LeafInterfacesWirelessSecURItyWpaRadiusServerKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessSecURItyWpaRadiusServerKey = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafInterfacesWirelessSecURItyWpaRadiusServerPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessSecURItyWpaRadiusServerPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["accounting"]; ok {
-		o.LeafInterfacesWirelessSecURItyWpaRadiusServerAccounting = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessSecURItyWpaRadiusServerAccounting = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesWirelessSecURItyWpaRadiusServer) UnmarshalJSON(_ []byte) error {
 	return nil
 }

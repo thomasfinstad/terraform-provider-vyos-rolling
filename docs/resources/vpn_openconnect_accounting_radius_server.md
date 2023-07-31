@@ -41,9 +41,9 @@ RADIUS server configuration
 
 ### Optional
 
-- `disable` (String) Disable instance
+- `disable` (Boolean) Disable instance
 - `key` (String) Shared secret key
-- `port` (String) Accounting port
+- `port` (Number) Accounting port
 
     |  Format  |  Description  |
     |----------|---------------|

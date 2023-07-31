@@ -2,9 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 )
 
@@ -46,85 +43,10 @@ func (o VrfNameProtocolsIsisRedistributeIPvfourBabel) ResourceSchemaAttributes()
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsIsisRedistributeIPvfourBabel) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsisRedistributeIPvfourBabelLevelOne).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsisRedistributeIPvfourBabelLevelOne)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["level-1"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsisRedistributeIPvfourBabelLevelTwo).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsisRedistributeIPvfourBabelLevelTwo)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["level-2"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsIsisRedistributeIPvfourBabel) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["level-1"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsIsisRedistributeIPvfourBabelLevelOne = &VrfNameProtocolsIsisRedistributeIPvfourBabelLevelOne{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsisRedistributeIPvfourBabelLevelOne)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["level-2"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsIsisRedistributeIPvfourBabelLevelTwo = &VrfNameProtocolsIsisRedistributeIPvfourBabelLevelTwo{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsisRedistributeIPvfourBabelLevelTwo)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VrfNameProtocolsIsisRedistributeIPvfourBabel) UnmarshalJSON(_ []byte) error {
 	return nil
 }

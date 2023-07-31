@@ -2,11 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyRoutesix describes the resource data model.
@@ -15,8 +13,8 @@ type PolicyRoutesix struct {
 
 	// LeafNodes
 	LeafPolicyRoutesixDescrIPtion      types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafPolicyRoutesixInterface        types.String `tfsdk:"interface" vyos:"interface,omitempty"`
-	LeafPolicyRoutesixEnableDefaultLog types.String `tfsdk:"enable_default_log" vyos:"enable-default-log,omitempty"`
+	LeafPolicyRoutesixInterface        types.List   `tfsdk:"interface" vyos:"interface,omitempty"`
+	LeafPolicyRoutesixEnableDefaultLog types.Bool   `tfsdk:"enable_default_log" vyos:"enable-default-log,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagPolicyRoutesixRule bool `tfsdk:"rule" vyos:"rule,child"`
@@ -28,6 +26,7 @@ type PolicyRoutesix struct {
 func (o *PolicyRoutesix) GetVyosPath() []string {
 	return []string{
 		"policy",
+
 		"route6",
 		o.ID.ValueString(),
 	}
@@ -56,8 +55,9 @@ func (o PolicyRoutesix) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 
-		"interface": schema.StringAttribute{
-			Optional: true,
+		"interface": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Interface to use
 
     |  Format  |  Description  |
@@ -67,11 +67,13 @@ func (o PolicyRoutesix) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 
-		"enable_default_log": schema.StringAttribute{
+		"enable_default_log": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Log packets hitting default-action
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -81,61 +83,10 @@ func (o PolicyRoutesix) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *PolicyRoutesix) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafPolicyRoutesixDescrIPtion.IsNull() && !o.LeafPolicyRoutesixDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafPolicyRoutesixDescrIPtion.ValueString()
-	}
-
-	if !o.LeafPolicyRoutesixInterface.IsNull() && !o.LeafPolicyRoutesixInterface.IsUnknown() {
-		jsonData["interface"] = o.LeafPolicyRoutesixInterface.ValueString()
-	}
-
-	if !o.LeafPolicyRoutesixEnableDefaultLog.IsNull() && !o.LeafPolicyRoutesixEnableDefaultLog.IsUnknown() {
-		jsonData["enable-default-log"] = o.LeafPolicyRoutesixEnableDefaultLog.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRoutesix) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafPolicyRoutesixDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["interface"]; ok {
-		o.LeafPolicyRoutesixInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixInterface = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["enable-default-log"]; ok {
-		o.LeafPolicyRoutesixEnableDefaultLog = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixEnableDefaultLog = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *PolicyRoutesix) UnmarshalJSON(_ []byte) error {
 	return nil
 }

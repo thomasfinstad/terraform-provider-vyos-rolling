@@ -2,21 +2,18 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesOpenvpnServerPushRoute describes the resource data model.
 type InterfacesOpenvpnServerPushRoute struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDInterfacesOpenvpn any `tfsdk:"openvpn" vyos:"openvpn,parent-id"`
+	ParentIDInterfacesOpenvpn types.String `tfsdk:"openvpn" vyos:"openvpn_identifier,parent-id"`
 
 	// LeafNodes
-	LeafInterfacesOpenvpnServerPushRouteMetric types.String `tfsdk:"metric" vyos:"metric,omitempty"`
+	LeafInterfacesOpenvpnServerPushRouteMetric types.Number `tfsdk:"metric" vyos:"metric,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,8 +24,12 @@ type InterfacesOpenvpnServerPushRoute struct {
 func (o *InterfacesOpenvpnServerPushRoute) GetVyosPath() []string {
 	return []string{
 		"interfaces",
+
 		"openvpn",
+		o.ParentIDInterfacesOpenvpn.ValueString(),
+
 		"server",
+
 		"push-route",
 		o.ID.ValueString(),
 	}
@@ -49,9 +50,20 @@ func (o InterfacesOpenvpnServerPushRoute) ResourceSchemaAttributes() map[string]
 `,
 		},
 
+		"openvpn_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `OpenVPN Tunnel Interface
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  vtunN  |  OpenVPN interface name  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"metric": schema.StringAttribute{
+		"metric": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set metric for this route
 
@@ -72,41 +84,10 @@ func (o InterfacesOpenvpnServerPushRoute) ResourceSchemaAttributes() map[string]
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesOpenvpnServerPushRoute) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesOpenvpnServerPushRouteMetric.IsNull() && !o.LeafInterfacesOpenvpnServerPushRouteMetric.IsUnknown() {
-		jsonData["metric"] = o.LeafInterfacesOpenvpnServerPushRouteMetric.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesOpenvpnServerPushRoute) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["metric"]; ok {
-		o.LeafInterfacesOpenvpnServerPushRouteMetric = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerPushRouteMetric = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesOpenvpnServerPushRoute) UnmarshalJSON(_ []byte) error {
 	return nil
 }

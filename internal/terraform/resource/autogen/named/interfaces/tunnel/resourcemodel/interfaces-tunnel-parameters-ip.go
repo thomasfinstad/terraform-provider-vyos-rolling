@@ -2,21 +2,19 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesTunnelParametersIP describes the resource data model.
 type InterfacesTunnelParametersIP struct {
 	// LeafNodes
-	LeafInterfacesTunnelParametersIPNoPmtuDiscovery types.String `tfsdk:"no_pmtu_discovery" vyos:"no-pmtu-discovery,omitempty"`
-	LeafInterfacesTunnelParametersIPIgnoreDf        types.String `tfsdk:"ignore_df" vyos:"ignore-df,omitempty"`
-	LeafInterfacesTunnelParametersIPKey             types.String `tfsdk:"key" vyos:"key,omitempty"`
-	LeafInterfacesTunnelParametersIPTos             types.String `tfsdk:"tos" vyos:"tos,omitempty"`
-	LeafInterfacesTunnelParametersIPTTL             types.String `tfsdk:"ttl" vyos:"ttl,omitempty"`
+	LeafInterfacesTunnelParametersIPNoPmtuDiscovery types.Bool   `tfsdk:"no_pmtu_discovery" vyos:"no-pmtu-discovery,omitempty"`
+	LeafInterfacesTunnelParametersIPIgnoreDf        types.Bool   `tfsdk:"ignore_df" vyos:"ignore-df,omitempty"`
+	LeafInterfacesTunnelParametersIPKey             types.Number `tfsdk:"key" vyos:"key,omitempty"`
+	LeafInterfacesTunnelParametersIPTos             types.Number `tfsdk:"tos" vyos:"tos,omitempty"`
+	LeafInterfacesTunnelParametersIPTTL             types.Number `tfsdk:"ttl" vyos:"ttl,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -28,21 +26,25 @@ func (o InterfacesTunnelParametersIP) ResourceSchemaAttributes() map[string]sche
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"no_pmtu_discovery": schema.StringAttribute{
+		"no_pmtu_discovery": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable path MTU discovery
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"ignore_df": schema.StringAttribute{
+		"ignore_df": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ignore the DF (don't fragment) bit
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"key": schema.StringAttribute{
+		"key": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Tunnel key (only GRE tunnels)
 
@@ -53,7 +55,7 @@ func (o InterfacesTunnelParametersIP) ResourceSchemaAttributes() map[string]sche
 `,
 		},
 
-		"tos": schema.StringAttribute{
+		"tos": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Specifies TOS value to use in outgoing packets
 
@@ -67,7 +69,7 @@ func (o InterfacesTunnelParametersIP) ResourceSchemaAttributes() map[string]sche
 			Computed: true,
 		},
 
-		"ttl": schema.StringAttribute{
+		"ttl": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Specifies TTL value to use in outgoing packets
 
@@ -89,81 +91,10 @@ func (o InterfacesTunnelParametersIP) ResourceSchemaAttributes() map[string]sche
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesTunnelParametersIP) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesTunnelParametersIPNoPmtuDiscovery.IsNull() && !o.LeafInterfacesTunnelParametersIPNoPmtuDiscovery.IsUnknown() {
-		jsonData["no-pmtu-discovery"] = o.LeafInterfacesTunnelParametersIPNoPmtuDiscovery.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelParametersIPIgnoreDf.IsNull() && !o.LeafInterfacesTunnelParametersIPIgnoreDf.IsUnknown() {
-		jsonData["ignore-df"] = o.LeafInterfacesTunnelParametersIPIgnoreDf.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelParametersIPKey.IsNull() && !o.LeafInterfacesTunnelParametersIPKey.IsUnknown() {
-		jsonData["key"] = o.LeafInterfacesTunnelParametersIPKey.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelParametersIPTos.IsNull() && !o.LeafInterfacesTunnelParametersIPTos.IsUnknown() {
-		jsonData["tos"] = o.LeafInterfacesTunnelParametersIPTos.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelParametersIPTTL.IsNull() && !o.LeafInterfacesTunnelParametersIPTTL.IsUnknown() {
-		jsonData["ttl"] = o.LeafInterfacesTunnelParametersIPTTL.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesTunnelParametersIP) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["no-pmtu-discovery"]; ok {
-		o.LeafInterfacesTunnelParametersIPNoPmtuDiscovery = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersIPNoPmtuDiscovery = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ignore-df"]; ok {
-		o.LeafInterfacesTunnelParametersIPIgnoreDf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersIPIgnoreDf = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["key"]; ok {
-		o.LeafInterfacesTunnelParametersIPKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersIPKey = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["tos"]; ok {
-		o.LeafInterfacesTunnelParametersIPTos = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersIPTos = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ttl"]; ok {
-		o.LeafInterfacesTunnelParametersIPTTL = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersIPTTL = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesTunnelParametersIP) UnmarshalJSON(_ []byte) error {
 	return nil
 }

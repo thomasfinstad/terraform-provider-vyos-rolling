@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceSnmpListenAddress describes the resource data model.
@@ -14,7 +11,7 @@ type ServiceSnmpListenAddress struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafServiceSnmpListenAddressPort types.String `tfsdk:"port" vyos:"port,omitempty"`
+	LeafServiceSnmpListenAddressPort types.Number `tfsdk:"port" vyos:"port,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,7 +22,9 @@ type ServiceSnmpListenAddress struct {
 func (o *ServiceSnmpListenAddress) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"snmp",
+
 		"listen-address",
 		o.ID.ValueString(),
 	}
@@ -48,7 +47,7 @@ func (o ServiceSnmpListenAddress) ResourceSchemaAttributes() map[string]schema.A
 
 		// LeafNodes
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
@@ -69,41 +68,10 @@ func (o ServiceSnmpListenAddress) ResourceSchemaAttributes() map[string]schema.A
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceSnmpListenAddress) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceSnmpListenAddressPort.IsNull() && !o.LeafServiceSnmpListenAddressPort.IsUnknown() {
-		jsonData["port"] = o.LeafServiceSnmpListenAddressPort.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceSnmpListenAddress) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafServiceSnmpListenAddressPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpListenAddressPort = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceSnmpListenAddress) UnmarshalJSON(_ []byte) error {
 	return nil
 }

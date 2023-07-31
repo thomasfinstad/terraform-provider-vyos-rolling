@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosInterface describes the resource data model.
@@ -26,6 +23,7 @@ type QosInterface struct {
 func (o *QosInterface) GetVyosPath() []string {
 	return []string{
 		"qos",
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -76,51 +74,10 @@ func (o QosInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosInterfaceIngress.IsNull() && !o.LeafQosInterfaceIngress.IsUnknown() {
-		jsonData["ingress"] = o.LeafQosInterfaceIngress.ValueString()
-	}
-
-	if !o.LeafQosInterfaceEgress.IsNull() && !o.LeafQosInterfaceEgress.IsUnknown() {
-		jsonData["egress"] = o.LeafQosInterfaceEgress.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["ingress"]; ok {
-		o.LeafQosInterfaceIngress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosInterfaceIngress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["egress"]; ok {
-		o.LeafQosInterfaceEgress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosInterfaceEgress = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

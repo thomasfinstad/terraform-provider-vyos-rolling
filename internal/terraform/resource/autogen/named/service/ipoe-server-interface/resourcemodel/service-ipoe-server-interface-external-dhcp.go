@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceIPoeServerInterfaceExternalDhcp describes the resource data model.
@@ -54,51 +51,10 @@ func (o ServiceIPoeServerInterfaceExternalDhcp) ResourceSchemaAttributes() map[s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceIPoeServerInterfaceExternalDhcp) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceIPoeServerInterfaceExternalDhcpDhcpRelay.IsNull() && !o.LeafServiceIPoeServerInterfaceExternalDhcpDhcpRelay.IsUnknown() {
-		jsonData["dhcp-relay"] = o.LeafServiceIPoeServerInterfaceExternalDhcpDhcpRelay.ValueString()
-	}
-
-	if !o.LeafServiceIPoeServerInterfaceExternalDhcpGiaddr.IsNull() && !o.LeafServiceIPoeServerInterfaceExternalDhcpGiaddr.IsUnknown() {
-		jsonData["giaddr"] = o.LeafServiceIPoeServerInterfaceExternalDhcpGiaddr.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceIPoeServerInterfaceExternalDhcp) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["dhcp-relay"]; ok {
-		o.LeafServiceIPoeServerInterfaceExternalDhcpDhcpRelay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerInterfaceExternalDhcpDhcpRelay = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["giaddr"]; ok {
-		o.LeafServiceIPoeServerInterfaceExternalDhcpGiaddr = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerInterfaceExternalDhcpGiaddr = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceIPoeServerInterfaceExternalDhcp) UnmarshalJSON(_ []byte) error {
 	return nil
 }

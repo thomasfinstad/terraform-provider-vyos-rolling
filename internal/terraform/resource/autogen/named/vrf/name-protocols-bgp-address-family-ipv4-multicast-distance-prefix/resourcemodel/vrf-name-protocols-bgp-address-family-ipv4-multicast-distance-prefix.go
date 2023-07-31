@@ -2,21 +2,18 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVrfName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefixDistance types.String `tfsdk:"distance" vyos:"distance,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefixDistance types.Number `tfsdk:"distance" vyos:"distance,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,12 +24,20 @@ type VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix struct {
 func (o *VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix) GetVyosPath() []string {
 	return []string{
 		"vrf",
+
 		"name",
+		o.ParentIDVrfName.ValueString(),
+
 		"protocols",
+
 		"bgp",
+
 		"address-family",
+
 		"ipv4-multicast",
+
 		"distance",
+
 		"prefix",
 		o.ID.ValueString(),
 	}
@@ -52,9 +57,20 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix) Resource
 `,
 		},
 
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"distance": schema.StringAttribute{
+		"distance": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Administrative distance for prefix
 
@@ -72,41 +88,10 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix) Resource
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefixDistance.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefixDistance.IsUnknown() {
-		jsonData["distance"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefixDistance.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["distance"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefixDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefixDistance = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix) UnmarshalJSON(_ []byte) error {
 	return nil
 }

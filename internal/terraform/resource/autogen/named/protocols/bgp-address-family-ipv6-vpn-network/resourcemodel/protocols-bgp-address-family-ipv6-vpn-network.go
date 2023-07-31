@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpAddressFamilyIPvsixVpnNetwork describes the resource data model.
@@ -15,7 +12,7 @@ type ProtocolsBgpAddressFamilyIPvsixVpnNetwork struct {
 
 	// LeafNodes
 	LeafProtocolsBgpAddressFamilyIPvsixVpnNetworkRd    types.String `tfsdk:"rd" vyos:"rd,omitempty"`
-	LeafProtocolsBgpAddressFamilyIPvsixVpnNetworkLabel types.String `tfsdk:"label" vyos:"label,omitempty"`
+	LeafProtocolsBgpAddressFamilyIPvsixVpnNetworkLabel types.Number `tfsdk:"label" vyos:"label,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,9 +23,13 @@ type ProtocolsBgpAddressFamilyIPvsixVpnNetwork struct {
 func (o *ProtocolsBgpAddressFamilyIPvsixVpnNetwork) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"bgp",
+
 		"address-family",
+
 		"ipv6-vpn",
+
 		"network",
 		o.ID.ValueString(),
 	}
@@ -61,7 +62,7 @@ func (o ProtocolsBgpAddressFamilyIPvsixVpnNetwork) ResourceSchemaAttributes() ma
 `,
 		},
 
-		"label": schema.StringAttribute{
+		"label": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `MPLS label value assigned to route
 
@@ -79,51 +80,10 @@ func (o ProtocolsBgpAddressFamilyIPvsixVpnNetwork) ResourceSchemaAttributes() ma
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpAddressFamilyIPvsixVpnNetwork) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpAddressFamilyIPvsixVpnNetworkRd.IsNull() && !o.LeafProtocolsBgpAddressFamilyIPvsixVpnNetworkRd.IsUnknown() {
-		jsonData["rd"] = o.LeafProtocolsBgpAddressFamilyIPvsixVpnNetworkRd.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpAddressFamilyIPvsixVpnNetworkLabel.IsNull() && !o.LeafProtocolsBgpAddressFamilyIPvsixVpnNetworkLabel.IsUnknown() {
-		jsonData["label"] = o.LeafProtocolsBgpAddressFamilyIPvsixVpnNetworkLabel.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpAddressFamilyIPvsixVpnNetwork) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["rd"]; ok {
-		o.LeafProtocolsBgpAddressFamilyIPvsixVpnNetworkRd = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpAddressFamilyIPvsixVpnNetworkRd = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["label"]; ok {
-		o.LeafProtocolsBgpAddressFamilyIPvsixVpnNetworkLabel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpAddressFamilyIPvsixVpnNetworkLabel = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpAddressFamilyIPvsixVpnNetwork) UnmarshalJSON(_ []byte) error {
 	return nil
 }

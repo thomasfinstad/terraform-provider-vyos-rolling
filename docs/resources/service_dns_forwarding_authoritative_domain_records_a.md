@@ -48,6 +48,11 @@ DNS zone records
 
 ### Required
 
+- `authoritative_domain_identifier` (String) Domain to host authoritative records for
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  text  |  An absolute DNS name  |
 - `identifier` (String) "A" record
 
     |  Format  |  Description  |
@@ -58,13 +63,13 @@ DNS zone records
 
 ### Optional
 
-- `address` (String) IPv4 address
+- `address` (List of String) IPv4 address
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4  |  IPv4 address  |
-- `disable` (String) Disable instance
-- `ttl` (String) Time-to-live (TTL)
+- `disable` (Boolean) Disable instance
+- `ttl` (Number) Time-to-live (TTL)
 
     |  Format  |  Description  |
     |----------|---------------|

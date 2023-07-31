@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpParametersDistancePrefix describes the resource data model.
@@ -14,7 +11,7 @@ type ProtocolsBgpParametersDistancePrefix struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafProtocolsBgpParametersDistancePrefixDistance types.String `tfsdk:"distance" vyos:"distance,omitempty"`
+	LeafProtocolsBgpParametersDistancePrefixDistance types.Number `tfsdk:"distance" vyos:"distance,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,9 +22,13 @@ type ProtocolsBgpParametersDistancePrefix struct {
 func (o *ProtocolsBgpParametersDistancePrefix) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"bgp",
+
 		"parameters",
+
 		"distance",
+
 		"prefix",
 		o.ID.ValueString(),
 	}
@@ -49,7 +50,7 @@ func (o ProtocolsBgpParametersDistancePrefix) ResourceSchemaAttributes() map[str
 
 		// LeafNodes
 
-		"distance": schema.StringAttribute{
+		"distance": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Administrative distance for prefix
 
@@ -67,41 +68,10 @@ func (o ProtocolsBgpParametersDistancePrefix) ResourceSchemaAttributes() map[str
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpParametersDistancePrefix) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpParametersDistancePrefixDistance.IsNull() && !o.LeafProtocolsBgpParametersDistancePrefixDistance.IsUnknown() {
-		jsonData["distance"] = o.LeafProtocolsBgpParametersDistancePrefixDistance.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpParametersDistancePrefix) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["distance"]; ok {
-		o.LeafProtocolsBgpParametersDistancePrefixDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpParametersDistancePrefixDistance = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpParametersDistancePrefix) UnmarshalJSON(_ []byte) error {
 	return nil
 }

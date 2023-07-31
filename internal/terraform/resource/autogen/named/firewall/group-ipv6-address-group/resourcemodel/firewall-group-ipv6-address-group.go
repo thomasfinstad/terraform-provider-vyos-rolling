@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallGroupIPvsixAddressGroup describes the resource data model.
@@ -14,8 +11,8 @@ type FirewallGroupIPvsixAddressGroup struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafFirewallGroupIPvsixAddressGroupAddress     types.String `tfsdk:"address" vyos:"address,omitempty"`
-	LeafFirewallGroupIPvsixAddressGroupInclude     types.String `tfsdk:"include" vyos:"include,omitempty"`
+	LeafFirewallGroupIPvsixAddressGroupAddress     types.List   `tfsdk:"address" vyos:"address,omitempty"`
+	LeafFirewallGroupIPvsixAddressGroupInclude     types.List   `tfsdk:"include" vyos:"include,omitempty"`
 	LeafFirewallGroupIPvsixAddressGroupDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -27,7 +24,9 @@ type FirewallGroupIPvsixAddressGroup struct {
 func (o *FirewallGroupIPvsixAddressGroup) GetVyosPath() []string {
 	return []string{
 		"firewall",
+
 		"group",
+
 		"ipv6-address-group",
 		o.ID.ValueString(),
 	}
@@ -45,8 +44,9 @@ func (o FirewallGroupIPvsixAddressGroup) ResourceSchemaAttributes() map[string]s
 
 		// LeafNodes
 
-		"address": schema.StringAttribute{
-			Optional: true,
+		"address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Address-group member
 
     |  Format  |  Description  |
@@ -57,8 +57,9 @@ func (o FirewallGroupIPvsixAddressGroup) ResourceSchemaAttributes() map[string]s
 `,
 		},
 
-		"include": schema.StringAttribute{
-			Optional: true,
+		"include": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Include another ipv6-address-group
 
 `,
@@ -82,61 +83,10 @@ func (o FirewallGroupIPvsixAddressGroup) ResourceSchemaAttributes() map[string]s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallGroupIPvsixAddressGroup) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallGroupIPvsixAddressGroupAddress.IsNull() && !o.LeafFirewallGroupIPvsixAddressGroupAddress.IsUnknown() {
-		jsonData["address"] = o.LeafFirewallGroupIPvsixAddressGroupAddress.ValueString()
-	}
-
-	if !o.LeafFirewallGroupIPvsixAddressGroupInclude.IsNull() && !o.LeafFirewallGroupIPvsixAddressGroupInclude.IsUnknown() {
-		jsonData["include"] = o.LeafFirewallGroupIPvsixAddressGroupInclude.ValueString()
-	}
-
-	if !o.LeafFirewallGroupIPvsixAddressGroupDescrIPtion.IsNull() && !o.LeafFirewallGroupIPvsixAddressGroupDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafFirewallGroupIPvsixAddressGroupDescrIPtion.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallGroupIPvsixAddressGroup) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address"]; ok {
-		o.LeafFirewallGroupIPvsixAddressGroupAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallGroupIPvsixAddressGroupAddress = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["include"]; ok {
-		o.LeafFirewallGroupIPvsixAddressGroupInclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallGroupIPvsixAddressGroupInclude = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafFirewallGroupIPvsixAddressGroupDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallGroupIPvsixAddressGroupDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallGroupIPvsixAddressGroup) UnmarshalJSON(_ []byte) error {
 	return nil
 }

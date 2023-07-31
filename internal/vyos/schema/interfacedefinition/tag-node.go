@@ -201,6 +201,26 @@ func (o *TagNode) AncestorDescription() string {
 	return desc
 }
 
+// ValueType the type of value that can be expected for this node, one of:
+// string (default)
+// number (if value help only lists u32)
+func (o *TagNode) ValueType() string {
+	isNum := false
+	for _, vh := range o.Properties[0].ValueHelp {
+		if strings.HasPrefix(vh.Format, "u32") {
+			isNum = true
+		} else {
+			isNum = false
+			break
+		}
+	}
+	if isNum {
+		return "number"
+	}
+
+	return "string"
+}
+
 // NodeType returns a string of node type
 func (o *TagNode) NodeType() string {
 	return "TagNode"

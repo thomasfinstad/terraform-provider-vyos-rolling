@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemStaticHostMappingHostName describes the resource data model.
@@ -14,8 +11,8 @@ type SystemStaticHostMappingHostName struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafSystemStaticHostMappingHostNameAlias types.String `tfsdk:"alias" vyos:"alias,omitempty"`
-	LeafSystemStaticHostMappingHostNameInet  types.String `tfsdk:"inet" vyos:"inet,omitempty"`
+	LeafSystemStaticHostMappingHostNameAlias types.List `tfsdk:"alias" vyos:"alias,omitempty"`
+	LeafSystemStaticHostMappingHostNameInet  types.List `tfsdk:"inet" vyos:"inet,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -26,7 +23,9 @@ type SystemStaticHostMappingHostName struct {
 func (o *SystemStaticHostMappingHostName) GetVyosPath() []string {
 	return []string{
 		"system",
+
 		"static-host-mapping",
+
 		"host-name",
 		o.ID.ValueString(),
 	}
@@ -44,15 +43,17 @@ func (o SystemStaticHostMappingHostName) ResourceSchemaAttributes() map[string]s
 
 		// LeafNodes
 
-		"alias": schema.StringAttribute{
-			Optional: true,
+		"alias": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Alias for this address
 
 `,
 		},
 
-		"inet": schema.StringAttribute{
-			Optional: true,
+		"inet": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `IP Address
 
     |  Format  |  Description  |
@@ -70,51 +71,10 @@ func (o SystemStaticHostMappingHostName) ResourceSchemaAttributes() map[string]s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemStaticHostMappingHostName) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafSystemStaticHostMappingHostNameAlias.IsNull() && !o.LeafSystemStaticHostMappingHostNameAlias.IsUnknown() {
-		jsonData["alias"] = o.LeafSystemStaticHostMappingHostNameAlias.ValueString()
-	}
-
-	if !o.LeafSystemStaticHostMappingHostNameInet.IsNull() && !o.LeafSystemStaticHostMappingHostNameInet.IsUnknown() {
-		jsonData["inet"] = o.LeafSystemStaticHostMappingHostNameInet.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemStaticHostMappingHostName) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["alias"]; ok {
-		o.LeafSystemStaticHostMappingHostNameAlias = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemStaticHostMappingHostNameAlias = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["inet"]; ok {
-		o.LeafSystemStaticHostMappingHostNameInet = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemStaticHostMappingHostNameInet = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *SystemStaticHostMappingHostName) UnmarshalJSON(_ []byte) error {
 	return nil
 }

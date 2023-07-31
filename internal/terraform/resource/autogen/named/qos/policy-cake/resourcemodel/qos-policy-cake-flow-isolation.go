@@ -2,24 +2,22 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyCakeFlowIsolation describes the resource data model.
 type QosPolicyCakeFlowIsolation struct {
 	// LeafNodes
-	LeafQosPolicyCakeFlowIsolationBlind       types.String `tfsdk:"blind" vyos:"blind,omitempty"`
-	LeafQosPolicyCakeFlowIsolationSrcHost     types.String `tfsdk:"src_host" vyos:"src-host,omitempty"`
-	LeafQosPolicyCakeFlowIsolationDstHost     types.String `tfsdk:"dst_host" vyos:"dst-host,omitempty"`
-	LeafQosPolicyCakeFlowIsolationHost        types.String `tfsdk:"host" vyos:"host,omitempty"`
-	LeafQosPolicyCakeFlowIsolationFlow        types.String `tfsdk:"flow" vyos:"flow,omitempty"`
-	LeafQosPolicyCakeFlowIsolationDualSrcHost types.String `tfsdk:"dual_src_host" vyos:"dual-src-host,omitempty"`
-	LeafQosPolicyCakeFlowIsolationDualDstHost types.String `tfsdk:"dual_dst_host" vyos:"dual-dst-host,omitempty"`
-	LeafQosPolicyCakeFlowIsolationNat         types.String `tfsdk:"nat" vyos:"nat,omitempty"`
+	LeafQosPolicyCakeFlowIsolationBlind       types.Bool `tfsdk:"blind" vyos:"blind,omitempty"`
+	LeafQosPolicyCakeFlowIsolationSrcHost     types.Bool `tfsdk:"src_host" vyos:"src-host,omitempty"`
+	LeafQosPolicyCakeFlowIsolationDstHost     types.Bool `tfsdk:"dst_host" vyos:"dst-host,omitempty"`
+	LeafQosPolicyCakeFlowIsolationHost        types.Bool `tfsdk:"host" vyos:"host,omitempty"`
+	LeafQosPolicyCakeFlowIsolationFlow        types.Bool `tfsdk:"flow" vyos:"flow,omitempty"`
+	LeafQosPolicyCakeFlowIsolationDualSrcHost types.Bool `tfsdk:"dual_src_host" vyos:"dual-src-host,omitempty"`
+	LeafQosPolicyCakeFlowIsolationDualDstHost types.Bool `tfsdk:"dual_dst_host" vyos:"dual-dst-host,omitempty"`
+	LeafQosPolicyCakeFlowIsolationNat         types.Bool `tfsdk:"nat" vyos:"nat,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -31,60 +29,76 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes() map[string]schema
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"blind": schema.StringAttribute{
+		"blind": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disables flow isolation, all traffic passes through a single queue
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"src_host": schema.StringAttribute{
+		"src_host": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Flows are defined only by source address
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"dst_host": schema.StringAttribute{
+		"dst_host": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Flows are defined only by destination address
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"host": schema.StringAttribute{
+		"host": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Flows are defined by source-destination host pairs
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"flow": schema.StringAttribute{
+		"flow": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Flows are defined by the entire 5-tuple
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"dual_src_host": schema.StringAttribute{
+		"dual_src_host": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Flows are defined by the 5-tuple, and fairness is applied first over source addresses, then over individual flows
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"dual_dst_host": schema.StringAttribute{
+		"dual_dst_host": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Flows are defined by the 5-tuple, and fairness is applied first over destination addresses, then over individual flows
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"nat": schema.StringAttribute{
+		"nat": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Perform NAT lookup before applying flow-isolation rules
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -94,111 +108,10 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes() map[string]schema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyCakeFlowIsolation) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafQosPolicyCakeFlowIsolationBlind.IsNull() && !o.LeafQosPolicyCakeFlowIsolationBlind.IsUnknown() {
-		jsonData["blind"] = o.LeafQosPolicyCakeFlowIsolationBlind.ValueString()
-	}
-
-	if !o.LeafQosPolicyCakeFlowIsolationSrcHost.IsNull() && !o.LeafQosPolicyCakeFlowIsolationSrcHost.IsUnknown() {
-		jsonData["src-host"] = o.LeafQosPolicyCakeFlowIsolationSrcHost.ValueString()
-	}
-
-	if !o.LeafQosPolicyCakeFlowIsolationDstHost.IsNull() && !o.LeafQosPolicyCakeFlowIsolationDstHost.IsUnknown() {
-		jsonData["dst-host"] = o.LeafQosPolicyCakeFlowIsolationDstHost.ValueString()
-	}
-
-	if !o.LeafQosPolicyCakeFlowIsolationHost.IsNull() && !o.LeafQosPolicyCakeFlowIsolationHost.IsUnknown() {
-		jsonData["host"] = o.LeafQosPolicyCakeFlowIsolationHost.ValueString()
-	}
-
-	if !o.LeafQosPolicyCakeFlowIsolationFlow.IsNull() && !o.LeafQosPolicyCakeFlowIsolationFlow.IsUnknown() {
-		jsonData["flow"] = o.LeafQosPolicyCakeFlowIsolationFlow.ValueString()
-	}
-
-	if !o.LeafQosPolicyCakeFlowIsolationDualSrcHost.IsNull() && !o.LeafQosPolicyCakeFlowIsolationDualSrcHost.IsUnknown() {
-		jsonData["dual-src-host"] = o.LeafQosPolicyCakeFlowIsolationDualSrcHost.ValueString()
-	}
-
-	if !o.LeafQosPolicyCakeFlowIsolationDualDstHost.IsNull() && !o.LeafQosPolicyCakeFlowIsolationDualDstHost.IsUnknown() {
-		jsonData["dual-dst-host"] = o.LeafQosPolicyCakeFlowIsolationDualDstHost.ValueString()
-	}
-
-	if !o.LeafQosPolicyCakeFlowIsolationNat.IsNull() && !o.LeafQosPolicyCakeFlowIsolationNat.IsUnknown() {
-		jsonData["nat"] = o.LeafQosPolicyCakeFlowIsolationNat.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyCakeFlowIsolation) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["blind"]; ok {
-		o.LeafQosPolicyCakeFlowIsolationBlind = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeFlowIsolationBlind = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["src-host"]; ok {
-		o.LeafQosPolicyCakeFlowIsolationSrcHost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeFlowIsolationSrcHost = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["dst-host"]; ok {
-		o.LeafQosPolicyCakeFlowIsolationDstHost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeFlowIsolationDstHost = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["host"]; ok {
-		o.LeafQosPolicyCakeFlowIsolationHost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeFlowIsolationHost = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["flow"]; ok {
-		o.LeafQosPolicyCakeFlowIsolationFlow = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeFlowIsolationFlow = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["dual-src-host"]; ok {
-		o.LeafQosPolicyCakeFlowIsolationDualSrcHost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeFlowIsolationDualSrcHost = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["dual-dst-host"]; ok {
-		o.LeafQosPolicyCakeFlowIsolationDualDstHost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeFlowIsolationDualDstHost = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["nat"]; ok {
-		o.LeafQosPolicyCakeFlowIsolationNat = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeFlowIsolationNat = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *QosPolicyCakeFlowIsolation) UnmarshalJSON(_ []byte) error {
 	return nil
 }

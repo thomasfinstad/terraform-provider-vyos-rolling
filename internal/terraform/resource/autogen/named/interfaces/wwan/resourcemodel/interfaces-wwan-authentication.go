@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesWwanAuthentication describes the resource data model.
@@ -54,51 +51,10 @@ func (o InterfacesWwanAuthentication) ResourceSchemaAttributes() map[string]sche
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesWwanAuthentication) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesWwanAuthenticationUsername.IsNull() && !o.LeafInterfacesWwanAuthenticationUsername.IsUnknown() {
-		jsonData["username"] = o.LeafInterfacesWwanAuthenticationUsername.ValueString()
-	}
-
-	if !o.LeafInterfacesWwanAuthenticationPassword.IsNull() && !o.LeafInterfacesWwanAuthenticationPassword.IsUnknown() {
-		jsonData["password"] = o.LeafInterfacesWwanAuthenticationPassword.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWwanAuthentication) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["username"]; ok {
-		o.LeafInterfacesWwanAuthenticationUsername = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanAuthenticationUsername = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["password"]; ok {
-		o.LeafInterfacesWwanAuthenticationPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanAuthenticationPassword = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesWwanAuthentication) UnmarshalJSON(_ []byte) error {
 	return nil
 }

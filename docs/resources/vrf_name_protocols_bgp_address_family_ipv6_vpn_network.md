@@ -55,10 +55,15 @@ Import BGP network/prefix into unicast VPN IPv6 RIB
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv6net  |  Unicast VPN IPv6 BGP network/prefix  |
+- `name_identifier` (String) Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 ### Optional
 
-- `label` (String) MPLS label value assigned to route
+- `label` (Number) MPLS label value assigned to route
 
     |  Format  |  Description  |
     |----------|---------------|

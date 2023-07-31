@@ -2,9 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 )
 
@@ -55,112 +52,10 @@ func (o QosPolicyShaperHfscDefault) ResourceSchemaAttributes() map[string]schema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *QosPolicyShaperHfscDefault) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeQosPolicyShaperHfscDefaultLinkshare).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyShaperHfscDefaultLinkshare)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["linkshare"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeQosPolicyShaperHfscDefaultRealtime).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyShaperHfscDefaultRealtime)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["realtime"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeQosPolicyShaperHfscDefaultUpperlimit).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeQosPolicyShaperHfscDefaultUpperlimit)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["upperlimit"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyShaperHfscDefault) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["linkshare"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyShaperHfscDefaultLinkshare = &QosPolicyShaperHfscDefaultLinkshare{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyShaperHfscDefaultLinkshare)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["realtime"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyShaperHfscDefaultRealtime = &QosPolicyShaperHfscDefaultRealtime{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyShaperHfscDefaultRealtime)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["upperlimit"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeQosPolicyShaperHfscDefaultUpperlimit = &QosPolicyShaperHfscDefaultUpperlimit{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyShaperHfscDefaultUpperlimit)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *QosPolicyShaperHfscDefault) UnmarshalJSON(_ []byte) error {
 	return nil
 }

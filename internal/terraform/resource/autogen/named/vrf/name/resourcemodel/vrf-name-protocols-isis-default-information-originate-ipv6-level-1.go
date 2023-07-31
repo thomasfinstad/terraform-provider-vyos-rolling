@@ -2,18 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOne describes the resource data model.
 type VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOne struct {
 	// LeafNodes
-	LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOneAlways   types.String `tfsdk:"always" vyos:"always,omitempty"`
-	LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOneMetric   types.String `tfsdk:"metric" vyos:"metric,omitempty"`
+	LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOneAlways   types.Bool   `tfsdk:"always" vyos:"always,omitempty"`
+	LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOneMetric   types.Number `tfsdk:"metric" vyos:"metric,omitempty"`
 	LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOneRouteMap types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -26,14 +24,16 @@ func (o VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOne) ResourceS
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"always": schema.StringAttribute{
+		"always": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Always advertise default route
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"metric": schema.StringAttribute{
+		"metric": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set default metric for circuit
 
@@ -62,61 +62,10 @@ func (o VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOne) ResourceS
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOne) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOneAlways.IsNull() && !o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOneAlways.IsUnknown() {
-		jsonData["always"] = o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOneAlways.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOneMetric.IsNull() && !o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOneMetric.IsUnknown() {
-		jsonData["metric"] = o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOneMetric.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOneRouteMap.IsNull() && !o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOneRouteMap.IsUnknown() {
-		jsonData["route-map"] = o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOneRouteMap.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOne) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["always"]; ok {
-		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOneAlways = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOneAlways = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["metric"]; ok {
-		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOneMetric = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOneMetric = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["route-map"]; ok {
-		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOneRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOneRouteMap = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOne) UnmarshalJSON(_ []byte) error {
 	return nil
 }

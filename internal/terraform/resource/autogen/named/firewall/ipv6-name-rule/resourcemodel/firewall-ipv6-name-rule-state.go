@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallIPvsixNameRuleState describes the resource data model.
@@ -82,71 +79,10 @@ func (o FirewallIPvsixNameRuleState) ResourceSchemaAttributes() map[string]schem
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallIPvsixNameRuleState) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallIPvsixNameRuleStateEstablished.IsNull() && !o.LeafFirewallIPvsixNameRuleStateEstablished.IsUnknown() {
-		jsonData["established"] = o.LeafFirewallIPvsixNameRuleStateEstablished.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleStateInvalID.IsNull() && !o.LeafFirewallIPvsixNameRuleStateInvalID.IsUnknown() {
-		jsonData["invalid"] = o.LeafFirewallIPvsixNameRuleStateInvalID.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleStateNew.IsNull() && !o.LeafFirewallIPvsixNameRuleStateNew.IsUnknown() {
-		jsonData["new"] = o.LeafFirewallIPvsixNameRuleStateNew.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleStateRelated.IsNull() && !o.LeafFirewallIPvsixNameRuleStateRelated.IsUnknown() {
-		jsonData["related"] = o.LeafFirewallIPvsixNameRuleStateRelated.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallIPvsixNameRuleState) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["established"]; ok {
-		o.LeafFirewallIPvsixNameRuleStateEstablished = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleStateEstablished = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["invalid"]; ok {
-		o.LeafFirewallIPvsixNameRuleStateInvalID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleStateInvalID = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["new"]; ok {
-		o.LeafFirewallIPvsixNameRuleStateNew = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleStateNew = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["related"]; ok {
-		o.LeafFirewallIPvsixNameRuleStateRelated = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleStateRelated = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallIPvsixNameRuleState) UnmarshalJSON(_ []byte) error {
 	return nil
 }

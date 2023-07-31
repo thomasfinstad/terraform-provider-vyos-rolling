@@ -57,13 +57,24 @@ Specify IPv6 prefix (border routers only)
 
 ### Required
 
+- `area_identifier` (String) OSPFv3 Area
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32  |  Area ID as a decimal value  |
+    |  ipv4  |  Area ID in IP address forma  |
 - `identifier` (String) Specify IPv6 prefix (border routers only)
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv6net  |  Specify IPv6 prefix (border routers only)  |
+- `name_identifier` (String) Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 ### Optional
 
-- `advertise` (String) Advertise this range
-- `not_advertise` (String) Do not advertise this range
+- `advertise` (Boolean) Advertise this range
+- `not_advertise` (Boolean) Do not advertise this range

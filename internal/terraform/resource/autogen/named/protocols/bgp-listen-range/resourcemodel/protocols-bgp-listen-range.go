@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpListenRange describes the resource data model.
@@ -25,8 +22,11 @@ type ProtocolsBgpListenRange struct {
 func (o *ProtocolsBgpListenRange) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"bgp",
+
 		"listen",
+
 		"range",
 		o.ID.ValueString(),
 	}
@@ -67,41 +67,10 @@ func (o ProtocolsBgpListenRange) ResourceSchemaAttributes() map[string]schema.At
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpListenRange) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpListenRangePeerGroup.IsNull() && !o.LeafProtocolsBgpListenRangePeerGroup.IsUnknown() {
-		jsonData["peer-group"] = o.LeafProtocolsBgpListenRangePeerGroup.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpListenRange) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["peer-group"]; ok {
-		o.LeafProtocolsBgpListenRangePeerGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpListenRangePeerGroup = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpListenRange) UnmarshalJSON(_ []byte) error {
 	return nil
 }

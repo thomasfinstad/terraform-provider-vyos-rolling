@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpNeighborTimers describes the resource data model.
@@ -14,7 +11,7 @@ type ProtocolsBgpNeighborTimers struct {
 	// LeafNodes
 	LeafProtocolsBgpNeighborTimersConnect   types.String `tfsdk:"connect" vyos:"connect,omitempty"`
 	LeafProtocolsBgpNeighborTimersHoldtime  types.String `tfsdk:"holdtime" vyos:"holdtime,omitempty"`
-	LeafProtocolsBgpNeighborTimersKeepalive types.String `tfsdk:"keepalive" vyos:"keepalive,omitempty"`
+	LeafProtocolsBgpNeighborTimersKeepalive types.Number `tfsdk:"keepalive" vyos:"keepalive,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -50,7 +47,7 @@ func (o ProtocolsBgpNeighborTimers) ResourceSchemaAttributes() map[string]schema
 `,
 		},
 
-		"keepalive": schema.StringAttribute{
+		"keepalive": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP keepalive interval for this neighbor
 
@@ -68,61 +65,10 @@ func (o ProtocolsBgpNeighborTimers) ResourceSchemaAttributes() map[string]schema
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpNeighborTimers) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpNeighborTimersConnect.IsNull() && !o.LeafProtocolsBgpNeighborTimersConnect.IsUnknown() {
-		jsonData["connect"] = o.LeafProtocolsBgpNeighborTimersConnect.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborTimersHoldtime.IsNull() && !o.LeafProtocolsBgpNeighborTimersHoldtime.IsUnknown() {
-		jsonData["holdtime"] = o.LeafProtocolsBgpNeighborTimersHoldtime.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborTimersKeepalive.IsNull() && !o.LeafProtocolsBgpNeighborTimersKeepalive.IsUnknown() {
-		jsonData["keepalive"] = o.LeafProtocolsBgpNeighborTimersKeepalive.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighborTimers) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["connect"]; ok {
-		o.LeafProtocolsBgpNeighborTimersConnect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborTimersConnect = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["holdtime"]; ok {
-		o.LeafProtocolsBgpNeighborTimersHoldtime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborTimersHoldtime = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["keepalive"]; ok {
-		o.LeafProtocolsBgpNeighborTimersKeepalive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborTimersKeepalive = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpNeighborTimers) UnmarshalJSON(_ []byte) error {
 	return nil
 }

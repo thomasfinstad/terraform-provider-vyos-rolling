@@ -74,6 +74,7 @@ Facility for logging
 
 ### Required
 
+- `file_identifier` (String) Logging to a file
 - `identifier` (String) Facility for logging
 
     |  Format  |  Description  |

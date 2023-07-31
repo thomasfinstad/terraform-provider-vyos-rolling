@@ -2,21 +2,19 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpNeighborLocalRole describes the resource data model.
 type ProtocolsBgpNeighborLocalRole struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDProtocolsBgpNeighbor any `tfsdk:"neighbor" vyos:"neighbor,parent-id"`
+	ParentIDProtocolsBgpNeighbor types.String `tfsdk:"neighbor" vyos:"neighbor_identifier,parent-id"`
 
 	// LeafNodes
-	LeafProtocolsBgpNeighborLocalRoleStrict types.String `tfsdk:"strict" vyos:"strict,omitempty"`
+	LeafProtocolsBgpNeighborLocalRoleStrict types.Bool `tfsdk:"strict" vyos:"strict,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,8 +25,12 @@ type ProtocolsBgpNeighborLocalRole struct {
 func (o *ProtocolsBgpNeighborLocalRole) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"bgp",
+
 		"neighbor",
+		o.ParentIDProtocolsBgpNeighbor.ValueString(),
+
 		"local-role",
 		o.ID.ValueString(),
 	}
@@ -52,13 +54,28 @@ func (o ProtocolsBgpNeighborLocalRole) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 
+		"neighbor_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `BGP neighbor
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  BGP neighbor IP address  |
+    |  ipv6  |  BGP neighbor IPv6 address  |
+    |  txt  |  Interface name  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"strict": schema.StringAttribute{
+		"strict": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Neighbor must send this exact capability, otherwise a role missmatch notification will be sent
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -68,41 +85,10 @@ func (o ProtocolsBgpNeighborLocalRole) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpNeighborLocalRole) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpNeighborLocalRoleStrict.IsNull() && !o.LeafProtocolsBgpNeighborLocalRoleStrict.IsUnknown() {
-		jsonData["strict"] = o.LeafProtocolsBgpNeighborLocalRoleStrict.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighborLocalRole) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["strict"]; ok {
-		o.LeafProtocolsBgpNeighborLocalRoleStrict = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborLocalRoleStrict = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsBgpNeighborLocalRole) UnmarshalJSON(_ []byte) error {
 	return nil
 }

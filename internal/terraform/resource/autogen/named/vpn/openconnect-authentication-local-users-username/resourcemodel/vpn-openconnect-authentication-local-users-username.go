@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnOpenconnectAuthenticationLocalUsersUsername describes the resource data model.
@@ -15,7 +12,7 @@ type VpnOpenconnectAuthenticationLocalUsersUsername struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable  types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable  types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword types.String `tfsdk:"password" vyos:"password,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -28,9 +25,13 @@ type VpnOpenconnectAuthenticationLocalUsersUsername struct {
 func (o *VpnOpenconnectAuthenticationLocalUsersUsername) GetVyosPath() []string {
 	return []string{
 		"vpn",
+
 		"openconnect",
+
 		"authentication",
+
 		"local-users",
+
 		"username",
 		o.ID.ValueString(),
 	}
@@ -52,11 +53,13 @@ func (o VpnOpenconnectAuthenticationLocalUsersUsername) ResourceSchemaAttributes
 
 		// LeafNodes
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"password": schema.StringAttribute{
@@ -80,78 +83,10 @@ func (o VpnOpenconnectAuthenticationLocalUsersUsername) ResourceSchemaAttributes
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VpnOpenconnectAuthenticationLocalUsersUsername) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable.IsNull() && !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable.ValueString()
-	}
-
-	if !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword.IsNull() && !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword.IsUnknown() {
-		jsonData["password"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["otp"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnOpenconnectAuthenticationLocalUsersUsername) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["password"]; ok {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["otp"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp = &VpnOpenconnectAuthenticationLocalUsersUsernameOtp{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VpnOpenconnectAuthenticationLocalUsersUsername) UnmarshalJSON(_ []byte) error {
 	return nil
 }

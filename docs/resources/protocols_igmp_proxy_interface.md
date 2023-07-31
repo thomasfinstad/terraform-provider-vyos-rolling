@@ -24,7 +24,7 @@ Interface for IGMP proxy
 
 ### Optional
 
-- `alt_subnet` (String) Unicast source networks allowed for multicast traffic to be proxyed
+- `alt_subnet` (List of String) Unicast source networks allowed for multicast traffic to be proxyed
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -36,12 +36,12 @@ Interface for IGMP proxy
     |  upstream  |  Upstream interface (only 1 allowed)  |
     |  downstream  |  Downstream interface(s)  |
     |  disabled  |  Disabled interface  |
-- `threshold` (String) TTL threshold
+- `threshold` (Number) TTL threshold
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-255  |  TTL threshold for the interfaces  |
-- `whitelist` (String) Group to whitelist
+- `whitelist` (List of String) Group to whitelist
 
     |  Format  |  Description  |
     |----------|---------------|

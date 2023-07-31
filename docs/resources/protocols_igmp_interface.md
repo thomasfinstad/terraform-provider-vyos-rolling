@@ -24,12 +24,12 @@ IGMP interface
 
 ### Optional
 
-- `query_interval` (String) IGMP host query interval
+- `query_interval` (Number) IGMP host query interval
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-1800  |  Query interval in seconds  |
-- `query_max_response_time` (String) IGMP max query response time
+- `query_max_response_time` (Number) IGMP max query response time
 
     |  Format  |  Description  |
     |----------|---------------|

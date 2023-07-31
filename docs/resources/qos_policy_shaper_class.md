@@ -46,6 +46,11 @@ Class ID
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:2-4095  |  Class Identifier  |
+- `shaper_identifier` (String) Traffic shaping based policy (Hierarchy Token Bucket)
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
 
 ### Optional
 
@@ -77,7 +82,7 @@ Class ID
     |  <number>ibit  |  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
     |  <number>ibps  |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
     |  <number>bps  |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
-- `codel_quantum` (String) Deficit in the fair queuing algorithm
+- `codel_quantum` (Number) Deficit in the fair queuing algorithm
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -87,22 +92,22 @@ Class ID
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `flows` (String) Number of flows into which the incoming packets are classified
+- `flows` (Number) Number of flows into which the incoming packets are classified
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-65536  |  Number of flows  |
-- `interval` (String) Interval used to measure the delay
+- `interval` (Number) Interval used to measure the delay
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32  |  Interval in milliseconds  |
-- `priority` (String) Priority for rule evaluation
+- `priority` (Number) Priority for rule evaluation
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-20  |  Priority for match rule evaluation  |
-- `queue_limit` (String) Maximum queue size
+- `queue_limit` (Number) Maximum queue size
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -152,7 +157,7 @@ Class ID
     |  CS6  |  Network control  |
     |  CS7  |    |
     |  EF  |  Expedited Forwarding  |
-- `target` (String) Acceptable minimum standing/persistent queue delay
+- `target` (Number) Acceptable minimum standing/persistent queue delay
 
     |  Format  |  Description  |
     |----------|---------------|

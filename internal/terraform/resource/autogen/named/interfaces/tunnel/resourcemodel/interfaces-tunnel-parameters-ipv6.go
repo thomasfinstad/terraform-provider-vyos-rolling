@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesTunnelParametersIPvsix describes the resource data model.
@@ -14,7 +11,7 @@ type InterfacesTunnelParametersIPvsix struct {
 	// LeafNodes
 	LeafInterfacesTunnelParametersIPvsixEncaplimit types.String `tfsdk:"encaplimit" vyos:"encaplimit,omitempty"`
 	LeafInterfacesTunnelParametersIPvsixFlowlabel  types.String `tfsdk:"flowlabel" vyos:"flowlabel,omitempty"`
-	LeafInterfacesTunnelParametersIPvsixHoplimit   types.String `tfsdk:"hoplimit" vyos:"hoplimit,omitempty"`
+	LeafInterfacesTunnelParametersIPvsixHoplimit   types.Number `tfsdk:"hoplimit" vyos:"hoplimit,omitempty"`
 	LeafInterfacesTunnelParametersIPvsixTclass     types.String `tfsdk:"tclass" vyos:"tclass,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -54,7 +51,7 @@ func (o InterfacesTunnelParametersIPvsix) ResourceSchemaAttributes() map[string]
 `,
 		},
 
-		"hoplimit": schema.StringAttribute{
+		"hoplimit": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Hoplimit
 
@@ -89,71 +86,10 @@ func (o InterfacesTunnelParametersIPvsix) ResourceSchemaAttributes() map[string]
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesTunnelParametersIPvsix) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesTunnelParametersIPvsixEncaplimit.IsNull() && !o.LeafInterfacesTunnelParametersIPvsixEncaplimit.IsUnknown() {
-		jsonData["encaplimit"] = o.LeafInterfacesTunnelParametersIPvsixEncaplimit.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelParametersIPvsixFlowlabel.IsNull() && !o.LeafInterfacesTunnelParametersIPvsixFlowlabel.IsUnknown() {
-		jsonData["flowlabel"] = o.LeafInterfacesTunnelParametersIPvsixFlowlabel.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelParametersIPvsixHoplimit.IsNull() && !o.LeafInterfacesTunnelParametersIPvsixHoplimit.IsUnknown() {
-		jsonData["hoplimit"] = o.LeafInterfacesTunnelParametersIPvsixHoplimit.ValueString()
-	}
-
-	if !o.LeafInterfacesTunnelParametersIPvsixTclass.IsNull() && !o.LeafInterfacesTunnelParametersIPvsixTclass.IsUnknown() {
-		jsonData["tclass"] = o.LeafInterfacesTunnelParametersIPvsixTclass.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesTunnelParametersIPvsix) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["encaplimit"]; ok {
-		o.LeafInterfacesTunnelParametersIPvsixEncaplimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersIPvsixEncaplimit = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["flowlabel"]; ok {
-		o.LeafInterfacesTunnelParametersIPvsixFlowlabel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersIPvsixFlowlabel = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["hoplimit"]; ok {
-		o.LeafInterfacesTunnelParametersIPvsixHoplimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersIPvsixHoplimit = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["tclass"]; ok {
-		o.LeafInterfacesTunnelParametersIPvsixTclass = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersIPvsixTclass = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesTunnelParametersIPvsix) UnmarshalJSON(_ []byte) error {
 	return nil
 }

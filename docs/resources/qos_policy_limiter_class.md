@@ -46,6 +46,11 @@ Class ID
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-4090  |  Class Identifier  |
+- `limiter_identifier` (String) Traffic input limiting policy
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
 
 ### Optional
 
@@ -89,7 +94,7 @@ Class ID
     |  ok  |  Accept the packet  |
     |  reclassify  |  Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
     |  pipe  |  Pass the packet to the next action in line  |
-- `priority` (String) Priority for rule evaluation
+- `priority` (Number) Priority for rule evaluation
 
     |  Format  |  Description  |
     |----------|---------------|

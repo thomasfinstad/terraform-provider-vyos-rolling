@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceTftpServerListenAddress describes the resource data model.
@@ -25,7 +22,9 @@ type ServiceTftpServerListenAddress struct {
 func (o *ServiceTftpServerListenAddress) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"tftp-server",
+
 		"listen-address",
 		o.ID.ValueString(),
 	}
@@ -66,41 +65,10 @@ func (o ServiceTftpServerListenAddress) ResourceSchemaAttributes() map[string]sc
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceTftpServerListenAddress) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceTftpServerListenAddressVrf.IsNull() && !o.LeafServiceTftpServerListenAddressVrf.IsUnknown() {
-		jsonData["vrf"] = o.LeafServiceTftpServerListenAddressVrf.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceTftpServerListenAddress) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["vrf"]; ok {
-		o.LeafServiceTftpServerListenAddressVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceTftpServerListenAddressVrf = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceTftpServerListenAddress) UnmarshalJSON(_ []byte) error {
 	return nil
 }

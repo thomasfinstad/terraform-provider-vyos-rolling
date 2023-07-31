@@ -27,7 +27,7 @@ Firewall domain-group
 
 ### Optional
 
-- `address` (String) Domain-group member
+- `address` (List of String) Domain-group member
 
     |  Format  |  Description  |
     |----------|---------------|

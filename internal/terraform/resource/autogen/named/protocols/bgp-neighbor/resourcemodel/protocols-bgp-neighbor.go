@@ -2,12 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpNeighbor describes the resource data model.
@@ -15,21 +12,21 @@ type ProtocolsBgpNeighbor struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafProtocolsBgpNeighborAdvertisementInterval        types.String `tfsdk:"advertisement_interval" vyos:"advertisement-interval,omitempty"`
+	LeafProtocolsBgpNeighborAdvertisementInterval        types.Number `tfsdk:"advertisement_interval" vyos:"advertisement-interval,omitempty"`
 	LeafProtocolsBgpNeighborDescrIPtion                  types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafProtocolsBgpNeighborDisableCapabilityNegotiation types.String `tfsdk:"disable_capability_negotiation" vyos:"disable-capability-negotiation,omitempty"`
-	LeafProtocolsBgpNeighborDisableConnectedCheck        types.String `tfsdk:"disable_connected_check" vyos:"disable-connected-check,omitempty"`
-	LeafProtocolsBgpNeighborEbgpMultihop                 types.String `tfsdk:"ebgp_multihop" vyos:"ebgp-multihop,omitempty"`
+	LeafProtocolsBgpNeighborDisableCapabilityNegotiation types.Bool   `tfsdk:"disable_capability_negotiation" vyos:"disable-capability-negotiation,omitempty"`
+	LeafProtocolsBgpNeighborDisableConnectedCheck        types.Bool   `tfsdk:"disable_connected_check" vyos:"disable-connected-check,omitempty"`
+	LeafProtocolsBgpNeighborEbgpMultihop                 types.Number `tfsdk:"ebgp_multihop" vyos:"ebgp-multihop,omitempty"`
 	LeafProtocolsBgpNeighborGracefulRestart              types.String `tfsdk:"graceful_restart" vyos:"graceful-restart,omitempty"`
-	LeafProtocolsBgpNeighborOverrIDeCapability           types.String `tfsdk:"override_capability" vyos:"override-capability,omitempty"`
-	LeafProtocolsBgpNeighborPassive                      types.String `tfsdk:"passive" vyos:"passive,omitempty"`
+	LeafProtocolsBgpNeighborOverrIDeCapability           types.Bool   `tfsdk:"override_capability" vyos:"override-capability,omitempty"`
+	LeafProtocolsBgpNeighborPassive                      types.Bool   `tfsdk:"passive" vyos:"passive,omitempty"`
 	LeafProtocolsBgpNeighborPassword                     types.String `tfsdk:"password" vyos:"password,omitempty"`
 	LeafProtocolsBgpNeighborPeerGroup                    types.String `tfsdk:"peer_group" vyos:"peer-group,omitempty"`
-	LeafProtocolsBgpNeighborPort                         types.String `tfsdk:"port" vyos:"port,omitempty"`
+	LeafProtocolsBgpNeighborPort                         types.Number `tfsdk:"port" vyos:"port,omitempty"`
 	LeafProtocolsBgpNeighborRemoteAs                     types.String `tfsdk:"remote_as" vyos:"remote-as,omitempty"`
-	LeafProtocolsBgpNeighborShutdown                     types.String `tfsdk:"shutdown" vyos:"shutdown,omitempty"`
-	LeafProtocolsBgpNeighborSolo                         types.String `tfsdk:"solo" vyos:"solo,omitempty"`
-	LeafProtocolsBgpNeighborStrictCapabilityMatch        types.String `tfsdk:"strict_capability_match" vyos:"strict-capability-match,omitempty"`
+	LeafProtocolsBgpNeighborShutdown                     types.Bool   `tfsdk:"shutdown" vyos:"shutdown,omitempty"`
+	LeafProtocolsBgpNeighborSolo                         types.Bool   `tfsdk:"solo" vyos:"solo,omitempty"`
+	LeafProtocolsBgpNeighborStrictCapabilityMatch        types.Bool   `tfsdk:"strict_capability_match" vyos:"strict-capability-match,omitempty"`
 	LeafProtocolsBgpNeighborUpdateSource                 types.String `tfsdk:"update_source" vyos:"update-source,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -49,7 +46,9 @@ type ProtocolsBgpNeighbor struct {
 func (o *ProtocolsBgpNeighbor) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"bgp",
+
 		"neighbor",
 		o.ID.ValueString(),
 	}
@@ -73,7 +72,7 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schema.Attri
 
 		// LeafNodes
 
-		"advertisement_interval": schema.StringAttribute{
+		"advertisement_interval": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Minimum interval for sending routing updates
 
@@ -95,21 +94,25 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 
-		"disable_capability_negotiation": schema.StringAttribute{
+		"disable_capability_negotiation": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable capability negotiation with this neighbor
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"disable_connected_check": schema.StringAttribute{
+		"disable_connected_check": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable check to see if eBGP peer address is a connected route
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"ebgp_multihop": schema.StringAttribute{
+		"ebgp_multihop": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow this EBGP neighbor to not be on a directly connected network
 
@@ -133,18 +136,22 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 
-		"override_capability": schema.StringAttribute{
+		"override_capability": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ignore capability negotiation with specified neighbor
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"passive": schema.StringAttribute{
+		"passive": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not initiate a session with this neighbor
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"password": schema.StringAttribute{
@@ -165,7 +172,7 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 
-		"port": schema.StringAttribute{
+		"port": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Neighbor BGP port
 
@@ -189,25 +196,31 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 
-		"shutdown": schema.StringAttribute{
+		"shutdown": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively shutdown this neighbor
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"solo": schema.StringAttribute{
+		"solo": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not send back prefixes learned from the neighbor
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"strict_capability_match": schema.StringAttribute{
+		"strict_capability_match": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable strict capability negotiation
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"update_source": schema.StringAttribute{
@@ -277,353 +290,10 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schema.Attri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsBgpNeighbor) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsBgpNeighborAdvertisementInterval.IsNull() && !o.LeafProtocolsBgpNeighborAdvertisementInterval.IsUnknown() {
-		jsonData["advertisement-interval"] = o.LeafProtocolsBgpNeighborAdvertisementInterval.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborDescrIPtion.IsNull() && !o.LeafProtocolsBgpNeighborDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafProtocolsBgpNeighborDescrIPtion.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborDisableCapabilityNegotiation.IsNull() && !o.LeafProtocolsBgpNeighborDisableCapabilityNegotiation.IsUnknown() {
-		jsonData["disable-capability-negotiation"] = o.LeafProtocolsBgpNeighborDisableCapabilityNegotiation.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborDisableConnectedCheck.IsNull() && !o.LeafProtocolsBgpNeighborDisableConnectedCheck.IsUnknown() {
-		jsonData["disable-connected-check"] = o.LeafProtocolsBgpNeighborDisableConnectedCheck.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborEbgpMultihop.IsNull() && !o.LeafProtocolsBgpNeighborEbgpMultihop.IsUnknown() {
-		jsonData["ebgp-multihop"] = o.LeafProtocolsBgpNeighborEbgpMultihop.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborGracefulRestart.IsNull() && !o.LeafProtocolsBgpNeighborGracefulRestart.IsUnknown() {
-		jsonData["graceful-restart"] = o.LeafProtocolsBgpNeighborGracefulRestart.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborOverrIDeCapability.IsNull() && !o.LeafProtocolsBgpNeighborOverrIDeCapability.IsUnknown() {
-		jsonData["override-capability"] = o.LeafProtocolsBgpNeighborOverrIDeCapability.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborPassive.IsNull() && !o.LeafProtocolsBgpNeighborPassive.IsUnknown() {
-		jsonData["passive"] = o.LeafProtocolsBgpNeighborPassive.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborPassword.IsNull() && !o.LeafProtocolsBgpNeighborPassword.IsUnknown() {
-		jsonData["password"] = o.LeafProtocolsBgpNeighborPassword.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborPeerGroup.IsNull() && !o.LeafProtocolsBgpNeighborPeerGroup.IsUnknown() {
-		jsonData["peer-group"] = o.LeafProtocolsBgpNeighborPeerGroup.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborPort.IsNull() && !o.LeafProtocolsBgpNeighborPort.IsUnknown() {
-		jsonData["port"] = o.LeafProtocolsBgpNeighborPort.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborRemoteAs.IsNull() && !o.LeafProtocolsBgpNeighborRemoteAs.IsUnknown() {
-		jsonData["remote-as"] = o.LeafProtocolsBgpNeighborRemoteAs.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborShutdown.IsNull() && !o.LeafProtocolsBgpNeighborShutdown.IsUnknown() {
-		jsonData["shutdown"] = o.LeafProtocolsBgpNeighborShutdown.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborSolo.IsNull() && !o.LeafProtocolsBgpNeighborSolo.IsUnknown() {
-		jsonData["solo"] = o.LeafProtocolsBgpNeighborSolo.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborStrictCapabilityMatch.IsNull() && !o.LeafProtocolsBgpNeighborStrictCapabilityMatch.IsUnknown() {
-		jsonData["strict-capability-match"] = o.LeafProtocolsBgpNeighborStrictCapabilityMatch.ValueString()
-	}
-
-	if !o.LeafProtocolsBgpNeighborUpdateSource.IsNull() && !o.LeafProtocolsBgpNeighborUpdateSource.IsUnknown() {
-		jsonData["update-source"] = o.LeafProtocolsBgpNeighborUpdateSource.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborAddressFamily).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborAddressFamily)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["address-family"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborBfd).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborBfd)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["bfd"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborCapability).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborCapability)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["capability"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborInterface).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborInterface)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["interface"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborTimers).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborTimers)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["timers"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborTTLSecURIty).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborTTLSecURIty)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ttl-security"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighbor) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["advertisement-interval"]; ok {
-		o.LeafProtocolsBgpNeighborAdvertisementInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAdvertisementInterval = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafProtocolsBgpNeighborDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable-capability-negotiation"]; ok {
-		o.LeafProtocolsBgpNeighborDisableCapabilityNegotiation = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborDisableCapabilityNegotiation = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable-connected-check"]; ok {
-		o.LeafProtocolsBgpNeighborDisableConnectedCheck = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborDisableConnectedCheck = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ebgp-multihop"]; ok {
-		o.LeafProtocolsBgpNeighborEbgpMultihop = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborEbgpMultihop = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["graceful-restart"]; ok {
-		o.LeafProtocolsBgpNeighborGracefulRestart = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborGracefulRestart = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["override-capability"]; ok {
-		o.LeafProtocolsBgpNeighborOverrIDeCapability = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborOverrIDeCapability = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["passive"]; ok {
-		o.LeafProtocolsBgpNeighborPassive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborPassive = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["password"]; ok {
-		o.LeafProtocolsBgpNeighborPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborPassword = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["peer-group"]; ok {
-		o.LeafProtocolsBgpNeighborPeerGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborPeerGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port"]; ok {
-		o.LeafProtocolsBgpNeighborPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborPort = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["remote-as"]; ok {
-		o.LeafProtocolsBgpNeighborRemoteAs = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborRemoteAs = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["shutdown"]; ok {
-		o.LeafProtocolsBgpNeighborShutdown = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborShutdown = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["solo"]; ok {
-		o.LeafProtocolsBgpNeighborSolo = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborSolo = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["strict-capability-match"]; ok {
-		o.LeafProtocolsBgpNeighborStrictCapabilityMatch = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborStrictCapabilityMatch = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["update-source"]; ok {
-		o.LeafProtocolsBgpNeighborUpdateSource = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborUpdateSource = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["address-family"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpNeighborAddressFamily = &ProtocolsBgpNeighborAddressFamily{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborAddressFamily)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["bfd"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpNeighborBfd = &ProtocolsBgpNeighborBfd{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborBfd)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["capability"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpNeighborCapability = &ProtocolsBgpNeighborCapability{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborCapability)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["interface"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpNeighborInterface = &ProtocolsBgpNeighborInterface{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborInterface)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["timers"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpNeighborTimers = &ProtocolsBgpNeighborTimers{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborTimers)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ttl-security"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeProtocolsBgpNeighborTTLSecURIty = &ProtocolsBgpNeighborTTLSecURIty{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborTTLSecURIty)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *ProtocolsBgpNeighbor) UnmarshalJSON(_ []byte) error {
 	return nil
 }

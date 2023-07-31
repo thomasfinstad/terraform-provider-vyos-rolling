@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // HighAvailabilityVrrpGroupTransitionScrIPt describes the resource data model.
@@ -62,71 +59,10 @@ func (o HighAvailabilityVrrpGroupTransitionScrIPt) ResourceSchemaAttributes() ma
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *HighAvailabilityVrrpGroupTransitionScrIPt) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafHighAvailabilityVrrpGroupTransitionScrIPtMaster.IsNull() && !o.LeafHighAvailabilityVrrpGroupTransitionScrIPtMaster.IsUnknown() {
-		jsonData["master"] = o.LeafHighAvailabilityVrrpGroupTransitionScrIPtMaster.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupTransitionScrIPtBackup.IsNull() && !o.LeafHighAvailabilityVrrpGroupTransitionScrIPtBackup.IsUnknown() {
-		jsonData["backup"] = o.LeafHighAvailabilityVrrpGroupTransitionScrIPtBackup.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupTransitionScrIPtFault.IsNull() && !o.LeafHighAvailabilityVrrpGroupTransitionScrIPtFault.IsUnknown() {
-		jsonData["fault"] = o.LeafHighAvailabilityVrrpGroupTransitionScrIPtFault.ValueString()
-	}
-
-	if !o.LeafHighAvailabilityVrrpGroupTransitionScrIPtStop.IsNull() && !o.LeafHighAvailabilityVrrpGroupTransitionScrIPtStop.IsUnknown() {
-		jsonData["stop"] = o.LeafHighAvailabilityVrrpGroupTransitionScrIPtStop.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *HighAvailabilityVrrpGroupTransitionScrIPt) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["master"]; ok {
-		o.LeafHighAvailabilityVrrpGroupTransitionScrIPtMaster = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupTransitionScrIPtMaster = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["backup"]; ok {
-		o.LeafHighAvailabilityVrrpGroupTransitionScrIPtBackup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupTransitionScrIPtBackup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["fault"]; ok {
-		o.LeafHighAvailabilityVrrpGroupTransitionScrIPtFault = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupTransitionScrIPtFault = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["stop"]; ok {
-		o.LeafHighAvailabilityVrrpGroupTransitionScrIPtStop = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupTransitionScrIPtStop = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *HighAvailabilityVrrpGroupTransitionScrIPt) UnmarshalJSON(_ []byte) error {
 	return nil
 }

@@ -2,11 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallName describes the resource data model.
@@ -15,7 +13,7 @@ type FirewallName struct {
 
 	// LeafNodes
 	LeafFirewallNameDefaultAction     types.String `tfsdk:"default_action" vyos:"default-action,omitempty"`
-	LeafFirewallNameEnableDefaultLog  types.String `tfsdk:"enable_default_log" vyos:"enable-default-log,omitempty"`
+	LeafFirewallNameEnableDefaultLog  types.Bool   `tfsdk:"enable_default_log" vyos:"enable-default-log,omitempty"`
 	LeafFirewallNameDescrIPtion       types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafFirewallNameDefaultJumpTarget types.String `tfsdk:"default_jump_target" vyos:"default-jump-target,omitempty"`
 
@@ -29,6 +27,7 @@ type FirewallName struct {
 func (o *FirewallName) GetVyosPath() []string {
 	return []string{
 		"firewall",
+
 		"name",
 		o.ID.ValueString(),
 	}
@@ -64,11 +63,13 @@ func (o FirewallName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Computed: true,
 		},
 
-		"enable_default_log": schema.StringAttribute{
+		"enable_default_log": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Log packets hitting default-action
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"description": schema.StringAttribute{
@@ -97,71 +98,10 @@ func (o FirewallName) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallName) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallNameDefaultAction.IsNull() && !o.LeafFirewallNameDefaultAction.IsUnknown() {
-		jsonData["default-action"] = o.LeafFirewallNameDefaultAction.ValueString()
-	}
-
-	if !o.LeafFirewallNameEnableDefaultLog.IsNull() && !o.LeafFirewallNameEnableDefaultLog.IsUnknown() {
-		jsonData["enable-default-log"] = o.LeafFirewallNameEnableDefaultLog.ValueString()
-	}
-
-	if !o.LeafFirewallNameDescrIPtion.IsNull() && !o.LeafFirewallNameDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafFirewallNameDescrIPtion.ValueString()
-	}
-
-	if !o.LeafFirewallNameDefaultJumpTarget.IsNull() && !o.LeafFirewallNameDefaultJumpTarget.IsUnknown() {
-		jsonData["default-jump-target"] = o.LeafFirewallNameDefaultJumpTarget.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallName) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["default-action"]; ok {
-		o.LeafFirewallNameDefaultAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameDefaultAction = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["enable-default-log"]; ok {
-		o.LeafFirewallNameEnableDefaultLog = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameEnableDefaultLog = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafFirewallNameDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["default-jump-target"]; ok {
-		o.LeafFirewallNameDefaultJumpTarget = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameDefaultJumpTarget = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallName) UnmarshalJSON(_ []byte) error {
 	return nil
 }

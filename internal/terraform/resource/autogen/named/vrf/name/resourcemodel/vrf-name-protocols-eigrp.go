@@ -2,25 +2,21 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsEigrp describes the resource data model.
 type VrfNameProtocolsEigrp struct {
 	// LeafNodes
-	LeafVrfNameProtocolsEigrpLocalAs          types.String `tfsdk:"local_as" vyos:"local-as,omitempty"`
-	LeafVrfNameProtocolsEigrpMaximumPaths     types.String `tfsdk:"maximum_paths" vyos:"maximum-paths,omitempty"`
-	LeafVrfNameProtocolsEigrpNetwork          types.String `tfsdk:"network" vyos:"network,omitempty"`
+	LeafVrfNameProtocolsEigrpLocalAs          types.Number `tfsdk:"local_as" vyos:"local-as,omitempty"`
+	LeafVrfNameProtocolsEigrpMaximumPaths     types.Number `tfsdk:"maximum_paths" vyos:"maximum-paths,omitempty"`
+	LeafVrfNameProtocolsEigrpNetwork          types.List   `tfsdk:"network" vyos:"network,omitempty"`
 	LeafVrfNameProtocolsEigrpPassiveInterface types.String `tfsdk:"passive_interface" vyos:"passive-interface,omitempty"`
-	LeafVrfNameProtocolsEigrpRedistribute     types.String `tfsdk:"redistribute" vyos:"redistribute,omitempty"`
+	LeafVrfNameProtocolsEigrpRedistribute     types.List   `tfsdk:"redistribute" vyos:"redistribute,omitempty"`
 	LeafVrfNameProtocolsEigrpRouteMap         types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 	LeafVrfNameProtocolsEigrpRouterID         types.String `tfsdk:"router_id" vyos:"router-id,omitempty"`
-	LeafVrfNameProtocolsEigrpVariance         types.String `tfsdk:"variance" vyos:"variance,omitempty"`
+	LeafVrfNameProtocolsEigrpVariance         types.Number `tfsdk:"variance" vyos:"variance,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -33,7 +29,7 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes() map[string]schema.Attr
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"local_as": schema.StringAttribute{
+		"local_as": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Autonomous System Number (ASN)
 
@@ -44,7 +40,7 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes() map[string]schema.Attr
 `,
 		},
 
-		"maximum_paths": schema.StringAttribute{
+		"maximum_paths": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Forward packets over multiple paths
 
@@ -55,8 +51,9 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes() map[string]schema.Attr
 `,
 		},
 
-		"network": schema.StringAttribute{
-			Optional: true,
+		"network": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Enable routing on an IP network
 
     |  Format  |  Description  |
@@ -73,8 +70,9 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes() map[string]schema.Attr
 `,
 		},
 
-		"redistribute": schema.StringAttribute{
-			Optional: true,
+		"redistribute": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Redistribute information from another routing protocol
 
     |  Format  |  Description  |
@@ -113,7 +111,7 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes() map[string]schema.Attr
 `,
 		},
 
-		"variance": schema.StringAttribute{
+		"variance": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Control load balancing variance
 
@@ -138,138 +136,10 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes() map[string]schema.Attr
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsEigrp) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsEigrpLocalAs.IsNull() && !o.LeafVrfNameProtocolsEigrpLocalAs.IsUnknown() {
-		jsonData["local-as"] = o.LeafVrfNameProtocolsEigrpLocalAs.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsEigrpMaximumPaths.IsNull() && !o.LeafVrfNameProtocolsEigrpMaximumPaths.IsUnknown() {
-		jsonData["maximum-paths"] = o.LeafVrfNameProtocolsEigrpMaximumPaths.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsEigrpNetwork.IsNull() && !o.LeafVrfNameProtocolsEigrpNetwork.IsUnknown() {
-		jsonData["network"] = o.LeafVrfNameProtocolsEigrpNetwork.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsEigrpPassiveInterface.IsNull() && !o.LeafVrfNameProtocolsEigrpPassiveInterface.IsUnknown() {
-		jsonData["passive-interface"] = o.LeafVrfNameProtocolsEigrpPassiveInterface.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsEigrpRedistribute.IsNull() && !o.LeafVrfNameProtocolsEigrpRedistribute.IsUnknown() {
-		jsonData["redistribute"] = o.LeafVrfNameProtocolsEigrpRedistribute.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsEigrpRouteMap.IsNull() && !o.LeafVrfNameProtocolsEigrpRouteMap.IsUnknown() {
-		jsonData["route-map"] = o.LeafVrfNameProtocolsEigrpRouteMap.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsEigrpRouterID.IsNull() && !o.LeafVrfNameProtocolsEigrpRouterID.IsUnknown() {
-		jsonData["router-id"] = o.LeafVrfNameProtocolsEigrpRouterID.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsEigrpVariance.IsNull() && !o.LeafVrfNameProtocolsEigrpVariance.IsUnknown() {
-		jsonData["variance"] = o.LeafVrfNameProtocolsEigrpVariance.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsEigrpMetric).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsEigrpMetric)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["metric"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsEigrp) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["local-as"]; ok {
-		o.LeafVrfNameProtocolsEigrpLocalAs = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsEigrpLocalAs = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["maximum-paths"]; ok {
-		o.LeafVrfNameProtocolsEigrpMaximumPaths = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsEigrpMaximumPaths = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["network"]; ok {
-		o.LeafVrfNameProtocolsEigrpNetwork = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsEigrpNetwork = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["passive-interface"]; ok {
-		o.LeafVrfNameProtocolsEigrpPassiveInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsEigrpPassiveInterface = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["redistribute"]; ok {
-		o.LeafVrfNameProtocolsEigrpRedistribute = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsEigrpRedistribute = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["route-map"]; ok {
-		o.LeafVrfNameProtocolsEigrpRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsEigrpRouteMap = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["router-id"]; ok {
-		o.LeafVrfNameProtocolsEigrpRouterID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsEigrpRouterID = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["variance"]; ok {
-		o.LeafVrfNameProtocolsEigrpVariance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsEigrpVariance = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["metric"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsEigrpMetric = &VrfNameProtocolsEigrpMetric{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsEigrpMetric)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VrfNameProtocolsEigrp) UnmarshalJSON(_ []byte) error {
 	return nil
 }

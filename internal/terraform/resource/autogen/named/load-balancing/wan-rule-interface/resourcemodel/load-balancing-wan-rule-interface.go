@@ -2,21 +2,18 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // LoadBalancingWanRuleInterface describes the resource data model.
 type LoadBalancingWanRuleInterface struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDLoadBalancingWanRule any `tfsdk:"rule" vyos:"rule,parent-id"`
+	ParentIDLoadBalancingWanRule types.String `tfsdk:"rule" vyos:"rule_identifier,parent-id"`
 
 	// LeafNodes
-	LeafLoadBalancingWanRuleInterfaceWeight types.String `tfsdk:"weight" vyos:"weight,omitempty"`
+	LeafLoadBalancingWanRuleInterfaceWeight types.Number `tfsdk:"weight" vyos:"weight,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,8 +24,12 @@ type LoadBalancingWanRuleInterface struct {
 func (o *LoadBalancingWanRuleInterface) GetVyosPath() []string {
 	return []string{
 		"load-balancing",
+
 		"wan",
+
 		"rule",
+		o.ParentIDLoadBalancingWanRule.ValueString(),
+
 		"interface",
 		o.ID.ValueString(),
 	}
@@ -44,9 +45,20 @@ func (o LoadBalancingWanRuleInterface) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 
+		"rule_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Rule number (1-9999)
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-9999  |  Rule number  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"weight": schema.StringAttribute{
+		"weight": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Load-balance weight
 
@@ -64,41 +76,10 @@ func (o LoadBalancingWanRuleInterface) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *LoadBalancingWanRuleInterface) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafLoadBalancingWanRuleInterfaceWeight.IsNull() && !o.LeafLoadBalancingWanRuleInterfaceWeight.IsUnknown() {
-		jsonData["weight"] = o.LeafLoadBalancingWanRuleInterfaceWeight.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *LoadBalancingWanRuleInterface) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["weight"]; ok {
-		o.LeafLoadBalancingWanRuleInterfaceWeight = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanRuleInterfaceWeight = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *LoadBalancingWanRuleInterface) UnmarshalJSON(_ []byte) error {
 	return nil
 }

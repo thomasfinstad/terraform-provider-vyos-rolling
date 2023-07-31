@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemSyslogHostFacility describes the resource data model.
 type SystemSyslogHostFacility struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDSystemSyslogHost any `tfsdk:"host" vyos:"host,parent-id"`
+	ParentIDSystemSyslogHost types.String `tfsdk:"host" vyos:"host_identifier,parent-id"`
 
 	// LeafNodes
 	LeafSystemSyslogHostFacilityProtocol types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
@@ -28,8 +25,12 @@ type SystemSyslogHostFacility struct {
 func (o *SystemSyslogHostFacility) GetVyosPath() []string {
 	return []string{
 		"system",
+
 		"syslog",
+
 		"host",
+		o.ParentIDSystemSyslogHost.ValueString(),
+
 		"facility",
 		o.ID.ValueString(),
 	}
@@ -67,6 +68,18 @@ func (o SystemSyslogHostFacility) ResourceSchemaAttributes() map[string]schema.A
     |  local5  |  Local facility 5  |
     |  local6  |  Local facility 6  |
     |  local7  |  Local facility 7  |
+
+`,
+		},
+
+		"host_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Logging to a remote host
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Remote syslog server IPv4 address  |
+    |  hostname  |  Remote syslog server FQDN  |
 
 `,
 		},
@@ -111,51 +124,10 @@ func (o SystemSyslogHostFacility) ResourceSchemaAttributes() map[string]schema.A
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemSyslogHostFacility) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafSystemSyslogHostFacilityProtocol.IsNull() && !o.LeafSystemSyslogHostFacilityProtocol.IsUnknown() {
-		jsonData["protocol"] = o.LeafSystemSyslogHostFacilityProtocol.ValueString()
-	}
-
-	if !o.LeafSystemSyslogHostFacilityLevel.IsNull() && !o.LeafSystemSyslogHostFacilityLevel.IsUnknown() {
-		jsonData["level"] = o.LeafSystemSyslogHostFacilityLevel.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemSyslogHostFacility) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["protocol"]; ok {
-		o.LeafSystemSyslogHostFacilityProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemSyslogHostFacilityProtocol = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["level"]; ok {
-		o.LeafSystemSyslogHostFacilityLevel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemSyslogHostFacilityLevel = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *SystemSyslogHostFacility) UnmarshalJSON(_ []byte) error {
 	return nil
 }

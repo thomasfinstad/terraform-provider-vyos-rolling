@@ -2,23 +2,21 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVrfName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddressAsSet       types.String `tfsdk:"as_set" vyos:"as-set,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddressAsSet       types.Bool   `tfsdk:"as_set" vyos:"as-set,omitempty"`
 	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddressRouteMap    types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
-	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddressSummaryOnly types.String `tfsdk:"summary_only" vyos:"summary-only,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddressSummaryOnly types.Bool   `tfsdk:"summary_only" vyos:"summary-only,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -29,11 +27,18 @@ type VrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress struct {
 func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress) GetVyosPath() []string {
 	return []string{
 		"vrf",
+
 		"name",
+		o.ParentIDVrfName.ValueString(),
+
 		"protocols",
+
 		"bgp",
+
 		"address-family",
+
 		"ipv6-unicast",
+
 		"aggregate-address",
 		o.ID.ValueString(),
 	}
@@ -53,13 +58,26 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress) ResourceS
 `,
 		},
 
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"as_set": schema.StringAttribute{
+		"as_set": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Generate AS-set path information for this aggregate address
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"route_map": schema.StringAttribute{
@@ -73,11 +91,13 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress) ResourceS
 `,
 		},
 
-		"summary_only": schema.StringAttribute{
+		"summary_only": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Announce the aggregate summary network only
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -87,61 +107,10 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress) ResourceS
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddressAsSet.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddressAsSet.IsUnknown() {
-		jsonData["as-set"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddressAsSet.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddressRouteMap.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddressRouteMap.IsUnknown() {
-		jsonData["route-map"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddressRouteMap.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddressSummaryOnly.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddressSummaryOnly.IsUnknown() {
-		jsonData["summary-only"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddressSummaryOnly.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["as-set"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddressAsSet = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddressAsSet = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["route-map"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddressRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddressRouteMap = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["summary-only"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddressSummaryOnly = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddressSummaryOnly = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress) UnmarshalJSON(_ []byte) error {
 	return nil
 }

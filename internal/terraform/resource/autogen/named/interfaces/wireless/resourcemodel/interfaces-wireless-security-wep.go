@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesWirelessSecURItyWep describes the resource data model.
 type InterfacesWirelessSecURItyWep struct {
 	// LeafNodes
-	LeafInterfacesWirelessSecURItyWepKey types.String `tfsdk:"key" vyos:"key,omitempty"`
+	LeafInterfacesWirelessSecURItyWepKey types.List `tfsdk:"key" vyos:"key,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,8 +21,9 @@ func (o InterfacesWirelessSecURItyWep) ResourceSchemaAttributes() map[string]sch
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"key": schema.StringAttribute{
-			Optional: true,
+		"key": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `WEP encryption key
 
     |  Format  |  Description  |
@@ -42,41 +40,10 @@ func (o InterfacesWirelessSecURItyWep) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *InterfacesWirelessSecURItyWep) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafInterfacesWirelessSecURItyWepKey.IsNull() && !o.LeafInterfacesWirelessSecURItyWepKey.IsUnknown() {
-		jsonData["key"] = o.LeafInterfacesWirelessSecURItyWepKey.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWirelessSecURItyWep) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["key"]; ok {
-		o.LeafInterfacesWirelessSecURItyWepKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessSecURItyWepKey = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *InterfacesWirelessSecURItyWep) UnmarshalJSON(_ []byte) error {
 	return nil
 }

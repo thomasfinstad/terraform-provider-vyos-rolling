@@ -2,24 +2,22 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfAreaRange describes the resource data model.
 type VrfNameProtocolsOspfAreaRange struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDVrfName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
-	ParentIDVrfNameProtocolsOspfArea any `tfsdk:"area" vyos:"area,parent-id"`
+	ParentIDVrfNameProtocolsOspfArea types.String `tfsdk:"area" vyos:"area_identifier,parent-id"`
 
 	// LeafNodes
-	LeafVrfNameProtocolsOspfAreaRangeCost         types.String `tfsdk:"cost" vyos:"cost,omitempty"`
-	LeafVrfNameProtocolsOspfAreaRangeNotAdvertise types.String `tfsdk:"not_advertise" vyos:"not-advertise,omitempty"`
+	LeafVrfNameProtocolsOspfAreaRangeCost         types.Number `tfsdk:"cost" vyos:"cost,omitempty"`
+	LeafVrfNameProtocolsOspfAreaRangeNotAdvertise types.Bool   `tfsdk:"not_advertise" vyos:"not-advertise,omitempty"`
 	LeafVrfNameProtocolsOspfAreaRangeSubstitute   types.String `tfsdk:"substitute" vyos:"substitute,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -31,10 +29,17 @@ type VrfNameProtocolsOspfAreaRange struct {
 func (o *VrfNameProtocolsOspfAreaRange) GetVyosPath() []string {
 	return []string{
 		"vrf",
+
 		"name",
+		o.ParentIDVrfName.ValueString(),
+
 		"protocols",
+
 		"ospf",
+
 		"area",
+		o.ParentIDVrfNameProtocolsOspfArea.ValueString(),
+
 		"range",
 		o.ID.ValueString(),
 	}
@@ -54,9 +59,32 @@ func (o VrfNameProtocolsOspfAreaRange) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
+
+`,
+		},
+
+		"area_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `OSPF area settings
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32  |  OSPF area number in decimal notation  |
+    |  ipv4  |  OSPF area number in dotted decimal notation  |
+
+`,
+		},
+
 		// LeafNodes
 
-		"cost": schema.StringAttribute{
+		"cost": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Metric for this range
 
@@ -67,11 +95,13 @@ func (o VrfNameProtocolsOspfAreaRange) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 
-		"not_advertise": schema.StringAttribute{
+		"not_advertise": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not advertise this range
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"substitute": schema.StringAttribute{
@@ -92,61 +122,10 @@ func (o VrfNameProtocolsOspfAreaRange) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsOspfAreaRange) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsOspfAreaRangeCost.IsNull() && !o.LeafVrfNameProtocolsOspfAreaRangeCost.IsUnknown() {
-		jsonData["cost"] = o.LeafVrfNameProtocolsOspfAreaRangeCost.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfAreaRangeNotAdvertise.IsNull() && !o.LeafVrfNameProtocolsOspfAreaRangeNotAdvertise.IsUnknown() {
-		jsonData["not-advertise"] = o.LeafVrfNameProtocolsOspfAreaRangeNotAdvertise.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsOspfAreaRangeSubstitute.IsNull() && !o.LeafVrfNameProtocolsOspfAreaRangeSubstitute.IsUnknown() {
-		jsonData["substitute"] = o.LeafVrfNameProtocolsOspfAreaRangeSubstitute.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfAreaRange) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["cost"]; ok {
-		o.LeafVrfNameProtocolsOspfAreaRangeCost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfAreaRangeCost = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["not-advertise"]; ok {
-		o.LeafVrfNameProtocolsOspfAreaRangeNotAdvertise = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfAreaRangeNotAdvertise = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["substitute"]; ok {
-		o.LeafVrfNameProtocolsOspfAreaRangeSubstitute = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfAreaRangeSubstitute = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsOspfAreaRange) UnmarshalJSON(_ []byte) error {
 	return nil
 }

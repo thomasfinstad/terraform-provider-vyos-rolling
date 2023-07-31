@@ -32,8 +32,8 @@ Firewall network-group
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `include` (String) Include another network-group
-- `network` (String) Network-group member
+- `include` (List of String) Include another network-group
+- `network` (List of String) Network-group member
 
     |  Format  |  Description  |
     |----------|---------------|

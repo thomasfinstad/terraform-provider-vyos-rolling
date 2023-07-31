@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallZoneIntraZoneFiltering describes the resource data model.
@@ -52,68 +48,10 @@ func (o FirewallZoneIntraZoneFiltering) ResourceSchemaAttributes() map[string]sc
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallZoneIntraZoneFiltering) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallZoneIntraZoneFilteringAction.IsNull() && !o.LeafFirewallZoneIntraZoneFilteringAction.IsUnknown() {
-		jsonData["action"] = o.LeafFirewallZoneIntraZoneFilteringAction.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeFirewallZoneIntraZoneFilteringFirewall).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallZoneIntraZoneFilteringFirewall)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["firewall"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallZoneIntraZoneFiltering) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["action"]; ok {
-		o.LeafFirewallZoneIntraZoneFilteringAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallZoneIntraZoneFilteringAction = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["firewall"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallZoneIntraZoneFilteringFirewall = &FirewallZoneIntraZoneFilteringFirewall{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallZoneIntraZoneFilteringFirewall)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *FirewallZoneIntraZoneFiltering) UnmarshalJSON(_ []byte) error {
 	return nil
 }

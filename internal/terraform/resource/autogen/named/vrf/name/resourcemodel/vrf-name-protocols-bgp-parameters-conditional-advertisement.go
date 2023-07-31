@@ -2,17 +2,14 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpParametersConditionalAdvertisement describes the resource data model.
 type VrfNameProtocolsBgpParametersConditionalAdvertisement struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpParametersConditionalAdvertisementTimer types.String `tfsdk:"timer" vyos:"timer,omitempty"`
+	LeafVrfNameProtocolsBgpParametersConditionalAdvertisementTimer types.Number `tfsdk:"timer" vyos:"timer,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,7 +21,7 @@ func (o VrfNameProtocolsBgpParametersConditionalAdvertisement) ResourceSchemaAtt
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"timer": schema.StringAttribute{
+		"timer": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Set period to rescan BGP table to check if condition is met
 
@@ -45,41 +42,10 @@ func (o VrfNameProtocolsBgpParametersConditionalAdvertisement) ResourceSchemaAtt
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpParametersConditionalAdvertisement) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpParametersConditionalAdvertisementTimer.IsNull() && !o.LeafVrfNameProtocolsBgpParametersConditionalAdvertisementTimer.IsUnknown() {
-		jsonData["timer"] = o.LeafVrfNameProtocolsBgpParametersConditionalAdvertisementTimer.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpParametersConditionalAdvertisement) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["timer"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersConditionalAdvertisementTimer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersConditionalAdvertisementTimer = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *VrfNameProtocolsBgpParametersConditionalAdvertisement) UnmarshalJSON(_ []byte) error {
 	return nil
 }

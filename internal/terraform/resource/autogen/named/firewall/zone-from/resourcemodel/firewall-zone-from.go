@@ -2,9 +2,6 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -13,7 +10,7 @@ import (
 type FirewallZoneFrom struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDFirewallZone any `tfsdk:"zone" vyos:"zone,parent-id"`
+	ParentIDFirewallZone types.String `tfsdk:"zone" vyos:"zone_identifier,parent-id"`
 
 	// LeafNodes
 
@@ -27,7 +24,10 @@ type FirewallZoneFrom struct {
 func (o *FirewallZoneFrom) GetVyosPath() []string {
 	return []string{
 		"firewall",
+
 		"zone",
+		o.ParentIDFirewallZone.ValueString(),
+
 		"from",
 		o.ID.ValueString(),
 	}
@@ -39,6 +39,17 @@ func (o FirewallZoneFrom) ResourceSchemaAttributes() map[string]schema.Attribute
 		"identifier": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Zone from which to filter traffic
+
+`,
+		},
+
+		"zone_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Zone-policy
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Zone name  |
 
 `,
 		},
@@ -59,58 +70,10 @@ func (o FirewallZoneFrom) ResourceSchemaAttributes() map[string]schema.Attribute
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallZoneFrom) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeFirewallZoneFromFirewall).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallZoneFromFirewall)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["firewall"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallZoneFrom) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	// Nodes
-	if value, ok := jsonData["firewall"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallZoneFromFirewall = &FirewallZoneFromFirewall{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallZoneFromFirewall)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *FirewallZoneFrom) UnmarshalJSON(_ []byte) error {
 	return nil
 }

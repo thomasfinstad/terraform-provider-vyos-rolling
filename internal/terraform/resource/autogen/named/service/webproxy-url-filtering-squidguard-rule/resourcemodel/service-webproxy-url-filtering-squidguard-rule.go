@@ -2,29 +2,27 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceWebproxyURLFilteringSquIDguardRule describes the resource data model.
 type ServiceWebproxyURLFilteringSquIDguardRule struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafServiceWebproxyURLFilteringSquIDguardRuleAllowCategory     types.String `tfsdk:"allow_category" vyos:"allow-category,omitempty"`
-	LeafServiceWebproxyURLFilteringSquIDguardRuleAllowIPaddrURL    types.String `tfsdk:"allow_ipaddr_url" vyos:"allow-ipaddr-url,omitempty"`
-	LeafServiceWebproxyURLFilteringSquIDguardRuleBlockCategory     types.String `tfsdk:"block_category" vyos:"block-category,omitempty"`
+	LeafServiceWebproxyURLFilteringSquIDguardRuleAllowCategory     types.List   `tfsdk:"allow_category" vyos:"allow-category,omitempty"`
+	LeafServiceWebproxyURLFilteringSquIDguardRuleAllowIPaddrURL    types.Bool   `tfsdk:"allow_ipaddr_url" vyos:"allow-ipaddr-url,omitempty"`
+	LeafServiceWebproxyURLFilteringSquIDguardRuleBlockCategory     types.List   `tfsdk:"block_category" vyos:"block-category,omitempty"`
 	LeafServiceWebproxyURLFilteringSquIDguardRuleDefaultAction     types.String `tfsdk:"default_action" vyos:"default-action,omitempty"`
-	LeafServiceWebproxyURLFilteringSquIDguardRuleEnableSafeSearch  types.String `tfsdk:"enable_safe_search" vyos:"enable-safe-search,omitempty"`
-	LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlockKeyword types.String `tfsdk:"local_block_keyword" vyos:"local-block-keyword,omitempty"`
-	LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlockURL     types.String `tfsdk:"local_block_url" vyos:"local-block-url,omitempty"`
-	LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlock        types.String `tfsdk:"local_block" vyos:"local-block,omitempty"`
-	LeafServiceWebproxyURLFilteringSquIDguardRuleLocalOkURL        types.String `tfsdk:"local_ok_url" vyos:"local-ok-url,omitempty"`
-	LeafServiceWebproxyURLFilteringSquIDguardRuleLocalOk           types.String `tfsdk:"local_ok" vyos:"local-ok,omitempty"`
-	LeafServiceWebproxyURLFilteringSquIDguardRuleLog               types.String `tfsdk:"log" vyos:"log,omitempty"`
+	LeafServiceWebproxyURLFilteringSquIDguardRuleEnableSafeSearch  types.Bool   `tfsdk:"enable_safe_search" vyos:"enable-safe-search,omitempty"`
+	LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlockKeyword types.List   `tfsdk:"local_block_keyword" vyos:"local-block-keyword,omitempty"`
+	LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlockURL     types.List   `tfsdk:"local_block_url" vyos:"local-block-url,omitempty"`
+	LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlock        types.List   `tfsdk:"local_block" vyos:"local-block,omitempty"`
+	LeafServiceWebproxyURLFilteringSquIDguardRuleLocalOkURL        types.List   `tfsdk:"local_ok_url" vyos:"local-ok-url,omitempty"`
+	LeafServiceWebproxyURLFilteringSquIDguardRuleLocalOk           types.List   `tfsdk:"local_ok" vyos:"local-ok,omitempty"`
+	LeafServiceWebproxyURLFilteringSquIDguardRuleLog               types.List   `tfsdk:"log" vyos:"log,omitempty"`
 	LeafServiceWebproxyURLFilteringSquIDguardRuleRedirectURL       types.String `tfsdk:"redirect_url" vyos:"redirect-url,omitempty"`
 	LeafServiceWebproxyURLFilteringSquIDguardRuleSourceGroup       types.String `tfsdk:"source_group" vyos:"source-group,omitempty"`
 	LeafServiceWebproxyURLFilteringSquIDguardRuleTimePeriod        types.String `tfsdk:"time_period" vyos:"time-period,omitempty"`
@@ -38,11 +36,15 @@ type ServiceWebproxyURLFilteringSquIDguardRule struct {
 func (o *ServiceWebproxyURLFilteringSquIDguardRule) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"webproxy",
+
 		"url-filtering",
+
 		"squidguard",
+
 		"rule",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -62,22 +64,26 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceSchemaAttributes() ma
 
 		// LeafNodes
 
-		"allow_category": schema.StringAttribute{
-			Optional: true,
+		"allow_category": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Category to allow
 
 `,
 		},
 
-		"allow_ipaddr_url": schema.StringAttribute{
+		"allow_ipaddr_url": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow IP address URLs
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"block_category": schema.StringAttribute{
-			Optional: true,
+		"block_category": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Category to block
 
 `,
@@ -95,15 +101,18 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceSchemaAttributes() ma
 `,
 		},
 
-		"enable_safe_search": schema.StringAttribute{
+		"enable_safe_search": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable safe-mode search on popular search engines
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"local_block_keyword": schema.StringAttribute{
-			Optional: true,
+		"local_block_keyword": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Local keyword to block
 
     |  Format  |  Description  |
@@ -113,8 +122,9 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceSchemaAttributes() ma
 `,
 		},
 
-		"local_block_url": schema.StringAttribute{
-			Optional: true,
+		"local_block_url": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Local URL to block
 
     |  Format  |  Description  |
@@ -124,8 +134,9 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceSchemaAttributes() ma
 `,
 		},
 
-		"local_block": schema.StringAttribute{
-			Optional: true,
+		"local_block": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Local site to block
 
     |  Format  |  Description  |
@@ -135,8 +146,9 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceSchemaAttributes() ma
 `,
 		},
 
-		"local_ok_url": schema.StringAttribute{
-			Optional: true,
+		"local_ok_url": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Local URL to allow
 
     |  Format  |  Description  |
@@ -146,8 +158,9 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceSchemaAttributes() ma
 `,
 		},
 
-		"local_ok": schema.StringAttribute{
-			Optional: true,
+		"local_ok": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Local site to allow
 
     |  Format  |  Description  |
@@ -157,8 +170,9 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceSchemaAttributes() ma
 `,
 		},
 
-		"log": schema.StringAttribute{
-			Optional: true,
+		"log": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Log block category
 
 `,
@@ -204,171 +218,10 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceSchemaAttributes() ma
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceWebproxyURLFilteringSquIDguardRule) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardRuleAllowCategory.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardRuleAllowCategory.IsUnknown() {
-		jsonData["allow-category"] = o.LeafServiceWebproxyURLFilteringSquIDguardRuleAllowCategory.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardRuleAllowIPaddrURL.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardRuleAllowIPaddrURL.IsUnknown() {
-		jsonData["allow-ipaddr-url"] = o.LeafServiceWebproxyURLFilteringSquIDguardRuleAllowIPaddrURL.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardRuleBlockCategory.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardRuleBlockCategory.IsUnknown() {
-		jsonData["block-category"] = o.LeafServiceWebproxyURLFilteringSquIDguardRuleBlockCategory.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardRuleDefaultAction.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardRuleDefaultAction.IsUnknown() {
-		jsonData["default-action"] = o.LeafServiceWebproxyURLFilteringSquIDguardRuleDefaultAction.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardRuleEnableSafeSearch.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardRuleEnableSafeSearch.IsUnknown() {
-		jsonData["enable-safe-search"] = o.LeafServiceWebproxyURLFilteringSquIDguardRuleEnableSafeSearch.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlockKeyword.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlockKeyword.IsUnknown() {
-		jsonData["local-block-keyword"] = o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlockKeyword.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlockURL.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlockURL.IsUnknown() {
-		jsonData["local-block-url"] = o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlockURL.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlock.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlock.IsUnknown() {
-		jsonData["local-block"] = o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlock.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalOkURL.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalOkURL.IsUnknown() {
-		jsonData["local-ok-url"] = o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalOkURL.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalOk.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalOk.IsUnknown() {
-		jsonData["local-ok"] = o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalOk.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardRuleLog.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardRuleLog.IsUnknown() {
-		jsonData["log"] = o.LeafServiceWebproxyURLFilteringSquIDguardRuleLog.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardRuleRedirectURL.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardRuleRedirectURL.IsUnknown() {
-		jsonData["redirect-url"] = o.LeafServiceWebproxyURLFilteringSquIDguardRuleRedirectURL.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardRuleSourceGroup.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardRuleSourceGroup.IsUnknown() {
-		jsonData["source-group"] = o.LeafServiceWebproxyURLFilteringSquIDguardRuleSourceGroup.ValueString()
-	}
-
-	if !o.LeafServiceWebproxyURLFilteringSquIDguardRuleTimePeriod.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardRuleTimePeriod.IsUnknown() {
-		jsonData["time-period"] = o.LeafServiceWebproxyURLFilteringSquIDguardRuleTimePeriod.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceWebproxyURLFilteringSquIDguardRule) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["allow-category"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleAllowCategory = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleAllowCategory = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["allow-ipaddr-url"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleAllowIPaddrURL = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleAllowIPaddrURL = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["block-category"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleBlockCategory = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleBlockCategory = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["default-action"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleDefaultAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleDefaultAction = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["enable-safe-search"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleEnableSafeSearch = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleEnableSafeSearch = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["local-block-keyword"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlockKeyword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlockKeyword = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["local-block-url"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlockURL = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlockURL = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["local-block"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlock = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalBlock = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["local-ok-url"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalOkURL = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalOkURL = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["local-ok"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalOk = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleLocalOk = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["log"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleLog = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleLog = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["redirect-url"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleRedirectURL = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleRedirectURL = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["source-group"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleSourceGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleSourceGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["time-period"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleTimePeriod = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardRuleTimePeriod = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceWebproxyURLFilteringSquIDguardRule) UnmarshalJSON(_ []byte) error {
 	return nil
 }

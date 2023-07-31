@@ -2,19 +2,16 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpParametersBestpath describes the resource data model.
 type VrfNameProtocolsBgpParametersBestpath struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpParametersBestpathBandwIDth       types.String `tfsdk:"bandwidth" vyos:"bandwidth,omitempty"`
-	LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID types.String `tfsdk:"compare_routerid" vyos:"compare-routerid,omitempty"`
+	LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID types.Bool   `tfsdk:"compare_routerid" vyos:"compare-routerid,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -42,11 +39,13 @@ func (o VrfNameProtocolsBgpParametersBestpath) ResourceSchemaAttributes() map[st
 `,
 		},
 
-		"compare_routerid": schema.StringAttribute{
+		"compare_routerid": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Compare the router-id for identical EBGP paths
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -79,132 +78,10 @@ func (o VrfNameProtocolsBgpParametersBestpath) ResourceSchemaAttributes() map[st
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpParametersBestpath) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpParametersBestpathBandwIDth.IsNull() && !o.LeafVrfNameProtocolsBgpParametersBestpathBandwIDth.IsUnknown() {
-		jsonData["bandwidth"] = o.LeafVrfNameProtocolsBgpParametersBestpathBandwIDth.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID.IsNull() && !o.LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID.IsUnknown() {
-		jsonData["compare-routerid"] = o.LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParametersBestpathAsPath).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParametersBestpathAsPath)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["as-path"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParametersBestpathMed).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParametersBestpathMed)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["med"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParametersBestpathPeerType).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParametersBestpathPeerType)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["peer-type"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpParametersBestpath) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["bandwidth"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersBestpathBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersBestpathBandwIDth = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["compare-routerid"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["as-path"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpParametersBestpathAsPath = &VrfNameProtocolsBgpParametersBestpathAsPath{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParametersBestpathAsPath)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["med"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpParametersBestpathMed = &VrfNameProtocolsBgpParametersBestpathMed{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParametersBestpathMed)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["peer-type"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpParametersBestpathPeerType = &VrfNameProtocolsBgpParametersBestpathPeerType{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParametersBestpathPeerType)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VrfNameProtocolsBgpParametersBestpath) UnmarshalJSON(_ []byte) error {
 	return nil
 }

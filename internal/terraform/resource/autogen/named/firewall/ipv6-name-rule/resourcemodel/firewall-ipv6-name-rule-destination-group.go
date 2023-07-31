@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallIPvsixNameRuleDestinationGroup describes the resource data model.
@@ -70,81 +67,10 @@ func (o FirewallIPvsixNameRuleDestinationGroup) ResourceSchemaAttributes() map[s
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallIPvsixNameRuleDestinationGroup) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallIPvsixNameRuleDestinationGroupAddressGroup.IsNull() && !o.LeafFirewallIPvsixNameRuleDestinationGroupAddressGroup.IsUnknown() {
-		jsonData["address-group"] = o.LeafFirewallIPvsixNameRuleDestinationGroupAddressGroup.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleDestinationGroupDomainGroup.IsNull() && !o.LeafFirewallIPvsixNameRuleDestinationGroupDomainGroup.IsUnknown() {
-		jsonData["domain-group"] = o.LeafFirewallIPvsixNameRuleDestinationGroupDomainGroup.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleDestinationGroupMacGroup.IsNull() && !o.LeafFirewallIPvsixNameRuleDestinationGroupMacGroup.IsUnknown() {
-		jsonData["mac-group"] = o.LeafFirewallIPvsixNameRuleDestinationGroupMacGroup.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleDestinationGroupNetworkGroup.IsNull() && !o.LeafFirewallIPvsixNameRuleDestinationGroupNetworkGroup.IsUnknown() {
-		jsonData["network-group"] = o.LeafFirewallIPvsixNameRuleDestinationGroupNetworkGroup.ValueString()
-	}
-
-	if !o.LeafFirewallIPvsixNameRuleDestinationGroupPortGroup.IsNull() && !o.LeafFirewallIPvsixNameRuleDestinationGroupPortGroup.IsUnknown() {
-		jsonData["port-group"] = o.LeafFirewallIPvsixNameRuleDestinationGroupPortGroup.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallIPvsixNameRuleDestinationGroup) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["address-group"]; ok {
-		o.LeafFirewallIPvsixNameRuleDestinationGroupAddressGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleDestinationGroupAddressGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["domain-group"]; ok {
-		o.LeafFirewallIPvsixNameRuleDestinationGroupDomainGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleDestinationGroupDomainGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["mac-group"]; ok {
-		o.LeafFirewallIPvsixNameRuleDestinationGroupMacGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleDestinationGroupMacGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["network-group"]; ok {
-		o.LeafFirewallIPvsixNameRuleDestinationGroupNetworkGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleDestinationGroupNetworkGroup = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["port-group"]; ok {
-		o.LeafFirewallIPvsixNameRuleDestinationGroupPortGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleDestinationGroupPortGroup = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *FirewallIPvsixNameRuleDestinationGroup) UnmarshalJSON(_ []byte) error {
 	return nil
 }

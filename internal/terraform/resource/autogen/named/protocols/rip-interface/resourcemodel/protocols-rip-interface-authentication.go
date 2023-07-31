@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsRIPInterfaceAuthentication describes the resource data model.
@@ -43,41 +40,10 @@ func (o ProtocolsRIPInterfaceAuthentication) ResourceSchemaAttributes() map[stri
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsRIPInterfaceAuthentication) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsRIPInterfaceAuthenticationPlaintextPassword.IsNull() && !o.LeafProtocolsRIPInterfaceAuthenticationPlaintextPassword.IsUnknown() {
-		jsonData["plaintext-password"] = o.LeafProtocolsRIPInterfaceAuthenticationPlaintextPassword.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsRIPInterfaceAuthentication) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["plaintext-password"]; ok {
-		o.LeafProtocolsRIPInterfaceAuthenticationPlaintextPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsRIPInterfaceAuthenticationPlaintextPassword = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsRIPInterfaceAuthentication) UnmarshalJSON(_ []byte) error {
 	return nil
 }

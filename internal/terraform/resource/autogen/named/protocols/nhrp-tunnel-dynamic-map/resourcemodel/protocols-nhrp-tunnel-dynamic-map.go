@@ -2,18 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsNhrpTunnelDynamicMap describes the resource data model.
 type ProtocolsNhrpTunnelDynamicMap struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDProtocolsNhrpTunnel any `tfsdk:"tunnel" vyos:"tunnel,parent-id"`
+	ParentIDProtocolsNhrpTunnel types.String `tfsdk:"tunnel" vyos:"tunnel_identifier,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsNhrpTunnelDynamicMapNbmaDomainName types.String `tfsdk:"nbma_domain_name" vyos:"nbma-domain-name,omitempty"`
@@ -27,8 +24,12 @@ type ProtocolsNhrpTunnelDynamicMap struct {
 func (o *ProtocolsNhrpTunnelDynamicMap) GetVyosPath() []string {
 	return []string{
 		"protocols",
+
 		"nhrp",
+
 		"tunnel",
+		o.ParentIDProtocolsNhrpTunnel.ValueString(),
+
 		"dynamic-map",
 		o.ID.ValueString(),
 	}
@@ -44,6 +45,17 @@ func (o ProtocolsNhrpTunnelDynamicMap) ResourceSchemaAttributes() map[string]sch
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4net  |  Set the IP address and prefix length  |
+
+`,
+		},
+
+		"tunnel_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Tunnel for NHRP
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  tunN  |  NHRP tunnel name  |
 
 `,
 		},
@@ -68,41 +80,10 @@ func (o ProtocolsNhrpTunnelDynamicMap) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ProtocolsNhrpTunnelDynamicMap) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafProtocolsNhrpTunnelDynamicMapNbmaDomainName.IsNull() && !o.LeafProtocolsNhrpTunnelDynamicMapNbmaDomainName.IsUnknown() {
-		jsonData["nbma-domain-name"] = o.LeafProtocolsNhrpTunnelDynamicMapNbmaDomainName.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsNhrpTunnelDynamicMap) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["nbma-domain-name"]; ok {
-		o.LeafProtocolsNhrpTunnelDynamicMapNbmaDomainName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsNhrpTunnelDynamicMapNbmaDomainName = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ProtocolsNhrpTunnelDynamicMap) UnmarshalJSON(_ []byte) error {
 	return nil
 }

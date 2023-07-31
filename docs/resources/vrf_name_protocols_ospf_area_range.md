@@ -57,20 +57,31 @@ Summarize routes matching a prefix (border routers only)
 
 ### Required
 
+- `area_identifier` (String) OSPF area settings
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32  |  OSPF area number in decimal notation  |
+    |  ipv4  |  OSPF area number in dotted decimal notation  |
 - `identifier` (String) Summarize routes matching a prefix (border routers only)
 
     |  Format  |  Description  |
     |----------|---------------|
     |  ipv4net  |  Area range prefix  |
+- `name_identifier` (String) Virtual Routing and Forwarding instance
+
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 ### Optional
 
-- `cost` (String) Metric for this range
+- `cost` (Number) Metric for this range
 
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:0-16777215  |  Metric for this range  |
-- `not_advertise` (String) Do not advertise this range
+- `not_advertise` (Boolean) Do not advertise this range
 - `substitute` (String) Advertise area range as another prefix
 
     |  Format  |  Description  |

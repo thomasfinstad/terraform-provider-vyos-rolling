@@ -2,11 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceIPoeServerClientIPvsixPoolPrefix describes the resource data model.
@@ -14,7 +11,7 @@ type ServiceIPoeServerClientIPvsixPoolPrefix struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafServiceIPoeServerClientIPvsixPoolPrefixMask types.String `tfsdk:"mask" vyos:"mask,omitempty"`
+	LeafServiceIPoeServerClientIPvsixPoolPrefixMask types.Number `tfsdk:"mask" vyos:"mask,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -25,8 +22,11 @@ type ServiceIPoeServerClientIPvsixPoolPrefix struct {
 func (o *ServiceIPoeServerClientIPvsixPoolPrefix) GetVyosPath() []string {
 	return []string{
 		"service",
+
 		"ipoe-server",
+
 		"client-ipv6-pool",
+
 		"prefix",
 		o.ID.ValueString(),
 	}
@@ -48,7 +48,7 @@ func (o ServiceIPoeServerClientIPvsixPoolPrefix) ResourceSchemaAttributes() map[
 
 		// LeafNodes
 
-		"mask": schema.StringAttribute{
+		"mask": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Prefix length used for individual client
 
@@ -69,41 +69,10 @@ func (o ServiceIPoeServerClientIPvsixPoolPrefix) ResourceSchemaAttributes() map[
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ServiceIPoeServerClientIPvsixPoolPrefix) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafServiceIPoeServerClientIPvsixPoolPrefixMask.IsNull() && !o.LeafServiceIPoeServerClientIPvsixPoolPrefixMask.IsUnknown() {
-		jsonData["mask"] = o.LeafServiceIPoeServerClientIPvsixPoolPrefixMask.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceIPoeServerClientIPvsixPoolPrefix) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["mask"]; ok {
-		o.LeafServiceIPoeServerClientIPvsixPoolPrefixMask = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerClientIPvsixPoolPrefixMask = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ServiceIPoeServerClientIPvsixPoolPrefix) UnmarshalJSON(_ []byte) error {
 	return nil
 }

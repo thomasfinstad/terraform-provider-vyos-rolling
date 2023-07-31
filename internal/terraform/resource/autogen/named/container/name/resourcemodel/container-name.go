@@ -2,11 +2,9 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ContainerName describes the resource data model.
@@ -14,17 +12,17 @@ type ContainerName struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafContainerNameAllowHostNetworks types.String `tfsdk:"allow_host_networks" vyos:"allow-host-networks,omitempty"`
-	LeafContainerNameCapAdd            types.String `tfsdk:"cap_add" vyos:"cap-add,omitempty"`
+	LeafContainerNameAllowHostNetworks types.Bool   `tfsdk:"allow_host_networks" vyos:"allow-host-networks,omitempty"`
+	LeafContainerNameCapAdd            types.List   `tfsdk:"cap_add" vyos:"cap-add,omitempty"`
 	LeafContainerNameDescrIPtion       types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafContainerNameDisable           types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafContainerNameDisable           types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafContainerNameEntrypoint        types.String `tfsdk:"entrypoint" vyos:"entrypoint,omitempty"`
 	LeafContainerNameHostName          types.String `tfsdk:"host_name" vyos:"host-name,omitempty"`
 	LeafContainerNameImage             types.String `tfsdk:"image" vyos:"image,omitempty"`
 	LeafContainerNameCommand           types.String `tfsdk:"command" vyos:"command,omitempty"`
 	LeafContainerNameArguments         types.String `tfsdk:"arguments" vyos:"arguments,omitempty"`
-	LeafContainerNameMemory            types.String `tfsdk:"memory" vyos:"memory,omitempty"`
-	LeafContainerNameSharedMemory      types.String `tfsdk:"shared_memory" vyos:"shared-memory,omitempty"`
+	LeafContainerNameMemory            types.Number `tfsdk:"memory" vyos:"memory,omitempty"`
+	LeafContainerNameSharedMemory      types.Number `tfsdk:"shared_memory" vyos:"shared-memory,omitempty"`
 	LeafContainerNameRestart           types.String `tfsdk:"restart" vyos:"restart,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -41,6 +39,7 @@ type ContainerName struct {
 func (o *ContainerName) GetVyosPath() []string {
 	return []string{
 		"container",
+
 		"name",
 		o.ID.ValueString(),
 	}
@@ -58,15 +57,18 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 		// LeafNodes
 
-		"allow_host_networks": schema.StringAttribute{
+		"allow_host_networks": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow host networks in container
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"cap_add": schema.StringAttribute{
-			Optional: true,
+		"cap_add": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Container capabilities/permissions
 
     |  Format  |  Description  |
@@ -92,11 +94,13 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"entrypoint": schema.StringAttribute{
@@ -134,7 +138,7 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 
-		"memory": schema.StringAttribute{
+		"memory": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Memory (RAM) available to this container
 
@@ -149,7 +153,7 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Computed: true,
 		},
 
-		"shared_memory": schema.StringAttribute{
+		"shared_memory": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Shared memory available to this container
 
@@ -187,151 +191,10 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *ContainerName) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafContainerNameAllowHostNetworks.IsNull() && !o.LeafContainerNameAllowHostNetworks.IsUnknown() {
-		jsonData["allow-host-networks"] = o.LeafContainerNameAllowHostNetworks.ValueString()
-	}
-
-	if !o.LeafContainerNameCapAdd.IsNull() && !o.LeafContainerNameCapAdd.IsUnknown() {
-		jsonData["cap-add"] = o.LeafContainerNameCapAdd.ValueString()
-	}
-
-	if !o.LeafContainerNameDescrIPtion.IsNull() && !o.LeafContainerNameDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafContainerNameDescrIPtion.ValueString()
-	}
-
-	if !o.LeafContainerNameDisable.IsNull() && !o.LeafContainerNameDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafContainerNameDisable.ValueString()
-	}
-
-	if !o.LeafContainerNameEntrypoint.IsNull() && !o.LeafContainerNameEntrypoint.IsUnknown() {
-		jsonData["entrypoint"] = o.LeafContainerNameEntrypoint.ValueString()
-	}
-
-	if !o.LeafContainerNameHostName.IsNull() && !o.LeafContainerNameHostName.IsUnknown() {
-		jsonData["host-name"] = o.LeafContainerNameHostName.ValueString()
-	}
-
-	if !o.LeafContainerNameImage.IsNull() && !o.LeafContainerNameImage.IsUnknown() {
-		jsonData["image"] = o.LeafContainerNameImage.ValueString()
-	}
-
-	if !o.LeafContainerNameCommand.IsNull() && !o.LeafContainerNameCommand.IsUnknown() {
-		jsonData["command"] = o.LeafContainerNameCommand.ValueString()
-	}
-
-	if !o.LeafContainerNameArguments.IsNull() && !o.LeafContainerNameArguments.IsUnknown() {
-		jsonData["arguments"] = o.LeafContainerNameArguments.ValueString()
-	}
-
-	if !o.LeafContainerNameMemory.IsNull() && !o.LeafContainerNameMemory.IsUnknown() {
-		jsonData["memory"] = o.LeafContainerNameMemory.ValueString()
-	}
-
-	if !o.LeafContainerNameSharedMemory.IsNull() && !o.LeafContainerNameSharedMemory.IsUnknown() {
-		jsonData["shared-memory"] = o.LeafContainerNameSharedMemory.ValueString()
-	}
-
-	if !o.LeafContainerNameRestart.IsNull() && !o.LeafContainerNameRestart.IsUnknown() {
-		jsonData["restart"] = o.LeafContainerNameRestart.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *ContainerName) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["allow-host-networks"]; ok {
-		o.LeafContainerNameAllowHostNetworks = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameAllowHostNetworks = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["cap-add"]; ok {
-		o.LeafContainerNameCapAdd = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameCapAdd = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafContainerNameDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafContainerNameDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["entrypoint"]; ok {
-		o.LeafContainerNameEntrypoint = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameEntrypoint = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["host-name"]; ok {
-		o.LeafContainerNameHostName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameHostName = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["image"]; ok {
-		o.LeafContainerNameImage = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameImage = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["command"]; ok {
-		o.LeafContainerNameCommand = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameCommand = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["arguments"]; ok {
-		o.LeafContainerNameArguments = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameArguments = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["memory"]; ok {
-		o.LeafContainerNameMemory = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameMemory = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["shared-memory"]; ok {
-		o.LeafContainerNameSharedMemory = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameSharedMemory = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["restart"]; ok {
-		o.LeafContainerNameRestart = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameRestart = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *ContainerName) UnmarshalJSON(_ []byte) error {
 	return nil
 }

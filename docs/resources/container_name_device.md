@@ -24,6 +24,7 @@ Add a host device to the container
 ### Required
 
 - `identifier` (String) Add a host device to the container
+- `name_identifier` (String) Container name
 
 ### Optional
 

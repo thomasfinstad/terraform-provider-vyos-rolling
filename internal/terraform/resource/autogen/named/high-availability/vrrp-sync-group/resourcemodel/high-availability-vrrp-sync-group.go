@@ -2,12 +2,8 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // HighAvailabilityVrrpSyncGroup describes the resource data model.
@@ -15,7 +11,7 @@ type HighAvailabilityVrrpSyncGroup struct {
 	ID types.String `tfsdk:"identifier" vyos:",self-id"`
 
 	// LeafNodes
-	LeafHighAvailabilityVrrpSyncGroupMember types.String `tfsdk:"member" vyos:"member,omitempty"`
+	LeafHighAvailabilityVrrpSyncGroupMember types.List `tfsdk:"member" vyos:"member,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -27,7 +23,9 @@ type HighAvailabilityVrrpSyncGroup struct {
 func (o *HighAvailabilityVrrpSyncGroup) GetVyosPath() []string {
 	return []string{
 		"high-availability",
+
 		"vrrp",
+
 		"sync-group",
 		o.ID.ValueString(),
 	}
@@ -45,8 +43,9 @@ func (o HighAvailabilityVrrpSyncGroup) ResourceSchemaAttributes() map[string]sch
 
 		// LeafNodes
 
-		"member": schema.StringAttribute{
-			Optional: true,
+		"member": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Sync group member
 
     |  Format  |  Description  |
@@ -70,68 +69,10 @@ func (o HighAvailabilityVrrpSyncGroup) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *HighAvailabilityVrrpSyncGroup) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafHighAvailabilityVrrpSyncGroupMember.IsNull() && !o.LeafHighAvailabilityVrrpSyncGroupMember.IsUnknown() {
-		jsonData["member"] = o.LeafHighAvailabilityVrrpSyncGroupMember.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeHighAvailabilityVrrpSyncGroupTransitionScrIPt).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeHighAvailabilityVrrpSyncGroupTransitionScrIPt)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["transition-script"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *HighAvailabilityVrrpSyncGroup) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["member"]; ok {
-		o.LeafHighAvailabilityVrrpSyncGroupMember = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpSyncGroupMember = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["transition-script"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeHighAvailabilityVrrpSyncGroupTransitionScrIPt = &HighAvailabilityVrrpSyncGroupTransitionScrIPt{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeHighAvailabilityVrrpSyncGroupTransitionScrIPt)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *HighAvailabilityVrrpSyncGroup) UnmarshalJSON(_ []byte) error {
 	return nil
 }

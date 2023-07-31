@@ -2,33 +2,30 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpParameters describes the resource data model.
 type VrfNameProtocolsBgpParameters struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpParametersAlwaysCompareMed                  types.String `tfsdk:"always_compare_med" vyos:"always-compare-med,omitempty"`
+	LeafVrfNameProtocolsBgpParametersAlwaysCompareMed                  types.Bool   `tfsdk:"always_compare_med" vyos:"always-compare-med,omitempty"`
 	LeafVrfNameProtocolsBgpParametersClusterID                         types.String `tfsdk:"cluster_id" vyos:"cluster-id,omitempty"`
-	LeafVrfNameProtocolsBgpParametersDeterministicMed                  types.String `tfsdk:"deterministic_med" vyos:"deterministic-med,omitempty"`
-	LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy                types.String `tfsdk:"ebgp_requires_policy" vyos:"ebgp-requires-policy,omitempty"`
-	LeafVrfNameProtocolsBgpParametersFastConvergence                   types.String `tfsdk:"fast_convergence" vyos:"fast-convergence,omitempty"`
-	LeafVrfNameProtocolsBgpParametersGracefulShutdown                  types.String `tfsdk:"graceful_shutdown" vyos:"graceful-shutdown,omitempty"`
-	LeafVrfNameProtocolsBgpParametersLogNeighborChanges                types.String `tfsdk:"log_neighbor_changes" vyos:"log-neighbor-changes,omitempty"`
-	LeafVrfNameProtocolsBgpParametersMinimumHoldtime                   types.String `tfsdk:"minimum_holdtime" vyos:"minimum-holdtime,omitempty"`
-	LeafVrfNameProtocolsBgpParametersNetworkImportCheck                types.String `tfsdk:"network_import_check" vyos:"network-import-check,omitempty"`
-	LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy types.String `tfsdk:"route_reflector_allow_outbound_policy" vyos:"route-reflector-allow-outbound-policy,omitempty"`
-	LeafVrfNameProtocolsBgpParametersNoClientToClientReflection        types.String `tfsdk:"no_client_to_client_reflection" vyos:"no-client-to-client-reflection,omitempty"`
-	LeafVrfNameProtocolsBgpParametersNoFastExternalFailover            types.String `tfsdk:"no_fast_external_failover" vyos:"no-fast-external-failover,omitempty"`
-	LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates              types.String `tfsdk:"no_suppress_duplicates" vyos:"no-suppress-duplicates,omitempty"`
-	LeafVrfNameProtocolsBgpParametersRejectAsSets                      types.String `tfsdk:"reject_as_sets" vyos:"reject-as-sets,omitempty"`
-	LeafVrfNameProtocolsBgpParametersShutdown                          types.String `tfsdk:"shutdown" vyos:"shutdown,omitempty"`
-	LeafVrfNameProtocolsBgpParametersSuppressFibPending                types.String `tfsdk:"suppress_fib_pending" vyos:"suppress-fib-pending,omitempty"`
+	LeafVrfNameProtocolsBgpParametersDeterministicMed                  types.Bool   `tfsdk:"deterministic_med" vyos:"deterministic-med,omitempty"`
+	LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy                types.Bool   `tfsdk:"ebgp_requires_policy" vyos:"ebgp-requires-policy,omitempty"`
+	LeafVrfNameProtocolsBgpParametersFastConvergence                   types.Bool   `tfsdk:"fast_convergence" vyos:"fast-convergence,omitempty"`
+	LeafVrfNameProtocolsBgpParametersGracefulShutdown                  types.Bool   `tfsdk:"graceful_shutdown" vyos:"graceful-shutdown,omitempty"`
+	LeafVrfNameProtocolsBgpParametersLogNeighborChanges                types.Bool   `tfsdk:"log_neighbor_changes" vyos:"log-neighbor-changes,omitempty"`
+	LeafVrfNameProtocolsBgpParametersMinimumHoldtime                   types.Number `tfsdk:"minimum_holdtime" vyos:"minimum-holdtime,omitempty"`
+	LeafVrfNameProtocolsBgpParametersNetworkImportCheck                types.Bool   `tfsdk:"network_import_check" vyos:"network-import-check,omitempty"`
+	LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy types.Bool   `tfsdk:"route_reflector_allow_outbound_policy" vyos:"route-reflector-allow-outbound-policy,omitempty"`
+	LeafVrfNameProtocolsBgpParametersNoClientToClientReflection        types.Bool   `tfsdk:"no_client_to_client_reflection" vyos:"no-client-to-client-reflection,omitempty"`
+	LeafVrfNameProtocolsBgpParametersNoFastExternalFailover            types.Bool   `tfsdk:"no_fast_external_failover" vyos:"no-fast-external-failover,omitempty"`
+	LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates              types.Bool   `tfsdk:"no_suppress_duplicates" vyos:"no-suppress-duplicates,omitempty"`
+	LeafVrfNameProtocolsBgpParametersRejectAsSets                      types.Bool   `tfsdk:"reject_as_sets" vyos:"reject-as-sets,omitempty"`
+	LeafVrfNameProtocolsBgpParametersShutdown                          types.Bool   `tfsdk:"shutdown" vyos:"shutdown,omitempty"`
+	LeafVrfNameProtocolsBgpParametersSuppressFibPending                types.Bool   `tfsdk:"suppress_fib_pending" vyos:"suppress-fib-pending,omitempty"`
 	LeafVrfNameProtocolsBgpParametersRouterID                          types.String `tfsdk:"router_id" vyos:"router-id,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -48,11 +45,13 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"always_compare_med": schema.StringAttribute{
+		"always_compare_med": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Always compare MEDs from different neighbors
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"cluster_id": schema.StringAttribute{
@@ -66,42 +65,52 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 
-		"deterministic_med": schema.StringAttribute{
+		"deterministic_med": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Compare MEDs between different peers in the same AS
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"ebgp_requires_policy": schema.StringAttribute{
+		"ebgp_requires_policy": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Require in and out policy for eBGP peers (RFC8212)
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"fast_convergence": schema.StringAttribute{
+		"fast_convergence": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Teardown sessions immediately whenever peer becomes unreachable
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"graceful_shutdown": schema.StringAttribute{
+		"graceful_shutdown": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Graceful shutdown
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"log_neighbor_changes": schema.StringAttribute{
+		"log_neighbor_changes": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Log neighbor up/down changes and reset reason
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"minimum_holdtime": schema.StringAttribute{
+		"minimum_holdtime": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP minimum holdtime
 
@@ -112,60 +121,76 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 
-		"network_import_check": schema.StringAttribute{
+		"network_import_check": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable IGP route check for network statements
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"route_reflector_allow_outbound_policy": schema.StringAttribute{
+		"route_reflector_allow_outbound_policy": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Route reflector client allow policy outbound
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"no_client_to_client_reflection": schema.StringAttribute{
+		"no_client_to_client_reflection": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable client to client route reflection
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"no_fast_external_failover": schema.StringAttribute{
+		"no_fast_external_failover": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable immediate session reset on peer link down event
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"no_suppress_duplicates": schema.StringAttribute{
+		"no_suppress_duplicates": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable suppress duplicate updates if the route actually not changed
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"reject_as_sets": schema.StringAttribute{
+		"reject_as_sets": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Reject routes with AS_SET or AS_CONFED_SET flag
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"shutdown": schema.StringAttribute{
+		"shutdown": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administrative shutdown of the BGP instance
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
-		"suppress_fib_pending": schema.StringAttribute{
+		"suppress_fib_pending": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise only routes that are programmed in kernel to peers
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"router_id": schema.StringAttribute{
@@ -241,390 +266,10 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *VrfNameProtocolsBgpParameters) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafVrfNameProtocolsBgpParametersAlwaysCompareMed.IsNull() && !o.LeafVrfNameProtocolsBgpParametersAlwaysCompareMed.IsUnknown() {
-		jsonData["always-compare-med"] = o.LeafVrfNameProtocolsBgpParametersAlwaysCompareMed.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersClusterID.IsNull() && !o.LeafVrfNameProtocolsBgpParametersClusterID.IsUnknown() {
-		jsonData["cluster-id"] = o.LeafVrfNameProtocolsBgpParametersClusterID.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersDeterministicMed.IsNull() && !o.LeafVrfNameProtocolsBgpParametersDeterministicMed.IsUnknown() {
-		jsonData["deterministic-med"] = o.LeafVrfNameProtocolsBgpParametersDeterministicMed.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy.IsNull() && !o.LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy.IsUnknown() {
-		jsonData["ebgp-requires-policy"] = o.LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersFastConvergence.IsNull() && !o.LeafVrfNameProtocolsBgpParametersFastConvergence.IsUnknown() {
-		jsonData["fast-convergence"] = o.LeafVrfNameProtocolsBgpParametersFastConvergence.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersGracefulShutdown.IsNull() && !o.LeafVrfNameProtocolsBgpParametersGracefulShutdown.IsUnknown() {
-		jsonData["graceful-shutdown"] = o.LeafVrfNameProtocolsBgpParametersGracefulShutdown.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersLogNeighborChanges.IsNull() && !o.LeafVrfNameProtocolsBgpParametersLogNeighborChanges.IsUnknown() {
-		jsonData["log-neighbor-changes"] = o.LeafVrfNameProtocolsBgpParametersLogNeighborChanges.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersMinimumHoldtime.IsNull() && !o.LeafVrfNameProtocolsBgpParametersMinimumHoldtime.IsUnknown() {
-		jsonData["minimum-holdtime"] = o.LeafVrfNameProtocolsBgpParametersMinimumHoldtime.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersNetworkImportCheck.IsNull() && !o.LeafVrfNameProtocolsBgpParametersNetworkImportCheck.IsUnknown() {
-		jsonData["network-import-check"] = o.LeafVrfNameProtocolsBgpParametersNetworkImportCheck.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy.IsNull() && !o.LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy.IsUnknown() {
-		jsonData["route-reflector-allow-outbound-policy"] = o.LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersNoClientToClientReflection.IsNull() && !o.LeafVrfNameProtocolsBgpParametersNoClientToClientReflection.IsUnknown() {
-		jsonData["no-client-to-client-reflection"] = o.LeafVrfNameProtocolsBgpParametersNoClientToClientReflection.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersNoFastExternalFailover.IsNull() && !o.LeafVrfNameProtocolsBgpParametersNoFastExternalFailover.IsUnknown() {
-		jsonData["no-fast-external-failover"] = o.LeafVrfNameProtocolsBgpParametersNoFastExternalFailover.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates.IsNull() && !o.LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates.IsUnknown() {
-		jsonData["no-suppress-duplicates"] = o.LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersRejectAsSets.IsNull() && !o.LeafVrfNameProtocolsBgpParametersRejectAsSets.IsUnknown() {
-		jsonData["reject-as-sets"] = o.LeafVrfNameProtocolsBgpParametersRejectAsSets.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersShutdown.IsNull() && !o.LeafVrfNameProtocolsBgpParametersShutdown.IsUnknown() {
-		jsonData["shutdown"] = o.LeafVrfNameProtocolsBgpParametersShutdown.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersSuppressFibPending.IsNull() && !o.LeafVrfNameProtocolsBgpParametersSuppressFibPending.IsUnknown() {
-		jsonData["suppress-fib-pending"] = o.LeafVrfNameProtocolsBgpParametersSuppressFibPending.ValueString()
-	}
-
-	if !o.LeafVrfNameProtocolsBgpParametersRouterID.IsNull() && !o.LeafVrfNameProtocolsBgpParametersRouterID.IsUnknown() {
-		jsonData["router-id"] = o.LeafVrfNameProtocolsBgpParametersRouterID.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParametersBestpath).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParametersBestpath)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["bestpath"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParametersConfederation).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParametersConfederation)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["confederation"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParametersConditionalAdvertisement).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParametersConditionalAdvertisement)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["conditional-advertisement"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParametersDampening).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParametersDampening)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["dampening"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParametersDefault).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParametersDefault)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["default"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParametersDistance).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParametersDistance)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["distance"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParametersGracefulRestart).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParametersGracefulRestart)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["graceful-restart"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpParameters) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["always-compare-med"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersAlwaysCompareMed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersAlwaysCompareMed = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["cluster-id"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersClusterID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersClusterID = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["deterministic-med"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersDeterministicMed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersDeterministicMed = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["ebgp-requires-policy"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["fast-convergence"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersFastConvergence = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersFastConvergence = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["graceful-shutdown"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersGracefulShutdown = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersGracefulShutdown = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["log-neighbor-changes"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersLogNeighborChanges = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersLogNeighborChanges = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["minimum-holdtime"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersMinimumHoldtime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersMinimumHoldtime = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["network-import-check"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersNetworkImportCheck = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersNetworkImportCheck = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["route-reflector-allow-outbound-policy"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["no-client-to-client-reflection"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersNoClientToClientReflection = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersNoClientToClientReflection = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["no-fast-external-failover"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersNoFastExternalFailover = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersNoFastExternalFailover = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["no-suppress-duplicates"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["reject-as-sets"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersRejectAsSets = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersRejectAsSets = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["shutdown"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersShutdown = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersShutdown = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["suppress-fib-pending"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersSuppressFibPending = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersSuppressFibPending = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["router-id"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersRouterID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersRouterID = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["bestpath"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpParametersBestpath = &VrfNameProtocolsBgpParametersBestpath{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParametersBestpath)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["confederation"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpParametersConfederation = &VrfNameProtocolsBgpParametersConfederation{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParametersConfederation)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["conditional-advertisement"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpParametersConditionalAdvertisement = &VrfNameProtocolsBgpParametersConditionalAdvertisement{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParametersConditionalAdvertisement)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["dampening"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpParametersDampening = &VrfNameProtocolsBgpParametersDampening{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParametersDampening)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["default"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpParametersDefault = &VrfNameProtocolsBgpParametersDefault{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParametersDefault)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["distance"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpParametersDistance = &VrfNameProtocolsBgpParametersDistance{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParametersDistance)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["graceful-restart"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeVrfNameProtocolsBgpParametersGracefulRestart = &VrfNameProtocolsBgpParametersGracefulRestart{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParametersGracefulRestart)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *VrfNameProtocolsBgpParameters) UnmarshalJSON(_ []byte) error {
 	return nil
 }

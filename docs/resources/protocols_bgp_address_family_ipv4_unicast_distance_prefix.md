@@ -44,7 +44,7 @@ Administrative distance for a specific BGP prefix
 
 ### Optional
 
-- `distance` (String) Administrative distance for prefix
+- `distance` (Number) Administrative distance for prefix
 
     |  Format  |  Description  |
     |----------|---------------|

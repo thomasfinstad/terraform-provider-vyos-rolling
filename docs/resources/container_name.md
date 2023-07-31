@@ -24,9 +24,9 @@ Container name
 
 ### Optional
 
-- `allow_host_networks` (String) Allow host networks in container
+- `allow_host_networks` (Boolean) Allow host networks in container
 - `arguments` (String) The command's arguments for this container
-- `cap_add` (String) Container capabilities/permissions
+- `cap_add` (List of String) Container capabilities/permissions
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -42,11 +42,11 @@ Container name
     |  Format  |  Description  |
     |----------|---------------|
     |  txt  |  Description  |
-- `disable` (String) Disable instance
+- `disable` (Boolean) Disable instance
 - `entrypoint` (String) Override the default ENTRYPOINT from the image
 - `host_name` (String) Container host name
 - `image` (String) Image name in the hub-registry
-- `memory` (String) Memory (RAM) available to this container
+- `memory` (Number) Memory (RAM) available to this container
 
     |  Format  |  Description  |
     |----------|---------------|
@@ -59,7 +59,7 @@ Container name
     |  no  |  Do not restart containers on exit  |
     |  on-failure  |  Restart containers when they exit with a non-zero exit code, retrying indefinitely  |
     |  always  |  Restart containers when they exit, regardless of status, retrying indefinitely  |
-- `shared_memory` (String) Shared memory available to this container
+- `shared_memory` (Number) Shared memory available to this container
 
     |  Format  |  Description  |
     |----------|---------------|

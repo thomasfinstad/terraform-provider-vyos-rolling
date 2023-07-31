@@ -2,17 +2,15 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemSyslogHostFormat describes the resource data model.
 type SystemSyslogHostFormat struct {
 	// LeafNodes
-	LeafSystemSyslogHostFormatOctetCounted types.String `tfsdk:"octet_counted" vyos:"octet-counted,omitempty"`
+	LeafSystemSyslogHostFormatOctetCounted types.Bool `tfsdk:"octet_counted" vyos:"octet-counted,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -24,11 +22,13 @@ func (o SystemSyslogHostFormat) ResourceSchemaAttributes() map[string]schema.Att
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"octet_counted": schema.StringAttribute{
+		"octet_counted": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Allows for the transmission of all characters inside a syslog message
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
@@ -38,41 +38,10 @@ func (o SystemSyslogHostFormat) ResourceSchemaAttributes() map[string]schema.Att
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *SystemSyslogHostFormat) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafSystemSyslogHostFormatOctetCounted.IsNull() && !o.LeafSystemSyslogHostFormatOctetCounted.IsUnknown() {
-		jsonData["octet-counted"] = o.LeafSystemSyslogHostFormatOctetCounted.ValueString()
-	}
-
-	// Nodes
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemSyslogHostFormat) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["octet-counted"]; ok {
-		o.LeafSystemSyslogHostFormatOctetCounted = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemSyslogHostFormatOctetCounted = basetypes.NewStringNull()
-	}
-
-	// Nodes
-
+func (o *SystemSyslogHostFormat) UnmarshalJSON(_ []byte) error {
 	return nil
 }

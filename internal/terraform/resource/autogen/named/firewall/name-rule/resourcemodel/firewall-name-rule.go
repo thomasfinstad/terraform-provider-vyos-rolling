@@ -2,36 +2,33 @@
 package resourcemodel
 
 import (
-	"encoding/json"
-	"reflect"
-
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallNameRule describes the resource data model.
 type FirewallNameRule struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
 
-	ParentIDFirewallName any `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDFirewallName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
 
 	// LeafNodes
 	LeafFirewallNameRuleAction              types.String `tfsdk:"action" vyos:"action,omitempty"`
 	LeafFirewallNameRuleDescrIPtion         types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafFirewallNameRuleDisable             types.String `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafFirewallNameRuleDisable             types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafFirewallNameRuleLog                 types.String `tfsdk:"log" vyos:"log,omitempty"`
 	LeafFirewallNameRuleLogLevel            types.String `tfsdk:"log_level" vyos:"log-level,omitempty"`
 	LeafFirewallNameRuleProtocol            types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
-	LeafFirewallNameRuleDscp                types.String `tfsdk:"dscp" vyos:"dscp,omitempty"`
-	LeafFirewallNameRuleDscpExclude         types.String `tfsdk:"dscp_exclude" vyos:"dscp-exclude,omitempty"`
-	LeafFirewallNameRulePacketLength        types.String `tfsdk:"packet_length" vyos:"packet-length,omitempty"`
-	LeafFirewallNameRulePacketLengthExclude types.String `tfsdk:"packet_length_exclude" vyos:"packet-length-exclude,omitempty"`
+	LeafFirewallNameRuleDscp                types.List   `tfsdk:"dscp" vyos:"dscp,omitempty"`
+	LeafFirewallNameRuleDscpExclude         types.List   `tfsdk:"dscp_exclude" vyos:"dscp-exclude,omitempty"`
+	LeafFirewallNameRulePacketLength        types.List   `tfsdk:"packet_length" vyos:"packet-length,omitempty"`
+	LeafFirewallNameRulePacketLengthExclude types.List   `tfsdk:"packet_length_exclude" vyos:"packet-length-exclude,omitempty"`
 	LeafFirewallNameRulePacketType          types.String `tfsdk:"packet_type" vyos:"packet-type,omitempty"`
-	LeafFirewallNameRuleConnectionMark      types.String `tfsdk:"connection_mark" vyos:"connection-mark,omitempty"`
+	LeafFirewallNameRuleConnectionMark      types.List   `tfsdk:"connection_mark" vyos:"connection-mark,omitempty"`
 	LeafFirewallNameRuleJumpTarget          types.String `tfsdk:"jump_target" vyos:"jump-target,omitempty"`
-	LeafFirewallNameRuleQueue               types.String `tfsdk:"queue" vyos:"queue,omitempty"`
-	LeafFirewallNameRuleQueueOptions        types.String `tfsdk:"queue_options" vyos:"queue-options,omitempty"`
+	LeafFirewallNameRuleQueue               types.Number `tfsdk:"queue" vyos:"queue,omitempty"`
+	LeafFirewallNameRuleQueueOptions        types.List   `tfsdk:"queue_options" vyos:"queue-options,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -56,9 +53,12 @@ type FirewallNameRule struct {
 func (o *FirewallNameRule) GetVyosPath() []string {
 	return []string{
 		"firewall",
+
 		"name",
+		o.ParentIDFirewallName.ValueString(),
+
 		"rule",
-		o.ID.ValueString(),
+		o.ID.ValueBigFloat().String(),
 	}
 }
 
@@ -72,6 +72,13 @@ func (o FirewallNameRule) ResourceSchemaAttributes() map[string]schema.Attribute
     |  Format  |  Description  |
     |----------|---------------|
     |  u32:1-999999  |  Number for this Firewall rule  |
+
+`,
+		},
+
+		"name_identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `IPv4 firewall rule-set name
 
 `,
 		},
@@ -105,11 +112,13 @@ func (o FirewallNameRule) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 
-		"disable": schema.StringAttribute{
+		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Option to disable firewall rule
 
 `,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"log": schema.StringAttribute{
@@ -157,8 +166,9 @@ func (o FirewallNameRule) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 
-		"dscp": schema.StringAttribute{
-			Optional: true,
+		"dscp": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `DSCP value
 
     |  Format  |  Description  |
@@ -169,8 +179,9 @@ func (o FirewallNameRule) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 
-		"dscp_exclude": schema.StringAttribute{
-			Optional: true,
+		"dscp_exclude": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `DSCP value not to match
 
     |  Format  |  Description  |
@@ -181,8 +192,9 @@ func (o FirewallNameRule) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 
-		"packet_length": schema.StringAttribute{
-			Optional: true,
+		"packet_length": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Payload size in bytes, including header and data to match
 
     |  Format  |  Description  |
@@ -193,8 +205,9 @@ func (o FirewallNameRule) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 
-		"packet_length_exclude": schema.StringAttribute{
-			Optional: true,
+		"packet_length_exclude": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Payload size in bytes, including header and data not to match
 
     |  Format  |  Description  |
@@ -219,8 +232,9 @@ func (o FirewallNameRule) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 
-		"connection_mark": schema.StringAttribute{
-			Optional: true,
+		"connection_mark": schema.ListAttribute{
+			ElementType: types.NumberType,
+			Optional:    true,
 			MarkdownDescription: `Connection mark
 
     |  Format  |  Description  |
@@ -237,7 +251,7 @@ func (o FirewallNameRule) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 
-		"queue": schema.StringAttribute{
+		"queue": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Queue target to use. Action queue must be defined to use this setting
 
@@ -248,8 +262,9 @@ func (o FirewallNameRule) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 
-		"queue_options": schema.StringAttribute{
-			Optional: true,
+		"queue_options": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Options used for queue target. Action queue must be defined to use this
                     setting
 
@@ -379,559 +394,10 @@ func (o FirewallNameRule) ResourceSchemaAttributes() map[string]schema.Attribute
 
 // MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
 func (o *FirewallNameRule) MarshalJSON() ([]byte, error) {
-	jsonData := make(map[string]interface{})
-
-	// Leafs
-
-	if !o.LeafFirewallNameRuleAction.IsNull() && !o.LeafFirewallNameRuleAction.IsUnknown() {
-		jsonData["action"] = o.LeafFirewallNameRuleAction.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleDescrIPtion.IsNull() && !o.LeafFirewallNameRuleDescrIPtion.IsUnknown() {
-		jsonData["description"] = o.LeafFirewallNameRuleDescrIPtion.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleDisable.IsNull() && !o.LeafFirewallNameRuleDisable.IsUnknown() {
-		jsonData["disable"] = o.LeafFirewallNameRuleDisable.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleLog.IsNull() && !o.LeafFirewallNameRuleLog.IsUnknown() {
-		jsonData["log"] = o.LeafFirewallNameRuleLog.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleLogLevel.IsNull() && !o.LeafFirewallNameRuleLogLevel.IsUnknown() {
-		jsonData["log-level"] = o.LeafFirewallNameRuleLogLevel.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleProtocol.IsNull() && !o.LeafFirewallNameRuleProtocol.IsUnknown() {
-		jsonData["protocol"] = o.LeafFirewallNameRuleProtocol.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleDscp.IsNull() && !o.LeafFirewallNameRuleDscp.IsUnknown() {
-		jsonData["dscp"] = o.LeafFirewallNameRuleDscp.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleDscpExclude.IsNull() && !o.LeafFirewallNameRuleDscpExclude.IsUnknown() {
-		jsonData["dscp-exclude"] = o.LeafFirewallNameRuleDscpExclude.ValueString()
-	}
-
-	if !o.LeafFirewallNameRulePacketLength.IsNull() && !o.LeafFirewallNameRulePacketLength.IsUnknown() {
-		jsonData["packet-length"] = o.LeafFirewallNameRulePacketLength.ValueString()
-	}
-
-	if !o.LeafFirewallNameRulePacketLengthExclude.IsNull() && !o.LeafFirewallNameRulePacketLengthExclude.IsUnknown() {
-		jsonData["packet-length-exclude"] = o.LeafFirewallNameRulePacketLengthExclude.ValueString()
-	}
-
-	if !o.LeafFirewallNameRulePacketType.IsNull() && !o.LeafFirewallNameRulePacketType.IsUnknown() {
-		jsonData["packet-type"] = o.LeafFirewallNameRulePacketType.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleConnectionMark.IsNull() && !o.LeafFirewallNameRuleConnectionMark.IsUnknown() {
-		jsonData["connection-mark"] = o.LeafFirewallNameRuleConnectionMark.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleJumpTarget.IsNull() && !o.LeafFirewallNameRuleJumpTarget.IsUnknown() {
-		jsonData["jump-target"] = o.LeafFirewallNameRuleJumpTarget.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleQueue.IsNull() && !o.LeafFirewallNameRuleQueue.IsUnknown() {
-		jsonData["queue"] = o.LeafFirewallNameRuleQueue.ValueString()
-	}
-
-	if !o.LeafFirewallNameRuleQueueOptions.IsNull() && !o.LeafFirewallNameRuleQueueOptions.IsUnknown() {
-		jsonData["queue-options"] = o.LeafFirewallNameRuleQueueOptions.ValueString()
-	}
-
-	// Nodes
-
-	if !reflect.ValueOf(o.NodeFirewallNameRuleDestination).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleDestination)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["destination"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallNameRuleSource).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleSource)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["source"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallNameRuleFragment).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleFragment)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["fragment"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallNameRuleInboundInterface).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleInboundInterface)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["inbound-interface"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallNameRuleOutboundInterface).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleOutboundInterface)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["outbound-interface"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallNameRuleIPsec).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleIPsec)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ipsec"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallNameRuleLimit).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleLimit)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["limit"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallNameRuleConnectionStatus).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleConnectionStatus)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["connection-status"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallNameRuleRecent).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleRecent)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["recent"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallNameRuleState).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleState)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["state"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallNameRuleTCP).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleTCP)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["tcp"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallNameRuleTime).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleTime)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["time"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallNameRuleIcmp).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleIcmp)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["icmp"] = subData
-	}
-
-	if !reflect.ValueOf(o.NodeFirewallNameRuleTTL).IsZero() {
-		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleTTL)
-		if err != nil {
-			return nil, err
-		}
-
-		subData := make(map[string]interface{})
-		err = json.Unmarshal(subJSONStr, &subData)
-		if err != nil {
-			return nil, err
-		}
-		jsonData["ttl"] = subData
-	}
-
-	// Return compiled data
-	ret, err := json.Marshal(jsonData)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	return nil, nil
 }
 
 // UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallNameRule) UnmarshalJSON(jsonStr []byte) error {
-	jsonData := make(map[string]interface{})
-	err := json.Unmarshal(jsonStr, &jsonData)
-	if err != nil {
-		return err
-	}
-
-	// Leafs
-
-	if value, ok := jsonData["action"]; ok {
-		o.LeafFirewallNameRuleAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleAction = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["description"]; ok {
-		o.LeafFirewallNameRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleDescrIPtion = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["disable"]; ok {
-		o.LeafFirewallNameRuleDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleDisable = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["log"]; ok {
-		o.LeafFirewallNameRuleLog = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleLog = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["log-level"]; ok {
-		o.LeafFirewallNameRuleLogLevel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleLogLevel = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["protocol"]; ok {
-		o.LeafFirewallNameRuleProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleProtocol = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["dscp"]; ok {
-		o.LeafFirewallNameRuleDscp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleDscp = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["dscp-exclude"]; ok {
-		o.LeafFirewallNameRuleDscpExclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleDscpExclude = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["packet-length"]; ok {
-		o.LeafFirewallNameRulePacketLength = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRulePacketLength = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["packet-length-exclude"]; ok {
-		o.LeafFirewallNameRulePacketLengthExclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRulePacketLengthExclude = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["packet-type"]; ok {
-		o.LeafFirewallNameRulePacketType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRulePacketType = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["connection-mark"]; ok {
-		o.LeafFirewallNameRuleConnectionMark = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleConnectionMark = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["jump-target"]; ok {
-		o.LeafFirewallNameRuleJumpTarget = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleJumpTarget = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["queue"]; ok {
-		o.LeafFirewallNameRuleQueue = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleQueue = basetypes.NewStringNull()
-	}
-
-	if value, ok := jsonData["queue-options"]; ok {
-		o.LeafFirewallNameRuleQueueOptions = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleQueueOptions = basetypes.NewStringNull()
-	}
-
-	// Nodes
-	if value, ok := jsonData["destination"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallNameRuleDestination = &FirewallNameRuleDestination{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleDestination)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["source"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallNameRuleSource = &FirewallNameRuleSource{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleSource)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["fragment"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallNameRuleFragment = &FirewallNameRuleFragment{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleFragment)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["inbound-interface"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallNameRuleInboundInterface = &FirewallNameRuleInboundInterface{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleInboundInterface)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["outbound-interface"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallNameRuleOutboundInterface = &FirewallNameRuleOutboundInterface{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleOutboundInterface)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ipsec"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallNameRuleIPsec = &FirewallNameRuleIPsec{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleIPsec)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["limit"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallNameRuleLimit = &FirewallNameRuleLimit{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleLimit)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["connection-status"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallNameRuleConnectionStatus = &FirewallNameRuleConnectionStatus{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleConnectionStatus)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["recent"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallNameRuleRecent = &FirewallNameRuleRecent{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleRecent)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["state"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallNameRuleState = &FirewallNameRuleState{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleState)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["tcp"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallNameRuleTCP = &FirewallNameRuleTCP{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleTCP)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["time"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallNameRuleTime = &FirewallNameRuleTime{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleTime)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["icmp"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallNameRuleIcmp = &FirewallNameRuleIcmp{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleIcmp)
-		if err != nil {
-			return err
-		}
-	}
-	if value, ok := jsonData["ttl"]; ok {
-		subJSONStr, err := json.Marshal(value)
-		if err != nil {
-			return err
-		}
-
-		o.NodeFirewallNameRuleTTL = &FirewallNameRuleTTL{}
-
-		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleTTL)
-		if err != nil {
-			return err
-		}
-	}
-
+func (o *FirewallNameRule) UnmarshalJSON(_ []byte) error {
 	return nil
 }
