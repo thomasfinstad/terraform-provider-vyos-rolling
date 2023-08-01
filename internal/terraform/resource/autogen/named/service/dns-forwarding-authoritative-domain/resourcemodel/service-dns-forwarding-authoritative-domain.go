@@ -9,7 +9,7 @@ import (
 
 // ServiceDNSForwardingAuthoritativeDomain describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomain struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"authoritative_domain_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceDNSForwardingAuthoritativeDomainDisable types.Bool `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -30,20 +30,20 @@ func (o *ServiceDNSForwardingAuthoritativeDomain) GetVyosPath() []string {
 		"forwarding",
 
 		"authoritative-domain",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDNSForwardingAuthoritativeDomain) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"authoritative_domain_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Domain to host authoritative records for
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  An absolute DNS name  |
+    |  text  &emsp; |  An absolute DNS name  |
 
 `,
 		},

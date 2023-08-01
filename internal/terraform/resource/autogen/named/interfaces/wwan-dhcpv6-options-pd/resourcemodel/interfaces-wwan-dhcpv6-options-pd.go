@@ -8,9 +8,9 @@ import (
 
 // InterfacesWwanDhcpvsixOptionsPd describes the resource data model.
 type InterfacesWwanDhcpvsixOptionsPd struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"pd_id" vyos:",self-id"`
 
-	ParentIDInterfacesWwan types.String `tfsdk:"wwan" vyos:"wwan_identifier,parent-id"`
+	ParentIDInterfacesWwan types.String `tfsdk:"wwan" vyos:"wwan,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesWwanDhcpvsixOptionsPdLength types.Number `tfsdk:"length" vyos:"length,omitempty"`
@@ -32,31 +32,31 @@ func (o *InterfacesWwanDhcpvsixOptionsPd) GetVyosPath() []string {
 		"dhcpv6-options",
 
 		"pd",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesWwanDhcpvsixOptionsPd) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"pd_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
 
 `,
 		},
 
-		"wwan_identifier": schema.StringAttribute{
+		"wwan_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Wireless Modem (WWAN) Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  wwanN  |  Wireless Wide Area Network interface name  |
+    |  wwanN  &emsp; |  Wireless Wide Area Network interface name  |
 
 `,
 		},
@@ -67,9 +67,9 @@ func (o InterfacesWwanDhcpvsixOptionsPd) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Request IPv6 prefix length from peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:32-64  |  Length of delegated prefix  |
+    |  number: 32-64  &emsp; |  Length of delegated prefix  |
 
 `,
 

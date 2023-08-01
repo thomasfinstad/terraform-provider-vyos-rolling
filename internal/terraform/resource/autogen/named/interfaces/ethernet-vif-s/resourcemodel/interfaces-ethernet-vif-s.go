@@ -9,9 +9,9 @@ import (
 
 // InterfacesEthernetVifS describes the resource data model.
 type InterfacesEthernetVifS struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"vif_s_id" vyos:",self-id"`
 
-	ParentIDInterfacesEthernet types.String `tfsdk:"ethernet" vyos:"ethernet_identifier,parent-id"`
+	ParentIDInterfacesEthernet types.String `tfsdk:"ethernet" vyos:"ethernet,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesEthernetVifSDescrIPtion       types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -44,31 +44,31 @@ func (o *InterfacesEthernetVifS) GetVyosPath() []string {
 		o.ParentIDInterfacesEthernet.ValueString(),
 
 		"vif-s",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesEthernetVifS) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"vif_s_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `QinQ TAG-S Virtual Local Area Network (VLAN) ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
+    |  number: 0-4094  &emsp; |  QinQ Virtual Local Area Network (VLAN) ID  |
 
 `,
 		},
 
-		"ethernet_identifier": schema.StringAttribute{
+		"ethernet_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Ethernet Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ethN  |  Ethernet interface name  |
+    |  ethN  &emsp; |  Ethernet interface name  |
 
 `,
 		},
@@ -79,9 +79,9 @@ func (o InterfacesEthernetVifS) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -91,12 +91,12 @@ func (o InterfacesEthernetVifS) ResourceSchemaAttributes() map[string]schema.Att
 			Optional:    true,
 			MarkdownDescription: `IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
-    |  dhcp  |  Dynamic Host Configuration Protocol  |
-    |  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
+    |  dhcp  &emsp; |  Dynamic Host Configuration Protocol  |
+    |  dhcpv6  &emsp; |  Dynamic Host Configuration Protocol for IPv6  |
 
 `,
 		},
@@ -123,10 +123,10 @@ func (o InterfacesEthernetVifS) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Protocol used for service VLAN (default: 802.1ad)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  802.1ad  |  Provider Bridging (IEEE 802.1ad, Q-inQ), ethertype 0x88a8  |
-    |  802.1q  |  VLAN-tagged frame (IEEE 802.1q), ethertype 0x8100  |
+    |  802.1ad  &emsp; |  Provider Bridging (IEEE 802.1ad, Q-inQ), ethertype 0x88a8  |
+    |  802.1q  &emsp; |  VLAN-tagged frame (IEEE 802.1q), ethertype 0x8100  |
 
 `,
 
@@ -138,9 +138,9 @@ func (o InterfacesEthernetVifS) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+    |  macaddr  &emsp; |  Hardware (MAC) address  |
 
 `,
 		},
@@ -149,9 +149,9 @@ func (o InterfacesEthernetVifS) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:68-16000  |  Maximum Transmission Unit in byte  |
+    |  number: 68-16000  &emsp; |  Maximum Transmission Unit in byte  |
 
 `,
 
@@ -163,9 +163,9 @@ func (o InterfacesEthernetVifS) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 `,
 		},
@@ -174,9 +174,9 @@ func (o InterfacesEthernetVifS) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},

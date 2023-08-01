@@ -12,29 +12,36 @@ import (
 func (r serviceWebproxyURLFilteringSquIDguardTimePeriodDays) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Webproxy service settings
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Webproxy service settings
+
+<br>
+&darr;
+<br>
 URL filtering settings
 
+<br>
+&darr;
+<br>
 URL filtering via squidGuard redirector
 
+<br>
+&darr;
+<br>
 Time period name
 
+<br>
+&darr;
+<br>
+<b>
 Time-period days
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  Sun  |  Sunday  |
-    |  Mon  |  Monday  |
-    |  Tue  |  Tuesday  |
-    |  Wed  |  Wednesday  |
-    |  Thu  |  Thursday  |
-    |  Fri  |  Friday  |
-    |  Sat  |  Saturday  |
-    |  weekdays  |  Monday through Friday  |
-    |  weekend  |  Saturday and Sunday  |
-    |  all  |  All days of the week  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

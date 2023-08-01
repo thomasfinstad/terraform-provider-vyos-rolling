@@ -3,18 +3,40 @@
 page_title: "vyos_container_name_device Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Container applications
+
+  <br>
+  &darr;
+  <br>
   Container name
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Add a host device to the container
+  </b>
+  </div>
 ---
 
 # vyos_container_name_device (Resource)
 
+<div style="text-align: center">
 Container applications
 
+<br>
+&darr;
+<br>
 Container name
 
+<br>
+&darr;
+<br>
+<b>
 Add a host device to the container
+</b>
+</div>
 
 
 
@@ -23,18 +45,18 @@ Add a host device to the container
 
 ### Required
 
-- `identifier` (String) Add a host device to the container
-- `name_identifier` (String) Container name
+- `device_id` (String) Add a host device to the container
+- `name_id` (String) Container name
 
 ### Optional
 
 - `destination` (String) Destination container device (Example: "/dev/x")
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination container device  |
+    |  txt  &emsp; |  Destination container device  |
 - `source` (String) Source device (Example: "/dev/x")
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Source device  |
+    |  txt  &emsp; |  Source device  |

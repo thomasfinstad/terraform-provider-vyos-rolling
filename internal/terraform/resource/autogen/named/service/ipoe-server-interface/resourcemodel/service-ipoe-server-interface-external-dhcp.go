@@ -26,9 +26,9 @@ func (o ServiceIPoeServerInterfaceExternalDhcp) ResourceSchemaAttributes() map[s
 			Optional: true,
 			MarkdownDescription: `DHCP Server the request will be redirected to.
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address of the DHCP Server  |
+    |  ipv4  &emsp; |  IPv4 address of the DHCP Server  |
 
 `,
 		},
@@ -37,9 +37,9 @@ func (o ServiceIPoeServerInterfaceExternalDhcp) ResourceSchemaAttributes() map[s
 			Optional: true,
 			MarkdownDescription: `Relay Agent IPv4 Address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Gateway IP address  |
+    |  ipv4  &emsp; |  Gateway IP address  |
 
 `,
 		},

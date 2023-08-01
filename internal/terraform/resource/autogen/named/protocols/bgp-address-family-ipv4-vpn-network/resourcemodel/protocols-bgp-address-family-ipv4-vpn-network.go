@@ -8,7 +8,7 @@ import (
 
 // ProtocolsBgpAddressFamilyIPvfourVpnNetwork describes the resource data model.
 type ProtocolsBgpAddressFamilyIPvfourVpnNetwork struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"network_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkRd    types.String `tfsdk:"rd" vyos:"rd,omitempty"`
@@ -31,20 +31,20 @@ func (o *ProtocolsBgpAddressFamilyIPvfourVpnNetwork) GetVyosPath() []string {
 		"ipv4-vpn",
 
 		"network",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsBgpAddressFamilyIPvfourVpnNetwork) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"network_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Import BGP network/prefix into unicast VPN IPv4 RIB
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Unicast VPN IPv4 BGP network/prefix  |
+    |  ipv4net  &emsp; |  Unicast VPN IPv4 BGP network/prefix  |
 
 `,
 		},
@@ -55,9 +55,9 @@ func (o ProtocolsBgpAddressFamilyIPvfourVpnNetwork) ResourceSchemaAttributes() m
 			Optional: true,
 			MarkdownDescription: `Route Distinguisher
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp; |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 
 `,
 		},
@@ -66,9 +66,9 @@ func (o ProtocolsBgpAddressFamilyIPvfourVpnNetwork) ResourceSchemaAttributes() m
 			Optional: true,
 			MarkdownDescription: `MPLS label value assigned to route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-1048575  |  MPLS label value  |
+    |  number: 0-1048575  &emsp; |  MPLS label value  |
 
 `,
 		},

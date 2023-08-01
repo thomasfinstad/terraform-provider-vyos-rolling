@@ -25,9 +25,9 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastAllowasIn) Resour
 			Optional: true,
 			MarkdownDescription: `Number of occurrences of AS number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-10  |  Number of times AS is allowed in path  |
+    |  number: 1-10  &emsp; |  Number of times AS is allowed in path  |
 
 `,
 		},

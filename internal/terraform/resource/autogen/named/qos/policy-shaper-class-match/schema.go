@@ -12,24 +12,31 @@ import (
 func (r qosPolicyShaperClassMatch) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Quality of Service (QoS)
+		MarkdownDescription: `<div style="text-align: center">
+Quality of Service (QoS)
 
+<br>
+&darr;
+<br>
 Service Policy definitions
 
+<br>
+&darr;
+<br>
 Traffic shaping based policy (Hierarchy Token Bucket)
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Policy name  |
-
+<br>
+&darr;
+<br>
 Class ID
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:2-4095  |  Class Identifier  |
-
+<br>
+&darr;
+<br>
+<b>
 Class matching rule name
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

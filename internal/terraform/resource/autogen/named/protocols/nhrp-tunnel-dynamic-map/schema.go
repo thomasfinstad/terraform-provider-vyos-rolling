@@ -12,20 +12,26 @@ import (
 func (r protocolsNhrpTunnelDynamicMap) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Next Hop Resolution Protocol (NHRP) parameters
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Next Hop Resolution Protocol (NHRP) parameters
+
+<br>
+&darr;
+<br>
 Tunnel for NHRP
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  tunN  |  NHRP tunnel name  |
-
+<br>
+&darr;
+<br>
+<b>
 Set an HUB tunnel address
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  Set the IP address and prefix length  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

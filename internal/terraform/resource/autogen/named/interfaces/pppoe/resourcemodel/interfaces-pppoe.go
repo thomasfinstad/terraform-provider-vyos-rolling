@@ -9,7 +9,7 @@ import (
 
 // InterfacesPppoe describes the resource data model.
 type InterfacesPppoe struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"pppoe_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafInterfacesPppoeAccessConcentrator   types.String `tfsdk:"access_concentrator" vyos:"access-concentrator,omitempty"`
@@ -45,20 +45,20 @@ func (o *InterfacesPppoe) GetVyosPath() []string {
 		"interfaces",
 
 		"pppoe",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesPppoe) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"pppoe_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Point-to-Point Protocol over Ethernet (PPPoE) Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  pppoeN  |  PPPoE dialer interface name  |
+    |  pppoeN  &emsp; |  PPPoE dialer interface name  |
 
 `,
 		},
@@ -94,9 +94,9 @@ func (o InterfacesPppoe) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Distance for installed default route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for the default route from DHCP server  |
+    |  number: 1-255  &emsp; |  Distance for the default route from DHCP server  |
 
 `,
 
@@ -108,9 +108,9 @@ func (o InterfacesPppoe) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -128,9 +128,9 @@ func (o InterfacesPppoe) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Delay before disconnecting idle session (in seconds)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-86400  |  Idle timeout in seconds  |
+    |  number: 0-86400  &emsp; |  Idle timeout in seconds  |
 
 `,
 		},
@@ -139,9 +139,9 @@ func (o InterfacesPppoe) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `PPPoE RFC2516 host-uniq tag
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Host-uniq tag as byte string in HEX  |
+    |  txt  &emsp; |  Host-uniq tag as byte string in HEX  |
 
 `,
 		},
@@ -150,9 +150,9 @@ func (o InterfacesPppoe) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Interface used to establish connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  interface  |  Interface name  |
+    |  interface  &emsp; |  Interface name  |
 
 `,
 		},
@@ -161,9 +161,9 @@ func (o InterfacesPppoe) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `IPv4 address of local end of the PPPoE link
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Address of local end of the PPPoE link  |
+    |  ipv4  &emsp; |  Address of local end of the PPPoE link  |
 
 `,
 		},
@@ -172,9 +172,9 @@ func (o InterfacesPppoe) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:68-1500  |  Maximum Transmission Unit in byte  |
+    |  number: 68-1500  &emsp; |  Maximum Transmission Unit in byte  |
 
 `,
 
@@ -195,9 +195,9 @@ func (o InterfacesPppoe) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `IPv4 address of remote end of the PPPoE link
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Address of remote end of the PPPoE link  |
+    |  ipv4  &emsp; |  Address of remote end of the PPPoE link  |
 
 `,
 		},
@@ -213,9 +213,9 @@ func (o InterfacesPppoe) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 `,
 		},
@@ -224,9 +224,9 @@ func (o InterfacesPppoe) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},

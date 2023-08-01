@@ -9,9 +9,9 @@ import (
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsAaaa describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsAaaa struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"aaaa_id" vyos:",self-id"`
 
-	ParentIDServiceDNSForwardingAuthoritativeDomain types.String `tfsdk:"authoritative_domain" vyos:"authoritative-domain_identifier,parent-id"`
+	ParentIDServiceDNSForwardingAuthoritativeDomain types.String `tfsdk:"authoritative_domain" vyos:"authoritative-domain,parent-id"`
 
 	// LeafNodes
 	LeafServiceDNSForwardingAuthoritativeDomainRecordsAaaaAddress types.List   `tfsdk:"address" vyos:"address,omitempty"`
@@ -38,33 +38,33 @@ func (o *ServiceDNSForwardingAuthoritativeDomainRecordsAaaa) GetVyosPath() []str
 		"records",
 
 		"aaaa",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDNSForwardingAuthoritativeDomainRecordsAaaa) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"aaaa_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `"AAAA" record
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  A DNS name relative to the root record  |
-    |  @  |  Root record  |
-    |  any  |  Wildcard record (any subdomain)  |
+    |  text  &emsp; |  A DNS name relative to the root record  |
+    |  @  &emsp; |  Root record  |
+    |  any  &emsp; |  Wildcard record (any subdomain)  |
 
 `,
 		},
 
-		"authoritative_domain_identifier": schema.StringAttribute{
+		"authoritative_domain_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Domain to host authoritative records for
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  An absolute DNS name  |
+    |  text  &emsp; |  An absolute DNS name  |
 
 `,
 		},
@@ -76,9 +76,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsAaaa) ResourceSchemaAttrib
 			Optional:    true,
 			MarkdownDescription: `IPv6 address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6  |  IPv6 address  |
+    |  ipv6  &emsp; |  IPv6 address  |
 
 `,
 		},
@@ -87,9 +87,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsAaaa) ResourceSchemaAttrib
 			Optional: true,
 			MarkdownDescription: `Time-to-live (TTL)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-2147483647  |  TTL in seconds  |
+    |  number: 0-2147483647  &emsp; |  TTL in seconds  |
 
 `,
 

@@ -9,7 +9,7 @@ import (
 
 // VpnIPsecRemoteAccessConnection describes the resource data model.
 type VpnIPsecRemoteAccessConnection struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"connection_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafVpnIPsecRemoteAccessConnectionDescrIPtion  types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -38,20 +38,20 @@ func (o *VpnIPsecRemoteAccessConnection) GetVyosPath() []string {
 		"remote-access",
 
 		"connection",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"connection_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IKEv2 VPN connection name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Connection name  |
+    |  txt  &emsp; |  Connection name  |
 
 `,
 		},
@@ -62,9 +62,9 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -96,11 +96,11 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `IPv4 or IPv6 address of a local interface to use for VPN
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address of a local interface for VPN  |
-    |  ipv6  |  IPv6 address of a local interface for VPN  |
-    |  any  |  Allow any IPv4 address present on the system to be used for VPN  |
+    |  ipv4  &emsp; |  IPv4 address of a local interface for VPN  |
+    |  ipv6  &emsp; |  IPv6 address of a local interface for VPN  |
+    |  any  &emsp; |  Allow any IPv4 address present on the system to be used for VPN  |
 
 `,
 		},
@@ -109,10 +109,10 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `Timeout to close connection if no data is transmitted
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Disable inactivity checks  |
-    |  u32:1-86400  |  Timeout in seconds  |
+    |  number: 0  &emsp; |  Disable inactivity checks  |
+    |  number: 1-86400  &emsp; |  Timeout in seconds  |
 
 `,
 
@@ -125,11 +125,11 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes() map[string]sc
 			Optional:    true,
 			MarkdownDescription: `IP address pool
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Predefined IP pool name  |
-    |  dhcp  |  Forward requests for virtual IP addresses to a DHCP server  |
-    |  radius  |  Forward requests for virtual IP addresses to a RADIUS server  |
+    |  txt  &emsp; |  Predefined IP pool name  |
+    |  dhcp  &emsp; |  Forward requests for virtual IP addresses to a DHCP server  |
+    |  radius  &emsp; |  Forward requests for virtual IP addresses to a RADIUS server  |
 
 `,
 		},
@@ -138,11 +138,11 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `Connection uniqueness enforcement policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  never  |  Never enforce connection uniqueness  |
-    |  keep  |  Reject new connection attempts if the same user already has an active connection  |
-    |  replace  |  Delete any existing connection if a new one for the same user gets established  |
+    |  never  &emsp; |  Never enforce connection uniqueness  |
+    |  keep  &emsp; |  Reject new connection attempts if the same user already has an active connection  |
+    |  replace  &emsp; |  Delete any existing connection if a new one for the same user gets established  |
 
 `,
 		},

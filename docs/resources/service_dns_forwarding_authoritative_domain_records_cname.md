@@ -3,41 +3,70 @@
 page_title: "vyos_service_dns_forwarding_authoritative_domain_records_cname Resource - vyos"
 subcategory: ""
 description: |-
-  Domain Name System related services
-  DNS forwarding
-  Domain to host authoritative records for
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  text  |  An absolute DNS name  |
+  <div style="text-align: center">
+  <i>service</i>
 
+  <br>
+  &darr;
+  <br>
+  Domain Name System related services
+
+  <br>
+  &darr;
+  <br>
+  DNS forwarding
+
+  <br>
+  &darr;
+  <br>
+  Domain to host authoritative records for
+
+  <br>
+  &darr;
+  <br>
   DNS zone records
+
+  <br>
+  &darr;
+  <br>
+  <b>
   "CNAME" record
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  text  |  A DNS name relative to the root record  |
-  |  @  |  Root record  |
+  </b>
+  </div>
 ---
 
 # vyos_service_dns_forwarding_authoritative_domain_records_cname (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Domain Name System related services
 
+<br>
+&darr;
+<br>
 DNS forwarding
 
+<br>
+&darr;
+<br>
 Domain to host authoritative records for
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  text  |  An absolute DNS name  |
-
+<br>
+&darr;
+<br>
 DNS zone records
 
+<br>
+&darr;
+<br>
+<b>
 "CNAME" record
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  text  |  A DNS name relative to the root record  |
-    |  @  |  Root record  |
+</b>
+</div>
 
 
 
@@ -46,28 +75,28 @@ DNS zone records
 
 ### Required
 
-- `authoritative_domain_identifier` (String) Domain to host authoritative records for
+- `authoritative_domain_id` (String) Domain to host authoritative records for
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  An absolute DNS name  |
-- `identifier` (String) "CNAME" record
+    |  text  &emsp; |  An absolute DNS name  |
+- `cname_id` (String) "CNAME" record
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  A DNS name relative to the root record  |
-    |  @  |  Root record  |
+    |  text  &emsp; |  A DNS name relative to the root record  |
+    |  @  &emsp; |  Root record  |
 
 ### Optional
 
 - `disable` (Boolean) Disable instance
 - `target` (String) Target DNS name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  name.example.com  |  An absolute DNS name  |
+    |  name.example.com  &emsp; |  An absolute DNS name  |
 - `ttl` (Number) Time-to-live (TTL)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-2147483647  |  TTL in seconds  |
+    |  number: 0-2147483647  &emsp; |  TTL in seconds  |

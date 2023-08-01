@@ -9,7 +9,7 @@ import (
 
 // InterfacesWireless describes the resource data model.
 type InterfacesWireless struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"wireless_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafInterfacesWirelessAddress                types.List   `tfsdk:"address" vyos:"address,omitempty"`
@@ -53,20 +53,20 @@ func (o *InterfacesWireless) GetVyosPath() []string {
 		"interfaces",
 
 		"wireless",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"wireless_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Wireless (WiFi/WLAN) Network Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
+    |  wlanN  &emsp; |  Wireless (WiFi/WLAN) interface name  |
 
 `,
 		},
@@ -78,12 +78,12 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional:    true,
 			MarkdownDescription: `IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
-    |  dhcp  |  Dynamic Host Configuration Protocol  |
-    |  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
+    |  dhcp  &emsp; |  Dynamic Host Configuration Protocol  |
+    |  dhcpv6  &emsp; |  Dynamic Host Configuration Protocol for IPv6  |
 
 `,
 		},
@@ -92,11 +92,11 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Wireless radio channel
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  0  |  Automatic Channel Selection (ACS)  |
-    |  u32:1-14  |  2.4Ghz (802.11 b/g/n) Channel  |
-    |  u32:34-173  |  5Ghz (802.11 a/h/j/n/ac) Channel  |
+    |  0  &emsp; |  Automatic Channel Selection (ACS)  |
+    |  number: 1-14  &emsp; |  2.4Ghz (802.11 b/g/n) Channel  |
+    |  number: 34-173  &emsp; |  5Ghz (802.11 a/h/j/n/ac) Channel  |
 
 `,
 
@@ -108,9 +108,9 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Indicate country in which device is operating
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  ISO/IEC 3166-1 Country Code  |
+    |  txt  &emsp; |  ISO/IEC 3166-1 Country Code  |
 
 `,
 		},
@@ -119,9 +119,9 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -157,9 +157,9 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -177,9 +177,9 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Associate Ethernet Interface with given Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+    |  macaddr  &emsp; |  Hardware (MAC) address  |
 
 `,
 		},
@@ -197,9 +197,9 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+    |  macaddr  &emsp; |  Hardware (MAC) address  |
 
 `,
 		},
@@ -208,9 +208,9 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Maximum number of wireless radio stations. Excess stations will be rejected upon authentication request.
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2007  |  Number of allowed stations  |
+    |  number: 1-2007  &emsp; |  Number of allowed stations  |
 
 `,
 		},
@@ -219,11 +219,11 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Management Frame Protection (MFP) according to IEEE 802.11w
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  disabled  |  no MFP  |
-    |  optional  |  MFP optional  |
-    |  required  |  MFP enforced  |
+    |  disabled  &emsp; |  no MFP  |
+    |  optional  &emsp; |  MFP optional  |
+    |  required  &emsp; |  MFP enforced  |
 
 `,
 
@@ -235,13 +235,13 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Wireless radio mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  a  |  802.11a - 54 Mbits/sec  |
-    |  b  |  802.11b - 11 Mbits/sec  |
-    |  g  |  802.11g - 54 Mbits/sec  |
-    |  n  |  802.11n - 600 Mbits/sec  |
-    |  ac  |  802.11ac - 1300 Mbits/sec  |
+    |  a  &emsp; |  802.11a - 54 Mbits/sec  |
+    |  b  &emsp; |  802.11b - 11 Mbits/sec  |
+    |  g  &emsp; |  802.11g - 54 Mbits/sec  |
+    |  n  &emsp; |  802.11n - 600 Mbits/sec  |
+    |  ac  &emsp; |  802.11ac - 1300 Mbits/sec  |
 
 `,
 
@@ -263,9 +263,9 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Transmission power reduction in dBm
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  TX power reduction in dBm  |
+    |  number: 0-255  &emsp; |  TX power reduction in dBm  |
 
 `,
 		},
@@ -281,11 +281,11 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Wireless device type for this interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  access-point  |  Access-point forwards packets between other nodes  |
-    |  station  |  Connects to another access point  |
-    |  monitor  |  Passively monitor all packets on the frequency/channel  |
+    |  access-point  &emsp; |  Access-point forwards packets between other nodes  |
+    |  station  &emsp; |  Connects to another access point  |
+    |  monitor  &emsp; |  Passively monitor all packets on the frequency/channel  |
 
 `,
 
@@ -297,9 +297,9 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 `,
 		},

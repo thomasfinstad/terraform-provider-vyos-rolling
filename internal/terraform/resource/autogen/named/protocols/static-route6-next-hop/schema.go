@@ -12,22 +12,26 @@ import (
 func (r protocolsStaticRoutesixNextHop) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Routing protocols
+		MarkdownDescription: `<div style="text-align: center">
+Routing protocols
 
+<br>
+&darr;
+<br>
 Static Routing
 
+<br>
+&darr;
+<br>
 Static IPv6 route
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv6net  |  IPv6 static route  |
-
+<br>
+&darr;
+<br>
+<b>
 IPv6 gateway address
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv6  |  Next-hop IPv6 router  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

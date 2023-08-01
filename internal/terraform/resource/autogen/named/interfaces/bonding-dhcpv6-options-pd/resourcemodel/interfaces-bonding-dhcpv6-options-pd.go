@@ -8,9 +8,9 @@ import (
 
 // InterfacesBondingDhcpvsixOptionsPd describes the resource data model.
 type InterfacesBondingDhcpvsixOptionsPd struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"pd_id" vyos:",self-id"`
 
-	ParentIDInterfacesBonding types.String `tfsdk:"bonding" vyos:"bonding_identifier,parent-id"`
+	ParentIDInterfacesBonding types.String `tfsdk:"bonding" vyos:"bonding,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesBondingDhcpvsixOptionsPdLength types.Number `tfsdk:"length" vyos:"length,omitempty"`
@@ -32,31 +32,31 @@ func (o *InterfacesBondingDhcpvsixOptionsPd) GetVyosPath() []string {
 		"dhcpv6-options",
 
 		"pd",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesBondingDhcpvsixOptionsPd) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"pd_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
 
 `,
 		},
 
-		"bonding_identifier": schema.StringAttribute{
+		"bonding_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Bonding Interface/Link Aggregation
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  bondN  |  Bonding interface name  |
+    |  bondN  &emsp; |  Bonding interface name  |
 
 `,
 		},
@@ -67,9 +67,9 @@ func (o InterfacesBondingDhcpvsixOptionsPd) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Request IPv6 prefix length from peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:32-64  |  Length of delegated prefix  |
+    |  number: 32-64  &emsp; |  Length of delegated prefix  |
 
 `,
 

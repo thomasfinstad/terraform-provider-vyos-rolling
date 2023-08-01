@@ -12,24 +12,31 @@ import (
 func (r vpnIPsecSiteToSitePeerTunnel) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Virtual Private Network (VPN)
+		MarkdownDescription: `<div style="text-align: center">
+Virtual Private Network (VPN)
 
+<br>
+&darr;
+<br>
 VPN IP security (IPsec) parameters
 
+<br>
+&darr;
+<br>
 Site-to-site VPN
 
+<br>
+&darr;
+<br>
 Connection name of the peer
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Connection name of the peer  |
-
+<br>
+&darr;
+<br>
+<b>
 Peer tunnel
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32  |  Peer tunnel  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

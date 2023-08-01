@@ -3,21 +3,50 @@
 page_title: "vyos_vpn_ipsec_remote_access_pool Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Private Network (VPN)
+
+  <br>
+  &darr;
+  <br>
   VPN IP security (IPsec) parameters
+
+  <br>
+  &darr;
+  <br>
   IKEv2 remote access VPN
+
+  <br>
+  &darr;
+  <br>
+  <b>
   IP address pool for remote access users
+  </b>
+  </div>
 ---
 
 # vyos_vpn_ipsec_remote_access_pool (Resource)
 
+<div style="text-align: center">
 Virtual Private Network (VPN)
 
+<br>
+&darr;
+<br>
 VPN IP security (IPsec) parameters
 
+<br>
+&darr;
+<br>
 IKEv2 remote access VPN
 
+<br>
+&darr;
+<br>
+<b>
 IP address pool for remote access users
+</b>
+</div>
 
 
 
@@ -26,25 +55,25 @@ IP address pool for remote access users
 
 ### Required
 
-- `identifier` (String) IP address pool for remote access users
+- `pool_id` (String) IP address pool for remote access users
 
 ### Optional
 
 - `exclude` (List of String) Local IPv4 or IPv6 pool prefix exclusions
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Local IPv4 pool prefix exclusion  |
-    |  ipv6net  |  Local IPv6 pool prefix exclusion  |
+    |  ipv4net  &emsp; |  Local IPv4 pool prefix exclusion  |
+    |  ipv6net  &emsp; |  Local IPv6 pool prefix exclusion  |
 - `name_server` (List of String) Domain Name Servers (DNS) addresses
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
-    |  ipv6  |  Domain Name Server (DNS) IPv6 address  |
+    |  ipv4  &emsp; |  Domain Name Server (DNS) IPv4 address  |
+    |  ipv6  &emsp; |  Domain Name Server (DNS) IPv6 address  |
 - `prefix` (String) Local IPv4 or IPv6 pool prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Local IPv4 pool prefix  |
-    |  ipv6net  |  Local IPv6 pool prefix  |
+    |  ipv4net  &emsp; |  Local IPv4 pool prefix  |
+    |  ipv6net  &emsp; |  Local IPv6 pool prefix  |

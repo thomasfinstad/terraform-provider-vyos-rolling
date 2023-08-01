@@ -3,22 +3,40 @@
 page_title: "vyos_service_upnp_rule Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Universal Plug and Play (UPnP) service
+
+  <br>
+  &darr;
+  <br>
+  <b>
   UPnP Rule
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:0-65535  |  Rule number  |
+  </b>
+  </div>
 ---
 
 # vyos_service_upnp_rule (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Universal Plug and Play (UPnP) service
 
+<br>
+&darr;
+<br>
+<b>
 UPnP Rule
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:0-65535  |  Rule number  |
+</b>
+</div>
 
 
 
@@ -27,11 +45,11 @@ UPnP Rule
 
 ### Required
 
-- `identifier` (String) UPnP Rule
+- `rule_id` (String) UPnP Rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Rule number  |
+    |  number: 0-65535  &emsp; |  Rule number  |
 
 ### Optional
 
@@ -39,19 +57,19 @@ UPnP Rule
 - `disable` (Boolean) Disable instance
 - `external_port_range` (String) Port range (REQUIRE)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <port>  |  single port  |
-    |  <portN>-<portM>  |  Port range (use '-' as delimiter)  |
+    |  <port>  &emsp; |  single port  |
+    |  <portN>-<portM>  &emsp; |  Port range (use '-' as delimiter)  |
 - `internal_port_range` (String) Port range (REQUIRE)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <port>  |  single port  |
-    |  <portN>-<portM>  |  Port range (use '-' as delimiter)  |
+    |  <port>  &emsp; |  single port  |
+    |  <portN>-<portM>  &emsp; |  Port range (use '-' as delimiter)  |
 - `ip` (String) The IP to which this rule applies (REQUIRE)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  The IPv4 address to which this rule applies  |
-    |  ipv4net  |  The IPv4 to which this rule applies  |
+    |  ipv4  &emsp; |  The IPv4 address to which this rule applies  |
+    |  ipv4net  &emsp; |  The IPv4 to which this rule applies  |

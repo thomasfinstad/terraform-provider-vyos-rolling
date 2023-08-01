@@ -26,9 +26,9 @@ func (o HighAvailabilityVrrpGroupAuthentication) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `VRRP password
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Password string (up to 8 characters)  |
+    |  txt  &emsp; |  Password string (up to 8 characters)  |
 
 `,
 		},
@@ -37,10 +37,10 @@ func (o HighAvailabilityVrrpGroupAuthentication) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `Authentication type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  plaintext-password  |  Simple password string  |
-    |  ah  |  AH - IPSEC (not recommended)  |
+    |  plaintext-password  &emsp; |  Simple password string  |
+    |  ah  &emsp; |  AH - IPSEC (not recommended)  |
 
 `,
 		},

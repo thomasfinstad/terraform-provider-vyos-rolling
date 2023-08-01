@@ -9,7 +9,7 @@ import (
 
 // ServiceWebproxyListenAddress describes the resource data model.
 type ServiceWebproxyListenAddress struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"listen_address_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceWebproxyListenAddressPort               types.Number `tfsdk:"port" vyos:"port,omitempty"`
@@ -28,20 +28,20 @@ func (o *ServiceWebproxyListenAddress) GetVyosPath() []string {
 		"webproxy",
 
 		"listen-address",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceWebproxyListenAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"listen_address_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IPv4 listen-address for WebProxy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address listen on  |
+    |  ipv4  &emsp; |  IPv4 address listen on  |
 
 `,
 		},
@@ -52,9 +52,9 @@ func (o ServiceWebproxyListenAddress) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Default Proxy Port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1025-65535  |  Default port number  |
+    |  number: 1025-65535  &emsp; |  Default port number  |
 
 `,
 		},

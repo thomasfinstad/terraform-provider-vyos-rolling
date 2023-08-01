@@ -26,9 +26,9 @@ func (o VpnIPsecSiteToSitePeerTunnelRemote) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 		},
@@ -38,10 +38,10 @@ func (o VpnIPsecSiteToSitePeerTunnelRemote) ResourceSchemaAttributes() map[strin
 			Optional:    true,
 			MarkdownDescription: `Remote IPv4 or IPv6 prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Remote IPv4 prefix  |
-    |  ipv6net  |  Remote IPv6 prefix  |
+    |  ipv4net  &emsp; |  Remote IPv4 prefix  |
+    |  ipv6net  &emsp; |  Remote IPv6 prefix  |
 
 `,
 		},

@@ -12,10 +12,16 @@ import (
 func (r firewallName) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Firewall
+		MarkdownDescription: `<div style="text-align: center">
+Firewall
 
+<br>
+&darr;
+<br>
+<b>
 IPv4 firewall rule-set name
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

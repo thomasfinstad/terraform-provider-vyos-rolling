@@ -38,9 +38,9 @@ func (o InterfacesMacsecIPvsixAddress) ResourceSchemaAttributes() map[string]sch
 			Optional:    true,
 			MarkdownDescription: `Prefix for IPv6 address with MAC-based EUI-64
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
+    |  <h:h:h:h:h:h:h:h/64>  &emsp; |  IPv6 /64 network  |
 
 `,
 		},

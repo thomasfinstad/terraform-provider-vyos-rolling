@@ -3,22 +3,40 @@
 page_title: "vyos_protocols_failover_route Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Failover Routing
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Failover IPv4 route
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  IPv4 failover route  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_failover_route (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Failover Routing
 
+<br>
+&darr;
+<br>
+<b>
 Failover IPv4 route
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 failover route  |
+</b>
+</div>
 
 
 
@@ -27,8 +45,8 @@ Failover IPv4 route
 
 ### Required
 
-- `identifier` (String) Failover IPv4 route
+- `route_id` (String) Failover IPv4 route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 failover route  |
+    |  ipv4net  &emsp; |  IPv4 failover route  |

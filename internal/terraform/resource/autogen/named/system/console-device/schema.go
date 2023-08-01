@@ -12,16 +12,21 @@ import (
 func (r systemConsoleDevice) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Serial console configuration
+		MarkdownDescription: `<div style="text-align: center">
+<i>system</i>
 
+<br>
+&darr;
+<br>
+Serial console configuration
+
+<br>
+&darr;
+<br>
+<b>
 Serial console device name
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ttySN  |  TTY device name, regular serial port  |
-    |  usbNbXpY  |  TTY device name, USB based  |
-    |  hvcN  |  Xen console  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

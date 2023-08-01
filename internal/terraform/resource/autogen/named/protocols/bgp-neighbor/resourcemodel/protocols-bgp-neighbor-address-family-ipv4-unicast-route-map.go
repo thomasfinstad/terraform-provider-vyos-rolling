@@ -26,9 +26,9 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMap) ResourceSchemaA
 			Optional: true,
 			MarkdownDescription: `Route-map to filter outgoing route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},
@@ -37,9 +37,9 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMap) ResourceSchemaA
 			Optional: true,
 			MarkdownDescription: `Route-map to filter incoming route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},

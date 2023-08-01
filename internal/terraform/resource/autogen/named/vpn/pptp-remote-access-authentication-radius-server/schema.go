@@ -12,20 +12,36 @@ import (
 func (r vpnPptpRemoteAccessAuthenticationRadiusServer) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)
+		MarkdownDescription: `<div style="text-align: center">
+<i>vpn</i>
 
+<br>
+&darr;
+<br>
+Point to Point Tunneling Protocol (PPTP) Virtual Private Network (VPN)
+
+<br>
+&darr;
+<br>
 Remote access PPTP VPN
 
+<br>
+&darr;
+<br>
 Authentication for remote access PPTP VPN
 
+<br>
+&darr;
+<br>
 RADIUS based user authentication
 
+<br>
+&darr;
+<br>
+<b>
 RADIUS server configuration
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  RADIUS server IPv4 address  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

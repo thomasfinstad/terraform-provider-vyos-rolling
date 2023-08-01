@@ -12,10 +12,21 @@ import (
 func (r systemStaticHostMappingHostName) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Map host names to addresses
+		MarkdownDescription: `<div style="text-align: center">
+<i>system</i>
 
+<br>
+&darr;
+<br>
+Map host names to addresses
+
+<br>
+&darr;
+<br>
+<b>
 Host name for static address mapping
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

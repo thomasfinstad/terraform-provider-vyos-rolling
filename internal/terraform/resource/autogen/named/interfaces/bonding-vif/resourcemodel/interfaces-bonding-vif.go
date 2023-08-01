@@ -9,9 +9,9 @@ import (
 
 // InterfacesBondingVif describes the resource data model.
 type InterfacesBondingVif struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"vif_id" vyos:",self-id"`
 
-	ParentIDInterfacesBonding types.String `tfsdk:"bonding" vyos:"bonding_identifier,parent-id"`
+	ParentIDInterfacesBonding types.String `tfsdk:"bonding" vyos:"bonding,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesBondingVifDescrIPtion       types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -44,31 +44,31 @@ func (o *InterfacesBondingVif) GetVyosPath() []string {
 		o.ParentIDInterfacesBonding.ValueString(),
 
 		"vif",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesBondingVif) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"vif_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Local Area Network (VLAN) ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
+    |  number: 0-4094  &emsp; |  Virtual Local Area Network (VLAN) ID  |
 
 `,
 		},
 
-		"bonding_identifier": schema.StringAttribute{
+		"bonding_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Bonding Interface/Link Aggregation
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  bondN  |  Bonding interface name  |
+    |  bondN  &emsp; |  Bonding interface name  |
 
 `,
 		},
@@ -79,9 +79,9 @@ func (o InterfacesBondingVif) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -91,12 +91,12 @@ func (o InterfacesBondingVif) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional:    true,
 			MarkdownDescription: `IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
-    |  dhcp  |  Dynamic Host Configuration Protocol  |
-    |  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
+    |  dhcp  &emsp; |  Dynamic Host Configuration Protocol  |
+    |  dhcpv6  &emsp; |  Dynamic Host Configuration Protocol for IPv6  |
 
 `,
 		},
@@ -123,9 +123,9 @@ func (o InterfacesBondingVif) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `VLAN egress QoS
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Format for qos mapping, e.g.: '0:1 1:6 7:6'  |
+    |  txt  &emsp; |  Format for qos mapping, e.g.: '0:1 1:6 7:6'  |
 
 `,
 		},
@@ -134,9 +134,9 @@ func (o InterfacesBondingVif) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `VLAN ingress QoS
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Format for qos mapping, e.g.: '0:1 1:6 7:6'  |
+    |  txt  &emsp; |  Format for qos mapping, e.g.: '0:1 1:6 7:6'  |
 
 `,
 		},
@@ -145,9 +145,9 @@ func (o InterfacesBondingVif) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+    |  macaddr  &emsp; |  Hardware (MAC) address  |
 
 `,
 		},
@@ -156,9 +156,9 @@ func (o InterfacesBondingVif) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:68-16000  |  Maximum Transmission Unit in byte  |
+    |  number: 68-16000  &emsp; |  Maximum Transmission Unit in byte  |
 
 `,
 
@@ -170,9 +170,9 @@ func (o InterfacesBondingVif) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 `,
 		},
@@ -181,9 +181,9 @@ func (o InterfacesBondingVif) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},

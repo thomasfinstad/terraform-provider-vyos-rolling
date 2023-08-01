@@ -8,9 +8,9 @@ import (
 
 // VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"network_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit types.Number `tfsdk:"path_limit" vyos:"path-limit,omitempty"`
@@ -38,31 +38,31 @@ func (o *VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork) GetVyosPath() [
 		"ipv6-multicast",
 
 		"network",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"network_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Import BGP network/prefix into multicast IPv6 RIB
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  Multicast IPv6 BGP network/prefix  |
+    |  ipv6net  &emsp; |  Multicast IPv6 BGP network/prefix  |
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -73,9 +73,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork) ResourceSchemaAt
 			Optional: true,
 			MarkdownDescription: `AS-path hopcount limit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  AS path hop count limit  |
+    |  number: 0-255  &emsp; |  AS path hop count limit  |
 
 `,
 		},
@@ -84,9 +84,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork) ResourceSchemaAt
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},

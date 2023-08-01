@@ -3,33 +3,50 @@
 page_title: "vyos_protocols_failover_route_next_hop Resource - vyos"
 subcategory: ""
 description: |-
-  Failover Routing
-  Failover IPv4 route
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  IPv4 failover route  |
+  <div style="text-align: center">
+  <i>protocols</i>
 
+  <br>
+  &darr;
+  <br>
+  Failover Routing
+
+  <br>
+  &darr;
+  <br>
+  Failover IPv4 route
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Next-hop IPv4 router address
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  Next-hop router address  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_failover_route_next_hop (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Failover Routing
 
+<br>
+&darr;
+<br>
 Failover IPv4 route
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 failover route  |
-
+<br>
+&darr;
+<br>
+<b>
 Next-hop IPv4 router address
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  Next-hop router address  |
+</b>
+</div>
 
 
 
@@ -38,30 +55,30 @@ Next-hop IPv4 router address
 
 ### Required
 
-- `identifier` (String) Next-hop IPv4 router address
+- `next_hop_id` (String) Next-hop IPv4 router address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Next-hop router address  |
-- `route_identifier` (String) Failover IPv4 route
+    |  ipv4  &emsp; |  Next-hop router address  |
+- `route_id` (String) Failover IPv4 route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 failover route  |
+    |  ipv4net  &emsp; |  IPv4 failover route  |
 
 ### Optional
 
 - `check` (Attributes) Check target options (see [below for nested schema](#nestedatt--check))
 - `interface` (String) Gateway interface name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Gateway interface name  |
+    |  txt  &emsp; |  Gateway interface name  |
 - `metric` (Number) Route metric for this gateway
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Route metric  |
+    |  number: 1-255  &emsp; |  Route metric  |
 
 <a id="nestedatt--check"></a>
 ### Nested Schema for `check`
@@ -70,23 +87,23 @@ Optional:
 
 - `port` (Number) Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 - `target` (String) Check target address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Address to check  |
+    |  ipv4  &emsp; |  Address to check  |
 - `timeout` (Number) Timeout between checks
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-300  |  Timeout in seconds between checks  |
+    |  number: 1-300  &emsp; |  Timeout in seconds between checks  |
 - `type` (String) Check type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  arp  |  Check target by ARP  |
-    |  icmp  |  Check target by ICMP  |
-    |  tcp  |  Check target by TCP  |
+    |  arp  &emsp; |  Check target by ARP  |
+    |  icmp  &emsp; |  Check target by ICMP  |
+    |  tcp  &emsp; |  Check target by TCP  |

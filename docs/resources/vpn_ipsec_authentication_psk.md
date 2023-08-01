@@ -3,21 +3,50 @@
 page_title: "vyos_vpn_ipsec_authentication_psk Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Private Network (VPN)
+
+  <br>
+  &darr;
+  <br>
   VPN IP security (IPsec) parameters
+
+  <br>
+  &darr;
+  <br>
   Authentication
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Pre-shared key name
+  </b>
+  </div>
 ---
 
 # vyos_vpn_ipsec_authentication_psk (Resource)
 
+<div style="text-align: center">
 Virtual Private Network (VPN)
 
+<br>
+&darr;
+<br>
 VPN IP security (IPsec) parameters
 
+<br>
+&darr;
+<br>
 Authentication
 
+<br>
+&darr;
+<br>
+<b>
 Pre-shared key name
+</b>
+</div>
 
 
 
@@ -26,22 +55,22 @@ Pre-shared key name
 
 ### Required
 
-- `identifier` (String) Pre-shared key name
+- `psk_id` (String) Pre-shared key name
 
 ### Optional
 
 - `dhcp_interface` (List of String) DHCP interface supplying next-hop IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  DHCP interface name  |
+    |  txt  &emsp; |  DHCP interface name  |
 - `id` (List of String) ID for authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  ID used for authentication  |
+    |  txt  &emsp; |  ID used for authentication  |
 - `secret` (String) IKE pre-shared secret key
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  IKE pre-shared secret key  |
+    |  txt  &emsp; |  IKE pre-shared secret key  |

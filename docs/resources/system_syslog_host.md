@@ -3,24 +3,40 @@
 page_title: "vyos_system_syslog_host Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>system</i>
+
+  <br>
+  &darr;
+  <br>
   System logging
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Logging to a remote host
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  Remote syslog server IPv4 address  |
-  |  hostname  |  Remote syslog server FQDN  |
+  </b>
+  </div>
 ---
 
 # vyos_system_syslog_host (Resource)
 
+<div style="text-align: center">
+<i>system</i>
+
+<br>
+&darr;
+<br>
 System logging
 
+<br>
+&darr;
+<br>
+<b>
 Logging to a remote host
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  Remote syslog server IPv4 address  |
-    |  hostname  |  Remote syslog server FQDN  |
+</b>
+</div>
 
 
 
@@ -29,21 +45,21 @@ Logging to a remote host
 
 ### Required
 
-- `identifier` (String) Logging to a remote host
+- `host_id` (String) Logging to a remote host
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Remote syslog server IPv4 address  |
-    |  hostname  |  Remote syslog server FQDN  |
+    |  ipv4  &emsp; |  Remote syslog server IPv4 address  |
+    |  hostname  &emsp; |  Remote syslog server FQDN  |
 
 ### Optional
 
 - `format` (Attributes) Logging format (see [below for nested schema](#nestedatt--format))
 - `port` (Number) Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 <a id="nestedatt--format"></a>
 ### Nested Schema for `format`

@@ -3,24 +3,40 @@
 page_title: "vyos_service_snmp_listen_address Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Simple Network Management Protocol (SNMP)
+
+  <br>
+  &darr;
+  <br>
+  <b>
   IP address to listen for incoming SNMP requests
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  IPv4 address to listen for incoming SNMP requests  |
-  |  ipv6  |  IPv6 address to listen for incoming SNMP requests  |
+  </b>
+  </div>
 ---
 
 # vyos_service_snmp_listen_address (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Simple Network Management Protocol (SNMP)
 
+<br>
+&darr;
+<br>
+<b>
 IP address to listen for incoming SNMP requests
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  IPv4 address to listen for incoming SNMP requests  |
-    |  ipv6  |  IPv6 address to listen for incoming SNMP requests  |
+</b>
+</div>
 
 
 
@@ -29,17 +45,17 @@ IP address to listen for incoming SNMP requests
 
 ### Required
 
-- `identifier` (String) IP address to listen for incoming SNMP requests
+- `listen_address_id` (String) IP address to listen for incoming SNMP requests
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address to listen for incoming SNMP requests  |
-    |  ipv6  |  IPv6 address to listen for incoming SNMP requests  |
+    |  ipv4  &emsp; |  IPv4 address to listen for incoming SNMP requests  |
+    |  ipv6  &emsp; |  IPv6 address to listen for incoming SNMP requests  |
 
 ### Optional
 
 - `port` (Number) Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |

@@ -12,26 +12,31 @@ import (
 func (r interfacesBrIDgeVifDhcpvsixOptionsPd) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Bridge Interface
+		MarkdownDescription: `<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  brN  |  Bridge interface name  |
+<br>
+&darr;
+<br>
+Bridge Interface
 
+<br>
+&darr;
+<br>
 Virtual Local Area Network (VLAN) ID
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
-
+<br>
+&darr;
+<br>
 DHCPv6 client settings/options
 
+<br>
+&darr;
+<br>
+<b>
 DHCPv6 prefix delegation interface statement
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

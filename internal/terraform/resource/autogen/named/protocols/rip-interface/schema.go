@@ -12,14 +12,21 @@ import (
 func (r protocolsRIPInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Routing Information Protocol (RIP) parameters
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Routing Information Protocol (RIP) parameters
+
+<br>
+&darr;
+<br>
+<b>
 Interface name
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Interface name  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

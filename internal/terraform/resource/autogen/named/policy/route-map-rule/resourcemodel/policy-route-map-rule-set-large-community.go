@@ -30,9 +30,9 @@ func (o PolicyRouteMapRuleSetLargeCommunity) ResourceSchemaAttributes() map[stri
 			Optional:    true,
 			MarkdownDescription: `Add large communities to a prefix ;
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <GA:LDP1:LDP2>  |  Community in format <0-4294967295:0-4294967295:0-4294967295>  |
+    |  <GA:LDP1:LDP2>  &emsp; |  Community in format <0-4294967295:0-4294967295:0-4294967295>  |
 
 `,
 		},
@@ -42,9 +42,9 @@ func (o PolicyRouteMapRuleSetLargeCommunity) ResourceSchemaAttributes() map[stri
 			Optional:    true,
 			MarkdownDescription: `Set large communities for a prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <GA:LDP1:LDP2>  |  Community in format <0-4294967295:0-4294967295:0-4294967295>  |
+    |  <GA:LDP1:LDP2>  &emsp; |  Community in format <0-4294967295:0-4294967295:0-4294967295>  |
 
 `,
 		},
@@ -62,9 +62,9 @@ func (o PolicyRouteMapRuleSetLargeCommunity) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Remove communities defined in a list from a prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Community-list  |
+    |  txt  &emsp; |  Community-list  |
 
 `,
 		},

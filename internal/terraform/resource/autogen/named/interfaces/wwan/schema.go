@@ -12,12 +12,16 @@ import (
 func (r interfacesWwan) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Wireless Modem (WWAN) Interface
+		MarkdownDescription: `<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  wwanN  |  Wireless Wide Area Network interface name  |
-
+<br>
+&darr;
+<br>
+<b>
+Wireless Modem (WWAN) Interface
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

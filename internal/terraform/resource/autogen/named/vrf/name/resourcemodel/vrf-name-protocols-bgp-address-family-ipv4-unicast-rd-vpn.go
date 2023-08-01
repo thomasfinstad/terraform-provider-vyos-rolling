@@ -25,9 +25,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRdVpn) ResourceSchemaAttri
 			Optional: true,
 			MarkdownDescription: `For routes leaked from current address-family to VPN
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp; |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 
 `,
 		},

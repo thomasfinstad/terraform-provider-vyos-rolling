@@ -3,41 +3,60 @@
 page_title: "vyos_vrf_name_protocols_ospfv3_area Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
-  Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
+  Virtual Routing and Forwarding instance
+
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
+
+  <br>
+  &darr;
+  <br>
   Open Shortest Path First (OSPF) for IPv6
+
+  <br>
+  &darr;
+  <br>
+  <b>
   OSPFv3 Area
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32  |  Area ID as a decimal value  |
-  |  ipv4  |  Area ID in IP address forma  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_ospfv3_area (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Open Shortest Path First (OSPF) for IPv6
 
+<br>
+&darr;
+<br>
+<b>
 OSPFv3 Area
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32  |  Area ID as a decimal value  |
-    |  ipv4  |  Area ID in IP address forma  |
+</b>
+</div>
 
 
 
@@ -46,17 +65,17 @@ OSPFv3 Area
 
 ### Required
 
-- `identifier` (String) OSPFv3 Area
+- `area_id` (String) OSPFv3 Area
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Area ID as a decimal value  |
-    |  ipv4  |  Area ID in IP address forma  |
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+    |  u32  &emsp; |  Area ID as a decimal value  |
+    |  ipv4  &emsp; |  Area ID in IP address forma  |
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 ### Optional
 

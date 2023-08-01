@@ -3,36 +3,60 @@
 page_title: "vyos_protocols_rip_interface_authentication_md5 Resource - vyos"
 subcategory: ""
 description: |-
-  Routing Information Protocol (RIP) parameters
-  Interface name
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Interface name  |
+  <div style="text-align: center">
+  <i>protocols</i>
 
+  <br>
+  &darr;
+  <br>
+  Routing Information Protocol (RIP) parameters
+
+  <br>
+  &darr;
+  <br>
+  Interface name
+
+  <br>
+  &darr;
+  <br>
   Authentication
+
+  <br>
+  &darr;
+  <br>
+  <b>
   MD5 key id
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-255  |  OSPF key id  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_rip_interface_authentication_md5 (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Routing Information Protocol (RIP) parameters
 
+<br>
+&darr;
+<br>
 Interface name
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Interface name  |
-
+<br>
+&darr;
+<br>
 Authentication
 
+<br>
+&darr;
+<br>
+<b>
 MD5 key id
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-255  |  OSPF key id  |
+</b>
+</div>
 
 
 
@@ -41,21 +65,21 @@ MD5 key id
 
 ### Required
 
-- `identifier` (String) MD5 key id
+- `interface_id` (String) Interface name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  OSPF key id  |
-- `interface_identifier` (String) Interface name
+    |  txt  &emsp; |  Interface name  |
+- `md5_id` (String) MD5 key id
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  number: 1-255  &emsp; |  OSPF key id  |
 
 ### Optional
 
 - `password` (String) Authentication password
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  MD5 Key (16 characters or less)  |
+    |  txt  &emsp; |  MD5 Key (16 characters or less)  |

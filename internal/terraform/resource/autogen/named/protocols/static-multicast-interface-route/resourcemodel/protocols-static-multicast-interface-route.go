@@ -8,7 +8,7 @@ import (
 
 // ProtocolsStaticMulticastInterfaceRoute describes the resource data model.
 type ProtocolsStaticMulticastInterfaceRoute struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_route_id" vyos:",self-id"`
 
 	// LeafNodes
 
@@ -28,20 +28,20 @@ func (o *ProtocolsStaticMulticastInterfaceRoute) GetVyosPath() []string {
 		"multicast",
 
 		"interface-route",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsStaticMulticastInterfaceRoute) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_route_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Multicast interface based route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Network  |
+    |  ipv4net  &emsp; |  Network  |
 
 `,
 		},

@@ -8,11 +8,11 @@ import (
 
 // QosPolicyShaperClassMatch describes the resource data model.
 type QosPolicyShaperClassMatch struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"match_id" vyos:",self-id"`
 
-	ParentIDQosPolicyShaper types.String `tfsdk:"shaper" vyos:"shaper_identifier,parent-id"`
+	ParentIDQosPolicyShaper types.String `tfsdk:"shaper" vyos:"shaper,parent-id"`
 
-	ParentIDQosPolicyShaperClass types.String `tfsdk:"class" vyos:"class_identifier,parent-id"`
+	ParentIDQosPolicyShaperClass types.String `tfsdk:"class" vyos:"class,parent-id"`
 
 	// LeafNodes
 	LeafQosPolicyShaperClassMatchDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -42,38 +42,38 @@ func (o *QosPolicyShaperClassMatch) GetVyosPath() []string {
 		o.ParentIDQosPolicyShaperClass.ValueString(),
 
 		"match",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyShaperClassMatch) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"match_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Class matching rule name
 
 `,
 		},
 
-		"shaper_identifier": schema.StringAttribute{
+		"shaper_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Traffic shaping based policy (Hierarchy Token Bucket)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 `,
 		},
 
-		"class_identifier": schema.StringAttribute{
+		"class_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Class ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:2-4095  |  Class Identifier  |
+    |  number: 2-4095  &emsp; |  Class Identifier  |
 
 `,
 		},
@@ -84,9 +84,9 @@ func (o QosPolicyShaperClassMatch) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -95,9 +95,9 @@ func (o QosPolicyShaperClassMatch) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Interface to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},
@@ -106,9 +106,9 @@ func (o QosPolicyShaperClassMatch) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Match on mark applied by firewall
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  FW mark to match  |
+    |  u32  &emsp; |  FW mark to match  |
 
 `,
 		},
@@ -117,9 +117,9 @@ func (o QosPolicyShaperClassMatch) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Virtual Local Area Network (VLAN) ID for this match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4095  |  Virtual Local Area Network (VLAN) tag   |
+    |  number: 0-4095  &emsp; |  Virtual Local Area Network (VLAN) tag   |
 
 `,
 		},

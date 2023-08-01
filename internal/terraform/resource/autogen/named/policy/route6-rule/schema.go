@@ -12,14 +12,21 @@ import (
 func (r policyRoutesixRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Policy route rule set name for IPv6
+		MarkdownDescription: `<div style="text-align: center">
+<i>policy</i>
 
+<br>
+&darr;
+<br>
+Policy route rule set name for IPv6
+
+<br>
+&darr;
+<br>
+<b>
 Policy rule number
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-999999  |  Number of policy rule  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

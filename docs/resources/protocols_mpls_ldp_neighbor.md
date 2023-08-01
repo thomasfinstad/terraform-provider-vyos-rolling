@@ -3,25 +3,50 @@
 page_title: "vyos_protocols_mpls_ldp_neighbor Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Multiprotocol Label Switching (MPLS)
+
+  <br>
+  &darr;
+  <br>
   Label Distribution Protocol (LDP)
+
+  <br>
+  &darr;
+  <br>
+  <b>
   LDP neighbor parameters
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  Neighbor IPv4 address  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_mpls_ldp_neighbor (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Multiprotocol Label Switching (MPLS)
 
+<br>
+&darr;
+<br>
 Label Distribution Protocol (LDP)
 
+<br>
+&darr;
+<br>
+<b>
 LDP neighbor parameters
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  Neighbor IPv4 address  |
+</b>
+</div>
 
 
 
@@ -30,23 +55,23 @@ LDP neighbor parameters
 
 ### Required
 
-- `identifier` (String) LDP neighbor parameters
+- `neighbor_id` (String) LDP neighbor parameters
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Neighbor IPv4 address  |
+    |  ipv4  &emsp; |  Neighbor IPv4 address  |
 
 ### Optional
 
 - `password` (String) Neighbor password
 - `session_holdtime` (Number) Session IPv4 hold time
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:15-65535  |  Time in seconds  |
+    |  number: 15-65535  &emsp; |  Time in seconds  |
 - `ttl_security` (String) Neighbor TTL security
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-254  |  TTL  |
-    |  disable  |  Disable neighbor TTL security  |
+    |  number: 1-254  &emsp; |  TTL  |
+    |  disable  &emsp; |  Disable neighbor TTL security  |

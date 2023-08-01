@@ -3,28 +3,60 @@
 page_title: "vyos_vpn_sstp_authentication_radius_server Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>vpn</i>
+
+  <br>
+  &darr;
+  <br>
   Secure Socket Tunneling Protocol (SSTP) server
+
+  <br>
+  &darr;
+  <br>
   Authentication for remote access SSTP Server
+
+  <br>
+  &darr;
+  <br>
   RADIUS based user authentication
+
+  <br>
+  &darr;
+  <br>
+  <b>
   RADIUS server configuration
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  RADIUS server IPv4 address  |
+  </b>
+  </div>
 ---
 
 # vyos_vpn_sstp_authentication_radius_server (Resource)
 
+<div style="text-align: center">
+<i>vpn</i>
+
+<br>
+&darr;
+<br>
 Secure Socket Tunneling Protocol (SSTP) server
 
+<br>
+&darr;
+<br>
 Authentication for remote access SSTP Server
 
+<br>
+&darr;
+<br>
 RADIUS based user authentication
 
+<br>
+&darr;
+<br>
+<b>
 RADIUS server configuration
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  RADIUS server IPv4 address  |
+</b>
+</div>
 
 
 
@@ -33,29 +65,29 @@ RADIUS server configuration
 
 ### Required
 
-- `identifier` (String) RADIUS server configuration
+- `server_id` (String) RADIUS server configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  RADIUS server IPv4 address  |
+    |  ipv4  &emsp; |  RADIUS server IPv4 address  |
 
 ### Optional
 
 - `acct_port` (Number) Accounting port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 - `disable` (Boolean) Disable instance
 - `disable_accounting` (Boolean) Disable accounting
 - `fail_time` (Number) Mark server unavailable for <n> seconds on failure
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-600  |  Fail time penalty  |
+    |  number: 0-600  &emsp; |  Fail time penalty  |
 - `key` (String) Shared secret key
 - `port` (Number) Authentication port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |

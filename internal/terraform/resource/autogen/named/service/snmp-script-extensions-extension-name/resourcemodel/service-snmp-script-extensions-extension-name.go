@@ -8,7 +8,7 @@ import (
 
 // ServiceSnmpScrIPtExtensionsExtensionName describes the resource data model.
 type ServiceSnmpScrIPtExtensionsExtensionName struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"extension_name_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceSnmpScrIPtExtensionsExtensionNameScrIPt types.String `tfsdk:"script" vyos:"script,omitempty"`
@@ -28,14 +28,14 @@ func (o *ServiceSnmpScrIPtExtensionsExtensionName) GetVyosPath() []string {
 		"script-extensions",
 
 		"extension-name",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceSnmpScrIPtExtensionsExtensionName) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"extension_name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Extension name
 

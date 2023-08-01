@@ -8,7 +8,7 @@ import (
 
 // VpnIPsecAuthenticationPsk describes the resource data model.
 type VpnIPsecAuthenticationPsk struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"psk_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafVpnIPsecAuthenticationPskDhcpInterface types.List   `tfsdk:"dhcp_interface" vyos:"dhcp-interface,omitempty"`
@@ -30,14 +30,14 @@ func (o *VpnIPsecAuthenticationPsk) GetVyosPath() []string {
 		"authentication",
 
 		"psk",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VpnIPsecAuthenticationPsk) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"psk_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Pre-shared key name
 
@@ -51,9 +51,9 @@ func (o VpnIPsecAuthenticationPsk) ResourceSchemaAttributes() map[string]schema.
 			Optional:    true,
 			MarkdownDescription: `DHCP interface supplying next-hop IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  DHCP interface name  |
+    |  txt  &emsp; |  DHCP interface name  |
 
 `,
 		},
@@ -63,9 +63,9 @@ func (o VpnIPsecAuthenticationPsk) ResourceSchemaAttributes() map[string]schema.
 			Optional:    true,
 			MarkdownDescription: `ID for authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  ID used for authentication  |
+    |  txt  &emsp; |  ID used for authentication  |
 
 `,
 		},
@@ -74,9 +74,9 @@ func (o VpnIPsecAuthenticationPsk) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `IKE pre-shared secret key
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  IKE pre-shared secret key  |
+    |  txt  &emsp; |  IKE pre-shared secret key  |
 
 `,
 		},

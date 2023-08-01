@@ -8,9 +8,9 @@ import (
 
 // PolicyExtcommunityListRule describes the resource data model.
 type PolicyExtcommunityListRule struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
-	ParentIDPolicyExtcommunityList types.String `tfsdk:"extcommunity_list" vyos:"extcommunity-list_identifier,parent-id"`
+	ParentIDPolicyExtcommunityList types.String `tfsdk:"extcommunity_list" vyos:"extcommunity-list,parent-id"`
 
 	// LeafNodes
 	LeafPolicyExtcommunityListRuleAction      types.String `tfsdk:"action" vyos:"action,omitempty"`
@@ -31,31 +31,31 @@ func (o *PolicyExtcommunityListRule) GetVyosPath() []string {
 		o.ParentIDPolicyExtcommunityList.ValueString(),
 
 		"rule",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PolicyExtcommunityListRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Rule for this BGP extended community list
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Extended community-list rule number  |
+    |  number: 1-65535  &emsp; |  Extended community-list rule number  |
 
 `,
 		},
 
-		"extcommunity_list_identifier": schema.StringAttribute{
+		"extcommunity_list_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Add a BGP extended community list entry
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  BGP extended community-list name  |
+    |  txt  &emsp; |  BGP extended community-list name  |
 
 `,
 		},
@@ -66,10 +66,10 @@ func (o PolicyExtcommunityListRule) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  permit  |  Permit matching entries  |
-    |  deny  |  Deny matching entries  |
+    |  permit  &emsp; |  Permit matching entries  |
+    |  deny  &emsp; |  Deny matching entries  |
 
 `,
 		},
@@ -78,9 +78,9 @@ func (o PolicyExtcommunityListRule) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -89,11 +89,11 @@ func (o PolicyExtcommunityListRule) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Regular expression to match against an extended community list
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <aa:nn:nn>  |  Extended community list regular expression  |
-    |  <rt aa:nn:nn>  |  Route Target regular expression  |
-    |  <soo aa:nn:nn>  |  Site of Origin regular expression  |
+    |  <aa:nn:nn>  &emsp; |  Extended community list regular expression  |
+    |  <rt aa:nn:nn>  &emsp; |  Route Target regular expression  |
+    |  <soo aa:nn:nn>  &emsp; |  Site of Origin regular expression  |
 
 `,
 		},

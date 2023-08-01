@@ -3,15 +3,40 @@
 page_title: "vyos_service_pppoe_server_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Point to Point over Ethernet (PPPoE) Server
+
+  <br>
+  &darr;
+  <br>
+  <b>
   interface(s) to listen on
+  </b>
+  </div>
 ---
 
 # vyos_service_pppoe_server_interface (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Point to Point over Ethernet (PPPoE) Server
 
+<br>
+&darr;
+<br>
+<b>
 interface(s) to listen on
+</b>
+</div>
 
 
 
@@ -20,13 +45,13 @@ interface(s) to listen on
 
 ### Required
 
-- `identifier` (String) interface(s) to listen on
+- `interface_id` (String) interface(s) to listen on
 
 ### Optional
 
 - `vlan` (List of String) VLAN monitor for automatic creation of VLAN interfaces
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4094  |  VLAN for automatic creation  |
-    |  start-end  |  VLAN range for automatic creation (e.g. 1-4094)  |
+    |  number: 1-4094  &emsp; |  VLAN for automatic creation  |
+    |  start-end  &emsp; |  VLAN range for automatic creation (e.g. 1-4094)  |

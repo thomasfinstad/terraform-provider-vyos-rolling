@@ -3,25 +3,40 @@
 page_title: "vyos_qos_policy_cake Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Quality of Service (QoS)
+
+  <br>
+  &darr;
+  <br>
   Service Policy definitions
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Common Applications Kept Enhanced (CAKE)
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Policy name  |
+  </b>
+  </div>
 ---
 
 # vyos_qos_policy_cake (Resource)
 
+<div style="text-align: center">
 Quality of Service (QoS)
 
+<br>
+&darr;
+<br>
 Service Policy definitions
 
+<br>
+&darr;
+<br>
+<b>
 Common Applications Kept Enhanced (CAKE)
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Policy name  |
+</b>
+</div>
 
 
 
@@ -30,36 +45,36 @@ Common Applications Kept Enhanced (CAKE)
 
 ### Required
 
-- `identifier` (String) Common Applications Kept Enhanced (CAKE)
+- `cake_id` (String) Common Applications Kept Enhanced (CAKE)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 ### Optional
 
 - `bandwidth` (String) Available bandwidth for this policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <number>  |  Bits per second  |
-    |  <number>bit  |  Bits per second  |
-    |  <number>kbit  |  Kilobits per second  |
-    |  <number>mbit  |  Megabits per second  |
-    |  <number>gbit  |  Gigabits per second  |
-    |  <number>tbit  |  Terabits per second  |
-    |  <number>%  |  Percentage of interface link speed  |
+    |  <number>  &emsp; |  Bits per second  |
+    |  <number>bit  &emsp; |  Bits per second  |
+    |  <number>kbit  &emsp; |  Kilobits per second  |
+    |  <number>mbit  &emsp; |  Megabits per second  |
+    |  <number>gbit  &emsp; |  Gigabits per second  |
+    |  <number>tbit  &emsp; |  Terabits per second  |
+    |  <number>%  &emsp; |  Percentage of interface link speed  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `flow_isolation` (Attributes) Flow isolation settings (see [below for nested schema](#nestedatt--flow_isolation))
 - `rtt` (Number) Round-Trip-Time for Active Queue Management (AQM)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-3600000  |  RTT in ms  |
+    |  number: 1-3600000  &emsp; |  RTT in ms  |
 
 <a id="nestedatt--flow_isolation"></a>
 ### Nested Schema for `flow_isolation`

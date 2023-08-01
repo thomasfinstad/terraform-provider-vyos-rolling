@@ -3,22 +3,50 @@
 page_title: "vyos_protocols_static_multicast_interface_route Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
+  <i>static</i>
+
+  <br>
+  &darr;
+  <br>
   Multicast static route
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Multicast interface based route
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  Network  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_static_multicast_interface_route (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
+<i>static</i>
+
+<br>
+&darr;
+<br>
 Multicast static route
 
+<br>
+&darr;
+<br>
+<b>
 Multicast interface based route
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  Network  |
+</b>
+</div>
 
 
 
@@ -27,8 +55,8 @@ Multicast interface based route
 
 ### Required
 
-- `identifier` (String) Multicast interface based route
+- `interface_route_id` (String) Multicast interface based route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Network  |
+    |  ipv4net  &emsp; |  Network  |

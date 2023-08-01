@@ -25,49 +25,49 @@ func (o PolicyRoutesixRuleIcmpvsix) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `ICMP type-name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  any  |  Any ICMP type/code  |
-    |  echo-reply  |  ICMP type/code name  |
-    |  pong  |  ICMP type/code name  |
-    |  destination-unreachable  |  ICMP type/code name  |
-    |  network-unreachable  |  ICMP type/code name  |
-    |  host-unreachable  |  ICMP type/code name  |
-    |  protocol-unreachable  |  ICMP type/code name  |
-    |  port-unreachable  |  ICMP type/code name  |
-    |  fragmentation-needed  |  ICMP type/code name  |
-    |  source-route-failed  |  ICMP type/code name  |
-    |  network-unknown  |  ICMP type/code name  |
-    |  host-unknown  |  ICMP type/code name  |
-    |  network-prohibited  |  ICMP type/code name  |
-    |  host-prohibited  |  ICMP type/code name  |
-    |  TOS-network-unreachable  |  ICMP type/code name  |
-    |  TOS-host-unreachable  |  ICMP type/code name  |
-    |  communication-prohibited  |  ICMP type/code name  |
-    |  host-precedence-violation  |  ICMP type/code name  |
-    |  precedence-cutoff  |  ICMP type/code name  |
-    |  source-quench  |  ICMP type/code name  |
-    |  redirect  |  ICMP type/code name  |
-    |  network-redirect  |  ICMP type/code name  |
-    |  host-redirect  |  ICMP type/code name  |
-    |  TOS-network-redirect  |  ICMP type/code name  |
-    |  TOS host-redirect  |  ICMP type/code name  |
-    |  echo-request  |  ICMP type/code name  |
-    |  ping  |  ICMP type/code name  |
-    |  router-advertisement  |  ICMP type/code name  |
-    |  router-solicitation  |  ICMP type/code name  |
-    |  time-exceeded  |  ICMP type/code name  |
-    |  ttl-exceeded  |  ICMP type/code name  |
-    |  ttl-zero-during-transit  |  ICMP type/code name  |
-    |  ttl-zero-during-reassembly  |  ICMP type/code name  |
-    |  parameter-problem  |  ICMP type/code name  |
-    |  ip-header-bad  |  ICMP type/code name  |
-    |  required-option-missing  |  ICMP type/code name  |
-    |  timestamp-request  |  ICMP type/code name  |
-    |  timestamp-reply  |  ICMP type/code name  |
-    |  address-mask-request  |  ICMP type/code name  |
-    |  address-mask-reply  |  ICMP type/code name  |
-    |  packet-too-big  |  ICMP type/code name  |
+    |  any  &emsp; |  Any ICMP type/code  |
+    |  echo-reply  &emsp; |  ICMP type/code name  |
+    |  pong  &emsp; |  ICMP type/code name  |
+    |  destination-unreachable  &emsp; |  ICMP type/code name  |
+    |  network-unreachable  &emsp; |  ICMP type/code name  |
+    |  host-unreachable  &emsp; |  ICMP type/code name  |
+    |  protocol-unreachable  &emsp; |  ICMP type/code name  |
+    |  port-unreachable  &emsp; |  ICMP type/code name  |
+    |  fragmentation-needed  &emsp; |  ICMP type/code name  |
+    |  source-route-failed  &emsp; |  ICMP type/code name  |
+    |  network-unknown  &emsp; |  ICMP type/code name  |
+    |  host-unknown  &emsp; |  ICMP type/code name  |
+    |  network-prohibited  &emsp; |  ICMP type/code name  |
+    |  host-prohibited  &emsp; |  ICMP type/code name  |
+    |  TOS-network-unreachable  &emsp; |  ICMP type/code name  |
+    |  TOS-host-unreachable  &emsp; |  ICMP type/code name  |
+    |  communication-prohibited  &emsp; |  ICMP type/code name  |
+    |  host-precedence-violation  &emsp; |  ICMP type/code name  |
+    |  precedence-cutoff  &emsp; |  ICMP type/code name  |
+    |  source-quench  &emsp; |  ICMP type/code name  |
+    |  redirect  &emsp; |  ICMP type/code name  |
+    |  network-redirect  &emsp; |  ICMP type/code name  |
+    |  host-redirect  &emsp; |  ICMP type/code name  |
+    |  TOS-network-redirect  &emsp; |  ICMP type/code name  |
+    |  TOS host-redirect  &emsp; |  ICMP type/code name  |
+    |  echo-request  &emsp; |  ICMP type/code name  |
+    |  ping  &emsp; |  ICMP type/code name  |
+    |  router-advertisement  &emsp; |  ICMP type/code name  |
+    |  router-solicitation  &emsp; |  ICMP type/code name  |
+    |  time-exceeded  &emsp; |  ICMP type/code name  |
+    |  ttl-exceeded  &emsp; |  ICMP type/code name  |
+    |  ttl-zero-during-transit  &emsp; |  ICMP type/code name  |
+    |  ttl-zero-during-reassembly  &emsp; |  ICMP type/code name  |
+    |  parameter-problem  &emsp; |  ICMP type/code name  |
+    |  ip-header-bad  &emsp; |  ICMP type/code name  |
+    |  required-option-missing  &emsp; |  ICMP type/code name  |
+    |  timestamp-request  &emsp; |  ICMP type/code name  |
+    |  timestamp-reply  &emsp; |  ICMP type/code name  |
+    |  address-mask-request  &emsp; |  ICMP type/code name  |
+    |  address-mask-reply  &emsp; |  ICMP type/code name  |
+    |  packet-too-big  &emsp; |  ICMP type/code name  |
 
 `,
 		},

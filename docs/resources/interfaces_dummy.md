@@ -3,19 +3,30 @@
 page_title: "vyos_interfaces_dummy Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>interfaces</i>
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Dummy Interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  dumN  |  Dummy interface name  |
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_dummy (Resource)
 
-Dummy Interface
+<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  dumN  |  Dummy interface name  |
+<br>
+&darr;
+<br>
+<b>
+Dummy Interface
+</b>
+</div>
 
 
 
@@ -24,49 +35,49 @@ Dummy Interface
 
 ### Required
 
-- `identifier` (String) Dummy Interface
+- `dummy_id` (String) Dummy Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  dumN  |  Dummy interface name  |
+    |  dumN  &emsp; |  Dummy interface name  |
 
 ### Optional
 
 - `address` (List of String) IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `disable` (Boolean) Administratively disable interface
 - `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--ip))
 - `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--ipv6))
 - `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--mirror))
 - `mtu` (Number) Maximum Transmission Unit (MTU)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:68-16000  |  Maximum Transmission Unit in byte  |
+    |  number: 68-16000  &emsp; |  Maximum Transmission Unit in byte  |
 - `netns` (String) Network namespace name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  Network namespace name  |
+    |  text  &emsp; |  Network namespace name  |
 - `redirect` (String) Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 - `vrf` (String) VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 <a id="nestedatt--ip"></a>
 ### Nested Schema for `ip`
@@ -76,11 +87,11 @@ Optional:
 - `disable_forwarding` (Boolean) Disable IP forwarding on this interface
 - `source_validation` (String) Source validation by reversed path (RFC3704)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
-    |  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
-    |  disable  |  No source validation  |
+    |  strict  &emsp; |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
+    |  loose  &emsp; |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
+    |  disable  &emsp; |  No source validation  |
 
 
 <a id="nestedatt--ipv6"></a>
@@ -98,9 +109,9 @@ Optional:
 
 - `eui64` (List of String) Prefix for IPv6 address with MAC-based EUI-64
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
+    |  <h:h:h:h:h:h:h:h/64>  &emsp; |  IPv6 /64 network  |
 - `no_default_link_local` (Boolean) Remove the default link-local address from the interface
 
 
@@ -112,11 +123,11 @@ Optional:
 
 - `egress` (String) Mirror egress traffic to destination interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 - `ingress` (String) Mirror ingress traffic to destination interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |

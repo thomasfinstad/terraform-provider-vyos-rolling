@@ -26,9 +26,9 @@ func (o ProtocolsBfdPeerSource) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Interface to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},
@@ -37,10 +37,10 @@ func (o ProtocolsBfdPeerSource) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Local address to bind our peer listener to
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Local IPv4 address used to connect to the peer  |
-    |  ipv6  |  Local IPv6 address used to connect to the peer  |
+    |  ipv4  &emsp; |  Local IPv4 address used to connect to the peer  |
+    |  ipv6  &emsp; |  Local IPv6 address used to connect to the peer  |
 
 `,
 		},

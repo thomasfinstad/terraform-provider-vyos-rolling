@@ -8,7 +8,7 @@ import (
 
 // ServicePppoeServerPadoDelay describes the resource data model.
 type ServicePppoeServerPadoDelay struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"pado_delay_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServicePppoeServerPadoDelaySessions types.Number `tfsdk:"sessions" vyos:"sessions,omitempty"`
@@ -26,20 +26,20 @@ func (o *ServicePppoeServerPadoDelay) GetVyosPath() []string {
 		"pppoe-server",
 
 		"pado-delay",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServicePppoeServerPadoDelay) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"pado_delay_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `PADO delays
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-999999  |  Number in ms  |
+    |  number: 1-999999  &emsp; |  Number in ms  |
 
 `,
 		},
@@ -50,9 +50,9 @@ func (o ServicePppoeServerPadoDelay) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Number of sessions
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-999999  |  Number of sessions  |
+    |  number: 1-999999  &emsp; |  Number of sessions  |
 
 `,
 		},

@@ -25,10 +25,10 @@ func (o ProtocolsRIPInterfaceReceive) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Limit RIP protocol version
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  1  |  Allow RIPv1 only  |
-    |  2  |  Allow RIPv2 only  |
+    |  1  &emsp; |  Allow RIPv1 only  |
+    |  2  &emsp; |  Allow RIPv2 only  |
 
 `,
 		},

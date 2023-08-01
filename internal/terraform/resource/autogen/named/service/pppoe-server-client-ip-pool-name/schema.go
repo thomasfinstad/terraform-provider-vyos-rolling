@@ -12,16 +12,26 @@ import (
 func (r servicePppoeServerClientIPPoolName) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Point to Point over Ethernet (PPPoE) Server
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Point to Point over Ethernet (PPPoE) Server
+
+<br>
+&darr;
+<br>
 Pool of client IP addresses (must be within a /24)
 
+<br>
+&darr;
+<br>
+<b>
 Pool name
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Name of IP pool  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

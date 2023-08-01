@@ -3,28 +3,50 @@
 page_title: "vyos_vpn_ipsec_site_to_site_peer Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Private Network (VPN)
+
+  <br>
+  &darr;
+  <br>
   VPN IP security (IPsec) parameters
+
+  <br>
+  &darr;
+  <br>
   Site-to-site VPN
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Connection name of the peer
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Connection name of the peer  |
+  </b>
+  </div>
 ---
 
 # vyos_vpn_ipsec_site_to_site_peer (Resource)
 
+<div style="text-align: center">
 Virtual Private Network (VPN)
 
+<br>
+&darr;
+<br>
 VPN IP security (IPsec) parameters
 
+<br>
+&darr;
+<br>
 Site-to-site VPN
 
+<br>
+&darr;
+<br>
+<b>
 Connection name of the peer
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Connection name of the peer  |
+</b>
+</div>
 
 
 
@@ -33,64 +55,64 @@ Connection name of the peer
 
 ### Required
 
-- `identifier` (String) Connection name of the peer
+- `peer_id` (String) Connection name of the peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Connection name of the peer  |
+    |  txt  &emsp; |  Connection name of the peer  |
 
 ### Optional
 
 - `authentication` (Attributes) Peer authentication (see [below for nested schema](#nestedatt--authentication))
 - `connection_type` (String) Connection type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  initiate  |  Bring the connection up immediately  |
-    |  respond  |  Wait for the peer to initiate the connection  |
-    |  none  |  Load the connection only  |
+    |  initiate  &emsp; |  Bring the connection up immediately  |
+    |  respond  &emsp; |  Wait for the peer to initiate the connection  |
+    |  none  &emsp; |  Load the connection only  |
 - `default_esp_group` (String) Defult ESP group name
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `dhcp_interface` (String) DHCP interface supplying next-hop IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  DHCP interface name  |
+    |  txt  &emsp; |  DHCP interface name  |
 - `disable` (Boolean) Disable instance
 - `force_udp_encapsulation` (Boolean) Force UDP encapsulation
 - `ike_group` (String) Internet Key Exchange (IKE) group name
 - `ikev2_reauth` (String) Re-authentication of the remote peer during an IKE re-key (IKEv2 only)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  yes  |  Enable remote host re-autentication during an IKE re-key. Currently broken due to a strong swan bug  |
-    |  no  |  Disable remote host re-authenticaton during an IKE re-key.  |
-    |  inherit  |  Inherit the reauth configuration form your IKE-group  |
+    |  yes  &emsp; |  Enable remote host re-autentication during an IKE re-key. Currently broken due to a strong swan bug  |
+    |  no  &emsp; |  Disable remote host re-authenticaton during an IKE re-key.  |
+    |  inherit  &emsp; |  Inherit the reauth configuration form your IKE-group  |
 - `local_address` (String) IPv4 or IPv6 address of a local interface to use for VPN
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address of a local interface for VPN  |
-    |  ipv6  |  IPv6 address of a local interface for VPN  |
-    |  any  |  Allow any IPv4 address present on the system to be used for VPN  |
+    |  ipv4  &emsp; |  IPv4 address of a local interface for VPN  |
+    |  ipv6  &emsp; |  IPv6 address of a local interface for VPN  |
+    |  any  &emsp; |  Allow any IPv4 address present on the system to be used for VPN  |
 - `remote_address` (List of String) IPv4 or IPv6 address of the remote peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address of the remote peer  |
-    |  ipv6  |  IPv6 address of the remote peer  |
-    |  hostname  |  Fully qualified domain name of the remote peer  |
-    |  any  |  Allow any IP address of the remote peer  |
+    |  ipv4  &emsp; |  IPv4 address of the remote peer  |
+    |  ipv6  &emsp; |  IPv6 address of the remote peer  |
+    |  hostname  &emsp; |  Fully qualified domain name of the remote peer  |
+    |  any  &emsp; |  Allow any IP address of the remote peer  |
 - `virtual_address` (List of String) Initiator request virtual-address from peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Request IPv4 address from peer  |
-    |  ipv6  |  Request IPv6 address from peer  |
+    |  ipv4  &emsp; |  Request IPv4 address from peer  |
+    |  ipv6  &emsp; |  Request IPv6 address from peer  |
 - `vti` (Attributes) Virtual tunnel interface (see [below for nested schema](#nestedatt--vti))
 
 <a id="nestedatt--authentication"></a>
@@ -100,21 +122,21 @@ Optional:
 
 - `local_id` (String) Local ID for peer authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Local ID used for peer authentication  |
+    |  txt  &emsp; |  Local ID used for peer authentication  |
 - `mode` (String) Authentication mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  pre-shared-secret  |  Use pre-shared secret key  |
-    |  rsa  |  Use RSA key  |
-    |  x509  |  Use x.509 certificate  |
+    |  pre-shared-secret  &emsp; |  Use pre-shared secret key  |
+    |  rsa  &emsp; |  Use RSA key  |
+    |  x509  &emsp; |  Use x.509 certificate  |
 - `remote_id` (String) ID for remote authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  ID used for peer authentication  |
+    |  txt  &emsp; |  ID used for peer authentication  |
 - `rsa` (Attributes) RSA keys (see [below for nested schema](#nestedatt--authentication--rsa))
 - `use_x509_id` (Boolean) Use certificate common name as ID
 - `x509` (Attributes) X.509 certificate (see [below for nested schema](#nestedatt--authentication--x509))
@@ -136,19 +158,19 @@ Optional:
 
 - `ca_certificate` (String) Certificate Authority in PKI configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of CA in PKI configuration  |
+    |  txt  &emsp; |  Name of CA in PKI configuration  |
 - `certificate` (String) Certificate in PKI configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of certificate in PKI configuration  |
+    |  txt  &emsp; |  Name of certificate in PKI configuration  |
 - `passphrase` (String) Private key passphrase
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Passphrase to decrypt the private key  |
+    |  txt  &emsp; |  Passphrase to decrypt the private key  |
 
 
 

@@ -12,18 +12,31 @@ import (
 func (r serviceWebproxyURLFilteringSquIDguardSourceGroup) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Webproxy service settings
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Webproxy service settings
+
+<br>
+&darr;
+<br>
 URL filtering settings
 
+<br>
+&darr;
+<br>
 URL filtering via squidGuard redirector
 
+<br>
+&darr;
+<br>
+<b>
 Source group name
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  name  |  Name of source group  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

@@ -3,18 +3,40 @@
 page_title: "vyos_container_name_port Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Container applications
+
+  <br>
+  &darr;
+  <br>
   Container name
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Publish port to the container
+  </b>
+  </div>
 ---
 
 # vyos_container_name_port (Resource)
 
+<div style="text-align: center">
 Container applications
 
+<br>
+&darr;
+<br>
 Container name
 
+<br>
+&darr;
+<br>
+<b>
 Publish port to the container
+</b>
+</div>
 
 
 
@@ -23,26 +45,26 @@ Publish port to the container
 
 ### Required
 
-- `identifier` (String) Publish port to the container
-- `name_identifier` (String) Container name
+- `name_id` (String) Container name
+- `port_id` (String) Publish port to the container
 
 ### Optional
 
 - `destination` (String) Destination container port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Destination container port  |
-    |  start-end  |  Destination container port range (e.g. 10025-10030)  |
+    |  number: 1-65535  &emsp; |  Destination container port  |
+    |  start-end  &emsp; |  Destination container port range (e.g. 10025-10030)  |
 - `protocol` (String) Transport protocol used for port mapping
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  tcp  |  Use Transmission Control Protocol for given port  |
-    |  udp  |  Use User Datagram Protocol for given port  |
+    |  tcp  &emsp; |  Use Transmission Control Protocol for given port  |
+    |  udp  &emsp; |  Use User Datagram Protocol for given port  |
 - `source` (String) Source host port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Source host port  |
-    |  start-end  |  Source host port range (e.g. 10025-10030)  |
+    |  number: 1-65535  &emsp; |  Source host port  |
+    |  start-end  &emsp; |  Source host port range (e.g. 10025-10030)  |

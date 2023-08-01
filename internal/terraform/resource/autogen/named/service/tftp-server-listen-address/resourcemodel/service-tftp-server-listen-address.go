@@ -8,7 +8,7 @@ import (
 
 // ServiceTftpServerListenAddress describes the resource data model.
 type ServiceTftpServerListenAddress struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"listen_address_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceTftpServerListenAddressVrf types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
@@ -26,21 +26,21 @@ func (o *ServiceTftpServerListenAddress) GetVyosPath() []string {
 		"tftp-server",
 
 		"listen-address",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceTftpServerListenAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"listen_address_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Local IP addresses to listen on
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address to listen for incoming connections  |
-    |  ipv6  |  IPv6 address to listen for incoming connections  |
+    |  ipv4  &emsp; |  IPv4 address to listen for incoming connections  |
+    |  ipv6  &emsp; |  IPv6 address to listen for incoming connections  |
 
 `,
 		},
@@ -51,9 +51,9 @@ func (o ServiceTftpServerListenAddress) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},

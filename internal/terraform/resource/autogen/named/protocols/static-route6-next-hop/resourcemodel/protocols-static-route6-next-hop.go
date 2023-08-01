@@ -9,9 +9,9 @@ import (
 
 // ProtocolsStaticRoutesixNextHop describes the resource data model.
 type ProtocolsStaticRoutesixNextHop struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"next_hop_id" vyos:",self-id"`
 
-	ParentIDProtocolsStaticRoutesix types.String `tfsdk:"route6" vyos:"route6_identifier,parent-id"`
+	ParentIDProtocolsStaticRoutesix types.String `tfsdk:"route6" vyos:"route6,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsStaticRoutesixNextHopDisable   types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -35,31 +35,31 @@ func (o *ProtocolsStaticRoutesixNextHop) GetVyosPath() []string {
 		o.ParentIDProtocolsStaticRoutesix.ValueString(),
 
 		"next-hop",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsStaticRoutesixNextHop) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"next_hop_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IPv6 gateway address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6  |  Next-hop IPv6 router  |
+    |  ipv6  &emsp; |  Next-hop IPv6 router  |
 
 `,
 		},
 
-		"route6_identifier": schema.StringAttribute{
+		"route6_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Static IPv6 route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  IPv6 static route  |
+    |  ipv6net  &emsp; |  IPv6 static route  |
 
 `,
 		},
@@ -79,9 +79,9 @@ func (o ProtocolsStaticRoutesixNextHop) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `Distance for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for this route  |
+    |  number: 1-255  &emsp; |  Distance for this route  |
 
 `,
 		},
@@ -90,9 +90,9 @@ func (o ProtocolsStaticRoutesixNextHop) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `Gateway interface name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Gateway interface name  |
+    |  txt  &emsp; |  Gateway interface name  |
 
 `,
 		},
@@ -101,9 +101,9 @@ func (o ProtocolsStaticRoutesixNextHop) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `VRF to leak route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of VRF to leak to  |
+    |  txt  &emsp; |  Name of VRF to leak to  |
 
 `,
 		},

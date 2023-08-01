@@ -12,20 +12,26 @@ import (
 func (r interfacesBondingVifSVifC) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Bonding Interface/Link Aggregation
+		MarkdownDescription: `<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  bondN  |  Bonding interface name  |
+<br>
+&darr;
+<br>
+Bonding Interface/Link Aggregation
 
+<br>
+&darr;
+<br>
 QinQ TAG-S Virtual Local Area Network (VLAN) ID
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
-
+<br>
+&darr;
+<br>
+<b>
 QinQ TAG-C Virtual Local Area Network (VLAN) ID
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

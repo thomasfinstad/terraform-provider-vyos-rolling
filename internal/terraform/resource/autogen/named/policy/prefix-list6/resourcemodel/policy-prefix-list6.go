@@ -8,7 +8,7 @@ import (
 
 // PolicyPrefixListsix describes the resource data model.
 type PolicyPrefixListsix struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"prefix_list6_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafPolicyPrefixListsixDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -25,20 +25,20 @@ func (o *PolicyPrefixListsix) GetVyosPath() []string {
 		"policy",
 
 		"prefix-list6",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PolicyPrefixListsix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"prefix_list6_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IPv6 prefix-list filter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv6 prefix-list  |
+    |  txt  &emsp; |  Name of IPv6 prefix-list  |
 
 `,
 		},
@@ -49,9 +49,9 @@ func (o PolicyPrefixListsix) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

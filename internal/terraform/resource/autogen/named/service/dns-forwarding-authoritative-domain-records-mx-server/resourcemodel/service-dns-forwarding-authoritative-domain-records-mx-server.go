@@ -8,11 +8,11 @@ import (
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsMxServer describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsMxServer struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"server_id" vyos:",self-id"`
 
-	ParentIDServiceDNSForwardingAuthoritativeDomain types.String `tfsdk:"authoritative_domain" vyos:"authoritative-domain_identifier,parent-id"`
+	ParentIDServiceDNSForwardingAuthoritativeDomain types.String `tfsdk:"authoritative_domain" vyos:"authoritative-domain,parent-id"`
 
-	ParentIDServiceDNSForwardingAuthoritativeDomainRecordsMx types.String `tfsdk:"mx" vyos:"mx_identifier,parent-id"`
+	ParentIDServiceDNSForwardingAuthoritativeDomainRecordsMx types.String `tfsdk:"mx" vyos:"mx,parent-id"`
 
 	// LeafNodes
 	LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
@@ -40,43 +40,43 @@ func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) GetVyosPath() [
 		o.ParentIDServiceDNSForwardingAuthoritativeDomainRecordsMx.ValueString(),
 
 		"server",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"server_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Mail server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  name.example.com  |  An absolute DNS name  |
+    |  name.example.com  &emsp; |  An absolute DNS name  |
 
 `,
 		},
 
-		"authoritative_domain_identifier": schema.StringAttribute{
+		"authoritative_domain_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Domain to host authoritative records for
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  An absolute DNS name  |
+    |  text  &emsp; |  An absolute DNS name  |
 
 `,
 		},
 
-		"mx_identifier": schema.StringAttribute{
+		"mx_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `"MX" record
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  A DNS name relative to the root record  |
-    |  @  |  Root record  |
+    |  text  &emsp; |  A DNS name relative to the root record  |
+    |  @  &emsp; |  Root record  |
 
 `,
 		},
@@ -87,9 +87,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) ResourceSchemaAt
 			Optional: true,
 			MarkdownDescription: `Server priority
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-999  |  Server priority (lower numbers are higher priority)  |
+    |  number: 1-999  &emsp; |  Server priority (lower numbers are higher priority)  |
 
 `,
 

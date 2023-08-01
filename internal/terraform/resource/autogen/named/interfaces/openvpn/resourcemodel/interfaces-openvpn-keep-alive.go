@@ -26,9 +26,9 @@ func (o InterfacesOpenvpnKeepAlive) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Maximum number of keepalive packet failures
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-1000  |  Maximum number of keepalive packet failures  |
+    |  number: 0-1000  &emsp; |  Maximum number of keepalive packet failures  |
 
 `,
 
@@ -40,9 +40,9 @@ func (o InterfacesOpenvpnKeepAlive) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Keepalive packet interval in seconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-600  |  Keepalive packet interval (seconds)  |
+    |  number: 0-600  &emsp; |  Keepalive packet interval (seconds)  |
 
 `,
 

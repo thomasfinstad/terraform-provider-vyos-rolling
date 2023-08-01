@@ -28,9 +28,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance) ResourceSchema
 			Optional: true,
 			MarkdownDescription: `eBGP routes administrative distance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  eBGP routes administrative distance  |
+    |  number: 1-255  &emsp; |  eBGP routes administrative distance  |
 
 `,
 		},
@@ -39,9 +39,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance) ResourceSchema
 			Optional: true,
 			MarkdownDescription: `iBGP routes administrative distance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  iBGP routes administrative distance  |
+    |  number: 1-255  &emsp; |  iBGP routes administrative distance  |
 
 `,
 		},
@@ -50,9 +50,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance) ResourceSchema
 			Optional: true,
 			MarkdownDescription: `Locally originated BGP routes administrative distance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Locally originated BGP routes administrative distance  |
+    |  number: 1-255  &emsp; |  Locally originated BGP routes administrative distance  |
 
 `,
 		},

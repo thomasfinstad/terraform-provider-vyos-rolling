@@ -3,25 +3,40 @@
 page_title: "vyos_qos_policy_fair_queue Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Quality of Service (QoS)
+
+  <br>
+  &darr;
+  <br>
   Service Policy definitions
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Stochastic Fairness Queueing
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Policy name  |
+  </b>
+  </div>
 ---
 
 # vyos_qos_policy_fair_queue (Resource)
 
+<div style="text-align: center">
 Quality of Service (QoS)
 
+<br>
+&darr;
+<br>
 Service Policy definitions
 
+<br>
+&darr;
+<br>
+<b>
 Stochastic Fairness Queueing
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Policy name  |
+</b>
+</div>
 
 
 
@@ -30,27 +45,27 @@ Stochastic Fairness Queueing
 
 ### Required
 
-- `identifier` (String) Stochastic Fairness Queueing
+- `fair_queue_id` (String) Stochastic Fairness Queueing
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `hash_interval` (Number) Interval in seconds for queue algorithm perturbation
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  No perturbation  |
-    |  u32:1-127  |  Interval in seconds for queue algorithm perturbation (advised: 10)  |
+    |  number: 0  &emsp; |  No perturbation  |
+    |  number: 1-127  &emsp; |  Interval in seconds for queue algorithm perturbation (advised: 10)  |
 - `queue_limit` (Number) Upper limit of the SFQ
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-127  |  Queue size in packets  |
+    |  number: 1-127  &emsp; |  Queue size in packets  |

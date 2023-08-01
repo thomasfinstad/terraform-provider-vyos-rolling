@@ -12,31 +12,41 @@ import (
 func (r protocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Open Shortest Path First (OSPF)
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Open Shortest Path First (OSPF)
+
+<br>
+&darr;
+<br>
 OSPF area settings
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32  |  OSPF area number in decimal notation  |
-    |  ipv4  |  OSPF area number in dotted decimal notation  |
-
+<br>
+&darr;
+<br>
 Virtual link
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  OSPF area in dotted decimal notation  |
-
+<br>
+&darr;
+<br>
 Authentication
 
+<br>
+&darr;
+<br>
 MD5 key id
 
+<br>
+&darr;
+<br>
+<b>
 MD5 key id
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-255  |  MD5 key id  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

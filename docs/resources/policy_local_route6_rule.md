@@ -3,22 +3,40 @@
 page_title: "vyos_policy_local_route6_rule Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>policy</i>
+
+  <br>
+  &darr;
+  <br>
   IPv6 policy route of local traffic
+
+  <br>
+  &darr;
+  <br>
+  <b>
   IPv6 policy local-route rule set number
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-32765  |  Local-route rule number (1-32765)  |
+  </b>
+  </div>
 ---
 
 # vyos_policy_local_route6_rule (Resource)
 
+<div style="text-align: center">
+<i>policy</i>
+
+<br>
+&darr;
+<br>
 IPv6 policy route of local traffic
 
+<br>
+&darr;
+<br>
+<b>
 IPv6 policy local-route rule set number
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-32765  |  Local-route rule number (1-32765)  |
+</b>
+</div>
 
 
 
@@ -27,33 +45,33 @@ IPv6 policy local-route rule set number
 
 ### Required
 
-- `identifier` (String) IPv6 policy local-route rule set number
+- `rule_id` (String) IPv6 policy local-route rule set number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-32765  |  Local-route rule number (1-32765)  |
+    |  number: 1-32765  &emsp; |  Local-route rule number (1-32765)  |
 
 ### Optional
 
 - `destination` (List of String) Destination address or prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6  |  Address to match against  |
-    |  ipv6net  |  Prefix to match against  |
+    |  ipv6  &emsp; |  Address to match against  |
+    |  ipv6net  &emsp; |  Prefix to match against  |
 - `fwmark` (Number) Match fwmark value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2147483647  |  Address to match against  |
+    |  number: 1-2147483647  &emsp; |  Address to match against  |
 - `inbound_interface` (String) Inbound Interface
 - `set` (Attributes) Packet modifications (see [below for nested schema](#nestedatt--set))
 - `source` (List of String) Source address or prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6  |  Address to match against  |
-    |  ipv6net  |  Prefix to match against  |
+    |  ipv6  &emsp; |  Address to match against  |
+    |  ipv6net  &emsp; |  Prefix to match against  |
 
 <a id="nestedatt--set"></a>
 ### Nested Schema for `set`
@@ -62,6 +80,6 @@ Optional:
 
 - `table` (Number) Routing table to forward packet with
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-200  |  Table number  |
+    |  number: 1-200  &emsp; |  Table number  |

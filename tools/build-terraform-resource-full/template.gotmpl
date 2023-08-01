@@ -79,7 +79,7 @@ import (
 		{{template "resource-model-parent-id-hack" .Parent}}
 	{{end}}
 	{{if eq .NodeType "TagNode"}}
-		ParentID{{.BaseNameCG}} types.String `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}}_identifier,parent-id"`
+		ParentID{{.BaseNameCG}} types.String `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},parent-id"`
 	{{end}}
 {{end}}
 
@@ -97,7 +97,7 @@ import (
 	{{if .Parent}}
 		{{template "resource-model-parent-schema-hack" .Parent}}
 		{{- if eq .NodeType "TagNode" -}}
-			"{{.BaseNameS}}_identifier":         schema.StringAttribute{
+			"{{.BaseNameS}}_id":         schema.StringAttribute{
 				Required:            true,
 				MarkdownDescription: `{{.Description}}`,
 			},
@@ -176,12 +176,12 @@ import (
 	// {{.BaseNameCG}} describes the resource data model.
 	type {{.BaseNameCG}} struct {
 		{{if .IsBaseNode }}
-			ID	{{ if eq .ValueType "string" -}}
-					types.String
-				{{- else  if eq .ValueType "number" -}}
-					types.Number
-				{{- end -}}
-			`tfsdk:"identifier" vyos:",self-id"`
+			SelfIdentifier	{{ if eq .ValueType "string" -}}
+							types.String
+						{{- else  if eq .ValueType "number" -}}
+							types.Number
+						{{- end -}}
+			`tfsdk:"{{.BaseNameS}}_id" vyos:",self-id"`
 			{{if .Parent}}
 				{{template "resource-model-parent-id-hack" .Parent}}
 			{{end}}
@@ -222,9 +222,9 @@ import (
 				{{- end}}
 				"{{.BaseName}}",
 				{{if eq .ValueType "string" -}}
-					o.ID.ValueString(),
+					o.SelfIdentifier.ValueString(),
 				{{- else  if eq .ValueType "number" -}}
-					o.ID.ValueBigFloat().String(),
+					o.SelfIdentifier.ValueBigFloat().String(),
 				{{- else -}}
 					UNSUPPORTED TYPE
 				{{- end}}
@@ -236,7 +236,7 @@ import (
 	func (o {{.BaseNameCG}}) ResourceSchemaAttributes() map[string]schema.Attribute {
 		return map[string]schema.Attribute{
 			{{if .IsBaseNode }}
-				"identifier":         schema.StringAttribute{
+				"{{.BaseNameS}}_id":         schema.StringAttribute{
 					Required:            true,
 					MarkdownDescription: `{{.Description}}`,
 				},
@@ -342,9 +342,9 @@ func (r {{.BaseNameG}}) Schema(ctx context.Context, req resource.SchemaRequest, 
 
 		// Save ID into the Terraform state.
 		{{- if eq .ValueType "string" -}}
-			data.ID = types.StringValue(data.ID.ValueString())
+			data.SelfIdentifier = types.StringValue(data.SelfIdentifier.ValueString())
 		{{- else  if eq .ValueType "number" -}}
-			data.ID = types.NumberValue(data.ID.ValueBigFloat().String())
+			data.SelfIdentifier = types.NumberValue(data.SelfIdentifier.ValueBigFloat().String())
 		{{else}}
 			UNSUPPORTED TYPE
 		{{end}}
@@ -433,9 +433,9 @@ func (r {{.BaseNameG}}) Schema(ctx context.Context, req resource.SchemaRequest, 
 
 		// Save ID into the Terraform state.
 		{{- if eq .ValueType "string" -}}
-			data.ID = types.StringValue(data.ID.ValueString())
+			data.SelfIdentifier = types.StringValue(data.SelfIdentifier.ValueString())
 		{{- else  if eq .ValueType "number" -}}
-			data.ID = types.NumberValue(data.ID.ValueBigFloat().String())
+			data.SelfIdentifier = types.NumberValue(data.SelfIdentifier.ValueBigFloat().String())
 		{{else}}
 			UNSUPPORTED TYPE
 		{{end}}

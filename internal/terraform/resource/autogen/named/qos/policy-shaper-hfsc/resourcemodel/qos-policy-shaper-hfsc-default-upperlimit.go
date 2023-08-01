@@ -27,9 +27,9 @@ func (o QosPolicyShaperHfscDefaultUpperlimit) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Service curve delay
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <number>  |  Time in milliseconds  |
+    |  <number>  &emsp; |  Time in milliseconds  |
 
 `,
 		},
@@ -38,14 +38,14 @@ func (o QosPolicyShaperHfscDefaultUpperlimit) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Linkshare m1 parameter for class traffic
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <number>  |  Rate in kbit (kilobit per second)  |
-    |  <number>%%  |  Percentage of overall rate  |
-    |  <number>bit  |  bit(1), kbit(10^3), mbit(10^6), gbit, tbit  |
-    |  <number>ibit  |  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
-    |  <number>ibps  |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
-    |  <number>bps  |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
+    |  <number>  &emsp; |  Rate in kbit (kilobit per second)  |
+    |  <number>%%  &emsp; |  Percentage of overall rate  |
+    |  <number>bit  &emsp; |  bit(1), kbit(10^3), mbit(10^6), gbit, tbit  |
+    |  <number>ibit  &emsp; |  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
+    |  <number>ibps  &emsp; |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
+    |  <number>bps  &emsp; |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
 
 `,
 
@@ -57,14 +57,14 @@ func (o QosPolicyShaperHfscDefaultUpperlimit) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Linkshare m2 parameter for class traffic
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <number>  |  Rate in kbit (kilobit per second)  |
-    |  <number>%%  |  Percentage of overall rate  |
-    |  <number>bit  |  bit(1), kbit(10^3), mbit(10^6), gbit, tbit  |
-    |  <number>ibit  |  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
-    |  <number>ibps  |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
-    |  <number>bps  |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
+    |  <number>  &emsp; |  Rate in kbit (kilobit per second)  |
+    |  <number>%%  &emsp; |  Percentage of overall rate  |
+    |  <number>bit  &emsp; |  bit(1), kbit(10^3), mbit(10^6), gbit, tbit  |
+    |  <number>ibit  &emsp; |  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
+    |  <number>ibps  &emsp; |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
+    |  <number>bps  &emsp; |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
 
 `,
 

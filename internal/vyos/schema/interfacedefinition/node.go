@@ -139,23 +139,40 @@ func (o *Node) GetChildren() *Children {
 
 // Description returns the formatted description of the node, including help text
 func (o Node) Description() string {
+	strReplaceFormat := map[string]string{
+		`\r?\n`: "<br>",
+		`u32:`:  "number: ",
+	}
+
 	var desc string
 	for _, p := range o.Properties {
 		if p.Help != nil {
 			desc = fmt.Sprintf("%s\n\n", strings.Join(p.Help, "\n"))
 		}
 
+		// Adding &emsp; gives tables better readability on terraform registry documentation page
 		if p.ValueHelp != nil {
-			desc += "    |  Format  |  Description  |\n"
+			desc += "    |  Format &emsp; | Description  |\n"
 			desc += "    |----------|---------------|\n"
 			for _, vh := range p.ValueHelp {
+				// Format Column
 				if vh.Format != "" {
-					desc += fmt.Sprintf("    |  %s  |", regexp.MustCompile(`\r?\n`).ReplaceAllString(vh.Format, " "))
+					formatStr := vh.Format
+					for regex, repl := range strReplaceFormat {
+						formatStr = regexp.MustCompile(regex).ReplaceAllString(formatStr, repl)
+					}
+					desc += fmt.Sprintf("    |  %s  &emsp; |", formatStr)
 				} else {
-					desc += "    |   |"
+					desc += "    |   &emsp; |"
 				}
+
+				// Description Column
 				if vh.Format != "" {
-					desc += fmt.Sprintf("  %s  |\n", regexp.MustCompile(`\r?\n`).ReplaceAllString(vh.Description, " "))
+					formatStr := vh.Description
+					for regex, repl := range strReplaceFormat {
+						formatStr = regexp.MustCompile(regex).ReplaceAllString(formatStr, repl)
+					}
+					desc += fmt.Sprintf("  %s  |\n", formatStr)
 				} else {
 					desc += "   |\n"
 				}
@@ -168,15 +185,48 @@ func (o Node) Description() string {
 	return desc
 }
 
-// AncestorDescription returns the formatted description all ancestor nodes, including help text
+// AncestorDescription returns the formatted description all ancestor nodes, using help text
 func (o *Node) AncestorDescription() string {
-	var desc string
+	// Recursively fetch unformatted descriptions and add them with formatting
+	var getOldies func(n NodeBase) string
+	getOldies = func(n NodeBase) string {
+		subdesc := ""
+		if parent := n.GetParent(); parent != nil {
+			subdesc += getOldies(parent)
+		}
 
-	if o.Parent != nil {
-		desc = o.Parent.AncestorDescription()
+		if p := n.GetProperties(); p != nil {
+			if h := p.Help; h != nil {
+				subdesc += fmt.Sprintf("%s\n\n", strings.Join(h, "\n<br>"))
+			} else {
+				subdesc += fmt.Sprintf("<i>%s</i>\n\n", n.BaseName())
+			}
+		} else {
+			subdesc += fmt.Sprintf("<i>%s</i>\n\n", n.BaseName())
+		}
+
+		subdesc += "<br>\n"
+		subdesc += "&darr;\n"
+		subdesc += "<br>\n"
+
+		return subdesc
 	}
 
-	desc += o.Description()
+	// Center text
+	desc := "<div style=\"text-align: center\">\n"
+
+	// Ancestors descriptions
+	if parent := o.GetParent(); parent != nil {
+		desc += getOldies(parent)
+	}
+
+	// Make our own description bold
+	desc += "<b>\n"
+	if h := o.GetProperties().Help; h != nil {
+		desc += fmt.Sprintf("%s\n", strings.Join(h, "\n"))
+	}
+	desc += "</b>\n"
+	desc += "</div>\n"
 
 	return desc
 }
@@ -184,4 +234,17 @@ func (o *Node) AncestorDescription() string {
 // NodeType returns a string of node type
 func (o *Node) NodeType() string {
 	return "Node"
+}
+
+// GetParent returns parent, can be nil
+func (o *Node) GetParent() NodeParent {
+	return o.Parent
+}
+
+// GetProperties returns nodes properties
+func (o *Node) GetProperties() *Properties {
+	if len(o.Properties) > 0 {
+		return o.Properties[0]
+	}
+	return nil
 }

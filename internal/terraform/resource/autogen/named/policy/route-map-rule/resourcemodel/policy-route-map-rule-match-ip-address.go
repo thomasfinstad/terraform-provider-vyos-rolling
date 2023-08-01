@@ -27,12 +27,12 @@ func (o PolicyRouteMapRuleMatchIPAddress) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `IP access-list to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-99  |  IP standard access list  |
-    |  u32:100-199  |  IP extended access list  |
-    |  u32:1300-1999  |  IP standard access list (expanded range)  |
-    |  u32:2000-2699  |  IP extended access list (expanded range)  |
+    |  number: 1-99  &emsp; |  IP standard access list  |
+    |  number: 100-199  &emsp; |  IP extended access list  |
+    |  number: 1300-1999  &emsp; |  IP standard access list (expanded range)  |
+    |  number: 2000-2699  &emsp; |  IP extended access list (expanded range)  |
 
 `,
 		},
@@ -48,9 +48,9 @@ func (o PolicyRouteMapRuleMatchIPAddress) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `IP prefix-length to match (can be used for kernel routes only)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-32  |  Prefix length  |
+    |  number: 0-32  &emsp; |  Prefix length  |
 
 `,
 		},

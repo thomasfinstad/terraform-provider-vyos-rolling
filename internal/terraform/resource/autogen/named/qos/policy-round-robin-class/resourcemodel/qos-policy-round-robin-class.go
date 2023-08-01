@@ -8,9 +8,9 @@ import (
 
 // QosPolicyRoundRobinClass describes the resource data model.
 type QosPolicyRoundRobinClass struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"class_id" vyos:",self-id"`
 
-	ParentIDQosPolicyRoundRobin types.String `tfsdk:"round_robin" vyos:"round-robin_identifier,parent-id"`
+	ParentIDQosPolicyRoundRobin types.String `tfsdk:"round_robin" vyos:"round-robin,parent-id"`
 
 	// LeafNodes
 	LeafQosPolicyRoundRobinClassDescrIPtion  types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -39,31 +39,31 @@ func (o *QosPolicyRoundRobinClass) GetVyosPath() []string {
 		o.ParentIDQosPolicyRoundRobin.ValueString(),
 
 		"class",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"class_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Class ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4095  |  Class Identifier  |
+    |  number: 1-4095  &emsp; |  Class Identifier  |
 
 `,
 		},
 
-		"round_robin_identifier": schema.StringAttribute{
+		"round_robin_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Deficit Round Robin Scheduler
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 `,
 		},
@@ -74,9 +74,9 @@ func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -85,9 +85,9 @@ func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Deficit in the fair queuing algorithm
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-1048576  |  Number of bytes used as 'deficit'  |
+    |  number: 0-1048576  &emsp; |  Number of bytes used as 'deficit'  |
 
 `,
 
@@ -99,9 +99,9 @@ func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Number of flows into which the incoming packets are classified
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65536  |  Number of flows  |
+    |  number: 1-65536  &emsp; |  Number of flows  |
 
 `,
 
@@ -113,9 +113,9 @@ func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Interval used to measure the delay
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Interval in milliseconds  |
+    |  u32  &emsp; |  Interval in milliseconds  |
 
 `,
 
@@ -127,9 +127,9 @@ func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Packet scheduling quantum
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Packet scheduling quantum (bytes)  |
+    |  number: 1-4294967295  &emsp; |  Packet scheduling quantum (bytes)  |
 
 `,
 		},
@@ -138,9 +138,9 @@ func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Queue size in packets  |
+    |  number: 1-4294967295  &emsp; |  Queue size in packets  |
 
 `,
 		},
@@ -149,13 +149,13 @@ func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Queue type for default traffic
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  drop-tail  |  First-In-First-Out (FIFO)  |
-    |  fair-queue  |  Stochastic Fair Queue (SFQ)  |
-    |  fq-codel  |  Fair Queue Codel  |
-    |  priority  |  Priority queuing  |
-    |  random-detect  |  Random Early Detection (RED)  |
+    |  drop-tail  &emsp; |  First-In-First-Out (FIFO)  |
+    |  fair-queue  &emsp; |  Stochastic Fair Queue (SFQ)  |
+    |  fq-codel  &emsp; |  Fair Queue Codel  |
+    |  priority  &emsp; |  Priority queuing  |
+    |  random-detect  &emsp; |  Random Early Detection (RED)  |
 
 `,
 
@@ -167,9 +167,9 @@ func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Acceptable minimum standing/persistent queue delay
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Queue delay in milliseconds  |
+    |  u32  &emsp; |  Queue delay in milliseconds  |
 
 `,
 

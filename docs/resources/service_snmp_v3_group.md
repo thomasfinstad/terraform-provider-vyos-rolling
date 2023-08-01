@@ -3,18 +3,50 @@
 page_title: "vyos_service_snmp_v3_group Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Simple Network Management Protocol (SNMP)
+
+  <br>
+  &darr;
+  <br>
   Simple Network Management Protocol (SNMP) v3
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Specifies the group with name groupname
+  </b>
+  </div>
 ---
 
 # vyos_service_snmp_v3_group (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Simple Network Management Protocol (SNMP)
 
+<br>
+&darr;
+<br>
 Simple Network Management Protocol (SNMP) v3
 
+<br>
+&darr;
+<br>
+<b>
 Specifies the group with name groupname
+</b>
+</div>
 
 
 
@@ -23,21 +55,21 @@ Specifies the group with name groupname
 
 ### Required
 
-- `identifier` (String) Specifies the group with name groupname
+- `group_id` (String) Specifies the group with name groupname
 
 ### Optional
 
 - `mode` (String) Define access permission
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ro  |  Read-Only  |
-    |  rw  |  read write  |
+    |  ro  &emsp; |  Read-Only  |
+    |  rw  &emsp; |  read write  |
 - `seclevel` (String) Security levels
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  noauth  |  Messages not authenticated and not encrypted (noAuthNoPriv)  |
-    |  auth  |  Messages are authenticated but not encrypted (authNoPriv)  |
-    |  priv  |  Messages are authenticated and encrypted (authPriv)  |
+    |  noauth  &emsp; |  Messages not authenticated and not encrypted (noAuthNoPriv)  |
+    |  auth  &emsp; |  Messages are authenticated but not encrypted (authNoPriv)  |
+    |  priv  &emsp; |  Messages are authenticated and encrypted (authPriv)  |
 - `view` (String) Defines the name of view

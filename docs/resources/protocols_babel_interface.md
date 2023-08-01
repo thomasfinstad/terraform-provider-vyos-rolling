@@ -3,22 +3,40 @@
 page_title: "vyos_protocols_babel_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Babel Routing Protocol
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Interface name
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Interface name  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_babel_interface (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Babel Routing Protocol
 
+<br>
+&darr;
+<br>
+<b>
 Interface name
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Interface name  |
+</b>
+</div>
 
 
 
@@ -27,68 +45,68 @@ Interface name
 
 ### Required
 
-- `identifier` (String) Interface name
+- `interface_id` (String) Interface name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 ### Optional
 
 - `channel` (String) Channel number for diversity routing
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-254  |  Interfaces with a channel number interfere with interfering interfaces and interfaces with the same channel number  |
-    |  interfering  |  Interfering interfaces are assumed to interfere with all other channels except non-interfering channels  |
-    |  non-interfering  |  Non-interfering interfaces only interfere with themselves  |
+    |  number: 1-254  &emsp; |  Interfaces with a channel number interfere with interfering interfaces and interfaces with the same channel number  |
+    |  interfering  &emsp; |  Interfering interfaces are assumed to interfere with all other channels except non-interfering channels  |
+    |  non-interfering  &emsp; |  Non-interfering interfaces only interfere with themselves  |
 - `enable_timestamps` (Boolean) Enable timestamps with each Hello and IHU message in order to compute RTT values
 - `hello_interval` (Number) Time between scheduled hellos
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:20-655340  |  Milliseconds  |
+    |  number: 20-655340  &emsp; |  Milliseconds  |
 - `max_rtt_penalty` (Number) Maximum additional cost due to RTT
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Milliseconds (0 to disable the use of RTT-based cost)  |
+    |  number: 0-65535  &emsp; |  Milliseconds (0 to disable the use of RTT-based cost)  |
 - `rtt_decay` (Number) Decay factor for exponential moving average of RTT samples
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-256  |  Decay factor, in units of 1/256  |
+    |  number: 1-256  &emsp; |  Decay factor, in units of 1/256  |
 - `rtt_max` (Number) Maximum RTT
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Milliseconds  |
+    |  number: 1-65535  &emsp; |  Milliseconds  |
 - `rtt_min` (Number) Minimum RTT
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Milliseconds  |
+    |  number: 1-65535  &emsp; |  Milliseconds  |
 - `rxcost` (Number) Base receive cost for this interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65534  |  Base receive cost  |
+    |  number: 1-65534  &emsp; |  Base receive cost  |
 - `split_horizon` (String) Split horizon parameters
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  default  |  Enable on wired interfaces, and disable on wireless interfaces  |
-    |  enable  |  Enable split horizon processing  |
-    |  disable  |  Disable split horizon processing  |
+    |  default  &emsp; |  Enable on wired interfaces, and disable on wireless interfaces  |
+    |  enable  &emsp; |  Enable split horizon processing  |
+    |  disable  &emsp; |  Disable split horizon processing  |
 - `type` (String) Interface type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  auto  |  Automatically detect interface type  |
-    |  wired  |  Wired interface  |
-    |  wireless  |  Wireless interface  |
+    |  auto  &emsp; |  Automatically detect interface type  |
+    |  wired  &emsp; |  Wired interface  |
+    |  wireless  &emsp; |  Wireless interface  |
 - `update_interval` (Number) Time between scheduled updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:20-655340  |  Milliseconds  |
+    |  number: 20-655340  &emsp; |  Milliseconds  |

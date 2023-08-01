@@ -8,7 +8,7 @@ import (
 
 // ServiceWebproxyURLFilteringSquIDguardSourceGroup describes the resource data model.
 type ServiceWebproxyURLFilteringSquIDguardSourceGroup struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"source_group_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceWebproxyURLFilteringSquIDguardSourceGroupAddress        types.List   `tfsdk:"address" vyos:"address,omitempty"`
@@ -35,20 +35,20 @@ func (o *ServiceWebproxyURLFilteringSquIDguardSourceGroup) GetVyosPath() []strin
 		"squidguard",
 
 		"source-group",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceWebproxyURLFilteringSquIDguardSourceGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"source_group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Source group name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  name  |  Name of source group  |
+    |  name  &emsp; |  Name of source group  |
 
 `,
 		},
@@ -60,11 +60,11 @@ func (o ServiceWebproxyURLFilteringSquIDguardSourceGroup) ResourceSchemaAttribut
 			Optional:    true,
 			MarkdownDescription: `Address for source-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address to match  |
-    |  ipv4net  |  IPv4 prefix to match  |
-    |  ipv4range  |  IPv4 address range to match  |
+    |  ipv4  &emsp; |  IPv4 address to match  |
+    |  ipv4net  &emsp; |  IPv4 prefix to match  |
+    |  ipv4range  &emsp; |  IPv4 address range to match  |
 
 `,
 		},
@@ -81,9 +81,9 @@ func (o ServiceWebproxyURLFilteringSquIDguardSourceGroup) ResourceSchemaAttribut
 			Optional:    true,
 			MarkdownDescription: `Domain for source-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  domain  |  Domain name for the source-group  |
+    |  domain  &emsp; |  Domain name for the source-group  |
 
 `,
 		},

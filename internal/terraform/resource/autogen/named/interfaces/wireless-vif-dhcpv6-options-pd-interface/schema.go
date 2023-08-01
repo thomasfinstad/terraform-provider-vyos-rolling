@@ -12,28 +12,36 @@ import (
 func (r interfacesWirelessVifDhcpvsixOptionsPdInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Wireless (WiFi/WLAN) Network Interface
+		MarkdownDescription: `<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
+<br>
+&darr;
+<br>
+Wireless (WiFi/WLAN) Network Interface
 
+<br>
+&darr;
+<br>
 Virtual Local Area Network (VLAN) ID
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
-
+<br>
+&darr;
+<br>
 DHCPv6 client settings/options
 
+<br>
+&darr;
+<br>
 DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
-
+<br>
+&darr;
+<br>
+<b>
 Delegate IPv6 prefix from provider to this interface
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

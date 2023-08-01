@@ -28,9 +28,9 @@ func (o VrfNameProtocolsOspfSegmentRoutingPrefixIndex) ResourceSchemaAttributes(
 			Optional: true,
 			MarkdownDescription: `Specify the index value of prefix segment/label ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  The index segment/label ID value  |
+    |  number: 0-65535  &emsp; |  The index segment/label ID value  |
 
 `,
 		},

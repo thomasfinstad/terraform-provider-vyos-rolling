@@ -9,7 +9,7 @@ import (
 
 // InterfacesEthernet describes the resource data model.
 type InterfacesEthernet struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"ethernet_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafInterfacesEthernetAddress            types.List   `tfsdk:"address" vyos:"address,omitempty"`
@@ -47,20 +47,20 @@ func (o *InterfacesEthernet) GetVyosPath() []string {
 		"interfaces",
 
 		"ethernet",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesEthernet) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"ethernet_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Ethernet Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ethN  |  Ethernet interface name  |
+    |  ethN  &emsp; |  Ethernet interface name  |
 
 `,
 		},
@@ -72,12 +72,12 @@ func (o InterfacesEthernet) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional:    true,
 			MarkdownDescription: `IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
-    |  dhcp  |  Dynamic Host Configuration Protocol  |
-    |  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
+    |  dhcp  &emsp; |  Dynamic Host Configuration Protocol  |
+    |  dhcpv6  &emsp; |  Dynamic Host Configuration Protocol for IPv6  |
 
 `,
 		},
@@ -86,9 +86,9 @@ func (o InterfacesEthernet) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -124,11 +124,11 @@ func (o InterfacesEthernet) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Duplex mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  auto  |  Auto negotiation  |
-    |  half  |  Half duplex  |
-    |  full  |  Full duplex  |
+    |  auto  &emsp; |  Auto negotiation  |
+    |  half  &emsp; |  Half duplex  |
+    |  full  &emsp; |  Full duplex  |
 
 `,
 
@@ -140,9 +140,9 @@ func (o InterfacesEthernet) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Associate Ethernet Interface with given Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+    |  macaddr  &emsp; |  Hardware (MAC) address  |
 
 `,
 		},
@@ -151,9 +151,9 @@ func (o InterfacesEthernet) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+    |  macaddr  &emsp; |  Hardware (MAC) address  |
 
 `,
 		},
@@ -162,9 +162,9 @@ func (o InterfacesEthernet) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:68-16000  |  Maximum Transmission Unit in byte  |
+    |  number: 68-16000  &emsp; |  Maximum Transmission Unit in byte  |
 
 `,
 
@@ -176,19 +176,19 @@ func (o InterfacesEthernet) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Link speed
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  auto  |  Auto negotiation  |
-    |  10  |  10 Mbit/sec  |
-    |  100  |  100 Mbit/sec  |
-    |  1000  |  1 Gbit/sec  |
-    |  2500  |  2.5 Gbit/sec  |
-    |  5000  |  5 Gbit/sec  |
-    |  10000  |  10 Gbit/sec  |
-    |  25000  |  25 Gbit/sec  |
-    |  40000  |  40 Gbit/sec  |
-    |  50000  |  50 Gbit/sec  |
-    |  100000  |  100 Gbit/sec  |
+    |  auto  &emsp; |  Auto negotiation  |
+    |  10  &emsp; |  10 Mbit/sec  |
+    |  100  &emsp; |  100 Mbit/sec  |
+    |  1000  &emsp; |  1 Gbit/sec  |
+    |  2500  &emsp; |  2.5 Gbit/sec  |
+    |  5000  &emsp; |  5 Gbit/sec  |
+    |  10000  &emsp; |  10 Gbit/sec  |
+    |  25000  &emsp; |  25 Gbit/sec  |
+    |  40000  &emsp; |  40 Gbit/sec  |
+    |  50000  &emsp; |  50 Gbit/sec  |
+    |  100000  &emsp; |  100 Gbit/sec  |
 
 `,
 
@@ -200,9 +200,9 @@ func (o InterfacesEthernet) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 `,
 		},
@@ -211,9 +211,9 @@ func (o InterfacesEthernet) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},

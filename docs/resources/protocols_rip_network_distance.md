@@ -3,22 +3,40 @@
 page_title: "vyos_protocols_rip_network_distance Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Routing Information Protocol (RIP) parameters
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Source network
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  Source network  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_rip_network_distance (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Routing Information Protocol (RIP) parameters
 
+<br>
+&darr;
+<br>
+<b>
 Source network
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  Source network  |
+</b>
+</div>
 
 
 
@@ -27,21 +45,21 @@ Source network
 
 ### Required
 
-- `identifier` (String) Source network
+- `network_distance_id` (String) Source network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Source network  |
+    |  ipv4net  &emsp; |  Source network  |
 
 ### Optional
 
 - `access_list` (String) Access list
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Access list  |
+    |  txt  &emsp; |  Access list  |
 - `distance` (Number) Distance for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for this route  |
+    |  number: 1-255  &emsp; |  Distance for this route  |

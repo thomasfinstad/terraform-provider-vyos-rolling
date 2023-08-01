@@ -3,22 +3,30 @@
 page_title: "vyos_policy_as_path_list Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Routing policy
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Add a BGP autonomous system path filter
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  AS path list name  |
+  </b>
+  </div>
 ---
 
 # vyos_policy_as_path_list (Resource)
 
+<div style="text-align: center">
 Routing policy
 
+<br>
+&darr;
+<br>
+<b>
 Add a BGP autonomous system path filter
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  AS path list name  |
+</b>
+</div>
 
 
 
@@ -27,16 +35,16 @@ Add a BGP autonomous system path filter
 
 ### Required
 
-- `identifier` (String) Add a BGP autonomous system path filter
+- `as_path_list_id` (String) Add a BGP autonomous system path filter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  AS path list name  |
+    |  txt  &emsp; |  AS path list name  |
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |

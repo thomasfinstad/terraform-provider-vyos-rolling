@@ -27,9 +27,9 @@ func (o VrfNameProtocolsOspfRedistributeBgp) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `OSPF default metric
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  Default metric  |
+    |  number: 0-16777214  &emsp; |  Default metric  |
 
 `,
 		},
@@ -38,9 +38,9 @@ func (o VrfNameProtocolsOspfRedistributeBgp) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `OSPF metric type for default routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
 
 `,
 
@@ -52,9 +52,9 @@ func (o VrfNameProtocolsOspfRedistributeBgp) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},

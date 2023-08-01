@@ -26,9 +26,9 @@ func (o InterfacesBondingMember) ResourceSchemaAttributes() map[string]schema.At
 			Optional:    true,
 			MarkdownDescription: `Member interface name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},

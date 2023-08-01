@@ -3,25 +3,50 @@
 page_title: "vyos_service_router_advert_interface_route Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   IPv6 Router Advertisements (RAs) service
+
+  <br>
+  &darr;
+  <br>
   Interface to send RA on
+
+  <br>
+  &darr;
+  <br>
+  <b>
   IPv6 route to be advertised in Router Advertisements (RAs)
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv6net  |  IPv6 route to be advertized  |
+  </b>
+  </div>
 ---
 
 # vyos_service_router_advert_interface_route (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 IPv6 Router Advertisements (RAs) service
 
+<br>
+&darr;
+<br>
 Interface to send RA on
 
+<br>
+&darr;
+<br>
+<b>
 IPv6 route to be advertised in Router Advertisements (RAs)
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv6net  |  IPv6 route to be advertized  |
+</b>
+</div>
 
 
 
@@ -30,26 +55,26 @@ IPv6 route to be advertised in Router Advertisements (RAs)
 
 ### Required
 
-- `identifier` (String) IPv6 route to be advertised in Router Advertisements (RAs)
+- `interface_id` (String) Interface to send RA on
+- `route_id` (String) IPv6 route to be advertised in Router Advertisements (RAs)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  IPv6 route to be advertized  |
-- `interface_identifier` (String) Interface to send RA on
+    |  ipv6net  &emsp; |  IPv6 route to be advertized  |
 
 ### Optional
 
 - `no_remove_route` (Boolean) Do not announce this route with a zero second lifetime upon shutdown
 - `route_preference` (String) Preference associated with the route,
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  low  |  Route has low preference  |
-    |  medium  |  Route has medium preference  |
-    |  high  |  Route has high preference  |
+    |  low  &emsp; |  Route has low preference  |
+    |  medium  &emsp; |  Route has medium preference  |
+    |  high  &emsp; |  Route has high preference  |
 - `valid_lifetime` (String) Time in seconds that the route will remain valid
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Time in seconds that the route will remain valid  |
-    |  infinity  |  Route will remain preferred forever  |
+    |  number: 1-4294967295  &emsp; |  Time in seconds that the route will remain valid  |
+    |  infinity  &emsp; |  Route will remain preferred forever  |

@@ -28,10 +28,10 @@ func (o InterfacesTunnelParametersIPvsix) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Set fixed encapsulation limit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  Encapsulation limit  |
-    |  none  |  Disable encapsulation limit  |
+    |  number: 0-255  &emsp; |  Encapsulation limit  |
+    |  none  &emsp; |  Disable encapsulation limit  |
 
 `,
 
@@ -43,10 +43,10 @@ func (o InterfacesTunnelParametersIPvsix) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Specifies the flow label to use in outgoing packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  inherit  |  Copy field from original header  |
-    |  0x0-0x0fffff  |  Tunnel key, or hex value  |
+    |  inherit  &emsp; |  Copy field from original header  |
+    |  0x0-0x0fffff  &emsp; |  Tunnel key, or hex value  |
 
 `,
 		},
@@ -55,9 +55,9 @@ func (o InterfacesTunnelParametersIPvsix) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Hoplimit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  Hop limit  |
+    |  number: 0-255  &emsp; |  Hop limit  |
 
 `,
 
@@ -69,9 +69,9 @@ func (o InterfacesTunnelParametersIPvsix) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Traffic class (Tclass)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  0x0-0x0fffff  |  Traffic class, 'inherit' or hex value  |
+    |  0x0-0x0fffff  &emsp; |  Traffic class, 'inherit' or hex value  |
 
 `,
 

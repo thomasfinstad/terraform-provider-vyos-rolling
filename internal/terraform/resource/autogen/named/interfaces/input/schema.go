@@ -12,12 +12,16 @@ import (
 func (r interfacesInput) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Input Functional Block (IFB) interface name
+		MarkdownDescription: `<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ifbN  |  Input interface name  |
-
+<br>
+&darr;
+<br>
+<b>
+Input Functional Block (IFB) interface name
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

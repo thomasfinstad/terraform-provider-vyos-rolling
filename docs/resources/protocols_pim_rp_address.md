@@ -3,25 +3,50 @@
 page_title: "vyos_protocols_pim_rp_address Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Protocol Independent Multicast (PIM)
+
+  <br>
+  &darr;
+  <br>
   Rendezvous Point
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Rendezvous Point address
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  Rendezvous Point address  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_pim_rp_address (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Protocol Independent Multicast (PIM)
 
+<br>
+&darr;
+<br>
 Rendezvous Point
 
+<br>
+&darr;
+<br>
+<b>
 Rendezvous Point address
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  Rendezvous Point address  |
+</b>
+</div>
 
 
 
@@ -30,16 +55,16 @@ Rendezvous Point address
 
 ### Required
 
-- `identifier` (String) Rendezvous Point address
+- `address_id` (String) Rendezvous Point address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Rendezvous Point address  |
+    |  ipv4  &emsp; |  Rendezvous Point address  |
 
 ### Optional
 
 - `group` (List of String) Group Address range
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Group Address range RFC 3171  |
+    |  ipv4net  &emsp; |  Group Address range RFC 3171  |

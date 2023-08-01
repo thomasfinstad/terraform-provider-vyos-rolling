@@ -8,7 +8,7 @@ import (
 
 // QosPolicyFairQueue describes the resource data model.
 type QosPolicyFairQueue struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"fair_queue_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafQosPolicyFairQueueDescrIPtion  types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -28,20 +28,20 @@ func (o *QosPolicyFairQueue) GetVyosPath() []string {
 		"policy",
 
 		"fair-queue",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyFairQueue) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"fair_queue_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Stochastic Fairness Queueing
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 `,
 		},
@@ -52,9 +52,9 @@ func (o QosPolicyFairQueue) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -63,10 +63,10 @@ func (o QosPolicyFairQueue) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Interval in seconds for queue algorithm perturbation
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  No perturbation  |
-    |  u32:1-127  |  Interval in seconds for queue algorithm perturbation (advised: 10)  |
+    |  number: 0  &emsp; |  No perturbation  |
+    |  number: 1-127  &emsp; |  Interval in seconds for queue algorithm perturbation (advised: 10)  |
 
 `,
 
@@ -78,9 +78,9 @@ func (o QosPolicyFairQueue) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Upper limit of the SFQ
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-127  |  Queue size in packets  |
+    |  number: 1-127  &emsp; |  Queue size in packets  |
 
 `,
 

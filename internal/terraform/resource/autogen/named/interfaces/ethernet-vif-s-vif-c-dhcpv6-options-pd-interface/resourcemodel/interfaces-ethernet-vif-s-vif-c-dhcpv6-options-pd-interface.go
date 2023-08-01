@@ -8,15 +8,15 @@ import (
 
 // InterfacesEthernetVifSVifCDhcpvsixOptionsPdInterface describes the resource data model.
 type InterfacesEthernetVifSVifCDhcpvsixOptionsPdInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
-	ParentIDInterfacesEthernet types.String `tfsdk:"ethernet" vyos:"ethernet_identifier,parent-id"`
+	ParentIDInterfacesEthernet types.String `tfsdk:"ethernet" vyos:"ethernet,parent-id"`
 
-	ParentIDInterfacesEthernetVifS types.String `tfsdk:"vif_s" vyos:"vif-s_identifier,parent-id"`
+	ParentIDInterfacesEthernetVifS types.String `tfsdk:"vif_s" vyos:"vif-s,parent-id"`
 
-	ParentIDInterfacesEthernetVifSVifC types.String `tfsdk:"vif_c" vyos:"vif-c_identifier,parent-id"`
+	ParentIDInterfacesEthernetVifSVifC types.String `tfsdk:"vif_c" vyos:"vif-c,parent-id"`
 
-	ParentIDInterfacesEthernetVifSVifCDhcpvsixOptionsPd types.String `tfsdk:"pd" vyos:"pd_identifier,parent-id"`
+	ParentIDInterfacesEthernetVifSVifCDhcpvsixOptionsPd types.String `tfsdk:"pd" vyos:"pd,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesEthernetVifSVifCDhcpvsixOptionsPdInterfaceAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
@@ -47,56 +47,56 @@ func (o *InterfacesEthernetVifSVifCDhcpvsixOptionsPdInterface) GetVyosPath() []s
 		o.ParentIDInterfacesEthernetVifSVifCDhcpvsixOptionsPd.ValueString(),
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesEthernetVifSVifCDhcpvsixOptionsPdInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Delegate IPv6 prefix from provider to this interface
 
 `,
 		},
 
-		"ethernet_identifier": schema.StringAttribute{
+		"ethernet_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Ethernet Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ethN  |  Ethernet interface name  |
+    |  ethN  &emsp; |  Ethernet interface name  |
 
 `,
 		},
 
-		"vif_s_identifier": schema.StringAttribute{
+		"vif_s_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `QinQ TAG-S Virtual Local Area Network (VLAN) ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
+    |  number: 0-4094  &emsp; |  QinQ Virtual Local Area Network (VLAN) ID  |
 
 `,
 		},
 
-		"vif_c_identifier": schema.StringAttribute{
+		"vif_c_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `QinQ TAG-C Virtual Local Area Network (VLAN) ID
 
 `,
 		},
 
-		"pd_identifier": schema.StringAttribute{
+		"pd_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
 
 `,
 		},
@@ -107,9 +107,9 @@ func (o InterfacesEthernetVifSVifCDhcpvsixOptionsPdInterface) ResourceSchemaAttr
 			Optional: true,
 			MarkdownDescription: `Local interface address assigned to interface (default: EUI-64)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  >0  |  Used to form IPv6 interface address  |
+    |  >0  &emsp; |  Used to form IPv6 interface address  |
 
 `,
 		},
@@ -118,9 +118,9 @@ func (o InterfacesEthernetVifSVifCDhcpvsixOptionsPdInterface) ResourceSchemaAttr
 			Optional: true,
 			MarkdownDescription: `Interface site-Level aggregator (SLA)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Decimal integer which fits in the length of SLA IDs  |
+    |  number: 0-65535  &emsp; |  Decimal integer which fits in the length of SLA IDs  |
 
 `,
 		},

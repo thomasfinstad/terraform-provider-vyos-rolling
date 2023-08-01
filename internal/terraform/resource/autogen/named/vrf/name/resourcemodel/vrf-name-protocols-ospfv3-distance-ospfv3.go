@@ -27,9 +27,9 @@ func (o VrfNameProtocolsOspfvthreeDistanceOspfvthree) ResourceSchemaAttributes()
 			Optional: true,
 			MarkdownDescription: `Distance for external routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for external routes  |
+    |  number: 1-255  &emsp; |  Distance for external routes  |
 
 `,
 		},
@@ -38,9 +38,9 @@ func (o VrfNameProtocolsOspfvthreeDistanceOspfvthree) ResourceSchemaAttributes()
 			Optional: true,
 			MarkdownDescription: `Distance for inter-area routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for inter-area routes  |
+    |  number: 1-255  &emsp; |  Distance for inter-area routes  |
 
 `,
 		},
@@ -49,9 +49,9 @@ func (o VrfNameProtocolsOspfvthreeDistanceOspfvthree) ResourceSchemaAttributes()
 			Optional: true,
 			MarkdownDescription: `Distance for intra-area routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for intra-area routes  |
+    |  number: 1-255  &emsp; |  Distance for intra-area routes  |
 
 `,
 		},

@@ -12,16 +12,26 @@ import (
 func (r protocolsMplsLdpNeighbor) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Multiprotocol Label Switching (MPLS)
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Multiprotocol Label Switching (MPLS)
+
+<br>
+&darr;
+<br>
 Label Distribution Protocol (LDP)
 
+<br>
+&darr;
+<br>
+<b>
 LDP neighbor parameters
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  Neighbor IPv4 address  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

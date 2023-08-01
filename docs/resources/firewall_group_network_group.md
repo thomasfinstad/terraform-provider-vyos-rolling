@@ -3,18 +3,40 @@
 page_title: "vyos_firewall_group_network_group Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Firewall
+
+  <br>
+  &darr;
+  <br>
   Firewall group
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Firewall network-group
+  </b>
+  </div>
 ---
 
 # vyos_firewall_group_network_group (Resource)
 
+<div style="text-align: center">
 Firewall
 
+<br>
+&darr;
+<br>
 Firewall group
 
+<br>
+&darr;
+<br>
+<b>
 Firewall network-group
+</b>
+</div>
 
 
 
@@ -23,18 +45,18 @@ Firewall network-group
 
 ### Required
 
-- `identifier` (String) Firewall network-group
+- `network_group_id` (String) Firewall network-group
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `include` (List of String) Include another network-group
 - `network` (List of String) Network-group member
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 Subnet to match  |
+    |  ipv4net  &emsp; |  IPv4 Subnet to match  |

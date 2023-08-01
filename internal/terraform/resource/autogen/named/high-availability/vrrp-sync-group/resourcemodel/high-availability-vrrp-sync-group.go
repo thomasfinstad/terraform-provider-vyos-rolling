@@ -8,7 +8,7 @@ import (
 
 // HighAvailabilityVrrpSyncGroup describes the resource data model.
 type HighAvailabilityVrrpSyncGroup struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"sync_group_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafHighAvailabilityVrrpSyncGroupMember types.List `tfsdk:"member" vyos:"member,omitempty"`
@@ -27,14 +27,14 @@ func (o *HighAvailabilityVrrpSyncGroup) GetVyosPath() []string {
 		"vrrp",
 
 		"sync-group",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o HighAvailabilityVrrpSyncGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"sync_group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `VRRP sync group
 
@@ -48,9 +48,9 @@ func (o HighAvailabilityVrrpSyncGroup) ResourceSchemaAttributes() map[string]sch
 			Optional:    true,
 			MarkdownDescription: `Sync group member
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRRP group name  |
+    |  txt  &emsp; |  VRRP group name  |
 
 `,
 		},

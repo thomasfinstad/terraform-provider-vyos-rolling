@@ -8,7 +8,7 @@ import (
 
 // InterfacesLoopback describes the resource data model.
 type InterfacesLoopback struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"loopback_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafInterfacesLoopbackAddress     types.List   `tfsdk:"address" vyos:"address,omitempty"`
@@ -28,20 +28,20 @@ func (o *InterfacesLoopback) GetVyosPath() []string {
 		"interfaces",
 
 		"loopback",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesLoopback) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"loopback_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Loopback Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  lo  |  Loopback interface  |
+    |  lo  &emsp; |  Loopback interface  |
 
 `,
 		},
@@ -53,10 +53,10 @@ func (o InterfacesLoopback) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional:    true,
 			MarkdownDescription: `IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
 
 `,
 		},
@@ -65,9 +65,9 @@ func (o InterfacesLoopback) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -76,9 +76,9 @@ func (o InterfacesLoopback) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 `,
 		},

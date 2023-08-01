@@ -49,9 +49,9 @@ func (o ProtocolsRpkiCacheTCP) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Username used for authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Username  |
+    |  txt  &emsp; |  Username  |
 
 `,
 		},

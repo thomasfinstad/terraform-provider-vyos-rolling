@@ -8,9 +8,9 @@ import (
 
 // InterfacesOpenvpnServerPushRoute describes the resource data model.
 type InterfacesOpenvpnServerPushRoute struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"push_route_id" vyos:",self-id"`
 
-	ParentIDInterfacesOpenvpn types.String `tfsdk:"openvpn" vyos:"openvpn_identifier,parent-id"`
+	ParentIDInterfacesOpenvpn types.String `tfsdk:"openvpn" vyos:"openvpn,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesOpenvpnServerPushRouteMetric types.Number `tfsdk:"metric" vyos:"metric,omitempty"`
@@ -31,32 +31,32 @@ func (o *InterfacesOpenvpnServerPushRoute) GetVyosPath() []string {
 		"server",
 
 		"push-route",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesOpenvpnServerPushRoute) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"push_route_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Route to be pushed to all clients
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 network and prefix length  |
-    |  ipv6net  |  IPv6 network and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 network and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 network and prefix length  |
 
 `,
 		},
 
-		"openvpn_identifier": schema.StringAttribute{
+		"openvpn_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `OpenVPN Tunnel Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  vtunN  |  OpenVPN interface name  |
+    |  vtunN  &emsp; |  OpenVPN interface name  |
 
 `,
 		},
@@ -67,9 +67,9 @@ func (o InterfacesOpenvpnServerPushRoute) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Set metric for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4294967295  |  Metric for this route  |
+    |  number: 0-4294967295  &emsp; |  Metric for this route  |
 
 `,
 

@@ -3,44 +3,70 @@
 page_title: "vyos_vrf_name_protocols_bgp_listen_range Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
-  Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
+  Virtual Routing and Forwarding instance
+
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
+
+  <br>
+  &darr;
+  <br>
   Border Gateway Protocol (BGP)
+
+  <br>
+  &darr;
+  <br>
   Listen for and accept BGP dynamic neighbors from range
+
+  <br>
+  &darr;
+  <br>
+  <b>
   BGP dynamic neighbors listen range
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  IPv4 dynamic neighbors listen range  |
-  |  ipv6net  |  IPv6 dynamic neighbors listen range  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_bgp_listen_range (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Border Gateway Protocol (BGP)
 
+<br>
+&darr;
+<br>
 Listen for and accept BGP dynamic neighbors from range
 
+<br>
+&darr;
+<br>
+<b>
 BGP dynamic neighbors listen range
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 dynamic neighbors listen range  |
-    |  ipv6net  |  IPv6 dynamic neighbors listen range  |
+</b>
+</div>
 
 
 
@@ -49,22 +75,22 @@ BGP dynamic neighbors listen range
 
 ### Required
 
-- `identifier` (String) BGP dynamic neighbors listen range
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 dynamic neighbors listen range  |
-    |  ipv6net  |  IPv6 dynamic neighbors listen range  |
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+    |  txt  &emsp; |  VRF instance name  |
+- `range_id` (String) BGP dynamic neighbors listen range
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  ipv4net  &emsp; |  IPv4 dynamic neighbors listen range  |
+    |  ipv6net  &emsp; |  IPv6 dynamic neighbors listen range  |
 
 ### Optional
 
 - `peer_group` (String) Peer group for this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Peer-group name  |
+    |  txt  &emsp; |  Peer-group name  |

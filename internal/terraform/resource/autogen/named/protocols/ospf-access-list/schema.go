@@ -12,14 +12,21 @@ import (
 func (r protocolsOspfAccessList) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Open Shortest Path First (OSPF)
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Open Shortest Path First (OSPF)
+
+<br>
+&darr;
+<br>
+<b>
 Access list to filter networks in routing updates
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32  |  Access-list number  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

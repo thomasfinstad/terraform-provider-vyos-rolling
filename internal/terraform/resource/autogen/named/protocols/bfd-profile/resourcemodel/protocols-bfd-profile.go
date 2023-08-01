@@ -9,7 +9,7 @@ import (
 
 // ProtocolsBfdProfile describes the resource data model.
 type ProtocolsBfdProfile struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"profile_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsBfdProfileEchoMode types.Bool `tfsdk:"echo_mode" vyos:"echo-mode,omitempty"`
@@ -30,20 +30,20 @@ func (o *ProtocolsBfdProfile) GetVyosPath() []string {
 		"bfd",
 
 		"profile",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsBfdProfile) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"profile_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Configure BFD profile used by individual peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of BFD profile  |
+    |  txt  &emsp; |  Name of BFD profile  |
 
 `,
 		},

@@ -3,18 +3,50 @@
 page_title: "vyos_service_snmp_v3_user Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Simple Network Management Protocol (SNMP)
+
+  <br>
+  &darr;
+  <br>
   Simple Network Management Protocol (SNMP) v3
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Specifies the user with name username
+  </b>
+  </div>
 ---
 
 # vyos_service_snmp_v3_user (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Simple Network Management Protocol (SNMP)
 
+<br>
+&darr;
+<br>
 Simple Network Management Protocol (SNMP) v3
 
+<br>
+&darr;
+<br>
+<b>
 Specifies the user with name username
+</b>
+</div>
 
 
 
@@ -23,7 +55,7 @@ Specifies the user with name username
 
 ### Required
 
-- `identifier` (String) Specifies the user with name username
+- `user_id` (String) Specifies the user with name username
 
 ### Optional
 
@@ -31,10 +63,10 @@ Specifies the user with name username
 - `group` (String) Specifies group for user name
 - `mode` (String) Define access permission
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ro  |  Read-Only  |
-    |  rw  |  read write  |
+    |  ro  &emsp; |  Read-Only  |
+    |  rw  &emsp; |  read write  |
 - `privacy` (Attributes) Defines the privacy (see [below for nested schema](#nestedatt--privacy))
 
 <a id="nestedatt--auth"></a>
@@ -46,10 +78,10 @@ Optional:
 - `plaintext_password` (String) Defines the clear text key for authentication
 - `type` (String) Define used protocol
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  md5  |  Message Digest 5  |
-    |  sha  |  Secure Hash Algorithm  |
+    |  md5  &emsp; |  Message Digest 5  |
+    |  sha  &emsp; |  Secure Hash Algorithm  |
 
 
 <a id="nestedatt--privacy"></a>
@@ -61,7 +93,7 @@ Optional:
 - `plaintext_password` (String) Defines the clear text key for privacy protocol
 - `type` (String) Defines the protocol for privacy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  des  |  Data Encryption Standard  |
-    |  aes  |  Advanced Encryption Standard  |
+    |  des  &emsp; |  Data Encryption Standard  |
+    |  aes  &emsp; |  Advanced Encryption Standard  |

@@ -8,7 +8,7 @@ import (
 
 // ServiceIPoeServerInterface describes the resource data model.
 type ServiceIPoeServerInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceIPoeServerInterfaceMode         types.String `tfsdk:"mode" vyos:"mode,omitempty"`
@@ -30,14 +30,14 @@ func (o *ServiceIPoeServerInterface) GetVyosPath() []string {
 		"ipoe-server",
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceIPoeServerInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Interface to listen dhcp or unclassified packets
 
@@ -50,10 +50,10 @@ func (o ServiceIPoeServerInterface) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Client connectivity mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  l2  |  Client located on same interface as server  |
-    |  l3  |  Client located behind a router  |
+    |  l2  &emsp; |  Client located on same interface as server  |
+    |  l3  &emsp; |  Client located behind a router  |
 
 `,
 
@@ -65,10 +65,10 @@ func (o ServiceIPoeServerInterface) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Enables clients to share the same network or each client has its own vlan
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  shared  |  Multiple clients share the same network  |
-    |  vlan  |  One VLAN per client  |
+    |  shared  &emsp; |  Multiple clients share the same network  |
+    |  vlan  &emsp; |  One VLAN per client  |
 
 `,
 
@@ -80,9 +80,9 @@ func (o ServiceIPoeServerInterface) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Client address pool
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
 
 `,
 		},
@@ -92,10 +92,10 @@ func (o ServiceIPoeServerInterface) ResourceSchemaAttributes() map[string]schema
 			Optional:    true,
 			MarkdownDescription: `VLAN monitor for automatic creation of VLAN interfaces
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4094  |  VLAN for automatic creation  |
-    |  start-end  |  VLAN range for automatic creation (e.g. 1-4094)  |
+    |  number: 1-4094  &emsp; |  VLAN for automatic creation  |
+    |  start-end  &emsp; |  VLAN range for automatic creation (e.g. 1-4094)  |
 
 `,
 		},

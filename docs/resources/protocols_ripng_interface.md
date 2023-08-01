@@ -3,22 +3,40 @@
 page_title: "vyos_protocols_ripng_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Routing Information Protocol (RIPng) parameters
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Interface name
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Interface name  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_ripng_interface (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Routing Information Protocol (RIPng) parameters
 
+<br>
+&darr;
+<br>
+<b>
 Interface name
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Interface name  |
+</b>
+</div>
 
 
 
@@ -27,11 +45,11 @@ Interface name
 
 ### Required
 
-- `identifier` (String) Interface name
+- `interface_id` (String) Interface name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 ### Optional
 

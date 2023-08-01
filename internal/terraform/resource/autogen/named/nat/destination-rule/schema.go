@@ -12,16 +12,21 @@ import (
 func (r natDestinationRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Network Address Translation (NAT) parameters
+		MarkdownDescription: `<div style="text-align: center">
+Network Address Translation (NAT) parameters
 
+<br>
+&darr;
+<br>
 Destination NAT settings
 
+<br>
+&darr;
+<br>
+<b>
 Rule number for NAT
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-999999  |  Number of NAT rule  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

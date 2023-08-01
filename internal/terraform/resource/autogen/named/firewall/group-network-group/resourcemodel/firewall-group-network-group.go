@@ -8,7 +8,7 @@ import (
 
 // FirewallGroupNetworkGroup describes the resource data model.
 type FirewallGroupNetworkGroup struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"network_group_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafFirewallGroupNetworkGroupDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -28,14 +28,14 @@ func (o *FirewallGroupNetworkGroup) GetVyosPath() []string {
 		"group",
 
 		"network-group",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o FirewallGroupNetworkGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"network_group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Firewall network-group
 
@@ -48,9 +48,9 @@ func (o FirewallGroupNetworkGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -60,9 +60,9 @@ func (o FirewallGroupNetworkGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional:    true,
 			MarkdownDescription: `Network-group member
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 Subnet to match  |
+    |  ipv4net  &emsp; |  IPv4 Subnet to match  |
 
 `,
 		},

@@ -28,9 +28,9 @@ func (o ProtocolsFailoverRouteNextHopCheck) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 		},
@@ -39,9 +39,9 @@ func (o ProtocolsFailoverRouteNextHopCheck) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Check target address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Address to check  |
+    |  ipv4  &emsp; |  Address to check  |
 
 `,
 		},
@@ -50,9 +50,9 @@ func (o ProtocolsFailoverRouteNextHopCheck) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Timeout between checks
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-300  |  Timeout in seconds between checks  |
+    |  number: 1-300  &emsp; |  Timeout in seconds between checks  |
 
 `,
 
@@ -64,11 +64,11 @@ func (o ProtocolsFailoverRouteNextHopCheck) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Check type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  arp  |  Check target by ARP  |
-    |  icmp  |  Check target by ICMP  |
-    |  tcp  |  Check target by TCP  |
+    |  arp  &emsp; |  Check target by ARP  |
+    |  icmp  &emsp; |  Check target by ICMP  |
+    |  tcp  &emsp; |  Check target by TCP  |
 
 `,
 

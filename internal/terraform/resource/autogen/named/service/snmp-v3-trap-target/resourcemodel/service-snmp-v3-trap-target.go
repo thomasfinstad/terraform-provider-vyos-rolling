@@ -8,7 +8,7 @@ import (
 
 // ServiceSnmpVthreeTrapTarget describes the resource data model.
 type ServiceSnmpVthreeTrapTarget struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"trap_target_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceSnmpVthreeTrapTargetPort     types.Number `tfsdk:"port" vyos:"port,omitempty"`
@@ -33,21 +33,21 @@ func (o *ServiceSnmpVthreeTrapTarget) GetVyosPath() []string {
 		"v3",
 
 		"trap-target",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceSnmpVthreeTrapTarget) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"trap_target_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Defines SNMP target for inform or traps for IP
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IP address of trap target  |
-    |  ipv6  |  IPv6 address of trap target  |
+    |  ipv4  &emsp; |  IP address of trap target  |
+    |  ipv6  &emsp; |  IPv6 address of trap target  |
 
 `,
 		},
@@ -58,9 +58,9 @@ func (o ServiceSnmpVthreeTrapTarget) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 
@@ -72,10 +72,10 @@ func (o ServiceSnmpVthreeTrapTarget) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Protocol to be used (TCP/UDP)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  udp  |  Listen protocol UDP  |
-    |  tcp  |  Listen protocol TCP  |
+    |  udp  &emsp; |  Listen protocol UDP  |
+    |  tcp  &emsp; |  Listen protocol TCP  |
 
 `,
 
@@ -87,10 +87,10 @@ func (o ServiceSnmpVthreeTrapTarget) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Specifies the type of notification between inform and trap
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  inform  |  Use INFORM  |
-    |  trap  |  Use TRAP  |
+    |  inform  &emsp; |  Use INFORM  |
+    |  trap  &emsp; |  Use TRAP  |
 
 `,
 

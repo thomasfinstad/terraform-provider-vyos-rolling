@@ -3,33 +3,40 @@
 page_title: "vyos_policy_community_list_rule Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Routing policy
-  Add a BGP community list entry
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  BGP community-list name  |
 
+  <br>
+  &darr;
+  <br>
+  Add a BGP community list entry
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Rule for this BGP community list
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-65535  |  Community-list rule number  |
+  </b>
+  </div>
 ---
 
 # vyos_policy_community_list_rule (Resource)
 
+<div style="text-align: center">
 Routing policy
 
+<br>
+&darr;
+<br>
 Add a BGP community list entry
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  BGP community-list name  |
-
+<br>
+&darr;
+<br>
+<b>
 Rule for this BGP community list
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-65535  |  Community-list rule number  |
+</b>
+</div>
 
 
 
@@ -38,37 +45,37 @@ Rule for this BGP community list
 
 ### Required
 
-- `community_list_identifier` (String) Add a BGP community list entry
+- `community_list_id` (String) Add a BGP community list entry
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  BGP community-list name  |
-- `identifier` (String) Rule for this BGP community list
+    |  txt  &emsp; |  BGP community-list name  |
+- `rule_id` (String) Rule for this BGP community list
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Community-list rule number  |
+    |  number: 1-65535  &emsp; |  Community-list rule number  |
 
 ### Optional
 
 - `action` (String) Action to take on entries matching this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  permit  |  Permit matching entries  |
-    |  deny  |  Deny matching entries  |
+    |  permit  &emsp; |  Permit matching entries  |
+    |  deny  &emsp; |  Deny matching entries  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `regex` (String) Regular expression to match against a community-list
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <aa:nn>  |  Community number in AA:NN format  |
-    |  local-AS  |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
-    |  no-advertise  |  Well-known communities value NO_ADVERTISE 0xFFFFFF02  |
-    |  no-export  |  Well-known communities value NO_EXPORT 0xFFFFFF01  |
-    |  internet  |  Well-known communities value 0  |
-    |  additive  |  New value is appended to the existing value  |
+    |  <aa:nn>  &emsp; |  Community number in AA:NN format  |
+    |  local-AS  &emsp; |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
+    |  no-advertise  &emsp; |  Well-known communities value NO_ADVERTISE 0xFFFFFF02  |
+    |  no-export  &emsp; |  Well-known communities value NO_EXPORT 0xFFFFFF01  |
+    |  internet  &emsp; |  Well-known communities value 0  |
+    |  additive  &emsp; |  New value is appended to the existing value  |

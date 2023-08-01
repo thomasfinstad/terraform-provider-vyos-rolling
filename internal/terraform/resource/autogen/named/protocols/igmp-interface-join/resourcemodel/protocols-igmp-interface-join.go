@@ -8,9 +8,9 @@ import (
 
 // ProtocolsIgmpInterfaceJoin describes the resource data model.
 type ProtocolsIgmpInterfaceJoin struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"join_id" vyos:",self-id"`
 
-	ParentIDProtocolsIgmpInterface types.String `tfsdk:"interface" vyos:"interface_identifier,parent-id"`
+	ParentIDProtocolsIgmpInterface types.String `tfsdk:"interface" vyos:"interface,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsIgmpInterfaceJoinSource types.List `tfsdk:"source" vyos:"source,omitempty"`
@@ -31,25 +31,25 @@ func (o *ProtocolsIgmpInterfaceJoin) GetVyosPath() []string {
 		o.ParentIDProtocolsIgmpInterface.ValueString(),
 
 		"join",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsIgmpInterfaceJoin) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"join_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IGMP join multicast group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Multicast group address  |
+    |  ipv4  &emsp; |  Multicast group address  |
 
 `,
 		},
 
-		"interface_identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IGMP interface
 
@@ -63,9 +63,9 @@ func (o ProtocolsIgmpInterfaceJoin) ResourceSchemaAttributes() map[string]schema
 			Optional:    true,
 			MarkdownDescription: `Source address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Source address  |
+    |  ipv4  &emsp; |  Source address  |
 
 `,
 		},

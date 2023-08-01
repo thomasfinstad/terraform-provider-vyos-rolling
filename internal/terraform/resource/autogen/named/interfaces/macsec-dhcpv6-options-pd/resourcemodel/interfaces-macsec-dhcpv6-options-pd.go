@@ -8,9 +8,9 @@ import (
 
 // InterfacesMacsecDhcpvsixOptionsPd describes the resource data model.
 type InterfacesMacsecDhcpvsixOptionsPd struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"pd_id" vyos:",self-id"`
 
-	ParentIDInterfacesMacsec types.String `tfsdk:"macsec" vyos:"macsec_identifier,parent-id"`
+	ParentIDInterfacesMacsec types.String `tfsdk:"macsec" vyos:"macsec,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesMacsecDhcpvsixOptionsPdLength types.Number `tfsdk:"length" vyos:"length,omitempty"`
@@ -32,31 +32,31 @@ func (o *InterfacesMacsecDhcpvsixOptionsPd) GetVyosPath() []string {
 		"dhcpv6-options",
 
 		"pd",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesMacsecDhcpvsixOptionsPd) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"pd_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
 
 `,
 		},
 
-		"macsec_identifier": schema.StringAttribute{
+		"macsec_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `MACsec Interface (802.1ae)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macsecN  |  MACsec interface name  |
+    |  macsecN  &emsp; |  MACsec interface name  |
 
 `,
 		},
@@ -67,9 +67,9 @@ func (o InterfacesMacsecDhcpvsixOptionsPd) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `Request IPv6 prefix length from peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:32-64  |  Length of delegated prefix  |
+    |  number: 32-64  &emsp; |  Length of delegated prefix  |
 
 `,
 

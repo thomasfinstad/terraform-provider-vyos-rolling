@@ -3,47 +3,60 @@
 page_title: "vyos_protocols_static_table_route_next_hop Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Routing protocols
+
+  <br>
+  &darr;
+  <br>
   Static Routing
+
+  <br>
+  &darr;
+  <br>
   Policy route table number
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-200  |  Policy route table number  |
 
+  <br>
+  &darr;
+  <br>
   Static IPv4 route
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  IPv4 static route  |
 
+  <br>
+  &darr;
+  <br>
+  <b>
   Next-hop IPv4 router address
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  Next-hop router address  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_static_table_route_next_hop (Resource)
 
+<div style="text-align: center">
 Routing protocols
 
+<br>
+&darr;
+<br>
 Static Routing
 
+<br>
+&darr;
+<br>
 Policy route table number
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-200  |  Policy route table number  |
-
+<br>
+&darr;
+<br>
 Static IPv4 route
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 static route  |
-
+<br>
+&darr;
+<br>
+<b>
 Next-hop IPv4 router address
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  Next-hop router address  |
+</b>
+</div>
 
 
 
@@ -52,37 +65,37 @@ Next-hop IPv4 router address
 
 ### Required
 
-- `identifier` (String) Next-hop IPv4 router address
+- `next_hop_id` (String) Next-hop IPv4 router address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Next-hop router address  |
-- `route_identifier` (String) Static IPv4 route
+    |  ipv4  &emsp; |  Next-hop router address  |
+- `route_id` (String) Static IPv4 route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 static route  |
-- `table_identifier` (String) Policy route table number
+    |  ipv4net  &emsp; |  IPv4 static route  |
+- `table_id` (String) Policy route table number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-200  |  Policy route table number  |
+    |  number: 1-200  &emsp; |  Policy route table number  |
 
 ### Optional
 
 - `disable` (Boolean) Disable instance
 - `distance` (Number) Distance for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for this route  |
+    |  number: 1-255  &emsp; |  Distance for this route  |
 - `interface` (String) Gateway interface name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Gateway interface name  |
+    |  txt  &emsp; |  Gateway interface name  |
 - `vrf` (String) VRF to leak route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of VRF to leak to  |
+    |  txt  &emsp; |  Name of VRF to leak to  |

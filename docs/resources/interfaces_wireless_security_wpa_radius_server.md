@@ -3,39 +3,70 @@
 page_title: "vyos_interfaces_wireless_security_wpa_radius_server Resource - vyos"
 subcategory: ""
 description: |-
-  Wireless (WiFi/WLAN) Network Interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
+  <div style="text-align: center">
+  <i>interfaces</i>
 
+  <br>
+  &darr;
+  <br>
+  Wireless (WiFi/WLAN) Network Interface
+
+  <br>
+  &darr;
+  <br>
   Wireless security settings
+
+  <br>
+  &darr;
+  <br>
   Wifi Protected Access (WPA) parameters
+
+  <br>
+  &darr;
+  <br>
   RADIUS based user authentication
+
+  <br>
+  &darr;
+  <br>
+  <b>
   RADIUS server configuration
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  RADIUS server IPv4 address  |
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_wireless_security_wpa_radius_server (Resource)
 
+<div style="text-align: center">
+<i>interfaces</i>
+
+<br>
+&darr;
+<br>
 Wireless (WiFi/WLAN) Network Interface
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
-
+<br>
+&darr;
+<br>
 Wireless security settings
 
+<br>
+&darr;
+<br>
 Wifi Protected Access (WPA) parameters
 
+<br>
+&darr;
+<br>
 RADIUS based user authentication
 
+<br>
+&darr;
+<br>
+<b>
 RADIUS server configuration
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  RADIUS server IPv4 address  |
+</b>
+</div>
 
 
 
@@ -44,16 +75,16 @@ RADIUS server configuration
 
 ### Required
 
-- `identifier` (String) RADIUS server configuration
+- `server_id` (String) RADIUS server configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  RADIUS server IPv4 address  |
-- `wireless_identifier` (String) Wireless (WiFi/WLAN) Network Interface
+    |  ipv4  &emsp; |  RADIUS server IPv4 address  |
+- `wireless_id` (String) Wireless (WiFi/WLAN) Network Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
+    |  wlanN  &emsp; |  Wireless (WiFi/WLAN) interface name  |
 
 ### Optional
 
@@ -62,6 +93,6 @@ RADIUS server configuration
 - `key` (String) Shared secret key
 - `port` (Number) Authentication port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |

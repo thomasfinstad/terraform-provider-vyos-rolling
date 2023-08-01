@@ -3,39 +3,40 @@
 page_title: "vyos_policy_access_list_rule Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Routing policy
-  IP access-list filter
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-99  |  IP standard access list  |
-  |  u32:100-199  |  IP extended access list  |
-  |  u32:1300-1999  |  IP standard access list (expanded range)  |
-  |  u32:2000-2699  |  IP extended access list (expanded range)  |
 
+  <br>
+  &darr;
+  <br>
+  IP access-list filter
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Rule for this access-list
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-65535  |  Access-list rule number  |
+  </b>
+  </div>
 ---
 
 # vyos_policy_access_list_rule (Resource)
 
+<div style="text-align: center">
 Routing policy
 
+<br>
+&darr;
+<br>
 IP access-list filter
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-99  |  IP standard access list  |
-    |  u32:100-199  |  IP extended access list  |
-    |  u32:1300-1999  |  IP standard access list (expanded range)  |
-    |  u32:2000-2699  |  IP extended access list (expanded range)  |
-
+<br>
+&darr;
+<br>
+<b>
 Rule for this access-list
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-65535  |  Access-list rule number  |
+</b>
+</div>
 
 
 
@@ -44,33 +45,33 @@ Rule for this access-list
 
 ### Required
 
-- `access_list_identifier` (String) IP access-list filter
+- `access_list_id` (String) IP access-list filter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-99  |  IP standard access list  |
-    |  u32:100-199  |  IP extended access list  |
-    |  u32:1300-1999  |  IP standard access list (expanded range)  |
-    |  u32:2000-2699  |  IP extended access list (expanded range)  |
-- `identifier` (String) Rule for this access-list
+    |  number: 1-99  &emsp; |  IP standard access list  |
+    |  number: 100-199  &emsp; |  IP extended access list  |
+    |  number: 1300-1999  &emsp; |  IP standard access list (expanded range)  |
+    |  number: 2000-2699  &emsp; |  IP extended access list (expanded range)  |
+- `rule_id` (String) Rule for this access-list
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list rule number  |
+    |  number: 1-65535  &emsp; |  Access-list rule number  |
 
 ### Optional
 
 - `action` (String) Action to take on entries matching this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  permit  |  Permit matching entries  |
-    |  deny  |  Deny matching entries  |
+    |  permit  &emsp; |  Permit matching entries  |
+    |  deny  &emsp; |  Deny matching entries  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `destination` (Attributes) Destination network or address (see [below for nested schema](#nestedatt--destination))
 - `source` (Attributes) Source network or address to match (see [below for nested schema](#nestedatt--source))
 
@@ -82,19 +83,19 @@ Optional:
 - `any` (Boolean) Any IP address to match
 - `host` (String) Single host IP address to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Host address to match  |
+    |  ipv4  &emsp; |  Host address to match  |
 - `inverse_mask` (String) Network/netmask to match (requires network be defined)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Inverse-mask to match  |
+    |  ipv4  &emsp; |  Inverse-mask to match  |
 - `network` (String) Network/netmask to match (requires inverse-mask be defined)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Inverse-mask to match  |
+    |  ipv4net  &emsp; |  Inverse-mask to match  |
 
 
 <a id="nestedatt--source"></a>
@@ -105,16 +106,16 @@ Optional:
 - `any` (Boolean) Any IP address to match
 - `host` (String) Single host IP address to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Host address to match  |
+    |  ipv4  &emsp; |  Host address to match  |
 - `inverse_mask` (String) Network/netmask to match (requires network be defined)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Inverse-mask to match  |
+    |  ipv4  &emsp; |  Inverse-mask to match  |
 - `network` (String) Network/netmask to match (requires inverse-mask be defined)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Inverse-mask to match  |
+    |  ipv4net  &emsp; |  Inverse-mask to match  |

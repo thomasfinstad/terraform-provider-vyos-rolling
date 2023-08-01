@@ -8,7 +8,7 @@ import (
 
 // FirewallGroupDomainGroup describes the resource data model.
 type FirewallGroupDomainGroup struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"domain_group_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafFirewallGroupDomainGroupAddress     types.List   `tfsdk:"address" vyos:"address,omitempty"`
@@ -27,14 +27,14 @@ func (o *FirewallGroupDomainGroup) GetVyosPath() []string {
 		"group",
 
 		"domain-group",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o FirewallGroupDomainGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"domain_group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Firewall domain-group
 
@@ -48,9 +48,9 @@ func (o FirewallGroupDomainGroup) ResourceSchemaAttributes() map[string]schema.A
 			Optional:    true,
 			MarkdownDescription: `Domain-group member
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Domain address to match  |
+    |  txt  &emsp; |  Domain address to match  |
 
 `,
 		},
@@ -59,9 +59,9 @@ func (o FirewallGroupDomainGroup) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

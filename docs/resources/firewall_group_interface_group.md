@@ -3,18 +3,40 @@
 page_title: "vyos_firewall_group_interface_group Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Firewall
+
+  <br>
+  &darr;
+  <br>
   Firewall group
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Firewall interface-group
+  </b>
+  </div>
 ---
 
 # vyos_firewall_group_interface_group (Resource)
 
+<div style="text-align: center">
 Firewall
 
+<br>
+&darr;
+<br>
 Firewall group
 
+<br>
+&darr;
+<br>
+<b>
 Firewall interface-group
+</b>
+</div>
 
 
 
@@ -23,14 +45,14 @@ Firewall interface-group
 
 ### Required
 
-- `identifier` (String) Firewall interface-group
+- `interface_group_id` (String) Firewall interface-group
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `include` (List of String) Include another interface-group
 - `interface` (List of String) Interface-group member

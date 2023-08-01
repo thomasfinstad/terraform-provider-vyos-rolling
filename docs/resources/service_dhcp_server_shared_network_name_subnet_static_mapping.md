@@ -3,29 +3,60 @@
 page_title: "vyos_service_dhcp_server_shared_network_name_subnet_static_mapping Resource - vyos"
 subcategory: ""
 description: |-
-  Dynamic Host Configuration Protocol (DHCP) for DHCP server
-  Name of DHCP shared network
-  DHCP subnet for shared network
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  IPv4 address and prefix length  |
+  <div style="text-align: center">
+  <i>service</i>
 
+  <br>
+  &darr;
+  <br>
+  Dynamic Host Configuration Protocol (DHCP) for DHCP server
+
+  <br>
+  &darr;
+  <br>
+  Name of DHCP shared network
+
+  <br>
+  &darr;
+  <br>
+  DHCP subnet for shared network
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Name of static mapping
+  </b>
+  </div>
 ---
 
 # vyos_service_dhcp_server_shared_network_name_subnet_static_mapping (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Dynamic Host Configuration Protocol (DHCP) for DHCP server
 
+<br>
+&darr;
+<br>
 Name of DHCP shared network
 
+<br>
+&darr;
+<br>
 DHCP subnet for shared network
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-
+<br>
+&darr;
+<br>
+<b>
 Name of static mapping
+</b>
+</div>
 
 
 
@@ -34,25 +65,25 @@ Name of static mapping
 
 ### Required
 
-- `identifier` (String) Name of static mapping
-- `shared_network_name_identifier` (String) Name of DHCP shared network
-- `subnet_identifier` (String) DHCP subnet for shared network
+- `shared_network_name_id` (String) Name of DHCP shared network
+- `static_mapping_id` (String) Name of static mapping
+- `subnet_id` (String) DHCP subnet for shared network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
 
 ### Optional
 
 - `disable` (Boolean) Disable instance
 - `ip_address` (String) Fixed IP address of static mapping
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address used in static mapping  |
+    |  ipv4  &emsp; |  IPv4 address used in static mapping  |
 - `mac_address` (String) Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+    |  macaddr  &emsp; |  Hardware (MAC) address  |
 - `static_mapping_parameters` (List of String) Additional static-mapping parameters for DHCP server. Will be placed inside the "host" block of the mapping. You must use the syntax of dhcpd.conf in this text-field. Using this without proper knowledge may result in a crashed DHCP server. Check system log to look for errors.

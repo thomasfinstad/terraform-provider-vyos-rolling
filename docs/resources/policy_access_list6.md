@@ -3,22 +3,30 @@
 page_title: "vyos_policy_access_list6 Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Routing policy
+
+  <br>
+  &darr;
+  <br>
+  <b>
   IPv6 access-list filter
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Name of IPv6 access-list  |
+  </b>
+  </div>
 ---
 
 # vyos_policy_access_list6 (Resource)
 
+<div style="text-align: center">
 Routing policy
 
+<br>
+&darr;
+<br>
+<b>
 IPv6 access-list filter
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Name of IPv6 access-list  |
+</b>
+</div>
 
 
 
@@ -27,16 +35,16 @@ IPv6 access-list filter
 
 ### Required
 
-- `identifier` (String) IPv6 access-list filter
+- `access_list6_id` (String) IPv6 access-list filter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv6 access-list  |
+    |  txt  &emsp; |  Name of IPv6 access-list  |
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |

@@ -58,9 +58,9 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Route-reflector cluster-id
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Route-reflector cluster-id  |
+    |  ipv4  &emsp; |  Route-reflector cluster-id  |
 
 `,
 		},
@@ -114,9 +114,9 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `BGP minimum holdtime
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Minimum holdtime in seconds  |
+    |  number: 1-65535  &emsp; |  Minimum holdtime in seconds  |
 
 `,
 		},
@@ -197,9 +197,9 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Override default router identifier
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Router-ID in IP address format  |
+    |  ipv4  &emsp; |  Router-ID in IP address format  |
 
 `,
 		},

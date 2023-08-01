@@ -8,9 +8,9 @@ import (
 
 // VpnIPsecEspGroupProposal describes the resource data model.
 type VpnIPsecEspGroupProposal struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"proposal_id" vyos:",self-id"`
 
-	ParentIDVpnIPsecEspGroup types.String `tfsdk:"esp_group" vyos:"esp-group_identifier,parent-id"`
+	ParentIDVpnIPsecEspGroup types.String `tfsdk:"esp_group" vyos:"esp-group,parent-id"`
 
 	// LeafNodes
 	LeafVpnIPsecEspGroupProposalEncryption types.String `tfsdk:"encryption" vyos:"encryption,omitempty"`
@@ -32,25 +32,25 @@ func (o *VpnIPsecEspGroupProposal) GetVyosPath() []string {
 		o.ParentIDVpnIPsecEspGroup.ValueString(),
 
 		"proposal",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VpnIPsecEspGroupProposal) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"proposal_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `ESP group proposal
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  ESP group proposal number  |
+    |  number: 1-65535  &emsp; |  ESP group proposal number  |
 
 `,
 		},
 
-		"esp_group_identifier": schema.StringAttribute{
+		"esp_group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Encapsulating Security Payload (ESP) group name
 
@@ -63,63 +63,63 @@ func (o VpnIPsecEspGroupProposal) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Encryption algorithm
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  null  |  Null encryption  |
-    |  aes128  |  128 bit AES-CBC  |
-    |  aes192  |  192 bit AES-CBC  |
-    |  aes256  |  256 bit AES-CBC  |
-    |  aes128ctr  |  128 bit AES-COUNTER  |
-    |  aes192ctr  |  192 bit AES-COUNTER  |
-    |  aes256ctr  |  256 bit AES-COUNTER  |
-    |  aes128ccm64  |  128 bit AES-CCM with 64 bit ICV  |
-    |  aes192ccm64  |  192 bit AES-CCM with 64 bit ICV  |
-    |  aes256ccm64  |  256 bit AES-CCM with 64 bit ICV  |
-    |  aes128ccm96  |  128 bit AES-CCM with 96 bit ICV  |
-    |  aes192ccm96  |  192 bit AES-CCM with 96 bit ICV  |
-    |  aes256ccm96  |  256 bit AES-CCM with 96 bit ICV  |
-    |  aes128ccm128  |  128 bit AES-CCM with 128 bit ICV  |
-    |  aes192ccm128  |  192 bit AES-CCM with 128 bit IC  |
-    |  aes256ccm128  |  256 bit AES-CCM with 128 bit ICV  |
-    |  aes128gcm64  |  128 bit AES-GCM with 64 bit ICV  |
-    |  aes192gcm64  |  192 bit AES-GCM with 64 bit ICV  |
-    |  aes256gcm64  |  256 bit AES-GCM with 64 bit ICV  |
-    |  aes128gcm96  |  128 bit AES-GCM with 96 bit ICV  |
-    |  aes192gcm96  |  192 bit AES-GCM with 96 bit ICV  |
-    |  aes256gcm96  |  256 bit AES-GCM with 96 bit ICV  |
-    |  aes128gcm128  |  128 bit AES-GCM with 128 bit ICV  |
-    |  aes192gcm128  |  192 bit AES-GCM with 128 bit ICV  |
-    |  aes256gcm128  |  256 bit AES-GCM with 128 bit ICV  |
-    |  aes128gmac  |  Null encryption with 128 bit AES-GMAC  |
-    |  aes192gmac  |  Null encryption with 192 bit AES-GMAC  |
-    |  aes256gmac  |  Null encryption with 256 bit AES-GMAC  |
-    |  3des  |  168 bit 3DES-EDE-CBC  |
-    |  blowfish128  |  128 bit Blowfish-CBC  |
-    |  blowfish192  |  192 bit Blowfish-CBC  |
-    |  blowfish256  |  256 bit Blowfish-CBC  |
-    |  camellia128  |  128 bit Camellia-CBC  |
-    |  camellia192  |  192 bit Camellia-CBC  |
-    |  camellia256  |  256 bit Camellia-CBC  |
-    |  camellia128ctr  |  128 bit Camellia-COUNTER  |
-    |  camellia192ctr  |  192 bit Camellia-COUNTER  |
-    |  camellia256ctr  |  256 bit Camellia-COUNTER  |
-    |  camellia128ccm64  |  128 bit Camellia-CCM with 64 bit ICV  |
-    |  camellia192ccm64  |  192 bit Camellia-CCM with 64 bit ICV  |
-    |  camellia256ccm64  |  256 bit Camellia-CCM with 64 bit ICV  |
-    |  camellia128ccm96  |  128 bit Camellia-CCM with 96 bit ICV  |
-    |  camellia192ccm96  |  192 bit Camellia-CCM with 96 bit ICV  |
-    |  camellia256ccm96  |  256 bit Camellia-CCM with 96 bit ICV  |
-    |  camellia128ccm128  |  128 bit Camellia-CCM with 128 bit ICV  |
-    |  camellia192ccm128  |  192 bit Camellia-CCM with 128 bit ICV  |
-    |  camellia256ccm128  |  256 bit Camellia-CCM with 128 bit ICV  |
-    |  serpent128  |  128 bit Serpent-CBC  |
-    |  serpent192  |  192 bit Serpent-CBC  |
-    |  serpent256  |  256 bit Serpent-CBC  |
-    |  twofish128  |  128 bit Twofish-CBC  |
-    |  twofish192  |  192 bit Twofish-CBC  |
-    |  twofish256  |  256 bit Twofish-CBC  |
-    |  cast128  |  128 bit CAST-CBC  |
-    |  chacha20poly1305  |  256 bit ChaCha20/Poly1305 with 128 bit ICV  |
+    |  null  &emsp; |  Null encryption  |
+    |  aes128  &emsp; |  128 bit AES-CBC  |
+    |  aes192  &emsp; |  192 bit AES-CBC  |
+    |  aes256  &emsp; |  256 bit AES-CBC  |
+    |  aes128ctr  &emsp; |  128 bit AES-COUNTER  |
+    |  aes192ctr  &emsp; |  192 bit AES-COUNTER  |
+    |  aes256ctr  &emsp; |  256 bit AES-COUNTER  |
+    |  aes128ccm64  &emsp; |  128 bit AES-CCM with 64 bit ICV  |
+    |  aes192ccm64  &emsp; |  192 bit AES-CCM with 64 bit ICV  |
+    |  aes256ccm64  &emsp; |  256 bit AES-CCM with 64 bit ICV  |
+    |  aes128ccm96  &emsp; |  128 bit AES-CCM with 96 bit ICV  |
+    |  aes192ccm96  &emsp; |  192 bit AES-CCM with 96 bit ICV  |
+    |  aes256ccm96  &emsp; |  256 bit AES-CCM with 96 bit ICV  |
+    |  aes128ccm128  &emsp; |  128 bit AES-CCM with 128 bit ICV  |
+    |  aes192ccm128  &emsp; |  192 bit AES-CCM with 128 bit IC  |
+    |  aes256ccm128  &emsp; |  256 bit AES-CCM with 128 bit ICV  |
+    |  aes128gcm64  &emsp; |  128 bit AES-GCM with 64 bit ICV  |
+    |  aes192gcm64  &emsp; |  192 bit AES-GCM with 64 bit ICV  |
+    |  aes256gcm64  &emsp; |  256 bit AES-GCM with 64 bit ICV  |
+    |  aes128gcm96  &emsp; |  128 bit AES-GCM with 96 bit ICV  |
+    |  aes192gcm96  &emsp; |  192 bit AES-GCM with 96 bit ICV  |
+    |  aes256gcm96  &emsp; |  256 bit AES-GCM with 96 bit ICV  |
+    |  aes128gcm128  &emsp; |  128 bit AES-GCM with 128 bit ICV  |
+    |  aes192gcm128  &emsp; |  192 bit AES-GCM with 128 bit ICV  |
+    |  aes256gcm128  &emsp; |  256 bit AES-GCM with 128 bit ICV  |
+    |  aes128gmac  &emsp; |  Null encryption with 128 bit AES-GMAC  |
+    |  aes192gmac  &emsp; |  Null encryption with 192 bit AES-GMAC  |
+    |  aes256gmac  &emsp; |  Null encryption with 256 bit AES-GMAC  |
+    |  3des  &emsp; |  168 bit 3DES-EDE-CBC  |
+    |  blowfish128  &emsp; |  128 bit Blowfish-CBC  |
+    |  blowfish192  &emsp; |  192 bit Blowfish-CBC  |
+    |  blowfish256  &emsp; |  256 bit Blowfish-CBC  |
+    |  camellia128  &emsp; |  128 bit Camellia-CBC  |
+    |  camellia192  &emsp; |  192 bit Camellia-CBC  |
+    |  camellia256  &emsp; |  256 bit Camellia-CBC  |
+    |  camellia128ctr  &emsp; |  128 bit Camellia-COUNTER  |
+    |  camellia192ctr  &emsp; |  192 bit Camellia-COUNTER  |
+    |  camellia256ctr  &emsp; |  256 bit Camellia-COUNTER  |
+    |  camellia128ccm64  &emsp; |  128 bit Camellia-CCM with 64 bit ICV  |
+    |  camellia192ccm64  &emsp; |  192 bit Camellia-CCM with 64 bit ICV  |
+    |  camellia256ccm64  &emsp; |  256 bit Camellia-CCM with 64 bit ICV  |
+    |  camellia128ccm96  &emsp; |  128 bit Camellia-CCM with 96 bit ICV  |
+    |  camellia192ccm96  &emsp; |  192 bit Camellia-CCM with 96 bit ICV  |
+    |  camellia256ccm96  &emsp; |  256 bit Camellia-CCM with 96 bit ICV  |
+    |  camellia128ccm128  &emsp; |  128 bit Camellia-CCM with 128 bit ICV  |
+    |  camellia192ccm128  &emsp; |  192 bit Camellia-CCM with 128 bit ICV  |
+    |  camellia256ccm128  &emsp; |  256 bit Camellia-CCM with 128 bit ICV  |
+    |  serpent128  &emsp; |  128 bit Serpent-CBC  |
+    |  serpent192  &emsp; |  192 bit Serpent-CBC  |
+    |  serpent256  &emsp; |  256 bit Serpent-CBC  |
+    |  twofish128  &emsp; |  128 bit Twofish-CBC  |
+    |  twofish192  &emsp; |  192 bit Twofish-CBC  |
+    |  twofish256  &emsp; |  256 bit Twofish-CBC  |
+    |  cast128  &emsp; |  128 bit CAST-CBC  |
+    |  chacha20poly1305  &emsp; |  256 bit ChaCha20/Poly1305 with 128 bit ICV  |
 
 `,
 
@@ -131,21 +131,21 @@ func (o VpnIPsecEspGroupProposal) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Hash algorithm
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  md5  |  MD5 HMAC  |
-    |  md5_128  |  MD5_128 HMAC  |
-    |  sha1  |  SHA1 HMAC  |
-    |  sha1_160  |  SHA1_160 HMAC  |
-    |  sha256  |  SHA2_256_128 HMAC  |
-    |  sha256_96  |  SHA2_256_96 HMAC  |
-    |  sha384  |  SHA2_384_192 HMAC  |
-    |  sha512  |  SHA2_512_256 HMAC  |
-    |  aesxcbc  |  AES XCBC  |
-    |  aescmac  |  AES CMAC  |
-    |  aes128gmac  |  128-bit AES-GMAC  |
-    |  aes192gmac  |  192-bit AES-GMAC  |
-    |  aes256gmac  |  256-bit AES-GMAC  |
+    |  md5  &emsp; |  MD5 HMAC  |
+    |  md5_128  &emsp; |  MD5_128 HMAC  |
+    |  sha1  &emsp; |  SHA1 HMAC  |
+    |  sha1_160  &emsp; |  SHA1_160 HMAC  |
+    |  sha256  &emsp; |  SHA2_256_128 HMAC  |
+    |  sha256_96  &emsp; |  SHA2_256_96 HMAC  |
+    |  sha384  &emsp; |  SHA2_384_192 HMAC  |
+    |  sha512  &emsp; |  SHA2_512_256 HMAC  |
+    |  aesxcbc  &emsp; |  AES XCBC  |
+    |  aescmac  &emsp; |  AES CMAC  |
+    |  aes128gmac  &emsp; |  128-bit AES-GMAC  |
+    |  aes192gmac  &emsp; |  192-bit AES-GMAC  |
+    |  aes256gmac  &emsp; |  256-bit AES-GMAC  |
 
 `,
 

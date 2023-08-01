@@ -9,7 +9,7 @@ import (
 
 // HighAvailabilityVrrpGroup describes the resource data model.
 type HighAvailabilityVrrpGroup struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"group_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafHighAvailabilityVrrpGroupInterface                          types.String `tfsdk:"interface" vyos:"interface,omitempty"`
@@ -44,14 +44,14 @@ func (o *HighAvailabilityVrrpGroup) GetVyosPath() []string {
 		"vrrp",
 
 		"group",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `VRRP group
 
@@ -64,9 +64,9 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Interface Name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},
@@ -75,9 +75,9 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Advertise interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Advertise interval in seconds  |
+    |  number: 1-255  &emsp; |  Advertise interval in seconds  |
 
 `,
 
@@ -89,9 +89,9 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -109,10 +109,10 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `VRRP hello source address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 hello source address  |
-    |  ipv6  |  IPv6 hello source address  |
+    |  ipv4  &emsp; |  IPv4 hello source address  |
+    |  ipv6  &emsp; |  IPv6 hello source address  |
 
 `,
 		},
@@ -121,10 +121,10 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Unicast VRRP peer address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 unicast peer address  |
-    |  ipv6  |  IPv6 unicast peer address  |
+    |  ipv4  &emsp; |  IPv4 unicast peer address  |
+    |  ipv6  &emsp; |  IPv6 unicast peer address  |
 
 `,
 		},
@@ -142,9 +142,9 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Preempt delay (in seconds)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-1000  |  preempt delay  |
+    |  number: 0-1000  &emsp; |  preempt delay  |
 
 `,
 
@@ -156,9 +156,9 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Router priority
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Router priority  |
+    |  number: 1-255  &emsp; |  Router priority  |
 
 `,
 
@@ -180,10 +180,10 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional:    true,
 			MarkdownDescription: `Virtual address (If you need additional IPv4 and IPv6 in same group)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IP address  |
-    |  ipv6  |  IPv6 address  |
+    |  ipv4  &emsp; |  IP address  |
+    |  ipv6  &emsp; |  IPv6 address  |
 
 `,
 		},
@@ -192,9 +192,9 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Virtual router identifier
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Virtual router identifier  |
+    |  number: 1-255  &emsp; |  Virtual router identifier  |
 
 `,
 		},

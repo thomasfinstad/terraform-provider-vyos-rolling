@@ -38,9 +38,9 @@ func (o InterfacesOpenvpnTLS) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Certificate in PKI configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of certificate in PKI configuration  |
+    |  txt  &emsp; |  Name of certificate in PKI configuration  |
 
 `,
 		},
@@ -50,9 +50,9 @@ func (o InterfacesOpenvpnTLS) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional:    true,
 			MarkdownDescription: `Certificate Authority chain in PKI configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of CA in PKI configuration  |
+    |  txt  &emsp; |  Name of CA in PKI configuration  |
 
 `,
 		},
@@ -75,12 +75,12 @@ func (o InterfacesOpenvpnTLS) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Specify the minimum required TLS version
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  1.0  |  TLS v1.0  |
-    |  1.1  |  TLS v1.1  |
-    |  1.2  |  TLS v1.2  |
-    |  1.3  |  TLS v1.3  |
+    |  1.0  &emsp; |  TLS v1.0  |
+    |  1.1  &emsp; |  TLS v1.1  |
+    |  1.2  &emsp; |  TLS v1.2  |
+    |  1.3  &emsp; |  TLS v1.3  |
 
 `,
 		},
@@ -89,10 +89,10 @@ func (o InterfacesOpenvpnTLS) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `TLS negotiation role
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  active  |  Initiate TLS negotiation actively  |
-    |  passive  |  Wait for incoming TLS connection  |
+    |  active  &emsp; |  Initiate TLS negotiation actively  |
+    |  passive  &emsp; |  Wait for incoming TLS connection  |
 
 `,
 		},

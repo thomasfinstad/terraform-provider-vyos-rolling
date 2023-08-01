@@ -9,7 +9,7 @@ import (
 
 // ServiceRouterAdvertInterface describes the resource data model.
 type ServiceRouterAdvertInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceRouterAdvertInterfaceHopLimit           types.Number `tfsdk:"hop_limit" vyos:"hop-limit,omitempty"`
@@ -42,14 +42,14 @@ func (o *ServiceRouterAdvertInterface) GetVyosPath() []string {
 		"router-advert",
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Interface to send RA on
 
@@ -62,10 +62,10 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Set Hop Count field of the IP header for outgoing packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Unspecified (by this router)  |
-    |  u32:1-255  |  Value should represent current diameter of the Internet  |
+    |  number: 0  &emsp; |  Unspecified (by this router)  |
+    |  number: 1-255  &emsp; |  Value should represent current diameter of the Internet  |
 
 `,
 
@@ -77,10 +77,10 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Lifetime associated with the default router in units of seconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:4-9000  |  Router Lifetime in seconds  |
-    |  0  |  Not a default router  |
+    |  number: 4-9000  &emsp; |  Router Lifetime in seconds  |
+    |  0  &emsp; |  Not a default router  |
 
 `,
 		},
@@ -89,11 +89,11 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Preference associated with the default router,
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  low  |  Default router has low preference  |
-    |  medium  |  Default router has medium preference  |
-    |  high  |  Default router has high preference  |
+    |  low  &emsp; |  Default router has low preference  |
+    |  medium  &emsp; |  Default router has medium preference  |
+    |  high  &emsp; |  Default router has high preference  |
 
 `,
 
@@ -113,9 +113,9 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Link MTU value placed in RAs, exluded in RAs if unset
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1280-9000  |  Link MTU value in RAs  |
+    |  number: 1280-9000  &emsp; |  Link MTU value in RAs  |
 
 `,
 		},
@@ -134,9 +134,9 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes() map[string]sche
 			Optional:    true,
 			MarkdownDescription: `Domain Name Servers (DNS) addresses
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6  |  Domain Name Server (DNS) IPv6 address  |
+    |  ipv6  &emsp; |  Domain Name Server (DNS) IPv6 address  |
 
 `,
 		},
@@ -145,10 +145,10 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Maximum duration how long the RDNSS entries are used
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Name-servers should no longer be used  |
-    |  u32:1-7200  |  Maximum interval in seconds  |
+    |  number: 0  &emsp; |  Name-servers should no longer be used  |
+    |  number: 1-7200  &emsp; |  Maximum interval in seconds  |
 
 `,
 		},
@@ -167,9 +167,9 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes() map[string]sche
 			Optional:    true,
 			MarkdownDescription: `Use IPv6 address as source address. Useful with VRRP.
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6  |  IPv6 address to be advertized (must be configured on interface)  |
+    |  ipv6  &emsp; |  IPv6 address to be advertized (must be configured on interface)  |
 
 `,
 		},
@@ -178,10 +178,10 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Time, in milliseconds, that a node assumes a neighbor is reachable after having received a reachability confirmation
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Reachable Time unspecified by this router  |
-    |  u32:1-3600000  |  Reachable Time value in RAs (in milliseconds)  |
+    |  number: 0  &emsp; |  Reachable Time unspecified by this router  |
+    |  number: 1-3600000  &emsp; |  Reachable Time value in RAs (in milliseconds)  |
 
 `,
 
@@ -193,10 +193,10 @@ func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Time in milliseconds between retransmitted Neighbor Solicitation messages
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Time, in milliseconds, between retransmitted Neighbor Solicitation messages  |
-    |  u32:1-4294967295  |  Minimum interval in milliseconds  |
+    |  number: 0  &emsp; |  Time, in milliseconds, between retransmitted Neighbor Solicitation messages  |
+    |  number: 1-4294967295  &emsp; |  Minimum interval in milliseconds  |
 
 `,
 

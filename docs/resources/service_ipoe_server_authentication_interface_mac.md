@@ -3,28 +3,60 @@
 page_title: "vyos_service_ipoe_server_authentication_interface_mac Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Internet Protocol over Ethernet (IPoE) Server
+
+  <br>
+  &darr;
+  <br>
   Client authentication methods
+
+  <br>
+  &darr;
+  <br>
   Network interface for client MAC addresses
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Media Access Control (MAC) address
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  macaddr  |  Hardware (MAC) address  |
+  </b>
+  </div>
 ---
 
 # vyos_service_ipoe_server_authentication_interface_mac (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Internet Protocol over Ethernet (IPoE) Server
 
+<br>
+&darr;
+<br>
 Client authentication methods
 
+<br>
+&darr;
+<br>
 Network interface for client MAC addresses
 
+<br>
+&darr;
+<br>
+<b>
 Media Access Control (MAC) address
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+</b>
+</div>
 
 
 
@@ -33,21 +65,21 @@ Media Access Control (MAC) address
 
 ### Required
 
-- `identifier` (String) Media Access Control (MAC) address
+- `interface_id` (String) Network interface for client MAC addresses
+- `mac_id` (String) Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
-- `interface_identifier` (String) Network interface for client MAC addresses
+    |  macaddr  &emsp; |  Hardware (MAC) address  |
 
 ### Optional
 
 - `rate_limit` (Attributes) Upload/Download speed limits (see [below for nested schema](#nestedatt--rate_limit))
 - `vlan` (Number) VLAN monitor for automatic creation of VLAN interfaces
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4094  |  Client VLAN id  |
+    |  number: 1-4094  &emsp; |  Client VLAN id  |
 
 <a id="nestedatt--rate_limit"></a>
 ### Nested Schema for `rate_limit`

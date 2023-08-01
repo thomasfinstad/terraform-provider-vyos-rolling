@@ -8,9 +8,9 @@ import (
 
 // VrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefix describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefix struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"prefix_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefixDistance types.Number `tfsdk:"distance" vyos:"distance,omitempty"`
@@ -39,31 +39,31 @@ func (o *VrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefix) GetVyosP
 		"distance",
 
 		"prefix",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"prefix_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Administrative distance for a specific BGP prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  Administrative distance for a specific BGP prefix  |
+    |  ipv6net  &emsp; |  Administrative distance for a specific BGP prefix  |
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -74,9 +74,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefix) ResourceS
 			Optional: true,
 			MarkdownDescription: `Administrative distance for prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Administrative distance for external BGP routes  |
+    |  number: 1-255  &emsp; |  Administrative distance for external BGP routes  |
 
 `,
 		},

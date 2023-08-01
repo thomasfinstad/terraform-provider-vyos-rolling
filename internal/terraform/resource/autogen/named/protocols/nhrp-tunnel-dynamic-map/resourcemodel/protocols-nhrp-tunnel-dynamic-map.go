@@ -8,9 +8,9 @@ import (
 
 // ProtocolsNhrpTunnelDynamicMap describes the resource data model.
 type ProtocolsNhrpTunnelDynamicMap struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"dynamic_map_id" vyos:",self-id"`
 
-	ParentIDProtocolsNhrpTunnel types.String `tfsdk:"tunnel" vyos:"tunnel_identifier,parent-id"`
+	ParentIDProtocolsNhrpTunnel types.String `tfsdk:"tunnel" vyos:"tunnel,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsNhrpTunnelDynamicMapNbmaDomainName types.String `tfsdk:"nbma_domain_name" vyos:"nbma-domain-name,omitempty"`
@@ -31,31 +31,31 @@ func (o *ProtocolsNhrpTunnelDynamicMap) GetVyosPath() []string {
 		o.ParentIDProtocolsNhrpTunnel.ValueString(),
 
 		"dynamic-map",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsNhrpTunnelDynamicMap) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"dynamic_map_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Set an HUB tunnel address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Set the IP address and prefix length  |
+    |  ipv4net  &emsp; |  Set the IP address and prefix length  |
 
 `,
 		},
 
-		"tunnel_identifier": schema.StringAttribute{
+		"tunnel_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Tunnel for NHRP
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  tunN  |  NHRP tunnel name  |
+    |  tunN  &emsp; |  NHRP tunnel name  |
 
 `,
 		},
@@ -66,9 +66,9 @@ func (o ProtocolsNhrpTunnelDynamicMap) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Set HUB fqdn (nbma-address - fqdn)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <fqdn>  |  Set the external HUB fqdn  |
+    |  <fqdn>  &emsp; |  Set the external HUB fqdn  |
 
 `,
 		},

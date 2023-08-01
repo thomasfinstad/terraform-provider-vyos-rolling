@@ -8,11 +8,11 @@ import (
 
 // InterfacesPseudoEthernetVifDhcpvsixOptionsPd describes the resource data model.
 type InterfacesPseudoEthernetVifDhcpvsixOptionsPd struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"pd_id" vyos:",self-id"`
 
-	ParentIDInterfacesPseudoEthernet types.String `tfsdk:"pseudo_ethernet" vyos:"pseudo-ethernet_identifier,parent-id"`
+	ParentIDInterfacesPseudoEthernet types.String `tfsdk:"pseudo_ethernet" vyos:"pseudo-ethernet,parent-id"`
 
-	ParentIDInterfacesPseudoEthernetVif types.String `tfsdk:"vif" vyos:"vif_identifier,parent-id"`
+	ParentIDInterfacesPseudoEthernetVif types.String `tfsdk:"vif" vyos:"vif,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesPseudoEthernetVifDhcpvsixOptionsPdLength types.Number `tfsdk:"length" vyos:"length,omitempty"`
@@ -37,42 +37,42 @@ func (o *InterfacesPseudoEthernetVifDhcpvsixOptionsPd) GetVyosPath() []string {
 		"dhcpv6-options",
 
 		"pd",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesPseudoEthernetVifDhcpvsixOptionsPd) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"pd_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
 
 `,
 		},
 
-		"pseudo_ethernet_identifier": schema.StringAttribute{
+		"pseudo_ethernet_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Pseudo Ethernet Interface (Macvlan)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  pethN  |  Pseudo Ethernet interface name  |
+    |  pethN  &emsp; |  Pseudo Ethernet interface name  |
 
 `,
 		},
 
-		"vif_identifier": schema.StringAttribute{
+		"vif_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Local Area Network (VLAN) ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
+    |  number: 0-4094  &emsp; |  Virtual Local Area Network (VLAN) ID  |
 
 `,
 		},
@@ -83,9 +83,9 @@ func (o InterfacesPseudoEthernetVifDhcpvsixOptionsPd) ResourceSchemaAttributes()
 			Optional: true,
 			MarkdownDescription: `Request IPv6 prefix length from peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:32-64  |  Length of delegated prefix  |
+    |  number: 32-64  &emsp; |  Length of delegated prefix  |
 
 `,
 

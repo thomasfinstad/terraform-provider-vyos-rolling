@@ -8,9 +8,9 @@ import (
 
 // QosPolicyRandomDetectPrecedence describes the resource data model.
 type QosPolicyRandomDetectPrecedence struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"precedence_id" vyos:",self-id"`
 
-	ParentIDQosPolicyRandomDetect types.String `tfsdk:"random_detect" vyos:"random-detect_identifier,parent-id"`
+	ParentIDQosPolicyRandomDetect types.String `tfsdk:"random_detect" vyos:"random-detect,parent-id"`
 
 	// LeafNodes
 	LeafQosPolicyRandomDetectPrecedenceQueueLimit       types.Number `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
@@ -35,31 +35,31 @@ func (o *QosPolicyRandomDetectPrecedence) GetVyosPath() []string {
 		o.ParentIDQosPolicyRandomDetect.ValueString(),
 
 		"precedence",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"precedence_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IP precedence
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-7  |  IP precedence value  |
+    |  number: 0-7  &emsp; |  IP precedence value  |
 
 `,
 		},
 
-		"random_detect_identifier": schema.StringAttribute{
+		"random_detect_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Weighted Random Early Detect policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 `,
 		},
@@ -70,9 +70,9 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Queue size in packets  |
+    |  number: 1-4294967295  &emsp; |  Queue size in packets  |
 
 `,
 		},
@@ -81,9 +81,9 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Average packet size (bytes)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:16-10240  |  Average packet size in bytes  |
+    |  number: 16-10240  &emsp; |  Average packet size in bytes  |
 
 `,
 
@@ -95,9 +95,9 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Mark probability for this precedence
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <number>  |  Numeric value (1/N)  |
+    |  <number>  &emsp; |  Numeric value (1/N)  |
 
 `,
 
@@ -109,9 +109,9 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Maximum threshold for random detection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4096  |  Maximum Threshold in packets  |
+    |  number: 0-4096  &emsp; |  Maximum Threshold in packets  |
 
 `,
 
@@ -123,9 +123,9 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Minimum  threshold for random detection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4096  |  Maximum Threshold in packets  |
+    |  number: 0-4096  &emsp; |  Maximum Threshold in packets  |
 
 `,
 		},

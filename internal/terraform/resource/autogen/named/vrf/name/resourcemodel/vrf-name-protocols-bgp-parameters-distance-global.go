@@ -27,9 +27,9 @@ func (o VrfNameProtocolsBgpParametersDistanceGlobal) ResourceSchemaAttributes() 
 			Optional: true,
 			MarkdownDescription: `Administrative distance for external BGP routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Administrative distance for external BGP routes  |
+    |  number: 1-255  &emsp; |  Administrative distance for external BGP routes  |
 
 `,
 		},
@@ -38,9 +38,9 @@ func (o VrfNameProtocolsBgpParametersDistanceGlobal) ResourceSchemaAttributes() 
 			Optional: true,
 			MarkdownDescription: `Administrative distance for internal BGP routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Administrative distance for internal BGP routes  |
+    |  number: 1-255  &emsp; |  Administrative distance for internal BGP routes  |
 
 `,
 		},
@@ -49,9 +49,9 @@ func (o VrfNameProtocolsBgpParametersDistanceGlobal) ResourceSchemaAttributes() 
 			Optional: true,
 			MarkdownDescription: `Administrative distance for local BGP routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Administrative distance for internal BGP routes  |
+    |  number: 1-255  &emsp; |  Administrative distance for internal BGP routes  |
 
 `,
 		},

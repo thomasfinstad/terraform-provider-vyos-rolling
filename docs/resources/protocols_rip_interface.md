@@ -3,22 +3,40 @@
 page_title: "vyos_protocols_rip_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Routing Information Protocol (RIP) parameters
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Interface name
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Interface name  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_rip_interface (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Routing Information Protocol (RIP) parameters
 
+<br>
+&darr;
+<br>
+<b>
 Interface name
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Interface name  |
+</b>
+</div>
 
 
 
@@ -27,11 +45,11 @@ Interface name
 
 ### Required
 
-- `identifier` (String) Interface name
+- `interface_id` (String) Interface name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 ### Optional
 
@@ -47,9 +65,9 @@ Optional:
 
 - `plaintext_password` (String) Plain text password
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Plain text password (16 characters or less)  |
+    |  txt  &emsp; |  Plain text password (16 characters or less)  |
 
 
 <a id="nestedatt--receive"></a>
@@ -59,10 +77,10 @@ Optional:
 
 - `version` (String) Limit RIP protocol version
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  1  |  Allow RIPv1 only  |
-    |  2  |  Allow RIPv2 only  |
+    |  1  &emsp; |  Allow RIPv1 only  |
+    |  2  &emsp; |  Allow RIPv2 only  |
 
 
 <a id="nestedatt--send"></a>
@@ -72,10 +90,10 @@ Optional:
 
 - `version` (String) Limit RIP protocol version
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  1  |  Allow RIPv1 only  |
-    |  2  |  Allow RIPv2 only  |
+    |  1  &emsp; |  Allow RIPv1 only  |
+    |  2  &emsp; |  Allow RIPv2 only  |
 
 
 <a id="nestedatt--split_horizon"></a>

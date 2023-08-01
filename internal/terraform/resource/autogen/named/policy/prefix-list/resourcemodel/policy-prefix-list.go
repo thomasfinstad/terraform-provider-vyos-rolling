@@ -8,7 +8,7 @@ import (
 
 // PolicyPrefixList describes the resource data model.
 type PolicyPrefixList struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"prefix_list_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafPolicyPrefixListDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -25,20 +25,20 @@ func (o *PolicyPrefixList) GetVyosPath() []string {
 		"policy",
 
 		"prefix-list",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PolicyPrefixList) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"prefix_list_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IP prefix-list filter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv4 prefix-list  |
+    |  txt  &emsp; |  Name of IPv4 prefix-list  |
 
 `,
 		},
@@ -49,9 +49,9 @@ func (o PolicyPrefixList) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

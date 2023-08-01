@@ -26,9 +26,9 @@ func (o VrfNameProtocolsIsisRedistributeIPvsixStaticLevelTwo) ResourceSchemaAttr
 			Optional: true,
 			MarkdownDescription: `Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 
 `,
 		},
@@ -37,9 +37,9 @@ func (o VrfNameProtocolsIsisRedistributeIPvsixStaticLevelTwo) ResourceSchemaAttr
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},

@@ -9,7 +9,7 @@ import (
 
 // ProtocolsBabelInterface describes the resource data model.
 type ProtocolsBabelInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsBabelInterfaceType             types.String `tfsdk:"type" vyos:"type,omitempty"`
@@ -37,20 +37,20 @@ func (o *ProtocolsBabelInterface) GetVyosPath() []string {
 		"babel",
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsBabelInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Interface name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},
@@ -61,11 +61,11 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Interface type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  auto  |  Automatically detect interface type  |
-    |  wired  |  Wired interface  |
-    |  wireless  |  Wireless interface  |
+    |  auto  &emsp; |  Automatically detect interface type  |
+    |  wired  &emsp; |  Wired interface  |
+    |  wireless  &emsp; |  Wireless interface  |
 
 `,
 
@@ -77,11 +77,11 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Split horizon parameters
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  default  |  Enable on wired interfaces, and disable on wireless interfaces  |
-    |  enable  |  Enable split horizon processing  |
-    |  disable  |  Disable split horizon processing  |
+    |  default  &emsp; |  Enable on wired interfaces, and disable on wireless interfaces  |
+    |  enable  &emsp; |  Enable split horizon processing  |
+    |  disable  &emsp; |  Disable split horizon processing  |
 
 `,
 
@@ -93,9 +93,9 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Time between scheduled hellos
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:20-655340  |  Milliseconds  |
+    |  number: 20-655340  &emsp; |  Milliseconds  |
 
 `,
 
@@ -107,9 +107,9 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Time between scheduled updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:20-655340  |  Milliseconds  |
+    |  number: 20-655340  &emsp; |  Milliseconds  |
 
 `,
 
@@ -121,9 +121,9 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Base receive cost for this interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65534  |  Base receive cost  |
+    |  number: 1-65534  &emsp; |  Base receive cost  |
 
 `,
 		},
@@ -132,9 +132,9 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Decay factor for exponential moving average of RTT samples
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-256  |  Decay factor, in units of 1/256  |
+    |  number: 1-256  &emsp; |  Decay factor, in units of 1/256  |
 
 `,
 
@@ -146,9 +146,9 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Minimum RTT
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Milliseconds  |
+    |  number: 1-65535  &emsp; |  Milliseconds  |
 
 `,
 
@@ -160,9 +160,9 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Maximum RTT
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Milliseconds  |
+    |  number: 1-65535  &emsp; |  Milliseconds  |
 
 `,
 
@@ -174,9 +174,9 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Maximum additional cost due to RTT
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Milliseconds (0 to disable the use of RTT-based cost)  |
+    |  number: 0-65535  &emsp; |  Milliseconds (0 to disable the use of RTT-based cost)  |
 
 `,
 
@@ -197,11 +197,11 @@ func (o ProtocolsBabelInterface) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Channel number for diversity routing
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-254  |  Interfaces with a channel number interfere with interfering interfaces and interfaces with the same channel number  |
-    |  interfering  |  Interfering interfaces are assumed to interfere with all other channels except non-interfering channels  |
-    |  non-interfering  |  Non-interfering interfaces only interfere with themselves  |
+    |  number: 1-254  &emsp; |  Interfaces with a channel number interfere with interfering interfaces and interfaces with the same channel number  |
+    |  interfering  &emsp; |  Interfering interfaces are assumed to interfere with all other channels except non-interfering channels  |
+    |  non-interfering  &emsp; |  Non-interfering interfaces only interfere with themselves  |
 
 `,
 		},

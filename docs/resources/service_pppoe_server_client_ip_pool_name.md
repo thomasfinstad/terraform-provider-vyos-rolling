@@ -3,25 +3,50 @@
 page_title: "vyos_service_pppoe_server_client_ip_pool_name Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Point to Point over Ethernet (PPPoE) Server
+
+  <br>
+  &darr;
+  <br>
   Pool of client IP addresses (must be within a /24)
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Pool name
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Name of IP pool  |
+  </b>
+  </div>
 ---
 
 # vyos_service_pppoe_server_client_ip_pool_name (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Point to Point over Ethernet (PPPoE) Server
 
+<br>
+&darr;
+<br>
 Pool of client IP addresses (must be within a /24)
 
+<br>
+&darr;
+<br>
+<b>
 Pool name
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Name of IP pool  |
+</b>
+</div>
 
 
 
@@ -30,21 +55,21 @@ Pool name
 
 ### Required
 
-- `identifier` (String) Pool name
+- `name_id` (String) Pool name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IP pool  |
+    |  txt  &emsp; |  Name of IP pool  |
 
 ### Optional
 
 - `gateway_address` (String) Gateway IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Default Gateway send to the client  |
+    |  ipv4  &emsp; |  Default Gateway send to the client  |
 - `subnet` (String) Client IP subnet (CIDR notation)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |

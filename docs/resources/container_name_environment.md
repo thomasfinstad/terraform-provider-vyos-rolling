@@ -3,18 +3,40 @@
 page_title: "vyos_container_name_environment Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Container applications
+
+  <br>
+  &darr;
+  <br>
   Container name
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Add custom environment variables
+  </b>
+  </div>
 ---
 
 # vyos_container_name_environment (Resource)
 
+<div style="text-align: center">
 Container applications
 
+<br>
+&darr;
+<br>
 Container name
 
+<br>
+&darr;
+<br>
+<b>
 Add custom environment variables
+</b>
+</div>
 
 
 
@@ -23,13 +45,13 @@ Add custom environment variables
 
 ### Required
 
-- `identifier` (String) Add custom environment variables
-- `name_identifier` (String) Container name
+- `environment_id` (String) Add custom environment variables
+- `name_id` (String) Container name
 
 ### Optional
 
 - `value` (String) Set environment option value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Set environment option value  |
+    |  txt  &emsp; |  Set environment option value  |

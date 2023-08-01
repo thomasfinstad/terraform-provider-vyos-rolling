@@ -12,14 +12,21 @@ import (
 func (r systemSyslogUser) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `System logging
+		MarkdownDescription: `<div style="text-align: center">
+<i>system</i>
 
+<br>
+&darr;
+<br>
+System logging
+
+<br>
+&darr;
+<br>
+<b>
 Logging to specific terminal of given user
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  username  |  user login name  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

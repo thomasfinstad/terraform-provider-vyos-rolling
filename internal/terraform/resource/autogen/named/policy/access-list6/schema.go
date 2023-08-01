@@ -12,14 +12,16 @@ import (
 func (r policyAccessListsix) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Routing policy
+		MarkdownDescription: `<div style="text-align: center">
+Routing policy
 
+<br>
+&darr;
+<br>
+<b>
 IPv6 access-list filter
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Name of IPv6 access-list  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

@@ -3,42 +3,70 @@
 page_title: "vyos_vrf_name_protocols_ospf_redistribute_table Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
-  Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
+  Virtual Routing and Forwarding instance
+
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
+
+  <br>
+  &darr;
+  <br>
   Open Shortest Path First (OSPF)
+
+  <br>
+  &darr;
+  <br>
   Redistribute information from another routing protocol
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Redistribute non-main Kernel Routing Table
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-200  |  Policy route table number  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_ospf_redistribute_table (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Open Shortest Path First (OSPF)
 
+<br>
+&darr;
+<br>
 Redistribute information from another routing protocol
 
+<br>
+&darr;
+<br>
+<b>
 Redistribute non-main Kernel Routing Table
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-200  |  Policy route table number  |
+</b>
+</div>
 
 
 
@@ -47,31 +75,31 @@ Redistribute non-main Kernel Routing Table
 
 ### Required
 
-- `identifier` (String) Redistribute non-main Kernel Routing Table
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-200  |  Policy route table number  |
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+    |  txt  &emsp; |  VRF instance name  |
+- `table_id` (String) Redistribute non-main Kernel Routing Table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  number: 1-200  &emsp; |  Policy route table number  |
 
 ### Optional
 
 - `metric` (Number) OSPF default metric
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  Default metric  |
+    |  number: 0-16777214  &emsp; |  Default metric  |
 - `metric_type` (Number) OSPF metric type for default routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |

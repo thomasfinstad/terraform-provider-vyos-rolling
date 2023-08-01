@@ -8,11 +8,11 @@ import (
 
 // VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID describes the resource data model.
 type VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"key_id_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
-	ParentIDVrfNameProtocolsOspfInterface types.String `tfsdk:"interface" vyos:"interface_identifier,parent-id"`
+	ParentIDVrfNameProtocolsOspfInterface types.String `tfsdk:"interface" vyos:"interface,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyIDMdfiveKey types.String `tfsdk:"md5_key" vyos:"md5-key,omitempty"`
@@ -42,42 +42,42 @@ func (o *VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) GetVyosPath() [
 		"md5",
 
 		"key-id",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"key_id_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `MD5 key id
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  MD5 key id  |
+    |  number: 1-255  &emsp; |  MD5 key id  |
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
 
-		"interface_identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Interface configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},
@@ -88,9 +88,9 @@ func (o VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) ResourceSchemaAt
 			Optional: true,
 			MarkdownDescription: `MD5 authentication type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  MD5 Key (16 characters or less)  |
+    |  txt  &emsp; |  MD5 Key (16 characters or less)  |
 
 `,
 		},

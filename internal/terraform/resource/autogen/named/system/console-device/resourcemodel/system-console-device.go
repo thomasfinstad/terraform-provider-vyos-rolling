@@ -8,7 +8,7 @@ import (
 
 // SystemConsoleDevice describes the resource data model.
 type SystemConsoleDevice struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"device_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafSystemConsoleDeviceSpeed types.String `tfsdk:"speed" vyos:"speed,omitempty"`
@@ -26,22 +26,22 @@ func (o *SystemConsoleDevice) GetVyosPath() []string {
 		"console",
 
 		"device",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o SystemConsoleDevice) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"device_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Serial console device name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ttySN  |  TTY device name, regular serial port  |
-    |  usbNbXpY  |  TTY device name, USB based  |
-    |  hvcN  |  Xen console  |
+    |  ttySN  &emsp; |  TTY device name, regular serial port  |
+    |  usbNbXpY  &emsp; |  TTY device name, USB based  |
+    |  hvcN  &emsp; |  Xen console  |
 
 `,
 		},
@@ -52,16 +52,16 @@ func (o SystemConsoleDevice) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Console baud rate
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  1200  |  1200 bps  |
-    |  2400  |  2400 bps  |
-    |  4800  |  4800 bps  |
-    |  9600  |  9600 bps  |
-    |  19200  |  19200 bps  |
-    |  38400  |  38400 bps  |
-    |  57600  |  57600 bps  |
-    |  115200  |  115200 bps  |
+    |  1200  &emsp; |  1200 bps  |
+    |  2400  &emsp; |  2400 bps  |
+    |  4800  &emsp; |  4800 bps  |
+    |  9600  &emsp; |  9600 bps  |
+    |  19200  &emsp; |  19200 bps  |
+    |  38400  &emsp; |  38400 bps  |
+    |  57600  &emsp; |  57600 bps  |
+    |  115200  &emsp; |  115200 bps  |
 
 `,
 

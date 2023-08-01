@@ -8,9 +8,9 @@ import (
 
 // PolicyCommunityListRule describes the resource data model.
 type PolicyCommunityListRule struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
-	ParentIDPolicyCommunityList types.String `tfsdk:"community_list" vyos:"community-list_identifier,parent-id"`
+	ParentIDPolicyCommunityList types.String `tfsdk:"community_list" vyos:"community-list,parent-id"`
 
 	// LeafNodes
 	LeafPolicyCommunityListRuleAction      types.String `tfsdk:"action" vyos:"action,omitempty"`
@@ -31,31 +31,31 @@ func (o *PolicyCommunityListRule) GetVyosPath() []string {
 		o.ParentIDPolicyCommunityList.ValueString(),
 
 		"rule",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PolicyCommunityListRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Rule for this BGP community list
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Community-list rule number  |
+    |  number: 1-65535  &emsp; |  Community-list rule number  |
 
 `,
 		},
 
-		"community_list_identifier": schema.StringAttribute{
+		"community_list_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Add a BGP community list entry
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  BGP community-list name  |
+    |  txt  &emsp; |  BGP community-list name  |
 
 `,
 		},
@@ -66,10 +66,10 @@ func (o PolicyCommunityListRule) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  permit  |  Permit matching entries  |
-    |  deny  |  Deny matching entries  |
+    |  permit  &emsp; |  Permit matching entries  |
+    |  deny  &emsp; |  Deny matching entries  |
 
 `,
 		},
@@ -78,9 +78,9 @@ func (o PolicyCommunityListRule) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -89,14 +89,14 @@ func (o PolicyCommunityListRule) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Regular expression to match against a community-list
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <aa:nn>  |  Community number in AA:NN format  |
-    |  local-AS  |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
-    |  no-advertise  |  Well-known communities value NO_ADVERTISE 0xFFFFFF02  |
-    |  no-export  |  Well-known communities value NO_EXPORT 0xFFFFFF01  |
-    |  internet  |  Well-known communities value 0  |
-    |  additive  |  New value is appended to the existing value  |
+    |  <aa:nn>  &emsp; |  Community number in AA:NN format  |
+    |  local-AS  &emsp; |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
+    |  no-advertise  &emsp; |  Well-known communities value NO_ADVERTISE 0xFFFFFF02  |
+    |  no-export  &emsp; |  Well-known communities value NO_EXPORT 0xFFFFFF01  |
+    |  internet  &emsp; |  Well-known communities value 0  |
+    |  additive  &emsp; |  New value is appended to the existing value  |
 
 `,
 		},

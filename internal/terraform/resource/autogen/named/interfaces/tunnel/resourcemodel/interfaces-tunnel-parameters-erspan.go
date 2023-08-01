@@ -28,10 +28,10 @@ func (o InterfacesTunnelParametersErspan) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Mirrored traffic direction
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ingress  |  Mirror ingress traffic  |
-    |  egress  |  Mirror egress traffic  |
+    |  ingress  &emsp; |  Mirror ingress traffic  |
+    |  egress  &emsp; |  Mirror egress traffic  |
 
 `,
 		},
@@ -40,9 +40,9 @@ func (o InterfacesTunnelParametersErspan) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Unique identifier of an ERSPAN engine within a system
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-1048575  |  Unique identifier of an ERSPAN engine  |
+    |  number: 0-1048575  &emsp; |  Unique identifier of an ERSPAN engine  |
 
 `,
 		},
@@ -51,9 +51,9 @@ func (o InterfacesTunnelParametersErspan) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `ERSPAN version 1 index field
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-63  |  Platform-depedent field for specifying port number and direction  |
+    |  number: 0-63  &emsp; |  Platform-depedent field for specifying port number and direction  |
 
 `,
 		},
@@ -62,10 +62,10 @@ func (o InterfacesTunnelParametersErspan) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Protocol version
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  1  |  ERSPAN Type II  |
-    |  2  |  ERSPAN Type III  |
+    |  1  &emsp; |  ERSPAN Type II  |
+    |  2  &emsp; |  ERSPAN Type III  |
 
 `,
 

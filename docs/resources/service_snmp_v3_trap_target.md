@@ -3,27 +3,50 @@
 page_title: "vyos_service_snmp_v3_trap_target Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Simple Network Management Protocol (SNMP)
+
+  <br>
+  &darr;
+  <br>
   Simple Network Management Protocol (SNMP) v3
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Defines SNMP target for inform or traps for IP
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  IP address of trap target  |
-  |  ipv6  |  IPv6 address of trap target  |
+  </b>
+  </div>
 ---
 
 # vyos_service_snmp_v3_trap_target (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Simple Network Management Protocol (SNMP)
 
+<br>
+&darr;
+<br>
 Simple Network Management Protocol (SNMP) v3
 
+<br>
+&darr;
+<br>
+<b>
 Defines SNMP target for inform or traps for IP
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  IP address of trap target  |
-    |  ipv6  |  IPv6 address of trap target  |
+</b>
+</div>
 
 
 
@@ -32,34 +55,34 @@ Defines SNMP target for inform or traps for IP
 
 ### Required
 
-- `identifier` (String) Defines SNMP target for inform or traps for IP
+- `trap_target_id` (String) Defines SNMP target for inform or traps for IP
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IP address of trap target  |
-    |  ipv6  |  IPv6 address of trap target  |
+    |  ipv4  &emsp; |  IP address of trap target  |
+    |  ipv6  &emsp; |  IPv6 address of trap target  |
 
 ### Optional
 
 - `auth` (Attributes) Defines the privacy (see [below for nested schema](#nestedatt--auth))
 - `port` (Number) Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 - `privacy` (Attributes) Defines the privacy (see [below for nested schema](#nestedatt--privacy))
 - `protocol` (String) Protocol to be used (TCP/UDP)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  udp  |  Listen protocol UDP  |
-    |  tcp  |  Listen protocol TCP  |
+    |  udp  &emsp; |  Listen protocol UDP  |
+    |  tcp  &emsp; |  Listen protocol TCP  |
 - `type` (String) Specifies the type of notification between inform and trap
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  inform  |  Use INFORM  |
-    |  trap  |  Use TRAP  |
+    |  inform  &emsp; |  Use INFORM  |
+    |  trap  &emsp; |  Use TRAP  |
 - `user` (String) Defines username for authentication
 
 <a id="nestedatt--auth"></a>
@@ -71,10 +94,10 @@ Optional:
 - `plaintext_password` (String) Defines the clear text key for authentication
 - `type` (String) Define used protocol
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  md5  |  Message Digest 5  |
-    |  sha  |  Secure Hash Algorithm  |
+    |  md5  &emsp; |  Message Digest 5  |
+    |  sha  &emsp; |  Secure Hash Algorithm  |
 
 
 <a id="nestedatt--privacy"></a>
@@ -86,7 +109,7 @@ Optional:
 - `plaintext_password` (String) Defines the clear text key for privacy protocol
 - `type` (String) Defines the protocol for privacy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  des  |  Data Encryption Standard  |
-    |  aes  |  Advanced Encryption Standard  |
+    |  des  &emsp; |  Data Encryption Standard  |
+    |  aes  &emsp; |  Advanced Encryption Standard  |

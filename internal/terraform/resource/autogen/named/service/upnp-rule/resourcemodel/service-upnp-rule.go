@@ -9,7 +9,7 @@ import (
 
 // ServiceUpnpRule describes the resource data model.
 type ServiceUpnpRule struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceUpnpRuleDisable           types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -31,20 +31,20 @@ func (o *ServiceUpnpRule) GetVyosPath() []string {
 		"upnp",
 
 		"rule",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceUpnpRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `UPnP Rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Rule number  |
+    |  number: 0-65535  &emsp; |  Rule number  |
 
 `,
 		},
@@ -64,10 +64,10 @@ func (o ServiceUpnpRule) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Port range (REQUIRE)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <port>  |  single port  |
-    |  <portN>-<portM>  |  Port range (use '-' as delimiter)  |
+    |  <port>  &emsp; |  single port  |
+    |  <portN>-<portM>  &emsp; |  Port range (use '-' as delimiter)  |
 
 `,
 		},
@@ -76,10 +76,10 @@ func (o ServiceUpnpRule) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Port range (REQUIRE)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <port>  |  single port  |
-    |  <portN>-<portM>  |  Port range (use '-' as delimiter)  |
+    |  <port>  &emsp; |  single port  |
+    |  <portN>-<portM>  &emsp; |  Port range (use '-' as delimiter)  |
 
 `,
 		},
@@ -88,10 +88,10 @@ func (o ServiceUpnpRule) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `The IP to which this rule applies (REQUIRE)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  The IPv4 address to which this rule applies  |
-    |  ipv4net  |  The IPv4 to which this rule applies  |
+    |  ipv4  &emsp; |  The IPv4 address to which this rule applies  |
+    |  ipv4net  &emsp; |  The IPv4 to which this rule applies  |
 
 `,
 		},

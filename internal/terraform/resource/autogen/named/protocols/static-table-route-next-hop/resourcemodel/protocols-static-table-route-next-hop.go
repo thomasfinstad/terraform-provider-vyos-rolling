@@ -9,11 +9,11 @@ import (
 
 // ProtocolsStaticTableRouteNextHop describes the resource data model.
 type ProtocolsStaticTableRouteNextHop struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"next_hop_id" vyos:",self-id"`
 
-	ParentIDProtocolsStaticTable types.String `tfsdk:"table" vyos:"table_identifier,parent-id"`
+	ParentIDProtocolsStaticTable types.String `tfsdk:"table" vyos:"table,parent-id"`
 
-	ParentIDProtocolsStaticTableRoute types.String `tfsdk:"route" vyos:"route_identifier,parent-id"`
+	ParentIDProtocolsStaticTableRoute types.String `tfsdk:"route" vyos:"route,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsStaticTableRouteNextHopDisable   types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -40,42 +40,42 @@ func (o *ProtocolsStaticTableRouteNextHop) GetVyosPath() []string {
 		o.ParentIDProtocolsStaticTableRoute.ValueString(),
 
 		"next-hop",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsStaticTableRouteNextHop) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"next_hop_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Next-hop IPv4 router address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Next-hop router address  |
+    |  ipv4  &emsp; |  Next-hop router address  |
 
 `,
 		},
 
-		"table_identifier": schema.StringAttribute{
+		"table_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Policy route table number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-200  |  Policy route table number  |
+    |  number: 1-200  &emsp; |  Policy route table number  |
 
 `,
 		},
 
-		"route_identifier": schema.StringAttribute{
+		"route_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Static IPv4 route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 static route  |
+    |  ipv4net  &emsp; |  IPv4 static route  |
 
 `,
 		},
@@ -95,9 +95,9 @@ func (o ProtocolsStaticTableRouteNextHop) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Distance for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for this route  |
+    |  number: 1-255  &emsp; |  Distance for this route  |
 
 `,
 		},
@@ -106,9 +106,9 @@ func (o ProtocolsStaticTableRouteNextHop) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Gateway interface name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Gateway interface name  |
+    |  txt  &emsp; |  Gateway interface name  |
 
 `,
 		},
@@ -117,9 +117,9 @@ func (o ProtocolsStaticTableRouteNextHop) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `VRF to leak route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of VRF to leak to  |
+    |  txt  &emsp; |  Name of VRF to leak to  |
 
 `,
 		},

@@ -26,9 +26,9 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeList) ResourceSc
 			Optional: true,
 			MarkdownDescription: `Access-list to filter outgoing route updates to this peer-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
+    |  number: 1-65535  &emsp; |  Access-list to filter outgoing route updates to this peer-group  |
 
 `,
 		},
@@ -37,9 +37,9 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixUnicastDistributeList) ResourceSc
 			Optional: true,
 			MarkdownDescription: `Access-list to filter incoming route updates from this peer-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
+    |  number: 1-65535  &emsp; |  Access-list to filter incoming route updates from this peer-group  |
 
 `,
 		},

@@ -3,54 +3,70 @@
 page_title: "vyos_vrf_name_protocols_bgp_neighbor_local_as Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
+
+  <br>
+  &darr;
+  <br>
   Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
-  Border Gateway Protocol (BGP)
-  BGP neighbor
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  BGP neighbor IP address  |
-  |  ipv6  |  BGP neighbor IPv6 address  |
-  |  txt  |  Interface name  |
 
+  <br>
+  &darr;
+  <br>
+  Border Gateway Protocol (BGP)
+
+  <br>
+  &darr;
+  <br>
+  BGP neighbor
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Specify alternate ASN for this BGP process
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-4294967294  |  Autonomous System Number (ASN)  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_bgp_neighbor_local_as (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Border Gateway Protocol (BGP)
 
+<br>
+&darr;
+<br>
 BGP neighbor
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  BGP neighbor IP address  |
-    |  ipv6  |  BGP neighbor IPv6 address  |
-    |  txt  |  Interface name  |
-
+<br>
+&darr;
+<br>
+<b>
 Specify alternate ASN for this BGP process
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-4294967294  |  Autonomous System Number (ASN)  |
+</b>
+</div>
 
 
 
@@ -59,23 +75,23 @@ Specify alternate ASN for this BGP process
 
 ### Required
 
-- `identifier` (String) Specify alternate ASN for this BGP process
+- `local_as_id` (String) Specify alternate ASN for this BGP process
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967294  |  Autonomous System Number (ASN)  |
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+    |  number: 1-4294967294  &emsp; |  Autonomous System Number (ASN)  |
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
-- `neighbor_identifier` (String) BGP neighbor
+    |  txt  &emsp; |  VRF instance name  |
+- `neighbor_id` (String) BGP neighbor
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  BGP neighbor IP address  |
-    |  ipv6  |  BGP neighbor IPv6 address  |
-    |  txt  |  Interface name  |
+    |  ipv4  &emsp; |  BGP neighbor IP address  |
+    |  ipv6  &emsp; |  BGP neighbor IPv6 address  |
+    |  txt  &emsp; |  Interface name  |
 
 ### Optional
 

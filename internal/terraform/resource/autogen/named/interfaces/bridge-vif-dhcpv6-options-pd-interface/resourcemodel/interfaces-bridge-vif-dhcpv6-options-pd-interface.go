@@ -8,13 +8,13 @@ import (
 
 // InterfacesBrIDgeVifDhcpvsixOptionsPdInterface describes the resource data model.
 type InterfacesBrIDgeVifDhcpvsixOptionsPdInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
-	ParentIDInterfacesBrIDge types.String `tfsdk:"bridge" vyos:"bridge_identifier,parent-id"`
+	ParentIDInterfacesBrIDge types.String `tfsdk:"bridge" vyos:"bridge,parent-id"`
 
-	ParentIDInterfacesBrIDgeVif types.String `tfsdk:"vif" vyos:"vif_identifier,parent-id"`
+	ParentIDInterfacesBrIDgeVif types.String `tfsdk:"vif" vyos:"vif,parent-id"`
 
-	ParentIDInterfacesBrIDgeVifDhcpvsixOptionsPd types.String `tfsdk:"pd" vyos:"pd_identifier,parent-id"`
+	ParentIDInterfacesBrIDgeVifDhcpvsixOptionsPd types.String `tfsdk:"pd" vyos:"pd,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesBrIDgeVifDhcpvsixOptionsPdInterfaceAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
@@ -42,49 +42,49 @@ func (o *InterfacesBrIDgeVifDhcpvsixOptionsPdInterface) GetVyosPath() []string {
 		o.ParentIDInterfacesBrIDgeVifDhcpvsixOptionsPd.ValueString(),
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesBrIDgeVifDhcpvsixOptionsPdInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Delegate IPv6 prefix from provider to this interface
 
 `,
 		},
 
-		"bridge_identifier": schema.StringAttribute{
+		"bridge_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Bridge Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  brN  |  Bridge interface name  |
+    |  brN  &emsp; |  Bridge interface name  |
 
 `,
 		},
 
-		"vif_identifier": schema.StringAttribute{
+		"vif_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Local Area Network (VLAN) ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
+    |  number: 0-4094  &emsp; |  Virtual Local Area Network (VLAN) ID  |
 
 `,
 		},
 
-		"pd_identifier": schema.StringAttribute{
+		"pd_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
 
 `,
 		},
@@ -95,9 +95,9 @@ func (o InterfacesBrIDgeVifDhcpvsixOptionsPdInterface) ResourceSchemaAttributes(
 			Optional: true,
 			MarkdownDescription: `Local interface address assigned to interface (default: EUI-64)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  >0  |  Used to form IPv6 interface address  |
+    |  >0  &emsp; |  Used to form IPv6 interface address  |
 
 `,
 		},
@@ -106,9 +106,9 @@ func (o InterfacesBrIDgeVifDhcpvsixOptionsPdInterface) ResourceSchemaAttributes(
 			Optional: true,
 			MarkdownDescription: `Interface site-Level aggregator (SLA)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Decimal integer which fits in the length of SLA IDs  |
+    |  number: 0-65535  &emsp; |  Decimal integer which fits in the length of SLA IDs  |
 
 `,
 		},

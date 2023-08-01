@@ -3,22 +3,30 @@
 page_title: "vyos_policy_prefix_list Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Routing policy
+
+  <br>
+  &darr;
+  <br>
+  <b>
   IP prefix-list filter
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Name of IPv4 prefix-list  |
+  </b>
+  </div>
 ---
 
 # vyos_policy_prefix_list (Resource)
 
+<div style="text-align: center">
 Routing policy
 
+<br>
+&darr;
+<br>
+<b>
 IP prefix-list filter
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Name of IPv4 prefix-list  |
+</b>
+</div>
 
 
 
@@ -27,16 +35,16 @@ IP prefix-list filter
 
 ### Required
 
-- `identifier` (String) IP prefix-list filter
+- `prefix_list_id` (String) IP prefix-list filter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv4 prefix-list  |
+    |  txt  &emsp; |  Name of IPv4 prefix-list  |
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |

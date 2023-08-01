@@ -8,7 +8,7 @@ import (
 
 // PolicyAccessListsix describes the resource data model.
 type PolicyAccessListsix struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"access_list6_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafPolicyAccessListsixDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -25,20 +25,20 @@ func (o *PolicyAccessListsix) GetVyosPath() []string {
 		"policy",
 
 		"access-list6",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PolicyAccessListsix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"access_list6_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IPv6 access-list filter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv6 access-list  |
+    |  txt  &emsp; |  Name of IPv6 access-list  |
 
 `,
 		},
@@ -49,9 +49,9 @@ func (o PolicyAccessListsix) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

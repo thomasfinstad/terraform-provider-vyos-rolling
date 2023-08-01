@@ -12,18 +12,26 @@ import (
 func (r vpnIPsecEspGroupProposal) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Virtual Private Network (VPN)
+		MarkdownDescription: `<div style="text-align: center">
+Virtual Private Network (VPN)
 
+<br>
+&darr;
+<br>
 VPN IP security (IPsec) parameters
 
+<br>
+&darr;
+<br>
 Encapsulating Security Payload (ESP) group name
 
+<br>
+&darr;
+<br>
+<b>
 ESP group proposal
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-65535  |  ESP group proposal number  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

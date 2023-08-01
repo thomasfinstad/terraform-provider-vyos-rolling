@@ -25,10 +25,10 @@ func (o FirewallNameRuleConnectionStatus) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `NAT connection status
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  destination  |  Match connections that are subject to destination NAT  |
-    |  source  |  Match connections that are subject to source NAT  |
+    |  destination  &emsp; |  Match connections that are subject to destination NAT  |
+    |  source  &emsp; |  Match connections that are subject to source NAT  |
 
 `,
 		},

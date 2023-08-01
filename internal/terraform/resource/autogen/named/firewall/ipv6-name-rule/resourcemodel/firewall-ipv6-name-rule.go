@@ -9,9 +9,9 @@ import (
 
 // FirewallIPvsixNameRule describes the resource data model.
 type FirewallIPvsixNameRule struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
-	ParentIDFirewallIPvsixName types.String `tfsdk:"ipv6_name" vyos:"ipv6-name_identifier,parent-id"`
+	ParentIDFirewallIPvsixName types.String `tfsdk:"ipv6_name" vyos:"ipv6-name,parent-id"`
 
 	// LeafNodes
 	LeafFirewallIPvsixNameRuleAction              types.String `tfsdk:"action" vyos:"action,omitempty"`
@@ -58,25 +58,25 @@ func (o *FirewallIPvsixNameRule) GetVyosPath() []string {
 		o.ParentIDFirewallIPvsixName.ValueString(),
 
 		"rule",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Firewall rule number (IPv6)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-999999  |  Number for this Firewall rule  |
+    |  number: 1-999999  &emsp; |  Number for this Firewall rule  |
 
 `,
 		},
 
-		"ipv6_name_identifier": schema.StringAttribute{
+		"ipv6_name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IPv6 firewall rule-set name
 
@@ -89,14 +89,14 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Rule action
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  accept  |  Accept matching entries  |
-    |  jump  |  Jump to another chain  |
-    |  reject  |  Reject matching entries  |
-    |  return  |  Return from the current chain and continue at the next rule of the                       last chain  |
-    |  drop  |  Drop matching entries  |
-    |  queue  |  Enqueue packet to userspace  |
+    |  accept  &emsp; |  Accept matching entries  |
+    |  jump  &emsp; |  Jump to another chain  |
+    |  reject  &emsp; |  Reject matching entries  |
+    |  return  &emsp; |  Return from the current chain and continue at the next rule of the<br>                      last chain  |
+    |  drop  &emsp; |  Drop matching entries  |
+    |  queue  &emsp; |  Enqueue packet to userspace  |
 
 `,
 		},
@@ -105,9 +105,9 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -125,10 +125,10 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Option to log packets matching rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  |  Enable log  |
-    |  disable  |  Disable log  |
+    |  enable  &emsp; |  Enable log  |
+    |  disable  &emsp; |  Disable log  |
 
 `,
 		},
@@ -137,16 +137,16 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Set log-level. Log must be enable.
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  emerg  |  Emerg log level  |
-    |  alert  |  Alert log level  |
-    |  crit  |  Critical log level  |
-    |  err  |  Error log level  |
-    |  warn  |  Warning log level  |
-    |  notice  |  Notice log level  |
-    |  info  |  Info log level  |
-    |  debug  |  Debug log level  |
+    |  emerg  &emsp; |  Emerg log level  |
+    |  alert  &emsp; |  Alert log level  |
+    |  crit  &emsp; |  Critical log level  |
+    |  err  &emsp; |  Error log level  |
+    |  warn  &emsp; |  Warning log level  |
+    |  notice  &emsp; |  Notice log level  |
+    |  info  &emsp; |  Info log level  |
+    |  debug  &emsp; |  Debug log level  |
 
 `,
 		},
@@ -155,13 +155,13 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Protocol to match (protocol name, number, or "all")
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  all  |  All IP protocols  |
-    |  tcp_udp  |  Both TCP and UDP  |
-    |  u32:0-255  |  IP protocol number  |
-    |  <protocol>  |  IP protocol name  |
-    |  !<protocol>  |  IP protocol name  |
+    |  all  &emsp; |  All IP protocols  |
+    |  tcp_udp  &emsp; |  Both TCP and UDP  |
+    |  number: 0-255  &emsp; |  IP protocol number  |
+    |  <protocol>  &emsp; |  IP protocol name  |
+    |  !<protocol>  &emsp; |  IP protocol name  |
 
 `,
 		},
@@ -171,10 +171,10 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 			Optional:    true,
 			MarkdownDescription: `DSCP value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-63  |  DSCP value to match  |
-    |  <start-end>  |  DSCP range to match  |
+    |  number: 0-63  &emsp; |  DSCP value to match  |
+    |  <start-end>  &emsp; |  DSCP range to match  |
 
 `,
 		},
@@ -184,10 +184,10 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 			Optional:    true,
 			MarkdownDescription: `DSCP value not to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-63  |  DSCP value not to match  |
-    |  <start-end>  |  DSCP range not to match  |
+    |  number: 0-63  &emsp; |  DSCP value not to match  |
+    |  <start-end>  &emsp; |  DSCP range not to match  |
 
 `,
 		},
@@ -197,10 +197,10 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 			Optional:    true,
 			MarkdownDescription: `Payload size in bytes, including header and data to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Packet length to match  |
-    |  <start-end>  |  Packet length range to match  |
+    |  number: 1-65535  &emsp; |  Packet length to match  |
+    |  <start-end>  &emsp; |  Packet length range to match  |
 
 `,
 		},
@@ -210,10 +210,10 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 			Optional:    true,
 			MarkdownDescription: `Payload size in bytes, including header and data not to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Packet length not to match  |
-    |  <start-end>  |  Packet length range not to match  |
+    |  number: 1-65535  &emsp; |  Packet length not to match  |
+    |  <start-end>  &emsp; |  Packet length range not to match  |
 
 `,
 		},
@@ -222,12 +222,12 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Packet type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  broadcast  |  Match broadcast packet type  |
-    |  host  |  Match host packet type, addressed to local host  |
-    |  multicast  |  Match multicast packet type  |
-    |  other  |  Match packet addressed to another host  |
+    |  broadcast  &emsp; |  Match broadcast packet type  |
+    |  host  &emsp; |  Match host packet type, addressed to local host  |
+    |  multicast  &emsp; |  Match multicast packet type  |
+    |  other  &emsp; |  Match packet addressed to another host  |
 
 `,
 		},
@@ -237,9 +237,9 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 			Optional:    true,
 			MarkdownDescription: `Connection mark
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-2147483647  |  Connection-mark to match  |
+    |  number: 0-2147483647  &emsp; |  Connection-mark to match  |
 
 `,
 		},
@@ -255,9 +255,9 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Queue target to use. Action queue must be defined to use this setting
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Queue target  |
+    |  number: 0-65535  &emsp; |  Queue target  |
 
 `,
 		},
@@ -268,10 +268,10 @@ func (o FirewallIPvsixNameRule) ResourceSchemaAttributes() map[string]schema.Att
 			MarkdownDescription: `Options used for queue target. Action queue must be defined to use this
                     setting
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  bypass  |  Let packets go through if userspace application cannot back off  |
-    |  fanout  |  Distribute packets between several queues  |
+    |  bypass  &emsp; |  Let packets go through if userspace application cannot back off  |
+    |  fanout  &emsp; |  Distribute packets between several queues  |
 
 `,
 		},

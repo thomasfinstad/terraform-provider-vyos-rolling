@@ -26,9 +26,9 @@ func (o QosPolicyShaperHfscClassMatchIPvsixDestination) ResourceSchemaAttributes
 			Optional: true,
 			MarkdownDescription: `IPv6 destination address for this match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
 
 `,
 		},
@@ -37,9 +37,9 @@ func (o QosPolicyShaperHfscClassMatchIPvsixDestination) ResourceSchemaAttributes
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 		},

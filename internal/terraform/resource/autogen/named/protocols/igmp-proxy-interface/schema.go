@@ -12,10 +12,21 @@ import (
 func (r protocolsIgmpProxyInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Internet Group Management Protocol (IGMP) proxy parameters
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Internet Group Management Protocol (IGMP) proxy parameters
+
+<br>
+&darr;
+<br>
+<b>
 Interface for IGMP proxy
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

@@ -3,19 +3,30 @@
 page_title: "vyos_interfaces_input Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>interfaces</i>
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Input Functional Block (IFB) interface name
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ifbN  |  Input interface name  |
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_input (Resource)
 
-Input Functional Block (IFB) interface name
+<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ifbN  |  Input interface name  |
+<br>
+&darr;
+<br>
+<b>
+Input Functional Block (IFB) interface name
+</b>
+</div>
 
 
 
@@ -24,22 +35,22 @@ Input Functional Block (IFB) interface name
 
 ### Required
 
-- `identifier` (String) Input Functional Block (IFB) interface name
+- `input_id` (String) Input Functional Block (IFB) interface name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ifbN  |  Input interface name  |
+    |  ifbN  &emsp; |  Input interface name  |
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `disable` (Boolean) Administratively disable interface
 - `redirect` (String) Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |

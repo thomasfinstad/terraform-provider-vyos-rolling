@@ -8,7 +8,7 @@ import (
 
 // QosPolicyRoundRobin describes the resource data model.
 type QosPolicyRoundRobin struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"round_robin_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafQosPolicyRoundRobinDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -28,20 +28,20 @@ func (o *QosPolicyRoundRobin) GetVyosPath() []string {
 		"policy",
 
 		"round-robin",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyRoundRobin) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"round_robin_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Deficit Round Robin Scheduler
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 `,
 		},
@@ -52,9 +52,9 @@ func (o QosPolicyRoundRobin) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

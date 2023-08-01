@@ -9,7 +9,7 @@ import (
 
 // ProtocolsBfdPeer describes the resource data model.
 type ProtocolsBfdPeer struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"peer_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsBfdPeerProfile  types.String `tfsdk:"profile" vyos:"profile,omitempty"`
@@ -34,21 +34,21 @@ func (o *ProtocolsBfdPeer) GetVyosPath() []string {
 		"bfd",
 
 		"peer",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsBfdPeer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"peer_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Configures BFD peer to listen and talk to
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  BFD peer IPv4 address  |
-    |  ipv6  |  BFD peer IPv6 address  |
+    |  ipv4  &emsp; |  BFD peer IPv4 address  |
+    |  ipv6  &emsp; |  BFD peer IPv6 address  |
 
 `,
 		},
@@ -59,9 +59,9 @@ func (o ProtocolsBfdPeer) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Use settings from BFD profile
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  BFD profile name  |
+    |  txt  &emsp; |  BFD profile name  |
 
 `,
 		},
@@ -106,9 +106,9 @@ func (o ProtocolsBfdPeer) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},

@@ -12,21 +12,26 @@ import (
 func (r protocolsOspfAreaVirtualLink) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Open Shortest Path First (OSPF)
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Open Shortest Path First (OSPF)
+
+<br>
+&darr;
+<br>
 OSPF area settings
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32  |  OSPF area number in decimal notation  |
-    |  ipv4  |  OSPF area number in dotted decimal notation  |
-
+<br>
+&darr;
+<br>
+<b>
 Virtual link
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  OSPF area in dotted decimal notation  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

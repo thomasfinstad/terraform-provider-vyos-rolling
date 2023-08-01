@@ -9,9 +9,9 @@ import (
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"network_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor types.Bool   `tfsdk:"backdoor" vyos:"backdoor,omitempty"`
@@ -39,31 +39,31 @@ func (o *VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) GetVyosPa
 		"ipv4-labeled-unicast",
 
 		"network",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"network_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Import BGP network/prefix into labeled unicast IPv4 RIB
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Labeled Unicast IPv4 BGP network/prefix  |
+    |  ipv4net  &emsp; |  Labeled Unicast IPv4 BGP network/prefix  |
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -83,9 +83,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) ResourceSc
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},

@@ -12,12 +12,26 @@ import (
 func (r serviceIPoeServerAuthenticationInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Internet Protocol over Ethernet (IPoE) Server
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Internet Protocol over Ethernet (IPoE) Server
+
+<br>
+&darr;
+<br>
 Client authentication methods
 
+<br>
+&darr;
+<br>
+<b>
 Network interface for client MAC addresses
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

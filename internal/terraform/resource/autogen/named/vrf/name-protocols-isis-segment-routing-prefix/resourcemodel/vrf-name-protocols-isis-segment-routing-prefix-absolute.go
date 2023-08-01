@@ -28,9 +28,9 @@ func (o VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute) ResourceSchemaAttribut
 			Optional: true,
 			MarkdownDescription: `Specify the absolute value of prefix segment/label ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:16-1048575  |  The absolute segment/label ID value  |
+    |  number: 16-1048575  &emsp; |  The absolute segment/label ID value  |
 
 `,
 		},

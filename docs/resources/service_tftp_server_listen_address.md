@@ -3,24 +3,40 @@
 page_title: "vyos_service_tftp_server_listen_address Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Trivial File Transfer Protocol (TFTP) server
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Local IP addresses to listen on
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  IPv4 address to listen for incoming connections  |
-  |  ipv6  |  IPv6 address to listen for incoming connections  |
+  </b>
+  </div>
 ---
 
 # vyos_service_tftp_server_listen_address (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Trivial File Transfer Protocol (TFTP) server
 
+<br>
+&darr;
+<br>
+<b>
 Local IP addresses to listen on
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  IPv4 address to listen for incoming connections  |
-    |  ipv6  |  IPv6 address to listen for incoming connections  |
+</b>
+</div>
 
 
 
@@ -29,17 +45,17 @@ Local IP addresses to listen on
 
 ### Required
 
-- `identifier` (String) Local IP addresses to listen on
+- `listen_address_id` (String) Local IP addresses to listen on
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address to listen for incoming connections  |
-    |  ipv6  |  IPv6 address to listen for incoming connections  |
+    |  ipv4  &emsp; |  IPv4 address to listen for incoming connections  |
+    |  ipv6  &emsp; |  IPv6 address to listen for incoming connections  |
 
 ### Optional
 
 - `vrf` (String) VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |

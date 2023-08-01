@@ -12,15 +12,21 @@ import (
 func (r serviceConsoleServerDevice) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Serial Console Server
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Serial Console Server
+
+<br>
+&darr;
+<br>
+<b>
 System serial interface name (ttyS or ttyUSB)
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ttySxxx  |  Regular serial interface  |
-    |  usbxbxpx  |  USB based serial interface  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

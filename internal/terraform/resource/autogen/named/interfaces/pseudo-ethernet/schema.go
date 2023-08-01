@@ -12,12 +12,16 @@ import (
 func (r interfacesPseudoEthernet) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Pseudo Ethernet Interface (Macvlan)
+		MarkdownDescription: `<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  pethN  |  Pseudo Ethernet interface name  |
-
+<br>
+&darr;
+<br>
+<b>
+Pseudo Ethernet Interface (Macvlan)
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

@@ -3,25 +3,40 @@
 page_title: "vyos_qos_policy_fq_codel Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Quality of Service (QoS)
+
+  <br>
+  &darr;
+  <br>
   Service Policy definitions
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Fair Queuing (FQ) with Controlled Delay (CoDel)
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Policy name  |
+  </b>
+  </div>
 ---
 
 # vyos_qos_policy_fq_codel (Resource)
 
+<div style="text-align: center">
 Quality of Service (QoS)
 
+<br>
+&darr;
+<br>
 Service Policy definitions
 
+<br>
+&darr;
+<br>
+<b>
 Fair Queuing (FQ) with Controlled Delay (CoDel)
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Policy name  |
+</b>
+</div>
 
 
 
@@ -30,41 +45,41 @@ Fair Queuing (FQ) with Controlled Delay (CoDel)
 
 ### Required
 
-- `identifier` (String) Fair Queuing (FQ) with Controlled Delay (CoDel)
+- `fq_codel_id` (String) Fair Queuing (FQ) with Controlled Delay (CoDel)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 ### Optional
 
 - `codel_quantum` (Number) Deficit in the fair queuing algorithm
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-1048576  |  Number of bytes used as 'deficit'  |
+    |  number: 0-1048576  &emsp; |  Number of bytes used as 'deficit'  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `flows` (Number) Number of flows into which the incoming packets are classified
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65536  |  Number of flows  |
+    |  number: 1-65536  &emsp; |  Number of flows  |
 - `interval` (Number) Interval used to measure the delay
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Interval in milliseconds  |
+    |  u32  &emsp; |  Interval in milliseconds  |
 - `queue_limit` (Number) Upper limit of the queue
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:2-10999  |  Queue size in packets  |
+    |  number: 2-10999  &emsp; |  Queue size in packets  |
 - `target` (Number) Acceptable minimum standing/persistent queue delay
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Queue delay in milliseconds  |
+    |  u32  &emsp; |  Queue delay in milliseconds  |

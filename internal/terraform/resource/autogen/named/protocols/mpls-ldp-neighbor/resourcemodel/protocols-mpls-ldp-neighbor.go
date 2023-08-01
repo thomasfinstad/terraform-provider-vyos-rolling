@@ -8,7 +8,7 @@ import (
 
 // ProtocolsMplsLdpNeighbor describes the resource data model.
 type ProtocolsMplsLdpNeighbor struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"neighbor_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsMplsLdpNeighborPassword        types.String `tfsdk:"password" vyos:"password,omitempty"`
@@ -30,20 +30,20 @@ func (o *ProtocolsMplsLdpNeighbor) GetVyosPath() []string {
 		"ldp",
 
 		"neighbor",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsMplsLdpNeighbor) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"neighbor_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `LDP neighbor parameters
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Neighbor IPv4 address  |
+    |  ipv4  &emsp; |  Neighbor IPv4 address  |
 
 `,
 		},
@@ -61,10 +61,10 @@ func (o ProtocolsMplsLdpNeighbor) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Neighbor TTL security
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-254  |  TTL  |
-    |  disable  |  Disable neighbor TTL security  |
+    |  number: 1-254  &emsp; |  TTL  |
+    |  disable  &emsp; |  Disable neighbor TTL security  |
 
 `,
 		},
@@ -73,9 +73,9 @@ func (o ProtocolsMplsLdpNeighbor) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Session IPv4 hold time
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:15-65535  |  Time in seconds  |
+    |  number: 15-65535  &emsp; |  Time in seconds  |
 
 `,
 		},

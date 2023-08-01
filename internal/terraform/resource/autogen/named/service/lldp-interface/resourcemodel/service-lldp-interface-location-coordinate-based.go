@@ -28,10 +28,10 @@ func (o ServiceLldpInterfaceLocationCoordinateBased) ResourceSchemaAttributes() 
 			Optional: true,
 			MarkdownDescription: `Altitude in meters
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  0  |  No altitude  |
-    |  [+-]<meters>  |  Altitude in meters  |
+    |  0  &emsp; |  No altitude  |
+    |  [+-]<meters>  &emsp; |  Altitude in meters  |
 
 `,
 
@@ -43,11 +43,11 @@ func (o ServiceLldpInterfaceLocationCoordinateBased) ResourceSchemaAttributes() 
 			Optional: true,
 			MarkdownDescription: `Coordinate datum type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  WGS84  |  WGS84  |
-    |  NAD83  |  NAD83  |
-    |  MLLW  |  NAD83/MLLW  |
+    |  WGS84  &emsp; |  WGS84  |
+    |  NAD83  &emsp; |  NAD83  |
+    |  MLLW  &emsp; |  NAD83/MLLW  |
 
 `,
 
@@ -59,9 +59,9 @@ func (o ServiceLldpInterfaceLocationCoordinateBased) ResourceSchemaAttributes() 
 			Optional: true,
 			MarkdownDescription: `Latitude
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <latitude>  |  Latitude (example "37.524449N")  |
+    |  <latitude>  &emsp; |  Latitude (example "37.524449N")  |
 
 `,
 		},
@@ -70,9 +70,9 @@ func (o ServiceLldpInterfaceLocationCoordinateBased) ResourceSchemaAttributes() 
 			Optional: true,
 			MarkdownDescription: `Longitude
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <longitude>  |  Longitude (example "122.267255W")  |
+    |  <longitude>  &emsp; |  Longitude (example "122.267255W")  |
 
 `,
 		},

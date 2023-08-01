@@ -3,15 +3,40 @@
 page_title: "vyos_service_snmp_community Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Simple Network Management Protocol (SNMP)
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Community name
+  </b>
+  </div>
 ---
 
 # vyos_service_snmp_community (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Simple Network Management Protocol (SNMP)
 
+<br>
+&darr;
+<br>
+<b>
 Community name
+</b>
+</div>
 
 
 
@@ -20,20 +45,20 @@ Community name
 
 ### Required
 
-- `identifier` (String) Community name
+- `community_id` (String) Community name
 
 ### Optional
 
 - `authorization` (String) Authorization type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ro  |  Read-Only  |
-    |  rw  |  Read-Write  |
+    |  ro  &emsp; |  Read-Only  |
+    |  rw  &emsp; |  Read-Write  |
 - `client` (List of String) IP address of SNMP client allowed to contact system
 - `network` (List of String) Subnet of SNMP client(s) allowed to contact system
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IP address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv4net  &emsp; |  IP address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |

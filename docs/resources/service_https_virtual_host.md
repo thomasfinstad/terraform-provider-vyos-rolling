@@ -3,15 +3,40 @@
 page_title: "vyos_service_https_virtual_host Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   HTTPS configuration
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Identifier for virtual host
+  </b>
+  </div>
 ---
 
 # vyos_service_https_virtual_host (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 HTTPS configuration
 
+<br>
+&darr;
+<br>
+<b>
 Identifier for virtual host
+</b>
+</div>
 
 
 
@@ -20,20 +45,20 @@ Identifier for virtual host
 
 ### Required
 
-- `identifier` (String) Identifier for virtual host
+- `virtual_host_id` (String) Identifier for virtual host
 
 ### Optional
 
 - `listen_address` (String) Address to listen for HTTPS requests
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  HTTPS IPv4 address  |
-    |  ipv6  |  HTTPS IPv6 address  |
-    |  '&'  |  any  |
+    |  ipv4  &emsp; |  HTTPS IPv4 address  |
+    |  ipv6  &emsp; |  HTTPS IPv6 address  |
+    |  '&'  &emsp; |  any  |
 - `listen_port` (Number) Port to listen for HTTPS requests; default 443
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 - `server_name` (List of String) Server names: exact, wildcard, or regex

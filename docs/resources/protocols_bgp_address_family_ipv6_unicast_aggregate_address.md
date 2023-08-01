@@ -3,28 +3,60 @@
 page_title: "vyos_protocols_bgp_address_family_ipv6_unicast_aggregate_address Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Border Gateway Protocol (BGP)
+
+  <br>
+  &darr;
+  <br>
   BGP address-family parameters
+
+  <br>
+  &darr;
+  <br>
   IPv6 BGP settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   BGP aggregate network
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv6net  |  Aggregate network  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_bgp_address_family_ipv6_unicast_aggregate_address (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Border Gateway Protocol (BGP)
 
+<br>
+&darr;
+<br>
 BGP address-family parameters
 
+<br>
+&darr;
+<br>
 IPv6 BGP settings
 
+<br>
+&darr;
+<br>
+<b>
 BGP aggregate network
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv6net  |  Aggregate network  |
+</b>
+</div>
 
 
 
@@ -33,18 +65,18 @@ BGP aggregate network
 
 ### Required
 
-- `identifier` (String) BGP aggregate network
+- `aggregate_address_id` (String) BGP aggregate network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  Aggregate network  |
+    |  ipv6net  &emsp; |  Aggregate network  |
 
 ### Optional
 
 - `as_set` (Boolean) Generate AS-set path information for this aggregate address
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `summary_only` (Boolean) Announce the aggregate summary network only

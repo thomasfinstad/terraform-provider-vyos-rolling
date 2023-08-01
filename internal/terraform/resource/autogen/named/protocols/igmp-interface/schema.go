@@ -12,10 +12,21 @@ import (
 func (r protocolsIgmpInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Internet Group Management Protocol (IGMP)
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Internet Group Management Protocol (IGMP)
+
+<br>
+&darr;
+<br>
+<b>
 IGMP interface
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

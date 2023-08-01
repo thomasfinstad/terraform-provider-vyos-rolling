@@ -26,9 +26,9 @@ func (o VpnIPsecProfileAuthentication) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Authentication mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  pre-shared-secret  |  Use a pre-shared secret key  |
+    |  pre-shared-secret  &emsp; |  Use a pre-shared secret key  |
 
 `,
 		},
@@ -37,9 +37,9 @@ func (o VpnIPsecProfileAuthentication) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Pre-shared secret key
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Pre-shared secret key  |
+    |  txt  &emsp; |  Pre-shared secret key  |
 
 `,
 		},

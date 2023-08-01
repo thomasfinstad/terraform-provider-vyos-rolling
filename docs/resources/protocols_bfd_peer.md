@@ -3,24 +3,40 @@
 page_title: "vyos_protocols_bfd_peer Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Bidirectional Forwarding Detection (BFD)
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Configures BFD peer to listen and talk to
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  BFD peer IPv4 address  |
-  |  ipv6  |  BFD peer IPv6 address  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_bfd_peer (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Bidirectional Forwarding Detection (BFD)
 
+<br>
+&darr;
+<br>
+<b>
 Configures BFD peer to listen and talk to
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  BFD peer IPv4 address  |
-    |  ipv6  |  BFD peer IPv6 address  |
+</b>
+</div>
 
 
 
@@ -29,12 +45,12 @@ Configures BFD peer to listen and talk to
 
 ### Required
 
-- `identifier` (String) Configures BFD peer to listen and talk to
+- `peer_id` (String) Configures BFD peer to listen and talk to
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  BFD peer IPv4 address  |
-    |  ipv6  |  BFD peer IPv6 address  |
+    |  ipv4  &emsp; |  BFD peer IPv4 address  |
+    |  ipv6  &emsp; |  BFD peer IPv6 address  |
 
 ### Optional
 
@@ -44,16 +60,16 @@ Configures BFD peer to listen and talk to
 - `passive` (Boolean) Do not attempt to start sessions
 - `profile` (String) Use settings from BFD profile
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  BFD profile name  |
+    |  txt  &emsp; |  BFD profile name  |
 - `shutdown` (Boolean) Disable this peer
 - `source` (Attributes) Bind listener to specified interface/address, mandatory for IPv6 (see [below for nested schema](#nestedatt--source))
 - `vrf` (String) VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 <a id="nestedatt--interval"></a>
 ### Nested Schema for `interval`
@@ -62,24 +78,24 @@ Optional:
 
 - `echo_interval` (Number) Echo receive transmission interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:10-60000  |  The minimal echo receive transmission interval that this system is capable of handling  |
+    |  number: 10-60000  &emsp; |  The minimal echo receive transmission interval that this system is capable of handling  |
 - `multiplier` (Number) Multiplier to determine packet loss
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:2-255  |  Remote transmission interval will be multiplied by this value  |
+    |  number: 2-255  &emsp; |  Remote transmission interval will be multiplied by this value  |
 - `receive` (Number) Minimum interval of receiving control packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:10-60000  |  Interval in milliseconds  |
+    |  number: 10-60000  &emsp; |  Interval in milliseconds  |
 - `transmit` (Number) Minimum interval of transmitting control packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:10-60000  |  Interval in milliseconds  |
+    |  number: 10-60000  &emsp; |  Interval in milliseconds  |
 
 
 <a id="nestedatt--source"></a>
@@ -89,12 +105,12 @@ Optional:
 
 - `address` (String) Local address to bind our peer listener to
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Local IPv4 address used to connect to the peer  |
-    |  ipv6  |  Local IPv6 address used to connect to the peer  |
+    |  ipv4  &emsp; |  Local IPv4 address used to connect to the peer  |
+    |  ipv6  &emsp; |  Local IPv6 address used to connect to the peer  |
 - `interface` (String) Interface to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |

@@ -8,7 +8,7 @@ import (
 
 // SystemSyslogHost describes the resource data model.
 type SystemSyslogHost struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"host_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafSystemSyslogHostPort types.Number `tfsdk:"port" vyos:"port,omitempty"`
@@ -28,21 +28,21 @@ func (o *SystemSyslogHost) GetVyosPath() []string {
 		"syslog",
 
 		"host",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o SystemSyslogHost) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"host_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Logging to a remote host
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Remote syslog server IPv4 address  |
-    |  hostname  |  Remote syslog server FQDN  |
+    |  ipv4  &emsp; |  Remote syslog server IPv4 address  |
+    |  hostname  &emsp; |  Remote syslog server FQDN  |
 
 `,
 		},
@@ -53,9 +53,9 @@ func (o SystemSyslogHost) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 		},

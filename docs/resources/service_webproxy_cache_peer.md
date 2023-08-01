@@ -3,22 +3,40 @@
 page_title: "vyos_service_webproxy_cache_peer Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Webproxy service settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Specify other caches in a hierarchy
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  hostname  |  Cache peers FQDN  |
+  </b>
+  </div>
 ---
 
 # vyos_service_webproxy_cache_peer (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Webproxy service settings
 
+<br>
+&darr;
+<br>
+<b>
 Specify other caches in a hierarchy
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  hostname  |  Cache peers FQDN  |
+</b>
+</div>
 
 
 
@@ -27,40 +45,40 @@ Specify other caches in a hierarchy
 
 ### Required
 
-- `identifier` (String) Specify other caches in a hierarchy
+- `cache_peer_id` (String) Specify other caches in a hierarchy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  hostname  |  Cache peers FQDN  |
+    |  hostname  &emsp; |  Cache peers FQDN  |
 
 ### Optional
 
 - `address` (String) Hostname or IP address of peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Squid cache-peer IPv4 address  |
-    |  hostname  |  Squid cache-peer hostname  |
+    |  ipv4  &emsp; |  Squid cache-peer IPv4 address  |
+    |  hostname  &emsp; |  Squid cache-peer hostname  |
 - `http_port` (Number) Default Proxy Port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1025-65535  |  Default port number  |
+    |  number: 1025-65535  &emsp; |  Default port number  |
 - `icp_port` (Number) Cache peer ICP port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Cache peer disabled  |
-    |  u32:1-65535  |  Cache peer ICP port  |
+    |  number: 0  &emsp; |  Cache peer disabled  |
+    |  number: 1-65535  &emsp; |  Cache peer ICP port  |
 - `options` (String) Cache peer options
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Cache peer options  |
+    |  txt  &emsp; |  Cache peer options  |
 - `type` (String) Squid peer type (default parent)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  parent  |  Peer is a parent  |
-    |  sibling  |  Peer is a sibling  |
-    |  multicast  |  Peer is a member of a multicast group  |
+    |  parent  &emsp; |  Peer is a parent  |
+    |  sibling  &emsp; |  Peer is a sibling  |
+    |  multicast  &emsp; |  Peer is a member of a multicast group  |

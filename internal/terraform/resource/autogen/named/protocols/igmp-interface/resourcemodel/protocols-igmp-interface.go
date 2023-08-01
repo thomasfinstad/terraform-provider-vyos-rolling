@@ -8,7 +8,7 @@ import (
 
 // ProtocolsIgmpInterface describes the resource data model.
 type ProtocolsIgmpInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsIgmpInterfaceVersion              types.String `tfsdk:"version" vyos:"version,omitempty"`
@@ -29,14 +29,14 @@ func (o *ProtocolsIgmpInterface) GetVyosPath() []string {
 		"igmp",
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsIgmpInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IGMP interface
 
@@ -49,10 +49,10 @@ func (o ProtocolsIgmpInterface) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `IGMP version
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  2  |  IGMP version 2  |
-    |  3  |  IGMP version 3  |
+    |  2  &emsp; |  IGMP version 2  |
+    |  3  &emsp; |  IGMP version 3  |
 
 `,
 		},
@@ -61,9 +61,9 @@ func (o ProtocolsIgmpInterface) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `IGMP host query interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-1800  |  Query interval in seconds  |
+    |  number: 1-1800  &emsp; |  Query interval in seconds  |
 
 `,
 		},
@@ -72,9 +72,9 @@ func (o ProtocolsIgmpInterface) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `IGMP max query response time
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:10-250  |  Query response value in deci-seconds  |
+    |  number: 10-250  &emsp; |  Query response value in deci-seconds  |
 
 `,
 		},

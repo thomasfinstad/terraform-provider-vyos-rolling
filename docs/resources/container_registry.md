@@ -3,15 +3,30 @@
 page_title: "vyos_container_registry Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Container applications
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Registry Name
+  </b>
+  </div>
 ---
 
 # vyos_container_registry (Resource)
 
+<div style="text-align: center">
 Container applications
 
+<br>
+&darr;
+<br>
+<b>
 Registry Name
+</b>
+</div>
 
 
 
@@ -20,7 +35,7 @@ Registry Name
 
 ### Required
 
-- `identifier` (String) Registry Name
+- `registry_id` (String) Registry Name
 
 ### Optional
 
@@ -34,11 +49,11 @@ Optional:
 
 - `password` (String) Password used for authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Password  |
+    |  txt  &emsp; |  Password  |
 - `username` (String) Username used for authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Username  |
+    |  txt  &emsp; |  Username  |

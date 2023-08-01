@@ -3,22 +3,40 @@
 page_title: "vyos_system_syslog_user Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>system</i>
+
+  <br>
+  &darr;
+  <br>
   System logging
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Logging to specific terminal of given user
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  username  |  user login name  |
+  </b>
+  </div>
 ---
 
 # vyos_system_syslog_user (Resource)
 
+<div style="text-align: center">
+<i>system</i>
+
+<br>
+&darr;
+<br>
 System logging
 
+<br>
+&darr;
+<br>
+<b>
 Logging to specific terminal of given user
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  username  |  user login name  |
+</b>
+</div>
 
 
 
@@ -27,8 +45,8 @@ Logging to specific terminal of given user
 
 ### Required
 
-- `identifier` (String) Logging to specific terminal of given user
+- `user_id` (String) Logging to specific terminal of given user
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  username  |  user login name  |
+    |  username  &emsp; |  user login name  |

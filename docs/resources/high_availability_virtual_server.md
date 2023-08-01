@@ -3,15 +3,30 @@
 page_title: "vyos_high_availability_virtual_server Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   High availability settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Load-balancing virtual server address
+  </b>
+  </div>
 ---
 
 # vyos_high_availability_virtual_server (Resource)
 
+<div style="text-align: center">
 High availability settings
 
+<br>
+&darr;
+<br>
+<b>
 Load-balancing virtual server address
+</b>
+</div>
 
 
 
@@ -20,51 +35,51 @@ Load-balancing virtual server address
 
 ### Required
 
-- `identifier` (String) Load-balancing virtual server address
+- `virtual_server_id` (String) Load-balancing virtual server address
 
 ### Optional
 
 - `algorithm` (String) Schedule algorithm (default - least-connection)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  round-robin  |  Round robin  |
-    |  weighted-round-robin  |  Weighted round robin  |
-    |  least-connection  |  Least connection  |
-    |  weighted-least-connection  |  Weighted least connection  |
-    |  source-hashing  |  Source hashing  |
-    |  destination-hashing  |  Destination hashing  |
-    |  locality-based-least-connection  |  Locality-Based least connection  |
+    |  round-robin  &emsp; |  Round robin  |
+    |  weighted-round-robin  &emsp; |  Weighted round robin  |
+    |  least-connection  &emsp; |  Least connection  |
+    |  weighted-least-connection  &emsp; |  Weighted least connection  |
+    |  source-hashing  &emsp; |  Source hashing  |
+    |  destination-hashing  &emsp; |  Destination hashing  |
+    |  locality-based-least-connection  &emsp; |  Locality-Based least connection  |
 - `delay_loop` (Number) Interval between health-checks (in seconds)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-600  |  Interval in seconds  |
+    |  number: 1-600  &emsp; |  Interval in seconds  |
 - `forward_method` (String) Forwarding method
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  direct  |  Direct routing  |
-    |  nat  |  NAT  |
-    |  tunnel  |  Tunneling  |
+    |  direct  &emsp; |  Direct routing  |
+    |  nat  &emsp; |  NAT  |
+    |  tunnel  &emsp; |  Tunneling  |
 - `fwmark` (Number) Match fwmark value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2147483647  |  Match firewall mark value  |
+    |  number: 1-2147483647  &emsp; |  Match firewall mark value  |
 - `persistence_timeout` (Number) Timeout for persistent connections
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-86400  |  Timeout for persistent connections  |
+    |  number: 1-86400  &emsp; |  Timeout for persistent connections  |
 - `port` (Number) Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Numeric IP port  |
+    |  number: 0-65535  &emsp; |  Numeric IP port  |
 - `protocol` (String) Protocol for port checks
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  tcp  |  TCP  |
-    |  udp  |  UDP  |
+    |  tcp  &emsp; |  TCP  |
+    |  udp  &emsp; |  UDP  |

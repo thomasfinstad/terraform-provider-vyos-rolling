@@ -26,9 +26,9 @@ func (o InterfacesWirelessSecURItyWpaRadius) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `IPv4 source address used to initiate connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 source address  |
+    |  ipv4  &emsp; |  IPv4 source address  |
 
 `,
 		},

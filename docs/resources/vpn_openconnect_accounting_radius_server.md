@@ -3,28 +3,60 @@
 page_title: "vyos_vpn_openconnect_accounting_radius_server Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>vpn</i>
+
+  <br>
+  &darr;
+  <br>
   SSL VPN OpenConnect, AnyConnect compatible server
+
+  <br>
+  &darr;
+  <br>
   Accounting for users OpenConnect VPN Sessions
+
+  <br>
+  &darr;
+  <br>
   RADIUS accounting for users OpenConnect VPN sessions OpenConnect authentication mode radius
+
+  <br>
+  &darr;
+  <br>
+  <b>
   RADIUS server configuration
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  RADIUS server IPv4 address  |
+  </b>
+  </div>
 ---
 
 # vyos_vpn_openconnect_accounting_radius_server (Resource)
 
+<div style="text-align: center">
+<i>vpn</i>
+
+<br>
+&darr;
+<br>
 SSL VPN OpenConnect, AnyConnect compatible server
 
+<br>
+&darr;
+<br>
 Accounting for users OpenConnect VPN Sessions
 
+<br>
+&darr;
+<br>
 RADIUS accounting for users OpenConnect VPN sessions OpenConnect authentication mode radius
 
+<br>
+&darr;
+<br>
+<b>
 RADIUS server configuration
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  RADIUS server IPv4 address  |
+</b>
+</div>
 
 
 
@@ -33,11 +65,11 @@ RADIUS server configuration
 
 ### Required
 
-- `identifier` (String) RADIUS server configuration
+- `server_id` (String) RADIUS server configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  RADIUS server IPv4 address  |
+    |  ipv4  &emsp; |  RADIUS server IPv4 address  |
 
 ### Optional
 
@@ -45,6 +77,6 @@ RADIUS server configuration
 - `key` (String) Shared secret key
 - `port` (Number) Accounting port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |

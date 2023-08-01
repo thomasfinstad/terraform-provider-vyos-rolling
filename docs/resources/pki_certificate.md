@@ -3,15 +3,30 @@
 page_title: "vyos_pki_certificate Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   VyOS PKI configuration
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Certificate
+  </b>
+  </div>
 ---
 
 # vyos_pki_certificate (Resource)
 
+<div style="text-align: center">
 VyOS PKI configuration
 
+<br>
+&darr;
+<br>
+<b>
 Certificate
+</b>
+</div>
 
 
 
@@ -20,7 +35,7 @@ Certificate
 
 ### Required
 
-- `identifier` (String) Certificate
+- `certificate_id` (String) Certificate
 
 ### Optional
 

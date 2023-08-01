@@ -8,7 +8,7 @@ import (
 
 // ServiceConsoleServerDevice describes the resource data model.
 type ServiceConsoleServerDevice struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"device_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceConsoleServerDeviceDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -32,21 +32,21 @@ func (o *ServiceConsoleServerDevice) GetVyosPath() []string {
 		"console-server",
 
 		"device",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceConsoleServerDevice) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"device_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `System serial interface name (ttyS or ttyUSB)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ttySxxx  |  Regular serial interface  |
-    |  usbxbxpx  |  USB based serial interface  |
+    |  ttySxxx  &emsp; |  Regular serial interface  |
+    |  usbxbxpx  &emsp; |  USB based serial interface  |
 
 `,
 		},
@@ -57,9 +57,9 @@ func (o ServiceConsoleServerDevice) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

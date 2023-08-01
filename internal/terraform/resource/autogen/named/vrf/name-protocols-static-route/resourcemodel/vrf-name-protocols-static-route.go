@@ -8,9 +8,9 @@ import (
 
 // VrfNameProtocolsStaticRoute describes the resource data model.
 type VrfNameProtocolsStaticRoute struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"route_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsStaticRouteDhcpInterface types.String `tfsdk:"dhcp_interface" vyos:"dhcp-interface,omitempty"`
@@ -38,31 +38,31 @@ func (o *VrfNameProtocolsStaticRoute) GetVyosPath() []string {
 		"static",
 
 		"route",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"route_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Static IPv4 route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 static route  |
+    |  ipv4net  &emsp; |  IPv4 static route  |
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -73,9 +73,9 @@ func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `DHCP interface supplying next-hop IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  DHCP interface name  |
+    |  txt  &emsp; |  DHCP interface name  |
 
 `,
 		},
@@ -84,9 +84,9 @@ func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

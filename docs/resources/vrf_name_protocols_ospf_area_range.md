@@ -3,52 +3,70 @@
 page_title: "vyos_vrf_name_protocols_ospf_area_range Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
+
+  <br>
+  &darr;
+  <br>
   Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
-  Open Shortest Path First (OSPF)
-  OSPF area settings
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32  |  OSPF area number in decimal notation  |
-  |  ipv4  |  OSPF area number in dotted decimal notation  |
 
+  <br>
+  &darr;
+  <br>
+  Open Shortest Path First (OSPF)
+
+  <br>
+  &darr;
+  <br>
+  OSPF area settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Summarize routes matching a prefix (border routers only)
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  Area range prefix  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_ospf_area_range (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Open Shortest Path First (OSPF)
 
+<br>
+&darr;
+<br>
 OSPF area settings
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32  |  OSPF area number in decimal notation  |
-    |  ipv4  |  OSPF area number in dotted decimal notation  |
-
+<br>
+&darr;
+<br>
+<b>
 Summarize routes matching a prefix (border routers only)
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  Area range prefix  |
+</b>
+</div>
 
 
 
@@ -57,33 +75,33 @@ Summarize routes matching a prefix (border routers only)
 
 ### Required
 
-- `area_identifier` (String) OSPF area settings
+- `area_id` (String) OSPF area settings
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  OSPF area number in decimal notation  |
-    |  ipv4  |  OSPF area number in dotted decimal notation  |
-- `identifier` (String) Summarize routes matching a prefix (border routers only)
+    |  u32  &emsp; |  OSPF area number in decimal notation  |
+    |  ipv4  &emsp; |  OSPF area number in dotted decimal notation  |
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Area range prefix  |
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+    |  txt  &emsp; |  VRF instance name  |
+- `range_id` (String) Summarize routes matching a prefix (border routers only)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  ipv4net  &emsp; |  Area range prefix  |
 
 ### Optional
 
 - `cost` (Number) Metric for this range
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Metric for this range  |
+    |  number: 0-16777215  &emsp; |  Metric for this range  |
 - `not_advertise` (Boolean) Do not advertise this range
 - `substitute` (String) Advertise area range as another prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Advertise area range as another prefix  |
+    |  ipv4net  &emsp; |  Advertise area range as another prefix  |

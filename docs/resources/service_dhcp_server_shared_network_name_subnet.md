@@ -3,25 +3,50 @@
 page_title: "vyos_service_dhcp_server_shared_network_name_subnet Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Dynamic Host Configuration Protocol (DHCP) for DHCP server
+
+  <br>
+  &darr;
+  <br>
   Name of DHCP shared network
+
+  <br>
+  &darr;
+  <br>
+  <b>
   DHCP subnet for shared network
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  IPv4 address and prefix length  |
+  </b>
+  </div>
 ---
 
 # vyos_service_dhcp_server_shared_network_name_subnet (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Dynamic Host Configuration Protocol (DHCP) for DHCP server
 
+<br>
+&darr;
+<br>
 Name of DHCP shared network
 
+<br>
+&darr;
+<br>
+<b>
 DHCP subnet for shared network
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
+</b>
+</div>
 
 
 
@@ -30,110 +55,110 @@ DHCP subnet for shared network
 
 ### Required
 
-- `identifier` (String) DHCP subnet for shared network
+- `shared_network_name_id` (String) Name of DHCP shared network
+- `subnet_id` (String) DHCP subnet for shared network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-- `shared_network_name_identifier` (String) Name of DHCP shared network
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
 
 ### Optional
 
 - `bootfile_name` (String) Bootstrap file name
 - `bootfile_server` (String) Server from which the initial boot file is to be loaded
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Bootfile server IPv4 address  |
-    |  hostname  |  Bootfile server FQDN  |
+    |  ipv4  &emsp; |  Bootfile server IPv4 address  |
+    |  hostname  &emsp; |  Bootfile server FQDN  |
 - `bootfile_size` (Number) Bootstrap file size
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-16  |  Bootstrap file size in 512 byte blocks  |
+    |  number: 1-16  &emsp; |  Bootstrap file size in 512 byte blocks  |
 - `client_prefix_length` (Number) Specifies the clients subnet mask as per RFC 950. If unset, subnet declaration is used.
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-32  |  DHCP client prefix length must be 0 to 32  |
+    |  number: 0-32  &emsp; |  DHCP client prefix length must be 0 to 32  |
 - `default_router` (String) IP address of default router
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Default router IPv4 address  |
+    |  ipv4  &emsp; |  Default router IPv4 address  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `domain_name` (String) Client Domain Name
 - `domain_search` (List of String) Client Domain Name search list
 - `enable_failover` (Boolean) Enable DHCP failover support for this subnet
 - `exclude` (List of String) IP address to exclude from DHCP lease range
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address to exclude from lease range  |
+    |  ipv4  &emsp; |  IPv4 address to exclude from lease range  |
 - `ip_forwarding` (Boolean) Enable IP forwarding on client
 - `ipv6_only_preferred` (Number) Disable IPv4 on IPv6 only hosts (RFC 8925)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Seconds  |
+    |  u32  &emsp; |  Seconds  |
 - `lease` (Number) Lease timeout in seconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  DHCP lease time in seconds  |
+    |  u32  &emsp; |  DHCP lease time in seconds  |
 - `name_server` (List of String) Domain Name Servers (DNS) addresses
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
+    |  ipv4  &emsp; |  Domain Name Server (DNS) IPv4 address  |
 - `ntp_server` (List of String) IP address of NTP server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  NTP server IPv4 address  |
+    |  ipv4  &emsp; |  NTP server IPv4 address  |
 - `ping_check` (Boolean) Sends ICMP Echo request to the address being assigned
 - `pop_server` (List of String) IP address of POP3 server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  POP3 server IPv4 address  |
+    |  ipv4  &emsp; |  POP3 server IPv4 address  |
 - `server_identifier` (String) Address for DHCP server identifier
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  DHCP server identifier IPv4 address  |
+    |  ipv4  &emsp; |  DHCP server identifier IPv4 address  |
 - `smtp_server` (List of String) IP address of SMTP server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  SMTP server IPv4 address  |
+    |  ipv4  &emsp; |  SMTP server IPv4 address  |
 - `subnet_parameters` (List of String) Additional subnet parameters for DHCP server. You must use the syntax of dhcpd.conf in this text-field. Using this without proper knowledge may result in a crashed DHCP server. Check system log to look for errors.
 - `tftp_server_name` (String) TFTP server name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  TFTP server IPv4 address  |
-    |  hostname  |  TFTP server FQDN  |
+    |  ipv4  &emsp; |  TFTP server IPv4 address  |
+    |  hostname  &emsp; |  TFTP server FQDN  |
 - `time_offset` (String) Client subnet offset in seconds from Coordinated Universal Time (UTC)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  [-]N  |  Time offset (number, may be negative)  |
+    |  [-]N  &emsp; |  Time offset (number, may be negative)  |
 - `time_server` (List of String) IP address of time server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Time server IPv4 address  |
+    |  ipv4  &emsp; |  Time server IPv4 address  |
 - `vendor_option` (Attributes) Vendor Specific Options (see [below for nested schema](#nestedatt--vendor_option))
 - `wins_server` (List of String) IP address for Windows Internet Name Service (WINS) server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  WINS server IPv4 address  |
+    |  ipv4  &emsp; |  WINS server IPv4 address  |
 - `wpad_url` (String) Web Proxy Autodiscovery (WPAD) URL
 
 <a id="nestedatt--vendor_option"></a>
@@ -150,6 +175,6 @@ Optional:
 
 - `unifi_controller` (String) Address of UniFi controller
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IP address of UniFi controller  |
+    |  ipv4  &emsp; |  IP address of UniFi controller  |

@@ -3,25 +3,40 @@
 page_title: "vyos_qos_policy_drop_tail Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Quality of Service (QoS)
+
+  <br>
+  &darr;
+  <br>
   Service Policy definitions
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Packet limited First In, First Out queue
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Policy name  |
+  </b>
+  </div>
 ---
 
 # vyos_qos_policy_drop_tail (Resource)
 
+<div style="text-align: center">
 Quality of Service (QoS)
 
+<br>
+&darr;
+<br>
 Service Policy definitions
 
+<br>
+&darr;
+<br>
+<b>
 Packet limited First In, First Out queue
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Policy name  |
+</b>
+</div>
 
 
 
@@ -30,21 +45,21 @@ Packet limited First In, First Out queue
 
 ### Required
 
-- `identifier` (String) Packet limited First In, First Out queue
+- `drop_tail_id` (String) Packet limited First In, First Out queue
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `queue_limit` (Number) Maximum queue size
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Queue size in packets  |
+    |  number: 1-4294967295  &emsp; |  Queue size in packets  |

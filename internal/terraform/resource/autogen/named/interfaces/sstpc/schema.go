@@ -12,12 +12,16 @@ import (
 func (r interfacesSstpc) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Secure Socket Tunneling Protocol (SSTP) client Interface
+		MarkdownDescription: `<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  sstpcN  |  Secure Socket Tunneling Protocol interface name  |
-
+<br>
+&darr;
+<br>
+<b>
+Secure Socket Tunneling Protocol (SSTP) client Interface
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

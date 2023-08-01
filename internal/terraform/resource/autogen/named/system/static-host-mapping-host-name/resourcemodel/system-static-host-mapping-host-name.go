@@ -8,7 +8,7 @@ import (
 
 // SystemStaticHostMappingHostName describes the resource data model.
 type SystemStaticHostMappingHostName struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"host_name_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafSystemStaticHostMappingHostNameAlias types.List `tfsdk:"alias" vyos:"alias,omitempty"`
@@ -27,14 +27,14 @@ func (o *SystemStaticHostMappingHostName) GetVyosPath() []string {
 		"static-host-mapping",
 
 		"host-name",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o SystemStaticHostMappingHostName) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"host_name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Host name for static address mapping
 
@@ -56,10 +56,10 @@ func (o SystemStaticHostMappingHostName) ResourceSchemaAttributes() map[string]s
 			Optional:    true,
 			MarkdownDescription: `IP Address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address  |
-    |  ipv6  |  IPv6 address  |
+    |  ipv4  &emsp; |  IPv4 address  |
+    |  ipv6  &emsp; |  IPv6 address  |
 
 `,
 		},

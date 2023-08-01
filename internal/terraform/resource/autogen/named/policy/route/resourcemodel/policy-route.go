@@ -9,7 +9,7 @@ import (
 
 // PolicyRoute describes the resource data model.
 type PolicyRoute struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"route_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafPolicyRouteDescrIPtion      types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -28,14 +28,14 @@ func (o *PolicyRoute) GetVyosPath() []string {
 		"policy",
 
 		"route",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PolicyRoute) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"route_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Policy route rule set name for IPv4
 
@@ -48,9 +48,9 @@ func (o PolicyRoute) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -60,9 +60,9 @@ func (o PolicyRoute) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional:    true,
 			MarkdownDescription: `Interface to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},

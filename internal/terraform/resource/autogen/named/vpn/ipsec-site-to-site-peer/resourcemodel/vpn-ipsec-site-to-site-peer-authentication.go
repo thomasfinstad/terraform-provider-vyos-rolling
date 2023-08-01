@@ -31,9 +31,9 @@ func (o VpnIPsecSiteToSitePeerAuthentication) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Local ID for peer authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Local ID used for peer authentication  |
+    |  txt  &emsp; |  Local ID used for peer authentication  |
 
 `,
 		},
@@ -42,11 +42,11 @@ func (o VpnIPsecSiteToSitePeerAuthentication) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Authentication mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  pre-shared-secret  |  Use pre-shared secret key  |
-    |  rsa  |  Use RSA key  |
-    |  x509  |  Use x.509 certificate  |
+    |  pre-shared-secret  &emsp; |  Use pre-shared secret key  |
+    |  rsa  &emsp; |  Use RSA key  |
+    |  x509  &emsp; |  Use x.509 certificate  |
 
 `,
 		},
@@ -55,9 +55,9 @@ func (o VpnIPsecSiteToSitePeerAuthentication) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `ID for remote authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  ID used for peer authentication  |
+    |  txt  &emsp; |  ID used for peer authentication  |
 
 `,
 

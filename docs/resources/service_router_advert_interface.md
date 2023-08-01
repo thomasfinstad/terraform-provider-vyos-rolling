@@ -3,15 +3,40 @@
 page_title: "vyos_service_router_advert_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   IPv6 Router Advertisements (RAs) service
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Interface to send RA on
+  </b>
+  </div>
 ---
 
 # vyos_service_router_advert_interface (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 IPv6 Router Advertisements (RAs) service
 
+<br>
+&darr;
+<br>
+<b>
 Interface to send RA on
+</b>
+</div>
 
 
 
@@ -20,67 +45,67 @@ Interface to send RA on
 
 ### Required
 
-- `identifier` (String) Interface to send RA on
+- `interface_id` (String) Interface to send RA on
 
 ### Optional
 
 - `default_lifetime` (String) Lifetime associated with the default router in units of seconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:4-9000  |  Router Lifetime in seconds  |
-    |  0  |  Not a default router  |
+    |  number: 4-9000  &emsp; |  Router Lifetime in seconds  |
+    |  0  &emsp; |  Not a default router  |
 - `default_preference` (String) Preference associated with the default router,
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  low  |  Default router has low preference  |
-    |  medium  |  Default router has medium preference  |
-    |  high  |  Default router has high preference  |
+    |  low  &emsp; |  Default router has low preference  |
+    |  medium  &emsp; |  Default router has medium preference  |
+    |  high  &emsp; |  Default router has high preference  |
 - `dnssl` (List of String) DNS search list
 - `hop_limit` (Number) Set Hop Count field of the IP header for outgoing packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Unspecified (by this router)  |
-    |  u32:1-255  |  Value should represent current diameter of the Internet  |
+    |  number: 0  &emsp; |  Unspecified (by this router)  |
+    |  number: 1-255  &emsp; |  Value should represent current diameter of the Internet  |
 - `interval` (Attributes) Set interval between unsolicited multicast RAs (see [below for nested schema](#nestedatt--interval))
 - `link_mtu` (Number) Link MTU value placed in RAs, exluded in RAs if unset
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1280-9000  |  Link MTU value in RAs  |
+    |  number: 1280-9000  &emsp; |  Link MTU value in RAs  |
 - `managed_flag` (Boolean) Hosts use the administered (stateful) protocol for address autoconfiguration in addition to any addresses autoconfigured using SLAAC
 - `name_server` (List of String) Domain Name Servers (DNS) addresses
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6  |  Domain Name Server (DNS) IPv6 address  |
+    |  ipv6  &emsp; |  Domain Name Server (DNS) IPv6 address  |
 - `name_server_lifetime` (Number) Maximum duration how long the RDNSS entries are used
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Name-servers should no longer be used  |
-    |  u32:1-7200  |  Maximum interval in seconds  |
+    |  number: 0  &emsp; |  Name-servers should no longer be used  |
+    |  number: 1-7200  &emsp; |  Maximum interval in seconds  |
 - `no_send_advert` (Boolean) Do not send router adverts
 - `other_config_flag` (Boolean) Hosts use the administered (stateful) protocol for autoconfiguration of other (non-address) information
 - `reachable_time` (Number) Time, in milliseconds, that a node assumes a neighbor is reachable after having received a reachability confirmation
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Reachable Time unspecified by this router  |
-    |  u32:1-3600000  |  Reachable Time value in RAs (in milliseconds)  |
+    |  number: 0  &emsp; |  Reachable Time unspecified by this router  |
+    |  number: 1-3600000  &emsp; |  Reachable Time value in RAs (in milliseconds)  |
 - `retrans_timer` (Number) Time in milliseconds between retransmitted Neighbor Solicitation messages
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Time, in milliseconds, between retransmitted Neighbor Solicitation messages  |
-    |  u32:1-4294967295  |  Minimum interval in milliseconds  |
+    |  number: 0  &emsp; |  Time, in milliseconds, between retransmitted Neighbor Solicitation messages  |
+    |  number: 1-4294967295  &emsp; |  Minimum interval in milliseconds  |
 - `source_address` (List of String) Use IPv6 address as source address. Useful with VRRP.
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6  |  IPv6 address to be advertized (must be configured on interface)  |
+    |  ipv6  &emsp; |  IPv6 address to be advertized (must be configured on interface)  |
 
 <a id="nestedatt--interval"></a>
 ### Nested Schema for `interval`
@@ -89,11 +114,11 @@ Optional:
 
 - `max` (Number) Maximum interval between unsolicited multicast RAs
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:4-1800  |  Maximum interval in seconds  |
+    |  number: 4-1800  &emsp; |  Maximum interval in seconds  |
 - `min` (Number) Minimum interval between unsolicited multicast RAs
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:3-1350  |  Minimum interval in seconds  |
+    |  number: 3-1350  &emsp; |  Minimum interval in seconds  |

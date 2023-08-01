@@ -12,31 +12,41 @@ import (
 func (r serviceDNSForwardingAuthoritativeDomainRecordsNaptrRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Domain Name System related services
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Domain Name System related services
+
+<br>
+&darr;
+<br>
 DNS forwarding
 
+<br>
+&darr;
+<br>
 Domain to host authoritative records for
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  text  |  An absolute DNS name  |
-
+<br>
+&darr;
+<br>
 DNS zone records
 
+<br>
+&darr;
+<br>
 "NAPTR" record
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  text  |  A DNS name relative to the root record  |
-    |  @  |  Root record  |
-
+<br>
+&darr;
+<br>
+<b>
 NAPTR rule
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:0-65535  |  Rule number  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

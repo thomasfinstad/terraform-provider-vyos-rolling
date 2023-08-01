@@ -9,9 +9,9 @@ import (
 
 // VrfNameProtocolsBgpNeighbor describes the resource data model.
 type VrfNameProtocolsBgpNeighbor struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"neighbor_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsBgpNeighborAdvertisementInterval        types.Number `tfsdk:"advertisement_interval" vyos:"advertisement-interval,omitempty"`
@@ -57,33 +57,33 @@ func (o *VrfNameProtocolsBgpNeighbor) GetVyosPath() []string {
 		"bgp",
 
 		"neighbor",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"neighbor_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `BGP neighbor
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  BGP neighbor IP address  |
-    |  ipv6  |  BGP neighbor IPv6 address  |
-    |  txt  |  Interface name  |
+    |  ipv4  &emsp; |  BGP neighbor IP address  |
+    |  ipv6  &emsp; |  BGP neighbor IPv6 address  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -94,9 +94,9 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Minimum interval for sending routing updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-600  |  Advertisement interval in seconds  |
+    |  number: 0-600  &emsp; |  Advertisement interval in seconds  |
 
 `,
 		},
@@ -105,9 +105,9 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -134,9 +134,9 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Allow this EBGP neighbor to not be on a directly connected network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Number of hops  |
+    |  number: 1-255  &emsp; |  Number of hops  |
 
 `,
 		},
@@ -145,11 +145,11 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `BGP graceful restart functionality
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  |  Enable BGP graceful restart at peer level  |
-    |  disable  |  Disable BGP graceful restart at peer level  |
-    |  restart-helper  |  Enable BGP graceful restart helper only functionality  |
+    |  enable  &emsp; |  Enable BGP graceful restart at peer level  |
+    |  disable  &emsp; |  Disable BGP graceful restart at peer level  |
+    |  restart-helper  &emsp; |  Enable BGP graceful restart helper only functionality  |
 
 `,
 		},
@@ -183,9 +183,9 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Peer group for this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Peer-group name  |
+    |  txt  &emsp; |  Peer-group name  |
 
 `,
 		},
@@ -194,9 +194,9 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Neighbor BGP port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Neighbor BGP port number  |
+    |  number: 1-65535  &emsp; |  Neighbor BGP port number  |
 
 `,
 		},
@@ -205,11 +205,11 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Neighbor BGP AS number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967294  |  Neighbor AS number  |
-    |  external  |  Any AS different from the local AS  |
-    |  internal  |  Neighbor AS number  |
+    |  number: 1-4294967294  &emsp; |  Neighbor AS number  |
+    |  external  &emsp; |  Any AS different from the local AS  |
+    |  internal  &emsp; |  Neighbor AS number  |
 
 `,
 		},
@@ -245,11 +245,11 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Source IP of routing updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address of route source  |
-    |  ipv6  |  IPv6 address of route source  |
-    |  txt  |  Interface as route source  |
+    |  ipv4  &emsp; |  IPv4 address of route source  |
+    |  ipv6  &emsp; |  IPv6 address of route source  |
+    |  txt  &emsp; |  Interface as route source  |
 
 `,
 		},

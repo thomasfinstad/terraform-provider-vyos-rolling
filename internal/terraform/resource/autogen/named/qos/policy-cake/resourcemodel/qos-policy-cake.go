@@ -8,7 +8,7 @@ import (
 
 // QosPolicyCake describes the resource data model.
 type QosPolicyCake struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"cake_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafQosPolicyCakeDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -29,20 +29,20 @@ func (o *QosPolicyCake) GetVyosPath() []string {
 		"policy",
 
 		"cake",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyCake) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"cake_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Common Applications Kept Enhanced (CAKE)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 `,
 		},
@@ -53,9 +53,9 @@ func (o QosPolicyCake) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -64,15 +64,15 @@ func (o QosPolicyCake) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Available bandwidth for this policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <number>  |  Bits per second  |
-    |  <number>bit  |  Bits per second  |
-    |  <number>kbit  |  Kilobits per second  |
-    |  <number>mbit  |  Megabits per second  |
-    |  <number>gbit  |  Gigabits per second  |
-    |  <number>tbit  |  Terabits per second  |
-    |  <number>%  |  Percentage of interface link speed  |
+    |  <number>  &emsp; |  Bits per second  |
+    |  <number>bit  &emsp; |  Bits per second  |
+    |  <number>kbit  &emsp; |  Kilobits per second  |
+    |  <number>mbit  &emsp; |  Megabits per second  |
+    |  <number>gbit  &emsp; |  Gigabits per second  |
+    |  <number>tbit  &emsp; |  Terabits per second  |
+    |  <number>%  &emsp; |  Percentage of interface link speed  |
 
 `,
 		},
@@ -81,9 +81,9 @@ func (o QosPolicyCake) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Round-Trip-Time for Active Queue Management (AQM)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-3600000  |  RTT in ms  |
+    |  number: 1-3600000  &emsp; |  RTT in ms  |
 
 `,
 

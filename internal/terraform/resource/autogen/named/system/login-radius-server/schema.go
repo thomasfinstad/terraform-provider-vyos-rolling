@@ -12,17 +12,26 @@ import (
 func (r systemLoginRadiusServer) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `System User Login Configuration
+		MarkdownDescription: `<div style="text-align: center">
+<i>system</i>
 
+<br>
+&darr;
+<br>
+System User Login Configuration
+
+<br>
+&darr;
+<br>
 RADIUS based user authentication
 
+<br>
+&darr;
+<br>
+<b>
 RADIUS server configuration
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  RADIUS server IPv4 address  |
-    |  ipv6  |  RADIUS server IPv6 address  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

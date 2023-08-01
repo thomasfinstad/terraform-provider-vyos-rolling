@@ -9,9 +9,9 @@ import (
 
 // PolicyRoutesixRule describes the resource data model.
 type PolicyRoutesixRule struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
-	ParentIDPolicyRoutesix types.String `tfsdk:"route6" vyos:"route6_identifier,parent-id"`
+	ParentIDPolicyRoutesix types.String `tfsdk:"route6" vyos:"route6,parent-id"`
 
 	// LeafNodes
 	LeafPolicyRoutesixRuleAction              types.String `tfsdk:"action" vyos:"action,omitempty"`
@@ -52,25 +52,25 @@ func (o *PolicyRoutesixRule) GetVyosPath() []string {
 		o.ParentIDPolicyRoutesix.ValueString(),
 
 		"rule",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PolicyRoutesixRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Policy rule number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-999999  |  Number of policy rule  |
+    |  number: 1-999999  &emsp; |  Number of policy rule  |
 
 `,
 		},
 
-		"route6_identifier": schema.StringAttribute{
+		"route6_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Policy route rule set name for IPv6
 
@@ -83,12 +83,12 @@ func (o PolicyRoutesixRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Rule action
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  accept  |  Accept matching entries  |
-    |  reject  |  Reject matching entries  |
-    |  return  |  Return from the current chain and continue at the next rule of the last chain  |
-    |  drop  |  Drop matching entries  |
+    |  accept  &emsp; |  Accept matching entries  |
+    |  reject  &emsp; |  Reject matching entries  |
+    |  return  &emsp; |  Return from the current chain and continue at the next rule of the last chain  |
+    |  drop  &emsp; |  Drop matching entries  |
 
 `,
 		},
@@ -97,9 +97,9 @@ func (o PolicyRoutesixRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -117,10 +117,10 @@ func (o PolicyRoutesixRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Option to log packets matching rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  |  Enable log  |
-    |  disable  |  Disable log  |
+    |  enable  &emsp; |  Enable log  |
+    |  disable  &emsp; |  Disable log  |
 
 `,
 		},
@@ -129,12 +129,12 @@ func (o PolicyRoutesixRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Protocol to match (protocol name, number, or "all")
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  all  |  All IP protocols  |
-    |  tcp_udp  |  Both TCP and UDP  |
-    |  0-255  |  IP protocol number  |
-    |  !<protocol>  |  IP protocol number  |
+    |  all  &emsp; |  All IP protocols  |
+    |  tcp_udp  &emsp; |  Both TCP and UDP  |
+    |  0-255  &emsp; |  IP protocol number  |
+    |  !<protocol>  &emsp; |  IP protocol number  |
 
 `,
 
@@ -147,10 +147,10 @@ func (o PolicyRoutesixRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional:    true,
 			MarkdownDescription: `DSCP value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-63  |  DSCP value to match  |
-    |  <start-end>  |  DSCP range to match  |
+    |  number: 0-63  &emsp; |  DSCP value to match  |
+    |  <start-end>  &emsp; |  DSCP range to match  |
 
 `,
 		},
@@ -160,10 +160,10 @@ func (o PolicyRoutesixRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional:    true,
 			MarkdownDescription: `DSCP value not to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-63  |  DSCP value not to match  |
-    |  <start-end>  |  DSCP range not to match  |
+    |  number: 0-63  &emsp; |  DSCP value not to match  |
+    |  <start-end>  &emsp; |  DSCP range not to match  |
 
 `,
 		},
@@ -173,10 +173,10 @@ func (o PolicyRoutesixRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional:    true,
 			MarkdownDescription: `Payload size in bytes, including header and data to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Packet length to match  |
-    |  <start-end>  |  Packet length range to match  |
+    |  number: 1-65535  &emsp; |  Packet length to match  |
+    |  <start-end>  &emsp; |  Packet length range to match  |
 
 `,
 		},
@@ -186,10 +186,10 @@ func (o PolicyRoutesixRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional:    true,
 			MarkdownDescription: `Payload size in bytes, including header and data not to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Packet length not to match  |
-    |  <start-end>  |  Packet length range not to match  |
+    |  number: 1-65535  &emsp; |  Packet length not to match  |
+    |  <start-end>  &emsp; |  Packet length range not to match  |
 
 `,
 		},
@@ -198,12 +198,12 @@ func (o PolicyRoutesixRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Packet type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  broadcast  |  Match broadcast packet type  |
-    |  host  |  Match host packet type, addressed to local host  |
-    |  multicast  |  Match multicast packet type  |
-    |  other  |  Match packet addressed to another host  |
+    |  broadcast  &emsp; |  Match broadcast packet type  |
+    |  host  &emsp; |  Match host packet type, addressed to local host  |
+    |  multicast  &emsp; |  Match multicast packet type  |
+    |  other  &emsp; |  Match packet addressed to another host  |
 
 `,
 		},
@@ -213,9 +213,9 @@ func (o PolicyRoutesixRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional:    true,
 			MarkdownDescription: `Connection mark
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-2147483647  |  Connection-mark to match  |
+    |  number: 0-2147483647  &emsp; |  Connection-mark to match  |
 
 `,
 		},

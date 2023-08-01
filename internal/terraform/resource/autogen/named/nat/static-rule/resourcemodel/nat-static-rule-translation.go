@@ -25,10 +25,10 @@ func (o NatStaticRuleTranSLAtion) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `IP address, prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address to match  |
-    |  ipv4net  |  IPv4 prefix to match  |
+    |  ipv4  &emsp; |  IPv4 address to match  |
+    |  ipv4net  &emsp; |  IPv4 prefix to match  |
 
 `,
 		},

@@ -26,9 +26,9 @@ func (o FirewallNameRuleLimit) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Maximum number of packets to allow in excess of rate
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4294967295  |  Maximum number of packets to allow in excess of rate  |
+    |  number: 0-4294967295  &emsp; |  Maximum number of packets to allow in excess of rate  |
 
 `,
 		},
@@ -37,9 +37,9 @@ func (o FirewallNameRuleLimit) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Maximum average matching rate
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  integer/unit (Example: 5/minute)  |
+    |  txt  &emsp; |  integer/unit (Example: 5/minute)  |
 
 `,
 		},

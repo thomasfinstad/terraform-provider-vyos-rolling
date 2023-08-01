@@ -8,7 +8,7 @@ import (
 
 // ProtocolsOspfSegmentRoutingPrefix describes the resource data model.
 type ProtocolsOspfSegmentRoutingPrefix struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"prefix_id" vyos:",self-id"`
 
 	// LeafNodes
 
@@ -28,20 +28,20 @@ func (o *ProtocolsOspfSegmentRoutingPrefix) GetVyosPath() []string {
 		"segment-routing",
 
 		"prefix",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsOspfSegmentRoutingPrefix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"prefix_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Static IPv4 prefix segment/label mapping
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 prefix segment  |
+    |  ipv4net  &emsp; |  IPv4 prefix segment  |
 
 `,
 		},

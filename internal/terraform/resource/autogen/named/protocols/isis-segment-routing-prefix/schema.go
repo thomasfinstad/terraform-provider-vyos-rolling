@@ -12,17 +12,26 @@ import (
 func (r protocolsIsisSegmentRoutingPrefix) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Intermediate System to Intermediate System (IS-IS)
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Intermediate System to Intermediate System (IS-IS)
+
+<br>
+&darr;
+<br>
 Segment-Routing (SPRING) settings
 
+<br>
+&darr;
+<br>
+<b>
 Static IPv4/IPv6 prefix segment/label mapping
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 prefix segment  |
-    |  ipv6net  |  IPv6 prefix segment  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

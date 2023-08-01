@@ -27,10 +27,10 @@ func (o ProtocolsBgpNeighborTimers) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `BGP connect timer for this neighbor
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Connect timer in seconds  |
-    |  0  |  Disable connect timer  |
+    |  number: 1-65535  &emsp; |  Connect timer in seconds  |
+    |  0  &emsp; |  Disable connect timer  |
 
 `,
 		},
@@ -39,10 +39,10 @@ func (o ProtocolsBgpNeighborTimers) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `BGP hold timer for this neighbor
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Hold timer in seconds  |
-    |  0  |  Hold timer disabled  |
+    |  number: 1-65535  &emsp; |  Hold timer in seconds  |
+    |  0  &emsp; |  Hold timer disabled  |
 
 `,
 		},
@@ -51,9 +51,9 @@ func (o ProtocolsBgpNeighborTimers) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `BGP keepalive interval for this neighbor
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Keepalive interval in seconds  |
+    |  number: 1-65535  &emsp; |  Keepalive interval in seconds  |
 
 `,
 		},

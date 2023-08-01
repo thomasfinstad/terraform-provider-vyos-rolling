@@ -29,9 +29,9 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Interval between Gratuitous ARP
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <0.000-1000>  |  Interval in seconds, resolution microseconds  |
+    |  <0.000-1000>  &emsp; |  Interval in seconds, resolution microseconds  |
 
 `,
 
@@ -43,9 +43,9 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Delay for second set of gratuitous ARPs after transition to master
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-1000  |  Delay in seconds  |
+    |  number: 1-1000  &emsp; |  Delay in seconds  |
 
 `,
 
@@ -57,10 +57,10 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Minimum time interval for refreshing gratuitous ARPs while beeing master
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  No refresh  |
-    |  u32:1-255  |  Interval in seconds  |
+    |  number: 0  &emsp; |  No refresh  |
+    |  number: 1-255  &emsp; |  Interval in seconds  |
 
 `,
 
@@ -72,9 +72,9 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Number of gratuitous ARP messages to send at a time while beeing master
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Number of gratuitous ARP messages  |
+    |  number: 1-255  &emsp; |  Number of gratuitous ARP messages  |
 
 `,
 
@@ -86,9 +86,9 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Number of gratuitous ARP messages to send at a time after transition to master
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Number of gratuitous ARP messages  |
+    |  number: 1-255  &emsp; |  Number of gratuitous ARP messages  |
 
 `,
 

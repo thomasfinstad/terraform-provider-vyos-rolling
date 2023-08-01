@@ -30,9 +30,9 @@ func (o VpnIPsecRemoteAccessConnectionAuthentication) ResourceSchemaAttributes()
 			Optional: true,
 			MarkdownDescription: `Local ID for peer authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Local ID used for peer authentication  |
+    |  txt  &emsp; |  Local ID used for peer authentication  |
 
 `,
 		},
@@ -41,11 +41,11 @@ func (o VpnIPsecRemoteAccessConnectionAuthentication) ResourceSchemaAttributes()
 			Optional: true,
 			MarkdownDescription: `Client authentication mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  eap-tls  |  Use EAP-TLS authentication  |
-    |  eap-mschapv2  |  Use EAP-MSCHAPv2 authentication  |
-    |  eap-radius  |  Use EAP-RADIUS authentication  |
+    |  eap-tls  &emsp; |  Use EAP-TLS authentication  |
+    |  eap-mschapv2  &emsp; |  Use EAP-MSCHAPv2 authentication  |
+    |  eap-radius  &emsp; |  Use EAP-RADIUS authentication  |
 
 `,
 
@@ -57,10 +57,10 @@ func (o VpnIPsecRemoteAccessConnectionAuthentication) ResourceSchemaAttributes()
 			Optional: true,
 			MarkdownDescription: `Server authentication mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  pre-shared-secret  |  Use a pre-shared secret key  |
-    |  x509  |  Use x.509 certificate  |
+    |  pre-shared-secret  &emsp; |  Use a pre-shared secret key  |
+    |  x509  &emsp; |  Use x.509 certificate  |
 
 `,
 
@@ -72,9 +72,9 @@ func (o VpnIPsecRemoteAccessConnectionAuthentication) ResourceSchemaAttributes()
 			Optional: true,
 			MarkdownDescription: `Pre-shared secret key
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Pre-shared secret key  |
+    |  txt  &emsp; |  Pre-shared secret key  |
 
 `,
 		},

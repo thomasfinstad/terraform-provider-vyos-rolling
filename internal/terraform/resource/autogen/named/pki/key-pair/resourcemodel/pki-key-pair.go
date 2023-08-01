@@ -8,7 +8,7 @@ import (
 
 // PkiKeyPair describes the resource data model.
 type PkiKeyPair struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"key_pair_id" vyos:",self-id"`
 
 	// LeafNodes
 
@@ -25,14 +25,14 @@ func (o *PkiKeyPair) GetVyosPath() []string {
 		"pki",
 
 		"key-pair",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PkiKeyPair) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"key_pair_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Public and private keys
 

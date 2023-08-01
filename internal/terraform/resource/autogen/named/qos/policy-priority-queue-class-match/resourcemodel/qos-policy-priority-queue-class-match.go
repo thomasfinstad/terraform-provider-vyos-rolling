@@ -8,11 +8,11 @@ import (
 
 // QosPolicyPriorityQueueClassMatch describes the resource data model.
 type QosPolicyPriorityQueueClassMatch struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"match_id" vyos:",self-id"`
 
-	ParentIDQosPolicyPriorityQueue types.String `tfsdk:"priority_queue" vyos:"priority-queue_identifier,parent-id"`
+	ParentIDQosPolicyPriorityQueue types.String `tfsdk:"priority_queue" vyos:"priority-queue,parent-id"`
 
-	ParentIDQosPolicyPriorityQueueClass types.String `tfsdk:"class" vyos:"class_identifier,parent-id"`
+	ParentIDQosPolicyPriorityQueueClass types.String `tfsdk:"class" vyos:"class,parent-id"`
 
 	// LeafNodes
 	LeafQosPolicyPriorityQueueClassMatchDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -42,38 +42,38 @@ func (o *QosPolicyPriorityQueueClassMatch) GetVyosPath() []string {
 		o.ParentIDQosPolicyPriorityQueueClass.ValueString(),
 
 		"match",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"match_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Class matching rule name
 
 `,
 		},
 
-		"priority_queue_identifier": schema.StringAttribute{
+		"priority_queue_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Priority queuing based policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 `,
 		},
 
-		"class_identifier": schema.StringAttribute{
+		"class_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Class Handle
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-7  |  Priority  |
+    |  number: 1-7  &emsp; |  Priority  |
 
 `,
 		},
@@ -84,9 +84,9 @@ func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -95,9 +95,9 @@ func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Interface to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},
@@ -106,9 +106,9 @@ func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Match on mark applied by firewall
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  FW mark to match  |
+    |  u32  &emsp; |  FW mark to match  |
 
 `,
 		},
@@ -117,9 +117,9 @@ func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Virtual Local Area Network (VLAN) ID for this match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4095  |  Virtual Local Area Network (VLAN) tag   |
+    |  number: 0-4095  &emsp; |  Virtual Local Area Network (VLAN) tag   |
 
 `,
 		},

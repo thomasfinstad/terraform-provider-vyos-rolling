@@ -48,9 +48,9 @@ func (o InterfacesTunnelParametersIP) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Tunnel key (only GRE tunnels)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Tunnel key  |
+    |  u32  &emsp; |  Tunnel key  |
 
 `,
 		},
@@ -59,9 +59,9 @@ func (o InterfacesTunnelParametersIP) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Specifies TOS value to use in outgoing packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-99  |  Type of Service (TOS)  |
+    |  number: 0-99  &emsp; |  Type of Service (TOS)  |
 
 `,
 
@@ -73,10 +73,10 @@ func (o InterfacesTunnelParametersIP) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Specifies TTL value to use in outgoing packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Inherit - copy value from original IP header  |
-    |  u32:1-255  |  Time to Live  |
+    |  number: 0  &emsp; |  Inherit - copy value from original IP header  |
+    |  number: 1-255  &emsp; |  Time to Live  |
 
 `,
 

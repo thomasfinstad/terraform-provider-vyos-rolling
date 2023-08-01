@@ -9,7 +9,7 @@ import (
 
 // InterfacesVxlan describes the resource data model.
 type InterfacesVxlan struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"vxlan_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafInterfacesVxlanAddress         types.List   `tfsdk:"address" vyos:"address,omitempty"`
@@ -43,20 +43,20 @@ func (o *InterfacesVxlan) GetVyosPath() []string {
 		"interfaces",
 
 		"vxlan",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesVxlan) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"vxlan_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Extensible LAN (VXLAN) Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  vxlanN  |  VXLAN interface name  |
+    |  vxlanN  &emsp; |  VXLAN interface name  |
 
 `,
 		},
@@ -68,10 +68,10 @@ func (o InterfacesVxlan) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional:    true,
 			MarkdownDescription: `IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
 
 `,
 		},
@@ -80,9 +80,9 @@ func (o InterfacesVxlan) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -118,10 +118,10 @@ func (o InterfacesVxlan) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Multicast group address for VXLAN interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Multicast IPv4 group address  |
-    |  ipv6  |  Multicast IPv6 group address  |
+    |  ipv4  &emsp; |  Multicast IPv4 group address  |
+    |  ipv6  &emsp; |  Multicast IPv6 group address  |
 
 `,
 		},
@@ -130,9 +130,9 @@ func (o InterfacesVxlan) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+    |  macaddr  &emsp; |  Hardware (MAC) address  |
 
 `,
 		},
@@ -141,9 +141,9 @@ func (o InterfacesVxlan) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1200-16000  |  Maximum Transmission Unit in byte  |
+    |  number: 1200-16000  &emsp; |  Maximum Transmission Unit in byte  |
 
 `,
 
@@ -155,9 +155,9 @@ func (o InterfacesVxlan) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 
@@ -169,10 +169,10 @@ func (o InterfacesVxlan) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Source IP address used to initiate connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 source address  |
-    |  ipv6  |  IPv6 source address  |
+    |  ipv4  &emsp; |  IPv4 source address  |
+    |  ipv6  &emsp; |  IPv6 source address  |
 
 `,
 		},
@@ -181,9 +181,9 @@ func (o InterfacesVxlan) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Interface used to establish connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  interface  |  Interface name  |
+    |  interface  &emsp; |  Interface name  |
 
 `,
 		},
@@ -193,10 +193,10 @@ func (o InterfacesVxlan) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional:    true,
 			MarkdownDescription: `Tunnel remote address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Tunnel remote IPv4 address  |
-    |  ipv6  |  Tunnel remote IPv6 address  |
+    |  ipv4  &emsp; |  Tunnel remote IPv4 address  |
+    |  ipv6  &emsp; |  Tunnel remote IPv6 address  |
 
 `,
 		},
@@ -205,9 +205,9 @@ func (o InterfacesVxlan) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 `,
 		},
@@ -216,9 +216,9 @@ func (o InterfacesVxlan) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -227,9 +227,9 @@ func (o InterfacesVxlan) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Virtual Network Identifier
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  VXLAN virtual network identifier  |
+    |  number: 0-16777214  &emsp; |  VXLAN virtual network identifier  |
 
 `,
 		},

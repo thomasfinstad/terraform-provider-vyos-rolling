@@ -3,22 +3,40 @@
 page_title: "vyos_protocols_ospf_neighbor Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Open Shortest Path First (OSPF)
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Specify neighbor router
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  Neighbor IP address  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_ospf_neighbor (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Open Shortest Path First (OSPF)
 
+<br>
+&darr;
+<br>
+<b>
 Specify neighbor router
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  Neighbor IP address  |
+</b>
+</div>
 
 
 
@@ -27,21 +45,21 @@ Specify neighbor router
 
 ### Required
 
-- `identifier` (String) Specify neighbor router
+- `neighbor_id` (String) Specify neighbor router
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Neighbor IP address  |
+    |  ipv4  &emsp; |  Neighbor IP address  |
 
 ### Optional
 
 - `poll_interval` (Number) Dead neighbor polling interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Seconds between dead neighbor polling interval  |
+    |  number: 1-65535  &emsp; |  Seconds between dead neighbor polling interval  |
 - `priority` (Number) Neighbor priority in seconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  Neighbor priority  |
+    |  number: 0-255  &emsp; |  Neighbor priority  |

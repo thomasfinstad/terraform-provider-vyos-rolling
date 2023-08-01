@@ -9,7 +9,7 @@ import (
 
 // ProtocolsNhrpTunnel describes the resource data model.
 type ProtocolsNhrpTunnel struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"tunnel_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsNhrpTunnelCiscoAuthentication types.String `tfsdk:"cisco_authentication" vyos:"cisco-authentication,omitempty"`
@@ -36,20 +36,20 @@ func (o *ProtocolsNhrpTunnel) GetVyosPath() []string {
 		"nhrp",
 
 		"tunnel",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsNhrpTunnel) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"tunnel_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Tunnel for NHRP
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  tunN  |  NHRP tunnel name  |
+    |  tunN  &emsp; |  NHRP tunnel name  |
 
 `,
 		},
@@ -60,9 +60,9 @@ func (o ProtocolsNhrpTunnel) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Pass phrase for cisco authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Pass phrase for cisco authentication  |
+    |  txt  &emsp; |  Pass phrase for cisco authentication  |
 
 `,
 		},

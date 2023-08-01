@@ -3,22 +3,40 @@
 page_title: "vyos_protocols_ospf_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Open Shortest Path First (OSPF)
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Interface configuration
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Interface name  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_ospf_interface (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Open Shortest Path First (OSPF)
 
+<br>
+&darr;
+<br>
+<b>
 Interface configuration
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Interface name  |
+</b>
+</div>
 
 
 
@@ -27,72 +45,72 @@ Interface configuration
 
 ### Required
 
-- `identifier` (String) Interface configuration
+- `interface_id` (String) Interface configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 ### Optional
 
 - `area` (String) Enable OSPF on this interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  OSPF area ID as decimal notation  |
-    |  ipv4  |  OSPF area ID in IP address notation  |
+    |  u32  &emsp; |  OSPF area ID as decimal notation  |
+    |  ipv4  &emsp; |  OSPF area ID in IP address notation  |
 - `authentication` (Attributes) Authentication (see [below for nested schema](#nestedatt--authentication))
 - `bandwidth` (Number) Interface bandwidth (Mbit/s)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-100000  |  Bandwidth in Megabit/sec (for calculating OSPF cost)  |
+    |  number: 1-100000  &emsp; |  Bandwidth in Megabit/sec (for calculating OSPF cost)  |
 - `bfd` (Attributes) Enable Bidirectional Forwarding Detection (BFD) (see [below for nested schema](#nestedatt--bfd))
 - `cost` (Number) Interface cost
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  OSPF interface cost  |
+    |  number: 1-65535  &emsp; |  OSPF interface cost  |
 - `dead_interval` (Number) Interval after which a neighbor is declared dead
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Neighbor dead interval (seconds)  |
+    |  number: 1-65535  &emsp; |  Neighbor dead interval (seconds)  |
 - `hello_interval` (Number) Interval between hello packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Hello interval (seconds)  |
+    |  number: 1-65535  &emsp; |  Hello interval (seconds)  |
 - `hello_multiplier` (Number) Hello multiplier factor
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-10  |  Number of Hellos to send each second  |
+    |  number: 1-10  &emsp; |  Number of Hellos to send each second  |
 - `mtu_ignore` (Boolean) Disable Maximum Transmission Unit (MTU) mismatch detection
 - `network` (String) Network type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  broadcast  |  Broadcast network type  |
-    |  non-broadcast  |  Non-broadcast network type  |
-    |  point-to-multipoint  |  Point-to-multipoint network type  |
-    |  point-to-point  |  Point-to-point network type  |
+    |  broadcast  &emsp; |  Broadcast network type  |
+    |  non-broadcast  &emsp; |  Non-broadcast network type  |
+    |  point-to-multipoint  &emsp; |  Point-to-multipoint network type  |
+    |  point-to-point  &emsp; |  Point-to-point network type  |
 - `passive` (Attributes) Suppress routing updates on an interface (see [below for nested schema](#nestedatt--passive))
 - `priority` (Number) Router priority
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  OSPF router priority cost  |
+    |  number: 0-255  &emsp; |  OSPF router priority cost  |
 - `retransmit_interval` (Number) Interval between retransmitting lost link state advertisements
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Retransmit interval (seconds)  |
+    |  number: 1-65535  &emsp; |  Retransmit interval (seconds)  |
 - `transmit_delay` (Number) Link state transmit delay
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Link state transmit delay (seconds)  |
+    |  number: 1-65535  &emsp; |  Link state transmit delay (seconds)  |
 
 <a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
@@ -102,9 +120,9 @@ Optional:
 - `md5` (Attributes) MD5 key id (see [below for nested schema](#nestedatt--authentication--md5))
 - `plaintext_password` (String) Plain text password
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Plain text password (8 characters or less)  |
+    |  txt  &emsp; |  Plain text password (8 characters or less)  |
 
 <a id="nestedatt--authentication--md5"></a>
 ### Nested Schema for `authentication.md5`
@@ -118,9 +136,9 @@ Optional:
 
 - `profile` (String) Use settings from BFD profile
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  BFD profile name  |
+    |  txt  &emsp; |  BFD profile name  |
 
 
 <a id="nestedatt--passive"></a>

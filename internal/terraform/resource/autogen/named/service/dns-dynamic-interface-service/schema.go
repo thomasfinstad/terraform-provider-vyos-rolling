@@ -12,29 +12,31 @@ import (
 func (r serviceDNSDynamicInterfaceService) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Domain Name System related services
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Domain Name System related services
+
+<br>
+&darr;
+<br>
 Dynamic DNS
 
+<br>
+&darr;
+<br>
 Interface to send DDNS updates for
 
+<br>
+&darr;
+<br>
+<b>
 Service being used for Dynamic DNS
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Dynanmic DNS service with a custom name  |
-    |  afraid  |  afraid.org Services  |
-    |  changeip  |  changeip.com Services  |
-    |  cloudflare  |  cloudflare.com Services  |
-    |  dnspark  |  dnspark.com Services  |
-    |  dslreports  |  dslreports.com Services  |
-    |  dyndns  |  dyndns.com Services  |
-    |  easydns  |  easydns.com Services  |
-    |  namecheap  |  namecheap.com Services  |
-    |  noip  |  noip.com Services  |
-    |  sitelutions  |  sitelutions.com Services  |
-    |  zoneedit  |  zoneedit.com Services  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

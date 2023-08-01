@@ -9,7 +9,7 @@ import (
 
 // InterfacesWireguard describes the resource data model.
 type InterfacesWireguard struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"wireguard_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafInterfacesWireguardAddress     types.List   `tfsdk:"address" vyos:"address,omitempty"`
@@ -37,20 +37,20 @@ func (o *InterfacesWireguard) GetVyosPath() []string {
 		"interfaces",
 
 		"wireguard",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesWireguard) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"wireguard_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `WireGuard Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  wgN  |  WireGuard interface name  |
+    |  wgN  &emsp; |  WireGuard interface name  |
 
 `,
 		},
@@ -62,10 +62,10 @@ func (o InterfacesWireguard) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional:    true,
 			MarkdownDescription: `IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
 
 `,
 		},
@@ -74,9 +74,9 @@ func (o InterfacesWireguard) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -94,9 +94,9 @@ func (o InterfacesWireguard) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 		},
@@ -105,9 +105,9 @@ func (o InterfacesWireguard) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:68-16000  |  Maximum Transmission Unit in byte  |
+    |  number: 68-16000  &emsp; |  Maximum Transmission Unit in byte  |
 
 `,
 
@@ -119,9 +119,9 @@ func (o InterfacesWireguard) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `A 32-bit fwmark value set on all outgoing packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  number  |  value which marks the packet for QoS/shaper  |
+    |  number  &emsp; |  value which marks the packet for QoS/shaper  |
 
 `,
 
@@ -140,9 +140,9 @@ func (o InterfacesWireguard) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 `,
 		},
@@ -151,9 +151,9 @@ func (o InterfacesWireguard) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},

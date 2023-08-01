@@ -8,7 +8,7 @@ import (
 
 // QosPolicyShaper describes the resource data model.
 type QosPolicyShaper struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"shaper_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafQosPolicyShaperDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -29,20 +29,20 @@ func (o *QosPolicyShaper) GetVyosPath() []string {
 		"policy",
 
 		"shaper",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyShaper) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"shaper_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Traffic shaping based policy (Hierarchy Token Bucket)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 `,
 		},
@@ -53,9 +53,9 @@ func (o QosPolicyShaper) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -64,16 +64,16 @@ func (o QosPolicyShaper) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Available bandwidth for this policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  auto  |  Bandwidth matches interface speed  |
-    |  <number>  |  Bits per second  |
-    |  <number>bit  |  Bits per second  |
-    |  <number>kbit  |  Kilobits per second  |
-    |  <number>mbit  |  Megabits per second  |
-    |  <number>gbit  |  Gigabits per second  |
-    |  <number>tbit  |  Terabits per second  |
-    |  <number>%%  |  Percentage of interface link speed  |
+    |  auto  &emsp; |  Bandwidth matches interface speed  |
+    |  <number>  &emsp; |  Bits per second  |
+    |  <number>bit  &emsp; |  Bits per second  |
+    |  <number>kbit  &emsp; |  Kilobits per second  |
+    |  <number>mbit  &emsp; |  Megabits per second  |
+    |  <number>gbit  &emsp; |  Gigabits per second  |
+    |  <number>tbit  &emsp; |  Terabits per second  |
+    |  <number>%%  &emsp; |  Percentage of interface link speed  |
 
 `,
 

@@ -9,7 +9,7 @@ import (
 
 // VpnSstpAuthenticationLocalUsersUsername describes the resource data model.
 type VpnSstpAuthenticationLocalUsersUsername struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"username_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafVpnSstpAuthenticationLocalUsersUsernameDisable  types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -34,14 +34,14 @@ func (o *VpnSstpAuthenticationLocalUsersUsername) GetVyosPath() []string {
 		"local-users",
 
 		"username",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VpnSstpAuthenticationLocalUsersUsername) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"username_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `User name for authentication
 

@@ -27,9 +27,9 @@ func (o VrfNameProtocolsOspfTimersThroTTLeSpf) ResourceSchemaAttributes() map[st
 			Optional: true,
 			MarkdownDescription: `Delay from the first change received to SPF calculation
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-600000  |  Delay in milliseconds  |
+    |  number: 0-600000  &emsp; |  Delay in milliseconds  |
 
 `,
 
@@ -41,9 +41,9 @@ func (o VrfNameProtocolsOspfTimersThroTTLeSpf) ResourceSchemaAttributes() map[st
 			Optional: true,
 			MarkdownDescription: `Initial hold time between consecutive SPF calculations
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-600000  |  Initial hold time in milliseconds  |
+    |  number: 0-600000  &emsp; |  Initial hold time in milliseconds  |
 
 `,
 
@@ -55,9 +55,9 @@ func (o VrfNameProtocolsOspfTimersThroTTLeSpf) ResourceSchemaAttributes() map[st
 			Optional: true,
 			MarkdownDescription: `Maximum hold time
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-600000  |  Max hold time in milliseconds  |
+    |  number: 0-600000  &emsp; |  Max hold time in milliseconds  |
 
 `,
 

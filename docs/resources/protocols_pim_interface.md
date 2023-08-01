@@ -3,15 +3,40 @@
 page_title: "vyos_protocols_pim_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Protocol Independent Multicast (PIM)
+
+  <br>
+  &darr;
+  <br>
+  <b>
   PIM interface
+  </b>
+  </div>
 ---
 
 # vyos_protocols_pim_interface (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Protocol Independent Multicast (PIM)
 
+<br>
+&darr;
+<br>
+<b>
 PIM interface
+</b>
+</div>
 
 
 
@@ -20,17 +45,17 @@ PIM interface
 
 ### Required
 
-- `identifier` (String) PIM interface
+- `interface_id` (String) PIM interface
 
 ### Optional
 
 - `dr_priority` (Number) Designated Router Election Priority
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Value of the new DR Priority  |
+    |  number: 1-4294967295  &emsp; |  Value of the new DR Priority  |
 - `hello` (Number) Hello Interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-180  |  Hello Interval in seconds  |
+    |  number: 1-180  &emsp; |  Hello Interval in seconds  |

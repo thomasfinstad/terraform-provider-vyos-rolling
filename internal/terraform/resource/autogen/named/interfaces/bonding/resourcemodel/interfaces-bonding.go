@@ -9,7 +9,7 @@ import (
 
 // InterfacesBonding describes the resource data model.
 type InterfacesBonding struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"bonding_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafInterfacesBondingAddress           types.List   `tfsdk:"address" vyos:"address,omitempty"`
@@ -48,20 +48,20 @@ func (o *InterfacesBonding) GetVyosPath() []string {
 		"interfaces",
 
 		"bonding",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesBonding) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"bonding_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Bonding Interface/Link Aggregation
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  bondN  |  Bonding interface name  |
+    |  bondN  &emsp; |  Bonding interface name  |
 
 `,
 		},
@@ -73,12 +73,12 @@ func (o InterfacesBonding) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional:    true,
 			MarkdownDescription: `IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
-    |  dhcp  |  Dynamic Host Configuration Protocol  |
-    |  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
+    |  dhcp  &emsp; |  Dynamic Host Configuration Protocol  |
+    |  dhcpv6  &emsp; |  Dynamic Host Configuration Protocol for IPv6  |
 
 `,
 		},
@@ -87,9 +87,9 @@ func (o InterfacesBonding) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -116,9 +116,9 @@ func (o InterfacesBonding) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -127,13 +127,13 @@ func (o InterfacesBonding) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Bonding transmit hash policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  layer2  |  use MAC addresses to generate the hash  |
-    |  layer2+3  |  combine MAC address and IP address to make hash  |
-    |  layer3+4  |  combine IP address and port to make hash  |
-    |  encap2+3  |  combine encapsulated MAC address and IP address to make hash  |
-    |  encap3+4  |  combine encapsulated IP address and port to make hash  |
+    |  layer2  &emsp; |  use MAC addresses to generate the hash  |
+    |  layer2+3  &emsp; |  combine MAC address and IP address to make hash  |
+    |  layer3+4  &emsp; |  combine IP address and port to make hash  |
+    |  encap2+3  &emsp; |  combine encapsulated MAC address and IP address to make hash  |
+    |  encap3+4  &emsp; |  combine encapsulated IP address and port to make hash  |
 
 `,
 
@@ -145,9 +145,9 @@ func (o InterfacesBonding) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+    |  macaddr  &emsp; |  Hardware (MAC) address  |
 
 `,
 		},
@@ -156,10 +156,10 @@ func (o InterfacesBonding) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Specifies the MII link monitoring frequency in milliseconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Disable MII link monitoring  |
-    |  u32:50-1000  |  MII link monitoring frequency in milliseconds  |
+    |  number: 0  &emsp; |  Disable MII link monitoring  |
+    |  number: 50-1000  &emsp; |  MII link monitoring frequency in milliseconds  |
 
 `,
 
@@ -171,9 +171,9 @@ func (o InterfacesBonding) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Minimum number of member interfaces required up before enabling bond
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16  |  Minimum number of member interfaces required up before enabling bond  |
+    |  number: 0-16  &emsp; |  Minimum number of member interfaces required up before enabling bond  |
 
 `,
 
@@ -185,10 +185,10 @@ func (o InterfacesBonding) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Rate in which we will ask our link partner to transmit LACPDU packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  slow  |  Request partner to transmit LACPDUs every 30 seconds  |
-    |  fast  |  Request partner to transmit LACPDUs every 1 second  |
+    |  slow  &emsp; |  Request partner to transmit LACPDUs every 30 seconds  |
+    |  fast  &emsp; |  Request partner to transmit LACPDUs every 1 second  |
 
 `,
 
@@ -200,15 +200,15 @@ func (o InterfacesBonding) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Bonding mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  802.3ad  |  IEEE 802.3ad Dynamic link aggregation  |
-    |  active-backup  |  Fault tolerant: only one slave in the bond is active  |
-    |  broadcast  |  Fault tolerant: transmits everything on all slave interfaces  |
-    |  round-robin  |  Load balance: transmit packets in sequential order  |
-    |  transmit-load-balance  |  Load balance: adapts based on transmit load and speed  |
-    |  adaptive-load-balance  |  Load balance: adapts based on transmit and receive plus ARP  |
-    |  xor-hash  |  Distribute based on MAC address  |
+    |  802.3ad  &emsp; |  IEEE 802.3ad Dynamic link aggregation  |
+    |  active-backup  &emsp; |  Fault tolerant: only one slave in the bond is active  |
+    |  broadcast  &emsp; |  Fault tolerant: transmits everything on all slave interfaces  |
+    |  round-robin  &emsp; |  Load balance: transmit packets in sequential order  |
+    |  transmit-load-balance  &emsp; |  Load balance: adapts based on transmit load and speed  |
+    |  adaptive-load-balance  &emsp; |  Load balance: adapts based on transmit and receive plus ARP  |
+    |  xor-hash  &emsp; |  Distribute based on MAC address  |
 
 `,
 
@@ -220,9 +220,9 @@ func (o InterfacesBonding) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:68-16000  |  Maximum Transmission Unit in byte  |
+    |  number: 68-16000  &emsp; |  Maximum Transmission Unit in byte  |
 
 `,
 
@@ -234,9 +234,9 @@ func (o InterfacesBonding) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Primary device interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},
@@ -245,9 +245,9 @@ func (o InterfacesBonding) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 `,
 		},

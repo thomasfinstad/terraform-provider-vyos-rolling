@@ -28,10 +28,10 @@ func (o PolicyRouteRuleState) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Established state
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  |  Enable  |
-    |  disable  |  Disable  |
+    |  enable  &emsp; |  Enable  |
+    |  disable  &emsp; |  Disable  |
 
 `,
 		},
@@ -40,10 +40,10 @@ func (o PolicyRouteRuleState) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Invalid state
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  |  Enable  |
-    |  disable  |  Disable  |
+    |  enable  &emsp; |  Enable  |
+    |  disable  &emsp; |  Disable  |
 
 `,
 		},
@@ -52,10 +52,10 @@ func (o PolicyRouteRuleState) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `New state
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  |  Enable  |
-    |  disable  |  Disable  |
+    |  enable  &emsp; |  Enable  |
+    |  disable  &emsp; |  Disable  |
 
 `,
 		},
@@ -64,10 +64,10 @@ func (o PolicyRouteRuleState) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Related state
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  |  Enable  |
-    |  disable  |  Disable  |
+    |  enable  &emsp; |  Enable  |
+    |  disable  &emsp; |  Disable  |
 
 `,
 		},

@@ -9,11 +9,11 @@ import (
 
 // VrfNameProtocolsBgpNeighborLocalRole describes the resource data model.
 type VrfNameProtocolsBgpNeighborLocalRole struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"local_role_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
-	ParentIDVrfNameProtocolsBgpNeighbor types.String `tfsdk:"neighbor" vyos:"neighbor_identifier,parent-id"`
+	ParentIDVrfNameProtocolsBgpNeighbor types.String `tfsdk:"neighbor" vyos:"neighbor,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsBgpNeighborLocalRoleStrict types.Bool `tfsdk:"strict" vyos:"strict,omitempty"`
@@ -39,48 +39,48 @@ func (o *VrfNameProtocolsBgpNeighborLocalRole) GetVyosPath() []string {
 		o.ParentIDVrfNameProtocolsBgpNeighbor.ValueString(),
 
 		"local-role",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsBgpNeighborLocalRole) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"local_role_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Local role for BGP neighbor (RFC9234)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  customer  |  Using Transit  |
-    |  peer  |  Public/Private Peering  |
-    |  provider  |  Providing Transit  |
-    |  rs-client  |  RS Client  |
-    |  rs-server  |  Route Server  |
+    |  customer  &emsp; |  Using Transit  |
+    |  peer  &emsp; |  Public/Private Peering  |
+    |  provider  &emsp; |  Providing Transit  |
+    |  rs-client  &emsp; |  RS Client  |
+    |  rs-server  &emsp; |  Route Server  |
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
 
-		"neighbor_identifier": schema.StringAttribute{
+		"neighbor_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `BGP neighbor
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  BGP neighbor IP address  |
-    |  ipv6  |  BGP neighbor IPv6 address  |
-    |  txt  |  Interface name  |
+    |  ipv4  &emsp; |  BGP neighbor IP address  |
+    |  ipv6  &emsp; |  BGP neighbor IPv6 address  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},

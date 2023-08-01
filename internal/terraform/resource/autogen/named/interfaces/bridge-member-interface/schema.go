@@ -12,16 +12,26 @@ import (
 func (r interfacesBrIDgeMemberInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Bridge Interface
+		MarkdownDescription: `<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  brN  |  Bridge interface name  |
+<br>
+&darr;
+<br>
+Bridge Interface
 
+<br>
+&darr;
+<br>
 Bridge member interfaces
 
+<br>
+&darr;
+<br>
+<b>
 Member interface name
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

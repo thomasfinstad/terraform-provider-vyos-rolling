@@ -26,9 +26,9 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastPrefixList) Resou
 			Optional: true,
 			MarkdownDescription: `IPv4-Prefix-list to filter outgoing route updates to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv4 prefix-list  |
+    |  txt  &emsp; |  Name of IPv4 prefix-list  |
 
 `,
 		},
@@ -37,9 +37,9 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastPrefixList) Resou
 			Optional: true,
 			MarkdownDescription: `IPv4-Prefix-list to filter incoming route updates from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv4 prefix-list  |
+    |  txt  &emsp; |  Name of IPv4 prefix-list  |
 
 `,
 		},

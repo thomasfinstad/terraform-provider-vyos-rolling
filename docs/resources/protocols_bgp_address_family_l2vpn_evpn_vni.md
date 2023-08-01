@@ -3,28 +3,60 @@
 page_title: "vyos_protocols_bgp_address_family_l2vpn_evpn_vni Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Border Gateway Protocol (BGP)
+
+  <br>
+  &darr;
+  <br>
   BGP address-family parameters
+
+  <br>
+  &darr;
+  <br>
   L2VPN EVPN BGP settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   VXLAN Network Identifier
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-16777215  |  VNI number  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_bgp_address_family_l2vpn_evpn_vni (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Border Gateway Protocol (BGP)
 
+<br>
+&darr;
+<br>
 BGP address-family parameters
 
+<br>
+&darr;
+<br>
 L2VPN EVPN BGP settings
 
+<br>
+&darr;
+<br>
+<b>
 VXLAN Network Identifier
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-16777215  |  VNI number  |
+</b>
+</div>
 
 
 
@@ -33,11 +65,11 @@ VXLAN Network Identifier
 
 ### Required
 
-- `identifier` (String) VXLAN Network Identifier
+- `vni_id` (String) VXLAN Network Identifier
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-16777215  |  VNI number  |
+    |  number: 1-16777215  &emsp; |  VNI number  |
 
 ### Optional
 
@@ -45,9 +77,9 @@ VXLAN Network Identifier
 - `advertise_svi_ip` (Boolean) Advertise svi mac-ip routes in EVPN
 - `rd` (String) Route Distinguisher
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp; |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 - `route_target` (Attributes) Route Target (see [below for nested schema](#nestedatt--route_target))
 
 <a id="nestedatt--route_target"></a>
@@ -57,16 +89,16 @@ Optional:
 
 - `both` (List of String) Route Target both import and export
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  txt  &emsp; |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `export` (List of String) Route Target export
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  txt  &emsp; |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `import` (List of String) Route Target import
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  txt  &emsp; |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |

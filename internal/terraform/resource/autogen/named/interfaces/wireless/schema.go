@@ -12,12 +12,16 @@ import (
 func (r interfacesWireless) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Wireless (WiFi/WLAN) Network Interface
+		MarkdownDescription: `<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
-
+<br>
+&darr;
+<br>
+<b>
+Wireless (WiFi/WLAN) Network Interface
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

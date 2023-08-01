@@ -12,12 +12,26 @@ import (
 func (r serviceDNSForwardingDomain) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Domain Name System related services
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Domain Name System related services
+
+<br>
+&darr;
+<br>
 DNS forwarding
 
+<br>
+&darr;
+<br>
+<b>
 Domain to forward to a custom DNS server
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

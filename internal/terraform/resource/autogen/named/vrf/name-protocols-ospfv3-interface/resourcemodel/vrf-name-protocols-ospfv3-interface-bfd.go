@@ -25,9 +25,9 @@ func (o VrfNameProtocolsOspfvthreeInterfaceBfd) ResourceSchemaAttributes() map[s
 			Optional: true,
 			MarkdownDescription: `Use settings from BFD profile
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  BFD profile name  |
+    |  txt  &emsp; |  BFD profile name  |
 
 `,
 		},

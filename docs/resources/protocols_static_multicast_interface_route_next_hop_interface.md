@@ -3,26 +3,60 @@
 page_title: "vyos_protocols_static_multicast_interface_route_next_hop_interface Resource - vyos"
 subcategory: ""
 description: |-
-  Multicast static route
-  Multicast interface based route
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  Network  |
+  <div style="text-align: center">
+  <i>protocols</i>
 
+  <br>
+  &darr;
+  <br>
+  <i>static</i>
+
+  <br>
+  &darr;
+  <br>
+  Multicast static route
+
+  <br>
+  &darr;
+  <br>
+  Multicast interface based route
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Next-hop interface
+  </b>
+  </div>
 ---
 
 # vyos_protocols_static_multicast_interface_route_next_hop_interface (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
+<i>static</i>
+
+<br>
+&darr;
+<br>
 Multicast static route
 
+<br>
+&darr;
+<br>
 Multicast interface based route
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  Network  |
-
+<br>
+&darr;
+<br>
+<b>
 Next-hop interface
+</b>
+</div>
 
 
 
@@ -31,17 +65,17 @@ Next-hop interface
 
 ### Required
 
-- `identifier` (String) Next-hop interface
-- `interface_route_identifier` (String) Multicast interface based route
+- `interface_route_id` (String) Multicast interface based route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Network  |
+    |  ipv4net  &emsp; |  Network  |
+- `next_hop_interface_id` (String) Next-hop interface
 
 ### Optional
 
 - `distance` (Number) Distance value for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for this route  |
+    |  number: 1-255  &emsp; |  Distance for this route  |

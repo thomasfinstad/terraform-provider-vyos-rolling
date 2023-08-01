@@ -3,39 +3,60 @@
 page_title: "vyos_vrf_name_protocols_ospf_access_list Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
-  Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
+  Virtual Routing and Forwarding instance
+
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
+
+  <br>
+  &darr;
+  <br>
   Open Shortest Path First (OSPF)
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Access list to filter networks in routing updates
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32  |  Access-list number  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_ospf_access_list (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Open Shortest Path First (OSPF)
 
+<br>
+&darr;
+<br>
+<b>
 Access list to filter networks in routing updates
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32  |  Access-list number  |
+</b>
+</div>
 
 
 
@@ -44,26 +65,26 @@ Access list to filter networks in routing updates
 
 ### Required
 
-- `identifier` (String) Access list to filter networks in routing updates
+- `access_list_id` (String) Access list to filter networks in routing updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Access-list number  |
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+    |  u32  &emsp; |  Access-list number  |
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 ### Optional
 
 - `export` (List of String) Filter for outgoing routing update
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  bgp  |  Filter BGP routes  |
-    |  connected  |  Filter connected routes  |
-    |  isis  |  Filter IS-IS routes  |
-    |  kernel  |  Filter Kernel routes  |
-    |  rip  |  Filter RIP routes  |
-    |  static  |  Filter static routes  |
+    |  bgp  &emsp; |  Filter BGP routes  |
+    |  connected  &emsp; |  Filter connected routes  |
+    |  isis  &emsp; |  Filter IS-IS routes  |
+    |  kernel  &emsp; |  Filter Kernel routes  |
+    |  rip  &emsp; |  Filter RIP routes  |
+    |  static  &emsp; |  Filter static routes  |

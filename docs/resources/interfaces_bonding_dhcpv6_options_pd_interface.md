@@ -3,37 +3,60 @@
 page_title: "vyos_interfaces_bonding_dhcpv6_options_pd_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>interfaces</i>
+
+  <br>
+  &darr;
+  <br>
   Bonding Interface/Link Aggregation
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  bondN  |  Bonding interface name  |
 
+  <br>
+  &darr;
+  <br>
   DHCPv6 client settings/options
-  DHCPv6 prefix delegation interface statement
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  instance number  |  Prefix delegation instance (>= 0)  |
 
+  <br>
+  &darr;
+  <br>
+  DHCPv6 prefix delegation interface statement
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Delegate IPv6 prefix from provider to this interface
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_bonding_dhcpv6_options_pd_interface (Resource)
 
+<div style="text-align: center">
+<i>interfaces</i>
+
+<br>
+&darr;
+<br>
 Bonding Interface/Link Aggregation
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  bondN  |  Bonding interface name  |
-
+<br>
+&darr;
+<br>
 DHCPv6 client settings/options
 
+<br>
+&darr;
+<br>
 DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
-
+<br>
+&darr;
+<br>
+<b>
 Delegate IPv6 prefix from provider to this interface
+</b>
+</div>
 
 
 
@@ -42,27 +65,27 @@ Delegate IPv6 prefix from provider to this interface
 
 ### Required
 
-- `bonding_identifier` (String) Bonding Interface/Link Aggregation
+- `bonding_id` (String) Bonding Interface/Link Aggregation
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  bondN  |  Bonding interface name  |
-- `identifier` (String) Delegate IPv6 prefix from provider to this interface
-- `pd_identifier` (String) DHCPv6 prefix delegation interface statement
+    |  bondN  &emsp; |  Bonding interface name  |
+- `interface_id` (String) Delegate IPv6 prefix from provider to this interface
+- `pd_id` (String) DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
 
 ### Optional
 
 - `address` (String) Local interface address assigned to interface (default: EUI-64)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  >0  |  Used to form IPv6 interface address  |
+    |  >0  &emsp; |  Used to form IPv6 interface address  |
 - `sla_id` (Number) Interface site-Level aggregator (SLA)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Decimal integer which fits in the length of SLA IDs  |
+    |  number: 0-65535  &emsp; |  Decimal integer which fits in the length of SLA IDs  |

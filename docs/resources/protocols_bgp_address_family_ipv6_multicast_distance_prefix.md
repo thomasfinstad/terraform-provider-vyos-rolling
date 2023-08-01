@@ -3,31 +3,70 @@
 page_title: "vyos_protocols_bgp_address_family_ipv6_multicast_distance_prefix Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Border Gateway Protocol (BGP)
+
+  <br>
+  &darr;
+  <br>
   BGP address-family parameters
+
+  <br>
+  &darr;
+  <br>
   Multicast IPv6 BGP settings
+
+  <br>
+  &darr;
+  <br>
   Administrative distances for BGP routes
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Administrative distance for a specific BGP prefix
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv6net  |  Administrative distance for a specific BGP prefix  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_bgp_address_family_ipv6_multicast_distance_prefix (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Border Gateway Protocol (BGP)
 
+<br>
+&darr;
+<br>
 BGP address-family parameters
 
+<br>
+&darr;
+<br>
 Multicast IPv6 BGP settings
 
+<br>
+&darr;
+<br>
 Administrative distances for BGP routes
 
+<br>
+&darr;
+<br>
+<b>
 Administrative distance for a specific BGP prefix
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv6net  |  Administrative distance for a specific BGP prefix  |
+</b>
+</div>
 
 
 
@@ -36,16 +75,16 @@ Administrative distance for a specific BGP prefix
 
 ### Required
 
-- `identifier` (String) Administrative distance for a specific BGP prefix
+- `prefix_id` (String) Administrative distance for a specific BGP prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  Administrative distance for a specific BGP prefix  |
+    |  ipv6net  &emsp; |  Administrative distance for a specific BGP prefix  |
 
 ### Optional
 
 - `distance` (Number) Administrative distance for prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Administrative distance for external BGP routes  |
+    |  number: 1-255  &emsp; |  Administrative distance for external BGP routes  |

@@ -8,7 +8,7 @@ import (
 
 // ProtocolsBgpListenRange describes the resource data model.
 type ProtocolsBgpListenRange struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"range_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpListenRangePeerGroup types.String `tfsdk:"peer_group" vyos:"peer-group,omitempty"`
@@ -28,21 +28,21 @@ func (o *ProtocolsBgpListenRange) GetVyosPath() []string {
 		"listen",
 
 		"range",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsBgpListenRange) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"range_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `BGP dynamic neighbors listen range
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 dynamic neighbors listen range  |
-    |  ipv6net  |  IPv6 dynamic neighbors listen range  |
+    |  ipv4net  &emsp; |  IPv4 dynamic neighbors listen range  |
+    |  ipv6net  &emsp; |  IPv6 dynamic neighbors listen range  |
 
 `,
 		},
@@ -53,9 +53,9 @@ func (o ProtocolsBgpListenRange) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Peer group for this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Peer-group name  |
+    |  txt  &emsp; |  Peer-group name  |
 
 `,
 		},

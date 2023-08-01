@@ -8,7 +8,7 @@ import (
 
 // ProtocolsStaticRoute describes the resource data model.
 type ProtocolsStaticRoute struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"route_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsStaticRouteDhcpInterface types.String `tfsdk:"dhcp_interface" vyos:"dhcp-interface,omitempty"`
@@ -31,20 +31,20 @@ func (o *ProtocolsStaticRoute) GetVyosPath() []string {
 		"static",
 
 		"route",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"route_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Static IPv4 route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 static route  |
+    |  ipv4net  &emsp; |  IPv4 static route  |
 
 `,
 		},
@@ -55,9 +55,9 @@ func (o ProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `DHCP interface supplying next-hop IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  DHCP interface name  |
+    |  txt  &emsp; |  DHCP interface name  |
 
 `,
 		},
@@ -66,9 +66,9 @@ func (o ProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

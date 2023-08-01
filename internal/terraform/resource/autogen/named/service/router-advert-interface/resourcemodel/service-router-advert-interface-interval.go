@@ -26,9 +26,9 @@ func (o ServiceRouterAdvertInterfaceInterval) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Maximum interval between unsolicited multicast RAs
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:4-1800  |  Maximum interval in seconds  |
+    |  number: 4-1800  &emsp; |  Maximum interval in seconds  |
 
 `,
 
@@ -40,9 +40,9 @@ func (o ServiceRouterAdvertInterfaceInterval) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Minimum interval between unsolicited multicast RAs
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:3-1350  |  Minimum interval in seconds  |
+    |  number: 3-1350  &emsp; |  Minimum interval in seconds  |
 
 `,
 		},

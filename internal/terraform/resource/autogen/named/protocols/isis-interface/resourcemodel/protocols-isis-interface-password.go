@@ -26,9 +26,9 @@ func (o ProtocolsIsisInterfacePassword) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `Plain-text authentication type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Circuit password  |
+    |  txt  &emsp; |  Circuit password  |
 
 `,
 		},
@@ -37,9 +37,9 @@ func (o ProtocolsIsisInterfacePassword) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `MD5 authentication type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Level-wide password  |
+    |  txt  &emsp; |  Level-wide password  |
 
 `,
 		},

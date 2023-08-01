@@ -3,28 +3,60 @@
 page_title: "vyos_protocols_babel_distribute_list_ipv4_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Babel Routing Protocol
+
+  <br>
+  &darr;
+  <br>
   Filter networks in routing updates
+
+  <br>
+  &darr;
+  <br>
   Filter IPv4 routes
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Apply filtering to an interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Apply filtering to an interface  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_babel_distribute_list_ipv4_interface (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Babel Routing Protocol
 
+<br>
+&darr;
+<br>
 Filter networks in routing updates
 
+<br>
+&darr;
+<br>
 Filter IPv4 routes
 
+<br>
+&darr;
+<br>
+<b>
 Apply filtering to an interface
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Apply filtering to an interface  |
+</b>
+</div>
 
 
 
@@ -33,11 +65,11 @@ Apply filtering to an interface
 
 ### Required
 
-- `identifier` (String) Apply filtering to an interface
+- `interface_id` (String) Apply filtering to an interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Apply filtering to an interface  |
+    |  txt  &emsp; |  Apply filtering to an interface  |
 
 ### Optional
 
@@ -51,14 +83,14 @@ Optional:
 
 - `in` (Number) Access list to apply to input packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Access list to apply to input packets  |
+    |  u32  &emsp; |  Access list to apply to input packets  |
 - `out` (Number) Access list to apply to output packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Access list to apply to output packets  |
+    |  u32  &emsp; |  Access list to apply to output packets  |
 
 
 <a id="nestedatt--prefix_list"></a>
@@ -68,11 +100,11 @@ Optional:
 
 - `in` (String) Prefix-list to apply to input packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Prefix-list to apply to input packets  |
+    |  txt  &emsp; |  Prefix-list to apply to input packets  |
 - `out` (String) Prefix-list to apply to output packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Prefix-list to apply to output packets  |
+    |  txt  &emsp; |  Prefix-list to apply to output packets  |

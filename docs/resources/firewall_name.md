@@ -3,15 +3,30 @@
 page_title: "vyos_firewall_name Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Firewall
+
+  <br>
+  &darr;
+  <br>
+  <b>
   IPv4 firewall rule-set name
+  </b>
+  </div>
 ---
 
 # vyos_firewall_name (Resource)
 
+<div style="text-align: center">
 Firewall
 
+<br>
+&darr;
+<br>
+<b>
 IPv4 firewall rule-set name
+</b>
+</div>
 
 
 
@@ -20,24 +35,24 @@ IPv4 firewall rule-set name
 
 ### Required
 
-- `identifier` (String) IPv4 firewall rule-set name
+- `name_id` (String) IPv4 firewall rule-set name
 
 ### Optional
 
 - `default_action` (String) Default-action for rule-set
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  drop  |  Drop if no prior rules are hit  |
-    |  jump  |  Jump to another chain if no prior rules are hit  |
-    |  reject  |  Drop and notify source if no prior rules are hit  |
-    |  return  |  Return from the current chain and continue at the next rule of the last                   chain  |
-    |  accept  |  Accept if no prior rules are hit  |
+    |  drop  &emsp; |  Drop if no prior rules are hit  |
+    |  jump  &emsp; |  Jump to another chain if no prior rules are hit  |
+    |  reject  &emsp; |  Drop and notify source if no prior rules are hit  |
+    |  return  &emsp; |  Return from the current chain and continue at the next rule of the last<br>                  chain  |
+    |  accept  &emsp; |  Accept if no prior rules are hit  |
 - `default_jump_target` (String) Set jump target. Action jump must be defined in default-action to use this
                 setting
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `enable_default_log` (Boolean) Log packets hitting default-action

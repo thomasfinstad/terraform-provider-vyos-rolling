@@ -3,18 +3,40 @@
 page_title: "vyos_high_availability_vrrp_sync_group Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   High availability settings
+
+  <br>
+  &darr;
+  <br>
   Virtual Router Redundancy Protocol settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   VRRP sync group
+  </b>
+  </div>
 ---
 
 # vyos_high_availability_vrrp_sync_group (Resource)
 
+<div style="text-align: center">
 High availability settings
 
+<br>
+&darr;
+<br>
 Virtual Router Redundancy Protocol settings
 
+<br>
+&darr;
+<br>
+<b>
 VRRP sync group
+</b>
+</div>
 
 
 
@@ -23,15 +45,15 @@ VRRP sync group
 
 ### Required
 
-- `identifier` (String) VRRP sync group
+- `sync_group_id` (String) VRRP sync group
 
 ### Optional
 
 - `member` (List of String) Sync group member
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRRP group name  |
+    |  txt  &emsp; |  VRRP group name  |
 - `transition_script` (Attributes) VRRP transition scripts (see [below for nested schema](#nestedatt--transition_script))
 
 <a id="nestedatt--transition_script"></a>

@@ -9,9 +9,9 @@ import (
 
 // ProtocolsBgpNeighborLocalRole describes the resource data model.
 type ProtocolsBgpNeighborLocalRole struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"local_role_id" vyos:",self-id"`
 
-	ParentIDProtocolsBgpNeighbor types.String `tfsdk:"neighbor" vyos:"neighbor_identifier,parent-id"`
+	ParentIDProtocolsBgpNeighbor types.String `tfsdk:"neighbor" vyos:"neighbor,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpNeighborLocalRoleStrict types.Bool `tfsdk:"strict" vyos:"strict,omitempty"`
@@ -32,37 +32,37 @@ func (o *ProtocolsBgpNeighborLocalRole) GetVyosPath() []string {
 		o.ParentIDProtocolsBgpNeighbor.ValueString(),
 
 		"local-role",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsBgpNeighborLocalRole) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"local_role_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Local role for BGP neighbor (RFC9234)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  customer  |  Using Transit  |
-    |  peer  |  Public/Private Peering  |
-    |  provider  |  Providing Transit  |
-    |  rs-client  |  RS Client  |
-    |  rs-server  |  Route Server  |
+    |  customer  &emsp; |  Using Transit  |
+    |  peer  &emsp; |  Public/Private Peering  |
+    |  provider  &emsp; |  Providing Transit  |
+    |  rs-client  &emsp; |  RS Client  |
+    |  rs-server  &emsp; |  Route Server  |
 
 `,
 		},
 
-		"neighbor_identifier": schema.StringAttribute{
+		"neighbor_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `BGP neighbor
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  BGP neighbor IP address  |
-    |  ipv6  |  BGP neighbor IPv6 address  |
-    |  txt  |  Interface name  |
+    |  ipv4  &emsp; |  BGP neighbor IP address  |
+    |  ipv6  &emsp; |  BGP neighbor IPv6 address  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},

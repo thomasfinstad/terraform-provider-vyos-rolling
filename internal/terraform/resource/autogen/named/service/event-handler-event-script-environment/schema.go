@@ -12,14 +12,31 @@ import (
 func (r serviceEventHandlerEventScrIPtEnvironment) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Service event handler
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Service event handler
+
+<br>
+&darr;
+<br>
 Event handler name
 
+<br>
+&darr;
+<br>
 Event handler script file
 
+<br>
+&darr;
+<br>
+<b>
 Script environment arguments
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

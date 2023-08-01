@@ -12,16 +12,21 @@ import (
 func (r serviceNtpServer) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Network Time Protocol (NTP) configuration
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Network Time Protocol (NTP) configuration
+
+<br>
+&darr;
+<br>
+<b>
 Network Time Protocol (NTP) server
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  IP address of NTP server  |
-    |  ipv6  |  IPv6 address of NTP server  |
-    |  hostname  |  Fully qualified domain name of NTP server  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

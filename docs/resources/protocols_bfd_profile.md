@@ -3,22 +3,40 @@
 page_title: "vyos_protocols_bfd_profile Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Bidirectional Forwarding Detection (BFD)
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Configure BFD profile used by individual peer
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Name of BFD profile  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_bfd_profile (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Bidirectional Forwarding Detection (BFD)
 
+<br>
+&darr;
+<br>
+<b>
 Configure BFD profile used by individual peer
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Name of BFD profile  |
+</b>
+</div>
 
 
 
@@ -27,11 +45,11 @@ Configure BFD profile used by individual peer
 
 ### Required
 
-- `identifier` (String) Configure BFD profile used by individual peer
+- `profile_id` (String) Configure BFD profile used by individual peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of BFD profile  |
+    |  txt  &emsp; |  Name of BFD profile  |
 
 ### Optional
 
@@ -47,21 +65,21 @@ Optional:
 
 - `echo_interval` (Number) Echo receive transmission interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:10-60000  |  The minimal echo receive transmission interval that this system is capable of handling  |
+    |  number: 10-60000  &emsp; |  The minimal echo receive transmission interval that this system is capable of handling  |
 - `multiplier` (Number) Multiplier to determine packet loss
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:2-255  |  Remote transmission interval will be multiplied by this value  |
+    |  number: 2-255  &emsp; |  Remote transmission interval will be multiplied by this value  |
 - `receive` (Number) Minimum interval of receiving control packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:10-60000  |  Interval in milliseconds  |
+    |  number: 10-60000  &emsp; |  Interval in milliseconds  |
 - `transmit` (Number) Minimum interval of transmitting control packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:10-60000  |  Interval in milliseconds  |
+    |  number: 10-60000  &emsp; |  Interval in milliseconds  |

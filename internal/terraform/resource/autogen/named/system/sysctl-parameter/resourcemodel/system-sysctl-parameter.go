@@ -8,7 +8,7 @@ import (
 
 // SystemSysctlParameter describes the resource data model.
 type SystemSysctlParameter struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"parameter_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafSystemSysctlParameterValue types.String `tfsdk:"value" vyos:"value,omitempty"`
@@ -26,20 +26,20 @@ func (o *SystemSysctlParameter) GetVyosPath() []string {
 		"sysctl",
 
 		"parameter",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o SystemSysctlParameter) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"parameter_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Sysctl key name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Sysctl key name  |
+    |  txt  &emsp; |  Sysctl key name  |
 
 `,
 		},

@@ -26,9 +26,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths) ResourceSchem
 			Optional: true,
 			MarkdownDescription: `eBGP maximum paths
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-256  |  Number of paths to consider  |
+    |  number: 1-256  &emsp; |  Number of paths to consider  |
 
 `,
 		},
@@ -37,9 +37,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths) ResourceSchem
 			Optional: true,
 			MarkdownDescription: `iBGP maximum paths
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-256  |  Number of paths to consider  |
+    |  number: 1-256  &emsp; |  Number of paths to consider  |
 
 `,
 		},

@@ -9,7 +9,7 @@ import (
 
 // InterfacesGeneve describes the resource data model.
 type InterfacesGeneve struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"geneve_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafInterfacesGeneveAddress     types.List   `tfsdk:"address" vyos:"address,omitempty"`
@@ -36,20 +36,20 @@ func (o *InterfacesGeneve) GetVyosPath() []string {
 		"interfaces",
 
 		"geneve",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesGeneve) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"geneve_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Generic Network Virtualization Encapsulation (GENEVE) Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  gnvN  |  GENEVE interface name  |
+    |  gnvN  &emsp; |  GENEVE interface name  |
 
 `,
 		},
@@ -61,10 +61,10 @@ func (o InterfacesGeneve) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional:    true,
 			MarkdownDescription: `IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
 
 `,
 		},
@@ -73,9 +73,9 @@ func (o InterfacesGeneve) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -93,9 +93,9 @@ func (o InterfacesGeneve) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+    |  macaddr  &emsp; |  Hardware (MAC) address  |
 
 `,
 		},
@@ -104,9 +104,9 @@ func (o InterfacesGeneve) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1450-16000  |  Maximum Transmission Unit in byte  |
+    |  number: 1450-16000  &emsp; |  Maximum Transmission Unit in byte  |
 
 `,
 
@@ -118,9 +118,9 @@ func (o InterfacesGeneve) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 `,
 		},
@@ -129,10 +129,10 @@ func (o InterfacesGeneve) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Tunnel remote address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Tunnel remote IPv4 address  |
-    |  ipv6  |  Tunnel remote IPv6 address  |
+    |  ipv4  &emsp; |  Tunnel remote IPv4 address  |
+    |  ipv6  &emsp; |  Tunnel remote IPv6 address  |
 
 `,
 		},
@@ -141,9 +141,9 @@ func (o InterfacesGeneve) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Virtual Network Identifier
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  VXLAN virtual network identifier  |
+    |  number: 0-16777214  &emsp; |  VXLAN virtual network identifier  |
 
 `,
 		},

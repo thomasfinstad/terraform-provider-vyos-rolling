@@ -9,7 +9,7 @@ import (
 
 // VpnOpenconnectAuthenticationRadiusServer describes the resource data model.
 type VpnOpenconnectAuthenticationRadiusServer struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"server_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafVpnOpenconnectAuthenticationRadiusServerDisable types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -33,20 +33,20 @@ func (o *VpnOpenconnectAuthenticationRadiusServer) GetVyosPath() []string {
 		"radius",
 
 		"server",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VpnOpenconnectAuthenticationRadiusServer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"server_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `RADIUS server configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  RADIUS server IPv4 address  |
+    |  ipv4  &emsp; |  RADIUS server IPv4 address  |
 
 `,
 		},
@@ -73,9 +73,9 @@ func (o VpnOpenconnectAuthenticationRadiusServer) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `Authentication port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 

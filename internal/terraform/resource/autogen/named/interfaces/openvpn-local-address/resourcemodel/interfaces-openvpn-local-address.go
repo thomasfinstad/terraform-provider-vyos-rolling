@@ -8,9 +8,9 @@ import (
 
 // InterfacesOpenvpnLocalAddress describes the resource data model.
 type InterfacesOpenvpnLocalAddress struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"local_address_id" vyos:",self-id"`
 
-	ParentIDInterfacesOpenvpn types.String `tfsdk:"openvpn" vyos:"openvpn_identifier,parent-id"`
+	ParentIDInterfacesOpenvpn types.String `tfsdk:"openvpn" vyos:"openvpn,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesOpenvpnLocalAddressSubnetMask types.String `tfsdk:"subnet_mask" vyos:"subnet-mask,omitempty"`
@@ -29,27 +29,27 @@ func (o *InterfacesOpenvpnLocalAddress) GetVyosPath() []string {
 		o.ParentIDInterfacesOpenvpn.ValueString(),
 
 		"local-address",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesOpenvpnLocalAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"local_address_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Local IP address of tunnel (IPv4 or IPv6)
 
 `,
 		},
 
-		"openvpn_identifier": schema.StringAttribute{
+		"openvpn_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `OpenVPN Tunnel Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  vtunN  |  OpenVPN interface name  |
+    |  vtunN  &emsp; |  OpenVPN interface name  |
 
 `,
 		},

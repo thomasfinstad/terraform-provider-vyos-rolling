@@ -3,33 +3,40 @@
 page_title: "vyos_interfaces_ethernet_vif Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Network interfaces
-  Ethernet Interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ethN  |  Ethernet interface name  |
 
+  <br>
+  &darr;
+  <br>
+  Ethernet Interface
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Virtual Local Area Network (VLAN) ID
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_ethernet_vif (Resource)
 
+<div style="text-align: center">
 Network interfaces
 
+<br>
+&darr;
+<br>
 Ethernet Interface
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ethN  |  Ethernet interface name  |
-
+<br>
+&darr;
+<br>
+<b>
 Virtual Local Area Network (VLAN) ID
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
+</b>
+</div>
 
 
 
@@ -38,69 +45,69 @@ Virtual Local Area Network (VLAN) ID
 
 ### Required
 
-- `ethernet_identifier` (String) Ethernet Interface
+- `ethernet_id` (String) Ethernet Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ethN  |  Ethernet interface name  |
-- `identifier` (String) Virtual Local Area Network (VLAN) ID
+    |  ethN  &emsp; |  Ethernet interface name  |
+- `vif_id` (String) Virtual Local Area Network (VLAN) ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
+    |  number: 0-4094  &emsp; |  Virtual Local Area Network (VLAN) ID  |
 
 ### Optional
 
 - `address` (List of String) IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
-    |  dhcp  |  Dynamic Host Configuration Protocol  |
-    |  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
+    |  dhcp  &emsp; |  Dynamic Host Configuration Protocol  |
+    |  dhcpv6  &emsp; |  Dynamic Host Configuration Protocol for IPv6  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `dhcp_options` (Attributes) DHCP client settings/options (see [below for nested schema](#nestedatt--dhcp_options))
 - `dhcpv6_options` (Attributes) DHCPv6 client settings/options (see [below for nested schema](#nestedatt--dhcpv6_options))
 - `disable` (Boolean) Administratively disable interface
 - `disable_link_detect` (Boolean) Ignore link state changes
 - `egress_qos` (String) VLAN egress QoS
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Format for qos mapping, e.g.: '0:1 1:6 7:6'  |
+    |  txt  &emsp; |  Format for qos mapping, e.g.: '0:1 1:6 7:6'  |
 - `ingress_qos` (String) VLAN ingress QoS
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Format for qos mapping, e.g.: '0:1 1:6 7:6'  |
+    |  txt  &emsp; |  Format for qos mapping, e.g.: '0:1 1:6 7:6'  |
 - `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--ip))
 - `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--ipv6))
 - `mac` (String) Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+    |  macaddr  &emsp; |  Hardware (MAC) address  |
 - `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--mirror))
 - `mtu` (Number) Maximum Transmission Unit (MTU)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:68-16000  |  Maximum Transmission Unit in byte  |
+    |  number: 68-16000  &emsp; |  Maximum Transmission Unit in byte  |
 - `redirect` (String) Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 - `vrf` (String) VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 <a id="nestedatt--dhcp_options"></a>
 ### Nested Schema for `dhcp_options`
@@ -110,18 +117,18 @@ Optional:
 - `client_id` (String) Identifier used by client to identify itself to the DHCP server
 - `default_route_distance` (Number) Distance for installed default route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for the default route from DHCP server  |
+    |  number: 1-255  &emsp; |  Distance for the default route from DHCP server  |
 - `host_name` (String) Override system host-name sent to DHCP server
 - `mtu` (Boolean) Use MTU value from DHCP server - ignore interface setting
 - `no_default_route` (Boolean) Do not install default route to system
 - `reject` (List of String) IP addresses or subnets from which to reject DHCP leases
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address to match  |
-    |  ipv4net  |  IPv4 prefix to match  |
+    |  ipv4  &emsp; |  IPv4 address to match  |
+    |  ipv4net  &emsp; |  IPv4 prefix to match  |
 - `vendor_class_id` (String) Identify the vendor client type to the DHCP server
 
 
@@ -132,9 +139,9 @@ Optional:
 
 - `duid` (String) DHCP unique identifier (DUID) to be sent by dhcpv6 client
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  duid  |  DHCP unique identifier (DUID)  |
+    |  duid  &emsp; |  DHCP unique identifier (DUID)  |
 - `parameters_only` (Boolean) Acquire only config parameters, no address
 - `rapid_commit` (Boolean) Wait for immediate reply instead of advertisements
 - `temporary` (Boolean) IPv6 temporary address
@@ -147,15 +154,15 @@ Optional:
 
 - `adjust_mss` (String) Adjust TCP MSS value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  clamp-mss-to-pmtu  &emsp; |  Automatically sets the MSS to the proper value  |
+    |  number: 536-65535  &emsp; |  TCP Maximum segment size in bytes  |
 - `arp_cache_timeout` (Number) ARP cache entry timeout in seconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-86400  |  ARP cache entry timout in seconds  |
+    |  number: 1-86400  &emsp; |  ARP cache entry timout in seconds  |
 - `disable_arp_filter` (Boolean) Disable ARP filter on this interface
 - `disable_forwarding` (Boolean) Disable IP forwarding on this interface
 - `enable_arp_accept` (Boolean) Enable ARP accept on this interface
@@ -166,11 +173,11 @@ Optional:
 - `proxy_arp_pvlan` (Boolean) Enable private VLAN proxy ARP on this interface
 - `source_validation` (String) Source validation by reversed path (RFC3704)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
-    |  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
-    |  disable  |  No source validation  |
+    |  strict  &emsp; |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
+    |  loose  &emsp; |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
+    |  disable  &emsp; |  No source validation  |
 
 
 <a id="nestedatt--ipv6"></a>
@@ -181,17 +188,17 @@ Optional:
 - `address` (Attributes) IPv6 address configuration modes (see [below for nested schema](#nestedatt--ipv6--address))
 - `adjust_mss` (String) Adjust TCP MSS value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  clamp-mss-to-pmtu  &emsp; |  Automatically sets the MSS to the proper value  |
+    |  number: 536-65535  &emsp; |  TCP Maximum segment size in bytes  |
 - `disable_forwarding` (Boolean) Disable IP forwarding on this interface
 - `dup_addr_detect_transmits` (Number) Number of NS messages to send while performing DAD (default: 1)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Disable Duplicate Address Dectection (DAD)  |
-    |  u32:1-n  |  Number of NS messages to send while performing DAD  |
+    |  number: 0  &emsp; |  Disable Duplicate Address Dectection (DAD)  |
+    |  number: 1-n  &emsp; |  Number of NS messages to send while performing DAD  |
 
 <a id="nestedatt--ipv6--address"></a>
 ### Nested Schema for `ipv6.address`
@@ -201,9 +208,9 @@ Optional:
 - `autoconf` (Boolean) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
 - `eui64` (List of String) Prefix for IPv6 address with MAC-based EUI-64
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
+    |  <h:h:h:h:h:h:h:h/64>  &emsp; |  IPv6 /64 network  |
 - `no_default_link_local` (Boolean) Remove the default link-local address from the interface
 
 
@@ -215,11 +222,11 @@ Optional:
 
 - `egress` (String) Mirror egress traffic to destination interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 - `ingress` (String) Mirror ingress traffic to destination interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |

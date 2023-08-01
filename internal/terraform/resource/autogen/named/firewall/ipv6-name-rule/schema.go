@@ -12,16 +12,21 @@ import (
 func (r firewallIPvsixNameRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Firewall
+		MarkdownDescription: `<div style="text-align: center">
+Firewall
 
+<br>
+&darr;
+<br>
 IPv6 firewall rule-set name
 
+<br>
+&darr;
+<br>
+<b>
 Firewall rule number (IPv6)
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-999999  |  Number for this Firewall rule  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

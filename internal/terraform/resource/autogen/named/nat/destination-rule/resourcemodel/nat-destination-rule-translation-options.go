@@ -26,10 +26,10 @@ func (o NatDestinationRuleTranSLAtionOptions) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Address mapping options
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  persistent  |  Gives a client the same source or destination-address for each connection  |
-    |  random  |  Random source or destination address allocation for each connection  |
+    |  persistent  &emsp; |  Gives a client the same source or destination-address for each connection  |
+    |  random  &emsp; |  Random source or destination address allocation for each connection  |
 
 `,
 
@@ -41,11 +41,11 @@ func (o NatDestinationRuleTranSLAtionOptions) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Port mapping options
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  random  |  Randomize source port mapping  |
-    |  fully-random  |  Full port randomization  |
-    |  none  |  Do not apply port randomization  |
+    |  random  &emsp; |  Randomize source port mapping  |
+    |  fully-random  &emsp; |  Full port randomization  |
+    |  none  &emsp; |  Do not apply port randomization  |
 
 `,
 

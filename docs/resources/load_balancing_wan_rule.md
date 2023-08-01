@@ -3,25 +3,40 @@
 page_title: "vyos_load_balancing_wan_rule Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Configure load-balancing
+
+  <br>
+  &darr;
+  <br>
   Configure Wide Area Network (WAN) load-balancing
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Rule number (1-9999)
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-9999  |  Rule number  |
+  </b>
+  </div>
 ---
 
 # vyos_load_balancing_wan_rule (Resource)
 
+<div style="text-align: center">
 Configure load-balancing
 
+<br>
+&darr;
+<br>
 Configure Wide Area Network (WAN) load-balancing
 
+<br>
+&darr;
+<br>
+<b>
 Rule number (1-9999)
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-9999  |  Rule number  |
+</b>
+</div>
 
 
 
@@ -30,19 +45,19 @@ Rule number (1-9999)
 
 ### Required
 
-- `identifier` (String) Rule number (1-9999)
+- `rule_id` (String) Rule number (1-9999)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-9999  |  Rule number  |
+    |  number: 1-9999  &emsp; |  Rule number  |
 
 ### Optional
 
 - `description` (String) Description for this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description for this rule  |
+    |  txt  &emsp; |  Description for this rule  |
 - `destination` (Attributes) Destination (see [below for nested schema](#nestedatt--destination))
 - `exclude` (Boolean) Exclude packets matching this rule from WAN load balance
 - `failover` (Boolean) Enable failover for packets matching this rule from WAN load balance
@@ -51,13 +66,13 @@ Rule number (1-9999)
 - `per_packet_balancing` (Boolean) Option to match traffic per-packet instead of the default, per-flow
 - `protocol` (String) Protocol to match (protocol name, number, or "all")
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  all  |  All IP protocols  |
-    |  tcp_udp  |  Both TCP and UDP  |
-    |  u32:0-255  |  IP protocol number  |
-    |  <protocol>  |  IP protocol name  |
-    |  !<protocol>  |  IP protocol name  |
+    |  all  &emsp; |  All IP protocols  |
+    |  tcp_udp  &emsp; |  Both TCP and UDP  |
+    |  number: 0-255  &emsp; |  IP protocol number  |
+    |  <protocol>  &emsp; |  IP protocol name  |
+    |  !<protocol>  &emsp; |  IP protocol name  |
 - `source` (Attributes) Source information (see [below for nested schema](#nestedatt--source))
 
 <a id="nestedatt--destination"></a>
@@ -67,22 +82,22 @@ Optional:
 
 - `address` (String) IP address, subnet, or range
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address to match  |
-    |  ipv4net  |  IPv4 prefix to match  |
-    |  ipv4range  |  IPv4 address range to match  |
-    |  !ipv4  |  Match everything except the specified address  |
-    |  !ipv4net  |  Match everything except the specified prefix  |
-    |  !ipv4range  |  Match everything except the specified range  |
+    |  ipv4  &emsp; |  IPv4 address to match  |
+    |  ipv4net  &emsp; |  IPv4 prefix to match  |
+    |  ipv4range  &emsp; |  IPv4 address range to match  |
+    |  !ipv4  &emsp; |  Match everything except the specified address  |
+    |  !ipv4net  &emsp; |  Match everything except the specified prefix  |
+    |  !ipv4range  &emsp; |  Match everything except the specified range  |
 - `port` (String) Port number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Named port (any name in /etc/services, e.g., http)  |
-    |  u32:1-65535  |  Numeric IP port  |
-    |  start-end  |  Numbered port range (e.g. 1001-1005)  |
-    |   |   |
+    |  txt  &emsp; |  Named port (any name in /etc/services, e.g., http)  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
+    |  start-end  &emsp; |  Numbered port range (e.g. 1001-1005)  |
+    |   &emsp; |   |
 
 
 <a id="nestedatt--limit"></a>
@@ -92,27 +107,27 @@ Optional:
 
 - `burst` (Number) Burst limit for matching packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4294967295  |  Burst limit for matching packets  |
+    |  number: 0-4294967295  &emsp; |  Burst limit for matching packets  |
 - `period` (String) Time window for rate calculation
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  hour  |  hour  |
-    |  minute  |  minute  |
-    |  second  |  second  |
+    |  hour  &emsp; |  hour  |
+    |  minute  &emsp; |  minute  |
+    |  second  &emsp; |  second  |
 - `rate` (Number) Number of packets used for rate limit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4294967295  |  Number of packets used for rate limit  |
+    |  number: 0-4294967295  &emsp; |  Number of packets used for rate limit  |
 - `threshold` (String) Threshold behavior for limit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  above  |  Above limit  |
-    |  below  |  Below limit  |
+    |  above  &emsp; |  Above limit  |
+    |  below  &emsp; |  Below limit  |
 
 
 <a id="nestedatt--source"></a>
@@ -122,19 +137,19 @@ Optional:
 
 - `address` (String) IP address, subnet, or range
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address to match  |
-    |  ipv4net  |  IPv4 prefix to match  |
-    |  ipv4range  |  IPv4 address range to match  |
-    |  !ipv4  |  Match everything except the specified address  |
-    |  !ipv4net  |  Match everything except the specified prefix  |
-    |  !ipv4range  |  Match everything except the specified range  |
+    |  ipv4  &emsp; |  IPv4 address to match  |
+    |  ipv4net  &emsp; |  IPv4 prefix to match  |
+    |  ipv4range  &emsp; |  IPv4 address range to match  |
+    |  !ipv4  &emsp; |  Match everything except the specified address  |
+    |  !ipv4net  &emsp; |  Match everything except the specified prefix  |
+    |  !ipv4range  &emsp; |  Match everything except the specified range  |
 - `port` (String) Port number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Named port (any name in /etc/services, e.g., http)  |
-    |  u32:1-65535  |  Numeric IP port  |
-    |  start-end  |  Numbered port range (e.g. 1001-1005)  |
-    |   |   |
+    |  txt  &emsp; |  Named port (any name in /etc/services, e.g., http)  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
+    |  start-end  &emsp; |  Numbered port range (e.g. 1001-1005)  |
+    |   &emsp; |   |

@@ -27,9 +27,9 @@ func (o VrfNameProtocolsOspfAreaAreaTypeStub) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Summary-default cost
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Summary default cost  |
+    |  number: 0-16777215  &emsp; |  Summary default cost  |
 
 `,
 		},

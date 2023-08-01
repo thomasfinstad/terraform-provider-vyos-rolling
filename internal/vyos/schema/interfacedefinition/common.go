@@ -14,6 +14,8 @@ type NodeBase interface {
 	BaseName() string
 	Description() string
 	AncestorDescription() string
+	GetParent() NodeParent
+	GetProperties() *Properties
 }
 
 // NodeParent should match Node and TagNode

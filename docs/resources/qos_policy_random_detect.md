@@ -3,25 +3,40 @@
 page_title: "vyos_qos_policy_random_detect Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Quality of Service (QoS)
+
+  <br>
+  &darr;
+  <br>
   Service Policy definitions
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Weighted Random Early Detect policy
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Policy name  |
+  </b>
+  </div>
 ---
 
 # vyos_qos_policy_random_detect (Resource)
 
+<div style="text-align: center">
 Quality of Service (QoS)
 
+<br>
+&darr;
+<br>
 Service Policy definitions
 
+<br>
+&darr;
+<br>
+<b>
 Weighted Random Early Detect policy
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Policy name  |
+</b>
+</div>
 
 
 
@@ -30,28 +45,28 @@ Weighted Random Early Detect policy
 
 ### Required
 
-- `identifier` (String) Weighted Random Early Detect policy
+- `random_detect_id` (String) Weighted Random Early Detect policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 ### Optional
 
 - `bandwidth` (String) Available bandwidth for this policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  auto  |  Bandwidth matches interface speed  |
-    |  <number>  |  Bits per second  |
-    |  <number>bit  |  Bits per second  |
-    |  <number>kbit  |  Kilobits per second  |
-    |  <number>mbit  |  Megabits per second  |
-    |  <number>gbit  |  Gigabits per second  |
-    |  <number>tbit  |  Terabits per second  |
-    |  <number>%%  |  Percentage of interface link speed  |
+    |  auto  &emsp; |  Bandwidth matches interface speed  |
+    |  <number>  &emsp; |  Bits per second  |
+    |  <number>bit  &emsp; |  Bits per second  |
+    |  <number>kbit  &emsp; |  Kilobits per second  |
+    |  <number>mbit  &emsp; |  Megabits per second  |
+    |  <number>gbit  &emsp; |  Gigabits per second  |
+    |  <number>tbit  &emsp; |  Terabits per second  |
+    |  <number>%%  &emsp; |  Percentage of interface link speed  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |

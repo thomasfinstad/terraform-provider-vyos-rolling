@@ -3,62 +3,70 @@
 page_title: "vyos_vrf_name_protocols_bgp_neighbor_local_role Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
+
+  <br>
+  &darr;
+  <br>
   Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
-  Border Gateway Protocol (BGP)
-  BGP neighbor
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  BGP neighbor IP address  |
-  |  ipv6  |  BGP neighbor IPv6 address  |
-  |  txt  |  Interface name  |
 
+  <br>
+  &darr;
+  <br>
+  Border Gateway Protocol (BGP)
+
+  <br>
+  &darr;
+  <br>
+  BGP neighbor
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Local role for BGP neighbor (RFC9234)
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  customer  |  Using Transit  |
-  |  peer  |  Public/Private Peering  |
-  |  provider  |  Providing Transit  |
-  |  rs-client  |  RS Client  |
-  |  rs-server  |  Route Server  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_bgp_neighbor_local_role (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Border Gateway Protocol (BGP)
 
+<br>
+&darr;
+<br>
 BGP neighbor
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  BGP neighbor IP address  |
-    |  ipv6  |  BGP neighbor IPv6 address  |
-    |  txt  |  Interface name  |
-
+<br>
+&darr;
+<br>
+<b>
 Local role for BGP neighbor (RFC9234)
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  customer  |  Using Transit  |
-    |  peer  |  Public/Private Peering  |
-    |  provider  |  Providing Transit  |
-    |  rs-client  |  RS Client  |
-    |  rs-server  |  Route Server  |
+</b>
+</div>
 
 
 
@@ -67,27 +75,27 @@ Local role for BGP neighbor (RFC9234)
 
 ### Required
 
-- `identifier` (String) Local role for BGP neighbor (RFC9234)
+- `local_role_id` (String) Local role for BGP neighbor (RFC9234)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  customer  |  Using Transit  |
-    |  peer  |  Public/Private Peering  |
-    |  provider  |  Providing Transit  |
-    |  rs-client  |  RS Client  |
-    |  rs-server  |  Route Server  |
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+    |  customer  &emsp; |  Using Transit  |
+    |  peer  &emsp; |  Public/Private Peering  |
+    |  provider  &emsp; |  Providing Transit  |
+    |  rs-client  &emsp; |  RS Client  |
+    |  rs-server  &emsp; |  Route Server  |
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
-- `neighbor_identifier` (String) BGP neighbor
+    |  txt  &emsp; |  VRF instance name  |
+- `neighbor_id` (String) BGP neighbor
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  BGP neighbor IP address  |
-    |  ipv6  |  BGP neighbor IPv6 address  |
-    |  txt  |  Interface name  |
+    |  ipv4  &emsp; |  BGP neighbor IP address  |
+    |  ipv6  &emsp; |  BGP neighbor IPv6 address  |
+    |  txt  &emsp; |  Interface name  |
 
 ### Optional
 

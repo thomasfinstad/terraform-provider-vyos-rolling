@@ -12,16 +12,26 @@ import (
 func (r systemConntrackIgnoreRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Connection Tracking Engine Options
+		MarkdownDescription: `<div style="text-align: center">
+<i>system</i>
 
+<br>
+&darr;
+<br>
+Connection Tracking Engine Options
+
+<br>
+&darr;
+<br>
 Customized rules to ignore selective connection tracking
 
+<br>
+&darr;
+<br>
+<b>
 Rule number
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-999999  |  Number of conntrack ignore rule  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

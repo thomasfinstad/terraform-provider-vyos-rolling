@@ -9,7 +9,7 @@ import (
 
 // ProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork describes the resource data model.
 type ProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"network_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetworkBackdoor types.Bool   `tfsdk:"backdoor" vyos:"backdoor,omitempty"`
@@ -32,20 +32,20 @@ func (o *ProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork) GetVyosPath() []s
 		"ipv6-labeled-unicast",
 
 		"network",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"network_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Import BGP network/prefix into labeled unicast IPv6 RIB
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  Labeled Unicast IPv6 BGP network/prefix  |
+    |  ipv6net  &emsp; |  Labeled Unicast IPv6 BGP network/prefix  |
 
 `,
 		},
@@ -65,9 +65,9 @@ func (o ProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork) ResourceSchemaAttr
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},

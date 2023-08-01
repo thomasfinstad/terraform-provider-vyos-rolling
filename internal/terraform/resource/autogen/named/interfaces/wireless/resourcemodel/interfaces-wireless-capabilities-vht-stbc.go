@@ -27,9 +27,9 @@ func (o InterfacesWirelessCapabilitiesVhtStbc) ResourceSchemaAttributes() map[st
 			Optional: true,
 			MarkdownDescription: `Enable receiving PPDU using STBC (Space Time Block Coding)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  [1-4]+  |  Number of spacial streams that can use RX STBC  |
+    |  [1-4]+  &emsp; |  Number of spacial streams that can use RX STBC  |
 
 `,
 		},

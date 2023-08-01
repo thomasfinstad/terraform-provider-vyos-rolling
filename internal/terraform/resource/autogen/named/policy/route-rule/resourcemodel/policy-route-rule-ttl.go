@@ -27,9 +27,9 @@ func (o PolicyRouteRuleTTL) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Match on equal value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  Equal to value  |
+    |  number: 0-255  &emsp; |  Equal to value  |
 
 `,
 		},
@@ -38,9 +38,9 @@ func (o PolicyRouteRuleTTL) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Match on greater then value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  Greater then value  |
+    |  number: 0-255  &emsp; |  Greater then value  |
 
 `,
 		},
@@ -49,9 +49,9 @@ func (o PolicyRouteRuleTTL) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Match on less then value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  Less then value  |
+    |  number: 0-255  &emsp; |  Less then value  |
 
 `,
 		},

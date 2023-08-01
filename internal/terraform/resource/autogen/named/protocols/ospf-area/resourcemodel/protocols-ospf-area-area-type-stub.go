@@ -27,9 +27,9 @@ func (o ProtocolsOspfAreaAreaTypeStub) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Summary-default cost
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Summary default cost  |
+    |  number: 0-16777215  &emsp; |  Summary default cost  |
 
 `,
 		},

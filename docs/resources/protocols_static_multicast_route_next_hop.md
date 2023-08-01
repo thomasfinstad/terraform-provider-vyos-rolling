@@ -3,33 +3,60 @@
 page_title: "vyos_protocols_static_multicast_route_next_hop Resource - vyos"
 subcategory: ""
 description: |-
-  Multicast static route
-  Configure static unicast route into MRIB for multicast RPF lookup
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  Network  |
+  <div style="text-align: center">
+  <i>protocols</i>
 
+  <br>
+  &darr;
+  <br>
+  <i>static</i>
+
+  <br>
+  &darr;
+  <br>
+  Multicast static route
+
+  <br>
+  &darr;
+  <br>
+  Configure static unicast route into MRIB for multicast RPF lookup
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Nexthop IPv4 address
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  Nexthop IPv4 address  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_static_multicast_route_next_hop (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
+<i>static</i>
+
+<br>
+&darr;
+<br>
 Multicast static route
 
+<br>
+&darr;
+<br>
 Configure static unicast route into MRIB for multicast RPF lookup
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  Network  |
-
+<br>
+&darr;
+<br>
+<b>
 Nexthop IPv4 address
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  Nexthop IPv4 address  |
+</b>
+</div>
 
 
 
@@ -38,21 +65,21 @@ Nexthop IPv4 address
 
 ### Required
 
-- `identifier` (String) Nexthop IPv4 address
+- `next_hop_id` (String) Nexthop IPv4 address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Nexthop IPv4 address  |
-- `route_identifier` (String) Configure static unicast route into MRIB for multicast RPF lookup
+    |  ipv4  &emsp; |  Nexthop IPv4 address  |
+- `route_id` (String) Configure static unicast route into MRIB for multicast RPF lookup
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Network  |
+    |  ipv4net  &emsp; |  Network  |
 
 ### Optional
 
 - `distance` (Number) Distance value for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for this route  |
+    |  number: 1-255  &emsp; |  Distance for this route  |

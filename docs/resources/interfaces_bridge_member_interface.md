@@ -3,26 +3,50 @@
 page_title: "vyos_interfaces_bridge_member_interface Resource - vyos"
 subcategory: ""
 description: |-
-  Bridge Interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  brN  |  Bridge interface name  |
+  <div style="text-align: center">
+  <i>interfaces</i>
 
+  <br>
+  &darr;
+  <br>
+  Bridge Interface
+
+  <br>
+  &darr;
+  <br>
   Bridge member interfaces
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Member interface name
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_bridge_member_interface (Resource)
 
+<div style="text-align: center">
+<i>interfaces</i>
+
+<br>
+&darr;
+<br>
 Bridge Interface
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  brN  |  Bridge interface name  |
-
+<br>
+&darr;
+<br>
 Bridge member interfaces
 
+<br>
+&darr;
+<br>
+<b>
 Member interface name
+</b>
+</div>
 
 
 
@@ -31,34 +55,34 @@ Member interface name
 
 ### Required
 
-- `bridge_identifier` (String) Bridge Interface
+- `bridge_id` (String) Bridge Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  brN  |  Bridge interface name  |
-- `identifier` (String) Member interface name
+    |  brN  &emsp; |  Bridge interface name  |
+- `interface_id` (String) Member interface name
 
 ### Optional
 
 - `allowed_vlan` (List of String) Specify VLAN id which is allowed in this trunk interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <id>  |  VLAN id allowed to pass this interface  |
-    |  <idN>-<idM>  |  VLAN id range allowed on this interface (use '-' as delimiter)  |
+    |  <id>  &emsp; |  VLAN id allowed to pass this interface  |
+    |  <idN>-<idM>  &emsp; |  VLAN id range allowed on this interface (use '-' as delimiter)  |
 - `cost` (Number) Bridge port cost
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Path cost value for Spanning Tree Protocol  |
+    |  number: 1-65535  &emsp; |  Path cost value for Spanning Tree Protocol  |
 - `isolated` (Boolean) Port is isolated (also known as Private-VLAN)
 - `native_vlan` (Number) Specify VLAN id which should natively be present on the link
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4094  |  Virtual Local Area Network (VLAN) ID  |
+    |  number: 1-4094  &emsp; |  Virtual Local Area Network (VLAN) ID  |
 - `priority` (Number) Bridge port priority
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-63  |  Bridge port priority  |
+    |  number: 0-63  &emsp; |  Bridge port priority  |

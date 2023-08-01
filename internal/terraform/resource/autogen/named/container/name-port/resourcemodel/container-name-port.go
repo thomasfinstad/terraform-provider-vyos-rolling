@@ -8,9 +8,9 @@ import (
 
 // ContainerNamePort describes the resource data model.
 type ContainerNamePort struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"port_id" vyos:",self-id"`
 
-	ParentIDContainerName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDContainerName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafContainerNamePortSource      types.String `tfsdk:"source" vyos:"source,omitempty"`
@@ -31,21 +31,21 @@ func (o *ContainerNamePort) GetVyosPath() []string {
 		o.ParentIDContainerName.ValueString(),
 
 		"port",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ContainerNamePort) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"port_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Publish port to the container
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Container name
 
@@ -58,10 +58,10 @@ func (o ContainerNamePort) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Source host port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Source host port  |
-    |  start-end  |  Source host port range (e.g. 10025-10030)  |
+    |  number: 1-65535  &emsp; |  Source host port  |
+    |  start-end  &emsp; |  Source host port range (e.g. 10025-10030)  |
 
 `,
 		},
@@ -70,10 +70,10 @@ func (o ContainerNamePort) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Destination container port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Destination container port  |
-    |  start-end  |  Destination container port range (e.g. 10025-10030)  |
+    |  number: 1-65535  &emsp; |  Destination container port  |
+    |  start-end  &emsp; |  Destination container port range (e.g. 10025-10030)  |
 
 `,
 		},
@@ -82,10 +82,10 @@ func (o ContainerNamePort) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Transport protocol used for port mapping
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  tcp  |  Use Transmission Control Protocol for given port  |
-    |  udp  |  Use User Datagram Protocol for given port  |
+    |  tcp  &emsp; |  Use Transmission Control Protocol for given port  |
+    |  udp  &emsp; |  Use User Datagram Protocol for given port  |
 
 `,
 

@@ -36,9 +36,9 @@ func (o VrfNameProtocolsOspfMplsTe) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Stable IP address of the advertising router
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Stable IP address of the advertising router  |
+    |  ipv4  &emsp; |  Stable IP address of the advertising router  |
 
 `,
 

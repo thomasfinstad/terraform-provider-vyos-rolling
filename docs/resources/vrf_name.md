@@ -3,22 +3,30 @@
 page_title: "vyos_vrf_name Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
+<b>
 Virtual Routing and Forwarding instance
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
+</b>
+</div>
 
 
 
@@ -27,33 +35,33 @@ Virtual Routing and Forwarding instance
 
 ### Required
 
-- `identifier` (String) Virtual Routing and Forwarding instance
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `disable` (Boolean) Administratively disable interface
 - `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--ip))
 - `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--ipv6))
 - `protocols` (Attributes) Routing protocol parameters (see [below for nested schema](#nestedatt--protocols))
 - `table` (Number) Routing table associated with this instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:100-65535  |  Routing table ID  |
+    |  number: 100-65535  &emsp; |  Routing table ID  |
 - `vni` (Number) Virtual Network Identifier
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  VXLAN virtual network identifier  |
+    |  number: 0-16777214  &emsp; |  VXLAN virtual network identifier  |
 
 <a id="nestedatt--ip"></a>
 ### Nested Schema for `ip`
@@ -93,14 +101,14 @@ Optional:
 - `parameters` (Attributes) BGP parameters (see [below for nested schema](#nestedatt--protocols--bgp--parameters))
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `system_as` (Number) Autonomous System Number (ASN)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967294  |  Autonomous System Number  |
+    |  number: 1-4294967294  &emsp; |  Autonomous System Number  |
 - `timers` (Attributes) BGP protocol timers (see [below for nested schema](#nestedatt--protocols--bgp--timers))
 
 <a id="nestedatt--protocols--bgp--address_family"></a>
@@ -154,19 +162,19 @@ Optional:
 
 - `external` (Number) eBGP routes administrative distance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  eBGP routes administrative distance  |
+    |  number: 1-255  &emsp; |  eBGP routes administrative distance  |
 - `internal` (Number) iBGP routes administrative distance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  iBGP routes administrative distance  |
+    |  number: 1-255  &emsp; |  iBGP routes administrative distance  |
 - `local` (Number) Locally originated BGP routes administrative distance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Locally originated BGP routes administrative distance  |
+    |  number: 1-255  &emsp; |  Locally originated BGP routes administrative distance  |
 
 
 
@@ -192,19 +200,19 @@ Optional:
 
 - `external` (Number) eBGP routes administrative distance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  eBGP routes administrative distance  |
+    |  number: 1-255  &emsp; |  eBGP routes administrative distance  |
 - `internal` (Number) iBGP routes administrative distance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  iBGP routes administrative distance  |
+    |  number: 1-255  &emsp; |  iBGP routes administrative distance  |
 - `local` (Number) Locally originated BGP routes administrative distance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Locally originated BGP routes administrative distance  |
+    |  number: 1-255  &emsp; |  Locally originated BGP routes administrative distance  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--export"></a>
@@ -223,9 +231,9 @@ Optional:
 - `vpn` (Boolean) to/from default instance VPN RIB
 - `vrf` (List of String) VRF to import from
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--label"></a>
@@ -242,10 +250,10 @@ Optional:
 
 - `export` (String) For routes leaked from current address-family to VPN
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  auto  |  Automatically assign a label  |
-    |  u32:0-1048575  |  Label Value  |
+    |  auto  &emsp; |  Automatically assign a label  |
+    |  number: 0-1048575  &emsp; |  Label Value  |
 
 
 
@@ -256,14 +264,14 @@ Optional:
 
 - `ebgp` (Number) eBGP maximum paths
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-256  |  Number of paths to consider  |
+    |  number: 1-256  &emsp; |  Number of paths to consider  |
 - `ibgp` (Number) iBGP maximum paths
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-256  |  Number of paths to consider  |
+    |  number: 1-256  &emsp; |  Number of paths to consider  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--rd"></a>
@@ -280,9 +288,9 @@ Optional:
 
 - `export` (String) For routes leaked from current address-family to VPN
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp; |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 
 
 
@@ -307,14 +315,14 @@ Optional:
 
 - `metric` (Number) Metric for redistributed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  number: 1-4294967295  &emsp; |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--connected"></a>
@@ -324,14 +332,14 @@ Optional:
 
 - `metric` (Number) Metric for redistributed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  number: 1-4294967295  &emsp; |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--isis"></a>
@@ -341,14 +349,14 @@ Optional:
 
 - `metric` (Number) Metric for redistributed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  number: 1-4294967295  &emsp; |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--kernel"></a>
@@ -358,14 +366,14 @@ Optional:
 
 - `metric` (Number) Metric for redistributed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  number: 1-4294967295  &emsp; |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--ospf"></a>
@@ -375,14 +383,14 @@ Optional:
 
 - `metric` (Number) Metric for redistributed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  number: 1-4294967295  &emsp; |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--rip"></a>
@@ -392,14 +400,14 @@ Optional:
 
 - `metric` (Number) Metric for redistributed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  number: 1-4294967295  &emsp; |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--static"></a>
@@ -409,14 +417,14 @@ Optional:
 
 - `metric` (Number) Metric for redistributed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  number: 1-4294967295  &emsp; |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -434,14 +442,14 @@ Optional:
 
 - `export` (String) Route-map to filter outgoing route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `import` (String) Route-map to filter incoming route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -459,19 +467,19 @@ Optional:
 
 - `both` (String) Route Target both import and export
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  txt  &emsp; |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `export` (String) Route Target export
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  txt  &emsp; |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `import` (String) Route Target import
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  txt  &emsp; |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 
 
 
@@ -514,19 +522,19 @@ Optional:
 
 - `external` (Number) eBGP routes administrative distance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  eBGP routes administrative distance  |
+    |  number: 1-255  &emsp; |  eBGP routes administrative distance  |
 - `internal` (Number) iBGP routes administrative distance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  iBGP routes administrative distance  |
+    |  number: 1-255  &emsp; |  iBGP routes administrative distance  |
 - `local` (Number) Locally originated BGP routes administrative distance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Locally originated BGP routes administrative distance  |
+    |  number: 1-255  &emsp; |  Locally originated BGP routes administrative distance  |
 
 
 
@@ -552,19 +560,19 @@ Optional:
 
 - `external` (Number) eBGP routes administrative distance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  eBGP routes administrative distance  |
+    |  number: 1-255  &emsp; |  eBGP routes administrative distance  |
 - `internal` (Number) iBGP routes administrative distance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  iBGP routes administrative distance  |
+    |  number: 1-255  &emsp; |  iBGP routes administrative distance  |
 - `local` (Number) Locally originated BGP routes administrative distance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Locally originated BGP routes administrative distance  |
+    |  number: 1-255  &emsp; |  Locally originated BGP routes administrative distance  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--export"></a>
@@ -583,9 +591,9 @@ Optional:
 - `vpn` (Boolean) to/from default instance VPN RIB
 - `vrf` (List of String) VRF to import from
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--label"></a>
@@ -602,10 +610,10 @@ Optional:
 
 - `export` (String) For routes leaked from current address-family to VPN
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  auto  |  Automatically assign a label  |
-    |  u32:0-1048575  |  Label Value  |
+    |  auto  &emsp; |  Automatically assign a label  |
+    |  number: 0-1048575  &emsp; |  Label Value  |
 
 
 
@@ -616,14 +624,14 @@ Optional:
 
 - `ebgp` (Number) eBGP maximum paths
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-256  |  Number of paths to consider  |
+    |  number: 1-256  &emsp; |  Number of paths to consider  |
 - `ibgp` (Number) iBGP maximum paths
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-256  |  Number of paths to consider  |
+    |  number: 1-256  &emsp; |  Number of paths to consider  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--rd"></a>
@@ -640,9 +648,9 @@ Optional:
 
 - `export` (String) For routes leaked from current address-family to VPN
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp; |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 
 
 
@@ -666,14 +674,14 @@ Optional:
 
 - `metric` (Number) Metric for redistributed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  number: 1-4294967295  &emsp; |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--connected"></a>
@@ -683,14 +691,14 @@ Optional:
 
 - `metric` (Number) Metric for redistributed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  number: 1-4294967295  &emsp; |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--kernel"></a>
@@ -700,14 +708,14 @@ Optional:
 
 - `metric` (Number) Metric for redistributed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  number: 1-4294967295  &emsp; |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--ospfv3"></a>
@@ -717,14 +725,14 @@ Optional:
 
 - `metric` (Number) Metric for redistributed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  number: 1-4294967295  &emsp; |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--ripng"></a>
@@ -734,14 +742,14 @@ Optional:
 
 - `metric` (Number) Metric for redistributed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  number: 1-4294967295  &emsp; |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--static"></a>
@@ -751,14 +759,14 @@ Optional:
 
 - `metric` (Number) Metric for redistributed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  number: 1-4294967295  &emsp; |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -776,14 +784,14 @@ Optional:
 
 - `export` (String) Route-map to filter outgoing route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `import` (String) Route-map to filter incoming route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -801,19 +809,19 @@ Optional:
 
 - `both` (String) Route Target both import and export
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  txt  &emsp; |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `export` (String) Route Target export
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  txt  &emsp; |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `import` (String) Route Target import
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  txt  &emsp; |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 
 
 
@@ -832,16 +840,16 @@ Optional:
 - `advertise_default_gw` (Boolean) Advertise All default g/w mac-ip routes in EVPN
 - `advertise_pip` (String) EVPN system primary IP
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IP address  |
+    |  ipv4  &emsp; |  IP address  |
 - `advertise_svi_ip` (Boolean) Advertise svi mac-ip routes in EVPN
 - `flooding` (Attributes) Specify handling for BUM packets (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--flooding))
 - `rd` (String) Route Distinguisher
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp; |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 - `route_target` (Attributes) Route Target (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_target))
 - `rt_auto_derive` (Boolean) Auto derivation of Route Target (RFC8365)
 
@@ -867,9 +875,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -887,9 +895,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -910,19 +918,19 @@ Optional:
 
 - `both` (List of String) Route Target both import and export
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  txt  &emsp; |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `export` (List of String) Route Target export
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  txt  &emsp; |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `import` (List of String) Route Target import
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  txt  &emsp; |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 
 
 
@@ -934,9 +942,9 @@ Optional:
 
 - `limit` (Number) Maximum number of dynamic neighbors that can be created
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-5000  |  BGP neighbor limit  |
+    |  number: 1-5000  &emsp; |  BGP neighbor limit  |
 
 
 <a id="nestedatt--protocols--bgp--parameters"></a>
@@ -948,9 +956,9 @@ Optional:
 - `bestpath` (Attributes) Default bestpath selection mechanism (see [below for nested schema](#nestedatt--protocols--bgp--parameters--bestpath))
 - `cluster_id` (String) Route-reflector cluster-id
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Route-reflector cluster-id  |
+    |  ipv4  &emsp; |  Route-reflector cluster-id  |
 - `conditional_advertisement` (Attributes) Conditional advertisement settings (see [below for nested schema](#nestedatt--protocols--bgp--parameters--conditional_advertisement))
 - `confederation` (Attributes) AS confederation parameters (see [below for nested schema](#nestedatt--protocols--bgp--parameters--confederation))
 - `dampening` (Attributes) Enable route-flap dampening (see [below for nested schema](#nestedatt--protocols--bgp--parameters--dampening))
@@ -964,9 +972,9 @@ Optional:
 - `log_neighbor_changes` (Boolean) Log neighbor up/down changes and reset reason
 - `minimum_holdtime` (Number) BGP minimum holdtime
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Minimum holdtime in seconds  |
+    |  number: 1-65535  &emsp; |  Minimum holdtime in seconds  |
 - `network_import_check` (Boolean) Enable IGP route check for network statements
 - `no_client_to_client_reflection` (Boolean) Disable client to client route reflection
 - `no_fast_external_failover` (Boolean) Disable immediate session reset on peer link down event
@@ -975,9 +983,9 @@ Optional:
 - `route_reflector_allow_outbound_policy` (Boolean) Route reflector client allow policy outbound
 - `router_id` (String) Override default router identifier
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Router-ID in IP address format  |
+    |  ipv4  &emsp; |  Router-ID in IP address format  |
 - `shutdown` (Boolean) Administrative shutdown of the BGP instance
 - `suppress_fib_pending` (Boolean) Advertise only routes that are programmed in kernel to peers
 
@@ -989,11 +997,11 @@ Optional:
 - `as_path` (Attributes) AS-path attribute comparison parameters (see [below for nested schema](#nestedatt--protocols--bgp--parameters--suppress_fib_pending--as_path))
 - `bandwidth` (String) Link Bandwidth attribute
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  default-weight-for-missing  |  Assign low default weight (1) to paths not having link bandwidth  |
-    |  ignore  |  Ignore link bandwidth (do regular ECMP, not weighted)  |
-    |  skip-missing  |  Ignore paths without link bandwidth for ECMP (if other paths have it)  |
+    |  default-weight-for-missing  &emsp; |  Assign low default weight (1) to paths not having link bandwidth  |
+    |  ignore  &emsp; |  Ignore link bandwidth (do regular ECMP, not weighted)  |
+    |  skip-missing  &emsp; |  Ignore paths without link bandwidth for ECMP (if other paths have it)  |
 - `compare_routerid` (Boolean) Compare the router-id for identical EBGP paths
 - `med` (Attributes) MED attribute comparison parameters (see [below for nested schema](#nestedatt--protocols--bgp--parameters--suppress_fib_pending--med))
 - `peer_type` (Attributes) Peer type (see [below for nested schema](#nestedatt--protocols--bgp--parameters--suppress_fib_pending--peer_type))
@@ -1033,9 +1041,9 @@ Optional:
 
 - `timer` (Number) Set period to rescan BGP table to check if condition is met
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:5-240  |  Period to rerun the conditional advertisement scanner process  |
+    |  number: 5-240  &emsp; |  Period to rerun the conditional advertisement scanner process  |
 
 
 <a id="nestedatt--protocols--bgp--parameters--confederation"></a>
@@ -1045,14 +1053,14 @@ Optional:
 
 - `identifier` (Number) Confederation AS identifier
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967294  |  Confederation AS id  |
+    |  number: 1-4294967294  &emsp; |  Confederation AS id  |
 - `peers` (List of Number) Peer ASs in the BGP confederation
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967294  |  Peer AS number  |
+    |  number: 1-4294967294  &emsp; |  Peer AS number  |
 
 
 <a id="nestedatt--protocols--bgp--parameters--dampening"></a>
@@ -1062,24 +1070,24 @@ Optional:
 
 - `half_life` (Number) Half-life time for dampening
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-45  |  Half-life penalty in minutes  |
+    |  number: 1-45  &emsp; |  Half-life penalty in minutes  |
 - `max_suppress_time` (Number) Maximum duration to suppress a stable route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Maximum suppress duration in minutes  |
+    |  number: 1-255  &emsp; |  Maximum suppress duration in minutes  |
 - `re_use` (Number) Threshold to start reusing a route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-20000  |  Re-use penalty points  |
+    |  number: 1-20000  &emsp; |  Re-use penalty points  |
 - `start_suppress_time` (Number) When to start suppressing a route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-20000  |  Start-suppress penalty points  |
+    |  number: 1-20000  &emsp; |  Start-suppress penalty points  |
 
 
 <a id="nestedatt--protocols--bgp--parameters--default"></a>
@@ -1089,9 +1097,9 @@ Optional:
 
 - `local_pref` (Number) Default local preference
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Local preference  |
+    |  u32  &emsp; |  Local preference  |
 
 
 <a id="nestedatt--protocols--bgp--parameters--distance"></a>
@@ -1108,19 +1116,19 @@ Optional:
 
 - `external` (Number) Administrative distance for external BGP routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Administrative distance for external BGP routes  |
+    |  number: 1-255  &emsp; |  Administrative distance for external BGP routes  |
 - `internal` (Number) Administrative distance for internal BGP routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Administrative distance for internal BGP routes  |
+    |  number: 1-255  &emsp; |  Administrative distance for internal BGP routes  |
 - `local` (Number) Administrative distance for local BGP routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Administrative distance for internal BGP routes  |
+    |  number: 1-255  &emsp; |  Administrative distance for internal BGP routes  |
 
 
 
@@ -1131,9 +1139,9 @@ Optional:
 
 - `stalepath_time` (Number) Maximum time to hold onto restarting neighbors stale paths
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-3600  |  Hold time in seconds  |
+    |  number: 1-3600  &emsp; |  Hold time in seconds  |
 
 
 
@@ -1144,15 +1152,15 @@ Optional:
 
 - `holdtime` (String) BGP hold timer for this neighbor
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Hold timer in seconds  |
-    |  0  |  Hold timer disabled  |
+    |  number: 1-65535  &emsp; |  Hold timer in seconds  |
+    |  0  &emsp; |  Hold timer disabled  |
 - `keepalive` (Number) BGP keepalive interval for this neighbor
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Keepalive interval in seconds  |
+    |  number: 1-65535  &emsp; |  Keepalive interval in seconds  |
 
 
 
@@ -1163,48 +1171,48 @@ Optional:
 
 - `local_as` (Number) Autonomous System Number (ASN)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Autonomous System Number  |
+    |  number: 1-65535  &emsp; |  Autonomous System Number  |
 - `maximum_paths` (Number) Forward packets over multiple paths
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-32  |  Number of paths  |
+    |  number: 1-32  &emsp; |  Number of paths  |
 - `metric` (Attributes) Modify metrics and parameters for advertisement (see [below for nested schema](#nestedatt--protocols--eigrp--metric))
 - `network` (List of String) Enable routing on an IP network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  EIGRP network prefix  |
+    |  ipv4net  &emsp; |  EIGRP network prefix  |
 - `passive_interface` (String) Suppress routing updates on an interface
 - `redistribute` (List of String) Redistribute information from another routing protocol
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  bgp  |  Border Gateway Protocol (BGP)  |
-    |  connected  |  Connected routes  |
-    |  nhrp  |  Next Hop Resolution Protocol (NHRP)  |
-    |  ospf  |  Open Shortest Path First (OSPFv2)  |
-    |  rip  |  Routing Information Protocol (RIP)  |
-    |  babel  |  Babel routing protocol (Babel)  |
-    |  static  |  Statically configured routes  |
-    |  vnc  |  Virtual Network Control (VNC)  |
+    |  bgp  &emsp; |  Border Gateway Protocol (BGP)  |
+    |  connected  &emsp; |  Connected routes  |
+    |  nhrp  &emsp; |  Next Hop Resolution Protocol (NHRP)  |
+    |  ospf  &emsp; |  Open Shortest Path First (OSPFv2)  |
+    |  rip  &emsp; |  Routing Information Protocol (RIP)  |
+    |  babel  &emsp; |  Babel routing protocol (Babel)  |
+    |  static  &emsp; |  Statically configured routes  |
+    |  vnc  &emsp; |  Virtual Network Control (VNC)  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `router_id` (String) Override default router identifier
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Router-ID in IP address format  |
+    |  ipv4  &emsp; |  Router-ID in IP address format  |
 - `variance` (Number) Control load balancing variance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-128  |  Metric variance multiplier  |
+    |  number: 1-128  &emsp; |  Metric variance multiplier  |
 
 <a id="nestedatt--protocols--eigrp--metric"></a>
 ### Nested Schema for `protocols.eigrp.metric`
@@ -1213,9 +1221,9 @@ Optional:
 
 - `weights` (Number) Modify metric coefficients
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  K1  |
+    |  number: 0-255  &emsp; |  K1  |
 
 
 
@@ -1230,60 +1238,60 @@ Optional:
 - `dynamic_hostname` (Boolean) Dynamic hostname for IS-IS
 - `level` (String) IS-IS level number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  level-1  |  Act as a station router  |
-    |  level-1-2  |  Act as both a station and an area router  |
-    |  level-2  |  Act as an area router  |
+    |  level-1  &emsp; |  Act as a station router  |
+    |  level-1-2  &emsp; |  Act as both a station and an area router  |
+    |  level-2  &emsp; |  Act as an area router  |
 - `log_adjacency_changes` (Boolean) Log adjacency state changes
 - `lsp_gen_interval` (Number) Minimum interval between regenerating same LSP
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-120  |  Minimum interval in seconds  |
+    |  number: 1-120  &emsp; |  Minimum interval in seconds  |
 - `lsp_mtu` (Number) Configure the maximum size of generated LSPs
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:128-4352  |  Maximum size of generated LSPs  |
+    |  number: 128-4352  &emsp; |  Maximum size of generated LSPs  |
 - `lsp_refresh_interval` (Number) LSP refresh interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65235  |  LSP refresh interval in seconds  |
+    |  number: 1-65235  &emsp; |  LSP refresh interval in seconds  |
 - `max_lsp_lifetime` (Number) Maximum LSP lifetime
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:350-65535  |  LSP lifetime in seconds  |
+    |  number: 350-65535  &emsp; |  LSP lifetime in seconds  |
 - `metric_style` (String) Use old-style (ISO 10589) or new-style packet formats
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  narrow  |  Use old style of TLVs with narrow metric  |
-    |  transition  |  Send and accept both styles of TLVs during transition  |
-    |  wide  |  Use new style of TLVs to carry wider metric  |
+    |  narrow  &emsp; |  Use old style of TLVs with narrow metric  |
+    |  transition  &emsp; |  Send and accept both styles of TLVs during transition  |
+    |  wide  &emsp; |  Use new style of TLVs to carry wider metric  |
 - `net` (String) A Network Entity Title for this process (ISO only)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  XX.XXXX. ... .XXX.XX  |  Network entity title (NET)  |
+    |  XX.XXXX. ... .XXX.XX  &emsp; |  Network entity title (NET)  |
 - `purge_originator` (Boolean) Use the RFC 6232 purge-originator
 - `redistribute` (Attributes) Redistribute information from another routing protocol (see [below for nested schema](#nestedatt--protocols--isis--redistribute))
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `segment_routing` (Attributes) Segment-Routing (SPRING) settings (see [below for nested schema](#nestedatt--protocols--isis--segment_routing))
 - `set_attached_bit` (Boolean) Set attached bit to identify as L1/L2 router for inter-area traffic
 - `set_overload_bit` (Boolean) Set overload bit to avoid any transit traffic
 - `spf_delay_ietf` (Attributes) IETF SPF delay algorithm (see [below for nested schema](#nestedatt--protocols--isis--spf_delay_ietf))
 - `spf_interval` (Number) Minimum interval between SPF calculations
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-120  |  Interval in seconds  |
+    |  number: 1-120  &emsp; |  Interval in seconds  |
 - `traffic_engineering` (Attributes) Show IS-IS neighbor adjacencies (see [below for nested schema](#nestedatt--protocols--isis--traffic_engineering))
 
 <a id="nestedatt--protocols--isis--area_password"></a>
@@ -1293,14 +1301,14 @@ Optional:
 
 - `md5` (String) MD5 authentication type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Level-wide password  |
+    |  txt  &emsp; |  Level-wide password  |
 - `plaintext_password` (String) Plain-text authentication type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Circuit password  |
+    |  txt  &emsp; |  Circuit password  |
 
 
 <a id="nestedatt--protocols--isis--default_information"></a>
@@ -1334,14 +1342,14 @@ Optional:
 - `always` (Boolean) Always advertise default route
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--default_information--originate--ipv4--level_2"></a>
@@ -1352,14 +1360,14 @@ Optional:
 - `always` (Boolean) Always advertise default route
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -1379,14 +1387,14 @@ Optional:
 - `always` (Boolean) Always advertise default route
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--default_information--originate--ipv6--level_2"></a>
@@ -1397,14 +1405,14 @@ Optional:
 - `always` (Boolean) Always advertise default route
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -1417,14 +1425,14 @@ Optional:
 
 - `md5` (String) MD5 authentication type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Level-wide password  |
+    |  txt  &emsp; |  Level-wide password  |
 - `plaintext_password` (String) Plain-text authentication type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Circuit password  |
+    |  txt  &emsp; |  Circuit password  |
 
 
 <a id="nestedatt--protocols--isis--redistribute"></a>
@@ -1463,14 +1471,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--babel--level_2"></a>
@@ -1480,14 +1488,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -1506,14 +1514,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--bgp--level_2"></a>
@@ -1523,14 +1531,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -1549,14 +1557,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--connected--level_2"></a>
@@ -1566,14 +1574,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -1592,14 +1600,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--kernel--level_2"></a>
@@ -1609,14 +1617,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -1635,14 +1643,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--ospf--level_2"></a>
@@ -1652,14 +1660,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -1678,14 +1686,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--rip--level_2"></a>
@@ -1695,14 +1703,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -1721,14 +1729,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--static--level_2"></a>
@@ -1738,14 +1746,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -1778,14 +1786,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--babel--level_2"></a>
@@ -1795,14 +1803,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -1821,14 +1829,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--bgp--level_2"></a>
@@ -1838,14 +1846,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -1864,14 +1872,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--connected--level_2"></a>
@@ -1881,14 +1889,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -1907,14 +1915,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--kernel--level_2"></a>
@@ -1924,14 +1932,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -1950,14 +1958,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--ospf6--level_2"></a>
@@ -1967,14 +1975,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -1993,14 +2001,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--ripng--level_2"></a>
@@ -2010,14 +2018,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -2036,14 +2044,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--static--level_2"></a>
@@ -2053,14 +2061,14 @@ Optional:
 
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -2075,9 +2083,9 @@ Optional:
 - `local_block` (Attributes) Segment Routing Local Block label range (see [below for nested schema](#nestedatt--protocols--isis--segment_routing--local_block))
 - `maximum_label_depth` (Number) Maximum MPLS labels allowed for this router
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-16  |  MPLS label depth  |
+    |  number: 1-16  &emsp; |  MPLS label depth  |
 
 <a id="nestedatt--protocols--isis--segment_routing--global_block"></a>
 ### Nested Schema for `protocols.isis.segment_routing.maximum_label_depth`
@@ -2086,14 +2094,14 @@ Optional:
 
 - `high_label_value` (Number) MPLS label upper bound
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:16-1048575  |  Label value  |
+    |  number: 16-1048575  &emsp; |  Label value  |
 - `low_label_value` (Number) MPLS label lower bound
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:16-1048575  |  Label value (recommended minimum value: 300)  |
+    |  number: 16-1048575  &emsp; |  Label value (recommended minimum value: 300)  |
 
 
 <a id="nestedatt--protocols--isis--segment_routing--local_block"></a>
@@ -2103,14 +2111,14 @@ Optional:
 
 - `high_label_value` (Number) MPLS label upper bound
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:16-1048575  |  Label value  |
+    |  number: 16-1048575  &emsp; |  Label value  |
 - `low_label_value` (Number) MPLS label lower bound
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:16-1048575  |  Label value (recommended minimum value: 300)  |
+    |  number: 16-1048575  &emsp; |  Label value (recommended minimum value: 300)  |
 
 
 
@@ -2121,29 +2129,29 @@ Optional:
 
 - `holddown` (Number) Time with no received IGP events before considering IGP stable
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-60000  |  Time with no received IGP events before considering IGP stable in ms  |
+    |  number: 0-60000  &emsp; |  Time with no received IGP events before considering IGP stable in ms  |
 - `init_delay` (Number) Delay used while in QUIET state
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-60000  |  Delay used while in QUIET state (in ms)  |
+    |  number: 0-60000  &emsp; |  Delay used while in QUIET state (in ms)  |
 - `long_delay` (Number) Delay used while in LONG_WAIT
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-60000  |  Delay used while in LONG_WAIT state in ms  |
+    |  number: 0-60000  &emsp; |  Delay used while in LONG_WAIT state in ms  |
 - `short_delay` (Number) Delay used while in SHORT_WAIT state
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-60000  |  Delay used while in SHORT_WAIT state (in ms)  |
+    |  number: 0-60000  &emsp; |  Delay used while in SHORT_WAIT state (in ms)  |
 - `time_to_learn` (Number) Maximum duration needed to learn all the events related to a single failure
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-60000  |  Maximum duration needed to learn all the events related to a single failure in ms  |
+    |  number: 0-60000  &emsp; |  Maximum duration needed to learn all the events related to a single failure in ms  |
 
 
 <a id="nestedatt--protocols--isis--traffic_engineering"></a>
@@ -2153,9 +2161,9 @@ Optional:
 
 - `address` (String) MPLS traffic engineering router ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address  |
+    |  ipv4  &emsp; |  IPv4 address  |
 - `enable` (Boolean) Enable MPLS traffic engineering extensions
 
 
@@ -2169,31 +2177,31 @@ Optional:
 - `default_information` (Attributes) Default route advertisment settings (see [below for nested schema](#nestedatt--protocols--ospf--default_information))
 - `default_metric` (Number) Metric of redistributed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  Metric of redistributed routes  |
+    |  number: 0-16777214  &emsp; |  Metric of redistributed routes  |
 - `distance` (Attributes) Administrative distance (see [below for nested schema](#nestedatt--protocols--ospf--distance))
 - `log_adjacency_changes` (Attributes) Log adjacency state changes (see [below for nested schema](#nestedatt--protocols--ospf--log_adjacency_changes))
 - `max_metric` (Attributes) OSPF maximum and infinite-distance metric (see [below for nested schema](#nestedatt--protocols--ospf--max_metric))
 - `maximum_paths` (Number) Maximum multiple paths (ECMP)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-64  |  Maximum multiple paths (ECMP)  |
+    |  number: 1-64  &emsp; |  Maximum multiple paths (ECMP)  |
 - `mpls_te` (Attributes) MultiProtocol Label Switching-Traffic Engineering (MPLS-TE) parameters (see [below for nested schema](#nestedatt--protocols--ospf--mpls_te))
 - `parameters` (Attributes) OSPF specific parameters (see [below for nested schema](#nestedatt--protocols--ospf--parameters))
 - `passive_interface` (String) Suppress routing updates on an interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  default  |  Default to suppress routing updates on all interfaces  |
+    |  default  &emsp; |  Default to suppress routing updates on all interfaces  |
 - `redistribute` (Attributes) Redistribute information from another routing protocol (see [below for nested schema](#nestedatt--protocols--ospf--redistribute))
 - `refresh` (Attributes) Adjust refresh parameters (see [below for nested schema](#nestedatt--protocols--ospf--refresh))
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `segment_routing` (Attributes) Segment-Routing (SPRING) settings (see [below for nested schema](#nestedatt--protocols--ospf--segment_routing))
 - `timers` (Attributes) Adjust routing timers (see [below for nested schema](#nestedatt--protocols--ospf--timers))
 
@@ -2204,9 +2212,9 @@ Optional:
 
 - `reference_bandwidth` (Number) Reference bandwidth method to assign cost
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967  |  Reference bandwidth cost in Mbits/sec  |
+    |  number: 1-4294967  &emsp; |  Reference bandwidth cost in Mbits/sec  |
 
 
 <a id="nestedatt--protocols--ospf--default_information"></a>
@@ -2224,19 +2232,19 @@ Optional:
 - `always` (Boolean) Always advertise a default route
 - `metric` (Number) OSPF default metric
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  Default metric  |
+    |  number: 0-16777214  &emsp; |  Default metric  |
 - `metric_type` (Number) OSPF metric type for default routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -2247,9 +2255,9 @@ Optional:
 
 - `global` (Number) Administrative distance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Administrative distance  |
+    |  number: 1-255  &emsp; |  Administrative distance  |
 - `ospf` (Attributes) OSPF administrative distance (see [below for nested schema](#nestedatt--protocols--ospf--distance--ospf))
 
 <a id="nestedatt--protocols--ospf--distance--ospf"></a>
@@ -2259,19 +2267,19 @@ Optional:
 
 - `external` (Number) Distance for external routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for external routes  |
+    |  number: 1-255  &emsp; |  Distance for external routes  |
 - `inter_area` (Number) Distance for inter-area routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for inter-area routes  |
+    |  number: 1-255  &emsp; |  Distance for inter-area routes  |
 - `intra_area` (Number) Distance for intra-area routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for intra-area routes  |
+    |  number: 1-255  &emsp; |  Distance for intra-area routes  |
 
 
 
@@ -2298,14 +2306,14 @@ Optional:
 - `administrative` (Boolean) Administratively apply, for an indefinite period
 - `on_shutdown` (Number) Advertise stub-router prior to full shutdown of OSPF
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:5-100  |  Time (seconds) to advertise self as stub-router  |
+    |  number: 5-100  &emsp; |  Time (seconds) to advertise self as stub-router  |
 - `on_startup` (Number) Automatically advertise stub Router-LSA on startup of OSPF
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:5-86400  |  Time (seconds) to advertise self as stub-router  |
+    |  number: 5-86400  &emsp; |  Time (seconds) to advertise self as stub-router  |
 
 
 
@@ -2317,9 +2325,9 @@ Optional:
 - `enable` (Boolean) Enable MPLS-TE functionality
 - `router_address` (String) Stable IP address of the advertising router
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Stable IP address of the advertising router  |
+    |  ipv4  &emsp; |  Stable IP address of the advertising router  |
 
 
 <a id="nestedatt--protocols--ospf--parameters"></a>
@@ -2329,19 +2337,19 @@ Optional:
 
 - `abr_type` (String) OSPF ABR type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  cisco  |  Cisco ABR type  |
-    |  ibm  |  IBM ABR type  |
-    |  shortcut  |  Shortcut ABR type  |
-    |  standard  |  Standard ABR type  |
+    |  cisco  &emsp; |  Cisco ABR type  |
+    |  ibm  &emsp; |  IBM ABR type  |
+    |  shortcut  &emsp; |  Shortcut ABR type  |
+    |  standard  &emsp; |  Standard ABR type  |
 - `opaque_lsa` (Boolean) Enable the Opaque-LSA capability (rfc2370)
 - `rfc1583_compatibility` (Boolean) Enable RFC1583 criteria for handling AS external routes
 - `router_id` (String) Override default router identifier
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Router-ID in IP address format  |
+    |  ipv4  &emsp; |  Router-ID in IP address format  |
 
 
 <a id="nestedatt--protocols--ospf--redistribute"></a>
@@ -2364,19 +2372,19 @@ Optional:
 
 - `metric` (Number) OSPF default metric
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  Default metric  |
+    |  number: 0-16777214  &emsp; |  Default metric  |
 - `metric_type` (Number) OSPF metric type for default routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospf--redistribute--bgp"></a>
@@ -2386,19 +2394,19 @@ Optional:
 
 - `metric` (Number) OSPF default metric
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  Default metric  |
+    |  number: 0-16777214  &emsp; |  Default metric  |
 - `metric_type` (Number) OSPF metric type for default routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospf--redistribute--connected"></a>
@@ -2408,19 +2416,19 @@ Optional:
 
 - `metric` (Number) OSPF default metric
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  Default metric  |
+    |  number: 0-16777214  &emsp; |  Default metric  |
 - `metric_type` (Number) OSPF metric type for default routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospf--redistribute--isis"></a>
@@ -2430,19 +2438,19 @@ Optional:
 
 - `metric` (Number) OSPF default metric
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  Default metric  |
+    |  number: 0-16777214  &emsp; |  Default metric  |
 - `metric_type` (Number) OSPF metric type for default routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospf--redistribute--kernel"></a>
@@ -2452,19 +2460,19 @@ Optional:
 
 - `metric` (Number) OSPF default metric
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  Default metric  |
+    |  number: 0-16777214  &emsp; |  Default metric  |
 - `metric_type` (Number) OSPF metric type for default routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospf--redistribute--rip"></a>
@@ -2474,19 +2482,19 @@ Optional:
 
 - `metric` (Number) OSPF default metric
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  Default metric  |
+    |  number: 0-16777214  &emsp; |  Default metric  |
 - `metric_type` (Number) OSPF metric type for default routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospf--redistribute--static"></a>
@@ -2496,19 +2504,19 @@ Optional:
 
 - `metric` (Number) OSPF default metric
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  Default metric  |
+    |  number: 0-16777214  &emsp; |  Default metric  |
 - `metric_type` (Number) OSPF metric type for default routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -2519,9 +2527,9 @@ Optional:
 
 - `timers` (Number) Refresh timer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:10-1800  |  Timer value in seconds  |
+    |  number: 10-1800  &emsp; |  Timer value in seconds  |
 
 
 <a id="nestedatt--protocols--ospf--segment_routing"></a>
@@ -2533,9 +2541,9 @@ Optional:
 - `local_block` (Attributes) Segment Routing Local Block label range (see [below for nested schema](#nestedatt--protocols--ospf--segment_routing--local_block))
 - `maximum_label_depth` (Number) Maximum MPLS labels allowed for this router
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-16  |  MPLS label depth  |
+    |  number: 1-16  &emsp; |  MPLS label depth  |
 
 <a id="nestedatt--protocols--ospf--segment_routing--global_block"></a>
 ### Nested Schema for `protocols.ospf.segment_routing.maximum_label_depth`
@@ -2544,14 +2552,14 @@ Optional:
 
 - `high_label_value` (Number) MPLS label upper bound
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:16-1048575  |  Label value  |
+    |  number: 16-1048575  &emsp; |  Label value  |
 - `low_label_value` (Number) MPLS label lower bound
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:16-1048575  |  Label value (recommended minimum value: 300)  |
+    |  number: 16-1048575  &emsp; |  Label value (recommended minimum value: 300)  |
 
 
 <a id="nestedatt--protocols--ospf--segment_routing--local_block"></a>
@@ -2561,14 +2569,14 @@ Optional:
 
 - `high_label_value` (Number) MPLS label upper bound
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:16-1048575  |  Label value  |
+    |  number: 16-1048575  &emsp; |  Label value  |
 - `low_label_value` (Number) MPLS label lower bound
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:16-1048575  |  Label value (recommended minimum value: 300)  |
+    |  number: 16-1048575  &emsp; |  Label value (recommended minimum value: 300)  |
 
 
 
@@ -2593,19 +2601,19 @@ Optional:
 
 - `delay` (Number) Delay from the first change received to SPF calculation
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-600000  |  Delay in milliseconds  |
+    |  number: 0-600000  &emsp; |  Delay in milliseconds  |
 - `initial_holdtime` (Number) Initial hold time between consecutive SPF calculations
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-600000  |  Initial hold time in milliseconds  |
+    |  number: 0-600000  &emsp; |  Initial hold time in milliseconds  |
 - `max_holdtime` (Number) Maximum hold time
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-600000  |  Max hold time in milliseconds  |
+    |  number: 0-600000  &emsp; |  Max hold time in milliseconds  |
 
 
 
@@ -2624,9 +2632,9 @@ Optional:
 - `redistribute` (Attributes) Redistribute information from another routing protocol (see [below for nested schema](#nestedatt--protocols--ospfv3--redistribute))
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 <a id="nestedatt--protocols--ospfv3--auto_cost"></a>
 ### Nested Schema for `protocols.ospfv3.auto_cost`
@@ -2635,9 +2643,9 @@ Optional:
 
 - `reference_bandwidth` (Number) Reference bandwidth method to assign cost
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967  |  Reference bandwidth cost in Mbits/sec  |
+    |  number: 1-4294967  &emsp; |  Reference bandwidth cost in Mbits/sec  |
 
 
 <a id="nestedatt--protocols--ospfv3--default_information"></a>
@@ -2655,19 +2663,19 @@ Optional:
 - `always` (Boolean) Always advertise a default route
 - `metric` (Number) OSPF default metric
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  Default metric  |
+    |  number: 0-16777214  &emsp; |  Default metric  |
 - `metric_type` (Number) OSPF metric type for default routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 
@@ -2678,9 +2686,9 @@ Optional:
 
 - `global` (Number) Administrative distance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Administrative distance  |
+    |  number: 1-255  &emsp; |  Administrative distance  |
 - `ospfv3` (Attributes) OSPFv3 administrative distance (see [below for nested schema](#nestedatt--protocols--ospfv3--distance--ospfv3))
 
 <a id="nestedatt--protocols--ospfv3--distance--ospfv3"></a>
@@ -2690,19 +2698,19 @@ Optional:
 
 - `external` (Number) Distance for external routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for external routes  |
+    |  number: 1-255  &emsp; |  Distance for external routes  |
 - `inter_area` (Number) Distance for inter-area routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for inter-area routes  |
+    |  number: 1-255  &emsp; |  Distance for inter-area routes  |
 - `intra_area` (Number) Distance for intra-area routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for intra-area routes  |
+    |  number: 1-255  &emsp; |  Distance for intra-area routes  |
 
 
 
@@ -2721,9 +2729,9 @@ Optional:
 
 - `router_id` (String) Override default router identifier
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Router-ID in IP address format  |
+    |  ipv4  &emsp; |  Router-ID in IP address format  |
 
 
 <a id="nestedatt--protocols--ospfv3--redistribute"></a>
@@ -2745,9 +2753,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospfv3--redistribute--bgp"></a>
@@ -2757,9 +2765,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospfv3--redistribute--connected"></a>
@@ -2769,9 +2777,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospfv3--redistribute--kernel"></a>
@@ -2781,9 +2789,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospfv3--redistribute--ripng"></a>
@@ -2793,9 +2801,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospfv3--redistribute--static"></a>
@@ -2805,9 +2813,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 

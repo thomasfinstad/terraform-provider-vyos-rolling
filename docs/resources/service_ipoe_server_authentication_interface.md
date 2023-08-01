@@ -3,18 +3,50 @@
 page_title: "vyos_service_ipoe_server_authentication_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Internet Protocol over Ethernet (IPoE) Server
+
+  <br>
+  &darr;
+  <br>
   Client authentication methods
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Network interface for client MAC addresses
+  </b>
+  </div>
 ---
 
 # vyos_service_ipoe_server_authentication_interface (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Internet Protocol over Ethernet (IPoE) Server
 
+<br>
+&darr;
+<br>
 Client authentication methods
 
+<br>
+&darr;
+<br>
+<b>
 Network interface for client MAC addresses
+</b>
+</div>
 
 
 
@@ -23,4 +55,4 @@ Network interface for client MAC addresses
 
 ### Required
 
-- `identifier` (String) Network interface for client MAC addresses
+- `interface_id` (String) Network interface for client MAC addresses

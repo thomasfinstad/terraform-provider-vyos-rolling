@@ -3,22 +3,30 @@
 page_title: "vyos_firewall_zone Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Firewall
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Zone-policy
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Zone name  |
+  </b>
+  </div>
 ---
 
 # vyos_firewall_zone (Resource)
 
+<div style="text-align: center">
 Firewall
 
+<br>
+&darr;
+<br>
+<b>
 Zone-policy
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Zone name  |
+</b>
+</div>
 
 
 
@@ -27,31 +35,31 @@ Zone-policy
 
 ### Required
 
-- `identifier` (String) Zone-policy
+- `zone_id` (String) Zone-policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Zone name  |
+    |  txt  &emsp; |  Zone name  |
 
 ### Optional
 
 - `default_action` (String) Default-action for traffic coming into this zone
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  drop  |  Drop silently  |
-    |  reject  |  Drop and notify source  |
+    |  drop  &emsp; |  Drop silently  |
+    |  reject  &emsp; |  Drop and notify source  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `enable_default_log` (Boolean) Log packets hitting default-action
 - `interface` (List of String) Interface associated with zone
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface associated with zone  |
+    |  txt  &emsp; |  Interface associated with zone  |
 - `intra_zone_filtering` (Attributes) Intra-zone filtering (see [below for nested schema](#nestedatt--intra_zone_filtering))
 - `local_zone` (Boolean) Zone to be local-zone
 
@@ -62,10 +70,10 @@ Optional:
 
 - `action` (String) Action for intra-zone traffic
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  accept  |  Accept traffic  |
-    |  drop  |  Drop silently  |
+    |  accept  &emsp; |  Accept traffic  |
+    |  drop  &emsp; |  Drop silently  |
 - `firewall` (Attributes) Use the specified firewall chain (see [below for nested schema](#nestedatt--intra_zone_filtering--firewall))
 
 <a id="nestedatt--intra_zone_filtering--firewall"></a>

@@ -12,14 +12,31 @@ import (
 func (r servicePppoeServerAuthenticationLocalUsersUsername) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Point to Point over Ethernet (PPPoE) Server
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Point to Point over Ethernet (PPPoE) Server
+
+<br>
+&darr;
+<br>
 Authentication for remote access PPPoE Server
 
+<br>
+&darr;
+<br>
 Local user authentication for PPPoE server
 
+<br>
+&darr;
+<br>
+<b>
 User name for authentication
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

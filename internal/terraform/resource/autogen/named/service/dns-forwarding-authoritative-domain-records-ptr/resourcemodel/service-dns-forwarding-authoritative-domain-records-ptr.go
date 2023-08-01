@@ -9,9 +9,9 @@ import (
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsPtr describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsPtr struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"ptr_id" vyos:",self-id"`
 
-	ParentIDServiceDNSForwardingAuthoritativeDomain types.String `tfsdk:"authoritative_domain" vyos:"authoritative-domain_identifier,parent-id"`
+	ParentIDServiceDNSForwardingAuthoritativeDomain types.String `tfsdk:"authoritative_domain" vyos:"authoritative-domain,parent-id"`
 
 	// LeafNodes
 	LeafServiceDNSForwardingAuthoritativeDomainRecordsPtrTarget  types.String `tfsdk:"target" vyos:"target,omitempty"`
@@ -38,32 +38,32 @@ func (o *ServiceDNSForwardingAuthoritativeDomainRecordsPtr) GetVyosPath() []stri
 		"records",
 
 		"ptr",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDNSForwardingAuthoritativeDomainRecordsPtr) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"ptr_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `"PTR" record
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  A DNS name relative to the root record  |
-    |  @  |  Root record  |
+    |  text  &emsp; |  A DNS name relative to the root record  |
+    |  @  &emsp; |  Root record  |
 
 `,
 		},
 
-		"authoritative_domain_identifier": schema.StringAttribute{
+		"authoritative_domain_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Domain to host authoritative records for
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  An absolute DNS name  |
+    |  text  &emsp; |  An absolute DNS name  |
 
 `,
 		},
@@ -74,9 +74,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsPtr) ResourceSchemaAttribu
 			Optional: true,
 			MarkdownDescription: `Target DNS name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  name.example.com  |  An absolute DNS name  |
+    |  name.example.com  &emsp; |  An absolute DNS name  |
 
 `,
 		},
@@ -85,9 +85,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsPtr) ResourceSchemaAttribu
 			Optional: true,
 			MarkdownDescription: `Time-to-live (TTL)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-2147483647  |  TTL in seconds  |
+    |  number: 0-2147483647  &emsp; |  TTL in seconds  |
 
 `,
 

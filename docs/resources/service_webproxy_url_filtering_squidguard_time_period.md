@@ -3,21 +3,60 @@
 page_title: "vyos_service_webproxy_url_filtering_squidguard_time_period Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Webproxy service settings
+
+  <br>
+  &darr;
+  <br>
   URL filtering settings
+
+  <br>
+  &darr;
+  <br>
   URL filtering via squidGuard redirector
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Time period name
+  </b>
+  </div>
 ---
 
 # vyos_service_webproxy_url_filtering_squidguard_time_period (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Webproxy service settings
 
+<br>
+&darr;
+<br>
 URL filtering settings
 
+<br>
+&darr;
+<br>
 URL filtering via squidGuard redirector
 
+<br>
+&darr;
+<br>
+<b>
 Time period name
+</b>
+</div>
 
 
 
@@ -26,7 +65,7 @@ Time period name
 
 ### Required
 
-- `identifier` (String) Time period name
+- `time_period_id` (String) Time period name
 
 ### Optional
 

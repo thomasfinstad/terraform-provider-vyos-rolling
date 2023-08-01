@@ -3,22 +3,50 @@
 page_title: "vyos_protocols_static_multicast_route Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
+  <i>static</i>
+
+  <br>
+  &darr;
+  <br>
   Multicast static route
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Configure static unicast route into MRIB for multicast RPF lookup
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  Network  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_static_multicast_route (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
+<i>static</i>
+
+<br>
+&darr;
+<br>
 Multicast static route
 
+<br>
+&darr;
+<br>
+<b>
 Configure static unicast route into MRIB for multicast RPF lookup
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  Network  |
+</b>
+</div>
 
 
 
@@ -27,8 +55,8 @@ Configure static unicast route into MRIB for multicast RPF lookup
 
 ### Required
 
-- `identifier` (String) Configure static unicast route into MRIB for multicast RPF lookup
+- `route_id` (String) Configure static unicast route into MRIB for multicast RPF lookup
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Network  |
+    |  ipv4net  &emsp; |  Network  |

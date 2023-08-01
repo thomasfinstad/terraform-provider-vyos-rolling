@@ -46,9 +46,9 @@ func (o PolicyAccessListsixRuleSource) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Network/netmask to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
 
 `,
 		},

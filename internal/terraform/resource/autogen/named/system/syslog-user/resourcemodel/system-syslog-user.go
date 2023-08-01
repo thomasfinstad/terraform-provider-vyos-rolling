@@ -8,7 +8,7 @@ import (
 
 // SystemSyslogUser describes the resource data model.
 type SystemSyslogUser struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"user_id" vyos:",self-id"`
 
 	// LeafNodes
 
@@ -26,20 +26,20 @@ func (o *SystemSyslogUser) GetVyosPath() []string {
 		"syslog",
 
 		"user",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o SystemSyslogUser) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"user_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Logging to specific terminal of given user
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  username  |  user login name  |
+    |  username  &emsp; |  user login name  |
 
 `,
 		},

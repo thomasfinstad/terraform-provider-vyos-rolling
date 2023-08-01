@@ -8,7 +8,7 @@ import (
 
 // ServiceConntrackSyncInterface describes the resource data model.
 type ServiceConntrackSyncInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceConntrackSyncInterfacePeer types.String `tfsdk:"peer" vyos:"peer,omitempty"`
@@ -27,14 +27,14 @@ func (o *ServiceConntrackSyncInterface) GetVyosPath() []string {
 		"conntrack-sync",
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceConntrackSyncInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Interface to use for syncing conntrack entries
 
@@ -47,9 +47,9 @@ func (o ServiceConntrackSyncInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `IP address of the peer to send the UDP conntrack info too. This disable multicast.
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IP address to listen for incoming connections  |
+    |  ipv4  &emsp; |  IP address to listen for incoming connections  |
 
 `,
 		},
@@ -58,9 +58,9 @@ func (o ServiceConntrackSyncInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 		},

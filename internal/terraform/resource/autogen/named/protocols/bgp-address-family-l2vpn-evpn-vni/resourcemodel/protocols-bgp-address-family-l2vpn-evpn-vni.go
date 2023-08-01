@@ -9,7 +9,7 @@ import (
 
 // ProtocolsBgpAddressFamilyLtwovpnEvpnVni describes the resource data model.
 type ProtocolsBgpAddressFamilyLtwovpnEvpnVni struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"vni_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw types.Bool   `tfsdk:"advertise_default_gw" vyos:"advertise-default-gw,omitempty"`
@@ -34,20 +34,20 @@ func (o *ProtocolsBgpAddressFamilyLtwovpnEvpnVni) GetVyosPath() []string {
 		"l2vpn-evpn",
 
 		"vni",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"vni_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `VXLAN Network Identifier
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-16777215  |  VNI number  |
+    |  number: 1-16777215  &emsp; |  VNI number  |
 
 `,
 		},
@@ -76,9 +76,9 @@ func (o ProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `Route Distinguisher
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp; |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 
 `,
 		},

@@ -3,39 +3,60 @@
 page_title: "vyos_vpn_ipsec_site_to_site_peer_tunnel Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Private Network (VPN)
-  VPN IP security (IPsec) parameters
-  Site-to-site VPN
-  Connection name of the peer
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Connection name of the peer  |
 
+  <br>
+  &darr;
+  <br>
+  VPN IP security (IPsec) parameters
+
+  <br>
+  &darr;
+  <br>
+  Site-to-site VPN
+
+  <br>
+  &darr;
+  <br>
+  Connection name of the peer
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Peer tunnel
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32  |  Peer tunnel  |
+  </b>
+  </div>
 ---
 
 # vyos_vpn_ipsec_site_to_site_peer_tunnel (Resource)
 
+<div style="text-align: center">
 Virtual Private Network (VPN)
 
+<br>
+&darr;
+<br>
 VPN IP security (IPsec) parameters
 
+<br>
+&darr;
+<br>
 Site-to-site VPN
 
+<br>
+&darr;
+<br>
 Connection name of the peer
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Connection name of the peer  |
-
+<br>
+&darr;
+<br>
+<b>
 Peer tunnel
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32  |  Peer tunnel  |
+</b>
+</div>
 
 
 
@@ -44,16 +65,16 @@ Peer tunnel
 
 ### Required
 
-- `identifier` (String) Peer tunnel
+- `peer_id` (String) Connection name of the peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Peer tunnel  |
-- `peer_identifier` (String) Connection name of the peer
+    |  txt  &emsp; |  Connection name of the peer  |
+- `tunnel_id` (String) Peer tunnel
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Connection name of the peer  |
+    |  u32  &emsp; |  Peer tunnel  |
 
 ### Optional
 
@@ -62,14 +83,14 @@ Peer tunnel
 - `local` (Attributes) Local parameters for interesting traffic (see [below for nested schema](#nestedatt--local))
 - `priority` (Number) Priority for IPsec policy (lowest value more preferable)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-100  |  Priority for IPsec policy (lowest value more preferable)  |
+    |  number: 1-100  &emsp; |  Priority for IPsec policy (lowest value more preferable)  |
 - `protocol` (String) Protocol
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Protocol name  |
+    |  txt  &emsp; |  Protocol name  |
 - `remote` (Attributes) Match remote addresses (see [below for nested schema](#nestedatt--remote))
 
 <a id="nestedatt--local"></a>
@@ -79,15 +100,15 @@ Optional:
 
 - `port` (Number) Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 - `prefix` (List of String) Local IPv4 or IPv6 prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Local IPv4 prefix  |
-    |  ipv6net  |  Local IPv6 prefix  |
+    |  ipv4net  &emsp; |  Local IPv4 prefix  |
+    |  ipv6net  &emsp; |  Local IPv6 prefix  |
 
 
 <a id="nestedatt--remote"></a>
@@ -97,12 +118,12 @@ Optional:
 
 - `port` (Number) Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 - `prefix` (List of String) Remote IPv4 or IPv6 prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Remote IPv4 prefix  |
-    |  ipv6net  |  Remote IPv6 prefix  |
+    |  ipv4net  &emsp; |  Remote IPv4 prefix  |
+    |  ipv6net  &emsp; |  Remote IPv6 prefix  |

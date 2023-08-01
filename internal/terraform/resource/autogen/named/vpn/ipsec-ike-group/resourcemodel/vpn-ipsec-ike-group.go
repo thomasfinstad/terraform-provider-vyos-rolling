@@ -9,7 +9,7 @@ import (
 
 // VpnIPsecIkeGroup describes the resource data model.
 type VpnIPsecIkeGroup struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"ike_group_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafVpnIPsecIkeGroupCloseAction   types.String `tfsdk:"close_action" vyos:"close-action,omitempty"`
@@ -34,14 +34,14 @@ func (o *VpnIPsecIkeGroup) GetVyosPath() []string {
 		"ipsec",
 
 		"ike-group",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VpnIPsecIkeGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"ike_group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Internet Key Exchange (IKE) group name
 
@@ -54,11 +54,11 @@ func (o VpnIPsecIkeGroup) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Action to take if a child SA is unexpectedly closed
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  none  |  Do nothing  |
-    |  hold  |  Attempt to re-negotiate when matching traffic is seen  |
-    |  restart  |  Attempt to re-negotiate the connection immediately  |
+    |  none  &emsp; |  Do nothing  |
+    |  hold  &emsp; |  Attempt to re-negotiate when matching traffic is seen  |
+    |  restart  &emsp; |  Attempt to re-negotiate the connection immediately  |
 
 `,
 
@@ -79,10 +79,10 @@ func (o VpnIPsecIkeGroup) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `IKE version
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ikev1  |  Use IKEv1 for key exchange  |
-    |  ikev2  |  Use IKEv2 for key exchange  |
+    |  ikev1  &emsp; |  Use IKEv1 for key exchange  |
+    |  ikev2  &emsp; |  Use IKEv2 for key exchange  |
 
 `,
 		},
@@ -91,9 +91,9 @@ func (o VpnIPsecIkeGroup) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `IKE lifetime
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:30-86400  |  IKE lifetime in seconds  |
+    |  number: 30-86400  &emsp; |  IKE lifetime in seconds  |
 
 `,
 
@@ -114,10 +114,10 @@ func (o VpnIPsecIkeGroup) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `IKEv1 phase 1 mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  main  |  Use the main mode (recommended)  |
-    |  aggressive  |  Use the aggressive mode (insecure, not recommended)  |
+    |  main  &emsp; |  Use the main mode (recommended)  |
+    |  aggressive  &emsp; |  Use the aggressive mode (insecure, not recommended)  |
 
 `,
 

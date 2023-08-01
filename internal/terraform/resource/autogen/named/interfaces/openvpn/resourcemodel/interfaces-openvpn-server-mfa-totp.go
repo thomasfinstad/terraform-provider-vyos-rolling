@@ -29,9 +29,9 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `Maximum allowed clock slop in seconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  1-65535  |  Seconds  |
+    |  1-65535  &emsp; |  Seconds  |
 
 `,
 
@@ -43,9 +43,9 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `Time drift in seconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  1-65535  |  Seconds  |
+    |  1-65535  &emsp; |  Seconds  |
 
 `,
 
@@ -57,9 +57,9 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `Step value for totp in seconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  1-65535  |  Seconds  |
+    |  1-65535  &emsp; |  Seconds  |
 
 `,
 
@@ -71,9 +71,9 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `Number of digits to use for totp hash
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  1-65535  |  Seconds  |
+    |  1-65535  &emsp; |  Seconds  |
 
 `,
 
@@ -85,10 +85,10 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `Expect password as result of a challenge response protocol
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  disable  |  Disable challenge-response  |
-    |  enable  |  Enable chalenge-response  |
+    |  disable  &emsp; |  Disable challenge-response  |
+    |  enable  &emsp; |  Enable chalenge-response  |
 
 `,
 

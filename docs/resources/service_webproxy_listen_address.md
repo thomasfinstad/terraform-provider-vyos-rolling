@@ -3,22 +3,40 @@
 page_title: "vyos_service_webproxy_listen_address Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Webproxy service settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   IPv4 listen-address for WebProxy
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  IPv4 address listen on  |
+  </b>
+  </div>
 ---
 
 # vyos_service_webproxy_listen_address (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Webproxy service settings
 
+<br>
+&darr;
+<br>
+<b>
 IPv4 listen-address for WebProxy
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  IPv4 address listen on  |
+</b>
+</div>
 
 
 
@@ -27,17 +45,17 @@ IPv4 listen-address for WebProxy
 
 ### Required
 
-- `identifier` (String) IPv4 listen-address for WebProxy
+- `listen_address_id` (String) IPv4 listen-address for WebProxy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address listen on  |
+    |  ipv4  &emsp; |  IPv4 address listen on  |
 
 ### Optional
 
 - `disable_transparent` (Boolean) Disable transparent mode
 - `port` (Number) Default Proxy Port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1025-65535  |  Default port number  |
+    |  number: 1025-65535  &emsp; |  Default port number  |

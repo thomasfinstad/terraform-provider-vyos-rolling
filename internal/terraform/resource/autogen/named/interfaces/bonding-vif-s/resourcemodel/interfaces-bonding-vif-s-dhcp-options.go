@@ -71,9 +71,9 @@ func (o InterfacesBondingVifSDhcpOptions) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Distance for installed default route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for the default route from DHCP server  |
+    |  number: 1-255  &emsp; |  Distance for the default route from DHCP server  |
 
 `,
 
@@ -86,10 +86,10 @@ func (o InterfacesBondingVifSDhcpOptions) ResourceSchemaAttributes() map[string]
 			Optional:    true,
 			MarkdownDescription: `IP addresses or subnets from which to reject DHCP leases
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address to match  |
-    |  ipv4net  |  IPv4 prefix to match  |
+    |  ipv4  &emsp; |  IPv4 address to match  |
+    |  ipv4net  &emsp; |  IPv4 prefix to match  |
 
 `,
 		},

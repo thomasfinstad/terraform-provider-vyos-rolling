@@ -3,33 +3,40 @@
 page_title: "vyos_policy_as_path_list_rule Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Routing policy
-  Add a BGP autonomous system path filter
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  AS path list name  |
 
+  <br>
+  &darr;
+  <br>
+  Add a BGP autonomous system path filter
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Rule for this as-path-list
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-65535  |  AS path list rule number  |
+  </b>
+  </div>
 ---
 
 # vyos_policy_as_path_list_rule (Resource)
 
+<div style="text-align: center">
 Routing policy
 
+<br>
+&darr;
+<br>
 Add a BGP autonomous system path filter
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  AS path list name  |
-
+<br>
+&darr;
+<br>
+<b>
 Rule for this as-path-list
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-65535  |  AS path list rule number  |
+</b>
+</div>
 
 
 
@@ -38,32 +45,32 @@ Rule for this as-path-list
 
 ### Required
 
-- `as_path_list_identifier` (String) Add a BGP autonomous system path filter
+- `as_path_list_id` (String) Add a BGP autonomous system path filter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  AS path list name  |
-- `identifier` (String) Rule for this as-path-list
+    |  txt  &emsp; |  AS path list name  |
+- `rule_id` (String) Rule for this as-path-list
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  AS path list rule number  |
+    |  number: 1-65535  &emsp; |  AS path list rule number  |
 
 ### Optional
 
 - `action` (String) Action to take on entries matching this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  permit  |  Permit matching entries  |
-    |  deny  |  Deny matching entries  |
+    |  permit  &emsp; |  Permit matching entries  |
+    |  deny  &emsp; |  Deny matching entries  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `regex` (String) Regular expression to match against an AS path
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  AS path regular expression (ex: "64501 64502")  |
+    |  txt  &emsp; |  AS path regular expression (ex: "64501 64502")  |

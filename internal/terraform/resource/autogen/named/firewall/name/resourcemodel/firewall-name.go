@@ -9,7 +9,7 @@ import (
 
 // FirewallName describes the resource data model.
 type FirewallName struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"name_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafFirewallNameDefaultAction     types.String `tfsdk:"default_action" vyos:"default-action,omitempty"`
@@ -29,14 +29,14 @@ func (o *FirewallName) GetVyosPath() []string {
 		"firewall",
 
 		"name",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o FirewallName) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IPv4 firewall rule-set name
 
@@ -49,13 +49,13 @@ func (o FirewallName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Default-action for rule-set
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  drop  |  Drop if no prior rules are hit  |
-    |  jump  |  Jump to another chain if no prior rules are hit  |
-    |  reject  |  Drop and notify source if no prior rules are hit  |
-    |  return  |  Return from the current chain and continue at the next rule of the last                   chain  |
-    |  accept  |  Accept if no prior rules are hit  |
+    |  drop  &emsp; |  Drop if no prior rules are hit  |
+    |  jump  &emsp; |  Jump to another chain if no prior rules are hit  |
+    |  reject  &emsp; |  Drop and notify source if no prior rules are hit  |
+    |  return  &emsp; |  Return from the current chain and continue at the next rule of the last<br>                  chain  |
+    |  accept  &emsp; |  Accept if no prior rules are hit  |
 
 `,
 
@@ -76,9 +76,9 @@ func (o FirewallName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

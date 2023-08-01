@@ -3,52 +3,80 @@
 page_title: "vyos_service_dns_forwarding_authoritative_domain_records_naptr_rule Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Domain Name System related services
+
+  <br>
+  &darr;
+  <br>
   DNS forwarding
+
+  <br>
+  &darr;
+  <br>
   Domain to host authoritative records for
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  text  |  An absolute DNS name  |
 
+  <br>
+  &darr;
+  <br>
   DNS zone records
-  "NAPTR" record
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  text  |  A DNS name relative to the root record  |
-  |  @  |  Root record  |
 
+  <br>
+  &darr;
+  <br>
+  "NAPTR" record
+
+  <br>
+  &darr;
+  <br>
+  <b>
   NAPTR rule
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:0-65535  |  Rule number  |
+  </b>
+  </div>
 ---
 
 # vyos_service_dns_forwarding_authoritative_domain_records_naptr_rule (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Domain Name System related services
 
+<br>
+&darr;
+<br>
 DNS forwarding
 
+<br>
+&darr;
+<br>
 Domain to host authoritative records for
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  text  |  An absolute DNS name  |
-
+<br>
+&darr;
+<br>
 DNS zone records
 
+<br>
+&darr;
+<br>
 "NAPTR" record
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  text  |  A DNS name relative to the root record  |
-    |  @  |  Root record  |
-
+<br>
+&darr;
+<br>
+<b>
 NAPTR rule
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:0-65535  |  Rule number  |
+</b>
+</div>
 
 
 
@@ -57,22 +85,22 @@ NAPTR rule
 
 ### Required
 
-- `authoritative_domain_identifier` (String) Domain to host authoritative records for
+- `authoritative_domain_id` (String) Domain to host authoritative records for
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  An absolute DNS name  |
-- `identifier` (String) NAPTR rule
+    |  text  &emsp; |  An absolute DNS name  |
+- `naptr_id` (String) "NAPTR" record
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Rule number  |
-- `naptr_identifier` (String) "NAPTR" record
+    |  text  &emsp; |  A DNS name relative to the root record  |
+    |  @  &emsp; |  Root record  |
+- `rule_id` (String) NAPTR rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  A DNS name relative to the root record  |
-    |  @  |  Root record  |
+    |  number: 0-65535  &emsp; |  Rule number  |
 
 ### Optional
 
@@ -80,20 +108,20 @@ NAPTR rule
 - `lookup_srv` (Boolean) "S" flag
 - `order` (Number) Rule order
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Rule order (lower order is evaluated first)  |
+    |  number: 0-65535  &emsp; |  Rule order (lower order is evaluated first)  |
 - `preference` (Number) Rule preference
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Rule preference  |
+    |  number: 0-65535  &emsp; |  Rule preference  |
 - `protocol_specific` (Boolean) "P" flag
 - `regexp` (String) Regular expression
 - `replacement` (String) Replacement DNS name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  name.example.com  |  An absolute DNS name  |
+    |  name.example.com  &emsp; |  An absolute DNS name  |
 - `resolve_uri` (Boolean) "U" flag
 - `service` (String) Service type

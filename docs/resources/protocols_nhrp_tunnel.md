@@ -3,22 +3,40 @@
 page_title: "vyos_protocols_nhrp_tunnel Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Next Hop Resolution Protocol (NHRP) parameters
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Tunnel for NHRP
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  tunN  |  NHRP tunnel name  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_nhrp_tunnel (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Next Hop Resolution Protocol (NHRP) parameters
 
+<br>
+&darr;
+<br>
+<b>
 Tunnel for NHRP
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  tunN  |  NHRP tunnel name  |
+</b>
+</div>
 
 
 
@@ -27,19 +45,19 @@ Tunnel for NHRP
 
 ### Required
 
-- `identifier` (String) Tunnel for NHRP
+- `tunnel_id` (String) Tunnel for NHRP
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  tunN  |  NHRP tunnel name  |
+    |  tunN  &emsp; |  NHRP tunnel name  |
 
 ### Optional
 
 - `cisco_authentication` (String) Pass phrase for cisco authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Pass phrase for cisco authentication  |
+    |  txt  &emsp; |  Pass phrase for cisco authentication  |
 - `holding_time` (String) Holding time in seconds
 - `multicast` (String) Set multicast for NHRP
 - `non_caching` (Boolean) This can be used to reduce memory consumption on big NBMA subnets

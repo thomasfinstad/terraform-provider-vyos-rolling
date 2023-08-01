@@ -3,15 +3,30 @@
 page_title: "vyos_pki_key_pair Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   VyOS PKI configuration
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Public and private keys
+  </b>
+  </div>
 ---
 
 # vyos_pki_key_pair (Resource)
 
+<div style="text-align: center">
 VyOS PKI configuration
 
+<br>
+&darr;
+<br>
+<b>
 Public and private keys
+</b>
+</div>
 
 
 
@@ -20,7 +35,7 @@ Public and private keys
 
 ### Required
 
-- `identifier` (String) Public and private keys
+- `key_pair_id` (String) Public and private keys
 
 ### Optional
 

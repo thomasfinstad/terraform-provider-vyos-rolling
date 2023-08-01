@@ -12,17 +12,26 @@ import (
 func (r systemFlowAccountingNetflowServer) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Flow accounting settings
+		MarkdownDescription: `<div style="text-align: center">
+<i>system</i>
 
+<br>
+&darr;
+<br>
+Flow accounting settings
+
+<br>
+&darr;
+<br>
 NetFlow settings
 
+<br>
+&darr;
+<br>
+<b>
 NetFlow destination server
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  IPv4 server to export NetFlow  |
-    |  ipv6  |  IPv6 server to export NetFlow  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

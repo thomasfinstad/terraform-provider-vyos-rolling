@@ -27,9 +27,9 @@ func (o PolicyRouteMapRuleSetAsPath) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Remove/exclude from the as-path attribute
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  AS number  |
+    |  u32  &emsp; |  AS number  |
 
 `,
 		},
@@ -38,9 +38,9 @@ func (o PolicyRouteMapRuleSetAsPath) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Prepend to the as-path
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  AS number  |
+    |  u32  &emsp; |  AS number  |
 
 `,
 		},
@@ -49,9 +49,9 @@ func (o PolicyRouteMapRuleSetAsPath) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Use the last AS-number in the as-path
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-10  |  Number of times to insert  |
+    |  number: 1-10  &emsp; |  Number of times to insert  |
 
 `,
 		},

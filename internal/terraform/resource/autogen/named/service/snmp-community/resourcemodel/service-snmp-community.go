@@ -8,7 +8,7 @@ import (
 
 // ServiceSnmpCommunity describes the resource data model.
 type ServiceSnmpCommunity struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"community_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceSnmpCommunityAuthorization types.String `tfsdk:"authorization" vyos:"authorization,omitempty"`
@@ -28,14 +28,14 @@ func (o *ServiceSnmpCommunity) GetVyosPath() []string {
 		"snmp",
 
 		"community",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceSnmpCommunity) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"community_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Community name
 
@@ -48,10 +48,10 @@ func (o ServiceSnmpCommunity) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Authorization type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ro  |  Read-Only  |
-    |  rw  |  Read-Write  |
+    |  ro  &emsp; |  Read-Only  |
+    |  rw  &emsp; |  Read-Write  |
 
 `,
 
@@ -72,10 +72,10 @@ func (o ServiceSnmpCommunity) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional:    true,
 			MarkdownDescription: `Subnet of SNMP client(s) allowed to contact system
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IP address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv4net  &emsp; |  IP address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
 
 `,
 

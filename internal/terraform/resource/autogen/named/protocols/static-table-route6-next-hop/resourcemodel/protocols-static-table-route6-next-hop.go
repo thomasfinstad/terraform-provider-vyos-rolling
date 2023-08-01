@@ -9,11 +9,11 @@ import (
 
 // ProtocolsStaticTableRoutesixNextHop describes the resource data model.
 type ProtocolsStaticTableRoutesixNextHop struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"next_hop_id" vyos:",self-id"`
 
-	ParentIDProtocolsStaticTable types.String `tfsdk:"table" vyos:"table_identifier,parent-id"`
+	ParentIDProtocolsStaticTable types.String `tfsdk:"table" vyos:"table,parent-id"`
 
-	ParentIDProtocolsStaticTableRoutesix types.String `tfsdk:"route6" vyos:"route6_identifier,parent-id"`
+	ParentIDProtocolsStaticTableRoutesix types.String `tfsdk:"route6" vyos:"route6,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsStaticTableRoutesixNextHopDisable   types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -40,42 +40,42 @@ func (o *ProtocolsStaticTableRoutesixNextHop) GetVyosPath() []string {
 		o.ParentIDProtocolsStaticTableRoutesix.ValueString(),
 
 		"next-hop",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsStaticTableRoutesixNextHop) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"next_hop_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IPv6 gateway address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6  |  Next-hop IPv6 router  |
+    |  ipv6  &emsp; |  Next-hop IPv6 router  |
 
 `,
 		},
 
-		"table_identifier": schema.StringAttribute{
+		"table_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Policy route table number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-200  |  Policy route table number  |
+    |  number: 1-200  &emsp; |  Policy route table number  |
 
 `,
 		},
 
-		"route6_identifier": schema.StringAttribute{
+		"route6_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Static IPv6 route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  IPv6 static route  |
+    |  ipv6net  &emsp; |  IPv6 static route  |
 
 `,
 		},
@@ -95,9 +95,9 @@ func (o ProtocolsStaticTableRoutesixNextHop) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Distance for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for this route  |
+    |  number: 1-255  &emsp; |  Distance for this route  |
 
 `,
 		},
@@ -106,9 +106,9 @@ func (o ProtocolsStaticTableRoutesixNextHop) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Gateway interface name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Gateway interface name  |
+    |  txt  &emsp; |  Gateway interface name  |
 
 `,
 		},
@@ -117,9 +117,9 @@ func (o ProtocolsStaticTableRoutesixNextHop) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `VRF to leak route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of VRF to leak to  |
+    |  txt  &emsp; |  Name of VRF to leak to  |
 
 `,
 		},

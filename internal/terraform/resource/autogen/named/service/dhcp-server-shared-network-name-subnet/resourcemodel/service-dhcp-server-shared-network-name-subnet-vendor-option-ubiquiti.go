@@ -25,9 +25,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti) ResourceSc
 			Optional: true,
 			MarkdownDescription: `Address of UniFi controller
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IP address of UniFi controller  |
+    |  ipv4  &emsp; |  IP address of UniFi controller  |
 
 `,
 		},

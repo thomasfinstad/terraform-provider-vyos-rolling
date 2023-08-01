@@ -3,27 +3,50 @@
 page_title: "vyos_protocols_isis_segment_routing_prefix Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Intermediate System to Intermediate System (IS-IS)
+
+  <br>
+  &darr;
+  <br>
   Segment-Routing (SPRING) settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Static IPv4/IPv6 prefix segment/label mapping
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  IPv4 prefix segment  |
-  |  ipv6net  |  IPv6 prefix segment  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_isis_segment_routing_prefix (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Intermediate System to Intermediate System (IS-IS)
 
+<br>
+&darr;
+<br>
 Segment-Routing (SPRING) settings
 
+<br>
+&darr;
+<br>
+<b>
 Static IPv4/IPv6 prefix segment/label mapping
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 prefix segment  |
-    |  ipv6net  |  IPv6 prefix segment  |
+</b>
+</div>
 
 
 
@@ -32,12 +55,12 @@ Static IPv4/IPv6 prefix segment/label mapping
 
 ### Required
 
-- `identifier` (String) Static IPv4/IPv6 prefix segment/label mapping
+- `prefix_id` (String) Static IPv4/IPv6 prefix segment/label mapping
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 prefix segment  |
-    |  ipv6net  |  IPv6 prefix segment  |
+    |  ipv4net  &emsp; |  IPv4 prefix segment  |
+    |  ipv6net  &emsp; |  IPv6 prefix segment  |
 
 ### Optional
 
@@ -53,9 +76,9 @@ Optional:
 - `no_php_flag` (Boolean) Do not request penultimate hop popping for segment/label
 - `value` (Number) Specify the absolute value of prefix segment/label ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:16-1048575  |  The absolute segment/label ID value  |
+    |  number: 16-1048575  &emsp; |  The absolute segment/label ID value  |
 
 
 <a id="nestedatt--index"></a>
@@ -67,6 +90,6 @@ Optional:
 - `no_php_flag` (Boolean) Do not request penultimate hop popping for segment/label
 - `value` (Number) Specify the index value of prefix segment/label ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  The index segment/label ID value  |
+    |  number: 0-65535  &emsp; |  The index segment/label ID value  |

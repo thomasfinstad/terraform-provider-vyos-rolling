@@ -30,13 +30,13 @@ func (o InterfacesWirelessSecURItyWpa) ResourceSchemaAttributes() map[string]sch
 			Optional:    true,
 			MarkdownDescription: `Cipher suite for WPA unicast packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  GCMP-256  |  AES in Galois/counter mode with 256-bit key  |
-    |  GCMP  |  AES in Galois/counter mode with 128-bit key  |
-    |  CCMP-256  |  AES in Counter mode with CBC-MAC with 256-bit key  |
-    |  CCMP  |  AES in Counter mode with CBC-MAC [RFC 3610, IEEE 802.11i/D7.0] (supported on all WPA2 APs)  |
-    |  TKIP  |  Temporal Key Integrity Protocol [IEEE 802.11i/D7.0]  |
+    |  GCMP-256  &emsp; |  AES in Galois/counter mode with 256-bit key  |
+    |  GCMP  &emsp; |  AES in Galois/counter mode with 128-bit key  |
+    |  CCMP-256  &emsp; |  AES in Counter mode with CBC-MAC with 256-bit key  |
+    |  CCMP  &emsp; |  AES in Counter mode with CBC-MAC [RFC 3610, IEEE 802.11i/D7.0] (supported on all WPA2 APs)  |
+    |  TKIP  &emsp; |  Temporal Key Integrity Protocol [IEEE 802.11i/D7.0]  |
 
 `,
 		},
@@ -46,13 +46,13 @@ func (o InterfacesWirelessSecURItyWpa) ResourceSchemaAttributes() map[string]sch
 			Optional:    true,
 			MarkdownDescription: `Cipher suite for WPA multicast and broadcast packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  GCMP-256  |  AES in Galois/counter mode with 256-bit key  |
-    |  GCMP  |  AES in Galois/counter mode with 128-bit key  |
-    |  CCMP-256  |  AES in Counter mode with CBC-MAC with 256-bit key  |
-    |  CCMP  |  AES in Counter mode with CBC-MAC [RFC 3610, IEEE 802.11i/D7.0] (supported on all WPA2 APs)  |
-    |  TKIP  |  Temporal Key Integrity Protocol [IEEE 802.11i/D7.0]  |
+    |  GCMP-256  &emsp; |  AES in Galois/counter mode with 256-bit key  |
+    |  GCMP  &emsp; |  AES in Galois/counter mode with 128-bit key  |
+    |  CCMP-256  &emsp; |  AES in Counter mode with CBC-MAC with 256-bit key  |
+    |  CCMP  &emsp; |  AES in Counter mode with CBC-MAC [RFC 3610, IEEE 802.11i/D7.0] (supported on all WPA2 APs)  |
+    |  TKIP  &emsp; |  Temporal Key Integrity Protocol [IEEE 802.11i/D7.0]  |
 
 `,
 		},
@@ -61,11 +61,11 @@ func (o InterfacesWirelessSecURItyWpa) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `WPA mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  wpa  |  WPA (IEEE 802.11i/D3.0)  |
-    |  wpa2  |  WPA2 (full IEEE 802.11i/RSN)  |
-    |  wpa+wpa2  |  Allow both WPA and WPA2  |
+    |  wpa  &emsp; |  WPA (IEEE 802.11i/D3.0)  |
+    |  wpa2  &emsp; |  WPA2 (full IEEE 802.11i/RSN)  |
+    |  wpa+wpa2  &emsp; |  Allow both WPA and WPA2  |
 
 `,
 
@@ -77,9 +77,9 @@ func (o InterfacesWirelessSecURItyWpa) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `WPA personal shared pass phrase. If you are using special characters in the WPA passphrase then single quotes are required.
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Passphrase of at least 8 but not more than 63 printable characters  |
+    |  txt  &emsp; |  Passphrase of at least 8 but not more than 63 printable characters  |
 
 `,
 		},

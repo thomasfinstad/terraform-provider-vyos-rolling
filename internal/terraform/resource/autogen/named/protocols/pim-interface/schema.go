@@ -12,10 +12,21 @@ import (
 func (r protocolsPimInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Protocol Independent Multicast (PIM)
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Protocol Independent Multicast (PIM)
+
+<br>
+&darr;
+<br>
+<b>
 PIM interface
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

@@ -9,9 +9,9 @@ import (
 
 // VpnIPsecSiteToSitePeerTunnel describes the resource data model.
 type VpnIPsecSiteToSitePeerTunnel struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"tunnel_id" vyos:",self-id"`
 
-	ParentIDVpnIPsecSiteToSitePeer types.String `tfsdk:"peer" vyos:"peer_identifier,parent-id"`
+	ParentIDVpnIPsecSiteToSitePeer types.String `tfsdk:"peer" vyos:"peer,parent-id"`
 
 	// LeafNodes
 	LeafVpnIPsecSiteToSitePeerTunnelDisable  types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -39,31 +39,31 @@ func (o *VpnIPsecSiteToSitePeerTunnel) GetVyosPath() []string {
 		o.ParentIDVpnIPsecSiteToSitePeer.ValueString(),
 
 		"tunnel",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VpnIPsecSiteToSitePeerTunnel) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"tunnel_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Peer tunnel
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Peer tunnel  |
+    |  u32  &emsp; |  Peer tunnel  |
 
 `,
 		},
 
-		"peer_identifier": schema.StringAttribute{
+		"peer_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Connection name of the peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Connection name of the peer  |
+    |  txt  &emsp; |  Connection name of the peer  |
 
 `,
 		},
@@ -90,9 +90,9 @@ func (o VpnIPsecSiteToSitePeerTunnel) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Protocol
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Protocol name  |
+    |  txt  &emsp; |  Protocol name  |
 
 `,
 		},
@@ -101,9 +101,9 @@ func (o VpnIPsecSiteToSitePeerTunnel) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Priority for IPsec policy (lowest value more preferable)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-100  |  Priority for IPsec policy (lowest value more preferable)  |
+    |  number: 1-100  &emsp; |  Priority for IPsec policy (lowest value more preferable)  |
 
 `,
 		},

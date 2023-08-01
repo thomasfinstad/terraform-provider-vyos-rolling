@@ -9,7 +9,7 @@ import (
 
 // InterfacesOpenvpn describes the resource data model.
 type InterfacesOpenvpn struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"openvpn_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafInterfacesOpenvpnDescrIPtion       types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -51,20 +51,20 @@ func (o *InterfacesOpenvpn) GetVyosPath() []string {
 		"interfaces",
 
 		"openvpn",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesOpenvpn) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"openvpn_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `OpenVPN Tunnel Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  vtunN  |  OpenVPN interface name  |
+    |  vtunN  &emsp; |  OpenVPN interface name  |
 
 `,
 		},
@@ -75,9 +75,9 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -86,10 +86,10 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `OpenVPN interface device-type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  tun  |  TUN device, required for OSI layer 3  |
-    |  tap  |  TAP device, required for OSI layer 2  |
+    |  tun  &emsp; |  TUN device, required for OSI layer 3  |
+    |  tap  &emsp; |  TAP device, required for OSI layer 2  |
 
 `,
 
@@ -110,13 +110,13 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Hashing Algorithm
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  md5  |  MD5 algorithm  |
-    |  sha1  |  SHA-1 algorithm  |
-    |  sha256  |  SHA-256 algorithm  |
-    |  sha384  |  SHA-384 algorithm  |
-    |  sha512  |  SHA-512 algorithm  |
+    |  md5  &emsp; |  MD5 algorithm  |
+    |  sha1  &emsp; |  SHA-1 algorithm  |
+    |  sha256  &emsp; |  SHA-256 algorithm  |
+    |  sha384  &emsp; |  SHA-384 algorithm  |
+    |  sha512  &emsp; |  SHA-512 algorithm  |
 
 `,
 		},
@@ -125,10 +125,10 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Local IP address to accept connections (all if not set)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Local IPv4 address  |
-    |  ipv6  |  Local IPv6 address  |
+    |  ipv4  &emsp; |  Local IPv4 address  |
+    |  ipv6  &emsp; |  Local IPv6 address  |
 
 `,
 		},
@@ -137,9 +137,9 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Local port number to accept connections
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 		},
@@ -148,11 +148,11 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `OpenVPN mode of operation
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  site-to-site  |  Site-to-site mode  |
-    |  client  |  Client in client-server mode  |
-    |  server  |  Server in client-server mode  |
+    |  site-to-site  &emsp; |  Site-to-site mode  |
+    |  client  &emsp; |  Client in client-server mode  |
+    |  server  &emsp; |  Server in client-server mode  |
 
 `,
 		},
@@ -178,11 +178,11 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `OpenVPN communication protocol
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  udp  |  UDP  |
-    |  tcp-passive  |  TCP and accepts connections passively  |
-    |  tcp-active  |  TCP and initiates connections actively  |
+    |  udp  &emsp; |  UDP  |
+    |  tcp-passive  &emsp; |  TCP and accepts connections passively  |
+    |  tcp-active  &emsp; |  TCP and initiates connections actively  |
 
 `,
 
@@ -195,10 +195,10 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional:    true,
 			MarkdownDescription: `IP address of remote end of tunnel
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Remote end IPv4 address  |
-    |  ipv6  |  Remote end IPv6 address  |
+    |  ipv4  &emsp; |  Remote end IPv4 address  |
+    |  ipv6  &emsp; |  Remote end IPv6 address  |
 
 `,
 		},
@@ -208,11 +208,11 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional:    true,
 			MarkdownDescription: `Remote host to connect to (dynamic if not set)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address of remote host  |
-    |  ipv6  |  IPv6 address of remote host  |
-    |  txt  |  Hostname of remote host  |
+    |  ipv4  &emsp; |  IPv4 address of remote host  |
+    |  ipv6  &emsp; |  IPv6 address of remote host  |
+    |  txt  &emsp; |  Hostname of remote host  |
 
 `,
 		},
@@ -221,9 +221,9 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Remote port number to connect to
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 		},
@@ -248,9 +248,9 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 `,
 		},
@@ -259,9 +259,9 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},

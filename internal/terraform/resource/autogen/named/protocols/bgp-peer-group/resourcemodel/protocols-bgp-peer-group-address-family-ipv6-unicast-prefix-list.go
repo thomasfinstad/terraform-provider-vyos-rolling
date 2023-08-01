@@ -26,9 +26,9 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastPrefixList) ResourceSchem
 			Optional: true,
 			MarkdownDescription: `Prefix-list to filter outgoing route updates to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv6 prefix-list  |
+    |  txt  &emsp; |  Name of IPv6 prefix-list  |
 
 `,
 		},
@@ -37,9 +37,9 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastPrefixList) ResourceSchem
 			Optional: true,
 			MarkdownDescription: `Prefix-list to filter incoming route updates from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv6 prefix-list  |
+    |  txt  &emsp; |  Name of IPv6 prefix-list  |
 
 `,
 		},

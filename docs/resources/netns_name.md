@@ -3,15 +3,30 @@
 page_title: "vyos_netns_name Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Network namespace
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Network namespace name
+  </b>
+  </div>
 ---
 
 # vyos_netns_name (Resource)
 
+<div style="text-align: center">
 Network namespace
 
+<br>
+&darr;
+<br>
+<b>
 Network namespace name
+</b>
+</div>
 
 
 
@@ -20,12 +35,12 @@ Network namespace name
 
 ### Required
 
-- `identifier` (String) Network namespace name
+- `name_id` (String) Network namespace name
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |

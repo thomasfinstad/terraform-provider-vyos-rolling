@@ -12,20 +12,21 @@ import (
 func (r policyExtcommunityListRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Routing policy
+		MarkdownDescription: `<div style="text-align: center">
+Routing policy
 
+<br>
+&darr;
+<br>
 Add a BGP extended community list entry
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  BGP extended community-list name  |
-
+<br>
+&darr;
+<br>
+<b>
 Rule for this BGP extended community list
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-65535  |  Extended community-list rule number  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

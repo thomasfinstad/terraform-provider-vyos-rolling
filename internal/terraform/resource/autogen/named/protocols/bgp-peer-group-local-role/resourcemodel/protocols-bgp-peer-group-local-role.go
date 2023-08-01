@@ -9,9 +9,9 @@ import (
 
 // ProtocolsBgpPeerGroupLocalRole describes the resource data model.
 type ProtocolsBgpPeerGroupLocalRole struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"local_role_id" vyos:",self-id"`
 
-	ParentIDProtocolsBgpPeerGroup types.String `tfsdk:"peer_group" vyos:"peer-group_identifier,parent-id"`
+	ParentIDProtocolsBgpPeerGroup types.String `tfsdk:"peer_group" vyos:"peer-group,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpPeerGroupLocalRoleStrict types.Bool `tfsdk:"strict" vyos:"strict,omitempty"`
@@ -32,29 +32,29 @@ func (o *ProtocolsBgpPeerGroupLocalRole) GetVyosPath() []string {
 		o.ParentIDProtocolsBgpPeerGroup.ValueString(),
 
 		"local-role",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsBgpPeerGroupLocalRole) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"local_role_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Local role for BGP neighbor (RFC9234)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  customer  |  Using Transit  |
-    |  peer  |  Public/Private Peering  |
-    |  provider  |  Providing Transit  |
-    |  rs-client  |  RS Client  |
-    |  rs-server  |  Route Server  |
+    |  customer  &emsp; |  Using Transit  |
+    |  peer  &emsp; |  Public/Private Peering  |
+    |  provider  &emsp; |  Providing Transit  |
+    |  rs-client  &emsp; |  RS Client  |
+    |  rs-server  &emsp; |  Route Server  |
 
 `,
 		},
 
-		"peer_group_identifier": schema.StringAttribute{
+		"peer_group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Name of peer-group
 

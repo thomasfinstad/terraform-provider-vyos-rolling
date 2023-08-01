@@ -30,11 +30,11 @@ func (o VrfNameProtocolsBgpParametersBestpath) ResourceSchemaAttributes() map[st
 			Optional: true,
 			MarkdownDescription: `Link Bandwidth attribute
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  default-weight-for-missing  |  Assign low default weight (1) to paths not having link bandwidth  |
-    |  ignore  |  Ignore link bandwidth (do regular ECMP, not weighted)  |
-    |  skip-missing  |  Ignore paths without link bandwidth for ECMP (if other paths have it)  |
+    |  default-weight-for-missing  &emsp; |  Assign low default weight (1) to paths not having link bandwidth  |
+    |  ignore  &emsp; |  Ignore link bandwidth (do regular ECMP, not weighted)  |
+    |  skip-missing  &emsp; |  Ignore paths without link bandwidth for ECMP (if other paths have it)  |
 
 `,
 		},

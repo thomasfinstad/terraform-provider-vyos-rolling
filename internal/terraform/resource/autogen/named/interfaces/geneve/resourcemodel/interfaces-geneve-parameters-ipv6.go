@@ -25,10 +25,10 @@ func (o InterfacesGeneveParametersIPvsix) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Specifies the flow label to use in outgoing packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  inherit  |  Copy field from original header  |
-    |  0x0-0x0fffff  |  Tunnel key, or hex value  |
+    |  inherit  &emsp; |  Copy field from original header  |
+    |  0x0-0x0fffff  &emsp; |  Tunnel key, or hex value  |
 
 `,
 		},

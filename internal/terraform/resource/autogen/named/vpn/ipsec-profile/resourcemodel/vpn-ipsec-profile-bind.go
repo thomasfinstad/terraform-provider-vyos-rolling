@@ -26,9 +26,9 @@ func (o VpnIPsecProfileBind) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional:    true,
 			MarkdownDescription: `Tunnel interface associated with this profile
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Associated interface to this profile  |
+    |  txt  &emsp; |  Associated interface to this profile  |
 
 `,
 		},

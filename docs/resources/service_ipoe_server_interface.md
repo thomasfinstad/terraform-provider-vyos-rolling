@@ -3,15 +3,40 @@
 page_title: "vyos_service_ipoe_server_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Internet Protocol over Ethernet (IPoE) Server
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Interface to listen dhcp or unclassified packets
+  </b>
+  </div>
 ---
 
 # vyos_service_ipoe_server_interface (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Internet Protocol over Ethernet (IPoE) Server
 
+<br>
+&darr;
+<br>
+<b>
 Interface to listen dhcp or unclassified packets
+</b>
+</div>
 
 
 
@@ -20,34 +45,34 @@ Interface to listen dhcp or unclassified packets
 
 ### Required
 
-- `identifier` (String) Interface to listen dhcp or unclassified packets
+- `interface_id` (String) Interface to listen dhcp or unclassified packets
 
 ### Optional
 
 - `client_subnet` (String) Client address pool
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
 - `external_dhcp` (Attributes) DHCP requests will be forwarded (see [below for nested schema](#nestedatt--external_dhcp))
 - `mode` (String) Client connectivity mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  l2  |  Client located on same interface as server  |
-    |  l3  |  Client located behind a router  |
+    |  l2  &emsp; |  Client located on same interface as server  |
+    |  l3  &emsp; |  Client located behind a router  |
 - `network` (String) Enables clients to share the same network or each client has its own vlan
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  shared  |  Multiple clients share the same network  |
-    |  vlan  |  One VLAN per client  |
+    |  shared  &emsp; |  Multiple clients share the same network  |
+    |  vlan  &emsp; |  One VLAN per client  |
 - `vlan` (List of String) VLAN monitor for automatic creation of VLAN interfaces
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4094  |  VLAN for automatic creation  |
-    |  start-end  |  VLAN range for automatic creation (e.g. 1-4094)  |
+    |  number: 1-4094  &emsp; |  VLAN for automatic creation  |
+    |  start-end  &emsp; |  VLAN range for automatic creation (e.g. 1-4094)  |
 
 <a id="nestedatt--external_dhcp"></a>
 ### Nested Schema for `external_dhcp`
@@ -56,11 +81,11 @@ Optional:
 
 - `dhcp_relay` (String) DHCP Server the request will be redirected to.
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address of the DHCP Server  |
+    |  ipv4  &emsp; |  IPv4 address of the DHCP Server  |
 - `giaddr` (String) Relay Agent IPv4 Address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Gateway IP address  |
+    |  ipv4  &emsp; |  Gateway IP address  |

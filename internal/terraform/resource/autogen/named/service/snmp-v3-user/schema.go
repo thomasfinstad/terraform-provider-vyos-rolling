@@ -12,12 +12,26 @@ import (
 func (r serviceSnmpVthreeUser) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Simple Network Management Protocol (SNMP)
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Simple Network Management Protocol (SNMP)
+
+<br>
+&darr;
+<br>
 Simple Network Management Protocol (SNMP) v3
 
+<br>
+&darr;
+<br>
+<b>
 Specifies the user with name username
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

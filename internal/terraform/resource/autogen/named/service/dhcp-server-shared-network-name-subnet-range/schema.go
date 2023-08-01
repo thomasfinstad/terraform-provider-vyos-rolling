@@ -12,18 +12,31 @@ import (
 func (r serviceDhcpServerSharedNetworkNameSubnetRange) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Dynamic Host Configuration Protocol (DHCP) for DHCP server
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Dynamic Host Configuration Protocol (DHCP) for DHCP server
+
+<br>
+&darr;
+<br>
 Name of DHCP shared network
 
+<br>
+&darr;
+<br>
 DHCP subnet for shared network
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-
+<br>
+&darr;
+<br>
+<b>
 DHCP lease range
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

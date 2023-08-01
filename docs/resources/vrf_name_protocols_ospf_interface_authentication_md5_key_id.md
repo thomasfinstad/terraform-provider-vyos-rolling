@@ -3,56 +3,90 @@
 page_title: "vyos_vrf_name_protocols_ospf_interface_authentication_md5_key_id Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
+
+  <br>
+  &darr;
+  <br>
   Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
-  Open Shortest Path First (OSPF)
-  Interface configuration
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Interface name  |
 
+  <br>
+  &darr;
+  <br>
+  Open Shortest Path First (OSPF)
+
+  <br>
+  &darr;
+  <br>
+  Interface configuration
+
+  <br>
+  &darr;
+  <br>
   Authentication
+
+  <br>
+  &darr;
+  <br>
   MD5 key id
+
+  <br>
+  &darr;
+  <br>
+  <b>
   MD5 key id
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-255  |  MD5 key id  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_ospf_interface_authentication_md5_key_id (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Open Shortest Path First (OSPF)
 
+<br>
+&darr;
+<br>
 Interface configuration
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Interface name  |
-
+<br>
+&darr;
+<br>
 Authentication
 
+<br>
+&darr;
+<br>
 MD5 key id
 
+<br>
+&darr;
+<br>
+<b>
 MD5 key id
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-255  |  MD5 key id  |
+</b>
+</div>
 
 
 
@@ -61,26 +95,26 @@ MD5 key id
 
 ### Required
 
-- `identifier` (String) MD5 key id
+- `interface_id` (String) Interface configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  MD5 key id  |
-- `interface_identifier` (String) Interface configuration
+    |  txt  &emsp; |  Interface name  |
+- `key_id_id` (String) MD5 key id
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+    |  number: 1-255  &emsp; |  MD5 key id  |
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 ### Optional
 
 - `md5_key` (String) MD5 authentication type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  MD5 Key (16 characters or less)  |
+    |  txt  &emsp; |  MD5 Key (16 characters or less)  |

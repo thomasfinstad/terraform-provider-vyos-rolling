@@ -8,7 +8,7 @@ import (
 
 // QosPolicyPriorityQueue describes the resource data model.
 type QosPolicyPriorityQueue struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"priority_queue_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafQosPolicyPriorityQueueDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -28,20 +28,20 @@ func (o *QosPolicyPriorityQueue) GetVyosPath() []string {
 		"policy",
 
 		"priority-queue",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyPriorityQueue) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"priority_queue_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Priority queuing based policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 `,
 		},
@@ -52,9 +52,9 @@ func (o QosPolicyPriorityQueue) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

@@ -9,11 +9,11 @@ import (
 
 // VrfNameProtocolsBgpPeerGroupLocalRole describes the resource data model.
 type VrfNameProtocolsBgpPeerGroupLocalRole struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"local_role_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
-	ParentIDVrfNameProtocolsBgpPeerGroup types.String `tfsdk:"peer_group" vyos:"peer-group_identifier,parent-id"`
+	ParentIDVrfNameProtocolsBgpPeerGroup types.String `tfsdk:"peer_group" vyos:"peer-group,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsBgpPeerGroupLocalRoleStrict types.Bool `tfsdk:"strict" vyos:"strict,omitempty"`
@@ -39,40 +39,40 @@ func (o *VrfNameProtocolsBgpPeerGroupLocalRole) GetVyosPath() []string {
 		o.ParentIDVrfNameProtocolsBgpPeerGroup.ValueString(),
 
 		"local-role",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsBgpPeerGroupLocalRole) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"local_role_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Local role for BGP neighbor (RFC9234)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  customer  |  Using Transit  |
-    |  peer  |  Public/Private Peering  |
-    |  provider  |  Providing Transit  |
-    |  rs-client  |  RS Client  |
-    |  rs-server  |  Route Server  |
+    |  customer  &emsp; |  Using Transit  |
+    |  peer  &emsp; |  Public/Private Peering  |
+    |  provider  &emsp; |  Providing Transit  |
+    |  rs-client  &emsp; |  RS Client  |
+    |  rs-server  &emsp; |  Route Server  |
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
 
-		"peer_group_identifier": schema.StringAttribute{
+		"peer_group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Name of peer-group
 

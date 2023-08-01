@@ -3,15 +3,30 @@
 page_title: "vyos_pki_dh Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   VyOS PKI configuration
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Diffie-Hellman parameters
+  </b>
+  </div>
 ---
 
 # vyos_pki_dh (Resource)
 
+<div style="text-align: center">
 VyOS PKI configuration
 
+<br>
+&darr;
+<br>
+<b>
 Diffie-Hellman parameters
+</b>
+</div>
 
 
 
@@ -20,7 +35,7 @@ Diffie-Hellman parameters
 
 ### Required
 
-- `identifier` (String) Diffie-Hellman parameters
+- `dh_id` (String) Diffie-Hellman parameters
 
 ### Optional
 

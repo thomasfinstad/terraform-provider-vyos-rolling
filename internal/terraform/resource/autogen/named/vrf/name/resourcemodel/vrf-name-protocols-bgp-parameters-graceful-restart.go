@@ -25,9 +25,9 @@ func (o VrfNameProtocolsBgpParametersGracefulRestart) ResourceSchemaAttributes()
 			Optional: true,
 			MarkdownDescription: `Maximum time to hold onto restarting neighbors stale paths
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-3600  |  Hold time in seconds  |
+    |  number: 1-3600  &emsp; |  Hold time in seconds  |
 
 `,
 		},

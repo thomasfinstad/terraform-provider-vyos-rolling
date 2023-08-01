@@ -12,14 +12,21 @@ import (
 func (r serviceBroadcastRelayID) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `UDP broadcast relay service
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+UDP broadcast relay service
+
+<br>
+&darr;
+<br>
+<b>
 Unique ID for each UDP port to forward
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-99  |  Broadcast relay instance ID  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

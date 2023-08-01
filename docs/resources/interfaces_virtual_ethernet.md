@@ -3,19 +3,30 @@
 page_title: "vyos_interfaces_virtual_ethernet Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>interfaces</i>
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Virtual Ethernet (veth) Interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  vethN  |  Virtual Ethernet interface name  |
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_virtual_ethernet (Resource)
 
-Virtual Ethernet (veth) Interface
+<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  vethN  |  Virtual Ethernet interface name  |
+<br>
+&darr;
+<br>
+<b>
+Virtual Ethernet (veth) Interface
+</b>
+</div>
 
 
 
@@ -24,40 +35,40 @@ Virtual Ethernet (veth) Interface
 
 ### Required
 
-- `identifier` (String) Virtual Ethernet (veth) Interface
+- `virtual_ethernet_id` (String) Virtual Ethernet (veth) Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  vethN  |  Virtual Ethernet interface name  |
+    |  vethN  &emsp; |  Virtual Ethernet interface name  |
 
 ### Optional
 
 - `address` (List of String) IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
-    |  dhcp  |  Dynamic Host Configuration Protocol  |
-    |  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
+    |  dhcp  &emsp; |  Dynamic Host Configuration Protocol  |
+    |  dhcpv6  &emsp; |  Dynamic Host Configuration Protocol for IPv6  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `dhcp_options` (Attributes) DHCP client settings/options (see [below for nested schema](#nestedatt--dhcp_options))
 - `dhcpv6_options` (Attributes) DHCPv6 client settings/options (see [below for nested schema](#nestedatt--dhcpv6_options))
 - `disable` (Boolean) Administratively disable interface
 - `peer_name` (String) Virtual ethernet peer interface name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of peer interface  |
+    |  txt  &emsp; |  Name of peer interface  |
 - `vrf` (String) VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 <a id="nestedatt--dhcp_options"></a>
 ### Nested Schema for `dhcp_options`
@@ -67,18 +78,18 @@ Optional:
 - `client_id` (String) Identifier used by client to identify itself to the DHCP server
 - `default_route_distance` (Number) Distance for installed default route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for the default route from DHCP server  |
+    |  number: 1-255  &emsp; |  Distance for the default route from DHCP server  |
 - `host_name` (String) Override system host-name sent to DHCP server
 - `mtu` (Boolean) Use MTU value from DHCP server - ignore interface setting
 - `no_default_route` (Boolean) Do not install default route to system
 - `reject` (List of String) IP addresses or subnets from which to reject DHCP leases
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address to match  |
-    |  ipv4net  |  IPv4 prefix to match  |
+    |  ipv4  &emsp; |  IPv4 address to match  |
+    |  ipv4net  &emsp; |  IPv4 prefix to match  |
 - `vendor_class_id` (String) Identify the vendor client type to the DHCP server
 
 
@@ -89,9 +100,9 @@ Optional:
 
 - `duid` (String) DHCP unique identifier (DUID) to be sent by dhcpv6 client
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  duid  |  DHCP unique identifier (DUID)  |
+    |  duid  &emsp; |  DHCP unique identifier (DUID)  |
 - `parameters_only` (Boolean) Acquire only config parameters, no address
 - `rapid_commit` (Boolean) Wait for immediate reply instead of advertisements
 - `temporary` (Boolean) IPv6 temporary address

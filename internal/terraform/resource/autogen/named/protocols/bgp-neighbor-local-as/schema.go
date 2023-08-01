@@ -12,22 +12,26 @@ import (
 func (r protocolsBgpNeighborLocalAs) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Border Gateway Protocol (BGP)
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Border Gateway Protocol (BGP)
+
+<br>
+&darr;
+<br>
 BGP neighbor
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  BGP neighbor IP address  |
-    |  ipv6  |  BGP neighbor IPv6 address  |
-    |  txt  |  Interface name  |
-
+<br>
+&darr;
+<br>
+<b>
 Specify alternate ASN for this BGP process
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-4294967294  |  Autonomous System Number (ASN)  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

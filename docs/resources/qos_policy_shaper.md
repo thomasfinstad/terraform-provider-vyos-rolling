@@ -3,25 +3,40 @@
 page_title: "vyos_qos_policy_shaper Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Quality of Service (QoS)
+
+  <br>
+  &darr;
+  <br>
   Service Policy definitions
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Traffic shaping based policy (Hierarchy Token Bucket)
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Policy name  |
+  </b>
+  </div>
 ---
 
 # vyos_qos_policy_shaper (Resource)
 
+<div style="text-align: center">
 Quality of Service (QoS)
 
+<br>
+&darr;
+<br>
 Service Policy definitions
 
+<br>
+&darr;
+<br>
+<b>
 Traffic shaping based policy (Hierarchy Token Bucket)
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Policy name  |
+</b>
+</div>
 
 
 
@@ -30,32 +45,32 @@ Traffic shaping based policy (Hierarchy Token Bucket)
 
 ### Required
 
-- `identifier` (String) Traffic shaping based policy (Hierarchy Token Bucket)
+- `shaper_id` (String) Traffic shaping based policy (Hierarchy Token Bucket)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 ### Optional
 
 - `bandwidth` (String) Available bandwidth for this policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  auto  |  Bandwidth matches interface speed  |
-    |  <number>  |  Bits per second  |
-    |  <number>bit  |  Bits per second  |
-    |  <number>kbit  |  Kilobits per second  |
-    |  <number>mbit  |  Megabits per second  |
-    |  <number>gbit  |  Gigabits per second  |
-    |  <number>tbit  |  Terabits per second  |
-    |  <number>%%  |  Percentage of interface link speed  |
+    |  auto  &emsp; |  Bandwidth matches interface speed  |
+    |  <number>  &emsp; |  Bits per second  |
+    |  <number>bit  &emsp; |  Bits per second  |
+    |  <number>kbit  &emsp; |  Kilobits per second  |
+    |  <number>mbit  &emsp; |  Megabits per second  |
+    |  <number>gbit  &emsp; |  Gigabits per second  |
+    |  <number>tbit  &emsp; |  Terabits per second  |
+    |  <number>%%  &emsp; |  Percentage of interface link speed  |
 - `default` (Attributes) Default policy (see [below for nested schema](#nestedatt--default))
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 <a id="nestedatt--default"></a>
 ### Nested Schema for `default`
@@ -64,103 +79,103 @@ Optional:
 
 - `bandwidth` (String) Available bandwidth for this policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <number>  |  Bits per second  |
-    |  <number>bit  |  Bits per second  |
-    |  <number>kbit  |  Kilobits per second  |
-    |  <number>mbit  |  Megabits per second  |
-    |  <number>gbit  |  Gigabits per second  |
-    |  <number>tbit  |  Terabits per second  |
-    |  <number>%  |  Percentage of interface link speed  |
+    |  <number>  &emsp; |  Bits per second  |
+    |  <number>bit  &emsp; |  Bits per second  |
+    |  <number>kbit  &emsp; |  Kilobits per second  |
+    |  <number>mbit  &emsp; |  Megabits per second  |
+    |  <number>gbit  &emsp; |  Gigabits per second  |
+    |  <number>tbit  &emsp; |  Terabits per second  |
+    |  <number>%  &emsp; |  Percentage of interface link speed  |
 - `burst` (String) Burst size for this class
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <number>  |  Bytes  |
-    |  <number><suffix>  |  Bytes with scaling suffix (kb, mb, gb)  |
+    |  <number>  &emsp; |  Bytes  |
+    |  <number><suffix>  &emsp; |  Bytes with scaling suffix (kb, mb, gb)  |
 - `ceiling` (String) Bandwidth limit for this class
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <number>  |  Rate in kbit (kilobit per second)  |
-    |  <number>%%  |  Percentage of overall rate  |
-    |  <number>bit  |  bit(1), kbit(10^3), mbit(10^6), gbit, tbit  |
-    |  <number>ibit  |  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
-    |  <number>ibps  |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
-    |  <number>bps  |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
+    |  <number>  &emsp; |  Rate in kbit (kilobit per second)  |
+    |  <number>%%  &emsp; |  Percentage of overall rate  |
+    |  <number>bit  &emsp; |  bit(1), kbit(10^3), mbit(10^6), gbit, tbit  |
+    |  <number>ibit  &emsp; |  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
+    |  <number>ibps  &emsp; |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
+    |  <number>bps  &emsp; |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
 - `codel_quantum` (Number) Deficit in the fair queuing algorithm
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-1048576  |  Number of bytes used as 'deficit'  |
+    |  number: 0-1048576  &emsp; |  Number of bytes used as 'deficit'  |
 - `flows` (Number) Number of flows into which the incoming packets are classified
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65536  |  Number of flows  |
+    |  number: 1-65536  &emsp; |  Number of flows  |
 - `interval` (Number) Interval used to measure the delay
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Interval in milliseconds  |
+    |  u32  &emsp; |  Interval in milliseconds  |
 - `priority` (Number) Priority for usage of excess bandwidth
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-7  |  Priority order for bandwidth pool  |
+    |  number: 0-7  &emsp; |  Priority order for bandwidth pool  |
 - `queue_limit` (Number) Maximum queue size
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Queue size in packets  |
+    |  number: 1-4294967295  &emsp; |  Queue size in packets  |
 - `queue_type` (String) Queue type for default traffic
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  drop-tail  |  First-In-First-Out (FIFO)  |
-    |  fair-queue  |  Stochastic Fair Queue (SFQ)  |
-    |  fq-codel  |  Fair Queue Codel  |
-    |  priority  |  Priority queuing  |
-    |  random-detect  |  Random Early Detection (RED)  |
+    |  drop-tail  &emsp; |  First-In-First-Out (FIFO)  |
+    |  fair-queue  &emsp; |  Stochastic Fair Queue (SFQ)  |
+    |  fq-codel  &emsp; |  Fair Queue Codel  |
+    |  priority  &emsp; |  Priority queuing  |
+    |  random-detect  &emsp; |  Random Early Detection (RED)  |
 - `set_dscp` (String) Change the Differentiated Services (DiffServ) field in the IP header
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-63  |  Priority order for bandwidth pool  |
-    |  default  |  match DSCP (000000)  |
-    |  reliability  |  match DSCP (000001)  |
-    |  throughput  |  match DSCP (000010)  |
-    |  lowdelay  |  match DSCP (000100)  |
-    |  priority  |  match DSCP (001000)  |
-    |  immediate  |  match DSCP (010000)  |
-    |  flash  |  match DSCP (011000)  |
-    |  flash-override  |  match DSCP (100000)  |
-    |  critical  |  match DSCP (101000)  |
-    |  internet  |  match DSCP (110000)  |
-    |  network  |  match DSCP (111000)  |
-    |  AF11  |  High-throughput data  |
-    |  AF12  |  High-throughput data  |
-    |  AF13  |  High-throughput data  |
-    |  AF21  |  Low-latency data  |
-    |  AF22  |  Low-latency data  |
-    |  AF23  |  Low-latency data  |
-    |  AF31  |  Multimedia streaming  |
-    |  AF32  |  Multimedia streaming  |
-    |  AF33  |  Multimedia streaming  |
-    |  AF41  |  Multimedia conferencing  |
-    |  AF42  |  Multimedia conferencing  |
-    |  AF43  |  Multimedia conferencing  |
-    |  CS1  |  Low-priority data  |
-    |  CS2  |  OAM  |
-    |  CS3  |  Broadcast video  |
-    |  CS4  |  Real-time interactive  |
-    |  CS5  |  Signaling  |
-    |  CS6  |  Network control  |
-    |  CS7  |    |
-    |  EF  |  Expedited Forwarding  |
+    |  number: 0-63  &emsp; |  Priority order for bandwidth pool  |
+    |  default  &emsp; |  match DSCP (000000)  |
+    |  reliability  &emsp; |  match DSCP (000001)  |
+    |  throughput  &emsp; |  match DSCP (000010)  |
+    |  lowdelay  &emsp; |  match DSCP (000100)  |
+    |  priority  &emsp; |  match DSCP (001000)  |
+    |  immediate  &emsp; |  match DSCP (010000)  |
+    |  flash  &emsp; |  match DSCP (011000)  |
+    |  flash-override  &emsp; |  match DSCP (100000)  |
+    |  critical  &emsp; |  match DSCP (101000)  |
+    |  internet  &emsp; |  match DSCP (110000)  |
+    |  network  &emsp; |  match DSCP (111000)  |
+    |  AF11  &emsp; |  High-throughput data  |
+    |  AF12  &emsp; |  High-throughput data  |
+    |  AF13  &emsp; |  High-throughput data  |
+    |  AF21  &emsp; |  Low-latency data  |
+    |  AF22  &emsp; |  Low-latency data  |
+    |  AF23  &emsp; |  Low-latency data  |
+    |  AF31  &emsp; |  Multimedia streaming  |
+    |  AF32  &emsp; |  Multimedia streaming  |
+    |  AF33  &emsp; |  Multimedia streaming  |
+    |  AF41  &emsp; |  Multimedia conferencing  |
+    |  AF42  &emsp; |  Multimedia conferencing  |
+    |  AF43  &emsp; |  Multimedia conferencing  |
+    |  CS1  &emsp; |  Low-priority data  |
+    |  CS2  &emsp; |  OAM  |
+    |  CS3  &emsp; |  Broadcast video  |
+    |  CS4  &emsp; |  Real-time interactive  |
+    |  CS5  &emsp; |  Signaling  |
+    |  CS6  &emsp; |  Network control  |
+    |  CS7  &emsp; |    |
+    |  EF  &emsp; |  Expedited Forwarding  |
 - `target` (Number) Acceptable minimum standing/persistent queue delay
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Queue delay in milliseconds  |
+    |  u32  &emsp; |  Queue delay in milliseconds  |

@@ -3,33 +3,50 @@
 page_title: "vyos_protocols_nhrp_tunnel_dynamic_map Resource - vyos"
 subcategory: ""
 description: |-
-  Next Hop Resolution Protocol (NHRP) parameters
-  Tunnel for NHRP
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  tunN  |  NHRP tunnel name  |
+  <div style="text-align: center">
+  <i>protocols</i>
 
+  <br>
+  &darr;
+  <br>
+  Next Hop Resolution Protocol (NHRP) parameters
+
+  <br>
+  &darr;
+  <br>
+  Tunnel for NHRP
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Set an HUB tunnel address
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  Set the IP address and prefix length  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_nhrp_tunnel_dynamic_map (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Next Hop Resolution Protocol (NHRP) parameters
 
+<br>
+&darr;
+<br>
 Tunnel for NHRP
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  tunN  |  NHRP tunnel name  |
-
+<br>
+&darr;
+<br>
+<b>
 Set an HUB tunnel address
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  Set the IP address and prefix length  |
+</b>
+</div>
 
 
 
@@ -38,21 +55,21 @@ Set an HUB tunnel address
 
 ### Required
 
-- `identifier` (String) Set an HUB tunnel address
+- `dynamic_map_id` (String) Set an HUB tunnel address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Set the IP address and prefix length  |
-- `tunnel_identifier` (String) Tunnel for NHRP
+    |  ipv4net  &emsp; |  Set the IP address and prefix length  |
+- `tunnel_id` (String) Tunnel for NHRP
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  tunN  |  NHRP tunnel name  |
+    |  tunN  &emsp; |  NHRP tunnel name  |
 
 ### Optional
 
 - `nbma_domain_name` (String) Set HUB fqdn (nbma-address - fqdn)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <fqdn>  |  Set the external HUB fqdn  |
+    |  <fqdn>  &emsp; |  Set the external HUB fqdn  |

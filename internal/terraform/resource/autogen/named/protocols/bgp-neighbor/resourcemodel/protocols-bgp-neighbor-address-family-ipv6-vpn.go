@@ -73,9 +73,9 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixVpn) ResourceSchemaAttributes() m
 			Optional: true,
 			MarkdownDescription: `Maximum number of prefixes to accept from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Prefix limit  |
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
 
 `,
 		},
@@ -84,9 +84,9 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixVpn) ResourceSchemaAttributes() m
 			Optional: true,
 			MarkdownDescription: `Maximum number of prefixes to be sent to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Prefix limit  |
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
 
 `,
 		},
@@ -122,9 +122,9 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixVpn) ResourceSchemaAttributes() m
 			Optional: true,
 			MarkdownDescription: `Route-map to selectively unsuppress suppressed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},
@@ -133,9 +133,9 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixVpn) ResourceSchemaAttributes() m
 			Optional: true,
 			MarkdownDescription: `Default weight for routes from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Default weight  |
+    |  number: 1-65535  &emsp; |  Default weight  |
 
 `,
 		},

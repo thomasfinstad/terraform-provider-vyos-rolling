@@ -8,9 +8,9 @@ import (
 
 // ProtocolsStaticTableRoutesix describes the resource data model.
 type ProtocolsStaticTableRoutesix struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"route6_id" vyos:",self-id"`
 
-	ParentIDProtocolsStaticTable types.String `tfsdk:"table" vyos:"table_identifier,parent-id"`
+	ParentIDProtocolsStaticTable types.String `tfsdk:"table" vyos:"table,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsStaticTableRoutesixDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -35,31 +35,31 @@ func (o *ProtocolsStaticTableRoutesix) GetVyosPath() []string {
 		o.ParentIDProtocolsStaticTable.ValueString(),
 
 		"route6",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsStaticTableRoutesix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"route6_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Static IPv6 route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  IPv6 static route  |
+    |  ipv6net  &emsp; |  IPv6 static route  |
 
 `,
 		},
 
-		"table_identifier": schema.StringAttribute{
+		"table_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Policy route table number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-200  |  Policy route table number  |
+    |  number: 1-200  &emsp; |  Policy route table number  |
 
 `,
 		},
@@ -70,9 +70,9 @@ func (o ProtocolsStaticTableRoutesix) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

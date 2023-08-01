@@ -3,18 +3,40 @@
 page_title: "vyos_load_balancing_wan_interface_health Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Configure load-balancing
+
+  <br>
+  &darr;
+  <br>
   Configure Wide Area Network (WAN) load-balancing
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Interface name
+  </b>
+  </div>
 ---
 
 # vyos_load_balancing_wan_interface_health (Resource)
 
+<div style="text-align: center">
 Configure load-balancing
 
+<br>
+&darr;
+<br>
 Configure Wide Area Network (WAN) load-balancing
 
+<br>
+&darr;
+<br>
+<b>
 Interface name
+</b>
+</div>
 
 
 
@@ -23,23 +45,23 @@ Interface name
 
 ### Required
 
-- `identifier` (String) Interface name
+- `interface_health_id` (String) Interface name
 
 ### Optional
 
 - `failure_count` (Number) Failure count
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-10  |  Failure count  |
+    |  number: 1-10  &emsp; |  Failure count  |
 - `nexthop` (String) Outbound interface nexthop address. Can be 'DHCP or IPv4 address' [REQUIRED]
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Nexthop IP address  |
-    |  dhcp  |  Set the nexthop via DHCP  |
+    |  ipv4  &emsp; |  Nexthop IP address  |
+    |  dhcp  &emsp; |  Set the nexthop via DHCP  |
 - `success_count` (Number) Success count
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-10  |  Success count  |
+    |  number: 1-10  &emsp; |  Success count  |

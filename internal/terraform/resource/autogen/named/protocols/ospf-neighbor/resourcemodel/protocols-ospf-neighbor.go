@@ -8,7 +8,7 @@ import (
 
 // ProtocolsOspfNeighbor describes the resource data model.
 type ProtocolsOspfNeighbor struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"neighbor_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsOspfNeighborPollInterval types.Number `tfsdk:"poll_interval" vyos:"poll-interval,omitempty"`
@@ -27,20 +27,20 @@ func (o *ProtocolsOspfNeighbor) GetVyosPath() []string {
 		"ospf",
 
 		"neighbor",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsOspfNeighbor) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"neighbor_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Specify neighbor router
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Neighbor IP address  |
+    |  ipv4  &emsp; |  Neighbor IP address  |
 
 `,
 		},
@@ -51,9 +51,9 @@ func (o ProtocolsOspfNeighbor) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Dead neighbor polling interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Seconds between dead neighbor polling interval  |
+    |  number: 1-65535  &emsp; |  Seconds between dead neighbor polling interval  |
 
 `,
 
@@ -65,9 +65,9 @@ func (o ProtocolsOspfNeighbor) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Neighbor priority in seconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  Neighbor priority  |
+    |  number: 0-255  &emsp; |  Neighbor priority  |
 
 `,
 

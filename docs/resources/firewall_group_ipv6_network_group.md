@@ -3,18 +3,40 @@
 page_title: "vyos_firewall_group_ipv6_network_group Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Firewall
+
+  <br>
+  &darr;
+  <br>
   Firewall group
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Firewall ipv6-network-group
+  </b>
+  </div>
 ---
 
 # vyos_firewall_group_ipv6_network_group (Resource)
 
+<div style="text-align: center">
 Firewall
 
+<br>
+&darr;
+<br>
 Firewall group
 
+<br>
+&darr;
+<br>
+<b>
 Firewall ipv6-network-group
+</b>
+</div>
 
 
 
@@ -23,18 +45,18 @@ Firewall ipv6-network-group
 
 ### Required
 
-- `identifier` (String) Firewall ipv6-network-group
+- `ipv6_network_group_id` (String) Firewall ipv6-network-group
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `include` (List of String) Include another ipv6-network-group
 - `network` (List of String) Network-group member
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  IPv6 address to match  |
+    |  ipv6net  &emsp; |  IPv6 address to match  |

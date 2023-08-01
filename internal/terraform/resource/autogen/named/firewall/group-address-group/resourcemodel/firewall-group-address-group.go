@@ -8,7 +8,7 @@ import (
 
 // FirewallGroupAddressGroup describes the resource data model.
 type FirewallGroupAddressGroup struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"address_group_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafFirewallGroupAddressGroupAddress     types.List   `tfsdk:"address" vyos:"address,omitempty"`
@@ -28,14 +28,14 @@ func (o *FirewallGroupAddressGroup) GetVyosPath() []string {
 		"group",
 
 		"address-group",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o FirewallGroupAddressGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"address_group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Firewall address-group
 
@@ -49,10 +49,10 @@ func (o FirewallGroupAddressGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional:    true,
 			MarkdownDescription: `Address-group member
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address to match  |
-    |  ipv4range  |  IPv4 range to match (e.g. 10.0.0.1-10.0.0.200)  |
+    |  ipv4  &emsp; |  IPv4 address to match  |
+    |  ipv4range  &emsp; |  IPv4 range to match (e.g. 10.0.0.1-10.0.0.200)  |
 
 `,
 		},
@@ -69,9 +69,9 @@ func (o FirewallGroupAddressGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

@@ -9,7 +9,7 @@ import (
 
 // ServiceNtpServer describes the resource data model.
 type ServiceNtpServer struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"server_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceNtpServerNoselect types.Bool `tfsdk:"noselect" vyos:"noselect,omitempty"`
@@ -29,22 +29,22 @@ func (o *ServiceNtpServer) GetVyosPath() []string {
 		"ntp",
 
 		"server",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceNtpServer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"server_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Network Time Protocol (NTP) server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IP address of NTP server  |
-    |  ipv6  |  IPv6 address of NTP server  |
-    |  hostname  |  Fully qualified domain name of NTP server  |
+    |  ipv4  &emsp; |  IP address of NTP server  |
+    |  ipv6  &emsp; |  IPv6 address of NTP server  |
+    |  hostname  &emsp; |  Fully qualified domain name of NTP server  |
 
 `,
 		},

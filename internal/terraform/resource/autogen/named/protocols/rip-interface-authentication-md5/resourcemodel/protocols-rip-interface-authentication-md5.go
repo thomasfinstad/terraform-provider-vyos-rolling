@@ -8,9 +8,9 @@ import (
 
 // ProtocolsRIPInterfaceAuthenticationMdfive describes the resource data model.
 type ProtocolsRIPInterfaceAuthenticationMdfive struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"md5_id" vyos:",self-id"`
 
-	ParentIDProtocolsRIPInterface types.String `tfsdk:"interface" vyos:"interface_identifier,parent-id"`
+	ParentIDProtocolsRIPInterface types.String `tfsdk:"interface" vyos:"interface,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsRIPInterfaceAuthenticationMdfivePassword types.String `tfsdk:"password" vyos:"password,omitempty"`
@@ -33,31 +33,31 @@ func (o *ProtocolsRIPInterfaceAuthenticationMdfive) GetVyosPath() []string {
 		"authentication",
 
 		"md5",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsRIPInterfaceAuthenticationMdfive) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"md5_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `MD5 key id
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  OSPF key id  |
+    |  number: 1-255  &emsp; |  OSPF key id  |
 
 `,
 		},
 
-		"interface_identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Interface name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},
@@ -68,9 +68,9 @@ func (o ProtocolsRIPInterfaceAuthenticationMdfive) ResourceSchemaAttributes() ma
 			Optional: true,
 			MarkdownDescription: `Authentication password
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  MD5 Key (16 characters or less)  |
+    |  txt  &emsp; |  MD5 Key (16 characters or less)  |
 
 `,
 		},

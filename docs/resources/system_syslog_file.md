@@ -3,15 +3,40 @@
 page_title: "vyos_system_syslog_file Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>system</i>
+
+  <br>
+  &darr;
+  <br>
   System logging
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Logging to a file
+  </b>
+  </div>
 ---
 
 # vyos_system_syslog_file (Resource)
 
+<div style="text-align: center">
+<i>system</i>
+
+<br>
+&darr;
+<br>
 System logging
 
+<br>
+&darr;
+<br>
+<b>
 Logging to a file
+</b>
+</div>
 
 
 
@@ -20,7 +45,7 @@ Logging to a file
 
 ### Required
 
-- `identifier` (String) Logging to a file
+- `file_id` (String) Logging to a file
 
 ### Optional
 

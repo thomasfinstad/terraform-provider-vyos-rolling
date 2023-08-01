@@ -3,25 +3,50 @@
 page_title: "vyos_service_pppoe_server_client_ipv6_pool_prefix Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Point to Point over Ethernet (PPPoE) Server
+
+  <br>
+  &darr;
+  <br>
   Pool of client IPv6 addresses
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Pool of addresses used to assign to clients
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv6net  |  IPv6 address and prefix length  |
+  </b>
+  </div>
 ---
 
 # vyos_service_pppoe_server_client_ipv6_pool_prefix (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Point to Point over Ethernet (PPPoE) Server
 
+<br>
+&darr;
+<br>
 Pool of client IPv6 addresses
 
+<br>
+&darr;
+<br>
+<b>
 Pool of addresses used to assign to clients
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv6net  |  IPv6 address and prefix length  |
+</b>
+</div>
 
 
 
@@ -30,16 +55,16 @@ Pool of addresses used to assign to clients
 
 ### Required
 
-- `identifier` (String) Pool of addresses used to assign to clients
+- `prefix_id` (String) Pool of addresses used to assign to clients
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
 
 ### Optional
 
 - `mask` (Number) Prefix length used for individual client
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:48-128  |  Client prefix length  |
+    |  number: 48-128  &emsp; |  Client prefix length  |

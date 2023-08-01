@@ -3,22 +3,40 @@
 page_title: "vyos_system_task_scheduler_task Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>system</i>
+
+  <br>
+  &darr;
+  <br>
   Task scheduler settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Scheduled task
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Task name  |
+  </b>
+  </div>
 ---
 
 # vyos_system_task_scheduler_task (Resource)
 
+<div style="text-align: center">
+<i>system</i>
+
+<br>
+&darr;
+<br>
 Task scheduler settings
 
+<br>
+&darr;
+<br>
+<b>
 Scheduled task
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Task name  |
+</b>
+</div>
 
 
 
@@ -27,11 +45,11 @@ Scheduled task
 
 ### Required
 
-- `identifier` (String) Scheduled task
+- `task_id` (String) Scheduled task
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Task name  |
+    |  txt  &emsp; |  Task name  |
 
 ### Optional
 
@@ -39,12 +57,12 @@ Scheduled task
 - `executable` (Attributes) Executable path and arguments (see [below for nested schema](#nestedatt--executable))
 - `interval` (String) Execution interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <minutes>  |  Execution interval in minutes  |
-    |  <minutes>m  |  Execution interval in minutes  |
-    |  <hours>h  |  Execution interval in hours  |
-    |  <days>d  |  Execution interval in days  |
+    |  <minutes>  &emsp; |  Execution interval in minutes  |
+    |  <minutes>m  &emsp; |  Execution interval in minutes  |
+    |  <hours>h  &emsp; |  Execution interval in hours  |
+    |  <days>d  &emsp; |  Execution interval in days  |
 
 <a id="nestedatt--executable"></a>
 ### Nested Schema for `executable`

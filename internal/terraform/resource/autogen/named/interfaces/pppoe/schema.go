@@ -12,12 +12,16 @@ import (
 func (r interfacesPppoe) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Point-to-Point Protocol over Ethernet (PPPoE) Interface
+		MarkdownDescription: `<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  pppoeN  |  PPPoE dialer interface name  |
-
+<br>
+&darr;
+<br>
+<b>
+Point-to-Point Protocol over Ethernet (PPPoE) Interface
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

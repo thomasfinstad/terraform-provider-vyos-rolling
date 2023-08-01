@@ -3,19 +3,30 @@
 page_title: "vyos_interfaces_sstpc Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>interfaces</i>
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Secure Socket Tunneling Protocol (SSTP) client Interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  sstpcN  |  Secure Socket Tunneling Protocol interface name  |
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_sstpc (Resource)
 
-Secure Socket Tunneling Protocol (SSTP) client Interface
+<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  sstpcN  |  Secure Socket Tunneling Protocol interface name  |
+<br>
+&darr;
+<br>
+<b>
+Secure Socket Tunneling Protocol (SSTP) client Interface
+</b>
+</div>
 
 
 
@@ -24,50 +35,50 @@ Secure Socket Tunneling Protocol (SSTP) client Interface
 
 ### Required
 
-- `identifier` (String) Secure Socket Tunneling Protocol (SSTP) client Interface
+- `sstpc_id` (String) Secure Socket Tunneling Protocol (SSTP) client Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  sstpcN  |  Secure Socket Tunneling Protocol interface name  |
+    |  sstpcN  &emsp; |  Secure Socket Tunneling Protocol interface name  |
 
 ### Optional
 
 - `authentication` (Attributes) Authentication settings (see [below for nested schema](#nestedatt--authentication))
 - `default_route_distance` (Number) Distance for installed default route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for the default route from DHCP server  |
+    |  number: 1-255  &emsp; |  Distance for the default route from DHCP server  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `disable` (Boolean) Administratively disable interface
 - `mtu` (Number) Maximum Transmission Unit (MTU)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:68-1500  |  Maximum Transmission Unit in byte  |
+    |  number: 68-1500  &emsp; |  Maximum Transmission Unit in byte  |
 - `no_default_route` (Boolean) Do not install default route to system
 - `no_peer_dns` (Boolean) Do not use DNS servers provided by the peer
 - `port` (Number) Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 - `server` (String) Remote server to connect to
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Server IPv4 address  |
-    |  hostname  |  Server hostname/FQDN  |
+    |  ipv4  &emsp; |  Server IPv4 address  |
+    |  hostname  &emsp; |  Server hostname/FQDN  |
 - `ssl` (Attributes) Secure Sockets Layer (SSL) configuration (see [below for nested schema](#nestedatt--ssl))
 - `vrf` (String) VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 <a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
@@ -76,14 +87,14 @@ Optional:
 
 - `password` (String) Password used for authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Password  |
+    |  txt  &emsp; |  Password  |
 - `username` (String) Username used for authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Username  |
+    |  txt  &emsp; |  Username  |
 
 
 <a id="nestedatt--ssl"></a>
@@ -93,6 +104,6 @@ Optional:
 
 - `ca_certificate` (String) Certificate Authority in PKI configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of CA in PKI configuration  |
+    |  txt  &emsp; |  Name of CA in PKI configuration  |

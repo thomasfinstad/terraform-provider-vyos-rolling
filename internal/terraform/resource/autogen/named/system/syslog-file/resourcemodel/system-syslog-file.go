@@ -8,7 +8,7 @@ import (
 
 // SystemSyslogFile describes the resource data model.
 type SystemSyslogFile struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"file_id" vyos:",self-id"`
 
 	// LeafNodes
 
@@ -27,14 +27,14 @@ func (o *SystemSyslogFile) GetVyosPath() []string {
 		"syslog",
 
 		"file",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o SystemSyslogFile) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"file_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Logging to a file
 

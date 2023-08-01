@@ -8,9 +8,9 @@ import (
 
 // VrfNameProtocolsOspfNeighbor describes the resource data model.
 type VrfNameProtocolsOspfNeighbor struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"neighbor_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsOspfNeighborPollInterval types.Number `tfsdk:"poll_interval" vyos:"poll-interval,omitempty"`
@@ -34,31 +34,31 @@ func (o *VrfNameProtocolsOspfNeighbor) GetVyosPath() []string {
 		"ospf",
 
 		"neighbor",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsOspfNeighbor) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"neighbor_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Specify neighbor router
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Neighbor IP address  |
+    |  ipv4  &emsp; |  Neighbor IP address  |
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -69,9 +69,9 @@ func (o VrfNameProtocolsOspfNeighbor) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Dead neighbor polling interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Seconds between dead neighbor polling interval  |
+    |  number: 1-65535  &emsp; |  Seconds between dead neighbor polling interval  |
 
 `,
 
@@ -83,9 +83,9 @@ func (o VrfNameProtocolsOspfNeighbor) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Neighbor priority in seconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  Neighbor priority  |
+    |  number: 0-255  &emsp; |  Neighbor priority  |
 
 `,
 

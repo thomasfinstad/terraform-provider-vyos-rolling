@@ -8,11 +8,11 @@ import (
 
 // VrfNameProtocolsOspfAreaVirtualLink describes the resource data model.
 type VrfNameProtocolsOspfAreaVirtualLink struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"virtual_link_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
-	ParentIDVrfNameProtocolsOspfArea types.String `tfsdk:"area" vyos:"area_identifier,parent-id"`
+	ParentIDVrfNameProtocolsOspfArea types.String `tfsdk:"area" vyos:"area,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsOspfAreaVirtualLinkDeadInterval       types.Number `tfsdk:"dead_interval" vyos:"dead-interval,omitempty"`
@@ -42,43 +42,43 @@ func (o *VrfNameProtocolsOspfAreaVirtualLink) GetVyosPath() []string {
 		o.ParentIDVrfNameProtocolsOspfArea.ValueString(),
 
 		"virtual-link",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"virtual_link_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual link
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  OSPF area in dotted decimal notation  |
+    |  ipv4  &emsp; |  OSPF area in dotted decimal notation  |
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
 
-		"area_identifier": schema.StringAttribute{
+		"area_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `OSPF area settings
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  OSPF area number in decimal notation  |
-    |  ipv4  |  OSPF area number in dotted decimal notation  |
+    |  u32  &emsp; |  OSPF area number in decimal notation  |
+    |  ipv4  &emsp; |  OSPF area number in dotted decimal notation  |
 
 `,
 		},
@@ -89,9 +89,9 @@ func (o VrfNameProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Interval after which a neighbor is declared dead
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Neighbor dead interval (seconds)  |
+    |  number: 1-65535  &emsp; |  Neighbor dead interval (seconds)  |
 
 `,
 
@@ -103,9 +103,9 @@ func (o VrfNameProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Interval between hello packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Hello interval (seconds)  |
+    |  number: 1-65535  &emsp; |  Hello interval (seconds)  |
 
 `,
 
@@ -117,9 +117,9 @@ func (o VrfNameProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Interval between retransmitting lost link state advertisements
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Retransmit interval (seconds)  |
+    |  number: 1-65535  &emsp; |  Retransmit interval (seconds)  |
 
 `,
 
@@ -131,9 +131,9 @@ func (o VrfNameProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Link state transmit delay
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Link state transmit delay (seconds)  |
+    |  number: 1-65535  &emsp; |  Link state transmit delay (seconds)  |
 
 `,
 

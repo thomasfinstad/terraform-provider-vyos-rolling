@@ -8,7 +8,7 @@ import (
 
 // ServiceHTTPSAPIKeysID describes the resource data model.
 type ServiceHTTPSAPIKeysID struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"id_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceHTTPSAPIKeysIDKey types.String `tfsdk:"key" vyos:"key,omitempty"`
@@ -30,14 +30,14 @@ func (o *ServiceHTTPSAPIKeysID) GetVyosPath() []string {
 		"keys",
 
 		"id",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceHTTPSAPIKeysID) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"id_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `HTTP API id
 

@@ -9,7 +9,7 @@ import (
 
 // PolicyRoutesix describes the resource data model.
 type PolicyRoutesix struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"route6_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafPolicyRoutesixDescrIPtion      types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -28,14 +28,14 @@ func (o *PolicyRoutesix) GetVyosPath() []string {
 		"policy",
 
 		"route6",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PolicyRoutesix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"route6_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Policy route rule set name for IPv6
 
@@ -48,9 +48,9 @@ func (o PolicyRoutesix) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -60,9 +60,9 @@ func (o PolicyRoutesix) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional:    true,
 			MarkdownDescription: `Interface to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},

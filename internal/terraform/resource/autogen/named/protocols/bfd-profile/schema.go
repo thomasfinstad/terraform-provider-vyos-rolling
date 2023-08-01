@@ -12,14 +12,21 @@ import (
 func (r protocolsBfdProfile) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Bidirectional Forwarding Detection (BFD)
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Bidirectional Forwarding Detection (BFD)
+
+<br>
+&darr;
+<br>
+<b>
 Configure BFD profile used by individual peer
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Name of BFD profile  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

@@ -3,28 +3,60 @@
 page_title: "vyos_protocols_bgp_address_family_ipv4_vpn_network Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Border Gateway Protocol (BGP)
+
+  <br>
+  &darr;
+  <br>
   BGP address-family parameters
+
+  <br>
+  &darr;
+  <br>
   Unicast VPN IPv4 BGP settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Import BGP network/prefix into unicast VPN IPv4 RIB
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  Unicast VPN IPv4 BGP network/prefix  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_bgp_address_family_ipv4_vpn_network (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Border Gateway Protocol (BGP)
 
+<br>
+&darr;
+<br>
 BGP address-family parameters
 
+<br>
+&darr;
+<br>
 Unicast VPN IPv4 BGP settings
 
+<br>
+&darr;
+<br>
+<b>
 Import BGP network/prefix into unicast VPN IPv4 RIB
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  Unicast VPN IPv4 BGP network/prefix  |
+</b>
+</div>
 
 
 
@@ -33,21 +65,21 @@ Import BGP network/prefix into unicast VPN IPv4 RIB
 
 ### Required
 
-- `identifier` (String) Import BGP network/prefix into unicast VPN IPv4 RIB
+- `network_id` (String) Import BGP network/prefix into unicast VPN IPv4 RIB
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Unicast VPN IPv4 BGP network/prefix  |
+    |  ipv4net  &emsp; |  Unicast VPN IPv4 BGP network/prefix  |
 
 ### Optional
 
 - `label` (Number) MPLS label value assigned to route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-1048575  |  MPLS label value  |
+    |  number: 0-1048575  &emsp; |  MPLS label value  |
 - `rd` (String) Route Distinguisher
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp; |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |

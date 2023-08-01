@@ -12,20 +12,26 @@ import (
 func (r protocolsFailoverRouteNextHop) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Failover Routing
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Failover Routing
+
+<br>
+&darr;
+<br>
 Failover IPv4 route
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 failover route  |
-
+<br>
+&darr;
+<br>
+<b>
 Next-hop IPv4 router address
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  Next-hop router address  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

@@ -9,7 +9,7 @@ import (
 
 // ContainerRegistry describes the resource data model.
 type ContainerRegistry struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"registry_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafContainerRegistryDisable types.Bool `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -26,14 +26,14 @@ func (o *ContainerRegistry) GetVyosPath() []string {
 		"container",
 
 		"registry",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ContainerRegistry) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"registry_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Registry Name
 

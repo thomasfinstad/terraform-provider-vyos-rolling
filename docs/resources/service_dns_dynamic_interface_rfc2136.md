@@ -3,21 +3,60 @@
 page_title: "vyos_service_dns_dynamic_interface_rfc2136 Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Domain Name System related services
+
+  <br>
+  &darr;
+  <br>
   Dynamic DNS
+
+  <br>
+  &darr;
+  <br>
   Interface to send DDNS updates for
+
+  <br>
+  &darr;
+  <br>
+  <b>
   RFC2136 Update name
+  </b>
+  </div>
 ---
 
 # vyos_service_dns_dynamic_interface_rfc2136 (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Domain Name System related services
 
+<br>
+&darr;
+<br>
 Dynamic DNS
 
+<br>
+&darr;
+<br>
 Interface to send DDNS updates for
 
+<br>
+&darr;
+<br>
+<b>
 RFC2136 Update name
+</b>
+</div>
 
 
 
@@ -26,21 +65,21 @@ RFC2136 Update name
 
 ### Required
 
-- `identifier` (String) RFC2136 Update name
-- `interface_identifier` (String) Interface to send DDNS updates for
+- `interface_id` (String) Interface to send DDNS updates for
+- `rfc2136_id` (String) RFC2136 Update name
 
 ### Optional
 
 - `key` (String) File containing the secret key shared with remote DNS server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  filename  |  File in /config/auth directory  |
+    |  filename  &emsp; |  File in /config/auth directory  |
 - `record` (List of String) Record to be updated
 - `server` (String) Server to be updated
 - `ttl` (Number) Time To Live (default: 600)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-86400  |  DNS forwarding cache size  |
+    |  number: 1-86400  &emsp; |  DNS forwarding cache size  |
 - `zone` (String) Zone to be updated

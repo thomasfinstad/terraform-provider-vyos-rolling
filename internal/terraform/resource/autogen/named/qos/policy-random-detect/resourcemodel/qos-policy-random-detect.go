@@ -8,7 +8,7 @@ import (
 
 // QosPolicyRandomDetect describes the resource data model.
 type QosPolicyRandomDetect struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"random_detect_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafQosPolicyRandomDetectDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -28,20 +28,20 @@ func (o *QosPolicyRandomDetect) GetVyosPath() []string {
 		"policy",
 
 		"random-detect",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyRandomDetect) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"random_detect_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Weighted Random Early Detect policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 `,
 		},
@@ -52,9 +52,9 @@ func (o QosPolicyRandomDetect) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -63,16 +63,16 @@ func (o QosPolicyRandomDetect) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Available bandwidth for this policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  auto  |  Bandwidth matches interface speed  |
-    |  <number>  |  Bits per second  |
-    |  <number>bit  |  Bits per second  |
-    |  <number>kbit  |  Kilobits per second  |
-    |  <number>mbit  |  Megabits per second  |
-    |  <number>gbit  |  Gigabits per second  |
-    |  <number>tbit  |  Terabits per second  |
-    |  <number>%%  |  Percentage of interface link speed  |
+    |  auto  &emsp; |  Bandwidth matches interface speed  |
+    |  <number>  &emsp; |  Bits per second  |
+    |  <number>bit  &emsp; |  Bits per second  |
+    |  <number>kbit  &emsp; |  Kilobits per second  |
+    |  <number>mbit  &emsp; |  Megabits per second  |
+    |  <number>gbit  &emsp; |  Gigabits per second  |
+    |  <number>tbit  &emsp; |  Terabits per second  |
+    |  <number>%%  &emsp; |  Percentage of interface link speed  |
 
 `,
 

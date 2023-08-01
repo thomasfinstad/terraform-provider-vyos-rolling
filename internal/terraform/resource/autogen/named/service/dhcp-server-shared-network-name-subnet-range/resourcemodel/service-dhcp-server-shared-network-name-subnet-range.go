@@ -8,11 +8,11 @@ import (
 
 // ServiceDhcpServerSharedNetworkNameSubnetRange describes the resource data model.
 type ServiceDhcpServerSharedNetworkNameSubnetRange struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"range_id" vyos:",self-id"`
 
-	ParentIDServiceDhcpServerSharedNetworkName types.String `tfsdk:"shared_network_name" vyos:"shared-network-name_identifier,parent-id"`
+	ParentIDServiceDhcpServerSharedNetworkName types.String `tfsdk:"shared_network_name" vyos:"shared-network-name,parent-id"`
 
-	ParentIDServiceDhcpServerSharedNetworkNameSubnet types.String `tfsdk:"subnet" vyos:"subnet_identifier,parent-id"`
+	ParentIDServiceDhcpServerSharedNetworkNameSubnet types.String `tfsdk:"subnet" vyos:"subnet,parent-id"`
 
 	// LeafNodes
 	LeafServiceDhcpServerSharedNetworkNameSubnetRangeStart types.String `tfsdk:"start" vyos:"start,omitempty"`
@@ -37,34 +37,34 @@ func (o *ServiceDhcpServerSharedNetworkNameSubnetRange) GetVyosPath() []string {
 		o.ParentIDServiceDhcpServerSharedNetworkNameSubnet.ValueString(),
 
 		"range",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDhcpServerSharedNetworkNameSubnetRange) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"range_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `DHCP lease range
 
 `,
 		},
 
-		"shared_network_name_identifier": schema.StringAttribute{
+		"shared_network_name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Name of DHCP shared network
 
 `,
 		},
 
-		"subnet_identifier": schema.StringAttribute{
+		"subnet_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `DHCP subnet for shared network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
 
 `,
 		},
@@ -75,9 +75,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRange) ResourceSchemaAttributes(
 			Optional: true,
 			MarkdownDescription: `First IP address for DHCP lease range
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 start address of pool  |
+    |  ipv4  &emsp; |  IPv4 start address of pool  |
 
 `,
 		},
@@ -86,9 +86,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRange) ResourceSchemaAttributes(
 			Optional: true,
 			MarkdownDescription: `Last IP address for DHCP lease range
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 end address of pool  |
+    |  ipv4  &emsp; |  IPv4 end address of pool  |
 
 `,
 		},

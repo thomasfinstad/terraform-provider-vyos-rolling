@@ -3,15 +3,40 @@
 page_title: "vyos_service_conntrack_sync_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Connection tracking synchronization
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Interface to use for syncing conntrack entries
+  </b>
+  </div>
 ---
 
 # vyos_service_conntrack_sync_interface (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Connection tracking synchronization
 
+<br>
+&darr;
+<br>
+<b>
 Interface to use for syncing conntrack entries
+</b>
+</div>
 
 
 
@@ -20,17 +45,17 @@ Interface to use for syncing conntrack entries
 
 ### Required
 
-- `identifier` (String) Interface to use for syncing conntrack entries
+- `interface_id` (String) Interface to use for syncing conntrack entries
 
 ### Optional
 
 - `peer` (String) IP address of the peer to send the UDP conntrack info too. This disable multicast.
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IP address to listen for incoming connections  |
+    |  ipv4  &emsp; |  IP address to listen for incoming connections  |
 - `port` (Number) Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |

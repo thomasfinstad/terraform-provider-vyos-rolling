@@ -3,23 +3,40 @@
 page_title: "vyos_interfaces_wireguard_peer Resource - vyos"
 subcategory: ""
 description: |-
-  WireGuard Interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  wgN  |  WireGuard interface name  |
+  <div style="text-align: center">
+  <i>interfaces</i>
 
+  <br>
+  &darr;
+  <br>
+  WireGuard Interface
+
+  <br>
+  &darr;
+  <br>
+  <b>
   peer alias
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_wireguard_peer (Resource)
 
+<div style="text-align: center">
+<i>interfaces</i>
+
+<br>
+&darr;
+<br>
 WireGuard Interface
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  wgN  |  WireGuard interface name  |
-
+<br>
+&darr;
+<br>
+<b>
 peer alias
+</b>
+</div>
 
 
 
@@ -28,32 +45,32 @@ peer alias
 
 ### Required
 
-- `identifier` (String) peer alias
-- `wireguard_identifier` (String) WireGuard Interface
+- `peer_id` (String) peer alias
+- `wireguard_id` (String) WireGuard Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  wgN  |  WireGuard interface name  |
+    |  wgN  &emsp; |  WireGuard interface name  |
 
 ### Optional
 
 - `address` (String) IP address of tunnel endpoint
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address of remote tunnel endpoint  |
-    |  ipv6  |  IPv6 address of remote tunnel endpoint  |
+    |  ipv4  &emsp; |  IPv4 address of remote tunnel endpoint  |
+    |  ipv6  &emsp; |  IPv6 address of remote tunnel endpoint  |
 - `allowed_ips` (List of String) IP addresses allowed to traverse the peer
 - `disable` (Boolean) Disable instance
 - `persistent_keepalive` (Number) Interval to send keepalive messages
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Interval in seconds  |
+    |  number: 1-65535  &emsp; |  Interval in seconds  |
 - `port` (Number) Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 - `preshared_key` (String) base64 encoded preshared key
 - `public_key` (String) base64 encoded public key

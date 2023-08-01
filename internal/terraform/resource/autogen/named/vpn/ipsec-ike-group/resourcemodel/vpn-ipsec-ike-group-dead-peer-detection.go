@@ -27,11 +27,11 @@ func (o VpnIPsecIkeGroupDeadPeerDetection) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `Keep-alive failure action
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  hold  |  Attempt to re-negotiate the connection when matching traffic is seen  |
-    |  clear  |  Remove the connection immediately  |
-    |  restart  |  Attempt to re-negotiate the connection immediately  |
+    |  hold  &emsp; |  Attempt to re-negotiate the connection when matching traffic is seen  |
+    |  clear  &emsp; |  Remove the connection immediately  |
+    |  restart  &emsp; |  Attempt to re-negotiate the connection immediately  |
 
 `,
 
@@ -43,9 +43,9 @@ func (o VpnIPsecIkeGroupDeadPeerDetection) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `Keep-alive interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:2-86400  |  Keep-alive interval in seconds  |
+    |  number: 2-86400  &emsp; |  Keep-alive interval in seconds  |
 
 `,
 
@@ -57,9 +57,9 @@ func (o VpnIPsecIkeGroupDeadPeerDetection) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `Dead Peer Detection keep-alive timeout (IKEv1 only)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:2-86400  |  Keep-alive timeout in seconds  |
+    |  number: 2-86400  &emsp; |  Keep-alive timeout in seconds  |
 
 `,
 

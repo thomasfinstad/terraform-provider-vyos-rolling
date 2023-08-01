@@ -3,22 +3,30 @@
 page_title: "vyos_policy_prefix_list6 Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Routing policy
+
+  <br>
+  &darr;
+  <br>
+  <b>
   IPv6 prefix-list filter
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Name of IPv6 prefix-list  |
+  </b>
+  </div>
 ---
 
 # vyos_policy_prefix_list6 (Resource)
 
+<div style="text-align: center">
 Routing policy
 
+<br>
+&darr;
+<br>
+<b>
 IPv6 prefix-list filter
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Name of IPv6 prefix-list  |
+</b>
+</div>
 
 
 
@@ -27,16 +35,16 @@ IPv6 prefix-list filter
 
 ### Required
 
-- `identifier` (String) IPv6 prefix-list filter
+- `prefix_list6_id` (String) IPv6 prefix-list filter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv6 prefix-list  |
+    |  txt  &emsp; |  Name of IPv6 prefix-list  |
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |

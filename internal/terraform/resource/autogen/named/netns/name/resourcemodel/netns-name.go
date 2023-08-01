@@ -8,7 +8,7 @@ import (
 
 // NetnsName describes the resource data model.
 type NetnsName struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"name_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafNetnsNameDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -24,14 +24,14 @@ func (o *NetnsName) GetVyosPath() []string {
 		"netns",
 
 		"name",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o NetnsName) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Network namespace name
 
@@ -44,9 +44,9 @@ func (o NetnsName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

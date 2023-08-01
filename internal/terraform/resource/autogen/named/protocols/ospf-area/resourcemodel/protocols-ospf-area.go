@@ -8,7 +8,7 @@ import (
 
 // ProtocolsOspfArea describes the resource data model.
 type ProtocolsOspfArea struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"area_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsOspfAreaAuthentication types.String `tfsdk:"authentication" vyos:"authentication,omitempty"`
@@ -33,21 +33,21 @@ func (o *ProtocolsOspfArea) GetVyosPath() []string {
 		"ospf",
 
 		"area",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"area_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `OSPF area settings
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  OSPF area number in decimal notation  |
-    |  ipv4  |  OSPF area number in dotted decimal notation  |
+    |  u32  &emsp; |  OSPF area number in decimal notation  |
+    |  ipv4  &emsp; |  OSPF area number in dotted decimal notation  |
 
 `,
 		},
@@ -58,10 +58,10 @@ func (o ProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `OSPF area authentication type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  plaintext-password  |  Use plain-text authentication  |
-    |  md5  |  Use MD5 authentication  |
+    |  plaintext-password  &emsp; |  Use plain-text authentication  |
+    |  md5  &emsp; |  Use MD5 authentication  |
 
 `,
 		},
@@ -71,9 +71,9 @@ func (o ProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional:    true,
 			MarkdownDescription: `OSPF network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  OSPF network  |
+    |  ipv4net  &emsp; |  OSPF network  |
 
 `,
 		},
@@ -82,11 +82,11 @@ func (o ProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Area shortcut mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  default  |  Set default  |
-    |  disable  |  Disable shortcutting mode  |
-    |  enable  |  Enable shortcutting mode  |
+    |  default  &emsp; |  Set default  |
+    |  disable  &emsp; |  Disable shortcutting mode  |
+    |  enable  &emsp; |  Enable shortcutting mode  |
 
 `,
 		},
@@ -95,9 +95,9 @@ func (o ProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Set the filter for networks announced to other areas
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Access-list number  |
+    |  u32  &emsp; |  Access-list number  |
 
 `,
 		},
@@ -106,9 +106,9 @@ func (o ProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Set the filter for networks from other areas announced
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Access-list number  |
+    |  u32  &emsp; |  Access-list number  |
 
 `,
 		},

@@ -12,12 +12,26 @@ import (
 func (r serviceDNSDynamicInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Domain Name System related services
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Domain Name System related services
+
+<br>
+&darr;
+<br>
 Dynamic DNS
 
+<br>
+&darr;
+<br>
+<b>
 Interface to send DDNS updates for
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

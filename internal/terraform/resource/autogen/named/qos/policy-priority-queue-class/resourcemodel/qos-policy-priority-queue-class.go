@@ -8,9 +8,9 @@ import (
 
 // QosPolicyPriorityQueueClass describes the resource data model.
 type QosPolicyPriorityQueueClass struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"class_id" vyos:",self-id"`
 
-	ParentIDQosPolicyPriorityQueue types.String `tfsdk:"priority_queue" vyos:"priority-queue_identifier,parent-id"`
+	ParentIDQosPolicyPriorityQueue types.String `tfsdk:"priority_queue" vyos:"priority-queue,parent-id"`
 
 	// LeafNodes
 	LeafQosPolicyPriorityQueueClassDescrIPtion  types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -38,31 +38,31 @@ func (o *QosPolicyPriorityQueueClass) GetVyosPath() []string {
 		o.ParentIDQosPolicyPriorityQueue.ValueString(),
 
 		"class",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"class_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Class Handle
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-7  |  Priority  |
+    |  number: 1-7  &emsp; |  Priority  |
 
 `,
 		},
 
-		"priority_queue_identifier": schema.StringAttribute{
+		"priority_queue_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Priority queuing based policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 `,
 		},
@@ -73,9 +73,9 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -84,9 +84,9 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Deficit in the fair queuing algorithm
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-1048576  |  Number of bytes used as 'deficit'  |
+    |  number: 0-1048576  &emsp; |  Number of bytes used as 'deficit'  |
 
 `,
 
@@ -98,9 +98,9 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Number of flows into which the incoming packets are classified
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65536  |  Number of flows  |
+    |  number: 1-65536  &emsp; |  Number of flows  |
 
 `,
 
@@ -112,9 +112,9 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Interval used to measure the delay
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Interval in milliseconds  |
+    |  u32  &emsp; |  Interval in milliseconds  |
 
 `,
 
@@ -126,9 +126,9 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Queue size in packets  |
+    |  number: 1-4294967295  &emsp; |  Queue size in packets  |
 
 `,
 		},
@@ -137,13 +137,13 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Queue type for default traffic
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  drop-tail  |  First-In-First-Out (FIFO)  |
-    |  fair-queue  |  Stochastic Fair Queue (SFQ)  |
-    |  fq-codel  |  Fair Queue Codel  |
-    |  priority  |  Priority queuing  |
-    |  random-detect  |  Random Early Detection (RED)  |
+    |  drop-tail  &emsp; |  First-In-First-Out (FIFO)  |
+    |  fair-queue  &emsp; |  Stochastic Fair Queue (SFQ)  |
+    |  fq-codel  &emsp; |  Fair Queue Codel  |
+    |  priority  &emsp; |  Priority queuing  |
+    |  random-detect  &emsp; |  Random Early Detection (RED)  |
 
 `,
 
@@ -155,9 +155,9 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Acceptable minimum standing/persistent queue delay
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Queue delay in milliseconds  |
+    |  u32  &emsp; |  Queue delay in milliseconds  |
 
 `,
 

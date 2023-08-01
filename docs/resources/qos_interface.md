@@ -3,22 +3,30 @@
 page_title: "vyos_qos_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Quality of Service (QoS)
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Interface to apply QoS policy
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Interface name  |
+  </b>
+  </div>
 ---
 
 # vyos_qos_interface (Resource)
 
+<div style="text-align: center">
 Quality of Service (QoS)
 
+<br>
+&darr;
+<br>
+<b>
 Interface to apply QoS policy
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Interface name  |
+</b>
+</div>
 
 
 
@@ -27,21 +35,21 @@ Interface to apply QoS policy
 
 ### Required
 
-- `identifier` (String) Interface to apply QoS policy
+- `interface_id` (String) Interface to apply QoS policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 ### Optional
 
 - `egress` (String) Interface egress traffic policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  QoS policy to use  |
+    |  txt  &emsp; |  QoS policy to use  |
 - `ingress` (String) Interface ingress traffic policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  QoS policy to use  |
+    |  txt  &emsp; |  QoS policy to use  |

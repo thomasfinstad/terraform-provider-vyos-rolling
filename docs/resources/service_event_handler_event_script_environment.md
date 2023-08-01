@@ -3,21 +3,60 @@
 page_title: "vyos_service_event_handler_event_script_environment Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Service event handler
+
+  <br>
+  &darr;
+  <br>
   Event handler name
+
+  <br>
+  &darr;
+  <br>
   Event handler script file
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Script environment arguments
+  </b>
+  </div>
 ---
 
 # vyos_service_event_handler_event_script_environment (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Service event handler
 
+<br>
+&darr;
+<br>
 Event handler name
 
+<br>
+&darr;
+<br>
 Event handler script file
 
+<br>
+&darr;
+<br>
+<b>
 Script environment arguments
+</b>
+</div>
 
 
 
@@ -26,8 +65,8 @@ Script environment arguments
 
 ### Required
 
-- `event_identifier` (String) Event handler name
-- `identifier` (String) Script environment arguments
+- `environment_id` (String) Script environment arguments
+- `event_id` (String) Event handler name
 
 ### Optional
 

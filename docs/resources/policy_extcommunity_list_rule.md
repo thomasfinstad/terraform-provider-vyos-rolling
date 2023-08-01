@@ -3,33 +3,40 @@
 page_title: "vyos_policy_extcommunity_list_rule Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Routing policy
-  Add a BGP extended community list entry
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  BGP extended community-list name  |
 
+  <br>
+  &darr;
+  <br>
+  Add a BGP extended community list entry
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Rule for this BGP extended community list
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-65535  |  Extended community-list rule number  |
+  </b>
+  </div>
 ---
 
 # vyos_policy_extcommunity_list_rule (Resource)
 
+<div style="text-align: center">
 Routing policy
 
+<br>
+&darr;
+<br>
 Add a BGP extended community list entry
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  BGP extended community-list name  |
-
+<br>
+&darr;
+<br>
+<b>
 Rule for this BGP extended community list
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-65535  |  Extended community-list rule number  |
+</b>
+</div>
 
 
 
@@ -38,34 +45,34 @@ Rule for this BGP extended community list
 
 ### Required
 
-- `extcommunity_list_identifier` (String) Add a BGP extended community list entry
+- `extcommunity_list_id` (String) Add a BGP extended community list entry
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  BGP extended community-list name  |
-- `identifier` (String) Rule for this BGP extended community list
+    |  txt  &emsp; |  BGP extended community-list name  |
+- `rule_id` (String) Rule for this BGP extended community list
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Extended community-list rule number  |
+    |  number: 1-65535  &emsp; |  Extended community-list rule number  |
 
 ### Optional
 
 - `action` (String) Action to take on entries matching this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  permit  |  Permit matching entries  |
-    |  deny  |  Deny matching entries  |
+    |  permit  &emsp; |  Permit matching entries  |
+    |  deny  &emsp; |  Deny matching entries  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `regex` (String) Regular expression to match against an extended community list
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <aa:nn:nn>  |  Extended community list regular expression  |
-    |  <rt aa:nn:nn>  |  Route Target regular expression  |
-    |  <soo aa:nn:nn>  |  Site of Origin regular expression  |
+    |  <aa:nn:nn>  &emsp; |  Extended community list regular expression  |
+    |  <rt aa:nn:nn>  &emsp; |  Route Target regular expression  |
+    |  <soo aa:nn:nn>  &emsp; |  Site of Origin regular expression  |

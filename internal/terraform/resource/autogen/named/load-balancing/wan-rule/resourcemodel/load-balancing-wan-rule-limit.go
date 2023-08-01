@@ -28,9 +28,9 @@ func (o LoadBalancingWanRuleLimit) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Burst limit for matching packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4294967295  |  Burst limit for matching packets  |
+    |  number: 0-4294967295  &emsp; |  Burst limit for matching packets  |
 
 `,
 		},
@@ -39,11 +39,11 @@ func (o LoadBalancingWanRuleLimit) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Time window for rate calculation
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  hour  |  hour  |
-    |  minute  |  minute  |
-    |  second  |  second  |
+    |  hour  &emsp; |  hour  |
+    |  minute  &emsp; |  minute  |
+    |  second  &emsp; |  second  |
 
 `,
 		},
@@ -52,9 +52,9 @@ func (o LoadBalancingWanRuleLimit) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Number of packets used for rate limit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4294967295  |  Number of packets used for rate limit  |
+    |  number: 0-4294967295  &emsp; |  Number of packets used for rate limit  |
 
 `,
 		},
@@ -63,10 +63,10 @@ func (o LoadBalancingWanRuleLimit) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Threshold behavior for limit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  above  |  Above limit  |
-    |  below  |  Below limit  |
+    |  above  &emsp; |  Above limit  |
+    |  below  &emsp; |  Below limit  |
 
 `,
 		},

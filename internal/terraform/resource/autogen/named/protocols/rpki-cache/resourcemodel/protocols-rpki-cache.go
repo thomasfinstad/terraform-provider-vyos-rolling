@@ -8,7 +8,7 @@ import (
 
 // ProtocolsRpkiCache describes the resource data model.
 type ProtocolsRpkiCache struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"cache_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsRpkiCachePort       types.Number `tfsdk:"port" vyos:"port,omitempty"`
@@ -28,22 +28,22 @@ func (o *ProtocolsRpkiCache) GetVyosPath() []string {
 		"rpki",
 
 		"cache",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsRpkiCache) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"cache_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `RPKI cache server address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IP address of RPKI server  |
-    |  ipv6  |  IPv6 address of RPKI server  |
-    |  hostname  |  Fully qualified domain name of RPKI server  |
+    |  ipv4  &emsp; |  IP address of RPKI server  |
+    |  ipv6  &emsp; |  IPv6 address of RPKI server  |
+    |  hostname  &emsp; |  Fully qualified domain name of RPKI server  |
 
 `,
 		},
@@ -54,9 +54,9 @@ func (o ProtocolsRpkiCache) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 		},
@@ -65,9 +65,9 @@ func (o ProtocolsRpkiCache) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Preference of the cache server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Preference of the cache server  |
+    |  number: 1-255  &emsp; |  Preference of the cache server  |
 
 `,
 		},

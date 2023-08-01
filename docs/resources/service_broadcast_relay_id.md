@@ -3,22 +3,40 @@
 page_title: "vyos_service_broadcast_relay_id Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   UDP broadcast relay service
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Unique ID for each UDP port to forward
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-99  |  Broadcast relay instance ID  |
+  </b>
+  </div>
 ---
 
 # vyos_service_broadcast_relay_id (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 UDP broadcast relay service
 
+<br>
+&darr;
+<br>
+<b>
 Unique ID for each UDP port to forward
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-99  |  Broadcast relay instance ID  |
+</b>
+</div>
 
 
 
@@ -27,28 +45,28 @@ Unique ID for each UDP port to forward
 
 ### Required
 
-- `identifier` (String) Unique ID for each UDP port to forward
+- `id_id` (String) Unique ID for each UDP port to forward
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-99  |  Broadcast relay instance ID  |
+    |  number: 1-99  &emsp; |  Broadcast relay instance ID  |
 
 ### Optional
 
 - `address` (String) Set source IP of forwarded packets, otherwise original senders address is used
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Optional source address for forwarded packets  |
+    |  ipv4  &emsp; |  Optional source address for forwarded packets  |
 - `description` (String) Description
 - `disable` (Boolean) Disable instance
 - `interface` (List of String) Interface to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 - `port` (Number) Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |

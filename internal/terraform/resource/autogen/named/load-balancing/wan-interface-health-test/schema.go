@@ -12,18 +12,26 @@ import (
 func (r loadBalancingWanInterfaceHealthTest) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Configure load-balancing
+		MarkdownDescription: `<div style="text-align: center">
+Configure load-balancing
 
+<br>
+&darr;
+<br>
 Configure Wide Area Network (WAN) load-balancing
 
+<br>
+&darr;
+<br>
 Interface name
 
+<br>
+&darr;
+<br>
+<b>
 Rule number
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:0-4294967295  |  Rule number  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

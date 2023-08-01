@@ -3,22 +3,50 @@
 page_title: "vyos_protocols_static_arp_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
+  <i>static</i>
+
+  <br>
+  &darr;
+  <br>
   Static ARP translation
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Interface configuration
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Interface name  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_static_arp_interface (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
+<i>static</i>
+
+<br>
+&darr;
+<br>
 Static ARP translation
 
+<br>
+&darr;
+<br>
+<b>
 Interface configuration
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Interface name  |
+</b>
+</div>
 
 
 
@@ -27,8 +55,8 @@ Interface configuration
 
 ### Required
 
-- `identifier` (String) Interface configuration
+- `interface_id` (String) Interface configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |

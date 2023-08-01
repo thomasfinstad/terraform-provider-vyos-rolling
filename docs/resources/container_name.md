@@ -3,15 +3,30 @@
 page_title: "vyos_container_name Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Container applications
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Container name
+  </b>
+  </div>
 ---
 
 # vyos_container_name (Resource)
 
+<div style="text-align: center">
 Container applications
 
+<br>
+&darr;
+<br>
+<b>
 Container name
+</b>
+</div>
 
 
 
@@ -20,7 +35,7 @@ Container name
 
 ### Required
 
-- `identifier` (String) Container name
+- `name_id` (String) Container name
 
 ### Optional
 
@@ -28,40 +43,40 @@ Container name
 - `arguments` (String) The command's arguments for this container
 - `cap_add` (List of String) Container capabilities/permissions
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  net-admin  |  Network operations (interface, firewall, routing tables)  |
-    |  net-bind-service  |  Bind a socket to privileged ports (port numbers less than 1024)  |
-    |  net-raw  |  Permission to create raw network sockets  |
-    |  setpcap  |  Capability sets (from bounded or inherited set)  |
-    |  sys-admin  |  Administation operations (quotactl, mount, sethostname, setdomainame)  |
-    |  sys-time  |  Permission to set system clock  |
+    |  net-admin  &emsp; |  Network operations (interface, firewall, routing tables)  |
+    |  net-bind-service  &emsp; |  Bind a socket to privileged ports (port numbers less than 1024)  |
+    |  net-raw  &emsp; |  Permission to create raw network sockets  |
+    |  setpcap  &emsp; |  Capability sets (from bounded or inherited set)  |
+    |  sys-admin  &emsp; |  Administation operations (quotactl, mount, sethostname, setdomainame)  |
+    |  sys-time  &emsp; |  Permission to set system clock  |
 - `command` (String) Override the default CMD from the image
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `disable` (Boolean) Disable instance
 - `entrypoint` (String) Override the default ENTRYPOINT from the image
 - `host_name` (String) Container host name
 - `image` (String) Image name in the hub-registry
 - `memory` (Number) Memory (RAM) available to this container
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Unlimited  |
-    |  u32:1-16384  |  Container memory in megabytes (MB)  |
+    |  number: 0  &emsp; |  Unlimited  |
+    |  number: 1-16384  &emsp; |  Container memory in megabytes (MB)  |
 - `restart` (String) Restart options for container
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  no  |  Do not restart containers on exit  |
-    |  on-failure  |  Restart containers when they exit with a non-zero exit code, retrying indefinitely  |
-    |  always  |  Restart containers when they exit, regardless of status, retrying indefinitely  |
+    |  no  &emsp; |  Do not restart containers on exit  |
+    |  on-failure  &emsp; |  Restart containers when they exit with a non-zero exit code, retrying indefinitely  |
+    |  always  &emsp; |  Restart containers when they exit, regardless of status, retrying indefinitely  |
 - `shared_memory` (Number) Shared memory available to this container
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Unlimited  |
-    |  u32:1-8192  |  Container memory in megabytes (MB)  |
+    |  number: 0  &emsp; |  Unlimited  |
+    |  number: 1-8192  &emsp; |  Container memory in megabytes (MB)  |

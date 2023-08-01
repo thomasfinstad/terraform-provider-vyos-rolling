@@ -25,9 +25,9 @@ func (o InterfacesSstpcSsl) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Certificate Authority in PKI configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of CA in PKI configuration  |
+    |  txt  &emsp; |  Name of CA in PKI configuration  |
 
 `,
 		},

@@ -9,9 +9,9 @@ import (
 
 // InterfacesWireguardPeer describes the resource data model.
 type InterfacesWireguardPeer struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"peer_id" vyos:",self-id"`
 
-	ParentIDInterfacesWireguard types.String `tfsdk:"wireguard" vyos:"wireguard_identifier,parent-id"`
+	ParentIDInterfacesWireguard types.String `tfsdk:"wireguard" vyos:"wireguard,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesWireguardPeerDisable             types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -36,27 +36,27 @@ func (o *InterfacesWireguardPeer) GetVyosPath() []string {
 		o.ParentIDInterfacesWireguard.ValueString(),
 
 		"peer",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesWireguardPeer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"peer_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `peer alias
 
 `,
 		},
 
-		"wireguard_identifier": schema.StringAttribute{
+		"wireguard_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `WireGuard Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  wgN  |  WireGuard interface name  |
+    |  wgN  &emsp; |  WireGuard interface name  |
 
 `,
 		},
@@ -98,10 +98,10 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `IP address of tunnel endpoint
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address of remote tunnel endpoint  |
-    |  ipv6  |  IPv6 address of remote tunnel endpoint  |
+    |  ipv4  &emsp; |  IPv4 address of remote tunnel endpoint  |
+    |  ipv6  &emsp; |  IPv6 address of remote tunnel endpoint  |
 
 `,
 		},
@@ -110,9 +110,9 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 		},
@@ -121,9 +121,9 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Interval to send keepalive messages
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Interval in seconds  |
+    |  number: 1-65535  &emsp; |  Interval in seconds  |
 
 `,
 		},

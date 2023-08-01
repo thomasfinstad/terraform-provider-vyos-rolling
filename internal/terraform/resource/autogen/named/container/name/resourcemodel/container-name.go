@@ -9,7 +9,7 @@ import (
 
 // ContainerName describes the resource data model.
 type ContainerName struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"name_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafContainerNameAllowHostNetworks types.Bool   `tfsdk:"allow_host_networks" vyos:"allow-host-networks,omitempty"`
@@ -41,14 +41,14 @@ func (o *ContainerName) GetVyosPath() []string {
 		"container",
 
 		"name",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Container name
 
@@ -71,14 +71,14 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional:    true,
 			MarkdownDescription: `Container capabilities/permissions
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  net-admin  |  Network operations (interface, firewall, routing tables)  |
-    |  net-bind-service  |  Bind a socket to privileged ports (port numbers less than 1024)  |
-    |  net-raw  |  Permission to create raw network sockets  |
-    |  setpcap  |  Capability sets (from bounded or inherited set)  |
-    |  sys-admin  |  Administation operations (quotactl, mount, sethostname, setdomainame)  |
-    |  sys-time  |  Permission to set system clock  |
+    |  net-admin  &emsp; |  Network operations (interface, firewall, routing tables)  |
+    |  net-bind-service  &emsp; |  Bind a socket to privileged ports (port numbers less than 1024)  |
+    |  net-raw  &emsp; |  Permission to create raw network sockets  |
+    |  setpcap  &emsp; |  Capability sets (from bounded or inherited set)  |
+    |  sys-admin  &emsp; |  Administation operations (quotactl, mount, sethostname, setdomainame)  |
+    |  sys-time  &emsp; |  Permission to set system clock  |
 
 `,
 		},
@@ -87,9 +87,9 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -142,10 +142,10 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Memory (RAM) available to this container
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Unlimited  |
-    |  u32:1-16384  |  Container memory in megabytes (MB)  |
+    |  number: 0  &emsp; |  Unlimited  |
+    |  number: 1-16384  &emsp; |  Container memory in megabytes (MB)  |
 
 `,
 
@@ -157,10 +157,10 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Shared memory available to this container
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Unlimited  |
-    |  u32:1-8192  |  Container memory in megabytes (MB)  |
+    |  number: 0  &emsp; |  Unlimited  |
+    |  number: 1-8192  &emsp; |  Container memory in megabytes (MB)  |
 
 `,
 
@@ -172,11 +172,11 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Restart options for container
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  no  |  Do not restart containers on exit  |
-    |  on-failure  |  Restart containers when they exit with a non-zero exit code, retrying indefinitely  |
-    |  always  |  Restart containers when they exit, regardless of status, retrying indefinitely  |
+    |  no  &emsp; |  Do not restart containers on exit  |
+    |  on-failure  &emsp; |  Restart containers when they exit with a non-zero exit code, retrying indefinitely  |
+    |  always  &emsp; |  Restart containers when they exit, regardless of status, retrying indefinitely  |
 
 `,
 

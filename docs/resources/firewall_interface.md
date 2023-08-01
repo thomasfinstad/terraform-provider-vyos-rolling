@@ -3,15 +3,30 @@
 page_title: "vyos_firewall_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Firewall
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Interface name to apply firewall configuration
+  </b>
+  </div>
 ---
 
 # vyos_firewall_interface (Resource)
 
+<div style="text-align: center">
 Firewall
 
+<br>
+&darr;
+<br>
+<b>
 Interface name to apply firewall configuration
+</b>
+</div>
 
 
 
@@ -20,7 +35,7 @@ Interface name to apply firewall configuration
 
 ### Required
 
-- `identifier` (String) Interface name to apply firewall configuration
+- `interface_id` (String) Interface name to apply firewall configuration
 
 ### Optional
 

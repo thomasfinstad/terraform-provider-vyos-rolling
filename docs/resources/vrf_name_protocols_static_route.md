@@ -3,39 +3,60 @@
 page_title: "vyos_vrf_name_protocols_static_route Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
-  Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
+  Virtual Routing and Forwarding instance
+
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
+
+  <br>
+  &darr;
+  <br>
   Static Routing
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Static IPv4 route
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  IPv4 static route  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_static_route (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Static Routing
 
+<br>
+&darr;
+<br>
+<b>
 Static IPv4 route
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 static route  |
+</b>
+</div>
 
 
 
@@ -44,30 +65,30 @@ Static IPv4 route
 
 ### Required
 
-- `identifier` (String) Static IPv4 route
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 static route  |
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+    |  txt  &emsp; |  VRF instance name  |
+- `route_id` (String) Static IPv4 route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  ipv4net  &emsp; |  IPv4 static route  |
 
 ### Optional
 
 - `blackhole` (Attributes) Silently discard pkts when matched (see [below for nested schema](#nestedatt--blackhole))
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `dhcp_interface` (String) DHCP interface supplying next-hop IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  DHCP interface name  |
+    |  txt  &emsp; |  DHCP interface name  |
 - `reject` (Attributes) Emit an ICMP unreachable when matched (see [below for nested schema](#nestedatt--reject))
 
 <a id="nestedatt--blackhole"></a>
@@ -77,14 +98,14 @@ Optional:
 
 - `distance` (Number) Distance for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for this route  |
+    |  number: 1-255  &emsp; |  Distance for this route  |
 - `tag` (Number) Tag value for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Tag value for this route  |
+    |  number: 1-4294967295  &emsp; |  Tag value for this route  |
 
 
 <a id="nestedatt--reject"></a>
@@ -94,11 +115,11 @@ Optional:
 
 - `distance` (Number) Distance for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for this route  |
+    |  number: 1-255  &emsp; |  Distance for this route  |
 - `tag` (Number) Tag value for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Tag value for this route  |
+    |  number: 1-4294967295  &emsp; |  Tag value for this route  |

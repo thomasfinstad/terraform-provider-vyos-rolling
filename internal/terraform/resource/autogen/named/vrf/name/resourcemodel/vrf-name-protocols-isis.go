@@ -56,11 +56,11 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `IS-IS level number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  level-1  |  Act as a station router  |
-    |  level-1-2  |  Act as both a station and an area router  |
-    |  level-2  |  Act as an area router  |
+    |  level-1  &emsp; |  Act as a station router  |
+    |  level-1-2  &emsp; |  Act as both a station and an area router  |
+    |  level-2  &emsp; |  Act as an area router  |
 
 `,
 		},
@@ -78,9 +78,9 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Minimum interval between regenerating same LSP
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-120  |  Minimum interval in seconds  |
+    |  number: 1-120  &emsp; |  Minimum interval in seconds  |
 
 `,
 		},
@@ -89,9 +89,9 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Configure the maximum size of generated LSPs
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:128-4352  |  Maximum size of generated LSPs  |
+    |  number: 128-4352  &emsp; |  Maximum size of generated LSPs  |
 
 `,
 
@@ -103,9 +103,9 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `LSP refresh interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65235  |  LSP refresh interval in seconds  |
+    |  number: 1-65235  &emsp; |  LSP refresh interval in seconds  |
 
 `,
 		},
@@ -114,9 +114,9 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Maximum LSP lifetime
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:350-65535  |  LSP lifetime in seconds  |
+    |  number: 350-65535  &emsp; |  LSP lifetime in seconds  |
 
 `,
 		},
@@ -125,11 +125,11 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Use old-style (ISO 10589) or new-style packet formats
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  narrow  |  Use old style of TLVs with narrow metric  |
-    |  transition  |  Send and accept both styles of TLVs during transition  |
-    |  wide  |  Use new style of TLVs to carry wider metric  |
+    |  narrow  &emsp; |  Use old style of TLVs with narrow metric  |
+    |  transition  &emsp; |  Send and accept both styles of TLVs during transition  |
+    |  wide  &emsp; |  Use new style of TLVs to carry wider metric  |
 
 `,
 		},
@@ -138,9 +138,9 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `A Network Entity Title for this process (ISO only)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  XX.XXXX. ... .XXX.XX  |  Network entity title (NET)  |
+    |  XX.XXXX. ... .XXX.XX  &emsp; |  Network entity title (NET)  |
 
 `,
 		},
@@ -176,9 +176,9 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Minimum interval between SPF calculations
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-120  |  Interval in seconds  |
+    |  number: 1-120  &emsp; |  Interval in seconds  |
 
 `,
 		},
@@ -187,9 +187,9 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},

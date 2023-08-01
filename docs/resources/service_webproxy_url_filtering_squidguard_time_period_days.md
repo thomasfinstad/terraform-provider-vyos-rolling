@@ -3,49 +3,70 @@
 page_title: "vyos_service_webproxy_url_filtering_squidguard_time_period_days Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Webproxy service settings
+
+  <br>
+  &darr;
+  <br>
   URL filtering settings
+
+  <br>
+  &darr;
+  <br>
   URL filtering via squidGuard redirector
+
+  <br>
+  &darr;
+  <br>
   Time period name
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Time-period days
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  Sun  |  Sunday  |
-  |  Mon  |  Monday  |
-  |  Tue  |  Tuesday  |
-  |  Wed  |  Wednesday  |
-  |  Thu  |  Thursday  |
-  |  Fri  |  Friday  |
-  |  Sat  |  Saturday  |
-  |  weekdays  |  Monday through Friday  |
-  |  weekend  |  Saturday and Sunday  |
-  |  all  |  All days of the week  |
+  </b>
+  </div>
 ---
 
 # vyos_service_webproxy_url_filtering_squidguard_time_period_days (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Webproxy service settings
 
+<br>
+&darr;
+<br>
 URL filtering settings
 
+<br>
+&darr;
+<br>
 URL filtering via squidGuard redirector
 
+<br>
+&darr;
+<br>
 Time period name
 
+<br>
+&darr;
+<br>
+<b>
 Time-period days
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  Sun  |  Sunday  |
-    |  Mon  |  Monday  |
-    |  Tue  |  Tuesday  |
-    |  Wed  |  Wednesday  |
-    |  Thu  |  Thursday  |
-    |  Fri  |  Friday  |
-    |  Sat  |  Saturday  |
-    |  weekdays  |  Monday through Friday  |
-    |  weekend  |  Saturday and Sunday  |
-    |  all  |  All days of the week  |
+</b>
+</div>
 
 
 
@@ -54,26 +75,26 @@ Time-period days
 
 ### Required
 
-- `identifier` (String) Time-period days
+- `days_id` (String) Time-period days
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  Sun  |  Sunday  |
-    |  Mon  |  Monday  |
-    |  Tue  |  Tuesday  |
-    |  Wed  |  Wednesday  |
-    |  Thu  |  Thursday  |
-    |  Fri  |  Friday  |
-    |  Sat  |  Saturday  |
-    |  weekdays  |  Monday through Friday  |
-    |  weekend  |  Saturday and Sunday  |
-    |  all  |  All days of the week  |
-- `time_period_identifier` (String) Time period name
+    |  Sun  &emsp; |  Sunday  |
+    |  Mon  &emsp; |  Monday  |
+    |  Tue  &emsp; |  Tuesday  |
+    |  Wed  &emsp; |  Wednesday  |
+    |  Thu  &emsp; |  Thursday  |
+    |  Fri  &emsp; |  Friday  |
+    |  Sat  &emsp; |  Saturday  |
+    |  weekdays  &emsp; |  Monday through Friday  |
+    |  weekend  &emsp; |  Saturday and Sunday  |
+    |  all  &emsp; |  All days of the week  |
+- `time_period_id` (String) Time period name
 
 ### Optional
 
 - `time` (String) Time for time-period
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <hh:mm - hh:mm>  |  Time range in 24hr time  |
+    |  <hh:mm - hh:mm>  &emsp; |  Time range in 24hr time  |

@@ -8,11 +8,11 @@ import (
 
 // QosPolicyRoundRobinClassMatch describes the resource data model.
 type QosPolicyRoundRobinClassMatch struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"match_id" vyos:",self-id"`
 
-	ParentIDQosPolicyRoundRobin types.String `tfsdk:"round_robin" vyos:"round-robin_identifier,parent-id"`
+	ParentIDQosPolicyRoundRobin types.String `tfsdk:"round_robin" vyos:"round-robin,parent-id"`
 
-	ParentIDQosPolicyRoundRobinClass types.String `tfsdk:"class" vyos:"class_identifier,parent-id"`
+	ParentIDQosPolicyRoundRobinClass types.String `tfsdk:"class" vyos:"class,parent-id"`
 
 	// LeafNodes
 	LeafQosPolicyRoundRobinClassMatchDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -42,38 +42,38 @@ func (o *QosPolicyRoundRobinClassMatch) GetVyosPath() []string {
 		o.ParentIDQosPolicyRoundRobinClass.ValueString(),
 
 		"match",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyRoundRobinClassMatch) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"match_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Class matching rule name
 
 `,
 		},
 
-		"round_robin_identifier": schema.StringAttribute{
+		"round_robin_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Deficit Round Robin Scheduler
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 `,
 		},
 
-		"class_identifier": schema.StringAttribute{
+		"class_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Class ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4095  |  Class Identifier  |
+    |  number: 1-4095  &emsp; |  Class Identifier  |
 
 `,
 		},
@@ -84,9 +84,9 @@ func (o QosPolicyRoundRobinClassMatch) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -95,9 +95,9 @@ func (o QosPolicyRoundRobinClassMatch) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Interface to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},
@@ -106,9 +106,9 @@ func (o QosPolicyRoundRobinClassMatch) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Match on mark applied by firewall
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  FW mark to match  |
+    |  u32  &emsp; |  FW mark to match  |
 
 `,
 		},
@@ -117,9 +117,9 @@ func (o QosPolicyRoundRobinClassMatch) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Virtual Local Area Network (VLAN) ID for this match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4095  |  Virtual Local Area Network (VLAN) tag   |
+    |  number: 0-4095  &emsp; |  Virtual Local Area Network (VLAN) tag   |
 
 `,
 		},

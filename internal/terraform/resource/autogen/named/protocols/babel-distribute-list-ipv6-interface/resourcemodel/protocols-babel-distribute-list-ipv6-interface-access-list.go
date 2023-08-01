@@ -26,9 +26,9 @@ func (o ProtocolsBabelDistributeListIPvsixInterfaceAccessList) ResourceSchemaAtt
 			Optional: true,
 			MarkdownDescription: `Access list to apply to input packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Access list to apply to input packets  |
+    |  u32  &emsp; |  Access list to apply to input packets  |
 
 `,
 		},
@@ -37,9 +37,9 @@ func (o ProtocolsBabelDistributeListIPvsixInterfaceAccessList) ResourceSchemaAtt
 			Optional: true,
 			MarkdownDescription: `Access list to apply to output packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Access list to apply to output packets  |
+    |  u32  &emsp; |  Access list to apply to output packets  |
 
 `,
 		},

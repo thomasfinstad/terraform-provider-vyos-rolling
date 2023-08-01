@@ -9,7 +9,7 @@ import (
 
 // NatDestinationRule describes the resource data model.
 type NatDestinationRule struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafNatDestinationRuleDescrIPtion      types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -36,20 +36,20 @@ func (o *NatDestinationRule) GetVyosPath() []string {
 		"destination",
 
 		"rule",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o NatDestinationRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Rule number for NAT
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-999999  |  Number of NAT rule  |
+    |  number: 1-999999  &emsp; |  Number of NAT rule  |
 
 `,
 		},
@@ -60,9 +60,9 @@ func (o NatDestinationRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -98,12 +98,12 @@ func (o NatDestinationRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Packet type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  broadcast  |  Match broadcast packet type  |
-    |  host  |  Match host packet type, addressed to local host  |
-    |  multicast  |  Match multicast packet type  |
-    |  other  |  Match packet addressed to another host  |
+    |  broadcast  &emsp; |  Match broadcast packet type  |
+    |  host  &emsp; |  Match host packet type, addressed to local host  |
+    |  multicast  &emsp; |  Match multicast packet type  |
+    |  other  &emsp; |  Match packet addressed to another host  |
 
 `,
 		},
@@ -112,67 +112,67 @@ func (o NatDestinationRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Protocol to NAT
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  all  |  All IP protocols  |
-    |  ip  |  Internet Protocol, pseudo protocol number  |
-    |  hopopt  |  IPv6 Hop-by-Hop Option [RFC1883]  |
-    |  icmp  |  internet control message protocol  |
-    |  igmp  |  Internet Group Management  |
-    |  ggp  |  gateway-gateway protocol  |
-    |  ipencap  |  IP encapsulated in IP (officially IP)  |
-    |  st  |  ST datagram mode  |
-    |  tcp  |  transmission control protocol  |
-    |  egp  |  exterior gateway protocol  |
-    |  igp  |  any private interior gateway (Cisco)  |
-    |  pup  |  PARC universal packet protocol  |
-    |  udp  |  user datagram protocol  |
-    |  tcp_udp  |  Both TCP and UDP  |
-    |  hmp  |  host monitoring protocol  |
-    |  xns-idp  |  Xerox NS IDP  |
-    |  rdp  |  "reliable datagram" protocol  |
-    |  iso-tp4  |  ISO Transport Protocol class 4 [RFC905]  |
-    |  dccp  |  Datagram Congestion Control Prot. [RFC4340]  |
-    |  xtp  |  Xpress Transfer Protocol  |
-    |  ddp  |  Datagram Delivery Protocol  |
-    |  idpr-cmtp  |  IDPR Control Message Transport  |
-    |  Ipv6  |  Internet Protocol, version 6  |
-    |  ipv6-route  |  Routing Header for IPv6  |
-    |  ipv6-frag  |  Fragment Header for IPv6  |
-    |  idrp  |  Inter-Domain Routing Protocol  |
-    |  rsvp  |  Reservation Protocol  |
-    |  gre  |  General Routing Encapsulation  |
-    |  esp  |  Encap Security Payload [RFC2406]  |
-    |  ah  |  Authentication Header [RFC2402]  |
-    |  skip  |  SKIP  |
-    |  ipv6-icmp  |  ICMP for IPv6  |
-    |  ipv6-nonxt  |  No Next Header for IPv6  |
-    |  ipv6-opts  |  Destination Options for IPv6  |
-    |  rspf  |  Radio Shortest Path First (officially CPHB)  |
-    |  vmtp  |  Versatile Message Transport  |
-    |  eigrp  |  Enhanced Interior Routing Protocol (Cisco)  |
-    |  ospf  |  Open Shortest Path First IGP  |
-    |  ax.25  |  AX.25 frames  |
-    |  ipip  |  IP-within-IP Encapsulation Protocol  |
-    |  etherip  |  Ethernet-within-IP Encapsulation [RFC3378]  |
-    |  encap  |  Yet Another IP encapsulation [RFC1241]  |
-    |  99  |  Any private encryption scheme  |
-    |  pim  |  Protocol Independent Multicast  |
-    |  ipcomp  |  IP Payload Compression Protocol  |
-    |  vrrp  |  Virtual Router Redundancy Protocol [RFC5798]  |
-    |  l2tp  |  Layer Two Tunneling Protocol [RFC2661]  |
-    |  isis  |  IS-IS over IPv4  |
-    |  sctp  |  Stream Control Transmission Protocol  |
-    |  fc  |  Fibre Channel  |
-    |  mobility-header  |  Mobility Support for IPv6 [RFC3775]  |
-    |  udplite  |  UDP-Lite [RFC3828]  |
-    |  mpls-in-ip  |  MPLS-in-IP [RFC4023]  |
-    |  manet  |  MANET Protocols [RFC5498]  |
-    |  hip  |  Host Identity Protocol  |
-    |  shim6  |  Shim6 Protocol  |
-    |  wesp  |  Wrapped Encapsulating Security Payload  |
-    |  rohc  |  Robust Header Compression  |
-    |  u32:0-255  |  IP protocol number  |
+    |  all  &emsp; |  All IP protocols  |
+    |  ip  &emsp; |  Internet Protocol, pseudo protocol number  |
+    |  hopopt  &emsp; |  IPv6 Hop-by-Hop Option [RFC1883]  |
+    |  icmp  &emsp; |  internet control message protocol  |
+    |  igmp  &emsp; |  Internet Group Management  |
+    |  ggp  &emsp; |  gateway-gateway protocol  |
+    |  ipencap  &emsp; |  IP encapsulated in IP (officially IP)  |
+    |  st  &emsp; |  ST datagram mode  |
+    |  tcp  &emsp; |  transmission control protocol  |
+    |  egp  &emsp; |  exterior gateway protocol  |
+    |  igp  &emsp; |  any private interior gateway (Cisco)  |
+    |  pup  &emsp; |  PARC universal packet protocol  |
+    |  udp  &emsp; |  user datagram protocol  |
+    |  tcp_udp  &emsp; |  Both TCP and UDP  |
+    |  hmp  &emsp; |  host monitoring protocol  |
+    |  xns-idp  &emsp; |  Xerox NS IDP  |
+    |  rdp  &emsp; |  "reliable datagram" protocol  |
+    |  iso-tp4  &emsp; |  ISO Transport Protocol class 4 [RFC905]  |
+    |  dccp  &emsp; |  Datagram Congestion Control Prot. [RFC4340]  |
+    |  xtp  &emsp; |  Xpress Transfer Protocol  |
+    |  ddp  &emsp; |  Datagram Delivery Protocol  |
+    |  idpr-cmtp  &emsp; |  IDPR Control Message Transport  |
+    |  Ipv6  &emsp; |  Internet Protocol, version 6  |
+    |  ipv6-route  &emsp; |  Routing Header for IPv6  |
+    |  ipv6-frag  &emsp; |  Fragment Header for IPv6  |
+    |  idrp  &emsp; |  Inter-Domain Routing Protocol  |
+    |  rsvp  &emsp; |  Reservation Protocol  |
+    |  gre  &emsp; |  General Routing Encapsulation  |
+    |  esp  &emsp; |  Encap Security Payload [RFC2406]  |
+    |  ah  &emsp; |  Authentication Header [RFC2402]  |
+    |  skip  &emsp; |  SKIP  |
+    |  ipv6-icmp  &emsp; |  ICMP for IPv6  |
+    |  ipv6-nonxt  &emsp; |  No Next Header for IPv6  |
+    |  ipv6-opts  &emsp; |  Destination Options for IPv6  |
+    |  rspf  &emsp; |  Radio Shortest Path First (officially CPHB)  |
+    |  vmtp  &emsp; |  Versatile Message Transport  |
+    |  eigrp  &emsp; |  Enhanced Interior Routing Protocol (Cisco)  |
+    |  ospf  &emsp; |  Open Shortest Path First IGP  |
+    |  ax.25  &emsp; |  AX.25 frames  |
+    |  ipip  &emsp; |  IP-within-IP Encapsulation Protocol  |
+    |  etherip  &emsp; |  Ethernet-within-IP Encapsulation [RFC3378]  |
+    |  encap  &emsp; |  Yet Another IP encapsulation [RFC1241]  |
+    |  99  &emsp; |  Any private encryption scheme  |
+    |  pim  &emsp; |  Protocol Independent Multicast  |
+    |  ipcomp  &emsp; |  IP Payload Compression Protocol  |
+    |  vrrp  &emsp; |  Virtual Router Redundancy Protocol [RFC5798]  |
+    |  l2tp  &emsp; |  Layer Two Tunneling Protocol [RFC2661]  |
+    |  isis  &emsp; |  IS-IS over IPv4  |
+    |  sctp  &emsp; |  Stream Control Transmission Protocol  |
+    |  fc  &emsp; |  Fibre Channel  |
+    |  mobility-header  &emsp; |  Mobility Support for IPv6 [RFC3775]  |
+    |  udplite  &emsp; |  UDP-Lite [RFC3828]  |
+    |  mpls-in-ip  &emsp; |  MPLS-in-IP [RFC4023]  |
+    |  manet  &emsp; |  MANET Protocols [RFC5498]  |
+    |  hip  &emsp; |  Host Identity Protocol  |
+    |  shim6  &emsp; |  Shim6 Protocol  |
+    |  wesp  &emsp; |  Wrapped Encapsulating Security Payload  |
+    |  rohc  &emsp; |  Robust Header Compression  |
+    |  number: 0-255  &emsp; |  IP protocol number  |
 
 `,
 

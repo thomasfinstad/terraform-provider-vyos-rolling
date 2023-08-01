@@ -3,15 +3,40 @@
 page_title: "vyos_protocols_igmp_proxy_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Internet Group Management Protocol (IGMP) proxy parameters
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Interface for IGMP proxy
+  </b>
+  </div>
 ---
 
 # vyos_protocols_igmp_proxy_interface (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Internet Group Management Protocol (IGMP) proxy parameters
 
+<br>
+&darr;
+<br>
+<b>
 Interface for IGMP proxy
+</b>
+</div>
 
 
 
@@ -20,29 +45,29 @@ Interface for IGMP proxy
 
 ### Required
 
-- `identifier` (String) Interface for IGMP proxy
+- `interface_id` (String) Interface for IGMP proxy
 
 ### Optional
 
 - `alt_subnet` (List of String) Unicast source networks allowed for multicast traffic to be proxyed
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 network  |
+    |  ipv4net  &emsp; |  IPv4 network  |
 - `role` (String) IGMP interface role
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  upstream  |  Upstream interface (only 1 allowed)  |
-    |  downstream  |  Downstream interface(s)  |
-    |  disabled  |  Disabled interface  |
+    |  upstream  &emsp; |  Upstream interface (only 1 allowed)  |
+    |  downstream  &emsp; |  Downstream interface(s)  |
+    |  disabled  &emsp; |  Disabled interface  |
 - `threshold` (Number) TTL threshold
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  TTL threshold for the interfaces  |
+    |  number: 1-255  &emsp; |  TTL threshold for the interfaces  |
 - `whitelist` (List of String) Group to whitelist
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 network  |
+    |  ipv4net  &emsp; |  IPv4 network  |

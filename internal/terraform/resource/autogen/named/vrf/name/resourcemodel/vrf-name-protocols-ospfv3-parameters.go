@@ -25,9 +25,9 @@ func (o VrfNameProtocolsOspfvthreeParameters) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Override default router identifier
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Router-ID in IP address format  |
+    |  ipv4  &emsp; |  Router-ID in IP address format  |
 
 `,
 		},

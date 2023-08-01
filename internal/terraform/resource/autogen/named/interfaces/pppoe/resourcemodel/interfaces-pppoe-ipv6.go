@@ -28,10 +28,10 @@ func (o InterfacesPppoeIPvsix) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Adjust TCP MSS value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  clamp-mss-to-pmtu  &emsp; |  Automatically sets the MSS to the proper value  |
+    |  number: 536-65535  &emsp; |  TCP Maximum segment size in bytes  |
 
 `,
 		},

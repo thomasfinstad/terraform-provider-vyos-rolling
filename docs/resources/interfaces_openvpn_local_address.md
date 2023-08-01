@@ -3,23 +3,40 @@
 page_title: "vyos_interfaces_openvpn_local_address Resource - vyos"
 subcategory: ""
 description: |-
-  OpenVPN Tunnel Interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  vtunN  |  OpenVPN interface name  |
+  <div style="text-align: center">
+  <i>interfaces</i>
 
+  <br>
+  &darr;
+  <br>
+  OpenVPN Tunnel Interface
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Local IP address of tunnel (IPv4 or IPv6)
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_openvpn_local_address (Resource)
 
+<div style="text-align: center">
+<i>interfaces</i>
+
+<br>
+&darr;
+<br>
 OpenVPN Tunnel Interface
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  vtunN  |  OpenVPN interface name  |
-
+<br>
+&darr;
+<br>
+<b>
 Local IP address of tunnel (IPv4 or IPv6)
+</b>
+</div>
 
 
 
@@ -28,12 +45,12 @@ Local IP address of tunnel (IPv4 or IPv6)
 
 ### Required
 
-- `identifier` (String) Local IP address of tunnel (IPv4 or IPv6)
-- `openvpn_identifier` (String) OpenVPN Tunnel Interface
+- `local_address_id` (String) Local IP address of tunnel (IPv4 or IPv6)
+- `openvpn_id` (String) OpenVPN Tunnel Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  vtunN  |  OpenVPN interface name  |
+    |  vtunN  &emsp; |  OpenVPN interface name  |
 
 ### Optional
 

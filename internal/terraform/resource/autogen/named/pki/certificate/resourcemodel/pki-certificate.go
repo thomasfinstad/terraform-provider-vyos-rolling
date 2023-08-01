@@ -9,7 +9,7 @@ import (
 
 // PkiCertificate describes the resource data model.
 type PkiCertificate struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"certificate_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafPkiCertificateCertificate types.String `tfsdk:"certificate" vyos:"certificate,omitempty"`
@@ -28,14 +28,14 @@ func (o *PkiCertificate) GetVyosPath() []string {
 		"pki",
 
 		"certificate",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PkiCertificate) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"certificate_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Certificate
 

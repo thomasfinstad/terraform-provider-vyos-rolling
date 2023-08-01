@@ -3,21 +3,60 @@
 page_title: "vyos_service_https_api_keys_id Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   HTTPS configuration
+
+  <br>
+  &darr;
+  <br>
   VyOS HTTP API configuration
+
+  <br>
+  &darr;
+  <br>
   HTTP API keys
+
+  <br>
+  &darr;
+  <br>
+  <b>
   HTTP API id
+  </b>
+  </div>
 ---
 
 # vyos_service_https_api_keys_id (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 HTTPS configuration
 
+<br>
+&darr;
+<br>
 VyOS HTTP API configuration
 
+<br>
+&darr;
+<br>
 HTTP API keys
 
+<br>
+&darr;
+<br>
+<b>
 HTTP API id
+</b>
+</div>
 
 
 
@@ -26,7 +65,7 @@ HTTP API id
 
 ### Required
 
-- `identifier` (String) HTTP API id
+- `id_id` (String) HTTP API id
 
 ### Optional
 

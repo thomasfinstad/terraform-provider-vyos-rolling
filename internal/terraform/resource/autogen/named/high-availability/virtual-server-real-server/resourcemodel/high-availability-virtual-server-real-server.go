@@ -8,9 +8,9 @@ import (
 
 // HighAvailabilityVirtualServerRealServer describes the resource data model.
 type HighAvailabilityVirtualServerRealServer struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"real_server_id" vyos:",self-id"`
 
-	ParentIDHighAvailabilityVirtualServer types.String `tfsdk:"virtual_server" vyos:"virtual-server_identifier,parent-id"`
+	ParentIDHighAvailabilityVirtualServer types.String `tfsdk:"virtual_server" vyos:"virtual-server,parent-id"`
 
 	// LeafNodes
 	LeafHighAvailabilityVirtualServerRealServerPort              types.Number `tfsdk:"port" vyos:"port,omitempty"`
@@ -31,21 +31,21 @@ func (o *HighAvailabilityVirtualServerRealServer) GetVyosPath() []string {
 		o.ParentIDHighAvailabilityVirtualServer.ValueString(),
 
 		"real-server",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"real_server_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Real server address
 
 `,
 		},
 
-		"virtual_server_identifier": schema.StringAttribute{
+		"virtual_server_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Load-balancing virtual server address
 
@@ -58,9 +58,9 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Numeric IP port  |
+    |  number: 0-65535  &emsp; |  Numeric IP port  |
 
 `,
 		},
@@ -69,9 +69,9 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `Server connection timeout
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-86400  |  Connection timeout to remote server  |
+    |  number: 1-86400  &emsp; |  Connection timeout to remote server  |
 
 `,
 		},

@@ -8,7 +8,7 @@ import (
 
 // ContainerNetwork describes the resource data model.
 type ContainerNetwork struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"network_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafContainerNetworkDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -25,14 +25,14 @@ func (o *ContainerNetwork) GetVyosPath() []string {
 		"container",
 
 		"network",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ContainerNetwork) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"network_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Network name
 
@@ -53,10 +53,10 @@ func (o ContainerNetwork) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional:    true,
 			MarkdownDescription: `Prefix which allocated to that network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 network prefix  |
-    |  ipv6net  |  IPv6 network prefix  |
+    |  ipv4net  &emsp; |  IPv4 network prefix  |
+    |  ipv6net  &emsp; |  IPv6 network prefix  |
 
 `,
 		},

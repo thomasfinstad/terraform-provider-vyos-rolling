@@ -28,9 +28,9 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget) ResourceSchem
 			Optional:    true,
 			MarkdownDescription: `Route Target both import and export
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  txt  &emsp; |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 
 `,
 		},
@@ -40,9 +40,9 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget) ResourceSchem
 			Optional:    true,
 			MarkdownDescription: `Route Target import
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  txt  &emsp; |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 
 `,
 		},
@@ -52,9 +52,9 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget) ResourceSchem
 			Optional:    true,
 			MarkdownDescription: `Route Target export
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  txt  &emsp; |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 
 `,
 		},

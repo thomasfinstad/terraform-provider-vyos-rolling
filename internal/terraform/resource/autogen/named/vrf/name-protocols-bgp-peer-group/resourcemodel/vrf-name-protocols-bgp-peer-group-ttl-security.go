@@ -25,9 +25,9 @@ func (o VrfNameProtocolsBgpPeerGroupTTLSecURIty) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `Number of the maximum number of hops to the BGP peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-254  |  Number of hops  |
+    |  number: 1-254  &emsp; |  Number of hops  |
 
 `,
 		},

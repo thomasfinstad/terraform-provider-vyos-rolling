@@ -28,14 +28,14 @@ func (o PolicyRoutesixRuleSource) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `IP address, subnet, or range
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6  |  IP address to match  |
-    |  ipv6net  |  Subnet to match  |
-    |  ipv6range  |  IP range to match  |
-    |  !ipv6  |  Match everything except the specified address  |
-    |  !ipv6net  |  Match everything except the specified prefix  |
-    |  !ipv6range  |  Match everything except the specified range  |
+    |  ipv6  &emsp; |  IP address to match  |
+    |  ipv6net  &emsp; |  Subnet to match  |
+    |  ipv6range  &emsp; |  IP range to match  |
+    |  !ipv6  &emsp; |  Match everything except the specified address  |
+    |  !ipv6net  &emsp; |  Match everything except the specified prefix  |
+    |  !ipv6range  &emsp; |  Match everything except the specified range  |
 
 `,
 		},
@@ -44,12 +44,12 @@ func (o PolicyRoutesixRuleSource) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Named port (any name in /etc/services, e.g., http)  |
-    |  u32:1-65535  |  Numbered port  |
-    |  <start-end>  |  Numbered port range (e.g. 1001-1005)  |
-    |     |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
+    |  txt  &emsp; |  Named port (any name in /etc/services, e.g., http)  |
+    |  number: 1-65535  &emsp; |  Numbered port  |
+    |  <start-end>  &emsp; |  Numbered port range (e.g. 1001-1005)  |
+    |     &emsp; |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
 
 `,
 		},
@@ -58,10 +58,10 @@ func (o PolicyRoutesixRuleSource) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `MAC address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  MAC address to match  |
-    |  !macaddr  |  Match everything except the specified MAC address  |
+    |  macaddr  &emsp; |  MAC address to match  |
+    |  !macaddr  &emsp; |  Match everything except the specified MAC address  |
 
 `,
 		},

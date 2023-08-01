@@ -36,9 +36,9 @@ func (o InterfacesOpenvpnServer) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `DNS suffix to be pushed to all clients
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Domain Name Server suffix  |
+    |  txt  &emsp; |  Domain Name Server suffix  |
 
 `,
 		},
@@ -47,9 +47,9 @@ func (o InterfacesOpenvpnServer) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Number of maximum client connections
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4096  |  Number of concurrent clients  |
+    |  number: 1-4096  &emsp; |  Number of concurrent clients  |
 
 `,
 		},
@@ -59,10 +59,10 @@ func (o InterfacesOpenvpnServer) ResourceSchemaAttributes() map[string]schema.At
 			Optional:    true,
 			MarkdownDescription: `Domain Name Servers (DNS) addresses
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
-    |  ipv6  |  Domain Name Server (DNS) IPv6 address  |
+    |  ipv4  &emsp; |  Domain Name Server (DNS) IPv4 address  |
+    |  ipv6  &emsp; |  Domain Name Server (DNS) IPv6 address  |
 
 `,
 		},
@@ -81,10 +81,10 @@ func (o InterfacesOpenvpnServer) ResourceSchemaAttributes() map[string]schema.At
 			Optional:    true,
 			MarkdownDescription: `Server-mode subnet (from which client IPs are allocated)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 network and prefix length  |
-    |  ipv6net  |  IPv6 network and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 network and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 network and prefix length  |
 
 `,
 		},
@@ -93,11 +93,11 @@ func (o InterfacesOpenvpnServer) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Topology for clients
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  net30  |  net30 topology  |
-    |  point-to-point  |  Point-to-point topology  |
-    |  subnet  |  Subnet topology  |
+    |  net30  &emsp; |  net30 topology  |
+    |  point-to-point  &emsp; |  Point-to-point topology  |
+    |  subnet  &emsp; |  Subnet topology  |
 
 `,
 

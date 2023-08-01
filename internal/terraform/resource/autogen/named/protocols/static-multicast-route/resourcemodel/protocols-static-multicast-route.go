@@ -8,7 +8,7 @@ import (
 
 // ProtocolsStaticMulticastRoute describes the resource data model.
 type ProtocolsStaticMulticastRoute struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"route_id" vyos:",self-id"`
 
 	// LeafNodes
 
@@ -28,20 +28,20 @@ func (o *ProtocolsStaticMulticastRoute) GetVyosPath() []string {
 		"multicast",
 
 		"route",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsStaticMulticastRoute) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"route_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Configure static unicast route into MRIB for multicast RPF lookup
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Network  |
+    |  ipv4net  &emsp; |  Network  |
 
 `,
 		},

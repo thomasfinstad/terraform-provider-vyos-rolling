@@ -3,24 +3,40 @@
 page_title: "vyos_system_sflow_server Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>system</i>
+
+  <br>
+  &darr;
+  <br>
   sFlow settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   sFlow destination server
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  IPv4 server to export sFlow  |
-  |  ipv6  |  IPv6 server to export sFlow  |
+  </b>
+  </div>
 ---
 
 # vyos_system_sflow_server (Resource)
 
+<div style="text-align: center">
+<i>system</i>
+
+<br>
+&darr;
+<br>
 sFlow settings
 
+<br>
+&darr;
+<br>
+<b>
 sFlow destination server
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  IPv4 server to export sFlow  |
-    |  ipv6  |  IPv6 server to export sFlow  |
+</b>
+</div>
 
 
 
@@ -29,17 +45,17 @@ sFlow destination server
 
 ### Required
 
-- `identifier` (String) sFlow destination server
+- `server_id` (String) sFlow destination server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 server to export sFlow  |
-    |  ipv6  |  IPv6 server to export sFlow  |
+    |  ipv4  &emsp; |  IPv4 server to export sFlow  |
+    |  ipv6  &emsp; |  IPv6 server to export sFlow  |
 
 ### Optional
 
 - `port` (Number) Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |

@@ -3,28 +3,60 @@
 page_title: "vyos_service_webproxy_url_filtering_squidguard_source_group Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Webproxy service settings
+
+  <br>
+  &darr;
+  <br>
   URL filtering settings
+
+  <br>
+  &darr;
+  <br>
   URL filtering via squidGuard redirector
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Source group name
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  name  |  Name of source group  |
+  </b>
+  </div>
 ---
 
 # vyos_service_webproxy_url_filtering_squidguard_source_group (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Webproxy service settings
 
+<br>
+&darr;
+<br>
 URL filtering settings
 
+<br>
+&darr;
+<br>
 URL filtering via squidGuard redirector
 
+<br>
+&darr;
+<br>
+<b>
 Source group name
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  name  |  Name of source group  |
+</b>
+</div>
 
 
 
@@ -33,27 +65,27 @@ Source group name
 
 ### Required
 
-- `identifier` (String) Source group name
+- `source_group_id` (String) Source group name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  name  |  Name of source group  |
+    |  name  &emsp; |  Name of source group  |
 
 ### Optional
 
 - `address` (List of String) Address for source-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address to match  |
-    |  ipv4net  |  IPv4 prefix to match  |
-    |  ipv4range  |  IPv4 address range to match  |
+    |  ipv4  &emsp; |  IPv4 address to match  |
+    |  ipv4net  &emsp; |  IPv4 prefix to match  |
+    |  ipv4range  &emsp; |  IPv4 address range to match  |
 - `description` (String) Description for source-group
 - `domain` (List of String) Domain for source-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  domain  |  Domain name for the source-group  |
+    |  domain  &emsp; |  Domain name for the source-group  |
 - `ldap_ip_search` (List of String) LDAP search expression for an IP address list
 - `ldap_user_search` (List of String) LDAP search expression for a user group
 - `user` (String) List of user names

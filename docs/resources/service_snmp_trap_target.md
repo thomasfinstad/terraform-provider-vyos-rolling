@@ -3,24 +3,40 @@
 page_title: "vyos_service_snmp_trap_target Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Simple Network Management Protocol (SNMP)
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Address of trap target
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  IPv4 address  |
-  |  ipv6  |  IPv6 address  |
+  </b>
+  </div>
 ---
 
 # vyos_service_snmp_trap_target (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Simple Network Management Protocol (SNMP)
 
+<br>
+&darr;
+<br>
+<b>
 Address of trap target
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  IPv4 address  |
-    |  ipv6  |  IPv6 address  |
+</b>
+</div>
 
 
 
@@ -29,18 +45,18 @@ Address of trap target
 
 ### Required
 
-- `identifier` (String) Address of trap target
+- `trap_target_id` (String) Address of trap target
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address  |
-    |  ipv6  |  IPv6 address  |
+    |  ipv4  &emsp; |  IPv4 address  |
+    |  ipv6  &emsp; |  IPv6 address  |
 
 ### Optional
 
 - `community` (String) Community used when sending trap information
 - `port` (Number) Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |

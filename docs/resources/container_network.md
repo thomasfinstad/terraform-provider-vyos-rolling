@@ -3,15 +3,30 @@
 page_title: "vyos_container_network Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Container applications
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Network name
+  </b>
+  </div>
 ---
 
 # vyos_container_network (Resource)
 
+<div style="text-align: center">
 Container applications
 
+<br>
+&darr;
+<br>
+<b>
 Network name
+</b>
+</div>
 
 
 
@@ -20,14 +35,14 @@ Network name
 
 ### Required
 
-- `identifier` (String) Network name
+- `network_id` (String) Network name
 
 ### Optional
 
 - `description` (String) Network description
 - `prefix` (List of String) Prefix which allocated to that network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 network prefix  |
-    |  ipv6net  |  IPv6 network prefix  |
+    |  ipv4net  &emsp; |  IPv4 network prefix  |
+    |  ipv6net  &emsp; |  IPv6 network prefix  |

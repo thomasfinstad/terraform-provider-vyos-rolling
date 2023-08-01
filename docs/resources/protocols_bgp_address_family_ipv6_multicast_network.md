@@ -3,28 +3,60 @@
 page_title: "vyos_protocols_bgp_address_family_ipv6_multicast_network Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Border Gateway Protocol (BGP)
+
+  <br>
+  &darr;
+  <br>
   BGP address-family parameters
+
+  <br>
+  &darr;
+  <br>
   Multicast IPv6 BGP settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Import BGP network/prefix into multicast IPv6 RIB
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv6net  |  Multicast IPv6 BGP network/prefix  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_bgp_address_family_ipv6_multicast_network (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Border Gateway Protocol (BGP)
 
+<br>
+&darr;
+<br>
 BGP address-family parameters
 
+<br>
+&darr;
+<br>
 Multicast IPv6 BGP settings
 
+<br>
+&darr;
+<br>
+<b>
 Import BGP network/prefix into multicast IPv6 RIB
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv6net  |  Multicast IPv6 BGP network/prefix  |
+</b>
+</div>
 
 
 
@@ -33,21 +65,21 @@ Import BGP network/prefix into multicast IPv6 RIB
 
 ### Required
 
-- `identifier` (String) Import BGP network/prefix into multicast IPv6 RIB
+- `network_id` (String) Import BGP network/prefix into multicast IPv6 RIB
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  Multicast IPv6 BGP network/prefix  |
+    |  ipv6net  &emsp; |  Multicast IPv6 BGP network/prefix  |
 
 ### Optional
 
 - `path_limit` (Number) AS-path hopcount limit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  AS path hop count limit  |
+    |  number: 0-255  &emsp; |  AS path hop count limit  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |

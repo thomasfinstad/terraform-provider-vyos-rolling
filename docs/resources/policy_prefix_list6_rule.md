@@ -3,33 +3,40 @@
 page_title: "vyos_policy_prefix_list6_rule Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Routing policy
-  IPv6 prefix-list filter
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Name of IPv6 prefix-list  |
 
+  <br>
+  &darr;
+  <br>
+  IPv6 prefix-list filter
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Rule for this prefix-list6
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-65535  |  Prefix-list rule number  |
+  </b>
+  </div>
 ---
 
 # vyos_policy_prefix_list6_rule (Resource)
 
+<div style="text-align: center">
 Routing policy
 
+<br>
+&darr;
+<br>
 IPv6 prefix-list filter
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Name of IPv6 prefix-list  |
-
+<br>
+&darr;
+<br>
+<b>
 Rule for this prefix-list6
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-65535  |  Prefix-list rule number  |
+</b>
+</div>
 
 
 
@@ -38,42 +45,42 @@ Rule for this prefix-list6
 
 ### Required
 
-- `identifier` (String) Rule for this prefix-list6
+- `prefix_list6_id` (String) IPv6 prefix-list filter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Prefix-list rule number  |
-- `prefix_list6_identifier` (String) IPv6 prefix-list filter
+    |  txt  &emsp; |  Name of IPv6 prefix-list  |
+- `rule_id` (String) Rule for this prefix-list6
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv6 prefix-list  |
+    |  number: 1-65535  &emsp; |  Prefix-list rule number  |
 
 ### Optional
 
 - `action` (String) Action to take on entries matching this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  permit  |  Permit matching entries  |
-    |  deny  |  Deny matching entries  |
+    |  permit  &emsp; |  Permit matching entries  |
+    |  deny  &emsp; |  Deny matching entries  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `ge` (Number) Prefix length to match a netmask greater than or equal to it
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-128  |  Netmask greater than length  |
+    |  number: 0-128  &emsp; |  Netmask greater than length  |
 - `le` (Number) Prefix length to match a netmask less than or equal to it
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-128  |  Netmask less than length  |
+    |  number: 0-128  &emsp; |  Netmask less than length  |
 - `prefix` (String) Prefix to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  IPv6 prefix  |
+    |  ipv6net  &emsp; |  IPv6 prefix  |

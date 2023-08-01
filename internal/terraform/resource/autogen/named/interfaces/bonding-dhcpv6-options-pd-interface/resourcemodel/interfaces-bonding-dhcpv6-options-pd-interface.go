@@ -8,11 +8,11 @@ import (
 
 // InterfacesBondingDhcpvsixOptionsPdInterface describes the resource data model.
 type InterfacesBondingDhcpvsixOptionsPdInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
-	ParentIDInterfacesBonding types.String `tfsdk:"bonding" vyos:"bonding_identifier,parent-id"`
+	ParentIDInterfacesBonding types.String `tfsdk:"bonding" vyos:"bonding,parent-id"`
 
-	ParentIDInterfacesBondingDhcpvsixOptionsPd types.String `tfsdk:"pd" vyos:"pd_identifier,parent-id"`
+	ParentIDInterfacesBondingDhcpvsixOptionsPd types.String `tfsdk:"pd" vyos:"pd,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesBondingDhcpvsixOptionsPdInterfaceAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
@@ -37,38 +37,38 @@ func (o *InterfacesBondingDhcpvsixOptionsPdInterface) GetVyosPath() []string {
 		o.ParentIDInterfacesBondingDhcpvsixOptionsPd.ValueString(),
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesBondingDhcpvsixOptionsPdInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Delegate IPv6 prefix from provider to this interface
 
 `,
 		},
 
-		"bonding_identifier": schema.StringAttribute{
+		"bonding_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Bonding Interface/Link Aggregation
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  bondN  |  Bonding interface name  |
+    |  bondN  &emsp; |  Bonding interface name  |
 
 `,
 		},
 
-		"pd_identifier": schema.StringAttribute{
+		"pd_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
 
 `,
 		},
@@ -79,9 +79,9 @@ func (o InterfacesBondingDhcpvsixOptionsPdInterface) ResourceSchemaAttributes() 
 			Optional: true,
 			MarkdownDescription: `Local interface address assigned to interface (default: EUI-64)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  >0  |  Used to form IPv6 interface address  |
+    |  >0  &emsp; |  Used to form IPv6 interface address  |
 
 `,
 		},
@@ -90,9 +90,9 @@ func (o InterfacesBondingDhcpvsixOptionsPdInterface) ResourceSchemaAttributes() 
 			Optional: true,
 			MarkdownDescription: `Interface site-Level aggregator (SLA)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Decimal integer which fits in the length of SLA IDs  |
+    |  number: 0-65535  &emsp; |  Decimal integer which fits in the length of SLA IDs  |
 
 `,
 		},

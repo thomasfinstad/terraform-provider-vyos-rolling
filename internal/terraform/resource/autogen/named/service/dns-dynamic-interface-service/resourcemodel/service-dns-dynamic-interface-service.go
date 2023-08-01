@@ -8,9 +8,9 @@ import (
 
 // ServiceDNSDynamicInterfaceService describes the resource data model.
 type ServiceDNSDynamicInterfaceService struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"service_id" vyos:",self-id"`
 
-	ParentIDServiceDNSDynamicInterface types.String `tfsdk:"interface" vyos:"interface_identifier,parent-id"`
+	ParentIDServiceDNSDynamicInterface types.String `tfsdk:"interface" vyos:"interface,parent-id"`
 
 	// LeafNodes
 	LeafServiceDNSDynamicInterfaceServiceHostName types.List   `tfsdk:"host_name" vyos:"host-name,omitempty"`
@@ -38,36 +38,36 @@ func (o *ServiceDNSDynamicInterfaceService) GetVyosPath() []string {
 		o.ParentIDServiceDNSDynamicInterface.ValueString(),
 
 		"service",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDNSDynamicInterfaceService) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"service_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Service being used for Dynamic DNS
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Dynanmic DNS service with a custom name  |
-    |  afraid  |  afraid.org Services  |
-    |  changeip  |  changeip.com Services  |
-    |  cloudflare  |  cloudflare.com Services  |
-    |  dnspark  |  dnspark.com Services  |
-    |  dslreports  |  dslreports.com Services  |
-    |  dyndns  |  dyndns.com Services  |
-    |  easydns  |  easydns.com Services  |
-    |  namecheap  |  namecheap.com Services  |
-    |  noip  |  noip.com Services  |
-    |  sitelutions  |  sitelutions.com Services  |
-    |  zoneedit  |  zoneedit.com Services  |
+    |  txt  &emsp; |  Dynanmic DNS service with a custom name  |
+    |  afraid  &emsp; |  afraid.org Services  |
+    |  changeip  &emsp; |  changeip.com Services  |
+    |  cloudflare  &emsp; |  cloudflare.com Services  |
+    |  dnspark  &emsp; |  dnspark.com Services  |
+    |  dslreports  &emsp; |  dslreports.com Services  |
+    |  dyndns  &emsp; |  dyndns.com Services  |
+    |  easydns  &emsp; |  easydns.com Services  |
+    |  namecheap  &emsp; |  namecheap.com Services  |
+    |  noip  &emsp; |  noip.com Services  |
+    |  sitelutions  &emsp; |  sitelutions.com Services  |
+    |  zoneedit  &emsp; |  zoneedit.com Services  |
 
 `,
 		},
 
-		"interface_identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Interface to send DDNS updates for
 
@@ -102,29 +102,29 @@ func (o ServiceDNSDynamicInterfaceService) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `ddclient protocol used for DDNS service
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  changeip  |  ChangeIP protocol  |
-    |  cloudflare  |  Cloudflare protocol  |
-    |  dnsmadeeasy  |  DNS Made Easy protocol  |
-    |  dnspark  |  DNS Park protocol  |
-    |  dondominio  |  DonDominio protocol  |
-    |  dslreports1  |  DslReports protocol  |
-    |  dtdns  |  DtDNS protocol  |
-    |  duckdns  |  DuckDNS protocol  |
-    |  dyndns2  |  DynDNS protocol v2  |
-    |  easydns  |  easyDNS protocol  |
-    |  freedns  |  FreeDNS protocol  |
-    |  freemyip  |  freemyip protocol  |
-    |  googledomains  |  Google domains protocol  |
-    |  hammernode1  |  Hammernode protocol  |
-    |  namecheap  |  Namecheap protocol  |
-    |  nfsn  |  NearlyFreeSpeech DNS protocol  |
-    |  noip  |  No-IP protocol  |
-    |  sitelutions  |  Sitelutions protocol  |
-    |  woima  |  WOIMA protocol  |
-    |  yandex  |  Yandex.DNS protocol  |
-    |  zoneedit1  |  Zoneedit protocol  |
+    |  changeip  &emsp; |  ChangeIP protocol  |
+    |  cloudflare  &emsp; |  Cloudflare protocol  |
+    |  dnsmadeeasy  &emsp; |  DNS Made Easy protocol  |
+    |  dnspark  &emsp; |  DNS Park protocol  |
+    |  dondominio  &emsp; |  DonDominio protocol  |
+    |  dslreports1  &emsp; |  DslReports protocol  |
+    |  dtdns  &emsp; |  DtDNS protocol  |
+    |  duckdns  &emsp; |  DuckDNS protocol  |
+    |  dyndns2  &emsp; |  DynDNS protocol v2  |
+    |  easydns  &emsp; |  easyDNS protocol  |
+    |  freedns  &emsp; |  FreeDNS protocol  |
+    |  freemyip  &emsp; |  freemyip protocol  |
+    |  googledomains  &emsp; |  Google domains protocol  |
+    |  hammernode1  &emsp; |  Hammernode protocol  |
+    |  namecheap  &emsp; |  Namecheap protocol  |
+    |  nfsn  &emsp; |  NearlyFreeSpeech DNS protocol  |
+    |  noip  &emsp; |  No-IP protocol  |
+    |  sitelutions  &emsp; |  Sitelutions protocol  |
+    |  woima  &emsp; |  WOIMA protocol  |
+    |  yandex  &emsp; |  Yandex.DNS protocol  |
+    |  zoneedit1  &emsp; |  Zoneedit protocol  |
 
 `,
 		},
@@ -133,10 +133,10 @@ func (o ServiceDNSDynamicInterfaceService) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `Remote server to connect to
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Server IPv4 address  |
-    |  hostname  |  Server hostname/FQDN  |
+    |  ipv4  &emsp; |  Server IPv4 address  |
+    |  hostname  &emsp; |  Server hostname/FQDN  |
 
 `,
 		},

@@ -8,7 +8,7 @@ import (
 
 // PkiOpenvpnSharedSecret describes the resource data model.
 type PkiOpenvpnSharedSecret struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"shared_secret_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafPkiOpenvpnSharedSecretKey     types.String `tfsdk:"key" vyos:"key,omitempty"`
@@ -27,14 +27,14 @@ func (o *PkiOpenvpnSharedSecret) GetVyosPath() []string {
 		"openvpn",
 
 		"shared-secret",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PkiOpenvpnSharedSecret) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"shared_secret_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `OpenVPN shared secret key
 

@@ -12,18 +12,31 @@ import (
 func (r systemLoginUserAuthenticationPublicKeys) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `System User Login Configuration
+		MarkdownDescription: `<div style="text-align: center">
+<i>system</i>
 
+<br>
+&darr;
+<br>
+System User Login Configuration
+
+<br>
+&darr;
+<br>
 Local user account information
 
+<br>
+&darr;
+<br>
 Authentication settings
 
+<br>
+&darr;
+<br>
+<b>
 Remote access public keys
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Key identifier used by ssh-keygen (usually of form user@host)  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

@@ -3,24 +3,40 @@
 page_title: "vyos_service_console_server_device Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Serial Console Server
+
+  <br>
+  &darr;
+  <br>
+  <b>
   System serial interface name (ttyS or ttyUSB)
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ttySxxx  |  Regular serial interface  |
-  |  usbxbxpx  |  USB based serial interface  |
+  </b>
+  </div>
 ---
 
 # vyos_service_console_server_device (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Serial Console Server
 
+<br>
+&darr;
+<br>
+<b>
 System serial interface name (ttyS or ttyUSB)
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ttySxxx  |  Regular serial interface  |
-    |  usbxbxpx  |  USB based serial interface  |
+</b>
+</div>
 
 
 
@@ -29,12 +45,12 @@ System serial interface name (ttyS or ttyUSB)
 
 ### Required
 
-- `identifier` (String) System serial interface name (ttyS or ttyUSB)
+- `device_id` (String) System serial interface name (ttyS or ttyUSB)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ttySxxx  |  Regular serial interface  |
-    |  usbxbxpx  |  USB based serial interface  |
+    |  ttySxxx  &emsp; |  Regular serial interface  |
+    |  usbxbxpx  &emsp; |  USB based serial interface  |
 
 ### Optional
 
@@ -42,9 +58,9 @@ System serial interface name (ttyS or ttyUSB)
 - `data_bits` (String) Serial port data bits
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `parity` (String) Parity setting
 - `speed` (String) Serial port baud rate
 - `ssh` (Attributes) SSH remote access to this console (see [below for nested schema](#nestedatt--ssh))
@@ -57,6 +73,6 @@ Optional:
 
 - `port` (Number) Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |

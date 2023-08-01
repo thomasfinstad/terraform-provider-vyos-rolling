@@ -9,9 +9,9 @@ import (
 
 // VrfNameProtocolsBgpPeerGroup describes the resource data model.
 type VrfNameProtocolsBgpPeerGroup struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"peer_group_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsBgpPeerGroupDescrIPtion                  types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -50,27 +50,27 @@ func (o *VrfNameProtocolsBgpPeerGroup) GetVyosPath() []string {
 		"bgp",
 
 		"peer-group",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"peer_group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Name of peer-group
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -81,9 +81,9 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -110,9 +110,9 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Allow this EBGP neighbor to not be on a directly connected network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Number of hops  |
+    |  number: 1-255  &emsp; |  Number of hops  |
 
 `,
 		},
@@ -121,11 +121,11 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `BGP graceful restart functionality
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  |  Enable BGP graceful restart at peer level  |
-    |  disable  |  Disable BGP graceful restart at peer level  |
-    |  restart-helper  |  Enable BGP graceful restart helper only functionality  |
+    |  enable  &emsp; |  Enable BGP graceful restart at peer level  |
+    |  disable  &emsp; |  Disable BGP graceful restart at peer level  |
+    |  restart-helper  &emsp; |  Enable BGP graceful restart helper only functionality  |
 
 `,
 		},
@@ -159,11 +159,11 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Neighbor BGP AS number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967294  |  Neighbor AS number  |
-    |  external  |  Any AS different from the local AS  |
-    |  internal  |  Neighbor AS number  |
+    |  number: 1-4294967294  &emsp; |  Neighbor AS number  |
+    |  external  &emsp; |  Any AS different from the local AS  |
+    |  internal  &emsp; |  Neighbor AS number  |
 
 `,
 		},
@@ -181,11 +181,11 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Source IP of routing updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address of route source  |
-    |  ipv6  |  IPv6 address of route source  |
-    |  txt  |  Interface as route source  |
+    |  ipv4  &emsp; |  IPv4 address of route source  |
+    |  ipv6  &emsp; |  IPv6 address of route source  |
+    |  txt  &emsp; |  Interface as route source  |
 
 `,
 		},

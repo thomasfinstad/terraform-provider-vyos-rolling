@@ -9,7 +9,7 @@ import (
 
 // ServiceWebproxyURLFilteringSquIDguardRule describes the resource data model.
 type ServiceWebproxyURLFilteringSquIDguardRule struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceWebproxyURLFilteringSquIDguardRuleAllowCategory     types.List   `tfsdk:"allow_category" vyos:"allow-category,omitempty"`
@@ -44,20 +44,20 @@ func (o *ServiceWebproxyURLFilteringSquIDguardRule) GetVyosPath() []string {
 		"squidguard",
 
 		"rule",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `URL filter rule for a source-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-1024  |  Rule Number  |
+    |  number: 1-1024  &emsp; |  Rule Number  |
 
 `,
 		},
@@ -93,10 +93,10 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceSchemaAttributes() ma
 			Optional: true,
 			MarkdownDescription: `Default action (default: allow)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  allow  |  Default filter action is allow)  |
-    |  block  |  Default filter action is block  |
+    |  allow  &emsp; |  Default filter action is allow)  |
+    |  block  &emsp; |  Default filter action is block  |
 
 `,
 		},
@@ -115,9 +115,9 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceSchemaAttributes() ma
 			Optional:    true,
 			MarkdownDescription: `Local keyword to block
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  keyword  |  Keyword (or regex) to block  |
+    |  keyword  &emsp; |  Keyword (or regex) to block  |
 
 `,
 		},
@@ -127,9 +127,9 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceSchemaAttributes() ma
 			Optional:    true,
 			MarkdownDescription: `Local URL to block
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  url  |  Local URL to block (without "http://")  |
+    |  url  &emsp; |  Local URL to block (without "http://")  |
 
 `,
 		},
@@ -139,9 +139,9 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceSchemaAttributes() ma
 			Optional:    true,
 			MarkdownDescription: `Local site to block
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IP address of site to block  |
+    |  ipv4  &emsp; |  IP address of site to block  |
 
 `,
 		},
@@ -151,9 +151,9 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceSchemaAttributes() ma
 			Optional:    true,
 			MarkdownDescription: `Local URL to allow
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  url  |  Local URL to allow (without "http://")  |
+    |  url  &emsp; |  Local URL to allow (without "http://")  |
 
 `,
 		},
@@ -163,9 +163,9 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceSchemaAttributes() ma
 			Optional:    true,
 			MarkdownDescription: `Local site to allow
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IP address of site to allow  |
+    |  ipv4  &emsp; |  IP address of site to allow  |
 
 `,
 		},
@@ -182,9 +182,9 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceSchemaAttributes() ma
 			Optional: true,
 			MarkdownDescription: `Redirect URL for filtered websites
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  url  |  URL for redirect  |
+    |  url  &emsp; |  URL for redirect  |
 
 `,
 		},
@@ -193,9 +193,9 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceSchemaAttributes() ma
 			Optional: true,
 			MarkdownDescription: `Source-group for this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  group  |  Source group identifier for this rule  |
+    |  group  &emsp; |  Source group identifier for this rule  |
 
 `,
 		},
@@ -204,9 +204,9 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceSchemaAttributes() ma
 			Optional: true,
 			MarkdownDescription: `Time-period for this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  period  |  Time period for this rule  |
+    |  period  &emsp; |  Time period for this rule  |
 
 `,
 		},

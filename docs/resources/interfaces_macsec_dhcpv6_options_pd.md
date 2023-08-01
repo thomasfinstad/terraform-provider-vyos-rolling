@@ -3,33 +3,50 @@
 page_title: "vyos_interfaces_macsec_dhcpv6_options_pd Resource - vyos"
 subcategory: ""
 description: |-
-  MACsec Interface (802.1ae)
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  macsecN  |  MACsec interface name  |
+  <div style="text-align: center">
+  <i>interfaces</i>
 
+  <br>
+  &darr;
+  <br>
+  MACsec Interface (802.1ae)
+
+  <br>
+  &darr;
+  <br>
   DHCPv6 client settings/options
+
+  <br>
+  &darr;
+  <br>
+  <b>
   DHCPv6 prefix delegation interface statement
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  instance number  |  Prefix delegation instance (>= 0)  |
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_macsec_dhcpv6_options_pd (Resource)
 
+<div style="text-align: center">
+<i>interfaces</i>
+
+<br>
+&darr;
+<br>
 MACsec Interface (802.1ae)
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  macsecN  |  MACsec interface name  |
-
+<br>
+&darr;
+<br>
 DHCPv6 client settings/options
 
+<br>
+&darr;
+<br>
+<b>
 DHCPv6 prefix delegation interface statement
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+</b>
+</div>
 
 
 
@@ -38,21 +55,21 @@ DHCPv6 prefix delegation interface statement
 
 ### Required
 
-- `identifier` (String) DHCPv6 prefix delegation interface statement
+- `macsec_id` (String) MACsec Interface (802.1ae)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
-- `macsec_identifier` (String) MACsec Interface (802.1ae)
+    |  macsecN  &emsp; |  MACsec interface name  |
+- `pd_id` (String) DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macsecN  |  MACsec interface name  |
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
 
 ### Optional
 
 - `length` (Number) Request IPv6 prefix length from peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:32-64  |  Length of delegated prefix  |
+    |  number: 32-64  &emsp; |  Length of delegated prefix  |

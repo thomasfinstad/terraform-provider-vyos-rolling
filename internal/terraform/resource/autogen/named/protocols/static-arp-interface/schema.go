@@ -12,14 +12,26 @@ import (
 func (r protocolsStaticArpInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Static ARP translation
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+<i>static</i>
+
+<br>
+&darr;
+<br>
+Static ARP translation
+
+<br>
+&darr;
+<br>
+<b>
 Interface configuration
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Interface name  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

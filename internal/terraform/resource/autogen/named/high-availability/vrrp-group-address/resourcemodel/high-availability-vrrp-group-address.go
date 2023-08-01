@@ -8,9 +8,9 @@ import (
 
 // HighAvailabilityVrrpGroupAddress describes the resource data model.
 type HighAvailabilityVrrpGroupAddress struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"address_id" vyos:",self-id"`
 
-	ParentIDHighAvailabilityVrrpGroup types.String `tfsdk:"group" vyos:"group_identifier,parent-id"`
+	ParentIDHighAvailabilityVrrpGroup types.String `tfsdk:"group" vyos:"group,parent-id"`
 
 	// LeafNodes
 	LeafHighAvailabilityVrrpGroupAddressInterface types.String `tfsdk:"interface" vyos:"interface,omitempty"`
@@ -31,26 +31,26 @@ func (o *HighAvailabilityVrrpGroupAddress) GetVyosPath() []string {
 		o.ParentIDHighAvailabilityVrrpGroup.ValueString(),
 
 		"address",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o HighAvailabilityVrrpGroupAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"address_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
 
 `,
 		},
 
-		"group_identifier": schema.StringAttribute{
+		"group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `VRRP group
 
@@ -63,9 +63,9 @@ func (o HighAvailabilityVrrpGroupAddress) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Interface Name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},

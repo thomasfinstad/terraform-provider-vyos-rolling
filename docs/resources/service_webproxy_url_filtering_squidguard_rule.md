@@ -3,28 +3,60 @@
 page_title: "vyos_service_webproxy_url_filtering_squidguard_rule Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Webproxy service settings
+
+  <br>
+  &darr;
+  <br>
   URL filtering settings
+
+  <br>
+  &darr;
+  <br>
   URL filtering via squidGuard redirector
+
+  <br>
+  &darr;
+  <br>
+  <b>
   URL filter rule for a source-group
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-1024  |  Rule Number  |
+  </b>
+  </div>
 ---
 
 # vyos_service_webproxy_url_filtering_squidguard_rule (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Webproxy service settings
 
+<br>
+&darr;
+<br>
 URL filtering settings
 
+<br>
+&darr;
+<br>
 URL filtering via squidGuard redirector
 
+<br>
+&darr;
+<br>
+<b>
 URL filter rule for a source-group
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-1024  |  Rule Number  |
+</b>
+</div>
 
 
 
@@ -33,11 +65,11 @@ URL filter rule for a source-group
 
 ### Required
 
-- `identifier` (String) URL filter rule for a source-group
+- `rule_id` (String) URL filter rule for a source-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-1024  |  Rule Number  |
+    |  number: 1-1024  &emsp; |  Rule Number  |
 
 ### Optional
 
@@ -46,49 +78,49 @@ URL filter rule for a source-group
 - `block_category` (List of String) Category to block
 - `default_action` (String) Default action (default: allow)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  allow  |  Default filter action is allow)  |
-    |  block  |  Default filter action is block  |
+    |  allow  &emsp; |  Default filter action is allow)  |
+    |  block  &emsp; |  Default filter action is block  |
 - `enable_safe_search` (Boolean) Enable safe-mode search on popular search engines
 - `local_block` (List of String) Local site to block
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IP address of site to block  |
+    |  ipv4  &emsp; |  IP address of site to block  |
 - `local_block_keyword` (List of String) Local keyword to block
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  keyword  |  Keyword (or regex) to block  |
+    |  keyword  &emsp; |  Keyword (or regex) to block  |
 - `local_block_url` (List of String) Local URL to block
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  url  |  Local URL to block (without "http://")  |
+    |  url  &emsp; |  Local URL to block (without "http://")  |
 - `local_ok` (List of String) Local site to allow
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IP address of site to allow  |
+    |  ipv4  &emsp; |  IP address of site to allow  |
 - `local_ok_url` (List of String) Local URL to allow
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  url  |  Local URL to allow (without "http://")  |
+    |  url  &emsp; |  Local URL to allow (without "http://")  |
 - `log` (List of String) Log block category
 - `redirect_url` (String) Redirect URL for filtered websites
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  url  |  URL for redirect  |
+    |  url  &emsp; |  URL for redirect  |
 - `source_group` (String) Source-group for this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  group  |  Source group identifier for this rule  |
+    |  group  &emsp; |  Source group identifier for this rule  |
 - `time_period` (String) Time-period for this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  period  |  Time period for this rule  |
+    |  period  &emsp; |  Time period for this rule  |

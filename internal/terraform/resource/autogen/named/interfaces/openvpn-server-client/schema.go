@@ -12,20 +12,26 @@ import (
 func (r interfacesOpenvpnServerClient) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `OpenVPN Tunnel Interface
+		MarkdownDescription: `<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  vtunN  |  OpenVPN interface name  |
+<br>
+&darr;
+<br>
+OpenVPN Tunnel Interface
 
+<br>
+&darr;
+<br>
 Server-mode options
 
+<br>
+&darr;
+<br>
+<b>
 Client-specific settings
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  name  |  Client common-name in the certificate  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

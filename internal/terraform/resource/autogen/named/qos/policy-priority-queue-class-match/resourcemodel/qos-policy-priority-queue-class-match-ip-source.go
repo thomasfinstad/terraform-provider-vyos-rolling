@@ -26,10 +26,10 @@ func (o QosPolicyPriorityQueueClassMatchIPSource) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `IPv4 destination address for this match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address  |
-    |  ipv4net  |  IPv4 prefix  |
+    |  ipv4  &emsp; |  IPv4 address  |
+    |  ipv4net  &emsp; |  IPv4 prefix  |
 
 `,
 		},
@@ -38,9 +38,9 @@ func (o QosPolicyPriorityQueueClassMatchIPSource) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 		},

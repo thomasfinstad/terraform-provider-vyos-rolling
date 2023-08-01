@@ -3,25 +3,50 @@
 page_title: "vyos_vpn_sstp_client_ipv6_pool_delegate Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>vpn</i>
+
+  <br>
+  &darr;
+  <br>
   Secure Socket Tunneling Protocol (SSTP) server
+
+  <br>
+  &darr;
+  <br>
   Pool of client IPv6 addresses
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Subnet used to delegate prefix through DHCPv6-PD (RFC3633)
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv6net  |  IPv6 address and prefix length  |
+  </b>
+  </div>
 ---
 
 # vyos_vpn_sstp_client_ipv6_pool_delegate (Resource)
 
+<div style="text-align: center">
+<i>vpn</i>
+
+<br>
+&darr;
+<br>
 Secure Socket Tunneling Protocol (SSTP) server
 
+<br>
+&darr;
+<br>
 Pool of client IPv6 addresses
 
+<br>
+&darr;
+<br>
+<b>
 Subnet used to delegate prefix through DHCPv6-PD (RFC3633)
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv6net  |  IPv6 address and prefix length  |
+</b>
+</div>
 
 
 
@@ -30,16 +55,16 @@ Subnet used to delegate prefix through DHCPv6-PD (RFC3633)
 
 ### Required
 
-- `identifier` (String) Subnet used to delegate prefix through DHCPv6-PD (RFC3633)
+- `delegate_id` (String) Subnet used to delegate prefix through DHCPv6-PD (RFC3633)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
 
 ### Optional
 
 - `delegation_prefix` (Number) Prefix length delegated to client
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:32-64  |  Delegated prefix length  |
+    |  number: 32-64  &emsp; |  Delegated prefix length  |

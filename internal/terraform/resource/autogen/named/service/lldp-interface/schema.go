@@ -12,15 +12,21 @@ import (
 func (r serviceLldpInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `LLDP settings
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+LLDP settings
+
+<br>
+&darr;
+<br>
+<b>
 Location data for interface
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  all  |  Location data all interfaces  |
-    |  txt  |  Location data for a specific interface  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

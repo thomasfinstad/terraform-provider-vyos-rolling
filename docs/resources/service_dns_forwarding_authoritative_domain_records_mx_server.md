@@ -3,52 +3,80 @@
 page_title: "vyos_service_dns_forwarding_authoritative_domain_records_mx_server Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Domain Name System related services
+
+  <br>
+  &darr;
+  <br>
   DNS forwarding
+
+  <br>
+  &darr;
+  <br>
   Domain to host authoritative records for
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  text  |  An absolute DNS name  |
 
+  <br>
+  &darr;
+  <br>
   DNS zone records
-  "MX" record
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  text  |  A DNS name relative to the root record  |
-  |  @  |  Root record  |
 
+  <br>
+  &darr;
+  <br>
+  "MX" record
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Mail server
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  name.example.com  |  An absolute DNS name  |
+  </b>
+  </div>
 ---
 
 # vyos_service_dns_forwarding_authoritative_domain_records_mx_server (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Domain Name System related services
 
+<br>
+&darr;
+<br>
 DNS forwarding
 
+<br>
+&darr;
+<br>
 Domain to host authoritative records for
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  text  |  An absolute DNS name  |
-
+<br>
+&darr;
+<br>
 DNS zone records
 
+<br>
+&darr;
+<br>
 "MX" record
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  text  |  A DNS name relative to the root record  |
-    |  @  |  Root record  |
-
+<br>
+&darr;
+<br>
+<b>
 Mail server
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  name.example.com  |  An absolute DNS name  |
+</b>
+</div>
 
 
 
@@ -57,27 +85,27 @@ Mail server
 
 ### Required
 
-- `authoritative_domain_identifier` (String) Domain to host authoritative records for
+- `authoritative_domain_id` (String) Domain to host authoritative records for
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  An absolute DNS name  |
-- `identifier` (String) Mail server
+    |  text  &emsp; |  An absolute DNS name  |
+- `mx_id` (String) "MX" record
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  name.example.com  |  An absolute DNS name  |
-- `mx_identifier` (String) "MX" record
+    |  text  &emsp; |  A DNS name relative to the root record  |
+    |  @  &emsp; |  Root record  |
+- `server_id` (String) Mail server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  A DNS name relative to the root record  |
-    |  @  |  Root record  |
+    |  name.example.com  &emsp; |  An absolute DNS name  |
 
 ### Optional
 
 - `priority` (Number) Server priority
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-999  |  Server priority (lower numbers are higher priority)  |
+    |  number: 1-999  &emsp; |  Server priority (lower numbers are higher priority)  |

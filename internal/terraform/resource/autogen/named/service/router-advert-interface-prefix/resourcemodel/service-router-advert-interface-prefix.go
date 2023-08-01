@@ -9,9 +9,9 @@ import (
 
 // ServiceRouterAdvertInterfacePrefix describes the resource data model.
 type ServiceRouterAdvertInterfacePrefix struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"prefix_id" vyos:",self-id"`
 
-	ParentIDServiceRouterAdvertInterface types.String `tfsdk:"interface" vyos:"interface_identifier,parent-id"`
+	ParentIDServiceRouterAdvertInterface types.String `tfsdk:"interface" vyos:"interface,parent-id"`
 
 	// LeafNodes
 	LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag  types.Bool   `tfsdk:"no_autonomous_flag" vyos:"no-autonomous-flag,omitempty"`
@@ -37,25 +37,25 @@ func (o *ServiceRouterAdvertInterfacePrefix) GetVyosPath() []string {
 		o.ParentIDServiceRouterAdvertInterface.ValueString(),
 
 		"prefix",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceRouterAdvertInterfacePrefix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"prefix_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IPv6 prefix to be advertised in Router Advertisements (RAs)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  IPv6 prefix to be advertized  |
+    |  ipv6net  &emsp; |  IPv6 prefix to be advertized  |
 
 `,
 		},
 
-		"interface_identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Interface to send RA on
 
@@ -104,10 +104,10 @@ func (o ServiceRouterAdvertInterfacePrefix) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Time in seconds that the prefix will remain preferred
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Time in seconds that the prefix will remain preferred  |
-    |  infinity  |  Prefix will remain preferred forever  |
+    |  u32  &emsp; |  Time in seconds that the prefix will remain preferred  |
+    |  infinity  &emsp; |  Prefix will remain preferred forever  |
 
 `,
 
@@ -119,10 +119,10 @@ func (o ServiceRouterAdvertInterfacePrefix) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Time in seconds that the prefix will remain valid
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Time in seconds that the prefix will remain valid  |
-    |  infinity  |  Prefix will remain preferred forever  |
+    |  number: 1-4294967295  &emsp; |  Time in seconds that the prefix will remain valid  |
+    |  infinity  &emsp; |  Prefix will remain preferred forever  |
 
 `,
 

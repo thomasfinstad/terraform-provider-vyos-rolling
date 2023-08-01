@@ -3,33 +3,50 @@
 page_title: "vyos_interfaces_bonding_dhcpv6_options_pd Resource - vyos"
 subcategory: ""
 description: |-
-  Bonding Interface/Link Aggregation
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  bondN  |  Bonding interface name  |
+  <div style="text-align: center">
+  <i>interfaces</i>
 
+  <br>
+  &darr;
+  <br>
+  Bonding Interface/Link Aggregation
+
+  <br>
+  &darr;
+  <br>
   DHCPv6 client settings/options
+
+  <br>
+  &darr;
+  <br>
+  <b>
   DHCPv6 prefix delegation interface statement
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  instance number  |  Prefix delegation instance (>= 0)  |
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_bonding_dhcpv6_options_pd (Resource)
 
+<div style="text-align: center">
+<i>interfaces</i>
+
+<br>
+&darr;
+<br>
 Bonding Interface/Link Aggregation
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  bondN  |  Bonding interface name  |
-
+<br>
+&darr;
+<br>
 DHCPv6 client settings/options
 
+<br>
+&darr;
+<br>
+<b>
 DHCPv6 prefix delegation interface statement
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+</b>
+</div>
 
 
 
@@ -38,21 +55,21 @@ DHCPv6 prefix delegation interface statement
 
 ### Required
 
-- `bonding_identifier` (String) Bonding Interface/Link Aggregation
+- `bonding_id` (String) Bonding Interface/Link Aggregation
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  bondN  |  Bonding interface name  |
-- `identifier` (String) DHCPv6 prefix delegation interface statement
+    |  bondN  &emsp; |  Bonding interface name  |
+- `pd_id` (String) DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
 
 ### Optional
 
 - `length` (Number) Request IPv6 prefix length from peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:32-64  |  Length of delegated prefix  |
+    |  number: 32-64  &emsp; |  Length of delegated prefix  |

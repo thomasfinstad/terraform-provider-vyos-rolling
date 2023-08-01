@@ -8,9 +8,9 @@ import (
 
 // QosPolicyShaperHfscClass describes the resource data model.
 type QosPolicyShaperHfscClass struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"class_id" vyos:",self-id"`
 
-	ParentIDQosPolicyShaperHfsc types.String `tfsdk:"shaper_hfsc" vyos:"shaper-hfsc_identifier,parent-id"`
+	ParentIDQosPolicyShaperHfsc types.String `tfsdk:"shaper_hfsc" vyos:"shaper-hfsc,parent-id"`
 
 	// LeafNodes
 	LeafQosPolicyShaperHfscClassDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -35,31 +35,31 @@ func (o *QosPolicyShaperHfscClass) GetVyosPath() []string {
 		o.ParentIDQosPolicyShaperHfsc.ValueString(),
 
 		"class",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyShaperHfscClass) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"class_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Class ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4095  |  Class Identifier  |
+    |  number: 1-4095  &emsp; |  Class Identifier  |
 
 `,
 		},
 
-		"shaper_hfsc_identifier": schema.StringAttribute{
+		"shaper_hfsc_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Hierarchical Fair Service Curve's policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 `,
 		},
@@ -70,9 +70,9 @@ func (o QosPolicyShaperHfscClass) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

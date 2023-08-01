@@ -26,9 +26,9 @@ func (o InterfacesBondingArpMonitor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `ARP link monitoring interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Specifies the ARP link monitoring frequency in milliseconds  |
+    |  u32  &emsp; |  Specifies the ARP link monitoring frequency in milliseconds  |
 
 `,
 		},
@@ -38,9 +38,9 @@ func (o InterfacesBondingArpMonitor) ResourceSchemaAttributes() map[string]schem
 			Optional:    true,
 			MarkdownDescription: `IP address used for ARP monitoring
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Specify IPv4 address of ARP requests when interval is enabled  |
+    |  ipv4  &emsp; |  Specify IPv4 address of ARP requests when interval is enabled  |
 
 `,
 		},

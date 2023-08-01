@@ -9,7 +9,7 @@ import (
 
 // InterfacesDummy describes the resource data model.
 type InterfacesDummy struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"dummy_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafInterfacesDummyAddress     types.List   `tfsdk:"address" vyos:"address,omitempty"`
@@ -34,20 +34,20 @@ func (o *InterfacesDummy) GetVyosPath() []string {
 		"interfaces",
 
 		"dummy",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesDummy) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"dummy_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Dummy Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  dumN  |  Dummy interface name  |
+    |  dumN  &emsp; |  Dummy interface name  |
 
 `,
 		},
@@ -59,10 +59,10 @@ func (o InterfacesDummy) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional:    true,
 			MarkdownDescription: `IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
 
 `,
 		},
@@ -71,9 +71,9 @@ func (o InterfacesDummy) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -91,9 +91,9 @@ func (o InterfacesDummy) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:68-16000  |  Maximum Transmission Unit in byte  |
+    |  number: 68-16000  &emsp; |  Maximum Transmission Unit in byte  |
 
 `,
 
@@ -105,9 +105,9 @@ func (o InterfacesDummy) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Network namespace name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  Network namespace name  |
+    |  text  &emsp; |  Network namespace name  |
 
 `,
 		},
@@ -116,9 +116,9 @@ func (o InterfacesDummy) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 `,
 		},
@@ -127,9 +127,9 @@ func (o InterfacesDummy) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},

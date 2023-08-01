@@ -9,7 +9,7 @@ import (
 
 // ProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress describes the resource data model.
 type ProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"aggregate_address_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddressAsSet       types.Bool   `tfsdk:"as_set" vyos:"as-set,omitempty"`
@@ -33,20 +33,20 @@ func (o *ProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress) GetVyosPath(
 		"ipv4-multicast",
 
 		"aggregate-address",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"aggregate_address_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `BGP aggregate network/prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  BGP aggregate network/prefix  |
+    |  ipv4net  &emsp; |  BGP aggregate network/prefix  |
 
 `,
 		},
@@ -66,9 +66,9 @@ func (o ProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress) ResourceSchem
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},

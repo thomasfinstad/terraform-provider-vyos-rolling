@@ -8,7 +8,7 @@ import (
 
 // NatStaticRule describes the resource data model.
 type NatStaticRule struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"rule_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafNatStaticRuleDescrIPtion      types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -29,14 +29,14 @@ func (o *NatStaticRule) GetVyosPath() []string {
 		"static",
 
 		"rule",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o NatStaticRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Rule number for NAT
 
@@ -49,9 +49,9 @@ func (o NatStaticRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

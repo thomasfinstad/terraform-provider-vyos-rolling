@@ -3,25 +3,40 @@
 page_title: "vyos_protocols_static_route Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Routing protocols
+
+  <br>
+  &darr;
+  <br>
   Static Routing
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Static IPv4 route
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  IPv4 static route  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_static_route (Resource)
 
+<div style="text-align: center">
 Routing protocols
 
+<br>
+&darr;
+<br>
 Static Routing
 
+<br>
+&darr;
+<br>
+<b>
 Static IPv4 route
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 static route  |
+</b>
+</div>
 
 
 
@@ -30,25 +45,25 @@ Static IPv4 route
 
 ### Required
 
-- `identifier` (String) Static IPv4 route
+- `route_id` (String) Static IPv4 route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 static route  |
+    |  ipv4net  &emsp; |  IPv4 static route  |
 
 ### Optional
 
 - `blackhole` (Attributes) Silently discard pkts when matched (see [below for nested schema](#nestedatt--blackhole))
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `dhcp_interface` (String) DHCP interface supplying next-hop IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  DHCP interface name  |
+    |  txt  &emsp; |  DHCP interface name  |
 - `reject` (Attributes) Emit an ICMP unreachable when matched (see [below for nested schema](#nestedatt--reject))
 
 <a id="nestedatt--blackhole"></a>
@@ -58,14 +73,14 @@ Optional:
 
 - `distance` (Number) Distance for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for this route  |
+    |  number: 1-255  &emsp; |  Distance for this route  |
 - `tag` (Number) Tag value for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Tag value for this route  |
+    |  number: 1-4294967295  &emsp; |  Tag value for this route  |
 
 
 <a id="nestedatt--reject"></a>
@@ -75,11 +90,11 @@ Optional:
 
 - `distance` (Number) Distance for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for this route  |
+    |  number: 1-255  &emsp; |  Distance for this route  |
 - `tag` (Number) Tag value for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Tag value for this route  |
+    |  number: 1-4294967295  &emsp; |  Tag value for this route  |

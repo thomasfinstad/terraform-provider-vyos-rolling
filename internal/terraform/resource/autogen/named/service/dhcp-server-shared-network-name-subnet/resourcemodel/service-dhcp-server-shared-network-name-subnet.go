@@ -9,9 +9,9 @@ import (
 
 // ServiceDhcpServerSharedNetworkNameSubnet describes the resource data model.
 type ServiceDhcpServerSharedNetworkNameSubnet struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"subnet_id" vyos:",self-id"`
 
-	ParentIDServiceDhcpServerSharedNetworkName types.String `tfsdk:"shared_network_name" vyos:"shared-network-name_identifier,parent-id"`
+	ParentIDServiceDhcpServerSharedNetworkName types.String `tfsdk:"shared_network_name" vyos:"shared-network-name,parent-id"`
 
 	// LeafNodes
 	LeafServiceDhcpServerSharedNetworkNameSubnetBootfileName        types.String `tfsdk:"bootfile_name" vyos:"bootfile-name,omitempty"`
@@ -60,25 +60,25 @@ func (o *ServiceDhcpServerSharedNetworkNameSubnet) GetVyosPath() []string {
 		o.ParentIDServiceDhcpServerSharedNetworkName.ValueString(),
 
 		"subnet",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"subnet_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `DHCP subnet for shared network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
 
 `,
 		},
 
-		"shared_network_name_identifier": schema.StringAttribute{
+		"shared_network_name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Name of DHCP shared network
 
@@ -98,10 +98,10 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `Server from which the initial boot file is to be loaded
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Bootfile server IPv4 address  |
-    |  hostname  |  Bootfile server FQDN  |
+    |  ipv4  &emsp; |  Bootfile server IPv4 address  |
+    |  hostname  &emsp; |  Bootfile server FQDN  |
 
 `,
 		},
@@ -110,9 +110,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `Bootstrap file size
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-16  |  Bootstrap file size in 512 byte blocks  |
+    |  number: 1-16  &emsp; |  Bootstrap file size in 512 byte blocks  |
 
 `,
 		},
@@ -121,9 +121,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `Specifies the clients subnet mask as per RFC 950. If unset, subnet declaration is used.
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-32  |  DHCP client prefix length must be 0 to 32  |
+    |  number: 0-32  &emsp; |  DHCP client prefix length must be 0 to 32  |
 
 `,
 		},
@@ -132,9 +132,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `IP address of default router
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Default router IPv4 address  |
+    |  ipv4  &emsp; |  Default router IPv4 address  |
 
 `,
 		},
@@ -158,9 +158,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -170,9 +170,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 			Optional:    true,
 			MarkdownDescription: `Domain Name Servers (DNS) addresses
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
+    |  ipv4  &emsp; |  Domain Name Server (DNS) IPv4 address  |
 
 `,
 		},
@@ -191,9 +191,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 			Optional:    true,
 			MarkdownDescription: `IP address to exclude from DHCP lease range
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address to exclude from lease range  |
+    |  ipv4  &emsp; |  IPv4 address to exclude from lease range  |
 
 `,
 		},
@@ -211,9 +211,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `Lease timeout in seconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  DHCP lease time in seconds  |
+    |  u32  &emsp; |  DHCP lease time in seconds  |
 
 `,
 
@@ -226,9 +226,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 			Optional:    true,
 			MarkdownDescription: `IP address of NTP server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  NTP server IPv4 address  |
+    |  ipv4  &emsp; |  NTP server IPv4 address  |
 
 `,
 		},
@@ -247,9 +247,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 			Optional:    true,
 			MarkdownDescription: `IP address of POP3 server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  POP3 server IPv4 address  |
+    |  ipv4  &emsp; |  POP3 server IPv4 address  |
 
 `,
 		},
@@ -258,9 +258,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `Address for DHCP server identifier
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  DHCP server identifier IPv4 address  |
+    |  ipv4  &emsp; |  DHCP server identifier IPv4 address  |
 
 `,
 		},
@@ -270,9 +270,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 			Optional:    true,
 			MarkdownDescription: `IP address of SMTP server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  SMTP server IPv4 address  |
+    |  ipv4  &emsp; |  SMTP server IPv4 address  |
 
 `,
 		},
@@ -281,9 +281,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `Disable IPv4 on IPv6 only hosts (RFC 8925)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Seconds  |
+    |  u32  &emsp; |  Seconds  |
 
 `,
 		},
@@ -300,10 +300,10 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `TFTP server name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  TFTP server IPv4 address  |
-    |  hostname  |  TFTP server FQDN  |
+    |  ipv4  &emsp; |  TFTP server IPv4 address  |
+    |  hostname  &emsp; |  TFTP server FQDN  |
 
 `,
 		},
@@ -312,9 +312,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `Client subnet offset in seconds from Coordinated Universal Time (UTC)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  [-]N  |  Time offset (number, may be negative)  |
+    |  [-]N  &emsp; |  Time offset (number, may be negative)  |
 
 `,
 		},
@@ -324,9 +324,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 			Optional:    true,
 			MarkdownDescription: `IP address of time server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Time server IPv4 address  |
+    |  ipv4  &emsp; |  Time server IPv4 address  |
 
 `,
 		},
@@ -336,9 +336,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 			Optional:    true,
 			MarkdownDescription: `IP address for Windows Internet Name Service (WINS) server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  WINS server IPv4 address  |
+    |  ipv4  &emsp; |  WINS server IPv4 address  |
 
 `,
 		},

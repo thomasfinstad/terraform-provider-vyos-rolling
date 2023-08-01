@@ -12,14 +12,21 @@ import (
 func (r serviceWebproxyCachePeer) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Webproxy service settings
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Webproxy service settings
+
+<br>
+&darr;
+<br>
+<b>
 Specify other caches in a hierarchy
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  hostname  |  Cache peers FQDN  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

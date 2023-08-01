@@ -12,14 +12,21 @@ import (
 func (r policyLocalRoutesixRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `IPv6 policy route of local traffic
+		MarkdownDescription: `<div style="text-align: center">
+<i>policy</i>
 
+<br>
+&darr;
+<br>
+IPv6 policy route of local traffic
+
+<br>
+&darr;
+<br>
+<b>
 IPv6 policy local-route rule set number
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-32765  |  Local-route rule number (1-32765)  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

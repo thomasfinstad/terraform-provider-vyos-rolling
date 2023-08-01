@@ -8,7 +8,7 @@ import (
 
 // ProtocolsFailoverRoute describes the resource data model.
 type ProtocolsFailoverRoute struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"route_id" vyos:",self-id"`
 
 	// LeafNodes
 
@@ -26,20 +26,20 @@ func (o *ProtocolsFailoverRoute) GetVyosPath() []string {
 		"failover",
 
 		"route",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsFailoverRoute) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"route_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Failover IPv4 route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 failover route  |
+    |  ipv4net  &emsp; |  IPv4 failover route  |
 
 `,
 		},

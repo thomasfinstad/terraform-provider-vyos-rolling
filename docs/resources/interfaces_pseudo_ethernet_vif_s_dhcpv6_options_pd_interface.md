@@ -3,48 +3,70 @@
 page_title: "vyos_interfaces_pseudo_ethernet_vif_s_dhcpv6_options_pd_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>interfaces</i>
+
+  <br>
+  &darr;
+  <br>
   Pseudo Ethernet Interface (Macvlan)
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  pethN  |  Pseudo Ethernet interface name  |
 
+  <br>
+  &darr;
+  <br>
   QinQ TAG-S Virtual Local Area Network (VLAN) ID
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
 
+  <br>
+  &darr;
+  <br>
   DHCPv6 client settings/options
-  DHCPv6 prefix delegation interface statement
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  instance number  |  Prefix delegation instance (>= 0)  |
 
+  <br>
+  &darr;
+  <br>
+  DHCPv6 prefix delegation interface statement
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Delegate IPv6 prefix from provider to this interface
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_pseudo_ethernet_vif_s_dhcpv6_options_pd_interface (Resource)
 
+<div style="text-align: center">
+<i>interfaces</i>
+
+<br>
+&darr;
+<br>
 Pseudo Ethernet Interface (Macvlan)
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  pethN  |  Pseudo Ethernet interface name  |
-
+<br>
+&darr;
+<br>
 QinQ TAG-S Virtual Local Area Network (VLAN) ID
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
-
+<br>
+&darr;
+<br>
 DHCPv6 client settings/options
 
+<br>
+&darr;
+<br>
 DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
-
+<br>
+&darr;
+<br>
+<b>
 Delegate IPv6 prefix from provider to this interface
+</b>
+</div>
 
 
 
@@ -53,32 +75,32 @@ Delegate IPv6 prefix from provider to this interface
 
 ### Required
 
-- `identifier` (String) Delegate IPv6 prefix from provider to this interface
-- `pd_identifier` (String) DHCPv6 prefix delegation interface statement
+- `interface_id` (String) Delegate IPv6 prefix from provider to this interface
+- `pd_id` (String) DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
-- `pseudo_ethernet_identifier` (String) Pseudo Ethernet Interface (Macvlan)
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
+- `pseudo_ethernet_id` (String) Pseudo Ethernet Interface (Macvlan)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  pethN  |  Pseudo Ethernet interface name  |
-- `vif_s_identifier` (String) QinQ TAG-S Virtual Local Area Network (VLAN) ID
+    |  pethN  &emsp; |  Pseudo Ethernet interface name  |
+- `vif_s_id` (String) QinQ TAG-S Virtual Local Area Network (VLAN) ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
+    |  number: 0-4094  &emsp; |  QinQ Virtual Local Area Network (VLAN) ID  |
 
 ### Optional
 
 - `address` (String) Local interface address assigned to interface (default: EUI-64)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  >0  |  Used to form IPv6 interface address  |
+    |  >0  &emsp; |  Used to form IPv6 interface address  |
 - `sla_id` (Number) Interface site-Level aggregator (SLA)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Decimal integer which fits in the length of SLA IDs  |
+    |  number: 0-65535  &emsp; |  Decimal integer which fits in the length of SLA IDs  |

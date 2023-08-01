@@ -30,9 +30,9 @@ func (o QosPolicyRoundRobinDefault) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Deficit in the fair queuing algorithm
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-1048576  |  Number of bytes used as 'deficit'  |
+    |  number: 0-1048576  &emsp; |  Number of bytes used as 'deficit'  |
 
 `,
 
@@ -44,9 +44,9 @@ func (o QosPolicyRoundRobinDefault) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Number of flows into which the incoming packets are classified
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65536  |  Number of flows  |
+    |  number: 1-65536  &emsp; |  Number of flows  |
 
 `,
 
@@ -58,9 +58,9 @@ func (o QosPolicyRoundRobinDefault) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Interval used to measure the delay
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Interval in milliseconds  |
+    |  u32  &emsp; |  Interval in milliseconds  |
 
 `,
 
@@ -72,9 +72,9 @@ func (o QosPolicyRoundRobinDefault) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Queue size in packets  |
+    |  number: 1-4294967295  &emsp; |  Queue size in packets  |
 
 `,
 		},
@@ -83,13 +83,13 @@ func (o QosPolicyRoundRobinDefault) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Queue type for default traffic
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  drop-tail  |  First-In-First-Out (FIFO)  |
-    |  fair-queue  |  Stochastic Fair Queue (SFQ)  |
-    |  fq-codel  |  Fair Queue Codel  |
-    |  priority  |  Priority queuing  |
-    |  random-detect  |  Random Early Detection (RED)  |
+    |  drop-tail  &emsp; |  First-In-First-Out (FIFO)  |
+    |  fair-queue  &emsp; |  Stochastic Fair Queue (SFQ)  |
+    |  fq-codel  &emsp; |  Fair Queue Codel  |
+    |  priority  &emsp; |  Priority queuing  |
+    |  random-detect  &emsp; |  Random Early Detection (RED)  |
 
 `,
 
@@ -101,9 +101,9 @@ func (o QosPolicyRoundRobinDefault) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Acceptable minimum standing/persistent queue delay
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Queue delay in milliseconds  |
+    |  u32  &emsp; |  Queue delay in milliseconds  |
 
 `,
 

@@ -25,9 +25,9 @@ func (o VrfNameProtocolsOspfAutoCost) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Reference bandwidth method to assign cost
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967  |  Reference bandwidth cost in Mbits/sec  |
+    |  number: 1-4294967  &emsp; |  Reference bandwidth cost in Mbits/sec  |
 
 `,
 

@@ -8,7 +8,7 @@ import (
 
 // ProtocolsStaticTable describes the resource data model.
 type ProtocolsStaticTable struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"table_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsStaticTableDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -28,20 +28,20 @@ func (o *ProtocolsStaticTable) GetVyosPath() []string {
 		"static",
 
 		"table",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsStaticTable) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"table_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Policy route table number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-200  |  Policy route table number  |
+    |  number: 1-200  &emsp; |  Policy route table number  |
 
 `,
 		},
@@ -52,9 +52,9 @@ func (o ProtocolsStaticTable) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

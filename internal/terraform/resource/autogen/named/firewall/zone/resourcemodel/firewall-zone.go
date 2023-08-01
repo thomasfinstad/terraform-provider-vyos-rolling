@@ -9,7 +9,7 @@ import (
 
 // FirewallZone describes the resource data model.
 type FirewallZone struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"zone_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafFirewallZoneDescrIPtion      types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -31,20 +31,20 @@ func (o *FirewallZone) GetVyosPath() []string {
 		"firewall",
 
 		"zone",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o FirewallZone) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"zone_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Zone-policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Zone name  |
+    |  txt  &emsp; |  Zone name  |
 
 `,
 		},
@@ -55,9 +55,9 @@ func (o FirewallZone) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -75,10 +75,10 @@ func (o FirewallZone) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Default-action for traffic coming into this zone
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  drop  |  Drop silently  |
-    |  reject  |  Drop and notify source  |
+    |  drop  &emsp; |  Drop silently  |
+    |  reject  &emsp; |  Drop and notify source  |
 
 `,
 
@@ -91,9 +91,9 @@ func (o FirewallZone) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional:    true,
 			MarkdownDescription: `Interface associated with zone
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface associated with zone  |
+    |  txt  &emsp; |  Interface associated with zone  |
 
 `,
 		},

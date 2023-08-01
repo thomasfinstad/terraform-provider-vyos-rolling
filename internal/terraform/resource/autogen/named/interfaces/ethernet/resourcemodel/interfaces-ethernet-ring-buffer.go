@@ -26,9 +26,9 @@ func (o InterfacesEthernetRingBuffer) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `RX ring buffer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:80-16384  |  ring buffer size  |
+    |  number: 80-16384  &emsp; |  ring buffer size  |
 
 `,
 		},
@@ -37,9 +37,9 @@ func (o InterfacesEthernetRingBuffer) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `TX ring buffer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:80-16384  |  ring buffer size  |
+    |  number: 80-16384  &emsp; |  ring buffer size  |
 
 `,
 		},

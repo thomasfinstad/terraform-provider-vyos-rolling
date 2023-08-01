@@ -3,28 +3,50 @@
 page_title: "vyos_load_balancing_wan_interface_health_test Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Configure load-balancing
+
+  <br>
+  &darr;
+  <br>
   Configure Wide Area Network (WAN) load-balancing
+
+  <br>
+  &darr;
+  <br>
   Interface name
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Rule number
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:0-4294967295  |  Rule number  |
+  </b>
+  </div>
 ---
 
 # vyos_load_balancing_wan_interface_health_test (Resource)
 
+<div style="text-align: center">
 Configure load-balancing
 
+<br>
+&darr;
+<br>
 Configure Wide Area Network (WAN) load-balancing
 
+<br>
+&darr;
+<br>
 Interface name
 
+<br>
+&darr;
+<br>
+<b>
 Rule number
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:0-4294967295  |  Rule number  |
+</b>
+</div>
 
 
 
@@ -33,39 +55,39 @@ Rule number
 
 ### Required
 
-- `identifier` (String) Rule number
+- `interface_health_id` (String) Interface name
+- `test_id` (String) Rule number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4294967295  |  Rule number  |
-- `interface_health_identifier` (String) Interface name
+    |  number: 0-4294967295  &emsp; |  Rule number  |
 
 ### Optional
 
 - `resp_time` (Number) Ping response time (seconds)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-30  |  Response time (seconds)  |
+    |  number: 1-30  &emsp; |  Response time (seconds)  |
 - `target` (String) Health target address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Health target address  |
+    |  ipv4  &emsp; |  Health target address  |
 - `test_script` (String) Path to user-defined script
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Script in /config/scripts  |
+    |  txt  &emsp; |  Script in /config/scripts  |
 - `ttl_limit` (Number) TTL limit (hop count)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-254  |  Number of hops  |
+    |  number: 1-254  &emsp; |  Number of hops  |
 - `type` (String) WLB test type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ping  |  Test with ICMP echo response  |
-    |  ttl  |  Test with UDP TTL expired response  |
-    |  user-defined  |  User-defined test script  |
+    |  ping  &emsp; |  Test with ICMP echo response  |
+    |  ttl  &emsp; |  Test with UDP TTL expired response  |
+    |  user-defined  &emsp; |  User-defined test script  |

@@ -3,44 +3,60 @@
 page_title: "vyos_interfaces_wireless_vif_s_dhcpv6_options_pd Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>interfaces</i>
+
+  <br>
+  &darr;
+  <br>
   Wireless (WiFi/WLAN) Network Interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
 
+  <br>
+  &darr;
+  <br>
   QinQ TAG-S Virtual Local Area Network (VLAN) ID
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
 
+  <br>
+  &darr;
+  <br>
   DHCPv6 client settings/options
+
+  <br>
+  &darr;
+  <br>
+  <b>
   DHCPv6 prefix delegation interface statement
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  instance number  |  Prefix delegation instance (>= 0)  |
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_wireless_vif_s_dhcpv6_options_pd (Resource)
 
+<div style="text-align: center">
+<i>interfaces</i>
+
+<br>
+&darr;
+<br>
 Wireless (WiFi/WLAN) Network Interface
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
-
+<br>
+&darr;
+<br>
 QinQ TAG-S Virtual Local Area Network (VLAN) ID
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
-
+<br>
+&darr;
+<br>
 DHCPv6 client settings/options
 
+<br>
+&darr;
+<br>
+<b>
 DHCPv6 prefix delegation interface statement
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+</b>
+</div>
 
 
 
@@ -49,26 +65,26 @@ DHCPv6 prefix delegation interface statement
 
 ### Required
 
-- `identifier` (String) DHCPv6 prefix delegation interface statement
+- `pd_id` (String) DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
-- `vif_s_identifier` (String) QinQ TAG-S Virtual Local Area Network (VLAN) ID
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
+- `vif_s_id` (String) QinQ TAG-S Virtual Local Area Network (VLAN) ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
-- `wireless_identifier` (String) Wireless (WiFi/WLAN) Network Interface
+    |  number: 0-4094  &emsp; |  QinQ Virtual Local Area Network (VLAN) ID  |
+- `wireless_id` (String) Wireless (WiFi/WLAN) Network Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
+    |  wlanN  &emsp; |  Wireless (WiFi/WLAN) interface name  |
 
 ### Optional
 
 - `length` (Number) Request IPv6 prefix length from peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:32-64  |  Length of delegated prefix  |
+    |  number: 32-64  &emsp; |  Length of delegated prefix  |

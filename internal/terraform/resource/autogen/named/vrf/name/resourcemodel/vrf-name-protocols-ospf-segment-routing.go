@@ -28,9 +28,9 @@ func (o VrfNameProtocolsOspfSegmentRouting) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Maximum MPLS labels allowed for this router
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-16  |  MPLS label depth  |
+    |  number: 1-16  &emsp; |  MPLS label depth  |
 
 `,
 		},

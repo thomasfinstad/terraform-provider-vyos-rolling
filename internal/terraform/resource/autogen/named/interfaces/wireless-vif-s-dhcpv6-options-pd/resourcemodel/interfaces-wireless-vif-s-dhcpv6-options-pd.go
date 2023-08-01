@@ -8,11 +8,11 @@ import (
 
 // InterfacesWirelessVifSDhcpvsixOptionsPd describes the resource data model.
 type InterfacesWirelessVifSDhcpvsixOptionsPd struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"pd_id" vyos:",self-id"`
 
-	ParentIDInterfacesWireless types.String `tfsdk:"wireless" vyos:"wireless_identifier,parent-id"`
+	ParentIDInterfacesWireless types.String `tfsdk:"wireless" vyos:"wireless,parent-id"`
 
-	ParentIDInterfacesWirelessVifS types.String `tfsdk:"vif_s" vyos:"vif-s_identifier,parent-id"`
+	ParentIDInterfacesWirelessVifS types.String `tfsdk:"vif_s" vyos:"vif-s,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesWirelessVifSDhcpvsixOptionsPdLength types.Number `tfsdk:"length" vyos:"length,omitempty"`
@@ -37,42 +37,42 @@ func (o *InterfacesWirelessVifSDhcpvsixOptionsPd) GetVyosPath() []string {
 		"dhcpv6-options",
 
 		"pd",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesWirelessVifSDhcpvsixOptionsPd) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"pd_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
 
 `,
 		},
 
-		"wireless_identifier": schema.StringAttribute{
+		"wireless_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Wireless (WiFi/WLAN) Network Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
+    |  wlanN  &emsp; |  Wireless (WiFi/WLAN) interface name  |
 
 `,
 		},
 
-		"vif_s_identifier": schema.StringAttribute{
+		"vif_s_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `QinQ TAG-S Virtual Local Area Network (VLAN) ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
+    |  number: 0-4094  &emsp; |  QinQ Virtual Local Area Network (VLAN) ID  |
 
 `,
 		},
@@ -83,9 +83,9 @@ func (o InterfacesWirelessVifSDhcpvsixOptionsPd) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `Request IPv6 prefix length from peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:32-64  |  Length of delegated prefix  |
+    |  number: 32-64  &emsp; |  Length of delegated prefix  |
 
 `,
 

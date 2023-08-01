@@ -26,19 +26,19 @@ func (o InterfacesOpenvpnEncryption) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Standard Data Encryption Algorithm
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  none  |  Disable encryption  |
-    |  des  |  DES algorithm  |
-    |  3des  |  DES algorithm with triple encryption  |
-    |  bf128  |  Blowfish algorithm with 128-bit key  |
-    |  bf256  |  Blowfish algorithm with 256-bit key  |
-    |  aes128  |  AES algorithm with 128-bit key CBC  |
-    |  aes128gcm  |  AES algorithm with 128-bit key GCM  |
-    |  aes192  |  AES algorithm with 192-bit key CBC  |
-    |  aes192gcm  |  AES algorithm with 192-bit key GCM  |
-    |  aes256  |  AES algorithm with 256-bit key CBC  |
-    |  aes256gcm  |  AES algorithm with 256-bit key GCM  |
+    |  none  &emsp; |  Disable encryption  |
+    |  des  &emsp; |  DES algorithm  |
+    |  3des  &emsp; |  DES algorithm with triple encryption  |
+    |  bf128  &emsp; |  Blowfish algorithm with 128-bit key  |
+    |  bf256  &emsp; |  Blowfish algorithm with 256-bit key  |
+    |  aes128  &emsp; |  AES algorithm with 128-bit key CBC  |
+    |  aes128gcm  &emsp; |  AES algorithm with 128-bit key GCM  |
+    |  aes192  &emsp; |  AES algorithm with 192-bit key CBC  |
+    |  aes192gcm  &emsp; |  AES algorithm with 192-bit key GCM  |
+    |  aes256  &emsp; |  AES algorithm with 256-bit key CBC  |
+    |  aes256gcm  &emsp; |  AES algorithm with 256-bit key GCM  |
 
 `,
 		},
@@ -48,17 +48,17 @@ func (o InterfacesOpenvpnEncryption) ResourceSchemaAttributes() map[string]schem
 			Optional:    true,
 			MarkdownDescription: `Cipher negotiation list for use in server or client mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  none  |  Disable encryption  |
-    |  des  |  DES algorithm  |
-    |  3des  |  DES algorithm with triple encryption  |
-    |  aes128  |  AES algorithm with 128-bit key CBC  |
-    |  aes128gcm  |  AES algorithm with 128-bit key GCM  |
-    |  aes192  |  AES algorithm with 192-bit key CBC  |
-    |  aes192gcm  |  AES algorithm with 192-bit key GCM  |
-    |  aes256  |  AES algorithm with 256-bit key CBC  |
-    |  aes256gcm  |  AES algorithm with 256-bit key GCM  |
+    |  none  &emsp; |  Disable encryption  |
+    |  des  &emsp; |  DES algorithm  |
+    |  3des  &emsp; |  DES algorithm with triple encryption  |
+    |  aes128  &emsp; |  AES algorithm with 128-bit key CBC  |
+    |  aes128gcm  &emsp; |  AES algorithm with 128-bit key GCM  |
+    |  aes192  &emsp; |  AES algorithm with 192-bit key CBC  |
+    |  aes192gcm  &emsp; |  AES algorithm with 192-bit key GCM  |
+    |  aes256  &emsp; |  AES algorithm with 256-bit key CBC  |
+    |  aes256gcm  &emsp; |  AES algorithm with 256-bit key GCM  |
 
 `,
 		},

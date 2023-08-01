@@ -8,7 +8,7 @@ import (
 
 // SystemFlowAccountingSflowServer describes the resource data model.
 type SystemFlowAccountingSflowServer struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"server_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafSystemFlowAccountingSflowServerPort types.Number `tfsdk:"port" vyos:"port,omitempty"`
@@ -28,21 +28,21 @@ func (o *SystemFlowAccountingSflowServer) GetVyosPath() []string {
 		"sflow",
 
 		"server",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o SystemFlowAccountingSflowServer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"server_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `sFlow destination server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 server to export sFlow  |
-    |  ipv6  |  IPv6 server to export sFlow  |
+    |  ipv4  &emsp; |  IPv4 server to export sFlow  |
+    |  ipv6  &emsp; |  IPv6 server to export sFlow  |
 
 `,
 		},
@@ -53,9 +53,9 @@ func (o SystemFlowAccountingSflowServer) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `sFlow port number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1025-65535  |  sFlow port number  |
+    |  number: 1025-65535  &emsp; |  sFlow port number  |
 
 `,
 

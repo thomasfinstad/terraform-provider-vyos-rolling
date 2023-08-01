@@ -3,44 +3,60 @@
 page_title: "vyos_interfaces_bridge_vif_dhcpv6_options_pd Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>interfaces</i>
+
+  <br>
+  &darr;
+  <br>
   Bridge Interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  brN  |  Bridge interface name  |
 
+  <br>
+  &darr;
+  <br>
   Virtual Local Area Network (VLAN) ID
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
 
+  <br>
+  &darr;
+  <br>
   DHCPv6 client settings/options
+
+  <br>
+  &darr;
+  <br>
+  <b>
   DHCPv6 prefix delegation interface statement
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  instance number  |  Prefix delegation instance (>= 0)  |
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_bridge_vif_dhcpv6_options_pd (Resource)
 
+<div style="text-align: center">
+<i>interfaces</i>
+
+<br>
+&darr;
+<br>
 Bridge Interface
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  brN  |  Bridge interface name  |
-
+<br>
+&darr;
+<br>
 Virtual Local Area Network (VLAN) ID
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
-
+<br>
+&darr;
+<br>
 DHCPv6 client settings/options
 
+<br>
+&darr;
+<br>
+<b>
 DHCPv6 prefix delegation interface statement
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+</b>
+</div>
 
 
 
@@ -49,26 +65,26 @@ DHCPv6 prefix delegation interface statement
 
 ### Required
 
-- `bridge_identifier` (String) Bridge Interface
+- `bridge_id` (String) Bridge Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  brN  |  Bridge interface name  |
-- `identifier` (String) DHCPv6 prefix delegation interface statement
+    |  brN  &emsp; |  Bridge interface name  |
+- `pd_id` (String) DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
-- `vif_identifier` (String) Virtual Local Area Network (VLAN) ID
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
+- `vif_id` (String) Virtual Local Area Network (VLAN) ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
+    |  number: 0-4094  &emsp; |  Virtual Local Area Network (VLAN) ID  |
 
 ### Optional
 
 - `length` (Number) Request IPv6 prefix length from peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:32-64  |  Length of delegated prefix  |
+    |  number: 32-64  &emsp; |  Length of delegated prefix  |

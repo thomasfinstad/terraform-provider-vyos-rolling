@@ -56,11 +56,11 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes() map[string]
 			Optional:    true,
 			MarkdownDescription: `Supported channel set width
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ht20  |  Supported channel set width both 20 MHz only  |
-    |  ht40+  |  Supported channel set width both 20 MHz and 40 MHz with secondary channel above primary channel  |
-    |  ht40-  |  Supported channel set width both 20 MHz and 40 MHz with secondary channel below primary channel  |
+    |  ht20  &emsp; |  Supported channel set width both 20 MHz only  |
+    |  ht40+  &emsp; |  Supported channel set width both 20 MHz and 40 MHz with secondary channel above primary channel  |
+    |  ht40-  &emsp; |  Supported channel set width both 20 MHz and 40 MHz with secondary channel below primary channel  |
 
 `,
 		},
@@ -114,10 +114,10 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Set maximum A-MSDU length
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  3839  |  Set maximum A-MSDU length to 3839 octets  |
-    |  7935  |  Set maximum A-MSDU length to 7935 octets  |
+    |  3839  &emsp; |  Set maximum A-MSDU length to 3839 octets  |
+    |  7935  &emsp; |  Set maximum A-MSDU length to 7935 octets  |
 
 `,
 		},
@@ -127,10 +127,10 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes() map[string]
 			Optional:    true,
 			MarkdownDescription: `Short GI capabilities
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  20  |  Short GI for 20 MHz  |
-    |  40  |  Short GI for 40 MHz  |
+    |  20  &emsp; |  Short GI for 20 MHz  |
+    |  40  &emsp; |  Short GI for 40 MHz  |
 
 `,
 		},
@@ -139,10 +139,10 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Spatial Multiplexing Power Save (SMPS) settings
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  static  |  STATIC Spatial Multiplexing (SM) Power Save  |
-    |  dynamic  |  DYNAMIC Spatial Multiplexing (SM) Power Save  |
+    |  static  &emsp; |  STATIC Spatial Multiplexing (SM) Power Save  |
+    |  dynamic  &emsp; |  DYNAMIC Spatial Multiplexing (SM) Power Save  |
 
 `,
 		},

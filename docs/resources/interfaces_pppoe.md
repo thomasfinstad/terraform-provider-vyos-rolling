@@ -3,19 +3,30 @@
 page_title: "vyos_interfaces_pppoe Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>interfaces</i>
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Point-to-Point Protocol over Ethernet (PPPoE) Interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  pppoeN  |  PPPoE dialer interface name  |
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_pppoe (Resource)
 
-Point-to-Point Protocol over Ethernet (PPPoE) Interface
+<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  pppoeN  |  PPPoE dialer interface name  |
+<br>
+&darr;
+<br>
+<b>
+Point-to-Point Protocol over Ethernet (PPPoE) Interface
+</b>
+</div>
 
 
 
@@ -24,11 +35,11 @@ Point-to-Point Protocol over Ethernet (PPPoE) Interface
 
 ### Required
 
-- `identifier` (String) Point-to-Point Protocol over Ethernet (PPPoE) Interface
+- `pppoe_id` (String) Point-to-Point Protocol over Ethernet (PPPoE) Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  pppoeN  |  PPPoE dialer interface name  |
+    |  pppoeN  &emsp; |  PPPoE dialer interface name  |
 
 ### Optional
 
@@ -37,62 +48,62 @@ Point-to-Point Protocol over Ethernet (PPPoE) Interface
 - `connect_on_demand` (Boolean) Establishment connection automatically when traffic is sent
 - `default_route_distance` (Number) Distance for installed default route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for the default route from DHCP server  |
+    |  number: 1-255  &emsp; |  Distance for the default route from DHCP server  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `dhcpv6_options` (Attributes) DHCPv6 client settings/options (see [below for nested schema](#nestedatt--dhcpv6_options))
 - `disable` (Boolean) Administratively disable interface
 - `host_uniq` (String) PPPoE RFC2516 host-uniq tag
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Host-uniq tag as byte string in HEX  |
+    |  txt  &emsp; |  Host-uniq tag as byte string in HEX  |
 - `idle_timeout` (Number) Delay before disconnecting idle session (in seconds)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-86400  |  Idle timeout in seconds  |
+    |  number: 0-86400  &emsp; |  Idle timeout in seconds  |
 - `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--ip))
 - `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--ipv6))
 - `local_address` (String) IPv4 address of local end of the PPPoE link
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Address of local end of the PPPoE link  |
+    |  ipv4  &emsp; |  Address of local end of the PPPoE link  |
 - `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--mirror))
 - `mtu` (Number) Maximum Transmission Unit (MTU)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:68-1500  |  Maximum Transmission Unit in byte  |
+    |  number: 68-1500  &emsp; |  Maximum Transmission Unit in byte  |
 - `no_default_route` (Boolean) Do not install default route to system
 - `no_peer_dns` (Boolean) Do not use DNS servers provided by the peer
 - `redirect` (String) Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 - `remote_address` (String) IPv4 address of remote end of the PPPoE link
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Address of remote end of the PPPoE link  |
+    |  ipv4  &emsp; |  Address of remote end of the PPPoE link  |
 - `service_name` (String) Service name, only connect to access concentrators advertising this
 - `source_interface` (String) Interface used to establish connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  interface  |  Interface name  |
+    |  interface  &emsp; |  Interface name  |
 - `vrf` (String) VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 <a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
@@ -101,14 +112,14 @@ Optional:
 
 - `password` (String) Password used for authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Password  |
+    |  txt  &emsp; |  Password  |
 - `username` (String) Username used for authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Username  |
+    |  txt  &emsp; |  Username  |
 
 
 <a id="nestedatt--dhcpv6_options"></a>
@@ -118,9 +129,9 @@ Optional:
 
 - `duid` (String) DHCP unique identifier (DUID) to be sent by dhcpv6 client
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  duid  |  DHCP unique identifier (DUID)  |
+    |  duid  &emsp; |  DHCP unique identifier (DUID)  |
 - `parameters_only` (Boolean) Acquire only config parameters, no address
 - `rapid_commit` (Boolean) Wait for immediate reply instead of advertisements
 - `temporary` (Boolean) IPv6 temporary address
@@ -133,18 +144,18 @@ Optional:
 
 - `adjust_mss` (String) Adjust TCP MSS value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  clamp-mss-to-pmtu  &emsp; |  Automatically sets the MSS to the proper value  |
+    |  number: 536-65535  &emsp; |  TCP Maximum segment size in bytes  |
 - `disable_forwarding` (Boolean) Disable IP forwarding on this interface
 - `source_validation` (String) Source validation by reversed path (RFC3704)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
-    |  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
-    |  disable  |  No source validation  |
+    |  strict  &emsp; |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
+    |  loose  &emsp; |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
+    |  disable  &emsp; |  No source validation  |
 
 
 <a id="nestedatt--ipv6"></a>
@@ -155,10 +166,10 @@ Optional:
 - `address` (Attributes) IPv6 address configuration modes (see [below for nested schema](#nestedatt--ipv6--address))
 - `adjust_mss` (String) Adjust TCP MSS value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  clamp-mss-to-pmtu  &emsp; |  Automatically sets the MSS to the proper value  |
+    |  number: 536-65535  &emsp; |  TCP Maximum segment size in bytes  |
 - `disable_forwarding` (Boolean) Disable IP forwarding on this interface
 
 <a id="nestedatt--ipv6--address"></a>
@@ -177,11 +188,11 @@ Optional:
 
 - `egress` (String) Mirror egress traffic to destination interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 - `ingress` (String) Mirror ingress traffic to destination interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |

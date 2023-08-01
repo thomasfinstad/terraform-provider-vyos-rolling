@@ -12,28 +12,36 @@ import (
 func (r interfacesPseudoEthernetVifDhcpvsixOptionsPdInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Pseudo Ethernet Interface (Macvlan)
+		MarkdownDescription: `<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  pethN  |  Pseudo Ethernet interface name  |
+<br>
+&darr;
+<br>
+Pseudo Ethernet Interface (Macvlan)
 
+<br>
+&darr;
+<br>
 Virtual Local Area Network (VLAN) ID
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
-
+<br>
+&darr;
+<br>
 DHCPv6 client settings/options
 
+<br>
+&darr;
+<br>
 DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
-
+<br>
+&darr;
+<br>
+<b>
 Delegate IPv6 prefix from provider to this interface
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

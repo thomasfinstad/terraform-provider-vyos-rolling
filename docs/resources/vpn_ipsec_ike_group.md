@@ -3,18 +3,40 @@
 page_title: "vyos_vpn_ipsec_ike_group Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Private Network (VPN)
+
+  <br>
+  &darr;
+  <br>
   VPN IP security (IPsec) parameters
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Internet Key Exchange (IKE) group name
+  </b>
+  </div>
 ---
 
 # vyos_vpn_ipsec_ike_group (Resource)
 
+<div style="text-align: center">
 Virtual Private Network (VPN)
 
+<br>
+&darr;
+<br>
 VPN IP security (IPsec) parameters
 
+<br>
+&darr;
+<br>
+<b>
 Internet Key Exchange (IKE) group name
+</b>
+</div>
 
 
 
@@ -23,37 +45,37 @@ Internet Key Exchange (IKE) group name
 
 ### Required
 
-- `identifier` (String) Internet Key Exchange (IKE) group name
+- `ike_group_id` (String) Internet Key Exchange (IKE) group name
 
 ### Optional
 
 - `close_action` (String) Action to take if a child SA is unexpectedly closed
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  none  |  Do nothing  |
-    |  hold  |  Attempt to re-negotiate when matching traffic is seen  |
-    |  restart  |  Attempt to re-negotiate the connection immediately  |
+    |  none  &emsp; |  Do nothing  |
+    |  hold  &emsp; |  Attempt to re-negotiate when matching traffic is seen  |
+    |  restart  &emsp; |  Attempt to re-negotiate the connection immediately  |
 - `dead_peer_detection` (Attributes) Dead Peer Detection (DPD) (see [below for nested schema](#nestedatt--dead_peer_detection))
 - `disable_mobike` (Boolean) Disable MOBIKE Support (IKEv2 only)
 - `ikev2_reauth` (Boolean) Re-authentication of the remote peer during an IKE re-key (IKEv2 only)
 - `key_exchange` (String) IKE version
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ikev1  |  Use IKEv1 for key exchange  |
-    |  ikev2  |  Use IKEv2 for key exchange  |
+    |  ikev1  &emsp; |  Use IKEv1 for key exchange  |
+    |  ikev2  &emsp; |  Use IKEv2 for key exchange  |
 - `lifetime` (Number) IKE lifetime
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:30-86400  |  IKE lifetime in seconds  |
+    |  number: 30-86400  &emsp; |  IKE lifetime in seconds  |
 - `mode` (String) IKEv1 phase 1 mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  main  |  Use the main mode (recommended)  |
-    |  aggressive  |  Use the aggressive mode (insecure, not recommended)  |
+    |  main  &emsp; |  Use the main mode (recommended)  |
+    |  aggressive  &emsp; |  Use the aggressive mode (insecure, not recommended)  |
 
 <a id="nestedatt--dead_peer_detection"></a>
 ### Nested Schema for `dead_peer_detection`
@@ -62,18 +84,18 @@ Optional:
 
 - `action` (String) Keep-alive failure action
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  hold  |  Attempt to re-negotiate the connection when matching traffic is seen  |
-    |  clear  |  Remove the connection immediately  |
-    |  restart  |  Attempt to re-negotiate the connection immediately  |
+    |  hold  &emsp; |  Attempt to re-negotiate the connection when matching traffic is seen  |
+    |  clear  &emsp; |  Remove the connection immediately  |
+    |  restart  &emsp; |  Attempt to re-negotiate the connection immediately  |
 - `interval` (Number) Keep-alive interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:2-86400  |  Keep-alive interval in seconds  |
+    |  number: 2-86400  &emsp; |  Keep-alive interval in seconds  |
 - `timeout` (Number) Dead Peer Detection keep-alive timeout (IKEv1 only)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:2-86400  |  Keep-alive timeout in seconds  |
+    |  number: 2-86400  &emsp; |  Keep-alive timeout in seconds  |

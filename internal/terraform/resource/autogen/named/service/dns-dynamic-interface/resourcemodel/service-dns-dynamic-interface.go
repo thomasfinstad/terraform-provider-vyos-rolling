@@ -9,7 +9,7 @@ import (
 
 // ServiceDNSDynamicInterface describes the resource data model.
 type ServiceDNSDynamicInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceDNSDynamicInterfaceIPvsixEnable types.Bool `tfsdk:"ipv6_enable" vyos:"ipv6-enable,omitempty"`
@@ -32,14 +32,14 @@ func (o *ServiceDNSDynamicInterface) GetVyosPath() []string {
 		"dynamic",
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDNSDynamicInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Interface to send DDNS updates for
 

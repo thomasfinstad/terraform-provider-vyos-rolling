@@ -12,16 +12,26 @@ import (
 func (r protocolsNhrpTunnelShortcutTarget) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Next Hop Resolution Protocol (NHRP) parameters
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Next Hop Resolution Protocol (NHRP) parameters
+
+<br>
+&darr;
+<br>
 Tunnel for NHRP
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  tunN  |  NHRP tunnel name  |
-
+<br>
+&darr;
+<br>
+<b>
 Defines an off-NBMA network prefix for which the GRE interface will act as a gateway
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

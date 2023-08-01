@@ -8,7 +8,7 @@ import (
 
 // PolicyLocalRouteRule describes the resource data model.
 type PolicyLocalRouteRule struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafPolicyLocalRouteRuleFwmark           types.Number `tfsdk:"fwmark" vyos:"fwmark,omitempty"`
@@ -30,20 +30,20 @@ func (o *PolicyLocalRouteRule) GetVyosPath() []string {
 		"local-route",
 
 		"rule",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PolicyLocalRouteRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Policy local-route rule set number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-32765  |  Local-route rule number (1-32765)  |
+    |  number: 1-32765  &emsp; |  Local-route rule number (1-32765)  |
 
 `,
 		},
@@ -54,9 +54,9 @@ func (o PolicyLocalRouteRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Match fwmark value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2147483647  |  Address to match against  |
+    |  number: 1-2147483647  &emsp; |  Address to match against  |
 
 `,
 		},
@@ -66,10 +66,10 @@ func (o PolicyLocalRouteRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional:    true,
 			MarkdownDescription: `Source address or prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Address to match against  |
-    |  ipv4net  |  Prefix to match against  |
+    |  ipv4  &emsp; |  Address to match against  |
+    |  ipv4net  &emsp; |  Prefix to match against  |
 
 `,
 		},
@@ -79,10 +79,10 @@ func (o PolicyLocalRouteRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional:    true,
 			MarkdownDescription: `Destination address or prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Address to match against  |
-    |  ipv4net  |  Prefix to match against  |
+    |  ipv4  &emsp; |  Address to match against  |
+    |  ipv4net  &emsp; |  Prefix to match against  |
 
 `,
 		},

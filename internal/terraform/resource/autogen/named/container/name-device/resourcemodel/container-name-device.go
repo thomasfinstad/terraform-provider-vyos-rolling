@@ -8,9 +8,9 @@ import (
 
 // ContainerNameDevice describes the resource data model.
 type ContainerNameDevice struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"device_id" vyos:",self-id"`
 
-	ParentIDContainerName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDContainerName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafContainerNameDeviceSource      types.String `tfsdk:"source" vyos:"source,omitempty"`
@@ -30,21 +30,21 @@ func (o *ContainerNameDevice) GetVyosPath() []string {
 		o.ParentIDContainerName.ValueString(),
 
 		"device",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ContainerNameDevice) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"device_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Add a host device to the container
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Container name
 
@@ -57,9 +57,9 @@ func (o ContainerNameDevice) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Source device (Example: "/dev/x")
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Source device  |
+    |  txt  &emsp; |  Source device  |
 
 `,
 		},
@@ -68,9 +68,9 @@ func (o ContainerNameDevice) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Destination container device (Example: "/dev/x")
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination container device  |
+    |  txt  &emsp; |  Destination container device  |
 
 `,
 		},

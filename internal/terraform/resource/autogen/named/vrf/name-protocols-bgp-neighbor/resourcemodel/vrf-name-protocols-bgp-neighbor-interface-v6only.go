@@ -26,9 +26,9 @@ func (o VrfNameProtocolsBgpNeighborInterfaceVsixonly) ResourceSchemaAttributes()
 			Optional: true,
 			MarkdownDescription: `Peer group for this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Peer-group name  |
+    |  txt  &emsp; |  Peer-group name  |
 
 `,
 		},
@@ -37,11 +37,11 @@ func (o VrfNameProtocolsBgpNeighborInterfaceVsixonly) ResourceSchemaAttributes()
 			Optional: true,
 			MarkdownDescription: `Neighbor BGP AS number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967294  |  Neighbor AS number  |
-    |  external  |  Any AS different from the local AS  |
-    |  internal  |  Neighbor AS number  |
+    |  number: 1-4294967294  &emsp; |  Neighbor AS number  |
+    |  external  &emsp; |  Any AS different from the local AS  |
+    |  internal  &emsp; |  Neighbor AS number  |
 
 `,
 		},

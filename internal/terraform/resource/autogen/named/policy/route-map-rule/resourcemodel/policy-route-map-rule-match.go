@@ -52,9 +52,9 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Interface to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},
@@ -63,9 +63,9 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Local Preference
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4294967295  |  Local Preference  |
+    |  number: 0-4294967295  &emsp; |  Local Preference  |
 
 `,
 		},
@@ -74,9 +74,9 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Metric of route to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Route metric  |
+    |  number: 1-65535  &emsp; |  Route metric  |
 
 `,
 		},
@@ -85,11 +85,11 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `BGP origin code to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  egp  |  Exterior gateway protocol origin  |
-    |  igp  |  Interior gateway protocol origin  |
-    |  incomplete  |  Incomplete origin  |
+    |  egp  &emsp; |  Exterior gateway protocol origin  |
+    |  igp  &emsp; |  Interior gateway protocol origin  |
+    |  incomplete  &emsp; |  Incomplete origin  |
 
 `,
 		},
@@ -98,10 +98,10 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Peer address to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Peer IP address  |
-    |  ipv6  |  Peer IPv6 address  |
+    |  ipv4  &emsp; |  Peer IP address  |
+    |  ipv6  &emsp; |  Peer IPv6 address  |
 
 `,
 		},
@@ -110,11 +110,11 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Match RPKI validation result
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  invalid  |  Match invalid entries  |
-    |  notfound  |  Match notfound entries  |
-    |  valid  |  Match valid entries  |
+    |  invalid  &emsp; |  Match invalid entries  |
+    |  notfound  &emsp; |  Match notfound entries  |
+    |  valid  &emsp; |  Match valid entries  |
 
 `,
 		},
@@ -123,9 +123,9 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Route tag to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Route tag  |
+    |  number: 1-65535  &emsp; |  Route tag  |
 
 `,
 		},

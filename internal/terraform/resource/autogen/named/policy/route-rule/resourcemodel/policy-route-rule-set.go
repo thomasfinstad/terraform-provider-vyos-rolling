@@ -29,9 +29,9 @@ func (o PolicyRouteRuleSet) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Connection marking
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-2147483647  |  Connection marking  |
+    |  number: 0-2147483647  &emsp; |  Connection marking  |
 
 `,
 		},
@@ -40,9 +40,9 @@ func (o PolicyRouteRuleSet) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Packet Differentiated Services Codepoint (DSCP)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-63  |  DSCP number  |
+    |  number: 0-63  &emsp; |  DSCP number  |
 
 `,
 		},
@@ -51,9 +51,9 @@ func (o PolicyRouteRuleSet) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Packet marking
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2147483647  |  Packet marking  |
+    |  number: 1-2147483647  &emsp; |  Packet marking  |
 
 `,
 		},
@@ -62,10 +62,10 @@ func (o PolicyRouteRuleSet) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Routing table to forward packet with
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-200  |  Table number  |
-    |  main  |  Main table  |
+    |  number: 1-200  &emsp; |  Table number  |
+    |  main  &emsp; |  Main table  |
 
 `,
 		},
@@ -74,9 +74,9 @@ func (o PolicyRouteRuleSet) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `TCP Maximum Segment Size
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:500-1460  |  Explicitly set TCP MSS value  |
+    |  number: 500-1460  &emsp; |  Explicitly set TCP MSS value  |
 
 `,
 		},

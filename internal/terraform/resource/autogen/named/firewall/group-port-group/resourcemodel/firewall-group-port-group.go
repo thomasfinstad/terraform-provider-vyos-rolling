@@ -8,7 +8,7 @@ import (
 
 // FirewallGroupPortGroup describes the resource data model.
 type FirewallGroupPortGroup struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"port_group_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafFirewallGroupPortGroupDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -28,14 +28,14 @@ func (o *FirewallGroupPortGroup) GetVyosPath() []string {
 		"group",
 
 		"port-group",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o FirewallGroupPortGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"port_group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Firewall port-group
 
@@ -48,9 +48,9 @@ func (o FirewallGroupPortGroup) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -60,11 +60,11 @@ func (o FirewallGroupPortGroup) ResourceSchemaAttributes() map[string]schema.Att
 			Optional:    true,
 			MarkdownDescription: `Port-group member
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Named port (any name in /etc/services, e.g., http)  |
-    |  u32:1-65535  |  Numbered port  |
-    |  start-end  |  Numbered port range (e.g. 1001-1050)  |
+    |  txt  &emsp; |  Named port (any name in /etc/services, e.g., http)  |
+    |  number: 1-65535  &emsp; |  Numbered port  |
+    |  start-end  &emsp; |  Numbered port range (e.g. 1001-1050)  |
 
 `,
 		},

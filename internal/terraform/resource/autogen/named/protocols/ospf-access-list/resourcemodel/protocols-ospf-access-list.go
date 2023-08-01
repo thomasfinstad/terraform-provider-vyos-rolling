@@ -8,7 +8,7 @@ import (
 
 // ProtocolsOspfAccessList describes the resource data model.
 type ProtocolsOspfAccessList struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"access_list_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsOspfAccessListExport types.List `tfsdk:"export" vyos:"export,omitempty"`
@@ -26,20 +26,20 @@ func (o *ProtocolsOspfAccessList) GetVyosPath() []string {
 		"ospf",
 
 		"access-list",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsOspfAccessList) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"access_list_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Access list to filter networks in routing updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Access-list number  |
+    |  u32  &emsp; |  Access-list number  |
 
 `,
 		},
@@ -51,14 +51,14 @@ func (o ProtocolsOspfAccessList) ResourceSchemaAttributes() map[string]schema.At
 			Optional:    true,
 			MarkdownDescription: `Filter for outgoing routing update
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  bgp  |  Filter BGP routes  |
-    |  connected  |  Filter connected routes  |
-    |  isis  |  Filter IS-IS routes  |
-    |  kernel  |  Filter Kernel routes  |
-    |  rip  |  Filter RIP routes  |
-    |  static  |  Filter static routes  |
+    |  bgp  &emsp; |  Filter BGP routes  |
+    |  connected  &emsp; |  Filter connected routes  |
+    |  isis  &emsp; |  Filter IS-IS routes  |
+    |  kernel  &emsp; |  Filter Kernel routes  |
+    |  rip  &emsp; |  Filter RIP routes  |
+    |  static  &emsp; |  Filter static routes  |
 
 `,
 		},

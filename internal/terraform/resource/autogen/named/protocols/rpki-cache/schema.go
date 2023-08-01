@@ -12,16 +12,21 @@ import (
 func (r protocolsRpkiCache) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `BGP prefix origin validation
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+BGP prefix origin validation
+
+<br>
+&darr;
+<br>
+<b>
 RPKI cache server address
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  IP address of RPKI server  |
-    |  ipv6  |  IPv6 address of RPKI server  |
-    |  hostname  |  Fully qualified domain name of RPKI server  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

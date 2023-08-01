@@ -12,8 +12,16 @@ import (
 func (r policyRoutesix) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Policy route rule set name for IPv6
+		MarkdownDescription: `<div style="text-align: center">
+<i>policy</i>
 
+<br>
+&darr;
+<br>
+<b>
+Policy route rule set name for IPv6
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

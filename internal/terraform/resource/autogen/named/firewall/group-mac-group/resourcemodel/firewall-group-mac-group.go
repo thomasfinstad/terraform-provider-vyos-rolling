@@ -8,7 +8,7 @@ import (
 
 // FirewallGroupMacGroup describes the resource data model.
 type FirewallGroupMacGroup struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"mac_group_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafFirewallGroupMacGroupDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -28,14 +28,14 @@ func (o *FirewallGroupMacGroup) GetVyosPath() []string {
 		"group",
 
 		"mac-group",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o FirewallGroupMacGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"mac_group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Firewall mac-group
 
@@ -48,9 +48,9 @@ func (o FirewallGroupMacGroup) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -60,9 +60,9 @@ func (o FirewallGroupMacGroup) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional:    true,
 			MarkdownDescription: `Mac-group member
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  MAC address to match  |
+    |  macaddr  &emsp; |  MAC address to match  |
 
 `,
 		},

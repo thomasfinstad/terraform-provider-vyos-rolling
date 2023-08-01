@@ -9,7 +9,7 @@ import (
 
 // VpnIPsecSiteToSitePeer describes the resource data model.
 type VpnIPsecSiteToSitePeer struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"peer_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafVpnIPsecSiteToSitePeerDisable               types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -42,20 +42,20 @@ func (o *VpnIPsecSiteToSitePeer) GetVyosPath() []string {
 		"site-to-site",
 
 		"peer",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"peer_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Connection name of the peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Connection name of the peer  |
+    |  txt  &emsp; |  Connection name of the peer  |
 
 `,
 		},
@@ -75,11 +75,11 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Connection type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  initiate  |  Bring the connection up immediately  |
-    |  respond  |  Wait for the peer to initiate the connection  |
-    |  none  |  Load the connection only  |
+    |  initiate  &emsp; |  Bring the connection up immediately  |
+    |  respond  &emsp; |  Wait for the peer to initiate the connection  |
+    |  none  &emsp; |  Load the connection only  |
 
 `,
 		},
@@ -95,9 +95,9 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -106,9 +106,9 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `DHCP interface supplying next-hop IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  DHCP interface name  |
+    |  txt  &emsp; |  DHCP interface name  |
 
 `,
 		},
@@ -133,11 +133,11 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Re-authentication of the remote peer during an IKE re-key (IKEv2 only)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  yes  |  Enable remote host re-autentication during an IKE re-key. Currently broken due to a strong swan bug  |
-    |  no  |  Disable remote host re-authenticaton during an IKE re-key.  |
-    |  inherit  |  Inherit the reauth configuration form your IKE-group  |
+    |  yes  &emsp; |  Enable remote host re-autentication during an IKE re-key. Currently broken due to a strong swan bug  |
+    |  no  &emsp; |  Disable remote host re-authenticaton during an IKE re-key.  |
+    |  inherit  &emsp; |  Inherit the reauth configuration form your IKE-group  |
 
 `,
 		},
@@ -146,11 +146,11 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `IPv4 or IPv6 address of a local interface to use for VPN
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address of a local interface for VPN  |
-    |  ipv6  |  IPv6 address of a local interface for VPN  |
-    |  any  |  Allow any IPv4 address present on the system to be used for VPN  |
+    |  ipv4  &emsp; |  IPv4 address of a local interface for VPN  |
+    |  ipv6  &emsp; |  IPv6 address of a local interface for VPN  |
+    |  any  &emsp; |  Allow any IPv4 address present on the system to be used for VPN  |
 
 `,
 		},
@@ -160,12 +160,12 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes() map[string]schema.Att
 			Optional:    true,
 			MarkdownDescription: `IPv4 or IPv6 address of the remote peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address of the remote peer  |
-    |  ipv6  |  IPv6 address of the remote peer  |
-    |  hostname  |  Fully qualified domain name of the remote peer  |
-    |  any  |  Allow any IP address of the remote peer  |
+    |  ipv4  &emsp; |  IPv4 address of the remote peer  |
+    |  ipv6  &emsp; |  IPv6 address of the remote peer  |
+    |  hostname  &emsp; |  Fully qualified domain name of the remote peer  |
+    |  any  &emsp; |  Allow any IP address of the remote peer  |
 
 `,
 		},
@@ -175,10 +175,10 @@ func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes() map[string]schema.Att
 			Optional:    true,
 			MarkdownDescription: `Initiator request virtual-address from peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Request IPv4 address from peer  |
-    |  ipv6  |  Request IPv6 address from peer  |
+    |  ipv4  &emsp; |  Request IPv4 address from peer  |
+    |  ipv6  &emsp; |  Request IPv6 address from peer  |
 
 `,
 		},

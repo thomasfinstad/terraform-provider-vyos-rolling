@@ -41,10 +41,10 @@ func (o ServiceSnmpVthreeTrapTargetAuth) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Define used protocol
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  md5  |  Message Digest 5  |
-    |  sha  |  Secure Hash Algorithm  |
+    |  md5  &emsp; |  Message Digest 5  |
+    |  sha  &emsp; |  Secure Hash Algorithm  |
 
 `,
 

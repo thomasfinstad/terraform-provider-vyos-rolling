@@ -26,9 +26,9 @@ func (o VrfNameProtocolsOspfAreaVirtualLinkAuthentication) ResourceSchemaAttribu
 			Optional: true,
 			MarkdownDescription: `Plain text password
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Plain text password (8 characters or less)  |
+    |  txt  &emsp; |  Plain text password (8 characters or less)  |
 
 `,
 		},

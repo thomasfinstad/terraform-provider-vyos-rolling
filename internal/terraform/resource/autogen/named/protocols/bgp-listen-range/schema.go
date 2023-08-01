@@ -12,17 +12,26 @@ import (
 func (r protocolsBgpListenRange) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Border Gateway Protocol (BGP)
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Border Gateway Protocol (BGP)
+
+<br>
+&darr;
+<br>
 Listen for and accept BGP dynamic neighbors from range
 
+<br>
+&darr;
+<br>
+<b>
 BGP dynamic neighbors listen range
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 dynamic neighbors listen range  |
-    |  ipv6net  |  IPv6 dynamic neighbors listen range  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

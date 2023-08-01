@@ -9,7 +9,7 @@ import (
 
 // ServiceDhcpServerSharedNetworkName describes the resource data model.
 type ServiceDhcpServerSharedNetworkName struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"shared_network_name_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceDhcpServerSharedNetworkNameAuthoritative           types.Bool   `tfsdk:"authoritative" vyos:"authoritative,omitempty"`
@@ -36,14 +36,14 @@ func (o *ServiceDhcpServerSharedNetworkName) GetVyosPath() []string {
 		"dhcp-server",
 
 		"shared-network-name",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDhcpServerSharedNetworkName) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"shared_network_name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Name of DHCP shared network
 
@@ -81,9 +81,9 @@ func (o ServiceDhcpServerSharedNetworkName) ResourceSchemaAttributes() map[strin
 			Optional:    true,
 			MarkdownDescription: `IP address of NTP server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  NTP server IPv4 address  |
+    |  ipv4  &emsp; |  NTP server IPv4 address  |
 
 `,
 		},
@@ -101,9 +101,9 @@ func (o ServiceDhcpServerSharedNetworkName) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -122,9 +122,9 @@ func (o ServiceDhcpServerSharedNetworkName) ResourceSchemaAttributes() map[strin
 			Optional:    true,
 			MarkdownDescription: `Domain Name Servers (DNS) addresses
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
+    |  ipv4  &emsp; |  Domain Name Server (DNS) IPv4 address  |
 
 `,
 		},

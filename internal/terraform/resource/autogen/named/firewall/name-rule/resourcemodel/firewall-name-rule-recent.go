@@ -26,9 +26,9 @@ func (o FirewallNameRuleRecent) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Source addresses seen more than N times
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Source addresses seen more than N times  |
+    |  number: 1-255  &emsp; |  Source addresses seen more than N times  |
 
 `,
 		},
@@ -37,11 +37,11 @@ func (o FirewallNameRuleRecent) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Source addresses seen in the last second/minute/hour
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  second  |  Source addresses seen COUNT times in the last second  |
-    |  minute  |  Source addresses seen COUNT times in the last minute  |
-    |  hour  |  Source addresses seen COUNT times in the last hour  |
+    |  second  &emsp; |  Source addresses seen COUNT times in the last second  |
+    |  minute  &emsp; |  Source addresses seen COUNT times in the last minute  |
+    |  hour  &emsp; |  Source addresses seen COUNT times in the last hour  |
 
 `,
 		},

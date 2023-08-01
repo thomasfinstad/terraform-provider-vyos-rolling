@@ -8,9 +8,9 @@ import (
 
 // VrfNameProtocolsBgpListenRange describes the resource data model.
 type VrfNameProtocolsBgpListenRange struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"range_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsBgpListenRangePeerGroup types.String `tfsdk:"peer_group" vyos:"peer-group,omitempty"`
@@ -35,32 +35,32 @@ func (o *VrfNameProtocolsBgpListenRange) GetVyosPath() []string {
 		"listen",
 
 		"range",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsBgpListenRange) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"range_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `BGP dynamic neighbors listen range
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 dynamic neighbors listen range  |
-    |  ipv6net  |  IPv6 dynamic neighbors listen range  |
+    |  ipv4net  &emsp; |  IPv4 dynamic neighbors listen range  |
+    |  ipv6net  &emsp; |  IPv6 dynamic neighbors listen range  |
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -71,9 +71,9 @@ func (o VrfNameProtocolsBgpListenRange) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `Peer group for this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Peer-group name  |
+    |  txt  &emsp; |  Peer-group name  |
 
 `,
 		},

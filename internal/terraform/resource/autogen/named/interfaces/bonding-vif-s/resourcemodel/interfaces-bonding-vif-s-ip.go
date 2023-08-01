@@ -36,10 +36,10 @@ func (o InterfacesBondingVifSIP) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Adjust TCP MSS value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  clamp-mss-to-pmtu  &emsp; |  Automatically sets the MSS to the proper value  |
+    |  number: 536-65535  &emsp; |  TCP Maximum segment size in bytes  |
 
 `,
 		},
@@ -48,9 +48,9 @@ func (o InterfacesBondingVifSIP) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `ARP cache entry timeout in seconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-86400  |  ARP cache entry timout in seconds  |
+    |  number: 1-86400  &emsp; |  ARP cache entry timout in seconds  |
 
 `,
 
@@ -134,11 +134,11 @@ func (o InterfacesBondingVifSIP) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Source validation by reversed path (RFC3704)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
-    |  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
-    |  disable  |  No source validation  |
+    |  strict  &emsp; |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
+    |  loose  &emsp; |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
+    |  disable  &emsp; |  No source validation  |
 
 `,
 		},

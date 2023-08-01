@@ -8,7 +8,7 @@ import (
 
 // FirewallGroupInterfaceGroup describes the resource data model.
 type FirewallGroupInterfaceGroup struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_group_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafFirewallGroupInterfaceGroupInterface   types.List   `tfsdk:"interface" vyos:"interface,omitempty"`
@@ -28,14 +28,14 @@ func (o *FirewallGroupInterfaceGroup) GetVyosPath() []string {
 		"group",
 
 		"interface-group",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o FirewallGroupInterfaceGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Firewall interface-group
 
@@ -64,9 +64,9 @@ func (o FirewallGroupInterfaceGroup) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

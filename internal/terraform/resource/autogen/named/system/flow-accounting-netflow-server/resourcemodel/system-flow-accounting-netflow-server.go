@@ -8,7 +8,7 @@ import (
 
 // SystemFlowAccountingNetflowServer describes the resource data model.
 type SystemFlowAccountingNetflowServer struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"server_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafSystemFlowAccountingNetflowServerPort types.Number `tfsdk:"port" vyos:"port,omitempty"`
@@ -28,21 +28,21 @@ func (o *SystemFlowAccountingNetflowServer) GetVyosPath() []string {
 		"netflow",
 
 		"server",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o SystemFlowAccountingNetflowServer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"server_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `NetFlow destination server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 server to export NetFlow  |
-    |  ipv6  |  IPv6 server to export NetFlow  |
+    |  ipv4  &emsp; |  IPv4 server to export NetFlow  |
+    |  ipv6  &emsp; |  IPv6 server to export NetFlow  |
 
 `,
 		},
@@ -53,9 +53,9 @@ func (o SystemFlowAccountingNetflowServer) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `NetFlow port number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1025-65535  |  NetFlow port number  |
+    |  number: 1025-65535  &emsp; |  NetFlow port number  |
 
 `,
 

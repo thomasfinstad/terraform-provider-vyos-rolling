@@ -3,33 +3,50 @@
 page_title: "vyos_protocols_bgp_peer_group_local_role Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Border Gateway Protocol (BGP)
+
+  <br>
+  &darr;
+  <br>
   Name of peer-group
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Local role for BGP neighbor (RFC9234)
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  customer  |  Using Transit  |
-  |  peer  |  Public/Private Peering  |
-  |  provider  |  Providing Transit  |
-  |  rs-client  |  RS Client  |
-  |  rs-server  |  Route Server  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_bgp_peer_group_local_role (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Border Gateway Protocol (BGP)
 
+<br>
+&darr;
+<br>
 Name of peer-group
 
+<br>
+&darr;
+<br>
+<b>
 Local role for BGP neighbor (RFC9234)
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  customer  |  Using Transit  |
-    |  peer  |  Public/Private Peering  |
-    |  provider  |  Providing Transit  |
-    |  rs-client  |  RS Client  |
-    |  rs-server  |  Route Server  |
+</b>
+</div>
 
 
 
@@ -38,16 +55,16 @@ Local role for BGP neighbor (RFC9234)
 
 ### Required
 
-- `identifier` (String) Local role for BGP neighbor (RFC9234)
+- `local_role_id` (String) Local role for BGP neighbor (RFC9234)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  customer  |  Using Transit  |
-    |  peer  |  Public/Private Peering  |
-    |  provider  |  Providing Transit  |
-    |  rs-client  |  RS Client  |
-    |  rs-server  |  Route Server  |
-- `peer_group_identifier` (String) Name of peer-group
+    |  customer  &emsp; |  Using Transit  |
+    |  peer  &emsp; |  Public/Private Peering  |
+    |  provider  &emsp; |  Providing Transit  |
+    |  rs-client  &emsp; |  RS Client  |
+    |  rs-server  &emsp; |  Route Server  |
+- `peer_group_id` (String) Name of peer-group
 
 ### Optional
 

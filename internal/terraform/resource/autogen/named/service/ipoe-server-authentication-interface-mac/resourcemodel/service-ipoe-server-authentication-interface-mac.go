@@ -8,9 +8,9 @@ import (
 
 // ServiceIPoeServerAuthenticationInterfaceMac describes the resource data model.
 type ServiceIPoeServerAuthenticationInterfaceMac struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"mac_id" vyos:",self-id"`
 
-	ParentIDServiceIPoeServerAuthenticationInterface types.String `tfsdk:"interface" vyos:"interface_identifier,parent-id"`
+	ParentIDServiceIPoeServerAuthenticationInterface types.String `tfsdk:"interface" vyos:"interface,parent-id"`
 
 	// LeafNodes
 	LeafServiceIPoeServerAuthenticationInterfaceMacVlan types.Number `tfsdk:"vlan" vyos:"vlan,omitempty"`
@@ -34,25 +34,25 @@ func (o *ServiceIPoeServerAuthenticationInterfaceMac) GetVyosPath() []string {
 		o.ParentIDServiceIPoeServerAuthenticationInterface.ValueString(),
 
 		"mac",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceIPoeServerAuthenticationInterfaceMac) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"mac_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+    |  macaddr  &emsp; |  Hardware (MAC) address  |
 
 `,
 		},
 
-		"interface_identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Network interface for client MAC addresses
 
@@ -65,9 +65,9 @@ func (o ServiceIPoeServerAuthenticationInterfaceMac) ResourceSchemaAttributes() 
 			Optional: true,
 			MarkdownDescription: `VLAN monitor for automatic creation of VLAN interfaces
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4094  |  Client VLAN id  |
+    |  number: 1-4094  &emsp; |  Client VLAN id  |
 
 `,
 		},

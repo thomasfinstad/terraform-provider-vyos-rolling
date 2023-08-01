@@ -3,18 +3,50 @@
 page_title: "vyos_service_snmp_script_extensions_extension_name Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Simple Network Management Protocol (SNMP)
+
+  <br>
+  &darr;
+  <br>
   SNMP script extensions
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Extension name
+  </b>
+  </div>
 ---
 
 # vyos_service_snmp_script_extensions_extension_name (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Simple Network Management Protocol (SNMP)
 
+<br>
+&darr;
+<br>
 SNMP script extensions
 
+<br>
+&darr;
+<br>
+<b>
 Extension name
+</b>
+</div>
 
 
 
@@ -23,7 +55,7 @@ Extension name
 
 ### Required
 
-- `identifier` (String) Extension name
+- `extension_name_id` (String) Extension name
 
 ### Optional
 

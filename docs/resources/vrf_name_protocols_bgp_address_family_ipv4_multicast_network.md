@@ -3,45 +3,80 @@
 page_title: "vyos_vrf_name_protocols_bgp_address_family_ipv4_multicast_network Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
-  Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
+  Virtual Routing and Forwarding instance
+
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
+
+  <br>
+  &darr;
+  <br>
   Border Gateway Protocol (BGP)
+
+  <br>
+  &darr;
+  <br>
   BGP address-family parameters
+
+  <br>
+  &darr;
+  <br>
   Multicast IPv4 BGP settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Import BGP network/prefix into multicast IPv4 RIB
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  Multicast IPv4 BGP network/prefix  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_bgp_address_family_ipv4_multicast_network (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Border Gateway Protocol (BGP)
 
+<br>
+&darr;
+<br>
 BGP address-family parameters
 
+<br>
+&darr;
+<br>
 Multicast IPv4 BGP settings
 
+<br>
+&darr;
+<br>
+<b>
 Import BGP network/prefix into multicast IPv4 RIB
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  Multicast IPv4 BGP network/prefix  |
+</b>
+</div>
 
 
 
@@ -50,22 +85,22 @@ Import BGP network/prefix into multicast IPv4 RIB
 
 ### Required
 
-- `identifier` (String) Import BGP network/prefix into multicast IPv4 RIB
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Multicast IPv4 BGP network/prefix  |
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+    |  txt  &emsp; |  VRF instance name  |
+- `network_id` (String) Import BGP network/prefix into multicast IPv4 RIB
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  ipv4net  &emsp; |  Multicast IPv4 BGP network/prefix  |
 
 ### Optional
 
 - `backdoor` (Boolean) Use BGP network/prefix as a backdoor route
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |

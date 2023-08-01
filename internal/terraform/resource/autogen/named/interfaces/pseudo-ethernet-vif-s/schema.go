@@ -12,18 +12,21 @@ import (
 func (r interfacesPseudoEthernetVifS) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Pseudo Ethernet Interface (Macvlan)
+		MarkdownDescription: `<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  pethN  |  Pseudo Ethernet interface name  |
+<br>
+&darr;
+<br>
+Pseudo Ethernet Interface (Macvlan)
 
+<br>
+&darr;
+<br>
+<b>
 QinQ TAG-S Virtual Local Area Network (VLAN) ID
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

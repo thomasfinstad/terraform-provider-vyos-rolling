@@ -12,10 +12,21 @@ import (
 func (r serviceRouterAdvertInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `IPv6 Router Advertisements (RAs) service
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+IPv6 Router Advertisements (RAs) service
+
+<br>
+&darr;
+<br>
+<b>
 Interface to send RA on
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

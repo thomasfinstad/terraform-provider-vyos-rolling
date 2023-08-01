@@ -12,14 +12,21 @@ import (
 func (r interfacesOpenvpnLocalAddress) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `OpenVPN Tunnel Interface
+		MarkdownDescription: `<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  vtunN  |  OpenVPN interface name  |
+<br>
+&darr;
+<br>
+OpenVPN Tunnel Interface
 
+<br>
+&darr;
+<br>
+<b>
 Local IP address of tunnel (IPv4 or IPv6)
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

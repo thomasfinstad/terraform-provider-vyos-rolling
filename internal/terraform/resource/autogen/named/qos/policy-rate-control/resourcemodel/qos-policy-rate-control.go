@@ -8,7 +8,7 @@ import (
 
 // QosPolicyRateControl describes the resource data model.
 type QosPolicyRateControl struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"rate_control_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafQosPolicyRateControlDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -29,20 +29,20 @@ func (o *QosPolicyRateControl) GetVyosPath() []string {
 		"policy",
 
 		"rate-control",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyRateControl) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rate_control_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Rate limiting policy (Token Bucket Filter)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 `,
 		},
@@ -53,9 +53,9 @@ func (o QosPolicyRateControl) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -64,15 +64,15 @@ func (o QosPolicyRateControl) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Available bandwidth for this policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <number>  |  Bits per second  |
-    |  <number>bit  |  Bits per second  |
-    |  <number>kbit  |  Kilobits per second  |
-    |  <number>mbit  |  Megabits per second  |
-    |  <number>gbit  |  Gigabits per second  |
-    |  <number>tbit  |  Terabits per second  |
-    |  <number>%  |  Percentage of interface link speed  |
+    |  <number>  &emsp; |  Bits per second  |
+    |  <number>bit  &emsp; |  Bits per second  |
+    |  <number>kbit  &emsp; |  Kilobits per second  |
+    |  <number>mbit  &emsp; |  Megabits per second  |
+    |  <number>gbit  &emsp; |  Gigabits per second  |
+    |  <number>tbit  &emsp; |  Terabits per second  |
+    |  <number>%  &emsp; |  Percentage of interface link speed  |
 
 `,
 		},
@@ -81,10 +81,10 @@ func (o QosPolicyRateControl) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Burst size for this class
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <number>  |  Bytes  |
-    |  <number><suffix>  |  Bytes with scaling suffix (kb, mb, gb)  |
+    |  <number>  &emsp; |  Bytes  |
+    |  <number><suffix>  &emsp; |  Bytes with scaling suffix (kb, mb, gb)  |
 
 `,
 
@@ -96,9 +96,9 @@ func (o QosPolicyRateControl) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Maximum latency
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <number>  |  Time in milliseconds  |
+    |  <number>  &emsp; |  Time in milliseconds  |
 
 `,
 

@@ -12,15 +12,21 @@ import (
 func (r serviceTftpServerListenAddress) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Trivial File Transfer Protocol (TFTP) server
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Trivial File Transfer Protocol (TFTP) server
+
+<br>
+&darr;
+<br>
+<b>
 Local IP addresses to listen on
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  IPv4 address to listen for incoming connections  |
-    |  ipv6  |  IPv6 address to listen for incoming connections  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

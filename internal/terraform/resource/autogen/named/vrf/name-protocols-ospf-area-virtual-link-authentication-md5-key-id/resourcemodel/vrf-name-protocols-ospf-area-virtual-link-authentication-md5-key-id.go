@@ -8,13 +8,13 @@ import (
 
 // VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID describes the resource data model.
 type VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"key_id_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
-	ParentIDVrfNameProtocolsOspfArea types.String `tfsdk:"area" vyos:"area_identifier,parent-id"`
+	ParentIDVrfNameProtocolsOspfArea types.String `tfsdk:"area" vyos:"area,parent-id"`
 
-	ParentIDVrfNameProtocolsOspfAreaVirtualLink types.String `tfsdk:"virtual_link" vyos:"virtual-link_identifier,parent-id"`
+	ParentIDVrfNameProtocolsOspfAreaVirtualLink types.String `tfsdk:"virtual_link" vyos:"virtual-link,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyIDMdfiveKey types.String `tfsdk:"md5_key" vyos:"md5-key,omitempty"`
@@ -47,54 +47,54 @@ func (o *VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) GetVyosPa
 		"md5",
 
 		"key-id",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"key_id_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `MD5 key id
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  MD5 key id  |
+    |  number: 1-255  &emsp; |  MD5 key id  |
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
 
-		"area_identifier": schema.StringAttribute{
+		"area_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `OSPF area settings
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  OSPF area number in decimal notation  |
-    |  ipv4  |  OSPF area number in dotted decimal notation  |
+    |  u32  &emsp; |  OSPF area number in decimal notation  |
+    |  ipv4  &emsp; |  OSPF area number in dotted decimal notation  |
 
 `,
 		},
 
-		"virtual_link_identifier": schema.StringAttribute{
+		"virtual_link_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual link
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  OSPF area in dotted decimal notation  |
+    |  ipv4  &emsp; |  OSPF area in dotted decimal notation  |
 
 `,
 		},
@@ -105,9 +105,9 @@ func (o VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSc
 			Optional: true,
 			MarkdownDescription: `MD5 authentication type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  MD5 Key (16 characters or less)  |
+    |  txt  &emsp; |  MD5 Key (16 characters or less)  |
 
 `,
 		},

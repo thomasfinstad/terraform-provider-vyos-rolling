@@ -26,9 +26,9 @@ func (o InterfacesWirelessSecURItyWep) ResourceSchemaAttributes() map[string]sch
 			Optional:    true,
 			MarkdownDescription: `WEP encryption key
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Wired Equivalent Privacy key  |
+    |  txt  &emsp; |  Wired Equivalent Privacy key  |
 
 `,
 		},

@@ -8,7 +8,7 @@ import (
 
 // ServiceSnmpTrapTarget describes the resource data model.
 type ServiceSnmpTrapTarget struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"trap_target_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceSnmpTrapTargetCommunity types.String `tfsdk:"community" vyos:"community,omitempty"`
@@ -27,21 +27,21 @@ func (o *ServiceSnmpTrapTarget) GetVyosPath() []string {
 		"snmp",
 
 		"trap-target",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceSnmpTrapTarget) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"trap_target_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Address of trap target
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address  |
-    |  ipv6  |  IPv6 address  |
+    |  ipv4  &emsp; |  IPv4 address  |
+    |  ipv6  &emsp; |  IPv6 address  |
 
 `,
 		},
@@ -59,9 +59,9 @@ func (o ServiceSnmpTrapTarget) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 

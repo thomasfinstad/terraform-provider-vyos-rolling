@@ -12,20 +12,26 @@ import (
 func (r protocolsBgpPeerGroupLocalRole) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Border Gateway Protocol (BGP)
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Border Gateway Protocol (BGP)
+
+<br>
+&darr;
+<br>
 Name of peer-group
 
+<br>
+&darr;
+<br>
+<b>
 Local role for BGP neighbor (RFC9234)
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  customer  |  Using Transit  |
-    |  peer  |  Public/Private Peering  |
-    |  provider  |  Providing Transit  |
-    |  rs-client  |  RS Client  |
-    |  rs-server  |  Route Server  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

@@ -3,15 +3,30 @@
 page_title: "vyos_pki_ca Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   VyOS PKI configuration
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Certificate Authority
+  </b>
+  </div>
 ---
 
 # vyos_pki_ca (Resource)
 
+<div style="text-align: center">
 VyOS PKI configuration
 
+<br>
+&darr;
+<br>
+<b>
 Certificate Authority
+</b>
+</div>
 
 
 
@@ -20,7 +35,7 @@ Certificate Authority
 
 ### Required
 
-- `identifier` (String) Certificate Authority
+- `ca_id` (String) Certificate Authority
 
 ### Optional
 

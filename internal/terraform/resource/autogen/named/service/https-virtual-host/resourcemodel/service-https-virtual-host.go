@@ -8,7 +8,7 @@ import (
 
 // ServiceHTTPSVirtualHost describes the resource data model.
 type ServiceHTTPSVirtualHost struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"virtual_host_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceHTTPSVirtualHostListenAddress types.String `tfsdk:"listen_address" vyos:"listen-address,omitempty"`
@@ -28,14 +28,14 @@ func (o *ServiceHTTPSVirtualHost) GetVyosPath() []string {
 		"https",
 
 		"virtual-host",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceHTTPSVirtualHost) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"virtual_host_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Identifier for virtual host
 
@@ -48,11 +48,11 @@ func (o ServiceHTTPSVirtualHost) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Address to listen for HTTPS requests
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  HTTPS IPv4 address  |
-    |  ipv6  |  HTTPS IPv6 address  |
-    |  '&'  |  any  |
+    |  ipv4  &emsp; |  HTTPS IPv4 address  |
+    |  ipv6  &emsp; |  HTTPS IPv6 address  |
+    |  '&'  &emsp; |  any  |
 
 `,
 		},
@@ -61,9 +61,9 @@ func (o ServiceHTTPSVirtualHost) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Port to listen for HTTPS requests; default 443
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 		},

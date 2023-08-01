@@ -8,7 +8,7 @@ import (
 
 // ProtocolsBgpAddressFamilyIPvsixUnicastNetwork describes the resource data model.
 type ProtocolsBgpAddressFamilyIPvsixUnicastNetwork struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"network_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpAddressFamilyIPvsixUnicastNetworkPathLimit types.Number `tfsdk:"path_limit" vyos:"path-limit,omitempty"`
@@ -31,20 +31,20 @@ func (o *ProtocolsBgpAddressFamilyIPvsixUnicastNetwork) GetVyosPath() []string {
 		"ipv6-unicast",
 
 		"network",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsBgpAddressFamilyIPvsixUnicastNetwork) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"network_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `BGP network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  Aggregate network  |
+    |  ipv6net  &emsp; |  Aggregate network  |
 
 `,
 		},
@@ -55,9 +55,9 @@ func (o ProtocolsBgpAddressFamilyIPvsixUnicastNetwork) ResourceSchemaAttributes(
 			Optional: true,
 			MarkdownDescription: `AS-path hopcount limit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  AS path hop count limit  |
+    |  number: 0-255  &emsp; |  AS path hop count limit  |
 
 `,
 		},
@@ -66,9 +66,9 @@ func (o ProtocolsBgpAddressFamilyIPvsixUnicastNetwork) ResourceSchemaAttributes(
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},

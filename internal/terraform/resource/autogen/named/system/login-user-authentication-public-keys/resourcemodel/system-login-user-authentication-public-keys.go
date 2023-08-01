@@ -8,9 +8,9 @@ import (
 
 // SystemLoginUserAuthenticationPublicKeys describes the resource data model.
 type SystemLoginUserAuthenticationPublicKeys struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"public_keys_id" vyos:",self-id"`
 
-	ParentIDSystemLoginUser types.String `tfsdk:"user" vyos:"user_identifier,parent-id"`
+	ParentIDSystemLoginUser types.String `tfsdk:"user" vyos:"user,parent-id"`
 
 	// LeafNodes
 	LeafSystemLoginUserAuthenticationPublicKeysKey     types.String `tfsdk:"key" vyos:"key,omitempty"`
@@ -35,25 +35,25 @@ func (o *SystemLoginUserAuthenticationPublicKeys) GetVyosPath() []string {
 		"authentication",
 
 		"public-keys",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o SystemLoginUserAuthenticationPublicKeys) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"public_keys_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Remote access public keys
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Key identifier used by ssh-keygen (usually of form user@host)  |
+    |  txt  &emsp; |  Key identifier used by ssh-keygen (usually of form user@host)  |
 
 `,
 		},
 
-		"user_identifier": schema.StringAttribute{
+		"user_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Local user account information
 
@@ -80,16 +80,16 @@ func (o SystemLoginUserAuthenticationPublicKeys) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `SSH public key type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ssh-dss  |  Digital Signature Algorithm (DSA) key support  |
-    |  ssh-rsa  |  Key pair based on RSA algorithm  |
-    |  ecdsa-sha2-nistp256  |  Elliptic Curve DSA with NIST P-256 curve  |
-    |  ecdsa-sha2-nistp384  |  Elliptic Curve DSA with NIST P-384 curve  |
-    |  ecdsa-sha2-nistp521  |  Elliptic Curve DSA with NIST P-521 curve  |
-    |  ssh-ed25519  |  Edwards-curve DSA with elliptic curve 25519  |
-    |  sk-ecdsa-sha2-nistp256@openssh.com  |  Elliptic Curve DSA security key  |
-    |  sk-ssh-ed25519@openssh.com  |  Elliptic curve 25519 security key  |
+    |  ssh-dss  &emsp; |  Digital Signature Algorithm (DSA) key support  |
+    |  ssh-rsa  &emsp; |  Key pair based on RSA algorithm  |
+    |  ecdsa-sha2-nistp256  &emsp; |  Elliptic Curve DSA with NIST P-256 curve  |
+    |  ecdsa-sha2-nistp384  &emsp; |  Elliptic Curve DSA with NIST P-384 curve  |
+    |  ecdsa-sha2-nistp521  &emsp; |  Elliptic Curve DSA with NIST P-521 curve  |
+    |  ssh-ed25519  &emsp; |  Edwards-curve DSA with elliptic curve 25519  |
+    |  sk-ecdsa-sha2-nistp256@openssh.com  &emsp; |  Elliptic Curve DSA security key  |
+    |  sk-ssh-ed25519@openssh.com  &emsp; |  Elliptic curve 25519 security key  |
 
 `,
 		},

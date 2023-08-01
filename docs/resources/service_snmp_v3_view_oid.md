@@ -3,21 +3,60 @@
 page_title: "vyos_service_snmp_v3_view_oid Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Simple Network Management Protocol (SNMP)
+
+  <br>
+  &darr;
+  <br>
   Simple Network Management Protocol (SNMP) v3
+
+  <br>
+  &darr;
+  <br>
   Specifies the view with name viewname
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Specifies the oid
+  </b>
+  </div>
 ---
 
 # vyos_service_snmp_v3_view_oid (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Simple Network Management Protocol (SNMP)
 
+<br>
+&darr;
+<br>
 Simple Network Management Protocol (SNMP) v3
 
+<br>
+&darr;
+<br>
 Specifies the view with name viewname
 
+<br>
+&darr;
+<br>
+<b>
 Specifies the oid
+</b>
+</div>
 
 
 
@@ -26,8 +65,8 @@ Specifies the oid
 
 ### Required
 
-- `identifier` (String) Specifies the oid
-- `view_identifier` (String) Specifies the view with name viewname
+- `oid_id` (String) Specifies the oid
+- `view_id` (String) Specifies the view with name viewname
 
 ### Optional
 

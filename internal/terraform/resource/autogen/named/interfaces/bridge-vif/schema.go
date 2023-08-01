@@ -12,18 +12,21 @@ import (
 func (r interfacesBrIDgeVif) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Bridge Interface
+		MarkdownDescription: `<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  brN  |  Bridge interface name  |
+<br>
+&darr;
+<br>
+Bridge Interface
 
+<br>
+&darr;
+<br>
+<b>
 Virtual Local Area Network (VLAN) ID
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

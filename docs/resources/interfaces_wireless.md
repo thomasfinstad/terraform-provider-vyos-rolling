@@ -3,19 +3,30 @@
 page_title: "vyos_interfaces_wireless Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>interfaces</i>
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Wireless (WiFi/WLAN) Network Interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_wireless (Resource)
 
-Wireless (WiFi/WLAN) Network Interface
+<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
+<br>
+&darr;
+<br>
+<b>
+Wireless (WiFi/WLAN) Network Interface
+</b>
+</div>
 
 
 
@@ -24,40 +35,40 @@ Wireless (WiFi/WLAN) Network Interface
 
 ### Required
 
-- `identifier` (String) Wireless (WiFi/WLAN) Network Interface
+- `wireless_id` (String) Wireless (WiFi/WLAN) Network Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
+    |  wlanN  &emsp; |  Wireless (WiFi/WLAN) interface name  |
 
 ### Optional
 
 - `address` (List of String) IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
-    |  dhcp  |  Dynamic Host Configuration Protocol  |
-    |  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
+    |  dhcp  &emsp; |  Dynamic Host Configuration Protocol  |
+    |  dhcpv6  &emsp; |  Dynamic Host Configuration Protocol for IPv6  |
 - `capabilities` (Attributes) HT and VHT capabilities for your card (see [below for nested schema](#nestedatt--capabilities))
 - `channel` (String) Wireless radio channel
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  0  |  Automatic Channel Selection (ACS)  |
-    |  u32:1-14  |  2.4Ghz (802.11 b/g/n) Channel  |
-    |  u32:34-173  |  5Ghz (802.11 a/h/j/n/ac) Channel  |
+    |  0  &emsp; |  Automatic Channel Selection (ACS)  |
+    |  number: 1-14  &emsp; |  2.4Ghz (802.11 b/g/n) Channel  |
+    |  number: 34-173  &emsp; |  5Ghz (802.11 a/h/j/n/ac) Channel  |
 - `country_code` (String) Indicate country in which device is operating
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  ISO/IEC 3166-1 Country Code  |
+    |  txt  &emsp; |  ISO/IEC 3166-1 Country Code  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `dhcp_options` (Attributes) DHCP client settings/options (see [below for nested schema](#nestedatt--dhcp_options))
 - `dhcpv6_options` (Attributes) DHCPv6 client settings/options (see [below for nested schema](#nestedatt--dhcpv6_options))
 - `disable` (Boolean) Administratively disable interface
@@ -66,64 +77,64 @@ Wireless (WiFi/WLAN) Network Interface
 - `expunge_failing_stations` (Boolean) Disassociate stations based on excessive transmission failures
 - `hw_id` (String) Associate Ethernet Interface with given Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+    |  macaddr  &emsp; |  Hardware (MAC) address  |
 - `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--ip))
 - `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--ipv6))
 - `isolate_stations` (Boolean) Isolate stations on the AP so they cannot see each other
 - `mac` (String) Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+    |  macaddr  &emsp; |  Hardware (MAC) address  |
 - `max_stations` (Number) Maximum number of wireless radio stations. Excess stations will be rejected upon authentication request.
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2007  |  Number of allowed stations  |
+    |  number: 1-2007  &emsp; |  Number of allowed stations  |
 - `mgmt_frame_protection` (String) Management Frame Protection (MFP) according to IEEE 802.11w
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  disabled  |  no MFP  |
-    |  optional  |  MFP optional  |
-    |  required  |  MFP enforced  |
+    |  disabled  &emsp; |  no MFP  |
+    |  optional  &emsp; |  MFP optional  |
+    |  required  &emsp; |  MFP enforced  |
 - `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--mirror))
 - `mode` (String) Wireless radio mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  a  |  802.11a - 54 Mbits/sec  |
-    |  b  |  802.11b - 11 Mbits/sec  |
-    |  g  |  802.11g - 54 Mbits/sec  |
-    |  n  |  802.11n - 600 Mbits/sec  |
-    |  ac  |  802.11ac - 1300 Mbits/sec  |
+    |  a  &emsp; |  802.11a - 54 Mbits/sec  |
+    |  b  &emsp; |  802.11b - 11 Mbits/sec  |
+    |  g  &emsp; |  802.11g - 54 Mbits/sec  |
+    |  n  &emsp; |  802.11n - 600 Mbits/sec  |
+    |  ac  &emsp; |  802.11ac - 1300 Mbits/sec  |
 - `physical_device` (String) Wireless physical device
 - `redirect` (String) Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 - `reduce_transmit_power` (Number) Transmission power reduction in dBm
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  TX power reduction in dBm  |
+    |  number: 0-255  &emsp; |  TX power reduction in dBm  |
 - `security` (Attributes) Wireless security settings (see [below for nested schema](#nestedatt--security))
 - `ssid` (String) Wireless access-point service set identifier (SSID)
 - `type` (String) Wireless device type for this interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  access-point  |  Access-point forwards packets between other nodes  |
-    |  station  |  Connects to another access point  |
-    |  monitor  |  Passively monitor all packets on the frequency/channel  |
+    |  access-point  &emsp; |  Access-point forwards packets between other nodes  |
+    |  station  &emsp; |  Connects to another access point  |
+    |  monitor  &emsp; |  Passively monitor all packets on the frequency/channel  |
 - `vrf` (String) VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 <a id="nestedatt--capabilities"></a>
 ### Nested Schema for `capabilities`
@@ -144,11 +155,11 @@ Optional:
 - `auto_powersave` (Boolean) Enable WMM-PS unscheduled automatic power aave delivery [U-APSD]
 - `channel_set_width` (List of String) Supported channel set width
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ht20  |  Supported channel set width both 20 MHz only  |
-    |  ht40+  |  Supported channel set width both 20 MHz and 40 MHz with secondary channel above primary channel  |
-    |  ht40-  |  Supported channel set width both 20 MHz and 40 MHz with secondary channel below primary channel  |
+    |  ht20  &emsp; |  Supported channel set width both 20 MHz only  |
+    |  ht40+  &emsp; |  Supported channel set width both 20 MHz and 40 MHz with secondary channel above primary channel  |
+    |  ht40-  &emsp; |  Supported channel set width both 20 MHz and 40 MHz with secondary channel below primary channel  |
 - `delayed_block_ack` (Boolean) Enable HT-delayed block ack
 - `dsss_cck_40` (Boolean) Enable DSSS_CCK-40
 - `greenfield` (Boolean) Enable HT-greenfield
@@ -156,22 +167,22 @@ Optional:
 - `lsig_protection` (Boolean) Enable L-SIG TXOP protection capability
 - `max_amsdu` (String) Set maximum A-MSDU length
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  3839  |  Set maximum A-MSDU length to 3839 octets  |
-    |  7935  |  Set maximum A-MSDU length to 7935 octets  |
+    |  3839  &emsp; |  Set maximum A-MSDU length to 3839 octets  |
+    |  7935  &emsp; |  Set maximum A-MSDU length to 7935 octets  |
 - `short_gi` (List of String) Short GI capabilities
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  20  |  Short GI for 20 MHz  |
-    |  40  |  Short GI for 40 MHz  |
+    |  20  &emsp; |  Short GI for 20 MHz  |
+    |  40  &emsp; |  Short GI for 40 MHz  |
 - `smps` (String) Spatial Multiplexing Power Save (SMPS) settings
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  static  |  STATIC Spatial Multiplexing (SM) Power Save  |
-    |  dynamic  |  DYNAMIC Spatial Multiplexing (SM) Power Save  |
+    |  static  &emsp; |  STATIC Spatial Multiplexing (SM) Power Save  |
+    |  dynamic  &emsp; |  DYNAMIC Spatial Multiplexing (SM) Power Save  |
 - `stbc` (Attributes) Support for sending and receiving PPDU using STBC (Space Time Block Coding) (see [below for nested schema](#nestedatt--capabilities--ht--stbc))
 
 <a id="nestedatt--capabilities--ht--stbc"></a>
@@ -181,9 +192,9 @@ Optional:
 
 - `rx` (String) Enable receiving PPDU using STBC (Space Time Block Coding)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  [1-3]+  |  Number of spacial streams that can use RX STBC  |
+    |  [1-3]+  &emsp; |  Number of spacial streams that can use RX STBC  |
 - `tx` (Boolean) Enable sending PPDU using STBC (Space Time Block Coding)
 
 
@@ -195,51 +206,51 @@ Optional:
 
 - `antenna_count` (Number) Number of antennas on this card
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-8  |  Number of antennas for this card  |
+    |  number: 1-8  &emsp; |  Number of antennas for this card  |
 - `antenna_pattern_fixed` (Boolean) Set if antenna pattern does not change during the lifetime of an association
 - `beamform` (List of String) Beamforming capabilities
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  single-user-beamformer  |  Support for operation as single user beamformer  |
-    |  single-user-beamformee  |  Support for operation as single user beamformee  |
-    |  multi-user-beamformer  |  Support for operation as multi user beamformer  |
-    |  multi-user-beamformee  |  Support for operation as multi user beamformee  |
+    |  single-user-beamformer  &emsp; |  Support for operation as single user beamformer  |
+    |  single-user-beamformee  &emsp; |  Support for operation as single user beamformee  |
+    |  multi-user-beamformer  &emsp; |  Support for operation as multi user beamformer  |
+    |  multi-user-beamformee  &emsp; |  Support for operation as multi user beamformee  |
 - `center_channel_freq` (Attributes) VHT operating channel center frequency (see [below for nested schema](#nestedatt--capabilities--vht--center_channel_freq))
 - `channel_set_width` (String) VHT operating Channel width
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  0  |  20 or 40 MHz channel width  |
-    |  1  |  80 MHz channel width  |
-    |  2  |  160 MHz channel width  |
-    |  3  |  80+80 MHz channel width  |
+    |  0  &emsp; |  20 or 40 MHz channel width  |
+    |  1  &emsp; |  80 MHz channel width  |
+    |  2  &emsp; |  160 MHz channel width  |
+    |  3  &emsp; |  80+80 MHz channel width  |
 - `ldpc` (Boolean) Enable LDPC (Low Density Parity Check) coding capability
 - `link_adaptation` (String) VHT link adaptation capabilities
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  unsolicited  |  Station provides only unsolicited VHT MFB  |
-    |  both  |  Station can provide VHT MFB in response to VHT MRQ and unsolicited VHT MFB  |
+    |  unsolicited  &emsp; |  Station provides only unsolicited VHT MFB  |
+    |  both  &emsp; |  Station can provide VHT MFB in response to VHT MRQ and unsolicited VHT MFB  |
 - `max_mpdu` (String) Increase Maximum MPDU length to 7991 or 11454 octets (otherwise: 3895 octets)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  7991  |  ncrease Maximum MPDU length to 7991 octets  |
-    |  11454  |  ncrease Maximum MPDU length to 11454 octets  |
+    |  7991  &emsp; |  ncrease Maximum MPDU length to 7991 octets  |
+    |  11454  &emsp; |  ncrease Maximum MPDU length to 11454 octets  |
 - `max_mpdu_exp` (Number) Set the maximum length of A-MPDU pre-EOF padding that the station can receive
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-7  |  Maximum length of A-MPDU pre-EOF padding = 2 pow(13 + x) -1 octets  |
+    |  number: 0-7  &emsp; |  Maximum length of A-MPDU pre-EOF padding = 2 pow(13 + x) -1 octets  |
 - `short_gi` (List of String) Short GI capabilities
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  80  |  Short GI for 80 MHz  |
-    |  160  |  Short GI for 160 MHz  |
+    |  80  &emsp; |  Short GI for 80 MHz  |
+    |  160  &emsp; |  Short GI for 160 MHz  |
 - `stbc` (Attributes) Support for sending and receiving PPDU using STBC (Space Time Block Coding) (see [below for nested schema](#nestedatt--capabilities--vht--stbc))
 - `tx_powersave` (Boolean) Enable VHT TXOP Power Save Mode
 - `vht_cf` (Boolean) Station supports receiving VHT variant HT Control field
@@ -251,14 +262,14 @@ Optional:
 
 - `freq_1` (Number) VHT operating channel center frequency - center freq 1 (for use with 80, 80+80 and 160 modes)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:34-173  |  5Ghz (802.11 a/h/j/n/ac) center channel index (use 42 for primary 80MHz channel 36)  |
+    |  number: 34-173  &emsp; |  5Ghz (802.11 a/h/j/n/ac) center channel index (use 42 for primary 80MHz channel 36)  |
 - `freq_2` (Number) VHT operating channel center frequency - center freq 2 (for use with the 80+80 mode)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:34-173  |  5Ghz (802.11 a/h/j/n/ac) center channel index (use 58 for primary 80MHz channel 52)  |
+    |  number: 34-173  &emsp; |  5Ghz (802.11 a/h/j/n/ac) center channel index (use 58 for primary 80MHz channel 52)  |
 
 
 <a id="nestedatt--capabilities--vht--stbc"></a>
@@ -268,9 +279,9 @@ Optional:
 
 - `rx` (String) Enable receiving PPDU using STBC (Space Time Block Coding)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  [1-4]+  |  Number of spacial streams that can use RX STBC  |
+    |  [1-4]+  &emsp; |  Number of spacial streams that can use RX STBC  |
 - `tx` (Boolean) Enable sending PPDU using STBC (Space Time Block Coding)
 
 
@@ -284,18 +295,18 @@ Optional:
 - `client_id` (String) Identifier used by client to identify itself to the DHCP server
 - `default_route_distance` (Number) Distance for installed default route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for the default route from DHCP server  |
+    |  number: 1-255  &emsp; |  Distance for the default route from DHCP server  |
 - `host_name` (String) Override system host-name sent to DHCP server
 - `mtu` (Boolean) Use MTU value from DHCP server - ignore interface setting
 - `no_default_route` (Boolean) Do not install default route to system
 - `reject` (List of String) IP addresses or subnets from which to reject DHCP leases
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address to match  |
-    |  ipv4net  |  IPv4 prefix to match  |
+    |  ipv4  &emsp; |  IPv4 address to match  |
+    |  ipv4net  &emsp; |  IPv4 prefix to match  |
 - `vendor_class_id` (String) Identify the vendor client type to the DHCP server
 
 
@@ -306,9 +317,9 @@ Optional:
 
 - `duid` (String) DHCP unique identifier (DUID) to be sent by dhcpv6 client
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  duid  |  DHCP unique identifier (DUID)  |
+    |  duid  &emsp; |  DHCP unique identifier (DUID)  |
 - `parameters_only` (Boolean) Acquire only config parameters, no address
 - `rapid_commit` (Boolean) Wait for immediate reply instead of advertisements
 - `temporary` (Boolean) IPv6 temporary address
@@ -321,15 +332,15 @@ Optional:
 
 - `adjust_mss` (String) Adjust TCP MSS value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  clamp-mss-to-pmtu  &emsp; |  Automatically sets the MSS to the proper value  |
+    |  number: 536-65535  &emsp; |  TCP Maximum segment size in bytes  |
 - `arp_cache_timeout` (Number) ARP cache entry timeout in seconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-86400  |  ARP cache entry timout in seconds  |
+    |  number: 1-86400  &emsp; |  ARP cache entry timout in seconds  |
 - `disable_arp_filter` (Boolean) Disable ARP filter on this interface
 - `disable_forwarding` (Boolean) Disable IP forwarding on this interface
 - `enable_arp_accept` (Boolean) Enable ARP accept on this interface
@@ -340,11 +351,11 @@ Optional:
 - `proxy_arp_pvlan` (Boolean) Enable private VLAN proxy ARP on this interface
 - `source_validation` (String) Source validation by reversed path (RFC3704)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
-    |  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
-    |  disable  |  No source validation  |
+    |  strict  &emsp; |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
+    |  loose  &emsp; |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
+    |  disable  &emsp; |  No source validation  |
 
 
 <a id="nestedatt--ipv6"></a>
@@ -355,17 +366,17 @@ Optional:
 - `address` (Attributes) IPv6 address configuration modes (see [below for nested schema](#nestedatt--ipv6--address))
 - `adjust_mss` (String) Adjust TCP MSS value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  clamp-mss-to-pmtu  &emsp; |  Automatically sets the MSS to the proper value  |
+    |  number: 536-65535  &emsp; |  TCP Maximum segment size in bytes  |
 - `disable_forwarding` (Boolean) Disable IP forwarding on this interface
 - `dup_addr_detect_transmits` (Number) Number of NS messages to send while performing DAD (default: 1)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Disable Duplicate Address Dectection (DAD)  |
-    |  u32:1-n  |  Number of NS messages to send while performing DAD  |
+    |  number: 0  &emsp; |  Disable Duplicate Address Dectection (DAD)  |
+    |  number: 1-n  &emsp; |  Number of NS messages to send while performing DAD  |
 
 <a id="nestedatt--ipv6--address"></a>
 ### Nested Schema for `ipv6.address`
@@ -375,9 +386,9 @@ Optional:
 - `autoconf` (Boolean) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
 - `eui64` (List of String) Prefix for IPv6 address with MAC-based EUI-64
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
+    |  <h:h:h:h:h:h:h:h/64>  &emsp; |  IPv6 /64 network  |
 - `no_default_link_local` (Boolean) Remove the default link-local address from the interface
 
 
@@ -389,14 +400,14 @@ Optional:
 
 - `egress` (String) Mirror egress traffic to destination interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 - `ingress` (String) Mirror ingress traffic to destination interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 
 <a id="nestedatt--security"></a>
@@ -414,9 +425,9 @@ Optional:
 
 - `key` (List of String) WEP encryption key
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Wired Equivalent Privacy key  |
+    |  txt  &emsp; |  Wired Equivalent Privacy key  |
 
 
 <a id="nestedatt--security--wpa"></a>
@@ -426,34 +437,34 @@ Optional:
 
 - `cipher` (List of String) Cipher suite for WPA unicast packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  GCMP-256  |  AES in Galois/counter mode with 256-bit key  |
-    |  GCMP  |  AES in Galois/counter mode with 128-bit key  |
-    |  CCMP-256  |  AES in Counter mode with CBC-MAC with 256-bit key  |
-    |  CCMP  |  AES in Counter mode with CBC-MAC [RFC 3610, IEEE 802.11i/D7.0] (supported on all WPA2 APs)  |
-    |  TKIP  |  Temporal Key Integrity Protocol [IEEE 802.11i/D7.0]  |
+    |  GCMP-256  &emsp; |  AES in Galois/counter mode with 256-bit key  |
+    |  GCMP  &emsp; |  AES in Galois/counter mode with 128-bit key  |
+    |  CCMP-256  &emsp; |  AES in Counter mode with CBC-MAC with 256-bit key  |
+    |  CCMP  &emsp; |  AES in Counter mode with CBC-MAC [RFC 3610, IEEE 802.11i/D7.0] (supported on all WPA2 APs)  |
+    |  TKIP  &emsp; |  Temporal Key Integrity Protocol [IEEE 802.11i/D7.0]  |
 - `group_cipher` (List of String) Cipher suite for WPA multicast and broadcast packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  GCMP-256  |  AES in Galois/counter mode with 256-bit key  |
-    |  GCMP  |  AES in Galois/counter mode with 128-bit key  |
-    |  CCMP-256  |  AES in Counter mode with CBC-MAC with 256-bit key  |
-    |  CCMP  |  AES in Counter mode with CBC-MAC [RFC 3610, IEEE 802.11i/D7.0] (supported on all WPA2 APs)  |
-    |  TKIP  |  Temporal Key Integrity Protocol [IEEE 802.11i/D7.0]  |
+    |  GCMP-256  &emsp; |  AES in Galois/counter mode with 256-bit key  |
+    |  GCMP  &emsp; |  AES in Galois/counter mode with 128-bit key  |
+    |  CCMP-256  &emsp; |  AES in Counter mode with CBC-MAC with 256-bit key  |
+    |  CCMP  &emsp; |  AES in Counter mode with CBC-MAC [RFC 3610, IEEE 802.11i/D7.0] (supported on all WPA2 APs)  |
+    |  TKIP  &emsp; |  Temporal Key Integrity Protocol [IEEE 802.11i/D7.0]  |
 - `mode` (String) WPA mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  wpa  |  WPA (IEEE 802.11i/D3.0)  |
-    |  wpa2  |  WPA2 (full IEEE 802.11i/RSN)  |
-    |  wpa+wpa2  |  Allow both WPA and WPA2  |
+    |  wpa  &emsp; |  WPA (IEEE 802.11i/D3.0)  |
+    |  wpa2  &emsp; |  WPA2 (full IEEE 802.11i/RSN)  |
+    |  wpa+wpa2  &emsp; |  Allow both WPA and WPA2  |
 - `passphrase` (String) WPA personal shared pass phrase. If you are using special characters in the WPA passphrase then single quotes are required.
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Passphrase of at least 8 but not more than 63 printable characters  |
+    |  txt  &emsp; |  Passphrase of at least 8 but not more than 63 printable characters  |
 - `radius` (Attributes) RADIUS based user authentication (see [below for nested schema](#nestedatt--security--wpa--radius))
 
 <a id="nestedatt--security--wpa--radius"></a>
@@ -463,6 +474,6 @@ Optional:
 
 - `source_address` (String) IPv4 source address used to initiate connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 source address  |
+    |  ipv4  &emsp; |  IPv4 source address  |

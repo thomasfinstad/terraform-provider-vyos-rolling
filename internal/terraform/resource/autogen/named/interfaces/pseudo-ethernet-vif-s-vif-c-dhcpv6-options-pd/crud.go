@@ -53,7 +53,7 @@ func (r interfacesPseudoEthernetVifSVifCDhcpvsixOptionsPd) Create(ctx context.Co
 		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
 	}
 
-	// Save ID into the Terraform state.data.ID = types.StringValue(data.ID.ValueString())
+	// Save ID into the Terraform state.data.SelfIdentifier = types.StringValue(data.SelfIdentifier.ValueString())
 
 	// Save data to Terraform state
 	tflog.Trace(ctx, "resource created")
@@ -137,7 +137,7 @@ func (r interfacesPseudoEthernetVifSVifCDhcpvsixOptionsPd) Update(ctx context.Co
 		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
 	}
 
-	// Save ID into the Terraform state.data.ID = types.StringValue(data.ID.ValueString())
+	// Save ID into the Terraform state.data.SelfIdentifier = types.StringValue(data.SelfIdentifier.ValueString())
 
 	// Save data to Terraform state
 	tflog.Trace(ctx, "resource created")

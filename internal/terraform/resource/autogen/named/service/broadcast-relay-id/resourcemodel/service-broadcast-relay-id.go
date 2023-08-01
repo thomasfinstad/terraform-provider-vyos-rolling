@@ -9,7 +9,7 @@ import (
 
 // ServiceBroadcastRelayID describes the resource data model.
 type ServiceBroadcastRelayID struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"id_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceBroadcastRelayIDDisable     types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -31,20 +31,20 @@ func (o *ServiceBroadcastRelayID) GetVyosPath() []string {
 		"broadcast-relay",
 
 		"id",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceBroadcastRelayID) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"id_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Unique ID for each UDP port to forward
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-99  |  Broadcast relay instance ID  |
+    |  number: 1-99  &emsp; |  Broadcast relay instance ID  |
 
 `,
 		},
@@ -64,9 +64,9 @@ func (o ServiceBroadcastRelayID) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Set source IP of forwarded packets, otherwise original senders address is used
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Optional source address for forwarded packets  |
+    |  ipv4  &emsp; |  Optional source address for forwarded packets  |
 
 `,
 		},
@@ -83,9 +83,9 @@ func (o ServiceBroadcastRelayID) ResourceSchemaAttributes() map[string]schema.At
 			Optional:    true,
 			MarkdownDescription: `Interface to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},
@@ -94,9 +94,9 @@ func (o ServiceBroadcastRelayID) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 		},

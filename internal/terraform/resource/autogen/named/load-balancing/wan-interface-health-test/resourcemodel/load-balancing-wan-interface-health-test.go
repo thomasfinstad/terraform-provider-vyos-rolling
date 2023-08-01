@@ -8,9 +8,9 @@ import (
 
 // LoadBalancingWanInterfaceHealthTest describes the resource data model.
 type LoadBalancingWanInterfaceHealthTest struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"test_id" vyos:",self-id"`
 
-	ParentIDLoadBalancingWanInterfaceHealth types.String `tfsdk:"interface_health" vyos:"interface-health_identifier,parent-id"`
+	ParentIDLoadBalancingWanInterfaceHealth types.String `tfsdk:"interface_health" vyos:"interface-health,parent-id"`
 
 	// LeafNodes
 	LeafLoadBalancingWanInterfaceHealthTestRespTime   types.Number `tfsdk:"resp_time" vyos:"resp-time,omitempty"`
@@ -35,25 +35,25 @@ func (o *LoadBalancingWanInterfaceHealthTest) GetVyosPath() []string {
 		o.ParentIDLoadBalancingWanInterfaceHealth.ValueString(),
 
 		"test",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o LoadBalancingWanInterfaceHealthTest) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"test_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Rule number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4294967295  |  Rule number  |
+    |  number: 0-4294967295  &emsp; |  Rule number  |
 
 `,
 		},
 
-		"interface_health_identifier": schema.StringAttribute{
+		"interface_health_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Interface name
 
@@ -66,9 +66,9 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Ping response time (seconds)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-30  |  Response time (seconds)  |
+    |  number: 1-30  &emsp; |  Response time (seconds)  |
 
 `,
 		},
@@ -77,9 +77,9 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Health target address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Health target address  |
+    |  ipv4  &emsp; |  Health target address  |
 
 `,
 		},
@@ -88,9 +88,9 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Path to user-defined script
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Script in /config/scripts  |
+    |  txt  &emsp; |  Script in /config/scripts  |
 
 `,
 		},
@@ -99,9 +99,9 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `TTL limit (hop count)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-254  |  Number of hops  |
+    |  number: 1-254  &emsp; |  Number of hops  |
 
 `,
 		},
@@ -110,11 +110,11 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `WLB test type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ping  |  Test with ICMP echo response  |
-    |  ttl  |  Test with UDP TTL expired response  |
-    |  user-defined  |  User-defined test script  |
+    |  ping  &emsp; |  Test with ICMP echo response  |
+    |  ttl  &emsp; |  Test with UDP TTL expired response  |
+    |  user-defined  &emsp; |  User-defined test script  |
 
 `,
 		},

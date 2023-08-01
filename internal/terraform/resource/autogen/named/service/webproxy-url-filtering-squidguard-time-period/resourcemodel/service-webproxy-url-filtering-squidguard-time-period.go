@@ -8,7 +8,7 @@ import (
 
 // ServiceWebproxyURLFilteringSquIDguardTimePeriod describes the resource data model.
 type ServiceWebproxyURLFilteringSquIDguardTimePeriod struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"time_period_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -31,14 +31,14 @@ func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriod) GetVyosPath() []string
 		"squidguard",
 
 		"time-period",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceWebproxyURLFilteringSquIDguardTimePeriod) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"time_period_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Time period name
 

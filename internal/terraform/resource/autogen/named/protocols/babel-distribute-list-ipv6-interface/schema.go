@@ -12,18 +12,31 @@ import (
 func (r protocolsBabelDistributeListIPvsixInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Babel Routing Protocol
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Babel Routing Protocol
+
+<br>
+&darr;
+<br>
 Filter networks in routing updates
 
+<br>
+&darr;
+<br>
 Filter IPv6 routes
 
+<br>
+&darr;
+<br>
+<b>
 Apply filtering to an interface
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Apply filtering to an interface  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

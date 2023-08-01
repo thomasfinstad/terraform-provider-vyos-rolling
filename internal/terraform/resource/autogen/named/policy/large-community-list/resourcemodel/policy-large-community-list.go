@@ -8,7 +8,7 @@ import (
 
 // PolicyLargeCommunityList describes the resource data model.
 type PolicyLargeCommunityList struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"large_community_list_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafPolicyLargeCommunityListDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -25,20 +25,20 @@ func (o *PolicyLargeCommunityList) GetVyosPath() []string {
 		"policy",
 
 		"large-community-list",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PolicyLargeCommunityList) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"large_community_list_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Add a BGP large community list entry
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  BGP large-community-list name  |
+    |  txt  &emsp; |  BGP large-community-list name  |
 
 `,
 		},
@@ -49,9 +49,9 @@ func (o PolicyLargeCommunityList) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

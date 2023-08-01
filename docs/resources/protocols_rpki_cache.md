@@ -3,26 +3,40 @@
 page_title: "vyos_protocols_rpki_cache Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   BGP prefix origin validation
+
+  <br>
+  &darr;
+  <br>
+  <b>
   RPKI cache server address
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  IP address of RPKI server  |
-  |  ipv6  |  IPv6 address of RPKI server  |
-  |  hostname  |  Fully qualified domain name of RPKI server  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_rpki_cache (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 BGP prefix origin validation
 
+<br>
+&darr;
+<br>
+<b>
 RPKI cache server address
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  IP address of RPKI server  |
-    |  ipv6  |  IPv6 address of RPKI server  |
-    |  hostname  |  Fully qualified domain name of RPKI server  |
+</b>
+</div>
 
 
 
@@ -31,26 +45,26 @@ RPKI cache server address
 
 ### Required
 
-- `identifier` (String) RPKI cache server address
+- `cache_id` (String) RPKI cache server address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IP address of RPKI server  |
-    |  ipv6  |  IPv6 address of RPKI server  |
-    |  hostname  |  Fully qualified domain name of RPKI server  |
+    |  ipv4  &emsp; |  IP address of RPKI server  |
+    |  ipv6  &emsp; |  IPv6 address of RPKI server  |
+    |  hostname  &emsp; |  Fully qualified domain name of RPKI server  |
 
 ### Optional
 
 - `port` (Number) Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 - `preference` (Number) Preference of the cache server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Preference of the cache server  |
+    |  number: 1-255  &emsp; |  Preference of the cache server  |
 - `ssh` (Attributes) RPKI SSH connection settings (see [below for nested schema](#nestedatt--ssh))
 
 <a id="nestedatt--ssh"></a>
@@ -63,6 +77,6 @@ Optional:
 - `public_key_file` (String) RPKI SSH public key file path
 - `username` (String) Username used for authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Username  |
+    |  txt  &emsp; |  Username  |

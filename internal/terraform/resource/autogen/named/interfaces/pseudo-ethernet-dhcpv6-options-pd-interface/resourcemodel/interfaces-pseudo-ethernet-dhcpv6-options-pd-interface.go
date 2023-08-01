@@ -8,11 +8,11 @@ import (
 
 // InterfacesPseudoEthernetDhcpvsixOptionsPdInterface describes the resource data model.
 type InterfacesPseudoEthernetDhcpvsixOptionsPdInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
-	ParentIDInterfacesPseudoEthernet types.String `tfsdk:"pseudo_ethernet" vyos:"pseudo-ethernet_identifier,parent-id"`
+	ParentIDInterfacesPseudoEthernet types.String `tfsdk:"pseudo_ethernet" vyos:"pseudo-ethernet,parent-id"`
 
-	ParentIDInterfacesPseudoEthernetDhcpvsixOptionsPd types.String `tfsdk:"pd" vyos:"pd_identifier,parent-id"`
+	ParentIDInterfacesPseudoEthernetDhcpvsixOptionsPd types.String `tfsdk:"pd" vyos:"pd,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesPseudoEthernetDhcpvsixOptionsPdInterfaceAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
@@ -37,38 +37,38 @@ func (o *InterfacesPseudoEthernetDhcpvsixOptionsPdInterface) GetVyosPath() []str
 		o.ParentIDInterfacesPseudoEthernetDhcpvsixOptionsPd.ValueString(),
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesPseudoEthernetDhcpvsixOptionsPdInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Delegate IPv6 prefix from provider to this interface
 
 `,
 		},
 
-		"pseudo_ethernet_identifier": schema.StringAttribute{
+		"pseudo_ethernet_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Pseudo Ethernet Interface (Macvlan)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  pethN  |  Pseudo Ethernet interface name  |
+    |  pethN  &emsp; |  Pseudo Ethernet interface name  |
 
 `,
 		},
 
-		"pd_identifier": schema.StringAttribute{
+		"pd_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
 
 `,
 		},
@@ -79,9 +79,9 @@ func (o InterfacesPseudoEthernetDhcpvsixOptionsPdInterface) ResourceSchemaAttrib
 			Optional: true,
 			MarkdownDescription: `Local interface address assigned to interface (default: EUI-64)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  >0  |  Used to form IPv6 interface address  |
+    |  >0  &emsp; |  Used to form IPv6 interface address  |
 
 `,
 		},
@@ -90,9 +90,9 @@ func (o InterfacesPseudoEthernetDhcpvsixOptionsPdInterface) ResourceSchemaAttrib
 			Optional: true,
 			MarkdownDescription: `Interface site-Level aggregator (SLA)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Decimal integer which fits in the length of SLA IDs  |
+    |  number: 0-65535  &emsp; |  Decimal integer which fits in the length of SLA IDs  |
 
 `,
 		},

@@ -12,14 +12,16 @@ import (
 func (r interfacesEthernet) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Network interfaces
+		MarkdownDescription: `<div style="text-align: center">
+Network interfaces
 
+<br>
+&darr;
+<br>
+<b>
 Ethernet Interface
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ethN  |  Ethernet interface name  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

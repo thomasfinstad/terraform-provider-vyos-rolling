@@ -3,26 +3,40 @@
 page_title: "vyos_firewall_zone_from Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Firewall
-  Zone-policy
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Zone name  |
 
+  <br>
+  &darr;
+  <br>
+  Zone-policy
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Zone from which to filter traffic
+  </b>
+  </div>
 ---
 
 # vyos_firewall_zone_from (Resource)
 
+<div style="text-align: center">
 Firewall
 
+<br>
+&darr;
+<br>
 Zone-policy
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Zone name  |
-
+<br>
+&darr;
+<br>
+<b>
 Zone from which to filter traffic
+</b>
+</div>
 
 
 
@@ -31,12 +45,12 @@ Zone from which to filter traffic
 
 ### Required
 
-- `identifier` (String) Zone from which to filter traffic
-- `zone_identifier` (String) Zone-policy
+- `from_id` (String) Zone from which to filter traffic
+- `zone_id` (String) Zone-policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Zone name  |
+    |  txt  &emsp; |  Zone name  |
 
 ### Optional
 

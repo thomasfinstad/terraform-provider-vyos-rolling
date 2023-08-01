@@ -3,27 +3,50 @@
 page_title: "vyos_system_login_radius_server Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>system</i>
+
+  <br>
+  &darr;
+  <br>
   System User Login Configuration
+
+  <br>
+  &darr;
+  <br>
   RADIUS based user authentication
+
+  <br>
+  &darr;
+  <br>
+  <b>
   RADIUS server configuration
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  RADIUS server IPv4 address  |
-  |  ipv6  |  RADIUS server IPv6 address  |
+  </b>
+  </div>
 ---
 
 # vyos_system_login_radius_server (Resource)
 
+<div style="text-align: center">
+<i>system</i>
+
+<br>
+&darr;
+<br>
 System User Login Configuration
 
+<br>
+&darr;
+<br>
 RADIUS based user authentication
 
+<br>
+&darr;
+<br>
+<b>
 RADIUS server configuration
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  RADIUS server IPv4 address  |
-    |  ipv6  |  RADIUS server IPv6 address  |
+</b>
+</div>
 
 
 
@@ -32,12 +55,12 @@ RADIUS server configuration
 
 ### Required
 
-- `identifier` (String) RADIUS server configuration
+- `server_id` (String) RADIUS server configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  RADIUS server IPv4 address  |
-    |  ipv6  |  RADIUS server IPv6 address  |
+    |  ipv4  &emsp; |  RADIUS server IPv4 address  |
+    |  ipv6  &emsp; |  RADIUS server IPv6 address  |
 
 ### Optional
 
@@ -45,16 +68,16 @@ RADIUS server configuration
 - `key` (String) Shared secret key
 - `port` (Number) Authentication port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 - `priority` (Number) Server priority
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Server priority  |
+    |  number: 1-255  &emsp; |  Server priority  |
 - `timeout` (Number) Session timeout
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-30  |  Session timeout in seconds  |
+    |  number: 1-30  &emsp; |  Session timeout in seconds  |

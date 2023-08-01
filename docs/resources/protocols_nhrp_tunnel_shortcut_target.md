@@ -3,26 +3,50 @@
 page_title: "vyos_protocols_nhrp_tunnel_shortcut_target Resource - vyos"
 subcategory: ""
 description: |-
-  Next Hop Resolution Protocol (NHRP) parameters
-  Tunnel for NHRP
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  tunN  |  NHRP tunnel name  |
+  <div style="text-align: center">
+  <i>protocols</i>
 
+  <br>
+  &darr;
+  <br>
+  Next Hop Resolution Protocol (NHRP) parameters
+
+  <br>
+  &darr;
+  <br>
+  Tunnel for NHRP
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Defines an off-NBMA network prefix for which the GRE interface will act as a gateway
+  </b>
+  </div>
 ---
 
 # vyos_protocols_nhrp_tunnel_shortcut_target (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Next Hop Resolution Protocol (NHRP) parameters
 
+<br>
+&darr;
+<br>
 Tunnel for NHRP
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  tunN  |  NHRP tunnel name  |
-
+<br>
+&darr;
+<br>
+<b>
 Defines an off-NBMA network prefix for which the GRE interface will act as a gateway
+</b>
+</div>
 
 
 
@@ -31,12 +55,12 @@ Defines an off-NBMA network prefix for which the GRE interface will act as a gat
 
 ### Required
 
-- `identifier` (String) Defines an off-NBMA network prefix for which the GRE interface will act as a gateway
-- `tunnel_identifier` (String) Tunnel for NHRP
+- `shortcut_target_id` (String) Defines an off-NBMA network prefix for which the GRE interface will act as a gateway
+- `tunnel_id` (String) Tunnel for NHRP
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  tunN  |  NHRP tunnel name  |
+    |  tunN  &emsp; |  NHRP tunnel name  |
 
 ### Optional
 

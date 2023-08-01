@@ -3,27 +3,50 @@
 page_title: "vyos_protocols_bgp_listen_range Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Border Gateway Protocol (BGP)
+
+  <br>
+  &darr;
+  <br>
   Listen for and accept BGP dynamic neighbors from range
+
+  <br>
+  &darr;
+  <br>
+  <b>
   BGP dynamic neighbors listen range
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  IPv4 dynamic neighbors listen range  |
-  |  ipv6net  |  IPv6 dynamic neighbors listen range  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_bgp_listen_range (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Border Gateway Protocol (BGP)
 
+<br>
+&darr;
+<br>
 Listen for and accept BGP dynamic neighbors from range
 
+<br>
+&darr;
+<br>
+<b>
 BGP dynamic neighbors listen range
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 dynamic neighbors listen range  |
-    |  ipv6net  |  IPv6 dynamic neighbors listen range  |
+</b>
+</div>
 
 
 
@@ -32,17 +55,17 @@ BGP dynamic neighbors listen range
 
 ### Required
 
-- `identifier` (String) BGP dynamic neighbors listen range
+- `range_id` (String) BGP dynamic neighbors listen range
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 dynamic neighbors listen range  |
-    |  ipv6net  |  IPv6 dynamic neighbors listen range  |
+    |  ipv4net  &emsp; |  IPv4 dynamic neighbors listen range  |
+    |  ipv6net  &emsp; |  IPv6 dynamic neighbors listen range  |
 
 ### Optional
 
 - `peer_group` (String) Peer group for this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Peer-group name  |
+    |  txt  &emsp; |  Peer-group name  |

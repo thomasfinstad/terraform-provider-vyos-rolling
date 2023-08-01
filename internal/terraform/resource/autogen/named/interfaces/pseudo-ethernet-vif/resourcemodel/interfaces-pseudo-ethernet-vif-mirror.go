@@ -26,9 +26,9 @@ func (o InterfacesPseudoEthernetVifMirror) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `Mirror ingress traffic to destination interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 `,
 		},
@@ -37,9 +37,9 @@ func (o InterfacesPseudoEthernetVifMirror) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `Mirror egress traffic to destination interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 `,
 		},

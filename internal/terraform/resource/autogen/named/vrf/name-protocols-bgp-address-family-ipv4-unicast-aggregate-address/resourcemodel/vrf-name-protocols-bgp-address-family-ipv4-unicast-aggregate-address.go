@@ -9,9 +9,9 @@ import (
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"aggregate_address_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddressAsSet       types.Bool   `tfsdk:"as_set" vyos:"as-set,omitempty"`
@@ -40,31 +40,31 @@ func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress) GetVyos
 		"ipv4-unicast",
 
 		"aggregate-address",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"aggregate_address_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `BGP aggregate network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  BGP aggregate network  |
+    |  ipv4net  &emsp; |  BGP aggregate network  |
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -84,9 +84,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress) Resource
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},

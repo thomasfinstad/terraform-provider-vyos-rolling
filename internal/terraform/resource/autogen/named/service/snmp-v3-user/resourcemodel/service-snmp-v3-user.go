@@ -8,7 +8,7 @@ import (
 
 // ServiceSnmpVthreeUser describes the resource data model.
 type ServiceSnmpVthreeUser struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"user_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceSnmpVthreeUserGroup types.String `tfsdk:"group" vyos:"group,omitempty"`
@@ -31,14 +31,14 @@ func (o *ServiceSnmpVthreeUser) GetVyosPath() []string {
 		"v3",
 
 		"user",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceSnmpVthreeUser) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"user_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Specifies the user with name username
 
@@ -58,10 +58,10 @@ func (o ServiceSnmpVthreeUser) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Define access permission
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ro  |  Read-Only  |
-    |  rw  |  read write  |
+    |  ro  &emsp; |  Read-Only  |
+    |  rw  &emsp; |  read write  |
 
 `,
 

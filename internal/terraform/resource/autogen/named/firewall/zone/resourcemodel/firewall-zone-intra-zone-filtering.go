@@ -26,10 +26,10 @@ func (o FirewallZoneIntraZoneFiltering) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `Action for intra-zone traffic
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  accept  |  Accept traffic  |
-    |  drop  |  Drop silently  |
+    |  accept  &emsp; |  Accept traffic  |
+    |  drop  &emsp; |  Drop silently  |
 
 `,
 		},

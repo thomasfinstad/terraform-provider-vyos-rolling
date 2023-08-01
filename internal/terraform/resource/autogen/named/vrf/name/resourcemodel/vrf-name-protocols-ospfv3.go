@@ -33,9 +33,9 @@ func (o VrfNameProtocolsOspfvthree) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},

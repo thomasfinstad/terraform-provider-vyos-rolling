@@ -41,10 +41,10 @@ func (o ServiceSnmpVthreeUserPrivacy) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Defines the protocol for privacy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  des  |  Data Encryption Standard  |
-    |  aes  |  Advanced Encryption Standard  |
+    |  des  &emsp; |  Data Encryption Standard  |
+    |  aes  &emsp; |  Advanced Encryption Standard  |
 
 `,
 

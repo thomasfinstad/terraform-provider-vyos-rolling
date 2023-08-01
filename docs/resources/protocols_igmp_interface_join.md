@@ -3,25 +3,50 @@
 page_title: "vyos_protocols_igmp_interface_join Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Internet Group Management Protocol (IGMP)
+
+  <br>
+  &darr;
+  <br>
   IGMP interface
+
+  <br>
+  &darr;
+  <br>
+  <b>
   IGMP join multicast group
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  Multicast group address  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_igmp_interface_join (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Internet Group Management Protocol (IGMP)
 
+<br>
+&darr;
+<br>
 IGMP interface
 
+<br>
+&darr;
+<br>
+<b>
 IGMP join multicast group
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  Multicast group address  |
+</b>
+</div>
 
 
 
@@ -30,17 +55,17 @@ IGMP join multicast group
 
 ### Required
 
-- `identifier` (String) IGMP join multicast group
+- `interface_id` (String) IGMP interface
+- `join_id` (String) IGMP join multicast group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Multicast group address  |
-- `interface_identifier` (String) IGMP interface
+    |  ipv4  &emsp; |  Multicast group address  |
 
 ### Optional
 
 - `source` (List of String) Source address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Source address  |
+    |  ipv4  &emsp; |  Source address  |

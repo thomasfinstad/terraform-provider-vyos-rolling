@@ -8,9 +8,9 @@ import (
 
 // ContainerNameNetwork describes the resource data model.
 type ContainerNameNetwork struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"network_id" vyos:",self-id"`
 
-	ParentIDContainerName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDContainerName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafContainerNameNetworkAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
@@ -29,21 +29,21 @@ func (o *ContainerNameNetwork) GetVyosPath() []string {
 		o.ParentIDContainerName.ValueString(),
 
 		"network",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ContainerNameNetwork) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"network_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Attach user defined network to container
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Container name
 
@@ -56,9 +56,9 @@ func (o ContainerNameNetwork) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Assign static IP address to container
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address  |
+    |  ipv4  &emsp; |  IPv4 address  |
 
 `,
 		},

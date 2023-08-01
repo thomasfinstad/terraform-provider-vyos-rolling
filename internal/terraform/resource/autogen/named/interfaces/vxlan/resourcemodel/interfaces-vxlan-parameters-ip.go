@@ -27,11 +27,11 @@ func (o InterfacesVxlanParametersIP) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Usage of the DF (don't Fragment) bit in outgoing packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  set  |  Always set DF (don't fragment) bit  |
-    |  unset  |  Always unset DF (don't fragment) bit  |
-    |  inherit  |  Copy from the original IP header  |
+    |  set  &emsp; |  Always set DF (don't fragment) bit  |
+    |  unset  &emsp; |  Always unset DF (don't fragment) bit  |
+    |  inherit  &emsp; |  Copy from the original IP header  |
 
 `,
 
@@ -43,9 +43,9 @@ func (o InterfacesVxlanParametersIP) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Specifies TOS value to use in outgoing packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-99  |  Type of Service (TOS)  |
+    |  number: 0-99  &emsp; |  Type of Service (TOS)  |
 
 `,
 
@@ -57,10 +57,10 @@ func (o InterfacesVxlanParametersIP) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Specifies TTL value to use in outgoing packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Inherit - copy value from original IP header  |
-    |  u32:1-255  |  Time to Live  |
+    |  number: 0  &emsp; |  Inherit - copy value from original IP header  |
+    |  number: 1-255  &emsp; |  Time to Live  |
 
 `,
 

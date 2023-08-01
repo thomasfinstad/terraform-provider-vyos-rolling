@@ -3,28 +3,60 @@
 page_title: "vyos_protocols_bgp_address_family_ipv4_unicast_network Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Border Gateway Protocol (BGP)
+
+  <br>
+  &darr;
+  <br>
   BGP address-family parameters
+
+  <br>
+  &darr;
+  <br>
   IPv4 BGP settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   BGP network
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  BGP network  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_bgp_address_family_ipv4_unicast_network (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Border Gateway Protocol (BGP)
 
+<br>
+&darr;
+<br>
 BGP address-family parameters
 
+<br>
+&darr;
+<br>
 IPv4 BGP settings
 
+<br>
+&darr;
+<br>
+<b>
 BGP network
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  BGP network  |
+</b>
+</div>
 
 
 
@@ -33,17 +65,17 @@ BGP network
 
 ### Required
 
-- `identifier` (String) BGP network
+- `network_id` (String) BGP network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  BGP network  |
+    |  ipv4net  &emsp; |  BGP network  |
 
 ### Optional
 
 - `backdoor` (Boolean) Network as a backdoor route
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |

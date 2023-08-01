@@ -8,11 +8,11 @@ import (
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"entry_id" vyos:",self-id"`
 
-	ParentIDServiceDNSForwardingAuthoritativeDomain types.String `tfsdk:"authoritative_domain" vyos:"authoritative-domain_identifier,parent-id"`
+	ParentIDServiceDNSForwardingAuthoritativeDomain types.String `tfsdk:"authoritative_domain" vyos:"authoritative-domain,parent-id"`
 
-	ParentIDServiceDNSForwardingAuthoritativeDomainRecordsSrv types.String `tfsdk:"srv" vyos:"srv_identifier,parent-id"`
+	ParentIDServiceDNSForwardingAuthoritativeDomainRecordsSrv types.String `tfsdk:"srv" vyos:"srv,parent-id"`
 
 	// LeafNodes
 	LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvEntryHostname types.String `tfsdk:"hostname" vyos:"hostname,omitempty"`
@@ -43,43 +43,43 @@ func (o *ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) GetVyosPath() [
 		o.ParentIDServiceDNSForwardingAuthoritativeDomainRecordsSrv.ValueString(),
 
 		"entry",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"entry_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Service entry
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Entry number  |
+    |  number: 0-65535  &emsp; |  Entry number  |
 
 `,
 		},
 
-		"authoritative_domain_identifier": schema.StringAttribute{
+		"authoritative_domain_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Domain to host authoritative records for
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  An absolute DNS name  |
+    |  text  &emsp; |  An absolute DNS name  |
 
 `,
 		},
 
-		"srv_identifier": schema.StringAttribute{
+		"srv_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `"SRV" record
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  A DNS name relative to the root record  |
-    |  @  |  Root record  |
+    |  text  &emsp; |  A DNS name relative to the root record  |
+    |  @  &emsp; |  Root record  |
 
 `,
 		},
@@ -90,9 +90,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceSchemaAt
 			Optional: true,
 			MarkdownDescription: `Server hostname
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  name.example.com  |  An absolute DNS name  |
+    |  name.example.com  &emsp; |  An absolute DNS name  |
 
 `,
 		},
@@ -101,9 +101,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceSchemaAt
 			Optional: true,
 			MarkdownDescription: `Port number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  TCP/UDP port number  |
+    |  number: 0-65535  &emsp; |  TCP/UDP port number  |
 
 `,
 		},
@@ -112,9 +112,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceSchemaAt
 			Optional: true,
 			MarkdownDescription: `Entry priority
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Entry priority (lower numbers are higher priority)  |
+    |  number: 0-65535  &emsp; |  Entry priority (lower numbers are higher priority)  |
 
 `,
 
@@ -126,9 +126,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceSchemaAt
 			Optional: true,
 			MarkdownDescription: `Entry weight
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Entry weight  |
+    |  number: 0-65535  &emsp; |  Entry weight  |
 
 `,
 

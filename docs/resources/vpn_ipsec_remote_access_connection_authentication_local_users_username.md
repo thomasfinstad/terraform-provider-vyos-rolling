@@ -3,45 +3,80 @@
 page_title: "vyos_vpn_ipsec_remote_access_connection_authentication_local_users_username Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Private Network (VPN)
-  VPN IP security (IPsec) parameters
-  IKEv2 remote access VPN
-  IKEv2 VPN connection name
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Connection name  |
 
+  <br>
+  &darr;
+  <br>
+  VPN IP security (IPsec) parameters
+
+  <br>
+  &darr;
+  <br>
+  IKEv2 remote access VPN
+
+  <br>
+  &darr;
+  <br>
+  IKEv2 VPN connection name
+
+  <br>
+  &darr;
+  <br>
   Authentication for remote access
+
+  <br>
+  &darr;
+  <br>
   Local user authentication
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Username used for authentication
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Username used for authentication  |
+  </b>
+  </div>
 ---
 
 # vyos_vpn_ipsec_remote_access_connection_authentication_local_users_username (Resource)
 
+<div style="text-align: center">
 Virtual Private Network (VPN)
 
+<br>
+&darr;
+<br>
 VPN IP security (IPsec) parameters
 
+<br>
+&darr;
+<br>
 IKEv2 remote access VPN
 
+<br>
+&darr;
+<br>
 IKEv2 VPN connection name
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Connection name  |
-
+<br>
+&darr;
+<br>
 Authentication for remote access
 
+<br>
+&darr;
+<br>
 Local user authentication
 
+<br>
+&darr;
+<br>
+<b>
 Username used for authentication
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Username used for authentication  |
+</b>
+</div>
 
 
 
@@ -50,16 +85,16 @@ Username used for authentication
 
 ### Required
 
-- `connection_identifier` (String) IKEv2 VPN connection name
+- `connection_id` (String) IKEv2 VPN connection name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Connection name  |
-- `identifier` (String) Username used for authentication
+    |  txt  &emsp; |  Connection name  |
+- `username_id` (String) Username used for authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Username used for authentication  |
+    |  txt  &emsp; |  Username used for authentication  |
 
 ### Optional
 

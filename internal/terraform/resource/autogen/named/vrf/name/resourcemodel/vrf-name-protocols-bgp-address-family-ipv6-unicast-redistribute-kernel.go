@@ -26,9 +26,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeKernel) Resourc
 			Optional: true,
 			MarkdownDescription: `Metric for redistributed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  number: 1-4294967295  &emsp; |  Metric for redistributed routes  |
 
 `,
 		},
@@ -37,9 +37,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeKernel) Resourc
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},

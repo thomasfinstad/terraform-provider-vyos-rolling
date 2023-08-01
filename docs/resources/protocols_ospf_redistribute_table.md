@@ -3,25 +3,50 @@
 page_title: "vyos_protocols_ospf_redistribute_table Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Open Shortest Path First (OSPF)
+
+  <br>
+  &darr;
+  <br>
   Redistribute information from another routing protocol
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Redistribute non-main Kernel Routing Table
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-200  |  Policy route table number  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_ospf_redistribute_table (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Open Shortest Path First (OSPF)
 
+<br>
+&darr;
+<br>
 Redistribute information from another routing protocol
 
+<br>
+&darr;
+<br>
+<b>
 Redistribute non-main Kernel Routing Table
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-200  |  Policy route table number  |
+</b>
+</div>
 
 
 
@@ -30,26 +55,26 @@ Redistribute non-main Kernel Routing Table
 
 ### Required
 
-- `identifier` (String) Redistribute non-main Kernel Routing Table
+- `table_id` (String) Redistribute non-main Kernel Routing Table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-200  |  Policy route table number  |
+    |  number: 1-200  &emsp; |  Policy route table number  |
 
 ### Optional
 
 - `metric` (Number) OSPF default metric
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  Default metric  |
+    |  number: 0-16777214  &emsp; |  Default metric  |
 - `metric_type` (Number) OSPF metric type for default routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |

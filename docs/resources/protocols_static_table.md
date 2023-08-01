@@ -3,25 +3,40 @@
 page_title: "vyos_protocols_static_table Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Routing protocols
+
+  <br>
+  &darr;
+  <br>
   Static Routing
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Policy route table number
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-200  |  Policy route table number  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_static_table (Resource)
 
+<div style="text-align: center">
 Routing protocols
 
+<br>
+&darr;
+<br>
 Static Routing
 
+<br>
+&darr;
+<br>
+<b>
 Policy route table number
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-200  |  Policy route table number  |
+</b>
+</div>
 
 
 
@@ -30,16 +45,16 @@ Policy route table number
 
 ### Required
 
-- `identifier` (String) Policy route table number
+- `table_id` (String) Policy route table number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-200  |  Policy route table number  |
+    |  number: 1-200  &emsp; |  Policy route table number  |
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |

@@ -3,15 +3,40 @@
 page_title: "vyos_service_event_handler_event Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Service event handler
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Event handler name
+  </b>
+  </div>
 ---
 
 # vyos_service_event_handler_event (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Service event handler
 
+<br>
+&darr;
+<br>
+<b>
 Event handler name
+</b>
+</div>
 
 
 
@@ -20,7 +45,7 @@ Event handler name
 
 ### Required
 
-- `identifier` (String) Event handler name
+- `event_id` (String) Event handler name
 
 ### Optional
 

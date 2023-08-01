@@ -3,29 +3,50 @@
 page_title: "vyos_load_balancing_wan_rule_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Configure load-balancing
-  Configure Wide Area Network (WAN) load-balancing
-  Rule number (1-9999)
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-9999  |  Rule number  |
 
+  <br>
+  &darr;
+  <br>
+  Configure Wide Area Network (WAN) load-balancing
+
+  <br>
+  &darr;
+  <br>
+  Rule number (1-9999)
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Interface name [REQUIRED]
+  </b>
+  </div>
 ---
 
 # vyos_load_balancing_wan_rule_interface (Resource)
 
+<div style="text-align: center">
 Configure load-balancing
 
+<br>
+&darr;
+<br>
 Configure Wide Area Network (WAN) load-balancing
 
+<br>
+&darr;
+<br>
 Rule number (1-9999)
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-9999  |  Rule number  |
-
+<br>
+&darr;
+<br>
+<b>
 Interface name [REQUIRED]
+</b>
+</div>
 
 
 
@@ -34,17 +55,17 @@ Interface name [REQUIRED]
 
 ### Required
 
-- `identifier` (String) Interface name [REQUIRED]
-- `rule_identifier` (String) Rule number (1-9999)
+- `interface_id` (String) Interface name [REQUIRED]
+- `rule_id` (String) Rule number (1-9999)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-9999  |  Rule number  |
+    |  number: 1-9999  &emsp; |  Rule number  |
 
 ### Optional
 
 - `weight` (Number) Load-balance weight
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Interface weight  |
+    |  number: 1-255  &emsp; |  Interface weight  |

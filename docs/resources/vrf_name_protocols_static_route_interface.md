@@ -3,50 +3,70 @@
 page_title: "vyos_vrf_name_protocols_static_route_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
+
+  <br>
+  &darr;
+  <br>
   Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
-  Static Routing
-  Static IPv4 route
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  IPv4 static route  |
 
+  <br>
+  &darr;
+  <br>
+  Static Routing
+
+  <br>
+  &darr;
+  <br>
+  Static IPv4 route
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Next-hop IPv4 router interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Gateway interface name  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_static_route_interface (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Static Routing
 
+<br>
+&darr;
+<br>
 Static IPv4 route
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 static route  |
-
+<br>
+&darr;
+<br>
+<b>
 Next-hop IPv4 router interface
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Gateway interface name  |
+</b>
+</div>
 
 
 
@@ -55,32 +75,32 @@ Next-hop IPv4 router interface
 
 ### Required
 
-- `identifier` (String) Next-hop IPv4 router interface
+- `interface_id` (String) Next-hop IPv4 router interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Gateway interface name  |
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+    |  txt  &emsp; |  Gateway interface name  |
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
-- `route_identifier` (String) Static IPv4 route
+    |  txt  &emsp; |  VRF instance name  |
+- `route_id` (String) Static IPv4 route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 static route  |
+    |  ipv4net  &emsp; |  IPv4 static route  |
 
 ### Optional
 
 - `disable` (Boolean) Disable instance
 - `distance` (Number) Distance for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for this route  |
+    |  number: 1-255  &emsp; |  Distance for this route  |
 - `vrf` (String) VRF to leak route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of VRF to leak to  |
+    |  txt  &emsp; |  Name of VRF to leak to  |

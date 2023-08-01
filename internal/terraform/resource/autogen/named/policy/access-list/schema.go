@@ -12,17 +12,16 @@ import (
 func (r policyAccessList) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Routing policy
+		MarkdownDescription: `<div style="text-align: center">
+Routing policy
 
+<br>
+&darr;
+<br>
+<b>
 IP access-list filter
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-99  |  IP standard access list  |
-    |  u32:100-199  |  IP extended access list  |
-    |  u32:1300-1999  |  IP standard access list (expanded range)  |
-    |  u32:2000-2699  |  IP extended access list (expanded range)  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

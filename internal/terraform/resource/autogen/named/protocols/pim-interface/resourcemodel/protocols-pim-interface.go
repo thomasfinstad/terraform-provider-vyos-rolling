@@ -8,7 +8,7 @@ import (
 
 // ProtocolsPimInterface describes the resource data model.
 type ProtocolsPimInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsPimInterfaceDrPriority types.Number `tfsdk:"dr_priority" vyos:"dr-priority,omitempty"`
@@ -27,14 +27,14 @@ func (o *ProtocolsPimInterface) GetVyosPath() []string {
 		"pim",
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsPimInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `PIM interface
 
@@ -47,9 +47,9 @@ func (o ProtocolsPimInterface) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Designated Router Election Priority
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Value of the new DR Priority  |
+    |  number: 1-4294967295  &emsp; |  Value of the new DR Priority  |
 
 `,
 		},
@@ -58,9 +58,9 @@ func (o ProtocolsPimInterface) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Hello Interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-180  |  Hello Interval in seconds  |
+    |  number: 1-180  &emsp; |  Hello Interval in seconds  |
 
 `,
 		},

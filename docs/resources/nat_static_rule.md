@@ -3,18 +3,40 @@
 page_title: "vyos_nat_static_rule Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Network Address Translation (NAT) parameters
+
+  <br>
+  &darr;
+  <br>
   Static NAT (one-to-one)
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Rule number for NAT
+  </b>
+  </div>
 ---
 
 # vyos_nat_static_rule (Resource)
 
+<div style="text-align: center">
 Network Address Translation (NAT) parameters
 
+<br>
+&darr;
+<br>
 Static NAT (one-to-one)
 
+<br>
+&darr;
+<br>
+<b>
 Rule number for NAT
+</b>
+</div>
 
 
 
@@ -23,15 +45,15 @@ Rule number for NAT
 
 ### Required
 
-- `identifier` (String) Rule number for NAT
+- `rule_id` (String) Rule number for NAT
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `destination` (Attributes) NAT destination parameters (see [below for nested schema](#nestedatt--destination))
 - `inbound_interface` (String) Inbound interface of NAT traffic
 - `translation` (Attributes) Translation address or prefix (see [below for nested schema](#nestedatt--translation))
@@ -43,10 +65,10 @@ Optional:
 
 - `address` (String) IP address, prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address to match  |
-    |  ipv4net  |  IPv4 prefix to match  |
+    |  ipv4  &emsp; |  IPv4 address to match  |
+    |  ipv4net  &emsp; |  IPv4 prefix to match  |
 
 
 <a id="nestedatt--translation"></a>
@@ -56,7 +78,7 @@ Optional:
 
 - `address` (String) IP address, prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address to match  |
-    |  ipv4net  |  IPv4 prefix to match  |
+    |  ipv4  &emsp; |  IPv4 address to match  |
+    |  ipv4net  &emsp; |  IPv4 prefix to match  |

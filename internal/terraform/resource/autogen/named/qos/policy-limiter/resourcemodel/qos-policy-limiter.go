@@ -8,7 +8,7 @@ import (
 
 // QosPolicyLimiter describes the resource data model.
 type QosPolicyLimiter struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"limiter_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafQosPolicyLimiterDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -28,20 +28,20 @@ func (o *QosPolicyLimiter) GetVyosPath() []string {
 		"policy",
 
 		"limiter",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyLimiter) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"limiter_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Traffic input limiting policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 `,
 		},
@@ -52,9 +52,9 @@ func (o QosPolicyLimiter) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

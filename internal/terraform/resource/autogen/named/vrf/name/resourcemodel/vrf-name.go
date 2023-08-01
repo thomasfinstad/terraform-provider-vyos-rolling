@@ -9,7 +9,7 @@ import (
 
 // VrfName describes the resource data model.
 type VrfName struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"name_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafVrfNameDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -31,20 +31,20 @@ func (o *VrfName) GetVyosPath() []string {
 		"vrf",
 
 		"name",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -55,9 +55,9 @@ func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -75,9 +75,9 @@ func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Routing table associated with this instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:100-65535  |  Routing table ID  |
+    |  number: 100-65535  &emsp; |  Routing table ID  |
 
 `,
 		},
@@ -86,9 +86,9 @@ func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Virtual Network Identifier
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  VXLAN virtual network identifier  |
+    |  number: 0-16777214  &emsp; |  VXLAN virtual network identifier  |
 
 `,
 		},

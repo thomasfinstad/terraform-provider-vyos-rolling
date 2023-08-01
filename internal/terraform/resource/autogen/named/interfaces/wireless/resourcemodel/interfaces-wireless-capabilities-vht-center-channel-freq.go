@@ -26,9 +26,9 @@ func (o InterfacesWirelessCapabilitiesVhtCenterChannelFreq) ResourceSchemaAttrib
 			Optional: true,
 			MarkdownDescription: `VHT operating channel center frequency - center freq 1 (for use with 80, 80+80 and 160 modes)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:34-173  |  5Ghz (802.11 a/h/j/n/ac) center channel index (use 42 for primary 80MHz channel 36)  |
+    |  number: 34-173  &emsp; |  5Ghz (802.11 a/h/j/n/ac) center channel index (use 42 for primary 80MHz channel 36)  |
 
 `,
 		},
@@ -37,9 +37,9 @@ func (o InterfacesWirelessCapabilitiesVhtCenterChannelFreq) ResourceSchemaAttrib
 			Optional: true,
 			MarkdownDescription: `VHT operating channel center frequency - center freq 2 (for use with the 80+80 mode)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:34-173  |  5Ghz (802.11 a/h/j/n/ac) center channel index (use 58 for primary 80MHz channel 52)  |
+    |  number: 34-173  &emsp; |  5Ghz (802.11 a/h/j/n/ac) center channel index (use 58 for primary 80MHz channel 52)  |
 
 `,
 		},

@@ -9,7 +9,7 @@ import (
 
 // InterfacesBrIDge describes the resource data model.
 type InterfacesBrIDge struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"bridge_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafInterfacesBrIDgeAddress           types.List   `tfsdk:"address" vyos:"address,omitempty"`
@@ -47,20 +47,20 @@ func (o *InterfacesBrIDge) GetVyosPath() []string {
 		"interfaces",
 
 		"bridge",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"bridge_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Bridge Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  brN  |  Bridge interface name  |
+    |  brN  &emsp; |  Bridge interface name  |
 
 `,
 		},
@@ -72,12 +72,12 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional:    true,
 			MarkdownDescription: `IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
-    |  dhcp  |  Dynamic Host Configuration Protocol  |
-    |  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
+    |  dhcp  &emsp; |  Dynamic Host Configuration Protocol  |
+    |  dhcpv6  &emsp; |  Dynamic Host Configuration Protocol for IPv6  |
 
 `,
 		},
@@ -86,10 +86,10 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `MAC address aging interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Disable MAC address learning (always flood)  |
-    |  u32:10-1000000  |  MAC address aging time in seconds  |
+    |  number: 0  &emsp; |  Disable MAC address learning (always flood)  |
+    |  number: 10-1000000  &emsp; |  MAC address aging time in seconds  |
 
 `,
 
@@ -101,9 +101,9 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -130,9 +130,9 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -141,9 +141,9 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:68-16000  |  Maximum Transmission Unit in byte  |
+    |  number: 68-16000  &emsp; |  Maximum Transmission Unit in byte  |
 
 `,
 
@@ -155,9 +155,9 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Forwarding delay
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-200  |  Spanning Tree Protocol forwarding delay in seconds  |
+    |  number: 0-200  &emsp; |  Spanning Tree Protocol forwarding delay in seconds  |
 
 `,
 
@@ -169,9 +169,9 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Hello packet advertisement interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-10  |  Spanning Tree Protocol hello advertisement interval in seconds  |
+    |  number: 1-10  &emsp; |  Spanning Tree Protocol hello advertisement interval in seconds  |
 
 `,
 
@@ -183,9 +183,9 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+    |  macaddr  &emsp; |  Hardware (MAC) address  |
 
 `,
 		},
@@ -203,9 +203,9 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Interval at which neighbor bridges are removed
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-40  |  Bridge maximum aging time in seconds  |
+    |  number: 1-40  &emsp; |  Bridge maximum aging time in seconds  |
 
 `,
 
@@ -217,9 +217,9 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Priority for this bridge
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Bridge priority  |
+    |  number: 0-65535  &emsp; |  Bridge priority  |
 
 `,
 
@@ -240,9 +240,9 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 `,
 		},

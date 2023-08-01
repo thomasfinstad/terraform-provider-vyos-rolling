@@ -3,28 +3,60 @@
 page_title: "vyos_vpn_openconnect_authentication_local_users_username Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>vpn</i>
+
+  <br>
+  &darr;
+  <br>
   SSL VPN OpenConnect, AnyConnect compatible server
+
+  <br>
+  &darr;
+  <br>
   Authentication for remote access SSL VPN Server
+
+  <br>
+  &darr;
+  <br>
   Local user authentication
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Username used for authentication
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Username used for authentication  |
+  </b>
+  </div>
 ---
 
 # vyos_vpn_openconnect_authentication_local_users_username (Resource)
 
+<div style="text-align: center">
+<i>vpn</i>
+
+<br>
+&darr;
+<br>
 SSL VPN OpenConnect, AnyConnect compatible server
 
+<br>
+&darr;
+<br>
 Authentication for remote access SSL VPN Server
 
+<br>
+&darr;
+<br>
 Local user authentication
 
+<br>
+&darr;
+<br>
+<b>
 Username used for authentication
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Username used for authentication  |
+</b>
+</div>
 
 
 
@@ -33,11 +65,11 @@ Username used for authentication
 
 ### Required
 
-- `identifier` (String) Username used for authentication
+- `username_id` (String) Username used for authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Username used for authentication  |
+    |  txt  &emsp; |  Username used for authentication  |
 
 ### Optional
 
@@ -52,22 +84,22 @@ Optional:
 
 - `interval` (Number) Time tokens interval in seconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:5-86400  |  Time tokens interval in seconds.  |
+    |  number: 5-86400  &emsp; |  Time tokens interval in seconds.  |
 - `key` (String) Token Key Secret key for the token algorithm (see RFC 4226)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  OTP key in hex-encoded format  |
+    |  txt  &emsp; |  OTP key in hex-encoded format  |
 - `otp_length` (Number) Number of digits in OTP code
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:6-8  |  Number of digits in OTP code  |
+    |  number: 6-8  &emsp; |  Number of digits in OTP code  |
 - `token_type` (String) Token type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  hotp-time  |  Time-based OTP algorithm  |
-    |  hotp-event  |  Event-based OTP algorithm  |
+    |  hotp-time  &emsp; |  Time-based OTP algorithm  |
+    |  hotp-event  &emsp; |  Event-based OTP algorithm  |

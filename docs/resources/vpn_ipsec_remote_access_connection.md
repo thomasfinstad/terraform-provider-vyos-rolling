@@ -3,28 +3,50 @@
 page_title: "vyos_vpn_ipsec_remote_access_connection Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Private Network (VPN)
+
+  <br>
+  &darr;
+  <br>
   VPN IP security (IPsec) parameters
+
+  <br>
+  &darr;
+  <br>
   IKEv2 remote access VPN
+
+  <br>
+  &darr;
+  <br>
+  <b>
   IKEv2 VPN connection name
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Connection name  |
+  </b>
+  </div>
 ---
 
 # vyos_vpn_ipsec_remote_access_connection (Resource)
 
+<div style="text-align: center">
 Virtual Private Network (VPN)
 
+<br>
+&darr;
+<br>
 VPN IP security (IPsec) parameters
 
+<br>
+&darr;
+<br>
 IKEv2 remote access VPN
 
+<br>
+&darr;
+<br>
+<b>
 IKEv2 VPN connection name
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Connection name  |
+</b>
+</div>
 
 
 
@@ -33,51 +55,51 @@ IKEv2 VPN connection name
 
 ### Required
 
-- `identifier` (String) IKEv2 VPN connection name
+- `connection_id` (String) IKEv2 VPN connection name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Connection name  |
+    |  txt  &emsp; |  Connection name  |
 
 ### Optional
 
 - `authentication` (Attributes) Authentication for remote access (see [below for nested schema](#nestedatt--authentication))
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `disable` (Boolean) Disable instance
 - `esp_group` (String) Encapsulating Security Payloads (ESP) group name
 - `ike_group` (String) Internet Key Exchange (IKE) group name
 - `local` (Attributes) Local parameters for interesting traffic (see [below for nested schema](#nestedatt--local))
 - `local_address` (String) IPv4 or IPv6 address of a local interface to use for VPN
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address of a local interface for VPN  |
-    |  ipv6  |  IPv6 address of a local interface for VPN  |
-    |  any  |  Allow any IPv4 address present on the system to be used for VPN  |
+    |  ipv4  &emsp; |  IPv4 address of a local interface for VPN  |
+    |  ipv6  &emsp; |  IPv6 address of a local interface for VPN  |
+    |  any  &emsp; |  Allow any IPv4 address present on the system to be used for VPN  |
 - `pool` (List of String) IP address pool
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Predefined IP pool name  |
-    |  dhcp  |  Forward requests for virtual IP addresses to a DHCP server  |
-    |  radius  |  Forward requests for virtual IP addresses to a RADIUS server  |
+    |  txt  &emsp; |  Predefined IP pool name  |
+    |  dhcp  &emsp; |  Forward requests for virtual IP addresses to a DHCP server  |
+    |  radius  &emsp; |  Forward requests for virtual IP addresses to a RADIUS server  |
 - `timeout` (Number) Timeout to close connection if no data is transmitted
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Disable inactivity checks  |
-    |  u32:1-86400  |  Timeout in seconds  |
+    |  number: 0  &emsp; |  Disable inactivity checks  |
+    |  number: 1-86400  &emsp; |  Timeout in seconds  |
 - `unique` (String) Connection uniqueness enforcement policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  never  |  Never enforce connection uniqueness  |
-    |  keep  |  Reject new connection attempts if the same user already has an active connection  |
-    |  replace  |  Delete any existing connection if a new one for the same user gets established  |
+    |  never  &emsp; |  Never enforce connection uniqueness  |
+    |  keep  &emsp; |  Reject new connection attempts if the same user already has an active connection  |
+    |  replace  &emsp; |  Delete any existing connection if a new one for the same user gets established  |
 
 <a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
@@ -86,28 +108,28 @@ Optional:
 
 - `client_mode` (String) Client authentication mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  eap-tls  |  Use EAP-TLS authentication  |
-    |  eap-mschapv2  |  Use EAP-MSCHAPv2 authentication  |
-    |  eap-radius  |  Use EAP-RADIUS authentication  |
+    |  eap-tls  &emsp; |  Use EAP-TLS authentication  |
+    |  eap-mschapv2  &emsp; |  Use EAP-MSCHAPv2 authentication  |
+    |  eap-radius  &emsp; |  Use EAP-RADIUS authentication  |
 - `local_id` (String) Local ID for peer authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Local ID used for peer authentication  |
+    |  txt  &emsp; |  Local ID used for peer authentication  |
 - `local_users` (Attributes) Local user authentication (see [below for nested schema](#nestedatt--authentication--local_users))
 - `pre_shared_secret` (String) Pre-shared secret key
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Pre-shared secret key  |
+    |  txt  &emsp; |  Pre-shared secret key  |
 - `server_mode` (String) Server authentication mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  pre-shared-secret  |  Use a pre-shared secret key  |
-    |  x509  |  Use x.509 certificate  |
+    |  pre-shared-secret  &emsp; |  Use a pre-shared secret key  |
+    |  x509  &emsp; |  Use x.509 certificate  |
 - `x509` (Attributes) X.509 certificate (see [below for nested schema](#nestedatt--authentication--x509))
 
 <a id="nestedatt--authentication--local_users"></a>
@@ -121,19 +143,19 @@ Optional:
 
 - `ca_certificate` (String) Certificate Authority in PKI configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of CA in PKI configuration  |
+    |  txt  &emsp; |  Name of CA in PKI configuration  |
 - `certificate` (String) Certificate in PKI configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of certificate in PKI configuration  |
+    |  txt  &emsp; |  Name of certificate in PKI configuration  |
 - `passphrase` (String) Private key passphrase
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Passphrase to decrypt the private key  |
+    |  txt  &emsp; |  Passphrase to decrypt the private key  |
 
 
 
@@ -144,12 +166,12 @@ Optional:
 
 - `port` (Number) Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 - `prefix` (List of String) Local IPv4 or IPv6 prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Local IPv4 prefix  |
-    |  ipv6net  |  Local IPv6 prefix  |
+    |  ipv4net  &emsp; |  Local IPv4 prefix  |
+    |  ipv6net  &emsp; |  Local IPv6 prefix  |

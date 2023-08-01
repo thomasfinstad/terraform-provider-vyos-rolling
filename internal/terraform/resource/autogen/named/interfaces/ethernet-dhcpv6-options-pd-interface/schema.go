@@ -12,24 +12,31 @@ import (
 func (r interfacesEthernetDhcpvsixOptionsPdInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Network interfaces
+		MarkdownDescription: `<div style="text-align: center">
+Network interfaces
 
+<br>
+&darr;
+<br>
 Ethernet Interface
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ethN  |  Ethernet interface name  |
-
+<br>
+&darr;
+<br>
 DHCPv6 client settings/options
 
+<br>
+&darr;
+<br>
 DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
-
+<br>
+&darr;
+<br>
+<b>
 Delegate IPv6 prefix from provider to this interface
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

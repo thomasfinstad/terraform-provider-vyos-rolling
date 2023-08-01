@@ -3,52 +3,70 @@
 page_title: "vyos_vrf_name_protocols_ospf_area_virtual_link Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
+
+  <br>
+  &darr;
+  <br>
   Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
-  Open Shortest Path First (OSPF)
-  OSPF area settings
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32  |  OSPF area number in decimal notation  |
-  |  ipv4  |  OSPF area number in dotted decimal notation  |
 
+  <br>
+  &darr;
+  <br>
+  Open Shortest Path First (OSPF)
+
+  <br>
+  &darr;
+  <br>
+  OSPF area settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Virtual link
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  OSPF area in dotted decimal notation  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_ospf_area_virtual_link (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Open Shortest Path First (OSPF)
 
+<br>
+&darr;
+<br>
 OSPF area settings
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32  |  OSPF area number in decimal notation  |
-    |  ipv4  |  OSPF area number in dotted decimal notation  |
-
+<br>
+&darr;
+<br>
+<b>
 Virtual link
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  OSPF area in dotted decimal notation  |
+</b>
+</div>
 
 
 
@@ -57,46 +75,46 @@ Virtual link
 
 ### Required
 
-- `area_identifier` (String) OSPF area settings
+- `area_id` (String) OSPF area settings
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  OSPF area number in decimal notation  |
-    |  ipv4  |  OSPF area number in dotted decimal notation  |
-- `identifier` (String) Virtual link
+    |  u32  &emsp; |  OSPF area number in decimal notation  |
+    |  ipv4  &emsp; |  OSPF area number in dotted decimal notation  |
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  OSPF area in dotted decimal notation  |
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+    |  txt  &emsp; |  VRF instance name  |
+- `virtual_link_id` (String) Virtual link
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  ipv4  &emsp; |  OSPF area in dotted decimal notation  |
 
 ### Optional
 
 - `authentication` (Attributes) Authentication (see [below for nested schema](#nestedatt--authentication))
 - `dead_interval` (Number) Interval after which a neighbor is declared dead
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Neighbor dead interval (seconds)  |
+    |  number: 1-65535  &emsp; |  Neighbor dead interval (seconds)  |
 - `hello_interval` (Number) Interval between hello packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Hello interval (seconds)  |
+    |  number: 1-65535  &emsp; |  Hello interval (seconds)  |
 - `retransmit_interval` (Number) Interval between retransmitting lost link state advertisements
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Retransmit interval (seconds)  |
+    |  number: 1-65535  &emsp; |  Retransmit interval (seconds)  |
 - `transmit_delay` (Number) Link state transmit delay
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Link state transmit delay (seconds)  |
+    |  number: 1-65535  &emsp; |  Link state transmit delay (seconds)  |
 
 <a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
@@ -106,9 +124,9 @@ Optional:
 - `md5` (Attributes) MD5 key id (see [below for nested schema](#nestedatt--authentication--md5))
 - `plaintext_password` (String) Plain text password
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Plain text password (8 characters or less)  |
+    |  txt  &emsp; |  Plain text password (8 characters or less)  |
 
 <a id="nestedatt--authentication--md5"></a>
 ### Nested Schema for `authentication.md5`

@@ -3,25 +3,50 @@
 page_title: "vyos_service_router_advert_interface_prefix Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   IPv6 Router Advertisements (RAs) service
+
+  <br>
+  &darr;
+  <br>
   Interface to send RA on
+
+  <br>
+  &darr;
+  <br>
+  <b>
   IPv6 prefix to be advertised in Router Advertisements (RAs)
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv6net  |  IPv6 prefix to be advertized  |
+  </b>
+  </div>
 ---
 
 # vyos_service_router_advert_interface_prefix (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 IPv6 Router Advertisements (RAs) service
 
+<br>
+&darr;
+<br>
 Interface to send RA on
 
+<br>
+&darr;
+<br>
+<b>
 IPv6 prefix to be advertised in Router Advertisements (RAs)
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv6net  |  IPv6 prefix to be advertized  |
+</b>
+</div>
 
 
 
@@ -30,12 +55,12 @@ IPv6 prefix to be advertised in Router Advertisements (RAs)
 
 ### Required
 
-- `identifier` (String) IPv6 prefix to be advertised in Router Advertisements (RAs)
+- `interface_id` (String) Interface to send RA on
+- `prefix_id` (String) IPv6 prefix to be advertised in Router Advertisements (RAs)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  IPv6 prefix to be advertized  |
-- `interface_identifier` (String) Interface to send RA on
+    |  ipv6net  &emsp; |  IPv6 prefix to be advertized  |
 
 ### Optional
 
@@ -45,13 +70,13 @@ IPv6 prefix to be advertised in Router Advertisements (RAs)
 - `no_on_link_flag` (Boolean) Prefix can not be used for on-link determination
 - `preferred_lifetime` (String) Time in seconds that the prefix will remain preferred
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Time in seconds that the prefix will remain preferred  |
-    |  infinity  |  Prefix will remain preferred forever  |
+    |  u32  &emsp; |  Time in seconds that the prefix will remain preferred  |
+    |  infinity  &emsp; |  Prefix will remain preferred forever  |
 - `valid_lifetime` (String) Time in seconds that the prefix will remain valid
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Time in seconds that the prefix will remain valid  |
-    |  infinity  |  Prefix will remain preferred forever  |
+    |  number: 1-4294967295  &emsp; |  Time in seconds that the prefix will remain valid  |
+    |  infinity  &emsp; |  Prefix will remain preferred forever  |

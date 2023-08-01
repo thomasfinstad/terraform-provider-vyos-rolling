@@ -12,30 +12,36 @@ import (
 func (r vrfNameProtocolsStaticRouteInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Virtual Routing and Forwarding
+		MarkdownDescription: `<div style="text-align: center">
+Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Static Routing
 
+<br>
+&darr;
+<br>
 Static IPv4 route
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 static route  |
-
+<br>
+&darr;
+<br>
+<b>
 Next-hop IPv4 router interface
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Gateway interface name  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

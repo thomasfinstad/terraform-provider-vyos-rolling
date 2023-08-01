@@ -8,9 +8,9 @@ import (
 
 // VrfNameProtocolsBgpParametersDistancePrefix describes the resource data model.
 type VrfNameProtocolsBgpParametersDistancePrefix struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"prefix_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsBgpParametersDistancePrefixDistance types.Number `tfsdk:"distance" vyos:"distance,omitempty"`
@@ -37,31 +37,31 @@ func (o *VrfNameProtocolsBgpParametersDistancePrefix) GetVyosPath() []string {
 		"distance",
 
 		"prefix",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsBgpParametersDistancePrefix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"prefix_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Administrative distance for a specific BGP prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Administrative distance for a specific BGP prefix  |
+    |  ipv4net  &emsp; |  Administrative distance for a specific BGP prefix  |
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -72,9 +72,9 @@ func (o VrfNameProtocolsBgpParametersDistancePrefix) ResourceSchemaAttributes() 
 			Optional: true,
 			MarkdownDescription: `Administrative distance for prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Administrative distance for external BGP routes  |
+    |  number: 1-255  &emsp; |  Administrative distance for external BGP routes  |
 
 `,
 		},

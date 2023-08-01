@@ -3,79 +3,50 @@
 page_title: "vyos_system_syslog_host_facility Resource - vyos"
 subcategory: ""
 description: |-
-  System logging
-  Logging to a remote host
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  Remote syslog server IPv4 address  |
-  |  hostname  |  Remote syslog server FQDN  |
+  <div style="text-align: center">
+  <i>system</i>
 
+  <br>
+  &darr;
+  <br>
+  System logging
+
+  <br>
+  &darr;
+  <br>
+  Logging to a remote host
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Facility for logging
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  all  |  All facilities excluding "mark"  |
-  |  auth  |  Authentication and authorization  |
-  |  authpriv  |  Non-system authorization  |
-  |  cron  |  Cron daemon  |
-  |  daemon  |  System daemons  |
-  |  kern  |  Kernel  |
-  |  lpr  |  Line printer spooler  |
-  |  mail  |  Mail subsystem  |
-  |  mark  |  Timestamp  |
-  |  news  |  USENET subsystem  |
-  |  protocols  |  depricated will be set to local7  |
-  |  security  |  depricated will be set to auth  |
-  |  syslog  |  Authentication and authorization  |
-  |  user  |  Application processes  |
-  |  uucp  |  UUCP subsystem  |
-  |  local0  |  Local facility 0  |
-  |  local1  |  Local facility 1  |
-  |  local2  |  Local facility 2  |
-  |  local3  |  Local facility 3  |
-  |  local4  |  Local facility 4  |
-  |  local5  |  Local facility 5  |
-  |  local6  |  Local facility 6  |
-  |  local7  |  Local facility 7  |
+  </b>
+  </div>
 ---
 
 # vyos_system_syslog_host_facility (Resource)
 
+<div style="text-align: center">
+<i>system</i>
+
+<br>
+&darr;
+<br>
 System logging
 
+<br>
+&darr;
+<br>
 Logging to a remote host
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  Remote syslog server IPv4 address  |
-    |  hostname  |  Remote syslog server FQDN  |
-
+<br>
+&darr;
+<br>
+<b>
 Facility for logging
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  all  |  All facilities excluding "mark"  |
-    |  auth  |  Authentication and authorization  |
-    |  authpriv  |  Non-system authorization  |
-    |  cron  |  Cron daemon  |
-    |  daemon  |  System daemons  |
-    |  kern  |  Kernel  |
-    |  lpr  |  Line printer spooler  |
-    |  mail  |  Mail subsystem  |
-    |  mark  |  Timestamp  |
-    |  news  |  USENET subsystem  |
-    |  protocols  |  depricated will be set to local7  |
-    |  security  |  depricated will be set to auth  |
-    |  syslog  |  Authentication and authorization  |
-    |  user  |  Application processes  |
-    |  uucp  |  UUCP subsystem  |
-    |  local0  |  Local facility 0  |
-    |  local1  |  Local facility 1  |
-    |  local2  |  Local facility 2  |
-    |  local3  |  Local facility 3  |
-    |  local4  |  Local facility 4  |
-    |  local5  |  Local facility 5  |
-    |  local6  |  Local facility 6  |
-    |  local7  |  Local facility 7  |
+</b>
+</div>
 
 
 
@@ -84,58 +55,58 @@ Facility for logging
 
 ### Required
 
-- `host_identifier` (String) Logging to a remote host
+- `facility_id` (String) Facility for logging
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Remote syslog server IPv4 address  |
-    |  hostname  |  Remote syslog server FQDN  |
-- `identifier` (String) Facility for logging
+    |  all  &emsp; |  All facilities excluding "mark"  |
+    |  auth  &emsp; |  Authentication and authorization  |
+    |  authpriv  &emsp; |  Non-system authorization  |
+    |  cron  &emsp; |  Cron daemon  |
+    |  daemon  &emsp; |  System daemons  |
+    |  kern  &emsp; |  Kernel  |
+    |  lpr  &emsp; |  Line printer spooler  |
+    |  mail  &emsp; |  Mail subsystem  |
+    |  mark  &emsp; |  Timestamp  |
+    |  news  &emsp; |  USENET subsystem  |
+    |  protocols  &emsp; |  depricated will be set to local7  |
+    |  security  &emsp; |  depricated will be set to auth  |
+    |  syslog  &emsp; |  Authentication and authorization  |
+    |  user  &emsp; |  Application processes  |
+    |  uucp  &emsp; |  UUCP subsystem  |
+    |  local0  &emsp; |  Local facility 0  |
+    |  local1  &emsp; |  Local facility 1  |
+    |  local2  &emsp; |  Local facility 2  |
+    |  local3  &emsp; |  Local facility 3  |
+    |  local4  &emsp; |  Local facility 4  |
+    |  local5  &emsp; |  Local facility 5  |
+    |  local6  &emsp; |  Local facility 6  |
+    |  local7  &emsp; |  Local facility 7  |
+- `host_id` (String) Logging to a remote host
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  all  |  All facilities excluding "mark"  |
-    |  auth  |  Authentication and authorization  |
-    |  authpriv  |  Non-system authorization  |
-    |  cron  |  Cron daemon  |
-    |  daemon  |  System daemons  |
-    |  kern  |  Kernel  |
-    |  lpr  |  Line printer spooler  |
-    |  mail  |  Mail subsystem  |
-    |  mark  |  Timestamp  |
-    |  news  |  USENET subsystem  |
-    |  protocols  |  depricated will be set to local7  |
-    |  security  |  depricated will be set to auth  |
-    |  syslog  |  Authentication and authorization  |
-    |  user  |  Application processes  |
-    |  uucp  |  UUCP subsystem  |
-    |  local0  |  Local facility 0  |
-    |  local1  |  Local facility 1  |
-    |  local2  |  Local facility 2  |
-    |  local3  |  Local facility 3  |
-    |  local4  |  Local facility 4  |
-    |  local5  |  Local facility 5  |
-    |  local6  |  Local facility 6  |
-    |  local7  |  Local facility 7  |
+    |  ipv4  &emsp; |  Remote syslog server IPv4 address  |
+    |  hostname  &emsp; |  Remote syslog server FQDN  |
 
 ### Optional
 
 - `level` (String) Logging level
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  emerg  |  Emergency messages  |
-    |  alert  |  Urgent messages  |
-    |  crit  |  Critical messages  |
-    |  err  |  Error messages  |
-    |  warning  |  Warning messages  |
-    |  notice  |  Messages for further investigation  |
-    |  info  |  Informational messages  |
-    |  debug  |  Debug messages  |
-    |  all  |  Log everything  |
+    |  emerg  &emsp; |  Emergency messages  |
+    |  alert  &emsp; |  Urgent messages  |
+    |  crit  &emsp; |  Critical messages  |
+    |  err  &emsp; |  Error messages  |
+    |  warning  &emsp; |  Warning messages  |
+    |  notice  &emsp; |  Messages for further investigation  |
+    |  info  &emsp; |  Informational messages  |
+    |  debug  &emsp; |  Debug messages  |
+    |  all  &emsp; |  Log everything  |
 - `protocol` (String) syslog communication protocol
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  udp  |  send log messages to remote syslog server over udp  |
-    |  tcp  |  send log messages to remote syslog server over tcp  |
+    |  udp  &emsp; |  send log messages to remote syslog server over udp  |
+    |  tcp  &emsp; |  send log messages to remote syslog server over tcp  |

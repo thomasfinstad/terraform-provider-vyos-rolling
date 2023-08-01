@@ -8,7 +8,7 @@ import (
 
 // ServicePppoeServerClientIPvsixPoolDelegate describes the resource data model.
 type ServicePppoeServerClientIPvsixPoolDelegate struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"delegate_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServicePppoeServerClientIPvsixPoolDelegateDelegationPrefix types.Number `tfsdk:"delegation_prefix" vyos:"delegation-prefix,omitempty"`
@@ -28,20 +28,20 @@ func (o *ServicePppoeServerClientIPvsixPoolDelegate) GetVyosPath() []string {
 		"client-ipv6-pool",
 
 		"delegate",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServicePppoeServerClientIPvsixPoolDelegate) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"delegate_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Subnet used to delegate prefix through DHCPv6-PD (RFC3633)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
 
 `,
 		},
@@ -52,9 +52,9 @@ func (o ServicePppoeServerClientIPvsixPoolDelegate) ResourceSchemaAttributes() m
 			Optional: true,
 			MarkdownDescription: `Prefix length delegated to client
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:32-64  |  Delegated prefix length  |
+    |  number: 32-64  &emsp; |  Delegated prefix length  |
 
 `,
 		},

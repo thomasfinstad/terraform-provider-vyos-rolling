@@ -8,11 +8,11 @@ import (
 
 // InterfacesWirelessDhcpvsixOptionsPdInterface describes the resource data model.
 type InterfacesWirelessDhcpvsixOptionsPdInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
-	ParentIDInterfacesWireless types.String `tfsdk:"wireless" vyos:"wireless_identifier,parent-id"`
+	ParentIDInterfacesWireless types.String `tfsdk:"wireless" vyos:"wireless,parent-id"`
 
-	ParentIDInterfacesWirelessDhcpvsixOptionsPd types.String `tfsdk:"pd" vyos:"pd_identifier,parent-id"`
+	ParentIDInterfacesWirelessDhcpvsixOptionsPd types.String `tfsdk:"pd" vyos:"pd,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesWirelessDhcpvsixOptionsPdInterfaceAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
@@ -37,38 +37,38 @@ func (o *InterfacesWirelessDhcpvsixOptionsPdInterface) GetVyosPath() []string {
 		o.ParentIDInterfacesWirelessDhcpvsixOptionsPd.ValueString(),
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesWirelessDhcpvsixOptionsPdInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Delegate IPv6 prefix from provider to this interface
 
 `,
 		},
 
-		"wireless_identifier": schema.StringAttribute{
+		"wireless_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Wireless (WiFi/WLAN) Network Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
+    |  wlanN  &emsp; |  Wireless (WiFi/WLAN) interface name  |
 
 `,
 		},
 
-		"pd_identifier": schema.StringAttribute{
+		"pd_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
 
 `,
 		},
@@ -79,9 +79,9 @@ func (o InterfacesWirelessDhcpvsixOptionsPdInterface) ResourceSchemaAttributes()
 			Optional: true,
 			MarkdownDescription: `Local interface address assigned to interface (default: EUI-64)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  >0  |  Used to form IPv6 interface address  |
+    |  >0  &emsp; |  Used to form IPv6 interface address  |
 
 `,
 		},
@@ -90,9 +90,9 @@ func (o InterfacesWirelessDhcpvsixOptionsPdInterface) ResourceSchemaAttributes()
 			Optional: true,
 			MarkdownDescription: `Interface site-Level aggregator (SLA)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Decimal integer which fits in the length of SLA IDs  |
+    |  number: 0-65535  &emsp; |  Decimal integer which fits in the length of SLA IDs  |
 
 `,
 		},

@@ -8,9 +8,9 @@ import (
 
 // ServiceDNSDynamicInterfaceRfctwoonethreesix describes the resource data model.
 type ServiceDNSDynamicInterfaceRfctwoonethreesix struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"rfc2136_id" vyos:",self-id"`
 
-	ParentIDServiceDNSDynamicInterface types.String `tfsdk:"interface" vyos:"interface_identifier,parent-id"`
+	ParentIDServiceDNSDynamicInterface types.String `tfsdk:"interface" vyos:"interface,parent-id"`
 
 	// LeafNodes
 	LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey    types.String `tfsdk:"key" vyos:"key,omitempty"`
@@ -37,21 +37,21 @@ func (o *ServiceDNSDynamicInterfaceRfctwoonethreesix) GetVyosPath() []string {
 		o.ParentIDServiceDNSDynamicInterface.ValueString(),
 
 		"rfc2136",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDNSDynamicInterfaceRfctwoonethreesix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rfc2136_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `RFC2136 Update name
 
 `,
 		},
 
-		"interface_identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Interface to send DDNS updates for
 
@@ -64,9 +64,9 @@ func (o ServiceDNSDynamicInterfaceRfctwoonethreesix) ResourceSchemaAttributes() 
 			Optional: true,
 			MarkdownDescription: `File containing the secret key shared with remote DNS server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  filename  |  File in /config/auth directory  |
+    |  filename  &emsp; |  File in /config/auth directory  |
 
 `,
 		},
@@ -90,9 +90,9 @@ func (o ServiceDNSDynamicInterfaceRfctwoonethreesix) ResourceSchemaAttributes() 
 			Optional: true,
 			MarkdownDescription: `Time To Live (default: 600)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-86400  |  DNS forwarding cache size  |
+    |  number: 1-86400  &emsp; |  DNS forwarding cache size  |
 
 `,
 

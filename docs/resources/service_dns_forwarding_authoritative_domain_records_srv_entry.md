@@ -3,52 +3,80 @@
 page_title: "vyos_service_dns_forwarding_authoritative_domain_records_srv_entry Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Domain Name System related services
+
+  <br>
+  &darr;
+  <br>
   DNS forwarding
+
+  <br>
+  &darr;
+  <br>
   Domain to host authoritative records for
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  text  |  An absolute DNS name  |
 
+  <br>
+  &darr;
+  <br>
   DNS zone records
-  "SRV" record
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  text  |  A DNS name relative to the root record  |
-  |  @  |  Root record  |
 
+  <br>
+  &darr;
+  <br>
+  "SRV" record
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Service entry
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:0-65535  |  Entry number  |
+  </b>
+  </div>
 ---
 
 # vyos_service_dns_forwarding_authoritative_domain_records_srv_entry (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Domain Name System related services
 
+<br>
+&darr;
+<br>
 DNS forwarding
 
+<br>
+&darr;
+<br>
 Domain to host authoritative records for
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  text  |  An absolute DNS name  |
-
+<br>
+&darr;
+<br>
 DNS zone records
 
+<br>
+&darr;
+<br>
 "SRV" record
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  text  |  A DNS name relative to the root record  |
-    |  @  |  Root record  |
-
+<br>
+&darr;
+<br>
+<b>
 Service entry
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:0-65535  |  Entry number  |
+</b>
+</div>
 
 
 
@@ -57,42 +85,42 @@ Service entry
 
 ### Required
 
-- `authoritative_domain_identifier` (String) Domain to host authoritative records for
+- `authoritative_domain_id` (String) Domain to host authoritative records for
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  An absolute DNS name  |
-- `identifier` (String) Service entry
+    |  text  &emsp; |  An absolute DNS name  |
+- `entry_id` (String) Service entry
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Entry number  |
-- `srv_identifier` (String) "SRV" record
+    |  number: 0-65535  &emsp; |  Entry number  |
+- `srv_id` (String) "SRV" record
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  A DNS name relative to the root record  |
-    |  @  |  Root record  |
+    |  text  &emsp; |  A DNS name relative to the root record  |
+    |  @  &emsp; |  Root record  |
 
 ### Optional
 
 - `hostname` (String) Server hostname
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  name.example.com  |  An absolute DNS name  |
+    |  name.example.com  &emsp; |  An absolute DNS name  |
 - `port` (Number) Port number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  TCP/UDP port number  |
+    |  number: 0-65535  &emsp; |  TCP/UDP port number  |
 - `priority` (Number) Entry priority
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Entry priority (lower numbers are higher priority)  |
+    |  number: 0-65535  &emsp; |  Entry priority (lower numbers are higher priority)  |
 - `weight` (Number) Entry weight
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Entry weight  |
+    |  number: 0-65535  &emsp; |  Entry weight  |

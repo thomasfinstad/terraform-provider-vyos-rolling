@@ -26,9 +26,9 @@ func (o PolicyRouteRuleRecent) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Source addresses seen more than N times
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Source addresses seen more than N times  |
+    |  number: 1-255  &emsp; |  Source addresses seen more than N times  |
 
 `,
 		},
@@ -37,9 +37,9 @@ func (o PolicyRouteRuleRecent) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Source addresses seen in the last N seconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4294967295  |  Source addresses seen in the last N seconds  |
+    |  number: 0-4294967295  &emsp; |  Source addresses seen in the last N seconds  |
 
 `,
 		},

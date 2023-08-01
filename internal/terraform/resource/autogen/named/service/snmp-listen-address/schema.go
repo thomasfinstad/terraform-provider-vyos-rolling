@@ -12,15 +12,21 @@ import (
 func (r serviceSnmpListenAddress) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Simple Network Management Protocol (SNMP)
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Simple Network Management Protocol (SNMP)
+
+<br>
+&darr;
+<br>
+<b>
 IP address to listen for incoming SNMP requests
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  IPv4 address to listen for incoming SNMP requests  |
-    |  ipv6  |  IPv6 address to listen for incoming SNMP requests  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

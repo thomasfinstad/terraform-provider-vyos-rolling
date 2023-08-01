@@ -8,9 +8,9 @@ import (
 
 // ContainerNameVolume describes the resource data model.
 type ContainerNameVolume struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"volume_id" vyos:",self-id"`
 
-	ParentIDContainerName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDContainerName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafContainerNameVolumeSource      types.String `tfsdk:"source" vyos:"source,omitempty"`
@@ -31,21 +31,21 @@ func (o *ContainerNameVolume) GetVyosPath() []string {
 		o.ParentIDContainerName.ValueString(),
 
 		"volume",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ContainerNameVolume) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"volume_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Mount a volume into the container
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Container name
 
@@ -58,9 +58,9 @@ func (o ContainerNameVolume) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Source host directory
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Source host directory  |
+    |  txt  &emsp; |  Source host directory  |
 
 `,
 		},
@@ -69,9 +69,9 @@ func (o ContainerNameVolume) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Destination container directory
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination container directory  |
+    |  txt  &emsp; |  Destination container directory  |
 
 `,
 		},
@@ -80,10 +80,10 @@ func (o ContainerNameVolume) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Volume access mode ro/rw
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ro  |  Volume mounted into the container as read-only  |
-    |  rw  |  Volume mounted into the container as read-write  |
+    |  ro  &emsp; |  Volume mounted into the container as read-only  |
+    |  rw  &emsp; |  Volume mounted into the container as read-write  |
 
 `,
 

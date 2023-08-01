@@ -8,7 +8,7 @@ import (
 
 // QosPolicyDropTail describes the resource data model.
 type QosPolicyDropTail struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"drop_tail_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafQosPolicyDropTailDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -27,20 +27,20 @@ func (o *QosPolicyDropTail) GetVyosPath() []string {
 		"policy",
 
 		"drop-tail",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyDropTail) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"drop_tail_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Packet limited First In, First Out queue
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 `,
 		},
@@ -51,9 +51,9 @@ func (o QosPolicyDropTail) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -62,9 +62,9 @@ func (o QosPolicyDropTail) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Queue size in packets  |
+    |  number: 1-4294967295  &emsp; |  Queue size in packets  |
 
 `,
 		},

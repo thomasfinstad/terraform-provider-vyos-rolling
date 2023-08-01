@@ -12,16 +12,26 @@ import (
 func (r protocolsOspfRedistributeTable) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Open Shortest Path First (OSPF)
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Open Shortest Path First (OSPF)
+
+<br>
+&darr;
+<br>
 Redistribute information from another routing protocol
 
+<br>
+&darr;
+<br>
+<b>
 Redistribute non-main Kernel Routing Table
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-200  |  Policy route table number  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

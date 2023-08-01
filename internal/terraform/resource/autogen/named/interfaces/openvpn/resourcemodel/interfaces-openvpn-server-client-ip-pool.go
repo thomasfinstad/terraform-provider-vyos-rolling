@@ -38,9 +38,9 @@ func (o InterfacesOpenvpnServerClientIPPool) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `First IP address in the pool
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address  |
+    |  ipv4  &emsp; |  IPv4 address  |
 
 `,
 		},
@@ -49,9 +49,9 @@ func (o InterfacesOpenvpnServerClientIPPool) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Last IP address in the pool
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address  |
+    |  ipv4  &emsp; |  IPv4 address  |
 
 `,
 		},
@@ -60,9 +60,9 @@ func (o InterfacesOpenvpnServerClientIPPool) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Subnet mask pushed to dynamic clients. If not set the server subnet mask will be used. Only used with topology subnet or device type tap. Not used with bridged interfaces.
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 subnet mask  |
+    |  ipv4  &emsp; |  IPv4 subnet mask  |
 
 `,
 		},

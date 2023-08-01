@@ -28,9 +28,9 @@ func (o FirewallNameRuleSourceGeoIP) ResourceSchemaAttributes() map[string]schem
 			Optional:    true,
 			MarkdownDescription: `GeoIP country code
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <country>  |  Country code (2 characters)  |
+    |  <country>  &emsp; |  Country code (2 characters)  |
 
 `,
 		},

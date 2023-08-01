@@ -3,22 +3,40 @@
 page_title: "vyos_policy_route6_rule Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>policy</i>
+
+  <br>
+  &darr;
+  <br>
   Policy route rule set name for IPv6
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Policy rule number
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-999999  |  Number of policy rule  |
+  </b>
+  </div>
 ---
 
 # vyos_policy_route6_rule (Resource)
 
+<div style="text-align: center">
+<i>policy</i>
+
+<br>
+&darr;
+<br>
 Policy route rule set name for IPv6
 
+<br>
+&darr;
+<br>
+<b>
 Policy rule number
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-999999  |  Number of policy rule  |
+</b>
+</div>
 
 
 
@@ -27,47 +45,47 @@ Policy rule number
 
 ### Required
 
-- `identifier` (String) Policy rule number
+- `route6_id` (String) Policy route rule set name for IPv6
+- `rule_id` (String) Policy rule number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-999999  |  Number of policy rule  |
-- `route6_identifier` (String) Policy route rule set name for IPv6
+    |  number: 1-999999  &emsp; |  Number of policy rule  |
 
 ### Optional
 
 - `action` (String) Rule action
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  accept  |  Accept matching entries  |
-    |  reject  |  Reject matching entries  |
-    |  return  |  Return from the current chain and continue at the next rule of the last chain  |
-    |  drop  |  Drop matching entries  |
+    |  accept  &emsp; |  Accept matching entries  |
+    |  reject  &emsp; |  Reject matching entries  |
+    |  return  &emsp; |  Return from the current chain and continue at the next rule of the last chain  |
+    |  drop  &emsp; |  Drop matching entries  |
 - `connection_mark` (List of Number) Connection mark
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-2147483647  |  Connection-mark to match  |
+    |  number: 0-2147483647  &emsp; |  Connection-mark to match  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `destination` (Attributes) Destination parameters (see [below for nested schema](#nestedatt--destination))
 - `disable` (Boolean) Option to disable firewall rule
 - `dscp` (List of String) DSCP value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-63  |  DSCP value to match  |
-    |  <start-end>  |  DSCP range to match  |
+    |  number: 0-63  &emsp; |  DSCP value to match  |
+    |  <start-end>  &emsp; |  DSCP range to match  |
 - `dscp_exclude` (List of String) DSCP value not to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-63  |  DSCP value not to match  |
-    |  <start-end>  |  DSCP range not to match  |
+    |  number: 0-63  &emsp; |  DSCP value not to match  |
+    |  <start-end>  &emsp; |  DSCP range not to match  |
 - `fragment` (Attributes) IP fragment match (see [below for nested schema](#nestedatt--fragment))
 - `hop_limit` (Attributes) Hop limit (see [below for nested schema](#nestedatt--hop_limit))
 - `icmpv6` (Attributes) ICMPv6 type and code information (see [below for nested schema](#nestedatt--icmpv6))
@@ -75,38 +93,38 @@ Policy rule number
 - `limit` (Attributes) Rate limit using a token bucket filter (see [below for nested schema](#nestedatt--limit))
 - `log` (String) Option to log packets matching rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  |  Enable log  |
-    |  disable  |  Disable log  |
+    |  enable  &emsp; |  Enable log  |
+    |  disable  &emsp; |  Disable log  |
 - `packet_length` (List of String) Payload size in bytes, including header and data to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Packet length to match  |
-    |  <start-end>  |  Packet length range to match  |
+    |  number: 1-65535  &emsp; |  Packet length to match  |
+    |  <start-end>  &emsp; |  Packet length range to match  |
 - `packet_length_exclude` (List of String) Payload size in bytes, including header and data not to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Packet length not to match  |
-    |  <start-end>  |  Packet length range not to match  |
+    |  number: 1-65535  &emsp; |  Packet length not to match  |
+    |  <start-end>  &emsp; |  Packet length range not to match  |
 - `packet_type` (String) Packet type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  broadcast  |  Match broadcast packet type  |
-    |  host  |  Match host packet type, addressed to local host  |
-    |  multicast  |  Match multicast packet type  |
-    |  other  |  Match packet addressed to another host  |
+    |  broadcast  &emsp; |  Match broadcast packet type  |
+    |  host  &emsp; |  Match host packet type, addressed to local host  |
+    |  multicast  &emsp; |  Match multicast packet type  |
+    |  other  &emsp; |  Match packet addressed to another host  |
 - `protocol` (String) Protocol to match (protocol name, number, or "all")
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  all  |  All IP protocols  |
-    |  tcp_udp  |  Both TCP and UDP  |
-    |  0-255  |  IP protocol number  |
-    |  !<protocol>  |  IP protocol number  |
+    |  all  &emsp; |  All IP protocols  |
+    |  tcp_udp  &emsp; |  Both TCP and UDP  |
+    |  0-255  &emsp; |  IP protocol number  |
+    |  !<protocol>  &emsp; |  IP protocol number  |
 - `recent` (Attributes) Parameters for matching recently seen sources (see [below for nested schema](#nestedatt--recent))
 - `set` (Attributes) Packet modifications (see [below for nested schema](#nestedatt--set))
 - `source` (Attributes) Source parameters (see [below for nested schema](#nestedatt--source))
@@ -121,23 +139,23 @@ Optional:
 
 - `address` (String) IP address, subnet, or range
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6  |  IP address to match  |
-    |  ipv6net  |  Subnet to match  |
-    |  ipv6range  |  IP range to match  |
-    |  !ipv6  |  Match everything except the specified address  |
-    |  !ipv6net  |  Match everything except the specified prefix  |
-    |  !ipv6range  |  Match everything except the specified range  |
+    |  ipv6  &emsp; |  IP address to match  |
+    |  ipv6net  &emsp; |  Subnet to match  |
+    |  ipv6range  &emsp; |  IP range to match  |
+    |  !ipv6  &emsp; |  Match everything except the specified address  |
+    |  !ipv6net  &emsp; |  Match everything except the specified prefix  |
+    |  !ipv6range  &emsp; |  Match everything except the specified range  |
 - `group` (Attributes) Group (see [below for nested schema](#nestedatt--destination--group))
 - `port` (String) Port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Named port (any name in /etc/services, e.g., http)  |
-    |  u32:1-65535  |  Numbered port  |
-    |  <start-end>  |  Numbered port range (e.g. 1001-1005)  |
-    |     |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
+    |  txt  &emsp; |  Named port (any name in /etc/services, e.g., http)  |
+    |  number: 1-65535  &emsp; |  Numbered port  |
+    |  <start-end>  &emsp; |  Numbered port range (e.g. 1001-1005)  |
+    |     &emsp; |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
 
 <a id="nestedatt--destination--group"></a>
 ### Nested Schema for `destination.group`
@@ -168,19 +186,19 @@ Optional:
 
 - `eq` (Number) Match on equal value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  Equal to value  |
+    |  number: 0-255  &emsp; |  Equal to value  |
 - `gt` (Number) Match on greater then value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  Greater then value  |
+    |  number: 0-255  &emsp; |  Greater then value  |
 - `lt` (Number) Match on less then value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  Less then value  |
+    |  number: 0-255  &emsp; |  Less then value  |
 
 
 <a id="nestedatt--icmpv6"></a>
@@ -190,49 +208,49 @@ Optional:
 
 - `type` (String) ICMP type-name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  any  |  Any ICMP type/code  |
-    |  echo-reply  |  ICMP type/code name  |
-    |  pong  |  ICMP type/code name  |
-    |  destination-unreachable  |  ICMP type/code name  |
-    |  network-unreachable  |  ICMP type/code name  |
-    |  host-unreachable  |  ICMP type/code name  |
-    |  protocol-unreachable  |  ICMP type/code name  |
-    |  port-unreachable  |  ICMP type/code name  |
-    |  fragmentation-needed  |  ICMP type/code name  |
-    |  source-route-failed  |  ICMP type/code name  |
-    |  network-unknown  |  ICMP type/code name  |
-    |  host-unknown  |  ICMP type/code name  |
-    |  network-prohibited  |  ICMP type/code name  |
-    |  host-prohibited  |  ICMP type/code name  |
-    |  TOS-network-unreachable  |  ICMP type/code name  |
-    |  TOS-host-unreachable  |  ICMP type/code name  |
-    |  communication-prohibited  |  ICMP type/code name  |
-    |  host-precedence-violation  |  ICMP type/code name  |
-    |  precedence-cutoff  |  ICMP type/code name  |
-    |  source-quench  |  ICMP type/code name  |
-    |  redirect  |  ICMP type/code name  |
-    |  network-redirect  |  ICMP type/code name  |
-    |  host-redirect  |  ICMP type/code name  |
-    |  TOS-network-redirect  |  ICMP type/code name  |
-    |  TOS host-redirect  |  ICMP type/code name  |
-    |  echo-request  |  ICMP type/code name  |
-    |  ping  |  ICMP type/code name  |
-    |  router-advertisement  |  ICMP type/code name  |
-    |  router-solicitation  |  ICMP type/code name  |
-    |  time-exceeded  |  ICMP type/code name  |
-    |  ttl-exceeded  |  ICMP type/code name  |
-    |  ttl-zero-during-transit  |  ICMP type/code name  |
-    |  ttl-zero-during-reassembly  |  ICMP type/code name  |
-    |  parameter-problem  |  ICMP type/code name  |
-    |  ip-header-bad  |  ICMP type/code name  |
-    |  required-option-missing  |  ICMP type/code name  |
-    |  timestamp-request  |  ICMP type/code name  |
-    |  timestamp-reply  |  ICMP type/code name  |
-    |  address-mask-request  |  ICMP type/code name  |
-    |  address-mask-reply  |  ICMP type/code name  |
-    |  packet-too-big  |  ICMP type/code name  |
+    |  any  &emsp; |  Any ICMP type/code  |
+    |  echo-reply  &emsp; |  ICMP type/code name  |
+    |  pong  &emsp; |  ICMP type/code name  |
+    |  destination-unreachable  &emsp; |  ICMP type/code name  |
+    |  network-unreachable  &emsp; |  ICMP type/code name  |
+    |  host-unreachable  &emsp; |  ICMP type/code name  |
+    |  protocol-unreachable  &emsp; |  ICMP type/code name  |
+    |  port-unreachable  &emsp; |  ICMP type/code name  |
+    |  fragmentation-needed  &emsp; |  ICMP type/code name  |
+    |  source-route-failed  &emsp; |  ICMP type/code name  |
+    |  network-unknown  &emsp; |  ICMP type/code name  |
+    |  host-unknown  &emsp; |  ICMP type/code name  |
+    |  network-prohibited  &emsp; |  ICMP type/code name  |
+    |  host-prohibited  &emsp; |  ICMP type/code name  |
+    |  TOS-network-unreachable  &emsp; |  ICMP type/code name  |
+    |  TOS-host-unreachable  &emsp; |  ICMP type/code name  |
+    |  communication-prohibited  &emsp; |  ICMP type/code name  |
+    |  host-precedence-violation  &emsp; |  ICMP type/code name  |
+    |  precedence-cutoff  &emsp; |  ICMP type/code name  |
+    |  source-quench  &emsp; |  ICMP type/code name  |
+    |  redirect  &emsp; |  ICMP type/code name  |
+    |  network-redirect  &emsp; |  ICMP type/code name  |
+    |  host-redirect  &emsp; |  ICMP type/code name  |
+    |  TOS-network-redirect  &emsp; |  ICMP type/code name  |
+    |  TOS host-redirect  &emsp; |  ICMP type/code name  |
+    |  echo-request  &emsp; |  ICMP type/code name  |
+    |  ping  &emsp; |  ICMP type/code name  |
+    |  router-advertisement  &emsp; |  ICMP type/code name  |
+    |  router-solicitation  &emsp; |  ICMP type/code name  |
+    |  time-exceeded  &emsp; |  ICMP type/code name  |
+    |  ttl-exceeded  &emsp; |  ICMP type/code name  |
+    |  ttl-zero-during-transit  &emsp; |  ICMP type/code name  |
+    |  ttl-zero-during-reassembly  &emsp; |  ICMP type/code name  |
+    |  parameter-problem  &emsp; |  ICMP type/code name  |
+    |  ip-header-bad  &emsp; |  ICMP type/code name  |
+    |  required-option-missing  &emsp; |  ICMP type/code name  |
+    |  timestamp-request  &emsp; |  ICMP type/code name  |
+    |  timestamp-reply  &emsp; |  ICMP type/code name  |
+    |  address-mask-request  &emsp; |  ICMP type/code name  |
+    |  address-mask-reply  &emsp; |  ICMP type/code name  |
+    |  packet-too-big  &emsp; |  ICMP type/code name  |
 
 
 <a id="nestedatt--ipsec"></a>
@@ -251,14 +269,14 @@ Optional:
 
 - `burst` (Number) Maximum number of packets to allow in excess of rate
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4294967295  |  Maximum number of packets to allow in excess of rate  |
+    |  number: 0-4294967295  &emsp; |  Maximum number of packets to allow in excess of rate  |
 - `rate` (Number) Maximum average matching rate
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4294967295  |  Maximum average matching rate  |
+    |  number: 0-4294967295  &emsp; |  Maximum average matching rate  |
 
 
 <a id="nestedatt--recent"></a>
@@ -268,14 +286,14 @@ Optional:
 
 - `count` (Number) Source addresses seen more than N times
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Source addresses seen more than N times  |
+    |  number: 1-255  &emsp; |  Source addresses seen more than N times  |
 - `time` (Number) Source addresses seen in the last N seconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4294967295  |  Source addresses seen in the last N seconds  |
+    |  number: 0-4294967295  &emsp; |  Source addresses seen in the last N seconds  |
 
 
 <a id="nestedatt--set"></a>
@@ -285,30 +303,30 @@ Optional:
 
 - `connection_mark` (Number) Connection marking
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-2147483647  |  Connection marking  |
+    |  number: 0-2147483647  &emsp; |  Connection marking  |
 - `dscp` (Number) Packet Differentiated Services Codepoint (DSCP)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-63  |  DSCP number  |
+    |  number: 0-63  &emsp; |  DSCP number  |
 - `mark` (Number) Packet marking
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2147483647  |  Packet marking  |
+    |  number: 1-2147483647  &emsp; |  Packet marking  |
 - `table` (String) Routing table to forward packet with
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-200  |  Table number  |
-    |  main  |  Main table  |
+    |  number: 1-200  &emsp; |  Table number  |
+    |  main  &emsp; |  Main table  |
 - `tcp_mss` (Number) TCP Maximum Segment Size
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:500-1460  |  Explicitly set TCP MSS value  |
+    |  number: 500-1460  &emsp; |  Explicitly set TCP MSS value  |
 
 
 <a id="nestedatt--source"></a>
@@ -318,29 +336,29 @@ Optional:
 
 - `address` (String) IP address, subnet, or range
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6  |  IP address to match  |
-    |  ipv6net  |  Subnet to match  |
-    |  ipv6range  |  IP range to match  |
-    |  !ipv6  |  Match everything except the specified address  |
-    |  !ipv6net  |  Match everything except the specified prefix  |
-    |  !ipv6range  |  Match everything except the specified range  |
+    |  ipv6  &emsp; |  IP address to match  |
+    |  ipv6net  &emsp; |  Subnet to match  |
+    |  ipv6range  &emsp; |  IP range to match  |
+    |  !ipv6  &emsp; |  Match everything except the specified address  |
+    |  !ipv6net  &emsp; |  Match everything except the specified prefix  |
+    |  !ipv6range  &emsp; |  Match everything except the specified range  |
 - `group` (Attributes) Group (see [below for nested schema](#nestedatt--source--group))
 - `mac_address` (String) MAC address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  MAC address to match  |
-    |  !macaddr  |  Match everything except the specified MAC address  |
+    |  macaddr  &emsp; |  MAC address to match  |
+    |  !macaddr  &emsp; |  Match everything except the specified MAC address  |
 - `port` (String) Port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Named port (any name in /etc/services, e.g., http)  |
-    |  u32:1-65535  |  Numbered port  |
-    |  <start-end>  |  Numbered port range (e.g. 1001-1005)  |
-    |     |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
+    |  txt  &emsp; |  Named port (any name in /etc/services, e.g., http)  |
+    |  number: 1-65535  &emsp; |  Numbered port  |
+    |  <start-end>  &emsp; |  Numbered port range (e.g. 1001-1005)  |
+    |     &emsp; |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
 
 <a id="nestedatt--source--group"></a>
 ### Nested Schema for `source.group`
@@ -362,28 +380,28 @@ Optional:
 
 - `established` (String) Established state
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  |  Enable  |
-    |  disable  |  Disable  |
+    |  enable  &emsp; |  Enable  |
+    |  disable  &emsp; |  Disable  |
 - `invalid` (String) Invalid state
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  |  Enable  |
-    |  disable  |  Disable  |
+    |  enable  &emsp; |  Enable  |
+    |  disable  &emsp; |  Disable  |
 - `new` (String) New state
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  |  Enable  |
-    |  disable  |  Disable  |
+    |  enable  &emsp; |  Enable  |
+    |  disable  &emsp; |  Disable  |
 - `related` (String) Related state
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  |  Enable  |
-    |  disable  |  Disable  |
+    |  enable  &emsp; |  Enable  |
+    |  disable  &emsp; |  Disable  |
 
 
 <a id="nestedatt--tcp"></a>
@@ -394,10 +412,10 @@ Optional:
 - `flags` (Attributes) TCP flags to match (see [below for nested schema](#nestedatt--tcp--flags))
 - `mss` (String) Maximum segment size (MSS)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-16384  |  Maximum segment size  |
-    |  <min>-<max>  |  TCP MSS range (use '-' as delimiter)  |
+    |  number: 1-16384  &emsp; |  Maximum segment size  |
+    |  <min>-<max>  &emsp; |  TCP MSS range (use '-' as delimiter)  |
 
 <a id="nestedatt--tcp--flags"></a>
 ### Nested Schema for `tcp.flags`

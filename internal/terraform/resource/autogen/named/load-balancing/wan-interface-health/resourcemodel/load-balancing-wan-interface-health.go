@@ -8,7 +8,7 @@ import (
 
 // LoadBalancingWanInterfaceHealth describes the resource data model.
 type LoadBalancingWanInterfaceHealth struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_health_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafLoadBalancingWanInterfaceHealthFailureCount types.Number `tfsdk:"failure_count" vyos:"failure-count,omitempty"`
@@ -29,14 +29,14 @@ func (o *LoadBalancingWanInterfaceHealth) GetVyosPath() []string {
 		"wan",
 
 		"interface-health",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o LoadBalancingWanInterfaceHealth) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_health_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Interface name
 
@@ -49,9 +49,9 @@ func (o LoadBalancingWanInterfaceHealth) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Failure count
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-10  |  Failure count  |
+    |  number: 1-10  &emsp; |  Failure count  |
 
 `,
 		},
@@ -60,10 +60,10 @@ func (o LoadBalancingWanInterfaceHealth) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Outbound interface nexthop address. Can be 'DHCP or IPv4 address' [REQUIRED]
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Nexthop IP address  |
-    |  dhcp  |  Set the nexthop via DHCP  |
+    |  ipv4  &emsp; |  Nexthop IP address  |
+    |  dhcp  &emsp; |  Set the nexthop via DHCP  |
 
 `,
 		},
@@ -72,9 +72,9 @@ func (o LoadBalancingWanInterfaceHealth) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Success count
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-10  |  Success count  |
+    |  number: 1-10  &emsp; |  Success count  |
 
 `,
 		},

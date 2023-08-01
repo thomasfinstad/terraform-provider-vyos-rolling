@@ -27,9 +27,9 @@ func (o VpnIPsecSiteToSitePeerAuthenticationXfivezeronine) ResourceSchemaAttribu
 			Optional: true,
 			MarkdownDescription: `Certificate in PKI configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of certificate in PKI configuration  |
+    |  txt  &emsp; |  Name of certificate in PKI configuration  |
 
 `,
 		},
@@ -38,9 +38,9 @@ func (o VpnIPsecSiteToSitePeerAuthenticationXfivezeronine) ResourceSchemaAttribu
 			Optional: true,
 			MarkdownDescription: `Private key passphrase
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Passphrase to decrypt the private key  |
+    |  txt  &emsp; |  Passphrase to decrypt the private key  |
 
 `,
 		},
@@ -49,9 +49,9 @@ func (o VpnIPsecSiteToSitePeerAuthenticationXfivezeronine) ResourceSchemaAttribu
 			Optional: true,
 			MarkdownDescription: `Certificate Authority in PKI configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of CA in PKI configuration  |
+    |  txt  &emsp; |  Name of CA in PKI configuration  |
 
 `,
 		},

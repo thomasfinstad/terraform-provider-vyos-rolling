@@ -53,7 +53,7 @@ func (r interfacesBrIDgeMemberInterface) Create(ctx context.Context, req resourc
 		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
 	}
 
-	// Save ID into the Terraform state.data.ID = types.StringValue(data.ID.ValueString())
+	// Save ID into the Terraform state.data.SelfIdentifier = types.StringValue(data.SelfIdentifier.ValueString())
 
 	// Save data to Terraform state
 	tflog.Trace(ctx, "resource created")
@@ -137,7 +137,7 @@ func (r interfacesBrIDgeMemberInterface) Update(ctx context.Context, req resourc
 		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
 	}
 
-	// Save ID into the Terraform state.data.ID = types.StringValue(data.ID.ValueString())
+	// Save ID into the Terraform state.data.SelfIdentifier = types.StringValue(data.SelfIdentifier.ValueString())
 
 	// Save data to Terraform state
 	tflog.Trace(ctx, "resource created")

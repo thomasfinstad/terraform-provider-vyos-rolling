@@ -3,26 +3,40 @@
 page_title: "vyos_protocols_bgp_neighbor Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Border Gateway Protocol (BGP)
+
+  <br>
+  &darr;
+  <br>
+  <b>
   BGP neighbor
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  BGP neighbor IP address  |
-  |  ipv6  |  BGP neighbor IPv6 address  |
-  |  txt  |  Interface name  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_bgp_neighbor (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Border Gateway Protocol (BGP)
 
+<br>
+&darr;
+<br>
+<b>
 BGP neighbor
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  BGP neighbor IP address  |
-    |  ipv6  |  BGP neighbor IPv6 address  |
-    |  txt  |  Interface name  |
+</b>
+</div>
 
 
 
@@ -31,64 +45,64 @@ BGP neighbor
 
 ### Required
 
-- `identifier` (String) BGP neighbor
+- `neighbor_id` (String) BGP neighbor
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  BGP neighbor IP address  |
-    |  ipv6  |  BGP neighbor IPv6 address  |
-    |  txt  |  Interface name  |
+    |  ipv4  &emsp; |  BGP neighbor IP address  |
+    |  ipv6  &emsp; |  BGP neighbor IPv6 address  |
+    |  txt  &emsp; |  Interface name  |
 
 ### Optional
 
 - `address_family` (Attributes) Address-family parameters (see [below for nested schema](#nestedatt--address_family))
 - `advertisement_interval` (Number) Minimum interval for sending routing updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-600  |  Advertisement interval in seconds  |
+    |  number: 0-600  &emsp; |  Advertisement interval in seconds  |
 - `bfd` (Attributes) Enable Bidirectional Forwarding Detection (BFD) support (see [below for nested schema](#nestedatt--bfd))
 - `capability` (Attributes) Advertise capabilities to this peer-group (see [below for nested schema](#nestedatt--capability))
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `disable_capability_negotiation` (Boolean) Disable capability negotiation with this neighbor
 - `disable_connected_check` (Boolean) Disable check to see if eBGP peer address is a connected route
 - `ebgp_multihop` (Number) Allow this EBGP neighbor to not be on a directly connected network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Number of hops  |
+    |  number: 1-255  &emsp; |  Number of hops  |
 - `graceful_restart` (String) BGP graceful restart functionality
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  |  Enable BGP graceful restart at peer level  |
-    |  disable  |  Disable BGP graceful restart at peer level  |
-    |  restart-helper  |  Enable BGP graceful restart helper only functionality  |
+    |  enable  &emsp; |  Enable BGP graceful restart at peer level  |
+    |  disable  &emsp; |  Disable BGP graceful restart at peer level  |
+    |  restart-helper  &emsp; |  Enable BGP graceful restart helper only functionality  |
 - `interface` (Attributes) Interface parameters (see [below for nested schema](#nestedatt--interface))
 - `override_capability` (Boolean) Ignore capability negotiation with specified neighbor
 - `passive` (Boolean) Do not initiate a session with this neighbor
 - `password` (String) BGP MD5 password
 - `peer_group` (String) Peer group for this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Peer-group name  |
+    |  txt  &emsp; |  Peer-group name  |
 - `port` (Number) Neighbor BGP port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Neighbor BGP port number  |
+    |  number: 1-65535  &emsp; |  Neighbor BGP port number  |
 - `remote_as` (String) Neighbor BGP AS number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967294  |  Neighbor AS number  |
-    |  external  |  Any AS different from the local AS  |
-    |  internal  |  Neighbor AS number  |
+    |  number: 1-4294967294  &emsp; |  Neighbor AS number  |
+    |  external  &emsp; |  Any AS different from the local AS  |
+    |  internal  &emsp; |  Neighbor AS number  |
 - `shutdown` (Boolean) Administratively shutdown this neighbor
 - `solo` (Boolean) Do not send back prefixes learned from the neighbor
 - `strict_capability_match` (Boolean) Enable strict capability negotiation
@@ -96,11 +110,11 @@ BGP neighbor
 - `ttl_security` (Attributes) Ttl security mechanism (see [below for nested schema](#nestedatt--ttl_security))
 - `update_source` (String) Source IP of routing updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address of route source  |
-    |  ipv6  |  IPv6 address of route source  |
-    |  txt  |  Interface as route source  |
+    |  ipv4  &emsp; |  IPv4 address of route source  |
+    |  ipv6  &emsp; |  IPv6 address of route source  |
+    |  txt  &emsp; |  Interface as route source  |
 
 <a id="nestedatt--address_family"></a>
 ### Nested Schema for `address_family`
@@ -147,14 +161,14 @@ Optional:
 
 - `export` (String) IPv4-Prefix-list to filter outgoing route updates to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv4 prefix-list  |
+    |  txt  &emsp; |  Name of IPv4 prefix-list  |
 - `import` (String) IPv4-Prefix-list to filter incoming route updates from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv4 prefix-list  |
+    |  txt  &emsp; |  Name of IPv4 prefix-list  |
 
 
 <a id="nestedatt--address_family--ipv4_flowspec--route_map"></a>
@@ -164,14 +178,14 @@ Optional:
 
 - `export` (String) Route-map to filter outgoing route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `import` (String) Route-map to filter incoming route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv4_flowspec--soft_reconfiguration"></a>
@@ -201,14 +215,14 @@ Optional:
 - `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--filter_list))
 - `maximum_prefix` (Number) Maximum number of prefixes to accept from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Prefix limit  |
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `maximum_prefix_out` (Number) Maximum number of prefixes to be sent to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Prefix limit  |
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--nexthop_self))
 - `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--prefix_list))
 - `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
@@ -218,14 +232,14 @@ Optional:
 - `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--soft_reconfiguration))
 - `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `weight` (Number) Default weight for routes from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Default weight  |
+    |  number: 1-65535  &emsp; |  Default weight  |
 
 <a id="nestedatt--address_family--ipv4_labeled_unicast--allowas_in"></a>
 ### Nested Schema for `address_family.ipv4_labeled_unicast.allowas_in`
@@ -234,9 +248,9 @@ Optional:
 
 - `number` (Number) Number of occurrences of AS number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-10  |  Number of times AS is allowed in path  |
+    |  number: 1-10  &emsp; |  Number of times AS is allowed in path  |
 
 
 <a id="nestedatt--address_family--ipv4_labeled_unicast--attribute_unchanged"></a>
@@ -281,19 +295,19 @@ Optional:
 
 - `advertise_map` (String) Route-map to conditionally advertise routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv4_labeled_unicast--default_originate"></a>
@@ -303,9 +317,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv4_labeled_unicast--disable_send_community"></a>
@@ -324,14 +338,14 @@ Optional:
 
 - `export` (Number) Access-list to filter outgoing route updates to this peer-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
+    |  number: 1-65535  &emsp; |  Access-list to filter outgoing route updates to this peer-group  |
 - `import` (Number) Access-list to filter incoming route updates from this peer-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
+    |  number: 1-65535  &emsp; |  Access-list to filter incoming route updates from this peer-group  |
 
 
 <a id="nestedatt--address_family--ipv4_labeled_unicast--filter_list"></a>
@@ -358,14 +372,14 @@ Optional:
 
 - `export` (String) IPv4-Prefix-list to filter outgoing route updates to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv4 prefix-list  |
+    |  txt  &emsp; |  Name of IPv4 prefix-list  |
 - `import` (String) IPv4-Prefix-list to filter incoming route updates from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv4 prefix-list  |
+    |  txt  &emsp; |  Name of IPv4 prefix-list  |
 
 
 <a id="nestedatt--address_family--ipv4_labeled_unicast--route_map"></a>
@@ -375,14 +389,14 @@ Optional:
 
 - `export` (String) Route-map to filter outgoing route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `import` (String) Route-map to filter incoming route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv4_labeled_unicast--soft_reconfiguration"></a>
@@ -412,14 +426,14 @@ Optional:
 - `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_multicast--filter_list))
 - `maximum_prefix` (Number) Maximum number of prefixes to accept from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Prefix limit  |
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `maximum_prefix_out` (Number) Maximum number of prefixes to be sent to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Prefix limit  |
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv4_multicast--nexthop_self))
 - `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_multicast--prefix_list))
 - `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
@@ -429,14 +443,14 @@ Optional:
 - `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv4_multicast--soft_reconfiguration))
 - `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `weight` (Number) Default weight for routes from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Default weight  |
+    |  number: 1-65535  &emsp; |  Default weight  |
 
 <a id="nestedatt--address_family--ipv4_multicast--allowas_in"></a>
 ### Nested Schema for `address_family.ipv4_multicast.allowas_in`
@@ -445,9 +459,9 @@ Optional:
 
 - `number` (Number) Number of occurrences of AS number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-10  |  Number of times AS is allowed in path  |
+    |  number: 1-10  &emsp; |  Number of times AS is allowed in path  |
 
 
 <a id="nestedatt--address_family--ipv4_multicast--attribute_unchanged"></a>
@@ -492,19 +506,19 @@ Optional:
 
 - `advertise_map` (String) Route-map to conditionally advertise routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv4_multicast--default_originate"></a>
@@ -514,9 +528,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv4_multicast--disable_send_community"></a>
@@ -535,14 +549,14 @@ Optional:
 
 - `export` (Number) Access-list to filter outgoing route updates to this peer-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
+    |  number: 1-65535  &emsp; |  Access-list to filter outgoing route updates to this peer-group  |
 - `import` (Number) Access-list to filter incoming route updates from this peer-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
+    |  number: 1-65535  &emsp; |  Access-list to filter incoming route updates from this peer-group  |
 
 
 <a id="nestedatt--address_family--ipv4_multicast--filter_list"></a>
@@ -569,14 +583,14 @@ Optional:
 
 - `export` (String) IPv4-Prefix-list to filter outgoing route updates to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv4 prefix-list  |
+    |  txt  &emsp; |  Name of IPv4 prefix-list  |
 - `import` (String) IPv4-Prefix-list to filter incoming route updates from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv4 prefix-list  |
+    |  txt  &emsp; |  Name of IPv4 prefix-list  |
 
 
 <a id="nestedatt--address_family--ipv4_multicast--route_map"></a>
@@ -586,14 +600,14 @@ Optional:
 
 - `export` (String) Route-map to filter outgoing route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `import` (String) Route-map to filter incoming route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv4_multicast--soft_reconfiguration"></a>
@@ -623,14 +637,14 @@ Optional:
 - `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--filter_list))
 - `maximum_prefix` (Number) Maximum number of prefixes to accept from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Prefix limit  |
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `maximum_prefix_out` (Number) Maximum number of prefixes to be sent to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Prefix limit  |
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--nexthop_self))
 - `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--prefix_list))
 - `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
@@ -640,14 +654,14 @@ Optional:
 - `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--soft_reconfiguration))
 - `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `weight` (Number) Default weight for routes from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Default weight  |
+    |  number: 1-65535  &emsp; |  Default weight  |
 
 <a id="nestedatt--address_family--ipv4_unicast--allowas_in"></a>
 ### Nested Schema for `address_family.ipv4_unicast.allowas_in`
@@ -656,9 +670,9 @@ Optional:
 
 - `number` (Number) Number of occurrences of AS number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-10  |  Number of times AS is allowed in path  |
+    |  number: 1-10  &emsp; |  Number of times AS is allowed in path  |
 
 
 <a id="nestedatt--address_family--ipv4_unicast--attribute_unchanged"></a>
@@ -703,19 +717,19 @@ Optional:
 
 - `advertise_map` (String) Route-map to conditionally advertise routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv4_unicast--default_originate"></a>
@@ -725,9 +739,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv4_unicast--disable_send_community"></a>
@@ -746,14 +760,14 @@ Optional:
 
 - `export` (Number) Access-list to filter outgoing route updates to this peer-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
+    |  number: 1-65535  &emsp; |  Access-list to filter outgoing route updates to this peer-group  |
 - `import` (Number) Access-list to filter incoming route updates from this peer-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
+    |  number: 1-65535  &emsp; |  Access-list to filter incoming route updates from this peer-group  |
 
 
 <a id="nestedatt--address_family--ipv4_unicast--filter_list"></a>
@@ -780,14 +794,14 @@ Optional:
 
 - `export` (String) IPv4-Prefix-list to filter outgoing route updates to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv4 prefix-list  |
+    |  txt  &emsp; |  Name of IPv4 prefix-list  |
 - `import` (String) IPv4-Prefix-list to filter incoming route updates from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv4 prefix-list  |
+    |  txt  &emsp; |  Name of IPv4 prefix-list  |
 
 
 <a id="nestedatt--address_family--ipv4_unicast--route_map"></a>
@@ -797,14 +811,14 @@ Optional:
 
 - `export` (String) Route-map to filter outgoing route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `import` (String) Route-map to filter incoming route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv4_unicast--soft_reconfiguration"></a>
@@ -832,14 +846,14 @@ Optional:
 - `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--filter_list))
 - `maximum_prefix` (Number) Maximum number of prefixes to accept from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Prefix limit  |
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `maximum_prefix_out` (Number) Maximum number of prefixes to be sent to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Prefix limit  |
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--nexthop_self))
 - `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--prefix_list))
 - `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
@@ -849,14 +863,14 @@ Optional:
 - `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--soft_reconfiguration))
 - `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `weight` (Number) Default weight for routes from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Default weight  |
+    |  number: 1-65535  &emsp; |  Default weight  |
 
 <a id="nestedatt--address_family--ipv4_vpn--allowas_in"></a>
 ### Nested Schema for `address_family.ipv4_vpn.allowas_in`
@@ -865,9 +879,9 @@ Optional:
 
 - `number` (Number) Number of occurrences of AS number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-10  |  Number of times AS is allowed in path  |
+    |  number: 1-10  &emsp; |  Number of times AS is allowed in path  |
 
 
 <a id="nestedatt--address_family--ipv4_vpn--attribute_unchanged"></a>
@@ -887,19 +901,19 @@ Optional:
 
 - `advertise_map` (String) Route-map to conditionally advertise routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv4_vpn--disable_send_community"></a>
@@ -918,14 +932,14 @@ Optional:
 
 - `export` (Number) Access-list to filter outgoing route updates to this peer-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
+    |  number: 1-65535  &emsp; |  Access-list to filter outgoing route updates to this peer-group  |
 - `import` (Number) Access-list to filter incoming route updates from this peer-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
+    |  number: 1-65535  &emsp; |  Access-list to filter incoming route updates from this peer-group  |
 
 
 <a id="nestedatt--address_family--ipv4_vpn--filter_list"></a>
@@ -952,14 +966,14 @@ Optional:
 
 - `export` (String) IPv4-Prefix-list to filter outgoing route updates to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv4 prefix-list  |
+    |  txt  &emsp; |  Name of IPv4 prefix-list  |
 - `import` (String) IPv4-Prefix-list to filter incoming route updates from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv4 prefix-list  |
+    |  txt  &emsp; |  Name of IPv4 prefix-list  |
 
 
 <a id="nestedatt--address_family--ipv4_vpn--route_map"></a>
@@ -969,14 +983,14 @@ Optional:
 
 - `export` (String) Route-map to filter outgoing route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `import` (String) Route-map to filter incoming route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv4_vpn--soft_reconfiguration"></a>
@@ -1016,14 +1030,14 @@ Optional:
 
 - `export` (String) Prefix-list to filter outgoing route updates to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv6 prefix-list  |
+    |  txt  &emsp; |  Name of IPv6 prefix-list  |
 - `import` (String) Prefix-list to filter incoming route updates from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv6 prefix-list  |
+    |  txt  &emsp; |  Name of IPv6 prefix-list  |
 
 
 <a id="nestedatt--address_family--ipv6_flowspec--route_map"></a>
@@ -1033,14 +1047,14 @@ Optional:
 
 - `export` (String) Route-map to filter outgoing route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `import` (String) Route-map to filter incoming route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv6_flowspec--soft_reconfiguration"></a>
@@ -1070,14 +1084,14 @@ Optional:
 - `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--filter_list))
 - `maximum_prefix` (Number) Maximum number of prefixes to accept from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Prefix limit  |
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `maximum_prefix_out` (Number) Maximum number of prefixes to be sent to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Prefix limit  |
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `nexthop_local` (Attributes) Nexthop attributes (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--nexthop_local))
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--nexthop_self))
 - `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--prefix_list))
@@ -1088,14 +1102,14 @@ Optional:
 - `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--soft_reconfiguration))
 - `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `weight` (Number) Default weight for routes from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Default weight  |
+    |  number: 1-65535  &emsp; |  Default weight  |
 
 <a id="nestedatt--address_family--ipv6_labeled_unicast--allowas_in"></a>
 ### Nested Schema for `address_family.ipv6_labeled_unicast.allowas_in`
@@ -1104,9 +1118,9 @@ Optional:
 
 - `number` (Number) Number of occurrences of AS number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-10  |  Number of times AS is allowed in path  |
+    |  number: 1-10  &emsp; |  Number of times AS is allowed in path  |
 
 
 <a id="nestedatt--address_family--ipv6_labeled_unicast--attribute_unchanged"></a>
@@ -1151,19 +1165,19 @@ Optional:
 
 - `advertise_map` (String) Route-map to conditionally advertise routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv6_labeled_unicast--default_originate"></a>
@@ -1173,9 +1187,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv6_labeled_unicast--disable_send_community"></a>
@@ -1194,14 +1208,14 @@ Optional:
 
 - `export` (Number) Access-list to filter outgoing route updates to this peer-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
+    |  number: 1-65535  &emsp; |  Access-list to filter outgoing route updates to this peer-group  |
 - `import` (Number) Access-list to filter incoming route updates from this peer-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
+    |  number: 1-65535  &emsp; |  Access-list to filter incoming route updates from this peer-group  |
 
 
 <a id="nestedatt--address_family--ipv6_labeled_unicast--filter_list"></a>
@@ -1236,14 +1250,14 @@ Optional:
 
 - `export` (String) Prefix-list to filter outgoing route updates to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv6 prefix-list  |
+    |  txt  &emsp; |  Name of IPv6 prefix-list  |
 - `import` (String) Prefix-list to filter incoming route updates from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv6 prefix-list  |
+    |  txt  &emsp; |  Name of IPv6 prefix-list  |
 
 
 <a id="nestedatt--address_family--ipv6_labeled_unicast--route_map"></a>
@@ -1253,14 +1267,14 @@ Optional:
 
 - `export` (String) Route-map to filter outgoing route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `import` (String) Route-map to filter incoming route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv6_labeled_unicast--soft_reconfiguration"></a>
@@ -1289,14 +1303,14 @@ Optional:
 - `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--filter_list))
 - `maximum_prefix` (Number) Maximum number of prefixes to accept from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Prefix limit  |
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `maximum_prefix_out` (Number) Maximum number of prefixes to be sent to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Prefix limit  |
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `nexthop_local` (Attributes) Nexthop attributes (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--nexthop_local))
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--nexthop_self))
 - `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--prefix_list))
@@ -1307,14 +1321,14 @@ Optional:
 - `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--soft_reconfiguration))
 - `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `weight` (Number) Default weight for routes from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Default weight  |
+    |  number: 1-65535  &emsp; |  Default weight  |
 
 <a id="nestedatt--address_family--ipv6_multicast--allowas_in"></a>
 ### Nested Schema for `address_family.ipv6_multicast.allowas_in`
@@ -1323,9 +1337,9 @@ Optional:
 
 - `number` (Number) Number of occurrences of AS number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-10  |  Number of times AS is allowed in path  |
+    |  number: 1-10  &emsp; |  Number of times AS is allowed in path  |
 
 
 <a id="nestedatt--address_family--ipv6_multicast--attribute_unchanged"></a>
@@ -1345,19 +1359,19 @@ Optional:
 
 - `advertise_map` (String) Route-map to conditionally advertise routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv6_multicast--default_originate"></a>
@@ -1367,9 +1381,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv6_multicast--disable_send_community"></a>
@@ -1388,14 +1402,14 @@ Optional:
 
 - `export` (Number) Access-list to filter outgoing route updates to this peer-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
+    |  number: 1-65535  &emsp; |  Access-list to filter outgoing route updates to this peer-group  |
 - `import` (Number) Access-list to filter incoming route updates from this peer-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
+    |  number: 1-65535  &emsp; |  Access-list to filter incoming route updates from this peer-group  |
 
 
 <a id="nestedatt--address_family--ipv6_multicast--filter_list"></a>
@@ -1430,14 +1444,14 @@ Optional:
 
 - `export` (String) Prefix-list to filter outgoing route updates to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv6 prefix-list  |
+    |  txt  &emsp; |  Name of IPv6 prefix-list  |
 - `import` (String) Prefix-list to filter incoming route updates from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv6 prefix-list  |
+    |  txt  &emsp; |  Name of IPv6 prefix-list  |
 
 
 <a id="nestedatt--address_family--ipv6_multicast--route_map"></a>
@@ -1447,14 +1461,14 @@ Optional:
 
 - `export` (String) Route-map to filter outgoing route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `import` (String) Route-map to filter incoming route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv6_multicast--soft_reconfiguration"></a>
@@ -1484,14 +1498,14 @@ Optional:
 - `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--filter_list))
 - `maximum_prefix` (Number) Maximum number of prefixes to accept from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Prefix limit  |
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `maximum_prefix_out` (Number) Maximum number of prefixes to be sent to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Prefix limit  |
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `nexthop_local` (Attributes) Nexthop attributes (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--nexthop_local))
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--nexthop_self))
 - `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--prefix_list))
@@ -1502,14 +1516,14 @@ Optional:
 - `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--soft_reconfiguration))
 - `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `weight` (Number) Default weight for routes from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Default weight  |
+    |  number: 1-65535  &emsp; |  Default weight  |
 
 <a id="nestedatt--address_family--ipv6_unicast--allowas_in"></a>
 ### Nested Schema for `address_family.ipv6_unicast.allowas_in`
@@ -1518,9 +1532,9 @@ Optional:
 
 - `number` (Number) Number of occurrences of AS number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-10  |  Number of times AS is allowed in path  |
+    |  number: 1-10  &emsp; |  Number of times AS is allowed in path  |
 
 
 <a id="nestedatt--address_family--ipv6_unicast--attribute_unchanged"></a>
@@ -1565,19 +1579,19 @@ Optional:
 
 - `advertise_map` (String) Route-map to conditionally advertise routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv6_unicast--default_originate"></a>
@@ -1587,9 +1601,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv6_unicast--disable_send_community"></a>
@@ -1608,14 +1622,14 @@ Optional:
 
 - `export` (Number) Access-list to filter outgoing route updates to this peer-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
+    |  number: 1-65535  &emsp; |  Access-list to filter outgoing route updates to this peer-group  |
 - `import` (Number) Access-list to filter incoming route updates from this peer-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
+    |  number: 1-65535  &emsp; |  Access-list to filter incoming route updates from this peer-group  |
 
 
 <a id="nestedatt--address_family--ipv6_unicast--filter_list"></a>
@@ -1650,14 +1664,14 @@ Optional:
 
 - `export` (String) Prefix-list to filter outgoing route updates to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv6 prefix-list  |
+    |  txt  &emsp; |  Name of IPv6 prefix-list  |
 - `import` (String) Prefix-list to filter incoming route updates from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv6 prefix-list  |
+    |  txt  &emsp; |  Name of IPv6 prefix-list  |
 
 
 <a id="nestedatt--address_family--ipv6_unicast--route_map"></a>
@@ -1667,14 +1681,14 @@ Optional:
 
 - `export` (String) Route-map to filter outgoing route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `import` (String) Route-map to filter incoming route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv6_unicast--soft_reconfiguration"></a>
@@ -1702,14 +1716,14 @@ Optional:
 - `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--filter_list))
 - `maximum_prefix` (Number) Maximum number of prefixes to accept from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Prefix limit  |
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `maximum_prefix_out` (Number) Maximum number of prefixes to be sent to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Prefix limit  |
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `nexthop_local` (Attributes) Nexthop attributes (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--nexthop_local))
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--nexthop_self))
 - `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--prefix_list))
@@ -1720,14 +1734,14 @@ Optional:
 - `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--soft_reconfiguration))
 - `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `weight` (Number) Default weight for routes from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Default weight  |
+    |  number: 1-65535  &emsp; |  Default weight  |
 
 <a id="nestedatt--address_family--ipv6_vpn--allowas_in"></a>
 ### Nested Schema for `address_family.ipv6_vpn.allowas_in`
@@ -1736,9 +1750,9 @@ Optional:
 
 - `number` (Number) Number of occurrences of AS number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-10  |  Number of times AS is allowed in path  |
+    |  number: 1-10  &emsp; |  Number of times AS is allowed in path  |
 
 
 <a id="nestedatt--address_family--ipv6_vpn--attribute_unchanged"></a>
@@ -1758,19 +1772,19 @@ Optional:
 
 - `advertise_map` (String) Route-map to conditionally advertise routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv6_vpn--disable_send_community"></a>
@@ -1789,14 +1803,14 @@ Optional:
 
 - `export` (Number) Access-list to filter outgoing route updates to this peer-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
+    |  number: 1-65535  &emsp; |  Access-list to filter outgoing route updates to this peer-group  |
 - `import` (Number) Access-list to filter incoming route updates from this peer-group
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
+    |  number: 1-65535  &emsp; |  Access-list to filter incoming route updates from this peer-group  |
 
 
 <a id="nestedatt--address_family--ipv6_vpn--filter_list"></a>
@@ -1831,14 +1845,14 @@ Optional:
 
 - `export` (String) Prefix-list to filter outgoing route updates to this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv6 prefix-list  |
+    |  txt  &emsp; |  Name of IPv6 prefix-list  |
 - `import` (String) Prefix-list to filter incoming route updates from this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv6 prefix-list  |
+    |  txt  &emsp; |  Name of IPv6 prefix-list  |
 
 
 <a id="nestedatt--address_family--ipv6_vpn--route_map"></a>
@@ -1848,14 +1862,14 @@ Optional:
 
 - `export` (String) Route-map to filter outgoing route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `import` (String) Route-map to filter incoming route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--ipv6_vpn--soft_reconfiguration"></a>
@@ -1887,9 +1901,9 @@ Optional:
 
 - `number` (Number) Number of occurrences of AS number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-10  |  Number of times AS is allowed in path  |
+    |  number: 1-10  &emsp; |  Number of times AS is allowed in path  |
 
 
 <a id="nestedatt--address_family--l2vpn_evpn--attribute_unchanged"></a>
@@ -1917,14 +1931,14 @@ Optional:
 
 - `export` (String) Route-map to filter outgoing route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `import` (String) Route-map to filter incoming route updates
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 
 <a id="nestedatt--address_family--l2vpn_evpn--soft_reconfiguration"></a>
@@ -1945,9 +1959,9 @@ Optional:
 - `check_control_plane_failure` (Boolean) Allow to write CBIT independence in BFD outgoing packets and read both C-BIT value of BFD and lookup BGP peer status
 - `profile` (String) Use settings from BFD profile
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  BFD profile name  |
+    |  txt  &emsp; |  BFD profile name  |
 
 
 <a id="nestedatt--capability"></a>
@@ -1966,21 +1980,21 @@ Optional:
 
 - `peer_group` (String) Peer group for this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Peer-group name  |
+    |  txt  &emsp; |  Peer-group name  |
 - `remote_as` (String) Neighbor BGP AS number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967294  |  Neighbor AS number  |
-    |  external  |  Any AS different from the local AS  |
-    |  internal  |  Neighbor AS number  |
+    |  number: 1-4294967294  &emsp; |  Neighbor AS number  |
+    |  external  &emsp; |  Any AS different from the local AS  |
+    |  internal  &emsp; |  Neighbor AS number  |
 - `source_interface` (String) Interface used to establish connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  interface  |  Interface name  |
+    |  interface  &emsp; |  Interface name  |
 - `v6only` (Attributes) Enable BGP with v6 link-local only (see [below for nested schema](#nestedatt--interface--v6only))
 
 <a id="nestedatt--interface--v6only"></a>
@@ -1990,16 +2004,16 @@ Optional:
 
 - `peer_group` (String) Peer group for this peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Peer-group name  |
+    |  txt  &emsp; |  Peer-group name  |
 - `remote_as` (String) Neighbor BGP AS number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967294  |  Neighbor AS number  |
-    |  external  |  Any AS different from the local AS  |
-    |  internal  |  Neighbor AS number  |
+    |  number: 1-4294967294  &emsp; |  Neighbor AS number  |
+    |  external  &emsp; |  Any AS different from the local AS  |
+    |  internal  &emsp; |  Neighbor AS number  |
 
 
 
@@ -2010,21 +2024,21 @@ Optional:
 
 - `connect` (String) BGP connect timer for this neighbor
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Connect timer in seconds  |
-    |  0  |  Disable connect timer  |
+    |  number: 1-65535  &emsp; |  Connect timer in seconds  |
+    |  0  &emsp; |  Disable connect timer  |
 - `holdtime` (String) BGP hold timer for this neighbor
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Hold timer in seconds  |
-    |  0  |  Hold timer disabled  |
+    |  number: 1-65535  &emsp; |  Hold timer in seconds  |
+    |  0  &emsp; |  Hold timer disabled  |
 - `keepalive` (Number) BGP keepalive interval for this neighbor
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Keepalive interval in seconds  |
+    |  number: 1-65535  &emsp; |  Keepalive interval in seconds  |
 
 
 <a id="nestedatt--ttl_security"></a>
@@ -2034,6 +2048,6 @@ Optional:
 
 - `hops` (Number) Number of the maximum number of hops to the BGP peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-254  |  Number of hops  |
+    |  number: 1-254  &emsp; |  Number of hops  |

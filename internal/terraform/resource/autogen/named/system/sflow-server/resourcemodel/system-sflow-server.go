@@ -8,7 +8,7 @@ import (
 
 // SystemSflowServer describes the resource data model.
 type SystemSflowServer struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"server_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafSystemSflowServerPort types.Number `tfsdk:"port" vyos:"port,omitempty"`
@@ -26,21 +26,21 @@ func (o *SystemSflowServer) GetVyosPath() []string {
 		"sflow",
 
 		"server",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o SystemSflowServer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"server_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `sFlow destination server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 server to export sFlow  |
-    |  ipv6  |  IPv6 server to export sFlow  |
+    |  ipv4  &emsp; |  IPv4 server to export sFlow  |
+    |  ipv6  &emsp; |  IPv6 server to export sFlow  |
 
 `,
 		},
@@ -51,9 +51,9 @@ func (o SystemSflowServer) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 

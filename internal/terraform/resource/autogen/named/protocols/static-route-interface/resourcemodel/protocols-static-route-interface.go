@@ -9,9 +9,9 @@ import (
 
 // ProtocolsStaticRouteInterface describes the resource data model.
 type ProtocolsStaticRouteInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
-	ParentIDProtocolsStaticRoute types.String `tfsdk:"route" vyos:"route_identifier,parent-id"`
+	ParentIDProtocolsStaticRoute types.String `tfsdk:"route" vyos:"route,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsStaticRouteInterfaceDisable  types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -34,31 +34,31 @@ func (o *ProtocolsStaticRouteInterface) GetVyosPath() []string {
 		o.ParentIDProtocolsStaticRoute.ValueString(),
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsStaticRouteInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Next-hop IPv4 router interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Gateway interface name  |
+    |  txt  &emsp; |  Gateway interface name  |
 
 `,
 		},
 
-		"route_identifier": schema.StringAttribute{
+		"route_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Static IPv4 route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 static route  |
+    |  ipv4net  &emsp; |  IPv4 static route  |
 
 `,
 		},
@@ -78,9 +78,9 @@ func (o ProtocolsStaticRouteInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Distance for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for this route  |
+    |  number: 1-255  &emsp; |  Distance for this route  |
 
 `,
 		},
@@ -89,9 +89,9 @@ func (o ProtocolsStaticRouteInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `VRF to leak route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of VRF to leak to  |
+    |  txt  &emsp; |  Name of VRF to leak to  |
 
 `,
 		},

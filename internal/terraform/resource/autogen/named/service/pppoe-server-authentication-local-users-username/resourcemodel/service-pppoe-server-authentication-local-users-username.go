@@ -9,7 +9,7 @@ import (
 
 // ServicePppoeServerAuthenticationLocalUsersUsername describes the resource data model.
 type ServicePppoeServerAuthenticationLocalUsersUsername struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"username_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServicePppoeServerAuthenticationLocalUsersUsernameDisable  types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -34,14 +34,14 @@ func (o *ServicePppoeServerAuthenticationLocalUsersUsername) GetVyosPath() []str
 		"local-users",
 
 		"username",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServicePppoeServerAuthenticationLocalUsersUsername) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"username_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `User name for authentication
 

@@ -8,9 +8,9 @@ import (
 
 // ProtocolsFailoverRouteNextHop describes the resource data model.
 type ProtocolsFailoverRouteNextHop struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"next_hop_id" vyos:",self-id"`
 
-	ParentIDProtocolsFailoverRoute types.String `tfsdk:"route" vyos:"route_identifier,parent-id"`
+	ParentIDProtocolsFailoverRoute types.String `tfsdk:"route" vyos:"route,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsFailoverRouteNextHopInterface types.String `tfsdk:"interface" vyos:"interface,omitempty"`
@@ -33,31 +33,31 @@ func (o *ProtocolsFailoverRouteNextHop) GetVyosPath() []string {
 		o.ParentIDProtocolsFailoverRoute.ValueString(),
 
 		"next-hop",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsFailoverRouteNextHop) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"next_hop_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Next-hop IPv4 router address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Next-hop router address  |
+    |  ipv4  &emsp; |  Next-hop router address  |
 
 `,
 		},
 
-		"route_identifier": schema.StringAttribute{
+		"route_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Failover IPv4 route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 failover route  |
+    |  ipv4net  &emsp; |  IPv4 failover route  |
 
 `,
 		},
@@ -68,9 +68,9 @@ func (o ProtocolsFailoverRouteNextHop) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Gateway interface name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Gateway interface name  |
+    |  txt  &emsp; |  Gateway interface name  |
 
 `,
 		},
@@ -79,9 +79,9 @@ func (o ProtocolsFailoverRouteNextHop) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Route metric for this gateway
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Route metric  |
+    |  number: 1-255  &emsp; |  Route metric  |
 
 `,
 

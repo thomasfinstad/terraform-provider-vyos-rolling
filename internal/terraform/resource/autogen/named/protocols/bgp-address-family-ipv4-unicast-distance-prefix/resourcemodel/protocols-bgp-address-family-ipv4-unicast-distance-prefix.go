@@ -8,7 +8,7 @@ import (
 
 // ProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix describes the resource data model.
 type ProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"prefix_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefixDistance types.Number `tfsdk:"distance" vyos:"distance,omitempty"`
@@ -32,20 +32,20 @@ func (o *ProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix) GetVyosPath() []
 		"distance",
 
 		"prefix",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"prefix_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Administrative distance for a specific BGP prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Administrative distance for a specific BGP prefix  |
+    |  ipv4net  &emsp; |  Administrative distance for a specific BGP prefix  |
 
 `,
 		},
@@ -56,9 +56,9 @@ func (o ProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix) ResourceSchemaAtt
 			Optional: true,
 			MarkdownDescription: `Administrative distance for prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Administrative distance for external BGP routes  |
+    |  number: 1-255  &emsp; |  Administrative distance for external BGP routes  |
 
 `,
 		},

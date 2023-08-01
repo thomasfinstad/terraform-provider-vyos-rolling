@@ -28,10 +28,10 @@ func (o FirewallNameRuleState) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Established state
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  |  Enable  |
-    |  disable  |  Disable  |
+    |  enable  &emsp; |  Enable  |
+    |  disable  &emsp; |  Disable  |
 
 `,
 		},
@@ -40,10 +40,10 @@ func (o FirewallNameRuleState) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Invalid state
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  |  Enable  |
-    |  disable  |  Disable  |
+    |  enable  &emsp; |  Enable  |
+    |  disable  &emsp; |  Disable  |
 
 `,
 		},
@@ -52,10 +52,10 @@ func (o FirewallNameRuleState) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `New state
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  |  Enable  |
-    |  disable  |  Disable  |
+    |  enable  &emsp; |  Enable  |
+    |  disable  &emsp; |  Disable  |
 
 `,
 		},
@@ -64,10 +64,10 @@ func (o FirewallNameRuleState) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Related state
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  |  Enable  |
-    |  disable  |  Disable  |
+    |  enable  &emsp; |  Enable  |
+    |  disable  &emsp; |  Disable  |
 
 `,
 		},

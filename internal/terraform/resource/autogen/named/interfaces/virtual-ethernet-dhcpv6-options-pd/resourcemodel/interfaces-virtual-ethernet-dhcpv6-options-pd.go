@@ -8,9 +8,9 @@ import (
 
 // InterfacesVirtualEthernetDhcpvsixOptionsPd describes the resource data model.
 type InterfacesVirtualEthernetDhcpvsixOptionsPd struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"pd_id" vyos:",self-id"`
 
-	ParentIDInterfacesVirtualEthernet types.String `tfsdk:"virtual_ethernet" vyos:"virtual-ethernet_identifier,parent-id"`
+	ParentIDInterfacesVirtualEthernet types.String `tfsdk:"virtual_ethernet" vyos:"virtual-ethernet,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesVirtualEthernetDhcpvsixOptionsPdLength types.Number `tfsdk:"length" vyos:"length,omitempty"`
@@ -32,31 +32,31 @@ func (o *InterfacesVirtualEthernetDhcpvsixOptionsPd) GetVyosPath() []string {
 		"dhcpv6-options",
 
 		"pd",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesVirtualEthernetDhcpvsixOptionsPd) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"pd_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
 
 `,
 		},
 
-		"virtual_ethernet_identifier": schema.StringAttribute{
+		"virtual_ethernet_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Ethernet (veth) Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  vethN  |  Virtual Ethernet interface name  |
+    |  vethN  &emsp; |  Virtual Ethernet interface name  |
 
 `,
 		},
@@ -67,9 +67,9 @@ func (o InterfacesVirtualEthernetDhcpvsixOptionsPd) ResourceSchemaAttributes() m
 			Optional: true,
 			MarkdownDescription: `Request IPv6 prefix length from peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:32-64  |  Length of delegated prefix  |
+    |  number: 32-64  &emsp; |  Length of delegated prefix  |
 
 `,
 

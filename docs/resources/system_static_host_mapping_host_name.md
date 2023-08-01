@@ -3,15 +3,40 @@
 page_title: "vyos_system_static_host_mapping_host_name Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>system</i>
+
+  <br>
+  &darr;
+  <br>
   Map host names to addresses
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Host name for static address mapping
+  </b>
+  </div>
 ---
 
 # vyos_system_static_host_mapping_host_name (Resource)
 
+<div style="text-align: center">
+<i>system</i>
+
+<br>
+&darr;
+<br>
 Map host names to addresses
 
+<br>
+&darr;
+<br>
+<b>
 Host name for static address mapping
+</b>
+</div>
 
 
 
@@ -20,14 +45,14 @@ Host name for static address mapping
 
 ### Required
 
-- `identifier` (String) Host name for static address mapping
+- `host_name_id` (String) Host name for static address mapping
 
 ### Optional
 
 - `alias` (List of String) Alias for this address
 - `inet` (List of String) IP Address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address  |
-    |  ipv6  |  IPv6 address  |
+    |  ipv4  &emsp; |  IPv4 address  |
+    |  ipv6  &emsp; |  IPv6 address  |

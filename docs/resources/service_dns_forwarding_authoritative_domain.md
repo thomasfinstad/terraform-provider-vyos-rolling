@@ -3,25 +3,50 @@
 page_title: "vyos_service_dns_forwarding_authoritative_domain Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Domain Name System related services
+
+  <br>
+  &darr;
+  <br>
   DNS forwarding
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Domain to host authoritative records for
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  text  |  An absolute DNS name  |
+  </b>
+  </div>
 ---
 
 # vyos_service_dns_forwarding_authoritative_domain (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Domain Name System related services
 
+<br>
+&darr;
+<br>
 DNS forwarding
 
+<br>
+&darr;
+<br>
+<b>
 Domain to host authoritative records for
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  text  |  An absolute DNS name  |
+</b>
+</div>
 
 
 
@@ -30,11 +55,11 @@ Domain to host authoritative records for
 
 ### Required
 
-- `identifier` (String) Domain to host authoritative records for
+- `authoritative_domain_id` (String) Domain to host authoritative records for
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  An absolute DNS name  |
+    |  text  &emsp; |  An absolute DNS name  |
 
 ### Optional
 

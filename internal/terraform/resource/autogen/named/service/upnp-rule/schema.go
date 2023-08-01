@@ -12,14 +12,21 @@ import (
 func (r serviceUpnpRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Universal Plug and Play (UPnP) service
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Universal Plug and Play (UPnP) service
+
+<br>
+&darr;
+<br>
+<b>
 UPnP Rule
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:0-65535  |  Rule number  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

@@ -3,36 +3,60 @@
 page_title: "vyos_service_dhcp_server_shared_network_name_subnet_static_route Resource - vyos"
 subcategory: ""
 description: |-
-  Dynamic Host Configuration Protocol (DHCP) for DHCP server
-  Name of DHCP shared network
-  DHCP subnet for shared network
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  IPv4 address and prefix length  |
+  <div style="text-align: center">
+  <i>service</i>
 
+  <br>
+  &darr;
+  <br>
+  Dynamic Host Configuration Protocol (DHCP) for DHCP server
+
+  <br>
+  &darr;
+  <br>
+  Name of DHCP shared network
+
+  <br>
+  &darr;
+  <br>
+  DHCP subnet for shared network
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Classless static route destination subnet
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  IPv4 address and prefix length  |
+  </b>
+  </div>
 ---
 
 # vyos_service_dhcp_server_shared_network_name_subnet_static_route (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Dynamic Host Configuration Protocol (DHCP) for DHCP server
 
+<br>
+&darr;
+<br>
 Name of DHCP shared network
 
+<br>
+&darr;
+<br>
 DHCP subnet for shared network
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-
+<br>
+&darr;
+<br>
+<b>
 Classless static route destination subnet
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
+</b>
+</div>
 
 
 
@@ -41,22 +65,22 @@ Classless static route destination subnet
 
 ### Required
 
-- `identifier` (String) Classless static route destination subnet
+- `shared_network_name_id` (String) Name of DHCP shared network
+- `static_route_id` (String) Classless static route destination subnet
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-- `shared_network_name_identifier` (String) Name of DHCP shared network
-- `subnet_identifier` (String) DHCP subnet for shared network
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+- `subnet_id` (String) DHCP subnet for shared network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
 
 ### Optional
 
 - `next_hop` (String) IP address of router to be used to reach the destination subnet
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address of router  |
+    |  ipv4  &emsp; |  IPv4 address of router  |

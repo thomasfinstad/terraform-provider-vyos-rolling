@@ -9,7 +9,7 @@ import (
 
 // LoadBalancingWanRule describes the resource data model.
 type LoadBalancingWanRule struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafLoadBalancingWanRuleDescrIPtion        types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -36,20 +36,20 @@ func (o *LoadBalancingWanRule) GetVyosPath() []string {
 		"wan",
 
 		"rule",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o LoadBalancingWanRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Rule number (1-9999)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-9999  |  Rule number  |
+    |  number: 1-9999  &emsp; |  Rule number  |
 
 `,
 		},
@@ -60,9 +60,9 @@ func (o LoadBalancingWanRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Description for this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description for this rule  |
+    |  txt  &emsp; |  Description for this rule  |
 
 `,
 		},
@@ -105,13 +105,13 @@ func (o LoadBalancingWanRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Protocol to match (protocol name, number, or "all")
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  all  |  All IP protocols  |
-    |  tcp_udp  |  Both TCP and UDP  |
-    |  u32:0-255  |  IP protocol number  |
-    |  <protocol>  |  IP protocol name  |
-    |  !<protocol>  |  IP protocol name  |
+    |  all  &emsp; |  All IP protocols  |
+    |  tcp_udp  &emsp; |  Both TCP and UDP  |
+    |  number: 0-255  &emsp; |  IP protocol number  |
+    |  <protocol>  &emsp; |  IP protocol name  |
+    |  !<protocol>  &emsp; |  IP protocol name  |
 
 `,
 		},

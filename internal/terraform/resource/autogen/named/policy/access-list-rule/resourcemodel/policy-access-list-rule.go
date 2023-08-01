@@ -8,9 +8,9 @@ import (
 
 // PolicyAccessListRule describes the resource data model.
 type PolicyAccessListRule struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
-	ParentIDPolicyAccessList types.String `tfsdk:"access_list" vyos:"access-list_identifier,parent-id"`
+	ParentIDPolicyAccessList types.String `tfsdk:"access_list" vyos:"access-list,parent-id"`
 
 	// LeafNodes
 	LeafPolicyAccessListRuleAction      types.String `tfsdk:"action" vyos:"action,omitempty"`
@@ -32,34 +32,34 @@ func (o *PolicyAccessListRule) GetVyosPath() []string {
 		o.ParentIDPolicyAccessList.ValueString(),
 
 		"rule",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PolicyAccessListRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Rule for this access-list
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list rule number  |
+    |  number: 1-65535  &emsp; |  Access-list rule number  |
 
 `,
 		},
 
-		"access_list_identifier": schema.StringAttribute{
+		"access_list_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IP access-list filter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-99  |  IP standard access list  |
-    |  u32:100-199  |  IP extended access list  |
-    |  u32:1300-1999  |  IP standard access list (expanded range)  |
-    |  u32:2000-2699  |  IP extended access list (expanded range)  |
+    |  number: 1-99  &emsp; |  IP standard access list  |
+    |  number: 100-199  &emsp; |  IP extended access list  |
+    |  number: 1300-1999  &emsp; |  IP standard access list (expanded range)  |
+    |  number: 2000-2699  &emsp; |  IP extended access list (expanded range)  |
 
 `,
 		},
@@ -70,10 +70,10 @@ func (o PolicyAccessListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  permit  |  Permit matching entries  |
-    |  deny  |  Deny matching entries  |
+    |  permit  &emsp; |  Permit matching entries  |
+    |  deny  &emsp; |  Deny matching entries  |
 
 `,
 		},
@@ -82,9 +82,9 @@ func (o PolicyAccessListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

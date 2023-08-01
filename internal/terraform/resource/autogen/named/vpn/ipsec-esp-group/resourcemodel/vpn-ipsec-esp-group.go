@@ -9,7 +9,7 @@ import (
 
 // VpnIPsecEspGroup describes the resource data model.
 type VpnIPsecEspGroup struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"esp_group_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafVpnIPsecEspGroupCompression types.Bool   `tfsdk:"compression" vyos:"compression,omitempty"`
@@ -33,14 +33,14 @@ func (o *VpnIPsecEspGroup) GetVyosPath() []string {
 		"ipsec",
 
 		"esp-group",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VpnIPsecEspGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"esp_group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Encapsulating Security Payload (ESP) group name
 
@@ -62,9 +62,9 @@ func (o VpnIPsecEspGroup) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Security Association time to expire
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:30-86400  |  SA lifetime in seconds  |
+    |  number: 30-86400  &emsp; |  SA lifetime in seconds  |
 
 `,
 
@@ -76,9 +76,9 @@ func (o VpnIPsecEspGroup) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Security Association byte count to expire
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1024-26843545600000  |  SA life in bytes  |
+    |  number: 1024-26843545600000  &emsp; |  SA life in bytes  |
 
 `,
 		},
@@ -87,9 +87,9 @@ func (o VpnIPsecEspGroup) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Security Association packet count to expire
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1000-26843545600000  |  SA life in packets  |
+    |  number: 1000-26843545600000  &emsp; |  SA life in packets  |
 
 `,
 		},
@@ -98,10 +98,10 @@ func (o VpnIPsecEspGroup) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `ESP mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  tunnel  |  Tunnel mode  |
-    |  transport  |  Transport mode  |
+    |  tunnel  &emsp; |  Tunnel mode  |
+    |  transport  &emsp; |  Transport mode  |
 
 `,
 
@@ -113,32 +113,32 @@ func (o VpnIPsecEspGroup) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `ESP Perfect Forward Secrecy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  |  Inherit Diffie-Hellman group from the IKE group  |
-    |  dh-group1  |  Use Diffie-Hellman group 1 (modp768)  |
-    |  dh-group2  |  Use Diffie-Hellman group 2 (modp1024)  |
-    |  dh-group5  |  Use Diffie-Hellman group 5 (modp1536)  |
-    |  dh-group14  |  Use Diffie-Hellman group 14 (modp2048)  |
-    |  dh-group15  |  Use Diffie-Hellman group 15 (modp3072)  |
-    |  dh-group16  |  Use Diffie-Hellman group 16 (modp4096)  |
-    |  dh-group17  |  Use Diffie-Hellman group 17 (modp6144)  |
-    |  dh-group18  |  Use Diffie-Hellman group 18 (modp8192)  |
-    |  dh-group19  |  Use Diffie-Hellman group 19 (ecp256)  |
-    |  dh-group20  |  Use Diffie-Hellman group 20 (ecp384)  |
-    |  dh-group21  |  Use Diffie-Hellman group 21 (ecp521)  |
-    |  dh-group22  |  Use Diffie-Hellman group 22 (modp1024s160)  |
-    |  dh-group23  |  Use Diffie-Hellman group 23 (modp2048s224)  |
-    |  dh-group24  |  Use Diffie-Hellman group 24 (modp2048s256)  |
-    |  dh-group25  |  Use Diffie-Hellman group 25 (ecp192)  |
-    |  dh-group26  |  Use Diffie-Hellman group 26 (ecp224)  |
-    |  dh-group27  |  Use Diffie-Hellman group 27 (ecp224bp)  |
-    |  dh-group28  |  Use Diffie-Hellman group 28 (ecp256bp)  |
-    |  dh-group29  |  Use Diffie-Hellman group 29 (ecp384bp)  |
-    |  dh-group30  |  Use Diffie-Hellman group 30 (ecp512bp)  |
-    |  dh-group31  |  Use Diffie-Hellman group 31 (curve25519)  |
-    |  dh-group32  |  Use Diffie-Hellman group 32 (curve448)  |
-    |  disable  |  Disable PFS  |
+    |  enable  &emsp; |  Inherit Diffie-Hellman group from the IKE group  |
+    |  dh-group1  &emsp; |  Use Diffie-Hellman group 1 (modp768)  |
+    |  dh-group2  &emsp; |  Use Diffie-Hellman group 2 (modp1024)  |
+    |  dh-group5  &emsp; |  Use Diffie-Hellman group 5 (modp1536)  |
+    |  dh-group14  &emsp; |  Use Diffie-Hellman group 14 (modp2048)  |
+    |  dh-group15  &emsp; |  Use Diffie-Hellman group 15 (modp3072)  |
+    |  dh-group16  &emsp; |  Use Diffie-Hellman group 16 (modp4096)  |
+    |  dh-group17  &emsp; |  Use Diffie-Hellman group 17 (modp6144)  |
+    |  dh-group18  &emsp; |  Use Diffie-Hellman group 18 (modp8192)  |
+    |  dh-group19  &emsp; |  Use Diffie-Hellman group 19 (ecp256)  |
+    |  dh-group20  &emsp; |  Use Diffie-Hellman group 20 (ecp384)  |
+    |  dh-group21  &emsp; |  Use Diffie-Hellman group 21 (ecp521)  |
+    |  dh-group22  &emsp; |  Use Diffie-Hellman group 22 (modp1024s160)  |
+    |  dh-group23  &emsp; |  Use Diffie-Hellman group 23 (modp2048s224)  |
+    |  dh-group24  &emsp; |  Use Diffie-Hellman group 24 (modp2048s256)  |
+    |  dh-group25  &emsp; |  Use Diffie-Hellman group 25 (ecp192)  |
+    |  dh-group26  &emsp; |  Use Diffie-Hellman group 26 (ecp224)  |
+    |  dh-group27  &emsp; |  Use Diffie-Hellman group 27 (ecp224bp)  |
+    |  dh-group28  &emsp; |  Use Diffie-Hellman group 28 (ecp256bp)  |
+    |  dh-group29  &emsp; |  Use Diffie-Hellman group 29 (ecp384bp)  |
+    |  dh-group30  &emsp; |  Use Diffie-Hellman group 30 (ecp512bp)  |
+    |  dh-group31  &emsp; |  Use Diffie-Hellman group 31 (curve25519)  |
+    |  dh-group32  &emsp; |  Use Diffie-Hellman group 32 (curve448)  |
+    |  disable  &emsp; |  Disable PFS  |
 
 `,
 

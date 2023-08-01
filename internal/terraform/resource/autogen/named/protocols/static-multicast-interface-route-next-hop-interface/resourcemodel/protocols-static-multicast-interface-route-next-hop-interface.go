@@ -8,9 +8,9 @@ import (
 
 // ProtocolsStaticMulticastInterfaceRouteNextHopInterface describes the resource data model.
 type ProtocolsStaticMulticastInterfaceRouteNextHopInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"next_hop_interface_id" vyos:",self-id"`
 
-	ParentIDProtocolsStaticMulticastInterfaceRoute types.String `tfsdk:"interface_route" vyos:"interface-route_identifier,parent-id"`
+	ParentIDProtocolsStaticMulticastInterfaceRoute types.String `tfsdk:"interface_route" vyos:"interface-route,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsStaticMulticastInterfaceRouteNextHopInterfaceDistance types.Number `tfsdk:"distance" vyos:"distance,omitempty"`
@@ -33,27 +33,27 @@ func (o *ProtocolsStaticMulticastInterfaceRouteNextHopInterface) GetVyosPath() [
 		o.ParentIDProtocolsStaticMulticastInterfaceRoute.ValueString(),
 
 		"next-hop-interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsStaticMulticastInterfaceRouteNextHopInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"next_hop_interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Next-hop interface
 
 `,
 		},
 
-		"interface_route_identifier": schema.StringAttribute{
+		"interface_route_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Multicast interface based route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Network  |
+    |  ipv4net  &emsp; |  Network  |
 
 `,
 		},
@@ -64,9 +64,9 @@ func (o ProtocolsStaticMulticastInterfaceRouteNextHopInterface) ResourceSchemaAt
 			Optional: true,
 			MarkdownDescription: `Distance value for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for this route  |
+    |  number: 1-255  &emsp; |  Distance for this route  |
 
 `,
 		},

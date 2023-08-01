@@ -12,15 +12,21 @@ import (
 func (r systemSflowServer) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `sFlow settings
+		MarkdownDescription: `<div style="text-align: center">
+<i>system</i>
 
+<br>
+&darr;
+<br>
+sFlow settings
+
+<br>
+&darr;
+<br>
+<b>
 sFlow destination server
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  IPv4 server to export sFlow  |
-    |  ipv6  |  IPv6 server to export sFlow  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

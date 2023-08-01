@@ -9,7 +9,7 @@ import (
 
 // InterfacesSstpc describes the resource data model.
 type InterfacesSstpc struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"sstpc_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafInterfacesSstpcDescrIPtion          types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -35,20 +35,20 @@ func (o *InterfacesSstpc) GetVyosPath() []string {
 		"interfaces",
 
 		"sstpc",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesSstpc) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"sstpc_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Secure Socket Tunneling Protocol (SSTP) client Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  sstpcN  |  Secure Socket Tunneling Protocol interface name  |
+    |  sstpcN  &emsp; |  Secure Socket Tunneling Protocol interface name  |
 
 `,
 		},
@@ -59,9 +59,9 @@ func (o InterfacesSstpc) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -88,9 +88,9 @@ func (o InterfacesSstpc) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Distance for installed default route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for the default route from DHCP server  |
+    |  number: 1-255  &emsp; |  Distance for the default route from DHCP server  |
 
 `,
 
@@ -111,9 +111,9 @@ func (o InterfacesSstpc) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:68-1500  |  Maximum Transmission Unit in byte  |
+    |  number: 68-1500  &emsp; |  Maximum Transmission Unit in byte  |
 
 `,
 
@@ -125,10 +125,10 @@ func (o InterfacesSstpc) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Remote server to connect to
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Server IPv4 address  |
-    |  hostname  |  Server hostname/FQDN  |
+    |  ipv4  &emsp; |  Server IPv4 address  |
+    |  hostname  &emsp; |  Server hostname/FQDN  |
 
 `,
 		},
@@ -137,9 +137,9 @@ func (o InterfacesSstpc) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 
@@ -151,9 +151,9 @@ func (o InterfacesSstpc) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},

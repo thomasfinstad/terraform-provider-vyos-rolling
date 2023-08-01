@@ -3,33 +3,40 @@
 page_title: "vyos_policy_large_community_list_rule Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Routing policy
-  Add a BGP large community list entry
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  BGP large-community-list name  |
 
+  <br>
+  &darr;
+  <br>
+  Add a BGP large community list entry
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Rule for this BGP extended community list
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-65535  |  Large community-list rule number  |
+  </b>
+  </div>
 ---
 
 # vyos_policy_large_community_list_rule (Resource)
 
+<div style="text-align: center">
 Routing policy
 
+<br>
+&darr;
+<br>
 Add a BGP large community list entry
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  BGP large-community-list name  |
-
+<br>
+&darr;
+<br>
+<b>
 Rule for this BGP extended community list
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-65535  |  Large community-list rule number  |
+</b>
+</div>
 
 
 
@@ -38,33 +45,33 @@ Rule for this BGP extended community list
 
 ### Required
 
-- `identifier` (String) Rule for this BGP extended community list
+- `large_community_list_id` (String) Add a BGP large community list entry
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Large community-list rule number  |
-- `large_community_list_identifier` (String) Add a BGP large community list entry
+    |  txt  &emsp; |  BGP large-community-list name  |
+- `rule_id` (String) Rule for this BGP extended community list
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  BGP large-community-list name  |
+    |  number: 1-65535  &emsp; |  Large community-list rule number  |
 
 ### Optional
 
 - `action` (String) Action to take on entries matching this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  permit  |  Permit matching entries  |
-    |  deny  |  Deny matching entries  |
+    |  permit  &emsp; |  Permit matching entries  |
+    |  deny  &emsp; |  Deny matching entries  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `regex` (String) Regular expression to match against a large community list
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ASN:NN:NN  |  BGP large-community-list filter  |
-    |  IP:NN:NN  |  BGP large-community-list filter (IPv4 address format)  |
+    |  ASN:NN:NN  &emsp; |  BGP large-community-list filter  |
+    |  IP:NN:NN  &emsp; |  BGP large-community-list filter (IPv4 address format)  |

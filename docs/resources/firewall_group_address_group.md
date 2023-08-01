@@ -3,18 +3,40 @@
 page_title: "vyos_firewall_group_address_group Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Firewall
+
+  <br>
+  &darr;
+  <br>
   Firewall group
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Firewall address-group
+  </b>
+  </div>
 ---
 
 # vyos_firewall_group_address_group (Resource)
 
+<div style="text-align: center">
 Firewall
 
+<br>
+&darr;
+<br>
 Firewall group
 
+<br>
+&darr;
+<br>
+<b>
 Firewall address-group
+</b>
+</div>
 
 
 
@@ -23,19 +45,19 @@ Firewall address-group
 
 ### Required
 
-- `identifier` (String) Firewall address-group
+- `address_group_id` (String) Firewall address-group
 
 ### Optional
 
 - `address` (List of String) Address-group member
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address to match  |
-    |  ipv4range  |  IPv4 range to match (e.g. 10.0.0.1-10.0.0.200)  |
+    |  ipv4  &emsp; |  IPv4 address to match  |
+    |  ipv4range  &emsp; |  IPv4 range to match (e.g. 10.0.0.1-10.0.0.200)  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `include` (List of String) Include another address-group

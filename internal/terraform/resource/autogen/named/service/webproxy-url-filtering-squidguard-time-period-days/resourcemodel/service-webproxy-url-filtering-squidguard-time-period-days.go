@@ -8,9 +8,9 @@ import (
 
 // ServiceWebproxyURLFilteringSquIDguardTimePeriodDays describes the resource data model.
 type ServiceWebproxyURLFilteringSquIDguardTimePeriodDays struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"days_id" vyos:",self-id"`
 
-	ParentIDServiceWebproxyURLFilteringSquIDguardTimePeriod types.String `tfsdk:"time_period" vyos:"time-period_identifier,parent-id"`
+	ParentIDServiceWebproxyURLFilteringSquIDguardTimePeriod types.String `tfsdk:"time_period" vyos:"time-period,parent-id"`
 
 	// LeafNodes
 	LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDaysTime types.String `tfsdk:"time" vyos:"time,omitempty"`
@@ -35,34 +35,34 @@ func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) GetVyosPath() []st
 		o.ParentIDServiceWebproxyURLFilteringSquIDguardTimePeriod.ValueString(),
 
 		"days",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"days_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Time-period days
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  Sun  |  Sunday  |
-    |  Mon  |  Monday  |
-    |  Tue  |  Tuesday  |
-    |  Wed  |  Wednesday  |
-    |  Thu  |  Thursday  |
-    |  Fri  |  Friday  |
-    |  Sat  |  Saturday  |
-    |  weekdays  |  Monday through Friday  |
-    |  weekend  |  Saturday and Sunday  |
-    |  all  |  All days of the week  |
+    |  Sun  &emsp; |  Sunday  |
+    |  Mon  &emsp; |  Monday  |
+    |  Tue  &emsp; |  Tuesday  |
+    |  Wed  &emsp; |  Wednesday  |
+    |  Thu  &emsp; |  Thursday  |
+    |  Fri  &emsp; |  Friday  |
+    |  Sat  &emsp; |  Saturday  |
+    |  weekdays  &emsp; |  Monday through Friday  |
+    |  weekend  &emsp; |  Saturday and Sunday  |
+    |  all  &emsp; |  All days of the week  |
 
 `,
 		},
 
-		"time_period_identifier": schema.StringAttribute{
+		"time_period_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Time period name
 
@@ -75,9 +75,9 @@ func (o ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) ResourceSchemaAttri
 			Optional: true,
 			MarkdownDescription: `Time for time-period
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <hh:mm - hh:mm>  |  Time range in 24hr time  |
+    |  <hh:mm - hh:mm>  &emsp; |  Time range in 24hr time  |
 
 `,
 		},

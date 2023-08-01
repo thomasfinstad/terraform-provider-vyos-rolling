@@ -27,9 +27,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpn) ResourceSch
 			Optional: true,
 			MarkdownDescription: `Route Target both import and export
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  txt  &emsp; |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 
 `,
 		},
@@ -38,9 +38,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpn) ResourceSch
 			Optional: true,
 			MarkdownDescription: `Route Target import
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  txt  &emsp; |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 
 `,
 		},
@@ -49,9 +49,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpn) ResourceSch
 			Optional: true,
 			MarkdownDescription: `Route Target export
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  txt  &emsp; |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 
 `,
 		},

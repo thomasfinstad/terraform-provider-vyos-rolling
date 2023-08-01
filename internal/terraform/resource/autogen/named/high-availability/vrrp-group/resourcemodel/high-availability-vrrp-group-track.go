@@ -37,9 +37,9 @@ func (o HighAvailabilityVrrpGroupTrack) ResourceSchemaAttributes() map[string]sc
 			Optional:    true,
 			MarkdownDescription: `Interface name state check
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},

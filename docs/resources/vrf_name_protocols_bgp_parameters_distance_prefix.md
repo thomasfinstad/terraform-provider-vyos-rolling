@@ -3,45 +3,80 @@
 page_title: "vyos_vrf_name_protocols_bgp_parameters_distance_prefix Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
-  Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
+  Virtual Routing and Forwarding instance
+
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
+
+  <br>
+  &darr;
+  <br>
   Border Gateway Protocol (BGP)
+
+  <br>
+  &darr;
+  <br>
   BGP parameters
+
+  <br>
+  &darr;
+  <br>
   Administratives distances for BGP routes
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Administrative distance for a specific BGP prefix
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  Administrative distance for a specific BGP prefix  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_bgp_parameters_distance_prefix (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Border Gateway Protocol (BGP)
 
+<br>
+&darr;
+<br>
 BGP parameters
 
+<br>
+&darr;
+<br>
 Administratives distances for BGP routes
 
+<br>
+&darr;
+<br>
+<b>
 Administrative distance for a specific BGP prefix
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  Administrative distance for a specific BGP prefix  |
+</b>
+</div>
 
 
 
@@ -50,21 +85,21 @@ Administrative distance for a specific BGP prefix
 
 ### Required
 
-- `identifier` (String) Administrative distance for a specific BGP prefix
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Administrative distance for a specific BGP prefix  |
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+    |  txt  &emsp; |  VRF instance name  |
+- `prefix_id` (String) Administrative distance for a specific BGP prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  ipv4net  &emsp; |  Administrative distance for a specific BGP prefix  |
 
 ### Optional
 
 - `distance` (Number) Administrative distance for prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Administrative distance for external BGP routes  |
+    |  number: 1-255  &emsp; |  Administrative distance for external BGP routes  |

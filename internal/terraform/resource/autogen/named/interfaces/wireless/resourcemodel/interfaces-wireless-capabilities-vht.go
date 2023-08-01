@@ -38,9 +38,9 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `Number of antennas on this card
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-8  |  Number of antennas for this card  |
+    |  number: 1-8  &emsp; |  Number of antennas for this card  |
 
 `,
 		},
@@ -59,12 +59,12 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes() map[string
 			Optional:    true,
 			MarkdownDescription: `Beamforming capabilities
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  single-user-beamformer  |  Support for operation as single user beamformer  |
-    |  single-user-beamformee  |  Support for operation as single user beamformee  |
-    |  multi-user-beamformer  |  Support for operation as multi user beamformer  |
-    |  multi-user-beamformee  |  Support for operation as multi user beamformee  |
+    |  single-user-beamformer  &emsp; |  Support for operation as single user beamformer  |
+    |  single-user-beamformee  &emsp; |  Support for operation as single user beamformee  |
+    |  multi-user-beamformer  &emsp; |  Support for operation as multi user beamformer  |
+    |  multi-user-beamformee  &emsp; |  Support for operation as multi user beamformee  |
 
 `,
 		},
@@ -73,12 +73,12 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `VHT operating Channel width
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  0  |  20 or 40 MHz channel width  |
-    |  1  |  80 MHz channel width  |
-    |  2  |  160 MHz channel width  |
-    |  3  |  80+80 MHz channel width  |
+    |  0  &emsp; |  20 or 40 MHz channel width  |
+    |  1  &emsp; |  80 MHz channel width  |
+    |  2  &emsp; |  160 MHz channel width  |
+    |  3  &emsp; |  80+80 MHz channel width  |
 
 `,
 		},
@@ -96,10 +96,10 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `VHT link adaptation capabilities
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  unsolicited  |  Station provides only unsolicited VHT MFB  |
-    |  both  |  Station can provide VHT MFB in response to VHT MRQ and unsolicited VHT MFB  |
+    |  unsolicited  &emsp; |  Station provides only unsolicited VHT MFB  |
+    |  both  &emsp; |  Station can provide VHT MFB in response to VHT MRQ and unsolicited VHT MFB  |
 
 `,
 		},
@@ -108,9 +108,9 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `Set the maximum length of A-MPDU pre-EOF padding that the station can receive
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-7  |  Maximum length of A-MPDU pre-EOF padding = 2 pow(13 + x) -1 octets  |
+    |  number: 0-7  &emsp; |  Maximum length of A-MPDU pre-EOF padding = 2 pow(13 + x) -1 octets  |
 
 `,
 		},
@@ -119,10 +119,10 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `Increase Maximum MPDU length to 7991 or 11454 octets (otherwise: 3895 octets)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  7991  |  ncrease Maximum MPDU length to 7991 octets  |
-    |  11454  |  ncrease Maximum MPDU length to 11454 octets  |
+    |  7991  &emsp; |  ncrease Maximum MPDU length to 7991 octets  |
+    |  11454  &emsp; |  ncrease Maximum MPDU length to 11454 octets  |
 
 `,
 		},
@@ -132,10 +132,10 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceSchemaAttributes() map[string
 			Optional:    true,
 			MarkdownDescription: `Short GI capabilities
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  80  |  Short GI for 80 MHz  |
-    |  160  |  Short GI for 160 MHz  |
+    |  80  &emsp; |  Short GI for 80 MHz  |
+    |  160  &emsp; |  Short GI for 160 MHz  |
 
 `,
 		},

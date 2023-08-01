@@ -25,9 +25,9 @@ func (o PolicyLocalRoutesixRuleSet) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Routing table to forward packet with
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-200  |  Table number  |
+    |  number: 1-200  &emsp; |  Table number  |
 
 `,
 		},

@@ -8,9 +8,9 @@ import (
 
 // FirewallZoneFrom describes the resource data model.
 type FirewallZoneFrom struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"from_id" vyos:",self-id"`
 
-	ParentIDFirewallZone types.String `tfsdk:"zone" vyos:"zone_identifier,parent-id"`
+	ParentIDFirewallZone types.String `tfsdk:"zone" vyos:"zone,parent-id"`
 
 	// LeafNodes
 
@@ -29,27 +29,27 @@ func (o *FirewallZoneFrom) GetVyosPath() []string {
 		o.ParentIDFirewallZone.ValueString(),
 
 		"from",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o FirewallZoneFrom) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"from_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Zone from which to filter traffic
 
 `,
 		},
 
-		"zone_identifier": schema.StringAttribute{
+		"zone_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Zone-policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Zone name  |
+    |  txt  &emsp; |  Zone name  |
 
 `,
 		},

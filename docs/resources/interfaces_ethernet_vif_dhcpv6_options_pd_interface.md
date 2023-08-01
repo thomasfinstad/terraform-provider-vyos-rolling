@@ -3,51 +3,70 @@
 page_title: "vyos_interfaces_ethernet_vif_dhcpv6_options_pd_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Network interfaces
+
+  <br>
+  &darr;
+  <br>
   Ethernet Interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ethN  |  Ethernet interface name  |
 
+  <br>
+  &darr;
+  <br>
   Virtual Local Area Network (VLAN) ID
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
 
+  <br>
+  &darr;
+  <br>
   DHCPv6 client settings/options
-  DHCPv6 prefix delegation interface statement
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  instance number  |  Prefix delegation instance (>= 0)  |
 
+  <br>
+  &darr;
+  <br>
+  DHCPv6 prefix delegation interface statement
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Delegate IPv6 prefix from provider to this interface
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_ethernet_vif_dhcpv6_options_pd_interface (Resource)
 
+<div style="text-align: center">
 Network interfaces
 
+<br>
+&darr;
+<br>
 Ethernet Interface
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ethN  |  Ethernet interface name  |
-
+<br>
+&darr;
+<br>
 Virtual Local Area Network (VLAN) ID
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
-
+<br>
+&darr;
+<br>
 DHCPv6 client settings/options
 
+<br>
+&darr;
+<br>
 DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
-
+<br>
+&darr;
+<br>
+<b>
 Delegate IPv6 prefix from provider to this interface
+</b>
+</div>
 
 
 
@@ -56,32 +75,32 @@ Delegate IPv6 prefix from provider to this interface
 
 ### Required
 
-- `ethernet_identifier` (String) Ethernet Interface
+- `ethernet_id` (String) Ethernet Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ethN  |  Ethernet interface name  |
-- `identifier` (String) Delegate IPv6 prefix from provider to this interface
-- `pd_identifier` (String) DHCPv6 prefix delegation interface statement
+    |  ethN  &emsp; |  Ethernet interface name  |
+- `interface_id` (String) Delegate IPv6 prefix from provider to this interface
+- `pd_id` (String) DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
-- `vif_identifier` (String) Virtual Local Area Network (VLAN) ID
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
+- `vif_id` (String) Virtual Local Area Network (VLAN) ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
+    |  number: 0-4094  &emsp; |  Virtual Local Area Network (VLAN) ID  |
 
 ### Optional
 
 - `address` (String) Local interface address assigned to interface (default: EUI-64)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  >0  |  Used to form IPv6 interface address  |
+    |  >0  &emsp; |  Used to form IPv6 interface address  |
 - `sla_id` (Number) Interface site-Level aggregator (SLA)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Decimal integer which fits in the length of SLA IDs  |
+    |  number: 0-65535  &emsp; |  Decimal integer which fits in the length of SLA IDs  |

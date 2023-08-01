@@ -3,18 +3,50 @@
 page_title: "vyos_service_dns_forwarding_domain Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Domain Name System related services
+
+  <br>
+  &darr;
+  <br>
   DNS forwarding
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Domain to forward to a custom DNS server
+  </b>
+  </div>
 ---
 
 # vyos_service_dns_forwarding_domain (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Domain Name System related services
 
+<br>
+&darr;
+<br>
 DNS forwarding
 
+<br>
+&darr;
+<br>
+<b>
 Domain to forward to a custom DNS server
+</b>
+</div>
 
 
 
@@ -23,7 +55,7 @@ Domain to forward to a custom DNS server
 
 ### Required
 
-- `identifier` (String) Domain to forward to a custom DNS server
+- `domain_id` (String) Domain to forward to a custom DNS server
 
 ### Optional
 
@@ -31,7 +63,7 @@ Domain to forward to a custom DNS server
 - `recursion_desired` (Boolean) Set the "recursion desired" bit in requests to the upstream nameserver
 - `server` (List of String) Domain Name Server (DNS) to forward queries to
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
-    |  ipv6  |  Domain Name Server (DNS) IPv6 address  |
+    |  ipv4  &emsp; |  Domain Name Server (DNS) IPv4 address  |
+    |  ipv6  &emsp; |  Domain Name Server (DNS) IPv6 address  |

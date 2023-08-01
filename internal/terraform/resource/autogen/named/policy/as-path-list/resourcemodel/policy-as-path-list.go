@@ -8,7 +8,7 @@ import (
 
 // PolicyAsPathList describes the resource data model.
 type PolicyAsPathList struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"as_path_list_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafPolicyAsPathListDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -25,20 +25,20 @@ func (o *PolicyAsPathList) GetVyosPath() []string {
 		"policy",
 
 		"as-path-list",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PolicyAsPathList) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"as_path_list_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Add a BGP autonomous system path filter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  AS path list name  |
+    |  txt  &emsp; |  AS path list name  |
 
 `,
 		},
@@ -49,9 +49,9 @@ func (o PolicyAsPathList) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

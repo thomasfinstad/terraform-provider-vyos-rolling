@@ -9,9 +9,9 @@ import (
 
 // InterfacesWirelessSecURItyWpaRadiusServer describes the resource data model.
 type InterfacesWirelessSecURItyWpaRadiusServer struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"server_id" vyos:",self-id"`
 
-	ParentIDInterfacesWireless types.String `tfsdk:"wireless" vyos:"wireless_identifier,parent-id"`
+	ParentIDInterfacesWireless types.String `tfsdk:"wireless" vyos:"wireless,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesWirelessSecURItyWpaRadiusServerDisable    types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -39,31 +39,31 @@ func (o *InterfacesWirelessSecURItyWpaRadiusServer) GetVyosPath() []string {
 		"radius",
 
 		"server",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesWirelessSecURItyWpaRadiusServer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"server_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `RADIUS server configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  RADIUS server IPv4 address  |
+    |  ipv4  &emsp; |  RADIUS server IPv4 address  |
 
 `,
 		},
 
-		"wireless_identifier": schema.StringAttribute{
+		"wireless_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Wireless (WiFi/WLAN) Network Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
+    |  wlanN  &emsp; |  Wireless (WiFi/WLAN) interface name  |
 
 `,
 		},
@@ -90,9 +90,9 @@ func (o InterfacesWirelessSecURItyWpaRadiusServer) ResourceSchemaAttributes() ma
 			Optional: true,
 			MarkdownDescription: `Authentication port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 

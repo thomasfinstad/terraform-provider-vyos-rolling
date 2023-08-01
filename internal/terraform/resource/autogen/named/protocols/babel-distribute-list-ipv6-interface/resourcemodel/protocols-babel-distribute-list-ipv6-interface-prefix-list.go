@@ -26,9 +26,9 @@ func (o ProtocolsBabelDistributeListIPvsixInterfacePrefixList) ResourceSchemaAtt
 			Optional: true,
 			MarkdownDescription: `Prefix-list to apply to input packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Prefix-list to apply to input packets  |
+    |  txt  &emsp; |  Prefix-list to apply to input packets  |
 
 `,
 		},
@@ -37,9 +37,9 @@ func (o ProtocolsBabelDistributeListIPvsixInterfacePrefixList) ResourceSchemaAtt
 			Optional: true,
 			MarkdownDescription: `Prefix-list to apply to output packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Prefix-list to apply to output packets  |
+    |  txt  &emsp; |  Prefix-list to apply to output packets  |
 
 `,
 		},

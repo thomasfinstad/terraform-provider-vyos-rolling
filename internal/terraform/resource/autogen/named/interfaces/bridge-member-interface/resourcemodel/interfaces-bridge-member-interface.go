@@ -9,9 +9,9 @@ import (
 
 // InterfacesBrIDgeMemberInterface describes the resource data model.
 type InterfacesBrIDgeMemberInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
-	ParentIDInterfacesBrIDge types.String `tfsdk:"bridge" vyos:"bridge_identifier,parent-id"`
+	ParentIDInterfacesBrIDge types.String `tfsdk:"bridge" vyos:"bridge,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesBrIDgeMemberInterfaceNativeVlan  types.Number `tfsdk:"native_vlan" vyos:"native-vlan,omitempty"`
@@ -36,27 +36,27 @@ func (o *InterfacesBrIDgeMemberInterface) GetVyosPath() []string {
 		"member",
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesBrIDgeMemberInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Member interface name
 
 `,
 		},
 
-		"bridge_identifier": schema.StringAttribute{
+		"bridge_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Bridge Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  brN  |  Bridge interface name  |
+    |  brN  &emsp; |  Bridge interface name  |
 
 `,
 		},
@@ -67,9 +67,9 @@ func (o InterfacesBrIDgeMemberInterface) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Specify VLAN id which should natively be present on the link
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4094  |  Virtual Local Area Network (VLAN) ID  |
+    |  number: 1-4094  &emsp; |  Virtual Local Area Network (VLAN) ID  |
 
 `,
 		},
@@ -79,10 +79,10 @@ func (o InterfacesBrIDgeMemberInterface) ResourceSchemaAttributes() map[string]s
 			Optional:    true,
 			MarkdownDescription: `Specify VLAN id which is allowed in this trunk interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <id>  |  VLAN id allowed to pass this interface  |
-    |  <idN>-<idM>  |  VLAN id range allowed on this interface (use '-' as delimiter)  |
+    |  <id>  &emsp; |  VLAN id allowed to pass this interface  |
+    |  <idN>-<idM>  &emsp; |  VLAN id range allowed on this interface (use '-' as delimiter)  |
 
 `,
 		},
@@ -91,9 +91,9 @@ func (o InterfacesBrIDgeMemberInterface) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Bridge port cost
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Path cost value for Spanning Tree Protocol  |
+    |  number: 1-65535  &emsp; |  Path cost value for Spanning Tree Protocol  |
 
 `,
 
@@ -105,9 +105,9 @@ func (o InterfacesBrIDgeMemberInterface) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Bridge port priority
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-63  |  Bridge port priority  |
+    |  number: 0-63  &emsp; |  Bridge port priority  |
 
 `,
 

@@ -12,18 +12,31 @@ import (
 func (r protocolsBgpAddressFamilyIPvfourMulticastNetwork) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Border Gateway Protocol (BGP)
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Border Gateway Protocol (BGP)
+
+<br>
+&darr;
+<br>
 BGP address-family parameters
 
+<br>
+&darr;
+<br>
 Multicast IPv4 BGP settings
 
+<br>
+&darr;
+<br>
+<b>
 Import BGP network/prefix into multicast IPv4 RIB
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  Multicast IPv4 BGP network/prefix  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

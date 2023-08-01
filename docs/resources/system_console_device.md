@@ -3,26 +3,40 @@
 page_title: "vyos_system_console_device Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>system</i>
+
+  <br>
+  &darr;
+  <br>
   Serial console configuration
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Serial console device name
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ttySN  |  TTY device name, regular serial port  |
-  |  usbNbXpY  |  TTY device name, USB based  |
-  |  hvcN  |  Xen console  |
+  </b>
+  </div>
 ---
 
 # vyos_system_console_device (Resource)
 
+<div style="text-align: center">
+<i>system</i>
+
+<br>
+&darr;
+<br>
 Serial console configuration
 
+<br>
+&darr;
+<br>
+<b>
 Serial console device name
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ttySN  |  TTY device name, regular serial port  |
-    |  usbNbXpY  |  TTY device name, USB based  |
-    |  hvcN  |  Xen console  |
+</b>
+</div>
 
 
 
@@ -31,25 +45,25 @@ Serial console device name
 
 ### Required
 
-- `identifier` (String) Serial console device name
+- `device_id` (String) Serial console device name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ttySN  |  TTY device name, regular serial port  |
-    |  usbNbXpY  |  TTY device name, USB based  |
-    |  hvcN  |  Xen console  |
+    |  ttySN  &emsp; |  TTY device name, regular serial port  |
+    |  usbNbXpY  &emsp; |  TTY device name, USB based  |
+    |  hvcN  &emsp; |  Xen console  |
 
 ### Optional
 
 - `speed` (String) Console baud rate
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  1200  |  1200 bps  |
-    |  2400  |  2400 bps  |
-    |  4800  |  4800 bps  |
-    |  9600  |  9600 bps  |
-    |  19200  |  19200 bps  |
-    |  38400  |  38400 bps  |
-    |  57600  |  57600 bps  |
-    |  115200  |  115200 bps  |
+    |  1200  &emsp; |  1200 bps  |
+    |  2400  &emsp; |  2400 bps  |
+    |  4800  &emsp; |  4800 bps  |
+    |  9600  &emsp; |  9600 bps  |
+    |  19200  &emsp; |  19200 bps  |
+    |  38400  &emsp; |  38400 bps  |
+    |  57600  &emsp; |  57600 bps  |
+    |  115200  &emsp; |  115200 bps  |

@@ -8,7 +8,7 @@ import (
 
 // HighAvailabilityVirtualServer describes the resource data model.
 type HighAvailabilityVirtualServer struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"virtual_server_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafHighAvailabilityVirtualServerAlgorithm          types.String `tfsdk:"algorithm" vyos:"algorithm,omitempty"`
@@ -31,14 +31,14 @@ func (o *HighAvailabilityVirtualServer) GetVyosPath() []string {
 		"high-availability",
 
 		"virtual-server",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"virtual_server_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Load-balancing virtual server address
 
@@ -51,15 +51,15 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Schedule algorithm (default - least-connection)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  round-robin  |  Round robin  |
-    |  weighted-round-robin  |  Weighted round robin  |
-    |  least-connection  |  Least connection  |
-    |  weighted-least-connection  |  Weighted least connection  |
-    |  source-hashing  |  Source hashing  |
-    |  destination-hashing  |  Destination hashing  |
-    |  locality-based-least-connection  |  Locality-Based least connection  |
+    |  round-robin  &emsp; |  Round robin  |
+    |  weighted-round-robin  &emsp; |  Weighted round robin  |
+    |  least-connection  &emsp; |  Least connection  |
+    |  weighted-least-connection  &emsp; |  Weighted least connection  |
+    |  source-hashing  &emsp; |  Source hashing  |
+    |  destination-hashing  &emsp; |  Destination hashing  |
+    |  locality-based-least-connection  &emsp; |  Locality-Based least connection  |
 
 `,
 
@@ -71,9 +71,9 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Interval between health-checks (in seconds)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-600  |  Interval in seconds  |
+    |  number: 1-600  &emsp; |  Interval in seconds  |
 
 `,
 
@@ -85,11 +85,11 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Forwarding method
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  direct  |  Direct routing  |
-    |  nat  |  NAT  |
-    |  tunnel  |  Tunneling  |
+    |  direct  &emsp; |  Direct routing  |
+    |  nat  &emsp; |  NAT  |
+    |  tunnel  &emsp; |  Tunneling  |
 
 `,
 
@@ -101,9 +101,9 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Match fwmark value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2147483647  |  Match firewall mark value  |
+    |  number: 1-2147483647  &emsp; |  Match firewall mark value  |
 
 `,
 		},
@@ -112,9 +112,9 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Numeric IP port  |
+    |  number: 0-65535  &emsp; |  Numeric IP port  |
 
 `,
 		},
@@ -123,9 +123,9 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Timeout for persistent connections
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-86400  |  Timeout for persistent connections  |
+    |  number: 1-86400  &emsp; |  Timeout for persistent connections  |
 
 `,
 
@@ -137,10 +137,10 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Protocol for port checks
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  tcp  |  TCP  |
-    |  udp  |  UDP  |
+    |  tcp  &emsp; |  TCP  |
+    |  udp  &emsp; |  UDP  |
 
 `,
 

@@ -3,25 +3,40 @@
 page_title: "vyos_qos_policy_limiter Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Quality of Service (QoS)
+
+  <br>
+  &darr;
+  <br>
   Service Policy definitions
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Traffic input limiting policy
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Policy name  |
+  </b>
+  </div>
 ---
 
 # vyos_qos_policy_limiter (Resource)
 
+<div style="text-align: center">
 Quality of Service (QoS)
 
+<br>
+&darr;
+<br>
 Service Policy definitions
 
+<br>
+&darr;
+<br>
+<b>
 Traffic input limiting policy
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Policy name  |
+</b>
+</div>
 
 
 
@@ -30,20 +45,20 @@ Traffic input limiting policy
 
 ### Required
 
-- `identifier` (String) Traffic input limiting policy
+- `limiter_id` (String) Traffic input limiting policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 ### Optional
 
 - `default` (Attributes) Default policy (see [below for nested schema](#nestedatt--default))
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 <a id="nestedatt--default"></a>
 ### Nested Schema for `default`
@@ -52,36 +67,36 @@ Optional:
 
 - `bandwidth` (String) Available bandwidth for this policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <number>  |  Bits per second  |
-    |  <number>bit  |  Bits per second  |
-    |  <number>kbit  |  Kilobits per second  |
-    |  <number>mbit  |  Megabits per second  |
-    |  <number>gbit  |  Gigabits per second  |
-    |  <number>tbit  |  Terabits per second  |
-    |  <number>%  |  Percentage of interface link speed  |
+    |  <number>  &emsp; |  Bits per second  |
+    |  <number>bit  &emsp; |  Bits per second  |
+    |  <number>kbit  &emsp; |  Kilobits per second  |
+    |  <number>mbit  &emsp; |  Megabits per second  |
+    |  <number>gbit  &emsp; |  Gigabits per second  |
+    |  <number>tbit  &emsp; |  Terabits per second  |
+    |  <number>%  &emsp; |  Percentage of interface link speed  |
 - `burst` (String) Burst size for this class
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <number>  |  Bytes  |
-    |  <number><suffix>  |  Bytes with scaling suffix (kb, mb, gb)  |
+    |  <number>  &emsp; |  Bytes  |
+    |  <number><suffix>  &emsp; |  Bytes with scaling suffix (kb, mb, gb)  |
 - `exceed` (String) Default action for packets exceeding the limiter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  continue  |  Do not do anything, just continue with the next action in line  |
-    |  drop  |  Drop the packet immediately  |
-    |  ok  |  Accept the packet  |
-    |  reclassify  |  Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
-    |  pipe  |  Pass the packet to the next action in line  |
+    |  continue  &emsp; |  Do not do anything, just continue with the next action in line  |
+    |  drop  &emsp; |  Drop the packet immediately  |
+    |  ok  &emsp; |  Accept the packet  |
+    |  reclassify  &emsp; |  Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
+    |  pipe  &emsp; |  Pass the packet to the next action in line  |
 - `not_exceed` (String) Default action for packets not exceeding the limiter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  continue  |  Do not do anything, just continue with the next action in line  |
-    |  drop  |  Drop the packet immediately  |
-    |  ok  |  Accept the packet  |
-    |  reclassify  |  Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
-    |  pipe  |  Pass the packet to the next action in line  |
+    |  continue  &emsp; |  Do not do anything, just continue with the next action in line  |
+    |  drop  &emsp; |  Drop the packet immediately  |
+    |  ok  &emsp; |  Accept the packet  |
+    |  reclassify  &emsp; |  Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
+    |  pipe  &emsp; |  Pass the packet to the next action in line  |

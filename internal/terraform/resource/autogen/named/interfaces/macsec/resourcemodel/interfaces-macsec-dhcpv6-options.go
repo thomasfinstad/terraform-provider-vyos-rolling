@@ -30,9 +30,9 @@ func (o InterfacesMacsecDhcpvsixOptions) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `DHCP unique identifier (DUID) to be sent by dhcpv6 client
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  duid  |  DHCP unique identifier (DUID)  |
+    |  duid  &emsp; |  DHCP unique identifier (DUID)  |
 
 `,
 		},

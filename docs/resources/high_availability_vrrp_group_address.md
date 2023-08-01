@@ -3,30 +3,50 @@
 page_title: "vyos_high_availability_vrrp_group_address Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   High availability settings
+
+  <br>
+  &darr;
+  <br>
   Virtual Router Redundancy Protocol settings
+
+  <br>
+  &darr;
+  <br>
   VRRP group
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Virtual IP address
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  IPv4 address and prefix length  |
-  |  ipv6net  |  IPv6 address and prefix length  |
+  </b>
+  </div>
 ---
 
 # vyos_high_availability_vrrp_group_address (Resource)
 
+<div style="text-align: center">
 High availability settings
 
+<br>
+&darr;
+<br>
 Virtual Router Redundancy Protocol settings
 
+<br>
+&darr;
+<br>
 VRRP group
 
+<br>
+&darr;
+<br>
+<b>
 Virtual IP address
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
+</b>
+</div>
 
 
 
@@ -35,18 +55,18 @@ Virtual IP address
 
 ### Required
 
-- `group_identifier` (String) VRRP group
-- `identifier` (String) Virtual IP address
+- `address_id` (String) Virtual IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
+- `group_id` (String) VRRP group
 
 ### Optional
 
 - `interface` (String) Interface Name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |

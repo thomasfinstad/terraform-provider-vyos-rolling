@@ -8,9 +8,9 @@ import (
 
 // ContainerNameEnvironment describes the resource data model.
 type ContainerNameEnvironment struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"environment_id" vyos:",self-id"`
 
-	ParentIDContainerName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDContainerName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafContainerNameEnvironmentValue types.String `tfsdk:"value" vyos:"value,omitempty"`
@@ -29,21 +29,21 @@ func (o *ContainerNameEnvironment) GetVyosPath() []string {
 		o.ParentIDContainerName.ValueString(),
 
 		"environment",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ContainerNameEnvironment) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"environment_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Add custom environment variables
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Container name
 
@@ -56,9 +56,9 @@ func (o ContainerNameEnvironment) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Set environment option value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Set environment option value  |
+    |  txt  &emsp; |  Set environment option value  |
 
 `,
 		},

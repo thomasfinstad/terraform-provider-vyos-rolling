@@ -9,9 +9,9 @@ import (
 
 // ServiceRouterAdvertInterfaceRoute describes the resource data model.
 type ServiceRouterAdvertInterfaceRoute struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"route_id" vyos:",self-id"`
 
-	ParentIDServiceRouterAdvertInterface types.String `tfsdk:"interface" vyos:"interface_identifier,parent-id"`
+	ParentIDServiceRouterAdvertInterface types.String `tfsdk:"interface" vyos:"interface,parent-id"`
 
 	// LeafNodes
 	LeafServiceRouterAdvertInterfaceRouteValIDLifetime   types.String `tfsdk:"valid_lifetime" vyos:"valid-lifetime,omitempty"`
@@ -34,25 +34,25 @@ func (o *ServiceRouterAdvertInterfaceRoute) GetVyosPath() []string {
 		o.ParentIDServiceRouterAdvertInterface.ValueString(),
 
 		"route",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceRouterAdvertInterfaceRoute) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"route_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IPv6 route to be advertised in Router Advertisements (RAs)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  IPv6 route to be advertized  |
+    |  ipv6net  &emsp; |  IPv6 route to be advertized  |
 
 `,
 		},
 
-		"interface_identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Interface to send RA on
 
@@ -65,10 +65,10 @@ func (o ServiceRouterAdvertInterfaceRoute) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `Time in seconds that the route will remain valid
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Time in seconds that the route will remain valid  |
-    |  infinity  |  Route will remain preferred forever  |
+    |  number: 1-4294967295  &emsp; |  Time in seconds that the route will remain valid  |
+    |  infinity  &emsp; |  Route will remain preferred forever  |
 
 `,
 
@@ -80,11 +80,11 @@ func (o ServiceRouterAdvertInterfaceRoute) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `Preference associated with the route,
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  low  |  Route has low preference  |
-    |  medium  |  Route has medium preference  |
-    |  high  |  Route has high preference  |
+    |  low  &emsp; |  Route has low preference  |
+    |  medium  &emsp; |  Route has medium preference  |
+    |  high  &emsp; |  Route has high preference  |
 
 `,
 

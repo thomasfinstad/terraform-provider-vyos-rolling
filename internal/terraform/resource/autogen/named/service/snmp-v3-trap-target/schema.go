@@ -12,17 +12,26 @@ import (
 func (r serviceSnmpVthreeTrapTarget) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Simple Network Management Protocol (SNMP)
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Simple Network Management Protocol (SNMP)
+
+<br>
+&darr;
+<br>
 Simple Network Management Protocol (SNMP) v3
 
+<br>
+&darr;
+<br>
+<b>
 Defines SNMP target for inform or traps for IP
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  IP address of trap target  |
-    |  ipv6  |  IPv6 address of trap target  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

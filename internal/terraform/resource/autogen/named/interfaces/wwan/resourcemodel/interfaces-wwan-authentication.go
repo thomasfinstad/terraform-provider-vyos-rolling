@@ -26,9 +26,9 @@ func (o InterfacesWwanAuthentication) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Username used for authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Username  |
+    |  txt  &emsp; |  Username  |
 
 `,
 		},
@@ -37,9 +37,9 @@ func (o InterfacesWwanAuthentication) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Password used for authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Password  |
+    |  txt  &emsp; |  Password  |
 
 `,
 		},

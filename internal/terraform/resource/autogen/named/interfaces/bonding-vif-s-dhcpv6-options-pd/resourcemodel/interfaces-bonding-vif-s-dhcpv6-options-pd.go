@@ -8,11 +8,11 @@ import (
 
 // InterfacesBondingVifSDhcpvsixOptionsPd describes the resource data model.
 type InterfacesBondingVifSDhcpvsixOptionsPd struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"pd_id" vyos:",self-id"`
 
-	ParentIDInterfacesBonding types.String `tfsdk:"bonding" vyos:"bonding_identifier,parent-id"`
+	ParentIDInterfacesBonding types.String `tfsdk:"bonding" vyos:"bonding,parent-id"`
 
-	ParentIDInterfacesBondingVifS types.String `tfsdk:"vif_s" vyos:"vif-s_identifier,parent-id"`
+	ParentIDInterfacesBondingVifS types.String `tfsdk:"vif_s" vyos:"vif-s,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesBondingVifSDhcpvsixOptionsPdLength types.Number `tfsdk:"length" vyos:"length,omitempty"`
@@ -37,42 +37,42 @@ func (o *InterfacesBondingVifSDhcpvsixOptionsPd) GetVyosPath() []string {
 		"dhcpv6-options",
 
 		"pd",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesBondingVifSDhcpvsixOptionsPd) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"pd_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
 
 `,
 		},
 
-		"bonding_identifier": schema.StringAttribute{
+		"bonding_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Bonding Interface/Link Aggregation
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  bondN  |  Bonding interface name  |
+    |  bondN  &emsp; |  Bonding interface name  |
 
 `,
 		},
 
-		"vif_s_identifier": schema.StringAttribute{
+		"vif_s_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `QinQ TAG-S Virtual Local Area Network (VLAN) ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
+    |  number: 0-4094  &emsp; |  QinQ Virtual Local Area Network (VLAN) ID  |
 
 `,
 		},
@@ -83,9 +83,9 @@ func (o InterfacesBondingVifSDhcpvsixOptionsPd) ResourceSchemaAttributes() map[s
 			Optional: true,
 			MarkdownDescription: `Request IPv6 prefix length from peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:32-64  |  Length of delegated prefix  |
+    |  number: 32-64  &emsp; |  Length of delegated prefix  |
 
 `,
 

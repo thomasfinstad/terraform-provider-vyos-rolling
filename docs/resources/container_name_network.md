@@ -3,18 +3,40 @@
 page_title: "vyos_container_name_network Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Container applications
+
+  <br>
+  &darr;
+  <br>
   Container name
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Attach user defined network to container
+  </b>
+  </div>
 ---
 
 # vyos_container_name_network (Resource)
 
+<div style="text-align: center">
 Container applications
 
+<br>
+&darr;
+<br>
 Container name
 
+<br>
+&darr;
+<br>
+<b>
 Attach user defined network to container
+</b>
+</div>
 
 
 
@@ -23,13 +45,13 @@ Attach user defined network to container
 
 ### Required
 
-- `identifier` (String) Attach user defined network to container
-- `name_identifier` (String) Container name
+- `name_id` (String) Container name
+- `network_id` (String) Attach user defined network to container
 
 ### Optional
 
 - `address` (String) Assign static IP address to container
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address  |
+    |  ipv4  &emsp; |  IPv4 address  |

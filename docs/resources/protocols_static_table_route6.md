@@ -3,36 +3,50 @@
 page_title: "vyos_protocols_static_table_route6 Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Routing protocols
-  Static Routing
-  Policy route table number
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-200  |  Policy route table number  |
 
+  <br>
+  &darr;
+  <br>
+  Static Routing
+
+  <br>
+  &darr;
+  <br>
+  Policy route table number
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Static IPv6 route
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv6net  |  IPv6 static route  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_static_table_route6 (Resource)
 
+<div style="text-align: center">
 Routing protocols
 
+<br>
+&darr;
+<br>
 Static Routing
 
+<br>
+&darr;
+<br>
 Policy route table number
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-200  |  Policy route table number  |
-
+<br>
+&darr;
+<br>
+<b>
 Static IPv6 route
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv6net  |  IPv6 static route  |
+</b>
+</div>
 
 
 
@@ -41,25 +55,25 @@ Static IPv6 route
 
 ### Required
 
-- `identifier` (String) Static IPv6 route
+- `route6_id` (String) Static IPv6 route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  IPv6 static route  |
-- `table_identifier` (String) Policy route table number
+    |  ipv6net  &emsp; |  IPv6 static route  |
+- `table_id` (String) Policy route table number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-200  |  Policy route table number  |
+    |  number: 1-200  &emsp; |  Policy route table number  |
 
 ### Optional
 
 - `blackhole` (Attributes) Silently discard pkts when matched (see [below for nested schema](#nestedatt--blackhole))
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `reject` (Attributes) Emit an ICMP unreachable when matched (see [below for nested schema](#nestedatt--reject))
 
 <a id="nestedatt--blackhole"></a>
@@ -69,14 +83,14 @@ Optional:
 
 - `distance` (Number) Distance for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for this route  |
+    |  number: 1-255  &emsp; |  Distance for this route  |
 - `tag` (Number) Tag value for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Tag value for this route  |
+    |  number: 1-4294967295  &emsp; |  Tag value for this route  |
 
 
 <a id="nestedatt--reject"></a>
@@ -86,11 +100,11 @@ Optional:
 
 - `distance` (Number) Distance for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for this route  |
+    |  number: 1-255  &emsp; |  Distance for this route  |
 - `tag` (Number) Tag value for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Tag value for this route  |
+    |  number: 1-4294967295  &emsp; |  Tag value for this route  |

@@ -8,7 +8,7 @@ import (
 
 // FirewallGroupIPvsixNetworkGroup describes the resource data model.
 type FirewallGroupIPvsixNetworkGroup struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"ipv6_network_group_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafFirewallGroupIPvsixNetworkGroupDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -28,14 +28,14 @@ func (o *FirewallGroupIPvsixNetworkGroup) GetVyosPath() []string {
 		"group",
 
 		"ipv6-network-group",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o FirewallGroupIPvsixNetworkGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"ipv6_network_group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Firewall ipv6-network-group
 
@@ -48,9 +48,9 @@ func (o FirewallGroupIPvsixNetworkGroup) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -60,9 +60,9 @@ func (o FirewallGroupIPvsixNetworkGroup) ResourceSchemaAttributes() map[string]s
 			Optional:    true,
 			MarkdownDescription: `Network-group member
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  IPv6 address to match  |
+    |  ipv6net  &emsp; |  IPv6 address to match  |
 
 `,
 		},

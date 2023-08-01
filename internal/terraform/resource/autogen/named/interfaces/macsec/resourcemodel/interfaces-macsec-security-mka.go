@@ -27,9 +27,9 @@ func (o InterfacesMacsecSecURItyMka) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Secure Connectivity Association Key
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  16-byte (128-bit) hex-string (32 hex-digits) for gcm-aes-128 or 32-byte (256-bit) hex-string (64 hex-digits) for gcm-aes-256  |
+    |  txt  &emsp; |  16-byte (128-bit) hex-string (32 hex-digits) for gcm-aes-128 or 32-byte (256-bit) hex-string (64 hex-digits) for gcm-aes-256  |
 
 `,
 		},
@@ -38,9 +38,9 @@ func (o InterfacesMacsecSecURItyMka) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Secure Connectivity Association Key Name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  1..32-bytes (8..256 bit) hex-string (2..64 hex-digits)  |
+    |  txt  &emsp; |  1..32-bytes (8..256 bit) hex-string (2..64 hex-digits)  |
 
 `,
 		},
@@ -49,9 +49,9 @@ func (o InterfacesMacsecSecURItyMka) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Priority of MACsec Key Agreement protocol (MKA) actor
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  MACsec Key Agreement protocol (MKA) priority  |
+    |  number: 0-255  &emsp; |  MACsec Key Agreement protocol (MKA) priority  |
 
 `,
 

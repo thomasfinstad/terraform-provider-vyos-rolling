@@ -3,39 +3,60 @@
 page_title: "vyos_vrf_name_protocols_ospfv3_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
-  Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
+  Virtual Routing and Forwarding instance
+
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
+
+  <br>
+  &darr;
+  <br>
   Open Shortest Path First (OSPF) for IPv6
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Enable routing on an IPv6 interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Interface used for routing information exchange  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_ospfv3_interface (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Open Shortest Path First (OSPF) for IPv6
 
+<br>
+&darr;
+<br>
+<b>
 Enable routing on an IPv6 interface
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Interface used for routing information exchange  |
+</b>
+</div>
 
 
 
@@ -44,74 +65,74 @@ Enable routing on an IPv6 interface
 
 ### Required
 
-- `identifier` (String) Enable routing on an IPv6 interface
+- `interface_id` (String) Enable routing on an IPv6 interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface used for routing information exchange  |
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+    |  txt  &emsp; |  Interface used for routing information exchange  |
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 ### Optional
 
 - `area` (String) Enable OSPF on this interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  OSPF area ID as decimal notation  |
-    |  ipv4  |  OSPF area ID in IP address notation  |
+    |  u32  &emsp; |  OSPF area ID as decimal notation  |
+    |  ipv4  &emsp; |  OSPF area ID in IP address notation  |
 - `bfd` (Attributes) Enable Bidirectional Forwarding Detection (BFD) (see [below for nested schema](#nestedatt--bfd))
 - `cost` (Number) Interface cost
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  OSPF interface cost  |
+    |  number: 1-65535  &emsp; |  OSPF interface cost  |
 - `dead_interval` (Number) Interval after which a neighbor is declared dead
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Neighbor dead interval (seconds)  |
+    |  number: 1-65535  &emsp; |  Neighbor dead interval (seconds)  |
 - `hello_interval` (Number) Interval between hello packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Hello interval (seconds)  |
+    |  number: 1-65535  &emsp; |  Hello interval (seconds)  |
 - `ifmtu` (Number) Interface MTU
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Interface MTU  |
+    |  number: 1-65535  &emsp; |  Interface MTU  |
 - `instance_id` (Number) Instance ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  Instance Id  |
+    |  number: 0-255  &emsp; |  Instance Id  |
 - `mtu_ignore` (Boolean) Disable Maximum Transmission Unit (MTU) mismatch detection
 - `network` (String) Network type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  broadcast  |  Broadcast network type  |
-    |  point-to-point  |  Point-to-point network type  |
+    |  broadcast  &emsp; |  Broadcast network type  |
+    |  point-to-point  &emsp; |  Point-to-point network type  |
 - `passive` (Boolean) Configure passive mode for interface
 - `priority` (Number) Router priority
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  OSPF router priority cost  |
+    |  number: 0-255  &emsp; |  OSPF router priority cost  |
 - `retransmit_interval` (Number) Interval between retransmitting lost link state advertisements
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Retransmit interval (seconds)  |
+    |  number: 1-65535  &emsp; |  Retransmit interval (seconds)  |
 - `transmit_delay` (Number) Link state transmit delay
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Link state transmit delay (seconds)  |
+    |  number: 1-65535  &emsp; |  Link state transmit delay (seconds)  |
 
 <a id="nestedatt--bfd"></a>
 ### Nested Schema for `bfd`
@@ -120,6 +141,6 @@ Optional:
 
 - `profile` (String) Use settings from BFD profile
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  BFD profile name  |
+    |  txt  &emsp; |  BFD profile name  |

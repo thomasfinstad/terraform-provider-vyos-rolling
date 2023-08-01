@@ -3,26 +3,40 @@
 page_title: "vyos_service_ntp_server Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Network Time Protocol (NTP) configuration
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Network Time Protocol (NTP) server
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  IP address of NTP server  |
-  |  ipv6  |  IPv6 address of NTP server  |
-  |  hostname  |  Fully qualified domain name of NTP server  |
+  </b>
+  </div>
 ---
 
 # vyos_service_ntp_server (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Network Time Protocol (NTP) configuration
 
+<br>
+&darr;
+<br>
+<b>
 Network Time Protocol (NTP) server
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  IP address of NTP server  |
-    |  ipv6  |  IPv6 address of NTP server  |
-    |  hostname  |  Fully qualified domain name of NTP server  |
+</b>
+</div>
 
 
 
@@ -31,13 +45,13 @@ Network Time Protocol (NTP) server
 
 ### Required
 
-- `identifier` (String) Network Time Protocol (NTP) server
+- `server_id` (String) Network Time Protocol (NTP) server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IP address of NTP server  |
-    |  ipv6  |  IPv6 address of NTP server  |
-    |  hostname  |  Fully qualified domain name of NTP server  |
+    |  ipv4  &emsp; |  IP address of NTP server  |
+    |  ipv6  &emsp; |  IPv6 address of NTP server  |
+    |  hostname  &emsp; |  Fully qualified domain name of NTP server  |
 
 ### Optional
 

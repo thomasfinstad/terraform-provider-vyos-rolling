@@ -3,52 +3,70 @@
 page_title: "vyos_vrf_name_protocols_ospfv3_area_range Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
+
+  <br>
+  &darr;
+  <br>
   Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
-  Open Shortest Path First (OSPF) for IPv6
-  OSPFv3 Area
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32  |  Area ID as a decimal value  |
-  |  ipv4  |  Area ID in IP address forma  |
 
+  <br>
+  &darr;
+  <br>
+  Open Shortest Path First (OSPF) for IPv6
+
+  <br>
+  &darr;
+  <br>
+  OSPFv3 Area
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Specify IPv6 prefix (border routers only)
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv6net  |  Specify IPv6 prefix (border routers only)  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_ospfv3_area_range (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Open Shortest Path First (OSPF) for IPv6
 
+<br>
+&darr;
+<br>
 OSPFv3 Area
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32  |  Area ID as a decimal value  |
-    |  ipv4  |  Area ID in IP address forma  |
-
+<br>
+&darr;
+<br>
+<b>
 Specify IPv6 prefix (border routers only)
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv6net  |  Specify IPv6 prefix (border routers only)  |
+</b>
+</div>
 
 
 
@@ -57,22 +75,22 @@ Specify IPv6 prefix (border routers only)
 
 ### Required
 
-- `area_identifier` (String) OSPFv3 Area
+- `area_id` (String) OSPFv3 Area
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Area ID as a decimal value  |
-    |  ipv4  |  Area ID in IP address forma  |
-- `identifier` (String) Specify IPv6 prefix (border routers only)
+    |  u32  &emsp; |  Area ID as a decimal value  |
+    |  ipv4  &emsp; |  Area ID in IP address forma  |
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  Specify IPv6 prefix (border routers only)  |
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+    |  txt  &emsp; |  VRF instance name  |
+- `range_id` (String) Specify IPv6 prefix (border routers only)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  ipv6net  &emsp; |  Specify IPv6 prefix (border routers only)  |
 
 ### Optional
 

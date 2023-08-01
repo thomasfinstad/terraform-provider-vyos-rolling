@@ -8,9 +8,9 @@ import (
 
 // PolicyRouteMapRule describes the resource data model.
 type PolicyRouteMapRule struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
-	ParentIDPolicyRouteMap types.String `tfsdk:"route_map" vyos:"route-map_identifier,parent-id"`
+	ParentIDPolicyRouteMap types.String `tfsdk:"route_map" vyos:"route-map,parent-id"`
 
 	// LeafNodes
 	LeafPolicyRouteMapRuleAction      types.String `tfsdk:"action" vyos:"action,omitempty"`
@@ -35,31 +35,31 @@ func (o *PolicyRouteMapRule) GetVyosPath() []string {
 		o.ParentIDPolicyRouteMap.ValueString(),
 
 		"rule",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Rule for this route-map
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Route-map rule number  |
+    |  number: 1-65535  &emsp; |  Route-map rule number  |
 
 `,
 		},
 
-		"route_map_identifier": schema.StringAttribute{
+		"route_map_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IP route-map
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},
@@ -70,10 +70,10 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  permit  |  Permit matching entries  |
-    |  deny  |  Deny matching entries  |
+    |  permit  &emsp; |  Permit matching entries  |
+    |  deny  &emsp; |  Deny matching entries  |
 
 `,
 		},
@@ -82,9 +82,9 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Call another route-map on match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},
@@ -93,9 +93,9 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Jump to a different rule in this route-map on a match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Rule number  |
+    |  number: 1-65535  &emsp; |  Rule number  |
 
 `,
 		},
@@ -104,9 +104,9 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

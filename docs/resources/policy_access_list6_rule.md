@@ -3,33 +3,40 @@
 page_title: "vyos_policy_access_list6_rule Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Routing policy
-  IPv6 access-list filter
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Name of IPv6 access-list  |
 
+  <br>
+  &darr;
+  <br>
+  IPv6 access-list filter
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Rule for this access-list6
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-65535  |  Access-list6 rule number  |
+  </b>
+  </div>
 ---
 
 # vyos_policy_access_list6_rule (Resource)
 
+<div style="text-align: center">
 Routing policy
 
+<br>
+&darr;
+<br>
 IPv6 access-list filter
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Name of IPv6 access-list  |
-
+<br>
+&darr;
+<br>
+<b>
 Rule for this access-list6
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-65535  |  Access-list6 rule number  |
+</b>
+</div>
 
 
 
@@ -38,30 +45,30 @@ Rule for this access-list6
 
 ### Required
 
-- `access_list6_identifier` (String) IPv6 access-list filter
+- `access_list6_id` (String) IPv6 access-list filter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv6 access-list  |
-- `identifier` (String) Rule for this access-list6
+    |  txt  &emsp; |  Name of IPv6 access-list  |
+- `rule_id` (String) Rule for this access-list6
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list6 rule number  |
+    |  number: 1-65535  &emsp; |  Access-list6 rule number  |
 
 ### Optional
 
 - `action` (String) Action to take on entries matching this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  permit  |  Permit matching entries  |
-    |  deny  |  Deny matching entries  |
+    |  permit  &emsp; |  Permit matching entries  |
+    |  deny  &emsp; |  Deny matching entries  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `source` (Attributes) Source IPv6 network to match (see [below for nested schema](#nestedatt--source))
 
 <a id="nestedatt--source"></a>
@@ -73,6 +80,6 @@ Optional:
 - `exact_match` (Boolean) Exact match of the network prefixes
 - `network` (String) Network/netmask to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |

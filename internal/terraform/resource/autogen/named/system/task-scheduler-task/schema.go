@@ -12,14 +12,21 @@ import (
 func (r systemTaskSchedulerTask) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Task scheduler settings
+		MarkdownDescription: `<div style="text-align: center">
+<i>system</i>
 
+<br>
+&darr;
+<br>
+Task scheduler settings
+
+<br>
+&darr;
+<br>
+<b>
 Scheduled task
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Task name  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

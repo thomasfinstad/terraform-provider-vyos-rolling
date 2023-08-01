@@ -3,25 +3,40 @@
 page_title: "vyos_vpn_ipsec_profile Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Private Network (VPN)
+
+  <br>
+  &darr;
+  <br>
   VPN IP security (IPsec) parameters
+
+  <br>
+  &darr;
+  <br>
+  <b>
   VPN IPsec profile
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Profile name  |
+  </b>
+  </div>
 ---
 
 # vyos_vpn_ipsec_profile (Resource)
 
+<div style="text-align: center">
 Virtual Private Network (VPN)
 
+<br>
+&darr;
+<br>
 VPN IP security (IPsec) parameters
 
+<br>
+&darr;
+<br>
+<b>
 VPN IPsec profile
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Profile name  |
+</b>
+</div>
 
 
 
@@ -30,11 +45,11 @@ VPN IPsec profile
 
 ### Required
 
-- `identifier` (String) VPN IPsec profile
+- `profile_id` (String) VPN IPsec profile
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Profile name  |
+    |  txt  &emsp; |  Profile name  |
 
 ### Optional
 
@@ -51,14 +66,14 @@ Optional:
 
 - `mode` (String) Authentication mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  pre-shared-secret  |  Use a pre-shared secret key  |
+    |  pre-shared-secret  &emsp; |  Use a pre-shared secret key  |
 - `pre_shared_secret` (String) Pre-shared secret key
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Pre-shared secret key  |
+    |  txt  &emsp; |  Pre-shared secret key  |
 
 
 <a id="nestedatt--bind"></a>
@@ -68,6 +83,6 @@ Optional:
 
 - `tunnel` (List of String) Tunnel interface associated with this profile
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Associated interface to this profile  |
+    |  txt  &emsp; |  Associated interface to this profile  |

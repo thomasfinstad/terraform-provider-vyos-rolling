@@ -3,27 +3,50 @@
 page_title: "vyos_system_flow_accounting_sflow_server Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>system</i>
+
+  <br>
+  &darr;
+  <br>
   Flow accounting settings
+
+  <br>
+  &darr;
+  <br>
   sFlow settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   sFlow destination server
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  IPv4 server to export sFlow  |
-  |  ipv6  |  IPv6 server to export sFlow  |
+  </b>
+  </div>
 ---
 
 # vyos_system_flow_accounting_sflow_server (Resource)
 
+<div style="text-align: center">
+<i>system</i>
+
+<br>
+&darr;
+<br>
 Flow accounting settings
 
+<br>
+&darr;
+<br>
 sFlow settings
 
+<br>
+&darr;
+<br>
+<b>
 sFlow destination server
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  IPv4 server to export sFlow  |
-    |  ipv6  |  IPv6 server to export sFlow  |
+</b>
+</div>
 
 
 
@@ -32,17 +55,17 @@ sFlow destination server
 
 ### Required
 
-- `identifier` (String) sFlow destination server
+- `server_id` (String) sFlow destination server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 server to export sFlow  |
-    |  ipv6  |  IPv6 server to export sFlow  |
+    |  ipv4  &emsp; |  IPv4 server to export sFlow  |
+    |  ipv6  &emsp; |  IPv6 server to export sFlow  |
 
 ### Optional
 
 - `port` (Number) sFlow port number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1025-65535  |  sFlow port number  |
+    |  number: 1025-65535  &emsp; |  sFlow port number  |

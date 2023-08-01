@@ -8,11 +8,11 @@ import (
 
 // ServiceDhcpServerSharedNetworkNameSubnetStaticRoute describes the resource data model.
 type ServiceDhcpServerSharedNetworkNameSubnetStaticRoute struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"static_route_id" vyos:",self-id"`
 
-	ParentIDServiceDhcpServerSharedNetworkName types.String `tfsdk:"shared_network_name" vyos:"shared-network-name_identifier,parent-id"`
+	ParentIDServiceDhcpServerSharedNetworkName types.String `tfsdk:"shared_network_name" vyos:"shared-network-name,parent-id"`
 
-	ParentIDServiceDhcpServerSharedNetworkNameSubnet types.String `tfsdk:"subnet" vyos:"subnet_identifier,parent-id"`
+	ParentIDServiceDhcpServerSharedNetworkNameSubnet types.String `tfsdk:"subnet" vyos:"subnet,parent-id"`
 
 	// LeafNodes
 	LeafServiceDhcpServerSharedNetworkNameSubnetStaticRouteNextHop types.String `tfsdk:"next_hop" vyos:"next-hop,omitempty"`
@@ -36,38 +36,38 @@ func (o *ServiceDhcpServerSharedNetworkNameSubnetStaticRoute) GetVyosPath() []st
 		o.ParentIDServiceDhcpServerSharedNetworkNameSubnet.ValueString(),
 
 		"static-route",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDhcpServerSharedNetworkNameSubnetStaticRoute) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"static_route_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Classless static route destination subnet
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
 
 `,
 		},
 
-		"shared_network_name_identifier": schema.StringAttribute{
+		"shared_network_name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Name of DHCP shared network
 
 `,
 		},
 
-		"subnet_identifier": schema.StringAttribute{
+		"subnet_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `DHCP subnet for shared network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
 
 `,
 		},
@@ -78,9 +78,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetStaticRoute) ResourceSchemaAttri
 			Optional: true,
 			MarkdownDescription: `IP address of router to be used to reach the destination subnet
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address of router  |
+    |  ipv4  &emsp; |  IPv4 address of router  |
 
 `,
 		},

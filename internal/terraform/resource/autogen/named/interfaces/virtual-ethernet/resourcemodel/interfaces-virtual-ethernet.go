@@ -9,7 +9,7 @@ import (
 
 // InterfacesVirtualEthernet describes the resource data model.
 type InterfacesVirtualEthernet struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"virtual_ethernet_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafInterfacesVirtualEthernetAddress     types.List   `tfsdk:"address" vyos:"address,omitempty"`
@@ -31,20 +31,20 @@ func (o *InterfacesVirtualEthernet) GetVyosPath() []string {
 		"interfaces",
 
 		"virtual-ethernet",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesVirtualEthernet) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"virtual_ethernet_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Ethernet (veth) Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  vethN  |  Virtual Ethernet interface name  |
+    |  vethN  &emsp; |  Virtual Ethernet interface name  |
 
 `,
 		},
@@ -56,12 +56,12 @@ func (o InterfacesVirtualEthernet) ResourceSchemaAttributes() map[string]schema.
 			Optional:    true,
 			MarkdownDescription: `IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
-    |  dhcp  |  Dynamic Host Configuration Protocol  |
-    |  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
+    |  dhcp  &emsp; |  Dynamic Host Configuration Protocol  |
+    |  dhcpv6  &emsp; |  Dynamic Host Configuration Protocol for IPv6  |
 
 `,
 		},
@@ -70,9 +70,9 @@ func (o InterfacesVirtualEthernet) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -90,9 +90,9 @@ func (o InterfacesVirtualEthernet) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -101,9 +101,9 @@ func (o InterfacesVirtualEthernet) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Virtual ethernet peer interface name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of peer interface  |
+    |  txt  &emsp; |  Name of peer interface  |
 
 `,
 		},

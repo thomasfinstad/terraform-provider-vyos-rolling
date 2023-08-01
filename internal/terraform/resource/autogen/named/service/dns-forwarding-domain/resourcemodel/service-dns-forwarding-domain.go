@@ -9,7 +9,7 @@ import (
 
 // ServiceDNSForwardingDomain describes the resource data model.
 type ServiceDNSForwardingDomain struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"domain_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceDNSForwardingDomainServer           types.List `tfsdk:"server" vyos:"server,omitempty"`
@@ -31,14 +31,14 @@ func (o *ServiceDNSForwardingDomain) GetVyosPath() []string {
 		"forwarding",
 
 		"domain",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDNSForwardingDomain) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"domain_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Domain to forward to a custom DNS server
 
@@ -52,10 +52,10 @@ func (o ServiceDNSForwardingDomain) ResourceSchemaAttributes() map[string]schema
 			Optional:    true,
 			MarkdownDescription: `Domain Name Server (DNS) to forward queries to
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
-    |  ipv6  |  Domain Name Server (DNS) IPv6 address  |
+    |  ipv4  &emsp; |  Domain Name Server (DNS) IPv4 address  |
+    |  ipv6  &emsp; |  Domain Name Server (DNS) IPv6 address  |
 
 `,
 		},

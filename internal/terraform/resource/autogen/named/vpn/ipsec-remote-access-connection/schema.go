@@ -12,18 +12,26 @@ import (
 func (r vpnIPsecRemoteAccessConnection) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Virtual Private Network (VPN)
+		MarkdownDescription: `<div style="text-align: center">
+Virtual Private Network (VPN)
 
+<br>
+&darr;
+<br>
 VPN IP security (IPsec) parameters
 
+<br>
+&darr;
+<br>
 IKEv2 remote access VPN
 
+<br>
+&darr;
+<br>
+<b>
 IKEv2 VPN connection name
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Connection name  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

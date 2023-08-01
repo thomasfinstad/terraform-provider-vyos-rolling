@@ -9,11 +9,11 @@ import (
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
-	ParentIDServiceDNSForwardingAuthoritativeDomain types.String `tfsdk:"authoritative_domain" vyos:"authoritative-domain_identifier,parent-id"`
+	ParentIDServiceDNSForwardingAuthoritativeDomain types.String `tfsdk:"authoritative_domain" vyos:"authoritative-domain,parent-id"`
 
-	ParentIDServiceDNSForwardingAuthoritativeDomainRecordsNaptr types.String `tfsdk:"naptr" vyos:"naptr_identifier,parent-id"`
+	ParentIDServiceDNSForwardingAuthoritativeDomainRecordsNaptr types.String `tfsdk:"naptr" vyos:"naptr,parent-id"`
 
 	// LeafNodes
 	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleOrder            types.Number `tfsdk:"order" vyos:"order,omitempty"`
@@ -49,43 +49,43 @@ func (o *ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) GetVyosPath() 
 		o.ParentIDServiceDNSForwardingAuthoritativeDomainRecordsNaptr.ValueString(),
 
 		"rule",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `NAPTR rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Rule number  |
+    |  number: 0-65535  &emsp; |  Rule number  |
 
 `,
 		},
 
-		"authoritative_domain_identifier": schema.StringAttribute{
+		"authoritative_domain_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Domain to host authoritative records for
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  An absolute DNS name  |
+    |  text  &emsp; |  An absolute DNS name  |
 
 `,
 		},
 
-		"naptr_identifier": schema.StringAttribute{
+		"naptr_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `"NAPTR" record
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  A DNS name relative to the root record  |
-    |  @  |  Root record  |
+    |  text  &emsp; |  A DNS name relative to the root record  |
+    |  @  &emsp; |  Root record  |
 
 `,
 		},
@@ -96,9 +96,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
 			Optional: true,
 			MarkdownDescription: `Rule order
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Rule order (lower order is evaluated first)  |
+    |  number: 0-65535  &emsp; |  Rule order (lower order is evaluated first)  |
 
 `,
 		},
@@ -107,9 +107,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
 			Optional: true,
 			MarkdownDescription: `Rule preference
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  Rule preference  |
+    |  number: 0-65535  &emsp; |  Rule preference  |
 
 `,
 
@@ -171,9 +171,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
 			Optional: true,
 			MarkdownDescription: `Replacement DNS name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  name.example.com  |  An absolute DNS name  |
+    |  name.example.com  &emsp; |  An absolute DNS name  |
 
 `,
 		},

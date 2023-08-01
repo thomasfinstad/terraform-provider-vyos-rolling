@@ -8,7 +8,7 @@ import (
 
 // ServiceWebproxyCachePeer describes the resource data model.
 type ServiceWebproxyCachePeer struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"cache_peer_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceWebproxyCachePeerAddress  types.String `tfsdk:"address" vyos:"address,omitempty"`
@@ -30,20 +30,20 @@ func (o *ServiceWebproxyCachePeer) GetVyosPath() []string {
 		"webproxy",
 
 		"cache-peer",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceWebproxyCachePeer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"cache_peer_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Specify other caches in a hierarchy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  hostname  |  Cache peers FQDN  |
+    |  hostname  &emsp; |  Cache peers FQDN  |
 
 `,
 		},
@@ -54,10 +54,10 @@ func (o ServiceWebproxyCachePeer) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Hostname or IP address of peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Squid cache-peer IPv4 address  |
-    |  hostname  |  Squid cache-peer hostname  |
+    |  ipv4  &emsp; |  Squid cache-peer IPv4 address  |
+    |  hostname  &emsp; |  Squid cache-peer hostname  |
 
 `,
 		},
@@ -66,9 +66,9 @@ func (o ServiceWebproxyCachePeer) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Default Proxy Port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1025-65535  |  Default port number  |
+    |  number: 1025-65535  &emsp; |  Default port number  |
 
 `,
 
@@ -80,10 +80,10 @@ func (o ServiceWebproxyCachePeer) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Cache peer ICP port
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Cache peer disabled  |
-    |  u32:1-65535  |  Cache peer ICP port  |
+    |  number: 0  &emsp; |  Cache peer disabled  |
+    |  number: 1-65535  &emsp; |  Cache peer ICP port  |
 
 `,
 
@@ -95,9 +95,9 @@ func (o ServiceWebproxyCachePeer) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Cache peer options
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Cache peer options  |
+    |  txt  &emsp; |  Cache peer options  |
 
 `,
 
@@ -109,11 +109,11 @@ func (o ServiceWebproxyCachePeer) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Squid peer type (default parent)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  parent  |  Peer is a parent  |
-    |  sibling  |  Peer is a sibling  |
-    |  multicast  |  Peer is a member of a multicast group  |
+    |  parent  &emsp; |  Peer is a parent  |
+    |  sibling  &emsp; |  Peer is a sibling  |
+    |  multicast  &emsp; |  Peer is a member of a multicast group  |
 
 `,
 

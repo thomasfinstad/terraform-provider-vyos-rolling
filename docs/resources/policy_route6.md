@@ -3,12 +3,30 @@
 page_title: "vyos_policy_route6 Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>policy</i>
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Policy route rule set name for IPv6
+  </b>
+  </div>
 ---
 
 # vyos_policy_route6 (Resource)
 
+<div style="text-align: center">
+<i>policy</i>
+
+<br>
+&darr;
+<br>
+<b>
 Policy route rule set name for IPv6
+</b>
+</div>
 
 
 
@@ -17,18 +35,18 @@ Policy route rule set name for IPv6
 
 ### Required
 
-- `identifier` (String) Policy route rule set name for IPv6
+- `route6_id` (String) Policy route rule set name for IPv6
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `enable_default_log` (Boolean) Log packets hitting default-action
 - `interface` (List of String) Interface to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |

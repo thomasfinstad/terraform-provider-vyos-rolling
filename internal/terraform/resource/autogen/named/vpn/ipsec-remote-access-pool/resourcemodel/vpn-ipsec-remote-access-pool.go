@@ -8,7 +8,7 @@ import (
 
 // VpnIPsecRemoteAccessPool describes the resource data model.
 type VpnIPsecRemoteAccessPool struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"pool_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafVpnIPsecRemoteAccessPoolExclude    types.List   `tfsdk:"exclude" vyos:"exclude,omitempty"`
@@ -30,14 +30,14 @@ func (o *VpnIPsecRemoteAccessPool) GetVyosPath() []string {
 		"remote-access",
 
 		"pool",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VpnIPsecRemoteAccessPool) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"pool_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IP address pool for remote access users
 
@@ -51,10 +51,10 @@ func (o VpnIPsecRemoteAccessPool) ResourceSchemaAttributes() map[string]schema.A
 			Optional:    true,
 			MarkdownDescription: `Local IPv4 or IPv6 pool prefix exclusions
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Local IPv4 pool prefix exclusion  |
-    |  ipv6net  |  Local IPv6 pool prefix exclusion  |
+    |  ipv4net  &emsp; |  Local IPv4 pool prefix exclusion  |
+    |  ipv6net  &emsp; |  Local IPv6 pool prefix exclusion  |
 
 `,
 		},
@@ -63,10 +63,10 @@ func (o VpnIPsecRemoteAccessPool) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Local IPv4 or IPv6 pool prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Local IPv4 pool prefix  |
-    |  ipv6net  |  Local IPv6 pool prefix  |
+    |  ipv4net  &emsp; |  Local IPv4 pool prefix  |
+    |  ipv6net  &emsp; |  Local IPv6 pool prefix  |
 
 `,
 		},
@@ -76,10 +76,10 @@ func (o VpnIPsecRemoteAccessPool) ResourceSchemaAttributes() map[string]schema.A
 			Optional:    true,
 			MarkdownDescription: `Domain Name Servers (DNS) addresses
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
-    |  ipv6  |  Domain Name Server (DNS) IPv6 address  |
+    |  ipv4  &emsp; |  Domain Name Server (DNS) IPv4 address  |
+    |  ipv6  &emsp; |  Domain Name Server (DNS) IPv6 address  |
 
 `,
 		},

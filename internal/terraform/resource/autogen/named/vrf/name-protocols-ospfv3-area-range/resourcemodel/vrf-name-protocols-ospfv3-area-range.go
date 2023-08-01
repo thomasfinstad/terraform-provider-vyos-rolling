@@ -9,11 +9,11 @@ import (
 
 // VrfNameProtocolsOspfvthreeAreaRange describes the resource data model.
 type VrfNameProtocolsOspfvthreeAreaRange struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"range_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
-	ParentIDVrfNameProtocolsOspfvthreeArea types.String `tfsdk:"area" vyos:"area_identifier,parent-id"`
+	ParentIDVrfNameProtocolsOspfvthreeArea types.String `tfsdk:"area" vyos:"area,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsOspfvthreeAreaRangeAdvertise    types.Bool `tfsdk:"advertise" vyos:"advertise,omitempty"`
@@ -40,43 +40,43 @@ func (o *VrfNameProtocolsOspfvthreeAreaRange) GetVyosPath() []string {
 		o.ParentIDVrfNameProtocolsOspfvthreeArea.ValueString(),
 
 		"range",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsOspfvthreeAreaRange) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"range_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Specify IPv6 prefix (border routers only)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  Specify IPv6 prefix (border routers only)  |
+    |  ipv6net  &emsp; |  Specify IPv6 prefix (border routers only)  |
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
 
-		"area_identifier": schema.StringAttribute{
+		"area_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `OSPFv3 Area
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Area ID as a decimal value  |
-    |  ipv4  |  Area ID in IP address forma  |
+    |  u32  &emsp; |  Area ID as a decimal value  |
+    |  ipv4  &emsp; |  Area ID in IP address forma  |
 
 `,
 		},

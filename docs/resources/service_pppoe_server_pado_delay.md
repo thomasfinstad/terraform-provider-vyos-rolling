@@ -3,22 +3,40 @@
 page_title: "vyos_service_pppoe_server_pado_delay Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Point to Point over Ethernet (PPPoE) Server
+
+  <br>
+  &darr;
+  <br>
+  <b>
   PADO delays
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-999999  |  Number in ms  |
+  </b>
+  </div>
 ---
 
 # vyos_service_pppoe_server_pado_delay (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Point to Point over Ethernet (PPPoE) Server
 
+<br>
+&darr;
+<br>
+<b>
 PADO delays
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-999999  |  Number in ms  |
+</b>
+</div>
 
 
 
@@ -27,16 +45,16 @@ PADO delays
 
 ### Required
 
-- `identifier` (String) PADO delays
+- `pado_delay_id` (String) PADO delays
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-999999  |  Number in ms  |
+    |  number: 1-999999  &emsp; |  Number in ms  |
 
 ### Optional
 
 - `sessions` (Number) Number of sessions
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-999999  |  Number of sessions  |
+    |  number: 1-999999  &emsp; |  Number of sessions  |

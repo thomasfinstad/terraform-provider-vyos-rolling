@@ -12,18 +12,31 @@ import (
 func (r protocolsBgpAddressFamilyLtwovpnEvpnVni) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Border Gateway Protocol (BGP)
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Border Gateway Protocol (BGP)
+
+<br>
+&darr;
+<br>
 BGP address-family parameters
 
+<br>
+&darr;
+<br>
 L2VPN EVPN BGP settings
 
+<br>
+&darr;
+<br>
+<b>
 VXLAN Network Identifier
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-16777215  |  VNI number  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

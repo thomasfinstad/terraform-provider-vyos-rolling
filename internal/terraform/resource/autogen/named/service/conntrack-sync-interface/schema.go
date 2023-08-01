@@ -12,10 +12,21 @@ import (
 func (r serviceConntrackSyncInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Connection tracking synchronization
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Connection tracking synchronization
+
+<br>
+&darr;
+<br>
+<b>
 Interface to use for syncing conntrack entries
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

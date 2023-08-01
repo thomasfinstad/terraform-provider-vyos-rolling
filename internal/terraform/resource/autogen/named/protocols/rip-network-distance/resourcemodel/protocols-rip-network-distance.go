@@ -8,7 +8,7 @@ import (
 
 // ProtocolsRIPNetworkDistance describes the resource data model.
 type ProtocolsRIPNetworkDistance struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"network_distance_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsRIPNetworkDistanceAccessList types.String `tfsdk:"access_list" vyos:"access-list,omitempty"`
@@ -27,20 +27,20 @@ func (o *ProtocolsRIPNetworkDistance) GetVyosPath() []string {
 		"rip",
 
 		"network-distance",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsRIPNetworkDistance) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"network_distance_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Source network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Source network  |
+    |  ipv4net  &emsp; |  Source network  |
 
 `,
 		},
@@ -51,9 +51,9 @@ func (o ProtocolsRIPNetworkDistance) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Access list
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Access list  |
+    |  txt  &emsp; |  Access list  |
 
 `,
 		},
@@ -62,9 +62,9 @@ func (o ProtocolsRIPNetworkDistance) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Distance for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for this route  |
+    |  number: 1-255  &emsp; |  Distance for this route  |
 
 `,
 		},

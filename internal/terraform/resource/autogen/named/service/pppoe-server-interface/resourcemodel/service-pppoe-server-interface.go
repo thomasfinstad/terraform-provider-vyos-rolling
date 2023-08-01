@@ -8,7 +8,7 @@ import (
 
 // ServicePppoeServerInterface describes the resource data model.
 type ServicePppoeServerInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServicePppoeServerInterfaceVlan types.List `tfsdk:"vlan" vyos:"vlan,omitempty"`
@@ -26,14 +26,14 @@ func (o *ServicePppoeServerInterface) GetVyosPath() []string {
 		"pppoe-server",
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServicePppoeServerInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `interface(s) to listen on
 
@@ -47,10 +47,10 @@ func (o ServicePppoeServerInterface) ResourceSchemaAttributes() map[string]schem
 			Optional:    true,
 			MarkdownDescription: `VLAN monitor for automatic creation of VLAN interfaces
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4094  |  VLAN for automatic creation  |
-    |  start-end  |  VLAN range for automatic creation (e.g. 1-4094)  |
+    |  number: 1-4094  &emsp; |  VLAN for automatic creation  |
+    |  start-end  &emsp; |  VLAN range for automatic creation (e.g. 1-4094)  |
 
 `,
 		},

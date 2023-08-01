@@ -9,7 +9,7 @@ import (
 
 // ProtocolsOspfInterface describes the resource data model.
 type ProtocolsOspfInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsOspfInterfaceArea               types.String `tfsdk:"area" vyos:"area,omitempty"`
@@ -40,20 +40,20 @@ func (o *ProtocolsOspfInterface) GetVyosPath() []string {
 		"ospf",
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Interface configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},
@@ -64,10 +64,10 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Enable OSPF on this interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  OSPF area ID as decimal notation  |
-    |  ipv4  |  OSPF area ID in IP address notation  |
+    |  u32  &emsp; |  OSPF area ID as decimal notation  |
+    |  ipv4  &emsp; |  OSPF area ID in IP address notation  |
 
 `,
 		},
@@ -76,9 +76,9 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Interval after which a neighbor is declared dead
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Neighbor dead interval (seconds)  |
+    |  number: 1-65535  &emsp; |  Neighbor dead interval (seconds)  |
 
 `,
 
@@ -90,9 +90,9 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Interval between hello packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Hello interval (seconds)  |
+    |  number: 1-65535  &emsp; |  Hello interval (seconds)  |
 
 `,
 
@@ -104,9 +104,9 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Interval between retransmitting lost link state advertisements
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Retransmit interval (seconds)  |
+    |  number: 1-65535  &emsp; |  Retransmit interval (seconds)  |
 
 `,
 
@@ -118,9 +118,9 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Link state transmit delay
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Link state transmit delay (seconds)  |
+    |  number: 1-65535  &emsp; |  Link state transmit delay (seconds)  |
 
 `,
 
@@ -132,9 +132,9 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Interface cost
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  OSPF interface cost  |
+    |  number: 1-65535  &emsp; |  OSPF interface cost  |
 
 `,
 		},
@@ -152,9 +152,9 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Router priority
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  OSPF router priority cost  |
+    |  number: 0-255  &emsp; |  OSPF router priority cost  |
 
 `,
 
@@ -166,9 +166,9 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Interface bandwidth (Mbit/s)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-100000  |  Bandwidth in Megabit/sec (for calculating OSPF cost)  |
+    |  number: 1-100000  &emsp; |  Bandwidth in Megabit/sec (for calculating OSPF cost)  |
 
 `,
 		},
@@ -177,9 +177,9 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Hello multiplier factor
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-10  |  Number of Hellos to send each second  |
+    |  number: 1-10  &emsp; |  Number of Hellos to send each second  |
 
 `,
 		},
@@ -188,12 +188,12 @@ func (o ProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Network type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  broadcast  |  Broadcast network type  |
-    |  non-broadcast  |  Non-broadcast network type  |
-    |  point-to-multipoint  |  Point-to-multipoint network type  |
-    |  point-to-point  |  Point-to-point network type  |
+    |  broadcast  &emsp; |  Broadcast network type  |
+    |  non-broadcast  &emsp; |  Non-broadcast network type  |
+    |  point-to-multipoint  &emsp; |  Point-to-multipoint network type  |
+    |  point-to-point  &emsp; |  Point-to-point network type  |
 
 `,
 		},

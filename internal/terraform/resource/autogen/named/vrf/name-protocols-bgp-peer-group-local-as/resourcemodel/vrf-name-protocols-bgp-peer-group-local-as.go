@@ -8,11 +8,11 @@ import (
 
 // VrfNameProtocolsBgpPeerGroupLocalAs describes the resource data model.
 type VrfNameProtocolsBgpPeerGroupLocalAs struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"local_as_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
-	ParentIDVrfNameProtocolsBgpPeerGroup types.String `tfsdk:"peer_group" vyos:"peer-group_identifier,parent-id"`
+	ParentIDVrfNameProtocolsBgpPeerGroup types.String `tfsdk:"peer_group" vyos:"peer-group,parent-id"`
 
 	// LeafNodes
 
@@ -38,36 +38,36 @@ func (o *VrfNameProtocolsBgpPeerGroupLocalAs) GetVyosPath() []string {
 		o.ParentIDVrfNameProtocolsBgpPeerGroup.ValueString(),
 
 		"local-as",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"local_as_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Specify alternate ASN for this BGP process
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967294  |  Autonomous System Number (ASN)  |
+    |  number: 1-4294967294  &emsp; |  Autonomous System Number (ASN)  |
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
 
-		"peer_group_identifier": schema.StringAttribute{
+		"peer_group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Name of peer-group
 

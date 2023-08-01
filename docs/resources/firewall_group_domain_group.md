@@ -3,18 +3,40 @@
 page_title: "vyos_firewall_group_domain_group Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Firewall
+
+  <br>
+  &darr;
+  <br>
   Firewall group
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Firewall domain-group
+  </b>
+  </div>
 ---
 
 # vyos_firewall_group_domain_group (Resource)
 
+<div style="text-align: center">
 Firewall
 
+<br>
+&darr;
+<br>
 Firewall group
 
+<br>
+&darr;
+<br>
+<b>
 Firewall domain-group
+</b>
+</div>
 
 
 
@@ -23,17 +45,17 @@ Firewall domain-group
 
 ### Required
 
-- `identifier` (String) Firewall domain-group
+- `domain_group_id` (String) Firewall domain-group
 
 ### Optional
 
 - `address` (List of String) Domain-group member
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Domain address to match  |
+    |  txt  &emsp; |  Domain address to match  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |

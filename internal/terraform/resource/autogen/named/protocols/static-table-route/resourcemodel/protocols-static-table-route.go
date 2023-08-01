@@ -8,9 +8,9 @@ import (
 
 // ProtocolsStaticTableRoute describes the resource data model.
 type ProtocolsStaticTableRoute struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"route_id" vyos:",self-id"`
 
-	ParentIDProtocolsStaticTable types.String `tfsdk:"table" vyos:"table_identifier,parent-id"`
+	ParentIDProtocolsStaticTable types.String `tfsdk:"table" vyos:"table,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsStaticTableRouteDhcpInterface types.String `tfsdk:"dhcp_interface" vyos:"dhcp-interface,omitempty"`
@@ -36,31 +36,31 @@ func (o *ProtocolsStaticTableRoute) GetVyosPath() []string {
 		o.ParentIDProtocolsStaticTable.ValueString(),
 
 		"route",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsStaticTableRoute) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"route_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Static IPv4 route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 static route  |
+    |  ipv4net  &emsp; |  IPv4 static route  |
 
 `,
 		},
 
-		"table_identifier": schema.StringAttribute{
+		"table_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Policy route table number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-200  |  Policy route table number  |
+    |  number: 1-200  &emsp; |  Policy route table number  |
 
 `,
 		},
@@ -71,9 +71,9 @@ func (o ProtocolsStaticTableRoute) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `DHCP interface supplying next-hop IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  DHCP interface name  |
+    |  txt  &emsp; |  DHCP interface name  |
 
 `,
 		},
@@ -82,9 +82,9 @@ func (o ProtocolsStaticTableRoute) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

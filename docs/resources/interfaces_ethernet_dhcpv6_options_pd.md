@@ -3,36 +3,50 @@
 page_title: "vyos_interfaces_ethernet_dhcpv6_options_pd Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Network interfaces
-  Ethernet Interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ethN  |  Ethernet interface name  |
 
+  <br>
+  &darr;
+  <br>
+  Ethernet Interface
+
+  <br>
+  &darr;
+  <br>
   DHCPv6 client settings/options
+
+  <br>
+  &darr;
+  <br>
+  <b>
   DHCPv6 prefix delegation interface statement
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  instance number  |  Prefix delegation instance (>= 0)  |
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_ethernet_dhcpv6_options_pd (Resource)
 
+<div style="text-align: center">
 Network interfaces
 
+<br>
+&darr;
+<br>
 Ethernet Interface
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ethN  |  Ethernet interface name  |
-
+<br>
+&darr;
+<br>
 DHCPv6 client settings/options
 
+<br>
+&darr;
+<br>
+<b>
 DHCPv6 prefix delegation interface statement
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+</b>
+</div>
 
 
 
@@ -41,21 +55,21 @@ DHCPv6 prefix delegation interface statement
 
 ### Required
 
-- `ethernet_identifier` (String) Ethernet Interface
+- `ethernet_id` (String) Ethernet Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ethN  |  Ethernet interface name  |
-- `identifier` (String) DHCPv6 prefix delegation interface statement
+    |  ethN  &emsp; |  Ethernet interface name  |
+- `pd_id` (String) DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
 
 ### Optional
 
 - `length` (Number) Request IPv6 prefix length from peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:32-64  |  Length of delegated prefix  |
+    |  number: 32-64  &emsp; |  Length of delegated prefix  |

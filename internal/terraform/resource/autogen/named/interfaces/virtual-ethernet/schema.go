@@ -12,12 +12,16 @@ import (
 func (r interfacesVirtualEthernet) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Virtual Ethernet (veth) Interface
+		MarkdownDescription: `<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  vethN  |  Virtual Ethernet interface name  |
-
+<br>
+&darr;
+<br>
+<b>
+Virtual Ethernet (veth) Interface
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

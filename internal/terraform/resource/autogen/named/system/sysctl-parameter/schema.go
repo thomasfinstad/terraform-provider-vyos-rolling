@@ -12,16 +12,21 @@ import (
 func (r systemSysctlParameter) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `System parameters
+		MarkdownDescription: `<div style="text-align: center">
+System parameters
 
+<br>
+&darr;
+<br>
 Configure kernel parameters at runtime
 
+<br>
+&darr;
+<br>
+<b>
 Sysctl key name
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Sysctl key name  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

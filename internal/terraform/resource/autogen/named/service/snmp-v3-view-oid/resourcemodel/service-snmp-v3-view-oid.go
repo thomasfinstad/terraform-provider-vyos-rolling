@@ -8,9 +8,9 @@ import (
 
 // ServiceSnmpVthreeViewOID describes the resource data model.
 type ServiceSnmpVthreeViewOID struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"oid_id" vyos:",self-id"`
 
-	ParentIDServiceSnmpVthreeView types.String `tfsdk:"view" vyos:"view_identifier,parent-id"`
+	ParentIDServiceSnmpVthreeView types.String `tfsdk:"view" vyos:"view,parent-id"`
 
 	// LeafNodes
 	LeafServiceSnmpVthreeViewOIDExclude types.String `tfsdk:"exclude" vyos:"exclude,omitempty"`
@@ -34,21 +34,21 @@ func (o *ServiceSnmpVthreeViewOID) GetVyosPath() []string {
 		o.ParentIDServiceSnmpVthreeView.ValueString(),
 
 		"oid",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceSnmpVthreeViewOID) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"oid_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Specifies the oid
 
 `,
 		},
 
-		"view_identifier": schema.StringAttribute{
+		"view_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Specifies the view with name viewname
 

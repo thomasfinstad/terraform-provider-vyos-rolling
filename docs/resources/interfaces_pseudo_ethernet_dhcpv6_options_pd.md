@@ -3,33 +3,50 @@
 page_title: "vyos_interfaces_pseudo_ethernet_dhcpv6_options_pd Resource - vyos"
 subcategory: ""
 description: |-
-  Pseudo Ethernet Interface (Macvlan)
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  pethN  |  Pseudo Ethernet interface name  |
+  <div style="text-align: center">
+  <i>interfaces</i>
 
+  <br>
+  &darr;
+  <br>
+  Pseudo Ethernet Interface (Macvlan)
+
+  <br>
+  &darr;
+  <br>
   DHCPv6 client settings/options
+
+  <br>
+  &darr;
+  <br>
+  <b>
   DHCPv6 prefix delegation interface statement
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  instance number  |  Prefix delegation instance (>= 0)  |
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_pseudo_ethernet_dhcpv6_options_pd (Resource)
 
+<div style="text-align: center">
+<i>interfaces</i>
+
+<br>
+&darr;
+<br>
 Pseudo Ethernet Interface (Macvlan)
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  pethN  |  Pseudo Ethernet interface name  |
-
+<br>
+&darr;
+<br>
 DHCPv6 client settings/options
 
+<br>
+&darr;
+<br>
+<b>
 DHCPv6 prefix delegation interface statement
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
+</b>
+</div>
 
 
 
@@ -38,21 +55,21 @@ DHCPv6 prefix delegation interface statement
 
 ### Required
 
-- `identifier` (String) DHCPv6 prefix delegation interface statement
+- `pd_id` (String) DHCPv6 prefix delegation interface statement
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  instance number  |  Prefix delegation instance (>= 0)  |
-- `pseudo_ethernet_identifier` (String) Pseudo Ethernet Interface (Macvlan)
+    |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
+- `pseudo_ethernet_id` (String) Pseudo Ethernet Interface (Macvlan)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  pethN  |  Pseudo Ethernet interface name  |
+    |  pethN  &emsp; |  Pseudo Ethernet interface name  |
 
 ### Optional
 
 - `length` (Number) Request IPv6 prefix length from peer
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:32-64  |  Length of delegated prefix  |
+    |  number: 32-64  &emsp; |  Length of delegated prefix  |

@@ -9,9 +9,9 @@ import (
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsTxt describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsTxt struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"txt_id" vyos:",self-id"`
 
-	ParentIDServiceDNSForwardingAuthoritativeDomain types.String `tfsdk:"authoritative_domain" vyos:"authoritative-domain_identifier,parent-id"`
+	ParentIDServiceDNSForwardingAuthoritativeDomain types.String `tfsdk:"authoritative_domain" vyos:"authoritative-domain,parent-id"`
 
 	// LeafNodes
 	LeafServiceDNSForwardingAuthoritativeDomainRecordsTxtValue   types.List   `tfsdk:"value" vyos:"value,omitempty"`
@@ -38,32 +38,32 @@ func (o *ServiceDNSForwardingAuthoritativeDomainRecordsTxt) GetVyosPath() []stri
 		"records",
 
 		"txt",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDNSForwardingAuthoritativeDomainRecordsTxt) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"txt_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `"TXT" record
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  A DNS name relative to the root record  |
-    |  @  |  Root record  |
+    |  text  &emsp; |  A DNS name relative to the root record  |
+    |  @  &emsp; |  Root record  |
 
 `,
 		},
 
-		"authoritative_domain_identifier": schema.StringAttribute{
+		"authoritative_domain_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Domain to host authoritative records for
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  An absolute DNS name  |
+    |  text  &emsp; |  An absolute DNS name  |
 
 `,
 		},
@@ -75,9 +75,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsTxt) ResourceSchemaAttribu
 			Optional:    true,
 			MarkdownDescription: `Record contents
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  Record contents  |
+    |  text  &emsp; |  Record contents  |
 
 `,
 		},
@@ -86,9 +86,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsTxt) ResourceSchemaAttribu
 			Optional: true,
 			MarkdownDescription: `Time-to-live (TTL)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-2147483647  |  TTL in seconds  |
+    |  number: 0-2147483647  &emsp; |  TTL in seconds  |
 
 `,
 

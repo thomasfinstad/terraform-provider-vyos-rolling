@@ -9,7 +9,7 @@ import (
 
 // VpnIPsecProfile describes the resource data model.
 type VpnIPsecProfile struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"profile_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafVpnIPsecProfileDisable  types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -31,20 +31,20 @@ func (o *VpnIPsecProfile) GetVyosPath() []string {
 		"ipsec",
 
 		"profile",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VpnIPsecProfile) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"profile_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `VPN IPsec profile
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Profile name  |
+    |  txt  &emsp; |  Profile name  |
 
 `,
 		},

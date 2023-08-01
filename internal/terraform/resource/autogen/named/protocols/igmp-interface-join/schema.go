@@ -12,16 +12,26 @@ import (
 func (r protocolsIgmpInterfaceJoin) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Internet Group Management Protocol (IGMP)
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Internet Group Management Protocol (IGMP)
+
+<br>
+&darr;
+<br>
 IGMP interface
 
+<br>
+&darr;
+<br>
+<b>
 IGMP join multicast group
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  Multicast group address  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

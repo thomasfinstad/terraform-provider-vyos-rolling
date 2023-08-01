@@ -9,11 +9,11 @@ import (
 
 // ServiceDhcpServerSharedNetworkNameSubnetStaticMapping describes the resource data model.
 type ServiceDhcpServerSharedNetworkNameSubnetStaticMapping struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"static_mapping_id" vyos:",self-id"`
 
-	ParentIDServiceDhcpServerSharedNetworkName types.String `tfsdk:"shared_network_name" vyos:"shared-network-name_identifier,parent-id"`
+	ParentIDServiceDhcpServerSharedNetworkName types.String `tfsdk:"shared_network_name" vyos:"shared-network-name,parent-id"`
 
-	ParentIDServiceDhcpServerSharedNetworkNameSubnet types.String `tfsdk:"subnet" vyos:"subnet_identifier,parent-id"`
+	ParentIDServiceDhcpServerSharedNetworkNameSubnet types.String `tfsdk:"subnet" vyos:"subnet,parent-id"`
 
 	// LeafNodes
 	LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingDisable                 types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -40,34 +40,34 @@ func (o *ServiceDhcpServerSharedNetworkNameSubnetStaticMapping) GetVyosPath() []
 		o.ParentIDServiceDhcpServerSharedNetworkNameSubnet.ValueString(),
 
 		"static-mapping",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDhcpServerSharedNetworkNameSubnetStaticMapping) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"static_mapping_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Name of static mapping
 
 `,
 		},
 
-		"shared_network_name_identifier": schema.StringAttribute{
+		"shared_network_name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Name of DHCP shared network
 
 `,
 		},
 
-		"subnet_identifier": schema.StringAttribute{
+		"subnet_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `DHCP subnet for shared network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
 
 `,
 		},
@@ -87,9 +87,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetStaticMapping) ResourceSchemaAtt
 			Optional: true,
 			MarkdownDescription: `Fixed IP address of static mapping
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address used in static mapping  |
+    |  ipv4  &emsp; |  IPv4 address used in static mapping  |
 
 `,
 		},
@@ -98,9 +98,9 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetStaticMapping) ResourceSchemaAtt
 			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+    |  macaddr  &emsp; |  Hardware (MAC) address  |
 
 `,
 		},

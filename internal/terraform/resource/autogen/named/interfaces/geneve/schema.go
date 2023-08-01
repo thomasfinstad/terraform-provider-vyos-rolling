@@ -12,12 +12,16 @@ import (
 func (r interfacesGeneve) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Generic Network Virtualization Encapsulation (GENEVE) Interface
+		MarkdownDescription: `<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  gnvN  |  GENEVE interface name  |
-
+<br>
+&darr;
+<br>
+<b>
+Generic Network Virtualization Encapsulation (GENEVE) Interface
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

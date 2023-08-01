@@ -3,15 +3,40 @@
 page_title: "vyos_service_dhcp_server_shared_network_name Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Dynamic Host Configuration Protocol (DHCP) for DHCP server
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Name of DHCP shared network
+  </b>
+  </div>
 ---
 
 # vyos_service_dhcp_server_shared_network_name (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Dynamic Host Configuration Protocol (DHCP) for DHCP server
 
+<br>
+&darr;
+<br>
+<b>
 Name of DHCP shared network
+</b>
+</div>
 
 
 
@@ -20,28 +45,28 @@ Name of DHCP shared network
 
 ### Required
 
-- `identifier` (String) Name of DHCP shared network
+- `shared_network_name_id` (String) Name of DHCP shared network
 
 ### Optional
 
 - `authoritative` (Boolean) Option to make DHCP server authoritative for this physical network
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `disable` (Boolean) Disable instance
 - `domain_name` (String) Client Domain Name
 - `domain_search` (List of String) Client Domain Name search list
 - `name_server` (List of String) Domain Name Servers (DNS) addresses
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
+    |  ipv4  &emsp; |  Domain Name Server (DNS) IPv4 address  |
 - `ntp_server` (List of String) IP address of NTP server
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  NTP server IPv4 address  |
+    |  ipv4  &emsp; |  NTP server IPv4 address  |
 - `ping_check` (Boolean) Sends ICMP Echo request to the address being assigned
 - `shared_network_parameters` (List of String) Additional shared-network parameters for DHCP server. You must use the syntax of dhcpd.conf in this text-field. Using this without proper knowledge may result in a crashed DHCP server. Check system log to look for errors.

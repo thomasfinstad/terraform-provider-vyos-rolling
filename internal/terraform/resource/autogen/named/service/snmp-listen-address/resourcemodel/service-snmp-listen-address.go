@@ -8,7 +8,7 @@ import (
 
 // ServiceSnmpListenAddress describes the resource data model.
 type ServiceSnmpListenAddress struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"listen_address_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceSnmpListenAddressPort types.Number `tfsdk:"port" vyos:"port,omitempty"`
@@ -26,21 +26,21 @@ func (o *ServiceSnmpListenAddress) GetVyosPath() []string {
 		"snmp",
 
 		"listen-address",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceSnmpListenAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"listen_address_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IP address to listen for incoming SNMP requests
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address to listen for incoming SNMP requests  |
-    |  ipv6  |  IPv6 address to listen for incoming SNMP requests  |
+    |  ipv4  &emsp; |  IPv4 address to listen for incoming SNMP requests  |
+    |  ipv6  &emsp; |  IPv6 address to listen for incoming SNMP requests  |
 
 `,
 		},
@@ -51,9 +51,9 @@ func (o ServiceSnmpListenAddress) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 

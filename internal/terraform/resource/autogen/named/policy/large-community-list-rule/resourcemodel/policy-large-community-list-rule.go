@@ -8,9 +8,9 @@ import (
 
 // PolicyLargeCommunityListRule describes the resource data model.
 type PolicyLargeCommunityListRule struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
-	ParentIDPolicyLargeCommunityList types.String `tfsdk:"large_community_list" vyos:"large-community-list_identifier,parent-id"`
+	ParentIDPolicyLargeCommunityList types.String `tfsdk:"large_community_list" vyos:"large-community-list,parent-id"`
 
 	// LeafNodes
 	LeafPolicyLargeCommunityListRuleAction      types.String `tfsdk:"action" vyos:"action,omitempty"`
@@ -31,31 +31,31 @@ func (o *PolicyLargeCommunityListRule) GetVyosPath() []string {
 		o.ParentIDPolicyLargeCommunityList.ValueString(),
 
 		"rule",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PolicyLargeCommunityListRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Rule for this BGP extended community list
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Large community-list rule number  |
+    |  number: 1-65535  &emsp; |  Large community-list rule number  |
 
 `,
 		},
 
-		"large_community_list_identifier": schema.StringAttribute{
+		"large_community_list_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Add a BGP large community list entry
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  BGP large-community-list name  |
+    |  txt  &emsp; |  BGP large-community-list name  |
 
 `,
 		},
@@ -66,10 +66,10 @@ func (o PolicyLargeCommunityListRule) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  permit  |  Permit matching entries  |
-    |  deny  |  Deny matching entries  |
+    |  permit  &emsp; |  Permit matching entries  |
+    |  deny  &emsp; |  Deny matching entries  |
 
 `,
 		},
@@ -78,9 +78,9 @@ func (o PolicyLargeCommunityListRule) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -89,10 +89,10 @@ func (o PolicyLargeCommunityListRule) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Regular expression to match against a large community list
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ASN:NN:NN  |  BGP large-community-list filter  |
-    |  IP:NN:NN  |  BGP large-community-list filter (IPv4 address format)  |
+    |  ASN:NN:NN  &emsp; |  BGP large-community-list filter  |
+    |  IP:NN:NN  &emsp; |  BGP large-community-list filter (IPv4 address format)  |
 
 `,
 		},

@@ -8,7 +8,7 @@ import (
 
 // PolicyExtcommunityList describes the resource data model.
 type PolicyExtcommunityList struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"extcommunity_list_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafPolicyExtcommunityListDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -25,20 +25,20 @@ func (o *PolicyExtcommunityList) GetVyosPath() []string {
 		"policy",
 
 		"extcommunity-list",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PolicyExtcommunityList) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"extcommunity_list_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Add a BGP extended community list entry
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  BGP extended community-list name  |
+    |  txt  &emsp; |  BGP extended community-list name  |
 
 `,
 		},
@@ -49,9 +49,9 @@ func (o PolicyExtcommunityList) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

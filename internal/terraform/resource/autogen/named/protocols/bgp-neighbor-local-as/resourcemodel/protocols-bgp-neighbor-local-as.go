@@ -8,9 +8,9 @@ import (
 
 // ProtocolsBgpNeighborLocalAs describes the resource data model.
 type ProtocolsBgpNeighborLocalAs struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"local_as_id" vyos:",self-id"`
 
-	ParentIDProtocolsBgpNeighbor types.String `tfsdk:"neighbor" vyos:"neighbor_identifier,parent-id"`
+	ParentIDProtocolsBgpNeighbor types.String `tfsdk:"neighbor" vyos:"neighbor,parent-id"`
 
 	// LeafNodes
 
@@ -31,33 +31,33 @@ func (o *ProtocolsBgpNeighborLocalAs) GetVyosPath() []string {
 		o.ParentIDProtocolsBgpNeighbor.ValueString(),
 
 		"local-as",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"local_as_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Specify alternate ASN for this BGP process
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967294  |  Autonomous System Number (ASN)  |
+    |  number: 1-4294967294  &emsp; |  Autonomous System Number (ASN)  |
 
 `,
 		},
 
-		"neighbor_identifier": schema.StringAttribute{
+		"neighbor_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `BGP neighbor
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  BGP neighbor IP address  |
-    |  ipv6  |  BGP neighbor IPv6 address  |
-    |  txt  |  Interface name  |
+    |  ipv4  &emsp; |  BGP neighbor IP address  |
+    |  ipv6  &emsp; |  BGP neighbor IPv6 address  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},

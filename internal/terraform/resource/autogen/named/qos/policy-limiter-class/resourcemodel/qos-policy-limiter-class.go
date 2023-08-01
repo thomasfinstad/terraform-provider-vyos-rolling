@@ -8,9 +8,9 @@ import (
 
 // QosPolicyLimiterClass describes the resource data model.
 type QosPolicyLimiterClass struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"class_id" vyos:",self-id"`
 
-	ParentIDQosPolicyLimiter types.String `tfsdk:"limiter" vyos:"limiter_identifier,parent-id"`
+	ParentIDQosPolicyLimiter types.String `tfsdk:"limiter" vyos:"limiter,parent-id"`
 
 	// LeafNodes
 	LeafQosPolicyLimiterClassDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -37,31 +37,31 @@ func (o *QosPolicyLimiterClass) GetVyosPath() []string {
 		o.ParentIDQosPolicyLimiter.ValueString(),
 
 		"class",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyLimiterClass) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"class_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Class ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4090  |  Class Identifier  |
+    |  number: 1-4090  &emsp; |  Class Identifier  |
 
 `,
 		},
 
-		"limiter_identifier": schema.StringAttribute{
+		"limiter_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Traffic input limiting policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 `,
 		},
@@ -72,9 +72,9 @@ func (o QosPolicyLimiterClass) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -83,15 +83,15 @@ func (o QosPolicyLimiterClass) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Available bandwidth for this policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <number>  |  Bits per second  |
-    |  <number>bit  |  Bits per second  |
-    |  <number>kbit  |  Kilobits per second  |
-    |  <number>mbit  |  Megabits per second  |
-    |  <number>gbit  |  Gigabits per second  |
-    |  <number>tbit  |  Terabits per second  |
-    |  <number>%  |  Percentage of interface link speed  |
+    |  <number>  &emsp; |  Bits per second  |
+    |  <number>bit  &emsp; |  Bits per second  |
+    |  <number>kbit  &emsp; |  Kilobits per second  |
+    |  <number>mbit  &emsp; |  Megabits per second  |
+    |  <number>gbit  &emsp; |  Gigabits per second  |
+    |  <number>tbit  &emsp; |  Terabits per second  |
+    |  <number>%  &emsp; |  Percentage of interface link speed  |
 
 `,
 		},
@@ -100,10 +100,10 @@ func (o QosPolicyLimiterClass) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Burst size for this class
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <number>  |  Bytes  |
-    |  <number><suffix>  |  Bytes with scaling suffix (kb, mb, gb)  |
+    |  <number>  &emsp; |  Bytes  |
+    |  <number><suffix>  &emsp; |  Bytes with scaling suffix (kb, mb, gb)  |
 
 `,
 
@@ -115,13 +115,13 @@ func (o QosPolicyLimiterClass) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Default action for packets exceeding the limiter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  continue  |  Do not do anything, just continue with the next action in line  |
-    |  drop  |  Drop the packet immediately  |
-    |  ok  |  Accept the packet  |
-    |  reclassify  |  Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
-    |  pipe  |  Pass the packet to the next action in line  |
+    |  continue  &emsp; |  Do not do anything, just continue with the next action in line  |
+    |  drop  &emsp; |  Drop the packet immediately  |
+    |  ok  &emsp; |  Accept the packet  |
+    |  reclassify  &emsp; |  Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
+    |  pipe  &emsp; |  Pass the packet to the next action in line  |
 
 `,
 
@@ -133,13 +133,13 @@ func (o QosPolicyLimiterClass) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Default action for packets not exceeding the limiter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  continue  |  Do not do anything, just continue with the next action in line  |
-    |  drop  |  Drop the packet immediately  |
-    |  ok  |  Accept the packet  |
-    |  reclassify  |  Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
-    |  pipe  |  Pass the packet to the next action in line  |
+    |  continue  &emsp; |  Do not do anything, just continue with the next action in line  |
+    |  drop  &emsp; |  Drop the packet immediately  |
+    |  ok  &emsp; |  Accept the packet  |
+    |  reclassify  &emsp; |  Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
+    |  pipe  &emsp; |  Pass the packet to the next action in line  |
 
 `,
 
@@ -151,9 +151,9 @@ func (o QosPolicyLimiterClass) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Priority for rule evaluation
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-20  |  Priority for match rule evaluation  |
+    |  number: 0-20  &emsp; |  Priority for match rule evaluation  |
 
 `,
 

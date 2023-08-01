@@ -8,9 +8,9 @@ import (
 
 // ProtocolsNhrpTunnelShortcutTarget describes the resource data model.
 type ProtocolsNhrpTunnelShortcutTarget struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"shortcut_target_id" vyos:",self-id"`
 
-	ParentIDProtocolsNhrpTunnel types.String `tfsdk:"tunnel" vyos:"tunnel_identifier,parent-id"`
+	ParentIDProtocolsNhrpTunnel types.String `tfsdk:"tunnel" vyos:"tunnel,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsNhrpTunnelShortcutTargetHoldingTime types.String `tfsdk:"holding_time" vyos:"holding-time,omitempty"`
@@ -31,27 +31,27 @@ func (o *ProtocolsNhrpTunnelShortcutTarget) GetVyosPath() []string {
 		o.ParentIDProtocolsNhrpTunnel.ValueString(),
 
 		"shortcut-target",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsNhrpTunnelShortcutTarget) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"shortcut_target_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Defines an off-NBMA network prefix for which the GRE interface will act as a gateway
 
 `,
 		},
 
-		"tunnel_identifier": schema.StringAttribute{
+		"tunnel_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Tunnel for NHRP
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  tunN  |  NHRP tunnel name  |
+    |  tunN  &emsp; |  NHRP tunnel name  |
 
 `,
 		},

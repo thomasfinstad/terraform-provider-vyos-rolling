@@ -3,28 +3,30 @@
 page_title: "vyos_policy_access_list Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Routing policy
+
+  <br>
+  &darr;
+  <br>
+  <b>
   IP access-list filter
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-99  |  IP standard access list  |
-  |  u32:100-199  |  IP extended access list  |
-  |  u32:1300-1999  |  IP standard access list (expanded range)  |
-  |  u32:2000-2699  |  IP extended access list (expanded range)  |
+  </b>
+  </div>
 ---
 
 # vyos_policy_access_list (Resource)
 
+<div style="text-align: center">
 Routing policy
 
+<br>
+&darr;
+<br>
+<b>
 IP access-list filter
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-99  |  IP standard access list  |
-    |  u32:100-199  |  IP extended access list  |
-    |  u32:1300-1999  |  IP standard access list (expanded range)  |
-    |  u32:2000-2699  |  IP extended access list (expanded range)  |
+</b>
+</div>
 
 
 
@@ -33,19 +35,19 @@ IP access-list filter
 
 ### Required
 
-- `identifier` (String) IP access-list filter
+- `access_list_id` (String) IP access-list filter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-99  |  IP standard access list  |
-    |  u32:100-199  |  IP extended access list  |
-    |  u32:1300-1999  |  IP standard access list (expanded range)  |
-    |  u32:2000-2699  |  IP extended access list (expanded range)  |
+    |  number: 1-99  &emsp; |  IP standard access list  |
+    |  number: 100-199  &emsp; |  IP extended access list  |
+    |  number: 1300-1999  &emsp; |  IP standard access list (expanded range)  |
+    |  number: 2000-2699  &emsp; |  IP extended access list (expanded range)  |
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |

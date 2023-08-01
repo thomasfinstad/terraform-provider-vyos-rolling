@@ -9,7 +9,7 @@ import (
 
 // InterfacesInput describes the resource data model.
 type InterfacesInput struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"input_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafInterfacesInputDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -27,20 +27,20 @@ func (o *InterfacesInput) GetVyosPath() []string {
 		"interfaces",
 
 		"input",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesInput) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"input_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Input Functional Block (IFB) interface name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ifbN  |  Input interface name  |
+    |  ifbN  &emsp; |  Input interface name  |
 
 `,
 		},
@@ -51,9 +51,9 @@ func (o InterfacesInput) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -71,9 +71,9 @@ func (o InterfacesInput) ResourceSchemaAttributes() map[string]schema.Attribute 
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 `,
 		},

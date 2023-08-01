@@ -26,9 +26,9 @@ func (o ProtocolsRIPInterfaceAuthentication) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Plain text password
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Plain text password (16 characters or less)  |
+    |  txt  &emsp; |  Plain text password (16 characters or less)  |
 
 `,
 		},

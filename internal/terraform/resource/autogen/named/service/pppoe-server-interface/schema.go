@@ -12,10 +12,21 @@ import (
 func (r servicePppoeServerInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Point to Point over Ethernet (PPPoE) Server
+		MarkdownDescription: `<div style="text-align: center">
+<i>service</i>
 
+<br>
+&darr;
+<br>
+Point to Point over Ethernet (PPPoE) Server
+
+<br>
+&darr;
+<br>
+<b>
 interface(s) to listen on
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

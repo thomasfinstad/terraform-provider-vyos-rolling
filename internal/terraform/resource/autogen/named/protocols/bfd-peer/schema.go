@@ -12,15 +12,21 @@ import (
 func (r protocolsBfdPeer) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Bidirectional Forwarding Detection (BFD)
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Bidirectional Forwarding Detection (BFD)
+
+<br>
+&darr;
+<br>
+<b>
 Configures BFD peer to listen and talk to
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  BFD peer IPv4 address  |
-    |  ipv6  |  BFD peer IPv6 address  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

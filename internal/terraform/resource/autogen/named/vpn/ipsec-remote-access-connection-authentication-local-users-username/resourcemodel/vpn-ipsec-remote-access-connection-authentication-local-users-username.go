@@ -9,9 +9,9 @@ import (
 
 // VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername describes the resource data model.
 type VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"username_id" vyos:",self-id"`
 
-	ParentIDVpnIPsecRemoteAccessConnection types.String `tfsdk:"connection" vyos:"connection_identifier,parent-id"`
+	ParentIDVpnIPsecRemoteAccessConnection types.String `tfsdk:"connection" vyos:"connection,parent-id"`
 
 	// LeafNodes
 	LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsernameDisable  types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -39,31 +39,31 @@ func (o *VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername) GetVyos
 		"local-users",
 
 		"username",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"username_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Username used for authentication
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Username used for authentication  |
+    |  txt  &emsp; |  Username used for authentication  |
 
 `,
 		},
 
-		"connection_identifier": schema.StringAttribute{
+		"connection_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IKEv2 VPN connection name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Connection name  |
+    |  txt  &emsp; |  Connection name  |
 
 `,
 		},

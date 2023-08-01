@@ -3,22 +3,30 @@
 page_title: "vyos_policy_community_list Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Routing policy
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Add a BGP community list entry
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  BGP community-list name  |
+  </b>
+  </div>
 ---
 
 # vyos_policy_community_list (Resource)
 
+<div style="text-align: center">
 Routing policy
 
+<br>
+&darr;
+<br>
+<b>
 Add a BGP community list entry
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  BGP community-list name  |
+</b>
+</div>
 
 
 
@@ -27,16 +35,16 @@ Add a BGP community list entry
 
 ### Required
 
-- `identifier` (String) Add a BGP community list entry
+- `community_list_id` (String) Add a BGP community list entry
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  BGP community-list name  |
+    |  txt  &emsp; |  BGP community-list name  |
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |

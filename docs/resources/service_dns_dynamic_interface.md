@@ -3,18 +3,50 @@
 page_title: "vyos_service_dns_dynamic_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Domain Name System related services
+
+  <br>
+  &darr;
+  <br>
   Dynamic DNS
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Interface to send DDNS updates for
+  </b>
+  </div>
 ---
 
 # vyos_service_dns_dynamic_interface (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Domain Name System related services
 
+<br>
+&darr;
+<br>
 Dynamic DNS
 
+<br>
+&darr;
+<br>
+<b>
 Interface to send DDNS updates for
+</b>
+</div>
 
 
 
@@ -23,7 +55,7 @@ Interface to send DDNS updates for
 
 ### Required
 
-- `identifier` (String) Interface to send DDNS updates for
+- `interface_id` (String) Interface to send DDNS updates for
 
 ### Optional
 

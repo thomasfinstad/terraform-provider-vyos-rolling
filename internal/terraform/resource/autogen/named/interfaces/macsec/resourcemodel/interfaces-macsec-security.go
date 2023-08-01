@@ -29,10 +29,10 @@ func (o InterfacesMacsecSecURIty) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Cipher suite used
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  gcm-aes-128  |  Galois/Counter Mode of AES cipher with 128-bit key  |
-    |  gcm-aes-256  |  Galois/Counter Mode of AES cipher with 256-bit key  |
+    |  gcm-aes-128  &emsp; |  Galois/Counter Mode of AES cipher with 128-bit key  |
+    |  gcm-aes-256  &emsp; |  Galois/Counter Mode of AES cipher with 256-bit key  |
 
 `,
 		},
@@ -50,10 +50,10 @@ func (o InterfacesMacsecSecURIty) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `IEEE 802.1X/MACsec replay protection window
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  No replay window, strict check  |
-    |  u32:1-4294967295  |  Number of packets that could be misordered  |
+    |  number: 0  &emsp; |  No replay window, strict check  |
+    |  number: 1-4294967295  &emsp; |  Number of packets that could be misordered  |
 
 `,
 		},

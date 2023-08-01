@@ -8,7 +8,7 @@ import (
 
 // ProtocolsBabelDistributeListIPvsixInterface describes the resource data model.
 type ProtocolsBabelDistributeListIPvsixInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
 	// LeafNodes
 
@@ -31,20 +31,20 @@ func (o *ProtocolsBabelDistributeListIPvsixInterface) GetVyosPath() []string {
 		"ipv6",
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsBabelDistributeListIPvsixInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Apply filtering to an interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Apply filtering to an interface  |
+    |  txt  &emsp; |  Apply filtering to an interface  |
 
 `,
 		},

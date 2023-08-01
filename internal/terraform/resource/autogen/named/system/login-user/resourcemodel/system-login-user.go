@@ -8,7 +8,7 @@ import (
 
 // SystemLoginUser describes the resource data model.
 type SystemLoginUser struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"user_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafSystemLoginUserFullName      types.String `tfsdk:"full_name" vyos:"full-name,omitempty"`
@@ -28,14 +28,14 @@ func (o *SystemLoginUser) GetVyosPath() []string {
 		"login",
 
 		"user",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o SystemLoginUser) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"user_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Local user account information
 

@@ -25,10 +25,10 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabelVpn) ResourceSchemaAtt
 			Optional: true,
 			MarkdownDescription: `For routes leaked from current address-family to VPN
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  auto  |  Automatically assign a label  |
-    |  u32:0-1048575  |  Label Value  |
+    |  auto  &emsp; |  Automatically assign a label  |
+    |  number: 0-1048575  &emsp; |  Label Value  |
 
 `,
 		},

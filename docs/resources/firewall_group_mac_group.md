@@ -3,18 +3,40 @@
 page_title: "vyos_firewall_group_mac_group Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Firewall
+
+  <br>
+  &darr;
+  <br>
   Firewall group
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Firewall mac-group
+  </b>
+  </div>
 ---
 
 # vyos_firewall_group_mac_group (Resource)
 
+<div style="text-align: center">
 Firewall
 
+<br>
+&darr;
+<br>
 Firewall group
 
+<br>
+&darr;
+<br>
+<b>
 Firewall mac-group
+</b>
+</div>
 
 
 
@@ -23,18 +45,18 @@ Firewall mac-group
 
 ### Required
 
-- `identifier` (String) Firewall mac-group
+- `mac_group_id` (String) Firewall mac-group
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `include` (List of String) Include another mac-group
 - `mac_address` (List of String) Mac-group member
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  MAC address to match  |
+    |  macaddr  &emsp; |  MAC address to match  |

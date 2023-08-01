@@ -8,7 +8,7 @@ import (
 
 // ProtocolsIgmpProxyInterface describes the resource data model.
 type ProtocolsIgmpProxyInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsIgmpProxyInterfaceAltSubnet types.List   `tfsdk:"alt_subnet" vyos:"alt-subnet,omitempty"`
@@ -29,14 +29,14 @@ func (o *ProtocolsIgmpProxyInterface) GetVyosPath() []string {
 		"igmp-proxy",
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsIgmpProxyInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Interface for IGMP proxy
 
@@ -50,9 +50,9 @@ func (o ProtocolsIgmpProxyInterface) ResourceSchemaAttributes() map[string]schem
 			Optional:    true,
 			MarkdownDescription: `Unicast source networks allowed for multicast traffic to be proxyed
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 network  |
+    |  ipv4net  &emsp; |  IPv4 network  |
 
 `,
 		},
@@ -61,11 +61,11 @@ func (o ProtocolsIgmpProxyInterface) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `IGMP interface role
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  upstream  |  Upstream interface (only 1 allowed)  |
-    |  downstream  |  Downstream interface(s)  |
-    |  disabled  |  Disabled interface  |
+    |  upstream  &emsp; |  Upstream interface (only 1 allowed)  |
+    |  downstream  &emsp; |  Downstream interface(s)  |
+    |  disabled  &emsp; |  Disabled interface  |
 
 `,
 
@@ -77,9 +77,9 @@ func (o ProtocolsIgmpProxyInterface) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `TTL threshold
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  TTL threshold for the interfaces  |
+    |  number: 1-255  &emsp; |  TTL threshold for the interfaces  |
 
 `,
 
@@ -92,9 +92,9 @@ func (o ProtocolsIgmpProxyInterface) ResourceSchemaAttributes() map[string]schem
 			Optional:    true,
 			MarkdownDescription: `Group to whitelist
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 network  |
+    |  ipv4net  &emsp; |  IPv4 network  |
 
 `,
 		},

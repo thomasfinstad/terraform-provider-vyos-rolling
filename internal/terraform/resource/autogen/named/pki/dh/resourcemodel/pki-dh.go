@@ -8,7 +8,7 @@ import (
 
 // PkiDh describes the resource data model.
 type PkiDh struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"dh_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafPkiDhParameters types.String `tfsdk:"parameters" vyos:"parameters,omitempty"`
@@ -24,14 +24,14 @@ func (o *PkiDh) GetVyosPath() []string {
 		"pki",
 
 		"dh",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PkiDh) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"dh_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Diffie-Hellman parameters
 

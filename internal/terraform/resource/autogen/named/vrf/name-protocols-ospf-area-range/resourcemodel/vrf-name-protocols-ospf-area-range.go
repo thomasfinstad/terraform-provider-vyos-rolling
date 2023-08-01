@@ -9,11 +9,11 @@ import (
 
 // VrfNameProtocolsOspfAreaRange describes the resource data model.
 type VrfNameProtocolsOspfAreaRange struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"range_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
-	ParentIDVrfNameProtocolsOspfArea types.String `tfsdk:"area" vyos:"area_identifier,parent-id"`
+	ParentIDVrfNameProtocolsOspfArea types.String `tfsdk:"area" vyos:"area,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsOspfAreaRangeCost         types.Number `tfsdk:"cost" vyos:"cost,omitempty"`
@@ -41,43 +41,43 @@ func (o *VrfNameProtocolsOspfAreaRange) GetVyosPath() []string {
 		o.ParentIDVrfNameProtocolsOspfArea.ValueString(),
 
 		"range",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsOspfAreaRange) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"range_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Summarize routes matching a prefix (border routers only)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Area range prefix  |
+    |  ipv4net  &emsp; |  Area range prefix  |
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
 
-		"area_identifier": schema.StringAttribute{
+		"area_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `OSPF area settings
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  OSPF area number in decimal notation  |
-    |  ipv4  |  OSPF area number in dotted decimal notation  |
+    |  u32  &emsp; |  OSPF area number in decimal notation  |
+    |  ipv4  &emsp; |  OSPF area number in dotted decimal notation  |
 
 `,
 		},
@@ -88,9 +88,9 @@ func (o VrfNameProtocolsOspfAreaRange) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Metric for this range
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Metric for this range  |
+    |  number: 0-16777215  &emsp; |  Metric for this range  |
 
 `,
 		},
@@ -108,9 +108,9 @@ func (o VrfNameProtocolsOspfAreaRange) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Advertise area range as another prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Advertise area range as another prefix  |
+    |  ipv4net  &emsp; |  Advertise area range as another prefix  |
 
 `,
 		},

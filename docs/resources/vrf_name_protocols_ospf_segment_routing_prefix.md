@@ -3,42 +3,70 @@
 page_title: "vyos_vrf_name_protocols_ospf_segment_routing_prefix Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
-  Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
+  Virtual Routing and Forwarding instance
+
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
+
+  <br>
+  &darr;
+  <br>
   Open Shortest Path First (OSPF)
+
+  <br>
+  &darr;
+  <br>
   Segment-Routing (SPRING) settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Static IPv4 prefix segment/label mapping
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  IPv4 prefix segment  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_ospf_segment_routing_prefix (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Open Shortest Path First (OSPF)
 
+<br>
+&darr;
+<br>
 Segment-Routing (SPRING) settings
 
+<br>
+&darr;
+<br>
+<b>
 Static IPv4 prefix segment/label mapping
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 prefix segment  |
+</b>
+</div>
 
 
 
@@ -47,16 +75,16 @@ Static IPv4 prefix segment/label mapping
 
 ### Required
 
-- `identifier` (String) Static IPv4 prefix segment/label mapping
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 prefix segment  |
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+    |  txt  &emsp; |  VRF instance name  |
+- `prefix_id` (String) Static IPv4 prefix segment/label mapping
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  ipv4net  &emsp; |  IPv4 prefix segment  |
 
 ### Optional
 
@@ -71,6 +99,6 @@ Optional:
 - `no_php_flag` (Boolean) Do not request penultimate hop popping for segment/label
 - `value` (Number) Specify the index value of prefix segment/label ID
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-65535  |  The index segment/label ID value  |
+    |  number: 0-65535  &emsp; |  The index segment/label ID value  |

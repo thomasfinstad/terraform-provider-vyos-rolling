@@ -9,7 +9,7 @@ import (
 
 // InterfacesTunnel describes the resource data model.
 type InterfacesTunnel struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"tunnel_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafInterfacesTunnelDescrIPtion       types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -42,20 +42,20 @@ func (o *InterfacesTunnel) GetVyosPath() []string {
 		"interfaces",
 
 		"tunnel",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesTunnel) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"tunnel_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Tunnel interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  tunN  |  Tunnel interface name  |
+    |  tunN  &emsp; |  Tunnel interface name  |
 
 `,
 		},
@@ -66,9 +66,9 @@ func (o InterfacesTunnel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -78,10 +78,10 @@ func (o InterfacesTunnel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional:    true,
 			MarkdownDescription: `IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
 
 `,
 		},
@@ -108,9 +108,9 @@ func (o InterfacesTunnel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:64-8024  |  Maximum Transmission Unit in byte  |
+    |  number: 64-8024  &emsp; |  Maximum Transmission Unit in byte  |
 
 `,
 
@@ -122,10 +122,10 @@ func (o InterfacesTunnel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Source IP address used to initiate connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 source address  |
-    |  ipv6  |  IPv6 source address  |
+    |  ipv4  &emsp; |  IPv4 source address  |
+    |  ipv6  &emsp; |  IPv6 source address  |
 
 `,
 		},
@@ -134,10 +134,10 @@ func (o InterfacesTunnel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Tunnel remote address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Tunnel remote IPv4 address  |
-    |  ipv6  |  Tunnel remote IPv6 address  |
+    |  ipv4  &emsp; |  Tunnel remote IPv4 address  |
+    |  ipv6  &emsp; |  Tunnel remote IPv6 address  |
 
 `,
 		},
@@ -146,9 +146,9 @@ func (o InterfacesTunnel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Interface used to establish connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  interface  |  Interface name  |
+    |  interface  &emsp; |  Interface name  |
 
 `,
 		},
@@ -157,9 +157,9 @@ func (o InterfacesTunnel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `6rd network prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6  |  IPv6 address and prefix length  |
+    |  ipv6  &emsp; |  IPv6 address and prefix length  |
 
 `,
 		},
@@ -168,9 +168,9 @@ func (o InterfacesTunnel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `6rd relay prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 prefix of interface for 6rd  |
+    |  ipv4net  &emsp; |  IPv4 prefix of interface for 6rd  |
 
 `,
 		},
@@ -179,18 +179,18 @@ func (o InterfacesTunnel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Encapsulation of this tunnel interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  erspan  |  Encapsulated Remote Switched Port Analyzer  |
-    |  gre  |  Generic Routing Encapsulation (network layer)  |
-    |  gretap  |  Generic Routing Encapsulation (datalink layer)  |
-    |  ip6erspan  |  Encapsulated Remote Switched Port Analyzer over IPv6  |
-    |  ip6gre  |  GRE over IPv6 (network layer)  |
-    |  ip6gretap  |  GRE over IPv6 (datalink layer)  |
-    |  ip6ip6  |  IPv6 in IPv6 encapsulation  |
-    |  ipip  |  IPv4 in IPv4 encapsulation  |
-    |  ipip6  |  IPv4 in IP6 encapsulation  |
-    |  sit  |  Simple Internet Transition (IPv6 in IPv4)  |
+    |  erspan  &emsp; |  Encapsulated Remote Switched Port Analyzer  |
+    |  gre  &emsp; |  Generic Routing Encapsulation (network layer)  |
+    |  gretap  &emsp; |  Generic Routing Encapsulation (datalink layer)  |
+    |  ip6erspan  &emsp; |  Encapsulated Remote Switched Port Analyzer over IPv6  |
+    |  ip6gre  &emsp; |  GRE over IPv6 (network layer)  |
+    |  ip6gretap  &emsp; |  GRE over IPv6 (datalink layer)  |
+    |  ip6ip6  &emsp; |  IPv6 in IPv6 encapsulation  |
+    |  ipip  &emsp; |  IPv4 in IPv4 encapsulation  |
+    |  ipip6  &emsp; |  IPv4 in IP6 encapsulation  |
+    |  sit  &emsp; |  Simple Internet Transition (IPv6 in IPv4)  |
 
 `,
 		},
@@ -208,9 +208,9 @@ func (o InterfacesTunnel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -219,9 +219,9 @@ func (o InterfacesTunnel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 `,
 		},

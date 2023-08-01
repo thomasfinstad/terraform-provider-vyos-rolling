@@ -3,39 +3,60 @@
 page_title: "vyos_vrf_name_protocols_ospf_neighbor Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
-  Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
+  Virtual Routing and Forwarding instance
+
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
+
+  <br>
+  &darr;
+  <br>
   Open Shortest Path First (OSPF)
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Specify neighbor router
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  Neighbor IP address  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_ospf_neighbor (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Open Shortest Path First (OSPF)
 
+<br>
+&darr;
+<br>
+<b>
 Specify neighbor router
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  Neighbor IP address  |
+</b>
+</div>
 
 
 
@@ -44,26 +65,26 @@ Specify neighbor router
 
 ### Required
 
-- `identifier` (String) Specify neighbor router
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Neighbor IP address  |
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+    |  txt  &emsp; |  VRF instance name  |
+- `neighbor_id` (String) Specify neighbor router
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  ipv4  &emsp; |  Neighbor IP address  |
 
 ### Optional
 
 - `poll_interval` (Number) Dead neighbor polling interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Seconds between dead neighbor polling interval  |
+    |  number: 1-65535  &emsp; |  Seconds between dead neighbor polling interval  |
 - `priority` (Number) Neighbor priority in seconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  Neighbor priority  |
+    |  number: 0-255  &emsp; |  Neighbor priority  |

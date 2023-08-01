@@ -28,9 +28,9 @@ func (o ProtocolsOspfAreaAreaTypeNssa) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Summary-default cost of an NSSA area
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Summary default cost  |
+    |  number: 0-16777215  &emsp; |  Summary default cost  |
 
 `,
 		},
@@ -48,11 +48,11 @@ func (o ProtocolsOspfAreaAreaTypeNssa) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Configure NSSA-ABR
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  always  |  Always translate LSA types  |
-    |  candidate  |  Translate for election  |
-    |  never  |  Never translate LSA types  |
+    |  always  &emsp; |  Always translate LSA types  |
+    |  candidate  &emsp; |  Translate for election  |
+    |  never  &emsp; |  Never translate LSA types  |
 
 `,
 

@@ -8,9 +8,9 @@ import (
 
 // PolicyAsPathListRule describes the resource data model.
 type PolicyAsPathListRule struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
-	ParentIDPolicyAsPathList types.String `tfsdk:"as_path_list" vyos:"as-path-list_identifier,parent-id"`
+	ParentIDPolicyAsPathList types.String `tfsdk:"as_path_list" vyos:"as-path-list,parent-id"`
 
 	// LeafNodes
 	LeafPolicyAsPathListRuleAction      types.String `tfsdk:"action" vyos:"action,omitempty"`
@@ -31,31 +31,31 @@ func (o *PolicyAsPathListRule) GetVyosPath() []string {
 		o.ParentIDPolicyAsPathList.ValueString(),
 
 		"rule",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PolicyAsPathListRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Rule for this as-path-list
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  AS path list rule number  |
+    |  number: 1-65535  &emsp; |  AS path list rule number  |
 
 `,
 		},
 
-		"as_path_list_identifier": schema.StringAttribute{
+		"as_path_list_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Add a BGP autonomous system path filter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  AS path list name  |
+    |  txt  &emsp; |  AS path list name  |
 
 `,
 		},
@@ -66,10 +66,10 @@ func (o PolicyAsPathListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  permit  |  Permit matching entries  |
-    |  deny  |  Deny matching entries  |
+    |  permit  &emsp; |  Permit matching entries  |
+    |  deny  &emsp; |  Deny matching entries  |
 
 `,
 		},
@@ -78,9 +78,9 @@ func (o PolicyAsPathListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -89,9 +89,9 @@ func (o PolicyAsPathListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Regular expression to match against an AS path
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  AS path regular expression (ex: "64501 64502")  |
+    |  txt  &emsp; |  AS path regular expression (ex: "64501 64502")  |
 
 `,
 		},

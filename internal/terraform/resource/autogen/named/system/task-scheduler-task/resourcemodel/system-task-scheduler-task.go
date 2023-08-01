@@ -8,7 +8,7 @@ import (
 
 // SystemTaskSchedulerTask describes the resource data model.
 type SystemTaskSchedulerTask struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"task_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafSystemTaskSchedulerTaskCrontabSpec types.String `tfsdk:"crontab_spec" vyos:"crontab-spec,omitempty"`
@@ -28,20 +28,20 @@ func (o *SystemTaskSchedulerTask) GetVyosPath() []string {
 		"task-scheduler",
 
 		"task",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o SystemTaskSchedulerTask) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"task_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Scheduled task
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Task name  |
+    |  txt  &emsp; |  Task name  |
 
 `,
 		},
@@ -59,12 +59,12 @@ func (o SystemTaskSchedulerTask) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Execution interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <minutes>  |  Execution interval in minutes  |
-    |  <minutes>m  |  Execution interval in minutes  |
-    |  <hours>h  |  Execution interval in hours  |
-    |  <days>d  |  Execution interval in days  |
+    |  <minutes>  &emsp; |  Execution interval in minutes  |
+    |  <minutes>m  &emsp; |  Execution interval in minutes  |
+    |  <hours>h  &emsp; |  Execution interval in hours  |
+    |  <days>d  &emsp; |  Execution interval in days  |
 
 `,
 		},

@@ -3,41 +3,60 @@
 page_title: "vyos_vrf_name_protocols_ospf_area Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
-  Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
+  Virtual Routing and Forwarding instance
+
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
+
+  <br>
+  &darr;
+  <br>
   Open Shortest Path First (OSPF)
+
+  <br>
+  &darr;
+  <br>
+  <b>
   OSPF area settings
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32  |  OSPF area number in decimal notation  |
-  |  ipv4  |  OSPF area number in dotted decimal notation  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_ospf_area (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Open Shortest Path First (OSPF)
 
+<br>
+&darr;
+<br>
+<b>
 OSPF area settings
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32  |  OSPF area number in decimal notation  |
-    |  ipv4  |  OSPF area number in dotted decimal notation  |
+</b>
+</div>
 
 
 
@@ -46,49 +65,49 @@ OSPF area settings
 
 ### Required
 
-- `identifier` (String) OSPF area settings
+- `area_id` (String) OSPF area settings
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  OSPF area number in decimal notation  |
-    |  ipv4  |  OSPF area number in dotted decimal notation  |
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+    |  u32  &emsp; |  OSPF area number in decimal notation  |
+    |  ipv4  &emsp; |  OSPF area number in dotted decimal notation  |
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 ### Optional
 
 - `area_type` (Attributes) Area type (see [below for nested schema](#nestedatt--area_type))
 - `authentication` (String) OSPF area authentication type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  plaintext-password  |  Use plain-text authentication  |
-    |  md5  |  Use MD5 authentication  |
+    |  plaintext-password  &emsp; |  Use plain-text authentication  |
+    |  md5  &emsp; |  Use MD5 authentication  |
 - `export_list` (Number) Set the filter for networks announced to other areas
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Access-list number  |
+    |  u32  &emsp; |  Access-list number  |
 - `import_list` (Number) Set the filter for networks from other areas announced
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Access-list number  |
+    |  u32  &emsp; |  Access-list number  |
 - `network` (List of String) OSPF network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  OSPF network  |
+    |  ipv4net  &emsp; |  OSPF network  |
 - `shortcut` (String) Area shortcut mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  default  |  Set default  |
-    |  disable  |  Disable shortcutting mode  |
-    |  enable  |  Enable shortcutting mode  |
+    |  default  &emsp; |  Set default  |
+    |  disable  &emsp; |  Disable shortcutting mode  |
+    |  enable  &emsp; |  Enable shortcutting mode  |
 
 <a id="nestedatt--area_type"></a>
 ### Nested Schema for `area_type`
@@ -106,17 +125,17 @@ Optional:
 
 - `default_cost` (Number) Summary-default cost of an NSSA area
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Summary default cost  |
+    |  number: 0-16777215  &emsp; |  Summary default cost  |
 - `no_summary` (Boolean) Do not inject inter-area routes into stub
 - `translate` (String) Configure NSSA-ABR
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  always  |  Always translate LSA types  |
-    |  candidate  |  Translate for election  |
-    |  never  |  Never translate LSA types  |
+    |  always  &emsp; |  Always translate LSA types  |
+    |  candidate  &emsp; |  Translate for election  |
+    |  never  &emsp; |  Never translate LSA types  |
 
 
 <a id="nestedatt--area_type--stub"></a>
@@ -126,7 +145,7 @@ Optional:
 
 - `default_cost` (Number) Summary-default cost
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Summary default cost  |
+    |  number: 0-16777215  &emsp; |  Summary default cost  |
 - `no_summary` (Boolean) Do not inject inter-area routes into the stub

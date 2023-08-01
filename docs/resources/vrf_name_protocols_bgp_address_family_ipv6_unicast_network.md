@@ -3,45 +3,80 @@
 page_title: "vyos_vrf_name_protocols_bgp_address_family_ipv6_unicast_network Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
-  Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
+  Virtual Routing and Forwarding instance
+
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
+
+  <br>
+  &darr;
+  <br>
   Border Gateway Protocol (BGP)
+
+  <br>
+  &darr;
+  <br>
   BGP address-family parameters
+
+  <br>
+  &darr;
+  <br>
   IPv6 BGP settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   BGP network
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv6net  |  Aggregate network  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_bgp_address_family_ipv6_unicast_network (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Border Gateway Protocol (BGP)
 
+<br>
+&darr;
+<br>
 BGP address-family parameters
 
+<br>
+&darr;
+<br>
 IPv6 BGP settings
 
+<br>
+&darr;
+<br>
+<b>
 BGP network
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv6net  |  Aggregate network  |
+</b>
+</div>
 
 
 
@@ -50,26 +85,26 @@ BGP network
 
 ### Required
 
-- `identifier` (String) BGP network
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  Aggregate network  |
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+    |  txt  &emsp; |  VRF instance name  |
+- `network_id` (String) BGP network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  ipv6net  &emsp; |  Aggregate network  |
 
 ### Optional
 
 - `path_limit` (Number) AS-path hopcount limit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  AS path hop count limit  |
+    |  number: 0-255  &emsp; |  AS path hop count limit  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |

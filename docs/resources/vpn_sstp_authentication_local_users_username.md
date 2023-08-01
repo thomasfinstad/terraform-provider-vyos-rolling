@@ -3,21 +3,60 @@
 page_title: "vyos_vpn_sstp_authentication_local_users_username Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>vpn</i>
+
+  <br>
+  &darr;
+  <br>
   Secure Socket Tunneling Protocol (SSTP) server
+
+  <br>
+  &darr;
+  <br>
   Authentication for remote access SSTP Server
+
+  <br>
+  &darr;
+  <br>
   Local user authentication for PPPoE server
+
+  <br>
+  &darr;
+  <br>
+  <b>
   User name for authentication
+  </b>
+  </div>
 ---
 
 # vyos_vpn_sstp_authentication_local_users_username (Resource)
 
+<div style="text-align: center">
+<i>vpn</i>
+
+<br>
+&darr;
+<br>
 Secure Socket Tunneling Protocol (SSTP) server
 
+<br>
+&darr;
+<br>
 Authentication for remote access SSTP Server
 
+<br>
+&darr;
+<br>
 Local user authentication for PPPoE server
 
+<br>
+&darr;
+<br>
+<b>
 User name for authentication
+</b>
+</div>
 
 
 
@@ -26,7 +65,7 @@ User name for authentication
 
 ### Required
 
-- `identifier` (String) User name for authentication
+- `username_id` (String) User name for authentication
 
 ### Optional
 

@@ -8,7 +8,7 @@ import (
 
 // ProtocolsPimRpAddress describes the resource data model.
 type ProtocolsPimRpAddress struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"address_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafProtocolsPimRpAddressGroup types.List `tfsdk:"group" vyos:"group,omitempty"`
@@ -28,20 +28,20 @@ func (o *ProtocolsPimRpAddress) GetVyosPath() []string {
 		"rp",
 
 		"address",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsPimRpAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"address_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Rendezvous Point address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Rendezvous Point address  |
+    |  ipv4  &emsp; |  Rendezvous Point address  |
 
 `,
 		},
@@ -53,9 +53,9 @@ func (o ProtocolsPimRpAddress) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional:    true,
 			MarkdownDescription: `Group Address range
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Group Address range RFC 3171  |
+    |  ipv4net  &emsp; |  Group Address range RFC 3171  |
 
 `,
 		},

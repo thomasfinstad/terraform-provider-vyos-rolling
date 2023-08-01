@@ -12,10 +12,21 @@ import (
 func (r protocolsIsisInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Intermediate System to Intermediate System (IS-IS)
+		MarkdownDescription: `<div style="text-align: center">
+<i>protocols</i>
 
+<br>
+&darr;
+<br>
+Intermediate System to Intermediate System (IS-IS)
+
+<br>
+&darr;
+<br>
+<b>
 Interface params
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

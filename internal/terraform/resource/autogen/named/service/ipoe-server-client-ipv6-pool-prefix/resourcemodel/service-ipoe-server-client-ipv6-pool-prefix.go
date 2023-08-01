@@ -8,7 +8,7 @@ import (
 
 // ServiceIPoeServerClientIPvsixPoolPrefix describes the resource data model.
 type ServiceIPoeServerClientIPvsixPoolPrefix struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"prefix_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceIPoeServerClientIPvsixPoolPrefixMask types.Number `tfsdk:"mask" vyos:"mask,omitempty"`
@@ -28,20 +28,20 @@ func (o *ServiceIPoeServerClientIPvsixPoolPrefix) GetVyosPath() []string {
 		"client-ipv6-pool",
 
 		"prefix",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceIPoeServerClientIPvsixPoolPrefix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"prefix_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Pool of addresses used to assign to clients
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
 
 `,
 		},
@@ -52,9 +52,9 @@ func (o ServiceIPoeServerClientIPvsixPoolPrefix) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `Prefix length used for individual client
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:48-128  |  Client prefix length  |
+    |  number: 48-128  &emsp; |  Client prefix length  |
 
 `,
 

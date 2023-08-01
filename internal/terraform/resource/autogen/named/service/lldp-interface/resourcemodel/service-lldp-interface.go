@@ -9,7 +9,7 @@ import (
 
 // ServiceLldpInterface describes the resource data model.
 type ServiceLldpInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceLldpInterfaceDisable types.Bool `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -28,21 +28,21 @@ func (o *ServiceLldpInterface) GetVyosPath() []string {
 		"lldp",
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceLldpInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Location data for interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  all  |  Location data all interfaces  |
-    |  txt  |  Location data for a specific interface  |
+    |  all  &emsp; |  Location data all interfaces  |
+    |  txt  &emsp; |  Location data for a specific interface  |
 
 `,
 		},

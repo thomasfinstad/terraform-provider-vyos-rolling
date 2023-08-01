@@ -43,9 +43,9 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Metric of redistributed routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  Metric of redistributed routes  |
+    |  number: 0-16777214  &emsp; |  Metric of redistributed routes  |
 
 `,
 		},
@@ -54,9 +54,9 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Maximum multiple paths (ECMP)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-64  |  Maximum multiple paths (ECMP)  |
+    |  number: 1-64  &emsp; |  Maximum multiple paths (ECMP)  |
 
 `,
 		},
@@ -65,9 +65,9 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Suppress routing updates on an interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  default  |  Default to suppress routing updates on all interfaces  |
+    |  default  &emsp; |  Default to suppress routing updates on all interfaces  |
 
 `,
 		},
@@ -76,9 +76,9 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},

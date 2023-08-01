@@ -12,12 +12,16 @@ import (
 func (r interfacesVxlan) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Virtual Extensible LAN (VXLAN) Interface
+		MarkdownDescription: `<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  vxlanN  |  VXLAN interface name  |
-
+<br>
+&darr;
+<br>
+<b>
+Virtual Extensible LAN (VXLAN) Interface
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

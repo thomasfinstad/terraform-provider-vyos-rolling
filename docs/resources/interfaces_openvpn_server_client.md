@@ -3,33 +3,50 @@
 page_title: "vyos_interfaces_openvpn_server_client Resource - vyos"
 subcategory: ""
 description: |-
-  OpenVPN Tunnel Interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  vtunN  |  OpenVPN interface name  |
+  <div style="text-align: center">
+  <i>interfaces</i>
 
+  <br>
+  &darr;
+  <br>
+  OpenVPN Tunnel Interface
+
+  <br>
+  &darr;
+  <br>
   Server-mode options
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Client-specific settings
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  name  |  Client common-name in the certificate  |
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_openvpn_server_client (Resource)
 
+<div style="text-align: center">
+<i>interfaces</i>
+
+<br>
+&darr;
+<br>
 OpenVPN Tunnel Interface
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  vtunN  |  OpenVPN interface name  |
-
+<br>
+&darr;
+<br>
 Server-mode options
 
+<br>
+&darr;
+<br>
+<b>
 Client-specific settings
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  name  |  Client common-name in the certificate  |
+</b>
+</div>
 
 
 
@@ -38,35 +55,35 @@ Client-specific settings
 
 ### Required
 
-- `identifier` (String) Client-specific settings
+- `client_id` (String) Client-specific settings
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  name  |  Client common-name in the certificate  |
-- `openvpn_identifier` (String) OpenVPN Tunnel Interface
+    |  name  &emsp; |  Client common-name in the certificate  |
+- `openvpn_id` (String) OpenVPN Tunnel Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  vtunN  |  OpenVPN interface name  |
+    |  vtunN  &emsp; |  OpenVPN interface name  |
 
 ### Optional
 
 - `disable` (Boolean) Disable instance
 - `ip` (List of String) IP address of the client
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Client IPv4 address  |
-    |  ipv6  |  Client IPv6 address  |
+    |  ipv4  &emsp; |  Client IPv4 address  |
+    |  ipv6  &emsp; |  Client IPv6 address  |
 - `push_route` (List of String) Route to be pushed to the client
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 network and prefix length  |
-    |  ipv6net  |  IPv6 network and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 network and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 network and prefix length  |
 - `subnet` (List of String) Subnet belonging to the client (iroute)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 network and prefix length belonging to the client  |
-    |  ipv6net  |  IPv6 network and prefix length belonging to the client  |
+    |  ipv4net  &emsp; |  IPv4 network and prefix length belonging to the client  |
+    |  ipv6net  &emsp; |  IPv6 network and prefix length belonging to the client  |

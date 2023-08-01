@@ -3,18 +3,40 @@
 page_title: "vyos_firewall_group_port_group Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Firewall
+
+  <br>
+  &darr;
+  <br>
   Firewall group
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Firewall port-group
+  </b>
+  </div>
 ---
 
 # vyos_firewall_group_port_group (Resource)
 
+<div style="text-align: center">
 Firewall
 
+<br>
+&darr;
+<br>
 Firewall group
 
+<br>
+&darr;
+<br>
+<b>
 Firewall port-group
+</b>
+</div>
 
 
 
@@ -23,20 +45,20 @@ Firewall port-group
 
 ### Required
 
-- `identifier` (String) Firewall port-group
+- `port_group_id` (String) Firewall port-group
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `include` (List of String) Include another port-group
 - `port` (List of String) Port-group member
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Named port (any name in /etc/services, e.g., http)  |
-    |  u32:1-65535  |  Numbered port  |
-    |  start-end  |  Numbered port range (e.g. 1001-1050)  |
+    |  txt  &emsp; |  Named port (any name in /etc/services, e.g., http)  |
+    |  number: 1-65535  &emsp; |  Numbered port  |
+    |  start-end  &emsp; |  Numbered port range (e.g. 1001-1050)  |

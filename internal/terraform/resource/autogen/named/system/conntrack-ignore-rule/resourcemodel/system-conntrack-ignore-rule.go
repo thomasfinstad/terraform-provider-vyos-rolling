@@ -8,7 +8,7 @@ import (
 
 // SystemConntrackIgnoreRule describes the resource data model.
 type SystemConntrackIgnoreRule struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafSystemConntrackIgnoreRuleDescrIPtion      types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -32,20 +32,20 @@ func (o *SystemConntrackIgnoreRule) GetVyosPath() []string {
 		"ignore",
 
 		"rule",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o SystemConntrackIgnoreRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Rule number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-999999  |  Number of conntrack ignore rule  |
+    |  number: 1-999999  &emsp; |  Number of conntrack ignore rule  |
 
 `,
 		},
@@ -56,9 +56,9 @@ func (o SystemConntrackIgnoreRule) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -74,9 +74,9 @@ func (o SystemConntrackIgnoreRule) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Protocol
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Protocol name  |
+    |  txt  &emsp; |  Protocol name  |
 
 `,
 		},

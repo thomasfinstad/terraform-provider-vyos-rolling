@@ -26,9 +26,9 @@ func (o VpnIPsecRemoteAccessConnectionLocal) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 		},
@@ -38,10 +38,10 @@ func (o VpnIPsecRemoteAccessConnectionLocal) ResourceSchemaAttributes() map[stri
 			Optional:    true,
 			MarkdownDescription: `Local IPv4 or IPv6 prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Local IPv4 prefix  |
-    |  ipv6net  |  Local IPv6 prefix  |
+    |  ipv4net  &emsp; |  Local IPv4 prefix  |
+    |  ipv6net  &emsp; |  Local IPv6 prefix  |
 
 `,
 		},

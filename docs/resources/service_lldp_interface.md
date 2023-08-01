@@ -3,24 +3,40 @@
 page_title: "vyos_service_lldp_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   LLDP settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Location data for interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  all  |  Location data all interfaces  |
-  |  txt  |  Location data for a specific interface  |
+  </b>
+  </div>
 ---
 
 # vyos_service_lldp_interface (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 LLDP settings
 
+<br>
+&darr;
+<br>
+<b>
 Location data for interface
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  all  |  Location data all interfaces  |
-    |  txt  |  Location data for a specific interface  |
+</b>
+</div>
 
 
 
@@ -29,12 +45,12 @@ Location data for interface
 
 ### Required
 
-- `identifier` (String) Location data for interface
+- `interface_id` (String) Location data for interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  all  |  Location data all interfaces  |
-    |  txt  |  Location data for a specific interface  |
+    |  all  &emsp; |  Location data all interfaces  |
+    |  txt  &emsp; |  Location data for a specific interface  |
 
 ### Optional
 
@@ -49,9 +65,9 @@ Optional:
 - `coordinate_based` (Attributes) Coordinate based location (see [below for nested schema](#nestedatt--location--coordinate_based))
 - `elin` (Number) ECS ELIN (Emergency location identifier number)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-9999999999  |  Emergency Call Service ELIN number (between 10-25 numbers)  |
+    |  number: 0-9999999999  &emsp; |  Emergency Call Service ELIN number (between 10-25 numbers)  |
 
 <a id="nestedatt--location--coordinate_based"></a>
 ### Nested Schema for `location.coordinate_based`
@@ -60,24 +76,24 @@ Optional:
 
 - `altitude` (String) Altitude in meters
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  0  |  No altitude  |
-    |  [+-]<meters>  |  Altitude in meters  |
+    |  0  &emsp; |  No altitude  |
+    |  [+-]<meters>  &emsp; |  Altitude in meters  |
 - `datum` (String) Coordinate datum type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  WGS84  |  WGS84  |
-    |  NAD83  |  NAD83  |
-    |  MLLW  |  NAD83/MLLW  |
+    |  WGS84  &emsp; |  WGS84  |
+    |  NAD83  &emsp; |  NAD83  |
+    |  MLLW  &emsp; |  NAD83/MLLW  |
 - `latitude` (String) Latitude
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <latitude>  |  Latitude (example "37.524449N")  |
+    |  <latitude>  &emsp; |  Latitude (example "37.524449N")  |
 - `longitude` (String) Longitude
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <longitude>  |  Longitude (example "122.267255W")  |
+    |  <longitude>  &emsp; |  Longitude (example "122.267255W")  |

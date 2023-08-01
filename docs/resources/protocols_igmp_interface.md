@@ -3,15 +3,40 @@
 page_title: "vyos_protocols_igmp_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Internet Group Management Protocol (IGMP)
+
+  <br>
+  &darr;
+  <br>
+  <b>
   IGMP interface
+  </b>
+  </div>
 ---
 
 # vyos_protocols_igmp_interface (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Internet Group Management Protocol (IGMP)
 
+<br>
+&darr;
+<br>
+<b>
 IGMP interface
+</b>
+</div>
 
 
 
@@ -20,23 +45,23 @@ IGMP interface
 
 ### Required
 
-- `identifier` (String) IGMP interface
+- `interface_id` (String) IGMP interface
 
 ### Optional
 
 - `query_interval` (Number) IGMP host query interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-1800  |  Query interval in seconds  |
+    |  number: 1-1800  &emsp; |  Query interval in seconds  |
 - `query_max_response_time` (Number) IGMP max query response time
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:10-250  |  Query response value in deci-seconds  |
+    |  number: 10-250  &emsp; |  Query response value in deci-seconds  |
 - `version` (String) IGMP version
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  2  |  IGMP version 2  |
-    |  3  |  IGMP version 3  |
+    |  2  &emsp; |  IGMP version 2  |
+    |  3  &emsp; |  IGMP version 3  |

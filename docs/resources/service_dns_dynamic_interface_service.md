@@ -3,50 +3,60 @@
 page_title: "vyos_service_dns_dynamic_interface_service Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>service</i>
+
+  <br>
+  &darr;
+  <br>
   Domain Name System related services
+
+  <br>
+  &darr;
+  <br>
   Dynamic DNS
+
+  <br>
+  &darr;
+  <br>
   Interface to send DDNS updates for
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Service being used for Dynamic DNS
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Dynanmic DNS service with a custom name  |
-  |  afraid  |  afraid.org Services  |
-  |  changeip  |  changeip.com Services  |
-  |  cloudflare  |  cloudflare.com Services  |
-  |  dnspark  |  dnspark.com Services  |
-  |  dslreports  |  dslreports.com Services  |
-  |  dyndns  |  dyndns.com Services  |
-  |  easydns  |  easydns.com Services  |
-  |  namecheap  |  namecheap.com Services  |
-  |  noip  |  noip.com Services  |
-  |  sitelutions  |  sitelutions.com Services  |
-  |  zoneedit  |  zoneedit.com Services  |
+  </b>
+  </div>
 ---
 
 # vyos_service_dns_dynamic_interface_service (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Domain Name System related services
 
+<br>
+&darr;
+<br>
 Dynamic DNS
 
+<br>
+&darr;
+<br>
 Interface to send DDNS updates for
 
+<br>
+&darr;
+<br>
+<b>
 Service being used for Dynamic DNS
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Dynanmic DNS service with a custom name  |
-    |  afraid  |  afraid.org Services  |
-    |  changeip  |  changeip.com Services  |
-    |  cloudflare  |  cloudflare.com Services  |
-    |  dnspark  |  dnspark.com Services  |
-    |  dslreports  |  dslreports.com Services  |
-    |  dyndns  |  dyndns.com Services  |
-    |  easydns  |  easydns.com Services  |
-    |  namecheap  |  namecheap.com Services  |
-    |  noip  |  noip.com Services  |
-    |  sitelutions  |  sitelutions.com Services  |
-    |  zoneedit  |  zoneedit.com Services  |
+</b>
+</div>
 
 
 
@@ -55,23 +65,23 @@ Service being used for Dynamic DNS
 
 ### Required
 
-- `identifier` (String) Service being used for Dynamic DNS
+- `interface_id` (String) Interface to send DDNS updates for
+- `service_id` (String) Service being used for Dynamic DNS
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Dynanmic DNS service with a custom name  |
-    |  afraid  |  afraid.org Services  |
-    |  changeip  |  changeip.com Services  |
-    |  cloudflare  |  cloudflare.com Services  |
-    |  dnspark  |  dnspark.com Services  |
-    |  dslreports  |  dslreports.com Services  |
-    |  dyndns  |  dyndns.com Services  |
-    |  easydns  |  easydns.com Services  |
-    |  namecheap  |  namecheap.com Services  |
-    |  noip  |  noip.com Services  |
-    |  sitelutions  |  sitelutions.com Services  |
-    |  zoneedit  |  zoneedit.com Services  |
-- `interface_identifier` (String) Interface to send DDNS updates for
+    |  txt  &emsp; |  Dynanmic DNS service with a custom name  |
+    |  afraid  &emsp; |  afraid.org Services  |
+    |  changeip  &emsp; |  changeip.com Services  |
+    |  cloudflare  &emsp; |  cloudflare.com Services  |
+    |  dnspark  &emsp; |  dnspark.com Services  |
+    |  dslreports  &emsp; |  dslreports.com Services  |
+    |  dyndns  &emsp; |  dyndns.com Services  |
+    |  easydns  &emsp; |  easydns.com Services  |
+    |  namecheap  &emsp; |  namecheap.com Services  |
+    |  noip  &emsp; |  noip.com Services  |
+    |  sitelutions  &emsp; |  sitelutions.com Services  |
+    |  zoneedit  &emsp; |  zoneedit.com Services  |
 
 ### Optional
 
@@ -80,33 +90,33 @@ Service being used for Dynamic DNS
 - `password` (String) Password for DDNS service
 - `protocol` (String) ddclient protocol used for DDNS service
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  changeip  |  ChangeIP protocol  |
-    |  cloudflare  |  Cloudflare protocol  |
-    |  dnsmadeeasy  |  DNS Made Easy protocol  |
-    |  dnspark  |  DNS Park protocol  |
-    |  dondominio  |  DonDominio protocol  |
-    |  dslreports1  |  DslReports protocol  |
-    |  dtdns  |  DtDNS protocol  |
-    |  duckdns  |  DuckDNS protocol  |
-    |  dyndns2  |  DynDNS protocol v2  |
-    |  easydns  |  easyDNS protocol  |
-    |  freedns  |  FreeDNS protocol  |
-    |  freemyip  |  freemyip protocol  |
-    |  googledomains  |  Google domains protocol  |
-    |  hammernode1  |  Hammernode protocol  |
-    |  namecheap  |  Namecheap protocol  |
-    |  nfsn  |  NearlyFreeSpeech DNS protocol  |
-    |  noip  |  No-IP protocol  |
-    |  sitelutions  |  Sitelutions protocol  |
-    |  woima  |  WOIMA protocol  |
-    |  yandex  |  Yandex.DNS protocol  |
-    |  zoneedit1  |  Zoneedit protocol  |
+    |  changeip  &emsp; |  ChangeIP protocol  |
+    |  cloudflare  &emsp; |  Cloudflare protocol  |
+    |  dnsmadeeasy  &emsp; |  DNS Made Easy protocol  |
+    |  dnspark  &emsp; |  DNS Park protocol  |
+    |  dondominio  &emsp; |  DonDominio protocol  |
+    |  dslreports1  &emsp; |  DslReports protocol  |
+    |  dtdns  &emsp; |  DtDNS protocol  |
+    |  duckdns  &emsp; |  DuckDNS protocol  |
+    |  dyndns2  &emsp; |  DynDNS protocol v2  |
+    |  easydns  &emsp; |  easyDNS protocol  |
+    |  freedns  &emsp; |  FreeDNS protocol  |
+    |  freemyip  &emsp; |  freemyip protocol  |
+    |  googledomains  &emsp; |  Google domains protocol  |
+    |  hammernode1  &emsp; |  Hammernode protocol  |
+    |  namecheap  &emsp; |  Namecheap protocol  |
+    |  nfsn  &emsp; |  NearlyFreeSpeech DNS protocol  |
+    |  noip  &emsp; |  No-IP protocol  |
+    |  sitelutions  &emsp; |  Sitelutions protocol  |
+    |  woima  &emsp; |  WOIMA protocol  |
+    |  yandex  &emsp; |  Yandex.DNS protocol  |
+    |  zoneedit1  &emsp; |  Zoneedit protocol  |
 - `server` (String) Remote server to connect to
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Server IPv4 address  |
-    |  hostname  |  Server hostname/FQDN  |
+    |  ipv4  &emsp; |  Server IPv4 address  |
+    |  hostname  &emsp; |  Server hostname/FQDN  |
 - `zone` (String) DNS zone to update (only available with CloudFlare)

@@ -8,7 +8,7 @@ import (
 
 // ServiceIPoeServerClientIPPoolName describes the resource data model.
 type ServiceIPoeServerClientIPPoolName struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"name_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceIPoeServerClientIPPoolNameGatewayAddress types.String `tfsdk:"gateway_address" vyos:"gateway-address,omitempty"`
@@ -29,20 +29,20 @@ func (o *ServiceIPoeServerClientIPPoolName) GetVyosPath() []string {
 		"client-ip-pool",
 
 		"name",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceIPoeServerClientIPPoolName) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Pool name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IP pool  |
+    |  txt  &emsp; |  Name of IP pool  |
 
 `,
 		},
@@ -53,9 +53,9 @@ func (o ServiceIPoeServerClientIPPoolName) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `Gateway IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Default Gateway send to the client  |
+    |  ipv4  &emsp; |  Default Gateway send to the client  |
 
 `,
 		},
@@ -64,9 +64,9 @@ func (o ServiceIPoeServerClientIPPoolName) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `Client IP subnet (CIDR notation)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
 
 `,
 		},

@@ -3,33 +3,40 @@
 page_title: "vyos_policy_route_map_rule Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Routing policy
-  IP route-map
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Route map name  |
 
+  <br>
+  &darr;
+  <br>
+  IP route-map
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Rule for this route-map
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-65535  |  Route-map rule number  |
+  </b>
+  </div>
 ---
 
 # vyos_policy_route_map_rule (Resource)
 
+<div style="text-align: center">
 Routing policy
 
+<br>
+&darr;
+<br>
 IP route-map
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Route map name  |
-
+<br>
+&darr;
+<br>
+<b>
 Rule for this route-map
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-65535  |  Route-map rule number  |
+</b>
+</div>
 
 
 
@@ -38,40 +45,40 @@ Rule for this route-map
 
 ### Required
 
-- `identifier` (String) Rule for this route-map
+- `route_map_id` (String) IP route-map
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Route-map rule number  |
-- `route_map_identifier` (String) IP route-map
+    |  txt  &emsp; |  Route map name  |
+- `rule_id` (String) Rule for this route-map
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  number: 1-65535  &emsp; |  Route-map rule number  |
 
 ### Optional
 
 - `action` (String) Action to take on entries matching this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  permit  |  Permit matching entries  |
-    |  deny  |  Deny matching entries  |
+    |  permit  &emsp; |  Permit matching entries  |
+    |  deny  &emsp; |  Deny matching entries  |
 - `call` (String) Call another route-map on match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `continue` (Number) Jump to a different rule in this route-map on a match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Rule number  |
+    |  number: 1-65535  &emsp; |  Rule number  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `match` (Attributes) Route parameters to match (see [below for nested schema](#nestedatt--match))
 - `on_match` (Attributes) Exit policy on matches (see [below for nested schema](#nestedatt--on_match))
 - `set` (Attributes) Route parameters (see [below for nested schema](#nestedatt--set))
@@ -87,47 +94,47 @@ Optional:
 - `extcommunity` (String) BGP extended community to match
 - `interface` (String) Interface to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 - `ip` (Attributes) IP prefix parameters to match (see [below for nested schema](#nestedatt--match--ip))
 - `ipv6` (Attributes) IPv6 prefix parameters to match (see [below for nested schema](#nestedatt--match--ipv6))
 - `large_community` (Attributes) Match BGP large communities (see [below for nested schema](#nestedatt--match--large_community))
 - `local_preference` (Number) Local Preference
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4294967295  |  Local Preference  |
+    |  number: 0-4294967295  &emsp; |  Local Preference  |
 - `metric` (Number) Metric of route to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Route metric  |
+    |  number: 1-65535  &emsp; |  Route metric  |
 - `origin` (String) BGP origin code to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  egp  |  Exterior gateway protocol origin  |
-    |  igp  |  Interior gateway protocol origin  |
-    |  incomplete  |  Incomplete origin  |
+    |  egp  &emsp; |  Exterior gateway protocol origin  |
+    |  igp  &emsp; |  Interior gateway protocol origin  |
+    |  incomplete  &emsp; |  Incomplete origin  |
 - `peer` (String) Peer address to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Peer IP address  |
-    |  ipv6  |  Peer IPv6 address  |
+    |  ipv4  &emsp; |  Peer IP address  |
+    |  ipv6  &emsp; |  Peer IPv6 address  |
 - `rpki` (String) Match RPKI validation result
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  invalid  |  Match invalid entries  |
-    |  notfound  |  Match notfound entries  |
-    |  valid  |  Match valid entries  |
+    |  invalid  &emsp; |  Match invalid entries  |
+    |  notfound  &emsp; |  Match notfound entries  |
+    |  valid  &emsp; |  Match valid entries  |
 - `tag` (Number) Route tag to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Route tag  |
+    |  number: 1-65535  &emsp; |  Route tag  |
 
 <a id="nestedatt--match--community"></a>
 ### Nested Schema for `match.community`
@@ -146,21 +153,21 @@ Optional:
 - `default_route` (Boolean) Default EVPN type-5 route
 - `rd` (String) Route Distinguisher
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp; |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 - `route_type` (String) Match route-type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macip  |  mac-ip route  |
-    |  multicast  |  IMET route  |
-    |  prefix  |  Prefix route  |
+    |  macip  &emsp; |  mac-ip route  |
+    |  multicast  &emsp; |  IMET route  |
+    |  prefix  &emsp; |  Prefix route  |
 - `vni` (Number) Virtual Network Identifier
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  VXLAN virtual network identifier  |
+    |  number: 0-16777214  &emsp; |  VXLAN virtual network identifier  |
 
 
 <a id="nestedatt--match--ip"></a>
@@ -179,17 +186,17 @@ Optional:
 
 - `access_list` (Number) IP access-list to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-99  |  IP standard access list  |
-    |  u32:100-199  |  IP extended access list  |
-    |  u32:1300-1999  |  IP standard access list (expanded range)  |
-    |  u32:2000-2699  |  IP extended access list (expanded range)  |
+    |  number: 1-99  &emsp; |  IP standard access list  |
+    |  number: 100-199  &emsp; |  IP extended access list  |
+    |  number: 1300-1999  &emsp; |  IP standard access list (expanded range)  |
+    |  number: 2000-2699  &emsp; |  IP extended access list (expanded range)  |
 - `prefix_len` (Number) IP prefix-length to match (can be used for kernel routes only)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-32  |  Prefix length  |
+    |  number: 0-32  &emsp; |  Prefix length  |
 - `prefix_list` (String) IP prefix-list to match
 
 
@@ -200,28 +207,28 @@ Optional:
 
 - `access_list` (Number) IP access-list to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-99  |  IP standard access list  |
-    |  u32:100-199  |  IP extended access list  |
-    |  u32:1300-1999  |  IP standard access list (expanded range)  |
-    |  u32:2000-2699  |  IP extended access list (expanded range)  |
+    |  number: 1-99  &emsp; |  IP standard access list  |
+    |  number: 100-199  &emsp; |  IP extended access list  |
+    |  number: 1300-1999  &emsp; |  IP standard access list (expanded range)  |
+    |  number: 2000-2699  &emsp; |  IP extended access list (expanded range)  |
 - `address` (String) IP address to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Nexthop IP address  |
+    |  ipv4  &emsp; |  Nexthop IP address  |
 - `prefix_len` (Number) IP prefix-length to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-32  |  Prefix length  |
+    |  number: 0-32  &emsp; |  Prefix length  |
 - `prefix_list` (String) IP prefix-list to match
 - `type` (String) Match type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  blackhole  |  Blackhole  |
+    |  blackhole  &emsp; |  Blackhole  |
 
 
 <a id="nestedatt--match--ip--route_source"></a>
@@ -231,12 +238,12 @@ Optional:
 
 - `access_list` (Number) IP access-list to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-99  |  IP standard access list  |
-    |  u32:100-199  |  IP extended access list  |
-    |  u32:1300-1999  |  IP standard access list (expanded range)  |
-    |  u32:2000-2699  |  IP extended access list (expanded range)  |
+    |  number: 1-99  &emsp; |  IP standard access list  |
+    |  number: 100-199  &emsp; |  IP extended access list  |
+    |  number: 1300-1999  &emsp; |  IP standard access list (expanded range)  |
+    |  number: 2000-2699  &emsp; |  IP extended access list (expanded range)  |
 - `prefix_list` (String) IP prefix-list to match
 
 
@@ -256,14 +263,14 @@ Optional:
 
 - `access_list` (String) IPv6 access-list to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  IPV6 access list name  |
+    |  txt  &emsp; |  IPV6 access list name  |
 - `prefix_len` (Number) IPv6 prefix-length to match (can be used for kernel routes only)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-128  |  Prefix length  |
+    |  number: 0-128  &emsp; |  Prefix length  |
 - `prefix_list` (String) IPv6 prefix-list to match
 
 
@@ -274,20 +281,20 @@ Optional:
 
 - `access_list` (String) IPv6 access-list to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  IPV6 access list name  |
+    |  txt  &emsp; |  IPV6 access list name  |
 - `address` (String) IPv6 address of next-hop
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6  |  Nexthop IPv6 address  |
+    |  ipv6  &emsp; |  Nexthop IPv6 address  |
 - `prefix_list` (String) IPv6 prefix-list to match
 - `type` (String) Match type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  blackhole  |  Blackhole  |
+    |  blackhole  &emsp; |  Blackhole  |
 
 
 
@@ -307,9 +314,9 @@ Optional:
 
 - `goto` (Number) Rule number to goto on match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Rule number  |
+    |  number: 1-65535  &emsp; |  Rule number  |
 - `next` (Boolean) Next sequence number to goto on match
 
 
@@ -324,71 +331,71 @@ Optional:
 - `community` (Attributes) BGP community attribute (see [below for nested schema](#nestedatt--set--community))
 - `distance` (Number) Locally significant administrative distance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  Distance value  |
+    |  number: 0-255  &emsp; |  Distance value  |
 - `evpn` (Attributes) Ethernet Virtual Private Network (see [below for nested schema](#nestedatt--set--evpn))
 - `extcommunity` (Attributes) BGP extended community attribute (see [below for nested schema](#nestedatt--set--extcommunity))
 - `ip_next_hop` (String) Nexthop IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IP address  |
-    |  unchanged  |  Set the BGP nexthop address as unchanged  |
-    |  peer-address  |  Set the BGP nexthop address to the address of the peer  |
+    |  ipv4  &emsp; |  IP address  |
+    |  unchanged  &emsp; |  Set the BGP nexthop address as unchanged  |
+    |  peer-address  &emsp; |  Set the BGP nexthop address to the address of the peer  |
 - `ipv6_next_hop` (Attributes) Nexthop IPv6 address (see [below for nested schema](#nestedatt--set--ipv6_next_hop))
 - `l3vpn_nexthop` (Attributes) Next hop Information (see [below for nested schema](#nestedatt--set--l3vpn_nexthop))
 - `large_community` (Attributes) BGP large community attribute (see [below for nested schema](#nestedatt--set--large_community))
 - `local_preference` (Number) BGP local preference attribute
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4294967295  |  Local preference value  |
+    |  number: 0-4294967295  &emsp; |  Local preference value  |
 - `metric` (String) Destination routing protocol metric
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <+/-metric>  |  Add or subtract metric  |
-    |  u32:0-4294967295  |  Metric value  |
+    |  <+/-metric>  &emsp; |  Add or subtract metric  |
+    |  number: 0-4294967295  &emsp; |  Metric value  |
 - `metric_type` (String) Open Shortest Path First (OSPF) external metric-type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  type-1  |  OSPF external type 1 metric  |
-    |  type-2  |  OSPF external type 2 metric  |
+    |  type-1  &emsp; |  OSPF external type 1 metric  |
+    |  type-2  &emsp; |  OSPF external type 2 metric  |
 - `origin` (String) Border Gateway Protocl (BGP) origin code
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  igp  |  Interior gateway protocol origin  |
-    |  egp  |  Exterior gateway protocol origin  |
-    |  incomplete  |  Incomplete origin  |
+    |  igp  &emsp; |  Interior gateway protocol origin  |
+    |  egp  &emsp; |  Exterior gateway protocol origin  |
+    |  incomplete  &emsp; |  Incomplete origin  |
 - `originator_id` (String) BGP originator ID attribute
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Orignator IP address  |
+    |  ipv4  &emsp; |  Orignator IP address  |
 - `src` (String) Source address for route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address  |
-    |  ipv6  |  IPv6 address  |
+    |  ipv4  &emsp; |  IPv4 address  |
+    |  ipv6  &emsp; |  IPv6 address  |
 - `table` (Number) Set prefixes to table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-200  |  Table value  |
+    |  number: 1-200  &emsp; |  Table value  |
 - `tag` (Number) Tag value for routing protocol
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Tag value  |
+    |  number: 1-65535  &emsp; |  Tag value  |
 - `weight` (Number) BGP weight attribute
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4294967295  |  BGP weight  |
+    |  number: 0-4294967295  &emsp; |  BGP weight  |
 
 <a id="nestedatt--set--aggregator"></a>
 ### Nested Schema for `set.aggregator`
@@ -397,14 +404,14 @@ Optional:
 
 - `as` (Number) AS number of an aggregation
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Rule number  |
+    |  number: 1-4294967295  &emsp; |  Rule number  |
 - `ip` (String) IP address of an aggregation
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IP address  |
+    |  ipv4  &emsp; |  IP address  |
 
 
 <a id="nestedatt--set--as_path"></a>
@@ -414,19 +421,19 @@ Optional:
 
 - `exclude` (Number) Remove/exclude from the as-path attribute
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  AS number  |
+    |  u32  &emsp; |  AS number  |
 - `prepend` (Number) Prepend to the as-path
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  AS number  |
+    |  u32  &emsp; |  AS number  |
 - `prepend_last_as` (Number) Use the last AS-number in the as-path
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-10  |  Number of times to insert  |
+    |  number: 1-10  &emsp; |  Number of times to insert  |
 
 
 <a id="nestedatt--set--community"></a>
@@ -436,50 +443,50 @@ Optional:
 
 - `add` (List of String) Add communities to a prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <AS:VAL>  |  Community number in <0-65535:0-65535> format  |
-    |  local-as  |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
-    |  no-advertise  |  Well-known communities value NO_ADVERTISE 0xFFFFFF02  |
-    |  no-export  |  Well-known communities value NO_EXPORT 0xFFFFFF01  |
-    |  internet  |  Well-known communities value 0  |
-    |  graceful-shutdown  |  Well-known communities value GRACEFUL_SHUTDOWN 0xFFFF0000  |
-    |  accept-own  |  Well-known communities value ACCEPT_OWN 0xFFFF0001  |
-    |  route-filter-translated-v4  |  Well-known communities value ROUTE_FILTER_TRANSLATED_v4 0xFFFF0002  |
-    |  route-filter-v4  |  Well-known communities value ROUTE_FILTER_v4 0xFFFF0003  |
-    |  route-filter-translated-v6  |  Well-known communities value ROUTE_FILTER_TRANSLATED_v6 0xFFFF0004  |
-    |  route-filter-v6  |  Well-known communities value ROUTE_FILTER_v6 0xFFFF0005  |
-    |  llgr-stale  |  Well-known communities value LLGR_STALE 0xFFFF0006  |
-    |  no-llgr  |  Well-known communities value NO_LLGR 0xFFFF0007  |
-    |  accept-own-nexthop  |  Well-known communities value accept-own-nexthop 0xFFFF0008  |
-    |  blackhole  |  Well-known communities value BLACKHOLE 0xFFFF029A  |
-    |  no-peer  |  Well-known communities value NOPEER 0xFFFFFF04  |
+    |  <AS:VAL>  &emsp; |  Community number in <0-65535:0-65535> format  |
+    |  local-as  &emsp; |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
+    |  no-advertise  &emsp; |  Well-known communities value NO_ADVERTISE 0xFFFFFF02  |
+    |  no-export  &emsp; |  Well-known communities value NO_EXPORT 0xFFFFFF01  |
+    |  internet  &emsp; |  Well-known communities value 0  |
+    |  graceful-shutdown  &emsp; |  Well-known communities value GRACEFUL_SHUTDOWN 0xFFFF0000  |
+    |  accept-own  &emsp; |  Well-known communities value ACCEPT_OWN 0xFFFF0001  |
+    |  route-filter-translated-v4  &emsp; |  Well-known communities value ROUTE_FILTER_TRANSLATED_v4 0xFFFF0002  |
+    |  route-filter-v4  &emsp; |  Well-known communities value ROUTE_FILTER_v4 0xFFFF0003  |
+    |  route-filter-translated-v6  &emsp; |  Well-known communities value ROUTE_FILTER_TRANSLATED_v6 0xFFFF0004  |
+    |  route-filter-v6  &emsp; |  Well-known communities value ROUTE_FILTER_v6 0xFFFF0005  |
+    |  llgr-stale  &emsp; |  Well-known communities value LLGR_STALE 0xFFFF0006  |
+    |  no-llgr  &emsp; |  Well-known communities value NO_LLGR 0xFFFF0007  |
+    |  accept-own-nexthop  &emsp; |  Well-known communities value accept-own-nexthop 0xFFFF0008  |
+    |  blackhole  &emsp; |  Well-known communities value BLACKHOLE 0xFFFF029A  |
+    |  no-peer  &emsp; |  Well-known communities value NOPEER 0xFFFFFF04  |
 - `delete` (String) Remove communities defined in a list from a prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Community-list  |
+    |  txt  &emsp; |  Community-list  |
 - `none` (Boolean) Completely remove communities attribute from a prefix
 - `replace` (List of String) Set communities for a prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <AS:VAL>  |  Community number in <0-65535:0-65535> format  |
-    |  local-as  |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
-    |  no-advertise  |  Well-known communities value NO_ADVERTISE 0xFFFFFF02  |
-    |  no-export  |  Well-known communities value NO_EXPORT 0xFFFFFF01  |
-    |  internet  |  Well-known communities value 0  |
-    |  graceful-shutdown  |  Well-known communities value GRACEFUL_SHUTDOWN 0xFFFF0000  |
-    |  accept-own  |  Well-known communities value ACCEPT_OWN 0xFFFF0001  |
-    |  route-filter-translated-v4  |  Well-known communities value ROUTE_FILTER_TRANSLATED_v4 0xFFFF0002  |
-    |  route-filter-v4  |  Well-known communities value ROUTE_FILTER_v4 0xFFFF0003  |
-    |  route-filter-translated-v6  |  Well-known communities value ROUTE_FILTER_TRANSLATED_v6 0xFFFF0004  |
-    |  route-filter-v6  |  Well-known communities value ROUTE_FILTER_v6 0xFFFF0005  |
-    |  llgr-stale  |  Well-known communities value LLGR_STALE 0xFFFF0006  |
-    |  no-llgr  |  Well-known communities value NO_LLGR 0xFFFF0007  |
-    |  accept-own-nexthop  |  Well-known communities value accept-own-nexthop 0xFFFF0008  |
-    |  blackhole  |  Well-known communities value BLACKHOLE 0xFFFF029A  |
-    |  no-peer  |  Well-known communities value NOPEER 0xFFFFFF04  |
+    |  <AS:VAL>  &emsp; |  Community number in <0-65535:0-65535> format  |
+    |  local-as  &emsp; |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
+    |  no-advertise  &emsp; |  Well-known communities value NO_ADVERTISE 0xFFFFFF02  |
+    |  no-export  &emsp; |  Well-known communities value NO_EXPORT 0xFFFFFF01  |
+    |  internet  &emsp; |  Well-known communities value 0  |
+    |  graceful-shutdown  &emsp; |  Well-known communities value GRACEFUL_SHUTDOWN 0xFFFF0000  |
+    |  accept-own  &emsp; |  Well-known communities value ACCEPT_OWN 0xFFFF0001  |
+    |  route-filter-translated-v4  &emsp; |  Well-known communities value ROUTE_FILTER_TRANSLATED_v4 0xFFFF0002  |
+    |  route-filter-v4  &emsp; |  Well-known communities value ROUTE_FILTER_v4 0xFFFF0003  |
+    |  route-filter-translated-v6  &emsp; |  Well-known communities value ROUTE_FILTER_TRANSLATED_v6 0xFFFF0004  |
+    |  route-filter-v6  &emsp; |  Well-known communities value ROUTE_FILTER_v6 0xFFFF0005  |
+    |  llgr-stale  &emsp; |  Well-known communities value LLGR_STALE 0xFFFF0006  |
+    |  no-llgr  &emsp; |  Well-known communities value NO_LLGR 0xFFFF0007  |
+    |  accept-own-nexthop  &emsp; |  Well-known communities value accept-own-nexthop 0xFFFF0008  |
+    |  blackhole  &emsp; |  Well-known communities value BLACKHOLE 0xFFFF029A  |
+    |  no-peer  &emsp; |  Well-known communities value NOPEER 0xFFFFFF04  |
 
 
 <a id="nestedatt--set--evpn"></a>
@@ -496,14 +503,14 @@ Optional:
 
 - `ipv4` (String) Set gateway IPv4 address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Gateway IPv4 address  |
+    |  ipv4  &emsp; |  Gateway IPv4 address  |
 - `ipv6` (String) Set gateway IPv6 address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6  |  Gateway IPv6 address  |
+    |  ipv6  &emsp; |  Gateway IPv6 address  |
 
 
 
@@ -514,25 +521,25 @@ Optional:
 
 - `bandwidth` (String) Bandwidth value in Mbps
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-25600  |  Bandwidth value in Mbps  |
-    |  cumulative  |  Cumulative bandwidth of all multipaths (outbound-only)  |
-    |  num-multipaths  |  Internally computed bandwidth based on number of multipaths (outbound-only)  |
+    |  number: 1-25600  &emsp; |  Bandwidth value in Mbps  |
+    |  cumulative  &emsp; |  Cumulative bandwidth of all multipaths (outbound-only)  |
+    |  num-multipaths  &emsp; |  Internally computed bandwidth based on number of multipaths (outbound-only)  |
 - `bandwidth_non_transitive` (Boolean) The link bandwidth extended community is encoded as non-transitive
 - `none` (Boolean) Completely remove communities attribute from a prefix
 - `rt` (List of String) Set route target value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ASN:NN  |  based on autonomous system number in format <0-65535:0-4294967295>  |
-    |  IP:NN  |  Based on a router-id IP address in format <IP:0-65535>  |
+    |  ASN:NN  &emsp; |  based on autonomous system number in format <0-65535:0-4294967295>  |
+    |  IP:NN  &emsp; |  Based on a router-id IP address in format <IP:0-65535>  |
 - `soo` (List of String) Set Site of Origin value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ASN:NN  |  based on autonomous system number in format <0-65535:0-4294967295>  |
-    |  IP:NN  |  Based on a router-id IP address in format <IP:0-65535>  |
+    |  ASN:NN  &emsp; |  based on autonomous system number in format <0-65535:0-4294967295>  |
+    |  IP:NN  &emsp; |  Based on a router-id IP address in format <IP:0-65535>  |
 
 
 <a id="nestedatt--set--ipv6_next_hop"></a>
@@ -542,14 +549,14 @@ Optional:
 
 - `global` (String) Nexthop IPv6 global address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6  |  IPv6 address and prefix length  |
+    |  ipv6  &emsp; |  IPv6 address and prefix length  |
 - `local` (String) Nexthop IPv6 local address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6  |  IPv6 address and prefix length  |
+    |  ipv6  &emsp; |  IPv6 address and prefix length  |
 - `peer_address` (Boolean) Use peer address (for BGP only)
 - `prefer_global` (Boolean) Prefer global address as the nexthop
 
@@ -577,17 +584,17 @@ Optional:
 
 - `add` (List of String) Add large communities to a prefix ;
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <GA:LDP1:LDP2>  |  Community in format <0-4294967295:0-4294967295:0-4294967295>  |
+    |  <GA:LDP1:LDP2>  &emsp; |  Community in format <0-4294967295:0-4294967295:0-4294967295>  |
 - `delete` (String) Remove communities defined in a list from a prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Community-list  |
+    |  txt  &emsp; |  Community-list  |
 - `none` (Boolean) Completely remove communities attribute from a prefix
 - `replace` (List of String) Set large communities for a prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <GA:LDP1:LDP2>  |  Community in format <0-4294967295:0-4294967295:0-4294967295>  |
+    |  <GA:LDP1:LDP2>  &emsp; |  Community in format <0-4294967295:0-4294967295:0-4294967295>  |

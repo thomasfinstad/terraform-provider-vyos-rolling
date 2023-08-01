@@ -3,18 +3,40 @@
 page_title: "vyos_container_name_volume Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Container applications
+
+  <br>
+  &darr;
+  <br>
   Container name
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Mount a volume into the container
+  </b>
+  </div>
 ---
 
 # vyos_container_name_volume (Resource)
 
+<div style="text-align: center">
 Container applications
 
+<br>
+&darr;
+<br>
 Container name
 
+<br>
+&darr;
+<br>
+<b>
 Mount a volume into the container
+</b>
+</div>
 
 
 
@@ -23,24 +45,24 @@ Mount a volume into the container
 
 ### Required
 
-- `identifier` (String) Mount a volume into the container
-- `name_identifier` (String) Container name
+- `name_id` (String) Container name
+- `volume_id` (String) Mount a volume into the container
 
 ### Optional
 
 - `destination` (String) Destination container directory
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination container directory  |
+    |  txt  &emsp; |  Destination container directory  |
 - `mode` (String) Volume access mode ro/rw
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ro  |  Volume mounted into the container as read-only  |
-    |  rw  |  Volume mounted into the container as read-write  |
+    |  ro  &emsp; |  Volume mounted into the container as read-only  |
+    |  rw  &emsp; |  Volume mounted into the container as read-write  |
 - `source` (String) Source host directory
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Source host directory  |
+    |  txt  &emsp; |  Source host directory  |

@@ -9,9 +9,9 @@ import (
 
 // InterfacesOpenvpnServerClient describes the resource data model.
 type InterfacesOpenvpnServerClient struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"client_id" vyos:",self-id"`
 
-	ParentIDInterfacesOpenvpn types.String `tfsdk:"openvpn" vyos:"openvpn_identifier,parent-id"`
+	ParentIDInterfacesOpenvpn types.String `tfsdk:"openvpn" vyos:"openvpn,parent-id"`
 
 	// LeafNodes
 	LeafInterfacesOpenvpnServerClientDisable   types.Bool `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -35,31 +35,31 @@ func (o *InterfacesOpenvpnServerClient) GetVyosPath() []string {
 		"server",
 
 		"client",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesOpenvpnServerClient) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"client_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Client-specific settings
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  name  |  Client common-name in the certificate  |
+    |  name  &emsp; |  Client common-name in the certificate  |
 
 `,
 		},
 
-		"openvpn_identifier": schema.StringAttribute{
+		"openvpn_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `OpenVPN Tunnel Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  vtunN  |  OpenVPN interface name  |
+    |  vtunN  &emsp; |  OpenVPN interface name  |
 
 `,
 		},
@@ -80,10 +80,10 @@ func (o InterfacesOpenvpnServerClient) ResourceSchemaAttributes() map[string]sch
 			Optional:    true,
 			MarkdownDescription: `IP address of the client
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Client IPv4 address  |
-    |  ipv6  |  Client IPv6 address  |
+    |  ipv4  &emsp; |  Client IPv4 address  |
+    |  ipv6  &emsp; |  Client IPv6 address  |
 
 `,
 		},
@@ -93,10 +93,10 @@ func (o InterfacesOpenvpnServerClient) ResourceSchemaAttributes() map[string]sch
 			Optional:    true,
 			MarkdownDescription: `Route to be pushed to the client
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 network and prefix length  |
-    |  ipv6net  |  IPv6 network and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 network and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 network and prefix length  |
 
 `,
 		},
@@ -106,10 +106,10 @@ func (o InterfacesOpenvpnServerClient) ResourceSchemaAttributes() map[string]sch
 			Optional:    true,
 			MarkdownDescription: `Subnet belonging to the client (iroute)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 network and prefix length belonging to the client  |
-    |  ipv6net  |  IPv6 network and prefix length belonging to the client  |
+    |  ipv4net  &emsp; |  IPv4 network and prefix length belonging to the client  |
+    |  ipv6net  &emsp; |  IPv6 network and prefix length belonging to the client  |
 
 `,
 		},

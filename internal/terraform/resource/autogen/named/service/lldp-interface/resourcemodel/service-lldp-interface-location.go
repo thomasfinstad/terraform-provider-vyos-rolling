@@ -26,9 +26,9 @@ func (o ServiceLldpInterfaceLocation) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `ECS ELIN (Emergency location identifier number)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-9999999999  |  Emergency Call Service ELIN number (between 10-25 numbers)  |
+    |  number: 0-9999999999  &emsp; |  Emergency Call Service ELIN number (between 10-25 numbers)  |
 
 `,
 		},

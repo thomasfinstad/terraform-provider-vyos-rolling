@@ -9,7 +9,7 @@ import (
 
 // InterfacesPseudoEthernet describes the resource data model.
 type InterfacesPseudoEthernet struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"pseudo_ethernet_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafInterfacesPseudoEthernetAddress           types.List   `tfsdk:"address" vyos:"address,omitempty"`
@@ -41,20 +41,20 @@ func (o *InterfacesPseudoEthernet) GetVyosPath() []string {
 		"interfaces",
 
 		"pseudo-ethernet",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesPseudoEthernet) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"pseudo_ethernet_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Pseudo Ethernet Interface (Macvlan)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  pethN  |  Pseudo Ethernet interface name  |
+    |  pethN  &emsp; |  Pseudo Ethernet interface name  |
 
 `,
 		},
@@ -66,12 +66,12 @@ func (o InterfacesPseudoEthernet) ResourceSchemaAttributes() map[string]schema.A
 			Optional:    true,
 			MarkdownDescription: `IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
-    |  dhcp  |  Dynamic Host Configuration Protocol  |
-    |  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
+    |  dhcp  &emsp; |  Dynamic Host Configuration Protocol  |
+    |  dhcpv6  &emsp; |  Dynamic Host Configuration Protocol for IPv6  |
 
 `,
 		},
@@ -80,9 +80,9 @@ func (o InterfacesPseudoEthernet) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -109,9 +109,9 @@ func (o InterfacesPseudoEthernet) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -120,9 +120,9 @@ func (o InterfacesPseudoEthernet) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Physical interface the traffic will go through
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  interface  |  Physical interface used for traffic forwarding  |
+    |  interface  &emsp; |  Physical interface used for traffic forwarding  |
 
 `,
 		},
@@ -131,9 +131,9 @@ func (o InterfacesPseudoEthernet) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+    |  macaddr  &emsp; |  Hardware (MAC) address  |
 
 `,
 		},
@@ -142,12 +142,12 @@ func (o InterfacesPseudoEthernet) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Receive mode (default: private)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  private  |  No communication with other pseudo-devices  |
-    |  vepa  |  Virtual Ethernet Port Aggregator reflective relay  |
-    |  bridge  |  Simple bridge between pseudo-devices  |
-    |  passthru  |  Promicious mode passthrough of underlying device  |
+    |  private  &emsp; |  No communication with other pseudo-devices  |
+    |  vepa  &emsp; |  Virtual Ethernet Port Aggregator reflective relay  |
+    |  bridge  &emsp; |  Simple bridge between pseudo-devices  |
+    |  passthru  &emsp; |  Promicious mode passthrough of underlying device  |
 
 `,
 
@@ -159,9 +159,9 @@ func (o InterfacesPseudoEthernet) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:68-16000  |  Maximum Transmission Unit in byte  |
+    |  number: 68-16000  &emsp; |  Maximum Transmission Unit in byte  |
 
 `,
 
@@ -173,9 +173,9 @@ func (o InterfacesPseudoEthernet) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 `,
 		},

@@ -8,7 +8,7 @@ import (
 
 // ServiceSnmpVthreeGroup describes the resource data model.
 type ServiceSnmpVthreeGroup struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"group_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafServiceSnmpVthreeGroupMode     types.String `tfsdk:"mode" vyos:"mode,omitempty"`
@@ -30,14 +30,14 @@ func (o *ServiceSnmpVthreeGroup) GetVyosPath() []string {
 		"v3",
 
 		"group",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceSnmpVthreeGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Specifies the group with name groupname
 
@@ -50,10 +50,10 @@ func (o ServiceSnmpVthreeGroup) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Define access permission
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ro  |  Read-Only  |
-    |  rw  |  read write  |
+    |  ro  &emsp; |  Read-Only  |
+    |  rw  &emsp; |  read write  |
 
 `,
 
@@ -65,11 +65,11 @@ func (o ServiceSnmpVthreeGroup) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Security levels
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  noauth  |  Messages not authenticated and not encrypted (noAuthNoPriv)  |
-    |  auth  |  Messages are authenticated but not encrypted (authNoPriv)  |
-    |  priv  |  Messages are authenticated and encrypted (authPriv)  |
+    |  noauth  &emsp; |  Messages not authenticated and not encrypted (noAuthNoPriv)  |
+    |  auth  &emsp; |  Messages are authenticated but not encrypted (authNoPriv)  |
+    |  priv  &emsp; |  Messages are authenticated and encrypted (authPriv)  |
 
 `,
 

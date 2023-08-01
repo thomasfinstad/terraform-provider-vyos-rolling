@@ -29,9 +29,9 @@ func (o FirewallNameRuleTime) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Date to start matching rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Enter date using following notation - YYYY-MM-DD  |
+    |  txt  &emsp; |  Enter date using following notation - YYYY-MM-DD  |
 
 `,
 		},
@@ -40,9 +40,9 @@ func (o FirewallNameRuleTime) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Time of day to start matching rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Enter time using using 24 hour notation - hh:mm:ss  |
+    |  txt  &emsp; |  Enter time using using 24 hour notation - hh:mm:ss  |
 
 `,
 		},
@@ -51,9 +51,9 @@ func (o FirewallNameRuleTime) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Date to stop matching rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Enter date using following notation - YYYY-MM-DD  |
+    |  txt  &emsp; |  Enter date using following notation - YYYY-MM-DD  |
 
 `,
 		},
@@ -62,9 +62,9 @@ func (o FirewallNameRuleTime) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Time of day to stop matching rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Enter time using using 24 hour notation - hh:mm:ss  |
+    |  txt  &emsp; |  Enter time using using 24 hour notation - hh:mm:ss  |
 
 `,
 		},
@@ -73,10 +73,10 @@ func (o FirewallNameRuleTime) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Comma separated weekdays to match rule on
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of day (Monday, Tuesday, Wednesday, Thursdays, Friday,                           Saturday, Sunday)  |
-    |  u32:0-6  |  Day number (0 = Sunday ... 6 = Saturday)  |
+    |  txt  &emsp; |  Name of day (Monday, Tuesday, Wednesday, Thursdays, Friday,<br>                          Saturday, Sunday)  |
+    |  number: 0-6  &emsp; |  Day number (0 = Sunday ... 6 = Saturday)  |
 
 `,
 		},

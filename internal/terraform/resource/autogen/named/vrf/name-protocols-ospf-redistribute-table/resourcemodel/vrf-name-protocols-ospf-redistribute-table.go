@@ -8,9 +8,9 @@ import (
 
 // VrfNameProtocolsOspfRedistributeTable describes the resource data model.
 type VrfNameProtocolsOspfRedistributeTable struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"table_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsOspfRedistributeTableMetric     types.Number `tfsdk:"metric" vyos:"metric,omitempty"`
@@ -37,31 +37,31 @@ func (o *VrfNameProtocolsOspfRedistributeTable) GetVyosPath() []string {
 		"redistribute",
 
 		"table",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsOspfRedistributeTable) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"table_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Redistribute non-main Kernel Routing Table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-200  |  Policy route table number  |
+    |  number: 1-200  &emsp; |  Policy route table number  |
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -72,9 +72,9 @@ func (o VrfNameProtocolsOspfRedistributeTable) ResourceSchemaAttributes() map[st
 			Optional: true,
 			MarkdownDescription: `OSPF default metric
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  Default metric  |
+    |  number: 0-16777214  &emsp; |  Default metric  |
 
 `,
 		},
@@ -83,9 +83,9 @@ func (o VrfNameProtocolsOspfRedistributeTable) ResourceSchemaAttributes() map[st
 			Optional: true,
 			MarkdownDescription: `OSPF metric type for default routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
 
 `,
 
@@ -97,9 +97,9 @@ func (o VrfNameProtocolsOspfRedistributeTable) ResourceSchemaAttributes() map[st
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},

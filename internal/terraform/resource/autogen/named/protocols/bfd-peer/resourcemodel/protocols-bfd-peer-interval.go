@@ -28,9 +28,9 @@ func (o ProtocolsBfdPeerInterval) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Minimum interval of receiving control packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:10-60000  |  Interval in milliseconds  |
+    |  number: 10-60000  &emsp; |  Interval in milliseconds  |
 
 `,
 
@@ -42,9 +42,9 @@ func (o ProtocolsBfdPeerInterval) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Minimum interval of transmitting control packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:10-60000  |  Interval in milliseconds  |
+    |  number: 10-60000  &emsp; |  Interval in milliseconds  |
 
 `,
 
@@ -56,9 +56,9 @@ func (o ProtocolsBfdPeerInterval) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Multiplier to determine packet loss
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:2-255  |  Remote transmission interval will be multiplied by this value  |
+    |  number: 2-255  &emsp; |  Remote transmission interval will be multiplied by this value  |
 
 `,
 
@@ -70,9 +70,9 @@ func (o ProtocolsBfdPeerInterval) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Echo receive transmission interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:10-60000  |  The minimal echo receive transmission interval that this system is capable of handling  |
+    |  number: 10-60000  &emsp; |  The minimal echo receive transmission interval that this system is capable of handling  |
 
 `,
 		},

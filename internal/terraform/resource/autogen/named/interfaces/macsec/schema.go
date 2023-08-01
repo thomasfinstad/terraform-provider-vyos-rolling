@@ -12,12 +12,16 @@ import (
 func (r interfacesMacsec) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `MACsec Interface (802.1ae)
+		MarkdownDescription: `<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  macsecN  |  MACsec interface name  |
-
+<br>
+&darr;
+<br>
+<b>
+MACsec Interface (802.1ae)
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

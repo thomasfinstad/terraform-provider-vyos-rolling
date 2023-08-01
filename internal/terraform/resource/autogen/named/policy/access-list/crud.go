@@ -53,7 +53,7 @@ func (r policyAccessList) Create(ctx context.Context, req resource.CreateRequest
 		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
 	}
 
-	// Save ID into the Terraform state.data.ID = types.NumberValue(data.ID.ValueBigFloat().String())
+	// Save ID into the Terraform state.data.SelfIdentifier = types.NumberValue(data.SelfIdentifier.ValueBigFloat().String())
 
 	// Save data to Terraform state
 	tflog.Trace(ctx, "resource created")
@@ -137,7 +137,7 @@ func (r policyAccessList) Update(ctx context.Context, req resource.UpdateRequest
 		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
 	}
 
-	// Save ID into the Terraform state.data.ID = types.NumberValue(data.ID.ValueBigFloat().String())
+	// Save ID into the Terraform state.data.SelfIdentifier = types.NumberValue(data.SelfIdentifier.ValueBigFloat().String())
 
 	// Save data to Terraform state
 	tflog.Trace(ctx, "resource created")

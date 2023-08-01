@@ -3,43 +3,70 @@
 page_title: "vyos_service_dns_forwarding_authoritative_domain_records_a Resource - vyos"
 subcategory: ""
 description: |-
-  Domain Name System related services
-  DNS forwarding
-  Domain to host authoritative records for
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  text  |  An absolute DNS name  |
+  <div style="text-align: center">
+  <i>service</i>
 
+  <br>
+  &darr;
+  <br>
+  Domain Name System related services
+
+  <br>
+  &darr;
+  <br>
+  DNS forwarding
+
+  <br>
+  &darr;
+  <br>
+  Domain to host authoritative records for
+
+  <br>
+  &darr;
+  <br>
   DNS zone records
+
+  <br>
+  &darr;
+  <br>
+  <b>
   "A" record
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  text  |  A DNS name relative to the root record  |
-  |  @  |  Root record  |
-  |  any  |  Wildcard record (any subdomain)  |
+  </b>
+  </div>
 ---
 
 # vyos_service_dns_forwarding_authoritative_domain_records_a (Resource)
 
+<div style="text-align: center">
+<i>service</i>
+
+<br>
+&darr;
+<br>
 Domain Name System related services
 
+<br>
+&darr;
+<br>
 DNS forwarding
 
+<br>
+&darr;
+<br>
 Domain to host authoritative records for
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  text  |  An absolute DNS name  |
-
+<br>
+&darr;
+<br>
 DNS zone records
 
+<br>
+&darr;
+<br>
+<b>
 "A" record
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  text  |  A DNS name relative to the root record  |
-    |  @  |  Root record  |
-    |  any  |  Wildcard record (any subdomain)  |
+</b>
+</div>
 
 
 
@@ -48,29 +75,29 @@ DNS zone records
 
 ### Required
 
-- `authoritative_domain_identifier` (String) Domain to host authoritative records for
+- `a_id` (String) "A" record
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  An absolute DNS name  |
-- `identifier` (String) "A" record
+    |  text  &emsp; |  A DNS name relative to the root record  |
+    |  @  &emsp; |  Root record  |
+    |  any  &emsp; |  Wildcard record (any subdomain)  |
+- `authoritative_domain_id` (String) Domain to host authoritative records for
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  text  |  A DNS name relative to the root record  |
-    |  @  |  Root record  |
-    |  any  |  Wildcard record (any subdomain)  |
+    |  text  &emsp; |  An absolute DNS name  |
 
 ### Optional
 
 - `address` (List of String) IPv4 address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 address  |
+    |  ipv4  &emsp; |  IPv4 address  |
 - `disable` (Boolean) Disable instance
 - `ttl` (Number) Time-to-live (TTL)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-2147483647  |  TTL in seconds  |
+    |  number: 0-2147483647  &emsp; |  TTL in seconds  |

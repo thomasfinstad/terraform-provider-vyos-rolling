@@ -3,33 +3,60 @@
 page_title: "vyos_protocols_static_arp_interface_address Resource - vyos"
 subcategory: ""
 description: |-
-  Static ARP translation
-  Interface configuration
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Interface name  |
+  <div style="text-align: center">
+  <i>protocols</i>
 
+  <br>
+  &darr;
+  <br>
+  <i>static</i>
+
+  <br>
+  &darr;
+  <br>
+  Static ARP translation
+
+  <br>
+  &darr;
+  <br>
+  Interface configuration
+
+  <br>
+  &darr;
+  <br>
+  <b>
   IP address for static ARP entry
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  IPv4 destination address  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_static_arp_interface_address (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
+<i>static</i>
+
+<br>
+&darr;
+<br>
 Static ARP translation
 
+<br>
+&darr;
+<br>
 Interface configuration
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Interface name  |
-
+<br>
+&darr;
+<br>
+<b>
 IP address for static ARP entry
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  IPv4 destination address  |
+</b>
+</div>
 
 
 
@@ -38,26 +65,26 @@ IP address for static ARP entry
 
 ### Required
 
-- `identifier` (String) IP address for static ARP entry
+- `address_id` (String) IP address for static ARP entry
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 destination address  |
-- `interface_identifier` (String) Interface configuration
+    |  ipv4  &emsp; |  IPv4 destination address  |
+- `interface_id` (String) Interface configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `mac` (String) Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+    |  macaddr  &emsp; |  Hardware (MAC) address  |

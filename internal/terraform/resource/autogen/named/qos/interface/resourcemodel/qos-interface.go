@@ -8,7 +8,7 @@ import (
 
 // QosInterface describes the resource data model.
 type QosInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafQosInterfaceIngress types.String `tfsdk:"ingress" vyos:"ingress,omitempty"`
@@ -25,20 +25,20 @@ func (o *QosInterface) GetVyosPath() []string {
 		"qos",
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Interface to apply QoS policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},
@@ -49,9 +49,9 @@ func (o QosInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Interface ingress traffic policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  QoS policy to use  |
+    |  txt  &emsp; |  QoS policy to use  |
 
 `,
 		},
@@ -60,9 +60,9 @@ func (o QosInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Interface egress traffic policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  QoS policy to use  |
+    |  txt  &emsp; |  QoS policy to use  |
 
 `,
 		},

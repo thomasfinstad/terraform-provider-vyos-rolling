@@ -3,47 +3,60 @@
 page_title: "vyos_protocols_static_table_route6_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Routing protocols
+
+  <br>
+  &darr;
+  <br>
   Static Routing
+
+  <br>
+  &darr;
+  <br>
   Policy route table number
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-200  |  Policy route table number  |
 
+  <br>
+  &darr;
+  <br>
   Static IPv6 route
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv6net  |  IPv6 static route  |
 
+  <br>
+  &darr;
+  <br>
+  <b>
   IPv6 gateway interface name
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Gateway interface name  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_static_table_route6_interface (Resource)
 
+<div style="text-align: center">
 Routing protocols
 
+<br>
+&darr;
+<br>
 Static Routing
 
+<br>
+&darr;
+<br>
 Policy route table number
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-200  |  Policy route table number  |
-
+<br>
+&darr;
+<br>
 Static IPv6 route
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv6net  |  IPv6 static route  |
-
+<br>
+&darr;
+<br>
+<b>
 IPv6 gateway interface name
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Gateway interface name  |
+</b>
+</div>
 
 
 
@@ -52,32 +65,32 @@ IPv6 gateway interface name
 
 ### Required
 
-- `identifier` (String) IPv6 gateway interface name
+- `interface_id` (String) IPv6 gateway interface name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Gateway interface name  |
-- `route6_identifier` (String) Static IPv6 route
+    |  txt  &emsp; |  Gateway interface name  |
+- `route6_id` (String) Static IPv6 route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6net  |  IPv6 static route  |
-- `table_identifier` (String) Policy route table number
+    |  ipv6net  &emsp; |  IPv6 static route  |
+- `table_id` (String) Policy route table number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-200  |  Policy route table number  |
+    |  number: 1-200  &emsp; |  Policy route table number  |
 
 ### Optional
 
 - `disable` (Boolean) Disable instance
 - `distance` (Number) Distance for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Distance for this route  |
+    |  number: 1-255  &emsp; |  Distance for this route  |
 - `vrf` (String) VRF to leak route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of VRF to leak to  |
+    |  txt  &emsp; |  Name of VRF to leak to  |

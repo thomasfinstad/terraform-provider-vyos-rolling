@@ -12,30 +12,46 @@ import (
 func (r vrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistancePrefix) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Virtual Routing and Forwarding
+		MarkdownDescription: `<div style="text-align: center">
+Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Border Gateway Protocol (BGP)
 
+<br>
+&darr;
+<br>
 BGP address-family parameters
 
+<br>
+&darr;
+<br>
 IPv6 BGP settings
 
+<br>
+&darr;
+<br>
 Administrative distances for BGP routes
 
+<br>
+&darr;
+<br>
+<b>
 Administrative distance for a specific BGP prefix
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv6net  |  Administrative distance for a specific BGP prefix  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

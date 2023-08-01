@@ -3,19 +3,30 @@
 page_title: "vyos_interfaces_vxlan Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>interfaces</i>
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Virtual Extensible LAN (VXLAN) Interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  vxlanN  |  VXLAN interface name  |
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_vxlan (Resource)
 
-Virtual Extensible LAN (VXLAN) Interface
+<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  vxlanN  |  VXLAN interface name  |
+<br>
+&darr;
+<br>
+<b>
+Virtual Extensible LAN (VXLAN) Interface
+</b>
+</div>
 
 
 
@@ -24,85 +35,85 @@ Virtual Extensible LAN (VXLAN) Interface
 
 ### Required
 
-- `identifier` (String) Virtual Extensible LAN (VXLAN) Interface
+- `vxlan_id` (String) Virtual Extensible LAN (VXLAN) Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  vxlanN  |  VXLAN interface name  |
+    |  vxlanN  &emsp; |  VXLAN interface name  |
 
 ### Optional
 
 - `address` (List of String) IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `disable` (Boolean) Administratively disable interface
 - `external` (Boolean) Use external control plane
 - `gpe` (Boolean) Enable Generic Protocol extension (VXLAN-GPE)
 - `group` (String) Multicast group address for VXLAN interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Multicast IPv4 group address  |
-    |  ipv6  |  Multicast IPv6 group address  |
+    |  ipv4  &emsp; |  Multicast IPv4 group address  |
+    |  ipv6  &emsp; |  Multicast IPv6 group address  |
 - `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--ip))
 - `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--ipv6))
 - `mac` (String) Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+    |  macaddr  &emsp; |  Hardware (MAC) address  |
 - `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--mirror))
 - `mtu` (Number) Maximum Transmission Unit (MTU)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1200-16000  |  Maximum Transmission Unit in byte  |
+    |  number: 1200-16000  &emsp; |  Maximum Transmission Unit in byte  |
 - `parameters` (Attributes) VXLAN tunnel parameters (see [below for nested schema](#nestedatt--parameters))
 - `port` (Number) Port number used by connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Numeric IP port  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 - `redirect` (String) Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 - `remote` (List of String) Tunnel remote address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Tunnel remote IPv4 address  |
-    |  ipv6  |  Tunnel remote IPv6 address  |
+    |  ipv4  &emsp; |  Tunnel remote IPv4 address  |
+    |  ipv6  &emsp; |  Tunnel remote IPv6 address  |
 - `source_address` (String) Source IP address used to initiate connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 source address  |
-    |  ipv6  |  IPv6 source address  |
+    |  ipv4  &emsp; |  IPv4 source address  |
+    |  ipv6  &emsp; |  IPv6 source address  |
 - `source_interface` (String) Interface used to establish connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  interface  |  Interface name  |
+    |  interface  &emsp; |  Interface name  |
 - `vni` (Number) Virtual Network Identifier
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777214  |  VXLAN virtual network identifier  |
+    |  number: 0-16777214  &emsp; |  VXLAN virtual network identifier  |
 - `vrf` (String) VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 <a id="nestedatt--ip"></a>
 ### Nested Schema for `ip`
@@ -111,15 +122,15 @@ Optional:
 
 - `adjust_mss` (String) Adjust TCP MSS value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  clamp-mss-to-pmtu  &emsp; |  Automatically sets the MSS to the proper value  |
+    |  number: 536-65535  &emsp; |  TCP Maximum segment size in bytes  |
 - `arp_cache_timeout` (Number) ARP cache entry timeout in seconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-86400  |  ARP cache entry timout in seconds  |
+    |  number: 1-86400  &emsp; |  ARP cache entry timout in seconds  |
 - `disable_arp_filter` (Boolean) Disable ARP filter on this interface
 - `disable_forwarding` (Boolean) Disable IP forwarding on this interface
 - `enable_arp_accept` (Boolean) Enable ARP accept on this interface
@@ -130,11 +141,11 @@ Optional:
 - `proxy_arp_pvlan` (Boolean) Enable private VLAN proxy ARP on this interface
 - `source_validation` (String) Source validation by reversed path (RFC3704)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
-    |  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
-    |  disable  |  No source validation  |
+    |  strict  &emsp; |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
+    |  loose  &emsp; |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
+    |  disable  &emsp; |  No source validation  |
 
 
 <a id="nestedatt--ipv6"></a>
@@ -145,17 +156,17 @@ Optional:
 - `address` (Attributes) IPv6 address configuration modes (see [below for nested schema](#nestedatt--ipv6--address))
 - `adjust_mss` (String) Adjust TCP MSS value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  clamp-mss-to-pmtu  &emsp; |  Automatically sets the MSS to the proper value  |
+    |  number: 536-65535  &emsp; |  TCP Maximum segment size in bytes  |
 - `disable_forwarding` (Boolean) Disable IP forwarding on this interface
 - `dup_addr_detect_transmits` (Number) Number of NS messages to send while performing DAD (default: 1)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Disable Duplicate Address Dectection (DAD)  |
-    |  u32:1-n  |  Number of NS messages to send while performing DAD  |
+    |  number: 0  &emsp; |  Disable Duplicate Address Dectection (DAD)  |
+    |  number: 1-n  &emsp; |  Number of NS messages to send while performing DAD  |
 
 <a id="nestedatt--ipv6--address"></a>
 ### Nested Schema for `ipv6.address`
@@ -165,9 +176,9 @@ Optional:
 - `autoconf` (Boolean) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
 - `eui64` (List of String) Prefix for IPv6 address with MAC-based EUI-64
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
+    |  <h:h:h:h:h:h:h:h/64>  &emsp; |  IPv6 /64 network  |
 - `no_default_link_local` (Boolean) Remove the default link-local address from the interface
 
 
@@ -179,14 +190,14 @@ Optional:
 
 - `egress` (String) Mirror egress traffic to destination interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 - `ingress` (String) Mirror ingress traffic to destination interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 
 <a id="nestedatt--parameters"></a>
@@ -205,22 +216,22 @@ Optional:
 
 - `df` (String) Usage of the DF (don't Fragment) bit in outgoing packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  set  |  Always set DF (don't fragment) bit  |
-    |  unset  |  Always unset DF (don't fragment) bit  |
-    |  inherit  |  Copy from the original IP header  |
+    |  set  &emsp; |  Always set DF (don't fragment) bit  |
+    |  unset  &emsp; |  Always unset DF (don't fragment) bit  |
+    |  inherit  &emsp; |  Copy from the original IP header  |
 - `tos` (Number) Specifies TOS value to use in outgoing packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-99  |  Type of Service (TOS)  |
+    |  number: 0-99  &emsp; |  Type of Service (TOS)  |
 - `ttl` (Number) Specifies TTL value to use in outgoing packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Inherit - copy value from original IP header  |
-    |  u32:1-255  |  Time to Live  |
+    |  number: 0  &emsp; |  Inherit - copy value from original IP header  |
+    |  number: 1-255  &emsp; |  Time to Live  |
 
 
 <a id="nestedatt--parameters--ipv6"></a>
@@ -230,7 +241,7 @@ Optional:
 
 - `flowlabel` (String) Specifies the flow label to use in outgoing packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  inherit  |  Copy field from original header  |
-    |  0x0-0x0fffff  |  Tunnel key, or hex value  |
+    |  inherit  &emsp; |  Copy field from original header  |
+    |  0x0-0x0fffff  &emsp; |  Tunnel key, or hex value  |

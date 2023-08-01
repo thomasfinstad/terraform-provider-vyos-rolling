@@ -3,28 +3,60 @@
 page_title: "vyos_system_login_user_authentication_public_keys Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>system</i>
+
+  <br>
+  &darr;
+  <br>
   System User Login Configuration
+
+  <br>
+  &darr;
+  <br>
   Local user account information
+
+  <br>
+  &darr;
+  <br>
   Authentication settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Remote access public keys
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Key identifier used by ssh-keygen (usually of form user@host)  |
+  </b>
+  </div>
 ---
 
 # vyos_system_login_user_authentication_public_keys (Resource)
 
+<div style="text-align: center">
+<i>system</i>
+
+<br>
+&darr;
+<br>
 System User Login Configuration
 
+<br>
+&darr;
+<br>
 Local user account information
 
+<br>
+&darr;
+<br>
 Authentication settings
 
+<br>
+&darr;
+<br>
+<b>
 Remote access public keys
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Key identifier used by ssh-keygen (usually of form user@host)  |
+</b>
+</div>
 
 
 
@@ -33,12 +65,12 @@ Remote access public keys
 
 ### Required
 
-- `identifier` (String) Remote access public keys
+- `public_keys_id` (String) Remote access public keys
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Key identifier used by ssh-keygen (usually of form user@host)  |
-- `user_identifier` (String) Local user account information
+    |  txt  &emsp; |  Key identifier used by ssh-keygen (usually of form user@host)  |
+- `user_id` (String) Local user account information
 
 ### Optional
 
@@ -46,13 +78,13 @@ Remote access public keys
 - `options` (String) Optional public key options
 - `type` (String) SSH public key type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ssh-dss  |  Digital Signature Algorithm (DSA) key support  |
-    |  ssh-rsa  |  Key pair based on RSA algorithm  |
-    |  ecdsa-sha2-nistp256  |  Elliptic Curve DSA with NIST P-256 curve  |
-    |  ecdsa-sha2-nistp384  |  Elliptic Curve DSA with NIST P-384 curve  |
-    |  ecdsa-sha2-nistp521  |  Elliptic Curve DSA with NIST P-521 curve  |
-    |  ssh-ed25519  |  Edwards-curve DSA with elliptic curve 25519  |
-    |  sk-ecdsa-sha2-nistp256@openssh.com  |  Elliptic Curve DSA security key  |
-    |  sk-ssh-ed25519@openssh.com  |  Elliptic curve 25519 security key  |
+    |  ssh-dss  &emsp; |  Digital Signature Algorithm (DSA) key support  |
+    |  ssh-rsa  &emsp; |  Key pair based on RSA algorithm  |
+    |  ecdsa-sha2-nistp256  &emsp; |  Elliptic Curve DSA with NIST P-256 curve  |
+    |  ecdsa-sha2-nistp384  &emsp; |  Elliptic Curve DSA with NIST P-384 curve  |
+    |  ecdsa-sha2-nistp521  &emsp; |  Elliptic Curve DSA with NIST P-521 curve  |
+    |  ssh-ed25519  &emsp; |  Edwards-curve DSA with elliptic curve 25519  |
+    |  sk-ecdsa-sha2-nistp256@openssh.com  &emsp; |  Elliptic Curve DSA security key  |
+    |  sk-ssh-ed25519@openssh.com  &emsp; |  Elliptic curve 25519 security key  |

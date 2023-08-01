@@ -3,15 +3,40 @@
 page_title: "vyos_system_login_user Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>system</i>
+
+  <br>
+  &darr;
+  <br>
   System User Login Configuration
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Local user account information
+  </b>
+  </div>
 ---
 
 # vyos_system_login_user (Resource)
 
+<div style="text-align: center">
+<i>system</i>
+
+<br>
+&darr;
+<br>
 System User Login Configuration
 
+<br>
+&darr;
+<br>
+<b>
 Local user account information
+</b>
+</div>
 
 
 
@@ -20,7 +45,7 @@ Local user account information
 
 ### Required
 
-- `identifier` (String) Local user account information
+- `user_id` (String) Local user account information
 
 ### Optional
 
@@ -44,21 +69,21 @@ Optional:
 
 - `key` (String) Key/secret the token algorithm (see RFC4226)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Base32 encoded key/token  |
+    |  txt  &emsp; |  Base32 encoded key/token  |
 - `rate_limit` (Number) Limit number of logins (rate-limit) per rate-time
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-10  |  Number of attempts  |
+    |  number: 1-10  &emsp; |  Number of attempts  |
 - `rate_time` (Number) Limit number of logins (rate-limit) per rate-time
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:15-600  |  Time interval  |
+    |  number: 15-600  &emsp; |  Time interval  |
 - `window_size` (Number) Set window of concurrently valid codes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-21  |  Window size  |
+    |  number: 1-21  &emsp; |  Window size  |

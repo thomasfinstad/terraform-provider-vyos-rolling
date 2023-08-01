@@ -8,9 +8,9 @@ import (
 
 // PolicyPrefixListRule describes the resource data model.
 type PolicyPrefixListRule struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
-	ParentIDPolicyPrefixList types.String `tfsdk:"prefix_list" vyos:"prefix-list_identifier,parent-id"`
+	ParentIDPolicyPrefixList types.String `tfsdk:"prefix_list" vyos:"prefix-list,parent-id"`
 
 	// LeafNodes
 	LeafPolicyPrefixListRuleAction      types.String `tfsdk:"action" vyos:"action,omitempty"`
@@ -33,31 +33,31 @@ func (o *PolicyPrefixListRule) GetVyosPath() []string {
 		o.ParentIDPolicyPrefixList.ValueString(),
 
 		"rule",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PolicyPrefixListRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Rule for this prefix-list
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Prefix-list rule number  |
+    |  number: 1-65535  &emsp; |  Prefix-list rule number  |
 
 `,
 		},
 
-		"prefix_list_identifier": schema.StringAttribute{
+		"prefix_list_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IP prefix-list filter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv4 prefix-list  |
+    |  txt  &emsp; |  Name of IPv4 prefix-list  |
 
 `,
 		},
@@ -68,10 +68,10 @@ func (o PolicyPrefixListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  permit  |  Permit matching entries  |
-    |  deny  |  Deny matching entries  |
+    |  permit  &emsp; |  Permit matching entries  |
+    |  deny  &emsp; |  Deny matching entries  |
 
 `,
 		},
@@ -80,9 +80,9 @@ func (o PolicyPrefixListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -91,9 +91,9 @@ func (o PolicyPrefixListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Prefix length to match a netmask greater than or equal to it
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-32  |  Netmask greater than length  |
+    |  number: 0-32  &emsp; |  Netmask greater than length  |
 
 `,
 		},
@@ -102,9 +102,9 @@ func (o PolicyPrefixListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Prefix length to match a netmask less than or equal to it
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-32  |  Netmask less than length  |
+    |  number: 0-32  &emsp; |  Netmask less than length  |
 
 `,
 		},
@@ -113,9 +113,9 @@ func (o PolicyPrefixListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Prefix to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  Prefix to match against  |
+    |  ipv4net  &emsp; |  Prefix to match against  |
 
 `,
 		},

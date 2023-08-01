@@ -3,45 +3,80 @@
 page_title: "vyos_vrf_name_protocols_bgp_address_family_ipv4_multicast_aggregate_address Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
-  Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
+  Virtual Routing and Forwarding instance
+
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
+
+  <br>
+  &darr;
+  <br>
   Border Gateway Protocol (BGP)
+
+  <br>
+  &darr;
+  <br>
   BGP address-family parameters
+
+  <br>
+  &darr;
+  <br>
   Multicast IPv4 BGP settings
+
+  <br>
+  &darr;
+  <br>
+  <b>
   BGP aggregate network/prefix
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  BGP aggregate network/prefix  |
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_bgp_address_family_ipv4_multicast_aggregate_address (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Border Gateway Protocol (BGP)
 
+<br>
+&darr;
+<br>
 BGP address-family parameters
 
+<br>
+&darr;
+<br>
 Multicast IPv4 BGP settings
 
+<br>
+&darr;
+<br>
+<b>
 BGP aggregate network/prefix
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  BGP aggregate network/prefix  |
+</b>
+</div>
 
 
 
@@ -50,23 +85,23 @@ BGP aggregate network/prefix
 
 ### Required
 
-- `identifier` (String) BGP aggregate network/prefix
+- `aggregate_address_id` (String) BGP aggregate network/prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  BGP aggregate network/prefix  |
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+    |  ipv4net  &emsp; |  BGP aggregate network/prefix  |
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 ### Optional
 
 - `as_set` (Boolean) Generate AS-set path information for this aggregate address
 - `route_map` (String) Specify route-map name to use
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 - `summary_only` (Boolean) Announce the aggregate summary network only

@@ -3,18 +3,40 @@
 page_title: "vyos_pki_openvpn_shared_secret Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   VyOS PKI configuration
+
+  <br>
+  &darr;
+  <br>
   OpenVPN keys
+
+  <br>
+  &darr;
+  <br>
+  <b>
   OpenVPN shared secret key
+  </b>
+  </div>
 ---
 
 # vyos_pki_openvpn_shared_secret (Resource)
 
+<div style="text-align: center">
 VyOS PKI configuration
 
+<br>
+&darr;
+<br>
 OpenVPN keys
 
+<br>
+&darr;
+<br>
+<b>
 OpenVPN shared secret key
+</b>
+</div>
 
 
 
@@ -23,7 +45,7 @@ OpenVPN shared secret key
 
 ### Required
 
-- `identifier` (String) OpenVPN shared secret key
+- `shared_secret_id` (String) OpenVPN shared secret key
 
 ### Optional
 

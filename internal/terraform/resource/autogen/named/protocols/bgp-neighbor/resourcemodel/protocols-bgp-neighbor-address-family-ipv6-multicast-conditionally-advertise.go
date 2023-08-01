@@ -27,9 +27,9 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixMulticastConditionallyAdvertise) 
 			Optional: true,
 			MarkdownDescription: `Route-map to conditionally advertise routes
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},
@@ -38,9 +38,9 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixMulticastConditionallyAdvertise) 
 			Optional: true,
 			MarkdownDescription: `Advertise routes only if prefixes in exist-map are installed in BGP table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},
@@ -49,9 +49,9 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixMulticastConditionallyAdvertise) 
 			Optional: true,
 			MarkdownDescription: `Advertise routes only if prefixes in non-exist-map are not installed in BGP table
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 `,
 		},

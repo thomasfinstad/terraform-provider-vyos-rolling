@@ -3,35 +3,50 @@
 page_title: "vyos_interfaces_openvpn_server_push_route Resource - vyos"
 subcategory: ""
 description: |-
-  OpenVPN Tunnel Interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  vtunN  |  OpenVPN interface name  |
+  <div style="text-align: center">
+  <i>interfaces</i>
 
+  <br>
+  &darr;
+  <br>
+  OpenVPN Tunnel Interface
+
+  <br>
+  &darr;
+  <br>
   Server-mode options
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Route to be pushed to all clients
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4net  |  IPv4 network and prefix length  |
-  |  ipv6net  |  IPv6 network and prefix length  |
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_openvpn_server_push_route (Resource)
 
+<div style="text-align: center">
+<i>interfaces</i>
+
+<br>
+&darr;
+<br>
 OpenVPN Tunnel Interface
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  vtunN  |  OpenVPN interface name  |
-
+<br>
+&darr;
+<br>
 Server-mode options
 
+<br>
+&darr;
+<br>
+<b>
 Route to be pushed to all clients
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4net  |  IPv4 network and prefix length  |
-    |  ipv6net  |  IPv6 network and prefix length  |
+</b>
+</div>
 
 
 
@@ -40,22 +55,22 @@ Route to be pushed to all clients
 
 ### Required
 
-- `identifier` (String) Route to be pushed to all clients
+- `openvpn_id` (String) OpenVPN Tunnel Interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 network and prefix length  |
-    |  ipv6net  |  IPv6 network and prefix length  |
-- `openvpn_identifier` (String) OpenVPN Tunnel Interface
+    |  vtunN  &emsp; |  OpenVPN interface name  |
+- `push_route_id` (String) Route to be pushed to all clients
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  vtunN  |  OpenVPN interface name  |
+    |  ipv4net  &emsp; |  IPv4 network and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 network and prefix length  |
 
 ### Optional
 
 - `metric` (Number) Set metric for this route
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4294967295  |  Metric for this route  |
+    |  number: 0-4294967295  &emsp; |  Metric for this route  |

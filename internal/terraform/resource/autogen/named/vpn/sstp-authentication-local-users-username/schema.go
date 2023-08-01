@@ -12,14 +12,31 @@ import (
 func (r vpnSstpAuthenticationLocalUsersUsername) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Secure Socket Tunneling Protocol (SSTP) server
+		MarkdownDescription: `<div style="text-align: center">
+<i>vpn</i>
 
+<br>
+&darr;
+<br>
+Secure Socket Tunneling Protocol (SSTP) server
+
+<br>
+&darr;
+<br>
 Authentication for remote access SSTP Server
 
+<br>
+&darr;
+<br>
 Local user authentication for PPPoE server
 
+<br>
+&darr;
+<br>
+<b>
 User name for authentication
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

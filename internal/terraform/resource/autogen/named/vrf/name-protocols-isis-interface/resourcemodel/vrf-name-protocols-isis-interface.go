@@ -9,9 +9,9 @@ import (
 
 // VrfNameProtocolsIsisInterface describes the resource data model.
 type VrfNameProtocolsIsisInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsIsisInterfaceCircuitType         types.String `tfsdk:"circuit_type" vyos:"circuit-type,omitempty"`
@@ -45,27 +45,27 @@ func (o *VrfNameProtocolsIsisInterface) GetVyosPath() []string {
 		"isis",
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Interface params
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -76,11 +76,11 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Configure circuit type for interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  level-1  |  Level-1 only adjacencies are formed  |
-    |  level-1-2  |  Level-1-2 adjacencies are formed  |
-    |  level-2-only  |  Level-2 only adjacencies are formed  |
+    |  level-1  &emsp; |  Level-1 only adjacencies are formed  |
+    |  level-1-2  &emsp; |  Level-1-2 adjacencies are formed  |
+    |  level-2-only  &emsp; |  Level-2 only adjacencies are formed  |
 
 `,
 		},
@@ -98,9 +98,9 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Set Hello interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-600  |  Set Hello interval  |
+    |  number: 1-600  &emsp; |  Set Hello interval  |
 
 `,
 		},
@@ -109,9 +109,9 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Set Hello interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:2-100  |  Set multiplier for Hello holding time  |
+    |  number: 2-100  &emsp; |  Set multiplier for Hello holding time  |
 
 `,
 		},
@@ -120,9 +120,9 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 
 `,
 		},
@@ -140,9 +140,9 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Set priority for Designated Router election
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-127  |  Priority value  |
+    |  number: 0-127  &emsp; |  Priority value  |
 
 `,
 		},
@@ -151,9 +151,9 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Set PSNP interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-127  |  PSNP interval in seconds  |
+    |  number: 0-127  &emsp; |  PSNP interval in seconds  |
 
 `,
 		},

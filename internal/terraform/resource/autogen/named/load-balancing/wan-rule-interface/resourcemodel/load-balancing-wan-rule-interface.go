@@ -8,9 +8,9 @@ import (
 
 // LoadBalancingWanRuleInterface describes the resource data model.
 type LoadBalancingWanRuleInterface struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
-	ParentIDLoadBalancingWanRule types.String `tfsdk:"rule" vyos:"rule_identifier,parent-id"`
+	ParentIDLoadBalancingWanRule types.String `tfsdk:"rule" vyos:"rule,parent-id"`
 
 	// LeafNodes
 	LeafLoadBalancingWanRuleInterfaceWeight types.Number `tfsdk:"weight" vyos:"weight,omitempty"`
@@ -31,27 +31,27 @@ func (o *LoadBalancingWanRuleInterface) GetVyosPath() []string {
 		o.ParentIDLoadBalancingWanRule.ValueString(),
 
 		"interface",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o LoadBalancingWanRuleInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Interface name [REQUIRED]
 
 `,
 		},
 
-		"rule_identifier": schema.StringAttribute{
+		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Rule number (1-9999)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-9999  |  Rule number  |
+    |  number: 1-9999  &emsp; |  Rule number  |
 
 `,
 		},
@@ -62,9 +62,9 @@ func (o LoadBalancingWanRuleInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Load-balance weight
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  Interface weight  |
+    |  number: 1-255  &emsp; |  Interface weight  |
 
 `,
 		},

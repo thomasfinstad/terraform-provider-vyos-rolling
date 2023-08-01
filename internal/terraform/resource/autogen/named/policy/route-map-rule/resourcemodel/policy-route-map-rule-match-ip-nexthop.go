@@ -29,9 +29,9 @@ func (o PolicyRouteMapRuleMatchIPNexthop) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `IP address to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Nexthop IP address  |
+    |  ipv4  &emsp; |  Nexthop IP address  |
 
 `,
 		},
@@ -40,12 +40,12 @@ func (o PolicyRouteMapRuleMatchIPNexthop) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `IP access-list to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-99  |  IP standard access list  |
-    |  u32:100-199  |  IP extended access list  |
-    |  u32:1300-1999  |  IP standard access list (expanded range)  |
-    |  u32:2000-2699  |  IP extended access list (expanded range)  |
+    |  number: 1-99  &emsp; |  IP standard access list  |
+    |  number: 100-199  &emsp; |  IP extended access list  |
+    |  number: 1300-1999  &emsp; |  IP standard access list (expanded range)  |
+    |  number: 2000-2699  &emsp; |  IP extended access list (expanded range)  |
 
 `,
 		},
@@ -54,9 +54,9 @@ func (o PolicyRouteMapRuleMatchIPNexthop) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `IP prefix-length to match
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-32  |  Prefix length  |
+    |  number: 0-32  &emsp; |  Prefix length  |
 
 `,
 		},
@@ -72,9 +72,9 @@ func (o PolicyRouteMapRuleMatchIPNexthop) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Match type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  blackhole  |  Blackhole  |
+    |  blackhole  &emsp; |  Blackhole  |
 
 `,
 		},

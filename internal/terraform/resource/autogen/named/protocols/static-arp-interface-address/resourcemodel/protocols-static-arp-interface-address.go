@@ -8,9 +8,9 @@ import (
 
 // ProtocolsStaticArpInterfaceAddress describes the resource data model.
 type ProtocolsStaticArpInterfaceAddress struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"address_id" vyos:",self-id"`
 
-	ParentIDProtocolsStaticArpInterface types.String `tfsdk:"interface" vyos:"interface_identifier,parent-id"`
+	ParentIDProtocolsStaticArpInterface types.String `tfsdk:"interface" vyos:"interface,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsStaticArpInterfaceAddressDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -34,31 +34,31 @@ func (o *ProtocolsStaticArpInterfaceAddress) GetVyosPath() []string {
 		o.ParentIDProtocolsStaticArpInterface.ValueString(),
 
 		"address",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsStaticArpInterfaceAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"address_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IP address for static ARP entry
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 destination address  |
+    |  ipv4  &emsp; |  IPv4 destination address  |
 
 `,
 		},
 
-		"interface_identifier": schema.StringAttribute{
+		"interface_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Interface configuration
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Interface name  |
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},
@@ -69,9 +69,9 @@ func (o ProtocolsStaticArpInterfaceAddress) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -80,9 +80,9 @@ func (o ProtocolsStaticArpInterfaceAddress) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  macaddr  |  Hardware (MAC) address  |
+    |  macaddr  &emsp; |  Hardware (MAC) address  |
 
 `,
 		},

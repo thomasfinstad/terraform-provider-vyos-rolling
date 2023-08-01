@@ -8,9 +8,9 @@ import (
 
 // VrfNameProtocolsOspfArea describes the resource data model.
 type VrfNameProtocolsOspfArea struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"area_id" vyos:",self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name_identifier,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsOspfAreaAuthentication types.String `tfsdk:"authentication" vyos:"authentication,omitempty"`
@@ -40,32 +40,32 @@ func (o *VrfNameProtocolsOspfArea) GetVyosPath() []string {
 		"ospf",
 
 		"area",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"area_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `OSPF area settings
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  OSPF area number in decimal notation  |
-    |  ipv4  |  OSPF area number in dotted decimal notation  |
+    |  u32  &emsp; |  OSPF area number in decimal notation  |
+    |  ipv4  &emsp; |  OSPF area number in dotted decimal notation  |
 
 `,
 		},
 
-		"name_identifier": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},
@@ -76,10 +76,10 @@ func (o VrfNameProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `OSPF area authentication type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  plaintext-password  |  Use plain-text authentication  |
-    |  md5  |  Use MD5 authentication  |
+    |  plaintext-password  &emsp; |  Use plain-text authentication  |
+    |  md5  &emsp; |  Use MD5 authentication  |
 
 `,
 		},
@@ -89,9 +89,9 @@ func (o VrfNameProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.A
 			Optional:    true,
 			MarkdownDescription: `OSPF network
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  OSPF network  |
+    |  ipv4net  &emsp; |  OSPF network  |
 
 `,
 		},
@@ -100,11 +100,11 @@ func (o VrfNameProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Area shortcut mode
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  default  |  Set default  |
-    |  disable  |  Disable shortcutting mode  |
-    |  enable  |  Enable shortcutting mode  |
+    |  default  &emsp; |  Set default  |
+    |  disable  &emsp; |  Disable shortcutting mode  |
+    |  enable  &emsp; |  Enable shortcutting mode  |
 
 `,
 		},
@@ -113,9 +113,9 @@ func (o VrfNameProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Set the filter for networks announced to other areas
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Access-list number  |
+    |  u32  &emsp; |  Access-list number  |
 
 `,
 		},
@@ -124,9 +124,9 @@ func (o VrfNameProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Set the filter for networks from other areas announced
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Access-list number  |
+    |  u32  &emsp; |  Access-list number  |
 
 `,
 		},

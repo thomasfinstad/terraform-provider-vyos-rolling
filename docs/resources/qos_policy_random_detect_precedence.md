@@ -3,36 +3,50 @@
 page_title: "vyos_qos_policy_random_detect_precedence Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Quality of Service (QoS)
-  Service Policy definitions
-  Weighted Random Early Detect policy
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Policy name  |
 
+  <br>
+  &darr;
+  <br>
+  Service Policy definitions
+
+  <br>
+  &darr;
+  <br>
+  Weighted Random Early Detect policy
+
+  <br>
+  &darr;
+  <br>
+  <b>
   IP precedence
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:0-7  |  IP precedence value  |
+  </b>
+  </div>
 ---
 
 # vyos_qos_policy_random_detect_precedence (Resource)
 
+<div style="text-align: center">
 Quality of Service (QoS)
 
+<br>
+&darr;
+<br>
 Service Policy definitions
 
+<br>
+&darr;
+<br>
 Weighted Random Early Detect policy
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Policy name  |
-
+<br>
+&darr;
+<br>
+<b>
 IP precedence
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:0-7  |  IP precedence value  |
+</b>
+</div>
 
 
 
@@ -41,41 +55,41 @@ IP precedence
 
 ### Required
 
-- `identifier` (String) IP precedence
+- `precedence_id` (String) IP precedence
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-7  |  IP precedence value  |
-- `random_detect_identifier` (String) Weighted Random Early Detect policy
+    |  number: 0-7  &emsp; |  IP precedence value  |
+- `random_detect_id` (String) Weighted Random Early Detect policy
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Policy name  |
+    |  txt  &emsp; |  Policy name  |
 
 ### Optional
 
 - `average_packet` (Number) Average packet size (bytes)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:16-10240  |  Average packet size in bytes  |
+    |  number: 16-10240  &emsp; |  Average packet size in bytes  |
 - `mark_probability` (String) Mark probability for this precedence
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <number>  |  Numeric value (1/N)  |
+    |  <number>  &emsp; |  Numeric value (1/N)  |
 - `maximum_threshold` (Number) Maximum threshold for random detection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4096  |  Maximum Threshold in packets  |
+    |  number: 0-4096  &emsp; |  Maximum Threshold in packets  |
 - `minimum_threshold` (Number) Minimum  threshold for random detection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-4096  |  Maximum Threshold in packets  |
+    |  number: 0-4096  &emsp; |  Maximum Threshold in packets  |
 - `queue_limit` (Number) Maximum queue size
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-4294967295  |  Queue size in packets  |
+    |  number: 1-4294967295  &emsp; |  Queue size in packets  |

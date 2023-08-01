@@ -8,7 +8,7 @@ import (
 
 // PolicyLocalRoutesixRule describes the resource data model.
 type PolicyLocalRoutesixRule struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
 	// LeafNodes
 	LeafPolicyLocalRoutesixRuleFwmark           types.Number `tfsdk:"fwmark" vyos:"fwmark,omitempty"`
@@ -30,20 +30,20 @@ func (o *PolicyLocalRoutesixRule) GetVyosPath() []string {
 		"local-route6",
 
 		"rule",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PolicyLocalRoutesixRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IPv6 policy local-route rule set number
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-32765  |  Local-route rule number (1-32765)  |
+    |  number: 1-32765  &emsp; |  Local-route rule number (1-32765)  |
 
 `,
 		},
@@ -54,9 +54,9 @@ func (o PolicyLocalRoutesixRule) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Match fwmark value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-2147483647  |  Address to match against  |
+    |  number: 1-2147483647  &emsp; |  Address to match against  |
 
 `,
 		},
@@ -66,10 +66,10 @@ func (o PolicyLocalRoutesixRule) ResourceSchemaAttributes() map[string]schema.At
 			Optional:    true,
 			MarkdownDescription: `Source address or prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6  |  Address to match against  |
-    |  ipv6net  |  Prefix to match against  |
+    |  ipv6  &emsp; |  Address to match against  |
+    |  ipv6net  &emsp; |  Prefix to match against  |
 
 `,
 		},
@@ -79,10 +79,10 @@ func (o PolicyLocalRoutesixRule) ResourceSchemaAttributes() map[string]schema.At
 			Optional:    true,
 			MarkdownDescription: `Destination address or prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6  |  Address to match against  |
-    |  ipv6net  |  Prefix to match against  |
+    |  ipv6  &emsp; |  Address to match against  |
+    |  ipv6net  &emsp; |  Prefix to match against  |
 
 `,
 		},

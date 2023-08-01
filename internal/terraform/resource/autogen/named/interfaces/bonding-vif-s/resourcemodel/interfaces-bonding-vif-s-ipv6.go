@@ -29,10 +29,10 @@ func (o InterfacesBondingVifSIPvsix) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Adjust TCP MSS value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  clamp-mss-to-pmtu  &emsp; |  Automatically sets the MSS to the proper value  |
+    |  number: 536-65535  &emsp; |  TCP Maximum segment size in bytes  |
 
 `,
 		},
@@ -50,10 +50,10 @@ func (o InterfacesBondingVifSIPvsix) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Number of NS messages to send while performing DAD (default: 1)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Disable Duplicate Address Dectection (DAD)  |
-    |  u32:1-n  |  Number of NS messages to send while performing DAD  |
+    |  number: 0  &emsp; |  Disable Duplicate Address Dectection (DAD)  |
+    |  number: 1-n  &emsp; |  Number of NS messages to send while performing DAD  |
 
 `,
 		},

@@ -3,32 +3,60 @@
 page_title: "vyos_vrf_name_protocols_isis_interface Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Virtual Routing and Forwarding
-  Virtual Routing and Forwarding instance
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  VRF instance name  |
 
+  <br>
+  &darr;
+  <br>
+  Virtual Routing and Forwarding instance
+
+  <br>
+  &darr;
+  <br>
   Routing protocol parameters
+
+  <br>
+  &darr;
+  <br>
   Intermediate System to Intermediate System (IS-IS)
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Interface params
+  </b>
+  </div>
 ---
 
 # vyos_vrf_name_protocols_isis_interface (Resource)
 
+<div style="text-align: center">
 Virtual Routing and Forwarding
 
+<br>
+&darr;
+<br>
 Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  VRF instance name  |
-
+<br>
+&darr;
+<br>
 Routing protocol parameters
 
+<br>
+&darr;
+<br>
 Intermediate System to Intermediate System (IS-IS)
 
+<br>
+&darr;
+<br>
+<b>
 Interface params
+</b>
+</div>
 
 
 
@@ -37,53 +65,53 @@ Interface params
 
 ### Required
 
-- `identifier` (String) Interface params
-- `name_identifier` (String) Virtual Routing and Forwarding instance
+- `interface_id` (String) Interface params
+- `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 ### Optional
 
 - `bfd` (Attributes) Enable Bidirectional Forwarding Detection (BFD) (see [below for nested schema](#nestedatt--bfd))
 - `circuit_type` (String) Configure circuit type for interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  level-1  |  Level-1 only adjacencies are formed  |
-    |  level-1-2  |  Level-1-2 adjacencies are formed  |
-    |  level-2-only  |  Level-2 only adjacencies are formed  |
+    |  level-1  &emsp; |  Level-1 only adjacencies are formed  |
+    |  level-1-2  &emsp; |  Level-1-2 adjacencies are formed  |
+    |  level-2-only  &emsp; |  Level-2 only adjacencies are formed  |
 - `hello_interval` (Number) Set Hello interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-600  |  Set Hello interval  |
+    |  number: 1-600  &emsp; |  Set Hello interval  |
 - `hello_multiplier` (Number) Set Hello interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:2-100  |  Set multiplier for Hello holding time  |
+    |  number: 2-100  &emsp; |  Set multiplier for Hello holding time  |
 - `hello_padding` (Boolean) Add padding to IS-IS hello packets
 - `metric` (Number) Set default metric for circuit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-16777215  |  Default metric value  |
+    |  number: 0-16777215  &emsp; |  Default metric value  |
 - `network` (Attributes) Set network type (see [below for nested schema](#nestedatt--network))
 - `no_three_way_handshake` (Boolean) Disable three-way handshake
 - `passive` (Boolean) Configure passive mode for interface
 - `password` (Attributes) Configure the authentication password for a circuit (see [below for nested schema](#nestedatt--password))
 - `priority` (Number) Set priority for Designated Router election
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-127  |  Priority value  |
+    |  number: 0-127  &emsp; |  Priority value  |
 - `psnp_interval` (Number) Set PSNP interval
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-127  |  PSNP interval in seconds  |
+    |  number: 0-127  &emsp; |  PSNP interval in seconds  |
 
 <a id="nestedatt--bfd"></a>
 ### Nested Schema for `bfd`
@@ -92,9 +120,9 @@ Optional:
 
 - `profile` (String) Use settings from BFD profile
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  BFD profile name  |
+    |  txt  &emsp; |  BFD profile name  |
 
 
 <a id="nestedatt--network"></a>
@@ -112,11 +140,11 @@ Optional:
 
 - `md5` (String) MD5 authentication type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Level-wide password  |
+    |  txt  &emsp; |  Level-wide password  |
 - `plaintext_password` (String) Plain-text authentication type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Circuit password  |
+    |  txt  &emsp; |  Circuit password  |

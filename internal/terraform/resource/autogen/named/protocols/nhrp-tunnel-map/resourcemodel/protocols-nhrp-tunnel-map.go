@@ -9,9 +9,9 @@ import (
 
 // ProtocolsNhrpTunnelMap describes the resource data model.
 type ProtocolsNhrpTunnelMap struct {
-	ID types.String `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"map_id" vyos:",self-id"`
 
-	ParentIDProtocolsNhrpTunnel types.String `tfsdk:"tunnel" vyos:"tunnel_identifier,parent-id"`
+	ParentIDProtocolsNhrpTunnel types.String `tfsdk:"tunnel" vyos:"tunnel,parent-id"`
 
 	// LeafNodes
 	LeafProtocolsNhrpTunnelMapCisco       types.Bool   `tfsdk:"cisco" vyos:"cisco,omitempty"`
@@ -34,27 +34,27 @@ func (o *ProtocolsNhrpTunnelMap) GetVyosPath() []string {
 		o.ParentIDProtocolsNhrpTunnel.ValueString(),
 
 		"map",
-		o.ID.ValueString(),
+		o.SelfIdentifier.ValueString(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsNhrpTunnelMap) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"map_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Set an HUB tunnel address
 
 `,
 		},
 
-		"tunnel_identifier": schema.StringAttribute{
+		"tunnel_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Tunnel for NHRP
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  tunN  |  NHRP tunnel name  |
+    |  tunN  &emsp; |  NHRP tunnel name  |
 
 `,
 		},

@@ -12,18 +12,31 @@ import (
 func (r vpnOpenconnectAuthenticationRadiusServer) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `SSL VPN OpenConnect, AnyConnect compatible server
+		MarkdownDescription: `<div style="text-align: center">
+<i>vpn</i>
 
+<br>
+&darr;
+<br>
+SSL VPN OpenConnect, AnyConnect compatible server
+
+<br>
+&darr;
+<br>
 Authentication for remote access SSL VPN Server
 
+<br>
+&darr;
+<br>
 RADIUS based user authentication
 
+<br>
+&darr;
+<br>
+<b>
 RADIUS server configuration
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  RADIUS server IPv4 address  |
-
+</b>
+</div>
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

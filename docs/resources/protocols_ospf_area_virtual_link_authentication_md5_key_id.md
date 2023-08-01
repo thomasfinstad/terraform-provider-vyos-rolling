@@ -3,52 +3,80 @@
 page_title: "vyos_protocols_ospf_area_virtual_link_authentication_md5_key_id Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>protocols</i>
+
+  <br>
+  &darr;
+  <br>
   Open Shortest Path First (OSPF)
+
+  <br>
+  &darr;
+  <br>
   OSPF area settings
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32  |  OSPF area number in decimal notation  |
-  |  ipv4  |  OSPF area number in dotted decimal notation  |
 
+  <br>
+  &darr;
+  <br>
   Virtual link
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  ipv4  |  OSPF area in dotted decimal notation  |
 
+  <br>
+  &darr;
+  <br>
   Authentication
+
+  <br>
+  &darr;
+  <br>
   MD5 key id
+
+  <br>
+  &darr;
+  <br>
+  <b>
   MD5 key id
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  u32:1-255  |  MD5 key id  |
+  </b>
+  </div>
 ---
 
 # vyos_protocols_ospf_area_virtual_link_authentication_md5_key_id (Resource)
 
+<div style="text-align: center">
+<i>protocols</i>
+
+<br>
+&darr;
+<br>
 Open Shortest Path First (OSPF)
 
+<br>
+&darr;
+<br>
 OSPF area settings
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32  |  OSPF area number in decimal notation  |
-    |  ipv4  |  OSPF area number in dotted decimal notation  |
-
+<br>
+&darr;
+<br>
 Virtual link
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  ipv4  |  OSPF area in dotted decimal notation  |
-
+<br>
+&darr;
+<br>
 Authentication
 
+<br>
+&darr;
+<br>
 MD5 key id
 
+<br>
+&darr;
+<br>
+<b>
 MD5 key id
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  u32:1-255  |  MD5 key id  |
+</b>
+</div>
 
 
 
@@ -57,27 +85,27 @@ MD5 key id
 
 ### Required
 
-- `area_identifier` (String) OSPF area settings
+- `area_id` (String) OSPF area settings
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  OSPF area number in decimal notation  |
-    |  ipv4  |  OSPF area number in dotted decimal notation  |
-- `identifier` (String) MD5 key id
+    |  u32  &emsp; |  OSPF area number in decimal notation  |
+    |  ipv4  &emsp; |  OSPF area number in dotted decimal notation  |
+- `key_id_id` (String) MD5 key id
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-255  |  MD5 key id  |
-- `virtual_link_identifier` (String) Virtual link
+    |  number: 1-255  &emsp; |  MD5 key id  |
+- `virtual_link_id` (String) Virtual link
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  OSPF area in dotted decimal notation  |
+    |  ipv4  &emsp; |  OSPF area in dotted decimal notation  |
 
 ### Optional
 
 - `md5_key` (String) MD5 authentication type
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  MD5 Key (16 characters or less)  |
+    |  txt  &emsp; |  MD5 Key (16 characters or less)  |

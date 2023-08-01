@@ -3,25 +3,40 @@
 page_title: "vyos_system_sysctl_parameter Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   System parameters
+
+  <br>
+  &darr;
+  <br>
   Configure kernel parameters at runtime
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Sysctl key name
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Sysctl key name  |
+  </b>
+  </div>
 ---
 
 # vyos_system_sysctl_parameter (Resource)
 
+<div style="text-align: center">
 System parameters
 
+<br>
+&darr;
+<br>
 Configure kernel parameters at runtime
 
+<br>
+&darr;
+<br>
+<b>
 Sysctl key name
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Sysctl key name  |
+</b>
+</div>
 
 
 
@@ -30,11 +45,11 @@ Sysctl key name
 
 ### Required
 
-- `identifier` (String) Sysctl key name
+- `parameter_id` (String) Sysctl key name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Sysctl key name  |
+    |  txt  &emsp; |  Sysctl key name  |
 
 ### Optional
 

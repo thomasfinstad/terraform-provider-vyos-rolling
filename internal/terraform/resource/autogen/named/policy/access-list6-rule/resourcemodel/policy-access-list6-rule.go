@@ -8,9 +8,9 @@ import (
 
 // PolicyAccessListsixRule describes the resource data model.
 type PolicyAccessListsixRule struct {
-	ID types.Number `tfsdk:"identifier" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
-	ParentIDPolicyAccessListsix types.String `tfsdk:"access_list6" vyos:"access-list6_identifier,parent-id"`
+	ParentIDPolicyAccessListsix types.String `tfsdk:"access_list6" vyos:"access-list6,parent-id"`
 
 	// LeafNodes
 	LeafPolicyAccessListsixRuleAction      types.String `tfsdk:"action" vyos:"action,omitempty"`
@@ -31,31 +31,31 @@ func (o *PolicyAccessListsixRule) GetVyosPath() []string {
 		o.ParentIDPolicyAccessListsix.ValueString(),
 
 		"rule",
-		o.ID.ValueBigFloat().String(),
+		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PolicyAccessListsixRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-		"identifier": schema.StringAttribute{
+		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Rule for this access-list6
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-65535  |  Access-list6 rule number  |
+    |  number: 1-65535  &emsp; |  Access-list6 rule number  |
 
 `,
 		},
 
-		"access_list6_identifier": schema.StringAttribute{
+		"access_list6_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IPv6 access-list filter
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Name of IPv6 access-list  |
+    |  txt  &emsp; |  Name of IPv6 access-list  |
 
 `,
 		},
@@ -66,10 +66,10 @@ func (o PolicyAccessListsixRule) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  permit  |  Permit matching entries  |
-    |  deny  |  Deny matching entries  |
+    |  permit  &emsp; |  Permit matching entries  |
+    |  deny  &emsp; |  Deny matching entries  |
 
 `,
 		},
@@ -78,9 +78,9 @@ func (o PolicyAccessListsixRule) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 
 `,
 		},

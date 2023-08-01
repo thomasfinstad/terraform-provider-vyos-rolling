@@ -3,22 +3,30 @@
 page_title: "vyos_policy_route_map Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
   Routing policy
+
+  <br>
+  &darr;
+  <br>
+  <b>
   IP route-map
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  txt  |  Route map name  |
+  </b>
+  </div>
 ---
 
 # vyos_policy_route_map (Resource)
 
+<div style="text-align: center">
 Routing policy
 
+<br>
+&darr;
+<br>
+<b>
 IP route-map
-
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  txt  |  Route map name  |
+</b>
+</div>
 
 
 
@@ -27,16 +35,16 @@ IP route-map
 
 ### Required
 
-- `identifier` (String) IP route-map
+- `route_map_id` (String) IP route-map
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Route map name  |
+    |  txt  &emsp; |  Route map name  |
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |

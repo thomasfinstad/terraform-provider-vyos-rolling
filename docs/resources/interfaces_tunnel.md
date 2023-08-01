@@ -3,19 +3,30 @@
 page_title: "vyos_interfaces_tunnel Resource - vyos"
 subcategory: ""
 description: |-
+  <div style="text-align: center">
+  <i>interfaces</i>
+
+  <br>
+  &darr;
+  <br>
+  <b>
   Tunnel interface
-  |  Format  |  Description  |
-  |----------|---------------|
-  |  tunN  |  Tunnel interface name  |
+  </b>
+  </div>
 ---
 
 # vyos_interfaces_tunnel (Resource)
 
-Tunnel interface
+<div style="text-align: center">
+<i>interfaces</i>
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  tunN  |  Tunnel interface name  |
+<br>
+&darr;
+<br>
+<b>
+Tunnel interface
+</b>
+</div>
 
 
 
@@ -24,88 +35,88 @@ Tunnel interface
 
 ### Required
 
-- `identifier` (String) Tunnel interface
+- `tunnel_id` (String) Tunnel interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  tunN  |  Tunnel interface name  |
+    |  tunN  &emsp; |  Tunnel interface name  |
 
 ### Optional
 
 - `6rd_prefix` (String) 6rd network prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv6  |  IPv6 address and prefix length  |
+    |  ipv6  &emsp; |  IPv6 address and prefix length  |
 - `6rd_relay_prefix` (String) 6rd relay prefix
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 prefix of interface for 6rd  |
+    |  ipv4net  &emsp; |  IPv4 prefix of interface for 6rd  |
 - `address` (List of String) IP address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4net  |  IPv4 address and prefix length  |
-    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
 - `description` (String) Description
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Description  |
+    |  txt  &emsp; |  Description  |
 - `disable` (Boolean) Administratively disable interface
 - `disable_link_detect` (Boolean) Ignore link state changes
 - `enable_multicast` (Boolean) Enable multicast operation over tunnel
 - `encapsulation` (String) Encapsulation of this tunnel interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  erspan  |  Encapsulated Remote Switched Port Analyzer  |
-    |  gre  |  Generic Routing Encapsulation (network layer)  |
-    |  gretap  |  Generic Routing Encapsulation (datalink layer)  |
-    |  ip6erspan  |  Encapsulated Remote Switched Port Analyzer over IPv6  |
-    |  ip6gre  |  GRE over IPv6 (network layer)  |
-    |  ip6gretap  |  GRE over IPv6 (datalink layer)  |
-    |  ip6ip6  |  IPv6 in IPv6 encapsulation  |
-    |  ipip  |  IPv4 in IPv4 encapsulation  |
-    |  ipip6  |  IPv4 in IP6 encapsulation  |
-    |  sit  |  Simple Internet Transition (IPv6 in IPv4)  |
+    |  erspan  &emsp; |  Encapsulated Remote Switched Port Analyzer  |
+    |  gre  &emsp; |  Generic Routing Encapsulation (network layer)  |
+    |  gretap  &emsp; |  Generic Routing Encapsulation (datalink layer)  |
+    |  ip6erspan  &emsp; |  Encapsulated Remote Switched Port Analyzer over IPv6  |
+    |  ip6gre  &emsp; |  GRE over IPv6 (network layer)  |
+    |  ip6gretap  &emsp; |  GRE over IPv6 (datalink layer)  |
+    |  ip6ip6  &emsp; |  IPv6 in IPv6 encapsulation  |
+    |  ipip  &emsp; |  IPv4 in IPv4 encapsulation  |
+    |  ipip6  &emsp; |  IPv4 in IP6 encapsulation  |
+    |  sit  &emsp; |  Simple Internet Transition (IPv6 in IPv4)  |
 - `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--ip))
 - `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--ipv6))
 - `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--mirror))
 - `mtu` (Number) Maximum Transmission Unit (MTU)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:64-8024  |  Maximum Transmission Unit in byte  |
+    |  number: 64-8024  &emsp; |  Maximum Transmission Unit in byte  |
 - `parameters` (Attributes) Tunnel parameters (see [below for nested schema](#nestedatt--parameters))
 - `redirect` (String) Redirect incoming packet to destination
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 - `remote` (String) Tunnel remote address
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  Tunnel remote IPv4 address  |
-    |  ipv6  |  Tunnel remote IPv6 address  |
+    |  ipv4  &emsp; |  Tunnel remote IPv4 address  |
+    |  ipv6  &emsp; |  Tunnel remote IPv6 address  |
 - `source_address` (String) Source IP address used to initiate connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ipv4  |  IPv4 source address  |
-    |  ipv6  |  IPv6 source address  |
+    |  ipv4  &emsp; |  IPv4 source address  |
+    |  ipv6  &emsp; |  IPv6 source address  |
 - `source_interface` (String) Interface used to establish connection
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  interface  |  Interface name  |
+    |  interface  &emsp; |  Interface name  |
 - `vrf` (String) VRF instance name
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  VRF instance name  |
+    |  txt  &emsp; |  VRF instance name  |
 
 <a id="nestedatt--ip"></a>
 ### Nested Schema for `ip`
@@ -114,15 +125,15 @@ Optional:
 
 - `adjust_mss` (String) Adjust TCP MSS value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  clamp-mss-to-pmtu  &emsp; |  Automatically sets the MSS to the proper value  |
+    |  number: 536-65535  &emsp; |  TCP Maximum segment size in bytes  |
 - `arp_cache_timeout` (Number) ARP cache entry timeout in seconds
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:1-86400  |  ARP cache entry timout in seconds  |
+    |  number: 1-86400  &emsp; |  ARP cache entry timout in seconds  |
 - `disable_arp_filter` (Boolean) Disable ARP filter on this interface
 - `disable_forwarding` (Boolean) Disable IP forwarding on this interface
 - `enable_arp_accept` (Boolean) Enable ARP accept on this interface
@@ -133,11 +144,11 @@ Optional:
 - `proxy_arp_pvlan` (Boolean) Enable private VLAN proxy ARP on this interface
 - `source_validation` (String) Source validation by reversed path (RFC3704)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
-    |  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
-    |  disable  |  No source validation  |
+    |  strict  &emsp; |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
+    |  loose  &emsp; |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
+    |  disable  &emsp; |  No source validation  |
 
 
 <a id="nestedatt--ipv6"></a>
@@ -148,17 +159,17 @@ Optional:
 - `address` (Attributes) IPv6 address configuration modes (see [below for nested schema](#nestedatt--ipv6--address))
 - `adjust_mss` (String) Adjust TCP MSS value
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  clamp-mss-to-pmtu  &emsp; |  Automatically sets the MSS to the proper value  |
+    |  number: 536-65535  &emsp; |  TCP Maximum segment size in bytes  |
 - `disable_forwarding` (Boolean) Disable IP forwarding on this interface
 - `dup_addr_detect_transmits` (Number) Number of NS messages to send while performing DAD (default: 1)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Disable Duplicate Address Dectection (DAD)  |
-    |  u32:1-n  |  Number of NS messages to send while performing DAD  |
+    |  number: 0  &emsp; |  Disable Duplicate Address Dectection (DAD)  |
+    |  number: 1-n  &emsp; |  Number of NS messages to send while performing DAD  |
 
 <a id="nestedatt--ipv6--address"></a>
 ### Nested Schema for `ipv6.address`
@@ -168,9 +179,9 @@ Optional:
 - `autoconf` (Boolean) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
 - `eui64` (List of String) Prefix for IPv6 address with MAC-based EUI-64
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
+    |  <h:h:h:h:h:h:h:h/64>  &emsp; |  IPv6 /64 network  |
 - `no_default_link_local` (Boolean) Remove the default link-local address from the interface
 
 
@@ -182,14 +193,14 @@ Optional:
 
 - `egress` (String) Mirror egress traffic to destination interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 - `ingress` (String) Mirror ingress traffic to destination interface
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  |  Destination interface name  |
+    |  txt  &emsp; |  Destination interface name  |
 
 
 <a id="nestedatt--parameters"></a>
@@ -208,26 +219,26 @@ Optional:
 
 - `direction` (String) Mirrored traffic direction
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  ingress  |  Mirror ingress traffic  |
-    |  egress  |  Mirror egress traffic  |
+    |  ingress  &emsp; |  Mirror ingress traffic  |
+    |  egress  &emsp; |  Mirror egress traffic  |
 - `hw_id` (Number) Unique identifier of an ERSPAN engine within a system
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-1048575  |  Unique identifier of an ERSPAN engine  |
+    |  number: 0-1048575  &emsp; |  Unique identifier of an ERSPAN engine  |
 - `index` (Number) ERSPAN version 1 index field
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-63  |  Platform-depedent field for specifying port number and direction  |
+    |  number: 0-63  &emsp; |  Platform-depedent field for specifying port number and direction  |
 - `version` (String) Protocol version
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  1  |  ERSPAN Type II  |
-    |  2  |  ERSPAN Type III  |
+    |  1  &emsp; |  ERSPAN Type II  |
+    |  2  &emsp; |  ERSPAN Type III  |
 
 
 <a id="nestedatt--parameters--ip"></a>
@@ -238,21 +249,21 @@ Optional:
 - `ignore_df` (Boolean) Ignore the DF (don't fragment) bit
 - `key` (Number) Tunnel key (only GRE tunnels)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  |  Tunnel key  |
+    |  u32  &emsp; |  Tunnel key  |
 - `no_pmtu_discovery` (Boolean) Disable path MTU discovery
 - `tos` (Number) Specifies TOS value to use in outgoing packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-99  |  Type of Service (TOS)  |
+    |  number: 0-99  &emsp; |  Type of Service (TOS)  |
 - `ttl` (Number) Specifies TTL value to use in outgoing packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0  |  Inherit - copy value from original IP header  |
-    |  u32:1-255  |  Time to Live  |
+    |  number: 0  &emsp; |  Inherit - copy value from original IP header  |
+    |  number: 1-255  &emsp; |  Time to Live  |
 
 
 <a id="nestedatt--parameters--ipv6"></a>
@@ -262,23 +273,23 @@ Optional:
 
 - `encaplimit` (String) Set fixed encapsulation limit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  Encapsulation limit  |
-    |  none  |  Disable encapsulation limit  |
+    |  number: 0-255  &emsp; |  Encapsulation limit  |
+    |  none  &emsp; |  Disable encapsulation limit  |
 - `flowlabel` (String) Specifies the flow label to use in outgoing packets
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  inherit  |  Copy field from original header  |
-    |  0x0-0x0fffff  |  Tunnel key, or hex value  |
+    |  inherit  &emsp; |  Copy field from original header  |
+    |  0x0-0x0fffff  &emsp; |  Tunnel key, or hex value  |
 - `hoplimit` (Number) Hoplimit
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32:0-255  |  Hop limit  |
+    |  number: 0-255  &emsp; |  Hop limit  |
 - `tclass` (String) Traffic class (Tclass)
 
-    |  Format  |  Description  |
+    |  Format &emsp; | Description  |
     |----------|---------------|
-    |  0x0-0x0fffff  |  Traffic class, 'inherit' or hex value  |
+    |  0x0-0x0fffff  &emsp; |  Traffic class, 'inherit' or hex value  |
