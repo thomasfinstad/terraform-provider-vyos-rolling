@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -58,6 +60,9 @@ func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes() map[string]
 			MarkdownDescription: `Class matching rule name
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"priority_queue_id": schema.StringAttribute{
@@ -69,6 +74,9 @@ func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes() map[string]
     |  txt  &emsp; |  Policy name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"class_id": schema.StringAttribute{
@@ -80,6 +88,9 @@ func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes() map[string]
     |  number: 1-7  &emsp; |  Priority  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

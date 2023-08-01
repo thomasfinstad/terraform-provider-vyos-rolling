@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -51,6 +53,9 @@ func (o ProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schema.Attri
     |  ipv4net  &emsp; |  IPv4 static route  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

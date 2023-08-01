@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -53,6 +55,9 @@ func (o ProtocolsFailoverRouteNextHop) ResourceSchemaAttributes() map[string]sch
     |  ipv4  &emsp; |  Next-hop router address  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"route_id": schema.StringAttribute{
@@ -64,6 +69,9 @@ func (o ProtocolsFailoverRouteNextHop) ResourceSchemaAttributes() map[string]sch
     |  ipv4net  &emsp; |  IPv4 failover route  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

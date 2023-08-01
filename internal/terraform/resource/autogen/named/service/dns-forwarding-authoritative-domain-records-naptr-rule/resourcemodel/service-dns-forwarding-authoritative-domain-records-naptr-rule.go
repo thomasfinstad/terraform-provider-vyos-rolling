@@ -4,6 +4,8 @@ package resourcemodel
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -69,6 +71,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
     |  number: 0-65535  &emsp; |  Rule number  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"authoritative_domain_id": schema.StringAttribute{
@@ -80,6 +85,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
     |  text  &emsp; |  An absolute DNS name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"naptr_id": schema.StringAttribute{
@@ -92,6 +100,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
     |  @  &emsp; |  Root record  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

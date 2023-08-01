@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -50,6 +52,9 @@ func (o ServiceSnmpVthreeViewOID) ResourceSchemaAttributes() map[string]schema.A
 			MarkdownDescription: `Specifies the oid
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"view_id": schema.StringAttribute{
@@ -57,6 +62,9 @@ func (o ServiceSnmpVthreeViewOID) ResourceSchemaAttributes() map[string]schema.A
 			MarkdownDescription: `Specifies the view with name viewname
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

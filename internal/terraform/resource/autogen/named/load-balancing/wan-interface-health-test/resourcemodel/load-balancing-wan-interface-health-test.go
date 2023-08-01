@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -55,6 +57,9 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceSchemaAttributes() map[stri
     |  number: 0-4294967295  &emsp; |  Rule number  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"interface_health_id": schema.StringAttribute{
@@ -62,6 +67,9 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceSchemaAttributes() map[stri
 			MarkdownDescription: `Interface name
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

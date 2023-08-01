@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -55,6 +57,9 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
     |  number: 1-65535  &emsp; |  Route-map rule number  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"route_map_id": schema.StringAttribute{
@@ -66,6 +71,9 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
     |  txt  &emsp; |  Route map name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

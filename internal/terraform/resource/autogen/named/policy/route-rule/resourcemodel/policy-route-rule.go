@@ -4,6 +4,8 @@ package resourcemodel
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -72,6 +74,9 @@ func (o PolicyRouteRule) ResourceSchemaAttributes() map[string]schema.Attribute 
     |  number: 1-999999  &emsp; |  Number of policy rule  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"route_id": schema.StringAttribute{
@@ -79,6 +84,9 @@ func (o PolicyRouteRule) ResourceSchemaAttributes() map[string]schema.Attribute 
 			MarkdownDescription: `Policy route rule set name for IPv4
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

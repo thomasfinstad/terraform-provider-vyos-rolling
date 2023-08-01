@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -58,6 +60,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork) ResourceSchemaAt
     |  ipv6net  &emsp; |  Multicast IPv6 BGP network/prefix  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"name_id": schema.StringAttribute{
@@ -69,6 +74,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork) ResourceSchemaAt
     |  txt  &emsp; |  VRF instance name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -58,6 +60,9 @@ func (o VrfNameProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes() map[strin
     |  number: 1-4294967294  &emsp; |  Autonomous System Number (ASN)  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"name_id": schema.StringAttribute{
@@ -69,6 +74,9 @@ func (o VrfNameProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes() map[strin
     |  txt  &emsp; |  VRF instance name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"neighbor_id": schema.StringAttribute{
@@ -82,6 +90,9 @@ func (o VrfNameProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes() map[strin
     |  txt  &emsp; |  Interface name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

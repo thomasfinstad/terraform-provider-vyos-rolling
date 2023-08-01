@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -54,6 +56,9 @@ func (o ServiceIPoeServerAuthenticationInterfaceMac) ResourceSchemaAttributes() 
     |  macaddr  &emsp; |  Hardware (MAC) address  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"interface_id": schema.StringAttribute{
@@ -61,6 +66,9 @@ func (o ServiceIPoeServerAuthenticationInterfaceMac) ResourceSchemaAttributes() 
 			MarkdownDescription: `Network interface for client MAC addresses
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

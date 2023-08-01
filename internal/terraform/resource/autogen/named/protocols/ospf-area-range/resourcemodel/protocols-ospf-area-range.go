@@ -4,6 +4,8 @@ package resourcemodel
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -54,6 +56,9 @@ func (o ProtocolsOspfAreaRange) ResourceSchemaAttributes() map[string]schema.Att
     |  ipv4net  &emsp; |  Area range prefix  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"area_id": schema.StringAttribute{
@@ -66,6 +71,9 @@ func (o ProtocolsOspfAreaRange) ResourceSchemaAttributes() map[string]schema.Att
     |  ipv4  &emsp; |  OSPF area number in dotted decimal notation  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

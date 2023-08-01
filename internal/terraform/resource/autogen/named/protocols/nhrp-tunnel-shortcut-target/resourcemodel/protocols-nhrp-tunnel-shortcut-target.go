@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -47,6 +49,9 @@ func (o ProtocolsNhrpTunnelShortcutTarget) ResourceSchemaAttributes() map[string
 			MarkdownDescription: `Defines an off-NBMA network prefix for which the GRE interface will act as a gateway
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"tunnel_id": schema.StringAttribute{
@@ -58,6 +63,9 @@ func (o ProtocolsNhrpTunnelShortcutTarget) ResourceSchemaAttributes() map[string
     |  tunN  &emsp; |  NHRP tunnel name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

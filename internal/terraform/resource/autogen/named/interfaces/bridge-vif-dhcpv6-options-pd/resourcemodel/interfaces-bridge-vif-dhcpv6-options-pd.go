@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -57,6 +59,9 @@ func (o InterfacesBrIDgeVifDhcpvsixOptionsPd) ResourceSchemaAttributes() map[str
     |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"bridge_id": schema.StringAttribute{
@@ -68,6 +73,9 @@ func (o InterfacesBrIDgeVifDhcpvsixOptionsPd) ResourceSchemaAttributes() map[str
     |  brN  &emsp; |  Bridge interface name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"vif_id": schema.StringAttribute{
@@ -79,6 +87,9 @@ func (o InterfacesBrIDgeVifDhcpvsixOptionsPd) ResourceSchemaAttributes() map[str
     |  number: 0-4094  &emsp; |  Virtual Local Area Network (VLAN) ID  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

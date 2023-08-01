@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -49,6 +51,9 @@ func (o ProtocolsStaticMulticastInterfaceRouteNextHopInterface) ResourceSchemaAt
 			MarkdownDescription: `Next-hop interface
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"interface_route_id": schema.StringAttribute{
@@ -60,6 +65,9 @@ func (o ProtocolsStaticMulticastInterfaceRouteNextHopInterface) ResourceSchemaAt
     |  ipv4net  &emsp; |  Network  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

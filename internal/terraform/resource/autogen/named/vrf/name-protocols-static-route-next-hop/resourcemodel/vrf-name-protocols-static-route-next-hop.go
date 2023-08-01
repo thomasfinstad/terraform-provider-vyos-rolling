@@ -4,6 +4,8 @@ package resourcemodel
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -62,6 +64,9 @@ func (o VrfNameProtocolsStaticRouteNextHop) ResourceSchemaAttributes() map[strin
     |  ipv4  &emsp; |  Next-hop router address  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"name_id": schema.StringAttribute{
@@ -73,6 +78,9 @@ func (o VrfNameProtocolsStaticRouteNextHop) ResourceSchemaAttributes() map[strin
     |  txt  &emsp; |  VRF instance name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"route_id": schema.StringAttribute{
@@ -84,6 +92,9 @@ func (o VrfNameProtocolsStaticRouteNextHop) ResourceSchemaAttributes() map[strin
     |  ipv4net  &emsp; |  IPv4 static route  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

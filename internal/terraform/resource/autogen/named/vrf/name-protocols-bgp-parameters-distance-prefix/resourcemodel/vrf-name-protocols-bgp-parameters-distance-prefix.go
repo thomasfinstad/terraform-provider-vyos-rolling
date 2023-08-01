@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -57,6 +59,9 @@ func (o VrfNameProtocolsBgpParametersDistancePrefix) ResourceSchemaAttributes() 
     |  ipv4net  &emsp; |  Administrative distance for a specific BGP prefix  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"name_id": schema.StringAttribute{
@@ -68,6 +73,9 @@ func (o VrfNameProtocolsBgpParametersDistancePrefix) ResourceSchemaAttributes() 
     |  txt  &emsp; |  VRF instance name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

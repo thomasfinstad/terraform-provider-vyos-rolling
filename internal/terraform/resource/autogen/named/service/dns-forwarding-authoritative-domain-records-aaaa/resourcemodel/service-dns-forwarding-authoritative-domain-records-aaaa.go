@@ -4,6 +4,8 @@ package resourcemodel
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -60,6 +62,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsAaaa) ResourceSchemaAttrib
     |  any  &emsp; |  Wildcard record (any subdomain)  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"authoritative_domain_id": schema.StringAttribute{
@@ -71,6 +76,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsAaaa) ResourceSchemaAttrib
     |  text  &emsp; |  An absolute DNS name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

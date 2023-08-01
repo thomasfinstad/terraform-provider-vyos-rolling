@@ -4,6 +4,8 @@ package resourcemodel
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -59,6 +61,9 @@ func (o InterfacesWirelessSecURItyWpaRadiusServer) ResourceSchemaAttributes() ma
     |  ipv4  &emsp; |  RADIUS server IPv4 address  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"wireless_id": schema.StringAttribute{
@@ -70,6 +75,9 @@ func (o InterfacesWirelessSecURItyWpaRadiusServer) ResourceSchemaAttributes() ma
     |  wlanN  &emsp; |  Wireless (WiFi/WLAN) interface name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

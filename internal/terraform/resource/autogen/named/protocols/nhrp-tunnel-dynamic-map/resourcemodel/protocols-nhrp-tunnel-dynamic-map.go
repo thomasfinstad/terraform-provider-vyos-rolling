@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -51,6 +53,9 @@ func (o ProtocolsNhrpTunnelDynamicMap) ResourceSchemaAttributes() map[string]sch
     |  ipv4net  &emsp; |  Set the IP address and prefix length  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"tunnel_id": schema.StringAttribute{
@@ -62,6 +67,9 @@ func (o ProtocolsNhrpTunnelDynamicMap) ResourceSchemaAttributes() map[string]sch
     |  tunN  &emsp; |  NHRP tunnel name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

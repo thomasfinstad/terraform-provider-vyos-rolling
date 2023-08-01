@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -55,6 +57,9 @@ func (o ProtocolsOspfInterfaceAuthenticationMdfiveKeyID) ResourceSchemaAttribute
     |  number: 1-255  &emsp; |  MD5 key id  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"interface_id": schema.StringAttribute{
@@ -66,6 +71,9 @@ func (o ProtocolsOspfInterfaceAuthenticationMdfiveKeyID) ResourceSchemaAttribute
     |  txt  &emsp; |  Interface name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

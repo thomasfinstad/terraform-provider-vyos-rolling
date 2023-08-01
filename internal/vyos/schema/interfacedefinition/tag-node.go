@@ -74,7 +74,6 @@ func (o *TagNode) BaseNameSB() string {
 	name := o.BaseNameS()
 
 	if helpers.ListContains(terraformReservedParameternames(), name) {
-		panic(name)
 		return fmt.Sprintf("%s_param", name)
 	}
 	return name

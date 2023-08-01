@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -63,6 +65,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceSchemaAt
     |  number: 0-65535  &emsp; |  Entry number  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"authoritative_domain_id": schema.StringAttribute{
@@ -74,6 +79,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceSchemaAt
     |  text  &emsp; |  An absolute DNS name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"srv_id": schema.StringAttribute{
@@ -86,6 +94,9 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceSchemaAt
     |  @  &emsp; |  Root record  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

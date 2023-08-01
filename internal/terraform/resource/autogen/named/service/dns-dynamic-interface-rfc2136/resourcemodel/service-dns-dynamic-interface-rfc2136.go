@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -53,6 +55,9 @@ func (o ServiceDNSDynamicInterfaceRfctwoonethreesix) ResourceSchemaAttributes() 
 			MarkdownDescription: `RFC2136 Update name
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"interface_id": schema.StringAttribute{
@@ -60,6 +65,9 @@ func (o ServiceDNSDynamicInterfaceRfctwoonethreesix) ResourceSchemaAttributes() 
 			MarkdownDescription: `Interface to send DDNS updates for
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

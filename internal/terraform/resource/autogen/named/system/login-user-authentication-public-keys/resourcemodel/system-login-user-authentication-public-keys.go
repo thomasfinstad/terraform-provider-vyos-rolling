@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -55,6 +57,9 @@ func (o SystemLoginUserAuthenticationPublicKeys) ResourceSchemaAttributes() map[
     |  txt  &emsp; |  Key identifier used by ssh-keygen (usually of form user@host)  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"user_id": schema.StringAttribute{
@@ -62,6 +67,9 @@ func (o SystemLoginUserAuthenticationPublicKeys) ResourceSchemaAttributes() map[
 			MarkdownDescription: `Local user account information
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

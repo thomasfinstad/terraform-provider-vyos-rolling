@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -53,6 +55,9 @@ func (o InterfacesBondingDhcpvsixOptionsPdInterface) ResourceSchemaAttributes() 
 			MarkdownDescription: `Delegate IPv6 prefix from provider to this interface
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"bonding_id": schema.StringAttribute{
@@ -64,6 +69,9 @@ func (o InterfacesBondingDhcpvsixOptionsPdInterface) ResourceSchemaAttributes() 
     |  bondN  &emsp; |  Bonding interface name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"pd_id": schema.StringAttribute{
@@ -75,6 +83,9 @@ func (o InterfacesBondingDhcpvsixOptionsPdInterface) ResourceSchemaAttributes() 
     |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

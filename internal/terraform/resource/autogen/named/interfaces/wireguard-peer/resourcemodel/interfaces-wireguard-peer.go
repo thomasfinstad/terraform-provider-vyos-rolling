@@ -4,6 +4,8 @@ package resourcemodel
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -52,6 +54,9 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes() map[string]schema.At
 			MarkdownDescription: `peer alias
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"wireguard_id": schema.StringAttribute{
@@ -63,6 +68,9 @@ func (o InterfacesWireguardPeer) ResourceSchemaAttributes() map[string]schema.At
     |  wgN  &emsp; |  WireGuard interface name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -55,6 +57,9 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
     |  number: 0-7  &emsp; |  IP precedence value  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"random_detect_id": schema.StringAttribute{
@@ -66,6 +71,9 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
     |  txt  &emsp; |  Policy name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -52,6 +54,9 @@ func (o VpnIPsecEspGroupProposal) ResourceSchemaAttributes() map[string]schema.A
     |  number: 1-65535  &emsp; |  ESP group proposal number  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"esp_group_id": schema.StringAttribute{
@@ -59,6 +64,9 @@ func (o VpnIPsecEspGroupProposal) ResourceSchemaAttributes() map[string]schema.A
 			MarkdownDescription: `Encapsulating Security Payload (ESP) group name
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -58,6 +60,9 @@ func (o VrfNameProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[stri
     |  number: 1-4294967294  &emsp; |  Autonomous System Number (ASN)  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"name_id": schema.StringAttribute{
@@ -69,6 +74,9 @@ func (o VrfNameProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[stri
     |  txt  &emsp; |  VRF instance name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"peer_group_id": schema.StringAttribute{
@@ -76,6 +84,9 @@ func (o VrfNameProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[stri
 			MarkdownDescription: `Name of peer-group
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

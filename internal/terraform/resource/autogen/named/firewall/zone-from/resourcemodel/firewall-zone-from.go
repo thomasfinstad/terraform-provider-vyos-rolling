@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -45,6 +47,9 @@ func (o FirewallZoneFrom) ResourceSchemaAttributes() map[string]schema.Attribute
 			MarkdownDescription: `Zone from which to filter traffic
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"zone_id": schema.StringAttribute{
@@ -56,6 +61,9 @@ func (o FirewallZoneFrom) ResourceSchemaAttributes() map[string]schema.Attribute
     |  txt  &emsp; |  Zone name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

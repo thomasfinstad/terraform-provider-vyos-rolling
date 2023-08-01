@@ -4,6 +4,8 @@ package resourcemodel
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -50,6 +52,9 @@ func (o ProtocolsNhrpTunnelMap) ResourceSchemaAttributes() map[string]schema.Att
 			MarkdownDescription: `Set an HUB tunnel address
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"tunnel_id": schema.StringAttribute{
@@ -61,6 +66,9 @@ func (o ProtocolsNhrpTunnelMap) ResourceSchemaAttributes() map[string]schema.Att
     |  tunN  &emsp; |  NHRP tunnel name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

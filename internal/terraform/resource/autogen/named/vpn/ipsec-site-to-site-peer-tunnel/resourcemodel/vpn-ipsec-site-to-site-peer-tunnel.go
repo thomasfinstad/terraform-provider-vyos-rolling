@@ -4,6 +4,8 @@ package resourcemodel
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -59,6 +61,9 @@ func (o VpnIPsecSiteToSitePeerTunnel) ResourceSchemaAttributes() map[string]sche
     |  u32  &emsp; |  Peer tunnel  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"peer_id": schema.StringAttribute{
@@ -70,6 +75,9 @@ func (o VpnIPsecSiteToSitePeerTunnel) ResourceSchemaAttributes() map[string]sche
     |  txt  &emsp; |  Connection name of the peer  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

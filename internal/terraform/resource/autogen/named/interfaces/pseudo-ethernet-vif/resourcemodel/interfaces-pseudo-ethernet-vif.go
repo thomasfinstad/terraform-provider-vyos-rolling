@@ -4,6 +4,8 @@ package resourcemodel
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -64,6 +66,9 @@ func (o InterfacesPseudoEthernetVif) ResourceSchemaAttributes() map[string]schem
     |  number: 0-4094  &emsp; |  Virtual Local Area Network (VLAN) ID  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"pseudo_ethernet_id": schema.StringAttribute{
@@ -75,6 +80,9 @@ func (o InterfacesPseudoEthernetVif) ResourceSchemaAttributes() map[string]schem
     |  pethN  &emsp; |  Pseudo Ethernet interface name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -51,6 +53,9 @@ func (o PolicyCommunityListRule) ResourceSchemaAttributes() map[string]schema.At
     |  number: 1-65535  &emsp; |  Community-list rule number  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"community_list_id": schema.StringAttribute{
@@ -62,6 +67,9 @@ func (o PolicyCommunityListRule) ResourceSchemaAttributes() map[string]schema.At
     |  txt  &emsp; |  BGP community-list name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

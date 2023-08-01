@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -73,6 +75,9 @@ func (o SystemSyslogUserFacility) ResourceSchemaAttributes() map[string]schema.A
     |  local7  &emsp; |  Local facility 7  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"user_id": schema.StringAttribute{
@@ -84,6 +89,9 @@ func (o SystemSyslogUserFacility) ResourceSchemaAttributes() map[string]schema.A
     |  username  &emsp; |  user login name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

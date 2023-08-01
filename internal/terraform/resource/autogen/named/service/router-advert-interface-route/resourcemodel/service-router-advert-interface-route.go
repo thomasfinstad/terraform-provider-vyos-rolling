@@ -4,6 +4,8 @@ package resourcemodel
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -54,6 +56,9 @@ func (o ServiceRouterAdvertInterfaceRoute) ResourceSchemaAttributes() map[string
     |  ipv6net  &emsp; |  IPv6 route to be advertized  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"interface_id": schema.StringAttribute{
@@ -61,6 +66,9 @@ func (o ServiceRouterAdvertInterfaceRoute) ResourceSchemaAttributes() map[string
 			MarkdownDescription: `Interface to send RA on
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

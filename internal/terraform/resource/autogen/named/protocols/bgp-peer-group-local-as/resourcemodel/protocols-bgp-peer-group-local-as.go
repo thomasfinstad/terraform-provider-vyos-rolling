@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -51,6 +53,9 @@ func (o ProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[string]sche
     |  number: 1-4294967294  &emsp; |  Autonomous System Number (ASN)  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"peer_group_id": schema.StringAttribute{
@@ -58,6 +63,9 @@ func (o ProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[string]sche
 			MarkdownDescription: `Name of peer-group
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

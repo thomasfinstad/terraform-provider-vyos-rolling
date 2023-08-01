@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -52,6 +54,9 @@ func (o InterfacesWirelessDhcpvsixOptionsPd) ResourceSchemaAttributes() map[stri
     |  instance number  &emsp; |  Prefix delegation instance (>= 0)  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"wireless_id": schema.StringAttribute{
@@ -63,6 +68,9 @@ func (o InterfacesWirelessDhcpvsixOptionsPd) ResourceSchemaAttributes() map[stri
     |  wlanN  &emsp; |  Wireless (WiFi/WLAN) interface name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

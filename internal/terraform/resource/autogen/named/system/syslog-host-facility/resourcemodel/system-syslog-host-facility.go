@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -74,6 +76,9 @@ func (o SystemSyslogHostFacility) ResourceSchemaAttributes() map[string]schema.A
     |  local7  &emsp; |  Local facility 7  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"host_id": schema.StringAttribute{
@@ -86,6 +91,9 @@ func (o SystemSyslogHostFacility) ResourceSchemaAttributes() map[string]schema.A
     |  hostname  &emsp; |  Remote syslog server FQDN  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

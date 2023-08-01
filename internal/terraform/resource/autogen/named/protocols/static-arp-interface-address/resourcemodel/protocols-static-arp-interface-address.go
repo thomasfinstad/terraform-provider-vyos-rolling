@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -54,6 +56,9 @@ func (o ProtocolsStaticArpInterfaceAddress) ResourceSchemaAttributes() map[strin
     |  ipv4  &emsp; |  IPv4 destination address  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"interface_id": schema.StringAttribute{
@@ -65,6 +70,9 @@ func (o ProtocolsStaticArpInterfaceAddress) ResourceSchemaAttributes() map[strin
     |  txt  &emsp; |  Interface name  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

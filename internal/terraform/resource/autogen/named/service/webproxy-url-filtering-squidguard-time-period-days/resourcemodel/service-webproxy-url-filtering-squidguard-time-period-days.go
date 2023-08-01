@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -64,6 +66,9 @@ func (o ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) ResourceSchemaAttri
     |  all  &emsp; |  All days of the week  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"time_period_id": schema.StringAttribute{
@@ -71,6 +76,9 @@ func (o ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) ResourceSchemaAttri
 			MarkdownDescription: `Time period name
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

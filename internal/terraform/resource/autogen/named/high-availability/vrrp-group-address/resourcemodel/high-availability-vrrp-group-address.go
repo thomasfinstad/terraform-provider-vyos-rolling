@@ -3,6 +3,8 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -52,6 +54,9 @@ func (o HighAvailabilityVrrpGroupAddress) ResourceSchemaAttributes() map[string]
     |  ipv6net  &emsp; |  IPv6 address and prefix length  |
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		"group_id": schema.StringAttribute{
@@ -59,6 +64,9 @@ func (o HighAvailabilityVrrpGroupAddress) ResourceSchemaAttributes() map[string]
 			MarkdownDescription: `VRRP group
 
 `,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.RequiresReplace(),
+			},
 		},
 
 		// LeafNodes

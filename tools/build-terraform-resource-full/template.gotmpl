@@ -100,6 +100,9 @@ import (
 			"{{.BaseNameS}}_id":         schema.StringAttribute{
 				Required:            true,
 				MarkdownDescription: `{{.Description}}`,
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.RequiresReplace(),
+				},
 			},
 		{{end}}
 	{{end}}
@@ -270,6 +273,9 @@ import (
 				"{{.BaseNameS}}_id": schema.StringAttribute{
 					Required:            true,
 					MarkdownDescription: `{{.Description}}`,
+					PlanModifiers: []planmodifier.String{
+						stringplanmodifier.RequiresReplace(),
+					},
 				},
 				{{if .Parent}}
 					{{template "resource-model-parent-schema-hack" .Parent}}
