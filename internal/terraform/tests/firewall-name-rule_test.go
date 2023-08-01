@@ -2,7 +2,6 @@ package tests
 
 import (
 	"context"
-	"encoding/json"
 	"math/big"
 	"testing"
 
@@ -32,19 +31,14 @@ func TestFirewallNameRuleMarshalVyos(t *testing.T) {
 		},
 	}
 
-	want, err := json.Marshal(
-		map[string]interface{}{
-			"action":                "accept",
-			"disable":               map[string]interface{}{},
-			"queue":                 28,
-			"packet-length-exclude": []string{"420", "13-37"},
-			"destination": map[string]interface{}{
-				"address": "127.0.0.2",
-			},
+	want := map[string]interface{}{
+		"action":                "accept",
+		"disable":               map[string]interface{}{},
+		"queue":                 float64(28),
+		"packet-length-exclude": []string{"420", "13-37"},
+		"destination": map[string]interface{}{
+			"address": "127.0.0.2",
 		},
-	)
-	if err != nil {
-		t.Fatalf(`desired value can not be jsonified: %v`, err)
 	}
 
 	ctx := context.Background()
@@ -63,7 +57,7 @@ func TestFirewallNameRuleUnmarshalVyos(t *testing.T) {
 	has := map[string]interface{}{
 		"action":                "accept",
 		"disable":               map[string]interface{}{},
-		"queue":                 28,
+		"queue":                 float64(28),
 		"packet-length-exclude": []string{"420", "13-37"},
 		"destination": map[string]interface{}{
 			"address": "127.0.0.2",

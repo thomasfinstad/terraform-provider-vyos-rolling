@@ -2,7 +2,6 @@ package tests
 
 import (
 	"context"
-	"encoding/json"
 	"testing"
 
 	"github.com/go-test/deep"
@@ -19,11 +18,8 @@ func TestFirewallNameMarshalVyos(t *testing.T) {
 		LeafFirewallNameDefaultAction: basetypes.NewStringValue("drop"),
 	}
 
-	want, err := json.Marshal(map[string]interface{}{
+	want := map[string]interface{}{
 		"default-action": "drop",
-	})
-	if err != nil {
-		t.Fatalf(`desired value can not be jsonified: %v`, err)
 	}
 
 	got, err := helpers.MarshalVyos(context.Background(), model)

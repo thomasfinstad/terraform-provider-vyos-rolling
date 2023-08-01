@@ -2,7 +2,6 @@ package helpers
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"reflect"
 	"strings"
@@ -12,7 +11,7 @@ import (
 )
 
 // MarshalVyos takes a Terraform resource model pointer and returns a vyos config representation
-func MarshalVyos(ctx context.Context, data VyosResourceDataModel) ([]byte, error) {
+func MarshalVyos(ctx context.Context, data VyosResourceDataModel) (map[string]any, error) {
 	res := make(map[string]interface{})
 
 	valueReflection := reflect.ValueOf(data).Elem()
@@ -111,12 +110,10 @@ func MarshalVyos(ctx context.Context, data VyosResourceDataModel) ([]byte, error
 				if !(fValue.IsNil() || fValue.IsZero()) {
 					type subctxkey string
 					subctx := context.WithValue(ctx, subctxkey(typeReflection.Name()), flags["name"].(string))
-					j, err := MarshalVyos(subctx, fValue.Interface().(VyosResourceDataModel))
+					subv, err := MarshalVyos(subctx, fValue.Interface().(VyosResourceDataModel))
 					if err != nil {
 						return nil, err
 					}
-					subv := make(map[string]any)
-					json.Unmarshal(j, &subv)
 					res[flags["name"].(string)] = subv
 				} else {
 					fmt.Printf("\tMarshalling Struct Field: %s is nil, skipping\n", fName)
@@ -130,10 +127,6 @@ func MarshalVyos(ctx context.Context, data VyosResourceDataModel) ([]byte, error
 		}
 	}
 
-	// Return compiled data
-	ret, err := json.Marshal(res)
-	if err != nil {
-		return nil, err
-	}
-	return ret, nil
+	// Return data
+	return res, nil
 }
