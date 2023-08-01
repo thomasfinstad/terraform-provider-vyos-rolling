@@ -71,3 +71,7 @@ Script environment arguments
 ### Optional
 
 - `value` (String) Environment value
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `environment_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

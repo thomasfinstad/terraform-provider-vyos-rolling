@@ -38,6 +38,10 @@ func (o *ContainerNamePort) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ContainerNamePort) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `port_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"port_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Publish port to the container

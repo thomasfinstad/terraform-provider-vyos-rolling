@@ -34,6 +34,10 @@ func (o *SystemStaticHostMappingHostName) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o SystemStaticHostMappingHostName) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `host_name_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"host_name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Host name for static address mapping

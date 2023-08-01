@@ -60,3 +60,7 @@ Extension name
 ### Optional
 
 - `script` (String) Script location and name
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `extension_name_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

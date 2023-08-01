@@ -63,6 +63,10 @@ Virtual Routing and Forwarding instance
     |----------|---------------|
     |  number: 0-16777214  &emsp; |  VXLAN virtual network identifier  |
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `name_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--ip"></a>
 ### Nested Schema for `ip`
 

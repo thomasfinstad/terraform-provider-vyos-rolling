@@ -72,6 +72,10 @@ Traffic shaping based policy (Hierarchy Token Bucket)
     |----------|---------------|
     |  txt  &emsp; |  Description  |
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `shaper_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--default"></a>
 ### Nested Schema for `default`
 

@@ -95,3 +95,7 @@ DNS zone records
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 0-2147483647  &emsp; |  TTL in seconds  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `mx_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

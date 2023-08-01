@@ -64,7 +64,7 @@ Pre-shared key name
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  DHCP interface name  |
-- `id` (List of String) ID for authentication
+- `id_param` (List of String) ID for authentication
 
     |  Format &emsp; | Description  |
     |----------|---------------|
@@ -74,3 +74,7 @@ Pre-shared key name
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  IKE pre-shared secret key  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `psk_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

@@ -60,3 +60,7 @@ Firewall mac-group
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  macaddr  &emsp; |  MAC address to match  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `mac_group_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

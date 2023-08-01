@@ -69,6 +69,10 @@ Specifies the user with name username
     |  rw  &emsp; |  read write  |
 - `privacy` (Attributes) Defines the privacy (see [below for nested schema](#nestedatt--privacy))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `user_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--auth"></a>
 ### Nested Schema for `auth`
 

@@ -73,3 +73,7 @@ UPnP Rule
     |----------|---------------|
     |  ipv4  &emsp; |  The IPv4 address to which this rule applies  |
     |  ipv4net  &emsp; |  The IPv4 to which this rule applies  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `rule_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

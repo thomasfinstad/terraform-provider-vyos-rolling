@@ -84,3 +84,7 @@ Rule for this prefix-list6
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  ipv6net  &emsp; |  IPv6 prefix  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `rule_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

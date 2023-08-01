@@ -72,3 +72,7 @@ Specifies the oid
 
 - `exclude` (String) Exclude is an optional argument
 - `mask` (String) Defines a bit-mask that is indicating which subidentifiers of the associated subtree OID should be regarded as significant
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `oid_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

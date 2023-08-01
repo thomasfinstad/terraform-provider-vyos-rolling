@@ -100,3 +100,7 @@ DNS zone records
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  text  &emsp; |  Record contents  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `txt_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

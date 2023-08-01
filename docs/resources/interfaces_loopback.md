@@ -62,6 +62,10 @@ Loopback Interface
     |----------|---------------|
     |  txt  &emsp; |  Destination interface name  |
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `loopback_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--ip"></a>
 ### Nested Schema for `ip`
 

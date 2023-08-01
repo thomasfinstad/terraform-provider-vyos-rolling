@@ -74,3 +74,7 @@ Route to be pushed to all clients
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 0-4294967295  &emsp; |  Metric for this route  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `push_route_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

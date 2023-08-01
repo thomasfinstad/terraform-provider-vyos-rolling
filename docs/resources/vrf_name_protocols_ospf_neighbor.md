@@ -88,3 +88,7 @@ Specify neighbor router
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 0-255  &emsp; |  Neighbor priority  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `neighbor_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

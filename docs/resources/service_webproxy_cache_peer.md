@@ -82,3 +82,7 @@ Specify other caches in a hierarchy
     |  parent  &emsp; |  Peer is a parent  |
     |  sibling  &emsp; |  Peer is a sibling  |
     |  multicast  &emsp; |  Peer is a member of a multicast group  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `cache_peer_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

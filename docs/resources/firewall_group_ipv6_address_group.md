@@ -61,3 +61,7 @@ Firewall ipv6-address-group
     |----------|---------------|
     |  txt  &emsp; |  Description  |
 - `include` (List of String) Include another ipv6-address-group
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `ipv6_address_group_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

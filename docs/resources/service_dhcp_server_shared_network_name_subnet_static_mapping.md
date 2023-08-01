@@ -87,3 +87,7 @@ Name of static mapping
     |----------|---------------|
     |  macaddr  &emsp; |  Hardware (MAC) address  |
 - `static_mapping_parameters` (List of String) Additional static-mapping parameters for DHCP server. Will be placed inside the "host" block of the mapping. You must use the syntax of dhcpd.conf in this text-field. Using this without proper knowledge may result in a crashed DHCP server. Check system log to look for errors.
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `static_mapping_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

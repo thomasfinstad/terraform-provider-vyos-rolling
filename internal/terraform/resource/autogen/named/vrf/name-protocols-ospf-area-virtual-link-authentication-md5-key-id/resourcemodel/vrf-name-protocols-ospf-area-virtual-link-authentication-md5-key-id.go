@@ -54,6 +54,10 @@ func (o *VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) GetVyosPa
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `key_id_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"key_id_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `MD5 key id

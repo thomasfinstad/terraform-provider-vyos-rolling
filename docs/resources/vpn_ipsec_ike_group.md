@@ -77,6 +77,10 @@ Internet Key Exchange (IKE) group name
     |  main  &emsp; |  Use the main mode (recommended)  |
     |  aggressive  &emsp; |  Use the aggressive mode (insecure, not recommended)  |
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `ike_group_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--dead_peer_detection"></a>
 ### Nested Schema for `dead_peer_detection`
 

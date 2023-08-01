@@ -40,6 +40,10 @@ func (o *VpnIPsecEspGroup) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VpnIPsecEspGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `esp_group_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"esp_group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Encapsulating Security Payload (ESP) group name

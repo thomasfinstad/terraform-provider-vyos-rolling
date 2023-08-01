@@ -60,3 +60,7 @@ Multicast interface based route
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  ipv4net  &emsp; |  Network  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `interface_route_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

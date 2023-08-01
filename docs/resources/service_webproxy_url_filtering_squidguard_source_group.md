@@ -89,3 +89,7 @@ Source group name
 - `ldap_ip_search` (List of String) LDAP search expression for an IP address list
 - `ldap_user_search` (List of String) LDAP search expression for a user group
 - `user` (String) List of user names
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `source_group_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

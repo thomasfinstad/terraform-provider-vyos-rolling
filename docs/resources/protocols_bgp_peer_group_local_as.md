@@ -66,6 +66,10 @@ Specify alternate ASN for this BGP process
 
 - `no_prepend` (Attributes) Disable prepending local-as from/to updates for eBGP peers (see [below for nested schema](#nestedatt--no_prepend))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `local_as_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--no_prepend"></a>
 ### Nested Schema for `no_prepend`
 

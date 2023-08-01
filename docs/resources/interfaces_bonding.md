@@ -129,6 +129,10 @@ Bonding Interface/Link Aggregation
     |  txt  &emsp; |  VRF instance name  |
 - `xdp` (Boolean) Enable eXpress Data Path
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `bonding_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--arp_monitor"></a>
 ### Nested Schema for `arp_monitor`
 

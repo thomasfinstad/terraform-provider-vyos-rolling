@@ -88,6 +88,10 @@ Interface params
     |----------|---------------|
     |  number: 0-127  &emsp; |  PSNP interval in seconds  |
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `interface_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--bfd"></a>
 ### Nested Schema for `bfd`
 

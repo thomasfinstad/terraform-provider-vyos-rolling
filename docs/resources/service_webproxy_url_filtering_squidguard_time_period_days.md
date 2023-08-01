@@ -98,3 +98,7 @@ Time-period days
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  <hh:mm - hh:mm>  &emsp; |  Time range in 24hr time  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `days_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

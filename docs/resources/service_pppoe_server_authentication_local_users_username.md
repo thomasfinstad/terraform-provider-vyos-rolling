@@ -74,6 +74,10 @@ User name for authentication
 - `rate_limit` (Attributes) Upload/Download speed limits (see [below for nested schema](#nestedatt--rate_limit))
 - `static_ip` (String) Static client IP address
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `username_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--rate_limit"></a>
 ### Nested Schema for `rate_limit`
 

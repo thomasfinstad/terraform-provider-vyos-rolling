@@ -125,3 +125,7 @@ NAPTR rule
     |  name.example.com  &emsp; |  An absolute DNS name  |
 - `resolve_uri` (Boolean) "U" flag
 - `service` (String) Service type
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `rule_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

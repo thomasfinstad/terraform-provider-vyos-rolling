@@ -76,6 +76,10 @@ Apply filtering to an interface
 - `access_list` (Attributes) Access-list (see [below for nested schema](#nestedatt--access_list))
 - `prefix_list` (Attributes) Prefix-list (see [below for nested schema](#nestedatt--prefix_list))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `interface_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--access_list"></a>
 ### Nested Schema for `access_list`
 

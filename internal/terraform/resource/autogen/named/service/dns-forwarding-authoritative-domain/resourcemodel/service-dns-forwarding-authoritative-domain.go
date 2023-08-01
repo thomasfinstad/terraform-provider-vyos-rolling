@@ -37,6 +37,10 @@ func (o *ServiceDNSForwardingAuthoritativeDomain) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDNSForwardingAuthoritativeDomain) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `authoritative_domain_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"authoritative_domain_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Domain to host authoritative records for

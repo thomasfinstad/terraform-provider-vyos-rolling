@@ -41,6 +41,10 @@ func (o *ServiceIPoeServerAuthenticationInterfaceMac) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceIPoeServerAuthenticationInterfaceMac) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `mac_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"mac_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Media Access Control (MAC) address

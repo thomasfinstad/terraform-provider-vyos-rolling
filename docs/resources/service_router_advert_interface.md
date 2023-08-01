@@ -107,6 +107,10 @@ Interface to send RA on
     |----------|---------------|
     |  ipv6  &emsp; |  IPv6 address to be advertized (must be configured on interface)  |
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `interface_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--interval"></a>
 ### Nested Schema for `interval`
 

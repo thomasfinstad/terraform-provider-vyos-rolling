@@ -94,3 +94,7 @@ BGP dynamic neighbors listen range
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Peer-group name  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `range_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

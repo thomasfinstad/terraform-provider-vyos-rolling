@@ -124,3 +124,7 @@ URL filter rule for a source-group
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  period  &emsp; |  Time period for this rule  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `rule_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

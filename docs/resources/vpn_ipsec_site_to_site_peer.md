@@ -115,6 +115,10 @@ Connection name of the peer
     |  ipv6  &emsp; |  Request IPv6 address from peer  |
 - `vti` (Attributes) Virtual tunnel interface (see [below for nested schema](#nestedatt--vti))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `peer_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
 

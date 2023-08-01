@@ -60,3 +60,7 @@ Firewall ipv6-network-group
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  ipv6net  &emsp; |  IPv6 address to match  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `ipv6_network_group_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

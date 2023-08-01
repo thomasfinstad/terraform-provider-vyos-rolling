@@ -62,6 +62,10 @@ Interface to send DDNS updates for
 - `ipv6_enable` (Boolean) Allow explicit IPv6 addresses for Dynamic DNS for this interface
 - `use_web` (Attributes) Web check used for obtaining the external IP address (see [below for nested schema](#nestedatt--use_web))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `interface_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--use_web"></a>
 ### Nested Schema for `use_web`
 

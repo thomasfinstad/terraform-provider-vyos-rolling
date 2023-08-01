@@ -35,6 +35,10 @@ func (o *VpnSstpClientIPvsixPoolDelegate) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VpnSstpClientIPvsixPoolDelegate) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `delegate_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"delegate_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Subnet used to delegate prefix through DHCPv6-PD (RFC3633)

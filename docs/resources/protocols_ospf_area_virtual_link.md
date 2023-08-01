@@ -91,6 +91,10 @@ Virtual link
     |----------|---------------|
     |  number: 1-65535  &emsp; |  Link state transmit delay (seconds)  |
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `virtual_link_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
 

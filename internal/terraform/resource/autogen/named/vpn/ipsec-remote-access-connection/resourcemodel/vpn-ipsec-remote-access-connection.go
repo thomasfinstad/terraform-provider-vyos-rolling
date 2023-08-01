@@ -45,6 +45,10 @@ func (o *VpnIPsecRemoteAccessConnection) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `connection_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"connection_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IKEv2 VPN connection name

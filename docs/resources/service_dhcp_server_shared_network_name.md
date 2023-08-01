@@ -70,3 +70,7 @@ Name of DHCP shared network
     |  ipv4  &emsp; |  NTP server IPv4 address  |
 - `ping_check` (Boolean) Sends ICMP Echo request to the address being assigned
 - `shared_network_parameters` (List of String) Additional shared-network parameters for DHCP server. You must use the syntax of dhcpd.conf in this text-field. Using this without proper knowledge may result in a crashed DHCP server. Check system log to look for errors.
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `shared_network_name_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

@@ -49,6 +49,10 @@ func (o *QosPolicyPriorityQueueClassMatch) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `match_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"match_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Class matching rule name

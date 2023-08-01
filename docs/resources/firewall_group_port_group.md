@@ -62,3 +62,7 @@ Firewall port-group
     |  txt  &emsp; |  Named port (any name in /etc/services, e.g., http)  |
     |  number: 1-65535  &emsp; |  Numbered port  |
     |  start-end  &emsp; |  Numbered port range (e.g. 1001-1050)  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `port_group_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

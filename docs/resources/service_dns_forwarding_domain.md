@@ -67,3 +67,7 @@ Domain to forward to a custom DNS server
     |----------|---------------|
     |  ipv4  &emsp; |  Domain Name Server (DNS) IPv4 address  |
     |  ipv6  &emsp; |  Domain Name Server (DNS) IPv6 address  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `domain_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

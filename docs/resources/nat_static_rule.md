@@ -58,6 +58,10 @@ Rule number for NAT
 - `inbound_interface` (String) Inbound interface of NAT traffic
 - `translation` (Attributes) Translation address or prefix (see [below for nested schema](#nestedatt--translation))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `rule_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--destination"></a>
 ### Nested Schema for `destination`
 

@@ -39,6 +39,10 @@ func (o *VpnIPsecEspGroupProposal) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VpnIPsecEspGroupProposal) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `proposal_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"proposal_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `ESP group proposal

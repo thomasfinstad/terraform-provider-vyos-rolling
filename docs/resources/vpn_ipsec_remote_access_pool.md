@@ -77,3 +77,7 @@ IP address pool for remote access users
     |----------|---------------|
     |  ipv4net  &emsp; |  Local IPv4 pool prefix  |
     |  ipv6net  &emsp; |  Local IPv6 pool prefix  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `pool_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

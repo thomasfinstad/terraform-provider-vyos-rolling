@@ -1,4 +1,7 @@
-# Nest steps
-
-- Investigate how to best transform interfaces into terraform framework schemas
-- Investigate best way to convert to and from api json and terraform values
+# TODO large steps
+- Configure terraform ID format
+- Complete CRUD functions
+- Generate resource import docs
+- Fix doc "subcategory"
+- Create global (Node) resources
+- improve error vs diag returns (especially (un)marshal helpers)

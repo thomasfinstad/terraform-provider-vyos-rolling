@@ -39,6 +39,10 @@ func (o *ProtocolsBgpNeighborLocalRole) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsBgpNeighborLocalRole) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `local_role_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"local_role_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Local role for BGP neighbor (RFC9234)

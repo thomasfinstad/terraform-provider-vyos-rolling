@@ -56,3 +56,7 @@ Specifies the view with name viewname
 ### Required
 
 - `view_id` (String) Specifies the view with name viewname
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `view_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

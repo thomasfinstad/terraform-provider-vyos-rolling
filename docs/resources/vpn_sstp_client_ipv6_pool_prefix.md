@@ -68,3 +68,7 @@ Pool of addresses used to assign to clients
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 48-128  &emsp; |  Client prefix length  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `prefix_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

@@ -34,6 +34,10 @@ func (o *ProtocolsOspfNeighbor) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsOspfNeighbor) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `neighbor_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"neighbor_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Specify neighbor router

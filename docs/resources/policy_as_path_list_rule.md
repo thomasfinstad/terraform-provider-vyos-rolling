@@ -74,3 +74,7 @@ Rule for this as-path-list
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  AS path regular expression (ex: "64501 64502")  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `rule_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

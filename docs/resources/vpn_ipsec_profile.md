@@ -59,6 +59,10 @@ VPN IPsec profile
 - `esp_group` (String) Encapsulating Security Payloads (ESP) group name
 - `ike_group` (String) Internet Key Exchange (IKE) group name
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `profile_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
 

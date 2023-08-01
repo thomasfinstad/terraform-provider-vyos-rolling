@@ -71,6 +71,10 @@ Rule for this access-list6
     |  txt  &emsp; |  Description  |
 - `source` (Attributes) Source IPv6 network to match (see [below for nested schema](#nestedatt--source))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `rule_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--source"></a>
 ### Nested Schema for `source`
 

@@ -43,6 +43,10 @@ func (o *VrfNameProtocolsIsisSegmentRoutingPrefix) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsIsisSegmentRoutingPrefix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `prefix_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"prefix_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Static IPv4/IPv6 prefix segment/label mapping

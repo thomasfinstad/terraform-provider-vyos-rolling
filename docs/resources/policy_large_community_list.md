@@ -48,3 +48,7 @@ Add a BGP large community list entry
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Description  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `large_community_list_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

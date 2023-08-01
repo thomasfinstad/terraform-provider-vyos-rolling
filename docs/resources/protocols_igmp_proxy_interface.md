@@ -71,3 +71,7 @@ Interface for IGMP proxy
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  ipv4net  &emsp; |  IPv4 network  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `interface_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

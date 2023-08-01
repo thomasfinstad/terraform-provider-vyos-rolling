@@ -79,3 +79,7 @@ Next-hop interface
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 1-255  &emsp; |  Distance for this route  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `next_hop_interface_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

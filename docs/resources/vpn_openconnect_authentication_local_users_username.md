@@ -77,6 +77,10 @@ Username used for authentication
 - `otp` (Attributes) 2FA OTP authentication parameters (see [below for nested schema](#nestedatt--otp))
 - `password` (String) Password used for authentication
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `username_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--otp"></a>
 ### Nested Schema for `otp`
 

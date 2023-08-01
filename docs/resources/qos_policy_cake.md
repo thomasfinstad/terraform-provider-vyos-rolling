@@ -76,6 +76,10 @@ Common Applications Kept Enhanced (CAKE)
     |----------|---------------|
     |  number: 1-3600000  &emsp; |  RTT in ms  |
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `cake_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--flow_isolation"></a>
 ### Nested Schema for `flow_isolation`
 

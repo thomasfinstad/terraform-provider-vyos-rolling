@@ -67,6 +67,10 @@ RPKI cache server address
     |  number: 1-255  &emsp; |  Preference of the cache server  |
 - `ssh` (Attributes) RPKI SSH connection settings (see [below for nested schema](#nestedatt--ssh))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `cache_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--ssh"></a>
 ### Nested Schema for `ssh`
 

@@ -78,3 +78,7 @@ IPv6 route to be advertised in Router Advertisements (RAs)
     |----------|---------------|
     |  number: 1-4294967295  &emsp; |  Time in seconds that the route will remain valid  |
     |  infinity  &emsp; |  Route will remain preferred forever  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `route_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

@@ -69,3 +69,7 @@ NetFlow destination server
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 1025-65535  &emsp; |  NetFlow port number  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `server_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

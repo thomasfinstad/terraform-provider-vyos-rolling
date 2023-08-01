@@ -43,6 +43,10 @@ func (o *ServiceDhcpServerSharedNetworkName) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDhcpServerSharedNetworkName) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `shared_network_name_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"shared_network_name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Name of DHCP shared network

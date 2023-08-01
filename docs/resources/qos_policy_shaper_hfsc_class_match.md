@@ -103,6 +103,10 @@ Class matching rule name
     |----------|---------------|
     |  number: 0-4095  &emsp; |  Virtual Local Area Network (VLAN) tag   |
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `match_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--ether"></a>
 ### Nested Schema for `ether`
 

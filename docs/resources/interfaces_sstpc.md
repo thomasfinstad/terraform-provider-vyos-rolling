@@ -80,6 +80,10 @@ Secure Socket Tunneling Protocol (SSTP) client Interface
     |----------|---------------|
     |  txt  &emsp; |  VRF instance name  |
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `sstpc_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
 

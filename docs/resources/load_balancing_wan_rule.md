@@ -75,6 +75,10 @@ Rule number (1-9999)
     |  !<protocol>  &emsp; |  IP protocol name  |
 - `source` (Attributes) Source information (see [below for nested schema](#nestedatt--source))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `rule_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--destination"></a>
 ### Nested Schema for `destination`
 

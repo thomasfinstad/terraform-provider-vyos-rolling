@@ -47,6 +47,10 @@ func (o *VrfNameProtocolsOspfArea) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `area_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"area_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `OSPF area settings

@@ -82,3 +82,7 @@ User name for authentication
 - `disable` (Boolean) Disable instance
 - `password` (String) Password for authentication
 - `static_ip` (String) Static client IP address
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `username_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

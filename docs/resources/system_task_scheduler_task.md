@@ -64,6 +64,10 @@ Scheduled task
     |  <hours>h  &emsp; |  Execution interval in hours  |
     |  <days>d  &emsp; |  Execution interval in days  |
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `task_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--executable"></a>
 ### Nested Schema for `executable`
 

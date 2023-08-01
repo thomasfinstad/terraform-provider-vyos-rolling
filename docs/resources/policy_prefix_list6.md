@@ -48,3 +48,7 @@ IPv6 prefix-list filter
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Description  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `prefix_list6_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

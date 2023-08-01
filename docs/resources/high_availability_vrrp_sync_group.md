@@ -56,6 +56,10 @@ VRRP sync group
     |  txt  &emsp; |  VRRP group name  |
 - `transition_script` (Attributes) VRRP transition scripts (see [below for nested schema](#nestedatt--transition_script))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `sync_group_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--transition_script"></a>
 ### Nested Schema for `transition_script`
 

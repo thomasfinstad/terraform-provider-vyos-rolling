@@ -65,3 +65,7 @@ Defines an off-NBMA network prefix for which the GRE interface will act as a gat
 ### Optional
 
 - `holding_time` (String) Holding time in seconds
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `shortcut_target_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

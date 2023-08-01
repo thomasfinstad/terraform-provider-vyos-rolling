@@ -42,6 +42,10 @@ func (o *ProtocolsOspfAreaVirtualLink) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `virtual_link_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"virtual_link_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual link

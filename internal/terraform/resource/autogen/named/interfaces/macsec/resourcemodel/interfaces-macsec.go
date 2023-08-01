@@ -44,6 +44,10 @@ func (o *InterfacesMacsec) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesMacsec) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `macsec_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"macsec_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `MACsec Interface (802.1ae)

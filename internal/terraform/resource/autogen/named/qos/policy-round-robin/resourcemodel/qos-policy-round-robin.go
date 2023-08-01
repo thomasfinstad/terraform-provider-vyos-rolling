@@ -35,6 +35,10 @@ func (o *QosPolicyRoundRobin) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyRoundRobin) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `round_robin_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"round_robin_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Deficit Round Robin Scheduler

@@ -73,3 +73,7 @@ Specifies the group with name groupname
     |  auth  &emsp; |  Messages are authenticated but not encrypted (authNoPriv)  |
     |  priv  &emsp; |  Messages are authenticated and encrypted (authPriv)  |
 - `view` (String) Defines the name of view
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `group_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

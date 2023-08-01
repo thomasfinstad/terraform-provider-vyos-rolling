@@ -73,6 +73,10 @@ IPv6 policy local-route rule set number
     |  ipv6  &emsp; |  Address to match against  |
     |  ipv6net  &emsp; |  Prefix to match against  |
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `rule_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--set"></a>
 ### Nested Schema for `set`
 

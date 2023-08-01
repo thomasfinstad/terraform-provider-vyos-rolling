@@ -107,3 +107,7 @@ Class Handle
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  u32  &emsp; |  Queue delay in milliseconds  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `class_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

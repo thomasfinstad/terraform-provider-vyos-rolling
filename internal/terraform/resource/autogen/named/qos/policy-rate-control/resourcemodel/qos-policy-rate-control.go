@@ -36,6 +36,10 @@ func (o *QosPolicyRateControl) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyRateControl) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `rate_control_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"rate_control_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Rate limiting policy (Token Bucket Filter)

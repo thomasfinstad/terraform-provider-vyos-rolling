@@ -104,3 +104,7 @@ Delegate IPv6 prefix from provider to this interface
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 0-65535  &emsp; |  Decimal integer which fits in the length of SLA IDs  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `interface_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

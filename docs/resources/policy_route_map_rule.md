@@ -83,6 +83,10 @@ Rule for this route-map
 - `on_match` (Attributes) Exit policy on matches (see [below for nested schema](#nestedatt--on_match))
 - `set` (Attributes) Route parameters (see [below for nested schema](#nestedatt--set))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `rule_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--match"></a>
 ### Nested Schema for `match`
 

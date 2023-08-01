@@ -43,6 +43,10 @@ Interface name to apply firewall configuration
 - `local` (Attributes) Packets destined for this router (see [below for nested schema](#nestedatt--local))
 - `out` (Attributes) Forwarded packets on outbound interface (see [below for nested schema](#nestedatt--out))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `interface_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--in"></a>
 ### Nested Schema for `in`
 

@@ -51,6 +51,10 @@ Logging to a file
 
 - `archive` (Attributes) Log file size and rotation characteristics (see [below for nested schema](#nestedatt--archive))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `file_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--archive"></a>
 ### Nested Schema for `archive`
 

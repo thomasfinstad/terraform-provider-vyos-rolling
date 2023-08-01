@@ -60,3 +60,7 @@ Add a host device to the container
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Source device  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `device_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

@@ -56,3 +56,7 @@ Network interface for client MAC addresses
 ### Required
 
 - `interface_id` (String) Network interface for client MAC addresses
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `interface_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

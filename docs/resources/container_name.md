@@ -80,3 +80,7 @@ Container name
     |----------|---------------|
     |  number: 0  &emsp; |  Unlimited  |
     |  number: 1-8192  &emsp; |  Container memory in megabytes (MB)  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `name_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

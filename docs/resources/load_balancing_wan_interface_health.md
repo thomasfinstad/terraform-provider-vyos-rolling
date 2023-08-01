@@ -65,3 +65,7 @@ Interface name
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 1-10  &emsp; |  Success count  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `interface_health_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

@@ -57,6 +57,10 @@ Location data for interface
 - `disable` (Boolean) Disable instance
 - `location` (Attributes) LLDP-MED location data (see [below for nested schema](#nestedatt--location))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `interface_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--location"></a>
 ### Nested Schema for `location`
 

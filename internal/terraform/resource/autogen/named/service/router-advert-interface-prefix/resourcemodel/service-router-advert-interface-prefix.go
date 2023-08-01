@@ -44,6 +44,10 @@ func (o *ServiceRouterAdvertInterfacePrefix) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceRouterAdvertInterfacePrefix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `prefix_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"prefix_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IPv6 prefix to be advertised in Router Advertisements (RAs)

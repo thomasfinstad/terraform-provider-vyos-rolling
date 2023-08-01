@@ -80,3 +80,7 @@ Rate limiting policy (Token Bucket Filter)
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  <number>  &emsp; |  Time in milliseconds  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `rate_control_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

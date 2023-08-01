@@ -73,3 +73,7 @@ Set an HUB tunnel address
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  <fqdn>  &emsp; |  Set the external HUB fqdn  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `dynamic_map_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

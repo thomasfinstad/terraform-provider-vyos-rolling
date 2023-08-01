@@ -75,3 +75,7 @@ Rule for this BGP extended community list
     |----------|---------------|
     |  ASN:NN:NN  &emsp; |  BGP large-community-list filter  |
     |  IP:NN:NN  &emsp; |  BGP large-community-list filter (IPv4 address format)  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `rule_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

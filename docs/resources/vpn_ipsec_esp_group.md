@@ -99,3 +99,7 @@ Encapsulating Security Payload (ESP) group name
     |  dh-group31  &emsp; |  Use Diffie-Hellman group 31 (curve25519)  |
     |  dh-group32  &emsp; |  Use Diffie-Hellman group 32 (curve448)  |
     |  disable  &emsp; |  Disable PFS  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `esp_group_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

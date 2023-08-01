@@ -76,3 +76,7 @@ Rule for this BGP extended community list
     |  <aa:nn:nn>  &emsp; |  Extended community list regular expression  |
     |  <rt aa:nn:nn>  &emsp; |  Route Target regular expression  |
     |  <soo aa:nn:nn>  &emsp; |  Site of Origin regular expression  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `rule_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

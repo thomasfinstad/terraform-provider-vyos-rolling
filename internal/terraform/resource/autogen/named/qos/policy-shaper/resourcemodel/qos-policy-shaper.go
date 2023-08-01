@@ -36,6 +36,10 @@ func (o *QosPolicyShaper) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyShaper) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `shaper_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"shaper_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Traffic shaping based policy (Hierarchy Token Bucket)

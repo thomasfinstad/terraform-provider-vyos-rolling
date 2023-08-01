@@ -54,6 +54,10 @@ func (o *InterfacesWirelessVifSVifC) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesWirelessVifSVifC) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `vif_c_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"vif_c_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `QinQ TAG-C Virtual Local Area Network (VLAN) ID

@@ -55,3 +55,7 @@ interface(s) to listen on
     |----------|---------------|
     |  number: 1-4094  &emsp; |  VLAN for automatic creation  |
     |  start-end  &emsp; |  VLAN range for automatic creation (e.g. 1-4094)  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `interface_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

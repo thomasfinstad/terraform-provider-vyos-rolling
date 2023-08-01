@@ -35,6 +35,10 @@ func (o *ServiceSnmpVthreeView) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceSnmpVthreeView) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `view_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"view_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Specifies the view with name viewname

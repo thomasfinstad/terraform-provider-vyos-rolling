@@ -56,3 +56,7 @@ Firewall interface-group
     |  txt  &emsp; |  Description  |
 - `include` (List of String) Include another interface-group
 - `interface` (List of String) Interface-group member
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `interface_group_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

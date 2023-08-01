@@ -177,3 +177,7 @@ IKE proposal
     |  prfsha256  &emsp; |  SHA2_256 PRF  |
     |  prfsha384  &emsp; |  SHA2_384 PRF  |
     |  prfsha512  &emsp; |  SHA2_512 PRF  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `proposal_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

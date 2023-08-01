@@ -107,6 +107,10 @@ VXLAN Network Identifier
     |  ASN:NN_OR_IP-ADDRESS:NN  &emsp; |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 - `route_target` (Attributes) Route Target (see [below for nested schema](#nestedatt--route_target))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `vni_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--route_target"></a>
 ### Nested Schema for `route_target`
 

@@ -162,6 +162,10 @@ Firewall rule number (IPv6)
 - `tcp` (Attributes) TCP flags to match (see [below for nested schema](#nestedatt--tcp))
 - `time` (Attributes) Time to match rule (see [below for nested schema](#nestedatt--time))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `rule_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--connection_status"></a>
 ### Nested Schema for `connection_status`
 

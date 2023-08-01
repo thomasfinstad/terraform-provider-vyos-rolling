@@ -58,3 +58,7 @@ Network Time Protocol (NTP) server
 - `noselect` (Boolean) Marks the server as unused
 - `pool` (Boolean) Associate with a number of remote servers
 - `prefer` (Boolean) Marks the server as preferred
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `server_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

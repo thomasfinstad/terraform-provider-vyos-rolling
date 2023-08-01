@@ -68,3 +68,7 @@ Subnet used to delegate prefix through DHCPv6-PD (RFC3633)
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 32-64  &emsp; |  Delegated prefix length  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `delegate_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

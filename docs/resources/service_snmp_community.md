@@ -62,3 +62,7 @@ Community name
     |----------|---------------|
     |  ipv4net  &emsp; |  IP address and prefix length  |
     |  ipv6net  &emsp; |  IPv6 address and prefix length  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `community_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

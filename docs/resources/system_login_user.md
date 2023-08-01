@@ -53,6 +53,10 @@ Local user account information
 - `full_name` (String) Full name of the user (use quotes for names with spaces)
 - `home_directory` (String) Home directory
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `user_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
 

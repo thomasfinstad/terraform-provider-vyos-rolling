@@ -109,6 +109,10 @@ Virtual Local Area Network (VLAN) ID
     |----------|---------------|
     |  txt  &emsp; |  VRF instance name  |
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `vif_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--dhcp_options"></a>
 ### Nested Schema for `dhcp_options`
 

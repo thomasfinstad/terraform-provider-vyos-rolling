@@ -40,6 +40,10 @@ func (o *VpnOpenconnectAuthenticationLocalUsersUsername) GetVyosPath() []string 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VpnOpenconnectAuthenticationLocalUsersUsername) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `username_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"username_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Username used for authentication

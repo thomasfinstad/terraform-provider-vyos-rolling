@@ -99,3 +99,7 @@ Network emulator policy
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  <number>  &emsp; |  Percentage of packets affected  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `network_emulator_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

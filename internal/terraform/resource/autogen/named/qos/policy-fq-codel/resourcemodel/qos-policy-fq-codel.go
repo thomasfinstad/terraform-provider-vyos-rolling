@@ -38,6 +38,10 @@ func (o *QosPolicyFqCodel) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyFqCodel) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `fq_codel_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"fq_codel_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Fair Queuing (FQ) with Controlled Delay (CoDel)

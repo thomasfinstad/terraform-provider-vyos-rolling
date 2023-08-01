@@ -56,6 +56,10 @@ Zone from which to filter traffic
 
 - `firewall` (Attributes) Firewall options (see [below for nested schema](#nestedatt--firewall))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `from_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--firewall"></a>
 ### Nested Schema for `firewall`
 

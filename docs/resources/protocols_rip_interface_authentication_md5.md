@@ -83,3 +83,7 @@ MD5 key id
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  MD5 Key (16 characters or less)  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `md5_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

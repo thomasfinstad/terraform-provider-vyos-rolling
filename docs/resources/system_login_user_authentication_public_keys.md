@@ -88,3 +88,7 @@ Remote access public keys
     |  ssh-ed25519  &emsp; |  Edwards-curve DSA with elliptic curve 25519  |
     |  sk-ecdsa-sha2-nistp256@openssh.com  &emsp; |  Elliptic Curve DSA security key  |
     |  sk-ssh-ed25519@openssh.com  &emsp; |  Elliptic curve 25519 security key  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `public_keys_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

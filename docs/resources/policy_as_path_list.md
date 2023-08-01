@@ -48,3 +48,7 @@ Add a BGP autonomous system path filter
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Description  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `as_path_list_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

@@ -70,3 +70,7 @@ Time period name
 ### Optional
 
 - `description` (String) Time-period description
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `time_period_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

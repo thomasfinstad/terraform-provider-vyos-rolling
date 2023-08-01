@@ -42,6 +42,10 @@ Public and private keys
 - `private` (Attributes) Private key (see [below for nested schema](#nestedatt--private))
 - `public` (Attributes) Public key (see [below for nested schema](#nestedatt--public))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `key_pair_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--private"></a>
 ### Nested Schema for `private`
 

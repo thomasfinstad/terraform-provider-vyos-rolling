@@ -85,6 +85,10 @@ Defines SNMP target for inform or traps for IP
     |  trap  &emsp; |  Use TRAP  |
 - `user` (String) Defines username for authentication
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `trap_target_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--auth"></a>
 ### Nested Schema for `auth`
 

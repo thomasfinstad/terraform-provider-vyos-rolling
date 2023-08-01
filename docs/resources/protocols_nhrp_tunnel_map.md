@@ -67,3 +67,7 @@ Set an HUB tunnel address
 - `cisco` (Boolean) If the statically mapped peer is running Cisco IOS, specify this
 - `nbma_address` (String) Set HUB address (nbma-address - external hub address or fqdn)
 - `register` (Boolean) Specifies that Registration Request should be sent to this peer on startup
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `map_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

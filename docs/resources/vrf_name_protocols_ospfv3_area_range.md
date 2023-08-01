@@ -96,3 +96,7 @@ Specify IPv6 prefix (border routers only)
 
 - `advertise` (Boolean) Advertise this range
 - `not_advertise` (Boolean) Do not advertise this range
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `range_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

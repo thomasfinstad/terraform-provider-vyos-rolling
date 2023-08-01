@@ -48,3 +48,7 @@ IP route-map
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Description  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `route_map_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

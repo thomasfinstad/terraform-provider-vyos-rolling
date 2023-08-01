@@ -108,3 +108,7 @@ Import BGP network/prefix into unicast VPN IPv6 RIB
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  ASN:NN_OR_IP-ADDRESS:NN  &emsp; |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `network_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

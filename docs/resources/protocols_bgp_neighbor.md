@@ -116,6 +116,10 @@ BGP neighbor
     |  ipv6  &emsp; |  IPv6 address of route source  |
     |  txt  &emsp; |  Interface as route source  |
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `neighbor_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--address_family"></a>
 ### Nested Schema for `address_family`
 

@@ -140,3 +140,7 @@ ESP group proposal
     |  aes128gmac  &emsp; |  128-bit AES-GMAC  |
     |  aes192gmac  &emsp; |  192-bit AES-GMAC  |
     |  aes256gmac  &emsp; |  256-bit AES-GMAC  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `proposal_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

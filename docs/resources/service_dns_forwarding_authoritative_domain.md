@@ -66,5 +66,9 @@ Domain to host authoritative records for
 - `disable` (Boolean) Disable instance
 - `records` (Attributes) DNS zone records (see [below for nested schema](#nestedatt--records))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `authoritative_domain_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--records"></a>
 ### Nested Schema for `records`

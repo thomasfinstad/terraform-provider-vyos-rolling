@@ -35,6 +35,10 @@ func (o *FirewallGroupAddressGroup) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o FirewallGroupAddressGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `address_group_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"address_group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Firewall address-group

@@ -103,3 +103,7 @@ Facility for logging
     |  info  &emsp; |  Informational messages  |
     |  debug  &emsp; |  Debug messages  |
     |  all  &emsp; |  Log everything  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `facility_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

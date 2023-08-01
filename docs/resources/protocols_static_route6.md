@@ -61,6 +61,10 @@ Static IPv6 route
     |  txt  &emsp; |  Description  |
 - `reject` (Attributes) Emit an ICMP unreachable when matched (see [below for nested schema](#nestedatt--reject))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `route6_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--blackhole"></a>
 ### Nested Schema for `blackhole`
 

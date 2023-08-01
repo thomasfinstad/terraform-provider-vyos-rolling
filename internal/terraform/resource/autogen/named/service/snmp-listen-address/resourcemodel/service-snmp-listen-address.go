@@ -33,6 +33,10 @@ func (o *ServiceSnmpListenAddress) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceSnmpListenAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `listen_address_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"listen_address_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `IP address to listen for incoming SNMP requests

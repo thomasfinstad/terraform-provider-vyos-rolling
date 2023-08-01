@@ -91,3 +91,7 @@ Rule number
     |  ping  &emsp; |  Test with ICMP echo response  |
     |  ttl  &emsp; |  Test with UDP TTL expired response  |
     |  user-defined  &emsp; |  User-defined test script  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `test_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

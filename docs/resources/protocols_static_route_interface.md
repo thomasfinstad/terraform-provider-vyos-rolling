@@ -79,3 +79,7 @@ Next-hop IPv4 router interface
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Name of VRF to leak to  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `interface_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

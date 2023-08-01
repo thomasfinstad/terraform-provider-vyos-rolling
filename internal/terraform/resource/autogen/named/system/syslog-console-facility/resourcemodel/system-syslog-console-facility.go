@@ -35,6 +35,10 @@ func (o *SystemSyslogConsoleFacility) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o SystemSyslogConsoleFacility) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `facility_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"facility_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Facility for logging

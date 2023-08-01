@@ -60,3 +60,7 @@ Configure static unicast route into MRIB for multicast RPF lookup
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  ipv4net  &emsp; |  Network  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `route_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

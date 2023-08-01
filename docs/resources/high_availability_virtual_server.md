@@ -83,3 +83,7 @@ Load-balancing virtual server address
     |----------|---------------|
     |  tcp  &emsp; |  TCP  |
     |  udp  &emsp; |  UDP  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `virtual_server_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

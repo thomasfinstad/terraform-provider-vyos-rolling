@@ -58,6 +58,10 @@ Configure BFD profile used by individual peer
 - `passive` (Boolean) Do not attempt to start sessions
 - `shutdown` (Boolean) Disable this peer
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `profile_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--interval"></a>
 ### Nested Schema for `interval`
 

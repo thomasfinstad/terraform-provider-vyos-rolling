@@ -45,6 +45,10 @@ Certificate Authority
 - `private` (Attributes) CA private key in PEM format (see [below for nested schema](#nestedatt--private))
 - `revoke` (Boolean) If parent CA is present, this CA certificate will be included in generated CRLs
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `ca_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--private"></a>
 ### Nested Schema for `private`
 

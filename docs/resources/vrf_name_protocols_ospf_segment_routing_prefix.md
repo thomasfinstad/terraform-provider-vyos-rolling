@@ -90,6 +90,10 @@ Static IPv4 prefix segment/label mapping
 
 - `index` (Attributes) Specify the index value of prefix segment/label ID (see [below for nested schema](#nestedatt--index))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `prefix_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--index"></a>
 ### Nested Schema for `index`
 

@@ -51,3 +51,7 @@ OpenVPN shared secret key
 
 - `key` (String) OpenVPN shared secret key data
 - `version` (String) OpenVPN shared secret key version
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `shared_secret_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

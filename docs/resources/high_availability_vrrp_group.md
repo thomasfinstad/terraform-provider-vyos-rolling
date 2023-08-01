@@ -106,6 +106,10 @@ VRRP group
     |----------|---------------|
     |  number: 1-255  &emsp; |  Virtual router identifier  |
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `group_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
 

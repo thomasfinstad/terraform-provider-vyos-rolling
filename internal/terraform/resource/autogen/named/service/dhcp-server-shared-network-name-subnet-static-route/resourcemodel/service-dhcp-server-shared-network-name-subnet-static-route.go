@@ -43,6 +43,10 @@ func (o *ServiceDhcpServerSharedNetworkNameSubnetStaticRoute) GetVyosPath() []st
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDhcpServerSharedNetworkNameSubnetStaticRoute) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `static_route_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"static_route_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Classless static route destination subnet

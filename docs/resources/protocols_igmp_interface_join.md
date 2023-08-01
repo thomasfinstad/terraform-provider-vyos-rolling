@@ -69,3 +69,7 @@ IGMP join multicast group
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  ipv4  &emsp; |  Source address  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `join_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

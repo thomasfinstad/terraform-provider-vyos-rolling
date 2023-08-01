@@ -7,6 +7,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 )
@@ -66,6 +67,17 @@ func (o *TagNode) BaseNameC() string {
 // BaseNameS returns the terraform schema friendly version of BaseName
 func (o *TagNode) BaseNameS() string {
 	return regexp.MustCompile("[ -]").ReplaceAllString(o.BaseName(), "_")
+}
+
+// BaseNameSB returns a resource top level parameter safe version of BaseNameS()
+func (o *TagNode) BaseNameSB() string {
+	name := o.BaseNameS()
+
+	if helpers.ListContains(terraformReservedParameternames(), name) {
+		panic(name)
+		return fmt.Sprintf("%s_param", name)
+	}
+	return name
 }
 
 // BaseNameG returns a go friendlier version of BaseName

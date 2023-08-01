@@ -136,6 +136,10 @@ Wireless (WiFi/WLAN) Network Interface
     |----------|---------------|
     |  txt  &emsp; |  VRF instance name  |
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `wireless_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--capabilities"></a>
 ### Nested Schema for `capabilities`
 

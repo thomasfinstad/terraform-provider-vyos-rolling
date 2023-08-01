@@ -38,6 +38,10 @@ func (o *PolicyAsPathListRule) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o PolicyAsPathListRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `rule_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"rule_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Rule for this as-path-list

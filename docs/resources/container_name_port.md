@@ -68,3 +68,7 @@ Publish port to the container
     |----------|---------------|
     |  number: 1-65535  &emsp; |  Source host port  |
     |  start-end  &emsp; |  Source host port range (e.g. 10025-10030)  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `port_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

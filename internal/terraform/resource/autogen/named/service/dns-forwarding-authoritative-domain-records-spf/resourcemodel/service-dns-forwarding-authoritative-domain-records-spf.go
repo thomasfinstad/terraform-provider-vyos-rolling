@@ -45,6 +45,10 @@ func (o *ServiceDNSForwardingAuthoritativeDomainRecordsSpf) GetVyosPath() []stri
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDNSForwardingAuthoritativeDomainRecordsSpf) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `spf_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"spf_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `"SPF" record (type=SPF)

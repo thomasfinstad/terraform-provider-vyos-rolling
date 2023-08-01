@@ -110,3 +110,7 @@ Facility for logging
     |----------|---------------|
     |  udp  &emsp; |  send log messages to remote syslog server over udp  |
     |  tcp  &emsp; |  send log messages to remote syslog server over tcp  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `facility_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

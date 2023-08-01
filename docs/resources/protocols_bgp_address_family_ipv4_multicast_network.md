@@ -79,3 +79,7 @@ Import BGP network/prefix into multicast IPv4 RIB
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Route map name  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `network_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

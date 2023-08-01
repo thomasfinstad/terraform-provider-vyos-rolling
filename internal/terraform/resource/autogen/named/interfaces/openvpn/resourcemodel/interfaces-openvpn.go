@@ -58,6 +58,10 @@ func (o *InterfacesOpenvpn) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesOpenvpn) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `openvpn_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"openvpn_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `OpenVPN Tunnel Interface

@@ -69,3 +69,7 @@ Stochastic Fairness Queueing
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 1-127  &emsp; |  Queue size in packets  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `fair_queue_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

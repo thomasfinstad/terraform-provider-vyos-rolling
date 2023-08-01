@@ -177,38 +177,64 @@ import (
 	type {{.BaseNameCG}} struct {
 		{{if .IsBaseNode }}
 			SelfIdentifier	{{ if eq .ValueType "string" -}}
-							types.String
-						{{- else  if eq .ValueType "number" -}}
-							types.Number
-						{{- end -}}
+								types.String
+							{{- else  if eq .ValueType "number" -}}
+								types.Number
+							{{- end -}}
 			`tfsdk:"{{.BaseNameS}}_id" vyos:",self-id"`
 			{{if .Parent}}
 				{{template "resource-model-parent-id-hack" .Parent}}
 			{{end}}
-		{{end}}
 
-		{{with .GetChildren }}
-			// LeafNodes
-			{{range .LeafNodes -}}
-				Leaf{{.BaseNameCG}} 	{{if .MultiValue -}}
-											types.List
-										{{- else if eq .ValueType "string" -}}
-											types.String
-										{{- else  if eq .ValueType "number" -}}
-											types.Number
-										{{- else if eq .ValueType "bool" -}}
-											types.Bool
-										{{- else -}}
-											UNKNOWN TYPE: {{.ValueType}}
-										{{- end}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
+
+			{{with .GetChildren }}
+				// LeafNodes
+				{{range .LeafNodes -}}
+					Leaf{{.BaseNameCG}} 	{{if .MultiValue -}}
+												types.List
+											{{- else if eq .ValueType "string" -}}
+												types.String
+											{{- else  if eq .ValueType "number" -}}
+												types.Number
+											{{- else if eq .ValueType "bool" -}}
+												types.Bool
+											{{- else -}}
+												UNKNOWN TYPE: {{.ValueType}}
+											{{- end}} `tfsdk:"{{.BaseNameSB}}" vyos:"{{.BaseName}},omitempty"`
+				{{end}}
+				// TagNodes (Bools that show if child resources have been configured)
+				{{range .TagNodes -}}
+					ExistsTag{{.BaseNameCG}} bool `tfsdk:"{{.BaseNameSB}}" vyos:"{{.BaseName}},child"`
+				{{end}}
+				// Nodes
+				{{range .Nodes -}}
+					Node{{.BaseNameCG}} *{{.BaseNameCG}} `tfsdk:"{{.BaseNameSB}}" vyos:"{{.BaseName}},omitempty"`
+				{{end}}
 			{{end}}
-			// TagNodes (Bools that show if child resources have been configured)
-			{{range .TagNodes -}}
-				ExistsTag{{.BaseNameCG}} bool `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},child"`
-			{{end}}
-			// Nodes
-			{{range .Nodes -}}
-				Node{{.BaseNameCG}} *{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
+		{{else}}
+			{{with .GetChildren }}
+				// LeafNodes
+				{{range .LeafNodes -}}
+					Leaf{{.BaseNameCG}} 	{{if .MultiValue -}}
+												types.List
+											{{- else if eq .ValueType "string" -}}
+												types.String
+											{{- else  if eq .ValueType "number" -}}
+												types.Number
+											{{- else if eq .ValueType "bool" -}}
+												types.Bool
+											{{- else -}}
+												UNKNOWN TYPE: {{.ValueType}}
+											{{- end}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
+				{{end}}
+				// TagNodes (Bools that show if child resources have been configured)
+				{{range .TagNodes -}}
+					ExistsTag{{.BaseNameCG}} bool `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},child"`
+				{{end}}
+				// Nodes
+				{{range .Nodes -}}
+					Node{{.BaseNameCG}} *{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
+				{{end}}
 			{{end}}
 		{{end}}
 	}
@@ -220,6 +246,7 @@ import (
 				{{- if .Parent -}}
 					{{template "resource-model-parent-vyos-path-hack" .Parent}}
 				{{- end}}
+
 				"{{.BaseName}}",
 				{{if eq .ValueType "string" -}}
 					o.SelfIdentifier.ValueString(),
@@ -236,31 +263,56 @@ import (
 	func (o {{.BaseNameCG}}) ResourceSchemaAttributes() map[string]schema.Attribute {
 		return map[string]schema.Attribute{
 			{{if .IsBaseNode }}
-				"{{.BaseNameS}}_id":         schema.StringAttribute{
+				"id": schema.StringAttribute{
+					Computed: true,
+					MarkdownDescription: "Resource ID, an amalgamation of the `{{.BaseNameS}}_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+				},
+				"{{.BaseNameS}}_id": schema.StringAttribute{
 					Required:            true,
 					MarkdownDescription: `{{.Description}}`,
 				},
 				{{if .Parent}}
 					{{template "resource-model-parent-schema-hack" .Parent}}
 				{{end}}
-			{{end}}
-			{{with .GetChildren }}
-				// LeafNodes
-				{{range .LeafNodes }}
-					"{{.BaseNameS}}": 	{{if .MultiValue -}}
-						{{template "resource-model-schema-attrtype-multi" .}}
-					{{else}}
-						{{template "resource-model-schema-attrtype" .}}
-					{{- end}}
-				{{end}}
 
-				// Nodes
-				{{range .Nodes }}
-					"{{.BaseNameS}}": schema.SingleNestedAttribute{
-						Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(),
-						Optional:            true,
-						MarkdownDescription: `{{.Description}}`,
-					},
+				{{with .GetChildren }}
+					// LeafNodes
+					{{range .LeafNodes }}
+						"{{.BaseNameSB}}": 	{{if .MultiValue -}}
+												{{template "resource-model-schema-attrtype-multi" .}}
+											{{else}}
+												{{template "resource-model-schema-attrtype" .}}
+											{{- end}}
+					{{end}}
+
+					// Nodes
+					{{range .Nodes }}
+						"{{.BaseNameSB}}": schema.SingleNestedAttribute{
+							Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(),
+							Optional:            true,
+							MarkdownDescription: `{{.Description}}`,
+						},
+					{{end}}
+				{{end}}
+			{{else}}
+				{{with .GetChildren }}
+					// LeafNodes
+					{{range .LeafNodes }}
+						"{{.BaseNameS}}": 	{{if .MultiValue -}}
+												{{template "resource-model-schema-attrtype-multi" .}}
+											{{else}}
+												{{template "resource-model-schema-attrtype" .}}
+											{{- end}}
+					{{end}}
+
+					// Nodes
+					{{range .Nodes }}
+						"{{.BaseNameS}}": schema.SingleNestedAttribute{
+							Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(),
+							Optional:            true,
+							MarkdownDescription: `{{.Description}}`,
+						},
+					{{end}}
 				{{end}}
 			{{end}}
 		}

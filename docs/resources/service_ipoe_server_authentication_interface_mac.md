@@ -81,6 +81,10 @@ Media Access Control (MAC) address
     |----------|---------------|
     |  number: 1-4094  &emsp; |  Client VLAN id  |
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `mac_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--rate_limit"></a>
 ### Nested Schema for `rate_limit`
 

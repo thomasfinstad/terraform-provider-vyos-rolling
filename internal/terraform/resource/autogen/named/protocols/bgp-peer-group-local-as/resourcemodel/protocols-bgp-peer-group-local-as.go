@@ -38,6 +38,10 @@ func (o *ProtocolsBgpPeerGroupLocalAs) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `local_as_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"local_as_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Specify alternate ASN for this BGP process

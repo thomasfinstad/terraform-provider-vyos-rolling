@@ -75,6 +75,10 @@ Rule for this access-list
 - `destination` (Attributes) Destination network or address (see [below for nested schema](#nestedatt--destination))
 - `source` (Attributes) Source network or address to match (see [below for nested schema](#nestedatt--source))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `rule_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--destination"></a>
 ### Nested Schema for `destination`
 

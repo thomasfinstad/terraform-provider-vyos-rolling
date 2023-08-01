@@ -12,7 +12,7 @@ type VpnIPsecAuthenticationPsk struct {
 
 	// LeafNodes
 	LeafVpnIPsecAuthenticationPskDhcpInterface types.List   `tfsdk:"dhcp_interface" vyos:"dhcp-interface,omitempty"`
-	LeafVpnIPsecAuthenticationPskID            types.List   `tfsdk:"id" vyos:"id,omitempty"`
+	LeafVpnIPsecAuthenticationPskID            types.List   `tfsdk:"id_param" vyos:"id,omitempty"`
 	LeafVpnIPsecAuthenticationPskSecret        types.String `tfsdk:"secret" vyos:"secret,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -37,6 +37,10 @@ func (o *VpnIPsecAuthenticationPsk) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VpnIPsecAuthenticationPsk) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `psk_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"psk_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Pre-shared key name
@@ -58,7 +62,7 @@ func (o VpnIPsecAuthenticationPsk) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 
-		"id": schema.ListAttribute{
+		"id_param": schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
 			MarkdownDescription: `ID for authentication

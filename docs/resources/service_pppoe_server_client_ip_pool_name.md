@@ -73,3 +73,7 @@ Pool name
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  ipv4net  &emsp; |  IPv4 address and prefix length  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `name_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

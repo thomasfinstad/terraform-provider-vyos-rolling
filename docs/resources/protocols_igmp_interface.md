@@ -65,3 +65,7 @@ IGMP interface
     |----------|---------------|
     |  2  &emsp; |  IGMP version 2  |
     |  3  &emsp; |  IGMP version 3  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `interface_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

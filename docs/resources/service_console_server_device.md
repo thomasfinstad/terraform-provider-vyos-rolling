@@ -66,6 +66,10 @@ System serial interface name (ttyS or ttyUSB)
 - `ssh` (Attributes) SSH remote access to this console (see [below for nested schema](#nestedatt--ssh))
 - `stop_bits` (String) Serial port stop bits
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `device_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--ssh"></a>
 ### Nested Schema for `ssh`
 

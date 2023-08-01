@@ -80,3 +80,7 @@ BGP aggregate network
     |----------|---------------|
     |  txt  &emsp; |  Route map name  |
 - `summary_only` (Boolean) Announce the aggregate summary network only
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `aggregate_address_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

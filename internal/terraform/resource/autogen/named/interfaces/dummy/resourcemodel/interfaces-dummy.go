@@ -41,6 +41,10 @@ func (o *InterfacesDummy) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesDummy) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `dummy_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"dummy_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Dummy Interface

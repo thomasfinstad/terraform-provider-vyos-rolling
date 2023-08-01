@@ -75,3 +75,7 @@ Local role for BGP neighbor (RFC9234)
 ### Optional
 
 - `strict` (Boolean) Neighbor must send this exact capability, otherwise a role missmatch notification will be sent
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `local_role_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

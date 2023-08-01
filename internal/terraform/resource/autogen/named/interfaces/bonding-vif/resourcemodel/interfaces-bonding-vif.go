@@ -51,6 +51,10 @@ func (o *InterfacesBondingVif) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesBondingVif) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `vif_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"vif_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Virtual Local Area Network (VLAN) ID

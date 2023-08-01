@@ -67,6 +67,10 @@ Static IPv4/IPv6 prefix segment/label mapping
 - `absolute` (Attributes) Specify the absolute value of prefix segment/label ID (see [below for nested schema](#nestedatt--absolute))
 - `index` (Attributes) Specify the index value of prefix segment/label ID (see [below for nested schema](#nestedatt--index))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `prefix_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--absolute"></a>
 ### Nested Schema for `absolute`
 

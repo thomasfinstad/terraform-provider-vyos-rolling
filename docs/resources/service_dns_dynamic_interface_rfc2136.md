@@ -83,3 +83,7 @@ RFC2136 Update name
     |----------|---------------|
     |  number: 1-86400  &emsp; |  DNS forwarding cache size  |
 - `zone` (String) Zone to be updated
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `rfc2136_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

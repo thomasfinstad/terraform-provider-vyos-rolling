@@ -80,6 +80,10 @@ Next-hop IPv4 router address
     |----------|---------------|
     |  number: 1-255  &emsp; |  Route metric  |
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `next_hop_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--check"></a>
 ### Nested Schema for `check`
 

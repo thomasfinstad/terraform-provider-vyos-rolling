@@ -93,6 +93,10 @@ Peer tunnel
     |  txt  &emsp; |  Protocol name  |
 - `remote` (Attributes) Match remote addresses (see [below for nested schema](#nestedatt--remote))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `tunnel_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--local"></a>
 ### Nested Schema for `local`
 

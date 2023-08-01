@@ -48,6 +48,10 @@ func (o *InterfacesPseudoEthernet) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o InterfacesPseudoEthernet) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `pseudo_ethernet_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"pseudo_ethernet_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Pseudo Ethernet Interface (Macvlan)

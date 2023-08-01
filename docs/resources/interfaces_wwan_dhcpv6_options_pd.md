@@ -73,3 +73,7 @@ DHCPv6 prefix delegation interface statement
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 32-64  &emsp; |  Length of delegated prefix  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `pd_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

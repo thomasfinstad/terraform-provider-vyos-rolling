@@ -62,3 +62,7 @@ Identifier for virtual host
     |----------|---------------|
     |  number: 1-65535  &emsp; |  Numeric IP port  |
 - `server_name` (List of String) Server names: exact, wildcard, or regex
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `virtual_host_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

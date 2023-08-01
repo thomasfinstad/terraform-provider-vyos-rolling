@@ -58,3 +58,7 @@ PADO delays
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 1-999999  &emsp; |  Number of sessions  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `pado_delay_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

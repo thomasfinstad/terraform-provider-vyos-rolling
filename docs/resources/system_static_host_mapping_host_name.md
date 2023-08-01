@@ -56,3 +56,7 @@ Host name for static address mapping
     |----------|---------------|
     |  ipv4  &emsp; |  IPv4 address  |
     |  ipv6  &emsp; |  IPv6 address  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `host_name_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

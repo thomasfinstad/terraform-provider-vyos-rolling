@@ -20,7 +20,7 @@ import (
 func TestFirewallNameRuleMarshalVyos(t *testing.T) {
 	lst, _ := basetypes.NewListValue(basetypes.StringType{}, []attr.Value{basetypes.NewStringValue("420"), basetypes.NewStringValue("13-37")})
 	model := &resourcemodel.FirewallNameRule{
-		ID:                                      basetypes.NewNumberValue(big.NewFloat(42)),
+		SelfIdentifier:                          basetypes.NewNumberValue(big.NewFloat(42)),
 		ParentIDFirewallName:                    basetypes.NewStringValue("rule-one"),
 		LeafFirewallNameRuleAction:              basetypes.NewStringValue("accept"),
 		LeafFirewallNameRuleDisable:             basetypes.NewBoolValue(true),

@@ -52,6 +52,10 @@ Event handler name
 - `filter` (Attributes) Logs filter settings (see [below for nested schema](#nestedatt--filter))
 - `script` (Attributes) Event handler script file (see [below for nested schema](#nestedatt--script))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `event_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--filter"></a>
 ### Nested Schema for `filter`
 

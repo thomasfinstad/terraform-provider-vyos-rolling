@@ -67,3 +67,7 @@ Serial console device name
     |  38400  &emsp; |  38400 bps  |
     |  57600  &emsp; |  57600 bps  |
     |  115200  &emsp; |  115200 bps  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `device_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

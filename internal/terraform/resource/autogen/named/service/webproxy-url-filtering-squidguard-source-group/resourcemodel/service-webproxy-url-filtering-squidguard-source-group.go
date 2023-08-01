@@ -42,6 +42,10 @@ func (o *ServiceWebproxyURLFilteringSquIDguardSourceGroup) GetVyosPath() []strin
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceWebproxyURLFilteringSquIDguardSourceGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `source_group_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"source_group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Source group name

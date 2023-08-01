@@ -38,6 +38,10 @@ func (o *HighAvailabilityVirtualServerRealServer) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `real_server_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"real_server_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Real server address

@@ -58,6 +58,10 @@ Interface name
 - `send` (Attributes) Advertisement transmission (see [below for nested schema](#nestedatt--send))
 - `split_horizon` (Attributes) Split horizon parameters (see [below for nested schema](#nestedatt--split_horizon))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `interface_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
 

@@ -85,3 +85,7 @@ DHCP lease range
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  ipv4  &emsp; |  IPv4 end address of pool  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `range_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

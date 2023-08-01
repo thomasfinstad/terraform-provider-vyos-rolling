@@ -45,6 +45,10 @@ func (o *ServiceDNSDynamicInterfaceService) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceDNSDynamicInterfaceService) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `service_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"service_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Service being used for Dynamic DNS

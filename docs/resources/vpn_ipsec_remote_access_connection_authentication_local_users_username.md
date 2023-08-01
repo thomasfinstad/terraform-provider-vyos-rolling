@@ -100,3 +100,7 @@ Username used for authentication
 
 - `disable` (Boolean) Disable instance
 - `password` (String) Password used for authentication
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `username_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

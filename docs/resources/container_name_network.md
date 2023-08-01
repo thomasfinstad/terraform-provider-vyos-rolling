@@ -55,3 +55,7 @@ Attach user defined network to container
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  ipv4  &emsp; |  IPv4 address  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `network_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

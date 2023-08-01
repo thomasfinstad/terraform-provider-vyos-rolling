@@ -50,3 +50,7 @@ Policy route rule set name for IPv4
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Interface name  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `route_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

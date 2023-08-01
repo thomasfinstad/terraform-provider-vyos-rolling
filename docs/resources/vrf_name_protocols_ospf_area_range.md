@@ -105,3 +105,7 @@ Summarize routes matching a prefix (border routers only)
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  ipv4net  &emsp; |  Advertise area range as another prefix  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `range_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

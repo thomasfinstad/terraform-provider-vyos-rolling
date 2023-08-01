@@ -77,6 +77,10 @@ Class ID
 - `realtime` (Attributes) Realtime class settings (see [below for nested schema](#nestedatt--realtime))
 - `upperlimit` (Attributes) Upperlimit class settings (see [below for nested schema](#nestedatt--upperlimit))
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `class_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--linkshare"></a>
 ### Nested Schema for `linkshare`
 

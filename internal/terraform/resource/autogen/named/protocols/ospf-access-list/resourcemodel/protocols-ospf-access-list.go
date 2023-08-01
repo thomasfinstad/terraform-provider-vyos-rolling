@@ -33,6 +33,10 @@ func (o *ProtocolsOspfAccessList) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ProtocolsOspfAccessList) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `access_list_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"access_list_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Access list to filter networks in routing updates

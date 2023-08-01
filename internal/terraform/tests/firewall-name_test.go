@@ -14,7 +14,7 @@ import (
 // TestFirewallNameMarshalVyos does some simple marshalling tests
 func TestFirewallNameMarshalVyos(t *testing.T) {
 	model := &resourcemodel.FirewallName{
-		ID:                            basetypes.NewStringValue("test-id"),
+		SelfIdentifier:                basetypes.NewStringValue("test-id"),
 		LeafFirewallNameDefaultAction: basetypes.NewStringValue("drop"),
 	}
 

@@ -35,6 +35,10 @@ func (o *QosPolicyRandomDetect) GetVyosPath() []string {
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyRandomDetect) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `random_detect_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"random_detect_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Weighted Random Early Detect policy

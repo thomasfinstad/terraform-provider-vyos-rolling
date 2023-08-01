@@ -42,6 +42,10 @@ func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) GetVyosPath() []st
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `days_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"days_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Time-period days

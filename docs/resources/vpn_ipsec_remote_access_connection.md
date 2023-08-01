@@ -101,6 +101,10 @@ IKEv2 VPN connection name
     |  keep  &emsp; |  Reject new connection attempts if the same user already has an active connection  |
     |  replace  &emsp; |  Delete any existing connection if a new one for the same user gets established  |
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `connection_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
 

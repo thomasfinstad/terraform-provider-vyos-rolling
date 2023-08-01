@@ -45,6 +45,10 @@ func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork) GetVyosPath() []s
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"id": schema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "Resource ID, an amalgamation of the `network_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+		},
 		"network_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `BGP network

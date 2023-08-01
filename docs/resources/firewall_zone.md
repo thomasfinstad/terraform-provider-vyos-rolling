@@ -63,6 +63,10 @@ Zone-policy
 - `intra_zone_filtering` (Attributes) Intra-zone filtering (see [below for nested schema](#nestedatt--intra_zone_filtering))
 - `local_zone` (Boolean) Zone to be local-zone
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `zone_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--intra_zone_filtering"></a>
 ### Nested Schema for `intra_zone_filtering`
 

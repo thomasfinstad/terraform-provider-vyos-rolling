@@ -42,6 +42,10 @@ Registry Name
 - `authentication` (Attributes) Authentication settings (see [below for nested schema](#nestedatt--authentication))
 - `disable` (Boolean) Disable instance
 
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `registry_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+
 <a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
 

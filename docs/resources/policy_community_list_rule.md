@@ -79,3 +79,7 @@ Rule for this BGP community list
     |  no-export  &emsp; |  Well-known communities value NO_EXPORT 0xFFFFFF01  |
     |  internet  &emsp; |  Well-known communities value 0  |
     |  additive  &emsp; |  New value is appended to the existing value  |
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `rule_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.

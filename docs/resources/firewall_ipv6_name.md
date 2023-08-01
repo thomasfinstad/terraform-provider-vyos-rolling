@@ -56,3 +56,7 @@ IPv6 firewall rule-set name
     |----------|---------------|
     |  txt  &emsp; |  Description  |
 - `enable_default_log` (Boolean) Log packets hitting default-action
+
+### Read-Only
+
+- `id` (String) Resource ID, an amalgamation of the `ipv6_name_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
