@@ -10,6 +10,8 @@ import (
 
 // ServiceSnmpVthreeViewOID describes the resource data model.
 type ServiceSnmpVthreeViewOID struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"oid_id" vyos:",self-id"`
 
 	ParentIDServiceSnmpVthreeView types.String `tfsdk:"view" vyos:"view,parent-id"`
@@ -21,6 +23,16 @@ type ServiceSnmpVthreeViewOID struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes
+}
+
+// GetID returns the resource ID
+func (o ServiceSnmpVthreeViewOID) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o ServiceSnmpVthreeViewOID) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -45,7 +57,7 @@ func (o ServiceSnmpVthreeViewOID) ResourceSchemaAttributes() map[string]schema.A
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `oid_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"oid_id": schema.StringAttribute{
 			Required: true,
@@ -86,14 +98,4 @@ func (o ServiceSnmpVthreeViewOID) ResourceSchemaAttributes() map[string]schema.A
 		// Nodes
 
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ServiceSnmpVthreeViewOID) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceSnmpVthreeViewOID) UnmarshalJSON(_ []byte) error {
-	return nil
 }

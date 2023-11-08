@@ -27,6 +27,11 @@ type serviceDhcpServerSharedNetworkNameSubnetStaticRoute struct {
 	model        resourcemodel.ServiceDhcpServerSharedNetworkNameSubnetStaticRoute
 }
 
+// GetName returns resource name
+func (r *serviceDhcpServerSharedNetworkNameSubnetStaticRoute) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceDhcpServerSharedNetworkNameSubnetStaticRoute) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

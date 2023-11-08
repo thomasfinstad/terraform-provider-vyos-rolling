@@ -47,13 +47,3 @@ func (o ProtocolsBgpNeighborBfd) ResourceSchemaAttributes() map[string]schema.At
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ProtocolsBgpNeighborBfd) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighborBfd) UnmarshalJSON(_ []byte) error {
-	return nil
-}

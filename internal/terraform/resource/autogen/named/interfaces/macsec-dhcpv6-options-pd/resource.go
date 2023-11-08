@@ -27,6 +27,11 @@ type interfacesMacsecDhcpvsixOptionsPd struct {
 	model        resourcemodel.InterfacesMacsecDhcpvsixOptionsPd
 }
 
+// GetName returns resource name
+func (r *interfacesMacsecDhcpvsixOptionsPd) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesMacsecDhcpvsixOptionsPd) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

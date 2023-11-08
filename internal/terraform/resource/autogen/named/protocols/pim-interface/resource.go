@@ -27,6 +27,11 @@ type protocolsPimInterface struct {
 	model        resourcemodel.ProtocolsPimInterface
 }
 
+// GetName returns resource name
+func (r *protocolsPimInterface) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsPimInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

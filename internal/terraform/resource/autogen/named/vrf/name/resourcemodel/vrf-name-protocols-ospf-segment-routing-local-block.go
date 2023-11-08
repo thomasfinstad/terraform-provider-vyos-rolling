@@ -48,13 +48,3 @@ func (o VrfNameProtocolsOspfSegmentRoutingLocalBlock) ResourceSchemaAttributes()
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *VrfNameProtocolsOspfSegmentRoutingLocalBlock) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfSegmentRoutingLocalBlock) UnmarshalJSON(_ []byte) error {
-	return nil
-}

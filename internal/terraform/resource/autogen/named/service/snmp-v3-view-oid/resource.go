@@ -27,6 +27,11 @@ type serviceSnmpVthreeViewOID struct {
 	model        resourcemodel.ServiceSnmpVthreeViewOID
 }
 
+// GetName returns resource name
+func (r *serviceSnmpVthreeViewOID) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceSnmpVthreeViewOID) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

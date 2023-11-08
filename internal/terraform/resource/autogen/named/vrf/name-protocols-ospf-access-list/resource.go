@@ -27,6 +27,11 @@ type vrfNameProtocolsOspfAccessList struct {
 	model        resourcemodel.VrfNameProtocolsOspfAccessList
 }
 
+// GetName returns resource name
+func (r *vrfNameProtocolsOspfAccessList) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vrfNameProtocolsOspfAccessList) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

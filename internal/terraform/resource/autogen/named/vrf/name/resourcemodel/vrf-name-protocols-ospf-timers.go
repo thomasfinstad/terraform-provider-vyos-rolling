@@ -31,13 +31,3 @@ func (o VrfNameProtocolsOspfTimers) ResourceSchemaAttributes() map[string]schema
 		},
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *VrfNameProtocolsOspfTimers) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfTimers) UnmarshalJSON(_ []byte) error {
-	return nil
-}

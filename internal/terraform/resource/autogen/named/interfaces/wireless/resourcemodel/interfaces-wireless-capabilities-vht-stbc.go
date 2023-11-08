@@ -47,13 +47,3 @@ func (o InterfacesWirelessCapabilitiesVhtStbc) ResourceSchemaAttributes() map[st
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesWirelessCapabilitiesVhtStbc) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWirelessCapabilitiesVhtStbc) UnmarshalJSON(_ []byte) error {
-	return nil
-}

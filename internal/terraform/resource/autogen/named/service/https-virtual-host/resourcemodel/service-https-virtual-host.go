@@ -10,6 +10,8 @@ import (
 
 // ServiceHTTPSVirtualHost describes the resource data model.
 type ServiceHTTPSVirtualHost struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"virtual_host_id" vyos:",self-id"`
 
 	// LeafNodes
@@ -20,6 +22,16 @@ type ServiceHTTPSVirtualHost struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes
+}
+
+// GetID returns the resource ID
+func (o ServiceHTTPSVirtualHost) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o ServiceHTTPSVirtualHost) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -39,7 +51,7 @@ func (o ServiceHTTPSVirtualHost) ResourceSchemaAttributes() map[string]schema.At
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `virtual_host_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"virtual_host_id": schema.StringAttribute{
 			Required: true,
@@ -88,14 +100,4 @@ func (o ServiceHTTPSVirtualHost) ResourceSchemaAttributes() map[string]schema.At
 		// Nodes
 
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ServiceHTTPSVirtualHost) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceHTTPSVirtualHost) UnmarshalJSON(_ []byte) error {
-	return nil
 }

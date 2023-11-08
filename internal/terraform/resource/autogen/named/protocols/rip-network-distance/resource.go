@@ -27,6 +27,11 @@ type protocolsRIPNetworkDistance struct {
 	model        resourcemodel.ProtocolsRIPNetworkDistance
 }
 
+// GetName returns resource name
+func (r *protocolsRIPNetworkDistance) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsRIPNetworkDistance) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

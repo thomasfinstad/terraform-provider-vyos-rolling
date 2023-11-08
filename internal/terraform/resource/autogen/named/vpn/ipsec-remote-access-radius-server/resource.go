@@ -27,6 +27,11 @@ type vpnIPsecRemoteAccessRadiusServer struct {
 	model        resourcemodel.VpnIPsecRemoteAccessRadiusServer
 }
 
+// GetName returns resource name
+func (r *vpnIPsecRemoteAccessRadiusServer) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vpnIPsecRemoteAccessRadiusServer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

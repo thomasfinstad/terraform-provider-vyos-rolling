@@ -11,6 +11,8 @@ import (
 
 // ServiceDNSForwardingAuthoritativeDomain describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomain struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"authoritative_domain_id" vyos:",self-id"`
 
 	// LeafNodes
@@ -20,6 +22,16 @@ type ServiceDNSForwardingAuthoritativeDomain struct {
 
 	// Nodes
 	NodeServiceDNSForwardingAuthoritativeDomainRecords *ServiceDNSForwardingAuthoritativeDomainRecords `tfsdk:"records" vyos:"records,omitempty"`
+}
+
+// GetID returns the resource ID
+func (o ServiceDNSForwardingAuthoritativeDomain) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o ServiceDNSForwardingAuthoritativeDomain) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -41,7 +53,7 @@ func (o ServiceDNSForwardingAuthoritativeDomain) ResourceSchemaAttributes() map[
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `authoritative_domain_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"authoritative_domain_id": schema.StringAttribute{
 			Required: true,
@@ -78,14 +90,4 @@ func (o ServiceDNSForwardingAuthoritativeDomain) ResourceSchemaAttributes() map[
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ServiceDNSForwardingAuthoritativeDomain) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceDNSForwardingAuthoritativeDomain) UnmarshalJSON(_ []byte) error {
-	return nil
 }

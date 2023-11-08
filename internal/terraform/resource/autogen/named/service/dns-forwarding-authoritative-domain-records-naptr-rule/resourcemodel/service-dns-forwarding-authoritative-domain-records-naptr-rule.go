@@ -11,6 +11,8 @@ import (
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
 	ParentIDServiceDNSForwardingAuthoritativeDomain types.String `tfsdk:"authoritative_domain" vyos:"authoritative-domain,parent-id"`
@@ -31,6 +33,16 @@ type ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes
+}
+
+// GetID returns the resource ID
+func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -60,7 +72,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `rule_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"rule_id": schema.StringAttribute{
 			Required: true,
@@ -196,14 +208,4 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaA
 		// Nodes
 
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) UnmarshalJSON(_ []byte) error {
-	return nil
 }

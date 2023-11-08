@@ -27,6 +27,11 @@ type serviceEventHandlerEvent struct {
 	model        resourcemodel.ServiceEventHandlerEvent
 }
 
+// GetName returns resource name
+func (r *serviceEventHandlerEvent) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceEventHandlerEvent) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

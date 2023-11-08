@@ -27,6 +27,11 @@ type policyLargeCommunityListRule struct {
 	model        resourcemodel.PolicyLargeCommunityListRule
 }
 
+// GetName returns resource name
+func (r *policyLargeCommunityListRule) GetName() string {
+	return r.ResourceName
+}
+
 func (r *policyLargeCommunityListRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

@@ -27,6 +27,11 @@ type interfacesOpenvpnServerClient struct {
 	model        resourcemodel.InterfacesOpenvpnServerClient
 }
 
+// GetName returns resource name
+func (r *interfacesOpenvpnServerClient) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesOpenvpnServerClient) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

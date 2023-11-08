@@ -48,13 +48,3 @@ func (o InterfacesWirelessMirror) ResourceSchemaAttributes() map[string]schema.A
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesWirelessMirror) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWirelessMirror) UnmarshalJSON(_ []byte) error {
-	return nil
-}

@@ -27,6 +27,11 @@ type loadBalancingWanRule struct {
 	model        resourcemodel.LoadBalancingWanRule
 }
 
+// GetName returns resource name
+func (r *loadBalancingWanRule) GetName() string {
+	return r.ResourceName
+}
+
 func (r *loadBalancingWanRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

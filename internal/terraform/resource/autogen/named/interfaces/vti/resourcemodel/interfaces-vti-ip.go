@@ -147,13 +147,3 @@ func (o InterfacesVtiIP) ResourceSchemaAttributes() map[string]schema.Attribute 
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesVtiIP) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesVtiIP) UnmarshalJSON(_ []byte) error {
-	return nil
-}

@@ -48,13 +48,3 @@ func (o QosPolicyShaperClassMatchIPvsixDestination) ResourceSchemaAttributes() m
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *QosPolicyShaperClassMatchIPvsixDestination) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyShaperClassMatchIPvsixDestination) UnmarshalJSON(_ []byte) error {
-	return nil
-}

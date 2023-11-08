@@ -27,6 +27,11 @@ type netnsName struct {
 	model        resourcemodel.NetnsName
 }
 
+// GetName returns resource name
+func (r *netnsName) GetName() string {
+	return r.ResourceName
+}
+
 func (r *netnsName) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

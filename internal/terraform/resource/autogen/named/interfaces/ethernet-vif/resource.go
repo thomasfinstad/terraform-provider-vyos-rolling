@@ -27,6 +27,11 @@ type interfacesEthernetVif struct {
 	model        resourcemodel.InterfacesEthernetVif
 }
 
+// GetName returns resource name
+func (r *interfacesEthernetVif) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesEthernetVif) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

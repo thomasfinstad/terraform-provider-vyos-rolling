@@ -27,6 +27,11 @@ type vrfNameProtocolsBgpNeighborLocalAs struct {
 	model        resourcemodel.VrfNameProtocolsBgpNeighborLocalAs
 }
 
+// GetName returns resource name
+func (r *vrfNameProtocolsBgpNeighborLocalAs) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vrfNameProtocolsBgpNeighborLocalAs) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

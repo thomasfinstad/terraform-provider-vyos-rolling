@@ -27,6 +27,11 @@ type policyRouteMap struct {
 	model        resourcemodel.PolicyRouteMap
 }
 
+// GetName returns resource name
+func (r *policyRouteMap) GetName() string {
+	return r.ResourceName
+}
+
 func (r *policyRouteMap) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

@@ -84,13 +84,3 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes() map[string]
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *VrfNameProtocolsIsisSpfDelayIetf) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsIsisSpfDelayIetf) UnmarshalJSON(_ []byte) error {
-	return nil
-}

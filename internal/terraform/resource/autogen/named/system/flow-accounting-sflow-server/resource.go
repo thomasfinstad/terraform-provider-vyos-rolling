@@ -27,6 +27,11 @@ type systemFlowAccountingSflowServer struct {
 	model        resourcemodel.SystemFlowAccountingSflowServer
 }
 
+// GetName returns resource name
+func (r *systemFlowAccountingSflowServer) GetName() string {
+	return r.ResourceName
+}
+
 func (r *systemFlowAccountingSflowServer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

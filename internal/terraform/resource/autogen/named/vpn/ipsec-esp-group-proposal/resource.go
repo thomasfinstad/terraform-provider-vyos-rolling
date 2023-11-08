@@ -27,6 +27,11 @@ type vpnIPsecEspGroupProposal struct {
 	model        resourcemodel.VpnIPsecEspGroupProposal
 }
 
+// GetName returns resource name
+func (r *vpnIPsecEspGroupProposal) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vpnIPsecEspGroupProposal) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

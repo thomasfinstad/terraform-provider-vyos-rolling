@@ -11,6 +11,8 @@ import (
 
 // VpnIPsecRemoteAccessConnection describes the resource data model.
 type VpnIPsecRemoteAccessConnection struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"connection_id" vyos:",self-id"`
 
 	// LeafNodes
@@ -28,6 +30,16 @@ type VpnIPsecRemoteAccessConnection struct {
 	// Nodes
 	NodeVpnIPsecRemoteAccessConnectionAuthentication *VpnIPsecRemoteAccessConnectionAuthentication `tfsdk:"authentication" vyos:"authentication,omitempty"`
 	NodeVpnIPsecRemoteAccessConnectionLocal          *VpnIPsecRemoteAccessConnectionLocal          `tfsdk:"local" vyos:"local,omitempty"`
+}
+
+// GetID returns the resource ID
+func (o VpnIPsecRemoteAccessConnection) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o VpnIPsecRemoteAccessConnection) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -49,7 +61,7 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes() map[string]sc
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `connection_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"connection_id": schema.StringAttribute{
 			Required: true,
@@ -174,14 +186,4 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes() map[string]sc
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *VpnIPsecRemoteAccessConnection) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnIPsecRemoteAccessConnection) UnmarshalJSON(_ []byte) error {
-	return nil
 }

@@ -27,6 +27,11 @@ type interfacesInput struct {
 	model        resourcemodel.InterfacesInput
 }
 
+// GetName returns resource name
+func (r *interfacesInput) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesInput) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

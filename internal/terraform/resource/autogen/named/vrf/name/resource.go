@@ -27,6 +27,11 @@ type vrfName struct {
 	model        resourcemodel.VrfName
 }
 
+// GetName returns resource name
+func (r *vrfName) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vrfName) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

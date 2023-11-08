@@ -76,13 +76,3 @@ func (o PolicyRoutesixRuleIcmpvsix) ResourceSchemaAttributes() map[string]schema
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *PolicyRoutesixRuleIcmpvsix) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRoutesixRuleIcmpvsix) UnmarshalJSON(_ []byte) error {
-	return nil
-}

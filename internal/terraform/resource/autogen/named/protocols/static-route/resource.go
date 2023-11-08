@@ -27,6 +27,11 @@ type protocolsStaticRoute struct {
 	model        resourcemodel.ProtocolsStaticRoute
 }
 
+// GetName returns resource name
+func (r *protocolsStaticRoute) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsStaticRoute) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

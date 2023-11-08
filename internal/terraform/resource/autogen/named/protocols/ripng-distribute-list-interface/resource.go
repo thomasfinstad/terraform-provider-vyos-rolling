@@ -27,6 +27,11 @@ type protocolsRIPngDistributeListInterface struct {
 	model        resourcemodel.ProtocolsRIPngDistributeListInterface
 }
 
+// GetName returns resource name
+func (r *protocolsRIPngDistributeListInterface) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsRIPngDistributeListInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

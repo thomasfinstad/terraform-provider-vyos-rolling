@@ -27,6 +27,11 @@ type policyAccessList struct {
 	model        resourcemodel.PolicyAccessList
 }
 
+// GetName returns resource name
+func (r *policyAccessList) GetName() string {
+	return r.ResourceName
+}
+
 func (r *policyAccessList) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

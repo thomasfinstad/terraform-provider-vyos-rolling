@@ -27,6 +27,11 @@ type interfacesEthernet struct {
 	model        resourcemodel.InterfacesEthernet
 }
 
+// GetName returns resource name
+func (r *interfacesEthernet) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesEthernet) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

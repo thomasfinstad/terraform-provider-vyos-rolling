@@ -253,13 +253,3 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *VrfNameProtocolsIsis) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsIsis) UnmarshalJSON(_ []byte) error {
-	return nil
-}

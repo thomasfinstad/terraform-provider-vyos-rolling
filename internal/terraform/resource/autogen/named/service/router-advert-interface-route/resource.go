@@ -27,6 +27,11 @@ type serviceRouterAdvertInterfaceRoute struct {
 	model        resourcemodel.ServiceRouterAdvertInterfaceRoute
 }
 
+// GetName returns resource name
+func (r *serviceRouterAdvertInterfaceRoute) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceRouterAdvertInterfaceRoute) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

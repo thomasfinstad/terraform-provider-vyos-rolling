@@ -57,13 +57,3 @@ func (o ProtocolsIsisSegmentRoutingPrefixIndex) ResourceSchemaAttributes() map[s
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ProtocolsIsisSegmentRoutingPrefixIndex) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsIsisSegmentRoutingPrefixIndex) UnmarshalJSON(_ []byte) error {
-	return nil
-}

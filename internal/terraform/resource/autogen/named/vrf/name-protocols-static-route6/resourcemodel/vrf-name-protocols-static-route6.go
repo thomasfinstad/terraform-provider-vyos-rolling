@@ -10,6 +10,8 @@ import (
 
 // VrfNameProtocolsStaticRoutesix describes the resource data model.
 type VrfNameProtocolsStaticRoutesix struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"route6_id" vyos:",self-id"`
 
 	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
@@ -24,6 +26,16 @@ type VrfNameProtocolsStaticRoutesix struct {
 	// Nodes
 	NodeVrfNameProtocolsStaticRoutesixBlackhole *VrfNameProtocolsStaticRoutesixBlackhole `tfsdk:"blackhole" vyos:"blackhole,omitempty"`
 	NodeVrfNameProtocolsStaticRoutesixReject    *VrfNameProtocolsStaticRoutesixReject    `tfsdk:"reject" vyos:"reject,omitempty"`
+}
+
+// GetID returns the resource ID
+func (o VrfNameProtocolsStaticRoutesix) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o VrfNameProtocolsStaticRoutesix) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -48,7 +60,7 @@ func (o VrfNameProtocolsStaticRoutesix) ResourceSchemaAttributes() map[string]sc
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `route6_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"route6_id": schema.StringAttribute{
 			Required: true,
@@ -109,14 +121,4 @@ func (o VrfNameProtocolsStaticRoutesix) ResourceSchemaAttributes() map[string]sc
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *VrfNameProtocolsStaticRoutesix) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsStaticRoutesix) UnmarshalJSON(_ []byte) error {
-	return nil
 }

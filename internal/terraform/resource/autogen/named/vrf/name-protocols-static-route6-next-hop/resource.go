@@ -27,6 +27,11 @@ type vrfNameProtocolsStaticRoutesixNextHop struct {
 	model        resourcemodel.VrfNameProtocolsStaticRoutesixNextHop
 }
 
+// GetName returns resource name
+func (r *vrfNameProtocolsStaticRoutesixNextHop) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vrfNameProtocolsStaticRoutesixNextHop) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

@@ -27,6 +27,11 @@ type protocolsNhrpTunnelShortcutTarget struct {
 	model        resourcemodel.ProtocolsNhrpTunnelShortcutTarget
 }
 
+// GetName returns resource name
+func (r *protocolsNhrpTunnelShortcutTarget) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsNhrpTunnelShortcutTarget) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

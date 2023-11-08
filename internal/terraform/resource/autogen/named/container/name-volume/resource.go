@@ -27,6 +27,11 @@ type containerNameVolume struct {
 	model        resourcemodel.ContainerNameVolume
 }
 
+// GetName returns resource name
+func (r *containerNameVolume) GetName() string {
+	return r.ResourceName
+}
+
 func (r *containerNameVolume) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

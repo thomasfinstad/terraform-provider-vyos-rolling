@@ -81,13 +81,3 @@ func (o ServiceLldpInterfaceLocationCoordinateBased) ResourceSchemaAttributes() 
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ServiceLldpInterfaceLocationCoordinateBased) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceLldpInterfaceLocationCoordinateBased) UnmarshalJSON(_ []byte) error {
-	return nil
-}

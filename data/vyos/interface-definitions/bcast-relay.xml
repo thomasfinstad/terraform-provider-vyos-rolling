@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<interfaceDefinition>
+  <node name="service">
+    <children>
+      <node name="broadcast-relay" owner="${vyos_conf_scripts_dir}/bcast_relay.py">
+        <properties>
+          <help>UDP broadcast relay service</help>
+          <priority>990</priority>
+        </properties>
+        <children>
+          <!-- include start from generic-disable-node.xml.i -->
+          <leafNode name="disable">
+            <properties>
+              <help>Disable instance</help>
+              <valueless/>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <tagNode name="id">
+            <properties>
+              <help>Unique ID for each UDP port to forward</help>
+              <valueHelp>
+                <format>u32:1-99</format>
+                <description>Broadcast relay instance ID</description>
+              </valueHelp>
+              <constraint>
+                <validator name="numeric" argument="--range 1-99"/>
+              </constraint>
+            </properties>
+            <children>
+              <!-- include start from generic-disable-node.xml.i -->
+              <leafNode name="disable">
+                <properties>
+                  <help>Disable instance</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <leafNode name="address">
+                <properties>
+                  <help>Set source IP of forwarded packets, otherwise original senders address is used</help>
+                  <valueHelp>
+                    <format>ipv4</format>
+                    <description>Optional source address for forwarded packets</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="ipv4-address"/>
+                  </constraint>
+                </properties>
+              </leafNode>
+              <leafNode name="description">
+                <properties>
+                  <help>Description</help>
+                </properties>
+              </leafNode>
+              <!-- include start from generic-interface-multi.xml.i -->
+              <leafNode name="interface">
+                <properties>
+                  <help>Interface to use</help>
+                  <completionHelp>
+                    <script>${vyos_completion_dir}/list_interfaces</script>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Interface name</description>
+                  </valueHelp>
+                  <constraint>
+                    <!-- include start from constraint/interface-name.xml.in -->
+                    <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
+                    <validator name="file-path --lookup-path /sys/class/net --directory"/>
+                    <!-- include end -->
+                  </constraint>
+                  <multi/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from port-number.xml.i -->
+              <leafNode name="port">
+                <properties>
+                  <help>Port number used by connection</help>
+                  <valueHelp>
+                    <format>u32:1-65535</format>
+                    <description>Numeric IP port</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="numeric" argument="--range 1-65535"/>
+                  </constraint>
+                  <constraintErrorMessage>Port number must be in range 1 to 65535</constraintErrorMessage>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+            </children>
+          </tagNode>
+        </children>
+      </node>
+    </children>
+  </node>
+</interfaceDefinition>

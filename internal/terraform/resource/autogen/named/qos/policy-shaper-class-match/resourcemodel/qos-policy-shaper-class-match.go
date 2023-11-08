@@ -10,6 +10,8 @@ import (
 
 // QosPolicyShaperClassMatch describes the resource data model.
 type QosPolicyShaperClassMatch struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"match_id" vyos:",self-id"`
 
 	ParentIDQosPolicyShaper types.String `tfsdk:"shaper" vyos:"shaper,parent-id"`
@@ -28,6 +30,16 @@ type QosPolicyShaperClassMatch struct {
 	NodeQosPolicyShaperClassMatchEther  *QosPolicyShaperClassMatchEther  `tfsdk:"ether" vyos:"ether,omitempty"`
 	NodeQosPolicyShaperClassMatchIP     *QosPolicyShaperClassMatchIP     `tfsdk:"ip" vyos:"ip,omitempty"`
 	NodeQosPolicyShaperClassMatchIPvsix *QosPolicyShaperClassMatchIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+}
+
+// GetID returns the resource ID
+func (o QosPolicyShaperClassMatch) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o QosPolicyShaperClassMatch) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -53,7 +65,7 @@ func (o QosPolicyShaperClassMatch) ResourceSchemaAttributes() map[string]schema.
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `match_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"match_id": schema.StringAttribute{
 			Required: true,
@@ -165,14 +177,4 @@ func (o QosPolicyShaperClassMatch) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *QosPolicyShaperClassMatch) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyShaperClassMatch) UnmarshalJSON(_ []byte) error {
-	return nil
 }

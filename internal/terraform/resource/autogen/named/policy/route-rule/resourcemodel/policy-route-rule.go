@@ -11,6 +11,8 @@ import (
 
 // PolicyRouteRule describes the resource data model.
 type PolicyRouteRule struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
 	ParentIDPolicyRoute types.String `tfsdk:"route" vyos:"route,parent-id"`
@@ -45,6 +47,16 @@ type PolicyRouteRule struct {
 	NodePolicyRouteRuleTTL         *PolicyRouteRuleTTL         `tfsdk:"ttl" vyos:"ttl,omitempty"`
 }
 
+// GetID returns the resource ID
+func (o PolicyRouteRule) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o PolicyRouteRule) SetID(id types.String) {
+	o.ID = id
+}
+
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *PolicyRouteRule) GetVyosPath() []string {
 	return []string{
@@ -63,7 +75,7 @@ func (o PolicyRouteRule) ResourceSchemaAttributes() map[string]schema.Attribute 
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `rule_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"rule_id": schema.StringAttribute{
 			Required: true,
@@ -330,14 +342,4 @@ func (o PolicyRouteRule) ResourceSchemaAttributes() map[string]schema.Attribute 
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *PolicyRouteRule) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteRule) UnmarshalJSON(_ []byte) error {
-	return nil
 }

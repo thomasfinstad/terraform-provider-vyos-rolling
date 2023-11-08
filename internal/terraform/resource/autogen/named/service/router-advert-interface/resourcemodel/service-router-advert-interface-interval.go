@@ -51,13 +51,3 @@ func (o ServiceRouterAdvertInterfaceInterval) ResourceSchemaAttributes() map[str
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ServiceRouterAdvertInterfaceInterval) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceRouterAdvertInterfaceInterval) UnmarshalJSON(_ []byte) error {
-	return nil
-}

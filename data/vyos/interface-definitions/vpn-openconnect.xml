@@ -1,0 +1,572 @@
+<?xml version="1.0"?>
+<interfaceDefinition>
+  <node name="vpn">
+    <children>
+      <node name="openconnect" owner="${vyos_conf_scripts_dir}/vpn_openconnect.py">
+        <properties>
+          <help>SSL VPN OpenConnect, AnyConnect compatible server</help>
+          <priority>901</priority>
+        </properties>
+        <children>
+          <node name="accounting">
+            <properties>
+              <help>Accounting for users OpenConnect VPN Sessions</help>
+            </properties>
+            <children>
+              <node name="mode">
+                <properties>
+                  <help>Accounting mode used by this server</help>
+                </properties>
+                <children>
+                  <leafNode name="radius">
+                    <properties>
+                      <help>Use RADIUS server for accounting</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                </children>
+              </node>
+              <!-- include start from radius-acct-server-ipv4.xml.i -->
+              <node name="radius">
+                <properties>
+                  <help>RADIUS accounting for users OpenConnect VPN sessions OpenConnect authentication mode radius</help>
+                </properties>
+                <children>
+                  <tagNode name="server">
+                    <properties>
+                      <help>RADIUS server configuration</help>
+                      <valueHelp>
+                        <format>ipv4</format>
+                        <description>RADIUS server IPv4 address</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="ipv4-address"/>
+                      </constraint>
+                    </properties>
+                    <children>
+                      <!-- include start from generic-disable-node.xml.i -->
+                      <leafNode name="disable">
+                        <properties>
+                          <help>Disable instance</help>
+                          <valueless/>
+                        </properties>
+                      </leafNode>
+                      <!-- include end -->
+                      <!-- include start from radius-server-key.xml.i -->
+                      <leafNode name="key">
+                        <properties>
+                          <help>Shared secret key</help>
+                        </properties>
+                      </leafNode>
+                      <!-- include end -->
+                      <!-- include start from radius-server-acct-port.xml.i -->
+                      <leafNode name="port">
+                        <properties>
+                          <help>Accounting port</help>
+                          <valueHelp>
+                            <format>u32:1-65535</format>
+                            <description>Numeric IP port</description>
+                          </valueHelp>
+                          <constraint>
+                            <validator name="numeric" argument="--range 1-65535"/>
+                          </constraint>
+                        </properties>
+                        <defaultValue>1813</defaultValue>
+                      </leafNode>
+                      <!-- include end -->
+                    </children>
+                  </tagNode>
+                </children>
+              </node>
+              <!-- include end -->
+            </children>
+          </node>
+          <node name="authentication">
+            <properties>
+              <help>Authentication for remote access SSL VPN Server</help>
+            </properties>
+            <children>
+              <node name="mode">
+                <properties>
+                  <help>Authentication mode used by this server</help>
+                </properties>
+                <children>
+                  <leafNode name="local">
+                    <properties>
+                      <help>Use local username/password configuration (OTP supported)</help>
+                      <valueHelp>
+                        <format>password</format>
+                        <description>Password-only local authentication</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>otp</format>
+                        <description>OTP-only local authentication</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>password-otp</format>
+                        <description>Password (first) + OTP local authentication</description>
+                      </valueHelp>
+                      <constraint>
+                        <regex>(password|otp|password-otp)</regex>
+                      </constraint>
+                      <constraintErrorMessage>Invalid authentication mode. Must be one of: password, otp or password-otp </constraintErrorMessage>
+                      <completionHelp>
+                        <list>otp password password-otp</list>
+                      </completionHelp>
+                    </properties>
+                  </leafNode>
+                  <leafNode name="radius">
+                    <properties>
+                      <help>Use RADIUS server for user autentication</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                </children>
+              </node>
+              <leafNode name="group">
+                <properties>
+                  <help>Group that a client is allowed to select (from a list). Maps to RADIUS Class attribute.</help>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Group string. The group may be followed by a user-friendly name in brackets: group1[First Group]</description>
+                  </valueHelp>
+                  <multi/>
+                </properties>
+              </leafNode>
+              <!-- include start from auth-local-users.xml.i -->
+              <node name="local-users">
+                <properties>
+                  <help>Local user authentication</help>
+                </properties>
+                <children>
+                  <tagNode name="username">
+                    <properties>
+                      <help>Username used for authentication</help>
+                      <valueHelp>
+                        <format>txt</format>
+                        <description>Username used for authentication</description>
+                      </valueHelp>
+                    </properties>
+                    <children>
+                      <!-- include start from generic-disable-node.xml.i -->
+                      <leafNode name="disable">
+                        <properties>
+                          <help>Disable instance</help>
+                          <valueless/>
+                        </properties>
+                      </leafNode>
+                      <!-- include end -->
+                      <leafNode name="password">
+                        <properties>
+                          <help>Password used for authentication</help>
+                        </properties>
+                      </leafNode>
+                    </children>
+                  </tagNode>
+                </children>
+              </node>
+              <!-- include end -->
+              <node name="local-users">
+                <children>
+                  <tagNode name="username">
+                    <children>
+                      <node name="otp">
+                        <properties>
+                          <help>2FA OTP authentication parameters</help>
+                        </properties>
+                        <children>
+                          <leafNode name="key">
+                            <properties>
+                              <help>Token Key Secret key for the token algorithm (see RFC 4226)</help>
+                              <valueHelp>
+                                <format>txt</format>
+                                <description>OTP key in hex-encoded format</description>
+                              </valueHelp>
+                              <constraint>
+                                <regex>[a-fA-F0-9]{20,10000}</regex>
+                              </constraint>
+                              <constraintErrorMessage>Key name must only include hex characters and be at least 20 characters long</constraintErrorMessage>
+                            </properties>
+                          </leafNode>
+                          <leafNode name="otp-length">
+                            <properties>
+                              <help>Number of digits in OTP code</help>
+                              <valueHelp>
+                                <format>u32:6-8</format>
+                                <description>Number of digits in OTP code</description>
+                              </valueHelp>
+                              <constraint>
+                                <validator name="numeric" argument="--range 6-8"/>
+                              </constraint>
+                              <constraintErrorMessage>Number of digits in OTP code must be between 6 and 8</constraintErrorMessage>
+                            </properties>
+                            <defaultValue>6</defaultValue>
+                          </leafNode>
+                          <leafNode name="interval">
+                            <properties>
+                              <help>Time tokens interval in seconds</help>
+                              <valueHelp>
+                                <format>u32:5-86400</format>
+                                <description>Time tokens interval in seconds.</description>
+                              </valueHelp>
+                              <constraint>
+                                <validator name="numeric" argument="--range 5-86400"/>
+                              </constraint>
+                              <constraintErrorMessage>Time token interval must be between 5 and 86400 seconds</constraintErrorMessage>
+                            </properties>
+                            <defaultValue>30</defaultValue>
+                          </leafNode>
+                          <leafNode name="token-type">
+                            <properties>
+                              <help>Token type</help>
+                              <valueHelp>
+                                <format>hotp-time</format>
+                                <description>Time-based OTP algorithm</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>hotp-event</format>
+                                <description>Event-based OTP algorithm</description>
+                              </valueHelp>
+                              <constraint>
+                                <regex>(hotp-time|hotp-event)</regex>
+                              </constraint>
+                              <completionHelp>
+                                <list>hotp-time hotp-event</list>
+                              </completionHelp>
+                            </properties>
+                            <defaultValue>hotp-time</defaultValue>
+                          </leafNode>
+                        </children>
+                      </node>
+                    </children>
+                  </tagNode>
+                </children>
+              </node>
+              <!-- include start from radius-auth-server-ipv4.xml.i -->
+              <node name="radius">
+                <properties>
+                  <help>RADIUS based user authentication</help>
+                </properties>
+                <children>
+                  <!-- include start from source-address-ipv4.xml.i -->
+                  <leafNode name="source-address">
+                    <properties>
+                      <help>IPv4 source address used to initiate connection</help>
+                      <completionHelp>
+                        <script>${vyos_completion_dir}/list_local_ips.sh --ipv4</script>
+                      </completionHelp>
+                      <valueHelp>
+                        <format>ipv4</format>
+                        <description>IPv4 source address</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="ipv4-address"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <tagNode name="server">
+                    <properties>
+                      <help>RADIUS server configuration</help>
+                      <valueHelp>
+                        <format>ipv4</format>
+                        <description>RADIUS server IPv4 address</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="ipv4-address"/>
+                      </constraint>
+                    </properties>
+                    <children>
+                      <!-- include start from generic-disable-node.xml.i -->
+                      <leafNode name="disable">
+                        <properties>
+                          <help>Disable instance</help>
+                          <valueless/>
+                        </properties>
+                      </leafNode>
+                      <!-- include end -->
+                      <!-- include start from radius-server-key.xml.i -->
+                      <leafNode name="key">
+                        <properties>
+                          <help>Shared secret key</help>
+                        </properties>
+                      </leafNode>
+                      <!-- include end -->
+                      <!-- include start from radius-server-auth-port.xml.i -->
+                      <leafNode name="port">
+                        <properties>
+                          <help>Authentication port</help>
+                          <valueHelp>
+                            <format>u32:1-65535</format>
+                            <description>Numeric IP port</description>
+                          </valueHelp>
+                          <constraint>
+                            <validator name="numeric" argument="--range 1-65535"/>
+                          </constraint>
+                        </properties>
+                        <defaultValue>1812</defaultValue>
+                      </leafNode>
+                      <!-- include end -->
+                    </children>
+                  </tagNode>
+                </children>
+              </node>
+              <!-- include end -->
+              <node name="radius">
+                <children>
+                  <!-- include start from radius-timeout.xml.i -->
+                  <leafNode name="timeout">
+                    <properties>
+                      <help>Session timeout</help>
+                      <valueHelp>
+                        <format>u32:1-240</format>
+                        <description>Session timeout in seconds (default: 2)</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-240"/>
+                      </constraint>
+                      <constraintErrorMessage>Timeout must be between 1 and 240 seconds</constraintErrorMessage>
+                    </properties>
+                    <defaultValue>2</defaultValue>
+                  </leafNode>
+                  <!-- include end -->
+                  <leafNode name="groupconfig">
+                    <properties>
+                      <help>If the groupconfig option is set, then config-per-user will be overriden, and all configuration will be read from RADIUS.</help>
+                    </properties>
+                  </leafNode>
+                </children>
+              </node>
+            </children>
+          </node>
+          <!-- include start from listen-address-ipv4-single.xml.i -->
+          <leafNode name="listen-address">
+            <properties>
+              <help>Local IPv4 addresses to listen on</help>
+              <completionHelp>
+                <script>${vyos_completion_dir}/list_local_ips.sh --ipv4</script>
+              </completionHelp>
+              <valueHelp>
+                <format>ipv4</format>
+                <description>IPv4 address to listen for incoming connections</description>
+              </valueHelp>
+              <constraint>
+                <validator name="ipv4-address"/>
+              </constraint>
+            </properties>
+            <defaultValue>0.0.0.0</defaultValue>
+          </leafNode>
+          <!-- include end -->
+          <node name="listen-ports">
+            <properties>
+              <help>Specify custom ports to use for client connections</help>
+            </properties>
+            <children>
+              <leafNode name="tcp">
+                <properties>
+                  <help>tcp port number to accept connections</help>
+                  <valueHelp>
+                    <format>u32:1-65535</format>
+                    <description>Numeric IP port</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="numeric" argument="--range 1-65535"/>
+                  </constraint>
+                </properties>
+                <defaultValue>443</defaultValue>
+              </leafNode>
+              <leafNode name="udp">
+                <properties>
+                  <help>udp port number to accept connections</help>
+                  <valueHelp>
+                    <format>u32:1-65535</format>
+                    <description>Numeric IP port</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="numeric" argument="--range 1-65535"/>
+                  </constraint>
+                </properties>
+                <defaultValue>443</defaultValue>
+              </leafNode>
+            </children>
+          </node>
+          <node name="ssl">
+            <properties>
+              <help>SSL Certificate, SSL Key and CA</help>
+            </properties>
+            <children>
+              <!-- include start from pki/ca-certificate.xml.i -->
+              <leafNode name="ca-certificate">
+                <properties>
+                  <help>Certificate Authority in PKI configuration</help>
+                  <completionHelp>
+                    <path>pki ca</path>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Name of CA in PKI configuration</description>
+                  </valueHelp>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from pki/certificate-key.xml.i -->
+              <!-- include start from pki/certificate.xml.i -->
+              <leafNode name="certificate">
+                <properties>
+                  <help>Certificate in PKI configuration</help>
+                  <completionHelp>
+                    <path>pki certificate</path>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Name of certificate in PKI configuration</description>
+                  </valueHelp>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <leafNode name="passphrase">
+                <properties>
+                  <help>Private key passphrase</help>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Passphrase to decrypt the private key</description>
+                  </valueHelp>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+            </children>
+          </node>
+          <node name="network-settings">
+            <properties>
+              <help>Network settings</help>
+            </properties>
+            <children>
+              <leafNode name="push-route">
+                <properties>
+                  <help>Route to be pushed to the client</help>
+                  <valueHelp>
+                    <format>ipv4net</format>
+                    <description>IPv4 network and prefix length</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipv6net</format>
+                    <description>IPv6 network and prefix length</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="ip-prefix"/>
+                  </constraint>
+                  <multi/>
+                </properties>
+              </leafNode>
+              <node name="client-ip-settings">
+                <properties>
+                  <help>Client IP pools settings</help>
+                </properties>
+                <children>
+                  <leafNode name="subnet">
+                    <properties>
+                      <help>Client IP subnet (CIDR notation)</help>
+                      <valueHelp>
+                        <format>ipv4net</format>
+                        <description>IPv4 address and prefix length</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="ipv4-prefix"/>
+                      </constraint>
+                      <constraintErrorMessage>Not a valid CIDR formatted prefix</constraintErrorMessage>
+                    </properties>
+                  </leafNode>
+                </children>
+              </node>
+              <node name="client-ipv6-pool">
+                <properties>
+                  <help>Pool of client IPv6 addresses</help>
+                </properties>
+                <children>
+                  <leafNode name="prefix">
+                    <properties>
+                      <help>Pool of addresses used to assign to clients</help>
+                      <valueHelp>
+                        <format>ipv6net</format>
+                        <description>IPv6 address and prefix length</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="ipv6-prefix"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <leafNode name="mask">
+                    <properties>
+                      <help>Prefix length used for individual client</help>
+                      <valueHelp>
+                        <format>u32:48-128</format>
+                        <description>Client prefix length</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 48-128"/>
+                      </constraint>
+                    </properties>
+                    <defaultValue>64</defaultValue>
+                  </leafNode>
+                </children>
+              </node>
+              <!-- include start from name-server-ipv4-ipv6.xml.i -->
+              <leafNode name="name-server">
+                <properties>
+                  <help>Domain Name Servers (DNS) addresses</help>
+                  <valueHelp>
+                    <format>ipv4</format>
+                    <description>Domain Name Server (DNS) IPv4 address</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipv6</format>
+                    <description>Domain Name Server (DNS) IPv6 address</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="ipv4-address"/>
+                    <validator name="ipv6-address"/>
+                  </constraint>
+                  <multi/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <leafNode name="split-dns">
+                <properties>
+                  <help>Domains over which the provided DNS should be used</help>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Client prefix length</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="fqdn"/>
+                  </constraint>
+                  <multi/>
+                </properties>
+              </leafNode>
+              <leafNode name="tunnel-all-dns">
+                <properties>
+                  <help>If the tunnel-all-dns option is set to yes, tunnel all DNS queries via the VPN. This is the default when a default route is set.</help>
+                  <completionHelp>
+                    <list>yes no</list>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>yes</format>
+                    <description>Enable tunneling of all DNS traffic</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>no</format>
+                    <description>Disable tunneling of all DNS traffic</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>(yes|no)</regex>
+                  </constraint>
+                </properties>
+                <defaultValue>no</defaultValue>
+              </leafNode>
+            </children>
+          </node>
+        </children>
+      </node>
+    </children>
+  </node>
+</interfaceDefinition>

@@ -27,6 +27,11 @@ type servicePppoeServerAuthenticationLocalUsersUsername struct {
 	model        resourcemodel.ServicePppoeServerAuthenticationLocalUsersUsername
 }
 
+// GetName returns resource name
+func (r *servicePppoeServerAuthenticationLocalUsersUsername) GetName() string {
+	return r.ResourceName
+}
+
 func (r *servicePppoeServerAuthenticationLocalUsersUsername) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

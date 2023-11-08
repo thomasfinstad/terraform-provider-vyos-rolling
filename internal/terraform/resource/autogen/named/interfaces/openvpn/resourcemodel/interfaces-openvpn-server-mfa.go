@@ -31,13 +31,3 @@ func (o InterfacesOpenvpnServerMfa) ResourceSchemaAttributes() map[string]schema
 		},
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesOpenvpnServerMfa) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesOpenvpnServerMfa) UnmarshalJSON(_ []byte) error {
-	return nil
-}

@@ -10,6 +10,8 @@ import (
 
 // QosPolicyShaperHfsc describes the resource data model.
 type QosPolicyShaperHfsc struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"shaper_hfsc_id" vyos:",self-id"`
 
 	// LeafNodes
@@ -21,6 +23,16 @@ type QosPolicyShaperHfsc struct {
 
 	// Nodes
 	NodeQosPolicyShaperHfscDefault *QosPolicyShaperHfscDefault `tfsdk:"default" vyos:"default,omitempty"`
+}
+
+// GetID returns the resource ID
+func (o QosPolicyShaperHfsc) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o QosPolicyShaperHfsc) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -40,7 +52,7 @@ func (o QosPolicyShaperHfsc) ResourceSchemaAttributes() map[string]schema.Attrib
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `shaper_hfsc_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"shaper_hfsc_id": schema.StringAttribute{
 			Required: true,
@@ -100,14 +112,4 @@ func (o QosPolicyShaperHfsc) ResourceSchemaAttributes() map[string]schema.Attrib
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *QosPolicyShaperHfsc) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyShaperHfsc) UnmarshalJSON(_ []byte) error {
-	return nil
 }

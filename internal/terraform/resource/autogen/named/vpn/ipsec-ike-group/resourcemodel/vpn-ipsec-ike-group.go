@@ -11,6 +11,8 @@ import (
 
 // VpnIPsecIkeGroup describes the resource data model.
 type VpnIPsecIkeGroup struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"ike_group_id" vyos:",self-id"`
 
 	// LeafNodes
@@ -26,6 +28,16 @@ type VpnIPsecIkeGroup struct {
 
 	// Nodes
 	NodeVpnIPsecIkeGroupDeadPeerDetection *VpnIPsecIkeGroupDeadPeerDetection `tfsdk:"dead_peer_detection" vyos:"dead-peer-detection,omitempty"`
+}
+
+// GetID returns the resource ID
+func (o VpnIPsecIkeGroup) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o VpnIPsecIkeGroup) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -45,7 +57,7 @@ func (o VpnIPsecIkeGroup) ResourceSchemaAttributes() map[string]schema.Attribute
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `ike_group_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"ike_group_id": schema.StringAttribute{
 			Required: true,
@@ -144,14 +156,4 @@ func (o VpnIPsecIkeGroup) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *VpnIPsecIkeGroup) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnIPsecIkeGroup) UnmarshalJSON(_ []byte) error {
-	return nil
 }

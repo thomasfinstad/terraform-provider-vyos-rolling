@@ -36,13 +36,3 @@ func (o InterfacesSstpcSsl) ResourceSchemaAttributes() map[string]schema.Attribu
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesSstpcSsl) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesSstpcSsl) UnmarshalJSON(_ []byte) error {
-	return nil
-}

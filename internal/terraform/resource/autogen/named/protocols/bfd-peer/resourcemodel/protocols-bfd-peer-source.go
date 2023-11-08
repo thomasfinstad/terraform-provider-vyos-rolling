@@ -49,13 +49,3 @@ func (o ProtocolsBfdPeerSource) ResourceSchemaAttributes() map[string]schema.Att
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ProtocolsBfdPeerSource) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBfdPeerSource) UnmarshalJSON(_ []byte) error {
-	return nil
-}

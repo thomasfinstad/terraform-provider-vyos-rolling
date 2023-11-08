@@ -27,6 +27,11 @@ type serviceDNSDynamicInterfaceService struct {
 	model        resourcemodel.ServiceDNSDynamicInterfaceService
 }
 
+// GetName returns resource name
+func (r *serviceDNSDynamicInterfaceService) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceDNSDynamicInterfaceService) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

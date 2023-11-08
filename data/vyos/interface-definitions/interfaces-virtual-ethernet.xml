@@ -1,0 +1,278 @@
+<?xml version="1.0"?>
+<interfaceDefinition>
+  <node name="interfaces">
+    <children>
+      <tagNode name="virtual-ethernet" owner="${vyos_conf_scripts_dir}/interfaces-virtual-ethernet.py">
+        <properties>
+          <help>Virtual Ethernet (veth) Interface</help>
+          <priority>300</priority>
+          <constraint>
+            <regex>veth[0-9]+</regex>
+          </constraint>
+          <constraintErrorMessage>Virutal Ethernet interface must be named vethN</constraintErrorMessage>
+          <valueHelp>
+            <format>vethN</format>
+            <description>Virtual Ethernet interface name</description>
+          </valueHelp>
+        </properties>
+        <children>
+          <!-- include start from interface/address-ipv4-ipv6-dhcp.xml.i -->
+          <leafNode name="address">
+            <properties>
+              <help>IP address</help>
+              <completionHelp>
+                <list>dhcp dhcpv6</list>
+              </completionHelp>
+              <valueHelp>
+                <format>ipv4net</format>
+                <description>IPv4 address and prefix length</description>
+              </valueHelp>
+              <valueHelp>
+                <format>ipv6net</format>
+                <description>IPv6 address and prefix length</description>
+              </valueHelp>
+              <valueHelp>
+                <format>dhcp</format>
+                <description>Dynamic Host Configuration Protocol</description>
+              </valueHelp>
+              <valueHelp>
+                <format>dhcpv6</format>
+                <description>Dynamic Host Configuration Protocol for IPv6</description>
+              </valueHelp>
+              <constraint>
+                <validator name="ip-host"/>
+                <regex>(dhcp|dhcpv6)</regex>
+              </constraint>
+              <multi/>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from generic-description.xml.i -->
+          <leafNode name="description">
+            <properties>
+              <help>Description</help>
+              <valueHelp>
+                <format>txt</format>
+                <description>Description</description>
+              </valueHelp>
+              <constraint>
+                <regex>[[:ascii:]]{0,256}</regex>
+              </constraint>
+              <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/dhcp-options.xml.i -->
+          <node name="dhcp-options">
+            <properties>
+              <help>DHCP client settings/options</help>
+            </properties>
+            <children>
+              <leafNode name="client-id">
+                <properties>
+                  <help>Identifier used by client to identify itself to the DHCP server</help>
+                </properties>
+              </leafNode>
+              <leafNode name="host-name">
+                <properties>
+                  <help>Override system host-name sent to DHCP server</help>
+                </properties>
+              </leafNode>
+              <leafNode name="mtu">
+                <properties>
+                  <help>Use MTU value from DHCP server - ignore interface setting</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <leafNode name="vendor-class-id">
+                <properties>
+                  <help>Identify the vendor client type to the DHCP server</help>
+                </properties>
+              </leafNode>
+              <!-- include start from interface/dhcp-options.xml.i -->
+              <leafNode name="no-default-route">
+                <properties>
+                  <help>Do not install default route to system</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from interface/default-route-distance.xml.i -->
+              <leafNode name="default-route-distance">
+                <properties>
+                  <help>Distance for installed default route</help>
+                  <valueHelp>
+                    <format>u32:1-255</format>
+                    <description>Distance for the default route from DHCP server</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="numeric" argument="--range 1-255"/>
+                  </constraint>
+                </properties>
+                <defaultValue>210</defaultValue>
+              </leafNode>
+              <!-- include end -->
+              <leafNode name="reject">
+                <properties>
+                  <help>IP addresses or subnets from which to reject DHCP leases</help>
+                  <valueHelp>
+                    <format>ipv4</format>
+                    <description>IPv4 address to match</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipv4net</format>
+                    <description>IPv4 prefix to match</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="ipv4-address"/>
+                    <validator name="ipv4-prefix"/>
+                  </constraint>
+                  <multi/>
+                </properties>
+              </leafNode>
+            </children>
+          </node>
+          <!-- include end -->
+          <!-- include start from interface/dhcpv6-options.xml.i -->
+          <node name="dhcpv6-options">
+            <properties>
+              <help>DHCPv6 client settings/options</help>
+            </properties>
+            <children>
+              <leafNode name="duid">
+                <properties>
+                  <help>DHCP unique identifier (DUID) to be sent by dhcpv6 client</help>
+                  <valueHelp>
+                    <format>duid</format>
+                    <description>DHCP unique identifier (DUID)</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="ipv6-duid"/>
+                  </constraint>
+                </properties>
+              </leafNode>
+              <leafNode name="parameters-only">
+                <properties>
+                  <help>Acquire only config parameters, no address</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <tagNode name="pd">
+                <properties>
+                  <help>DHCPv6 prefix delegation interface statement</help>
+                  <valueHelp>
+                    <format>instance number</format>
+                    <description>Prefix delegation instance (&gt;= 0)</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="numeric" argument="--non-negative"/>
+                  </constraint>
+                </properties>
+                <children>
+                  <leafNode name="length">
+                    <properties>
+                      <help>Request IPv6 prefix length from peer</help>
+                      <valueHelp>
+                        <format>u32:32-64</format>
+                        <description>Length of delegated prefix</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 32-64"/>
+                      </constraint>
+                    </properties>
+                    <defaultValue>64</defaultValue>
+                  </leafNode>
+                  <tagNode name="interface">
+                    <properties>
+                      <help>Delegate IPv6 prefix from provider to this interface</help>
+                      <completionHelp>
+                        <script>${vyos_completion_dir}/list_interfaces --broadcast</script>
+                      </completionHelp>
+                    </properties>
+                    <children>
+                      <leafNode name="address">
+                        <properties>
+                          <help>Local interface address assigned to interface (default: EUI-64)</help>
+                          <valueHelp>
+                            <format>&gt;0</format>
+                            <description>Used to form IPv6 interface address</description>
+                          </valueHelp>
+                          <constraint>
+                            <validator name="numeric" argument="--non-negative"/>
+                          </constraint>
+                        </properties>
+                      </leafNode>
+                      <leafNode name="sla-id">
+                        <properties>
+                          <help>Interface site-Level aggregator (SLA)</help>
+                          <valueHelp>
+                            <format>u32:0-65535</format>
+                            <description>Decimal integer which fits in the length of SLA IDs</description>
+                          </valueHelp>
+                          <constraint>
+                            <validator name="numeric" argument="--range 0-65535"/>
+                          </constraint>
+                        </properties>
+                      </leafNode>
+                    </children>
+                  </tagNode>
+                </children>
+              </tagNode>
+              <leafNode name="rapid-commit">
+                <properties>
+                  <help>Wait for immediate reply instead of advertisements</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <leafNode name="temporary">
+                <properties>
+                  <help>IPv6 temporary address</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+            </children>
+          </node>
+          <!-- include end -->
+          <!-- include start from interface/disable.xml.i -->
+          <leafNode name="disable">
+            <properties>
+              <help>Administratively disable interface</help>
+              <valueless/>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/vrf.xml.i -->
+          <leafNode name="vrf">
+            <properties>
+              <help>VRF instance name</help>
+              <valueHelp>
+                <format>txt</format>
+                <description>VRF instance name</description>
+              </valueHelp>
+              <completionHelp>
+                <path>vrf name</path>
+              </completionHelp>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <leafNode name="peer-name">
+            <properties>
+              <help>Virtual ethernet peer interface name</help>
+              <completionHelp>
+                <path>interfaces virtual-ethernet</path>
+              </completionHelp>
+              <valueHelp>
+                <format>txt</format>
+                <description>Name of peer interface</description>
+              </valueHelp>
+              <constraint>
+                <regex>veth[0-9]+</regex>
+              </constraint>
+              <constraintErrorMessage>Virutal Ethernet interface must be named vethN</constraintErrorMessage>
+            </properties>
+          </leafNode>
+        </children>
+      </tagNode>
+    </children>
+  </node>
+</interfaceDefinition>

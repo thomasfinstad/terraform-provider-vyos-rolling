@@ -1,0 +1,513 @@
+<?xml version="1.0"?>
+<interfaceDefinition>
+  <node name="interfaces">
+    <children>
+      <tagNode name="pppoe" owner="${vyos_conf_scripts_dir}/interfaces-pppoe.py">
+        <properties>
+          <help>Point-to-Point Protocol over Ethernet (PPPoE) Interface</help>
+          <priority>322</priority>
+          <constraint>
+            <regex>pppoe[0-9]+</regex>
+          </constraint>
+          <constraintErrorMessage>PPPoE interface must be named pppoeN</constraintErrorMessage>
+          <valueHelp>
+            <format>pppoeN</format>
+            <description>PPPoE dialer interface name</description>
+          </valueHelp>
+        </properties>
+        <children>
+          <!-- include start from pppoe-access-concentrator.xml.i -->
+          <leafNode name="access-concentrator">
+            <properties>
+              <help>Access concentrator name</help>
+              <constraint>
+                <regex>[a-zA-Z0-9]{1,100}</regex>
+              </constraint>
+              <constraintErrorMessage>Access-concentrator name must be alphanumerical only (max. 100 characters)</constraintErrorMessage>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/authentication.xml.i -->
+          <node name="authentication">
+            <properties>
+              <help>Authentication settings</help>
+            </properties>
+            <children>
+              <!-- include start from generic-username.xml.i -->
+              <leafNode name="username">
+                <properties>
+                  <help>Username used for authentication</help>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Username</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>[[:ascii:]]{1,128}</regex>
+                  </constraint>
+                  <constraintErrorMessage>Username is limited to ASCII characters only, with a total length of 128</constraintErrorMessage>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from generic-password.xml.i -->
+              <leafNode name="password">
+                <properties>
+                  <help>Password used for authentication</help>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Password</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>[[:ascii:]]{1,128}</regex>
+                  </constraint>
+                  <constraintErrorMessage>Password is limited to ASCII characters only, with a total length of 128</constraintErrorMessage>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+            </children>
+          </node>
+          <!-- include end -->
+          <!-- include start from interface/dial-on-demand.xml.i -->
+          <leafNode name="connect-on-demand">
+            <properties>
+              <help>Establishment connection automatically when traffic is sent</help>
+              <valueless/>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/dhcp-options.xml.i -->
+          <leafNode name="no-default-route">
+            <properties>
+              <help>Do not install default route to system</help>
+              <valueless/>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/default-route-distance.xml.i -->
+          <leafNode name="default-route-distance">
+            <properties>
+              <help>Distance for installed default route</help>
+              <valueHelp>
+                <format>u32:1-255</format>
+                <description>Distance for the default route from DHCP server</description>
+              </valueHelp>
+              <constraint>
+                <validator name="numeric" argument="--range 1-255"/>
+              </constraint>
+            </properties>
+            <defaultValue>210</defaultValue>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/dhcpv6-options.xml.i -->
+          <node name="dhcpv6-options">
+            <properties>
+              <help>DHCPv6 client settings/options</help>
+            </properties>
+            <children>
+              <leafNode name="duid">
+                <properties>
+                  <help>DHCP unique identifier (DUID) to be sent by dhcpv6 client</help>
+                  <valueHelp>
+                    <format>duid</format>
+                    <description>DHCP unique identifier (DUID)</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="ipv6-duid"/>
+                  </constraint>
+                </properties>
+              </leafNode>
+              <leafNode name="parameters-only">
+                <properties>
+                  <help>Acquire only config parameters, no address</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <tagNode name="pd">
+                <properties>
+                  <help>DHCPv6 prefix delegation interface statement</help>
+                  <valueHelp>
+                    <format>instance number</format>
+                    <description>Prefix delegation instance (&gt;= 0)</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="numeric" argument="--non-negative"/>
+                  </constraint>
+                </properties>
+                <children>
+                  <leafNode name="length">
+                    <properties>
+                      <help>Request IPv6 prefix length from peer</help>
+                      <valueHelp>
+                        <format>u32:32-64</format>
+                        <description>Length of delegated prefix</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 32-64"/>
+                      </constraint>
+                    </properties>
+                    <defaultValue>64</defaultValue>
+                  </leafNode>
+                  <tagNode name="interface">
+                    <properties>
+                      <help>Delegate IPv6 prefix from provider to this interface</help>
+                      <completionHelp>
+                        <script>${vyos_completion_dir}/list_interfaces --broadcast</script>
+                      </completionHelp>
+                    </properties>
+                    <children>
+                      <leafNode name="address">
+                        <properties>
+                          <help>Local interface address assigned to interface (default: EUI-64)</help>
+                          <valueHelp>
+                            <format>&gt;0</format>
+                            <description>Used to form IPv6 interface address</description>
+                          </valueHelp>
+                          <constraint>
+                            <validator name="numeric" argument="--non-negative"/>
+                          </constraint>
+                        </properties>
+                      </leafNode>
+                      <leafNode name="sla-id">
+                        <properties>
+                          <help>Interface site-Level aggregator (SLA)</help>
+                          <valueHelp>
+                            <format>u32:0-65535</format>
+                            <description>Decimal integer which fits in the length of SLA IDs</description>
+                          </valueHelp>
+                          <constraint>
+                            <validator name="numeric" argument="--range 0-65535"/>
+                          </constraint>
+                        </properties>
+                      </leafNode>
+                    </children>
+                  </tagNode>
+                </children>
+              </tagNode>
+              <leafNode name="rapid-commit">
+                <properties>
+                  <help>Wait for immediate reply instead of advertisements</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <leafNode name="temporary">
+                <properties>
+                  <help>IPv6 temporary address</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+            </children>
+          </node>
+          <!-- include end -->
+          <!-- include start from generic-description.xml.i -->
+          <leafNode name="description">
+            <properties>
+              <help>Description</help>
+              <valueHelp>
+                <format>txt</format>
+                <description>Description</description>
+              </valueHelp>
+              <constraint>
+                <regex>[[:ascii:]]{0,256}</regex>
+              </constraint>
+              <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/disable.xml.i -->
+          <leafNode name="disable">
+            <properties>
+              <help>Administratively disable interface</help>
+              <valueless/>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <leafNode name="idle-timeout">
+            <properties>
+              <help>Delay before disconnecting idle session (in seconds)</help>
+              <valueHelp>
+                <format>u32:0-86400</format>
+                <description>Idle timeout in seconds</description>
+              </valueHelp>
+              <constraint>
+                <validator name="numeric" argument="--range 0-86400"/>
+              </constraint>
+              <constraintErrorMessage>Timeout must be in range 0 to 86400</constraintErrorMessage>
+            </properties>
+          </leafNode>
+          <leafNode name="host-uniq">
+            <properties>
+              <help>PPPoE RFC2516 host-uniq tag</help>
+              <valueHelp>
+                <format>txt</format>
+                <description>Host-uniq tag as byte string in HEX</description>
+              </valueHelp>
+              <constraint>
+                <regex>([a-fA-F0-9][a-fA-F0-9]){1,18}</regex>
+              </constraint>
+              <constraintErrorMessage>Host-uniq must be specified as hex-adecimal byte-string (even number of HEX characters)</constraintErrorMessage>
+            </properties>
+          </leafNode>
+          <node name="ip">
+            <properties>
+              <help>IPv4 routing parameters</help>
+            </properties>
+            <children>
+              <!-- include start from interface/adjust-mss.xml.i -->
+              <!-- https://datatracker.ietf.org/doc/html/rfc6691 -->
+              <leafNode name="adjust-mss">
+                <properties>
+                  <help>Adjust TCP MSS value</help>
+                  <completionHelp>
+                    <list>clamp-mss-to-pmtu</list>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>clamp-mss-to-pmtu</format>
+                    <description>Automatically sets the MSS to the proper value</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>u32:536-65535</format>
+                    <description>TCP Maximum segment size in bytes</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="numeric" argument="--range 536-65535"/>
+                    <regex>(clamp-mss-to-pmtu)</regex>
+                  </constraint>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from interface/disable-forwarding.xml.i -->
+              <leafNode name="disable-forwarding">
+                <properties>
+                  <help>Disable IP forwarding on this interface</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from interface/source-validation.xml.i -->
+              <leafNode name="source-validation">
+                <properties>
+                  <help>Source validation by reversed path (RFC3704)</help>
+                  <completionHelp>
+                    <list>strict loose disable</list>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>strict</format>
+                    <description>Enable Strict Reverse Path Forwarding as defined in RFC3704</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>loose</format>
+                    <description>Enable Loose Reverse Path Forwarding as defined in RFC3704</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>disable</format>
+                    <description>No source validation</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>(strict|loose|disable)</regex>
+                  </constraint>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+            </children>
+          </node>
+          <node name="ipv6">
+            <properties>
+              <help>IPv6 routing parameters</help>
+            </properties>
+            <children>
+              <node name="address">
+                <properties>
+                  <help>IPv6 address configuration modes</help>
+                </properties>
+                <children>
+                  <!-- include start from interface/ipv6-address-autoconf.xml.i -->
+                  <leafNode name="autoconf">
+                    <properties>
+                      <help>Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                </children>
+              </node>
+              <!-- include start from interface/adjust-mss.xml.i -->
+              <!-- https://datatracker.ietf.org/doc/html/rfc6691 -->
+              <leafNode name="adjust-mss">
+                <properties>
+                  <help>Adjust TCP MSS value</help>
+                  <completionHelp>
+                    <list>clamp-mss-to-pmtu</list>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>clamp-mss-to-pmtu</format>
+                    <description>Automatically sets the MSS to the proper value</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>u32:536-65535</format>
+                    <description>TCP Maximum segment size in bytes</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="numeric" argument="--range 536-65535"/>
+                    <regex>(clamp-mss-to-pmtu)</regex>
+                  </constraint>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from interface/disable-forwarding.xml.i -->
+              <leafNode name="disable-forwarding">
+                <properties>
+                  <help>Disable IP forwarding on this interface</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+            </children>
+          </node>
+          <!-- include start from source-interface.xml.i -->
+          <leafNode name="source-interface">
+            <properties>
+              <help>Interface used to establish connection</help>
+              <valueHelp>
+                <format>interface</format>
+                <description>Interface name</description>
+              </valueHelp>
+              <completionHelp>
+                <script>${vyos_completion_dir}/list_interfaces</script>
+              </completionHelp>
+              <constraint>
+                <!-- include start from constraint/interface-name.xml.in -->
+                <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
+                <validator name="file-path --lookup-path /sys/class/net --directory"/>
+                <!-- include end -->
+              </constraint>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <leafNode name="local-address">
+            <properties>
+              <help>IPv4 address of local end of the PPPoE link</help>
+              <valueHelp>
+                <format>ipv4</format>
+                <description>Address of local end of the PPPoE link</description>
+              </valueHelp>
+              <constraint>
+                <validator name="ipv4-address"/>
+              </constraint>
+            </properties>
+          </leafNode>
+          <!-- include start from interface/mirror.xml.i -->
+          <node name="mirror">
+            <properties>
+              <help>Mirror ingress/egress packets</help>
+            </properties>
+            <children>
+              <leafNode name="ingress">
+                <properties>
+                  <help>Mirror ingress traffic to destination interface</help>
+                  <completionHelp>
+                    <script>${vyos_completion_dir}/list_interfaces</script>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Destination interface name</description>
+                  </valueHelp>
+                </properties>
+              </leafNode>
+              <leafNode name="egress">
+                <properties>
+                  <help>Mirror egress traffic to destination interface</help>
+                  <completionHelp>
+                    <script>${vyos_completion_dir}/list_interfaces</script>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Destination interface name</description>
+                  </valueHelp>
+                </properties>
+              </leafNode>
+            </children>
+          </node>
+          <!-- include end -->
+          <!-- include start from interface/mtu-68-1500.xml.i -->
+          <leafNode name="mtu">
+            <properties>
+              <help>Maximum Transmission Unit (MTU)</help>
+              <valueHelp>
+                <format>u32:68-1500</format>
+                <description>Maximum Transmission Unit in byte</description>
+              </valueHelp>
+              <constraint>
+                <validator name="numeric" argument="--range 68-1500"/>
+              </constraint>
+              <constraintErrorMessage>MTU must be between 68 and 1500</constraintErrorMessage>
+            </properties>
+            <defaultValue>1492</defaultValue>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/no-peer-dns.xml.i -->
+          <leafNode name="no-peer-dns">
+            <properties>
+              <help>Do not use DNS servers provided by the peer</help>
+              <valueless/>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <leafNode name="remote-address">
+            <properties>
+              <help>IPv4 address of remote end of the PPPoE link</help>
+              <valueHelp>
+                <format>ipv4</format>
+                <description>Address of remote end of the PPPoE link</description>
+              </valueHelp>
+              <constraint>
+                <validator name="ipv4-address"/>
+              </constraint>
+            </properties>
+          </leafNode>
+          <leafNode name="service-name">
+            <properties>
+              <help>Service name, only connect to access concentrators advertising this</help>
+              <constraint>
+                <regex>[a-zA-Z0-9]+</regex>
+              </constraint>
+              <constraintErrorMessage>Service name must be alphanumeric only</constraintErrorMessage>
+            </properties>
+          </leafNode>
+          <!-- include start from interface/redirect.xml.i -->
+          <leafNode name="redirect">
+            <properties>
+              <help>Redirect incoming packet to destination</help>
+              <completionHelp>
+                <script>${vyos_completion_dir}/list_interfaces</script>
+              </completionHelp>
+              <valueHelp>
+                <format>txt</format>
+                <description>Destination interface name</description>
+              </valueHelp>
+              <constraint>
+                <!-- include start from constraint/interface-name.xml.in -->
+                <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
+                <validator name="file-path --lookup-path /sys/class/net --directory"/>
+                <!-- include end -->
+              </constraint>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/vrf.xml.i -->
+          <leafNode name="vrf">
+            <properties>
+              <help>VRF instance name</help>
+              <valueHelp>
+                <format>txt</format>
+                <description>VRF instance name</description>
+              </valueHelp>
+              <completionHelp>
+                <path>vrf name</path>
+              </completionHelp>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+        </children>
+      </tagNode>
+    </children>
+  </node>
+</interfaceDefinition>

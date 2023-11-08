@@ -11,6 +11,8 @@ import (
 
 // ProtocolsBfdPeer describes the resource data model.
 type ProtocolsBfdPeer struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"peer_id" vyos:",self-id"`
 
 	// LeafNodes
@@ -26,6 +28,16 @@ type ProtocolsBfdPeer struct {
 	// Nodes
 	NodeProtocolsBfdPeerSource   *ProtocolsBfdPeerSource   `tfsdk:"source" vyos:"source,omitempty"`
 	NodeProtocolsBfdPeerInterval *ProtocolsBfdPeerInterval `tfsdk:"interval" vyos:"interval,omitempty"`
+}
+
+// GetID returns the resource ID
+func (o ProtocolsBfdPeer) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o ProtocolsBfdPeer) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -45,7 +57,7 @@ func (o ProtocolsBfdPeer) ResourceSchemaAttributes() map[string]schema.Attribute
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `peer_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"peer_id": schema.StringAttribute{
 			Required: true,
@@ -140,14 +152,4 @@ func (o ProtocolsBfdPeer) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ProtocolsBfdPeer) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBfdPeer) UnmarshalJSON(_ []byte) error {
-	return nil
 }

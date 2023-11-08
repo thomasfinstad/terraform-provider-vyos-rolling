@@ -27,6 +27,11 @@ type qosPolicyRateControl struct {
 	model        resourcemodel.QosPolicyRateControl
 }
 
+// GetName returns resource name
+func (r *qosPolicyRateControl) GetName() string {
+	return r.ResourceName
+}
+
 func (r *qosPolicyRateControl) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

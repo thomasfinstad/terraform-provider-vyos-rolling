@@ -10,6 +10,8 @@ import (
 
 // QosPolicyLimiterClassMatch describes the resource data model.
 type QosPolicyLimiterClassMatch struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"match_id" vyos:",self-id"`
 
 	ParentIDQosPolicyLimiter types.String `tfsdk:"limiter" vyos:"limiter,parent-id"`
@@ -28,6 +30,16 @@ type QosPolicyLimiterClassMatch struct {
 	NodeQosPolicyLimiterClassMatchEther  *QosPolicyLimiterClassMatchEther  `tfsdk:"ether" vyos:"ether,omitempty"`
 	NodeQosPolicyLimiterClassMatchIP     *QosPolicyLimiterClassMatchIP     `tfsdk:"ip" vyos:"ip,omitempty"`
 	NodeQosPolicyLimiterClassMatchIPvsix *QosPolicyLimiterClassMatchIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
+}
+
+// GetID returns the resource ID
+func (o QosPolicyLimiterClassMatch) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o QosPolicyLimiterClassMatch) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -53,7 +65,7 @@ func (o QosPolicyLimiterClassMatch) ResourceSchemaAttributes() map[string]schema
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `match_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"match_id": schema.StringAttribute{
 			Required: true,
@@ -165,14 +177,4 @@ func (o QosPolicyLimiterClassMatch) ResourceSchemaAttributes() map[string]schema
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *QosPolicyLimiterClassMatch) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyLimiterClassMatch) UnmarshalJSON(_ []byte) error {
-	return nil
 }

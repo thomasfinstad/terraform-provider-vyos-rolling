@@ -27,6 +27,11 @@ type interfacesSstpc struct {
 	model        resourcemodel.InterfacesSstpc
 }
 
+// GetName returns resource name
+func (r *interfacesSstpc) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesSstpc) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

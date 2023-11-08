@@ -35,13 +35,3 @@ func (o ProtocolsBgpPeerGroupLocalAsNoPrepend) ResourceSchemaAttributes() map[st
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ProtocolsBgpPeerGroupLocalAsNoPrepend) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpPeerGroupLocalAsNoPrepend) UnmarshalJSON(_ []byte) error {
-	return nil
-}

@@ -32,13 +32,3 @@ func (o HighAvailabilityVirtualServerRealServerHealthCheck) ResourceSchemaAttrib
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *HighAvailabilityVirtualServerRealServerHealthCheck) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *HighAvailabilityVirtualServerRealServerHealthCheck) UnmarshalJSON(_ []byte) error {
-	return nil
-}

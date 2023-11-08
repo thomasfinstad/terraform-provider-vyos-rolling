@@ -27,6 +27,11 @@ type qosPolicyNetworkEmulator struct {
 	model        resourcemodel.QosPolicyNetworkEmulator
 }
 
+// GetName returns resource name
+func (r *qosPolicyNetworkEmulator) GetName() string {
+	return r.ResourceName
+}
+
 func (r *qosPolicyNetworkEmulator) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

@@ -47,13 +47,3 @@ func (o PolicyRouteMapRuleMatchIPRouteSource) ResourceSchemaAttributes() map[str
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *PolicyRouteMapRuleMatchIPRouteSource) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteMapRuleMatchIPRouteSource) UnmarshalJSON(_ []byte) error {
-	return nil
-}

@@ -10,6 +10,8 @@ import (
 
 // VrfNameProtocolsBgpPeerGroupLocalAs describes the resource data model.
 type VrfNameProtocolsBgpPeerGroupLocalAs struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.Number `tfsdk:"local_as_id" vyos:",self-id"`
 
 	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
@@ -22,6 +24,16 @@ type VrfNameProtocolsBgpPeerGroupLocalAs struct {
 
 	// Nodes
 	NodeVrfNameProtocolsBgpPeerGroupLocalAsNoPrepend *VrfNameProtocolsBgpPeerGroupLocalAsNoPrepend `tfsdk:"no_prepend" vyos:"no-prepend,omitempty"`
+}
+
+// GetID returns the resource ID
+func (o VrfNameProtocolsBgpPeerGroupLocalAs) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o VrfNameProtocolsBgpPeerGroupLocalAs) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -49,7 +61,7 @@ func (o VrfNameProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[stri
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `local_as_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"local_as_id": schema.StringAttribute{
 			Required: true,
@@ -101,14 +113,4 @@ func (o VrfNameProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[stri
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *VrfNameProtocolsBgpPeerGroupLocalAs) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpPeerGroupLocalAs) UnmarshalJSON(_ []byte) error {
-	return nil
 }

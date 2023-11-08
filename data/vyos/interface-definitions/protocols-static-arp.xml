@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<interfaceDefinition>
+  <node name="protocols">
+    <children>
+      <node name="static">
+        <children>
+          <node name="arp" owner="${vyos_conf_scripts_dir}/arp.py">
+            <properties>
+              <help>Static ARP translation</help>
+            </properties>
+            <children>
+              <tagNode name="interface">
+                <properties>
+                  <help>Interface configuration</help>
+                  <completionHelp>
+                    <script>${vyos_completion_dir}/list_interfaces</script>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Interface name</description>
+                  </valueHelp>
+                  <constraint>
+                    <!-- include start from constraint/interface-name.xml.in -->
+                    <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
+                    <validator name="file-path --lookup-path /sys/class/net --directory"/>
+                    <!-- include end -->
+                  </constraint>
+                </properties>
+                <children>
+                  <tagNode name="address">
+                    <properties>
+                      <help>IP address for static ARP entry</help>
+                      <valueHelp>
+                        <format>ipv4</format>
+                        <description>IPv4 destination address</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="ipv4-address"/>
+                      </constraint>
+                    </properties>
+                    <children>
+                      <!-- include start from generic-description.xml.i -->
+                      <leafNode name="description">
+                        <properties>
+                          <help>Description</help>
+                          <valueHelp>
+                            <format>txt</format>
+                            <description>Description</description>
+                          </valueHelp>
+                          <constraint>
+                            <regex>[[:ascii:]]{0,256}</regex>
+                          </constraint>
+                          <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                        </properties>
+                      </leafNode>
+                      <!-- include end -->
+                      <!-- include start from interface/mac.xml.i -->
+                      <leafNode name="mac">
+                        <properties>
+                          <help>Media Access Control (MAC) address</help>
+                          <valueHelp>
+                            <format>macaddr</format>
+                            <description>Hardware (MAC) address</description>
+                          </valueHelp>
+                          <constraint>
+                            <validator name="mac-address"/>
+                          </constraint>
+                        </properties>
+                      </leafNode>
+                      <!-- include end -->
+                    </children>
+                  </tagNode>
+                </children>
+              </tagNode>
+            </children>
+          </node>
+        </children>
+      </node>
+    </children>
+  </node>
+</interfaceDefinition>

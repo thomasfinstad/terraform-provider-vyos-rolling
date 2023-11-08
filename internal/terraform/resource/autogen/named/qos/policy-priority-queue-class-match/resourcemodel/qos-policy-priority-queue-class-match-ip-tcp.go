@@ -45,13 +45,3 @@ func (o QosPolicyPriorityQueueClassMatchIPTCP) ResourceSchemaAttributes() map[st
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *QosPolicyPriorityQueueClassMatchIPTCP) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyPriorityQueueClassMatchIPTCP) UnmarshalJSON(_ []byte) error {
-	return nil
-}

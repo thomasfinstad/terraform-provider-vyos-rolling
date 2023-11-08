@@ -57,13 +57,3 @@ func (o VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute) ResourceSchemaAttribut
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute) UnmarshalJSON(_ []byte) error {
-	return nil
-}

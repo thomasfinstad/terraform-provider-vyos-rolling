@@ -27,6 +27,11 @@ type natStaticRule struct {
 	model        resourcemodel.NatStaticRule
 }
 
+// GetName returns resource name
+func (r *natStaticRule) GetName() string {
+	return r.ResourceName
+}
+
 func (r *natStaticRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

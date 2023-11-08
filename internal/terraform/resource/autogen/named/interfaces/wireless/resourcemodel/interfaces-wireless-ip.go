@@ -147,13 +147,3 @@ func (o InterfacesWirelessIP) ResourceSchemaAttributes() map[string]schema.Attri
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesWirelessIP) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWirelessIP) UnmarshalJSON(_ []byte) error {
-	return nil
-}

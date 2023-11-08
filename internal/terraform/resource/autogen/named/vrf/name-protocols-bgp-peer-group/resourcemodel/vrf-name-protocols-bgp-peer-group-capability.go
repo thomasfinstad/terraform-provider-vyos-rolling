@@ -45,13 +45,3 @@ func (o VrfNameProtocolsBgpPeerGroupCapability) ResourceSchemaAttributes() map[s
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *VrfNameProtocolsBgpPeerGroupCapability) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpPeerGroupCapability) UnmarshalJSON(_ []byte) error {
-	return nil
-}

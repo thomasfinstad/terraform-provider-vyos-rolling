@@ -27,6 +27,11 @@ type vpnSstpAuthenticationRadiusServer struct {
 	model        resourcemodel.VpnSstpAuthenticationRadiusServer
 }
 
+// GetName returns resource name
+func (r *vpnSstpAuthenticationRadiusServer) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vpnSstpAuthenticationRadiusServer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

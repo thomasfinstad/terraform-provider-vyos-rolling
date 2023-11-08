@@ -27,6 +27,11 @@ type serviceUpnpRule struct {
 	model        resourcemodel.ServiceUpnpRule
 }
 
+// GetName returns resource name
+func (r *serviceUpnpRule) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceUpnpRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

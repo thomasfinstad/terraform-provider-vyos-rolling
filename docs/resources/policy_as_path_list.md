@@ -51,4 +51,4 @@ Add a BGP autonomous system path filter
 
 ### Read-Only
 
-- `id` (String) Resource ID, an amalgamation of the `as_path_list_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).

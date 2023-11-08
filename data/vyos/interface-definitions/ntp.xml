@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<interfaceDefinition>
+  <node name="service">
+    <children>
+      <node name="ntp" owner="${vyos_conf_scripts_dir}/ntp.py">
+        <properties>
+          <help>Network Time Protocol (NTP) configuration</help>
+          <priority>900</priority>
+        </properties>
+        <children>
+          <tagNode name="server">
+            <properties>
+              <help>Network Time Protocol (NTP) server</help>
+              <valueHelp>
+                <format>ipv4</format>
+                <description>IP address of NTP server</description>
+              </valueHelp>
+              <valueHelp>
+                <format>ipv6</format>
+                <description>IPv6 address of NTP server</description>
+              </valueHelp>
+              <valueHelp>
+                <format>hostname</format>
+                <description>Fully qualified domain name of NTP server</description>
+              </valueHelp>
+              <constraint>
+                <validator name="ipv4-address"/>
+                <validator name="ipv6-address"/>
+                <validator name="fqdn"/>
+              </constraint>
+            </properties>
+            <children>
+              <leafNode name="noselect">
+                <properties>
+                  <help>Marks the server as unused</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <leafNode name="pool">
+                <properties>
+                  <help>Associate with a number of remote servers</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <leafNode name="prefer">
+                <properties>
+                  <help>Marks the server as preferred</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+            </children>
+          </tagNode>
+          <node name="allow-client">
+            <properties>
+              <help>Specify NTP clients allowed to access the server</help>
+            </properties>
+            <children>
+              <leafNode name="address">
+                <properties>
+                  <help>IP address</help>
+                  <valueHelp>
+                    <format>ipv4</format>
+                    <description>Allowed IPv4 address</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipv4net</format>
+                    <description>Allowed IPv4 prefix</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipv6</format>
+                    <description>Allowed IPv6 address</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipv6net</format>
+                    <description>Allowed IPv6 prefix</description>
+                  </valueHelp>
+                  <multi/>
+                  <constraint>
+                    <validator name="ip-address"/>
+                    <validator name="ip-prefix"/>
+                  </constraint>
+                </properties>
+              </leafNode>
+            </children>
+          </node>
+          <!-- include start from generic-interface-multi.xml.i -->
+          <leafNode name="interface">
+            <properties>
+              <help>Interface to use</help>
+              <completionHelp>
+                <script>${vyos_completion_dir}/list_interfaces</script>
+              </completionHelp>
+              <valueHelp>
+                <format>txt</format>
+                <description>Interface name</description>
+              </valueHelp>
+              <constraint>
+                <!-- include start from constraint/interface-name.xml.in -->
+                <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
+                <validator name="file-path --lookup-path /sys/class/net --directory"/>
+                <!-- include end -->
+              </constraint>
+              <multi/>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from listen-address.xml.i -->
+          <leafNode name="listen-address">
+            <properties>
+              <help>Local IP addresses to listen on</help>
+              <completionHelp>
+                <script>${vyos_completion_dir}/list_local_ips.sh --both</script>
+              </completionHelp>
+              <valueHelp>
+                <format>ipv4</format>
+                <description>IPv4 address to listen for incoming connections</description>
+              </valueHelp>
+              <valueHelp>
+                <format>ipv6</format>
+                <description>IPv6 address to listen for incoming connections</description>
+              </valueHelp>
+              <multi/>
+              <constraint>
+                <validator name="ipv4-address"/>
+                <validator name="ipv6-address"/>
+                <validator name="ipv6-link-local"/>
+              </constraint>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/vrf.xml.i -->
+          <leafNode name="vrf">
+            <properties>
+              <help>VRF instance name</help>
+              <valueHelp>
+                <format>txt</format>
+                <description>VRF instance name</description>
+              </valueHelp>
+              <completionHelp>
+                <path>vrf name</path>
+              </completionHelp>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+        </children>
+      </node>
+    </children>
+  </node>
+</interfaceDefinition>

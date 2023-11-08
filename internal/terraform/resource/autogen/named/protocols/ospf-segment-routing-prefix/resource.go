@@ -27,6 +27,11 @@ type protocolsOspfSegmentRoutingPrefix struct {
 	model        resourcemodel.ProtocolsOspfSegmentRoutingPrefix
 }
 
+// GetName returns resource name
+func (r *protocolsOspfSegmentRoutingPrefix) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsOspfSegmentRoutingPrefix) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

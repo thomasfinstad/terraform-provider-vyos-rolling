@@ -27,6 +27,11 @@ type protocolsRIPInterfaceAuthenticationMdfive struct {
 	model        resourcemodel.ProtocolsRIPInterfaceAuthenticationMdfive
 }
 
+// GetName returns resource name
+func (r *protocolsRIPInterfaceAuthenticationMdfive) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsRIPInterfaceAuthenticationMdfive) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

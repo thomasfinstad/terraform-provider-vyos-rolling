@@ -27,6 +27,11 @@ type pkiKeyPair struct {
 	model        resourcemodel.PkiKeyPair
 }
 
+// GetName returns resource name
+func (r *pkiKeyPair) GetName() string {
+	return r.ResourceName
+}
+
 func (r *pkiKeyPair) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

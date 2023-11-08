@@ -27,6 +27,11 @@ type interfacesBonding struct {
 	model        resourcemodel.InterfacesBonding
 }
 
+// GetName returns resource name
+func (r *interfacesBonding) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesBonding) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

@@ -27,6 +27,11 @@ type vrfNameProtocolsOspfSegmentRoutingPrefix struct {
 	model        resourcemodel.VrfNameProtocolsOspfSegmentRoutingPrefix
 }
 
+// GetName returns resource name
+func (r *vrfNameProtocolsOspfSegmentRoutingPrefix) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vrfNameProtocolsOspfSegmentRoutingPrefix) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

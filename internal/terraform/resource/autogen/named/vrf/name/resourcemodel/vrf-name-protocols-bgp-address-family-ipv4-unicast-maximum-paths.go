@@ -48,13 +48,3 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths) ResourceSche
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths) UnmarshalJSON(_ []byte) error {
-	return nil
-}

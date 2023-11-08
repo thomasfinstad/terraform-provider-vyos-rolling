@@ -27,6 +27,11 @@ type serviceIPoeServerAuthenticationRadiusServer struct {
 	model        resourcemodel.ServiceIPoeServerAuthenticationRadiusServer
 }
 
+// GetName returns resource name
+func (r *serviceIPoeServerAuthenticationRadiusServer) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceIPoeServerAuthenticationRadiusServer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

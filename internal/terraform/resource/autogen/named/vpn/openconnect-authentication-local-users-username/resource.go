@@ -27,6 +27,11 @@ type vpnOpenconnectAuthenticationLocalUsersUsername struct {
 	model        resourcemodel.VpnOpenconnectAuthenticationLocalUsersUsername
 }
 
+// GetName returns resource name
+func (r *vpnOpenconnectAuthenticationLocalUsersUsername) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vpnOpenconnectAuthenticationLocalUsersUsername) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

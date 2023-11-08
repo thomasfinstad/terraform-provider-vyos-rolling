@@ -10,6 +10,8 @@ import (
 
 // PolicyAccessListsix describes the resource data model.
 type PolicyAccessListsix struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"access_list6_id" vyos:",self-id"`
 
 	// LeafNodes
@@ -19,6 +21,16 @@ type PolicyAccessListsix struct {
 	ExistsTagPolicyAccessListsixRule bool `tfsdk:"rule" vyos:"rule,child"`
 
 	// Nodes
+}
+
+// GetID returns the resource ID
+func (o PolicyAccessListsix) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o PolicyAccessListsix) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -36,7 +48,7 @@ func (o PolicyAccessListsix) ResourceSchemaAttributes() map[string]schema.Attrib
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `access_list6_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"access_list6_id": schema.StringAttribute{
 			Required: true,
@@ -68,14 +80,4 @@ func (o PolicyAccessListsix) ResourceSchemaAttributes() map[string]schema.Attrib
 		// Nodes
 
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *PolicyAccessListsix) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyAccessListsix) UnmarshalJSON(_ []byte) error {
-	return nil
 }

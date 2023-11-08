@@ -27,6 +27,11 @@ type firewallZoneFrom struct {
 	model        resourcemodel.FirewallZoneFrom
 }
 
+// GetName returns resource name
+func (r *firewallZoneFrom) GetName() string {
+	return r.ResourceName
+}
+
 func (r *firewallZoneFrom) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

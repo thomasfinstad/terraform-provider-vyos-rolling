@@ -27,6 +27,11 @@ type protocolsStaticArpInterface struct {
 	model        resourcemodel.ProtocolsStaticArpInterface
 }
 
+// GetName returns resource name
+func (r *protocolsStaticArpInterface) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsStaticArpInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

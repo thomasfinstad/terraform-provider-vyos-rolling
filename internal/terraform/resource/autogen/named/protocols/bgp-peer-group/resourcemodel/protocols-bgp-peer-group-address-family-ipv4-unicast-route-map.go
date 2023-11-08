@@ -48,13 +48,3 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastRouteMap) ResourceSchema
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastRouteMap) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastRouteMap) UnmarshalJSON(_ []byte) error {
-	return nil
-}

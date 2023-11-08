@@ -27,6 +27,11 @@ type interfacesWirelessVifSDhcpvsixOptionsPdInterface struct {
 	model        resourcemodel.InterfacesWirelessVifSDhcpvsixOptionsPdInterface
 }
 
+// GetName returns resource name
+func (r *interfacesWirelessVifSDhcpvsixOptionsPdInterface) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesWirelessVifSDhcpvsixOptionsPdInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

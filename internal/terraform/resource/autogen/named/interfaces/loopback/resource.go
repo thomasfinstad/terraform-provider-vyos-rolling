@@ -27,6 +27,11 @@ type interfacesLoopback struct {
 	model        resourcemodel.InterfacesLoopback
 }
 
+// GetName returns resource name
+func (r *interfacesLoopback) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesLoopback) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

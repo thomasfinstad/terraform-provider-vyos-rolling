@@ -27,6 +27,11 @@ type interfacesPseudoEthernetVifSVifCDhcpvsixOptionsPdInterface struct {
 	model        resourcemodel.InterfacesPseudoEthernetVifSVifCDhcpvsixOptionsPdInterface
 }
 
+// GetName returns resource name
+func (r *interfacesPseudoEthernetVifSVifCDhcpvsixOptionsPdInterface) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesPseudoEthernetVifSVifCDhcpvsixOptionsPdInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

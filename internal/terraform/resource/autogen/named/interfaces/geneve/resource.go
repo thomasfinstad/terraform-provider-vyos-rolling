@@ -27,6 +27,11 @@ type interfacesGeneve struct {
 	model        resourcemodel.InterfacesGeneve
 }
 
+// GetName returns resource name
+func (r *interfacesGeneve) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesGeneve) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

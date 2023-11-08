@@ -27,6 +27,11 @@ type serviceBroadcastRelayID struct {
 	model        resourcemodel.ServiceBroadcastRelayID
 }
 
+// GetName returns resource name
+func (r *serviceBroadcastRelayID) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceBroadcastRelayID) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

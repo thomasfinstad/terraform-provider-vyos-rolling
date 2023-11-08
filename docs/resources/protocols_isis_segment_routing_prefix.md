@@ -69,7 +69,7 @@ Static IPv4/IPv6 prefix segment/label mapping
 
 ### Read-Only
 
-- `id` (String) Resource ID, an amalgamation of the `prefix_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
 
 <a id="nestedatt--absolute"></a>
 ### Nested Schema for `absolute`

@@ -10,6 +10,8 @@ import (
 
 // ServiceSnmpVthreeTrapTarget describes the resource data model.
 type ServiceSnmpVthreeTrapTarget struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"trap_target_id" vyos:",self-id"`
 
 	// LeafNodes
@@ -23,6 +25,16 @@ type ServiceSnmpVthreeTrapTarget struct {
 	// Nodes
 	NodeServiceSnmpVthreeTrapTargetAuth    *ServiceSnmpVthreeTrapTargetAuth    `tfsdk:"auth" vyos:"auth,omitempty"`
 	NodeServiceSnmpVthreeTrapTargetPrivacy *ServiceSnmpVthreeTrapTargetPrivacy `tfsdk:"privacy" vyos:"privacy,omitempty"`
+}
+
+// GetID returns the resource ID
+func (o ServiceSnmpVthreeTrapTarget) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o ServiceSnmpVthreeTrapTarget) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -44,7 +56,7 @@ func (o ServiceSnmpVthreeTrapTarget) ResourceSchemaAttributes() map[string]schem
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `trap_target_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"trap_target_id": schema.StringAttribute{
 			Required: true,
@@ -132,14 +144,4 @@ func (o ServiceSnmpVthreeTrapTarget) ResourceSchemaAttributes() map[string]schem
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ServiceSnmpVthreeTrapTarget) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceSnmpVthreeTrapTarget) UnmarshalJSON(_ []byte) error {
-	return nil
 }

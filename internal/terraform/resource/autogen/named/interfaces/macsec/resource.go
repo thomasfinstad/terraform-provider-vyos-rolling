@@ -27,6 +27,11 @@ type interfacesMacsec struct {
 	model        resourcemodel.InterfacesMacsec
 }
 
+// GetName returns resource name
+func (r *interfacesMacsec) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesMacsec) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

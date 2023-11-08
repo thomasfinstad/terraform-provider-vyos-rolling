@@ -27,6 +27,11 @@ type interfacesTunnel struct {
 	model        resourcemodel.InterfacesTunnel
 }
 
+// GetName returns resource name
+func (r *interfacesTunnel) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesTunnel) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

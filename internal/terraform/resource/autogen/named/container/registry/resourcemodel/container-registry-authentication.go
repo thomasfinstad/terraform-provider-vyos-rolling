@@ -48,13 +48,3 @@ func (o ContainerRegistryAuthentication) ResourceSchemaAttributes() map[string]s
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ContainerRegistryAuthentication) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ContainerRegistryAuthentication) UnmarshalJSON(_ []byte) error {
-	return nil
-}

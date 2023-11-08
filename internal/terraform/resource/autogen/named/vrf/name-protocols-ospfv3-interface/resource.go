@@ -27,6 +27,11 @@ type vrfNameProtocolsOspfvthreeInterface struct {
 	model        resourcemodel.VrfNameProtocolsOspfvthreeInterface
 }
 
+// GetName returns resource name
+func (r *vrfNameProtocolsOspfvthreeInterface) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vrfNameProtocolsOspfvthreeInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

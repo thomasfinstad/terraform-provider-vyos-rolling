@@ -10,6 +10,8 @@ import (
 
 // FirewallZoneFrom describes the resource data model.
 type FirewallZoneFrom struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"from_id" vyos:",self-id"`
 
 	ParentIDFirewallZone types.String `tfsdk:"zone" vyos:"zone,parent-id"`
@@ -20,6 +22,16 @@ type FirewallZoneFrom struct {
 
 	// Nodes
 	NodeFirewallZoneFromFirewall *FirewallZoneFromFirewall `tfsdk:"firewall" vyos:"firewall,omitempty"`
+}
+
+// GetID returns the resource ID
+func (o FirewallZoneFrom) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o FirewallZoneFrom) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -40,7 +52,7 @@ func (o FirewallZoneFrom) ResourceSchemaAttributes() map[string]schema.Attribute
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `from_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"from_id": schema.StringAttribute{
 			Required: true,
@@ -78,14 +90,4 @@ func (o FirewallZoneFrom) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *FirewallZoneFrom) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallZoneFrom) UnmarshalJSON(_ []byte) error {
-	return nil
 }

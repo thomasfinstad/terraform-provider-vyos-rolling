@@ -13,43 +13,53 @@ help:
 ###
 # VyOS ISO Upload timestamp
 
-# Fetch and format newest ISO modification timestamp
-data/vyos/rolling-iso-time.txt:
-	curl -s --location --head \
-		"https://s3-us.vyos.io/rolling/current/vyos-rolling-latest.iso" \
-		> ".build/vyos/iso-headers.txt"
+# Fetch and format newest successful rolling ISO build time
+data/vyos/rolling-iso-build.txt:
+	curl -L \
+		-H "Accept: application/vnd.github+json" \
+		-H "X-GitHub-Api-Version: 2022-11-28" \
+		--url "https://api.github.com/repos/vyos/vyos-rolling-nightly-builds/actions/runs?status=success&per_page=10" \
+			| jq -r '[.workflow_runs[] | select(.name | "VyOS rolling nightly build")].[0].run_started_at' \
+				> "data/vyos/rolling-iso-build.txt"
 
-	mkdir -p data/vyos
-	date \
-		-d "$(shell sed -n '/last-modified:/s/last-modified: //p' ".build/vyos/iso-headers.txt")" \
-		-Iseconds \
-		> "data/vyos/rolling-iso-time.txt"
+.PHONY: clean-rolling-iso-build
+clean-rolling-iso-build:
+	curl -L \
+		-H "Accept: application/vnd.github+json" \
+		-H "X-GitHub-Api-Version: 2022-11-28" \
+		--url "https://api.github.com/repos/vyos/vyos-rolling-nightly-builds/actions/runs?status=success&per_page=10" \
+			| jq -r '[.workflow_runs[] | select(.name | "VyOS rolling nightly build")].[0].run_started_at' \
+				> ".build/rolling-iso-build.txt"
+
+	if [ "$(head -n1 "data/vyos/rolling-iso-build.txt")" != "$(head -n1 ".build/rolling-iso-build.txt")" ]; then \
+		mv ".build/rolling-iso-build.txt" "data/vyos/rolling-iso-build.txt"; \
+	fi
 
 ###
 # VyOS src repo at correct commit
-data/vyos/vyos-1x/submodule.log: data/vyos/rolling-iso-time.txt
+data/vyos/submodule.sha: data/vyos/rolling-iso-build.txt
 	git submodule update --init --single-branch -- data/vyos/vyos-1x
 
 	cd data/vyos/vyos-1x && \
-	commit="$$(git rev-list --date=iso-strict -n 1 --before="$(shell cat "data/vyos/rolling-iso-time.txt")" "current")" && \
+	commit="$$(git rev-list --date=iso-strict -n 1 --before="$(shell cat "data/vyos/rolling-iso-build.txt")" "current")" && \
 	git checkout "$$commit" && \
-	echo "$$commit" > submodule.log
+	echo "$$commit" > ../submodule.sha
 
 ###
 # Autogenerate Schemas
 
 # Convert from relaxng to XSD
-.build/vyos/schema/interface-definition.xsd: data/vyos/vyos-1x/submodule.log
+data/vyos/schema/interface-definition.xsd: data/vyos/submodule.sha
 	mkdir -p .build/vyos/schema/
-	java -jar tools/trang-20091111/trang.jar -I rnc -O xsd data/vyos/vyos-1x/schema/interface_definition.rnc .build/vyos/schema/interface-definition.xsd
+	java -jar tools/trang-20091111/trang.jar -I rnc -O xsd data/vyos/vyos-1x/schema/interface_definition.rnc data/vyos/schema/interface-definition.xsd
 
 # Generate go structs from XSD
-internal/vyos/schema/interfacedefinition/autogen-structs.go: .build/vyos/schema/interface-definition.xsd internal/vyos/schema/interfacedefinition/interface-definition.go
+internal/vyos/schema/interfacedefinition/autogen-structs.go: data/vyos/schema/interface-definition.xsd internal/vyos/schema/interfacedefinition/interface-definition.go
 
-	@rm -v internal/vyos/schema/interfacedefinition/autogen-structs.go
+	@-rm -v internal/vyos/schema/interfacedefinition/autogen-structs.go
 
 	# Generate structs from schema
-	go run github.com/xuri/xgen/cmd/xgen -p interfacedefinition -i .build/vyos/schema/interface-definition.xsd -o internal/vyos/schema/interfacedefinition/autogen-structs.go -l Go
+	go run github.com/xuri/xgen/cmd/xgen -p interfacedefinition -i data/vyos/schema/interface-definition.xsd -o internal/vyos/schema/interfacedefinition/autogen-structs.go -l Go
 
 	# Ensure the nodes name atter will be properly unmarshaled from xml
 	sed -i 's|\*NodeNameAttr.*|string `xml:"name,attr,omitempty"`|' internal/vyos/schema/interfacedefinition/autogen-structs.go
@@ -71,9 +81,9 @@ internal/vyos/schema/interfacedefinition/autogen-structs.go: .build/vyos/schema/
 # Terraform Resource Schemas
 
 # Compile interface devfinitions
-.build/vyos/interface-definitions: data/vyos/vyos-1x/submodule.log
+data/vyos/interface-definitions: data/vyos/submodule.sha
 
-	@rm -rf ".build/vyos/interface-definitions"
+	@rm -rf "data/vyos/interface-definitions"
 	python -m venv .build/vyos/vyos-1x/venv
 
 	bash -c " \
@@ -83,18 +93,19 @@ internal/vyos/schema/interfacedefinition/autogen-structs.go: .build/vyos/schema/
 		make interface_definitions \
 	"
 
-	mv data/vyos/vyos-1x/build/interface-definitions .build/vyos/interface-definitions
+	mv data/vyos/vyos-1x/build/interface-definitions data/vyos/interface-definitions
+	find data/vyos/interface-definitions/ -type f -name "*.xml" -execdir xmllint --format --recover --output '{}' '{}' \;
 
-internal/vyos/vyosinterface/auto-package.go: .build/vyos/interface-definitions tools/build-vyos-infterface-definition-structs/main.go
+internal/vyos/vyosinterface/auto-package.go: data/vyos/interface-definitions tools/build-vyos-infterface-definition-structs/main.go
 	mkdir -p "internal/vyos/vyosinterface"
 
 	@rm -fv internal/vyos/vyosinterface/auto-package.go
 	@rm -fv internal/vyos/vyosinterface/autogen-*.go
 
 	# Generate interfaces, skip xml component version metadata file
-	for xmlFile in $(shell ls ".build/vyos/interface-definitions/" | grep -v "xml-component-version.xml"); do \
+	for xmlFile in $(shell ls "data/vyos/interface-definitions/" | grep -v "xml-component-version.xml"); do \
 		echo -en "Input xml: '$${xmlFile}'\t"; \
-		go run tools/build-vyos-infterface-definition-structs/*.go ".build/vyos/interface-definitions/$${xmlFile}" "internal/vyos/vyosinterface" "vyosinterface" || exit 1; \
+		go run tools/build-vyos-infterface-definition-structs/*.go "data/vyos/interface-definitions/$${xmlFile}" "internal/vyos/vyosinterface" "vyosinterface" || exit 1; \
 	done
 
 	echo -e "// Package vyosinterface generated by Makefile on $(shell date -u -Iseconds). DO NOT EDIT." > "internal/vyos/vyosinterface/auto-package.go"
@@ -111,7 +122,7 @@ internal/vyos/vyosinterface/auto-package.go: .build/vyos/interface-definitions t
 
 	gofumpt -w ./internal/vyos/vyosinterface/*.go
 
-tf-resources:
+internal/terraform/resource/autogen/named: internal/vyos/vyosinterface/auto-package.go tools/build-terraform-resource-full/template.gotmpl
 
 	@rm -rfv internal/terraform/resource/autogen/named/
 	mkdir -p "internal/terraform/resource/autogen/named"
@@ -159,11 +170,22 @@ tf-resources:
 
 	go generate main.go
 
-test:
+.PHONY: test
+test: internal/terraform/resource/autogen/named
 	cd internal/terraform/tests; \
 	go test -v
 
-install:
+.PHONY: ci-build
+ci-build: clean-rolling-iso-build test
+	git add -A
+	pre-commit run
+	git add -A
+
+.PHONY: build
+build: test
+
+.PHONY: install
+install: internal/terraform/resource/autogen/named
 	go install .
 
 .PHONY: clean

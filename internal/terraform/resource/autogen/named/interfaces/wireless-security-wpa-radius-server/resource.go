@@ -27,6 +27,11 @@ type interfacesWirelessSecURItyWpaRadiusServer struct {
 	model        resourcemodel.InterfacesWirelessSecURItyWpaRadiusServer
 }
 
+// GetName returns resource name
+func (r *interfacesWirelessSecURItyWpaRadiusServer) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesWirelessSecURItyWpaRadiusServer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

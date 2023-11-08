@@ -43,13 +43,3 @@ func (o InterfacesDummyIPvsix) ResourceSchemaAttributes() map[string]schema.Attr
 		},
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesDummyIPvsix) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesDummyIPvsix) UnmarshalJSON(_ []byte) error {
-	return nil
-}

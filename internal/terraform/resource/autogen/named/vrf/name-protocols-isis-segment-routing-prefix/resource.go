@@ -27,6 +27,11 @@ type vrfNameProtocolsIsisSegmentRoutingPrefix struct {
 	model        resourcemodel.VrfNameProtocolsIsisSegmentRoutingPrefix
 }
 
+// GetName returns resource name
+func (r *vrfNameProtocolsIsisSegmentRoutingPrefix) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vrfNameProtocolsIsisSegmentRoutingPrefix) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

@@ -27,6 +27,11 @@ type policyAsPathListRule struct {
 	model        resourcemodel.PolicyAsPathListRule
 }
 
+// GetName returns resource name
+func (r *policyAsPathListRule) GetName() string {
+	return r.ResourceName
+}
+
 func (r *policyAsPathListRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

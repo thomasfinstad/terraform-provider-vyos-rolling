@@ -27,6 +27,11 @@ type serviceSnmpListenAddress struct {
 	model        resourcemodel.ServiceSnmpListenAddress
 }
 
+// GetName returns resource name
+func (r *serviceSnmpListenAddress) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceSnmpListenAddress) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

@@ -27,6 +27,11 @@ type serviceWebproxyURLFilteringSquIDguardRule struct {
 	model        resourcemodel.ServiceWebproxyURLFilteringSquIDguardRule
 }
 
+// GetName returns resource name
+func (r *serviceWebproxyURLFilteringSquIDguardRule) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceWebproxyURLFilteringSquIDguardRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

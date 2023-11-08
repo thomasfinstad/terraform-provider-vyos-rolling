@@ -27,6 +27,11 @@ type protocolsBabelDistributeListIPvfourInterface struct {
 	model        resourcemodel.ProtocolsBabelDistributeListIPvfourInterface
 }
 
+// GetName returns resource name
+func (r *protocolsBabelDistributeListIPvfourInterface) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsBabelDistributeListIPvfourInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

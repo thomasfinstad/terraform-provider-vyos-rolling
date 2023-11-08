@@ -71,13 +71,3 @@ func (o PolicyAccessListRuleSource) ResourceSchemaAttributes() map[string]schema
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *PolicyAccessListRuleSource) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyAccessListRuleSource) UnmarshalJSON(_ []byte) error {
-	return nil
-}

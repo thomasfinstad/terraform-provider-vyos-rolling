@@ -27,6 +27,11 @@ type policyExtcommunityList struct {
 	model        resourcemodel.PolicyExtcommunityList
 }
 
+// GetName returns resource name
+func (r *policyExtcommunityList) GetName() string {
+	return r.ResourceName
+}
+
 func (r *policyExtcommunityList) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

@@ -27,6 +27,11 @@ type qosPolicyFqCodel struct {
 	model        resourcemodel.QosPolicyFqCodel
 }
 
+// GetName returns resource name
+func (r *qosPolicyFqCodel) GetName() string {
+	return r.ResourceName
+}
+
 func (r *qosPolicyFqCodel) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

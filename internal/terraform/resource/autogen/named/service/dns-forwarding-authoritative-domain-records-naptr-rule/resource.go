@@ -27,6 +27,11 @@ type serviceDNSForwardingAuthoritativeDomainRecordsNaptrRule struct {
 	model        resourcemodel.ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule
 }
 
+// GetName returns resource name
+func (r *serviceDNSForwardingAuthoritativeDomainRecordsNaptrRule) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceDNSForwardingAuthoritativeDomainRecordsNaptrRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

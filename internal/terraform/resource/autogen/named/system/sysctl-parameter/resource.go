@@ -27,6 +27,11 @@ type systemSysctlParameter struct {
 	model        resourcemodel.SystemSysctlParameter
 }
 
+// GetName returns resource name
+func (r *systemSysctlParameter) GetName() string {
+	return r.ResourceName
+}
+
 func (r *systemSysctlParameter) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

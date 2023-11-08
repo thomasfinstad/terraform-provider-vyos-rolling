@@ -10,6 +10,8 @@ import (
 
 // QosPolicyRandomDetectPrecedence describes the resource data model.
 type QosPolicyRandomDetectPrecedence struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.Number `tfsdk:"precedence_id" vyos:",self-id"`
 
 	ParentIDQosPolicyRandomDetect types.String `tfsdk:"random_detect" vyos:"random-detect,parent-id"`
@@ -24,6 +26,16 @@ type QosPolicyRandomDetectPrecedence struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes
+}
+
+// GetID returns the resource ID
+func (o QosPolicyRandomDetectPrecedence) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o QosPolicyRandomDetectPrecedence) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -46,7 +58,7 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `precedence_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"precedence_id": schema.StringAttribute{
 			Required: true,
@@ -145,14 +157,4 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 		// Nodes
 
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *QosPolicyRandomDetectPrecedence) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyRandomDetectPrecedence) UnmarshalJSON(_ []byte) error {
-	return nil
 }

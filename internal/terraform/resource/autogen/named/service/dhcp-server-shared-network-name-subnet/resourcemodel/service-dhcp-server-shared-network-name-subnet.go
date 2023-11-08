@@ -11,6 +11,8 @@ import (
 
 // ServiceDhcpServerSharedNetworkNameSubnet describes the resource data model.
 type ServiceDhcpServerSharedNetworkNameSubnet struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"subnet_id" vyos:",self-id"`
 
 	ParentIDServiceDhcpServerSharedNetworkName types.String `tfsdk:"shared_network_name" vyos:"shared-network-name,parent-id"`
@@ -51,6 +53,16 @@ type ServiceDhcpServerSharedNetworkNameSubnet struct {
 	NodeServiceDhcpServerSharedNetworkNameSubnetVendorOption *ServiceDhcpServerSharedNetworkNameSubnetVendorOption `tfsdk:"vendor_option" vyos:"vendor-option,omitempty"`
 }
 
+// GetID returns the resource ID
+func (o ServiceDhcpServerSharedNetworkNameSubnet) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o ServiceDhcpServerSharedNetworkNameSubnet) SetID(id types.String) {
+	o.ID = id
+}
+
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *ServiceDhcpServerSharedNetworkNameSubnet) GetVyosPath() []string {
 	return []string{
@@ -71,7 +83,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `subnet_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"subnet_id": schema.StringAttribute{
 			Required: true,
@@ -372,14 +384,4 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceSchemaAttributes() map
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ServiceDhcpServerSharedNetworkNameSubnet) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceDhcpServerSharedNetworkNameSubnet) UnmarshalJSON(_ []byte) error {
-	return nil
 }

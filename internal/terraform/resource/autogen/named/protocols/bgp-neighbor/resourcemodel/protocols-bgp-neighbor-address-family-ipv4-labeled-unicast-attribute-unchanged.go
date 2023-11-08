@@ -55,13 +55,3 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastAttributeUnchanged
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastAttributeUnchanged) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastAttributeUnchanged) UnmarshalJSON(_ []byte) error {
-	return nil
-}

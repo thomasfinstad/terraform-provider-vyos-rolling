@@ -27,6 +27,11 @@ type vrfNameProtocolsBgpPeerGroupLocalRole struct {
 	model        resourcemodel.VrfNameProtocolsBgpPeerGroupLocalRole
 }
 
+// GetName returns resource name
+func (r *vrfNameProtocolsBgpPeerGroupLocalRole) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vrfNameProtocolsBgpPeerGroupLocalRole) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

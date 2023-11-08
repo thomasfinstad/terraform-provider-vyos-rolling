@@ -11,6 +11,8 @@ import (
 
 // InterfacesWwan describes the resource data model.
 type InterfacesWwan struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"wwan_id" vyos:",self-id"`
 
 	// LeafNodes
@@ -35,6 +37,16 @@ type InterfacesWwan struct {
 	NodeInterfacesWwanIPvsix          *InterfacesWwanIPvsix          `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
 }
 
+// GetID returns the resource ID
+func (o InterfacesWwan) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o InterfacesWwan) SetID(id types.String) {
+	o.ID = id
+}
+
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *InterfacesWwan) GetVyosPath() []string {
 	return []string{
@@ -50,7 +62,7 @@ func (o InterfacesWwan) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `wwan_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"wwan_id": schema.StringAttribute{
 			Required: true,
@@ -214,14 +226,4 @@ func (o InterfacesWwan) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesWwan) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWwan) UnmarshalJSON(_ []byte) error {
-	return nil
 }

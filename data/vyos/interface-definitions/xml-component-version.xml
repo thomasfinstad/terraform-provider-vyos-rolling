@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<interfaceDefinition>
+  <!-- include start from include/version/bgp-version.xml.i -->
+  <syntaxVersion component="bgp" version="3"/>
+  <!-- include end -->
+  <!-- include start from include/version/broadcast-relay-version.xml.i -->
+  <syntaxVersion component="broadcast-relay" version="1"/>
+  <!-- include end -->
+  <!-- include start from include/version/cluster-version.xml.i -->
+  <syntaxVersion component="cluster" version="1"/>
+  <!-- include end -->
+  <!-- include start from include/version/config-management-version.xml.i -->
+  <syntaxVersion component="config-management" version="1"/>
+  <!-- include end -->
+  <!-- include start from include/version/conntrack-sync-version.xml.i -->
+  <syntaxVersion component="conntrack-sync" version="2"/>
+  <!-- include end -->
+  <!-- include start from include/version/conntrack-version.xml.i -->
+  <syntaxVersion component="conntrack" version="3"/>
+  <!-- include end -->
+  <!-- include start from include/version/container-version.xml.i -->
+  <syntaxVersion component="container" version="1"/>
+  <!-- include end -->
+  <!-- include start from include/version/dhcp-relay-version.xml.i -->
+  <syntaxVersion component="dhcp-relay" version="2"/>
+  <!-- include end -->
+  <!-- include start from include/version/dhcp-server-version.xml.i -->
+  <syntaxVersion component="dhcp-server" version="6"/>
+  <!-- include end -->
+  <!-- include start from include/version/dhcpv6-server-version.xml.i -->
+  <syntaxVersion component="dhcpv6-server" version="1"/>
+  <!-- include end -->
+  <!-- include start from include/version/dns-forwarding-version.xml.i -->
+  <syntaxVersion component="dns-forwarding" version="3"/>
+  <!-- include end -->
+  <!-- include start from include/version/firewall-version.xml.i -->
+  <syntaxVersion component="firewall" version="9"/>
+  <!-- include end -->
+  <!-- include start from include/version/flow-accounting-version.xml.i -->
+  <syntaxVersion component="flow-accounting" version="1"/>
+  <!-- include end -->
+  <!-- include start from include/version/https-version.xml.i -->
+  <syntaxVersion component="https" version="4"/>
+  <!-- include end -->
+  <!-- include start from include/version/interfaces-version.xml.i -->
+  <syntaxVersion component="interfaces" version="28"/>
+  <!-- include end -->
+  <!-- include start from include/version/ids-version.xml.i -->
+  <syntaxVersion component="ids" version="1"/>
+  <!-- include end -->
+  <!-- include start from include/version/ipoe-server-version.xml.i -->
+  <syntaxVersion component="ipoe-server" version="1"/>
+  <!-- include end -->
+  <!-- include start from include/version/ipsec-version.xml.i -->
+  <syntaxVersion component="ipsec" version="12"/>
+  <!-- include end -->
+  <!-- include start from include/version/isis-version.xml.i -->
+  <syntaxVersion component="isis" version="2"/>
+  <!-- include end -->
+  <!-- include start from include/version/l2tp-version.xml.i -->
+  <syntaxVersion component="l2tp" version="4"/>
+  <!-- include end -->
+  <!-- include start from include/version/lldp-version.xml.i -->
+  <syntaxVersion component="lldp" version="1"/>
+  <!-- include end -->
+  <!-- include start from include/version/mdns-version.xml.i -->
+  <syntaxVersion component="mdns" version="1"/>
+  <!-- include end -->
+  <!-- include start from include/version/monitoring-version.xml.i -->
+  <syntaxVersion component="monitoring" version="1"/>
+  <!-- include end -->
+  <!-- include start from include/version/nat66-version.xml.i -->
+  <syntaxVersion component="nat66" version="1"/>
+  <!-- include end -->
+  <!-- include start from include/version/nat-version.xml.i -->
+  <syntaxVersion component="nat" version="5"/>
+  <!-- include end -->
+  <!-- include start from include/version/ntp-version.xml.i -->
+  <syntaxVersion component="ntp" version="2"/>
+  <!-- include end -->
+  <!-- include start from include/version/openconnect-version.xml.i -->
+  <syntaxVersion component="openconnect" version="2"/>
+  <!-- include end -->
+  <!-- include start from include/version/ospf-version.xml.i -->
+  <syntaxVersion component="ospf" version="1"/>
+  <!-- include end -->
+  <!-- include start from include/version/policy-version.xml.i -->
+  <syntaxVersion component="policy" version="5"/>
+  <!-- include end -->
+  <!-- include start from include/version/pppoe-server-version.xml.i -->
+  <syntaxVersion component="pppoe-server" version="6"/>
+  <!-- include end -->
+  <!-- include start from include/version/pptp-version.xml.i -->
+  <syntaxVersion component="pptp" version="2"/>
+  <!-- include end -->
+  <!-- include start from include/version/qos-version.xml.i -->
+  <syntaxVersion component="qos" version="2"/>
+  <!-- include end -->
+  <!-- include start from include/version/quagga-version.xml.i -->
+  <syntaxVersion component="quagga" version="10"/>
+  <!-- include end -->
+  <!-- include start from include/version/rpki-version.xml.i -->
+  <syntaxVersion component="rpki" version="1"/>
+  <!-- include end -->
+  <!-- include start from include/version/salt-version.xml.i -->
+  <syntaxVersion component="salt" version="1"/>
+  <!-- include end -->
+  <!-- include start from include/version/snmp-version.xml.i -->
+  <syntaxVersion component="snmp" version="3"/>
+  <!-- include end -->
+  <!-- include start from include/version/ssh-version.xml.i -->
+  <syntaxVersion component="ssh" version="2"/>
+  <!-- include end -->
+  <!-- include start from include/version/sstp-version.xml.i -->
+  <syntaxVersion component="sstp" version="4"/>
+  <!-- include end -->
+  <!-- include start from include/version/system-version.xml.i -->
+  <syntaxVersion component="system" version="25"/>
+  <!-- include end -->
+  <!-- include start from include/version/vrf-version.xml.i -->
+  <syntaxVersion component="vrf" version="3"/>
+  <!-- include end -->
+  <!-- include start from include/version/vrrp-version.xml.i -->
+  <syntaxVersion component="vrrp" version="3"/>
+  <!-- include end -->
+  <!-- include start from include/version/vyos-accel-ppp-version.xml.i -->
+  <syntaxVersion component="vyos-accel-ppp" version="2"/>
+  <!-- include end -->
+  <!-- include start from include/version/wanloadbalance-version.xml.i -->
+  <syntaxVersion component="wanloadbalance" version="3"/>
+  <!-- include end -->
+  <!-- include start from include/version/webproxy-version.xml.i -->
+  <syntaxVersion component="webproxy" version="2"/>
+  <!-- include end -->
+</interfaceDefinition>

@@ -27,6 +27,11 @@ type firewallNameRule struct {
 	model        resourcemodel.FirewallNameRule
 }
 
+// GetName returns resource name
+func (r *firewallNameRule) GetName() string {
+	return r.ResourceName
+}
+
 func (r *firewallNameRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

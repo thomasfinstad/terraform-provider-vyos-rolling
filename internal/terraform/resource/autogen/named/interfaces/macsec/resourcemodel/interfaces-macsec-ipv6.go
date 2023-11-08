@@ -69,13 +69,3 @@ func (o InterfacesMacsecIPvsix) ResourceSchemaAttributes() map[string]schema.Att
 		},
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesMacsecIPvsix) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesMacsecIPvsix) UnmarshalJSON(_ []byte) error {
-	return nil
-}

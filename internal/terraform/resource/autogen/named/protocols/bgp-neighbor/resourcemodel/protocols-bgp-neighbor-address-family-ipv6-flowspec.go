@@ -80,13 +80,3 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixFlowspec) ResourceSchemaAttribute
 		},
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ProtocolsBgpNeighborAddressFamilyIPvsixFlowspec) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighborAddressFamilyIPvsixFlowspec) UnmarshalJSON(_ []byte) error {
-	return nil
-}

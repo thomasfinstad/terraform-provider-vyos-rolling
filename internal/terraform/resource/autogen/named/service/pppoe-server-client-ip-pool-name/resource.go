@@ -27,6 +27,11 @@ type servicePppoeServerClientIPPoolName struct {
 	model        resourcemodel.ServicePppoeServerClientIPPoolName
 }
 
+// GetName returns resource name
+func (r *servicePppoeServerClientIPPoolName) GetName() string {
+	return r.ResourceName
+}
+
 func (r *servicePppoeServerClientIPPoolName) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

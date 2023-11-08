@@ -27,6 +27,11 @@ type systemTaskSchedulerTask struct {
 	model        resourcemodel.SystemTaskSchedulerTask
 }
 
+// GetName returns resource name
+func (r *systemTaskSchedulerTask) GetName() string {
+	return r.ResourceName
+}
+
 func (r *systemTaskSchedulerTask) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

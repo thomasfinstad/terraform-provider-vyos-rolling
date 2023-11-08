@@ -52,13 +52,3 @@ func (o ProtocolsOspfAreaAreaType) ResourceSchemaAttributes() map[string]schema.
 		},
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ProtocolsOspfAreaAreaType) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsOspfAreaAreaType) UnmarshalJSON(_ []byte) error {
-	return nil
-}

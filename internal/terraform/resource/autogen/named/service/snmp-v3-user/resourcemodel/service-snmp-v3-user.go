@@ -10,6 +10,8 @@ import (
 
 // ServiceSnmpVthreeUser describes the resource data model.
 type ServiceSnmpVthreeUser struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"user_id" vyos:",self-id"`
 
 	// LeafNodes
@@ -21,6 +23,16 @@ type ServiceSnmpVthreeUser struct {
 	// Nodes
 	NodeServiceSnmpVthreeUserAuth    *ServiceSnmpVthreeUserAuth    `tfsdk:"auth" vyos:"auth,omitempty"`
 	NodeServiceSnmpVthreeUserPrivacy *ServiceSnmpVthreeUserPrivacy `tfsdk:"privacy" vyos:"privacy,omitempty"`
+}
+
+// GetID returns the resource ID
+func (o ServiceSnmpVthreeUser) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o ServiceSnmpVthreeUser) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -42,7 +54,7 @@ func (o ServiceSnmpVthreeUser) ResourceSchemaAttributes() map[string]schema.Attr
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `user_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"user_id": schema.StringAttribute{
 			Required: true,
@@ -96,14 +108,4 @@ func (o ServiceSnmpVthreeUser) ResourceSchemaAttributes() map[string]schema.Attr
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ServiceSnmpVthreeUser) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceSnmpVthreeUser) UnmarshalJSON(_ []byte) error {
-	return nil
 }

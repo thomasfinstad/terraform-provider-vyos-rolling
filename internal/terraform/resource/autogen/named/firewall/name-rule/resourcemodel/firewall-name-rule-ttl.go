@@ -60,13 +60,3 @@ func (o FirewallNameRuleTTL) ResourceSchemaAttributes() map[string]schema.Attrib
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *FirewallNameRuleTTL) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallNameRuleTTL) UnmarshalJSON(_ []byte) error {
-	return nil
-}

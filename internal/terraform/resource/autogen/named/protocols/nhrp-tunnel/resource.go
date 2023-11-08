@@ -27,6 +27,11 @@ type protocolsNhrpTunnel struct {
 	model        resourcemodel.ProtocolsNhrpTunnel
 }
 
+// GetName returns resource name
+func (r *protocolsNhrpTunnel) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsNhrpTunnel) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

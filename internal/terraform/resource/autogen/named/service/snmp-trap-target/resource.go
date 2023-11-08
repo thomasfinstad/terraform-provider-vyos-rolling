@@ -27,6 +27,11 @@ type serviceSnmpTrapTarget struct {
 	model        resourcemodel.ServiceSnmpTrapTarget
 }
 
+// GetName returns resource name
+func (r *serviceSnmpTrapTarget) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceSnmpTrapTarget) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

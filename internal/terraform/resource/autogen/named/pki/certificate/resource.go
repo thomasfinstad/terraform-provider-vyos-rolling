@@ -27,6 +27,11 @@ type pkiCertificate struct {
 	model        resourcemodel.PkiCertificate
 }
 
+// GetName returns resource name
+func (r *pkiCertificate) GetName() string {
+	return r.ResourceName
+}
+
 func (r *pkiCertificate) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

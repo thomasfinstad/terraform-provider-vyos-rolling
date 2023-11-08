@@ -75,7 +75,7 @@ func (o FirewallIPvsixNameRuleTime) ResourceSchemaAttributes() map[string]schema
 
     |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  &emsp; |  Name of day (Monday, Tuesday, Wednesday, Thursdays, Friday,<br>                          Saturday, Sunday)  |
+    |  txt  &emsp; |  Name of day (Monday, Tuesday, Wednesday, Thursdays, Friday, Saturday, Sunday)  |
     |  number: 0-6  &emsp; |  Day number (0 = Sunday ... 6 = Saturday)  |
 
 `,
@@ -84,14 +84,4 @@ func (o FirewallIPvsixNameRuleTime) ResourceSchemaAttributes() map[string]schema
 		// Nodes
 
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *FirewallIPvsixNameRuleTime) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallIPvsixNameRuleTime) UnmarshalJSON(_ []byte) error {
-	return nil
 }

@@ -40,13 +40,3 @@ func (o InterfacesGeneveParameters) ResourceSchemaAttributes() map[string]schema
 		},
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesGeneveParameters) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesGeneveParameters) UnmarshalJSON(_ []byte) error {
-	return nil
-}

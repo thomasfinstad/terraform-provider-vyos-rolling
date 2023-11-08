@@ -10,6 +10,8 @@ import (
 
 // SystemTaskSchedulerTask describes the resource data model.
 type SystemTaskSchedulerTask struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"task_id" vyos:",self-id"`
 
 	// LeafNodes
@@ -20,6 +22,16 @@ type SystemTaskSchedulerTask struct {
 
 	// Nodes
 	NodeSystemTaskSchedulerTaskExecutable *SystemTaskSchedulerTaskExecutable `tfsdk:"executable" vyos:"executable,omitempty"`
+}
+
+// GetID returns the resource ID
+func (o SystemTaskSchedulerTask) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o SystemTaskSchedulerTask) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -39,7 +51,7 @@ func (o SystemTaskSchedulerTask) ResourceSchemaAttributes() map[string]schema.At
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `task_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"task_id": schema.StringAttribute{
 			Required: true,
@@ -88,14 +100,4 @@ func (o SystemTaskSchedulerTask) ResourceSchemaAttributes() map[string]schema.At
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *SystemTaskSchedulerTask) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *SystemTaskSchedulerTask) UnmarshalJSON(_ []byte) error {
-	return nil
 }

@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<interfaceDefinition>
+  <node name="service">
+    <children>
+      <node name="tftp-server" owner="${vyos_conf_scripts_dir}/tftp_server.py">
+        <properties>
+          <help>Trivial File Transfer Protocol (TFTP) server</help>
+          <priority>990</priority>
+        </properties>
+        <children>
+          <leafNode name="directory">
+            <properties>
+              <help>Folder containing files served by TFTP</help>
+            </properties>
+          </leafNode>
+          <leafNode name="allow-upload">
+            <properties>
+              <help>Allow TFTP file uploads</help>
+              <valueless/>
+            </properties>
+          </leafNode>
+          <!-- include start from port-number.xml.i -->
+          <leafNode name="port">
+            <properties>
+              <help>Port number used by connection</help>
+              <valueHelp>
+                <format>u32:1-65535</format>
+                <description>Numeric IP port</description>
+              </valueHelp>
+              <constraint>
+                <validator name="numeric" argument="--range 1-65535"/>
+              </constraint>
+              <constraintErrorMessage>Port number must be in range 1 to 65535</constraintErrorMessage>
+            </properties>
+            <defaultValue>69</defaultValue>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from listen-address-vrf.xml.i -->
+          <tagNode name="listen-address">
+            <properties>
+              <help>Local IP addresses to listen on</help>
+              <completionHelp>
+                <script>${vyos_completion_dir}/list_local_ips.sh --both</script>
+              </completionHelp>
+              <valueHelp>
+                <format>ipv4</format>
+                <description>IPv4 address to listen for incoming connections</description>
+              </valueHelp>
+              <valueHelp>
+                <format>ipv6</format>
+                <description>IPv6 address to listen for incoming connections</description>
+              </valueHelp>
+              <constraint>
+                <validator name="ipv4-address"/>
+                <validator name="ipv6-address"/>
+              </constraint>
+            </properties>
+            <children>
+              <!-- include start from interface/vrf.xml.i -->
+              <leafNode name="vrf">
+                <properties>
+                  <help>VRF instance name</help>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>VRF instance name</description>
+                  </valueHelp>
+                  <completionHelp>
+                    <path>vrf name</path>
+                  </completionHelp>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+            </children>
+          </tagNode>
+          <!-- include end -->
+        </children>
+      </node>
+    </children>
+  </node>
+</interfaceDefinition>

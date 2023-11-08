@@ -10,6 +10,8 @@ import (
 
 // VrfNameProtocolsOspfArea describes the resource data model.
 type VrfNameProtocolsOspfArea struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"area_id" vyos:",self-id"`
 
 	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
@@ -27,6 +29,16 @@ type VrfNameProtocolsOspfArea struct {
 
 	// Nodes
 	NodeVrfNameProtocolsOspfAreaAreaType *VrfNameProtocolsOspfAreaAreaType `tfsdk:"area_type" vyos:"area-type,omitempty"`
+}
+
+// GetID returns the resource ID
+func (o VrfNameProtocolsOspfArea) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o VrfNameProtocolsOspfArea) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -51,7 +63,7 @@ func (o VrfNameProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.A
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `area_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"area_id": schema.StringAttribute{
 			Required: true,
@@ -153,14 +165,4 @@ func (o VrfNameProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.A
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *VrfNameProtocolsOspfArea) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsOspfArea) UnmarshalJSON(_ []byte) error {
-	return nil
 }

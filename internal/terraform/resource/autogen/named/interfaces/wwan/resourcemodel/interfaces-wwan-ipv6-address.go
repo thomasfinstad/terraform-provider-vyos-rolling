@@ -58,13 +58,3 @@ func (o InterfacesWwanIPvsixAddress) ResourceSchemaAttributes() map[string]schem
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesWwanIPvsixAddress) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWwanIPvsixAddress) UnmarshalJSON(_ []byte) error {
-	return nil
-}

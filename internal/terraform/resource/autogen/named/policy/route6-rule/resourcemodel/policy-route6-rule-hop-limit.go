@@ -60,13 +60,3 @@ func (o PolicyRoutesixRuleHopLimit) ResourceSchemaAttributes() map[string]schema
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *PolicyRoutesixRuleHopLimit) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRoutesixRuleHopLimit) UnmarshalJSON(_ []byte) error {
-	return nil
-}

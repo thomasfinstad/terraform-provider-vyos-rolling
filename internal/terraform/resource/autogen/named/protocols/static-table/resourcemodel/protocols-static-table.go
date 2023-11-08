@@ -10,6 +10,8 @@ import (
 
 // ProtocolsStaticTable describes the resource data model.
 type ProtocolsStaticTable struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.Number `tfsdk:"table_id" vyos:",self-id"`
 
 	// LeafNodes
@@ -20,6 +22,16 @@ type ProtocolsStaticTable struct {
 	ExistsTagProtocolsStaticTableRoutesix bool `tfsdk:"route6" vyos:"route6,child"`
 
 	// Nodes
+}
+
+// GetID returns the resource ID
+func (o ProtocolsStaticTable) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o ProtocolsStaticTable) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -39,7 +51,7 @@ func (o ProtocolsStaticTable) ResourceSchemaAttributes() map[string]schema.Attri
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `table_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"table_id": schema.StringAttribute{
 			Required: true,
@@ -71,14 +83,4 @@ func (o ProtocolsStaticTable) ResourceSchemaAttributes() map[string]schema.Attri
 		// Nodes
 
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ProtocolsStaticTable) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsStaticTable) UnmarshalJSON(_ []byte) error {
-	return nil
 }

@@ -27,6 +27,11 @@ type qosInterface struct {
 	model        resourcemodel.QosInterface
 }
 
+// GetName returns resource name
+func (r *qosInterface) GetName() string {
+	return r.ResourceName
+}
+
 func (r *qosInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

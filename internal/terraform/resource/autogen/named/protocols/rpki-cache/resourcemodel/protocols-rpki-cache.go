@@ -10,6 +10,8 @@ import (
 
 // ProtocolsRpkiCache describes the resource data model.
 type ProtocolsRpkiCache struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"cache_id" vyos:",self-id"`
 
 	// LeafNodes
@@ -20,6 +22,16 @@ type ProtocolsRpkiCache struct {
 
 	// Nodes
 	NodeProtocolsRpkiCacheTCP *ProtocolsRpkiCacheTCP `tfsdk:"ssh" vyos:"ssh,omitempty"`
+}
+
+// GetID returns the resource ID
+func (o ProtocolsRpkiCache) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o ProtocolsRpkiCache) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -39,7 +51,7 @@ func (o ProtocolsRpkiCache) ResourceSchemaAttributes() map[string]schema.Attribu
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `cache_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"cache_id": schema.StringAttribute{
 			Required: true,
@@ -91,14 +103,4 @@ func (o ProtocolsRpkiCache) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ProtocolsRpkiCache) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsRpkiCache) UnmarshalJSON(_ []byte) error {
-	return nil
 }

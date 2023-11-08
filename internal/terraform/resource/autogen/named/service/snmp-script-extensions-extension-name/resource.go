@@ -27,6 +27,11 @@ type serviceSnmpScrIPtExtensionsExtensionName struct {
 	model        resourcemodel.ServiceSnmpScrIPtExtensionsExtensionName
 }
 
+// GetName returns resource name
+func (r *serviceSnmpScrIPtExtensionsExtensionName) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceSnmpScrIPtExtensionsExtensionName) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

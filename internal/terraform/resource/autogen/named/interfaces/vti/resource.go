@@ -27,6 +27,11 @@ type interfacesVti struct {
 	model        resourcemodel.InterfacesVti
 }
 
+// GetName returns resource name
+func (r *interfacesVti) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesVti) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

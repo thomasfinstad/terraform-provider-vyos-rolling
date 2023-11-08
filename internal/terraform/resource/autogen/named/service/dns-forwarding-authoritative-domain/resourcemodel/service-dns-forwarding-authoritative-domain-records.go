@@ -33,13 +33,3 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceSchemaAttributes
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ServiceDNSForwardingAuthoritativeDomainRecords) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceDNSForwardingAuthoritativeDomainRecords) UnmarshalJSON(_ []byte) error {
-	return nil
-}

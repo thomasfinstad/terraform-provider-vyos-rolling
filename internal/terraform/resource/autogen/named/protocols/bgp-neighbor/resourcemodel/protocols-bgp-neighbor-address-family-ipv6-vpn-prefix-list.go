@@ -48,13 +48,3 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixVpnPrefixList) ResourceSchemaAttr
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ProtocolsBgpNeighborAddressFamilyIPvsixVpnPrefixList) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighborAddressFamilyIPvsixVpnPrefixList) UnmarshalJSON(_ []byte) error {
-	return nil
-}

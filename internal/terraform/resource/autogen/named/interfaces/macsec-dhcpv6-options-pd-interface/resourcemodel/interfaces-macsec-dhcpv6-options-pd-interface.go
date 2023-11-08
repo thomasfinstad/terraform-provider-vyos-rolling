@@ -10,6 +10,8 @@ import (
 
 // InterfacesMacsecDhcpvsixOptionsPdInterface describes the resource data model.
 type InterfacesMacsecDhcpvsixOptionsPdInterface struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
 
 	ParentIDInterfacesMacsec types.String `tfsdk:"macsec" vyos:"macsec,parent-id"`
@@ -23,6 +25,16 @@ type InterfacesMacsecDhcpvsixOptionsPdInterface struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes
+}
+
+// GetID returns the resource ID
+func (o InterfacesMacsecDhcpvsixOptionsPdInterface) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o InterfacesMacsecDhcpvsixOptionsPdInterface) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -48,7 +60,7 @@ func (o InterfacesMacsecDhcpvsixOptionsPdInterface) ResourceSchemaAttributes() m
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `interface_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"interface_id": schema.StringAttribute{
 			Required: true,
@@ -115,14 +127,4 @@ func (o InterfacesMacsecDhcpvsixOptionsPdInterface) ResourceSchemaAttributes() m
 		// Nodes
 
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesMacsecDhcpvsixOptionsPdInterface) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesMacsecDhcpvsixOptionsPdInterface) UnmarshalJSON(_ []byte) error {
-	return nil
 }

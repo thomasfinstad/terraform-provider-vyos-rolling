@@ -27,6 +27,11 @@ type qosPolicyPriorityQueueClassMatch struct {
 	model        resourcemodel.QosPolicyPriorityQueueClassMatch
 }
 
+// GetName returns resource name
+func (r *qosPolicyPriorityQueueClassMatch) GetName() string {
+	return r.ResourceName
+}
+
 func (r *qosPolicyPriorityQueueClassMatch) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

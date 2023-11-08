@@ -112,7 +112,7 @@ QinQ TAG-C Virtual Local Area Network (VLAN) ID
 
 ### Read-Only
 
-- `id` (String) Resource ID, an amalgamation of the `vif_c_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
 
 <a id="nestedatt--dhcp_options"></a>
 ### Nested Schema for `dhcp_options`

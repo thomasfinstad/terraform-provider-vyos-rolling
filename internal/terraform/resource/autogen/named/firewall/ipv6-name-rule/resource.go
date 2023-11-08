@@ -27,6 +27,11 @@ type firewallIPvsixNameRule struct {
 	model        resourcemodel.FirewallIPvsixNameRule
 }
 
+// GetName returns resource name
+func (r *firewallIPvsixNameRule) GetName() string {
+	return r.ResourceName
+}
+
 func (r *firewallIPvsixNameRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

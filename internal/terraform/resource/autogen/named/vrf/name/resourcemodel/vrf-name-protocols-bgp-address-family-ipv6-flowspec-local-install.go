@@ -33,13 +33,3 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixFlowspecLocalInstall) ResourceSche
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *VrfNameProtocolsBgpAddressFamilyIPvsixFlowspecLocalInstall) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpAddressFamilyIPvsixFlowspecLocalInstall) UnmarshalJSON(_ []byte) error {
-	return nil
-}

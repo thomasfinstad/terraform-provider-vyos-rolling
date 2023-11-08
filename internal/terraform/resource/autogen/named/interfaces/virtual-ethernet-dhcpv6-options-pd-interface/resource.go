@@ -27,6 +27,11 @@ type interfacesVirtualEthernetDhcpvsixOptionsPdInterface struct {
 	model        resourcemodel.InterfacesVirtualEthernetDhcpvsixOptionsPdInterface
 }
 
+// GetName returns resource name
+func (r *interfacesVirtualEthernetDhcpvsixOptionsPdInterface) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesVirtualEthernetDhcpvsixOptionsPdInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

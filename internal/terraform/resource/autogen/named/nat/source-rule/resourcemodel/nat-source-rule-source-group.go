@@ -64,13 +64,3 @@ func (o NatSourceRuleSourceGroup) ResourceSchemaAttributes() map[string]schema.A
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *NatSourceRuleSourceGroup) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *NatSourceRuleSourceGroup) UnmarshalJSON(_ []byte) error {
-	return nil
-}

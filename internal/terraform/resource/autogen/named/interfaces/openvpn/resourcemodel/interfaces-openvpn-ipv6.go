@@ -69,13 +69,3 @@ func (o InterfacesOpenvpnIPvsix) ResourceSchemaAttributes() map[string]schema.At
 		},
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesOpenvpnIPvsix) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesOpenvpnIPvsix) UnmarshalJSON(_ []byte) error {
-	return nil
-}

@@ -27,6 +27,11 @@ type vpnPptpRemoteAccessAuthenticationLocalUsersUsername struct {
 	model        resourcemodel.VpnPptpRemoteAccessAuthenticationLocalUsersUsername
 }
 
+// GetName returns resource name
+func (r *vpnPptpRemoteAccessAuthenticationLocalUsersUsername) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vpnPptpRemoteAccessAuthenticationLocalUsersUsername) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

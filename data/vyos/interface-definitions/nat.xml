@@ -1,0 +1,1516 @@
+<?xml version="1.0"?>
+<interfaceDefinition>
+  <node name="nat" owner="${vyos_conf_scripts_dir}/nat.py">
+    <properties>
+      <help>Network Address Translation (NAT) parameters</help>
+      <priority>220</priority>
+    </properties>
+    <children>
+      <node name="destination">
+        <properties>
+          <help>Destination NAT settings</help>
+        </properties>
+        <children>
+          <!-- include start from nat-rule.xml.i -->
+          <tagNode name="rule">
+            <properties>
+              <help>Rule number for NAT</help>
+              <valueHelp>
+                <format>u32:1-999999</format>
+                <description>Number of NAT rule</description>
+              </valueHelp>
+              <constraint>
+                <validator name="numeric" argument="--range 1-999999"/>
+              </constraint>
+              <constraintErrorMessage>NAT rule number must be between 1 and 999999</constraintErrorMessage>
+            </properties>
+            <children>
+              <!-- include start from generic-description.xml.i -->
+              <leafNode name="description">
+                <properties>
+                  <help>Description</help>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Description</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>[[:ascii:]]{0,256}</regex>
+                  </constraint>
+                  <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <node name="destination">
+                <properties>
+                  <help>NAT destination parameters</help>
+                </properties>
+                <children>
+                  <!-- include start from nat-address.xml.i -->
+                  <leafNode name="address">
+                    <properties>
+                      <help>IP address, subnet, or range</help>
+                      <valueHelp>
+                        <format>ipv4</format>
+                        <description>IPv4 address to match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ipv4net</format>
+                        <description>IPv4 prefix to match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ipv4range</format>
+                        <description>IPv4 address range to match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>!ipv4</format>
+                        <description>Match everything except the specified address</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>!ipv4net</format>
+                        <description>Match everything except the specified prefix</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>!ipv4range</format>
+                        <description>Match everything except the specified range</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="ipv4-address"/>
+                        <validator name="ipv4-prefix"/>
+                        <validator name="ipv4-range"/>
+                        <validator name="ipv4-address-exclude"/>
+                        <validator name="ipv4-prefix-exclude"/>
+                        <validator name="ipv4-range-exclude"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from nat-port.xml.i -->
+                  <leafNode name="port">
+                    <properties>
+                      <help>Port number</help>
+                      <valueHelp>
+                        <format>txt</format>
+                        <description>Named port (any name in /etc/services, e.g., http)</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>u32:1-65535</format>
+                        <description>Numeric IP port</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>start-end</format>
+                        <description>Numbered port range (e.g. 1001-1005)</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format/>
+                        <description>\n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using '!'.\nFor example: '!22,telnet,http,123,1001-1005'</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="port-multi"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from firewall/source-destination-group.xml.i -->
+                  <node name="group">
+                    <properties>
+                      <help>Group</help>
+                    </properties>
+                    <children>
+                      <leafNode name="address-group">
+                        <properties>
+                          <help>Group of addresses</help>
+                          <completionHelp>
+                            <path>firewall group address-group</path>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                      <leafNode name="domain-group">
+                        <properties>
+                          <help>Group of domains</help>
+                          <completionHelp>
+                            <path>firewall group domain-group</path>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                      <!-- include start from firewall/mac-group.xml.i -->
+                      <leafNode name="mac-group">
+                        <properties>
+                          <help>Group of MAC addresses</help>
+                          <completionHelp>
+                            <path>firewall group mac-group</path>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                      <!-- include start from firewall/mac-group.xml.i -->
+                      <leafNode name="network-group">
+                        <properties>
+                          <help>Group of networks</help>
+                          <completionHelp>
+                            <path>firewall group network-group</path>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                      <leafNode name="port-group">
+                        <properties>
+                          <help>Group of ports</help>
+                          <completionHelp>
+                            <path>firewall group port-group</path>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                    </children>
+                  </node>
+                  <!-- include end -->
+                </children>
+              </node>
+              <!-- include start from generic-disable-node.xml.i -->
+              <leafNode name="disable">
+                <properties>
+                  <help>Disable instance</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from nat-exclude.xml.i -->
+              <leafNode name="exclude">
+                <properties>
+                  <help>Exclude packets matching this rule from NAT</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <leafNode name="log">
+                <properties>
+                  <help>NAT rule logging</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <leafNode name="packet-type">
+                <properties>
+                  <help>Packet type</help>
+                  <completionHelp>
+                    <list>broadcast host multicast other</list>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>broadcast</format>
+                    <description>Match broadcast packet type</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>host</format>
+                    <description>Match host packet type, addressed to local host</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>multicast</format>
+                    <description>Match multicast packet type</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>other</format>
+                    <description>Match packet addressed to another host</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>(broadcast|host|multicast|other)</regex>
+                  </constraint>
+                </properties>
+              </leafNode>
+              <leafNode name="protocol">
+                <properties>
+                  <help>Protocol to NAT</help>
+                  <completionHelp>
+                    <list>all ip hopopt icmp igmp ggp ipencap st tcp egp igp pup udp tcp_udp hmp xns-idp rdp iso-tp4 dccp xtp ddp idpr-cmtp ipv6 ipv6-route ipv6-frag idrp rsvp gre esp ah skip ipv6-icmp ipv6-nonxt ipv6-opts rspf vmtp eigrp ospf ax.25 ipip etherip encap 99 pim ipcomp vrrp l2tp isis sctp fc mobility-header udplite mpls-in-ip manet hip shim6 wesp rohc</list>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>all</format>
+                    <description>All IP protocols</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ip</format>
+                    <description>Internet Protocol, pseudo protocol number</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>hopopt</format>
+                    <description>IPv6 Hop-by-Hop Option [RFC1883]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>icmp</format>
+                    <description>internet control message protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>igmp</format>
+                    <description>Internet Group Management</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ggp</format>
+                    <description>gateway-gateway protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipencap</format>
+                    <description>IP encapsulated in IP (officially IP)</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>st</format>
+                    <description>ST datagram mode</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>tcp</format>
+                    <description>transmission control protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>egp</format>
+                    <description>exterior gateway protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>igp</format>
+                    <description>any private interior gateway (Cisco)</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>pup</format>
+                    <description>PARC universal packet protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>udp</format>
+                    <description>user datagram protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>tcp_udp</format>
+                    <description>Both TCP and UDP</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>hmp</format>
+                    <description>host monitoring protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>xns-idp</format>
+                    <description>Xerox NS IDP</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>rdp</format>
+                    <description>"reliable datagram" protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>iso-tp4</format>
+                    <description>ISO Transport Protocol class 4 [RFC905]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>dccp</format>
+                    <description>Datagram Congestion Control Prot. [RFC4340]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>xtp</format>
+                    <description>Xpress Transfer Protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ddp</format>
+                    <description>Datagram Delivery Protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>idpr-cmtp</format>
+                    <description>IDPR Control Message Transport</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>Ipv6</format>
+                    <description>Internet Protocol, version 6</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipv6-route</format>
+                    <description>Routing Header for IPv6</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipv6-frag</format>
+                    <description>Fragment Header for IPv6</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>idrp</format>
+                    <description>Inter-Domain Routing Protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>rsvp</format>
+                    <description>Reservation Protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>gre</format>
+                    <description>General Routing Encapsulation</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>esp</format>
+                    <description>Encap Security Payload [RFC2406]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ah</format>
+                    <description>Authentication Header [RFC2402]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>skip</format>
+                    <description>SKIP</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipv6-icmp</format>
+                    <description>ICMP for IPv6</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipv6-nonxt</format>
+                    <description>No Next Header for IPv6</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipv6-opts</format>
+                    <description>Destination Options for IPv6</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>rspf</format>
+                    <description>Radio Shortest Path First (officially CPHB)</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>vmtp</format>
+                    <description>Versatile Message Transport</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>eigrp</format>
+                    <description>Enhanced Interior Routing Protocol (Cisco)</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ospf</format>
+                    <description>Open Shortest Path First IGP</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ax.25</format>
+                    <description>AX.25 frames</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipip</format>
+                    <description>IP-within-IP Encapsulation Protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>etherip</format>
+                    <description>Ethernet-within-IP Encapsulation [RFC3378]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>encap</format>
+                    <description>Yet Another IP encapsulation [RFC1241]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>99</format>
+                    <description>Any private encryption scheme</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>pim</format>
+                    <description>Protocol Independent Multicast</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipcomp</format>
+                    <description>IP Payload Compression Protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>vrrp</format>
+                    <description>Virtual Router Redundancy Protocol [RFC5798]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>l2tp</format>
+                    <description>Layer Two Tunneling Protocol [RFC2661]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>isis</format>
+                    <description>IS-IS over IPv4</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>sctp</format>
+                    <description>Stream Control Transmission Protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>fc</format>
+                    <description>Fibre Channel</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>mobility-header</format>
+                    <description>Mobility Support for IPv6 [RFC3775]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>udplite</format>
+                    <description>UDP-Lite [RFC3828]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>mpls-in-ip</format>
+                    <description>MPLS-in-IP [RFC4023]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>manet</format>
+                    <description>MANET Protocols [RFC5498]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>hip</format>
+                    <description>Host Identity Protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>shim6</format>
+                    <description>Shim6 Protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>wesp</format>
+                    <description>Wrapped Encapsulating Security Payload</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>rohc</format>
+                    <description>Robust Header Compression</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>u32:0-255</format>
+                    <description>IP protocol number</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="ip-protocol"/>
+                  </constraint>
+                </properties>
+                <defaultValue>all</defaultValue>
+              </leafNode>
+              <node name="source">
+                <properties>
+                  <help>NAT source parameters</help>
+                </properties>
+                <children>
+                  <!-- include start from nat-address.xml.i -->
+                  <leafNode name="address">
+                    <properties>
+                      <help>IP address, subnet, or range</help>
+                      <valueHelp>
+                        <format>ipv4</format>
+                        <description>IPv4 address to match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ipv4net</format>
+                        <description>IPv4 prefix to match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ipv4range</format>
+                        <description>IPv4 address range to match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>!ipv4</format>
+                        <description>Match everything except the specified address</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>!ipv4net</format>
+                        <description>Match everything except the specified prefix</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>!ipv4range</format>
+                        <description>Match everything except the specified range</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="ipv4-address"/>
+                        <validator name="ipv4-prefix"/>
+                        <validator name="ipv4-range"/>
+                        <validator name="ipv4-address-exclude"/>
+                        <validator name="ipv4-prefix-exclude"/>
+                        <validator name="ipv4-range-exclude"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from nat-port.xml.i -->
+                  <leafNode name="port">
+                    <properties>
+                      <help>Port number</help>
+                      <valueHelp>
+                        <format>txt</format>
+                        <description>Named port (any name in /etc/services, e.g., http)</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>u32:1-65535</format>
+                        <description>Numeric IP port</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>start-end</format>
+                        <description>Numbered port range (e.g. 1001-1005)</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format/>
+                        <description>\n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using '!'.\nFor example: '!22,telnet,http,123,1001-1005'</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="port-multi"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from firewall/source-destination-group.xml.i -->
+                  <node name="group">
+                    <properties>
+                      <help>Group</help>
+                    </properties>
+                    <children>
+                      <leafNode name="address-group">
+                        <properties>
+                          <help>Group of addresses</help>
+                          <completionHelp>
+                            <path>firewall group address-group</path>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                      <leafNode name="domain-group">
+                        <properties>
+                          <help>Group of domains</help>
+                          <completionHelp>
+                            <path>firewall group domain-group</path>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                      <!-- include start from firewall/mac-group.xml.i -->
+                      <leafNode name="mac-group">
+                        <properties>
+                          <help>Group of MAC addresses</help>
+                          <completionHelp>
+                            <path>firewall group mac-group</path>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                      <!-- include start from firewall/mac-group.xml.i -->
+                      <leafNode name="network-group">
+                        <properties>
+                          <help>Group of networks</help>
+                          <completionHelp>
+                            <path>firewall group network-group</path>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                      <leafNode name="port-group">
+                        <properties>
+                          <help>Group of ports</help>
+                          <completionHelp>
+                            <path>firewall group port-group</path>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                    </children>
+                  </node>
+                  <!-- include end -->
+                </children>
+              </node>
+            </children>
+          </tagNode>
+          <!-- include end -->
+          <tagNode name="rule">
+            <children>
+              <!-- include start from inbound-interface.xml.i -->
+              <leafNode name="inbound-interface">
+                <properties>
+                  <help>Inbound interface of NAT traffic</help>
+                  <completionHelp>
+                    <list>any</list>
+                    <script>${vyos_completion_dir}/list_interfaces</script>
+                  </completionHelp>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <node name="translation">
+                <properties>
+                  <help>Inside NAT IP (destination NAT only)</help>
+                </properties>
+                <children>
+                  <leafNode name="address">
+                    <properties>
+                      <help>IP address, subnet, or range</help>
+                      <valueHelp>
+                        <format>ipv4</format>
+                        <description>IPv4 address to match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ipv4net</format>
+                        <description>IPv4 prefix to match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ipv4range</format>
+                        <description>IPv4 address range to match</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="ipv4-prefix"/>
+                        <validator name="ipv4-address"/>
+                        <validator name="ipv4-range"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include start from nat-translation-port.xml.i -->
+                  <leafNode name="port">
+                    <properties>
+                      <help>Port number</help>
+                      <valueHelp>
+                        <format>u32:1-65535</format>
+                        <description>Numeric IP port</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>range</format>
+                        <description>Numbered port range (e.g., 1001-1005)</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="port-range"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from nat-translation-options.xml.i -->
+                  <node name="options">
+                    <properties>
+                      <help>Translation options</help>
+                    </properties>
+                    <children>
+                      <leafNode name="address-mapping">
+                        <properties>
+                          <help>Address mapping options</help>
+                          <completionHelp>
+                            <list>persistent random</list>
+                          </completionHelp>
+                          <valueHelp>
+                            <format>persistent</format>
+                            <description>Gives a client the same source or destination-address for each connection</description>
+                          </valueHelp>
+                          <valueHelp>
+                            <format>random</format>
+                            <description>Random source or destination address allocation for each connection</description>
+                          </valueHelp>
+                          <constraint>
+                            <regex>(persistent|random)</regex>
+                          </constraint>
+                        </properties>
+                        <defaultValue>random</defaultValue>
+                      </leafNode>
+                      <leafNode name="port-mapping">
+                        <properties>
+                          <help>Port mapping options</help>
+                          <completionHelp>
+                            <list>random fully-random none</list>
+                          </completionHelp>
+                          <valueHelp>
+                            <format>random</format>
+                            <description>Randomize source port mapping</description>
+                          </valueHelp>
+                          <valueHelp>
+                            <format>fully-random</format>
+                            <description>Full port randomization</description>
+                          </valueHelp>
+                          <valueHelp>
+                            <format>none</format>
+                            <description>Do not apply port randomization</description>
+                          </valueHelp>
+                          <constraint>
+                            <regex>(random|fully-random|none)</regex>
+                          </constraint>
+                        </properties>
+                        <defaultValue>none</defaultValue>
+                      </leafNode>
+                    </children>
+                  </node>
+                  <!-- include end -->
+                </children>
+              </node>
+            </children>
+          </tagNode>
+        </children>
+      </node>
+      <node name="source">
+        <properties>
+          <help>Source NAT settings</help>
+        </properties>
+        <children>
+          <!-- include start from nat-rule.xml.i -->
+          <tagNode name="rule">
+            <properties>
+              <help>Rule number for NAT</help>
+              <valueHelp>
+                <format>u32:1-999999</format>
+                <description>Number of NAT rule</description>
+              </valueHelp>
+              <constraint>
+                <validator name="numeric" argument="--range 1-999999"/>
+              </constraint>
+              <constraintErrorMessage>NAT rule number must be between 1 and 999999</constraintErrorMessage>
+            </properties>
+            <children>
+              <!-- include start from generic-description.xml.i -->
+              <leafNode name="description">
+                <properties>
+                  <help>Description</help>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Description</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>[[:ascii:]]{0,256}</regex>
+                  </constraint>
+                  <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <node name="destination">
+                <properties>
+                  <help>NAT destination parameters</help>
+                </properties>
+                <children>
+                  <!-- include start from nat-address.xml.i -->
+                  <leafNode name="address">
+                    <properties>
+                      <help>IP address, subnet, or range</help>
+                      <valueHelp>
+                        <format>ipv4</format>
+                        <description>IPv4 address to match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ipv4net</format>
+                        <description>IPv4 prefix to match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ipv4range</format>
+                        <description>IPv4 address range to match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>!ipv4</format>
+                        <description>Match everything except the specified address</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>!ipv4net</format>
+                        <description>Match everything except the specified prefix</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>!ipv4range</format>
+                        <description>Match everything except the specified range</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="ipv4-address"/>
+                        <validator name="ipv4-prefix"/>
+                        <validator name="ipv4-range"/>
+                        <validator name="ipv4-address-exclude"/>
+                        <validator name="ipv4-prefix-exclude"/>
+                        <validator name="ipv4-range-exclude"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from nat-port.xml.i -->
+                  <leafNode name="port">
+                    <properties>
+                      <help>Port number</help>
+                      <valueHelp>
+                        <format>txt</format>
+                        <description>Named port (any name in /etc/services, e.g., http)</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>u32:1-65535</format>
+                        <description>Numeric IP port</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>start-end</format>
+                        <description>Numbered port range (e.g. 1001-1005)</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format/>
+                        <description>\n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using '!'.\nFor example: '!22,telnet,http,123,1001-1005'</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="port-multi"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from firewall/source-destination-group.xml.i -->
+                  <node name="group">
+                    <properties>
+                      <help>Group</help>
+                    </properties>
+                    <children>
+                      <leafNode name="address-group">
+                        <properties>
+                          <help>Group of addresses</help>
+                          <completionHelp>
+                            <path>firewall group address-group</path>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                      <leafNode name="domain-group">
+                        <properties>
+                          <help>Group of domains</help>
+                          <completionHelp>
+                            <path>firewall group domain-group</path>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                      <!-- include start from firewall/mac-group.xml.i -->
+                      <leafNode name="mac-group">
+                        <properties>
+                          <help>Group of MAC addresses</help>
+                          <completionHelp>
+                            <path>firewall group mac-group</path>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                      <!-- include start from firewall/mac-group.xml.i -->
+                      <leafNode name="network-group">
+                        <properties>
+                          <help>Group of networks</help>
+                          <completionHelp>
+                            <path>firewall group network-group</path>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                      <leafNode name="port-group">
+                        <properties>
+                          <help>Group of ports</help>
+                          <completionHelp>
+                            <path>firewall group port-group</path>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                    </children>
+                  </node>
+                  <!-- include end -->
+                </children>
+              </node>
+              <!-- include start from generic-disable-node.xml.i -->
+              <leafNode name="disable">
+                <properties>
+                  <help>Disable instance</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from nat-exclude.xml.i -->
+              <leafNode name="exclude">
+                <properties>
+                  <help>Exclude packets matching this rule from NAT</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <leafNode name="log">
+                <properties>
+                  <help>NAT rule logging</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <leafNode name="packet-type">
+                <properties>
+                  <help>Packet type</help>
+                  <completionHelp>
+                    <list>broadcast host multicast other</list>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>broadcast</format>
+                    <description>Match broadcast packet type</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>host</format>
+                    <description>Match host packet type, addressed to local host</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>multicast</format>
+                    <description>Match multicast packet type</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>other</format>
+                    <description>Match packet addressed to another host</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>(broadcast|host|multicast|other)</regex>
+                  </constraint>
+                </properties>
+              </leafNode>
+              <leafNode name="protocol">
+                <properties>
+                  <help>Protocol to NAT</help>
+                  <completionHelp>
+                    <list>all ip hopopt icmp igmp ggp ipencap st tcp egp igp pup udp tcp_udp hmp xns-idp rdp iso-tp4 dccp xtp ddp idpr-cmtp ipv6 ipv6-route ipv6-frag idrp rsvp gre esp ah skip ipv6-icmp ipv6-nonxt ipv6-opts rspf vmtp eigrp ospf ax.25 ipip etherip encap 99 pim ipcomp vrrp l2tp isis sctp fc mobility-header udplite mpls-in-ip manet hip shim6 wesp rohc</list>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>all</format>
+                    <description>All IP protocols</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ip</format>
+                    <description>Internet Protocol, pseudo protocol number</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>hopopt</format>
+                    <description>IPv6 Hop-by-Hop Option [RFC1883]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>icmp</format>
+                    <description>internet control message protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>igmp</format>
+                    <description>Internet Group Management</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ggp</format>
+                    <description>gateway-gateway protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipencap</format>
+                    <description>IP encapsulated in IP (officially IP)</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>st</format>
+                    <description>ST datagram mode</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>tcp</format>
+                    <description>transmission control protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>egp</format>
+                    <description>exterior gateway protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>igp</format>
+                    <description>any private interior gateway (Cisco)</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>pup</format>
+                    <description>PARC universal packet protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>udp</format>
+                    <description>user datagram protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>tcp_udp</format>
+                    <description>Both TCP and UDP</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>hmp</format>
+                    <description>host monitoring protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>xns-idp</format>
+                    <description>Xerox NS IDP</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>rdp</format>
+                    <description>"reliable datagram" protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>iso-tp4</format>
+                    <description>ISO Transport Protocol class 4 [RFC905]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>dccp</format>
+                    <description>Datagram Congestion Control Prot. [RFC4340]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>xtp</format>
+                    <description>Xpress Transfer Protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ddp</format>
+                    <description>Datagram Delivery Protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>idpr-cmtp</format>
+                    <description>IDPR Control Message Transport</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>Ipv6</format>
+                    <description>Internet Protocol, version 6</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipv6-route</format>
+                    <description>Routing Header for IPv6</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipv6-frag</format>
+                    <description>Fragment Header for IPv6</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>idrp</format>
+                    <description>Inter-Domain Routing Protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>rsvp</format>
+                    <description>Reservation Protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>gre</format>
+                    <description>General Routing Encapsulation</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>esp</format>
+                    <description>Encap Security Payload [RFC2406]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ah</format>
+                    <description>Authentication Header [RFC2402]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>skip</format>
+                    <description>SKIP</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipv6-icmp</format>
+                    <description>ICMP for IPv6</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipv6-nonxt</format>
+                    <description>No Next Header for IPv6</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipv6-opts</format>
+                    <description>Destination Options for IPv6</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>rspf</format>
+                    <description>Radio Shortest Path First (officially CPHB)</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>vmtp</format>
+                    <description>Versatile Message Transport</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>eigrp</format>
+                    <description>Enhanced Interior Routing Protocol (Cisco)</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ospf</format>
+                    <description>Open Shortest Path First IGP</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ax.25</format>
+                    <description>AX.25 frames</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipip</format>
+                    <description>IP-within-IP Encapsulation Protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>etherip</format>
+                    <description>Ethernet-within-IP Encapsulation [RFC3378]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>encap</format>
+                    <description>Yet Another IP encapsulation [RFC1241]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>99</format>
+                    <description>Any private encryption scheme</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>pim</format>
+                    <description>Protocol Independent Multicast</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipcomp</format>
+                    <description>IP Payload Compression Protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>vrrp</format>
+                    <description>Virtual Router Redundancy Protocol [RFC5798]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>l2tp</format>
+                    <description>Layer Two Tunneling Protocol [RFC2661]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>isis</format>
+                    <description>IS-IS over IPv4</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>sctp</format>
+                    <description>Stream Control Transmission Protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>fc</format>
+                    <description>Fibre Channel</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>mobility-header</format>
+                    <description>Mobility Support for IPv6 [RFC3775]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>udplite</format>
+                    <description>UDP-Lite [RFC3828]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>mpls-in-ip</format>
+                    <description>MPLS-in-IP [RFC4023]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>manet</format>
+                    <description>MANET Protocols [RFC5498]</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>hip</format>
+                    <description>Host Identity Protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>shim6</format>
+                    <description>Shim6 Protocol</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>wesp</format>
+                    <description>Wrapped Encapsulating Security Payload</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>rohc</format>
+                    <description>Robust Header Compression</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>u32:0-255</format>
+                    <description>IP protocol number</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="ip-protocol"/>
+                  </constraint>
+                </properties>
+                <defaultValue>all</defaultValue>
+              </leafNode>
+              <node name="source">
+                <properties>
+                  <help>NAT source parameters</help>
+                </properties>
+                <children>
+                  <!-- include start from nat-address.xml.i -->
+                  <leafNode name="address">
+                    <properties>
+                      <help>IP address, subnet, or range</help>
+                      <valueHelp>
+                        <format>ipv4</format>
+                        <description>IPv4 address to match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ipv4net</format>
+                        <description>IPv4 prefix to match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ipv4range</format>
+                        <description>IPv4 address range to match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>!ipv4</format>
+                        <description>Match everything except the specified address</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>!ipv4net</format>
+                        <description>Match everything except the specified prefix</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>!ipv4range</format>
+                        <description>Match everything except the specified range</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="ipv4-address"/>
+                        <validator name="ipv4-prefix"/>
+                        <validator name="ipv4-range"/>
+                        <validator name="ipv4-address-exclude"/>
+                        <validator name="ipv4-prefix-exclude"/>
+                        <validator name="ipv4-range-exclude"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from nat-port.xml.i -->
+                  <leafNode name="port">
+                    <properties>
+                      <help>Port number</help>
+                      <valueHelp>
+                        <format>txt</format>
+                        <description>Named port (any name in /etc/services, e.g., http)</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>u32:1-65535</format>
+                        <description>Numeric IP port</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>start-end</format>
+                        <description>Numbered port range (e.g. 1001-1005)</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format/>
+                        <description>\n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using '!'.\nFor example: '!22,telnet,http,123,1001-1005'</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="port-multi"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from firewall/source-destination-group.xml.i -->
+                  <node name="group">
+                    <properties>
+                      <help>Group</help>
+                    </properties>
+                    <children>
+                      <leafNode name="address-group">
+                        <properties>
+                          <help>Group of addresses</help>
+                          <completionHelp>
+                            <path>firewall group address-group</path>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                      <leafNode name="domain-group">
+                        <properties>
+                          <help>Group of domains</help>
+                          <completionHelp>
+                            <path>firewall group domain-group</path>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                      <!-- include start from firewall/mac-group.xml.i -->
+                      <leafNode name="mac-group">
+                        <properties>
+                          <help>Group of MAC addresses</help>
+                          <completionHelp>
+                            <path>firewall group mac-group</path>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                      <!-- include start from firewall/mac-group.xml.i -->
+                      <leafNode name="network-group">
+                        <properties>
+                          <help>Group of networks</help>
+                          <completionHelp>
+                            <path>firewall group network-group</path>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                      <leafNode name="port-group">
+                        <properties>
+                          <help>Group of ports</help>
+                          <completionHelp>
+                            <path>firewall group port-group</path>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                    </children>
+                  </node>
+                  <!-- include end -->
+                </children>
+              </node>
+            </children>
+          </tagNode>
+          <!-- include end -->
+          <tagNode name="rule">
+            <properties>
+              <help>Rule number for NAT</help>
+              <valueHelp>
+                <format>u32:1-999999</format>
+                <description>Number of NAT rule</description>
+              </valueHelp>
+              <constraint>
+                <validator name="numeric" argument="--range 1-999999"/>
+              </constraint>
+              <constraintErrorMessage>NAT rule number must be between 1 and 999999</constraintErrorMessage>
+            </properties>
+            <children>
+              <!-- include start from nat-interface.xml.i -->
+              <leafNode name="outbound-interface">
+                <properties>
+                  <help>Outbound interface of NAT traffic</help>
+                  <completionHelp>
+                    <list>any</list>
+                    <script>${vyos_completion_dir}/list_interfaces</script>
+                  </completionHelp>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <node name="translation">
+                <properties>
+                  <help>Outside NAT IP (source NAT only)</help>
+                </properties>
+                <children>
+                  <leafNode name="address">
+                    <properties>
+                      <help>IP address, subnet, or range</help>
+                      <completionHelp>
+                        <list>masquerade</list>
+                      </completionHelp>
+                      <valueHelp>
+                        <format>ipv4</format>
+                        <description>IPv4 address to match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ipv4net</format>
+                        <description>IPv4 prefix to match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ipv4range</format>
+                        <description>IPv4 address range to match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>masquerade</format>
+                        <description>NAT to the primary address of outbound-interface</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="ipv4-prefix"/>
+                        <validator name="ipv4-address"/>
+                        <validator name="ipv4-range"/>
+                        <regex>(masquerade)</regex>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include start from nat-translation-port.xml.i -->
+                  <leafNode name="port">
+                    <properties>
+                      <help>Port number</help>
+                      <valueHelp>
+                        <format>u32:1-65535</format>
+                        <description>Numeric IP port</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>range</format>
+                        <description>Numbered port range (e.g., 1001-1005)</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="port-range"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from nat-translation-options.xml.i -->
+                  <node name="options">
+                    <properties>
+                      <help>Translation options</help>
+                    </properties>
+                    <children>
+                      <leafNode name="address-mapping">
+                        <properties>
+                          <help>Address mapping options</help>
+                          <completionHelp>
+                            <list>persistent random</list>
+                          </completionHelp>
+                          <valueHelp>
+                            <format>persistent</format>
+                            <description>Gives a client the same source or destination-address for each connection</description>
+                          </valueHelp>
+                          <valueHelp>
+                            <format>random</format>
+                            <description>Random source or destination address allocation for each connection</description>
+                          </valueHelp>
+                          <constraint>
+                            <regex>(persistent|random)</regex>
+                          </constraint>
+                        </properties>
+                        <defaultValue>random</defaultValue>
+                      </leafNode>
+                      <leafNode name="port-mapping">
+                        <properties>
+                          <help>Port mapping options</help>
+                          <completionHelp>
+                            <list>random fully-random none</list>
+                          </completionHelp>
+                          <valueHelp>
+                            <format>random</format>
+                            <description>Randomize source port mapping</description>
+                          </valueHelp>
+                          <valueHelp>
+                            <format>fully-random</format>
+                            <description>Full port randomization</description>
+                          </valueHelp>
+                          <valueHelp>
+                            <format>none</format>
+                            <description>Do not apply port randomization</description>
+                          </valueHelp>
+                          <constraint>
+                            <regex>(random|fully-random|none)</regex>
+                          </constraint>
+                        </properties>
+                        <defaultValue>none</defaultValue>
+                      </leafNode>
+                    </children>
+                  </node>
+                  <!-- include end -->
+                </children>
+              </node>
+            </children>
+          </tagNode>
+        </children>
+      </node>
+      <node name="static">
+        <properties>
+          <help>Static NAT (one-to-one)</help>
+        </properties>
+        <children>
+          <tagNode name="rule">
+            <properties>
+              <help>Rule number for NAT</help>
+            </properties>
+            <children>
+              <!-- include start from generic-description.xml.i -->
+              <leafNode name="description">
+                <properties>
+                  <help>Description</help>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Description</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>[[:ascii:]]{0,256}</regex>
+                  </constraint>
+                  <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <node name="destination">
+                <properties>
+                  <help>NAT destination parameters</help>
+                </properties>
+                <children>
+                  <!-- include start from ipv4-address-prefix.xml.i -->
+                  <leafNode name="address">
+                    <properties>
+                      <help>IP address, prefix</help>
+                      <valueHelp>
+                        <format>ipv4</format>
+                        <description>IPv4 address to match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ipv4net</format>
+                        <description>IPv4 prefix to match</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="ipv4-address"/>
+                        <validator name="ipv4-prefix"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                </children>
+              </node>
+              <!-- include start from inbound-interface.xml.i -->
+              <leafNode name="inbound-interface">
+                <properties>
+                  <help>Inbound interface of NAT traffic</help>
+                  <completionHelp>
+                    <list>any</list>
+                    <script>${vyos_completion_dir}/list_interfaces</script>
+                  </completionHelp>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <node name="translation">
+                <properties>
+                  <help>Translation address or prefix</help>
+                </properties>
+                <children>
+                  <!-- include start from ipv4-address-prefix.xml.i -->
+                  <leafNode name="address">
+                    <properties>
+                      <help>IP address, prefix</help>
+                      <valueHelp>
+                        <format>ipv4</format>
+                        <description>IPv4 address to match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ipv4net</format>
+                        <description>IPv4 prefix to match</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="ipv4-address"/>
+                        <validator name="ipv4-prefix"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                </children>
+              </node>
+            </children>
+          </tagNode>
+        </children>
+      </node>
+    </children>
+  </node>
+</interfaceDefinition>

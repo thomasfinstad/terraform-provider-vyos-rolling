@@ -27,6 +27,11 @@ type serviceIPoeServerInterface struct {
 	model        resourcemodel.ServiceIPoeServerInterface
 }
 
+// GetName returns resource name
+func (r *serviceIPoeServerInterface) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceIPoeServerInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

@@ -27,6 +27,11 @@ type serviceDNSForwardingDomain struct {
 	model        resourcemodel.ServiceDNSForwardingDomain
 }
 
+// GetName returns resource name
+func (r *serviceDNSForwardingDomain) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceDNSForwardingDomain) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

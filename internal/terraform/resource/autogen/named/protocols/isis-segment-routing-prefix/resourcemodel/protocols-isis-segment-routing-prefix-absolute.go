@@ -57,13 +57,3 @@ func (o ProtocolsIsisSegmentRoutingPrefixAbsolute) ResourceSchemaAttributes() ma
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ProtocolsIsisSegmentRoutingPrefixAbsolute) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsIsisSegmentRoutingPrefixAbsolute) UnmarshalJSON(_ []byte) error {
-	return nil
-}

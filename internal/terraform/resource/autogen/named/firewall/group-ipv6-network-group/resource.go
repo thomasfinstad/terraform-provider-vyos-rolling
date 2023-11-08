@@ -27,6 +27,11 @@ type firewallGroupIPvsixNetworkGroup struct {
 	model        resourcemodel.FirewallGroupIPvsixNetworkGroup
 }
 
+// GetName returns resource name
+func (r *firewallGroupIPvsixNetworkGroup) GetName() string {
+	return r.ResourceName
+}
+
 func (r *firewallGroupIPvsixNetworkGroup) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

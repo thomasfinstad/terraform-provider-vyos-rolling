@@ -27,6 +27,11 @@ type serviceNtpServer struct {
 	model        resourcemodel.ServiceNtpServer
 }
 
+// GetName returns resource name
+func (r *serviceNtpServer) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceNtpServer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

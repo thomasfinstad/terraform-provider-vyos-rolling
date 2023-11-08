@@ -27,6 +27,11 @@ type interfacesDummy struct {
 	model        resourcemodel.InterfacesDummy
 }
 
+// GetName returns resource name
+func (r *interfacesDummy) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesDummy) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

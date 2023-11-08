@@ -53,6 +53,11 @@ import (
 		model        resourcemodel.{{.BaseNameCG}}
 	}
 
+	// GetName returns resource name
+	func (r *{{.BaseNameG}}) GetName() string {
+		return r.ResourceName
+	}
+
 	func (r *{{.BaseNameG}}) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 		// Prevent panic if the provider has not been configured.
 		if req.ProviderData == nil {
@@ -179,6 +184,8 @@ import (
 	// {{.BaseNameCG}} describes the resource data model.
 	type {{.BaseNameCG}} struct {
 		{{if .IsBaseNode }}
+			ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 			SelfIdentifier	{{ if eq .ValueType "string" -}}
 								types.String
 							{{- else  if eq .ValueType "number" -}}
@@ -243,6 +250,16 @@ import (
 	}
 
 	{{if .IsBaseNode }}
+		// GetID returns the resource ID
+		func (o {{.BaseNameCG}}) GetID() *types.String {
+			return &o.ID
+		}
+
+		// SetID configures the resource ID
+		func (o {{.BaseNameCG}}) SetID(id types.String) {
+			o.ID = id
+		}
+
 		// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 		func (o *{{.BaseNameCG}}) GetVyosPath() []string {
 			return []string{
@@ -268,7 +285,7 @@ import (
 			{{if .IsBaseNode }}
 				"id": schema.StringAttribute{
 					Computed: true,
-					MarkdownDescription: "Resource ID, an amalgamation of the `{{.BaseNameS}}_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+					MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 				},
 				"{{.BaseNameS}}_id": schema.StringAttribute{
 					Required:            true,
@@ -323,16 +340,6 @@ import (
 			{{end}}
 		}
 	}
-
-	// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-	func (o *{{.BaseNameCG}}) MarshalJSON() ([]byte, error) {
-		return nil, nil
-	}
-
-	// UnmarshalJSON unmarshals json byte array into this object
-	func (o *{{.BaseNameCG}}) UnmarshalJSON(_ []byte) error {
-		return nil
-	}
 {{end}}
 
 {{define "metadata"}}
@@ -357,171 +364,34 @@ func (r {{.BaseNameG}}) Schema(ctx context.Context, req resource.SchemaRequest, 
 {{end}}
 
 {{define "crud"}}
+	// GetClient returns the vyos api client
+	func (r *{{.BaseNameG}}) GetClient() *client.Client {
+		return r.client
+	}
+
+	// GetModel returns the resource model as defined by the interface in helpers
+	func (r *{{.BaseNameG}}) GetModel() helpers.VyosTopResourceDataModel {
+		return &r.model
+	}
+
 	// Create method to define the logic which creates the resource and sets its initial Terraform state.
-	func (r {{.BaseNameG}}) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-		data := r.model
-
-		// Read Terraform plan data into the model
-		resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
-
-		if resp.Diagnostics.HasError() {
-			return
-		}
-
-		jsonData, err := json.Marshal(data)
-		if err != nil {
-			resp.Diagnostics.AddError("Json Marshalling Error", fmt.Sprintf("%s", err))
-			return
-		}
-
-		var vyosData map[string]interface{}
-		err = json.Unmarshal(jsonData, &vyosData)
-		if err != nil {
-			resp.Diagnostics.AddError("Json Unmarshalling Error", fmt.Sprintf("%s", err))
-			return
-		}
-
-		// Create vyos api ops
-		vyosOps := helpers.GenerateVyosOps(ctx, data.GetVyosPath(), vyosData)
-		tflog.Error(ctx, "Compiled vyos operations", map[string]interface{}{"vyosOps": vyosOps})
-
-		// Stage changes
-		r.client.StageSet(ctx, vyosOps)
-
-		// Commit changes
-		response, err := r.client.CommitChanges(ctx)
-		if err != nil {
-			resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", r.ResourceName, err))
-			return
-		}
-		if response != nil {
-			tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
-		}
-
-		// Save ID into the Terraform state.
-		{{- if eq .ValueType "string" -}}
-			data.SelfIdentifier = types.StringValue(data.SelfIdentifier.ValueString())
-		{{- else  if eq .ValueType "number" -}}
-			data.SelfIdentifier = types.NumberValue(data.SelfIdentifier.ValueBigFloat().String())
-		{{else}}
-			UNSUPPORTED TYPE
-		{{end}}
-
-		// Save data to Terraform state
-		tflog.Trace(ctx, "resource created")
-		tflog.Error(ctx, "Setting state", map[string]interface{}{"data": fmt.Sprintf("%#v", data)})
-		resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+	func (r *{{.BaseNameG}}) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+		helpers.Create(ctx, r, req, resp)
 	}
 
 	// Read method to define the logic which refreshes the Terraform state for the resource.
-	func (r {{.BaseNameG}}) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-		data := r.model
-
-		// Read Terraform prior state data into the model
-		resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
-
-		if resp.Diagnostics.HasError() {
-			return
-		}
-
-		vyosPath := data.GetVyosPath()
-
-		// Fetch live state from Vyos
-		response, err := r.client.Read(ctx, vyosPath)
-		if err != nil {
-			resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", r.ResourceName, err))
-			return
-		}
-		if response != nil {
-			tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
-		}
-
-		jsonStr, err := json.Marshal(response.(map[string]interface{}))
-		err = json.Unmarshal(jsonStr, &r.model)
-		if err != nil {
-			resp.Diagnostics.AddError("Json Unmarshal Error", fmt.Sprintf("%s", err))
-			return
-		}
-
-		// Save updated data into Terraform state
-		tflog.Error(ctx, "Setting state", map[string]interface{}{"data": fmt.Sprintf("%#v", data)})
-		resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+	func (r *{{.BaseNameG}}) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+		helpers.Read(ctx, r, req, resp)
 	}
 
 	// Update method to define the logic which updates the resource and sets the updated Terraform state on success.
-	func (r {{.BaseNameG}}) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-		data := r.model
-
-		// Read Terraform plan data into the model
-		resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
-
-		if resp.Diagnostics.HasError() {
-			return
-		}
-
-		jsonData, err := json.Marshal(data)
-		if err != nil {
-			resp.Diagnostics.AddError("Json Marshalling Error", fmt.Sprintf("%s", err))
-			return
-		}
-
-		var vyosData map[string]interface{}
-		err = json.Unmarshal(jsonData, &vyosData)
-		if err != nil {
-			resp.Diagnostics.AddError("Json Unmarshalling Error", fmt.Sprintf("%s", err))
-			return
-		}
-
-		// Create vyos api ops
-		vyosOps := helpers.GenerateVyosOps(ctx, data.GetVyosPath(), vyosData)
-		tflog.Error(ctx, "Compiled vyos operations", map[string]interface{}{"vyosOps": vyosOps})
-
-		// Stage changes
-		r.client.StageSet(ctx, vyosOps)
-
-		// Commit changes
-		response, err := r.client.CommitChanges(ctx)
-		if err != nil {
-			resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", r.ResourceName, err))
-			return
-		}
-		if response != nil {
-			tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
-		}
-
-		// Save ID into the Terraform state.
-		{{- if eq .ValueType "string" -}}
-			data.SelfIdentifier = types.StringValue(data.SelfIdentifier.ValueString())
-		{{- else  if eq .ValueType "number" -}}
-			data.SelfIdentifier = types.NumberValue(data.SelfIdentifier.ValueBigFloat().String())
-		{{else}}
-			UNSUPPORTED TYPE
-		{{end}}
-
-		// Save data to Terraform state
-		tflog.Trace(ctx, "resource created")
-		tflog.Error(ctx, "Setting state", map[string]interface{}{"data": fmt.Sprintf("%#v", data)})
-		resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+	func (r *{{.BaseNameG}}) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+		helpers.Update(ctx, r, req, resp)
 	}
 
 	// Delete method to define the logic which deletes the resource and removes the Terraform state on success.
-	func (r {{.BaseNameG}}) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
-		data := r.model
-
-		// Read Terraform prior state data into the model
-		resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
-
-		if resp.Diagnostics.HasError() {
-			return
-		}
-
-		// If applicable, this is a great opportunity to initialize any necessary
-		// provider client data and make a call using it.
-		// httpResp, err := r.client.Do(httpReq)
-		// if err != nil {
-		//     resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to delete example, got error: %s", err))
-		//     return
-		// }
+	func (r *{{.BaseNameG}}) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+		helpers.Delete(ctx, r, req, resp)
 	}
 {{end}}
 

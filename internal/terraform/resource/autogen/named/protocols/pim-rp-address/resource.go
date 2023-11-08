@@ -27,6 +27,11 @@ type protocolsPimRpAddress struct {
 	model        resourcemodel.ProtocolsPimRpAddress
 }
 
+// GetName returns resource name
+func (r *protocolsPimRpAddress) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsPimRpAddress) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

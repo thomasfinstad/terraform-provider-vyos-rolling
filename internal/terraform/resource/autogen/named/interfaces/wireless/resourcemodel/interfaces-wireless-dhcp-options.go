@@ -98,13 +98,3 @@ func (o InterfacesWirelessDhcpOptions) ResourceSchemaAttributes() map[string]sch
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesWirelessDhcpOptions) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWirelessDhcpOptions) UnmarshalJSON(_ []byte) error {
-	return nil
-}

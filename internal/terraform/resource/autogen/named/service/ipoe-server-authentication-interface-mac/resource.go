@@ -27,6 +27,11 @@ type serviceIPoeServerAuthenticationInterfaceMac struct {
 	model        resourcemodel.ServiceIPoeServerAuthenticationInterfaceMac
 }
 
+// GetName returns resource name
+func (r *serviceIPoeServerAuthenticationInterfaceMac) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceIPoeServerAuthenticationInterfaceMac) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

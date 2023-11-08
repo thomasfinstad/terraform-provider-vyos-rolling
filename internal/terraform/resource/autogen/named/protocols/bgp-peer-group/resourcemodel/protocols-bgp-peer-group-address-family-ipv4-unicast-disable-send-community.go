@@ -45,13 +45,3 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunity) Re
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunity) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunity) UnmarshalJSON(_ []byte) error {
-	return nil
-}

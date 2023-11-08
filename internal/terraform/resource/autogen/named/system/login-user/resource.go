@@ -27,6 +27,11 @@ type systemLoginUser struct {
 	model        resourcemodel.SystemLoginUser
 }
 
+// GetName returns resource name
+func (r *systemLoginUser) GetName() string {
+	return r.ResourceName
+}
+
 func (r *systemLoginUser) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

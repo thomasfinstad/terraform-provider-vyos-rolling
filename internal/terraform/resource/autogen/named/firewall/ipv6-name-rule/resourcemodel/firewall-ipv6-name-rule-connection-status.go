@@ -37,13 +37,3 @@ func (o FirewallIPvsixNameRuleConnectionStatus) ResourceSchemaAttributes() map[s
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *FirewallIPvsixNameRuleConnectionStatus) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallIPvsixNameRuleConnectionStatus) UnmarshalJSON(_ []byte) error {
-	return nil
-}

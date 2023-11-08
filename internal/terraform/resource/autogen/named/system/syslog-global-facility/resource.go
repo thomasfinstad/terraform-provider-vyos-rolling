@@ -27,6 +27,11 @@ type systemSyslogGlobalFacility struct {
 	model        resourcemodel.SystemSyslogGlobalFacility
 }
 
+// GetName returns resource name
+func (r *systemSyslogGlobalFacility) GetName() string {
+	return r.ResourceName
+}
+
 func (r *systemSyslogGlobalFacility) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

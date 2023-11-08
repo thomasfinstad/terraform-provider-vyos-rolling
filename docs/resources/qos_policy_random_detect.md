@@ -73,4 +73,4 @@ Weighted Random Early Detect policy
 
 ### Read-Only
 
-- `id` (String) Resource ID, an amalgamation of the `random_detect_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).

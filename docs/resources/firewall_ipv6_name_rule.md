@@ -61,7 +61,7 @@ Firewall rule number (IPv6)
     |  accept  &emsp; |  Accept matching entries  |
     |  jump  &emsp; |  Jump to another chain  |
     |  reject  &emsp; |  Reject matching entries  |
-    |  return  &emsp; |  Return from the current chain and continue at the next rule of the<br>                      last chain  |
+    |  return  &emsp; |  Return from the current chain and continue at the next rule of the last chain  |
     |  drop  &emsp; |  Drop matching entries  |
     |  queue  &emsp; |  Enqueue packet to userspace  |
 - `connection_mark` (List of Number) Connection mark
@@ -149,8 +149,7 @@ Firewall rule number (IPv6)
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 0-65535  &emsp; |  Queue target  |
-- `queue_options` (List of String) Options used for queue target. Action queue must be defined to use this
-                    setting
+- `queue_options` (List of String) Options used for queue target. Action queue must be defined to use this setting
 
     |  Format &emsp; | Description  |
     |----------|---------------|
@@ -164,7 +163,7 @@ Firewall rule number (IPv6)
 
 ### Read-Only
 
-- `id` (String) Resource ID, an amalgamation of the `rule_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
 
 <a id="nestedatt--connection_status"></a>
 ### Nested Schema for `connection_status`
@@ -219,7 +218,7 @@ Optional:
     |  txt  &emsp; |  Named port (any name in /etc/services, e.g., http)  |
     |  number: 1-65535  &emsp; |  Numbered port  |
     |  <start-end>  &emsp; |  Numbered port range (e.g. 1001-1005)  |
-    |     &emsp; |  \n\n Multiple destination ports can be specified as a<br>                          comma-separated list.\n For example: 'telnet,http,123,1001-1005'  |
+    |     &emsp; |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
 
 <a id="nestedatt--destination--geoip"></a>
 ### Nested Schema for `destination.geoip`
@@ -420,7 +419,7 @@ Optional:
     |  txt  &emsp; |  Named port (any name in /etc/services, e.g., http)  |
     |  number: 1-65535  &emsp; |  Numbered port  |
     |  <start-end>  &emsp; |  Numbered port range (e.g. 1001-1005)  |
-    |     &emsp; |  \n\n Multiple destination ports can be specified as a<br>                          comma-separated list.\n For example: 'telnet,http,123,1001-1005'  |
+    |     &emsp; |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
 
 <a id="nestedatt--source--geoip"></a>
 ### Nested Schema for `source.geoip`
@@ -553,5 +552,5 @@ Optional:
 
     |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  &emsp; |  Name of day (Monday, Tuesday, Wednesday, Thursdays, Friday,<br>                          Saturday, Sunday)  |
+    |  txt  &emsp; |  Name of day (Monday, Tuesday, Wednesday, Thursdays, Friday, Saturday, Sunday)  |
     |  number: 0-6  &emsp; |  Day number (0 = Sunday ... 6 = Saturday)  |

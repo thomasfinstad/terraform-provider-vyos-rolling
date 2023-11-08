@@ -27,6 +27,11 @@ type serviceTftpServerListenAddress struct {
 	model        resourcemodel.ServiceTftpServerListenAddress
 }
 
+// GetName returns resource name
+func (r *serviceTftpServerListenAddress) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceTftpServerListenAddress) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

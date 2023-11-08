@@ -27,6 +27,11 @@ type interfacesPppoeDhcpvsixOptionsPd struct {
 	model        resourcemodel.InterfacesPppoeDhcpvsixOptionsPd
 }
 
+// GetName returns resource name
+func (r *interfacesPppoeDhcpvsixOptionsPd) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesPppoeDhcpvsixOptionsPd) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

@@ -27,6 +27,11 @@ type serviceDNSForwardingAuthoritativeDomainRecordsCname struct {
 	model        resourcemodel.ServiceDNSForwardingAuthoritativeDomainRecordsCname
 }
 
+// GetName returns resource name
+func (r *serviceDNSForwardingAuthoritativeDomainRecordsCname) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceDNSForwardingAuthoritativeDomainRecordsCname) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

@@ -27,6 +27,11 @@ type pkiDh struct {
 	model        resourcemodel.PkiDh
 }
 
+// GetName returns resource name
+func (r *pkiDh) GetName() string {
+	return r.ResourceName
+}
+
 func (r *pkiDh) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

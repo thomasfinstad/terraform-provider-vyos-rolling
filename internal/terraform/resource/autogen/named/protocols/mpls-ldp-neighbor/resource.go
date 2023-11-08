@@ -27,6 +27,11 @@ type protocolsMplsLdpNeighbor struct {
 	model        resourcemodel.ProtocolsMplsLdpNeighbor
 }
 
+// GetName returns resource name
+func (r *protocolsMplsLdpNeighbor) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsMplsLdpNeighbor) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

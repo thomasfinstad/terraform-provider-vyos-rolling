@@ -68,13 +68,3 @@ func (o QosPolicyShaperHfscClassMatchEther) ResourceSchemaAttributes() map[strin
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *QosPolicyShaperHfscClassMatchEther) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyShaperHfscClassMatchEther) UnmarshalJSON(_ []byte) error {
-	return nil
-}

@@ -27,6 +27,11 @@ type protocolsIgmpInterfaceJoin struct {
 	model        resourcemodel.ProtocolsIgmpInterfaceJoin
 }
 
+// GetName returns resource name
+func (r *protocolsIgmpInterfaceJoin) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsIgmpInterfaceJoin) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

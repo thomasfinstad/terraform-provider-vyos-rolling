@@ -35,13 +35,3 @@ func (o VrfNameIPvsix) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *VrfNameIPvsix) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameIPvsix) UnmarshalJSON(_ []byte) error {
-	return nil
-}

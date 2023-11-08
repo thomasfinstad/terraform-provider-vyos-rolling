@@ -27,6 +27,11 @@ type qosPolicyDropTail struct {
 	model        resourcemodel.QosPolicyDropTail
 }
 
+// GetName returns resource name
+func (r *qosPolicyDropTail) GetName() string {
+	return r.ResourceName
+}
+
 func (r *qosPolicyDropTail) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

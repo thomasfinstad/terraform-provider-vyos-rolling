@@ -74,13 +74,3 @@ func (o PolicyRouteRuleIcmp) ResourceSchemaAttributes() map[string]schema.Attrib
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *PolicyRouteRuleIcmp) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *PolicyRouteRuleIcmp) UnmarshalJSON(_ []byte) error {
-	return nil
-}

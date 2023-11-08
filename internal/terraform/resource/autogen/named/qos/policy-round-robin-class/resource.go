@@ -27,6 +27,11 @@ type qosPolicyRoundRobinClass struct {
 	model        resourcemodel.QosPolicyRoundRobinClass
 }
 
+// GetName returns resource name
+func (r *qosPolicyRoundRobinClass) GetName() string {
+	return r.ResourceName
+}
+
 func (r *qosPolicyRoundRobinClass) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

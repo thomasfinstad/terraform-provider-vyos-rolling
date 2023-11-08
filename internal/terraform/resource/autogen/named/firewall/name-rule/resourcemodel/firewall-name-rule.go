@@ -11,6 +11,8 @@ import (
 
 // FirewallNameRule describes the resource data model.
 type FirewallNameRule struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
 
 	ParentIDFirewallName types.String `tfsdk:"name" vyos:"name,parent-id"`
@@ -51,6 +53,16 @@ type FirewallNameRule struct {
 	NodeFirewallNameRuleTTL               *FirewallNameRuleTTL               `tfsdk:"ttl" vyos:"ttl,omitempty"`
 }
 
+// GetID returns the resource ID
+func (o FirewallNameRule) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o FirewallNameRule) SetID(id types.String) {
+	o.ID = id
+}
+
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *FirewallNameRule) GetVyosPath() []string {
 	return []string{
@@ -69,7 +81,7 @@ func (o FirewallNameRule) ResourceSchemaAttributes() map[string]schema.Attribute
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `rule_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"rule_id": schema.StringAttribute{
 			Required: true,
@@ -106,7 +118,7 @@ func (o FirewallNameRule) ResourceSchemaAttributes() map[string]schema.Attribute
     |  accept  &emsp; |  Accept matching entries  |
     |  jump  &emsp; |  Jump to another chain  |
     |  reject  &emsp; |  Reject matching entries  |
-    |  return  &emsp; |  Return from the current chain and continue at the next rule of the<br>                      last chain  |
+    |  return  &emsp; |  Return from the current chain and continue at the next rule of the last chain  |
     |  drop  &emsp; |  Drop matching entries  |
     |  queue  &emsp; |  Enqueue packet to userspace  |
 
@@ -277,8 +289,7 @@ func (o FirewallNameRule) ResourceSchemaAttributes() map[string]schema.Attribute
 		"queue_options": schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
-			MarkdownDescription: `Options used for queue target. Action queue must be defined to use this
-                    setting
+			MarkdownDescription: `Options used for queue target. Action queue must be defined to use this setting
 
     |  Format &emsp; | Description  |
     |----------|---------------|
@@ -402,14 +413,4 @@ func (o FirewallNameRule) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *FirewallNameRule) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallNameRule) UnmarshalJSON(_ []byte) error {
-	return nil
 }

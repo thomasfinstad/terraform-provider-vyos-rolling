@@ -27,6 +27,11 @@ type highAvailabilityVrrpGroup struct {
 	model        resourcemodel.HighAvailabilityVrrpGroup
 }
 
+// GetName returns resource name
+func (r *highAvailabilityVrrpGroup) GetName() string {
+	return r.ResourceName
+}
+
 func (r *highAvailabilityVrrpGroup) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

@@ -27,6 +27,11 @@ type interfacesBondingVif struct {
 	model        resourcemodel.InterfacesBondingVif
 }
 
+// GetName returns resource name
+func (r *interfacesBondingVif) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesBondingVif) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

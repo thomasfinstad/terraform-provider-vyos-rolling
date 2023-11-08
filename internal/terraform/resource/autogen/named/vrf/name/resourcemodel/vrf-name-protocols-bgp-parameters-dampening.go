@@ -72,13 +72,3 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceSchemaAttributes() map[s
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *VrfNameProtocolsBgpParametersDampening) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpParametersDampening) UnmarshalJSON(_ []byte) error {
-	return nil
-}

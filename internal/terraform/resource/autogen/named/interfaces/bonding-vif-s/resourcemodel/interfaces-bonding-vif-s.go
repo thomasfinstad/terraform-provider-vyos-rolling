@@ -11,6 +11,8 @@ import (
 
 // InterfacesBondingVifS describes the resource data model.
 type InterfacesBondingVifS struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.Number `tfsdk:"vif_s_id" vyos:",self-id"`
 
 	ParentIDInterfacesBonding types.String `tfsdk:"bonding" vyos:"bonding,parent-id"`
@@ -37,6 +39,16 @@ type InterfacesBondingVifS struct {
 	NodeInterfacesBondingVifSMirror          *InterfacesBondingVifSMirror          `tfsdk:"mirror" vyos:"mirror,omitempty"`
 }
 
+// GetID returns the resource ID
+func (o InterfacesBondingVifS) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o InterfacesBondingVifS) SetID(id types.String) {
+	o.ID = id
+}
+
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *InterfacesBondingVifS) GetVyosPath() []string {
 	return []string{
@@ -55,7 +67,7 @@ func (o InterfacesBondingVifS) ResourceSchemaAttributes() map[string]schema.Attr
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `vif_s_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"vif_s_id": schema.StringAttribute{
 			Required: true,
@@ -235,14 +247,4 @@ func (o InterfacesBondingVifS) ResourceSchemaAttributes() map[string]schema.Attr
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesBondingVifS) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesBondingVifS) UnmarshalJSON(_ []byte) error {
-	return nil
 }

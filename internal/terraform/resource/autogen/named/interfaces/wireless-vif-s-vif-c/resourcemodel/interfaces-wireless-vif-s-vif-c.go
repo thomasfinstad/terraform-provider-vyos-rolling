@@ -11,6 +11,8 @@ import (
 
 // InterfacesWirelessVifSVifC describes the resource data model.
 type InterfacesWirelessVifSVifC struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"vif_c_id" vyos:",self-id"`
 
 	ParentIDInterfacesWireless types.String `tfsdk:"wireless" vyos:"wireless,parent-id"`
@@ -37,6 +39,16 @@ type InterfacesWirelessVifSVifC struct {
 	NodeInterfacesWirelessVifSVifCMirror          *InterfacesWirelessVifSVifCMirror          `tfsdk:"mirror" vyos:"mirror,omitempty"`
 }
 
+// GetID returns the resource ID
+func (o InterfacesWirelessVifSVifC) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o InterfacesWirelessVifSVifC) SetID(id types.String) {
+	o.ID = id
+}
+
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *InterfacesWirelessVifSVifC) GetVyosPath() []string {
 	return []string{
@@ -58,7 +70,7 @@ func (o InterfacesWirelessVifSVifC) ResourceSchemaAttributes() map[string]schema
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `vif_c_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"vif_c_id": schema.StringAttribute{
 			Required: true,
@@ -233,14 +245,4 @@ func (o InterfacesWirelessVifSVifC) ResourceSchemaAttributes() map[string]schema
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesWirelessVifSVifC) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWirelessVifSVifC) UnmarshalJSON(_ []byte) error {
-	return nil
 }

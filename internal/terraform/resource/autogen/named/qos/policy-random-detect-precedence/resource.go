@@ -27,6 +27,11 @@ type qosPolicyRandomDetectPrecedence struct {
 	model        resourcemodel.QosPolicyRandomDetectPrecedence
 }
 
+// GetName returns resource name
+func (r *qosPolicyRandomDetectPrecedence) GetName() string {
+	return r.ResourceName
+}
+
 func (r *qosPolicyRandomDetectPrecedence) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

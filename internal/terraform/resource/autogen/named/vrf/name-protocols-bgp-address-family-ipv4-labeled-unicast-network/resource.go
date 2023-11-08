@@ -27,6 +27,11 @@ type vrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork struct {
 	model        resourcemodel.VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork
 }
 
+// GetName returns resource name
+func (r *vrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

@@ -40,13 +40,3 @@ func (o FirewallInterfaceLocal) ResourceSchemaAttributes() map[string]schema.Att
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *FirewallInterfaceLocal) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallInterfaceLocal) UnmarshalJSON(_ []byte) error {
-	return nil
-}

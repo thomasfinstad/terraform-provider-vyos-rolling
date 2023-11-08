@@ -98,13 +98,3 @@ func (o InterfacesBondingVifDhcpOptions) ResourceSchemaAttributes() map[string]s
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesBondingVifDhcpOptions) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesBondingVifDhcpOptions) UnmarshalJSON(_ []byte) error {
-	return nil
-}

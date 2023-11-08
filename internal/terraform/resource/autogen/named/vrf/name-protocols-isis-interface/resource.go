@@ -27,6 +27,11 @@ type vrfNameProtocolsIsisInterface struct {
 	model        resourcemodel.VrfNameProtocolsIsisInterface
 }
 
+// GetName returns resource name
+func (r *vrfNameProtocolsIsisInterface) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vrfNameProtocolsIsisInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

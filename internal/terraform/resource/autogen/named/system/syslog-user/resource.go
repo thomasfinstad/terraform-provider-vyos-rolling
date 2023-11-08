@@ -27,6 +27,11 @@ type systemSyslogUser struct {
 	model        resourcemodel.SystemSyslogUser
 }
 
+// GetName returns resource name
+func (r *systemSyslogUser) GetName() string {
+	return r.ResourceName
+}
+
 func (r *systemSyslogUser) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

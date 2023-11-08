@@ -27,6 +27,11 @@ type serviceWebproxyURLFilteringSquIDguardTimePeriodDays struct {
 	model        resourcemodel.ServiceWebproxyURLFilteringSquIDguardTimePeriodDays
 }
 
+// GetName returns resource name
+func (r *serviceWebproxyURLFilteringSquIDguardTimePeriodDays) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceWebproxyURLFilteringSquIDguardTimePeriodDays) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

@@ -27,6 +27,11 @@ type containerName struct {
 	model        resourcemodel.ContainerName
 }
 
+// GetName returns resource name
+func (r *containerName) GetName() string {
+	return r.ResourceName
+}
+
 func (r *containerName) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

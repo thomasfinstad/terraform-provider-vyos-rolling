@@ -98,13 +98,3 @@ func (o InterfacesPseudoEthernetVifSDhcpOptions) ResourceSchemaAttributes() map[
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesPseudoEthernetVifSDhcpOptions) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesPseudoEthernetVifSDhcpOptions) UnmarshalJSON(_ []byte) error {
-	return nil
-}

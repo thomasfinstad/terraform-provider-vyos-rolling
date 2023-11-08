@@ -27,6 +27,11 @@ type protocolsRIPInterface struct {
 	model        resourcemodel.ProtocolsRIPInterface
 }
 
+// GetName returns resource name
+func (r *protocolsRIPInterface) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsRIPInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

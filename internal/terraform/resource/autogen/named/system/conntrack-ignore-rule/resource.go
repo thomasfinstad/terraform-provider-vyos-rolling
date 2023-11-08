@@ -27,6 +27,11 @@ type systemConntrackIgnoreRule struct {
 	model        resourcemodel.SystemConntrackIgnoreRule
 }
 
+// GetName returns resource name
+func (r *systemConntrackIgnoreRule) GetName() string {
+	return r.ResourceName
+}
+
 func (r *systemConntrackIgnoreRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

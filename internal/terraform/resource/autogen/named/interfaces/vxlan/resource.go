@@ -27,6 +27,11 @@ type interfacesVxlan struct {
 	model        resourcemodel.InterfacesVxlan
 }
 
+// GetName returns resource name
+func (r *interfacesVxlan) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesVxlan) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

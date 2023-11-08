@@ -10,6 +10,8 @@ import (
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.Number `tfsdk:"entry_id" vyos:",self-id"`
 
 	ParentIDServiceDNSForwardingAuthoritativeDomain types.String `tfsdk:"authoritative_domain" vyos:"authoritative-domain,parent-id"`
@@ -25,6 +27,16 @@ type ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes
+}
+
+// GetID returns the resource ID
+func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -54,7 +66,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceSchemaAt
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `entry_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"entry_id": schema.StringAttribute{
 			Required: true,
@@ -154,14 +166,4 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceSchemaAt
 		// Nodes
 
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) UnmarshalJSON(_ []byte) error {
-	return nil
 }

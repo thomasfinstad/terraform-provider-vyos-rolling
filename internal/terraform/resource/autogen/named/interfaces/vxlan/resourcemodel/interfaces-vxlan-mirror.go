@@ -48,13 +48,3 @@ func (o InterfacesVxlanMirror) ResourceSchemaAttributes() map[string]schema.Attr
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesVxlanMirror) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesVxlanMirror) UnmarshalJSON(_ []byte) error {
-	return nil
-}

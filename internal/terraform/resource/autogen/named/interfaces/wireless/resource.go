@@ -27,6 +27,11 @@ type interfacesWireless struct {
 	model        resourcemodel.InterfacesWireless
 }
 
+// GetName returns resource name
+func (r *interfacesWireless) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesWireless) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

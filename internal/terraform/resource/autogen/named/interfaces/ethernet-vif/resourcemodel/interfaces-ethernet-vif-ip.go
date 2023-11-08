@@ -147,13 +147,3 @@ func (o InterfacesEthernetVifIP) ResourceSchemaAttributes() map[string]schema.At
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesEthernetVifIP) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesEthernetVifIP) UnmarshalJSON(_ []byte) error {
-	return nil
-}

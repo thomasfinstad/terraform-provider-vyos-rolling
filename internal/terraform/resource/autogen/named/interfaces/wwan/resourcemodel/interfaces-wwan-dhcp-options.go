@@ -98,13 +98,3 @@ func (o InterfacesWwanDhcpOptions) ResourceSchemaAttributes() map[string]schema.
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesWwanDhcpOptions) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesWwanDhcpOptions) UnmarshalJSON(_ []byte) error {
-	return nil
-}

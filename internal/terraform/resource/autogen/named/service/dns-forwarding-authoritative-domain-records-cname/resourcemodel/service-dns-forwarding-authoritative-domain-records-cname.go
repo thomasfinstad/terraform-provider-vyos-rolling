@@ -11,6 +11,8 @@ import (
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsCname describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsCname struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"cname_id" vyos:",self-id"`
 
 	ParentIDServiceDNSForwardingAuthoritativeDomain types.String `tfsdk:"authoritative_domain" vyos:"authoritative-domain,parent-id"`
@@ -23,6 +25,16 @@ type ServiceDNSForwardingAuthoritativeDomainRecordsCname struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes
+}
+
+// GetID returns the resource ID
+func (o ServiceDNSForwardingAuthoritativeDomainRecordsCname) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o ServiceDNSForwardingAuthoritativeDomainRecordsCname) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -49,7 +61,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsCname) ResourceSchemaAttri
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `cname_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"cname_id": schema.StringAttribute{
 			Required: true,
@@ -119,14 +131,4 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsCname) ResourceSchemaAttri
 		// Nodes
 
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ServiceDNSForwardingAuthoritativeDomainRecordsCname) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ServiceDNSForwardingAuthoritativeDomainRecordsCname) UnmarshalJSON(_ []byte) error {
-	return nil
 }

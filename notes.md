@@ -1,7 +1,7 @@
 # TODO large steps
-- Configure terraform ID format
-- Complete CRUD functions
-- Generate resource import docs
+- Verify CRUD functions
+- Create custom import function that will populate `id` and `*_id` fields correctly
+- Auto generate resource import docs
 - Fix doc "subcategory"
 - Create global (Node) resources
 - improve error vs diag returns (especially (un)marshal helpers)

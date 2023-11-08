@@ -27,6 +27,11 @@ type pkiOpenvpnSharedSecret struct {
 	model        resourcemodel.PkiOpenvpnSharedSecret
 }
 
+// GetName returns resource name
+func (r *pkiOpenvpnSharedSecret) GetName() string {
+	return r.ResourceName
+}
+
 func (r *pkiOpenvpnSharedSecret) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

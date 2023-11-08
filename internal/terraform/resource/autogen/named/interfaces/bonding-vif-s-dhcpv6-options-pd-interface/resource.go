@@ -27,6 +27,11 @@ type interfacesBondingVifSDhcpvsixOptionsPdInterface struct {
 	model        resourcemodel.InterfacesBondingVifSDhcpvsixOptionsPdInterface
 }
 
+// GetName returns resource name
+func (r *interfacesBondingVifSDhcpvsixOptionsPdInterface) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesBondingVifSDhcpvsixOptionsPdInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

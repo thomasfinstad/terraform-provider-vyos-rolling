@@ -27,6 +27,11 @@ type vrfNameProtocolsStaticRoutesixInterface struct {
 	model        resourcemodel.VrfNameProtocolsStaticRoutesixInterface
 }
 
+// GetName returns resource name
+func (r *vrfNameProtocolsStaticRoutesixInterface) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vrfNameProtocolsStaticRoutesixInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

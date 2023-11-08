@@ -27,6 +27,11 @@ type systemConsoleDevice struct {
 	model        resourcemodel.SystemConsoleDevice
 }
 
+// GetName returns resource name
+func (r *systemConsoleDevice) GetName() string {
+	return r.ResourceName
+}
+
 func (r *systemConsoleDevice) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

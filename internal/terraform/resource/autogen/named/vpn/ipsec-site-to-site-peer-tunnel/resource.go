@@ -27,6 +27,11 @@ type vpnIPsecSiteToSitePeerTunnel struct {
 	model        resourcemodel.VpnIPsecSiteToSitePeerTunnel
 }
 
+// GetName returns resource name
+func (r *vpnIPsecSiteToSitePeerTunnel) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vpnIPsecSiteToSitePeerTunnel) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

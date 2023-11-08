@@ -27,6 +27,11 @@ type protocolsStaticMulticastRouteNextHop struct {
 	model        resourcemodel.ProtocolsStaticMulticastRouteNextHop
 }
 
+// GetName returns resource name
+func (r *protocolsStaticMulticastRouteNextHop) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsStaticMulticastRouteNextHop) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

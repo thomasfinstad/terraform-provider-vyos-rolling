@@ -45,13 +45,3 @@ func (o FirewallIPvsixNameRuleFragment) ResourceSchemaAttributes() map[string]sc
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *FirewallIPvsixNameRuleFragment) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallIPvsixNameRuleFragment) UnmarshalJSON(_ []byte) error {
-	return nil
-}

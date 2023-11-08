@@ -50,13 +50,3 @@ func (o VpnIPsecRemoteAccessConnectionLocal) ResourceSchemaAttributes() map[stri
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *VpnIPsecRemoteAccessConnectionLocal) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *VpnIPsecRemoteAccessConnectionLocal) UnmarshalJSON(_ []byte) error {
-	return nil
-}

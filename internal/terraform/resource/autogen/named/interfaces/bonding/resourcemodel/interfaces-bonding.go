@@ -11,6 +11,8 @@ import (
 
 // InterfacesBonding describes the resource data model.
 type InterfacesBonding struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"bonding_id" vyos:",self-id"`
 
 	// LeafNodes
@@ -44,6 +46,16 @@ type InterfacesBonding struct {
 	NodeInterfacesBondingMember          *InterfacesBondingMember          `tfsdk:"member" vyos:"member,omitempty"`
 }
 
+// GetID returns the resource ID
+func (o InterfacesBonding) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o InterfacesBonding) SetID(id types.String) {
+	o.ID = id
+}
+
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *InterfacesBonding) GetVyosPath() []string {
 	return []string{
@@ -59,7 +71,7 @@ func (o InterfacesBonding) ResourceSchemaAttributes() map[string]schema.Attribut
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `bonding_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"bonding_id": schema.StringAttribute{
 			Required: true,
@@ -328,14 +340,4 @@ func (o InterfacesBonding) ResourceSchemaAttributes() map[string]schema.Attribut
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesBonding) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesBonding) UnmarshalJSON(_ []byte) error {
-	return nil
 }

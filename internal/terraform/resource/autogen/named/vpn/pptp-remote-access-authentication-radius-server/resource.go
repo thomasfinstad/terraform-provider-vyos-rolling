@@ -27,6 +27,11 @@ type vpnPptpRemoteAccessAuthenticationRadiusServer struct {
 	model        resourcemodel.VpnPptpRemoteAccessAuthenticationRadiusServer
 }
 
+// GetName returns resource name
+func (r *vpnPptpRemoteAccessAuthenticationRadiusServer) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vpnPptpRemoteAccessAuthenticationRadiusServer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

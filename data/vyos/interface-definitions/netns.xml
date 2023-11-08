@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<interfaceDefinition>
+  <node name="netns" owner="${vyos_conf_scripts_dir}/netns.py">
+    <properties>
+      <help>Network namespace</help>
+      <priority>299</priority>
+    </properties>
+    <children>
+      <tagNode name="name">
+        <properties>
+          <help>Network namespace name</help>
+          <constraint>
+            <regex>[a-zA-Z0-9-_]{1,100}</regex>
+          </constraint>
+          <constraintErrorMessage>Netns name must be alphanumeric and can contain hyphens and underscores.</constraintErrorMessage>
+        </properties>
+        <children>
+          <!-- include start from generic-description.xml.i -->
+          <leafNode name="description">
+            <properties>
+              <help>Description</help>
+              <valueHelp>
+                <format>txt</format>
+                <description>Description</description>
+              </valueHelp>
+              <constraint>
+                <regex>[[:ascii:]]{0,256}</regex>
+              </constraint>
+              <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+        </children>
+      </tagNode>
+    </children>
+  </node>
+</interfaceDefinition>

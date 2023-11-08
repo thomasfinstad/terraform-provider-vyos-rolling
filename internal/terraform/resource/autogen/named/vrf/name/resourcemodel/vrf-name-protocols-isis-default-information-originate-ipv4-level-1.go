@@ -59,13 +59,3 @@ func (o VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne) Resource
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne) UnmarshalJSON(_ []byte) error {
-	return nil
-}

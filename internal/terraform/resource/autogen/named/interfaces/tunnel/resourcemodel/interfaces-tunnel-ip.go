@@ -147,13 +147,3 @@ func (o InterfacesTunnelIP) ResourceSchemaAttributes() map[string]schema.Attribu
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesTunnelIP) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesTunnelIP) UnmarshalJSON(_ []byte) error {
-	return nil
-}

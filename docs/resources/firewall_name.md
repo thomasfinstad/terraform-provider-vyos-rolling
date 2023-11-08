@@ -46,10 +46,9 @@ IPv4 firewall rule-set name
     |  drop  &emsp; |  Drop if no prior rules are hit  |
     |  jump  &emsp; |  Jump to another chain if no prior rules are hit  |
     |  reject  &emsp; |  Drop and notify source if no prior rules are hit  |
-    |  return  &emsp; |  Return from the current chain and continue at the next rule of the last<br>                  chain  |
+    |  return  &emsp; |  Return from the current chain and continue at the next rule of the last chain  |
     |  accept  &emsp; |  Accept if no prior rules are hit  |
-- `default_jump_target` (String) Set jump target. Action jump must be defined in default-action to use this
-                setting
+- `default_jump_target` (String) Set jump target. Action jump must be defined in default-action to use this setting
 - `description` (String) Description
 
     |  Format &emsp; | Description  |
@@ -59,4 +58,4 @@ IPv4 firewall rule-set name
 
 ### Read-Only
 
-- `id` (String) Resource ID, an amalgamation of the `name_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).

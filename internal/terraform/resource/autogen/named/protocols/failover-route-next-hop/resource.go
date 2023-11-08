@@ -27,6 +27,11 @@ type protocolsFailoverRouteNextHop struct {
 	model        resourcemodel.ProtocolsFailoverRouteNextHop
 }
 
+// GetName returns resource name
+func (r *protocolsFailoverRouteNextHop) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsFailoverRouteNextHop) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

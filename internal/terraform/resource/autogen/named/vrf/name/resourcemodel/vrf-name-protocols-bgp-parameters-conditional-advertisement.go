@@ -39,13 +39,3 @@ func (o VrfNameProtocolsBgpParametersConditionalAdvertisement) ResourceSchemaAtt
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *VrfNameProtocolsBgpParametersConditionalAdvertisement) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsBgpParametersConditionalAdvertisement) UnmarshalJSON(_ []byte) error {
-	return nil
-}

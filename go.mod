@@ -1,6 +1,8 @@
 module github.com/thomasfinstad/terraform-provider-vyos
 
-go 1.20
+go 1.21
+
+toolchain go1.21.4
 
 require (
 	github.com/dave/dst v0.27.2

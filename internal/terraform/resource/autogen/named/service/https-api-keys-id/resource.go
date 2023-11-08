@@ -27,6 +27,11 @@ type serviceHTTPSAPIKeysID struct {
 	model        resourcemodel.ServiceHTTPSAPIKeysID
 }
 
+// GetName returns resource name
+func (r *serviceHTTPSAPIKeysID) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceHTTPSAPIKeysID) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

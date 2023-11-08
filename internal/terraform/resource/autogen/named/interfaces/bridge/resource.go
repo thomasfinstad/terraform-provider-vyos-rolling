@@ -27,6 +27,11 @@ type interfacesBrIDge struct {
 	model        resourcemodel.InterfacesBrIDge
 }
 
+// GetName returns resource name
+func (r *interfacesBrIDge) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesBrIDge) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

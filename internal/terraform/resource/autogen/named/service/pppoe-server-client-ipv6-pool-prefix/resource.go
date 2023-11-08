@@ -27,6 +27,11 @@ type servicePppoeServerClientIPvsixPoolPrefix struct {
 	model        resourcemodel.ServicePppoeServerClientIPvsixPoolPrefix
 }
 
+// GetName returns resource name
+func (r *servicePppoeServerClientIPvsixPoolPrefix) GetName() string {
+	return r.ResourceName
+}
+
 func (r *servicePppoeServerClientIPvsixPoolPrefix) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

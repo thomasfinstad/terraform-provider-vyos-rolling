@@ -27,6 +27,11 @@ type vrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID struct {
 	model        resourcemodel.VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID
 }
 
+// GetName returns resource name
+func (r *vrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

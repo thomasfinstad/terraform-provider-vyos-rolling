@@ -10,6 +10,8 @@ import (
 
 // InterfacesPseudoEthernetVifSDhcpvsixOptionsPd describes the resource data model.
 type InterfacesPseudoEthernetVifSDhcpvsixOptionsPd struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"pd_id" vyos:",self-id"`
 
 	ParentIDInterfacesPseudoEthernet types.String `tfsdk:"pseudo_ethernet" vyos:"pseudo-ethernet,parent-id"`
@@ -23,6 +25,16 @@ type InterfacesPseudoEthernetVifSDhcpvsixOptionsPd struct {
 	ExistsTagInterfacesPseudoEthernetVifSDhcpvsixOptionsPdInterface bool `tfsdk:"interface" vyos:"interface,child"`
 
 	// Nodes
+}
+
+// GetID returns the resource ID
+func (o InterfacesPseudoEthernetVifSDhcpvsixOptionsPd) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o InterfacesPseudoEthernetVifSDhcpvsixOptionsPd) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -48,7 +60,7 @@ func (o InterfacesPseudoEthernetVifSDhcpvsixOptionsPd) ResourceSchemaAttributes(
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `pd_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"pd_id": schema.StringAttribute{
 			Required: true,
@@ -111,14 +123,4 @@ func (o InterfacesPseudoEthernetVifSDhcpvsixOptionsPd) ResourceSchemaAttributes(
 		// Nodes
 
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesPseudoEthernetVifSDhcpvsixOptionsPd) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesPseudoEthernetVifSDhcpvsixOptionsPd) UnmarshalJSON(_ []byte) error {
-	return nil
 }

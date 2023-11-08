@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<interfaceDefinition>
+  <node name="interfaces">
+    <children>
+      <tagNode name="input" owner="${vyos_conf_scripts_dir}/interfaces-input.py">
+        <properties>
+          <help>Input Functional Block (IFB) interface name</help>
+          <!-- before real devices that redirect -->
+          <priority>310</priority>
+          <constraint>
+            <regex>ifb[0-9]+</regex>
+          </constraint>
+          <constraintErrorMessage>Input interface must be named ifbN</constraintErrorMessage>
+          <valueHelp>
+            <format>ifbN</format>
+            <description>Input interface name</description>
+          </valueHelp>
+        </properties>
+        <children>
+          <!-- include start from generic-description.xml.i -->
+          <leafNode name="description">
+            <properties>
+              <help>Description</help>
+              <valueHelp>
+                <format>txt</format>
+                <description>Description</description>
+              </valueHelp>
+              <constraint>
+                <regex>[[:ascii:]]{0,256}</regex>
+              </constraint>
+              <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/disable.xml.i -->
+          <leafNode name="disable">
+            <properties>
+              <help>Administratively disable interface</help>
+              <valueless/>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/redirect.xml.i -->
+          <leafNode name="redirect">
+            <properties>
+              <help>Redirect incoming packet to destination</help>
+              <completionHelp>
+                <script>${vyos_completion_dir}/list_interfaces</script>
+              </completionHelp>
+              <valueHelp>
+                <format>txt</format>
+                <description>Destination interface name</description>
+              </valueHelp>
+              <constraint>
+                <!-- include start from constraint/interface-name.xml.in -->
+                <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
+                <validator name="file-path --lookup-path /sys/class/net --directory"/>
+                <!-- include end -->
+              </constraint>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+        </children>
+      </tagNode>
+    </children>
+  </node>
+</interfaceDefinition>

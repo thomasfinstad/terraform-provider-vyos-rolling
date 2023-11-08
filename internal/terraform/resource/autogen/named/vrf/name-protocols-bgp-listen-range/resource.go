@@ -27,6 +27,11 @@ type vrfNameProtocolsBgpListenRange struct {
 	model        resourcemodel.VrfNameProtocolsBgpListenRange
 }
 
+// GetName returns resource name
+func (r *vrfNameProtocolsBgpListenRange) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vrfNameProtocolsBgpListenRange) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

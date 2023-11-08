@@ -27,6 +27,11 @@ type protocolsStaticRoutesixInterface struct {
 	model        resourcemodel.ProtocolsStaticRoutesixInterface
 }
 
+// GetName returns resource name
+func (r *protocolsStaticRoutesixInterface) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsStaticRoutesixInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

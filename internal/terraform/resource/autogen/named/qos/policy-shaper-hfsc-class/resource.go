@@ -27,6 +27,11 @@ type qosPolicyShaperHfscClass struct {
 	model        resourcemodel.QosPolicyShaperHfscClass
 }
 
+// GetName returns resource name
+func (r *qosPolicyShaperHfscClass) GetName() string {
+	return r.ResourceName
+}
+
 func (r *qosPolicyShaperHfscClass) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

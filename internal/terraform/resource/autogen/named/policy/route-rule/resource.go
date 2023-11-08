@@ -27,6 +27,11 @@ type policyRouteRule struct {
 	model        resourcemodel.PolicyRouteRule
 }
 
+// GetName returns resource name
+func (r *policyRouteRule) GetName() string {
+	return r.ResourceName
+}
+
 func (r *policyRouteRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

@@ -27,6 +27,11 @@ type highAvailabilityVirtualServerRealServer struct {
 	model        resourcemodel.HighAvailabilityVirtualServerRealServer
 }
 
+// GetName returns resource name
+func (r *highAvailabilityVirtualServerRealServer) GetName() string {
+	return r.ResourceName
+}
+
 func (r *highAvailabilityVirtualServerRealServer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

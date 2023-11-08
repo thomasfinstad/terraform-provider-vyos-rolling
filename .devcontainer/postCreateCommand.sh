@@ -3,10 +3,13 @@
 ###
 # Apt packages
 export DEBIAN_FRONTEND=noninteractive
-sudo apt-get update
+apt-get update
 
 # Get some completion up in here
-sudo apt-get install -y bash-completion
+apt-get install -y bash-completion
+
+# Xml formatter
+apt-get install -y libxml2-utils
 
 ###
 # Pre-commit / git tools

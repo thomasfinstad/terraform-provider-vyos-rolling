@@ -10,6 +10,8 @@ import (
 
 // ProtocolsStaticTableRoute describes the resource data model.
 type ProtocolsStaticTableRoute struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"route_id" vyos:",self-id"`
 
 	ParentIDProtocolsStaticTable types.String `tfsdk:"table" vyos:"table,parent-id"`
@@ -25,6 +27,16 @@ type ProtocolsStaticTableRoute struct {
 	// Nodes
 	NodeProtocolsStaticTableRouteBlackhole *ProtocolsStaticTableRouteBlackhole `tfsdk:"blackhole" vyos:"blackhole,omitempty"`
 	NodeProtocolsStaticTableRouteReject    *ProtocolsStaticTableRouteReject    `tfsdk:"reject" vyos:"reject,omitempty"`
+}
+
+// GetID returns the resource ID
+func (o ProtocolsStaticTableRoute) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o ProtocolsStaticTableRoute) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -47,7 +59,7 @@ func (o ProtocolsStaticTableRoute) ResourceSchemaAttributes() map[string]schema.
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `route_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"route_id": schema.StringAttribute{
 			Required: true,
@@ -119,14 +131,4 @@ func (o ProtocolsStaticTableRoute) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ProtocolsStaticTableRoute) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsStaticTableRoute) UnmarshalJSON(_ []byte) error {
-	return nil
 }

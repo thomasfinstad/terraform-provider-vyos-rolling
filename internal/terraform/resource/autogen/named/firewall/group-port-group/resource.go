@@ -27,6 +27,11 @@ type firewallGroupPortGroup struct {
 	model        resourcemodel.FirewallGroupPortGroup
 }
 
+// GetName returns resource name
+func (r *firewallGroupPortGroup) GetName() string {
+	return r.ResourceName
+}
+
 func (r *firewallGroupPortGroup) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

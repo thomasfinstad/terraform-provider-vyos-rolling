@@ -27,6 +27,11 @@ type protocolsBgpAddressFamilyIPvsixVpnNetwork struct {
 	model        resourcemodel.ProtocolsBgpAddressFamilyIPvsixVpnNetwork
 }
 
+// GetName returns resource name
+func (r *protocolsBgpAddressFamilyIPvsixVpnNetwork) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsBgpAddressFamilyIPvsixVpnNetwork) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

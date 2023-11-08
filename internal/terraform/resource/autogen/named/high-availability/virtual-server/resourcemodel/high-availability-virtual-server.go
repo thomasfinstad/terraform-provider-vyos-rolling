@@ -10,6 +10,8 @@ import (
 
 // HighAvailabilityVirtualServer describes the resource data model.
 type HighAvailabilityVirtualServer struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"virtual_server_id" vyos:",self-id"`
 
 	// LeafNodes
@@ -27,6 +29,16 @@ type HighAvailabilityVirtualServer struct {
 	// Nodes
 }
 
+// GetID returns the resource ID
+func (o HighAvailabilityVirtualServer) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o HighAvailabilityVirtualServer) SetID(id types.String) {
+	o.ID = id
+}
+
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *HighAvailabilityVirtualServer) GetVyosPath() []string {
 	return []string{
@@ -42,7 +54,7 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `virtual_server_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"virtual_server_id": schema.StringAttribute{
 			Required: true,
@@ -160,14 +172,4 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 		// Nodes
 
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *HighAvailabilityVirtualServer) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *HighAvailabilityVirtualServer) UnmarshalJSON(_ []byte) error {
-	return nil
 }

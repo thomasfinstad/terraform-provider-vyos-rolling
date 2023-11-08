@@ -38,13 +38,3 @@ func (o InterfacesLoopbackIP) ResourceSchemaAttributes() map[string]schema.Attri
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesLoopbackIP) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesLoopbackIP) UnmarshalJSON(_ []byte) error {
-	return nil
-}

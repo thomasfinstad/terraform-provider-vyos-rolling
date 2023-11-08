@@ -56,13 +56,3 @@ func (o HighAvailabilityVrrpGroupTransitionScrIPt) ResourceSchemaAttributes() ma
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *HighAvailabilityVrrpGroupTransitionScrIPt) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *HighAvailabilityVrrpGroupTransitionScrIPt) UnmarshalJSON(_ []byte) error {
-	return nil
-}

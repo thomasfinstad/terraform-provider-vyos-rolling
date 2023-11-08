@@ -27,6 +27,11 @@ type protocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress struct {
 	model        resourcemodel.ProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress
 }
 
+// GetName returns resource name
+func (r *protocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

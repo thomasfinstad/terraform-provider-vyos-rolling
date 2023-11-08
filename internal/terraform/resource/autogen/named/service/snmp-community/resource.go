@@ -27,6 +27,11 @@ type serviceSnmpCommunity struct {
 	model        resourcemodel.ServiceSnmpCommunity
 }
 
+// GetName returns resource name
+func (r *serviceSnmpCommunity) GetName() string {
+	return r.ResourceName
+}
+
 func (r *serviceSnmpCommunity) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

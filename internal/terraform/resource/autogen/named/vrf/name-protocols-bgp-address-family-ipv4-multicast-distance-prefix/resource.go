@@ -27,6 +27,11 @@ type vrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix struct {
 	model        resourcemodel.VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix
 }
 
+// GetName returns resource name
+func (r *vrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

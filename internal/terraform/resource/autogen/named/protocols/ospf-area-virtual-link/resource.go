@@ -27,6 +27,11 @@ type protocolsOspfAreaVirtualLink struct {
 	model        resourcemodel.ProtocolsOspfAreaVirtualLink
 }
 
+// GetName returns resource name
+func (r *protocolsOspfAreaVirtualLink) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsOspfAreaVirtualLink) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

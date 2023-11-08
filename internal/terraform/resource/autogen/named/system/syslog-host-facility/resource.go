@@ -27,6 +27,11 @@ type systemSyslogHostFacility struct {
 	model        resourcemodel.SystemSyslogHostFacility
 }
 
+// GetName returns resource name
+func (r *systemSyslogHostFacility) GetName() string {
+	return r.ResourceName
+}
+
 func (r *systemSyslogHostFacility) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

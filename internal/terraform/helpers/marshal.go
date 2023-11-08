@@ -22,8 +22,18 @@ func MarshalVyos(ctx context.Context, data VyosResourceDataModel) (map[string]an
 		fType := typeReflection.Field(i).Type
 		fValue := valueReflection.Field(i)
 		fTags := strings.Split(typeReflection.Field(i).Tag.Get("vyos"), ",")
+		for i, v := range fTags {
+			if v == "" {
+				fTags = append(fTags[:i], fTags[i+1:]...)
+			}
+		}
 		tflog.Debug(ctx, "processing field", map[string]interface{}{"Field": fName, "Type": fType, "Value-Interface": fValue, "Tags": fTags})
 		fmt.Printf("Field: %s\tType: %s\tValue: %v\tTags: %v\n", fName, fType, fValue, fTags)
+
+		if len(fTags) < 1 {
+			tflog.Error(ctx, "no vyos tags found on field, at least the name field must be filled. an underscore can be used if no real value is propriate")
+			panic("no vyos tags found on field, at least the name field must be filled. an underscore can be used if no real value is propriate")
+		}
 
 		// Set flags based on tags, first tag must be the vyos field name, the rest are bools with default of false
 		// TODO create struct of valid options
@@ -33,11 +43,13 @@ func MarshalVyos(ctx context.Context, data VyosResourceDataModel) (map[string]an
 			"parent-id": false,
 			"omitempty": false,
 			"child":     false,
+			"tfsdk-id":  false,
 		}
-		for _, tag := range fTags[1:] {
+		for _, tag := range fTags {
+			fmt.Printf("\tEnabling flag: %s\n", tag)
 			flags[tag] = true
 		}
-		if flags["child"].(bool) || flags["self-id"].(bool) || flags["parent-id"].(bool) {
+		if flags["child"].(bool) || flags["self-id"].(bool) || flags["parent-id"].(bool) || flags["tfsdk-id"].(bool) {
 			fmt.Printf("\tNot configuring field: %s\n", fName)
 			tflog.Debug(ctx, "Not configuring field", map[string]interface{}{"field-name": fName})
 			continue
@@ -50,7 +62,7 @@ func MarshalVyos(ctx context.Context, data VyosResourceDataModel) (map[string]an
 				tflog.Debug(ctx, "Marshalling String Field", map[string]interface{}{"field-name": fName, flags["name"].(string): v.ValueString()})
 				res[flags["name"].(string)] = v.ValueString()
 			} else if !flags["omitempty"].(bool) {
-				panic("Missing value")
+				panic(fmt.Sprintf("Missing value: %s", fName))
 			}
 		case basetypes.BoolValue:
 			fmt.Printf("\tMarshalling Bool Field: %s\n", fName)
@@ -72,7 +84,7 @@ func MarshalVyos(ctx context.Context, data VyosResourceDataModel) (map[string]an
 				tflog.Debug(ctx, "Marshalling Number Field", map[string]interface{}{"field-name": fName, flags["name"].(string): v.ValueBigFloat()})
 				res[flags["name"].(string)], _ = v.ValueBigFloat().Float64()
 			} else if !flags["omitempty"].(bool) {
-				panic("Missing value")
+				panic(fmt.Sprintf("Missing value: %s", fName))
 			}
 		case basetypes.ListValue:
 			if !(v.IsNull() || v.IsUnknown()) {
@@ -97,7 +109,7 @@ func MarshalVyos(ctx context.Context, data VyosResourceDataModel) (map[string]an
 				}
 
 			} else if !flags["omitempty"].(bool) {
-				panic("Missing value")
+				panic(fmt.Sprintf("Missing value: %s", fName))
 			}
 		default:
 			// TODO cleanup nested ifs inside switch and flatten out to only use switch statement, this might require not using a type switch

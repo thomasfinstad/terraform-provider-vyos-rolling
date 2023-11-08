@@ -27,6 +27,11 @@ type vrfNameProtocolsOspfArea struct {
 	model        resourcemodel.VrfNameProtocolsOspfArea
 }
 
+// GetName returns resource name
+func (r *vrfNameProtocolsOspfArea) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vrfNameProtocolsOspfArea) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

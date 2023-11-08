@@ -68,13 +68,3 @@ func (o InterfacesVirtualEthernetDhcpvsixOptions) ResourceSchemaAttributes() map
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesVirtualEthernetDhcpvsixOptions) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesVirtualEthernetDhcpvsixOptions) UnmarshalJSON(_ []byte) error {
-	return nil
-}

@@ -11,6 +11,8 @@ import (
 
 // InterfacesVti describes the resource data model.
 type InterfacesVti struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"vti_id" vyos:",self-id"`
 
 	// LeafNodes
@@ -29,6 +31,16 @@ type InterfacesVti struct {
 	NodeInterfacesVtiMirror *InterfacesVtiMirror `tfsdk:"mirror" vyos:"mirror,omitempty"`
 }
 
+// GetID returns the resource ID
+func (o InterfacesVti) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o InterfacesVti) SetID(id types.String) {
+	o.ID = id
+}
+
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *InterfacesVti) GetVyosPath() []string {
 	return []string{
@@ -44,7 +56,7 @@ func (o InterfacesVti) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `vti_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"vti_id": schema.StringAttribute{
 			Required: true,
@@ -157,14 +169,4 @@ func (o InterfacesVti) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesVti) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesVti) UnmarshalJSON(_ []byte) error {
-	return nil
 }

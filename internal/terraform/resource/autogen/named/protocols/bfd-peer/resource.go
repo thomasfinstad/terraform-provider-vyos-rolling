@@ -27,6 +27,11 @@ type protocolsBfdPeer struct {
 	model        resourcemodel.ProtocolsBfdPeer
 }
 
+// GetName returns resource name
+func (r *protocolsBfdPeer) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsBfdPeer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

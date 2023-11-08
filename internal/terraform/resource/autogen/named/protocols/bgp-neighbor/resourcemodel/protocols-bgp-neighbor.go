@@ -11,6 +11,8 @@ import (
 
 // ProtocolsBgpNeighbor describes the resource data model.
 type ProtocolsBgpNeighbor struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"neighbor_id" vyos:",self-id"`
 
 	// LeafNodes
@@ -44,6 +46,16 @@ type ProtocolsBgpNeighbor struct {
 	NodeProtocolsBgpNeighborTTLSecURIty   *ProtocolsBgpNeighborTTLSecURIty   `tfsdk:"ttl_security" vyos:"ttl-security,omitempty"`
 }
 
+// GetID returns the resource ID
+func (o ProtocolsBgpNeighbor) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o ProtocolsBgpNeighbor) SetID(id types.String) {
+	o.ID = id
+}
+
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *ProtocolsBgpNeighbor) GetVyosPath() []string {
 	return []string{
@@ -61,7 +73,7 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schema.Attri
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `neighbor_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"neighbor_id": schema.StringAttribute{
 			Required: true,
@@ -295,14 +307,4 @@ func (o ProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ProtocolsBgpNeighbor) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsBgpNeighbor) UnmarshalJSON(_ []byte) error {
-	return nil
 }

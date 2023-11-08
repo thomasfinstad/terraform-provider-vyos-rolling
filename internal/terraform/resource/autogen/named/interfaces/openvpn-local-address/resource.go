@@ -27,6 +27,11 @@ type interfacesOpenvpnLocalAddress struct {
 	model        resourcemodel.InterfacesOpenvpnLocalAddress
 }
 
+// GetName returns resource name
+func (r *interfacesOpenvpnLocalAddress) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesOpenvpnLocalAddress) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

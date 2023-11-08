@@ -183,7 +183,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 									},
 									Regex: []string{"[a-zA-Z_][a-zA-Z0-9][\\w\\-\\.]&"},
 								}},
-								ConstraintErrorMessage: []string{"Name of domain-group can only contain alpha-numeric letters,\n                hyphen, underscores and not start with numeric"},
+								ConstraintErrorMessage: []string{"Name of domain-group can only contain alpha-numeric letters, hyphen, underscores and not start with numeric"},
 							}},
 							Children: []*interfacedefinition.Children{{
 								XMLName: xml.Name{
@@ -1733,7 +1733,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"\n                              ^(ad|ae|af|ag|ai|al|am|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bl|bm|bn|bo|bq|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cu|cv|cw|cx|cy|cz|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mf|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|ss|st|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tr|tt|tv|tw|tz|ua|ug|um|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|za|zm|zw)$"},
+															Regex: []string{"^(ad|ae|af|ag|ai|al|am|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bl|bm|bn|bo|bq|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cu|cv|cw|cx|cy|cz|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mf|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|ss|st|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tr|tt|tv|tw|tz|ua|ug|um|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|za|zm|zw)$"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -2026,7 +2026,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      " ",
-													Description: "\\n\\n Multiple destination ports can be specified as a\n                          comma-separated list.\\n For example: 'telnet,http,123,1001-1005'",
+													Description: "\\n\\n  Multiple destination ports can be specified as a comma-separated list.\\n  For example: 'telnet,http,123,1001-1005'",
 												}},
 											}},
 										}, {
@@ -2168,7 +2168,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"\n                              ^(ad|ae|af|ag|ai|al|am|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bl|bm|bn|bo|bq|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cu|cv|cw|cx|cy|cz|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mf|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|ss|st|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tr|tt|tv|tw|tz|ua|ug|um|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|za|zm|zw)$"},
+															Regex: []string{"^(ad|ae|af|ag|ai|al|am|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bl|bm|bn|bo|bq|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cu|cv|cw|cx|cy|cz|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mf|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|ss|st|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tr|tt|tv|tw|tz|ua|ug|um|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|za|zm|zw)$"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -2461,7 +2461,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      " ",
-													Description: "\\n\\n Multiple destination ports can be specified as a\n                          comma-separated list.\\n For example: 'telnet,http,123,1001-1005'",
+													Description: "\\n\\n  Multiple destination ports can be specified as a comma-separated list.\\n  For example: 'telnet,http,123,1001-1005'",
 												}},
 											}},
 										}, {
@@ -2750,7 +2750,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 																	Local: "valueHelp",
 																},
 																Format:      " ",
-																Description: "\\n\\n Multiple destination ports can be specified as a\n                          comma-separated list.\\n For example: 'telnet,http,123,1001-1005'",
+																Description: "\\n\\n  Multiple destination ports can be specified as a comma-separated list.\\n  For example: 'telnet,http,123,1001-1005'",
 															}},
 														}},
 													}},
@@ -3894,7 +3894,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      "txt",
-													Description: "Name of day (Monday, Tuesday, Wednesday, Thursdays, Friday,\n                          Saturday, Sunday)",
+													Description: "Name of day (Monday, Tuesday, Wednesday, Thursdays, Friday, Saturday, Sunday)",
 												}, {
 													XMLName: xml.Name{
 														Local: "valueHelp",
@@ -4109,7 +4109,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"\n                          (destination-unreachable|packet-too-big|time-exceeded|echo-request|echo-reply|mld-listener-query|mld-listener-report|mld-listener-reduction|nd-router-solicit|nd-router-advert|nd-neighbor-solicit|nd-neighbor-advert|nd-redirect|parameter-problem|router-renumbering|ind-neighbor-solicit|ind-neighbor-advert|mld2-listener-report)"},
+													Regex: []string{"(destination-unreachable|packet-too-big|time-exceeded|echo-request|echo-reply|mld-listener-query|mld-listener-report|mld-listener-reduction|nd-router-solicit|nd-router-advert|nd-neighbor-solicit|nd-neighbor-advert|nd-redirect|parameter-problem|router-renumbering|ind-neighbor-solicit|ind-neighbor-advert|mld2-listener-report)"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -4224,7 +4224,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "completionHelp",
 													},
-													List: []string{"destination-unreachable packet-too-big time-exceeded echo-request\n                          echo-reply mld-listener-query mld-listener-report mld-listener-reduction\n                          nd-router-solicit nd-router-advert nd-neighbor-solicit nd-neighbor-advert\n                          nd-redirect parameter-problem router-renumbering ind-neighbor-solicit\n                          ind-neighbor-advert mld2-listener-report"},
+													List: []string{"destination-unreachable packet-too-big time-exceeded echo-request echo-reply mld-listener-query mld-listener-report mld-listener-reduction nd-router-solicit nd-router-advert nd-neighbor-solicit nd-neighbor-advert nd-redirect parameter-problem router-renumbering ind-neighbor-solicit ind-neighbor-advert mld2-listener-report"},
 												}},
 											}},
 										}},
@@ -4270,7 +4270,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 												Local: "valueHelp",
 											},
 											Format:      "return",
-											Description: "Return from the current chain and continue at the next rule of the\n                      last chain",
+											Description: "Return from the current chain and continue at the next rule of the last chain",
 										}, {
 											XMLName: xml.Name{
 												Local: "valueHelp",
@@ -4817,7 +4817,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Options used for queue target. Action queue must be defined to use this\n                    setting"},
+										Help: []string{"Options used for queue target. Action queue must be defined to use this setting"},
 										Constraint: []*interfacedefinition.Constraint{{
 											XMLName: xml.Name{
 												Local: "constraint",
@@ -4893,7 +4893,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 										Local: "valueHelp",
 									},
 									Format:      "return",
-									Description: "Return from the current chain and continue at the next rule of the last\n                  chain",
+									Description: "Return from the current chain and continue at the next rule of the last chain",
 								}, {
 									XMLName: xml.Name{
 										Local: "valueHelp",
@@ -4961,7 +4961,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Set jump target. Action jump must be defined in default-action to use this\n                setting"},
+								Help: []string{"Set jump target. Action jump must be defined in default-action to use this setting"},
 								CompletionHelp: []*interfacedefinition.CompletionHelp{{
 									XMLName: xml.Name{
 										Local: "completionHelp",
@@ -5076,7 +5076,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"\n                              ^(ad|ae|af|ag|ai|al|am|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bl|bm|bn|bo|bq|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cu|cv|cw|cx|cy|cz|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mf|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|ss|st|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tr|tt|tv|tw|tz|ua|ug|um|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|za|zm|zw)$"},
+															Regex: []string{"^(ad|ae|af|ag|ai|al|am|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bl|bm|bn|bo|bq|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cu|cv|cw|cx|cy|cz|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mf|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|ss|st|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tr|tt|tv|tw|tz|ua|ug|um|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|za|zm|zw)$"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -5379,7 +5379,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      " ",
-													Description: "\\n\\n Multiple destination ports can be specified as a\n                          comma-separated list.\\n For example: 'telnet,http,123,1001-1005'",
+													Description: "\\n\\n  Multiple destination ports can be specified as a comma-separated list.\\n  For example: 'telnet,http,123,1001-1005'",
 												}},
 											}},
 										}, {
@@ -5521,7 +5521,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"\n                              ^(ad|ae|af|ag|ai|al|am|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bl|bm|bn|bo|bq|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cu|cv|cw|cx|cy|cz|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mf|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|ss|st|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tr|tt|tv|tw|tz|ua|ug|um|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|za|zm|zw)$"},
+															Regex: []string{"^(ad|ae|af|ag|ai|al|am|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bl|bm|bn|bo|bq|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cu|cv|cw|cx|cy|cz|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mf|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|ss|st|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tr|tt|tv|tw|tz|ua|ug|um|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|za|zm|zw)$"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -5824,7 +5824,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      " ",
-													Description: "\\n\\n Multiple destination ports can be specified as a\n                          comma-separated list.\\n For example: 'telnet,http,123,1001-1005'",
+													Description: "\\n\\n  Multiple destination ports can be specified as a comma-separated list.\\n  For example: 'telnet,http,123,1001-1005'",
 												}},
 											}},
 										}, {
@@ -6113,7 +6113,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 																	Local: "valueHelp",
 																},
 																Format:      " ",
-																Description: "\\n\\n Multiple destination ports can be specified as a\n                          comma-separated list.\\n For example: 'telnet,http,123,1001-1005'",
+																Description: "\\n\\n  Multiple destination ports can be specified as a comma-separated list.\\n  For example: 'telnet,http,123,1001-1005'",
 															}},
 														}},
 													}},
@@ -7257,7 +7257,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      "txt",
-													Description: "Name of day (Monday, Tuesday, Wednesday, Thursdays, Friday,\n                          Saturday, Sunday)",
+													Description: "Name of day (Monday, Tuesday, Wednesday, Thursdays, Friday, Saturday, Sunday)",
 												}, {
 													XMLName: xml.Name{
 														Local: "valueHelp",
@@ -7361,7 +7361,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"\n                          (echo-reply|destination-unreachable|source-quench|redirect|echo-request|router-advertisement|router-solicitation|time-exceeded|parameter-problem|timestamp-request|timestamp-reply|info-request|info-reply|address-mask-request|address-mask-reply)"},
+													Regex: []string{"(echo-reply|destination-unreachable|source-quench|redirect|echo-request|router-advertisement|router-solicitation|time-exceeded|parameter-problem|timestamp-request|timestamp-reply|info-request|info-reply|address-mask-request|address-mask-reply)"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -7458,7 +7458,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "completionHelp",
 													},
-													List: []string{"echo-reply destination-unreachable source-quench redirect echo-request\n                          router-advertisement router-solicitation time-exceeded parameter-problem\n                          timestamp-request timestamp-reply info-request info-reply\n                          address-mask-request address-mask-reply"},
+													List: []string{"echo-reply destination-unreachable source-quench redirect echo-request router-advertisement router-solicitation time-exceeded parameter-problem timestamp-request timestamp-reply info-request info-reply address-mask-request address-mask-reply"},
 												}},
 											}},
 										}},
@@ -7615,7 +7615,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 												Local: "valueHelp",
 											},
 											Format:      "return",
-											Description: "Return from the current chain and continue at the next rule of the\n                      last chain",
+											Description: "Return from the current chain and continue at the next rule of the last chain",
 										}, {
 											XMLName: xml.Name{
 												Local: "valueHelp",
@@ -8162,7 +8162,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Options used for queue target. Action queue must be defined to use this\n                    setting"},
+										Help: []string{"Options used for queue target. Action queue must be defined to use this setting"},
 										Constraint: []*interfacedefinition.Constraint{{
 											XMLName: xml.Name{
 												Local: "constraint",
@@ -8238,7 +8238,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 										Local: "valueHelp",
 									},
 									Format:      "return",
-									Description: "Return from the current chain and continue at the next rule of the last\n                  chain",
+									Description: "Return from the current chain and continue at the next rule of the last chain",
 								}, {
 									XMLName: xml.Name{
 										Local: "valueHelp",
@@ -8306,7 +8306,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Set jump target. Action jump must be defined in default-action to use this\n                setting"},
+								Help: []string{"Set jump target. Action jump must be defined in default-action to use this setting"},
 								CompletionHelp: []*interfacedefinition.CompletionHelp{{
 									XMLName: xml.Name{
 										Local: "completionHelp",

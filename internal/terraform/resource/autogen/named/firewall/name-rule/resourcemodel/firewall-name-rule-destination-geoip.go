@@ -48,13 +48,3 @@ func (o FirewallNameRuleDestinationGeoIP) ResourceSchemaAttributes() map[string]
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *FirewallNameRuleDestinationGeoIP) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallNameRuleDestinationGeoIP) UnmarshalJSON(_ []byte) error {
-	return nil
-}

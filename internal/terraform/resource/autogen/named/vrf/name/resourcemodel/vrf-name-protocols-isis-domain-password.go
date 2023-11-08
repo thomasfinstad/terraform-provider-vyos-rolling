@@ -48,13 +48,3 @@ func (o VrfNameProtocolsIsisDomainPassword) ResourceSchemaAttributes() map[strin
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *VrfNameProtocolsIsisDomainPassword) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *VrfNameProtocolsIsisDomainPassword) UnmarshalJSON(_ []byte) error {
-	return nil
-}

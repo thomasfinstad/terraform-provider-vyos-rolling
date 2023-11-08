@@ -32,13 +32,3 @@ func (o InterfacesOpenvpnReplaceDefaultRoute) ResourceSchemaAttributes() map[str
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesOpenvpnReplaceDefaultRoute) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesOpenvpnReplaceDefaultRoute) UnmarshalJSON(_ []byte) error {
-	return nil
-}

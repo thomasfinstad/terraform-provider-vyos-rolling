@@ -27,6 +27,11 @@ type protocolsOspfNeighbor struct {
 	model        resourcemodel.ProtocolsOspfNeighbor
 }
 
+// GetName returns resource name
+func (r *protocolsOspfNeighbor) GetName() string {
+	return r.ResourceName
+}
+
 func (r *protocolsOspfNeighbor) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

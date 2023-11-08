@@ -27,6 +27,11 @@ type interfacesWireguardPeer struct {
 	model        resourcemodel.InterfacesWireguardPeer
 }
 
+// GetName returns resource name
+func (r *interfacesWireguardPeer) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesWireguardPeer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

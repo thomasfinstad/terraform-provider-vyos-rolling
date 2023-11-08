@@ -45,13 +45,3 @@ func (o QosPolicyShaperHfscClassMatchIPvsixTCP) ResourceSchemaAttributes() map[s
 
 	}
 }
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *QosPolicyShaperHfscClassMatchIPvsixTCP) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *QosPolicyShaperHfscClassMatchIPvsixTCP) UnmarshalJSON(_ []byte) error {
-	return nil
-}

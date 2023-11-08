@@ -11,6 +11,8 @@ import (
 
 // InterfacesTunnel describes the resource data model.
 type InterfacesTunnel struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"tunnel_id" vyos:",self-id"`
 
 	// LeafNodes
@@ -38,6 +40,16 @@ type InterfacesTunnel struct {
 	NodeInterfacesTunnelParameters *InterfacesTunnelParameters `tfsdk:"parameters" vyos:"parameters,omitempty"`
 }
 
+// GetID returns the resource ID
+func (o InterfacesTunnel) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o InterfacesTunnel) SetID(id types.String) {
+	o.ID = id
+}
+
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *InterfacesTunnel) GetVyosPath() []string {
 	return []string{
@@ -53,7 +65,7 @@ func (o InterfacesTunnel) ResourceSchemaAttributes() map[string]schema.Attribute
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `tunnel_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"tunnel_id": schema.StringAttribute{
 			Required: true,
@@ -269,14 +281,4 @@ func (o InterfacesTunnel) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *InterfacesTunnel) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *InterfacesTunnel) UnmarshalJSON(_ []byte) error {
-	return nil
 }

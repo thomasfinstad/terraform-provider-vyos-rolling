@@ -10,6 +10,8 @@ import (
 
 // ProtocolsFailoverRouteNextHop describes the resource data model.
 type ProtocolsFailoverRouteNextHop struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"next_hop_id" vyos:",self-id"`
 
 	ParentIDProtocolsFailoverRoute types.String `tfsdk:"route" vyos:"route,parent-id"`
@@ -22,6 +24,16 @@ type ProtocolsFailoverRouteNextHop struct {
 
 	// Nodes
 	NodeProtocolsFailoverRouteNextHopCheck *ProtocolsFailoverRouteNextHopCheck `tfsdk:"check" vyos:"check,omitempty"`
+}
+
+// GetID returns the resource ID
+func (o ProtocolsFailoverRouteNextHop) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o ProtocolsFailoverRouteNextHop) SetID(id types.String) {
+	o.ID = id
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -44,7 +56,7 @@ func (o ProtocolsFailoverRouteNextHop) ResourceSchemaAttributes() map[string]sch
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `next_hop_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"next_hop_id": schema.StringAttribute{
 			Required: true,
@@ -111,14 +123,4 @@ func (o ProtocolsFailoverRouteNextHop) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ProtocolsFailoverRouteNextHop) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ProtocolsFailoverRouteNextHop) UnmarshalJSON(_ []byte) error {
-	return nil
 }

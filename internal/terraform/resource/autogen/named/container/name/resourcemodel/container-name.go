@@ -11,6 +11,8 @@ import (
 
 // ContainerName describes the resource data model.
 type ContainerName struct {
+	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+
 	SelfIdentifier types.String `tfsdk:"name_id" vyos:",self-id"`
 
 	// LeafNodes
@@ -37,6 +39,16 @@ type ContainerName struct {
 	// Nodes
 }
 
+// GetID returns the resource ID
+func (o ContainerName) GetID() *types.String {
+	return &o.ID
+}
+
+// SetID configures the resource ID
+func (o ContainerName) SetID(id types.String) {
+	o.ID = id
+}
+
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *ContainerName) GetVyosPath() []string {
 	return []string{
@@ -52,7 +64,7 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, an amalgamation of the `name_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
 		"name_id": schema.StringAttribute{
 			Required: true,
@@ -196,14 +208,4 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 		// Nodes
 
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *ContainerName) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *ContainerName) UnmarshalJSON(_ []byte) error {
-	return nil
 }

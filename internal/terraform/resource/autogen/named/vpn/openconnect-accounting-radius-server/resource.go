@@ -27,6 +27,11 @@ type vpnOpenconnectAccountingRadiusServer struct {
 	model        resourcemodel.VpnOpenconnectAccountingRadiusServer
 }
 
+// GetName returns resource name
+func (r *vpnOpenconnectAccountingRadiusServer) GetName() string {
+	return r.ResourceName
+}
+
 func (r *vpnOpenconnectAccountingRadiusServer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

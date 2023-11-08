@@ -87,7 +87,7 @@ Defines SNMP target for inform or traps for IP
 
 ### Read-Only
 
-- `id` (String) Resource ID, an amalgamation of the `trap_target_id` and the parents `*_id` fields seperated by dunder `__` starting with top level ancestor.
+- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
 
 <a id="nestedatt--auth"></a>
 ### Nested Schema for `auth`

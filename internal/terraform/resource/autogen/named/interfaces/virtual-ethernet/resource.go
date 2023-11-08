@@ -27,6 +27,11 @@ type interfacesVirtualEthernet struct {
 	model        resourcemodel.InterfacesVirtualEthernet
 }
 
+// GetName returns resource name
+func (r *interfacesVirtualEthernet) GetName() string {
+	return r.ResourceName
+}
+
 func (r *interfacesVirtualEthernet) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

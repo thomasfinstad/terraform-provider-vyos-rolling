@@ -63,7 +63,7 @@ func (o FirewallNameRuleSource) ResourceSchemaAttributes() map[string]schema.Att
     |  txt  &emsp; |  Named port (any name in /etc/services, e.g., http)  |
     |  number: 1-65535  &emsp; |  Numbered port  |
     |  <start-end>  &emsp; |  Numbered port range (e.g. 1001-1005)  |
-    |     &emsp; |  \n\n Multiple destination ports can be specified as a<br>                          comma-separated list.\n For example: 'telnet,http,123,1001-1005'  |
+    |     &emsp; |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
 
 `,
 		},
@@ -109,14 +109,4 @@ func (o FirewallNameRuleSource) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 	}
-}
-
-// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
-func (o *FirewallNameRuleSource) MarshalJSON() ([]byte, error) {
-	return nil, nil
-}
-
-// UnmarshalJSON unmarshals json byte array into this object
-func (o *FirewallNameRuleSource) UnmarshalJSON(_ []byte) error {
-	return nil
 }

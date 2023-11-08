@@ -27,6 +27,11 @@ type qosPolicyLimiterClass struct {
 	model        resourcemodel.QosPolicyLimiterClass
 }
 
+// GetName returns resource name
+func (r *qosPolicyLimiterClass) GetName() string {
+	return r.ResourceName
+}
+
 func (r *qosPolicyLimiterClass) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

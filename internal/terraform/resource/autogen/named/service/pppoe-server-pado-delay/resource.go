@@ -27,6 +27,11 @@ type servicePppoeServerPadoDelay struct {
 	model        resourcemodel.ServicePppoeServerPadoDelay
 }
 
+// GetName returns resource name
+func (r *servicePppoeServerPadoDelay) GetName() string {
+	return r.ResourceName
+}
+
 func (r *servicePppoeServerPadoDelay) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {
