@@ -40,6 +40,7 @@ func (p *VyosProvider) Metadata(ctx context.Context, req provider.MetadataReques
 }
 
 // Schema method to define the schema for provider-level configuration.
+// TODO Validate cert and self signed cert
 func (p *VyosProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{

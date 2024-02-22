@@ -225,12 +225,12 @@ example-clean:
 .PHONY: provider-schema
 provider-schema: install-rolling
 	mkdir -p data/provider-schema
-	terraform -chdir=examples/provider init -upgrade
+	cd examples/provider; make init
 	terraform -chdir=examples/provider providers schema -json | jq '.' > data/provider-schema/${VERSION_ROLLING}.json
 
-	if diff data/provider-schema/$(shell ls data/provider-schema | sort -V | tail -n1) data/provider-schema/${VERSION_ROLLING}.json; then \
-		rm -v data/provider-schema/${VERSION_ROLLING}.json; \
-	fi
+	# if diff data/provider-schema/$(shell ls data/provider-schema | sort -V | tail -n1) data/provider-schema/${VERSION_ROLLING}.json; then \
+	# 	rm -v data/provider-schema/${VERSION_ROLLING}.json; \
+	# fi
 
 .PHONY: stage
 stage: provider-schema

@@ -4,6 +4,6 @@
 provider "github.com/thomasfinstad/vyos" {
   version = "2024.2.22"
   hashes = [
-    "h1:wCv9+IaL8amYcM9hSriG3tzPwBmrofcsR59wUMafWpA=",
+    "h1:FIAad94jw8hXCorxk7Di/l9QgWrqYHgXRupkncfAeVU=",
   ]
 }
