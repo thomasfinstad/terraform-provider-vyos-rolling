@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpPeerGroup describes the resource data model.
@@ -29,8 +32,8 @@ type ProtocolsBgpPeerGroup struct {
 	LeafProtocolsBgpPeerGroupUpdateSource                 types.String `tfsdk:"update_source" vyos:"update-source,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsBgpPeerGroupLocalAs   bool `tfsdk:"local_as" vyos:"local-as,child"`
-	ExistsTagProtocolsBgpPeerGroupLocalRole bool `tfsdk:"local_role" vyos:"local-role,child"`
+	ExistsTagProtocolsBgpPeerGroupLocalAs   bool `tfsdk:"-" vyos:"local-as,child"`
+	ExistsTagProtocolsBgpPeerGroupLocalRole bool `tfsdk:"-" vyos:"local-role,child"`
 
 	// Nodes
 	NodeProtocolsBgpPeerGroupAddressFamily *ProtocolsBgpPeerGroupAddressFamily `tfsdk:"address_family" vyos:"address-family,omitempty"`
@@ -39,18 +42,17 @@ type ProtocolsBgpPeerGroup struct {
 	NodeProtocolsBgpPeerGroupTTLSecURIty   *ProtocolsBgpPeerGroupTTLSecURIty   `tfsdk:"ttl_security" vyos:"ttl-security,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o ProtocolsBgpPeerGroup) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o ProtocolsBgpPeerGroup) SetID(id types.String) {
-	o.ID = id
+func (o *ProtocolsBgpPeerGroup) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *ProtocolsBgpPeerGroup) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"protocols",
 

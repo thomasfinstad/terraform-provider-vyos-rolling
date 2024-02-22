@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r servicePppoeServerClientIPPoolName) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_service_pppoe_server_client_ip_pool_name"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_service_pppoe_server_client_ip_pool_name"
 }

@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r qosPolicyRoundRobinClassMatch) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_qos_policy_round_robin_class_match"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_qos_policy_round_robin_class_match"
 }

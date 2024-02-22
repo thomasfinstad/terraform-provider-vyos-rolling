@@ -16,20 +16,19 @@ import (
 // NewServiceNtpServer method to return the example resource reference
 func NewServiceNtpServer() resource.Resource {
 	return &serviceNtpServer{
-		model: resourcemodel.ServiceNtpServer{},
+		model: &resourcemodel.ServiceNtpServer{},
 	}
 }
 
 // serviceNtpServer defines the resource implementation.
 type serviceNtpServer struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceNtpServer
+	client *client.Client
+	model  *resourcemodel.ServiceNtpServer
 }
 
-// GetName returns resource name
-func (r *serviceNtpServer) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceNtpServer) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceNtpServer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -16,20 +16,19 @@ import (
 // NewProtocolsBabelDistributeListIPvsixInterface method to return the example resource reference
 func NewProtocolsBabelDistributeListIPvsixInterface() resource.Resource {
 	return &protocolsBabelDistributeListIPvsixInterface{
-		model: resourcemodel.ProtocolsBabelDistributeListIPvsixInterface{},
+		model: &resourcemodel.ProtocolsBabelDistributeListIPvsixInterface{},
 	}
 }
 
 // protocolsBabelDistributeListIPvsixInterface defines the resource implementation.
 type protocolsBabelDistributeListIPvsixInterface struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsBabelDistributeListIPvsixInterface
+	client *client.Client
+	model  *resourcemodel.ProtocolsBabelDistributeListIPvsixInterface
 }
 
-// GetName returns resource name
-func (r *protocolsBabelDistributeListIPvsixInterface) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsBabelDistributeListIPvsixInterface) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsBabelDistributeListIPvsixInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

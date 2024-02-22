@@ -16,20 +16,19 @@ import (
 // NewPolicyLocalRoutesixRule method to return the example resource reference
 func NewPolicyLocalRoutesixRule() resource.Resource {
 	return &policyLocalRoutesixRule{
-		model: resourcemodel.PolicyLocalRoutesixRule{},
+		model: &resourcemodel.PolicyLocalRoutesixRule{},
 	}
 }
 
 // policyLocalRoutesixRule defines the resource implementation.
 type policyLocalRoutesixRule struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.PolicyLocalRoutesixRule
+	client *client.Client
+	model  *resourcemodel.PolicyLocalRoutesixRule
 }
 
-// GetName returns resource name
-func (r *policyLocalRoutesixRule) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *policyLocalRoutesixRule) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *policyLocalRoutesixRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -16,20 +16,19 @@ import (
 // NewServiceUpnpRule method to return the example resource reference
 func NewServiceUpnpRule() resource.Resource {
 	return &serviceUpnpRule{
-		model: resourcemodel.ServiceUpnpRule{},
+		model: &resourcemodel.ServiceUpnpRule{},
 	}
 }
 
 // serviceUpnpRule defines the resource implementation.
 type serviceUpnpRule struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceUpnpRule
+	client *client.Client
+	model  *resourcemodel.ServiceUpnpRule
 }
 
-// GetName returns resource name
-func (r *serviceUpnpRule) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceUpnpRule) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceUpnpRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

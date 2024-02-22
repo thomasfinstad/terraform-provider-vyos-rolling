@@ -16,20 +16,19 @@ import (
 // NewVrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork method to return the example resource reference
 func NewVrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork() resource.Resource {
 	return &vrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork{
-		model: resourcemodel.VrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork{},
+		model: &resourcemodel.VrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork{},
 	}
 }
 
 // vrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork defines the resource implementation.
 type vrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork
+	client *client.Client
+	model  *resourcemodel.VrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork
 }
 
-// GetName returns resource name
-func (r *vrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

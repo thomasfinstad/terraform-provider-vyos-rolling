@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r protocolsOspfRedistributeTable) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_protocols_ospf_redistribute_table"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_protocols_ospf_redistribute_table"
 }

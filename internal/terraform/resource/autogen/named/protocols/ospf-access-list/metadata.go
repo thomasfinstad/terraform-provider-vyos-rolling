@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r protocolsOspfAccessList) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_protocols_ospf_access_list"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_protocols_ospf_access_list"
 }

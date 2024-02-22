@@ -16,20 +16,19 @@ import (
 // NewPolicyLocalRouteRule method to return the example resource reference
 func NewPolicyLocalRouteRule() resource.Resource {
 	return &policyLocalRouteRule{
-		model: resourcemodel.PolicyLocalRouteRule{},
+		model: &resourcemodel.PolicyLocalRouteRule{},
 	}
 }
 
 // policyLocalRouteRule defines the resource implementation.
 type policyLocalRouteRule struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.PolicyLocalRouteRule
+	client *client.Client
+	model  *resourcemodel.PolicyLocalRouteRule
 }
 
-// GetName returns resource name
-func (r *policyLocalRouteRule) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *policyLocalRouteRule) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *policyLocalRouteRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

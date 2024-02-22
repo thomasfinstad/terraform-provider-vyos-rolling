@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceDNSDynamicInterface describes the resource data model.
@@ -19,25 +22,24 @@ type ServiceDNSDynamicInterface struct {
 	LeafServiceDNSDynamicInterfaceIPvsixEnable types.Bool `tfsdk:"ipv6_enable" vyos:"ipv6-enable,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceDNSDynamicInterfaceRfctwoonethreesix bool `tfsdk:"rfc2136" vyos:"rfc2136,child"`
-	ExistsTagServiceDNSDynamicInterfaceService           bool `tfsdk:"service" vyos:"service,child"`
+	ExistsTagServiceDNSDynamicInterfaceRfctwoonethreesix bool `tfsdk:"-" vyos:"rfc2136,child"`
+	ExistsTagServiceDNSDynamicInterfaceService           bool `tfsdk:"-" vyos:"service,child"`
 
 	// Nodes
 	NodeServiceDNSDynamicInterfaceUseWeb *ServiceDNSDynamicInterfaceUseWeb `tfsdk:"use_web" vyos:"use-web,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o ServiceDNSDynamicInterface) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o ServiceDNSDynamicInterface) SetID(id types.String) {
-	o.ID = id
+func (o *ServiceDNSDynamicInterface) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *ServiceDNSDynamicInterface) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"service",
 

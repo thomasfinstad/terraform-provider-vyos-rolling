@@ -16,20 +16,19 @@ import (
 // NewInterfacesGeneve method to return the example resource reference
 func NewInterfacesGeneve() resource.Resource {
 	return &interfacesGeneve{
-		model: resourcemodel.InterfacesGeneve{},
+		model: &resourcemodel.InterfacesGeneve{},
 	}
 }
 
 // interfacesGeneve defines the resource implementation.
 type interfacesGeneve struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesGeneve
+	client *client.Client
+	model  *resourcemodel.InterfacesGeneve
 }
 
-// GetName returns resource name
-func (r *interfacesGeneve) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesGeneve) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesGeneve) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

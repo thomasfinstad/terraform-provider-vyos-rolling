@@ -16,20 +16,19 @@ import (
 // NewProtocolsIgmpProxyInterface method to return the example resource reference
 func NewProtocolsIgmpProxyInterface() resource.Resource {
 	return &protocolsIgmpProxyInterface{
-		model: resourcemodel.ProtocolsIgmpProxyInterface{},
+		model: &resourcemodel.ProtocolsIgmpProxyInterface{},
 	}
 }
 
 // protocolsIgmpProxyInterface defines the resource implementation.
 type protocolsIgmpProxyInterface struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsIgmpProxyInterface
+	client *client.Client
+	model  *resourcemodel.ProtocolsIgmpProxyInterface
 }
 
-// GetName returns resource name
-func (r *protocolsIgmpProxyInterface) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsIgmpProxyInterface) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsIgmpProxyInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

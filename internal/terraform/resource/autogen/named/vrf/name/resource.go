@@ -16,20 +16,19 @@ import (
 // NewVrfName method to return the example resource reference
 func NewVrfName() resource.Resource {
 	return &vrfName{
-		model: resourcemodel.VrfName{},
+		model: &resourcemodel.VrfName{},
 	}
 }
 
 // vrfName defines the resource implementation.
 type vrfName struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VrfName
+	client *client.Client
+	model  *resourcemodel.VrfName
 }
 
-// GetName returns resource name
-func (r *vrfName) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vrfName) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vrfName) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

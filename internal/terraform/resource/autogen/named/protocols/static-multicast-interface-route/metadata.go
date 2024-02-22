@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r protocolsStaticMulticastInterfaceRoute) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_protocols_static_multicast_interface_route"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_protocols_static_multicast_interface_route"
 }

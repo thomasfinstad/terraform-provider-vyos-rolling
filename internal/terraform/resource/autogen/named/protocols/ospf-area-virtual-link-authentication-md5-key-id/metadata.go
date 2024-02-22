@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r protocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_protocols_ospf_area_virtual_link_authentication_md5_key_id"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_protocols_ospf_area_virtual_link_authentication_md5_key_id"
 }

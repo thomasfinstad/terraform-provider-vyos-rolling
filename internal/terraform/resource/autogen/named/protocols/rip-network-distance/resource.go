@@ -16,20 +16,19 @@ import (
 // NewProtocolsRIPNetworkDistance method to return the example resource reference
 func NewProtocolsRIPNetworkDistance() resource.Resource {
 	return &protocolsRIPNetworkDistance{
-		model: resourcemodel.ProtocolsRIPNetworkDistance{},
+		model: &resourcemodel.ProtocolsRIPNetworkDistance{},
 	}
 }
 
 // protocolsRIPNetworkDistance defines the resource implementation.
 type protocolsRIPNetworkDistance struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsRIPNetworkDistance
+	client *client.Client
+	model  *resourcemodel.ProtocolsRIPNetworkDistance
 }
 
-// GetName returns resource name
-func (r *protocolsRIPNetworkDistance) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsRIPNetworkDistance) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsRIPNetworkDistance) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

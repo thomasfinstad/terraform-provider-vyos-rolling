@@ -16,20 +16,19 @@ import (
 // NewInterfacesBrIDgeVif method to return the example resource reference
 func NewInterfacesBrIDgeVif() resource.Resource {
 	return &interfacesBrIDgeVif{
-		model: resourcemodel.InterfacesBrIDgeVif{},
+		model: &resourcemodel.InterfacesBrIDgeVif{},
 	}
 }
 
 // interfacesBrIDgeVif defines the resource implementation.
 type interfacesBrIDgeVif struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesBrIDgeVif
+	client *client.Client
+	model  *resourcemodel.InterfacesBrIDgeVif
 }
 
-// GetName returns resource name
-func (r *interfacesBrIDgeVif) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesBrIDgeVif) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesBrIDgeVif) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r vpnIPsecSiteToSitePeerTunnel) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_vpn_ipsec_site_to_site_peer_tunnel"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_vpn_ipsec_site_to_site_peer_tunnel"
 }

@@ -16,20 +16,19 @@ import (
 // NewServiceConntrackSyncInterface method to return the example resource reference
 func NewServiceConntrackSyncInterface() resource.Resource {
 	return &serviceConntrackSyncInterface{
-		model: resourcemodel.ServiceConntrackSyncInterface{},
+		model: &resourcemodel.ServiceConntrackSyncInterface{},
 	}
 }
 
 // serviceConntrackSyncInterface defines the resource implementation.
 type serviceConntrackSyncInterface struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceConntrackSyncInterface
+	client *client.Client
+	model  *resourcemodel.ServiceConntrackSyncInterface
 }
 
-// GetName returns resource name
-func (r *serviceConntrackSyncInterface) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceConntrackSyncInterface) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceConntrackSyncInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

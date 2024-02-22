@@ -2,10 +2,13 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyLimiterClass describes the resource data model.
@@ -25,23 +28,22 @@ type QosPolicyLimiterClass struct {
 	LeafQosPolicyLimiterClassPriority    types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagQosPolicyLimiterClassMatch bool `tfsdk:"match" vyos:"match,child"`
+	ExistsTagQosPolicyLimiterClassMatch bool `tfsdk:"-" vyos:"match,child"`
 
 	// Nodes
 }
 
-// GetID returns the resource ID
-func (o QosPolicyLimiterClass) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o QosPolicyLimiterClass) SetID(id types.String) {
-	o.ID = id
+func (o *QosPolicyLimiterClass) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *QosPolicyLimiterClass) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"qos",
 

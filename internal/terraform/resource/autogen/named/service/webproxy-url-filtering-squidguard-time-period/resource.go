@@ -16,20 +16,19 @@ import (
 // NewServiceWebproxyURLFilteringSquIDguardTimePeriod method to return the example resource reference
 func NewServiceWebproxyURLFilteringSquIDguardTimePeriod() resource.Resource {
 	return &serviceWebproxyURLFilteringSquIDguardTimePeriod{
-		model: resourcemodel.ServiceWebproxyURLFilteringSquIDguardTimePeriod{},
+		model: &resourcemodel.ServiceWebproxyURLFilteringSquIDguardTimePeriod{},
 	}
 }
 
 // serviceWebproxyURLFilteringSquIDguardTimePeriod defines the resource implementation.
 type serviceWebproxyURLFilteringSquIDguardTimePeriod struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceWebproxyURLFilteringSquIDguardTimePeriod
+	client *client.Client
+	model  *resourcemodel.ServiceWebproxyURLFilteringSquIDguardTimePeriod
 }
 
-// GetName returns resource name
-func (r *serviceWebproxyURLFilteringSquIDguardTimePeriod) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceWebproxyURLFilteringSquIDguardTimePeriod) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceWebproxyURLFilteringSquIDguardTimePeriod) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

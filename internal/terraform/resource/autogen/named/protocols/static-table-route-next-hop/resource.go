@@ -16,20 +16,19 @@ import (
 // NewProtocolsStaticTableRouteNextHop method to return the example resource reference
 func NewProtocolsStaticTableRouteNextHop() resource.Resource {
 	return &protocolsStaticTableRouteNextHop{
-		model: resourcemodel.ProtocolsStaticTableRouteNextHop{},
+		model: &resourcemodel.ProtocolsStaticTableRouteNextHop{},
 	}
 }
 
 // protocolsStaticTableRouteNextHop defines the resource implementation.
 type protocolsStaticTableRouteNextHop struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsStaticTableRouteNextHop
+	client *client.Client
+	model  *resourcemodel.ProtocolsStaticTableRouteNextHop
 }
 
-// GetName returns resource name
-func (r *protocolsStaticTableRouteNextHop) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsStaticTableRouteNextHop) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsStaticTableRouteNextHop) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

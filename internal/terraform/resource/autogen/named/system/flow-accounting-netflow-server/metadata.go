@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r systemFlowAccountingNetflowServer) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_system_flow_accounting_netflow_server"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_system_flow_accounting_netflow_server"
 }

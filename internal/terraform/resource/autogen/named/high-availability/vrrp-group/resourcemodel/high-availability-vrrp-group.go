@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // HighAvailabilityVrrpGroup describes the resource data model.
@@ -30,7 +33,7 @@ type HighAvailabilityVrrpGroup struct {
 	LeafHighAvailabilityVrrpGroupVrID                               types.Number `tfsdk:"vrid" vyos:"vrid,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagHighAvailabilityVrrpGroupAddress bool `tfsdk:"address" vyos:"address,child"`
+	ExistsTagHighAvailabilityVrrpGroupAddress bool `tfsdk:"-" vyos:"address,child"`
 
 	// Nodes
 	NodeHighAvailabilityVrrpGroupGarp             *HighAvailabilityVrrpGroupGarp             `tfsdk:"garp" vyos:"garp,omitempty"`
@@ -40,18 +43,17 @@ type HighAvailabilityVrrpGroup struct {
 	NodeHighAvailabilityVrrpGroupTransitionScrIPt *HighAvailabilityVrrpGroupTransitionScrIPt `tfsdk:"transition_script" vyos:"transition-script,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o HighAvailabilityVrrpGroup) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o HighAvailabilityVrrpGroup) SetID(id types.String) {
-	o.ID = id
+func (o *HighAvailabilityVrrpGroup) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *HighAvailabilityVrrpGroup) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"high-availability",
 

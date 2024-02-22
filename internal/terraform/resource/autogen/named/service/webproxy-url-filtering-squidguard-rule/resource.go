@@ -16,20 +16,19 @@ import (
 // NewServiceWebproxyURLFilteringSquIDguardRule method to return the example resource reference
 func NewServiceWebproxyURLFilteringSquIDguardRule() resource.Resource {
 	return &serviceWebproxyURLFilteringSquIDguardRule{
-		model: resourcemodel.ServiceWebproxyURLFilteringSquIDguardRule{},
+		model: &resourcemodel.ServiceWebproxyURLFilteringSquIDguardRule{},
 	}
 }
 
 // serviceWebproxyURLFilteringSquIDguardRule defines the resource implementation.
 type serviceWebproxyURLFilteringSquIDguardRule struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceWebproxyURLFilteringSquIDguardRule
+	client *client.Client
+	model  *resourcemodel.ServiceWebproxyURLFilteringSquIDguardRule
 }
 
-// GetName returns resource name
-func (r *serviceWebproxyURLFilteringSquIDguardRule) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceWebproxyURLFilteringSquIDguardRule) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceWebproxyURLFilteringSquIDguardRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

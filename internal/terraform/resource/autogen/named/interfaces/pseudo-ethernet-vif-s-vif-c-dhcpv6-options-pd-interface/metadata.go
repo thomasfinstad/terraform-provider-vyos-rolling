@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r interfacesPseudoEthernetVifSVifCDhcpvsixOptionsPdInterface) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_interfaces_pseudo_ethernet_vif_s_vif_c_dhcpv6_options_pd_interface"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_interfaces_pseudo_ethernet_vif_s_vif_c_dhcpv6_options_pd_interface"
 }

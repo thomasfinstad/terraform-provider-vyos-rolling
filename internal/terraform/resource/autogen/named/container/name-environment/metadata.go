@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r containerNameEnvironment) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_container_name_environment"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_container_name_environment"
 }

@@ -16,20 +16,19 @@ import (
 // NewProtocolsBgpListenRange method to return the example resource reference
 func NewProtocolsBgpListenRange() resource.Resource {
 	return &protocolsBgpListenRange{
-		model: resourcemodel.ProtocolsBgpListenRange{},
+		model: &resourcemodel.ProtocolsBgpListenRange{},
 	}
 }
 
 // protocolsBgpListenRange defines the resource implementation.
 type protocolsBgpListenRange struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsBgpListenRange
+	client *client.Client
+	model  *resourcemodel.ProtocolsBgpListenRange
 }
 
-// GetName returns resource name
-func (r *protocolsBgpListenRange) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsBgpListenRange) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsBgpListenRange) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

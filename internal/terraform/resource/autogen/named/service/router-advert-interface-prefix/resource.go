@@ -16,20 +16,19 @@ import (
 // NewServiceRouterAdvertInterfacePrefix method to return the example resource reference
 func NewServiceRouterAdvertInterfacePrefix() resource.Resource {
 	return &serviceRouterAdvertInterfacePrefix{
-		model: resourcemodel.ServiceRouterAdvertInterfacePrefix{},
+		model: &resourcemodel.ServiceRouterAdvertInterfacePrefix{},
 	}
 }
 
 // serviceRouterAdvertInterfacePrefix defines the resource implementation.
 type serviceRouterAdvertInterfacePrefix struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceRouterAdvertInterfacePrefix
+	client *client.Client
+	model  *resourcemodel.ServiceRouterAdvertInterfacePrefix
 }
 
-// GetName returns resource name
-func (r *serviceRouterAdvertInterfacePrefix) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceRouterAdvertInterfacePrefix) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceRouterAdvertInterfacePrefix) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -16,20 +16,19 @@ import (
 // NewProtocolsOspfNeighbor method to return the example resource reference
 func NewProtocolsOspfNeighbor() resource.Resource {
 	return &protocolsOspfNeighbor{
-		model: resourcemodel.ProtocolsOspfNeighbor{},
+		model: &resourcemodel.ProtocolsOspfNeighbor{},
 	}
 }
 
 // protocolsOspfNeighbor defines the resource implementation.
 type protocolsOspfNeighbor struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsOspfNeighbor
+	client *client.Client
+	model  *resourcemodel.ProtocolsOspfNeighbor
 }
 
-// GetName returns resource name
-func (r *protocolsOspfNeighbor) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsOspfNeighbor) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsOspfNeighbor) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -16,20 +16,19 @@ import (
 // NewInterfacesMacsec method to return the example resource reference
 func NewInterfacesMacsec() resource.Resource {
 	return &interfacesMacsec{
-		model: resourcemodel.InterfacesMacsec{},
+		model: &resourcemodel.InterfacesMacsec{},
 	}
 }
 
 // interfacesMacsec defines the resource implementation.
 type interfacesMacsec struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesMacsec
+	client *client.Client
+	model  *resourcemodel.InterfacesMacsec
 }
 
-// GetName returns resource name
-func (r *interfacesMacsec) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesMacsec) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesMacsec) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

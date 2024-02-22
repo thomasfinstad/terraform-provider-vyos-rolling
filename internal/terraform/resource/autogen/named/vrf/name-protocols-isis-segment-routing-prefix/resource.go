@@ -16,20 +16,19 @@ import (
 // NewVrfNameProtocolsIsisSegmentRoutingPrefix method to return the example resource reference
 func NewVrfNameProtocolsIsisSegmentRoutingPrefix() resource.Resource {
 	return &vrfNameProtocolsIsisSegmentRoutingPrefix{
-		model: resourcemodel.VrfNameProtocolsIsisSegmentRoutingPrefix{},
+		model: &resourcemodel.VrfNameProtocolsIsisSegmentRoutingPrefix{},
 	}
 }
 
 // vrfNameProtocolsIsisSegmentRoutingPrefix defines the resource implementation.
 type vrfNameProtocolsIsisSegmentRoutingPrefix struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VrfNameProtocolsIsisSegmentRoutingPrefix
+	client *client.Client
+	model  *resourcemodel.VrfNameProtocolsIsisSegmentRoutingPrefix
 }
 
-// GetName returns resource name
-func (r *vrfNameProtocolsIsisSegmentRoutingPrefix) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vrfNameProtocolsIsisSegmentRoutingPrefix) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vrfNameProtocolsIsisSegmentRoutingPrefix) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

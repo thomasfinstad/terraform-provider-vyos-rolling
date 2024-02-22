@@ -16,20 +16,19 @@ import (
 // NewSystemSflowServer method to return the example resource reference
 func NewSystemSflowServer() resource.Resource {
 	return &systemSflowServer{
-		model: resourcemodel.SystemSflowServer{},
+		model: &resourcemodel.SystemSflowServer{},
 	}
 }
 
 // systemSflowServer defines the resource implementation.
 type systemSflowServer struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.SystemSflowServer
+	client *client.Client
+	model  *resourcemodel.SystemSflowServer
 }
 
-// GetName returns resource name
-func (r *systemSflowServer) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *systemSflowServer) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *systemSflowServer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

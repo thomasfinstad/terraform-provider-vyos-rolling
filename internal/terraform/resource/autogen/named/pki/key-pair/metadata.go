@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r pkiKeyPair) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_pki_key_pair"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_pki_key_pair"
 }

@@ -16,20 +16,19 @@ import (
 // NewFirewallGroupIPvsixNetworkGroup method to return the example resource reference
 func NewFirewallGroupIPvsixNetworkGroup() resource.Resource {
 	return &firewallGroupIPvsixNetworkGroup{
-		model: resourcemodel.FirewallGroupIPvsixNetworkGroup{},
+		model: &resourcemodel.FirewallGroupIPvsixNetworkGroup{},
 	}
 }
 
 // firewallGroupIPvsixNetworkGroup defines the resource implementation.
 type firewallGroupIPvsixNetworkGroup struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.FirewallGroupIPvsixNetworkGroup
+	client *client.Client
+	model  *resourcemodel.FirewallGroupIPvsixNetworkGroup
 }
 
-// GetName returns resource name
-func (r *firewallGroupIPvsixNetworkGroup) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *firewallGroupIPvsixNetworkGroup) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *firewallGroupIPvsixNetworkGroup) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

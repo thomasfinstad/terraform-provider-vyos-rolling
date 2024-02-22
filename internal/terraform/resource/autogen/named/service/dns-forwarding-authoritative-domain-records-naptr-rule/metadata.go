@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r serviceDNSForwardingAuthoritativeDomainRecordsNaptrRule) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_service_dns_forwarding_authoritative_domain_records_naptr_rule"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_service_dns_forwarding_authoritative_domain_records_naptr_rule"
 }

@@ -16,20 +16,19 @@ import (
 // NewVpnOpenconnectAccountingRadiusServer method to return the example resource reference
 func NewVpnOpenconnectAccountingRadiusServer() resource.Resource {
 	return &vpnOpenconnectAccountingRadiusServer{
-		model: resourcemodel.VpnOpenconnectAccountingRadiusServer{},
+		model: &resourcemodel.VpnOpenconnectAccountingRadiusServer{},
 	}
 }
 
 // vpnOpenconnectAccountingRadiusServer defines the resource implementation.
 type vpnOpenconnectAccountingRadiusServer struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VpnOpenconnectAccountingRadiusServer
+	client *client.Client
+	model  *resourcemodel.VpnOpenconnectAccountingRadiusServer
 }
 
-// GetName returns resource name
-func (r *vpnOpenconnectAccountingRadiusServer) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vpnOpenconnectAccountingRadiusServer) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vpnOpenconnectAccountingRadiusServer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

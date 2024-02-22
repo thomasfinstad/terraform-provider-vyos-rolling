@@ -16,20 +16,19 @@ import (
 // NewSystemLoginUser method to return the example resource reference
 func NewSystemLoginUser() resource.Resource {
 	return &systemLoginUser{
-		model: resourcemodel.SystemLoginUser{},
+		model: &resourcemodel.SystemLoginUser{},
 	}
 }
 
 // systemLoginUser defines the resource implementation.
 type systemLoginUser struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.SystemLoginUser
+	client *client.Client
+	model  *resourcemodel.SystemLoginUser
 }
 
-// GetName returns resource name
-func (r *systemLoginUser) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *systemLoginUser) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *systemLoginUser) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

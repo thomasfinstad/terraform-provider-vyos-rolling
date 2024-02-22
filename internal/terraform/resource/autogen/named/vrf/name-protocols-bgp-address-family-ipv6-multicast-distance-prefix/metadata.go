@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r vrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistancePrefix) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_vrf_name_protocols_bgp_address_family_ipv6_multicast_distance_prefix"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_vrf_name_protocols_bgp_address_family_ipv6_multicast_distance_prefix"
 }

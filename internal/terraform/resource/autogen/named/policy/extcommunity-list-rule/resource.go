@@ -16,20 +16,19 @@ import (
 // NewPolicyExtcommunityListRule method to return the example resource reference
 func NewPolicyExtcommunityListRule() resource.Resource {
 	return &policyExtcommunityListRule{
-		model: resourcemodel.PolicyExtcommunityListRule{},
+		model: &resourcemodel.PolicyExtcommunityListRule{},
 	}
 }
 
 // policyExtcommunityListRule defines the resource implementation.
 type policyExtcommunityListRule struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.PolicyExtcommunityListRule
+	client *client.Client
+	model  *resourcemodel.PolicyExtcommunityListRule
 }
 
-// GetName returns resource name
-func (r *policyExtcommunityListRule) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *policyExtcommunityListRule) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *policyExtcommunityListRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

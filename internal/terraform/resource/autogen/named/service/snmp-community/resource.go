@@ -16,20 +16,19 @@ import (
 // NewServiceSnmpCommunity method to return the example resource reference
 func NewServiceSnmpCommunity() resource.Resource {
 	return &serviceSnmpCommunity{
-		model: resourcemodel.ServiceSnmpCommunity{},
+		model: &resourcemodel.ServiceSnmpCommunity{},
 	}
 }
 
 // serviceSnmpCommunity defines the resource implementation.
 type serviceSnmpCommunity struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceSnmpCommunity
+	client *client.Client
+	model  *resourcemodel.ServiceSnmpCommunity
 }
 
-// GetName returns resource name
-func (r *serviceSnmpCommunity) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceSnmpCommunity) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceSnmpCommunity) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

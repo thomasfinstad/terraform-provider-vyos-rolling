@@ -2,10 +2,13 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesBrIDgeVifDhcpvsixOptionsPd describes the resource data model.
@@ -22,23 +25,22 @@ type InterfacesBrIDgeVifDhcpvsixOptionsPd struct {
 	LeafInterfacesBrIDgeVifDhcpvsixOptionsPdLength types.Number `tfsdk:"length" vyos:"length,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesBrIDgeVifDhcpvsixOptionsPdInterface bool `tfsdk:"interface" vyos:"interface,child"`
+	ExistsTagInterfacesBrIDgeVifDhcpvsixOptionsPdInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes
 }
 
-// GetID returns the resource ID
-func (o InterfacesBrIDgeVifDhcpvsixOptionsPd) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o InterfacesBrIDgeVifDhcpvsixOptionsPd) SetID(id types.String) {
-	o.ID = id
+func (o *InterfacesBrIDgeVifDhcpvsixOptionsPd) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *InterfacesBrIDgeVifDhcpvsixOptionsPd) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"interfaces",
 

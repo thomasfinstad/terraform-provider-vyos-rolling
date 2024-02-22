@@ -12,9 +12,11 @@ import (
 
 // MarshalVyos takes a Terraform resource model pointer and returns a vyos config representation
 func MarshalVyos(ctx context.Context, data VyosResourceDataModel) (map[string]any, error) {
+	tflog.Trace(ctx, "Marshal for VyOS", map[string]interface{}{"data-model": data})
 	res := make(map[string]interface{})
 
-	valueReflection := reflect.ValueOf(data).Elem()
+	valueReflection := reflect.ValueOf(data)
+	valueReflection = valueReflection.Elem()
 	typeReflection := valueReflection.Type()
 
 	for i := 0; i < valueReflection.NumField(); i++ {
@@ -89,6 +91,7 @@ func MarshalVyos(ctx context.Context, data VyosResourceDataModel) (map[string]an
 		case basetypes.ListValue:
 			if !(v.IsNull() || v.IsUnknown()) {
 				fmt.Printf("\tMarshalling List Field: %s\t%s=%s\n", fName, flags["name"].(string), v)
+				tflog.Debug(ctx, "Marshalling List Field", map[string]interface{}{"field-name": flags["name"].(string), "field-value": fmt.Sprintf("%#v", v)})
 				switch v.ElementType(ctx).(type) {
 				case basetypes.StringType:
 					var lst []string
@@ -107,6 +110,7 @@ func MarshalVyos(ctx context.Context, data VyosResourceDataModel) (map[string]an
 				default:
 					panic("Unhandled type in list")
 				}
+				tflog.Debug(ctx, "Add list elements", map[string]interface{}{"list": res[flags["name"].(string)]})
 
 			} else if !flags["omitempty"].(bool) {
 				panic(fmt.Sprintf("Missing value: %s", fName))

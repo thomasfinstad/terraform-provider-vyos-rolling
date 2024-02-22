@@ -16,20 +16,19 @@ import (
 // NewVrfNameProtocolsOspfRedistributeTable method to return the example resource reference
 func NewVrfNameProtocolsOspfRedistributeTable() resource.Resource {
 	return &vrfNameProtocolsOspfRedistributeTable{
-		model: resourcemodel.VrfNameProtocolsOspfRedistributeTable{},
+		model: &resourcemodel.VrfNameProtocolsOspfRedistributeTable{},
 	}
 }
 
 // vrfNameProtocolsOspfRedistributeTable defines the resource implementation.
 type vrfNameProtocolsOspfRedistributeTable struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VrfNameProtocolsOspfRedistributeTable
+	client *client.Client
+	model  *resourcemodel.VrfNameProtocolsOspfRedistributeTable
 }
 
-// GetName returns resource name
-func (r *vrfNameProtocolsOspfRedistributeTable) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vrfNameProtocolsOspfRedistributeTable) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vrfNameProtocolsOspfRedistributeTable) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

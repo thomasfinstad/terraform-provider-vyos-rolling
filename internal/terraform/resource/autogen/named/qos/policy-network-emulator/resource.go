@@ -16,20 +16,19 @@ import (
 // NewQosPolicyNetworkEmulator method to return the example resource reference
 func NewQosPolicyNetworkEmulator() resource.Resource {
 	return &qosPolicyNetworkEmulator{
-		model: resourcemodel.QosPolicyNetworkEmulator{},
+		model: &resourcemodel.QosPolicyNetworkEmulator{},
 	}
 }
 
 // qosPolicyNetworkEmulator defines the resource implementation.
 type qosPolicyNetworkEmulator struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.QosPolicyNetworkEmulator
+	client *client.Client
+	model  *resourcemodel.QosPolicyNetworkEmulator
 }
 
-// GetName returns resource name
-func (r *qosPolicyNetworkEmulator) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *qosPolicyNetworkEmulator) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *qosPolicyNetworkEmulator) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

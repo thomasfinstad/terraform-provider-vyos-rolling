@@ -16,20 +16,19 @@ import (
 // NewServiceSnmpVthreeGroup method to return the example resource reference
 func NewServiceSnmpVthreeGroup() resource.Resource {
 	return &serviceSnmpVthreeGroup{
-		model: resourcemodel.ServiceSnmpVthreeGroup{},
+		model: &resourcemodel.ServiceSnmpVthreeGroup{},
 	}
 }
 
 // serviceSnmpVthreeGroup defines the resource implementation.
 type serviceSnmpVthreeGroup struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceSnmpVthreeGroup
+	client *client.Client
+	model  *resourcemodel.ServiceSnmpVthreeGroup
 }
 
-// GetName returns resource name
-func (r *serviceSnmpVthreeGroup) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceSnmpVthreeGroup) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceSnmpVthreeGroup) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

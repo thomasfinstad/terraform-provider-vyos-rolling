@@ -2,10 +2,13 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyShaperHfscClass describes the resource data model.
@@ -20,7 +23,7 @@ type QosPolicyShaperHfscClass struct {
 	LeafQosPolicyShaperHfscClassDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagQosPolicyShaperHfscClassMatch bool `tfsdk:"match" vyos:"match,child"`
+	ExistsTagQosPolicyShaperHfscClassMatch bool `tfsdk:"-" vyos:"match,child"`
 
 	// Nodes
 	NodeQosPolicyShaperHfscClassLinkshare  *QosPolicyShaperHfscClassLinkshare  `tfsdk:"linkshare" vyos:"linkshare,omitempty"`
@@ -28,18 +31,17 @@ type QosPolicyShaperHfscClass struct {
 	NodeQosPolicyShaperHfscClassUpperlimit *QosPolicyShaperHfscClassUpperlimit `tfsdk:"upperlimit" vyos:"upperlimit,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o QosPolicyShaperHfscClass) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o QosPolicyShaperHfscClass) SetID(id types.String) {
-	o.ID = id
+func (o *QosPolicyShaperHfscClass) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *QosPolicyShaperHfscClass) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"qos",
 

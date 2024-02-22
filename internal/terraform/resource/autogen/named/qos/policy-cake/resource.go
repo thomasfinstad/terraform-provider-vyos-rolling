@@ -16,20 +16,19 @@ import (
 // NewQosPolicyCake method to return the example resource reference
 func NewQosPolicyCake() resource.Resource {
 	return &qosPolicyCake{
-		model: resourcemodel.QosPolicyCake{},
+		model: &resourcemodel.QosPolicyCake{},
 	}
 }
 
 // qosPolicyCake defines the resource implementation.
 type qosPolicyCake struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.QosPolicyCake
+	client *client.Client
+	model  *resourcemodel.QosPolicyCake
 }
 
-// GetName returns resource name
-func (r *qosPolicyCake) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *qosPolicyCake) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *qosPolicyCake) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

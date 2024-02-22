@@ -16,20 +16,19 @@ import (
 // NewContainerNameEnvironment method to return the example resource reference
 func NewContainerNameEnvironment() resource.Resource {
 	return &containerNameEnvironment{
-		model: resourcemodel.ContainerNameEnvironment{},
+		model: &resourcemodel.ContainerNameEnvironment{},
 	}
 }
 
 // containerNameEnvironment defines the resource implementation.
 type containerNameEnvironment struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ContainerNameEnvironment
+	client *client.Client
+	model  *resourcemodel.ContainerNameEnvironment
 }
 
-// GetName returns resource name
-func (r *containerNameEnvironment) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *containerNameEnvironment) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *containerNameEnvironment) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

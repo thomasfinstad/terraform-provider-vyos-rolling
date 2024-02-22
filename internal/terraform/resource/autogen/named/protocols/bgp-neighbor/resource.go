@@ -16,20 +16,19 @@ import (
 // NewProtocolsBgpNeighbor method to return the example resource reference
 func NewProtocolsBgpNeighbor() resource.Resource {
 	return &protocolsBgpNeighbor{
-		model: resourcemodel.ProtocolsBgpNeighbor{},
+		model: &resourcemodel.ProtocolsBgpNeighbor{},
 	}
 }
 
 // protocolsBgpNeighbor defines the resource implementation.
 type protocolsBgpNeighbor struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsBgpNeighbor
+	client *client.Client
+	model  *resourcemodel.ProtocolsBgpNeighbor
 }
 
-// GetName returns resource name
-func (r *protocolsBgpNeighbor) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsBgpNeighbor) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsBgpNeighbor) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

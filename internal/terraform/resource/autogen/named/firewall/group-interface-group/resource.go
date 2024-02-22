@@ -16,20 +16,19 @@ import (
 // NewFirewallGroupInterfaceGroup method to return the example resource reference
 func NewFirewallGroupInterfaceGroup() resource.Resource {
 	return &firewallGroupInterfaceGroup{
-		model: resourcemodel.FirewallGroupInterfaceGroup{},
+		model: &resourcemodel.FirewallGroupInterfaceGroup{},
 	}
 }
 
 // firewallGroupInterfaceGroup defines the resource implementation.
 type firewallGroupInterfaceGroup struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.FirewallGroupInterfaceGroup
+	client *client.Client
+	model  *resourcemodel.FirewallGroupInterfaceGroup
 }
 
-// GetName returns resource name
-func (r *firewallGroupInterfaceGroup) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *firewallGroupInterfaceGroup) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *firewallGroupInterfaceGroup) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

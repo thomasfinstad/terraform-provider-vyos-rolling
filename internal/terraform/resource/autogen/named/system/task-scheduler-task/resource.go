@@ -16,20 +16,19 @@ import (
 // NewSystemTaskSchedulerTask method to return the example resource reference
 func NewSystemTaskSchedulerTask() resource.Resource {
 	return &systemTaskSchedulerTask{
-		model: resourcemodel.SystemTaskSchedulerTask{},
+		model: &resourcemodel.SystemTaskSchedulerTask{},
 	}
 }
 
 // systemTaskSchedulerTask defines the resource implementation.
 type systemTaskSchedulerTask struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.SystemTaskSchedulerTask
+	client *client.Client
+	model  *resourcemodel.SystemTaskSchedulerTask
 }
 
-// GetName returns resource name
-func (r *systemTaskSchedulerTask) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *systemTaskSchedulerTask) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *systemTaskSchedulerTask) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -16,20 +16,19 @@ import (
 // NewProtocolsBabelInterface method to return the example resource reference
 func NewProtocolsBabelInterface() resource.Resource {
 	return &protocolsBabelInterface{
-		model: resourcemodel.ProtocolsBabelInterface{},
+		model: &resourcemodel.ProtocolsBabelInterface{},
 	}
 }
 
 // protocolsBabelInterface defines the resource implementation.
 type protocolsBabelInterface struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsBabelInterface
+	client *client.Client
+	model  *resourcemodel.ProtocolsBabelInterface
 }
 
-// GetName returns resource name
-func (r *protocolsBabelInterface) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsBabelInterface) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsBabelInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

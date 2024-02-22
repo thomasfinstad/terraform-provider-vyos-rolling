@@ -16,20 +16,19 @@ import (
 // NewInterfacesWirelessVif method to return the example resource reference
 func NewInterfacesWirelessVif() resource.Resource {
 	return &interfacesWirelessVif{
-		model: resourcemodel.InterfacesWirelessVif{},
+		model: &resourcemodel.InterfacesWirelessVif{},
 	}
 }
 
 // interfacesWirelessVif defines the resource implementation.
 type interfacesWirelessVif struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesWirelessVif
+	client *client.Client
+	model  *resourcemodel.InterfacesWirelessVif
 }
 
-// GetName returns resource name
-func (r *interfacesWirelessVif) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesWirelessVif) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesWirelessVif) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

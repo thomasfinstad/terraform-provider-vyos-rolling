@@ -16,20 +16,19 @@ import (
 // NewInterfacesWireguard method to return the example resource reference
 func NewInterfacesWireguard() resource.Resource {
 	return &interfacesWireguard{
-		model: resourcemodel.InterfacesWireguard{},
+		model: &resourcemodel.InterfacesWireguard{},
 	}
 }
 
 // interfacesWireguard defines the resource implementation.
 type interfacesWireguard struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesWireguard
+	client *client.Client
+	model  *resourcemodel.InterfacesWireguard
 }
 
-// GetName returns resource name
-func (r *interfacesWireguard) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesWireguard) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesWireguard) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

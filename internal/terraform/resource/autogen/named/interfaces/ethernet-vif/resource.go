@@ -16,20 +16,19 @@ import (
 // NewInterfacesEthernetVif method to return the example resource reference
 func NewInterfacesEthernetVif() resource.Resource {
 	return &interfacesEthernetVif{
-		model: resourcemodel.InterfacesEthernetVif{},
+		model: &resourcemodel.InterfacesEthernetVif{},
 	}
 }
 
 // interfacesEthernetVif defines the resource implementation.
 type interfacesEthernetVif struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesEthernetVif
+	client *client.Client
+	model  *resourcemodel.InterfacesEthernetVif
 }
 
-// GetName returns resource name
-func (r *interfacesEthernetVif) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesEthernetVif) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesEthernetVif) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

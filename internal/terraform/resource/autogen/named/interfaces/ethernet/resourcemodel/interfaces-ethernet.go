@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesEthernet describes the resource data model.
@@ -31,8 +34,8 @@ type InterfacesEthernet struct {
 	LeafInterfacesEthernetXdp                types.Bool   `tfsdk:"xdp" vyos:"xdp,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesEthernetVifS bool `tfsdk:"vif_s" vyos:"vif-s,child"`
-	ExistsTagInterfacesEthernetVif  bool `tfsdk:"vif" vyos:"vif,child"`
+	ExistsTagInterfacesEthernetVifS bool `tfsdk:"-" vyos:"vif-s,child"`
+	ExistsTagInterfacesEthernetVif  bool `tfsdk:"-" vyos:"vif,child"`
 
 	// Nodes
 	NodeInterfacesEthernetDhcpOptions     *InterfacesEthernetDhcpOptions     `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
@@ -45,18 +48,17 @@ type InterfacesEthernet struct {
 	NodeInterfacesEthernetRingBuffer      *InterfacesEthernetRingBuffer      `tfsdk:"ring_buffer" vyos:"ring-buffer,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o InterfacesEthernet) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o InterfacesEthernet) SetID(id types.String) {
-	o.ID = id
+func (o *InterfacesEthernet) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *InterfacesEthernet) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"interfaces",
 

@@ -16,20 +16,19 @@ import (
 // NewVrfNameProtocolsBgpPeerGroup method to return the example resource reference
 func NewVrfNameProtocolsBgpPeerGroup() resource.Resource {
 	return &vrfNameProtocolsBgpPeerGroup{
-		model: resourcemodel.VrfNameProtocolsBgpPeerGroup{},
+		model: &resourcemodel.VrfNameProtocolsBgpPeerGroup{},
 	}
 }
 
 // vrfNameProtocolsBgpPeerGroup defines the resource implementation.
 type vrfNameProtocolsBgpPeerGroup struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VrfNameProtocolsBgpPeerGroup
+	client *client.Client
+	model  *resourcemodel.VrfNameProtocolsBgpPeerGroup
 }
 
-// GetName returns resource name
-func (r *vrfNameProtocolsBgpPeerGroup) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vrfNameProtocolsBgpPeerGroup) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vrfNameProtocolsBgpPeerGroup) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

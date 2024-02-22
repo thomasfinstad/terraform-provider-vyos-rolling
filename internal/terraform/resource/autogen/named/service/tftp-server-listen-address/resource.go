@@ -16,20 +16,19 @@ import (
 // NewServiceTftpServerListenAddress method to return the example resource reference
 func NewServiceTftpServerListenAddress() resource.Resource {
 	return &serviceTftpServerListenAddress{
-		model: resourcemodel.ServiceTftpServerListenAddress{},
+		model: &resourcemodel.ServiceTftpServerListenAddress{},
 	}
 }
 
 // serviceTftpServerListenAddress defines the resource implementation.
 type serviceTftpServerListenAddress struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceTftpServerListenAddress
+	client *client.Client
+	model  *resourcemodel.ServiceTftpServerListenAddress
 }
 
-// GetName returns resource name
-func (r *serviceTftpServerListenAddress) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceTftpServerListenAddress) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceTftpServerListenAddress) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

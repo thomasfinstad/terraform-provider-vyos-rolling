@@ -16,20 +16,19 @@ import (
 // NewInterfacesPseudoEthernetVifSVifCDhcpvsixOptionsPd method to return the example resource reference
 func NewInterfacesPseudoEthernetVifSVifCDhcpvsixOptionsPd() resource.Resource {
 	return &interfacesPseudoEthernetVifSVifCDhcpvsixOptionsPd{
-		model: resourcemodel.InterfacesPseudoEthernetVifSVifCDhcpvsixOptionsPd{},
+		model: &resourcemodel.InterfacesPseudoEthernetVifSVifCDhcpvsixOptionsPd{},
 	}
 }
 
 // interfacesPseudoEthernetVifSVifCDhcpvsixOptionsPd defines the resource implementation.
 type interfacesPseudoEthernetVifSVifCDhcpvsixOptionsPd struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesPseudoEthernetVifSVifCDhcpvsixOptionsPd
+	client *client.Client
+	model  *resourcemodel.InterfacesPseudoEthernetVifSVifCDhcpvsixOptionsPd
 }
 
-// GetName returns resource name
-func (r *interfacesPseudoEthernetVifSVifCDhcpvsixOptionsPd) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesPseudoEthernetVifSVifCDhcpvsixOptionsPd) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesPseudoEthernetVifSVifCDhcpvsixOptionsPd) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

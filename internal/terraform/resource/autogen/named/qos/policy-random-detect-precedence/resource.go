@@ -16,20 +16,19 @@ import (
 // NewQosPolicyRandomDetectPrecedence method to return the example resource reference
 func NewQosPolicyRandomDetectPrecedence() resource.Resource {
 	return &qosPolicyRandomDetectPrecedence{
-		model: resourcemodel.QosPolicyRandomDetectPrecedence{},
+		model: &resourcemodel.QosPolicyRandomDetectPrecedence{},
 	}
 }
 
 // qosPolicyRandomDetectPrecedence defines the resource implementation.
 type qosPolicyRandomDetectPrecedence struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.QosPolicyRandomDetectPrecedence
+	client *client.Client
+	model  *resourcemodel.QosPolicyRandomDetectPrecedence
 }
 
-// GetName returns resource name
-func (r *qosPolicyRandomDetectPrecedence) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *qosPolicyRandomDetectPrecedence) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *qosPolicyRandomDetectPrecedence) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

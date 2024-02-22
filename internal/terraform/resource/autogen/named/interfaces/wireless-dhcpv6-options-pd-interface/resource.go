@@ -16,20 +16,19 @@ import (
 // NewInterfacesWirelessDhcpvsixOptionsPdInterface method to return the example resource reference
 func NewInterfacesWirelessDhcpvsixOptionsPdInterface() resource.Resource {
 	return &interfacesWirelessDhcpvsixOptionsPdInterface{
-		model: resourcemodel.InterfacesWirelessDhcpvsixOptionsPdInterface{},
+		model: &resourcemodel.InterfacesWirelessDhcpvsixOptionsPdInterface{},
 	}
 }
 
 // interfacesWirelessDhcpvsixOptionsPdInterface defines the resource implementation.
 type interfacesWirelessDhcpvsixOptionsPdInterface struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesWirelessDhcpvsixOptionsPdInterface
+	client *client.Client
+	model  *resourcemodel.InterfacesWirelessDhcpvsixOptionsPdInterface
 }
 
-// GetName returns resource name
-func (r *interfacesWirelessDhcpvsixOptionsPdInterface) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesWirelessDhcpvsixOptionsPdInterface) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesWirelessDhcpvsixOptionsPdInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

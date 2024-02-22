@@ -16,20 +16,19 @@ import (
 // NewHighAvailabilityVrrpGroupAddress method to return the example resource reference
 func NewHighAvailabilityVrrpGroupAddress() resource.Resource {
 	return &highAvailabilityVrrpGroupAddress{
-		model: resourcemodel.HighAvailabilityVrrpGroupAddress{},
+		model: &resourcemodel.HighAvailabilityVrrpGroupAddress{},
 	}
 }
 
 // highAvailabilityVrrpGroupAddress defines the resource implementation.
 type highAvailabilityVrrpGroupAddress struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.HighAvailabilityVrrpGroupAddress
+	client *client.Client
+	model  *resourcemodel.HighAvailabilityVrrpGroupAddress
 }
 
-// GetName returns resource name
-func (r *highAvailabilityVrrpGroupAddress) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *highAvailabilityVrrpGroupAddress) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *highAvailabilityVrrpGroupAddress) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

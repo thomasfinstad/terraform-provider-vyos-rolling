@@ -16,20 +16,19 @@ import (
 // NewInterfacesMacsecDhcpvsixOptionsPdInterface method to return the example resource reference
 func NewInterfacesMacsecDhcpvsixOptionsPdInterface() resource.Resource {
 	return &interfacesMacsecDhcpvsixOptionsPdInterface{
-		model: resourcemodel.InterfacesMacsecDhcpvsixOptionsPdInterface{},
+		model: &resourcemodel.InterfacesMacsecDhcpvsixOptionsPdInterface{},
 	}
 }
 
 // interfacesMacsecDhcpvsixOptionsPdInterface defines the resource implementation.
 type interfacesMacsecDhcpvsixOptionsPdInterface struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesMacsecDhcpvsixOptionsPdInterface
+	client *client.Client
+	model  *resourcemodel.InterfacesMacsecDhcpvsixOptionsPdInterface
 }
 
-// GetName returns resource name
-func (r *interfacesMacsecDhcpvsixOptionsPdInterface) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesMacsecDhcpvsixOptionsPdInterface) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesMacsecDhcpvsixOptionsPdInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

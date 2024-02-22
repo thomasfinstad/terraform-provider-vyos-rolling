@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesWireguard describes the resource data model.
@@ -27,7 +30,7 @@ type InterfacesWireguard struct {
 	LeafInterfacesWireguardVrf         types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesWireguardPeer bool `tfsdk:"peer" vyos:"peer,child"`
+	ExistsTagInterfacesWireguardPeer bool `tfsdk:"-" vyos:"peer,child"`
 
 	// Nodes
 	NodeInterfacesWireguardMirror *InterfacesWireguardMirror `tfsdk:"mirror" vyos:"mirror,omitempty"`
@@ -35,18 +38,17 @@ type InterfacesWireguard struct {
 	NodeInterfacesWireguardIPvsix *InterfacesWireguardIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o InterfacesWireguard) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o InterfacesWireguard) SetID(id types.String) {
-	o.ID = id
+func (o *InterfacesWireguard) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *InterfacesWireguard) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"interfaces",
 

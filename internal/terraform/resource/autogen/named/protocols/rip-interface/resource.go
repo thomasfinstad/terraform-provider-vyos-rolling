@@ -16,20 +16,19 @@ import (
 // NewProtocolsRIPInterface method to return the example resource reference
 func NewProtocolsRIPInterface() resource.Resource {
 	return &protocolsRIPInterface{
-		model: resourcemodel.ProtocolsRIPInterface{},
+		model: &resourcemodel.ProtocolsRIPInterface{},
 	}
 }
 
 // protocolsRIPInterface defines the resource implementation.
 type protocolsRIPInterface struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsRIPInterface
+	client *client.Client
+	model  *resourcemodel.ProtocolsRIPInterface
 }
 
-// GetName returns resource name
-func (r *protocolsRIPInterface) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsRIPInterface) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsRIPInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

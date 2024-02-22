@@ -16,20 +16,19 @@ import (
 // NewVpnIPsecIkeGroupProposal method to return the example resource reference
 func NewVpnIPsecIkeGroupProposal() resource.Resource {
 	return &vpnIPsecIkeGroupProposal{
-		model: resourcemodel.VpnIPsecIkeGroupProposal{},
+		model: &resourcemodel.VpnIPsecIkeGroupProposal{},
 	}
 }
 
 // vpnIPsecIkeGroupProposal defines the resource implementation.
 type vpnIPsecIkeGroupProposal struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VpnIPsecIkeGroupProposal
+	client *client.Client
+	model  *resourcemodel.VpnIPsecIkeGroupProposal
 }
 
-// GetName returns resource name
-func (r *vpnIPsecIkeGroupProposal) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vpnIPsecIkeGroupProposal) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vpnIPsecIkeGroupProposal) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

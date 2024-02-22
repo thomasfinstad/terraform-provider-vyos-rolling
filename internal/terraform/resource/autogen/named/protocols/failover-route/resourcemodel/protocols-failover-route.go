@@ -2,10 +2,13 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsFailoverRoute describes the resource data model.
@@ -17,23 +20,22 @@ type ProtocolsFailoverRoute struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsFailoverRouteNextHop bool `tfsdk:"next_hop" vyos:"next-hop,child"`
+	ExistsTagProtocolsFailoverRouteNextHop bool `tfsdk:"-" vyos:"next-hop,child"`
 
 	// Nodes
 }
 
-// GetID returns the resource ID
-func (o ProtocolsFailoverRoute) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o ProtocolsFailoverRoute) SetID(id types.String) {
-	o.ID = id
+func (o *ProtocolsFailoverRoute) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *ProtocolsFailoverRoute) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"protocols",
 

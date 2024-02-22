@@ -16,20 +16,19 @@ import (
 // NewInterfacesDummy method to return the example resource reference
 func NewInterfacesDummy() resource.Resource {
 	return &interfacesDummy{
-		model: resourcemodel.InterfacesDummy{},
+		model: &resourcemodel.InterfacesDummy{},
 	}
 }
 
 // interfacesDummy defines the resource implementation.
 type interfacesDummy struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesDummy
+	client *client.Client
+	model  *resourcemodel.InterfacesDummy
 }
 
-// GetName returns resource name
-func (r *interfacesDummy) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesDummy) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesDummy) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -16,20 +16,19 @@ import (
 // NewProtocolsOspfSegmentRoutingPrefix method to return the example resource reference
 func NewProtocolsOspfSegmentRoutingPrefix() resource.Resource {
 	return &protocolsOspfSegmentRoutingPrefix{
-		model: resourcemodel.ProtocolsOspfSegmentRoutingPrefix{},
+		model: &resourcemodel.ProtocolsOspfSegmentRoutingPrefix{},
 	}
 }
 
 // protocolsOspfSegmentRoutingPrefix defines the resource implementation.
 type protocolsOspfSegmentRoutingPrefix struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsOspfSegmentRoutingPrefix
+	client *client.Client
+	model  *resourcemodel.ProtocolsOspfSegmentRoutingPrefix
 }
 
-// GetName returns resource name
-func (r *protocolsOspfSegmentRoutingPrefix) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsOspfSegmentRoutingPrefix) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsOspfSegmentRoutingPrefix) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

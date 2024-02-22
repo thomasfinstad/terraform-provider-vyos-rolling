@@ -16,20 +16,19 @@ import (
 // NewServicePppoeServerPadoDelay method to return the example resource reference
 func NewServicePppoeServerPadoDelay() resource.Resource {
 	return &servicePppoeServerPadoDelay{
-		model: resourcemodel.ServicePppoeServerPadoDelay{},
+		model: &resourcemodel.ServicePppoeServerPadoDelay{},
 	}
 }
 
 // servicePppoeServerPadoDelay defines the resource implementation.
 type servicePppoeServerPadoDelay struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServicePppoeServerPadoDelay
+	client *client.Client
+	model  *resourcemodel.ServicePppoeServerPadoDelay
 }
 
-// GetName returns resource name
-func (r *servicePppoeServerPadoDelay) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *servicePppoeServerPadoDelay) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *servicePppoeServerPadoDelay) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

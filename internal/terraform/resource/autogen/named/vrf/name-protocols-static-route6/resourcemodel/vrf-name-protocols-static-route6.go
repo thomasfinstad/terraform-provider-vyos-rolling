@@ -2,10 +2,13 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsStaticRoutesix describes the resource data model.
@@ -20,26 +23,25 @@ type VrfNameProtocolsStaticRoutesix struct {
 	LeafVrfNameProtocolsStaticRoutesixDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsStaticRoutesixInterface bool `tfsdk:"interface" vyos:"interface,child"`
-	ExistsTagVrfNameProtocolsStaticRoutesixNextHop   bool `tfsdk:"next_hop" vyos:"next-hop,child"`
+	ExistsTagVrfNameProtocolsStaticRoutesixInterface bool `tfsdk:"-" vyos:"interface,child"`
+	ExistsTagVrfNameProtocolsStaticRoutesixNextHop   bool `tfsdk:"-" vyos:"next-hop,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsStaticRoutesixBlackhole *VrfNameProtocolsStaticRoutesixBlackhole `tfsdk:"blackhole" vyos:"blackhole,omitempty"`
 	NodeVrfNameProtocolsStaticRoutesixReject    *VrfNameProtocolsStaticRoutesixReject    `tfsdk:"reject" vyos:"reject,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o VrfNameProtocolsStaticRoutesix) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o VrfNameProtocolsStaticRoutesix) SetID(id types.String) {
-	o.ID = id
+func (o *VrfNameProtocolsStaticRoutesix) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *VrfNameProtocolsStaticRoutesix) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"vrf",
 

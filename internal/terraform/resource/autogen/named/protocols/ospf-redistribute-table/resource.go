@@ -16,20 +16,19 @@ import (
 // NewProtocolsOspfRedistributeTable method to return the example resource reference
 func NewProtocolsOspfRedistributeTable() resource.Resource {
 	return &protocolsOspfRedistributeTable{
-		model: resourcemodel.ProtocolsOspfRedistributeTable{},
+		model: &resourcemodel.ProtocolsOspfRedistributeTable{},
 	}
 }
 
 // protocolsOspfRedistributeTable defines the resource implementation.
 type protocolsOspfRedistributeTable struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsOspfRedistributeTable
+	client *client.Client
+	model  *resourcemodel.ProtocolsOspfRedistributeTable
 }
 
-// GetName returns resource name
-func (r *protocolsOspfRedistributeTable) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsOspfRedistributeTable) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsOspfRedistributeTable) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

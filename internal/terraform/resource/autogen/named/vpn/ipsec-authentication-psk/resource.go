@@ -16,20 +16,19 @@ import (
 // NewVpnIPsecAuthenticationPsk method to return the example resource reference
 func NewVpnIPsecAuthenticationPsk() resource.Resource {
 	return &vpnIPsecAuthenticationPsk{
-		model: resourcemodel.VpnIPsecAuthenticationPsk{},
+		model: &resourcemodel.VpnIPsecAuthenticationPsk{},
 	}
 }
 
 // vpnIPsecAuthenticationPsk defines the resource implementation.
 type vpnIPsecAuthenticationPsk struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VpnIPsecAuthenticationPsk
+	client *client.Client
+	model  *resourcemodel.VpnIPsecAuthenticationPsk
 }
 
-// GetName returns resource name
-func (r *vpnIPsecAuthenticationPsk) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vpnIPsecAuthenticationPsk) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vpnIPsecAuthenticationPsk) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

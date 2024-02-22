@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r interfacesBondingVifSVifC) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_interfaces_bonding_vif_s_vif_c"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_interfaces_bonding_vif_s_vif_c"
 }

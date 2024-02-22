@@ -16,20 +16,19 @@ import (
 // NewVrfNameProtocolsStaticRoutesixInterface method to return the example resource reference
 func NewVrfNameProtocolsStaticRoutesixInterface() resource.Resource {
 	return &vrfNameProtocolsStaticRoutesixInterface{
-		model: resourcemodel.VrfNameProtocolsStaticRoutesixInterface{},
+		model: &resourcemodel.VrfNameProtocolsStaticRoutesixInterface{},
 	}
 }
 
 // vrfNameProtocolsStaticRoutesixInterface defines the resource implementation.
 type vrfNameProtocolsStaticRoutesixInterface struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VrfNameProtocolsStaticRoutesixInterface
+	client *client.Client
+	model  *resourcemodel.VrfNameProtocolsStaticRoutesixInterface
 }
 
-// GetName returns resource name
-func (r *vrfNameProtocolsStaticRoutesixInterface) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vrfNameProtocolsStaticRoutesixInterface) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vrfNameProtocolsStaticRoutesixInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

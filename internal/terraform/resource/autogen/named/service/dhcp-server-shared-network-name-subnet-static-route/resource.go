@@ -16,20 +16,19 @@ import (
 // NewServiceDhcpServerSharedNetworkNameSubnetStaticRoute method to return the example resource reference
 func NewServiceDhcpServerSharedNetworkNameSubnetStaticRoute() resource.Resource {
 	return &serviceDhcpServerSharedNetworkNameSubnetStaticRoute{
-		model: resourcemodel.ServiceDhcpServerSharedNetworkNameSubnetStaticRoute{},
+		model: &resourcemodel.ServiceDhcpServerSharedNetworkNameSubnetStaticRoute{},
 	}
 }
 
 // serviceDhcpServerSharedNetworkNameSubnetStaticRoute defines the resource implementation.
 type serviceDhcpServerSharedNetworkNameSubnetStaticRoute struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceDhcpServerSharedNetworkNameSubnetStaticRoute
+	client *client.Client
+	model  *resourcemodel.ServiceDhcpServerSharedNetworkNameSubnetStaticRoute
 }
 
-// GetName returns resource name
-func (r *serviceDhcpServerSharedNetworkNameSubnetStaticRoute) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceDhcpServerSharedNetworkNameSubnetStaticRoute) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceDhcpServerSharedNetworkNameSubnetStaticRoute) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

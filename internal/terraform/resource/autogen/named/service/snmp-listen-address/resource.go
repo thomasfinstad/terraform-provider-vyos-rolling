@@ -16,20 +16,19 @@ import (
 // NewServiceSnmpListenAddress method to return the example resource reference
 func NewServiceSnmpListenAddress() resource.Resource {
 	return &serviceSnmpListenAddress{
-		model: resourcemodel.ServiceSnmpListenAddress{},
+		model: &resourcemodel.ServiceSnmpListenAddress{},
 	}
 }
 
 // serviceSnmpListenAddress defines the resource implementation.
 type serviceSnmpListenAddress struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceSnmpListenAddress
+	client *client.Client
+	model  *resourcemodel.ServiceSnmpListenAddress
 }
 
-// GetName returns resource name
-func (r *serviceSnmpListenAddress) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceSnmpListenAddress) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceSnmpListenAddress) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

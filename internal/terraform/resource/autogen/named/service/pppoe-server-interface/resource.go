@@ -16,20 +16,19 @@ import (
 // NewServicePppoeServerInterface method to return the example resource reference
 func NewServicePppoeServerInterface() resource.Resource {
 	return &servicePppoeServerInterface{
-		model: resourcemodel.ServicePppoeServerInterface{},
+		model: &resourcemodel.ServicePppoeServerInterface{},
 	}
 }
 
 // servicePppoeServerInterface defines the resource implementation.
 type servicePppoeServerInterface struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServicePppoeServerInterface
+	client *client.Client
+	model  *resourcemodel.ServicePppoeServerInterface
 }
 
-// GetName returns resource name
-func (r *servicePppoeServerInterface) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *servicePppoeServerInterface) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *servicePppoeServerInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

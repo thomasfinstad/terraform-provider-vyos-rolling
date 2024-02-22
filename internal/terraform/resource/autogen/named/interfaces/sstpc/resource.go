@@ -16,20 +16,19 @@ import (
 // NewInterfacesSstpc method to return the example resource reference
 func NewInterfacesSstpc() resource.Resource {
 	return &interfacesSstpc{
-		model: resourcemodel.InterfacesSstpc{},
+		model: &resourcemodel.InterfacesSstpc{},
 	}
 }
 
 // interfacesSstpc defines the resource implementation.
 type interfacesSstpc struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesSstpc
+	client *client.Client
+	model  *resourcemodel.InterfacesSstpc
 }
 
-// GetName returns resource name
-func (r *interfacesSstpc) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesSstpc) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesSstpc) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -16,20 +16,19 @@ import (
 // NewNetnsName method to return the example resource reference
 func NewNetnsName() resource.Resource {
 	return &netnsName{
-		model: resourcemodel.NetnsName{},
+		model: &resourcemodel.NetnsName{},
 	}
 }
 
 // netnsName defines the resource implementation.
 type netnsName struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.NetnsName
+	client *client.Client
+	model  *resourcemodel.NetnsName
 }
 
-// GetName returns resource name
-func (r *netnsName) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *netnsName) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *netnsName) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

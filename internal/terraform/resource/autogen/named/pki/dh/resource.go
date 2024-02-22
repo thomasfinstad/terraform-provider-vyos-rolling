@@ -16,20 +16,19 @@ import (
 // NewPkiDh method to return the example resource reference
 func NewPkiDh() resource.Resource {
 	return &pkiDh{
-		model: resourcemodel.PkiDh{},
+		model: &resourcemodel.PkiDh{},
 	}
 }
 
 // pkiDh defines the resource implementation.
 type pkiDh struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.PkiDh
+	client *client.Client
+	model  *resourcemodel.PkiDh
 }
 
-// GetName returns resource name
-func (r *pkiDh) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *pkiDh) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *pkiDh) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -16,20 +16,19 @@ import (
 // NewSystemLoginUserAuthenticationPublicKeys method to return the example resource reference
 func NewSystemLoginUserAuthenticationPublicKeys() resource.Resource {
 	return &systemLoginUserAuthenticationPublicKeys{
-		model: resourcemodel.SystemLoginUserAuthenticationPublicKeys{},
+		model: &resourcemodel.SystemLoginUserAuthenticationPublicKeys{},
 	}
 }
 
 // systemLoginUserAuthenticationPublicKeys defines the resource implementation.
 type systemLoginUserAuthenticationPublicKeys struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.SystemLoginUserAuthenticationPublicKeys
+	client *client.Client
+	model  *resourcemodel.SystemLoginUserAuthenticationPublicKeys
 }
 
-// GetName returns resource name
-func (r *systemLoginUserAuthenticationPublicKeys) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *systemLoginUserAuthenticationPublicKeys) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *systemLoginUserAuthenticationPublicKeys) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

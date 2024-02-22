@@ -16,20 +16,19 @@ import (
 // NewQosPolicyShaperClassMatch method to return the example resource reference
 func NewQosPolicyShaperClassMatch() resource.Resource {
 	return &qosPolicyShaperClassMatch{
-		model: resourcemodel.QosPolicyShaperClassMatch{},
+		model: &resourcemodel.QosPolicyShaperClassMatch{},
 	}
 }
 
 // qosPolicyShaperClassMatch defines the resource implementation.
 type qosPolicyShaperClassMatch struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.QosPolicyShaperClassMatch
+	client *client.Client
+	model  *resourcemodel.QosPolicyShaperClassMatch
 }
 
-// GetName returns resource name
-func (r *qosPolicyShaperClassMatch) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *qosPolicyShaperClassMatch) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *qosPolicyShaperClassMatch) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

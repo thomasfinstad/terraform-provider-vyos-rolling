@@ -16,20 +16,19 @@ import (
 // NewProtocolsFailoverRouteNextHop method to return the example resource reference
 func NewProtocolsFailoverRouteNextHop() resource.Resource {
 	return &protocolsFailoverRouteNextHop{
-		model: resourcemodel.ProtocolsFailoverRouteNextHop{},
+		model: &resourcemodel.ProtocolsFailoverRouteNextHop{},
 	}
 }
 
 // protocolsFailoverRouteNextHop defines the resource implementation.
 type protocolsFailoverRouteNextHop struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsFailoverRouteNextHop
+	client *client.Client
+	model  *resourcemodel.ProtocolsFailoverRouteNextHop
 }
 
-// GetName returns resource name
-func (r *protocolsFailoverRouteNextHop) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsFailoverRouteNextHop) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsFailoverRouteNextHop) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

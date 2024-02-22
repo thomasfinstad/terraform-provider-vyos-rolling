@@ -16,20 +16,19 @@ import (
 // NewFirewallInterface method to return the example resource reference
 func NewFirewallInterface() resource.Resource {
 	return &firewallInterface{
-		model: resourcemodel.FirewallInterface{},
+		model: &resourcemodel.FirewallInterface{},
 	}
 }
 
 // firewallInterface defines the resource implementation.
 type firewallInterface struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.FirewallInterface
+	client *client.Client
+	model  *resourcemodel.FirewallInterface
 }
 
-// GetName returns resource name
-func (r *firewallInterface) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *firewallInterface) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *firewallInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

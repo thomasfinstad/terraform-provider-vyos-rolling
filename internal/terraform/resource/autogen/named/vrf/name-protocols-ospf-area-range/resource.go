@@ -16,20 +16,19 @@ import (
 // NewVrfNameProtocolsOspfAreaRange method to return the example resource reference
 func NewVrfNameProtocolsOspfAreaRange() resource.Resource {
 	return &vrfNameProtocolsOspfAreaRange{
-		model: resourcemodel.VrfNameProtocolsOspfAreaRange{},
+		model: &resourcemodel.VrfNameProtocolsOspfAreaRange{},
 	}
 }
 
 // vrfNameProtocolsOspfAreaRange defines the resource implementation.
 type vrfNameProtocolsOspfAreaRange struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VrfNameProtocolsOspfAreaRange
+	client *client.Client
+	model  *resourcemodel.VrfNameProtocolsOspfAreaRange
 }
 
-// GetName returns resource name
-func (r *vrfNameProtocolsOspfAreaRange) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vrfNameProtocolsOspfAreaRange) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vrfNameProtocolsOspfAreaRange) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

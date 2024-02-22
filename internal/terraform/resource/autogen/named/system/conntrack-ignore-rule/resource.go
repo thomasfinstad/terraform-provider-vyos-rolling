@@ -16,20 +16,19 @@ import (
 // NewSystemConntrackIgnoreRule method to return the example resource reference
 func NewSystemConntrackIgnoreRule() resource.Resource {
 	return &systemConntrackIgnoreRule{
-		model: resourcemodel.SystemConntrackIgnoreRule{},
+		model: &resourcemodel.SystemConntrackIgnoreRule{},
 	}
 }
 
 // systemConntrackIgnoreRule defines the resource implementation.
 type systemConntrackIgnoreRule struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.SystemConntrackIgnoreRule
+	client *client.Client
+	model  *resourcemodel.SystemConntrackIgnoreRule
 }
 
-// GetName returns resource name
-func (r *systemConntrackIgnoreRule) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *systemConntrackIgnoreRule) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *systemConntrackIgnoreRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

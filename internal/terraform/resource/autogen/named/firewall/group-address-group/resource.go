@@ -16,20 +16,19 @@ import (
 // NewFirewallGroupAddressGroup method to return the example resource reference
 func NewFirewallGroupAddressGroup() resource.Resource {
 	return &firewallGroupAddressGroup{
-		model: resourcemodel.FirewallGroupAddressGroup{},
+		model: &resourcemodel.FirewallGroupAddressGroup{},
 	}
 }
 
 // firewallGroupAddressGroup defines the resource implementation.
 type firewallGroupAddressGroup struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.FirewallGroupAddressGroup
+	client *client.Client
+	model  *resourcemodel.FirewallGroupAddressGroup
 }
 
-// GetName returns resource name
-func (r *firewallGroupAddressGroup) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *firewallGroupAddressGroup) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *firewallGroupAddressGroup) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

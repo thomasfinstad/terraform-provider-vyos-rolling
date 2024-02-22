@@ -16,20 +16,19 @@ import (
 // NewServiceDhcpServerSharedNetworkName method to return the example resource reference
 func NewServiceDhcpServerSharedNetworkName() resource.Resource {
 	return &serviceDhcpServerSharedNetworkName{
-		model: resourcemodel.ServiceDhcpServerSharedNetworkName{},
+		model: &resourcemodel.ServiceDhcpServerSharedNetworkName{},
 	}
 }
 
 // serviceDhcpServerSharedNetworkName defines the resource implementation.
 type serviceDhcpServerSharedNetworkName struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceDhcpServerSharedNetworkName
+	client *client.Client
+	model  *resourcemodel.ServiceDhcpServerSharedNetworkName
 }
 
-// GetName returns resource name
-func (r *serviceDhcpServerSharedNetworkName) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceDhcpServerSharedNetworkName) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceDhcpServerSharedNetworkName) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

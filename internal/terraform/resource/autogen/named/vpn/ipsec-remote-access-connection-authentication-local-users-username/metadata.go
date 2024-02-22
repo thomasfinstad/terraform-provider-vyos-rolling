@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r vpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_vpn_ipsec_remote_access_connection_authentication_local_users_username"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_vpn_ipsec_remote_access_connection_authentication_local_users_username"
 }

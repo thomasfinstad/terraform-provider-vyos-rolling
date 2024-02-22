@@ -1,6 +1,7 @@
 # Custom
 .build/
 ERROR-FILE
+dist/
 
 
 ###

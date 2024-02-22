@@ -16,20 +16,19 @@ import (
 // NewProtocolsIgmpInterfaceJoin method to return the example resource reference
 func NewProtocolsIgmpInterfaceJoin() resource.Resource {
 	return &protocolsIgmpInterfaceJoin{
-		model: resourcemodel.ProtocolsIgmpInterfaceJoin{},
+		model: &resourcemodel.ProtocolsIgmpInterfaceJoin{},
 	}
 }
 
 // protocolsIgmpInterfaceJoin defines the resource implementation.
 type protocolsIgmpInterfaceJoin struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsIgmpInterfaceJoin
+	client *client.Client
+	model  *resourcemodel.ProtocolsIgmpInterfaceJoin
 }
 
-// GetName returns resource name
-func (r *protocolsIgmpInterfaceJoin) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsIgmpInterfaceJoin) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsIgmpInterfaceJoin) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

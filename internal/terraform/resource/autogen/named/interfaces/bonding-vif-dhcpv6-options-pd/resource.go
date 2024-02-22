@@ -16,20 +16,19 @@ import (
 // NewInterfacesBondingVifDhcpvsixOptionsPd method to return the example resource reference
 func NewInterfacesBondingVifDhcpvsixOptionsPd() resource.Resource {
 	return &interfacesBondingVifDhcpvsixOptionsPd{
-		model: resourcemodel.InterfacesBondingVifDhcpvsixOptionsPd{},
+		model: &resourcemodel.InterfacesBondingVifDhcpvsixOptionsPd{},
 	}
 }
 
 // interfacesBondingVifDhcpvsixOptionsPd defines the resource implementation.
 type interfacesBondingVifDhcpvsixOptionsPd struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesBondingVifDhcpvsixOptionsPd
+	client *client.Client
+	model  *resourcemodel.InterfacesBondingVifDhcpvsixOptionsPd
 }
 
-// GetName returns resource name
-func (r *interfacesBondingVifDhcpvsixOptionsPd) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesBondingVifDhcpvsixOptionsPd) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesBondingVifDhcpvsixOptionsPd) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

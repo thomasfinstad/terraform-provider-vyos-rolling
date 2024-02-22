@@ -16,20 +16,19 @@ import (
 // NewInterfacesOpenvpnLocalAddress method to return the example resource reference
 func NewInterfacesOpenvpnLocalAddress() resource.Resource {
 	return &interfacesOpenvpnLocalAddress{
-		model: resourcemodel.InterfacesOpenvpnLocalAddress{},
+		model: &resourcemodel.InterfacesOpenvpnLocalAddress{},
 	}
 }
 
 // interfacesOpenvpnLocalAddress defines the resource implementation.
 type interfacesOpenvpnLocalAddress struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesOpenvpnLocalAddress
+	client *client.Client
+	model  *resourcemodel.InterfacesOpenvpnLocalAddress
 }
 
-// GetName returns resource name
-func (r *interfacesOpenvpnLocalAddress) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesOpenvpnLocalAddress) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesOpenvpnLocalAddress) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

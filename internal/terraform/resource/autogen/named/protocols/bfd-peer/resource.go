@@ -16,20 +16,19 @@ import (
 // NewProtocolsBfdPeer method to return the example resource reference
 func NewProtocolsBfdPeer() resource.Resource {
 	return &protocolsBfdPeer{
-		model: resourcemodel.ProtocolsBfdPeer{},
+		model: &resourcemodel.ProtocolsBfdPeer{},
 	}
 }
 
 // protocolsBfdPeer defines the resource implementation.
 type protocolsBfdPeer struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsBfdPeer
+	client *client.Client
+	model  *resourcemodel.ProtocolsBfdPeer
 }
 
-// GetName returns resource name
-func (r *protocolsBfdPeer) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsBfdPeer) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsBfdPeer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

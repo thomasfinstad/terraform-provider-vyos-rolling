@@ -16,20 +16,19 @@ import (
 // NewVpnIPsecProfile method to return the example resource reference
 func NewVpnIPsecProfile() resource.Resource {
 	return &vpnIPsecProfile{
-		model: resourcemodel.VpnIPsecProfile{},
+		model: &resourcemodel.VpnIPsecProfile{},
 	}
 }
 
 // vpnIPsecProfile defines the resource implementation.
 type vpnIPsecProfile struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VpnIPsecProfile
+	client *client.Client
+	model  *resourcemodel.VpnIPsecProfile
 }
 
-// GetName returns resource name
-func (r *vpnIPsecProfile) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vpnIPsecProfile) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vpnIPsecProfile) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

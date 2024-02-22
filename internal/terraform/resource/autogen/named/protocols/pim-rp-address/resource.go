@@ -16,20 +16,19 @@ import (
 // NewProtocolsPimRpAddress method to return the example resource reference
 func NewProtocolsPimRpAddress() resource.Resource {
 	return &protocolsPimRpAddress{
-		model: resourcemodel.ProtocolsPimRpAddress{},
+		model: &resourcemodel.ProtocolsPimRpAddress{},
 	}
 }
 
 // protocolsPimRpAddress defines the resource implementation.
 type protocolsPimRpAddress struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsPimRpAddress
+	client *client.Client
+	model  *resourcemodel.ProtocolsPimRpAddress
 }
 
-// GetName returns resource name
-func (r *protocolsPimRpAddress) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsPimRpAddress) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsPimRpAddress) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

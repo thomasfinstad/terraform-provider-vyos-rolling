@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnIPsecEspGroup describes the resource data model.
@@ -24,23 +27,22 @@ type VpnIPsecEspGroup struct {
 	LeafVpnIPsecEspGroupPfs         types.String `tfsdk:"pfs" vyos:"pfs,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVpnIPsecEspGroupProposal bool `tfsdk:"proposal" vyos:"proposal,child"`
+	ExistsTagVpnIPsecEspGroupProposal bool `tfsdk:"-" vyos:"proposal,child"`
 
 	// Nodes
 }
 
-// GetID returns the resource ID
-func (o VpnIPsecEspGroup) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o VpnIPsecEspGroup) SetID(id types.String) {
-	o.ID = id
+func (o *VpnIPsecEspGroup) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *VpnIPsecEspGroup) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"vpn",
 

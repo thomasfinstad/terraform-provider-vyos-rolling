@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r vpnPptpRemoteAccessAuthenticationRadiusServer) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_vpn_pptp_remote_access_authentication_radius_server"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_vpn_pptp_remote_access_authentication_radius_server"
 }

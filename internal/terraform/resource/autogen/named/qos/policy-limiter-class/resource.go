@@ -16,20 +16,19 @@ import (
 // NewQosPolicyLimiterClass method to return the example resource reference
 func NewQosPolicyLimiterClass() resource.Resource {
 	return &qosPolicyLimiterClass{
-		model: resourcemodel.QosPolicyLimiterClass{},
+		model: &resourcemodel.QosPolicyLimiterClass{},
 	}
 }
 
 // qosPolicyLimiterClass defines the resource implementation.
 type qosPolicyLimiterClass struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.QosPolicyLimiterClass
+	client *client.Client
+	model  *resourcemodel.QosPolicyLimiterClass
 }
 
-// GetName returns resource name
-func (r *qosPolicyLimiterClass) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *qosPolicyLimiterClass) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *qosPolicyLimiterClass) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

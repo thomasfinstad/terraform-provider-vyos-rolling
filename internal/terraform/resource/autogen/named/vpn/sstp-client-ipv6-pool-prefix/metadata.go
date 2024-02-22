@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r vpnSstpClientIPvsixPoolPrefix) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_vpn_sstp_client_ipv6_pool_prefix"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_vpn_sstp_client_ipv6_pool_prefix"
 }

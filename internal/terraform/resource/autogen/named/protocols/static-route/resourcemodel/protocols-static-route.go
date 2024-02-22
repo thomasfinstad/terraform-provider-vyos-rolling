@@ -2,10 +2,13 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsStaticRoute describes the resource data model.
@@ -19,26 +22,25 @@ type ProtocolsStaticRoute struct {
 	LeafProtocolsStaticRouteDescrIPtion   types.String `tfsdk:"description" vyos:"description,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsStaticRouteInterface bool `tfsdk:"interface" vyos:"interface,child"`
-	ExistsTagProtocolsStaticRouteNextHop   bool `tfsdk:"next_hop" vyos:"next-hop,child"`
+	ExistsTagProtocolsStaticRouteInterface bool `tfsdk:"-" vyos:"interface,child"`
+	ExistsTagProtocolsStaticRouteNextHop   bool `tfsdk:"-" vyos:"next-hop,child"`
 
 	// Nodes
 	NodeProtocolsStaticRouteBlackhole *ProtocolsStaticRouteBlackhole `tfsdk:"blackhole" vyos:"blackhole,omitempty"`
 	NodeProtocolsStaticRouteReject    *ProtocolsStaticRouteReject    `tfsdk:"reject" vyos:"reject,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o ProtocolsStaticRoute) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o ProtocolsStaticRoute) SetID(id types.String) {
-	o.ID = id
+func (o *ProtocolsStaticRoute) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *ProtocolsStaticRoute) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"protocols",
 

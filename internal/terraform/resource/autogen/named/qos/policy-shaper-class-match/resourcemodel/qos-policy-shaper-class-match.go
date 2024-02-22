@@ -2,10 +2,13 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyShaperClassMatch describes the resource data model.
@@ -32,18 +35,17 @@ type QosPolicyShaperClassMatch struct {
 	NodeQosPolicyShaperClassMatchIPvsix *QosPolicyShaperClassMatchIPvsix `tfsdk:"ipv6" vyos:"ipv6,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o QosPolicyShaperClassMatch) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o QosPolicyShaperClassMatch) SetID(id types.String) {
-	o.ID = id
+func (o *QosPolicyShaperClassMatch) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *QosPolicyShaperClassMatch) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"qos",
 

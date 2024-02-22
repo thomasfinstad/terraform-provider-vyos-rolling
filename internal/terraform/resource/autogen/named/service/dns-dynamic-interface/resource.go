@@ -16,20 +16,19 @@ import (
 // NewServiceDNSDynamicInterface method to return the example resource reference
 func NewServiceDNSDynamicInterface() resource.Resource {
 	return &serviceDNSDynamicInterface{
-		model: resourcemodel.ServiceDNSDynamicInterface{},
+		model: &resourcemodel.ServiceDNSDynamicInterface{},
 	}
 }
 
 // serviceDNSDynamicInterface defines the resource implementation.
 type serviceDNSDynamicInterface struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceDNSDynamicInterface
+	client *client.Client
+	model  *resourcemodel.ServiceDNSDynamicInterface
 }
 
-// GetName returns resource name
-func (r *serviceDNSDynamicInterface) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceDNSDynamicInterface) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceDNSDynamicInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

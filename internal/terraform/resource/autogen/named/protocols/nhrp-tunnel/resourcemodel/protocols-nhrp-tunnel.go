@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsNhrpTunnel describes the resource data model.
@@ -25,25 +28,24 @@ type ProtocolsNhrpTunnel struct {
 	LeafProtocolsNhrpTunnelShortcut            types.Bool   `tfsdk:"shortcut" vyos:"shortcut,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsNhrpTunnelDynamicMap     bool `tfsdk:"dynamic_map" vyos:"dynamic-map,child"`
-	ExistsTagProtocolsNhrpTunnelMap            bool `tfsdk:"map" vyos:"map,child"`
-	ExistsTagProtocolsNhrpTunnelShortcutTarget bool `tfsdk:"shortcut_target" vyos:"shortcut-target,child"`
+	ExistsTagProtocolsNhrpTunnelDynamicMap     bool `tfsdk:"-" vyos:"dynamic-map,child"`
+	ExistsTagProtocolsNhrpTunnelMap            bool `tfsdk:"-" vyos:"map,child"`
+	ExistsTagProtocolsNhrpTunnelShortcutTarget bool `tfsdk:"-" vyos:"shortcut-target,child"`
 
 	// Nodes
 }
 
-// GetID returns the resource ID
-func (o ProtocolsNhrpTunnel) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o ProtocolsNhrpTunnel) SetID(id types.String) {
-	o.ID = id
+func (o *ProtocolsNhrpTunnel) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *ProtocolsNhrpTunnel) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"protocols",
 

@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r systemConsoleDevice) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_system_console_device"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_system_console_device"
 }

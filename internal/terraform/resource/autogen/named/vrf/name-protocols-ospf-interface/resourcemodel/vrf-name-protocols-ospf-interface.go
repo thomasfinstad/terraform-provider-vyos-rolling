@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfInterface describes the resource data model.
@@ -38,18 +41,17 @@ type VrfNameProtocolsOspfInterface struct {
 	NodeVrfNameProtocolsOspfInterfacePassive        *VrfNameProtocolsOspfInterfacePassive        `tfsdk:"passive" vyos:"passive,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o VrfNameProtocolsOspfInterface) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o VrfNameProtocolsOspfInterface) SetID(id types.String) {
-	o.ID = id
+func (o *VrfNameProtocolsOspfInterface) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *VrfNameProtocolsOspfInterface) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"vrf",
 

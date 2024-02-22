@@ -16,20 +16,19 @@ import (
 // NewPolicyAccessListsix method to return the example resource reference
 func NewPolicyAccessListsix() resource.Resource {
 	return &policyAccessListsix{
-		model: resourcemodel.PolicyAccessListsix{},
+		model: &resourcemodel.PolicyAccessListsix{},
 	}
 }
 
 // policyAccessListsix defines the resource implementation.
 type policyAccessListsix struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.PolicyAccessListsix
+	client *client.Client
+	model  *resourcemodel.PolicyAccessListsix
 }
 
-// GetName returns resource name
-func (r *policyAccessListsix) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *policyAccessListsix) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *policyAccessListsix) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

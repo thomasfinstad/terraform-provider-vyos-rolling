@@ -16,20 +16,19 @@ import (
 // NewInterfacesWwan method to return the example resource reference
 func NewInterfacesWwan() resource.Resource {
 	return &interfacesWwan{
-		model: resourcemodel.InterfacesWwan{},
+		model: &resourcemodel.InterfacesWwan{},
 	}
 }
 
 // interfacesWwan defines the resource implementation.
 type interfacesWwan struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesWwan
+	client *client.Client
+	model  *resourcemodel.InterfacesWwan
 }
 
-// GetName returns resource name
-func (r *interfacesWwan) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesWwan) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesWwan) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

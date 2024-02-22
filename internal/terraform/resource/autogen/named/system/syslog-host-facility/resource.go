@@ -16,20 +16,19 @@ import (
 // NewSystemSyslogHostFacility method to return the example resource reference
 func NewSystemSyslogHostFacility() resource.Resource {
 	return &systemSyslogHostFacility{
-		model: resourcemodel.SystemSyslogHostFacility{},
+		model: &resourcemodel.SystemSyslogHostFacility{},
 	}
 }
 
 // systemSyslogHostFacility defines the resource implementation.
 type systemSyslogHostFacility struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.SystemSyslogHostFacility
+	client *client.Client
+	model  *resourcemodel.SystemSyslogHostFacility
 }
 
-// GetName returns resource name
-func (r *systemSyslogHostFacility) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *systemSyslogHostFacility) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *systemSyslogHostFacility) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

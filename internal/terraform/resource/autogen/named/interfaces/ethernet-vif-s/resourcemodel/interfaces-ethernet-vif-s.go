@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesEthernetVifS describes the resource data model.
@@ -29,7 +32,7 @@ type InterfacesEthernetVifS struct {
 	LeafInterfacesEthernetVifSVrf               types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesEthernetVifSVifC bool `tfsdk:"vif_c" vyos:"vif-c,child"`
+	ExistsTagInterfacesEthernetVifSVifC bool `tfsdk:"-" vyos:"vif-c,child"`
 
 	// Nodes
 	NodeInterfacesEthernetVifSDhcpOptions     *InterfacesEthernetVifSDhcpOptions     `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
@@ -39,18 +42,17 @@ type InterfacesEthernetVifS struct {
 	NodeInterfacesEthernetVifSMirror          *InterfacesEthernetVifSMirror          `tfsdk:"mirror" vyos:"mirror,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o InterfacesEthernetVifS) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o InterfacesEthernetVifS) SetID(id types.String) {
-	o.ID = id
+func (o *InterfacesEthernetVifS) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *InterfacesEthernetVifS) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"interfaces",
 

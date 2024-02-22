@@ -16,20 +16,19 @@ import (
 // NewServiceWebproxyCachePeer method to return the example resource reference
 func NewServiceWebproxyCachePeer() resource.Resource {
 	return &serviceWebproxyCachePeer{
-		model: resourcemodel.ServiceWebproxyCachePeer{},
+		model: &resourcemodel.ServiceWebproxyCachePeer{},
 	}
 }
 
 // serviceWebproxyCachePeer defines the resource implementation.
 type serviceWebproxyCachePeer struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceWebproxyCachePeer
+	client *client.Client
+	model  *resourcemodel.ServiceWebproxyCachePeer
 }
 
-// GetName returns resource name
-func (r *serviceWebproxyCachePeer) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceWebproxyCachePeer) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceWebproxyCachePeer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

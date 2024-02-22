@@ -16,20 +16,19 @@ import (
 // NewServiceLldpInterface method to return the example resource reference
 func NewServiceLldpInterface() resource.Resource {
 	return &serviceLldpInterface{
-		model: resourcemodel.ServiceLldpInterface{},
+		model: &resourcemodel.ServiceLldpInterface{},
 	}
 }
 
 // serviceLldpInterface defines the resource implementation.
 type serviceLldpInterface struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceLldpInterface
+	client *client.Client
+	model  *resourcemodel.ServiceLldpInterface
 }
 
-// GetName returns resource name
-func (r *serviceLldpInterface) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceLldpInterface) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceLldpInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

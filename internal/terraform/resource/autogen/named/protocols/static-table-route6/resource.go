@@ -16,20 +16,19 @@ import (
 // NewProtocolsStaticTableRoutesix method to return the example resource reference
 func NewProtocolsStaticTableRoutesix() resource.Resource {
 	return &protocolsStaticTableRoutesix{
-		model: resourcemodel.ProtocolsStaticTableRoutesix{},
+		model: &resourcemodel.ProtocolsStaticTableRoutesix{},
 	}
 }
 
 // protocolsStaticTableRoutesix defines the resource implementation.
 type protocolsStaticTableRoutesix struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsStaticTableRoutesix
+	client *client.Client
+	model  *resourcemodel.ProtocolsStaticTableRoutesix
 }
 
-// GetName returns resource name
-func (r *protocolsStaticTableRoutesix) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsStaticTableRoutesix) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsStaticTableRoutesix) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

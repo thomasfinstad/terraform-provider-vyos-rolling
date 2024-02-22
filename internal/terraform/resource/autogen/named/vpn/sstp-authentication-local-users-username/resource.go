@@ -16,20 +16,19 @@ import (
 // NewVpnSstpAuthenticationLocalUsersUsername method to return the example resource reference
 func NewVpnSstpAuthenticationLocalUsersUsername() resource.Resource {
 	return &vpnSstpAuthenticationLocalUsersUsername{
-		model: resourcemodel.VpnSstpAuthenticationLocalUsersUsername{},
+		model: &resourcemodel.VpnSstpAuthenticationLocalUsersUsername{},
 	}
 }
 
 // vpnSstpAuthenticationLocalUsersUsername defines the resource implementation.
 type vpnSstpAuthenticationLocalUsersUsername struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VpnSstpAuthenticationLocalUsersUsername
+	client *client.Client
+	model  *resourcemodel.VpnSstpAuthenticationLocalUsersUsername
 }
 
-// GetName returns resource name
-func (r *vpnSstpAuthenticationLocalUsersUsername) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vpnSstpAuthenticationLocalUsersUsername) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vpnSstpAuthenticationLocalUsersUsername) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

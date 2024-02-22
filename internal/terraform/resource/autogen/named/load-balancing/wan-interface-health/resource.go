@@ -16,20 +16,19 @@ import (
 // NewLoadBalancingWanInterfaceHealth method to return the example resource reference
 func NewLoadBalancingWanInterfaceHealth() resource.Resource {
 	return &loadBalancingWanInterfaceHealth{
-		model: resourcemodel.LoadBalancingWanInterfaceHealth{},
+		model: &resourcemodel.LoadBalancingWanInterfaceHealth{},
 	}
 }
 
 // loadBalancingWanInterfaceHealth defines the resource implementation.
 type loadBalancingWanInterfaceHealth struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.LoadBalancingWanInterfaceHealth
+	client *client.Client
+	model  *resourcemodel.LoadBalancingWanInterfaceHealth
 }
 
-// GetName returns resource name
-func (r *loadBalancingWanInterfaceHealth) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *loadBalancingWanInterfaceHealth) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *loadBalancingWanInterfaceHealth) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

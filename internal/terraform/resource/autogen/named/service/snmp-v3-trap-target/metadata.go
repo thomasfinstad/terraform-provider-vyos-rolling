@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r serviceSnmpVthreeTrapTarget) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_service_snmp_v3_trap_target"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_service_snmp_v3_trap_target"
 }

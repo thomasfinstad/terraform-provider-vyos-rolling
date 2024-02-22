@@ -16,20 +16,19 @@ import (
 // NewVrfNameProtocolsOspfAccessList method to return the example resource reference
 func NewVrfNameProtocolsOspfAccessList() resource.Resource {
 	return &vrfNameProtocolsOspfAccessList{
-		model: resourcemodel.VrfNameProtocolsOspfAccessList{},
+		model: &resourcemodel.VrfNameProtocolsOspfAccessList{},
 	}
 }
 
 // vrfNameProtocolsOspfAccessList defines the resource implementation.
 type vrfNameProtocolsOspfAccessList struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VrfNameProtocolsOspfAccessList
+	client *client.Client
+	model  *resourcemodel.VrfNameProtocolsOspfAccessList
 }
 
-// GetName returns resource name
-func (r *vrfNameProtocolsOspfAccessList) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vrfNameProtocolsOspfAccessList) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vrfNameProtocolsOspfAccessList) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

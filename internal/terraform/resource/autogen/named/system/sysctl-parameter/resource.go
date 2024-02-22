@@ -16,20 +16,19 @@ import (
 // NewSystemSysctlParameter method to return the example resource reference
 func NewSystemSysctlParameter() resource.Resource {
 	return &systemSysctlParameter{
-		model: resourcemodel.SystemSysctlParameter{},
+		model: &resourcemodel.SystemSysctlParameter{},
 	}
 }
 
 // systemSysctlParameter defines the resource implementation.
 type systemSysctlParameter struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.SystemSysctlParameter
+	client *client.Client
+	model  *resourcemodel.SystemSysctlParameter
 }
 
-// GetName returns resource name
-func (r *systemSysctlParameter) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *systemSysctlParameter) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *systemSysctlParameter) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

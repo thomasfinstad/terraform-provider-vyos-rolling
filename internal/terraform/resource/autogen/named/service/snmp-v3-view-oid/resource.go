@@ -16,20 +16,19 @@ import (
 // NewServiceSnmpVthreeViewOID method to return the example resource reference
 func NewServiceSnmpVthreeViewOID() resource.Resource {
 	return &serviceSnmpVthreeViewOID{
-		model: resourcemodel.ServiceSnmpVthreeViewOID{},
+		model: &resourcemodel.ServiceSnmpVthreeViewOID{},
 	}
 }
 
 // serviceSnmpVthreeViewOID defines the resource implementation.
 type serviceSnmpVthreeViewOID struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceSnmpVthreeViewOID
+	client *client.Client
+	model  *resourcemodel.ServiceSnmpVthreeViewOID
 }
 
-// GetName returns resource name
-func (r *serviceSnmpVthreeViewOID) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceSnmpVthreeViewOID) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceSnmpVthreeViewOID) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -16,20 +16,19 @@ import (
 // NewServiceIPoeServerAuthenticationInterface method to return the example resource reference
 func NewServiceIPoeServerAuthenticationInterface() resource.Resource {
 	return &serviceIPoeServerAuthenticationInterface{
-		model: resourcemodel.ServiceIPoeServerAuthenticationInterface{},
+		model: &resourcemodel.ServiceIPoeServerAuthenticationInterface{},
 	}
 }
 
 // serviceIPoeServerAuthenticationInterface defines the resource implementation.
 type serviceIPoeServerAuthenticationInterface struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceIPoeServerAuthenticationInterface
+	client *client.Client
+	model  *resourcemodel.ServiceIPoeServerAuthenticationInterface
 }
 
-// GetName returns resource name
-func (r *serviceIPoeServerAuthenticationInterface) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceIPoeServerAuthenticationInterface) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceIPoeServerAuthenticationInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

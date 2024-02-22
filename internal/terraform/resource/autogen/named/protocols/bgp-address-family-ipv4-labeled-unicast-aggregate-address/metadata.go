@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r protocolsBgpAddressFamilyIPvfourLabeledUnicastAggregateAddress) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_protocols_bgp_address_family_ipv4_labeled_unicast_aggregate_address"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_protocols_bgp_address_family_ipv4_labeled_unicast_aggregate_address"
 }

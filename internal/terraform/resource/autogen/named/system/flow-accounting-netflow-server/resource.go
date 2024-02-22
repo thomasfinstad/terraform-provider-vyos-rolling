@@ -16,20 +16,19 @@ import (
 // NewSystemFlowAccountingNetflowServer method to return the example resource reference
 func NewSystemFlowAccountingNetflowServer() resource.Resource {
 	return &systemFlowAccountingNetflowServer{
-		model: resourcemodel.SystemFlowAccountingNetflowServer{},
+		model: &resourcemodel.SystemFlowAccountingNetflowServer{},
 	}
 }
 
 // systemFlowAccountingNetflowServer defines the resource implementation.
 type systemFlowAccountingNetflowServer struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.SystemFlowAccountingNetflowServer
+	client *client.Client
+	model  *resourcemodel.SystemFlowAccountingNetflowServer
 }
 
-// GetName returns resource name
-func (r *systemFlowAccountingNetflowServer) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *systemFlowAccountingNetflowServer) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *systemFlowAccountingNetflowServer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

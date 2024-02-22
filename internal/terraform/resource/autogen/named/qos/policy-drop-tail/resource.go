@@ -16,20 +16,19 @@ import (
 // NewQosPolicyDropTail method to return the example resource reference
 func NewQosPolicyDropTail() resource.Resource {
 	return &qosPolicyDropTail{
-		model: resourcemodel.QosPolicyDropTail{},
+		model: &resourcemodel.QosPolicyDropTail{},
 	}
 }
 
 // qosPolicyDropTail defines the resource implementation.
 type qosPolicyDropTail struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.QosPolicyDropTail
+	client *client.Client
+	model  *resourcemodel.QosPolicyDropTail
 }
 
-// GetName returns resource name
-func (r *qosPolicyDropTail) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *qosPolicyDropTail) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *qosPolicyDropTail) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

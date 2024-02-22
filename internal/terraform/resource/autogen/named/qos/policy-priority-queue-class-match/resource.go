@@ -16,20 +16,19 @@ import (
 // NewQosPolicyPriorityQueueClassMatch method to return the example resource reference
 func NewQosPolicyPriorityQueueClassMatch() resource.Resource {
 	return &qosPolicyPriorityQueueClassMatch{
-		model: resourcemodel.QosPolicyPriorityQueueClassMatch{},
+		model: &resourcemodel.QosPolicyPriorityQueueClassMatch{},
 	}
 }
 
 // qosPolicyPriorityQueueClassMatch defines the resource implementation.
 type qosPolicyPriorityQueueClassMatch struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.QosPolicyPriorityQueueClassMatch
+	client *client.Client
+	model  *resourcemodel.QosPolicyPriorityQueueClassMatch
 }
 
-// GetName returns resource name
-func (r *qosPolicyPriorityQueueClassMatch) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *qosPolicyPriorityQueueClassMatch) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *qosPolicyPriorityQueueClassMatch) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -16,20 +16,19 @@ import (
 // NewProtocolsNhrpTunnelShortcutTarget method to return the example resource reference
 func NewProtocolsNhrpTunnelShortcutTarget() resource.Resource {
 	return &protocolsNhrpTunnelShortcutTarget{
-		model: resourcemodel.ProtocolsNhrpTunnelShortcutTarget{},
+		model: &resourcemodel.ProtocolsNhrpTunnelShortcutTarget{},
 	}
 }
 
 // protocolsNhrpTunnelShortcutTarget defines the resource implementation.
 type protocolsNhrpTunnelShortcutTarget struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsNhrpTunnelShortcutTarget
+	client *client.Client
+	model  *resourcemodel.ProtocolsNhrpTunnelShortcutTarget
 }
 
-// GetName returns resource name
-func (r *protocolsNhrpTunnelShortcutTarget) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsNhrpTunnelShortcutTarget) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsNhrpTunnelShortcutTarget) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

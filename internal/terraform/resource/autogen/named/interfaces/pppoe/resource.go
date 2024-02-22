@@ -16,20 +16,19 @@ import (
 // NewInterfacesPppoe method to return the example resource reference
 func NewInterfacesPppoe() resource.Resource {
 	return &interfacesPppoe{
-		model: resourcemodel.InterfacesPppoe{},
+		model: &resourcemodel.InterfacesPppoe{},
 	}
 }
 
 // interfacesPppoe defines the resource implementation.
 type interfacesPppoe struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesPppoe
+	client *client.Client
+	model  *resourcemodel.InterfacesPppoe
 }
 
-// GetName returns resource name
-func (r *interfacesPppoe) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesPppoe) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesPppoe) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

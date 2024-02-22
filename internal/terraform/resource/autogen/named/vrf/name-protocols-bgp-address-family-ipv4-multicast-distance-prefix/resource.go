@@ -16,20 +16,19 @@ import (
 // NewVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix method to return the example resource reference
 func NewVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix() resource.Resource {
 	return &vrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix{
-		model: resourcemodel.VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix{},
+		model: &resourcemodel.VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix{},
 	}
 }
 
 // vrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix defines the resource implementation.
 type vrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix
+	client *client.Client
+	model  *resourcemodel.VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix
 }
 
-// GetName returns resource name
-func (r *vrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

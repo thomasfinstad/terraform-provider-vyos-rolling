@@ -16,20 +16,19 @@ import (
 // NewPolicyAsPathList method to return the example resource reference
 func NewPolicyAsPathList() resource.Resource {
 	return &policyAsPathList{
-		model: resourcemodel.PolicyAsPathList{},
+		model: &resourcemodel.PolicyAsPathList{},
 	}
 }
 
 // policyAsPathList defines the resource implementation.
 type policyAsPathList struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.PolicyAsPathList
+	client *client.Client
+	model  *resourcemodel.PolicyAsPathList
 }
 
-// GetName returns resource name
-func (r *policyAsPathList) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *policyAsPathList) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *policyAsPathList) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

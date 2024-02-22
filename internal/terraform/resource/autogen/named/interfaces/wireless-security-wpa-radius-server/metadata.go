@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r interfacesWirelessSecURItyWpaRadiusServer) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_interfaces_wireless_security_wpa_radius_server"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_interfaces_wireless_security_wpa_radius_server"
 }

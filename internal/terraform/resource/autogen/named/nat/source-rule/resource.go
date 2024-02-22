@@ -16,20 +16,19 @@ import (
 // NewNatSourceRule method to return the example resource reference
 func NewNatSourceRule() resource.Resource {
 	return &natSourceRule{
-		model: resourcemodel.NatSourceRule{},
+		model: &resourcemodel.NatSourceRule{},
 	}
 }
 
 // natSourceRule defines the resource implementation.
 type natSourceRule struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.NatSourceRule
+	client *client.Client
+	model  *resourcemodel.NatSourceRule
 }
 
-// GetName returns resource name
-func (r *natSourceRule) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *natSourceRule) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *natSourceRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -2,10 +2,13 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemSyslogHost describes the resource data model.
@@ -18,24 +21,23 @@ type SystemSyslogHost struct {
 	LeafSystemSyslogHostPort types.Number `tfsdk:"port" vyos:"port,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagSystemSyslogHostFacility bool `tfsdk:"facility" vyos:"facility,child"`
+	ExistsTagSystemSyslogHostFacility bool `tfsdk:"-" vyos:"facility,child"`
 
 	// Nodes
 	NodeSystemSyslogHostFormat *SystemSyslogHostFormat `tfsdk:"format" vyos:"format,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o SystemSyslogHost) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o SystemSyslogHost) SetID(id types.String) {
-	o.ID = id
+func (o *SystemSyslogHost) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *SystemSyslogHost) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"system",
 

@@ -16,20 +16,19 @@ import (
 // NewInterfacesVxlan method to return the example resource reference
 func NewInterfacesVxlan() resource.Resource {
 	return &interfacesVxlan{
-		model: resourcemodel.InterfacesVxlan{},
+		model: &resourcemodel.InterfacesVxlan{},
 	}
 }
 
 // interfacesVxlan defines the resource implementation.
 type interfacesVxlan struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesVxlan
+	client *client.Client
+	model  *resourcemodel.InterfacesVxlan
 }
 
-// GetName returns resource name
-func (r *interfacesVxlan) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesVxlan) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesVxlan) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

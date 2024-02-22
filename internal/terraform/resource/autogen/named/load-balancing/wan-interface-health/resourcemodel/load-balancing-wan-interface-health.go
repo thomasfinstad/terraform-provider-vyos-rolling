@@ -2,10 +2,13 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // LoadBalancingWanInterfaceHealth describes the resource data model.
@@ -20,23 +23,22 @@ type LoadBalancingWanInterfaceHealth struct {
 	LeafLoadBalancingWanInterfaceHealthSuccessCount types.Number `tfsdk:"success_count" vyos:"success-count,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagLoadBalancingWanInterfaceHealthTest bool `tfsdk:"test" vyos:"test,child"`
+	ExistsTagLoadBalancingWanInterfaceHealthTest bool `tfsdk:"-" vyos:"test,child"`
 
 	// Nodes
 }
 
-// GetID returns the resource ID
-func (o LoadBalancingWanInterfaceHealth) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o LoadBalancingWanInterfaceHealth) SetID(id types.String) {
-	o.ID = id
+func (o *LoadBalancingWanInterfaceHealth) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *LoadBalancingWanInterfaceHealth) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"load-balancing",
 

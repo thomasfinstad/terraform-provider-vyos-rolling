@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpPeerGroup describes the resource data model.
@@ -31,8 +34,8 @@ type VrfNameProtocolsBgpPeerGroup struct {
 	LeafVrfNameProtocolsBgpPeerGroupUpdateSource                 types.String `tfsdk:"update_source" vyos:"update-source,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsBgpPeerGroupLocalAs   bool `tfsdk:"local_as" vyos:"local-as,child"`
-	ExistsTagVrfNameProtocolsBgpPeerGroupLocalRole bool `tfsdk:"local_role" vyos:"local-role,child"`
+	ExistsTagVrfNameProtocolsBgpPeerGroupLocalAs   bool `tfsdk:"-" vyos:"local-as,child"`
+	ExistsTagVrfNameProtocolsBgpPeerGroupLocalRole bool `tfsdk:"-" vyos:"local-role,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsBgpPeerGroupAddressFamily *VrfNameProtocolsBgpPeerGroupAddressFamily `tfsdk:"address_family" vyos:"address-family,omitempty"`
@@ -41,18 +44,17 @@ type VrfNameProtocolsBgpPeerGroup struct {
 	NodeVrfNameProtocolsBgpPeerGroupTTLSecURIty   *VrfNameProtocolsBgpPeerGroupTTLSecURIty   `tfsdk:"ttl_security" vyos:"ttl-security,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o VrfNameProtocolsBgpPeerGroup) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o VrfNameProtocolsBgpPeerGroup) SetID(id types.String) {
-	o.ID = id
+func (o *VrfNameProtocolsBgpPeerGroup) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *VrfNameProtocolsBgpPeerGroup) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"vrf",
 

@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r serviceWebproxyURLFilteringSquIDguardSourceGroup) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_service_webproxy_url_filtering_squidguard_source_group"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_service_webproxy_url_filtering_squidguard_source_group"
 }

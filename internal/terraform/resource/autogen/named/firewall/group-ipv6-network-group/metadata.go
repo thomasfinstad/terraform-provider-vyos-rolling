@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r firewallGroupIPvsixNetworkGroup) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_firewall_group_ipv6_network_group"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_firewall_group_ipv6_network_group"
 }

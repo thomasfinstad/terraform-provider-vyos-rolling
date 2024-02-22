@@ -16,20 +16,19 @@ import (
 // NewInterfacesOpenvpnServerPushRoute method to return the example resource reference
 func NewInterfacesOpenvpnServerPushRoute() resource.Resource {
 	return &interfacesOpenvpnServerPushRoute{
-		model: resourcemodel.InterfacesOpenvpnServerPushRoute{},
+		model: &resourcemodel.InterfacesOpenvpnServerPushRoute{},
 	}
 }
 
 // interfacesOpenvpnServerPushRoute defines the resource implementation.
 type interfacesOpenvpnServerPushRoute struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesOpenvpnServerPushRoute
+	client *client.Client
+	model  *resourcemodel.InterfacesOpenvpnServerPushRoute
 }
 
-// GetName returns resource name
-func (r *interfacesOpenvpnServerPushRoute) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesOpenvpnServerPushRoute) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesOpenvpnServerPushRoute) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

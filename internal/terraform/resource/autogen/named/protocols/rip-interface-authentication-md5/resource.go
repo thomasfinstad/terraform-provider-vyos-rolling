@@ -16,20 +16,19 @@ import (
 // NewProtocolsRIPInterfaceAuthenticationMdfive method to return the example resource reference
 func NewProtocolsRIPInterfaceAuthenticationMdfive() resource.Resource {
 	return &protocolsRIPInterfaceAuthenticationMdfive{
-		model: resourcemodel.ProtocolsRIPInterfaceAuthenticationMdfive{},
+		model: &resourcemodel.ProtocolsRIPInterfaceAuthenticationMdfive{},
 	}
 }
 
 // protocolsRIPInterfaceAuthenticationMdfive defines the resource implementation.
 type protocolsRIPInterfaceAuthenticationMdfive struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsRIPInterfaceAuthenticationMdfive
+	client *client.Client
+	model  *resourcemodel.ProtocolsRIPInterfaceAuthenticationMdfive
 }
 
-// GetName returns resource name
-func (r *protocolsRIPInterfaceAuthenticationMdfive) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsRIPInterfaceAuthenticationMdfive) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsRIPInterfaceAuthenticationMdfive) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

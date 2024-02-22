@@ -16,20 +16,19 @@ import (
 // NewProtocolsStaticTable method to return the example resource reference
 func NewProtocolsStaticTable() resource.Resource {
 	return &protocolsStaticTable{
-		model: resourcemodel.ProtocolsStaticTable{},
+		model: &resourcemodel.ProtocolsStaticTable{},
 	}
 }
 
 // protocolsStaticTable defines the resource implementation.
 type protocolsStaticTable struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsStaticTable
+	client *client.Client
+	model  *resourcemodel.ProtocolsStaticTable
 }
 
-// GetName returns resource name
-func (r *protocolsStaticTable) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsStaticTable) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsStaticTable) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

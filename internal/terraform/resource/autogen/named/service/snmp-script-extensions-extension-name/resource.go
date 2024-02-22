@@ -16,20 +16,19 @@ import (
 // NewServiceSnmpScrIPtExtensionsExtensionName method to return the example resource reference
 func NewServiceSnmpScrIPtExtensionsExtensionName() resource.Resource {
 	return &serviceSnmpScrIPtExtensionsExtensionName{
-		model: resourcemodel.ServiceSnmpScrIPtExtensionsExtensionName{},
+		model: &resourcemodel.ServiceSnmpScrIPtExtensionsExtensionName{},
 	}
 }
 
 // serviceSnmpScrIPtExtensionsExtensionName defines the resource implementation.
 type serviceSnmpScrIPtExtensionsExtensionName struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceSnmpScrIPtExtensionsExtensionName
+	client *client.Client
+	model  *resourcemodel.ServiceSnmpScrIPtExtensionsExtensionName
 }
 
-// GetName returns resource name
-func (r *serviceSnmpScrIPtExtensionsExtensionName) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceSnmpScrIPtExtensionsExtensionName) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceSnmpScrIPtExtensionsExtensionName) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

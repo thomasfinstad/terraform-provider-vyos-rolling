@@ -16,20 +16,19 @@ import (
 // NewQosPolicyRateControl method to return the example resource reference
 func NewQosPolicyRateControl() resource.Resource {
 	return &qosPolicyRateControl{
-		model: resourcemodel.QosPolicyRateControl{},
+		model: &resourcemodel.QosPolicyRateControl{},
 	}
 }
 
 // qosPolicyRateControl defines the resource implementation.
 type qosPolicyRateControl struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.QosPolicyRateControl
+	client *client.Client
+	model  *resourcemodel.QosPolicyRateControl
 }
 
-// GetName returns resource name
-func (r *qosPolicyRateControl) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *qosPolicyRateControl) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *qosPolicyRateControl) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

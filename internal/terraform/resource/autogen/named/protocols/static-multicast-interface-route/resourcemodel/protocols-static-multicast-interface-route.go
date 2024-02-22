@@ -2,10 +2,13 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsStaticMulticastInterfaceRoute describes the resource data model.
@@ -17,23 +20,22 @@ type ProtocolsStaticMulticastInterfaceRoute struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsStaticMulticastInterfaceRouteNextHopInterface bool `tfsdk:"next_hop_interface" vyos:"next-hop-interface,child"`
+	ExistsTagProtocolsStaticMulticastInterfaceRouteNextHopInterface bool `tfsdk:"-" vyos:"next-hop-interface,child"`
 
 	// Nodes
 }
 
-// GetID returns the resource ID
-func (o ProtocolsStaticMulticastInterfaceRoute) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o ProtocolsStaticMulticastInterfaceRoute) SetID(id types.String) {
-	o.ID = id
+func (o *ProtocolsStaticMulticastInterfaceRoute) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *ProtocolsStaticMulticastInterfaceRoute) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"protocols",
 

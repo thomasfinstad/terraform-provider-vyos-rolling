@@ -16,20 +16,19 @@ import (
 // NewServicePppoeServerClientIPvsixPoolDelegate method to return the example resource reference
 func NewServicePppoeServerClientIPvsixPoolDelegate() resource.Resource {
 	return &servicePppoeServerClientIPvsixPoolDelegate{
-		model: resourcemodel.ServicePppoeServerClientIPvsixPoolDelegate{},
+		model: &resourcemodel.ServicePppoeServerClientIPvsixPoolDelegate{},
 	}
 }
 
 // servicePppoeServerClientIPvsixPoolDelegate defines the resource implementation.
 type servicePppoeServerClientIPvsixPoolDelegate struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServicePppoeServerClientIPvsixPoolDelegate
+	client *client.Client
+	model  *resourcemodel.ServicePppoeServerClientIPvsixPoolDelegate
 }
 
-// GetName returns resource name
-func (r *servicePppoeServerClientIPvsixPoolDelegate) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *servicePppoeServerClientIPvsixPoolDelegate) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *servicePppoeServerClientIPvsixPoolDelegate) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

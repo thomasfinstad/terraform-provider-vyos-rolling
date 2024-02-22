@@ -16,20 +16,19 @@ import (
 // NewVrfNameProtocolsBgpNeighborLocalRole method to return the example resource reference
 func NewVrfNameProtocolsBgpNeighborLocalRole() resource.Resource {
 	return &vrfNameProtocolsBgpNeighborLocalRole{
-		model: resourcemodel.VrfNameProtocolsBgpNeighborLocalRole{},
+		model: &resourcemodel.VrfNameProtocolsBgpNeighborLocalRole{},
 	}
 }
 
 // vrfNameProtocolsBgpNeighborLocalRole defines the resource implementation.
 type vrfNameProtocolsBgpNeighborLocalRole struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VrfNameProtocolsBgpNeighborLocalRole
+	client *client.Client
+	model  *resourcemodel.VrfNameProtocolsBgpNeighborLocalRole
 }
 
-// GetName returns resource name
-func (r *vrfNameProtocolsBgpNeighborLocalRole) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vrfNameProtocolsBgpNeighborLocalRole) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vrfNameProtocolsBgpNeighborLocalRole) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

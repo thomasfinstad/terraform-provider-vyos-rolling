@@ -16,20 +16,19 @@ import (
 // NewProtocolsBfdProfile method to return the example resource reference
 func NewProtocolsBfdProfile() resource.Resource {
 	return &protocolsBfdProfile{
-		model: resourcemodel.ProtocolsBfdProfile{},
+		model: &resourcemodel.ProtocolsBfdProfile{},
 	}
 }
 
 // protocolsBfdProfile defines the resource implementation.
 type protocolsBfdProfile struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsBfdProfile
+	client *client.Client
+	model  *resourcemodel.ProtocolsBfdProfile
 }
 
-// GetName returns resource name
-func (r *protocolsBfdProfile) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsBfdProfile) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsBfdProfile) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

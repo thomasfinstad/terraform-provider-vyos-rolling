@@ -16,20 +16,19 @@ import (
 // NewQosPolicyShaperHfsc method to return the example resource reference
 func NewQosPolicyShaperHfsc() resource.Resource {
 	return &qosPolicyShaperHfsc{
-		model: resourcemodel.QosPolicyShaperHfsc{},
+		model: &resourcemodel.QosPolicyShaperHfsc{},
 	}
 }
 
 // qosPolicyShaperHfsc defines the resource implementation.
 type qosPolicyShaperHfsc struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.QosPolicyShaperHfsc
+	client *client.Client
+	model  *resourcemodel.QosPolicyShaperHfsc
 }
 
-// GetName returns resource name
-func (r *qosPolicyShaperHfsc) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *qosPolicyShaperHfsc) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *qosPolicyShaperHfsc) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

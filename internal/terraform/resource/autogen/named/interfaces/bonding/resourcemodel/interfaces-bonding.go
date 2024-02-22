@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesBonding describes the resource data model.
@@ -33,8 +36,8 @@ type InterfacesBonding struct {
 	LeafInterfacesBondingXdp               types.Bool   `tfsdk:"xdp" vyos:"xdp,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesBondingVifS bool `tfsdk:"vif_s" vyos:"vif-s,child"`
-	ExistsTagInterfacesBondingVif  bool `tfsdk:"vif" vyos:"vif,child"`
+	ExistsTagInterfacesBondingVifS bool `tfsdk:"-" vyos:"vif-s,child"`
+	ExistsTagInterfacesBondingVif  bool `tfsdk:"-" vyos:"vif,child"`
 
 	// Nodes
 	NodeInterfacesBondingArpMonitor      *InterfacesBondingArpMonitor      `tfsdk:"arp_monitor" vyos:"arp-monitor,omitempty"`
@@ -46,18 +49,17 @@ type InterfacesBonding struct {
 	NodeInterfacesBondingMember          *InterfacesBondingMember          `tfsdk:"member" vyos:"member,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o InterfacesBonding) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o InterfacesBonding) SetID(id types.String) {
-	o.ID = id
+func (o *InterfacesBonding) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *InterfacesBonding) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"interfaces",
 

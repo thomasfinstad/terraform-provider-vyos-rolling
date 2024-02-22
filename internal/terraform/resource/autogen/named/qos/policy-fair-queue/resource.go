@@ -16,20 +16,19 @@ import (
 // NewQosPolicyFairQueue method to return the example resource reference
 func NewQosPolicyFairQueue() resource.Resource {
 	return &qosPolicyFairQueue{
-		model: resourcemodel.QosPolicyFairQueue{},
+		model: &resourcemodel.QosPolicyFairQueue{},
 	}
 }
 
 // qosPolicyFairQueue defines the resource implementation.
 type qosPolicyFairQueue struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.QosPolicyFairQueue
+	client *client.Client
+	model  *resourcemodel.QosPolicyFairQueue
 }
 
-// GetName returns resource name
-func (r *qosPolicyFairQueue) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *qosPolicyFairQueue) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *qosPolicyFairQueue) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

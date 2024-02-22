@@ -16,20 +16,19 @@ import (
 // NewPolicyPrefixListsix method to return the example resource reference
 func NewPolicyPrefixListsix() resource.Resource {
 	return &policyPrefixListsix{
-		model: resourcemodel.PolicyPrefixListsix{},
+		model: &resourcemodel.PolicyPrefixListsix{},
 	}
 }
 
 // policyPrefixListsix defines the resource implementation.
 type policyPrefixListsix struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.PolicyPrefixListsix
+	client *client.Client
+	model  *resourcemodel.PolicyPrefixListsix
 }
 
-// GetName returns resource name
-func (r *policyPrefixListsix) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *policyPrefixListsix) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *policyPrefixListsix) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

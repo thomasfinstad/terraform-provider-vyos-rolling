@@ -16,20 +16,19 @@ import (
 // NewServiceIPoeServerAuthenticationInterfaceMac method to return the example resource reference
 func NewServiceIPoeServerAuthenticationInterfaceMac() resource.Resource {
 	return &serviceIPoeServerAuthenticationInterfaceMac{
-		model: resourcemodel.ServiceIPoeServerAuthenticationInterfaceMac{},
+		model: &resourcemodel.ServiceIPoeServerAuthenticationInterfaceMac{},
 	}
 }
 
 // serviceIPoeServerAuthenticationInterfaceMac defines the resource implementation.
 type serviceIPoeServerAuthenticationInterfaceMac struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceIPoeServerAuthenticationInterfaceMac
+	client *client.Client
+	model  *resourcemodel.ServiceIPoeServerAuthenticationInterfaceMac
 }
 
-// GetName returns resource name
-func (r *serviceIPoeServerAuthenticationInterfaceMac) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceIPoeServerAuthenticationInterfaceMac) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceIPoeServerAuthenticationInterfaceMac) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

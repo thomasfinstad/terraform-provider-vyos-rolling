@@ -16,20 +16,19 @@ import (
 // NewSystemSyslogGlobalFacility method to return the example resource reference
 func NewSystemSyslogGlobalFacility() resource.Resource {
 	return &systemSyslogGlobalFacility{
-		model: resourcemodel.SystemSyslogGlobalFacility{},
+		model: &resourcemodel.SystemSyslogGlobalFacility{},
 	}
 }
 
 // systemSyslogGlobalFacility defines the resource implementation.
 type systemSyslogGlobalFacility struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.SystemSyslogGlobalFacility
+	client *client.Client
+	model  *resourcemodel.SystemSyslogGlobalFacility
 }
 
-// GetName returns resource name
-func (r *systemSyslogGlobalFacility) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *systemSyslogGlobalFacility) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *systemSyslogGlobalFacility) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

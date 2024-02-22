@@ -16,20 +16,19 @@ import (
 // NewContainerNameVolume method to return the example resource reference
 func NewContainerNameVolume() resource.Resource {
 	return &containerNameVolume{
-		model: resourcemodel.ContainerNameVolume{},
+		model: &resourcemodel.ContainerNameVolume{},
 	}
 }
 
 // containerNameVolume defines the resource implementation.
 type containerNameVolume struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ContainerNameVolume
+	client *client.Client
+	model  *resourcemodel.ContainerNameVolume
 }
 
-// GetName returns resource name
-func (r *containerNameVolume) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *containerNameVolume) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *containerNameVolume) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

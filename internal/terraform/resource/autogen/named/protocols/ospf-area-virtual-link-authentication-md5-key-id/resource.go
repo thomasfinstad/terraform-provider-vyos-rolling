@@ -16,20 +16,19 @@ import (
 // NewProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID method to return the example resource reference
 func NewProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID() resource.Resource {
 	return &protocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{
-		model: resourcemodel.ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{},
+		model: &resourcemodel.ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{},
 	}
 }
 
 // protocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID defines the resource implementation.
 type protocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID
+	client *client.Client
+	model  *resourcemodel.ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID
 }
 
-// GetName returns resource name
-func (r *protocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

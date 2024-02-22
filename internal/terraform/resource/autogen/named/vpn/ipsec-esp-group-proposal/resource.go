@@ -16,20 +16,19 @@ import (
 // NewVpnIPsecEspGroupProposal method to return the example resource reference
 func NewVpnIPsecEspGroupProposal() resource.Resource {
 	return &vpnIPsecEspGroupProposal{
-		model: resourcemodel.VpnIPsecEspGroupProposal{},
+		model: &resourcemodel.VpnIPsecEspGroupProposal{},
 	}
 }
 
 // vpnIPsecEspGroupProposal defines the resource implementation.
 type vpnIPsecEspGroupProposal struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VpnIPsecEspGroupProposal
+	client *client.Client
+	model  *resourcemodel.VpnIPsecEspGroupProposal
 }
 
-// GetName returns resource name
-func (r *vpnIPsecEspGroupProposal) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vpnIPsecEspGroupProposal) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vpnIPsecEspGroupProposal) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

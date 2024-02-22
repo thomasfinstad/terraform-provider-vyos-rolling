@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceDhcpServerSharedNetworkNameSubnet describes the resource data model.
@@ -45,26 +48,25 @@ type ServiceDhcpServerSharedNetworkNameSubnet struct {
 	LeafServiceDhcpServerSharedNetworkNameSubnetWpadURL             types.String `tfsdk:"wpad_url" vyos:"wpad-url,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceDhcpServerSharedNetworkNameSubnetRange         bool `tfsdk:"range" vyos:"range,child"`
-	ExistsTagServiceDhcpServerSharedNetworkNameSubnetStaticMapping bool `tfsdk:"static_mapping" vyos:"static-mapping,child"`
-	ExistsTagServiceDhcpServerSharedNetworkNameSubnetStaticRoute   bool `tfsdk:"static_route" vyos:"static-route,child"`
+	ExistsTagServiceDhcpServerSharedNetworkNameSubnetRange         bool `tfsdk:"-" vyos:"range,child"`
+	ExistsTagServiceDhcpServerSharedNetworkNameSubnetStaticMapping bool `tfsdk:"-" vyos:"static-mapping,child"`
+	ExistsTagServiceDhcpServerSharedNetworkNameSubnetStaticRoute   bool `tfsdk:"-" vyos:"static-route,child"`
 
 	// Nodes
 	NodeServiceDhcpServerSharedNetworkNameSubnetVendorOption *ServiceDhcpServerSharedNetworkNameSubnetVendorOption `tfsdk:"vendor_option" vyos:"vendor-option,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o ServiceDhcpServerSharedNetworkNameSubnet) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o ServiceDhcpServerSharedNetworkNameSubnet) SetID(id types.String) {
-	o.ID = id
+func (o *ServiceDhcpServerSharedNetworkNameSubnet) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *ServiceDhcpServerSharedNetworkNameSubnet) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"service",
 

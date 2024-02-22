@@ -16,20 +16,19 @@ import (
 // NewProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress method to return the example resource reference
 func NewProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress() resource.Resource {
 	return &protocolsBgpAddressFamilyIPvfourMulticastAggregateAddress{
-		model: resourcemodel.ProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress{},
+		model: &resourcemodel.ProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress{},
 	}
 }
 
 // protocolsBgpAddressFamilyIPvfourMulticastAggregateAddress defines the resource implementation.
 type protocolsBgpAddressFamilyIPvfourMulticastAggregateAddress struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress
+	client *client.Client
+	model  *resourcemodel.ProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress
 }
 
-// GetName returns resource name
-func (r *protocolsBgpAddressFamilyIPvfourMulticastAggregateAddress) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsBgpAddressFamilyIPvfourMulticastAggregateAddress) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsBgpAddressFamilyIPvfourMulticastAggregateAddress) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

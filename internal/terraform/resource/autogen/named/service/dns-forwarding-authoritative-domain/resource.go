@@ -16,20 +16,19 @@ import (
 // NewServiceDNSForwardingAuthoritativeDomain method to return the example resource reference
 func NewServiceDNSForwardingAuthoritativeDomain() resource.Resource {
 	return &serviceDNSForwardingAuthoritativeDomain{
-		model: resourcemodel.ServiceDNSForwardingAuthoritativeDomain{},
+		model: &resourcemodel.ServiceDNSForwardingAuthoritativeDomain{},
 	}
 }
 
 // serviceDNSForwardingAuthoritativeDomain defines the resource implementation.
 type serviceDNSForwardingAuthoritativeDomain struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceDNSForwardingAuthoritativeDomain
+	client *client.Client
+	model  *resourcemodel.ServiceDNSForwardingAuthoritativeDomain
 }
 
-// GetName returns resource name
-func (r *serviceDNSForwardingAuthoritativeDomain) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceDNSForwardingAuthoritativeDomain) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceDNSForwardingAuthoritativeDomain) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

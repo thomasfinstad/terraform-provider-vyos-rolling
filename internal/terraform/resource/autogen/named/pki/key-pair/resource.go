@@ -16,20 +16,19 @@ import (
 // NewPkiKeyPair method to return the example resource reference
 func NewPkiKeyPair() resource.Resource {
 	return &pkiKeyPair{
-		model: resourcemodel.PkiKeyPair{},
+		model: &resourcemodel.PkiKeyPair{},
 	}
 }
 
 // pkiKeyPair defines the resource implementation.
 type pkiKeyPair struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.PkiKeyPair
+	client *client.Client
+	model  *resourcemodel.PkiKeyPair
 }
 
-// GetName returns resource name
-func (r *pkiKeyPair) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *pkiKeyPair) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *pkiKeyPair) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -16,20 +16,19 @@ import (
 // NewInterfacesVirtualEthernet method to return the example resource reference
 func NewInterfacesVirtualEthernet() resource.Resource {
 	return &interfacesVirtualEthernet{
-		model: resourcemodel.InterfacesVirtualEthernet{},
+		model: &resourcemodel.InterfacesVirtualEthernet{},
 	}
 }
 
 // interfacesVirtualEthernet defines the resource implementation.
 type interfacesVirtualEthernet struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesVirtualEthernet
+	client *client.Client
+	model  *resourcemodel.InterfacesVirtualEthernet
 }
 
-// GetName returns resource name
-func (r *interfacesVirtualEthernet) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesVirtualEthernet) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesVirtualEthernet) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

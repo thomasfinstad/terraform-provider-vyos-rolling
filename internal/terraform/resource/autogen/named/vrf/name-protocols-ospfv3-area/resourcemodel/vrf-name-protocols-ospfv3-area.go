@@ -2,10 +2,13 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsOspfvthreeArea describes the resource data model.
@@ -21,24 +24,23 @@ type VrfNameProtocolsOspfvthreeArea struct {
 	LeafVrfNameProtocolsOspfvthreeAreaImportList types.String `tfsdk:"import_list" vyos:"import-list,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsOspfvthreeAreaRange bool `tfsdk:"range" vyos:"range,child"`
+	ExistsTagVrfNameProtocolsOspfvthreeAreaRange bool `tfsdk:"-" vyos:"range,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsOspfvthreeAreaAreaType *VrfNameProtocolsOspfvthreeAreaAreaType `tfsdk:"area_type" vyos:"area-type,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o VrfNameProtocolsOspfvthreeArea) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o VrfNameProtocolsOspfvthreeArea) SetID(id types.String) {
-	o.ID = id
+func (o *VrfNameProtocolsOspfvthreeArea) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *VrfNameProtocolsOspfvthreeArea) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"vrf",
 

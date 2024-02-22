@@ -16,20 +16,19 @@ import (
 // NewNatStaticRule method to return the example resource reference
 func NewNatStaticRule() resource.Resource {
 	return &natStaticRule{
-		model: resourcemodel.NatStaticRule{},
+		model: &resourcemodel.NatStaticRule{},
 	}
 }
 
 // natStaticRule defines the resource implementation.
 type natStaticRule struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.NatStaticRule
+	client *client.Client
+	model  *resourcemodel.NatStaticRule
 }
 
-// GetName returns resource name
-func (r *natStaticRule) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *natStaticRule) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *natStaticRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

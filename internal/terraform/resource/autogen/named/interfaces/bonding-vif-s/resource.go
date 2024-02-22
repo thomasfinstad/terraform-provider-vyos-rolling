@@ -16,20 +16,19 @@ import (
 // NewInterfacesBondingVifS method to return the example resource reference
 func NewInterfacesBondingVifS() resource.Resource {
 	return &interfacesBondingVifS{
-		model: resourcemodel.InterfacesBondingVifS{},
+		model: &resourcemodel.InterfacesBondingVifS{},
 	}
 }
 
 // interfacesBondingVifS defines the resource implementation.
 type interfacesBondingVifS struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesBondingVifS
+	client *client.Client
+	model  *resourcemodel.InterfacesBondingVifS
 }
 
-// GetName returns resource name
-func (r *interfacesBondingVifS) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesBondingVifS) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesBondingVifS) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

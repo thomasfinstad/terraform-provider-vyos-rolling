@@ -2,10 +2,13 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // HighAvailabilityVirtualServer describes the resource data model.
@@ -24,23 +27,22 @@ type HighAvailabilityVirtualServer struct {
 	LeafHighAvailabilityVirtualServerProtocol           types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagHighAvailabilityVirtualServerRealServer bool `tfsdk:"real_server" vyos:"real-server,child"`
+	ExistsTagHighAvailabilityVirtualServerRealServer bool `tfsdk:"-" vyos:"real-server,child"`
 
 	// Nodes
 }
 
-// GetID returns the resource ID
-func (o HighAvailabilityVirtualServer) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o HighAvailabilityVirtualServer) SetID(id types.String) {
-	o.ID = id
+func (o *HighAvailabilityVirtualServer) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *HighAvailabilityVirtualServer) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"high-availability",
 

@@ -16,20 +16,19 @@ import (
 // NewProtocolsBgpPeerGroupLocalAs method to return the example resource reference
 func NewProtocolsBgpPeerGroupLocalAs() resource.Resource {
 	return &protocolsBgpPeerGroupLocalAs{
-		model: resourcemodel.ProtocolsBgpPeerGroupLocalAs{},
+		model: &resourcemodel.ProtocolsBgpPeerGroupLocalAs{},
 	}
 }
 
 // protocolsBgpPeerGroupLocalAs defines the resource implementation.
 type protocolsBgpPeerGroupLocalAs struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsBgpPeerGroupLocalAs
+	client *client.Client
+	model  *resourcemodel.ProtocolsBgpPeerGroupLocalAs
 }
 
-// GetName returns resource name
-func (r *protocolsBgpPeerGroupLocalAs) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsBgpPeerGroupLocalAs) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsBgpPeerGroupLocalAs) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

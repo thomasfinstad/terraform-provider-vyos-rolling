@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsBgpNeighbor describes the resource data model.
@@ -34,8 +37,8 @@ type ProtocolsBgpNeighbor struct {
 	LeafProtocolsBgpNeighborUpdateSource                 types.String `tfsdk:"update_source" vyos:"update-source,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsBgpNeighborLocalAs   bool `tfsdk:"local_as" vyos:"local-as,child"`
-	ExistsTagProtocolsBgpNeighborLocalRole bool `tfsdk:"local_role" vyos:"local-role,child"`
+	ExistsTagProtocolsBgpNeighborLocalAs   bool `tfsdk:"-" vyos:"local-as,child"`
+	ExistsTagProtocolsBgpNeighborLocalRole bool `tfsdk:"-" vyos:"local-role,child"`
 
 	// Nodes
 	NodeProtocolsBgpNeighborAddressFamily *ProtocolsBgpNeighborAddressFamily `tfsdk:"address_family" vyos:"address-family,omitempty"`
@@ -46,18 +49,17 @@ type ProtocolsBgpNeighbor struct {
 	NodeProtocolsBgpNeighborTTLSecURIty   *ProtocolsBgpNeighborTTLSecURIty   `tfsdk:"ttl_security" vyos:"ttl-security,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o ProtocolsBgpNeighbor) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o ProtocolsBgpNeighbor) SetID(id types.String) {
-	o.ID = id
+func (o *ProtocolsBgpNeighbor) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *ProtocolsBgpNeighbor) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"protocols",
 

@@ -16,20 +16,19 @@ import (
 // NewServicePppoeServerAuthenticationRadiusServer method to return the example resource reference
 func NewServicePppoeServerAuthenticationRadiusServer() resource.Resource {
 	return &servicePppoeServerAuthenticationRadiusServer{
-		model: resourcemodel.ServicePppoeServerAuthenticationRadiusServer{},
+		model: &resourcemodel.ServicePppoeServerAuthenticationRadiusServer{},
 	}
 }
 
 // servicePppoeServerAuthenticationRadiusServer defines the resource implementation.
 type servicePppoeServerAuthenticationRadiusServer struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServicePppoeServerAuthenticationRadiusServer
+	client *client.Client
+	model  *resourcemodel.ServicePppoeServerAuthenticationRadiusServer
 }
 
-// GetName returns resource name
-func (r *servicePppoeServerAuthenticationRadiusServer) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *servicePppoeServerAuthenticationRadiusServer) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *servicePppoeServerAuthenticationRadiusServer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

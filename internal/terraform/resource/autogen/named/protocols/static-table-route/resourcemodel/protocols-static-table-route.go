@@ -2,10 +2,13 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsStaticTableRoute describes the resource data model.
@@ -21,26 +24,25 @@ type ProtocolsStaticTableRoute struct {
 	LeafProtocolsStaticTableRouteDescrIPtion   types.String `tfsdk:"description" vyos:"description,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsStaticTableRouteInterface bool `tfsdk:"interface" vyos:"interface,child"`
-	ExistsTagProtocolsStaticTableRouteNextHop   bool `tfsdk:"next_hop" vyos:"next-hop,child"`
+	ExistsTagProtocolsStaticTableRouteInterface bool `tfsdk:"-" vyos:"interface,child"`
+	ExistsTagProtocolsStaticTableRouteNextHop   bool `tfsdk:"-" vyos:"next-hop,child"`
 
 	// Nodes
 	NodeProtocolsStaticTableRouteBlackhole *ProtocolsStaticTableRouteBlackhole `tfsdk:"blackhole" vyos:"blackhole,omitempty"`
 	NodeProtocolsStaticTableRouteReject    *ProtocolsStaticTableRouteReject    `tfsdk:"reject" vyos:"reject,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o ProtocolsStaticTableRoute) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o ProtocolsStaticTableRoute) SetID(id types.String) {
-	o.ID = id
+func (o *ProtocolsStaticTableRoute) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *ProtocolsStaticTableRoute) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"protocols",
 

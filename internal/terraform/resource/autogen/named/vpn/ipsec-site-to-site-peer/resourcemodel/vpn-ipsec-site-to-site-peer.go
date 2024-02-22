@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VpnIPsecSiteToSitePeer describes the resource data model.
@@ -29,25 +32,24 @@ type VpnIPsecSiteToSitePeer struct {
 	LeafVpnIPsecSiteToSitePeerVirtualAddress        types.List   `tfsdk:"virtual_address" vyos:"virtual-address,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVpnIPsecSiteToSitePeerTunnel bool `tfsdk:"tunnel" vyos:"tunnel,child"`
+	ExistsTagVpnIPsecSiteToSitePeerTunnel bool `tfsdk:"-" vyos:"tunnel,child"`
 
 	// Nodes
 	NodeVpnIPsecSiteToSitePeerAuthentication *VpnIPsecSiteToSitePeerAuthentication `tfsdk:"authentication" vyos:"authentication,omitempty"`
 	NodeVpnIPsecSiteToSitePeerVti            *VpnIPsecSiteToSitePeerVti            `tfsdk:"vti" vyos:"vti,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o VpnIPsecSiteToSitePeer) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o VpnIPsecSiteToSitePeer) SetID(id types.String) {
-	o.ID = id
+func (o *VpnIPsecSiteToSitePeer) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *VpnIPsecSiteToSitePeer) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"vpn",
 

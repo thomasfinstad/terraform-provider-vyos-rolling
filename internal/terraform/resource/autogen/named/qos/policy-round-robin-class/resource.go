@@ -16,20 +16,19 @@ import (
 // NewQosPolicyRoundRobinClass method to return the example resource reference
 func NewQosPolicyRoundRobinClass() resource.Resource {
 	return &qosPolicyRoundRobinClass{
-		model: resourcemodel.QosPolicyRoundRobinClass{},
+		model: &resourcemodel.QosPolicyRoundRobinClass{},
 	}
 }
 
 // qosPolicyRoundRobinClass defines the resource implementation.
 type qosPolicyRoundRobinClass struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.QosPolicyRoundRobinClass
+	client *client.Client
+	model  *resourcemodel.QosPolicyRoundRobinClass
 }
 
-// GetName returns resource name
-func (r *qosPolicyRoundRobinClass) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *qosPolicyRoundRobinClass) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *qosPolicyRoundRobinClass) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

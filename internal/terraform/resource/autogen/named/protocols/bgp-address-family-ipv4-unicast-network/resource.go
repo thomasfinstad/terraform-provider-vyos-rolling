@@ -16,20 +16,19 @@ import (
 // NewProtocolsBgpAddressFamilyIPvfourUnicastNetwork method to return the example resource reference
 func NewProtocolsBgpAddressFamilyIPvfourUnicastNetwork() resource.Resource {
 	return &protocolsBgpAddressFamilyIPvfourUnicastNetwork{
-		model: resourcemodel.ProtocolsBgpAddressFamilyIPvfourUnicastNetwork{},
+		model: &resourcemodel.ProtocolsBgpAddressFamilyIPvfourUnicastNetwork{},
 	}
 }
 
 // protocolsBgpAddressFamilyIPvfourUnicastNetwork defines the resource implementation.
 type protocolsBgpAddressFamilyIPvfourUnicastNetwork struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsBgpAddressFamilyIPvfourUnicastNetwork
+	client *client.Client
+	model  *resourcemodel.ProtocolsBgpAddressFamilyIPvfourUnicastNetwork
 }
 
-// GetName returns resource name
-func (r *protocolsBgpAddressFamilyIPvfourUnicastNetwork) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsBgpAddressFamilyIPvfourUnicastNetwork) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsBgpAddressFamilyIPvfourUnicastNetwork) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

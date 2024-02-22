@@ -16,20 +16,19 @@ import (
 // NewHighAvailabilityVirtualServer method to return the example resource reference
 func NewHighAvailabilityVirtualServer() resource.Resource {
 	return &highAvailabilityVirtualServer{
-		model: resourcemodel.HighAvailabilityVirtualServer{},
+		model: &resourcemodel.HighAvailabilityVirtualServer{},
 	}
 }
 
 // highAvailabilityVirtualServer defines the resource implementation.
 type highAvailabilityVirtualServer struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.HighAvailabilityVirtualServer
+	client *client.Client
+	model  *resourcemodel.HighAvailabilityVirtualServer
 }
 
-// GetName returns resource name
-func (r *highAvailabilityVirtualServer) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *highAvailabilityVirtualServer) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *highAvailabilityVirtualServer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

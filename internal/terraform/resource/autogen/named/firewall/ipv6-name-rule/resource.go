@@ -16,20 +16,19 @@ import (
 // NewFirewallIPvsixNameRule method to return the example resource reference
 func NewFirewallIPvsixNameRule() resource.Resource {
 	return &firewallIPvsixNameRule{
-		model: resourcemodel.FirewallIPvsixNameRule{},
+		model: &resourcemodel.FirewallIPvsixNameRule{},
 	}
 }
 
 // firewallIPvsixNameRule defines the resource implementation.
 type firewallIPvsixNameRule struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.FirewallIPvsixNameRule
+	client *client.Client
+	model  *resourcemodel.FirewallIPvsixNameRule
 }
 
-// GetName returns resource name
-func (r *firewallIPvsixNameRule) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *firewallIPvsixNameRule) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *firewallIPvsixNameRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

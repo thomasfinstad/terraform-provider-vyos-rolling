@@ -16,20 +16,19 @@ import (
 // NewQosInterface method to return the example resource reference
 func NewQosInterface() resource.Resource {
 	return &qosInterface{
-		model: resourcemodel.QosInterface{},
+		model: &resourcemodel.QosInterface{},
 	}
 }
 
 // qosInterface defines the resource implementation.
 type qosInterface struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.QosInterface
+	client *client.Client
+	model  *resourcemodel.QosInterface
 }
 
-// GetName returns resource name
-func (r *qosInterface) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *qosInterface) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *qosInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

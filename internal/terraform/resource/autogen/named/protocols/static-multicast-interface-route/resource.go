@@ -16,20 +16,19 @@ import (
 // NewProtocolsStaticMulticastInterfaceRoute method to return the example resource reference
 func NewProtocolsStaticMulticastInterfaceRoute() resource.Resource {
 	return &protocolsStaticMulticastInterfaceRoute{
-		model: resourcemodel.ProtocolsStaticMulticastInterfaceRoute{},
+		model: &resourcemodel.ProtocolsStaticMulticastInterfaceRoute{},
 	}
 }
 
 // protocolsStaticMulticastInterfaceRoute defines the resource implementation.
 type protocolsStaticMulticastInterfaceRoute struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsStaticMulticastInterfaceRoute
+	client *client.Client
+	model  *resourcemodel.ProtocolsStaticMulticastInterfaceRoute
 }
 
-// GetName returns resource name
-func (r *protocolsStaticMulticastInterfaceRoute) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsStaticMulticastInterfaceRoute) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsStaticMulticastInterfaceRoute) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

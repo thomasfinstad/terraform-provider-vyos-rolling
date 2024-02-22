@@ -16,20 +16,19 @@ import (
 // NewProtocolsMplsLdpNeighbor method to return the example resource reference
 func NewProtocolsMplsLdpNeighbor() resource.Resource {
 	return &protocolsMplsLdpNeighbor{
-		model: resourcemodel.ProtocolsMplsLdpNeighbor{},
+		model: &resourcemodel.ProtocolsMplsLdpNeighbor{},
 	}
 }
 
 // protocolsMplsLdpNeighbor defines the resource implementation.
 type protocolsMplsLdpNeighbor struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsMplsLdpNeighbor
+	client *client.Client
+	model  *resourcemodel.ProtocolsMplsLdpNeighbor
 }
 
-// GetName returns resource name
-func (r *protocolsMplsLdpNeighbor) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsMplsLdpNeighbor) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsMplsLdpNeighbor) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

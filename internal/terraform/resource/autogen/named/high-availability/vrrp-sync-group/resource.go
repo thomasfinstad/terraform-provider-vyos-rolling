@@ -16,20 +16,19 @@ import (
 // NewHighAvailabilityVrrpSyncGroup method to return the example resource reference
 func NewHighAvailabilityVrrpSyncGroup() resource.Resource {
 	return &highAvailabilityVrrpSyncGroup{
-		model: resourcemodel.HighAvailabilityVrrpSyncGroup{},
+		model: &resourcemodel.HighAvailabilityVrrpSyncGroup{},
 	}
 }
 
 // highAvailabilityVrrpSyncGroup defines the resource implementation.
 type highAvailabilityVrrpSyncGroup struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.HighAvailabilityVrrpSyncGroup
+	client *client.Client
+	model  *resourcemodel.HighAvailabilityVrrpSyncGroup
 }
 
-// GetName returns resource name
-func (r *highAvailabilityVrrpSyncGroup) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *highAvailabilityVrrpSyncGroup) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *highAvailabilityVrrpSyncGroup) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

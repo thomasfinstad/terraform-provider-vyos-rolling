@@ -16,20 +16,19 @@ import (
 // NewSystemStaticHostMappingHostName method to return the example resource reference
 func NewSystemStaticHostMappingHostName() resource.Resource {
 	return &systemStaticHostMappingHostName{
-		model: resourcemodel.SystemStaticHostMappingHostName{},
+		model: &resourcemodel.SystemStaticHostMappingHostName{},
 	}
 }
 
 // systemStaticHostMappingHostName defines the resource implementation.
 type systemStaticHostMappingHostName struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.SystemStaticHostMappingHostName
+	client *client.Client
+	model  *resourcemodel.SystemStaticHostMappingHostName
 }
 
-// GetName returns resource name
-func (r *systemStaticHostMappingHostName) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *systemStaticHostMappingHostName) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *systemStaticHostMappingHostName) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -16,20 +16,19 @@ import (
 // NewInterfacesVti method to return the example resource reference
 func NewInterfacesVti() resource.Resource {
 	return &interfacesVti{
-		model: resourcemodel.InterfacesVti{},
+		model: &resourcemodel.InterfacesVti{},
 	}
 }
 
 // interfacesVti defines the resource implementation.
 type interfacesVti struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesVti
+	client *client.Client
+	model  *resourcemodel.InterfacesVti
 }
 
-// GetName returns resource name
-func (r *interfacesVti) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesVti) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesVti) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

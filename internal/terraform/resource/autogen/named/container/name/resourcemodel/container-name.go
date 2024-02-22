@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ContainerName describes the resource data model.
@@ -30,27 +33,26 @@ type ContainerName struct {
 	LeafContainerNameRestart           types.String `tfsdk:"restart" vyos:"restart,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagContainerNameDevice      bool `tfsdk:"device" vyos:"device,child"`
-	ExistsTagContainerNameEnvironment bool `tfsdk:"environment" vyos:"environment,child"`
-	ExistsTagContainerNameNetwork     bool `tfsdk:"network" vyos:"network,child"`
-	ExistsTagContainerNamePort        bool `tfsdk:"port" vyos:"port,child"`
-	ExistsTagContainerNameVolume      bool `tfsdk:"volume" vyos:"volume,child"`
+	ExistsTagContainerNameDevice      bool `tfsdk:"-" vyos:"device,child"`
+	ExistsTagContainerNameEnvironment bool `tfsdk:"-" vyos:"environment,child"`
+	ExistsTagContainerNameNetwork     bool `tfsdk:"-" vyos:"network,child"`
+	ExistsTagContainerNamePort        bool `tfsdk:"-" vyos:"port,child"`
+	ExistsTagContainerNameVolume      bool `tfsdk:"-" vyos:"volume,child"`
 
 	// Nodes
 }
 
-// GetID returns the resource ID
-func (o ContainerName) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o ContainerName) SetID(id types.String) {
-	o.ID = id
+func (o *ContainerName) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *ContainerName) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"container",
 

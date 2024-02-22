@@ -16,20 +16,19 @@ import (
 // NewInterfacesBonding method to return the example resource reference
 func NewInterfacesBonding() resource.Resource {
 	return &interfacesBonding{
-		model: resourcemodel.InterfacesBonding{},
+		model: &resourcemodel.InterfacesBonding{},
 	}
 }
 
 // interfacesBonding defines the resource implementation.
 type interfacesBonding struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesBonding
+	client *client.Client
+	model  *resourcemodel.InterfacesBonding
 }
 
-// GetName returns resource name
-func (r *interfacesBonding) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesBonding) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesBonding) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

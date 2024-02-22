@@ -16,20 +16,19 @@ import (
 // NewVpnPptpRemoteAccessAuthenticationRadiusServer method to return the example resource reference
 func NewVpnPptpRemoteAccessAuthenticationRadiusServer() resource.Resource {
 	return &vpnPptpRemoteAccessAuthenticationRadiusServer{
-		model: resourcemodel.VpnPptpRemoteAccessAuthenticationRadiusServer{},
+		model: &resourcemodel.VpnPptpRemoteAccessAuthenticationRadiusServer{},
 	}
 }
 
 // vpnPptpRemoteAccessAuthenticationRadiusServer defines the resource implementation.
 type vpnPptpRemoteAccessAuthenticationRadiusServer struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VpnPptpRemoteAccessAuthenticationRadiusServer
+	client *client.Client
+	model  *resourcemodel.VpnPptpRemoteAccessAuthenticationRadiusServer
 }
 
-// GetName returns resource name
-func (r *vpnPptpRemoteAccessAuthenticationRadiusServer) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vpnPptpRemoteAccessAuthenticationRadiusServer) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vpnPptpRemoteAccessAuthenticationRadiusServer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -2,10 +2,13 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsRIPngInterface describes the resource data model.
@@ -22,18 +25,17 @@ type ProtocolsRIPngInterface struct {
 	NodeProtocolsRIPngInterfaceSplitHorizon *ProtocolsRIPngInterfaceSplitHorizon `tfsdk:"split_horizon" vyos:"split-horizon,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o ProtocolsRIPngInterface) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o ProtocolsRIPngInterface) SetID(id types.String) {
-	o.ID = id
+func (o *ProtocolsRIPngInterface) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *ProtocolsRIPngInterface) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"protocols",
 

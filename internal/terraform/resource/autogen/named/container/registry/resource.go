@@ -16,20 +16,19 @@ import (
 // NewContainerRegistry method to return the example resource reference
 func NewContainerRegistry() resource.Resource {
 	return &containerRegistry{
-		model: resourcemodel.ContainerRegistry{},
+		model: &resourcemodel.ContainerRegistry{},
 	}
 }
 
 // containerRegistry defines the resource implementation.
 type containerRegistry struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ContainerRegistry
+	client *client.Client
+	model  *resourcemodel.ContainerRegistry
 }
 
-// GetName returns resource name
-func (r *containerRegistry) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *containerRegistry) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *containerRegistry) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

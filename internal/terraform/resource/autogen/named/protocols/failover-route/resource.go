@@ -16,20 +16,19 @@ import (
 // NewProtocolsFailoverRoute method to return the example resource reference
 func NewProtocolsFailoverRoute() resource.Resource {
 	return &protocolsFailoverRoute{
-		model: resourcemodel.ProtocolsFailoverRoute{},
+		model: &resourcemodel.ProtocolsFailoverRoute{},
 	}
 }
 
 // protocolsFailoverRoute defines the resource implementation.
 type protocolsFailoverRoute struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsFailoverRoute
+	client *client.Client
+	model  *resourcemodel.ProtocolsFailoverRoute
 }
 
-// GetName returns resource name
-func (r *protocolsFailoverRoute) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsFailoverRoute) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsFailoverRoute) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -16,20 +16,19 @@ import (
 // NewProtocolsOspfInterfaceAuthenticationMdfiveKeyID method to return the example resource reference
 func NewProtocolsOspfInterfaceAuthenticationMdfiveKeyID() resource.Resource {
 	return &protocolsOspfInterfaceAuthenticationMdfiveKeyID{
-		model: resourcemodel.ProtocolsOspfInterfaceAuthenticationMdfiveKeyID{},
+		model: &resourcemodel.ProtocolsOspfInterfaceAuthenticationMdfiveKeyID{},
 	}
 }
 
 // protocolsOspfInterfaceAuthenticationMdfiveKeyID defines the resource implementation.
 type protocolsOspfInterfaceAuthenticationMdfiveKeyID struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsOspfInterfaceAuthenticationMdfiveKeyID
+	client *client.Client
+	model  *resourcemodel.ProtocolsOspfInterfaceAuthenticationMdfiveKeyID
 }
 
-// GetName returns resource name
-func (r *protocolsOspfInterfaceAuthenticationMdfiveKeyID) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsOspfInterfaceAuthenticationMdfiveKeyID) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsOspfInterfaceAuthenticationMdfiveKeyID) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

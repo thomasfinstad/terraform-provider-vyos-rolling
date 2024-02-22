@@ -16,20 +16,19 @@ import (
 // NewNatDestinationRule method to return the example resource reference
 func NewNatDestinationRule() resource.Resource {
 	return &natDestinationRule{
-		model: resourcemodel.NatDestinationRule{},
+		model: &resourcemodel.NatDestinationRule{},
 	}
 }
 
 // natDestinationRule defines the resource implementation.
 type natDestinationRule struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.NatDestinationRule
+	client *client.Client
+	model  *resourcemodel.NatDestinationRule
 }
 
-// GetName returns resource name
-func (r *natDestinationRule) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *natDestinationRule) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *natDestinationRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

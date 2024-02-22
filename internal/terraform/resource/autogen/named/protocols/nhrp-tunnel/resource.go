@@ -16,20 +16,19 @@ import (
 // NewProtocolsNhrpTunnel method to return the example resource reference
 func NewProtocolsNhrpTunnel() resource.Resource {
 	return &protocolsNhrpTunnel{
-		model: resourcemodel.ProtocolsNhrpTunnel{},
+		model: &resourcemodel.ProtocolsNhrpTunnel{},
 	}
 }
 
 // protocolsNhrpTunnel defines the resource implementation.
 type protocolsNhrpTunnel struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsNhrpTunnel
+	client *client.Client
+	model  *resourcemodel.ProtocolsNhrpTunnel
 }
 
-// GetName returns resource name
-func (r *protocolsNhrpTunnel) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsNhrpTunnel) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsNhrpTunnel) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -2,10 +2,13 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // QosPolicyShaper describes the resource data model.
@@ -19,24 +22,23 @@ type QosPolicyShaper struct {
 	LeafQosPolicyShaperBandwIDth   types.String `tfsdk:"bandwidth" vyos:"bandwidth,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagQosPolicyShaperClass bool `tfsdk:"class" vyos:"class,child"`
+	ExistsTagQosPolicyShaperClass bool `tfsdk:"-" vyos:"class,child"`
 
 	// Nodes
 	NodeQosPolicyShaperDefault *QosPolicyShaperDefault `tfsdk:"default" vyos:"default,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o QosPolicyShaper) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o QosPolicyShaper) SetID(id types.String) {
-	o.ID = id
+func (o *QosPolicyShaper) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *QosPolicyShaper) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"qos",
 

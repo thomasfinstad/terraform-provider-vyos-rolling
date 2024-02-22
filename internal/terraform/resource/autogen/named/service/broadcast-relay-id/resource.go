@@ -16,20 +16,19 @@ import (
 // NewServiceBroadcastRelayID method to return the example resource reference
 func NewServiceBroadcastRelayID() resource.Resource {
 	return &serviceBroadcastRelayID{
-		model: resourcemodel.ServiceBroadcastRelayID{},
+		model: &resourcemodel.ServiceBroadcastRelayID{},
 	}
 }
 
 // serviceBroadcastRelayID defines the resource implementation.
 type serviceBroadcastRelayID struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceBroadcastRelayID
+	client *client.Client
+	model  *resourcemodel.ServiceBroadcastRelayID
 }
 
-// GetName returns resource name
-func (r *serviceBroadcastRelayID) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceBroadcastRelayID) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceBroadcastRelayID) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

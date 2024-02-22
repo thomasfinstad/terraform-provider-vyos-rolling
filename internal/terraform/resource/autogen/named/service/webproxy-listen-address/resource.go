@@ -16,20 +16,19 @@ import (
 // NewServiceWebproxyListenAddress method to return the example resource reference
 func NewServiceWebproxyListenAddress() resource.Resource {
 	return &serviceWebproxyListenAddress{
-		model: resourcemodel.ServiceWebproxyListenAddress{},
+		model: &resourcemodel.ServiceWebproxyListenAddress{},
 	}
 }
 
 // serviceWebproxyListenAddress defines the resource implementation.
 type serviceWebproxyListenAddress struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceWebproxyListenAddress
+	client *client.Client
+	model  *resourcemodel.ServiceWebproxyListenAddress
 }
 
-// GetName returns resource name
-func (r *serviceWebproxyListenAddress) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceWebproxyListenAddress) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceWebproxyListenAddress) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

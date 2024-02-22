@@ -16,20 +16,19 @@ import (
 // NewPkiCa method to return the example resource reference
 func NewPkiCa() resource.Resource {
 	return &pkiCa{
-		model: resourcemodel.PkiCa{},
+		model: &resourcemodel.PkiCa{},
 	}
 }
 
 // pkiCa defines the resource implementation.
 type pkiCa struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.PkiCa
+	client *client.Client
+	model  *resourcemodel.PkiCa
 }
 
-// GetName returns resource name
-func (r *pkiCa) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *pkiCa) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *pkiCa) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

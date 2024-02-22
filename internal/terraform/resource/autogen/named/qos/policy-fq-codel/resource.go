@@ -16,20 +16,19 @@ import (
 // NewQosPolicyFqCodel method to return the example resource reference
 func NewQosPolicyFqCodel() resource.Resource {
 	return &qosPolicyFqCodel{
-		model: resourcemodel.QosPolicyFqCodel{},
+		model: &resourcemodel.QosPolicyFqCodel{},
 	}
 }
 
 // qosPolicyFqCodel defines the resource implementation.
 type qosPolicyFqCodel struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.QosPolicyFqCodel
+	client *client.Client
+	model  *resourcemodel.QosPolicyFqCodel
 }
 
-// GetName returns resource name
-func (r *qosPolicyFqCodel) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *qosPolicyFqCodel) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *qosPolicyFqCodel) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -2,10 +2,13 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // SystemSyslogUser describes the resource data model.
@@ -17,23 +20,22 @@ type SystemSyslogUser struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagSystemSyslogUserFacility bool `tfsdk:"facility" vyos:"facility,child"`
+	ExistsTagSystemSyslogUserFacility bool `tfsdk:"-" vyos:"facility,child"`
 
 	// Nodes
 }
 
-// GetID returns the resource ID
-func (o SystemSyslogUser) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o SystemSyslogUser) SetID(id types.String) {
-	o.ID = id
+func (o *SystemSyslogUser) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *SystemSyslogUser) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"system",
 

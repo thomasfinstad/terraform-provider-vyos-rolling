@@ -16,20 +16,19 @@ import (
 // NewServiceHTTPSAPIKeysID method to return the example resource reference
 func NewServiceHTTPSAPIKeysID() resource.Resource {
 	return &serviceHTTPSAPIKeysID{
-		model: resourcemodel.ServiceHTTPSAPIKeysID{},
+		model: &resourcemodel.ServiceHTTPSAPIKeysID{},
 	}
 }
 
 // serviceHTTPSAPIKeysID defines the resource implementation.
 type serviceHTTPSAPIKeysID struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceHTTPSAPIKeysID
+	client *client.Client
+	model  *resourcemodel.ServiceHTTPSAPIKeysID
 }
 
-// GetName returns resource name
-func (r *serviceHTTPSAPIKeysID) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceHTTPSAPIKeysID) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceHTTPSAPIKeysID) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

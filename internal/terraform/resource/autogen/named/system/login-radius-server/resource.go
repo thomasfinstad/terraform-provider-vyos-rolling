@@ -16,20 +16,19 @@ import (
 // NewSystemLoginRadiusServer method to return the example resource reference
 func NewSystemLoginRadiusServer() resource.Resource {
 	return &systemLoginRadiusServer{
-		model: resourcemodel.SystemLoginRadiusServer{},
+		model: &resourcemodel.SystemLoginRadiusServer{},
 	}
 }
 
 // systemLoginRadiusServer defines the resource implementation.
 type systemLoginRadiusServer struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.SystemLoginRadiusServer
+	client *client.Client
+	model  *resourcemodel.SystemLoginRadiusServer
 }
 
-// GetName returns resource name
-func (r *systemLoginRadiusServer) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *systemLoginRadiusServer) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *systemLoginRadiusServer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

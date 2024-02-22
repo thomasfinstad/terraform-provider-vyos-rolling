@@ -16,20 +16,19 @@ import (
 // NewProtocolsBgpParametersDistancePrefix method to return the example resource reference
 func NewProtocolsBgpParametersDistancePrefix() resource.Resource {
 	return &protocolsBgpParametersDistancePrefix{
-		model: resourcemodel.ProtocolsBgpParametersDistancePrefix{},
+		model: &resourcemodel.ProtocolsBgpParametersDistancePrefix{},
 	}
 }
 
 // protocolsBgpParametersDistancePrefix defines the resource implementation.
 type protocolsBgpParametersDistancePrefix struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsBgpParametersDistancePrefix
+	client *client.Client
+	model  *resourcemodel.ProtocolsBgpParametersDistancePrefix
 }
 
-// GetName returns resource name
-func (r *protocolsBgpParametersDistancePrefix) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsBgpParametersDistancePrefix) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsBgpParametersDistancePrefix) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

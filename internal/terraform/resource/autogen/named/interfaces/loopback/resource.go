@@ -16,20 +16,19 @@ import (
 // NewInterfacesLoopback method to return the example resource reference
 func NewInterfacesLoopback() resource.Resource {
 	return &interfacesLoopback{
-		model: resourcemodel.InterfacesLoopback{},
+		model: &resourcemodel.InterfacesLoopback{},
 	}
 }
 
 // interfacesLoopback defines the resource implementation.
 type interfacesLoopback struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesLoopback
+	client *client.Client
+	model  *resourcemodel.InterfacesLoopback
 }
 
-// GetName returns resource name
-func (r *interfacesLoopback) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesLoopback) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesLoopback) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

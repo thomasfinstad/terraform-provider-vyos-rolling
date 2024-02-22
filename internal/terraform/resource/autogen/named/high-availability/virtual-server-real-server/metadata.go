@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r highAvailabilityVirtualServerRealServer) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_high_availability_virtual_server_real_server"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_high_availability_virtual_server_real_server"
 }

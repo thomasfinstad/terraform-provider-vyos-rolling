@@ -2,10 +2,13 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpNeighborLocalAs describes the resource data model.
@@ -26,18 +29,17 @@ type VrfNameProtocolsBgpNeighborLocalAs struct {
 	NodeVrfNameProtocolsBgpNeighborLocalAsNoPrepend *VrfNameProtocolsBgpNeighborLocalAsNoPrepend `tfsdk:"no_prepend" vyos:"no-prepend,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o VrfNameProtocolsBgpNeighborLocalAs) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o VrfNameProtocolsBgpNeighborLocalAs) SetID(id types.String) {
-	o.ID = id
+func (o *VrfNameProtocolsBgpNeighborLocalAs) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *VrfNameProtocolsBgpNeighborLocalAs) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"vrf",
 

@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r vrfNameProtocolsStaticRoute) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_vrf_name_protocols_static_route"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_vrf_name_protocols_static_route"
 }

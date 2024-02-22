@@ -16,20 +16,19 @@ import (
 // NewSystemSyslogFile method to return the example resource reference
 func NewSystemSyslogFile() resource.Resource {
 	return &systemSyslogFile{
-		model: resourcemodel.SystemSyslogFile{},
+		model: &resourcemodel.SystemSyslogFile{},
 	}
 }
 
 // systemSyslogFile defines the resource implementation.
 type systemSyslogFile struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.SystemSyslogFile
+	client *client.Client
+	model  *resourcemodel.SystemSyslogFile
 }
 
-// GetName returns resource name
-func (r *systemSyslogFile) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *systemSyslogFile) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *systemSyslogFile) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

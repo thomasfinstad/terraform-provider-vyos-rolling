@@ -16,20 +16,19 @@ import (
 // NewServiceEventHandlerEvent method to return the example resource reference
 func NewServiceEventHandlerEvent() resource.Resource {
 	return &serviceEventHandlerEvent{
-		model: resourcemodel.ServiceEventHandlerEvent{},
+		model: &resourcemodel.ServiceEventHandlerEvent{},
 	}
 }
 
 // serviceEventHandlerEvent defines the resource implementation.
 type serviceEventHandlerEvent struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceEventHandlerEvent
+	client *client.Client
+	model  *resourcemodel.ServiceEventHandlerEvent
 }
 
-// GetName returns resource name
-func (r *serviceEventHandlerEvent) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceEventHandlerEvent) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceEventHandlerEvent) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

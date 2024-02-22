@@ -16,20 +16,19 @@ import (
 // NewFirewallGroupMacGroup method to return the example resource reference
 func NewFirewallGroupMacGroup() resource.Resource {
 	return &firewallGroupMacGroup{
-		model: resourcemodel.FirewallGroupMacGroup{},
+		model: &resourcemodel.FirewallGroupMacGroup{},
 	}
 }
 
 // firewallGroupMacGroup defines the resource implementation.
 type firewallGroupMacGroup struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.FirewallGroupMacGroup
+	client *client.Client
+	model  *resourcemodel.FirewallGroupMacGroup
 }
 
-// GetName returns resource name
-func (r *firewallGroupMacGroup) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *firewallGroupMacGroup) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *firewallGroupMacGroup) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

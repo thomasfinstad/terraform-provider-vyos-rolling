@@ -16,20 +16,19 @@ import (
 // NewProtocolsStaticMulticastRouteNextHop method to return the example resource reference
 func NewProtocolsStaticMulticastRouteNextHop() resource.Resource {
 	return &protocolsStaticMulticastRouteNextHop{
-		model: resourcemodel.ProtocolsStaticMulticastRouteNextHop{},
+		model: &resourcemodel.ProtocolsStaticMulticastRouteNextHop{},
 	}
 }
 
 // protocolsStaticMulticastRouteNextHop defines the resource implementation.
 type protocolsStaticMulticastRouteNextHop struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsStaticMulticastRouteNextHop
+	client *client.Client
+	model  *resourcemodel.ProtocolsStaticMulticastRouteNextHop
 }
 
-// GetName returns resource name
-func (r *protocolsStaticMulticastRouteNextHop) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsStaticMulticastRouteNextHop) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsStaticMulticastRouteNextHop) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

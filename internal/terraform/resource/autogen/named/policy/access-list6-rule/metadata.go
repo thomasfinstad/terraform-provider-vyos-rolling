@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r policyAccessListsixRule) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_policy_access_list6_rule"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_policy_access_list6_rule"
 }

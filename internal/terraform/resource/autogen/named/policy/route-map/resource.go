@@ -16,20 +16,19 @@ import (
 // NewPolicyRouteMap method to return the example resource reference
 func NewPolicyRouteMap() resource.Resource {
 	return &policyRouteMap{
-		model: resourcemodel.PolicyRouteMap{},
+		model: &resourcemodel.PolicyRouteMap{},
 	}
 }
 
 // policyRouteMap defines the resource implementation.
 type policyRouteMap struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.PolicyRouteMap
+	client *client.Client
+	model  *resourcemodel.PolicyRouteMap
 }
 
-// GetName returns resource name
-func (r *policyRouteMap) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *policyRouteMap) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *policyRouteMap) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

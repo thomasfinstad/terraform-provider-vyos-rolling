@@ -16,20 +16,19 @@ import (
 // NewProtocolsIsisInterface method to return the example resource reference
 func NewProtocolsIsisInterface() resource.Resource {
 	return &protocolsIsisInterface{
-		model: resourcemodel.ProtocolsIsisInterface{},
+		model: &resourcemodel.ProtocolsIsisInterface{},
 	}
 }
 
 // protocolsIsisInterface defines the resource implementation.
 type protocolsIsisInterface struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsIsisInterface
+	client *client.Client
+	model  *resourcemodel.ProtocolsIsisInterface
 }
 
-// GetName returns resource name
-func (r *protocolsIsisInterface) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsIsisInterface) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsIsisInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

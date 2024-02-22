@@ -16,20 +16,19 @@ import (
 // NewServiceConsoleServerDevice method to return the example resource reference
 func NewServiceConsoleServerDevice() resource.Resource {
 	return &serviceConsoleServerDevice{
-		model: resourcemodel.ServiceConsoleServerDevice{},
+		model: &resourcemodel.ServiceConsoleServerDevice{},
 	}
 }
 
 // serviceConsoleServerDevice defines the resource implementation.
 type serviceConsoleServerDevice struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceConsoleServerDevice
+	client *client.Client
+	model  *resourcemodel.ServiceConsoleServerDevice
 }
 
-// GetName returns resource name
-func (r *serviceConsoleServerDevice) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceConsoleServerDevice) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceConsoleServerDevice) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

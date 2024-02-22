@@ -16,20 +16,19 @@ import (
 // NewVpnIPsecRemoteAccessConnection method to return the example resource reference
 func NewVpnIPsecRemoteAccessConnection() resource.Resource {
 	return &vpnIPsecRemoteAccessConnection{
-		model: resourcemodel.VpnIPsecRemoteAccessConnection{},
+		model: &resourcemodel.VpnIPsecRemoteAccessConnection{},
 	}
 }
 
 // vpnIPsecRemoteAccessConnection defines the resource implementation.
 type vpnIPsecRemoteAccessConnection struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VpnIPsecRemoteAccessConnection
+	client *client.Client
+	model  *resourcemodel.VpnIPsecRemoteAccessConnection
 }
 
-// GetName returns resource name
-func (r *vpnIPsecRemoteAccessConnection) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vpnIPsecRemoteAccessConnection) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vpnIPsecRemoteAccessConnection) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

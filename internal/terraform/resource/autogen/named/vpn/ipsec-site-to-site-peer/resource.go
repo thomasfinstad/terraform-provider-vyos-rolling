@@ -16,20 +16,19 @@ import (
 // NewVpnIPsecSiteToSitePeer method to return the example resource reference
 func NewVpnIPsecSiteToSitePeer() resource.Resource {
 	return &vpnIPsecSiteToSitePeer{
-		model: resourcemodel.VpnIPsecSiteToSitePeer{},
+		model: &resourcemodel.VpnIPsecSiteToSitePeer{},
 	}
 }
 
 // vpnIPsecSiteToSitePeer defines the resource implementation.
 type vpnIPsecSiteToSitePeer struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VpnIPsecSiteToSitePeer
+	client *client.Client
+	model  *resourcemodel.VpnIPsecSiteToSitePeer
 }
 
-// GetName returns resource name
-func (r *vpnIPsecSiteToSitePeer) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vpnIPsecSiteToSitePeer) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vpnIPsecSiteToSitePeer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

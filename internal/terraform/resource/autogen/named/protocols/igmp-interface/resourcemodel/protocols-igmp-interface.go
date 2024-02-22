@@ -2,10 +2,13 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ProtocolsIgmpInterface describes the resource data model.
@@ -20,23 +23,22 @@ type ProtocolsIgmpInterface struct {
 	LeafProtocolsIgmpInterfaceQueryMaxResponseTime types.Number `tfsdk:"query_max_response_time" vyos:"query-max-response-time,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsIgmpInterfaceJoin bool `tfsdk:"join" vyos:"join,child"`
+	ExistsTagProtocolsIgmpInterfaceJoin bool `tfsdk:"-" vyos:"join,child"`
 
 	// Nodes
 }
 
-// GetID returns the resource ID
-func (o ProtocolsIgmpInterface) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o ProtocolsIgmpInterface) SetID(id types.String) {
-	o.ID = id
+func (o *ProtocolsIgmpInterface) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *ProtocolsIgmpInterface) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"protocols",
 

@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesWirelessVifS describes the resource data model.
@@ -29,7 +32,7 @@ type InterfacesWirelessVifS struct {
 	LeafInterfacesWirelessVifSVrf               types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesWirelessVifSVifC bool `tfsdk:"vif_c" vyos:"vif-c,child"`
+	ExistsTagInterfacesWirelessVifSVifC bool `tfsdk:"-" vyos:"vif-c,child"`
 
 	// Nodes
 	NodeInterfacesWirelessVifSDhcpOptions     *InterfacesWirelessVifSDhcpOptions     `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
@@ -39,18 +42,17 @@ type InterfacesWirelessVifS struct {
 	NodeInterfacesWirelessVifSMirror          *InterfacesWirelessVifSMirror          `tfsdk:"mirror" vyos:"mirror,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o InterfacesWirelessVifS) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o InterfacesWirelessVifS) SetID(id types.String) {
-	o.ID = id
+func (o *InterfacesWirelessVifS) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *InterfacesWirelessVifS) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"interfaces",
 

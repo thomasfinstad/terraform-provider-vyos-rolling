@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpNeighbor describes the resource data model.
@@ -36,8 +39,8 @@ type VrfNameProtocolsBgpNeighbor struct {
 	LeafVrfNameProtocolsBgpNeighborUpdateSource                 types.String `tfsdk:"update_source" vyos:"update-source,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsBgpNeighborLocalAs   bool `tfsdk:"local_as" vyos:"local-as,child"`
-	ExistsTagVrfNameProtocolsBgpNeighborLocalRole bool `tfsdk:"local_role" vyos:"local-role,child"`
+	ExistsTagVrfNameProtocolsBgpNeighborLocalAs   bool `tfsdk:"-" vyos:"local-as,child"`
+	ExistsTagVrfNameProtocolsBgpNeighborLocalRole bool `tfsdk:"-" vyos:"local-role,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsBgpNeighborAddressFamily *VrfNameProtocolsBgpNeighborAddressFamily `tfsdk:"address_family" vyos:"address-family,omitempty"`
@@ -48,18 +51,17 @@ type VrfNameProtocolsBgpNeighbor struct {
 	NodeVrfNameProtocolsBgpNeighborTTLSecURIty   *VrfNameProtocolsBgpNeighborTTLSecURIty   `tfsdk:"ttl_security" vyos:"ttl-security,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o VrfNameProtocolsBgpNeighbor) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o VrfNameProtocolsBgpNeighbor) SetID(id types.String) {
-	o.ID = id
+func (o *VrfNameProtocolsBgpNeighbor) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *VrfNameProtocolsBgpNeighbor) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"vrf",
 

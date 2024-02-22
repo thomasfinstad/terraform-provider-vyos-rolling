@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallName describes the resource data model.
@@ -22,23 +25,22 @@ type FirewallName struct {
 	LeafFirewallNameDefaultJumpTarget types.String `tfsdk:"default_jump_target" vyos:"default-jump-target,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagFirewallNameRule bool `tfsdk:"rule" vyos:"rule,child"`
+	ExistsTagFirewallNameRule bool `tfsdk:"-" vyos:"rule,child"`
 
 	// Nodes
 }
 
-// GetID returns the resource ID
-func (o FirewallName) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o FirewallName) SetID(id types.String) {
-	o.ID = id
+func (o *FirewallName) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *FirewallName) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"firewall",
 

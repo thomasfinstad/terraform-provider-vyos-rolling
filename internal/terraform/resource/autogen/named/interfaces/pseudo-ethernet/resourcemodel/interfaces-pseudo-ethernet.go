@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // InterfacesPseudoEthernet describes the resource data model.
@@ -28,8 +31,8 @@ type InterfacesPseudoEthernet struct {
 	LeafInterfacesPseudoEthernetRedirect          types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesPseudoEthernetVifS bool `tfsdk:"vif_s" vyos:"vif-s,child"`
-	ExistsTagInterfacesPseudoEthernetVif  bool `tfsdk:"vif" vyos:"vif,child"`
+	ExistsTagInterfacesPseudoEthernetVifS bool `tfsdk:"-" vyos:"vif-s,child"`
+	ExistsTagInterfacesPseudoEthernetVif  bool `tfsdk:"-" vyos:"vif,child"`
 
 	// Nodes
 	NodeInterfacesPseudoEthernetDhcpOptions     *InterfacesPseudoEthernetDhcpOptions     `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
@@ -39,18 +42,17 @@ type InterfacesPseudoEthernet struct {
 	NodeInterfacesPseudoEthernetMirror          *InterfacesPseudoEthernetMirror          `tfsdk:"mirror" vyos:"mirror,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o InterfacesPseudoEthernet) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o InterfacesPseudoEthernet) SetID(id types.String) {
-	o.ID = id
+func (o *InterfacesPseudoEthernet) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *InterfacesPseudoEthernet) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"interfaces",
 

@@ -16,20 +16,19 @@ import (
 // NewServiceHTTPSVirtualHost method to return the example resource reference
 func NewServiceHTTPSVirtualHost() resource.Resource {
 	return &serviceHTTPSVirtualHost{
-		model: resourcemodel.ServiceHTTPSVirtualHost{},
+		model: &resourcemodel.ServiceHTTPSVirtualHost{},
 	}
 }
 
 // serviceHTTPSVirtualHost defines the resource implementation.
 type serviceHTTPSVirtualHost struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ServiceHTTPSVirtualHost
+	client *client.Client
+	model  *resourcemodel.ServiceHTTPSVirtualHost
 }
 
-// GetName returns resource name
-func (r *serviceHTTPSVirtualHost) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *serviceHTTPSVirtualHost) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *serviceHTTPSVirtualHost) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

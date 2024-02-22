@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // FirewallZone describes the resource data model.
@@ -23,24 +26,23 @@ type FirewallZone struct {
 	LeafFirewallZoneLocalZone        types.Bool   `tfsdk:"local_zone" vyos:"local-zone,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagFirewallZoneFrom bool `tfsdk:"from" vyos:"from,child"`
+	ExistsTagFirewallZoneFrom bool `tfsdk:"-" vyos:"from,child"`
 
 	// Nodes
 	NodeFirewallZoneIntraZoneFiltering *FirewallZoneIntraZoneFiltering `tfsdk:"intra_zone_filtering" vyos:"intra-zone-filtering,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o FirewallZone) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o FirewallZone) SetID(id types.String) {
-	o.ID = id
+func (o *FirewallZone) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *FirewallZone) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"firewall",
 

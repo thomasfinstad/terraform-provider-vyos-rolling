@@ -16,20 +16,19 @@ import (
 // NewSystemSyslogUserFacility method to return the example resource reference
 func NewSystemSyslogUserFacility() resource.Resource {
 	return &systemSyslogUserFacility{
-		model: resourcemodel.SystemSyslogUserFacility{},
+		model: &resourcemodel.SystemSyslogUserFacility{},
 	}
 }
 
 // systemSyslogUserFacility defines the resource implementation.
 type systemSyslogUserFacility struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.SystemSyslogUserFacility
+	client *client.Client
+	model  *resourcemodel.SystemSyslogUserFacility
 }
 
-// GetName returns resource name
-func (r *systemSyslogUserFacility) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *systemSyslogUserFacility) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *systemSyslogUserFacility) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

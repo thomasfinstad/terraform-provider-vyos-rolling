@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsNaptr describes the resource data model.
@@ -22,23 +25,22 @@ type ServiceDNSForwardingAuthoritativeDomainRecordsNaptr struct {
 	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrDisable types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule bool `tfsdk:"rule" vyos:"rule,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule bool `tfsdk:"-" vyos:"rule,child"`
 
 	// Nodes
 }
 
-// GetID returns the resource ID
-func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptr) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptr) SetID(id types.String) {
-	o.ID = id
+func (o *ServiceDNSForwardingAuthoritativeDomainRecordsNaptr) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *ServiceDNSForwardingAuthoritativeDomainRecordsNaptr) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"service",
 

@@ -16,20 +16,19 @@ import (
 // NewVrfNameProtocolsIsisInterface method to return the example resource reference
 func NewVrfNameProtocolsIsisInterface() resource.Resource {
 	return &vrfNameProtocolsIsisInterface{
-		model: resourcemodel.VrfNameProtocolsIsisInterface{},
+		model: &resourcemodel.VrfNameProtocolsIsisInterface{},
 	}
 }
 
 // vrfNameProtocolsIsisInterface defines the resource implementation.
 type vrfNameProtocolsIsisInterface struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VrfNameProtocolsIsisInterface
+	client *client.Client
+	model  *resourcemodel.VrfNameProtocolsIsisInterface
 }
 
-// GetName returns resource name
-func (r *vrfNameProtocolsIsisInterface) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vrfNameProtocolsIsisInterface) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vrfNameProtocolsIsisInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

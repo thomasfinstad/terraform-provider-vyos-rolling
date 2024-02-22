@@ -7,6 +7,7 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
@@ -37,26 +38,35 @@ func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceD
 		for _, tag := range fTags[1:] {
 			flags[tag] = true
 		}
-		if flags["child"].(bool) || flags["self-id"].(bool) || flags["parent-id"].(bool) {
+		if flags["self-id"].(bool) || flags["parent-id"].(bool) {
 			fmt.Printf("\tNot configuring field: %s\n", fName)
 			tflog.Debug(ctx, "Not configuring field", map[string]interface{}{"field-name": fName})
 			continue
 		}
 
+		if flags["child"].(bool) {
+			// TODO if field is a child field/resource, check if it is populated and set bool to true if it is so delete function can choose correct action to take
+			continue
+		}
+
 		switch fValue.Interface().(type) {
 		case basetypes.StringValue:
+			var tfval basetypes.StringValuable
+
 			if !KeyInMap(flags["name"].(string), data) {
-				fmt.Printf("\tNo data for field: %s, skipping\n", fName)
-				tflog.Debug(ctx, "No data for field, skipping", map[string]interface{}{"field-name": fName})
-				continue
+				fmt.Printf("\tNo data for field: %s, setting to empty string\n", fName)
+				tflog.Debug(ctx, "No data for field, setting to empty string", map[string]interface{}{"field-name": fName})
+
+				tfval = basetypes.NewStringNull()
+			} else {
+				dataValue := data[flags["name"].(string)]
+
+				fmt.Printf("\tUnmarshalling String Field: %s\t%s=%s\n", fName, flags["name"].(string), dataValue)
+				tflog.Debug(ctx, "Unmarshalling String Field", map[string]interface{}{"field-name": fName, flags["name"].(string): dataValue})
+
+				tfval = basetypes.NewStringValue(dataValue.(string))
 			}
-			dataValue := data[flags["name"].(string)]
-
-			fmt.Printf("\tUnmarshalling String Field: %s\t%s=%s\n", fName, flags["name"].(string), dataValue)
-			tflog.Debug(ctx, "Unmarshalling String Field", map[string]interface{}{"field-name": fName, flags["name"].(string): dataValue})
-
-			tfValue := basetypes.NewStringValue(dataValue.(string))
-			tfValueRefection := reflect.ValueOf(tfValue)
+			tfValueRefection := reflect.ValueOf(tfval)
 			fValue.Set(tfValueRefection)
 
 		case basetypes.BoolValue:
@@ -66,57 +76,77 @@ func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceD
 			tfValueRefection := reflect.ValueOf(tfValue)
 			fValue.Set(tfValueRefection)
 		case basetypes.NumberValue:
+			var tfval basetypes.NumberValuable
+
 			if !KeyInMap(flags["name"].(string), data) {
 				fmt.Printf("\tNo data for field: %s, skipping\n", fName)
 				tflog.Debug(ctx, "No data for field, skipping", map[string]interface{}{"field-name": fName})
-				continue
+
+				tfval = basetypes.NewNumberNull()
+			} else {
+				dataValue := data[flags["name"].(string)]
+
+				fmt.Printf("\tUnmarshalling Number Field: %s\t%s=%s\n", fName, flags["name"].(string), dataValue)
+				tflog.Debug(ctx, "Unmarshalling Number Field", map[string]interface{}{"field-name": fName, flags["name"].(string): dataValue})
+
+				// Use reflection to convert anything (possible) to float, powered by https://stackoverflow.com/a/50008579
+				var floatTypeReflection = reflect.TypeOf(float64(0))
+				dataValueReflection := reflect.ValueOf(dataValue)
+				dataValueReflection = reflect.Indirect(dataValueReflection)
+				if !dataValueReflection.Type().ConvertibleTo(floatTypeReflection) {
+					return fmt.Errorf("cannot convert %v to float64", dataValueReflection.Type())
+				}
+				dataValueFloat := dataValueReflection.Convert(floatTypeReflection).Float()
+
+				bf := big.NewFloat(dataValueFloat)
+				tfval = basetypes.NewNumberValue(bf)
 			}
-			dataValue := data[flags["name"].(string)]
-
-			fmt.Printf("\tUnmarshalling Number Field: %s\t%s=%s\n", fName, flags["name"].(string), dataValue)
-			tflog.Debug(ctx, "Unmarshalling Number Field", map[string]interface{}{"field-name": fName, flags["name"].(string): dataValue})
-
-			// Use reflection to convert anything (possible) to float, powered by https://stackoverflow.com/a/50008579
-			var floatTypeReflection = reflect.TypeOf(float64(0))
-			dataValueReflection := reflect.ValueOf(dataValue)
-			dataValueReflection = reflect.Indirect(dataValueReflection)
-			if !dataValueReflection.Type().ConvertibleTo(floatTypeReflection) {
-				return fmt.Errorf("cannot convert %v to float64", dataValueReflection.Type())
-			}
-			dataValueFloat := dataValueReflection.Convert(floatTypeReflection).Float()
-
-			bf := big.NewFloat(dataValueFloat)
-			tfValue := basetypes.NewNumberValue(bf)
-			tfValueRefection := reflect.ValueOf(tfValue)
+			tfValueRefection := reflect.ValueOf(tfval)
 			fValue.Set(tfValueRefection)
 
 		case basetypes.ListValue:
-			if !KeyInMap(flags["name"].(string), data) {
-				fmt.Printf("\tNo data for field: %s, skipping\n", fName)
-				tflog.Debug(ctx, "No data for field, skipping", map[string]interface{}{"field-name": fName})
-				continue
-			}
-			dataValue := data[flags["name"].(string)]
-
-			fmt.Printf("\tUnmarshalling List Field: %s\t%s=%s\n", fName, flags["name"].(string), dataValue)
-			tflog.Debug(ctx, "Unmarshalling List Field", map[string]interface{}{"field-name": fName, flags["name"].(string): dataValue})
-
+			var tfval basetypes.ListValuable
 			tfSchemaName := strings.Split(typeReflection.Field(i).Tag.Get("tfsdk"), ",")[0]
 			schemaAttr := value.ResourceSchemaAttributes()[tfSchemaName]
 			listAttr := schemaAttr.(schema.ListAttribute)
 			elemType := listAttr.ElementType
 
-			tfValue, diags := basetypes.NewListValueFrom(ctx, elemType, dataValue)
-			if diags != nil {
-				return fmt.Errorf("ERROR: %v", diags)
-			}
-			tfValueRefection := reflect.ValueOf(tfValue)
-			fValue.Set(tfValueRefection)
-
-		default:
 			if !KeyInMap(flags["name"].(string), data) {
 				fmt.Printf("\tNo data for field: %s, skipping\n", fName)
 				tflog.Debug(ctx, "No data for field, skipping", map[string]interface{}{"field-name": fName})
+
+				tfval = basetypes.NewListNull(elemType)
+			} else {
+				dataValue := data[flags["name"].(string)]
+
+				fmt.Printf("\tUnmarshalling List Field: %s\t%s=%s\n", fName, flags["name"].(string), dataValue)
+				tflog.Debug(ctx, "Unmarshalling List Field", map[string]interface{}{"field-name": fName, flags["name"].(string): dataValue})
+
+				if reflect.TypeOf(dataValue).Kind() != reflect.Slice {
+					fmt.Printf("\tdataValue is not a slice, wrapping the value in list: %#v\n", dataValue)
+					tflog.Debug(ctx, "dataValue is not a slice, wrapping the value in list", map[string]interface{}{flags["name"].(string): dataValue})
+					dataValue = []interface{}{dataValue}
+				}
+
+				var diags diag.Diagnostics
+				tfval, diags = basetypes.NewListValueFrom(ctx, elemType, dataValue)
+				if diags != nil {
+					return fmt.Errorf("ERROR: %v", diags)
+				}
+			}
+			tflog.Trace(ctx, "setting list value", map[string]interface{}{"tfval": tfval})
+			tfValueRefection := reflect.ValueOf(tfval)
+			fValue.Set(tfValueRefection)
+
+		default:
+			//var tfval VyosResourceDataModel
+
+			if !KeyInMap(flags["name"].(string), data) {
+				fmt.Printf("\tNo data for field: %s, skipping\n", fName)
+				tflog.Debug(ctx, "No data for field, skipping", map[string]interface{}{"field-name": fName})
+
+				// TODO set nil / null for terraform state on sub-objects
+				//tfval = basetypes.NewObjectNull()
 				continue
 			}
 			dataValue := data[flags["name"].(string)]

@@ -2,10 +2,13 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork describes the resource data model.
@@ -25,18 +28,17 @@ type VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork struct {
 	// Nodes
 }
 
-// GetID returns the resource ID
-func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork) SetID(id types.String) {
-	o.ID = id
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"vrf",
 

@@ -16,20 +16,19 @@ import (
 // NewProtocolsRpkiCache method to return the example resource reference
 func NewProtocolsRpkiCache() resource.Resource {
 	return &protocolsRpkiCache{
-		model: resourcemodel.ProtocolsRpkiCache{},
+		model: &resourcemodel.ProtocolsRpkiCache{},
 	}
 }
 
 // protocolsRpkiCache defines the resource implementation.
 type protocolsRpkiCache struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsRpkiCache
+	client *client.Client
+	model  *resourcemodel.ProtocolsRpkiCache
 }
 
-// GetName returns resource name
-func (r *protocolsRpkiCache) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsRpkiCache) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsRpkiCache) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -2,10 +2,13 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // PolicyPrefixList describes the resource data model.
@@ -18,23 +21,22 @@ type PolicyPrefixList struct {
 	LeafPolicyPrefixListDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagPolicyPrefixListRule bool `tfsdk:"rule" vyos:"rule,child"`
+	ExistsTagPolicyPrefixListRule bool `tfsdk:"-" vyos:"rule,child"`
 
 	// Nodes
 }
 
-// GetID returns the resource ID
-func (o PolicyPrefixList) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o PolicyPrefixList) SetID(id types.String) {
-	o.ID = id
+func (o *PolicyPrefixList) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *PolicyPrefixList) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"policy",
 

@@ -16,20 +16,19 @@ import (
 // NewInterfacesWirelessSecURItyWpaRadiusServer method to return the example resource reference
 func NewInterfacesWirelessSecURItyWpaRadiusServer() resource.Resource {
 	return &interfacesWirelessSecURItyWpaRadiusServer{
-		model: resourcemodel.InterfacesWirelessSecURItyWpaRadiusServer{},
+		model: &resourcemodel.InterfacesWirelessSecURItyWpaRadiusServer{},
 	}
 }
 
 // interfacesWirelessSecURItyWpaRadiusServer defines the resource implementation.
 type interfacesWirelessSecURItyWpaRadiusServer struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesWirelessSecURItyWpaRadiusServer
+	client *client.Client
+	model  *resourcemodel.InterfacesWirelessSecURItyWpaRadiusServer
 }
 
-// GetName returns resource name
-func (r *interfacesWirelessSecURItyWpaRadiusServer) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesWirelessSecURItyWpaRadiusServer) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesWirelessSecURItyWpaRadiusServer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

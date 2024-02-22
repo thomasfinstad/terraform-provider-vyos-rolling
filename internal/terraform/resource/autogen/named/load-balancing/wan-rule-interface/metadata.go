@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r loadBalancingWanRuleInterface) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_load_balancing_wan_rule_interface"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_load_balancing_wan_rule_interface"
 }

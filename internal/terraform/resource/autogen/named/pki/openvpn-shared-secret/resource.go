@@ -16,20 +16,19 @@ import (
 // NewPkiOpenvpnSharedSecret method to return the example resource reference
 func NewPkiOpenvpnSharedSecret() resource.Resource {
 	return &pkiOpenvpnSharedSecret{
-		model: resourcemodel.PkiOpenvpnSharedSecret{},
+		model: &resourcemodel.PkiOpenvpnSharedSecret{},
 	}
 }
 
 // pkiOpenvpnSharedSecret defines the resource implementation.
 type pkiOpenvpnSharedSecret struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.PkiOpenvpnSharedSecret
+	client *client.Client
+	model  *resourcemodel.PkiOpenvpnSharedSecret
 }
 
-// GetName returns resource name
-func (r *pkiOpenvpnSharedSecret) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *pkiOpenvpnSharedSecret) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *pkiOpenvpnSharedSecret) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -16,20 +16,19 @@ import (
 // NewVpnOpenconnectAuthenticationLocalUsersUsername method to return the example resource reference
 func NewVpnOpenconnectAuthenticationLocalUsersUsername() resource.Resource {
 	return &vpnOpenconnectAuthenticationLocalUsersUsername{
-		model: resourcemodel.VpnOpenconnectAuthenticationLocalUsersUsername{},
+		model: &resourcemodel.VpnOpenconnectAuthenticationLocalUsersUsername{},
 	}
 }
 
 // vpnOpenconnectAuthenticationLocalUsersUsername defines the resource implementation.
 type vpnOpenconnectAuthenticationLocalUsersUsername struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.VpnOpenconnectAuthenticationLocalUsersUsername
+	client *client.Client
+	model  *resourcemodel.VpnOpenconnectAuthenticationLocalUsersUsername
 }
 
-// GetName returns resource name
-func (r *vpnOpenconnectAuthenticationLocalUsersUsername) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *vpnOpenconnectAuthenticationLocalUsersUsername) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *vpnOpenconnectAuthenticationLocalUsersUsername) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

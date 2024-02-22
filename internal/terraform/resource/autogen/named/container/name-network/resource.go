@@ -16,20 +16,19 @@ import (
 // NewContainerNameNetwork method to return the example resource reference
 func NewContainerNameNetwork() resource.Resource {
 	return &containerNameNetwork{
-		model: resourcemodel.ContainerNameNetwork{},
+		model: &resourcemodel.ContainerNameNetwork{},
 	}
 }
 
 // containerNameNetwork defines the resource implementation.
 type containerNameNetwork struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ContainerNameNetwork
+	client *client.Client
+	model  *resourcemodel.ContainerNameNetwork
 }
 
-// GetName returns resource name
-func (r *containerNameNetwork) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *containerNameNetwork) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *containerNameNetwork) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

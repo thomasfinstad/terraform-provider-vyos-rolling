@@ -1,6 +1,16 @@
 
 SHELL:=/usr/bin/bash
-GO_IMPORT_ROOT:=github.com/thomasfinstad/terraform-provider-vyos
+
+HOSTNAME=github.com
+NAMESPACE=thomasfinstad
+NAME=vyos
+BINARY_PREFIX=terraform-provider-
+VERSION=1.5.0
+VERSION_ROLLING=$$(date +%Y.%m.%d)
+OS_ARCH=linux_amd64
+BIN_DIR=dist
+
+GO_IMPORT_ROOT:=${HOSTNAME}/${NAMESPACE}/terraform-provider-vyos
 
 ###
 # Default helper target
@@ -171,25 +181,59 @@ test: internal/terraform/resource/autogen/named
 	cd internal/terraform/tests; \
 	go test -v
 
-.PHONY: ci-build
-ci-build:
+# TODO improve build situation
+# we need 1 for rolling releases and 1 for LTS 1.4 releases
+# figure out if these should be seperate repos, branches or what else
+
+.PHONY: build-rolling
+build-rolling:
 	make clean
 	make --always-make data/vyos/rolling-iso-build.txt
-	make test
-	make clean
 
-	git add -A
-	-pre-commit run
-	git add -A
+	make test
+	-rm -rf ${BIN_DIR}
+	-mkdir ${BIN_DIR}
+	go build -o ${BIN_DIR}/${BINARY_PREFIX}${NAME}
+
+	make clean
 
 .PHONY: build
 build: test
+	-rm -rf ${BIN_DIR}
+	-mkdir ${BIN_DIR}
+	go build -o ${BIN_DIR}/${BINARY_PREFIX}${NAME}
 
 .PHONY: install
-install: internal/terraform/resource/autogen/named
-	go install .
+install: build
+	mkdir -p ~/.terraform.d/plugins/${HOSTNAME}/${NAMESPACE}/${NAME}/${VERSION}/${OS_ARCH}
+	cp -a ${BIN_DIR}/${BINARY_PREFIX}${NAME} ~/.terraform.d/plugins/${HOSTNAME}/${NAMESPACE}/${NAME}/${VERSION}/${OS_ARCH}
+
+.PHONY: install-rolling
+install-rolling: build-rolling
+	mkdir -p ~/.terraform.d/plugins/${HOSTNAME}/${NAMESPACE}/${NAME}/${VERSION_ROLLING}/${OS_ARCH}
+	cp -a ${BIN_DIR}/${BINARY_PREFIX}${NAME} ~/.terraform.d/plugins/${HOSTNAME}/${NAMESPACE}/${NAME}/${VERSION_ROLLING}/${OS_ARCH}
 
 .PHONY: clean
 clean:
 	rm -rfv .build
 	git submodule deinit --all
+
+.PHONY: example-clean
+example-clean:
+	-rm -rfv ~/.terraform.d/plugins/
+
+.PHONY: provider-schema
+provider-schema: install-rolling
+	mkdir -p data/provider-schema
+	terraform -chdir=examples/provider init -upgrade
+	terraform -chdir=examples/provider providers schema -json | jq '.' > data/provider-schema/${VERSION_ROLLING}.json
+
+	if diff data/provider-schema/$(shell ls data/provider-schema | sort -V | tail -n1) data/provider-schema/${VERSION_ROLLING}.json; then \
+		rm -v data/provider-schema/${VERSION_ROLLING}.json; \
+	fi
+
+.PHONY: stage
+stage: provider-schema
+	git add -A
+	-pre-commit run
+	git add -A

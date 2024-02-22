@@ -16,20 +16,19 @@ import (
 // NewPkiCertificate method to return the example resource reference
 func NewPkiCertificate() resource.Resource {
 	return &pkiCertificate{
-		model: resourcemodel.PkiCertificate{},
+		model: &resourcemodel.PkiCertificate{},
 	}
 }
 
 // pkiCertificate defines the resource implementation.
 type pkiCertificate struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.PkiCertificate
+	client *client.Client
+	model  *resourcemodel.PkiCertificate
 }
 
-// GetName returns resource name
-func (r *pkiCertificate) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *pkiCertificate) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *pkiCertificate) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

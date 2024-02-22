@@ -2,11 +2,14 @@
 package resourcemodel
 
 import (
+	"strings"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // ServiceRouterAdvertInterface describes the resource data model.
@@ -31,25 +34,24 @@ type ServiceRouterAdvertInterface struct {
 	LeafServiceRouterAdvertInterfaceNoSendAdvert       types.Bool   `tfsdk:"no_send_advert" vyos:"no-send-advert,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceRouterAdvertInterfaceRoute  bool `tfsdk:"route" vyos:"route,child"`
-	ExistsTagServiceRouterAdvertInterfacePrefix bool `tfsdk:"prefix" vyos:"prefix,child"`
+	ExistsTagServiceRouterAdvertInterfaceRoute  bool `tfsdk:"-" vyos:"route,child"`
+	ExistsTagServiceRouterAdvertInterfacePrefix bool `tfsdk:"-" vyos:"prefix,child"`
 
 	// Nodes
 	NodeServiceRouterAdvertInterfaceInterval *ServiceRouterAdvertInterfaceInterval `tfsdk:"interval" vyos:"interval,omitempty"`
 }
 
-// GetID returns the resource ID
-func (o ServiceRouterAdvertInterface) GetID() *types.String {
-	return &o.ID
-}
-
 // SetID configures the resource ID
-func (o ServiceRouterAdvertInterface) SetID(id types.String) {
-	o.ID = id
+func (o *ServiceRouterAdvertInterface) SetID(id []string) {
+	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *ServiceRouterAdvertInterface) GetVyosPath() []string {
+	if o.ID.ValueString() != "" {
+		return strings.Split(o.ID.ValueString(), "__")
+	}
+
 	return []string{
 		"service",
 

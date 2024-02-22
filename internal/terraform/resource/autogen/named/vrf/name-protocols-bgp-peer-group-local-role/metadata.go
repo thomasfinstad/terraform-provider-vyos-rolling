@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r vrfNameProtocolsBgpPeerGroupLocalRole) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_vrf_name_protocols_bgp_peer_group_local_role"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_vrf_name_protocols_bgp_peer_group_local_role"
 }

@@ -16,20 +16,19 @@ import (
 // NewProtocolsNhrpTunnelDynamicMap method to return the example resource reference
 func NewProtocolsNhrpTunnelDynamicMap() resource.Resource {
 	return &protocolsNhrpTunnelDynamicMap{
-		model: resourcemodel.ProtocolsNhrpTunnelDynamicMap{},
+		model: &resourcemodel.ProtocolsNhrpTunnelDynamicMap{},
 	}
 }
 
 // protocolsNhrpTunnelDynamicMap defines the resource implementation.
 type protocolsNhrpTunnelDynamicMap struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsNhrpTunnelDynamicMap
+	client *client.Client
+	model  *resourcemodel.ProtocolsNhrpTunnelDynamicMap
 }
 
-// GetName returns resource name
-func (r *protocolsNhrpTunnelDynamicMap) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsNhrpTunnelDynamicMap) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsNhrpTunnelDynamicMap) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

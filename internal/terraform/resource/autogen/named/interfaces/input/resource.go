@@ -16,20 +16,19 @@ import (
 // NewInterfacesInput method to return the example resource reference
 func NewInterfacesInput() resource.Resource {
 	return &interfacesInput{
-		model: resourcemodel.InterfacesInput{},
+		model: &resourcemodel.InterfacesInput{},
 	}
 }
 
 // interfacesInput defines the resource implementation.
 type interfacesInput struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesInput
+	client *client.Client
+	model  *resourcemodel.InterfacesInput
 }
 
-// GetName returns resource name
-func (r *interfacesInput) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesInput) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesInput) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -16,20 +16,19 @@ import (
 // NewPolicyLargeCommunityListRule method to return the example resource reference
 func NewPolicyLargeCommunityListRule() resource.Resource {
 	return &policyLargeCommunityListRule{
-		model: resourcemodel.PolicyLargeCommunityListRule{},
+		model: &resourcemodel.PolicyLargeCommunityListRule{},
 	}
 }
 
 // policyLargeCommunityListRule defines the resource implementation.
 type policyLargeCommunityListRule struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.PolicyLargeCommunityListRule
+	client *client.Client
+	model  *resourcemodel.PolicyLargeCommunityListRule
 }
 
-// GetName returns resource name
-func (r *policyLargeCommunityListRule) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *policyLargeCommunityListRule) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *policyLargeCommunityListRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

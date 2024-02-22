@@ -16,20 +16,19 @@ import (
 // NewInterfacesTunnel method to return the example resource reference
 func NewInterfacesTunnel() resource.Resource {
 	return &interfacesTunnel{
-		model: resourcemodel.InterfacesTunnel{},
+		model: &resourcemodel.InterfacesTunnel{},
 	}
 }
 
 // interfacesTunnel defines the resource implementation.
 type interfacesTunnel struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.InterfacesTunnel
+	client *client.Client
+	model  *resourcemodel.InterfacesTunnel
 }
 
-// GetName returns resource name
-func (r *interfacesTunnel) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *interfacesTunnel) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *interfacesTunnel) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

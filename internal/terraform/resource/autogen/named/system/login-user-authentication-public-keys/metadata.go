@@ -9,6 +9,5 @@ import (
 
 // Metadata method to define the resource type name.
 func (r systemLoginUserAuthenticationPublicKeys) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	r.ResourceName = req.ProviderTypeName + "_system_login_user_authentication_public_keys"
-	resp.TypeName = r.ResourceName
+	resp.TypeName = req.ProviderTypeName + "_system_login_user_authentication_public_keys"
 }

@@ -16,20 +16,19 @@ import (
 // NewProtocolsOspfAreaVirtualLink method to return the example resource reference
 func NewProtocolsOspfAreaVirtualLink() resource.Resource {
 	return &protocolsOspfAreaVirtualLink{
-		model: resourcemodel.ProtocolsOspfAreaVirtualLink{},
+		model: &resourcemodel.ProtocolsOspfAreaVirtualLink{},
 	}
 }
 
 // protocolsOspfAreaVirtualLink defines the resource implementation.
 type protocolsOspfAreaVirtualLink struct {
-	ResourceName string
-	client       *client.Client
-	model        resourcemodel.ProtocolsOspfAreaVirtualLink
+	client *client.Client
+	model  *resourcemodel.ProtocolsOspfAreaVirtualLink
 }
 
-// GetName returns resource name
-func (r *protocolsOspfAreaVirtualLink) GetName() string {
-	return r.ResourceName
+// GetClient returns the vyos api client
+func (r *protocolsOspfAreaVirtualLink) GetClient() *client.Client {
+	return r.client
 }
 
 func (r *protocolsOspfAreaVirtualLink) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
