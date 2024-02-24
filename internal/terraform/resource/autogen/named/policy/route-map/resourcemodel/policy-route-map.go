@@ -21,7 +21,7 @@ type PolicyRouteMap struct {
 	LeafPolicyRouteMapDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagPolicyRouteMapRule bool `tfsdk:"-" vyos:"rule,child"`
+	ExistsTagPolicyRouteMapRule bool `tfsdk:"-" vyos:"rule,ignore,child"`
 
 	// Nodes
 }

@@ -28,7 +28,7 @@ type QosPolicyLimiterClass struct {
 	LeafQosPolicyLimiterClassPriority    types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagQosPolicyLimiterClassMatch bool `tfsdk:"-" vyos:"match,child"`
+	ExistsTagQosPolicyLimiterClassMatch bool `tfsdk:"-" vyos:"match,ignore,child"`
 
 	// Nodes
 }

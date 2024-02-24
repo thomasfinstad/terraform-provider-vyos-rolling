@@ -46,14 +46,15 @@ func MarshalVyos(ctx context.Context, data VyosResourceDataModel) (map[string]an
 			"omitempty": false,
 			"child":     false,
 			"tfsdk-id":  false,
+			"ignore":    false,
 		}
 		for _, tag := range fTags {
 			fmt.Printf("\tEnabling flag: %s\n", tag)
 			flags[tag] = true
 		}
-		if flags["child"].(bool) || flags["self-id"].(bool) || flags["parent-id"].(bool) || flags["tfsdk-id"].(bool) {
-			fmt.Printf("\tNot configuring field: %s\n", fName)
-			tflog.Debug(ctx, "Not configuring field", map[string]interface{}{"field-name": fName})
+		if flags["ignore"].(bool) || flags["child"].(bool) || flags["self-id"].(bool) || flags["parent-id"].(bool) || flags["tfsdk-id"].(bool) {
+			fmt.Printf("\tNot configuring field: %s with flags: %v\n", fName, flags)
+			tflog.Debug(ctx, "Not configuring field", map[string]interface{}{"field-name": fName, "flags": flags})
 			continue
 		}
 

@@ -25,7 +25,7 @@ type InterfacesPseudoEthernetVifSDhcpvsixOptionsPd struct {
 	LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsPdLength types.Number `tfsdk:"length" vyos:"length,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesPseudoEthernetVifSDhcpvsixOptionsPdInterface bool `tfsdk:"-" vyos:"interface,child"`
+	ExistsTagInterfacesPseudoEthernetVifSDhcpvsixOptionsPdInterface bool `tfsdk:"-" vyos:"interface,ignore,child"`
 
 	// Nodes
 }

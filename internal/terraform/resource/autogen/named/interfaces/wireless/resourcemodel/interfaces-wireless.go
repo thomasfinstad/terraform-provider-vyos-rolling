@@ -41,8 +41,8 @@ type InterfacesWireless struct {
 	LeafInterfacesWirelessRedirect               types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesWirelessVif  bool `tfsdk:"-" vyos:"vif,child"`
-	ExistsTagInterfacesWirelessVifS bool `tfsdk:"-" vyos:"vif-s,child"`
+	ExistsTagInterfacesWirelessVif  bool `tfsdk:"-" vyos:"vif,ignore,child"`
+	ExistsTagInterfacesWirelessVifS bool `tfsdk:"-" vyos:"vif-s,ignore,child"`
 
 	// Nodes
 	NodeInterfacesWirelessCapabilities    *InterfacesWirelessCapabilities    `tfsdk:"capabilities" vyos:"capabilities,omitempty"`

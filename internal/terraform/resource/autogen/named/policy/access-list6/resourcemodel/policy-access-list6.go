@@ -21,7 +21,7 @@ type PolicyAccessListsix struct {
 	LeafPolicyAccessListsixDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagPolicyAccessListsixRule bool `tfsdk:"-" vyos:"rule,child"`
+	ExistsTagPolicyAccessListsixRule bool `tfsdk:"-" vyos:"rule,ignore,child"`
 
 	// Nodes
 }

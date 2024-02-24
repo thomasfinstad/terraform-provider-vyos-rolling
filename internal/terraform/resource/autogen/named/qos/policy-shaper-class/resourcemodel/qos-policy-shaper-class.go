@@ -34,7 +34,7 @@ type QosPolicyShaperClass struct {
 	LeafQosPolicyShaperClassTarget       types.Number `tfsdk:"target" vyos:"target,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagQosPolicyShaperClassMatch bool `tfsdk:"-" vyos:"match,child"`
+	ExistsTagQosPolicyShaperClassMatch bool `tfsdk:"-" vyos:"match,ignore,child"`
 
 	// Nodes
 }

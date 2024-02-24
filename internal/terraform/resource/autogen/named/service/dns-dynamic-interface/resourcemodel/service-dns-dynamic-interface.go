@@ -22,8 +22,8 @@ type ServiceDNSDynamicInterface struct {
 	LeafServiceDNSDynamicInterfaceIPvsixEnable types.Bool `tfsdk:"ipv6_enable" vyos:"ipv6-enable,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceDNSDynamicInterfaceRfctwoonethreesix bool `tfsdk:"-" vyos:"rfc2136,child"`
-	ExistsTagServiceDNSDynamicInterfaceService           bool `tfsdk:"-" vyos:"service,child"`
+	ExistsTagServiceDNSDynamicInterfaceRfctwoonethreesix bool `tfsdk:"-" vyos:"rfc2136,ignore,child"`
+	ExistsTagServiceDNSDynamicInterfaceService           bool `tfsdk:"-" vyos:"service,ignore,child"`
 
 	// Nodes
 	NodeServiceDNSDynamicInterfaceUseWeb *ServiceDNSDynamicInterfaceUseWeb `tfsdk:"use_web" vyos:"use-web,omitempty"`

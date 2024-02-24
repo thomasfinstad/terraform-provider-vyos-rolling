@@ -10,7 +10,7 @@ type VrfNameProtocolsBgpParametersDistance struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsBgpParametersDistancePrefix bool `tfsdk:"prefix" vyos:"prefix,child"`
+	ExistsTagVrfNameProtocolsBgpParametersDistancePrefix bool `tfsdk:"prefix" vyos:"prefix,ignore,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsBgpParametersDistanceGlobal *VrfNameProtocolsBgpParametersDistanceGlobal `tfsdk:"global" vyos:"global,omitempty"`

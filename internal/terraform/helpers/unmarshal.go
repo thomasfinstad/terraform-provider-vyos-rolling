@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/big"
 	"reflect"
+	"strconv"
 	"strings"
 
 	"github.com/hashicorp/terraform-plugin-framework/diag"
@@ -89,20 +90,50 @@ func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceD
 				fmt.Printf("\tUnmarshalling Number Field: %s\t%s=%s\n", fName, flags["name"].(string), dataValue)
 				tflog.Debug(ctx, "Unmarshalling Number Field", map[string]interface{}{"field-name": fName, flags["name"].(string): dataValue})
 
-				// Use reflection to convert anything (possible) to float, powered by https://stackoverflow.com/a/50008579
-				var floatTypeReflection = reflect.TypeOf(float64(0))
-				dataValueReflection := reflect.ValueOf(dataValue)
-				dataValueReflection = reflect.Indirect(dataValueReflection)
-				if !dataValueReflection.Type().ConvertibleTo(floatTypeReflection) {
-					return fmt.Errorf("cannot convert %v to float64", dataValueReflection.Type())
+				var dataValueF float64
+				switch dataValue := dataValue.(type) {
+				case string:
+					var err error
+					dataValueF, err = strconv.ParseFloat(dataValue, 64)
+					if err != nil {
+						tflog.Error(ctx, "cannot convert string to float64", map[string]interface{}{"value": dataValue})
+						return fmt.Errorf("cannot convert string '%#v' to float64", dataValue)
+					}
+				case int:
+					dataValueF = float64(dataValue)
+				case int8:
+					dataValueF = float64(dataValue)
+				case int16:
+					dataValueF = float64(dataValue)
+				case int32:
+					dataValueF = float64(dataValue)
+				case int64:
+					dataValueF = float64(dataValue)
+				case uint:
+					dataValueF = float64(dataValue)
+				case uint8:
+					dataValueF = float64(dataValue)
+				case uint16:
+					dataValueF = float64(dataValue)
+				case uint32:
+					dataValueF = float64(dataValue)
+				case uint64:
+					dataValueF = float64(dataValue)
+				case float32:
+					dataValueF = float64(dataValue)
+				case float64:
+					dataValueF = float64(dataValue)
+				default:
+					tflog.Error(ctx, "cannot convert UNHANDLED to float64", map[string]interface{}{"value": dataValue})
+					return fmt.Errorf("cannot convert UNHANDLED '%#v' to float64", dataValue)
 				}
-				dataValueFloat := dataValueReflection.Convert(floatTypeReflection).Float()
 
-				bf := big.NewFloat(dataValueFloat)
+				bf := big.NewFloat(dataValueF)
 				tfval = basetypes.NewNumberValue(bf)
 			}
 			tfValueRefection := reflect.ValueOf(tfval)
 			fValue.Set(tfValueRefection)
+			tflog.Trace(ctx, "Setting Value", map[string]interface{}{"tfval": tfval, "tfValueRefection": tfValueRefection, "fValue": fValue})
 
 		case basetypes.ListValue:
 			var tfval basetypes.ListValuable

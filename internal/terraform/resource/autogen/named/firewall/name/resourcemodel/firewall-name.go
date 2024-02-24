@@ -25,7 +25,7 @@ type FirewallName struct {
 	LeafFirewallNameDefaultJumpTarget types.String `tfsdk:"default_jump_target" vyos:"default-jump-target,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagFirewallNameRule bool `tfsdk:"-" vyos:"rule,child"`
+	ExistsTagFirewallNameRule bool `tfsdk:"-" vyos:"rule,ignore,child"`
 
 	// Nodes
 }

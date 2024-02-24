@@ -21,8 +21,8 @@ type ProtocolsStaticRoutesix struct {
 	LeafProtocolsStaticRoutesixDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsStaticRoutesixInterface bool `tfsdk:"-" vyos:"interface,child"`
-	ExistsTagProtocolsStaticRoutesixNextHop   bool `tfsdk:"-" vyos:"next-hop,child"`
+	ExistsTagProtocolsStaticRoutesixInterface bool `tfsdk:"-" vyos:"interface,ignore,child"`
+	ExistsTagProtocolsStaticRoutesixNextHop   bool `tfsdk:"-" vyos:"next-hop,ignore,child"`
 
 	// Nodes
 	NodeProtocolsStaticRoutesixBlackhole *ProtocolsStaticRoutesixBlackhole `tfsdk:"blackhole" vyos:"blackhole,omitempty"`

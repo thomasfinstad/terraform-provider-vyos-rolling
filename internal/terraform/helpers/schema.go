@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"slices"
+	"strconv"
 
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
@@ -26,6 +27,22 @@ func iron(ctx context.Context, vyosPath []string, values map[string]interface{})
 		case string:
 			tflog.Trace(ctx, "ironing string value", map[string]interface{}{"current-vyos-path": cVyosPath, "type": fmt.Sprintf("%T", value), "value": fmt.Sprintf("%#v", value)})
 			val := append(cVyosPath, value)
+			tflog.Trace(ctx, "appending to ret", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret), "val": fmt.Sprintf("%#v", val)})
+			ret = append(ret, val)
+		// LeafNodes
+		case bool:
+			tflog.Trace(ctx, "ironing bool value", map[string]interface{}{"current-vyos-path": cVyosPath, "type": fmt.Sprintf("%T", value), "value": fmt.Sprintf("%#v", value)})
+			if value {
+				val := append(cVyosPath, "{}")
+				tflog.Trace(ctx, "appending to ret", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret), "val": fmt.Sprintf("%#v", val)})
+				ret = append(ret, val)
+			} else {
+				tflog.Trace(ctx, "NOT appending to ret because bool is false", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret)})
+			}
+		// LeafNodes
+		case float64:
+			tflog.Trace(ctx, "ironing string value", map[string]interface{}{"current-vyos-path": cVyosPath, "type": fmt.Sprintf("%T", value), "value": fmt.Sprintf("%#v", value)})
+			val := append(cVyosPath, strconv.FormatFloat(value, 'f', -1, 64))
 			tflog.Trace(ctx, "appending to ret", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret), "val": fmt.Sprintf("%#v", val)})
 			ret = append(ret, val)
 		// LeafNodes multi value

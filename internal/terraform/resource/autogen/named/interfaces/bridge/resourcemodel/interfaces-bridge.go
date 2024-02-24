@@ -36,7 +36,7 @@ type InterfacesBrIDge struct {
 	LeafInterfacesBrIDgeRedirect          types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesBrIDgeVif bool `tfsdk:"-" vyos:"vif,child"`
+	ExistsTagInterfacesBrIDgeVif bool `tfsdk:"-" vyos:"vif,ignore,child"`
 
 	// Nodes
 	NodeInterfacesBrIDgeDhcpOptions     *InterfacesBrIDgeDhcpOptions     `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`

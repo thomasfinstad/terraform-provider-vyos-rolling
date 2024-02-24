@@ -18,8 +18,8 @@ type InterfacesOpenvpnServer struct {
 	LeafInterfacesOpenvpnServerTopology                  types.String `tfsdk:"topology" vyos:"topology,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesOpenvpnServerClient    bool `tfsdk:"client" vyos:"client,child"`
-	ExistsTagInterfacesOpenvpnServerPushRoute bool `tfsdk:"push_route" vyos:"push-route,child"`
+	ExistsTagInterfacesOpenvpnServerClient    bool `tfsdk:"client" vyos:"client,ignore,child"`
+	ExistsTagInterfacesOpenvpnServerPushRoute bool `tfsdk:"push_route" vyos:"push-route,ignore,child"`
 
 	// Nodes
 	NodeInterfacesOpenvpnServerClientIPPool     *InterfacesOpenvpnServerClientIPPool     `tfsdk:"client_ip_pool" vyos:"client-ip-pool,omitempty"`

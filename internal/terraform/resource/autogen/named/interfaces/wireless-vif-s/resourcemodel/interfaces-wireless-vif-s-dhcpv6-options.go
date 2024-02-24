@@ -16,7 +16,7 @@ type InterfacesWirelessVifSDhcpvsixOptions struct {
 	LeafInterfacesWirelessVifSDhcpvsixOptionsTemporary      types.Bool   `tfsdk:"temporary" vyos:"temporary,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesWirelessVifSDhcpvsixOptionsPd bool `tfsdk:"pd" vyos:"pd,child"`
+	ExistsTagInterfacesWirelessVifSDhcpvsixOptionsPd bool `tfsdk:"pd" vyos:"pd,ignore,child"`
 
 	// Nodes
 }

@@ -14,7 +14,7 @@ type VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance struct {
 	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceLocal    types.Number `tfsdk:"local" vyos:"local,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix bool `tfsdk:"prefix" vyos:"prefix,child"`
+	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix bool `tfsdk:"prefix" vyos:"prefix,ignore,child"`
 
 	// Nodes
 }

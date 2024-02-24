@@ -21,8 +21,8 @@ type ProtocolsStaticTable struct {
 	LeafProtocolsStaticTableDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsStaticTableRoute    bool `tfsdk:"-" vyos:"route,child"`
-	ExistsTagProtocolsStaticTableRoutesix bool `tfsdk:"-" vyos:"route6,child"`
+	ExistsTagProtocolsStaticTableRoute    bool `tfsdk:"-" vyos:"route,ignore,child"`
+	ExistsTagProtocolsStaticTableRoutesix bool `tfsdk:"-" vyos:"route6,ignore,child"`
 
 	// Nodes
 }

@@ -20,7 +20,7 @@ type SystemSyslogFile struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagSystemSyslogFileFacility bool `tfsdk:"-" vyos:"facility,child"`
+	ExistsTagSystemSyslogFileFacility bool `tfsdk:"-" vyos:"facility,ignore,child"`
 
 	// Nodes
 	NodeSystemSyslogFileArchive *SystemSyslogFileArchive `tfsdk:"archive" vyos:"archive,omitempty"`

@@ -21,7 +21,7 @@ type PolicyExtcommunityList struct {
 	LeafPolicyExtcommunityListDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagPolicyExtcommunityListRule bool `tfsdk:"-" vyos:"rule,child"`
+	ExistsTagPolicyExtcommunityListRule bool `tfsdk:"-" vyos:"rule,ignore,child"`
 
 	// Nodes
 }

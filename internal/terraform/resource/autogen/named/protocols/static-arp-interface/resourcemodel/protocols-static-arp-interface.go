@@ -20,7 +20,7 @@ type ProtocolsStaticArpInterface struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsStaticArpInterfaceAddress bool `tfsdk:"-" vyos:"address,child"`
+	ExistsTagProtocolsStaticArpInterfaceAddress bool `tfsdk:"-" vyos:"address,ignore,child"`
 
 	// Nodes
 }

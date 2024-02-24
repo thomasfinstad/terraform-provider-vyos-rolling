@@ -12,7 +12,7 @@ type ProtocolsRIPInterfaceAuthentication struct {
 	LeafProtocolsRIPInterfaceAuthenticationPlaintextPassword types.String `tfsdk:"plaintext_password" vyos:"plaintext-password,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsRIPInterfaceAuthenticationMdfive bool `tfsdk:"md5" vyos:"md5,child"`
+	ExistsTagProtocolsRIPInterfaceAuthenticationMdfive bool `tfsdk:"md5" vyos:"md5,ignore,child"`
 
 	// Nodes
 }

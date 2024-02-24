@@ -13,8 +13,8 @@ type VrfNameProtocolsBgp struct {
 	LeafVrfNameProtocolsBgpRouteMap types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsBgpNeighbor  bool `tfsdk:"neighbor" vyos:"neighbor,child"`
-	ExistsTagVrfNameProtocolsBgpPeerGroup bool `tfsdk:"peer_group" vyos:"peer-group,child"`
+	ExistsTagVrfNameProtocolsBgpNeighbor  bool `tfsdk:"neighbor" vyos:"neighbor,ignore,child"`
+	ExistsTagVrfNameProtocolsBgpPeerGroup bool `tfsdk:"peer_group" vyos:"peer-group,ignore,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsBgpAddressFamily *VrfNameProtocolsBgpAddressFamily `tfsdk:"address_family" vyos:"address-family,omitempty"`

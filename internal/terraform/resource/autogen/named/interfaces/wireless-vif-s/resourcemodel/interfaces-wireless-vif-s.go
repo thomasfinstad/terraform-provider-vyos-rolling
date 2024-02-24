@@ -32,7 +32,7 @@ type InterfacesWirelessVifS struct {
 	LeafInterfacesWirelessVifSVrf               types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesWirelessVifSVifC bool `tfsdk:"-" vyos:"vif-c,child"`
+	ExistsTagInterfacesWirelessVifSVifC bool `tfsdk:"-" vyos:"vif-c,ignore,child"`
 
 	// Nodes
 	NodeInterfacesWirelessVifSDhcpOptions     *InterfacesWirelessVifSDhcpOptions     `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`

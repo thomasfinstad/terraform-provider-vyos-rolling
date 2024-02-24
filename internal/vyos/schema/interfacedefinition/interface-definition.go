@@ -102,3 +102,45 @@ func (i *InterfaceDefinition) TagNodes() (tagNodes []*TagNode, ok bool) {
 
 	return tagNodes, ok
 }
+
+// Nodes returns all Nodes that contain a LeafNode that is not inside a TagNode
+func (i *InterfaceDefinition) Nodes() (nodes []*Node, ok bool) {
+	var recurse func(NodeParent) []*Node
+	recurse = func(parent NodeParent) []*Node {
+		var ret []*Node
+		children := parent.GetChildren()
+
+		if children == nil {
+			fmt.Printf("[%s] Skipping children:nil\n", parent.BaseName())
+			return ret
+		}
+
+		// Add self is containing LeafNodes
+		if len(children.LeafNode) > 0 {
+			ret = append(ret, parent.(*Node))
+		}
+
+		// Recurse for children
+		for _, n := range children.Nodes() {
+			ret = append(ret, recurse(n)...)
+		}
+
+		return ret
+	}
+
+	rootNode, err := i.GetRootNode()
+	if err != nil {
+		fmt.Printf("BaseNodes Skipping rootnode:nil i:%v\n", i)
+		return nil, false
+	}
+
+	nodes = recurse(rootNode)
+	ok = len(nodes) > 0
+
+	// Let node know it is the basenode (unlikely to be useful)
+	for _, node := range nodes {
+		node.IsBaseNode = true
+	}
+
+	return nodes, ok
+}

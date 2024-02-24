@@ -20,7 +20,7 @@ type SystemSyslogUser struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagSystemSyslogUserFacility bool `tfsdk:"-" vyos:"facility,child"`
+	ExistsTagSystemSyslogUserFacility bool `tfsdk:"-" vyos:"facility,ignore,child"`
 
 	// Nodes
 }

@@ -89,7 +89,11 @@ func (r *systemSyslogConsoleFacility) Read(ctx context.Context, req resource.Rea
 	} else {
 		// Populate resource model
 		if responseAssrt, ok := response.(map[string]any); ok {
-			helpers.UnmarshalVyos(ctx, responseAssrt, stateModel)
+			err := helpers.UnmarshalVyos(ctx, responseAssrt, stateModel)
+			if err != nil {
+				resp.Diagnostics.AddError("Vyos API response unmarshalling error", fmt.Sprintf("error=%#v", err))
+				return
+			}
 		} else {
 			resp.Diagnostics.AddError("Wrong API return type, expected map[string]any.", fmt.Sprintf("response=%#v", response))
 			return

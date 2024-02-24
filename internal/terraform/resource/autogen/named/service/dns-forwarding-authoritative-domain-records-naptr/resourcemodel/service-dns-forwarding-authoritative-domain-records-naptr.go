@@ -25,7 +25,7 @@ type ServiceDNSForwardingAuthoritativeDomainRecordsNaptr struct {
 	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrDisable types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule bool `tfsdk:"-" vyos:"rule,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule bool `tfsdk:"-" vyos:"rule,ignore,child"`
 
 	// Nodes
 }

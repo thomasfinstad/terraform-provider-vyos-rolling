@@ -33,7 +33,7 @@ type HighAvailabilityVrrpGroup struct {
 	LeafHighAvailabilityVrrpGroupVrID                               types.Number `tfsdk:"vrid" vyos:"vrid,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagHighAvailabilityVrrpGroupAddress bool `tfsdk:"-" vyos:"address,child"`
+	ExistsTagHighAvailabilityVrrpGroupAddress bool `tfsdk:"-" vyos:"address,ignore,child"`
 
 	// Nodes
 	NodeHighAvailabilityVrrpGroupGarp             *HighAvailabilityVrrpGroupGarp             `tfsdk:"garp" vyos:"garp,omitempty"`

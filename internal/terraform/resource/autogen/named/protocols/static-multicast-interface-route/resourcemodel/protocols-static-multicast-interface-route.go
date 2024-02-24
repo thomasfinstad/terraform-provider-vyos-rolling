@@ -20,7 +20,7 @@ type ProtocolsStaticMulticastInterfaceRoute struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsStaticMulticastInterfaceRouteNextHopInterface bool `tfsdk:"-" vyos:"next-hop-interface,child"`
+	ExistsTagProtocolsStaticMulticastInterfaceRouteNextHopInterface bool `tfsdk:"-" vyos:"next-hop-interface,ignore,child"`
 
 	// Nodes
 }

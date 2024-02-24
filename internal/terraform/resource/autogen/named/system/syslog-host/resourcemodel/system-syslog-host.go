@@ -21,7 +21,7 @@ type SystemSyslogHost struct {
 	LeafSystemSyslogHostPort types.Number `tfsdk:"port" vyos:"port,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagSystemSyslogHostFacility bool `tfsdk:"-" vyos:"facility,child"`
+	ExistsTagSystemSyslogHostFacility bool `tfsdk:"-" vyos:"facility,ignore,child"`
 
 	// Nodes
 	NodeSystemSyslogHostFormat *SystemSyslogHostFormat `tfsdk:"format" vyos:"format,omitempty"`

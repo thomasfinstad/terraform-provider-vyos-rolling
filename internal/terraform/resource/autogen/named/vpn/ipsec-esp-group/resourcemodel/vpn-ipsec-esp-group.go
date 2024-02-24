@@ -27,7 +27,7 @@ type VpnIPsecEspGroup struct {
 	LeafVpnIPsecEspGroupPfs         types.String `tfsdk:"pfs" vyos:"pfs,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVpnIPsecEspGroupProposal bool `tfsdk:"-" vyos:"proposal,child"`
+	ExistsTagVpnIPsecEspGroupProposal bool `tfsdk:"-" vyos:"proposal,ignore,child"`
 
 	// Nodes
 }

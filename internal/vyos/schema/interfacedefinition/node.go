@@ -233,8 +233,10 @@ func (o *Node) AncestorDescription() string {
 
 	// Make our own description bold
 	desc += "<b>\n"
-	if h := o.GetProperties().Help; h != nil {
-		desc += fmt.Sprintf("%s\n", strings.Join(h, "\n"))
+	if p := o.GetProperties(); p != nil {
+		if h := p.Help; h != nil {
+			desc += fmt.Sprintf("%s\n", strings.Join(h, "\n"))
+		}
 	}
 	desc += "</b>\n"
 	desc += "</div>\n"

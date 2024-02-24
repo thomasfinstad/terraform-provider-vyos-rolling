@@ -21,7 +21,7 @@ type QosPolicyRoundRobin struct {
 	LeafQosPolicyRoundRobinDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagQosPolicyRoundRobinClass bool `tfsdk:"-" vyos:"class,child"`
+	ExistsTagQosPolicyRoundRobinClass bool `tfsdk:"-" vyos:"class,ignore,child"`
 
 	// Nodes
 	NodeQosPolicyRoundRobinDefault *QosPolicyRoundRobinDefault `tfsdk:"default" vyos:"default,omitempty"`

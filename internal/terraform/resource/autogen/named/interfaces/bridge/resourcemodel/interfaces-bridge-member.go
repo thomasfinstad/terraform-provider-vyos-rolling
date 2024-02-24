@@ -10,7 +10,7 @@ type InterfacesBrIDgeMember struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesBrIDgeMemberInterface bool `tfsdk:"interface" vyos:"interface,child"`
+	ExistsTagInterfacesBrIDgeMemberInterface bool `tfsdk:"interface" vyos:"interface,ignore,child"`
 
 	// Nodes
 }

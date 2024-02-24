@@ -31,8 +31,8 @@ type InterfacesPseudoEthernet struct {
 	LeafInterfacesPseudoEthernetRedirect          types.String `tfsdk:"redirect" vyos:"redirect,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesPseudoEthernetVifS bool `tfsdk:"-" vyos:"vif-s,child"`
-	ExistsTagInterfacesPseudoEthernetVif  bool `tfsdk:"-" vyos:"vif,child"`
+	ExistsTagInterfacesPseudoEthernetVifS bool `tfsdk:"-" vyos:"vif-s,ignore,child"`
+	ExistsTagInterfacesPseudoEthernetVif  bool `tfsdk:"-" vyos:"vif,ignore,child"`
 
 	// Nodes
 	NodeInterfacesPseudoEthernetDhcpOptions     *InterfacesPseudoEthernetDhcpOptions     `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`

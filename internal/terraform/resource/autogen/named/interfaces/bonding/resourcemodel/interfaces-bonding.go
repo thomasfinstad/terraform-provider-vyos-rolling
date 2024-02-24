@@ -36,8 +36,8 @@ type InterfacesBonding struct {
 	LeafInterfacesBondingXdp               types.Bool   `tfsdk:"xdp" vyos:"xdp,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesBondingVifS bool `tfsdk:"-" vyos:"vif-s,child"`
-	ExistsTagInterfacesBondingVif  bool `tfsdk:"-" vyos:"vif,child"`
+	ExistsTagInterfacesBondingVifS bool `tfsdk:"-" vyos:"vif-s,ignore,child"`
+	ExistsTagInterfacesBondingVif  bool `tfsdk:"-" vyos:"vif,ignore,child"`
 
 	// Nodes
 	NodeInterfacesBondingArpMonitor      *InterfacesBondingArpMonitor      `tfsdk:"arp_monitor" vyos:"arp-monitor,omitempty"`

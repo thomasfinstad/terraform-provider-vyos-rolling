@@ -10,7 +10,7 @@ type VrfNameProtocolsOspfRedistribute struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsOspfRedistributeTable bool `tfsdk:"table" vyos:"table,child"`
+	ExistsTagVrfNameProtocolsOspfRedistributeTable bool `tfsdk:"table" vyos:"table,ignore,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsOspfRedistributeBgp       *VrfNameProtocolsOspfRedistributeBgp       `tfsdk:"bgp" vyos:"bgp,omitempty"`

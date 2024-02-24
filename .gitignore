@@ -2,6 +2,11 @@
 .build/
 ERROR-FILE
 dist/
+.terraform.lock.hcl
+tmp/
+temp/
+.tmp
+.temp
 
 
 ###

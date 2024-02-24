@@ -2,8 +2,8 @@
 default: plan
 
 .PHONY: init
-init: provider.tf .terraform.lock.hcl .terraform ../.terraform-version ~/.terraform.d/plugins/
-	rm -rf .terraform .terraform.lock.hcl
+init: provider.tf .terraform ../.terraform-version ~/.terraform.d/plugins/
+	-rm -rf .terraform .terraform.lock.hcl
 	terraform init -upgrade
 
 .PHONY: trace

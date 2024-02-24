@@ -29,7 +29,7 @@ type QosPolicyPriorityQueueClass struct {
 	LeafQosPolicyPriorityQueueClassTarget       types.Number `tfsdk:"target" vyos:"target,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagQosPolicyPriorityQueueClassMatch bool `tfsdk:"-" vyos:"match,child"`
+	ExistsTagQosPolicyPriorityQueueClassMatch bool `tfsdk:"-" vyos:"match,ignore,child"`
 
 	// Nodes
 }

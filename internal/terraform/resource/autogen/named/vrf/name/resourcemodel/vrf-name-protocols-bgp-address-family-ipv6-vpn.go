@@ -10,7 +10,7 @@ type VrfNameProtocolsBgpAddressFamilyIPvsixVpn struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork bool `tfsdk:"network" vyos:"network,child"`
+	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork bool `tfsdk:"network" vyos:"network,ignore,child"`
 
 	// Nodes
 }

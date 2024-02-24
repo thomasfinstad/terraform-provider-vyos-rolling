@@ -12,7 +12,7 @@ type InterfacesWirelessSecURItyWpaRadius struct {
 	LeafInterfacesWirelessSecURItyWpaRadiusSourceAddress types.String `tfsdk:"source_address" vyos:"source-address,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesWirelessSecURItyWpaRadiusServer bool `tfsdk:"server" vyos:"server,child"`
+	ExistsTagInterfacesWirelessSecURItyWpaRadiusServer bool `tfsdk:"server" vyos:"server,ignore,child"`
 
 	// Nodes
 }

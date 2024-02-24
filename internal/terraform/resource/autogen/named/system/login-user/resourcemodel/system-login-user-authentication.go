@@ -13,7 +13,7 @@ type SystemLoginUserAuthentication struct {
 	LeafSystemLoginUserAuthenticationPlaintextPassword types.String `tfsdk:"plaintext_password" vyos:"plaintext-password,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagSystemLoginUserAuthenticationPublicKeys bool `tfsdk:"public_keys" vyos:"public-keys,child"`
+	ExistsTagSystemLoginUserAuthenticationPublicKeys bool `tfsdk:"public_keys" vyos:"public-keys,ignore,child"`
 
 	// Nodes
 	NodeSystemLoginUserAuthenticationOtp *SystemLoginUserAuthenticationOtp `tfsdk:"otp" vyos:"otp,omitempty"`

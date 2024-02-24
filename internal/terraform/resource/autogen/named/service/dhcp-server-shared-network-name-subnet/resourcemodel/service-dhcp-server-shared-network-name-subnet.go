@@ -48,9 +48,9 @@ type ServiceDhcpServerSharedNetworkNameSubnet struct {
 	LeafServiceDhcpServerSharedNetworkNameSubnetWpadURL             types.String `tfsdk:"wpad_url" vyos:"wpad-url,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceDhcpServerSharedNetworkNameSubnetRange         bool `tfsdk:"-" vyos:"range,child"`
-	ExistsTagServiceDhcpServerSharedNetworkNameSubnetStaticMapping bool `tfsdk:"-" vyos:"static-mapping,child"`
-	ExistsTagServiceDhcpServerSharedNetworkNameSubnetStaticRoute   bool `tfsdk:"-" vyos:"static-route,child"`
+	ExistsTagServiceDhcpServerSharedNetworkNameSubnetRange         bool `tfsdk:"-" vyos:"range,ignore,child"`
+	ExistsTagServiceDhcpServerSharedNetworkNameSubnetStaticMapping bool `tfsdk:"-" vyos:"static-mapping,ignore,child"`
+	ExistsTagServiceDhcpServerSharedNetworkNameSubnetStaticRoute   bool `tfsdk:"-" vyos:"static-route,ignore,child"`
 
 	// Nodes
 	NodeServiceDhcpServerSharedNetworkNameSubnetVendorOption *ServiceDhcpServerSharedNetworkNameSubnetVendorOption `tfsdk:"vendor_option" vyos:"vendor-option,omitempty"`

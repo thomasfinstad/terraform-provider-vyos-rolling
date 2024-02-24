@@ -30,7 +30,7 @@ type InterfacesWireguard struct {
 	LeafInterfacesWireguardVrf         types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesWireguardPeer bool `tfsdk:"-" vyos:"peer,child"`
+	ExistsTagInterfacesWireguardPeer bool `tfsdk:"-" vyos:"peer,ignore,child"`
 
 	// Nodes
 	NodeInterfacesWireguardMirror *InterfacesWireguardMirror `tfsdk:"mirror" vyos:"mirror,omitempty"`

@@ -12,7 +12,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
-	resourcefull "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen"
 )
 
 // Ensure ScaffoldingProvider satisfies various provider interfaces.
@@ -120,7 +120,7 @@ func (p *VyosProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 
 // Resources method to define the provider's resources.
 func (p *VyosProvider) Resources(ctx context.Context) []func() resource.Resource {
-	return resourcefull.GetResources()
+	return autogen.GetResources()
 }
 
 // DataSources method to define the provider's data sources.

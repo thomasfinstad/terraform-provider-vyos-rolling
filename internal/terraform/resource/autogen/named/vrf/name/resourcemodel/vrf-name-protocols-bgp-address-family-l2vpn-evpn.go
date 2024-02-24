@@ -18,7 +18,7 @@ type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn struct {
 	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRtAutoDerive       types.Bool   `tfsdk:"rt_auto_derive" vyos:"rt-auto-derive,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni bool `tfsdk:"vni" vyos:"vni,child"`
+	ExistsTagVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni bool `tfsdk:"vni" vyos:"vni,ignore,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise   *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise   `tfsdk:"advertise" vyos:"advertise,omitempty"`

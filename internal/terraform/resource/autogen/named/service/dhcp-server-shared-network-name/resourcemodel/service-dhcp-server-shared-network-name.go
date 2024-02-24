@@ -30,7 +30,7 @@ type ServiceDhcpServerSharedNetworkName struct {
 	LeafServiceDhcpServerSharedNetworkNameSharedNetworkParameters types.List   `tfsdk:"shared_network_parameters" vyos:"shared-network-parameters,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceDhcpServerSharedNetworkNameSubnet bool `tfsdk:"-" vyos:"subnet,child"`
+	ExistsTagServiceDhcpServerSharedNetworkNameSubnet bool `tfsdk:"-" vyos:"subnet,ignore,child"`
 
 	// Nodes
 }

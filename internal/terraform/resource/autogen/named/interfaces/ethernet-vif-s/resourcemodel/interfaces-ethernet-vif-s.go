@@ -32,7 +32,7 @@ type InterfacesEthernetVifS struct {
 	LeafInterfacesEthernetVifSVrf               types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesEthernetVifSVifC bool `tfsdk:"-" vyos:"vif-c,child"`
+	ExistsTagInterfacesEthernetVifSVifC bool `tfsdk:"-" vyos:"vif-c,ignore,child"`
 
 	// Nodes
 	NodeInterfacesEthernetVifSDhcpOptions     *InterfacesEthernetVifSDhcpOptions     `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`
