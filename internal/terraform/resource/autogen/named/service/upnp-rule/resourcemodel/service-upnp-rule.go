@@ -14,9 +14,9 @@ import (
 
 // ServiceUpnpRule describes the resource data model.
 type ServiceUpnpRule struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafServiceUpnpRuleDisable           types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`

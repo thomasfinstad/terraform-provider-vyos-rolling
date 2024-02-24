@@ -12,7 +12,7 @@ import (
 
 // SystemConntrackLogUDP describes the resource data model.
 type SystemConntrackLogUDP struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemConntrackLogUDPDestroy types.Bool `tfsdk:"destroy" vyos:"destroy,omitempty"`

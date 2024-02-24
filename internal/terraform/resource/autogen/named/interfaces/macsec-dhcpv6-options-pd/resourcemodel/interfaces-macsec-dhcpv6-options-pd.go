@@ -13,9 +13,9 @@ import (
 
 // InterfacesMacsecDhcpvsixOptionsPd describes the resource data model.
 type InterfacesMacsecDhcpvsixOptionsPd struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"pd_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"pd_id" vyos:"-,self-id"`
 
 	ParentIDInterfacesMacsec types.String `tfsdk:"macsec" vyos:"macsec,parent-id"`
 

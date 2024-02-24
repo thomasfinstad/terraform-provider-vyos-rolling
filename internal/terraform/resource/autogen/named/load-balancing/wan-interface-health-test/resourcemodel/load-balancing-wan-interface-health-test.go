@@ -13,9 +13,9 @@ import (
 
 // LoadBalancingWanInterfaceHealthTest describes the resource data model.
 type LoadBalancingWanInterfaceHealthTest struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"test_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"test_id" vyos:"-,self-id"`
 
 	ParentIDLoadBalancingWanInterfaceHealth types.String `tfsdk:"interface_health" vyos:"interface-health,parent-id"`
 

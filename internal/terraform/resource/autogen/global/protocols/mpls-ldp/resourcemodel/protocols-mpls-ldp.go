@@ -11,7 +11,7 @@ import (
 
 // ProtocolsMplsLdp describes the resource data model.
 type ProtocolsMplsLdp struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsMplsLdpRouterID  types.String `tfsdk:"router_id" vyos:"router-id,omitempty"`

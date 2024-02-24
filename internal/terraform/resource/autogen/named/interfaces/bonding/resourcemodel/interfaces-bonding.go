@@ -14,9 +14,9 @@ import (
 
 // InterfacesBonding describes the resource data model.
 type InterfacesBonding struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"bonding_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"bonding_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafInterfacesBondingAddress           types.List   `tfsdk:"address" vyos:"address,omitempty"`

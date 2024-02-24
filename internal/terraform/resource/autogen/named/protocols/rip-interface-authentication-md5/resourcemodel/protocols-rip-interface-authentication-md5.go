@@ -13,9 +13,9 @@ import (
 
 // ProtocolsRIPInterfaceAuthenticationMdfive describes the resource data model.
 type ProtocolsRIPInterfaceAuthenticationMdfive struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"md5_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"md5_id" vyos:"-,self-id"`
 
 	ParentIDProtocolsRIPInterface types.String `tfsdk:"interface" vyos:"interface,parent-id"`
 

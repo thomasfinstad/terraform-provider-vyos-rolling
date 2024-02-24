@@ -12,7 +12,7 @@ import (
 
 // ServicePppoeServerPppOptions describes the resource data model.
 type ServicePppoeServerPppOptions struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServicePppoeServerPppOptionsMinMtu                 types.String `tfsdk:"min_mtu" vyos:"min-mtu,omitempty"`

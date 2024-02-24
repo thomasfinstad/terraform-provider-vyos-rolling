@@ -11,7 +11,7 @@ import (
 
 // ProtocolsIsisSegmentRouting describes the resource data model.
 type ProtocolsIsisSegmentRouting struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsIsisSegmentRoutingMaximumLabelDepth types.Number `tfsdk:"maximum_label_depth" vyos:"maximum-label-depth,omitempty"`

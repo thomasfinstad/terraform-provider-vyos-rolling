@@ -12,7 +12,7 @@ import (
 
 // ServicePppoeServerAuthenticationRadiusRateLimit describes the resource data model.
 type ServicePppoeServerAuthenticationRadiusRateLimit struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServicePppoeServerAuthenticationRadiusRateLimitAttribute  types.String `tfsdk:"attribute" vyos:"attribute,omitempty"`

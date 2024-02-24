@@ -14,9 +14,9 @@ import (
 
 // ProtocolsBfdProfile describes the resource data model.
 type ProtocolsBfdProfile struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"profile_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"profile_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafProtocolsBfdProfileEchoMode types.Bool `tfsdk:"echo_mode" vyos:"echo-mode,omitempty"`

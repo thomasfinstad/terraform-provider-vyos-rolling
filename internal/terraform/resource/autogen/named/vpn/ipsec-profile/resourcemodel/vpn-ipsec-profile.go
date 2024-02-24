@@ -14,9 +14,9 @@ import (
 
 // VpnIPsecProfile describes the resource data model.
 type VpnIPsecProfile struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"profile_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"profile_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafVpnIPsecProfileDisable  types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`

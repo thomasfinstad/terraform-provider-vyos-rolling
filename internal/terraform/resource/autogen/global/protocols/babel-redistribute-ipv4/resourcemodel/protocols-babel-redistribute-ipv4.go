@@ -12,7 +12,7 @@ import (
 
 // ProtocolsBabelRedistributeIPvfour describes the resource data model.
 type ProtocolsBabelRedistributeIPvfour struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBabelRedistributeIPvfourBgp       types.Bool `tfsdk:"bgp" vyos:"bgp,omitempty"`

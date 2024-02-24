@@ -11,7 +11,7 @@ import (
 
 // HighAvailabilityVrrpGlobalParameters describes the resource data model.
 type HighAvailabilityVrrpGlobalParameters struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafHighAvailabilityVrrpGlobalParametersStartupDelay types.Number `tfsdk:"startup_delay" vyos:"startup-delay,omitempty"`

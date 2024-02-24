@@ -12,7 +12,7 @@ import (
 
 // VpnOpenconnectAccountingMode describes the resource data model.
 type VpnOpenconnectAccountingMode struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafVpnOpenconnectAccountingModeRadius types.Bool `tfsdk:"radius" vyos:"radius,omitempty"`

@@ -11,7 +11,7 @@ import (
 
 // SystemIPArp describes the resource data model.
 type SystemIPArp struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemIPArpTableSize types.String `tfsdk:"table_size" vyos:"table-size,omitempty"`

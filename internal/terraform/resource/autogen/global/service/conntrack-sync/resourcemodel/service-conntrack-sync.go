@@ -12,7 +12,7 @@ import (
 
 // ServiceConntrackSync describes the resource data model.
 type ServiceConntrackSync struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceConntrackSyncAcceptProtocol       types.List   `tfsdk:"accept_protocol" vyos:"accept-protocol,omitempty"`

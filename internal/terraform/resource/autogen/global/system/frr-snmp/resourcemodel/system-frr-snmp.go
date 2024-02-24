@@ -12,7 +12,7 @@ import (
 
 // SystemFrrSnmp describes the resource data model.
 type SystemFrrSnmp struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemFrrSnmpBgpd     types.Bool `tfsdk:"bgpd" vyos:"bgpd,omitempty"`

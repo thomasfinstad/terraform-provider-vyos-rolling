@@ -11,7 +11,7 @@ import (
 
 // VpnPptpRemoteAccess describes the resource data model.
 type VpnPptpRemoteAccess struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafVpnPptpRemoteAccessMtu            types.String `tfsdk:"mtu" vyos:"mtu,omitempty"`

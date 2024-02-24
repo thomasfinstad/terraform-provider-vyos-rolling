@@ -12,7 +12,7 @@ import (
 
 // ServiceHTTPSAPIGraphql describes the resource data model.
 type ServiceHTTPSAPIGraphql struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceHTTPSAPIGraphqlIntrospection types.Bool `tfsdk:"introspection" vyos:"introspection,omitempty"`

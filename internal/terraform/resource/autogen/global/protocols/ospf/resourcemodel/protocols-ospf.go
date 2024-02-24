@@ -11,7 +11,7 @@ import (
 
 // ProtocolsOspf describes the resource data model.
 type ProtocolsOspf struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsOspfDefaultMetric    types.Number `tfsdk:"default_metric" vyos:"default-metric,omitempty"`

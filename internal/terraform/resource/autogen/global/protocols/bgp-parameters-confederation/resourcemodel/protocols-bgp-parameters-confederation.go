@@ -11,7 +11,7 @@ import (
 
 // ProtocolsBgpParametersConfederation describes the resource data model.
 type ProtocolsBgpParametersConfederation struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpParametersConfederationIDentifier types.Number `tfsdk:"identifier" vyos:"identifier,omitempty"`

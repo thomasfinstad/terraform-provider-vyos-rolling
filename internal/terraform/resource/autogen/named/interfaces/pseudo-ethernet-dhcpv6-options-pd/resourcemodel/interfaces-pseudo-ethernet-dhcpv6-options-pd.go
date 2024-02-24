@@ -13,9 +13,9 @@ import (
 
 // InterfacesPseudoEthernetDhcpvsixOptionsPd describes the resource data model.
 type InterfacesPseudoEthernetDhcpvsixOptionsPd struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"pd_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"pd_id" vyos:"-,self-id"`
 
 	ParentIDInterfacesPseudoEthernet types.String `tfsdk:"pseudo_ethernet" vyos:"pseudo-ethernet,parent-id"`
 

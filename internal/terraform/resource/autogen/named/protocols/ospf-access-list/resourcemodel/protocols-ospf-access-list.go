@@ -13,9 +13,9 @@ import (
 
 // ProtocolsOspfAccessList describes the resource data model.
 type ProtocolsOspfAccessList struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"access_list_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"access_list_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafProtocolsOspfAccessListExport types.List `tfsdk:"export" vyos:"export,omitempty"`

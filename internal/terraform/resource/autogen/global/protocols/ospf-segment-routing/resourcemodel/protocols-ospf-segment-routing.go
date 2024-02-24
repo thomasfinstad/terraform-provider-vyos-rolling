@@ -11,7 +11,7 @@ import (
 
 // ProtocolsOspfSegmentRouting describes the resource data model.
 type ProtocolsOspfSegmentRouting struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsOspfSegmentRoutingMaximumLabelDepth types.Number `tfsdk:"maximum_label_depth" vyos:"maximum-label-depth,omitempty"`

@@ -14,9 +14,9 @@ import (
 
 // InterfacesWireguardPeer describes the resource data model.
 type InterfacesWireguardPeer struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"peer_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"peer_id" vyos:"-,self-id"`
 
 	ParentIDInterfacesWireguard types.String `tfsdk:"wireguard" vyos:"wireguard,parent-id"`
 

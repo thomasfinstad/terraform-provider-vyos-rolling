@@ -11,7 +11,7 @@ import (
 
 // ServiceTCPRekey describes the resource data model.
 type ServiceTCPRekey struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceTCPRekeyData types.Number `tfsdk:"data" vyos:"data,omitempty"`

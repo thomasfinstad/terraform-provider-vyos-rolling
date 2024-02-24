@@ -13,9 +13,9 @@ import (
 
 // PolicyPrefixList describes the resource data model.
 type PolicyPrefixList struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"prefix_list_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"prefix_list_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafPolicyPrefixListDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`

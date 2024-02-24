@@ -12,7 +12,7 @@ import (
 
 // ServiceIDsDdosProtectionMode describes the resource data model.
 type ServiceIDsDdosProtectionMode struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceIDsDdosProtectionModeMirror types.Bool `tfsdk:"mirror" vyos:"mirror,omitempty"`

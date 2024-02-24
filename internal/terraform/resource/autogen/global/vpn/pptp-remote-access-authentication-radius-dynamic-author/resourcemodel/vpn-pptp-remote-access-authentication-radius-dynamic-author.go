@@ -11,7 +11,7 @@ import (
 
 // VpnPptpRemoteAccessAuthenticationRadiusDynamicAuthor describes the resource data model.
 type VpnPptpRemoteAccessAuthenticationRadiusDynamicAuthor struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafVpnPptpRemoteAccessAuthenticationRadiusDynamicAuthorServer types.String `tfsdk:"server" vyos:"server,omitempty"`

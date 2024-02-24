@@ -14,9 +14,9 @@ import (
 
 // ServiceRouterAdvertInterface describes the resource data model.
 type ServiceRouterAdvertInterface struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafServiceRouterAdvertInterfaceHopLimit           types.Number `tfsdk:"hop_limit" vyos:"hop-limit,omitempty"`

@@ -12,7 +12,7 @@ import (
 
 // ProtocolsMplsLdpExportIPvfour describes the resource data model.
 type ProtocolsMplsLdpExportIPvfour struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsMplsLdpExportIPvfourExplicitNull types.Bool `tfsdk:"explicit_null" vyos:"explicit-null,omitempty"`

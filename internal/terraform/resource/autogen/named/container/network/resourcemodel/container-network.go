@@ -13,9 +13,9 @@ import (
 
 // ContainerNetwork describes the resource data model.
 type ContainerNetwork struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"network_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"network_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafContainerNetworkDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`

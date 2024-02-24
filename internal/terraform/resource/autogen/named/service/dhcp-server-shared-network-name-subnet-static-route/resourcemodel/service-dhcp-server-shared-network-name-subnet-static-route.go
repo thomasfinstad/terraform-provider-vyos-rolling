@@ -13,9 +13,9 @@ import (
 
 // ServiceDhcpServerSharedNetworkNameSubnetStaticRoute describes the resource data model.
 type ServiceDhcpServerSharedNetworkNameSubnetStaticRoute struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"static_route_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"static_route_id" vyos:"-,self-id"`
 
 	ParentIDServiceDhcpServerSharedNetworkName types.String `tfsdk:"shared_network_name" vyos:"shared-network-name,parent-id"`
 

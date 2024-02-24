@@ -13,9 +13,9 @@ import (
 
 // ProtocolsMplsLdpNeighbor describes the resource data model.
 type ProtocolsMplsLdpNeighbor struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"neighbor_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"neighbor_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafProtocolsMplsLdpNeighborPassword        types.String `tfsdk:"password" vyos:"password,omitempty"`

@@ -11,7 +11,7 @@ import (
 
 // SystemConntrackTCP describes the resource data model.
 type SystemConntrackTCP struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemConntrackTCPHalfOpenConnections types.Number `tfsdk:"half_open_connections" vyos:"half-open-connections,omitempty"`

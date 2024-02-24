@@ -14,9 +14,9 @@ import (
 
 // ProtocolsStaticRouteNextHop describes the resource data model.
 type ProtocolsStaticRouteNextHop struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"next_hop_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"next_hop_id" vyos:"-,self-id"`
 
 	ParentIDProtocolsStaticRoute types.String `tfsdk:"route" vyos:"route,parent-id"`
 

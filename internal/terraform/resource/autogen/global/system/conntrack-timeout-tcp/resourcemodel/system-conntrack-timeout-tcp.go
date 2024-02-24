@@ -11,7 +11,7 @@ import (
 
 // SystemConntrackTimeoutTCP describes the resource data model.
 type SystemConntrackTimeoutTCP struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemConntrackTimeoutTCPCloseWait   types.Number `tfsdk:"close_wait" vyos:"close-wait,omitempty"`

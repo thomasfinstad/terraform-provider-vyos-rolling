@@ -13,9 +13,9 @@ import (
 
 // QosPolicyShaperHfscClassMatch describes the resource data model.
 type QosPolicyShaperHfscClassMatch struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"match_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"match_id" vyos:"-,self-id"`
 
 	ParentIDQosPolicyShaperHfsc types.String `tfsdk:"shaper_hfsc" vyos:"shaper-hfsc,parent-id"`
 

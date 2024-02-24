@@ -11,7 +11,7 @@ import (
 
 // ServicePppoeServer describes the resource data model.
 type ServicePppoeServer struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServicePppoeServerAccessConcentrator types.String `tfsdk:"access_concentrator" vyos:"access-concentrator,omitempty"`

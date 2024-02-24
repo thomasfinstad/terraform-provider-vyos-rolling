@@ -11,7 +11,7 @@ import (
 
 // VpnPptpRemoteAccessClientIPPool describes the resource data model.
 type VpnPptpRemoteAccessClientIPPool struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafVpnPptpRemoteAccessClientIPPoolStart types.String `tfsdk:"start" vyos:"start,omitempty"`

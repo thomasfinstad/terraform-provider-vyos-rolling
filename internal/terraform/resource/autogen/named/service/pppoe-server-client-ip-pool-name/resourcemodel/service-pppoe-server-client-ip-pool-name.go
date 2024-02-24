@@ -13,9 +13,9 @@ import (
 
 // ServicePppoeServerClientIPPoolName describes the resource data model.
 type ServicePppoeServerClientIPPoolName struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"name_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"name_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafServicePppoeServerClientIPPoolNameGatewayAddress types.String `tfsdk:"gateway_address" vyos:"gateway-address,omitempty"`

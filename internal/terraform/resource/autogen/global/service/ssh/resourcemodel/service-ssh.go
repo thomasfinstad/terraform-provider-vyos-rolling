@@ -12,7 +12,7 @@ import (
 
 // ServiceTCP describes the resource data model.
 type ServiceTCP struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceTCPCIPhers                       types.List   `tfsdk:"ciphers" vyos:"ciphers,omitempty"`

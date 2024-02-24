@@ -13,9 +13,9 @@ import (
 
 // ProtocolsRIPNetworkDistance describes the resource data model.
 type ProtocolsRIPNetworkDistance struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"network_distance_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"network_distance_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafProtocolsRIPNetworkDistanceAccessList types.String `tfsdk:"access_list" vyos:"access-list,omitempty"`

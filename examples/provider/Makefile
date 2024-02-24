@@ -2,9 +2,17 @@
 default: plan
 
 .PHONY: init
-init: provider.tf .terraform ../.terraform-version ~/.terraform.d/plugins/
+init: provider.tf ../.terraform-version ../../dist/
 	-rm -rf .terraform .terraform.lock.hcl
 	terraform init -upgrade
+
+.PHONY: plan
+plan: init
+	terraform plan
+
+.PHONY: apply
+apply: init
+	terraform apply -auto-approve
 
 .PHONY: trace
 trace: init

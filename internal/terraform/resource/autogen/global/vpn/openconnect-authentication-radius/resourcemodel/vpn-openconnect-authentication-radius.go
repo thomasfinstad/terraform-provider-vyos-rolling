@@ -11,7 +11,7 @@ import (
 
 // VpnOpenconnectAuthenticationRadius describes the resource data model.
 type VpnOpenconnectAuthenticationRadius struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafVpnOpenconnectAuthenticationRadiusSourceAddress types.String `tfsdk:"source_address" vyos:"source-address,omitempty"`

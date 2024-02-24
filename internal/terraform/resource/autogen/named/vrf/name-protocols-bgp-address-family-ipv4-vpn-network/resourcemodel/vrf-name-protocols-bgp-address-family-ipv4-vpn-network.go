@@ -13,9 +13,9 @@ import (
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourVpnNetwork describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvfourVpnNetwork struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"network_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"network_id" vyos:"-,self-id"`
 
 	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 

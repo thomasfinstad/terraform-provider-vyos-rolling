@@ -13,9 +13,9 @@ import (
 
 // QosPolicyShaperClass describes the resource data model.
 type QosPolicyShaperClass struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"class_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"class_id" vyos:"-,self-id"`
 
 	ParentIDQosPolicyShaper types.String `tfsdk:"shaper" vyos:"shaper,parent-id"`
 

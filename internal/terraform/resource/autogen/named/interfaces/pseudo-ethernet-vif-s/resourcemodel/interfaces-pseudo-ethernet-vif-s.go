@@ -14,9 +14,9 @@ import (
 
 // InterfacesPseudoEthernetVifS describes the resource data model.
 type InterfacesPseudoEthernetVifS struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"vif_s_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"vif_s_id" vyos:"-,self-id"`
 
 	ParentIDInterfacesPseudoEthernet types.String `tfsdk:"pseudo_ethernet" vyos:"pseudo-ethernet,parent-id"`
 

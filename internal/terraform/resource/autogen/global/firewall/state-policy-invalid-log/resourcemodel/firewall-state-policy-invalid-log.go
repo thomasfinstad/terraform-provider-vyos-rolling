@@ -12,7 +12,7 @@ import (
 
 // FirewallStatePolicyInvalIDLog describes the resource data model.
 type FirewallStatePolicyInvalIDLog struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafFirewallStatePolicyInvalIDLogEnable types.Bool `tfsdk:"enable" vyos:"enable,omitempty"`

@@ -13,9 +13,9 @@ import (
 
 // ProtocolsOspfRedistributeTable describes the resource data model.
 type ProtocolsOspfRedistributeTable struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"table_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"table_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafProtocolsOspfRedistributeTableMetric     types.Number `tfsdk:"metric" vyos:"metric,omitempty"`

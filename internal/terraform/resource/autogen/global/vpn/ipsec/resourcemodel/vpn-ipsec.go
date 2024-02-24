@@ -12,7 +12,7 @@ import (
 
 // VpnIPsec describes the resource data model.
 type VpnIPsec struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafVpnIPsecDisableUniqreqIDs types.Bool `tfsdk:"disable_uniqreqids" vyos:"disable-uniqreqids,omitempty"`

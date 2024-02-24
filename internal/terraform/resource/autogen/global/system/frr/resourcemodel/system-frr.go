@@ -12,7 +12,7 @@ import (
 
 // SystemFrr describes the resource data model.
 type SystemFrr struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemFrrBmp  types.Bool `tfsdk:"bmp" vyos:"bmp,omitempty"`

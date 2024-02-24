@@ -13,9 +13,9 @@ import (
 
 // QosPolicyCake describes the resource data model.
 type QosPolicyCake struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"cake_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"cake_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafQosPolicyCakeDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`

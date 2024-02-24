@@ -13,9 +13,9 @@ import (
 
 // ServicePppoeServerPadoDelay describes the resource data model.
 type ServicePppoeServerPadoDelay struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"pado_delay_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"pado_delay_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafServicePppoeServerPadoDelaySessions types.Number `tfsdk:"sessions" vyos:"sessions,omitempty"`

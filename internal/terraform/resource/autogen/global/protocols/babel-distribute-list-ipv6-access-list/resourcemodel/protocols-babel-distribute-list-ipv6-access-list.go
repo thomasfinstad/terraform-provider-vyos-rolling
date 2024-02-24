@@ -11,7 +11,7 @@ import (
 
 // ProtocolsBabelDistributeListIPvsixAccessList describes the resource data model.
 type ProtocolsBabelDistributeListIPvsixAccessList struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBabelDistributeListIPvsixAccessListIn  types.Number `tfsdk:"in" vyos:"in,omitempty"`

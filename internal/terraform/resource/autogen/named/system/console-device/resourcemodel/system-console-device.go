@@ -13,9 +13,9 @@ import (
 
 // SystemConsoleDevice describes the resource data model.
 type SystemConsoleDevice struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"device_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"device_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafSystemConsoleDeviceSpeed types.String `tfsdk:"speed" vyos:"speed,omitempty"`

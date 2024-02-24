@@ -11,7 +11,7 @@ import (
 
 // ProtocolsIsisSegmentRoutingLocalBlock describes the resource data model.
 type ProtocolsIsisSegmentRoutingLocalBlock struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsIsisSegmentRoutingLocalBlockLowLabelValue  types.Number `tfsdk:"low_label_value" vyos:"low-label-value,omitempty"`

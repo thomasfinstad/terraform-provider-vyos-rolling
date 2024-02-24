@@ -13,9 +13,9 @@ import (
 
 // ProtocolsStaticRoute describes the resource data model.
 type ProtocolsStaticRoute struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"route_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"route_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafProtocolsStaticRouteDhcpInterface types.String `tfsdk:"dhcp_interface" vyos:"dhcp-interface,omitempty"`

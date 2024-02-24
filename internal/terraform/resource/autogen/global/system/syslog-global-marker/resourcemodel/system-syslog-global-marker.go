@@ -11,7 +11,7 @@ import (
 
 // SystemSyslogGlobalMarker describes the resource data model.
 type SystemSyslogGlobalMarker struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemSyslogGlobalMarkerInterval types.String `tfsdk:"interval" vyos:"interval,omitempty"`

@@ -11,7 +11,7 @@ import (
 
 // SystemConntrack describes the resource data model.
 type SystemConntrack struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemConntrackExpectTableSize types.Number `tfsdk:"expect_table_size" vyos:"expect-table-size,omitempty"`

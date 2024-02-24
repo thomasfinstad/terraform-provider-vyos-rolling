@@ -11,7 +11,7 @@ import (
 
 // ServiceIPoeServerAuthentication describes the resource data model.
 type ServiceIPoeServerAuthentication struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceIPoeServerAuthenticationMode types.String `tfsdk:"mode" vyos:"mode,omitempty"`

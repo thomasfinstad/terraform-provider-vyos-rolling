@@ -13,9 +13,9 @@ import (
 
 // ServiceSnmpCommunity describes the resource data model.
 type ServiceSnmpCommunity struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"community_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"community_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafServiceSnmpCommunityAuthorization types.String `tfsdk:"authorization" vyos:"authorization,omitempty"`

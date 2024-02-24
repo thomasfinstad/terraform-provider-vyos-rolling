@@ -11,7 +11,7 @@ import (
 
 // ServiceMonitoringTelegraf describes the resource data model.
 type ServiceMonitoringTelegraf struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceMonitoringTelegrafSource types.List   `tfsdk:"source" vyos:"source,omitempty"`

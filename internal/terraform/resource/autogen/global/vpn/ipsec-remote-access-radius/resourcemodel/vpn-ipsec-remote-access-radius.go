@@ -11,7 +11,7 @@ import (
 
 // VpnIPsecRemoteAccessRadius describes the resource data model.
 type VpnIPsecRemoteAccessRadius struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafVpnIPsecRemoteAccessRadiusSourceAddress types.String `tfsdk:"source_address" vyos:"source-address,omitempty"`

@@ -12,7 +12,7 @@ import (
 
 // LoadBalancingWan describes the resource data model.
 type LoadBalancingWan struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafLoadBalancingWanDisableSourceNat   types.Bool   `tfsdk:"disable_source_nat" vyos:"disable-source-nat,omitempty"`

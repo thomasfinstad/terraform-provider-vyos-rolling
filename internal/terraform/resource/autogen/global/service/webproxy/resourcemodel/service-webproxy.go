@@ -12,7 +12,7 @@ import (
 
 // ServiceWebproxy describes the resource data model.
 type ServiceWebproxy struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceWebproxySafePorts         types.List   `tfsdk:"safe_ports" vyos:"safe-ports,omitempty"`

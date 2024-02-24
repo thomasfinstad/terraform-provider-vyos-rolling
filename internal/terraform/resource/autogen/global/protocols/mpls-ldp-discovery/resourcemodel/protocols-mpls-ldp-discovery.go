@@ -11,7 +11,7 @@ import (
 
 // ProtocolsMplsLdpDiscovery describes the resource data model.
 type ProtocolsMplsLdpDiscovery struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsMplsLdpDiscoveryHelloIPvfourHoldtime    types.Number `tfsdk:"hello_ipv4_holdtime" vyos:"hello-ipv4-holdtime,omitempty"`

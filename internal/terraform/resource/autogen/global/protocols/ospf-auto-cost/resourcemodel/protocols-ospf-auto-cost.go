@@ -11,7 +11,7 @@ import (
 
 // ProtocolsOspfAutoCost describes the resource data model.
 type ProtocolsOspfAutoCost struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsOspfAutoCostReferenceBandwIDth types.Number `tfsdk:"reference_bandwidth" vyos:"reference-bandwidth,omitempty"`

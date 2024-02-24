@@ -11,7 +11,7 @@ import (
 
 // VpnOpenconnectNetworkSettingsClientIPSettings describes the resource data model.
 type VpnOpenconnectNetworkSettingsClientIPSettings struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafVpnOpenconnectNetworkSettingsClientIPSettingsSubnet types.String `tfsdk:"subnet" vyos:"subnet,omitempty"`

@@ -11,7 +11,7 @@ import (
 
 // ProtocolsOspfRedistributeIsis describes the resource data model.
 type ProtocolsOspfRedistributeIsis struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsOspfRedistributeIsisMetric     types.Number `tfsdk:"metric" vyos:"metric,omitempty"`

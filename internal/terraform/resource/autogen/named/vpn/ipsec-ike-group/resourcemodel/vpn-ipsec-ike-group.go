@@ -14,9 +14,9 @@ import (
 
 // VpnIPsecIkeGroup describes the resource data model.
 type VpnIPsecIkeGroup struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"ike_group_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"ike_group_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafVpnIPsecIkeGroupCloseAction   types.String `tfsdk:"close_action" vyos:"close-action,omitempty"`

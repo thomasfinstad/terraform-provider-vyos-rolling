@@ -11,7 +11,7 @@ import (
 
 // ServiceMonitoringTelegrafPrometheusClientAuthentication describes the resource data model.
 type ServiceMonitoringTelegrafPrometheusClientAuthentication struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceMonitoringTelegrafPrometheusClientAuthenticationUsername types.String `tfsdk:"username" vyos:"username,omitempty"`

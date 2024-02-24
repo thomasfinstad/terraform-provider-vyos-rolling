@@ -13,9 +13,9 @@ import (
 
 // VrfNameProtocolsBgpListenRange describes the resource data model.
 type VrfNameProtocolsBgpListenRange struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"range_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"range_id" vyos:"-,self-id"`
 
 	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 

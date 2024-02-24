@@ -14,9 +14,9 @@ import (
 
 // InterfacesWireless describes the resource data model.
 type InterfacesWireless struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"wireless_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"wireless_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafInterfacesWirelessAddress                types.List   `tfsdk:"address" vyos:"address,omitempty"`

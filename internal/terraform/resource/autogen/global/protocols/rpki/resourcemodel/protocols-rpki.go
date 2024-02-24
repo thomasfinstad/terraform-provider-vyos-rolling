@@ -11,7 +11,7 @@ import (
 
 // ProtocolsRpki describes the resource data model.
 type ProtocolsRpki struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsRpkiPollingPeriod types.Number `tfsdk:"polling_period" vyos:"polling-period,omitempty"`

@@ -13,9 +13,9 @@ import (
 
 // ProtocolsStaticTable describes the resource data model.
 type ProtocolsStaticTable struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"table_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"table_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafProtocolsStaticTableDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`

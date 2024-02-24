@@ -11,7 +11,7 @@ import (
 
 // ServiceUpnpStun describes the resource data model.
 type ServiceUpnpStun struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceUpnpStunHost types.String `tfsdk:"host" vyos:"host,omitempty"`

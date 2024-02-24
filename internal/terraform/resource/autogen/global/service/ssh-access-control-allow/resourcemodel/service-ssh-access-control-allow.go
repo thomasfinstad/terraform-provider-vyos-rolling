@@ -11,7 +11,7 @@ import (
 
 // ServiceTCPAccessControlAllow describes the resource data model.
 type ServiceTCPAccessControlAllow struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceTCPAccessControlAllowGroup types.List `tfsdk:"group" vyos:"group,omitempty"`

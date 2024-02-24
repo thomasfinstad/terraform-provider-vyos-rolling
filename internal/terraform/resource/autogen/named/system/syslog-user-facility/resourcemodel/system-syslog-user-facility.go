@@ -13,9 +13,9 @@ import (
 
 // SystemSyslogUserFacility describes the resource data model.
 type SystemSyslogUserFacility struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"facility_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"facility_id" vyos:"-,self-id"`
 
 	ParentIDSystemSyslogUser types.String `tfsdk:"user" vyos:"user,parent-id"`
 

@@ -13,9 +13,9 @@ import (
 
 // QosPolicyPriorityQueueClass describes the resource data model.
 type QosPolicyPriorityQueueClass struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"class_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"class_id" vyos:"-,self-id"`
 
 	ParentIDQosPolicyPriorityQueue types.String `tfsdk:"priority_queue" vyos:"priority-queue,parent-id"`
 

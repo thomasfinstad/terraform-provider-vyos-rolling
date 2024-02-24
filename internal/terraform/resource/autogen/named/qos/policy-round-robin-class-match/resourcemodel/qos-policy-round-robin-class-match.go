@@ -13,9 +13,9 @@ import (
 
 // QosPolicyRoundRobinClassMatch describes the resource data model.
 type QosPolicyRoundRobinClassMatch struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"match_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"match_id" vyos:"-,self-id"`
 
 	ParentIDQosPolicyRoundRobin types.String `tfsdk:"round_robin" vyos:"round-robin,parent-id"`
 

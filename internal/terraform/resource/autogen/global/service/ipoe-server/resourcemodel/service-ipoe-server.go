@@ -11,7 +11,7 @@ import (
 
 // ServiceIPoeServer describes the resource data model.
 type ServiceIPoeServer struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceIPoeServerNameServer types.List `tfsdk:"name_server" vyos:"name-server,omitempty"`

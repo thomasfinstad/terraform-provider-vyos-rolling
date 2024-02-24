@@ -11,7 +11,7 @@ import (
 
 // ProtocolsOspfDistance describes the resource data model.
 type ProtocolsOspfDistance struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsOspfDistanceGlobal types.Number `tfsdk:"global" vyos:"global,omitempty"`

@@ -30,17 +30,16 @@ go install golang.org/x/tools/cmd/goimports@latest
 # Local terraform provider
 cat > "$HOME/.terraformrc" <<EOL
 provider_installation {
-
-  dev_overrides {
-      "ex.c/thomasfinstad/vyos" = "/go/bin"
+  filesystem_mirror {
+    path    = "${PWD}/dist/"
+    include = ["local/providers/*"]
   }
 
-  # For all other providers, install them directly from their origin provider
-  # registries as normal. If you omit this, Terraform will _only_ use
-  # the dev_overrides block, and so no other providers will be available.
-  direct {}
+  direct {
+    exclude = ["local/providers/*"]
+  }
 }
 EOL
 
 # Default Terraform version
-tfenv use "1.4.4"
+tfenv use "1.5.7"

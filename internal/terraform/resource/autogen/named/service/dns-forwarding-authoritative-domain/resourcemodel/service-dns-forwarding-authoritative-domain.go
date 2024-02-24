@@ -14,9 +14,9 @@ import (
 
 // ServiceDNSForwardingAuthoritativeDomain describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomain struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"authoritative_domain_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"authoritative_domain_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafServiceDNSForwardingAuthoritativeDomainDisable types.Bool `tfsdk:"disable" vyos:"disable,omitempty"`

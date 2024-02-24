@@ -11,7 +11,7 @@ import (
 
 // VpnSstpSsl describes the resource data model.
 type VpnSstpSsl struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafVpnSstpSslCaCertificate types.String `tfsdk:"ca_certificate" vyos:"ca-certificate,omitempty"`

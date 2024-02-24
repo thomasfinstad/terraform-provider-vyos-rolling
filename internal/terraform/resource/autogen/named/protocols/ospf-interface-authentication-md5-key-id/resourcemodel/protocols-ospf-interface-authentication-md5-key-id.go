@@ -13,9 +13,9 @@ import (
 
 // ProtocolsOspfInterfaceAuthenticationMdfiveKeyID describes the resource data model.
 type ProtocolsOspfInterfaceAuthenticationMdfiveKeyID struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"key_id_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"key_id_id" vyos:"-,self-id"`
 
 	ParentIDProtocolsOspfInterface types.String `tfsdk:"interface" vyos:"interface,parent-id"`
 

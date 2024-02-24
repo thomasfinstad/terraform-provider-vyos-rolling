@@ -11,7 +11,7 @@ import (
 
 // VpnOpenconnectListenPorts describes the resource data model.
 type VpnOpenconnectListenPorts struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafVpnOpenconnectListenPortsTCP types.Number `tfsdk:"tcp" vyos:"tcp,omitempty"`

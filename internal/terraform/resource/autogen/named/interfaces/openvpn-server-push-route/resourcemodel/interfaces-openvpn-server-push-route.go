@@ -13,9 +13,9 @@ import (
 
 // InterfacesOpenvpnServerPushRoute describes the resource data model.
 type InterfacesOpenvpnServerPushRoute struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"push_route_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"push_route_id" vyos:"-,self-id"`
 
 	ParentIDInterfacesOpenvpn types.String `tfsdk:"openvpn" vyos:"openvpn,parent-id"`
 

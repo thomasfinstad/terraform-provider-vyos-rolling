@@ -14,9 +14,9 @@ import (
 
 // ServiceBroadcastRelayID describes the resource data model.
 type ServiceBroadcastRelayID struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"id_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"id_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafServiceBroadcastRelayIDDisable     types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`

@@ -14,9 +14,9 @@ import (
 
 // InterfacesWirelessSecURItyWpaRadiusServer describes the resource data model.
 type InterfacesWirelessSecURItyWpaRadiusServer struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"server_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"server_id" vyos:"-,self-id"`
 
 	ParentIDInterfacesWireless types.String `tfsdk:"wireless" vyos:"wireless,parent-id"`
 

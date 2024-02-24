@@ -11,7 +11,7 @@ import (
 
 // ServicePppoeServerAuthenticationRadiusDynamicAuthor describes the resource data model.
 type ServicePppoeServerAuthenticationRadiusDynamicAuthor struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServicePppoeServerAuthenticationRadiusDynamicAuthorServer types.String `tfsdk:"server" vyos:"server,omitempty"`

@@ -11,7 +11,7 @@ import (
 
 // ProtocolsIsisRedistributeIPvsixKernelLevelTwo describes the resource data model.
 type ProtocolsIsisRedistributeIPvsixKernelLevelTwo struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsIsisRedistributeIPvsixKernelLevelTwoMetric   types.Number `tfsdk:"metric" vyos:"metric,omitempty"`

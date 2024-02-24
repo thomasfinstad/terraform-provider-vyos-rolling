@@ -13,9 +13,9 @@ import (
 
 // ServiceWebproxyURLFilteringSquIDguardTimePeriod describes the resource data model.
 type ServiceWebproxyURLFilteringSquIDguardTimePeriod struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"time_period_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"time_period_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`

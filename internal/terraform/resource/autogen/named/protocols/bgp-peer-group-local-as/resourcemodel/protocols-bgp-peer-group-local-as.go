@@ -13,9 +13,9 @@ import (
 
 // ProtocolsBgpPeerGroupLocalAs describes the resource data model.
 type ProtocolsBgpPeerGroupLocalAs struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"local_as_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"local_as_id" vyos:"-,self-id"`
 
 	ParentIDProtocolsBgpPeerGroup types.String `tfsdk:"peer_group" vyos:"peer-group,parent-id"`
 

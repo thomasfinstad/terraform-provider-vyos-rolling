@@ -13,9 +13,9 @@ import (
 
 // PolicyAsPathListRule describes the resource data model.
 type PolicyAsPathListRule struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
 
 	ParentIDPolicyAsPathList types.String `tfsdk:"as_path_list" vyos:"as-path-list,parent-id"`
 

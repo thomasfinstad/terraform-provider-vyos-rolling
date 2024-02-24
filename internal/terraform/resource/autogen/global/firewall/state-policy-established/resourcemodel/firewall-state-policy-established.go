@@ -11,7 +11,7 @@ import (
 
 // FirewallStatePolicyEstablished describes the resource data model.
 type FirewallStatePolicyEstablished struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafFirewallStatePolicyEstablishedAction   types.String `tfsdk:"action" vyos:"action,omitempty"`

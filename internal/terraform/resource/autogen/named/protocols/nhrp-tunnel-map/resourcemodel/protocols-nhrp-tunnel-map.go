@@ -14,9 +14,9 @@ import (
 
 // ProtocolsNhrpTunnelMap describes the resource data model.
 type ProtocolsNhrpTunnelMap struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"map_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"map_id" vyos:"-,self-id"`
 
 	ParentIDProtocolsNhrpTunnel types.String `tfsdk:"tunnel" vyos:"tunnel,parent-id"`
 

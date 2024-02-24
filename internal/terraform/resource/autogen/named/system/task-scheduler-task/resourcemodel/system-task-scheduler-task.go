@@ -13,9 +13,9 @@ import (
 
 // SystemTaskSchedulerTask describes the resource data model.
 type SystemTaskSchedulerTask struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"task_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"task_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafSystemTaskSchedulerTaskCrontabSpec types.String `tfsdk:"crontab_spec" vyos:"crontab-spec,omitempty"`

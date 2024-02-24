@@ -14,9 +14,9 @@ import (
 
 // ProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress describes the resource data model.
 type ProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"aggregate_address_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"aggregate_address_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressAsSet       types.Bool   `tfsdk:"as_set" vyos:"as-set,omitempty"`

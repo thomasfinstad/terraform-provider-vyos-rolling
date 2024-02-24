@@ -11,7 +11,7 @@ import (
 
 // SystemOptionHTTPClient describes the resource data model.
 type SystemOptionHTTPClient struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemOptionHTTPClientSourceInterface types.String `tfsdk:"source_interface" vyos:"source-interface,omitempty"`

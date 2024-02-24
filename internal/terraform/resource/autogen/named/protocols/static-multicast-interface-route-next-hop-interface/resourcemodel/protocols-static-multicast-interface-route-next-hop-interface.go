@@ -13,9 +13,9 @@ import (
 
 // ProtocolsStaticMulticastInterfaceRouteNextHopInterface describes the resource data model.
 type ProtocolsStaticMulticastInterfaceRouteNextHopInterface struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"next_hop_interface_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"next_hop_interface_id" vyos:"-,self-id"`
 
 	ParentIDProtocolsStaticMulticastInterfaceRoute types.String `tfsdk:"interface_route" vyos:"interface-route,parent-id"`
 

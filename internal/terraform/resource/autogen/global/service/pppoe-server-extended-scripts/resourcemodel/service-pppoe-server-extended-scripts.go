@@ -11,7 +11,7 @@ import (
 
 // ServicePppoeServerExtendedScrIPts describes the resource data model.
 type ServicePppoeServerExtendedScrIPts struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServicePppoeServerExtendedScrIPtsOnPreUp  types.String `tfsdk:"on_pre_up" vyos:"on-pre-up,omitempty"`

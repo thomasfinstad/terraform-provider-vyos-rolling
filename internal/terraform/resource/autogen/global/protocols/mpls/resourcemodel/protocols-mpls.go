@@ -11,7 +11,7 @@ import (
 
 // ProtocolsMpls describes the resource data model.
 type ProtocolsMpls struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsMplsInterface types.List `tfsdk:"interface" vyos:"interface,omitempty"`

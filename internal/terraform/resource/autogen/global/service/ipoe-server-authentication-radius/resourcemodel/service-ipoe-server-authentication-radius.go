@@ -12,7 +12,7 @@ import (
 
 // ServiceIPoeServerAuthenticationRadius describes the resource data model.
 type ServiceIPoeServerAuthenticationRadius struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceIPoeServerAuthenticationRadiusSourceAddress     types.String `tfsdk:"source_address" vyos:"source-address,omitempty"`

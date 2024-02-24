@@ -13,9 +13,9 @@ import (
 
 // PolicyLargeCommunityListRule describes the resource data model.
 type PolicyLargeCommunityListRule struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
 
 	ParentIDPolicyLargeCommunityList types.String `tfsdk:"large_community_list" vyos:"large-community-list,parent-id"`
 

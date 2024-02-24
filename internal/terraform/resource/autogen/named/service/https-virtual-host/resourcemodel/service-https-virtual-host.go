@@ -13,9 +13,9 @@ import (
 
 // ServiceHTTPSVirtualHost describes the resource data model.
 type ServiceHTTPSVirtualHost struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"virtual_host_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"virtual_host_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafServiceHTTPSVirtualHostListenAddress types.String `tfsdk:"listen_address" vyos:"listen-address,omitempty"`

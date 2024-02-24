@@ -14,9 +14,9 @@ import (
 
 // InterfacesPppoe describes the resource data model.
 type InterfacesPppoe struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"pppoe_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"pppoe_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafInterfacesPppoeAccessConcentrator   types.String `tfsdk:"access_concentrator" vyos:"access-concentrator,omitempty"`

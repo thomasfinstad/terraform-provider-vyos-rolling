@@ -13,9 +13,9 @@ import (
 
 // SystemLoginUserAuthenticationPublicKeys describes the resource data model.
 type SystemLoginUserAuthenticationPublicKeys struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"public_keys_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"public_keys_id" vyos:"-,self-id"`
 
 	ParentIDSystemLoginUser types.String `tfsdk:"user" vyos:"user,parent-id"`
 

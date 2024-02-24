@@ -11,7 +11,7 @@ import (
 
 // ServiceMonitoringTelegrafPrometheusClient describes the resource data model.
 type ServiceMonitoringTelegrafPrometheusClient struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceMonitoringTelegrafPrometheusClientAllowFrom     types.List   `tfsdk:"allow_from" vyos:"allow-from,omitempty"`

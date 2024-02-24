@@ -13,9 +13,9 @@ import (
 
 // HighAvailabilityVirtualServerRealServer describes the resource data model.
 type HighAvailabilityVirtualServerRealServer struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"real_server_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"real_server_id" vyos:"-,self-id"`
 
 	ParentIDHighAvailabilityVirtualServer types.String `tfsdk:"virtual_server" vyos:"virtual-server,parent-id"`
 

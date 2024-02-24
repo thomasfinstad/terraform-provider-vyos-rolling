@@ -11,7 +11,7 @@ import (
 
 // ProtocolsIsisSpfDelayIetf describes the resource data model.
 type ProtocolsIsisSpfDelayIetf struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsIsisSpfDelayIetfInitDelay   types.Number `tfsdk:"init_delay" vyos:"init-delay,omitempty"`

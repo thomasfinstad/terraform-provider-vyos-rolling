@@ -12,7 +12,7 @@ import (
 
 // ProtocolsIgmpProxy describes the resource data model.
 type ProtocolsIgmpProxy struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsIgmpProxyDisable           types.Bool `tfsdk:"disable" vyos:"disable,omitempty"`

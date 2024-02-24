@@ -13,9 +13,9 @@ import (
 
 // PolicyAsPathList describes the resource data model.
 type PolicyAsPathList struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"as_path_list_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"as_path_list_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafPolicyAsPathListDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`

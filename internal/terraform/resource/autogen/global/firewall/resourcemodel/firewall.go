@@ -12,7 +12,7 @@ import (
 
 // Firewall describes the resource data model.
 type Firewall struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafFirewallAllPing                types.String `tfsdk:"all_ping" vyos:"all-ping,omitempty"`

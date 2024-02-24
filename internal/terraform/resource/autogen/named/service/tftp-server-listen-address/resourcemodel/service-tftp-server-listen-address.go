@@ -13,9 +13,9 @@ import (
 
 // ServiceTftpServerListenAddress describes the resource data model.
 type ServiceTftpServerListenAddress struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"listen_address_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"listen_address_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafServiceTftpServerListenAddressVrf types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`

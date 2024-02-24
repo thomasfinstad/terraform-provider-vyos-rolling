@@ -13,9 +13,9 @@ import (
 
 // VrfNameProtocolsStaticRoute describes the resource data model.
 type VrfNameProtocolsStaticRoute struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"route_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"route_id" vyos:"-,self-id"`
 
 	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
 

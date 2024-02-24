@@ -11,7 +11,7 @@ import (
 
 // ProtocolsPimRp describes the resource data model.
 type ProtocolsPimRp struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsPimRpKeepAliveTimer types.Number `tfsdk:"keep_alive_timer" vyos:"keep-alive-timer,omitempty"`

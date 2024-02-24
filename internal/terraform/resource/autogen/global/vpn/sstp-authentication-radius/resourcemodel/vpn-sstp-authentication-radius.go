@@ -12,7 +12,7 @@ import (
 
 // VpnSstpAuthenticationRadius describes the resource data model.
 type VpnSstpAuthenticationRadius struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafVpnSstpAuthenticationRadiusSourceAddress     types.String `tfsdk:"source_address" vyos:"source-address,omitempty"`

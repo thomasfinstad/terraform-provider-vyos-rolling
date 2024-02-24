@@ -11,7 +11,7 @@ import (
 
 // ProtocolsBgpAddressFamilyIPvfourUnicastRedistribute describes the resource data model.
 type ProtocolsBgpAddressFamilyIPvfourUnicastRedistribute struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable types.String `tfsdk:"table" vyos:"table,omitempty"`

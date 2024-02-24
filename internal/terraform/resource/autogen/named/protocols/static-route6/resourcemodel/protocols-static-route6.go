@@ -13,9 +13,9 @@ import (
 
 // ProtocolsStaticRoutesix describes the resource data model.
 type ProtocolsStaticRoutesix struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"route6_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"route6_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafProtocolsStaticRoutesixDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`

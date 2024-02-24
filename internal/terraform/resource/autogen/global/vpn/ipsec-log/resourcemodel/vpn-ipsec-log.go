@@ -11,7 +11,7 @@ import (
 
 // VpnIPsecLog describes the resource data model.
 type VpnIPsecLog struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafVpnIPsecLogLevel     types.String `tfsdk:"level" vyos:"level,omitempty"`

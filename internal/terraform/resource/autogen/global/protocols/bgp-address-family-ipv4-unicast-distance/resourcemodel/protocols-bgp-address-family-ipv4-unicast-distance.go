@@ -11,7 +11,7 @@ import (
 
 // ProtocolsBgpAddressFamilyIPvfourUnicastDistance describes the resource data model.
 type ProtocolsBgpAddressFamilyIPvfourUnicastDistance struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpAddressFamilyIPvfourUnicastDistanceExternal types.Number `tfsdk:"external" vyos:"external,omitempty"`

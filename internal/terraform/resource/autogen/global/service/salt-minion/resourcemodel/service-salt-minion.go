@@ -11,7 +11,7 @@ import (
 
 // ServiceSaltMinion describes the resource data model.
 type ServiceSaltMinion struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceSaltMinionHash            types.String `tfsdk:"hash" vyos:"hash,omitempty"`

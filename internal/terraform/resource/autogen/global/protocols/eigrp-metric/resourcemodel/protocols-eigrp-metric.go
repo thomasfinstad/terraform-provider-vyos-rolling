@@ -11,7 +11,7 @@ import (
 
 // ProtocolsEigrpMetric describes the resource data model.
 type ProtocolsEigrpMetric struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsEigrpMetricWeights types.Number `tfsdk:"weights" vyos:"weights,omitempty"`

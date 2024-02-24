@@ -11,7 +11,7 @@ import (
 
 // VpnIPsecRemoteAccessDhcp describes the resource data model.
 type VpnIPsecRemoteAccessDhcp struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafVpnIPsecRemoteAccessDhcpInterface types.String `tfsdk:"interface" vyos:"interface,omitempty"`

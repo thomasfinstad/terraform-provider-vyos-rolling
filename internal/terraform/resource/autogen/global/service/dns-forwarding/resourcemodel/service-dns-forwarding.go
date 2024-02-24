@@ -12,7 +12,7 @@ import (
 
 // ServiceDNSForwarding describes the resource data model.
 type ServiceDNSForwarding struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceDNSForwardingCacheSize                 types.Number `tfsdk:"cache_size" vyos:"cache-size,omitempty"`

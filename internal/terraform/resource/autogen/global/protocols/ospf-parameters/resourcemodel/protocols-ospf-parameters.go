@@ -12,7 +12,7 @@ import (
 
 // ProtocolsOspfParameters describes the resource data model.
 type ProtocolsOspfParameters struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsOspfParametersAbrType                           types.String `tfsdk:"abr_type" vyos:"abr-type,omitempty"`

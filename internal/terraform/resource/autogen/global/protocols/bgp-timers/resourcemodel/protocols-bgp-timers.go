@@ -11,7 +11,7 @@ import (
 
 // ProtocolsBgpTimers describes the resource data model.
 type ProtocolsBgpTimers struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpTimersHoldtime  types.String `tfsdk:"holdtime" vyos:"holdtime,omitempty"`

@@ -12,7 +12,7 @@ import (
 
 // VpnIPsecOptions describes the resource data model.
 type VpnIPsecOptions struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafVpnIPsecOptionsDisableRouteAutoinstall types.Bool   `tfsdk:"disable_route_autoinstall" vyos:"disable-route-autoinstall,omitempty"`

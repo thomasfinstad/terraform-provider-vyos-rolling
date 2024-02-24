@@ -14,9 +14,9 @@ import (
 
 // FirewallIPvsixNameRule describes the resource data model.
 type FirewallIPvsixNameRule struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
 
 	ParentIDFirewallIPvsixName types.String `tfsdk:"ipv6_name" vyos:"ipv6-name,parent-id"`
 

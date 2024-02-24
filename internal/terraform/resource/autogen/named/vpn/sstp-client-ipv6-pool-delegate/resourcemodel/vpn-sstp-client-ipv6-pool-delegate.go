@@ -13,9 +13,9 @@ import (
 
 // VpnSstpClientIPvsixPoolDelegate describes the resource data model.
 type VpnSstpClientIPvsixPoolDelegate struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"delegate_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"delegate_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafVpnSstpClientIPvsixPoolDelegateDelegationPrefix types.Number `tfsdk:"delegation_prefix" vyos:"delegation-prefix,omitempty"`

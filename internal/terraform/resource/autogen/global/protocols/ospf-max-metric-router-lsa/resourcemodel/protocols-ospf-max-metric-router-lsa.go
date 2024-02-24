@@ -12,7 +12,7 @@ import (
 
 // ProtocolsOspfMaxMetricRouterLsa describes the resource data model.
 type ProtocolsOspfMaxMetricRouterLsa struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsOspfMaxMetricRouterLsaAdministrative types.Bool   `tfsdk:"administrative" vyos:"administrative,omitempty"`

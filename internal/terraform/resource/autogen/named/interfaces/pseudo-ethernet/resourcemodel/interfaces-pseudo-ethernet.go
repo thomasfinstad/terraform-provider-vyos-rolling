@@ -14,9 +14,9 @@ import (
 
 // InterfacesPseudoEthernet describes the resource data model.
 type InterfacesPseudoEthernet struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"pseudo_ethernet_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"pseudo_ethernet_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafInterfacesPseudoEthernetAddress           types.List   `tfsdk:"address" vyos:"address,omitempty"`

@@ -11,7 +11,7 @@ import (
 
 // ProtocolsOspfSegmentRoutingGlobalBlock describes the resource data model.
 type ProtocolsOspfSegmentRoutingGlobalBlock struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsOspfSegmentRoutingGlobalBlockLowLabelValue  types.Number `tfsdk:"low_label_value" vyos:"low-label-value,omitempty"`

@@ -11,7 +11,7 @@ import (
 
 // ServiceMonitoringTelegrafInfluxdb describes the resource data model.
 type ServiceMonitoringTelegrafInfluxdb struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceMonitoringTelegrafInfluxdbBucket types.String `tfsdk:"bucket" vyos:"bucket,omitempty"`

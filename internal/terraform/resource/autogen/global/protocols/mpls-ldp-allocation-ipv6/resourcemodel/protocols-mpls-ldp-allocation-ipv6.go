@@ -11,7 +11,7 @@ import (
 
 // ProtocolsMplsLdpAllocationIPvsix describes the resource data model.
 type ProtocolsMplsLdpAllocationIPvsix struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsMplsLdpAllocationIPvsixAccessListsix types.Number `tfsdk:"access_list6" vyos:"access-list6,omitempty"`

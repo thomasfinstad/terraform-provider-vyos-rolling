@@ -183,14 +183,14 @@ import (
 	// {{.BaseNameCG}} describes the resource data model.
 	type {{.BaseNameCG}} struct {
 		{{if .IsBaseNode }}
-			ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+			ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 			SelfIdentifier	{{ if eq .ValueType "string" -}}
 								types.String
 							{{- else  if eq .ValueType "number" -}}
 								types.Number
 							{{- end -}}
-			`tfsdk:"{{.BaseNameS}}_id" vyos:",self-id"`
+			`tfsdk:"{{.BaseNameS}}_id" vyos:"-,self-id"`
 			{{if .Parent}}
 				{{template "resource-model-parent-id-hack" .Parent}}
 			{{end}}

@@ -13,9 +13,9 @@ import (
 
 // ServiceEventHandlerEventScrIPtEnvironment describes the resource data model.
 type ServiceEventHandlerEventScrIPtEnvironment struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"environment_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"environment_id" vyos:"-,self-id"`
 
 	ParentIDServiceEventHandlerEvent types.String `tfsdk:"event" vyos:"event,parent-id"`
 

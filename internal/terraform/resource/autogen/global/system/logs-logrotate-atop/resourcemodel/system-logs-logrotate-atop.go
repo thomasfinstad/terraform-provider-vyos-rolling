@@ -11,7 +11,7 @@ import (
 
 // SystemLogsLogrotateAtop describes the resource data model.
 type SystemLogsLogrotateAtop struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemLogsLogrotateAtopMaxSize types.Number `tfsdk:"max_size" vyos:"max-size,omitempty"`

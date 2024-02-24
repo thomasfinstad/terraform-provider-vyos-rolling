@@ -13,9 +13,9 @@ import (
 
 // PkiOpenvpnSharedSecret describes the resource data model.
 type PkiOpenvpnSharedSecret struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"shared_secret_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"shared_secret_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafPkiOpenvpnSharedSecretKey     types.String `tfsdk:"key" vyos:"key,omitempty"`

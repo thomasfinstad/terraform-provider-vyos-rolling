@@ -11,7 +11,7 @@ import (
 
 // SystemConntrackTimeout describes the resource data model.
 type SystemConntrackTimeout struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemConntrackTimeoutIcmp  types.Number `tfsdk:"icmp" vyos:"icmp,omitempty"`

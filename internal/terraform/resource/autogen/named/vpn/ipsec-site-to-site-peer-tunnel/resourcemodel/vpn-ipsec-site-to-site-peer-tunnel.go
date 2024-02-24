@@ -14,9 +14,9 @@ import (
 
 // VpnIPsecSiteToSitePeerTunnel describes the resource data model.
 type VpnIPsecSiteToSitePeerTunnel struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"tunnel_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"tunnel_id" vyos:"-,self-id"`
 
 	ParentIDVpnIPsecSiteToSitePeer types.String `tfsdk:"peer" vyos:"peer,parent-id"`
 

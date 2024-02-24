@@ -11,7 +11,7 @@ import (
 
 // ProtocolsMplsLdpImportIPvfourImportFilter describes the resource data model.
 type ProtocolsMplsLdpImportIPvfourImportFilter struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsMplsLdpImportIPvfourImportFilterFilterAccessList   types.Number `tfsdk:"filter_access_list" vyos:"filter-access-list,omitempty"`

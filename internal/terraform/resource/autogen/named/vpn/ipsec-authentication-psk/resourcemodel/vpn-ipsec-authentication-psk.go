@@ -13,9 +13,9 @@ import (
 
 // VpnIPsecAuthenticationPsk describes the resource data model.
 type VpnIPsecAuthenticationPsk struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"psk_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"psk_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafVpnIPsecAuthenticationPskDhcpInterface types.List   `tfsdk:"dhcp_interface" vyos:"dhcp-interface,omitempty"`

@@ -11,7 +11,7 @@ import (
 
 // ServiceUpnpPcpLifetime describes the resource data model.
 type ServiceUpnpPcpLifetime struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceUpnpPcpLifetimeMax types.String `tfsdk:"max" vyos:"max,omitempty"`

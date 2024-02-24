@@ -11,7 +11,7 @@ import (
 
 // SystemConfigManagementCommitArchive describes the resource data model.
 type SystemConfigManagementCommitArchive struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemConfigManagementCommitArchiveLocation      types.List   `tfsdk:"location" vyos:"location,omitempty"`

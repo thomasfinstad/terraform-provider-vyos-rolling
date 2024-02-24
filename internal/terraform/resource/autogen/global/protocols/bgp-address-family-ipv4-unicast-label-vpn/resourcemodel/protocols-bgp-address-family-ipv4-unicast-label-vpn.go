@@ -11,7 +11,7 @@ import (
 
 // ProtocolsBgpAddressFamilyIPvfourUnicastLabelVpn describes the resource data model.
 type ProtocolsBgpAddressFamilyIPvfourUnicastLabelVpn struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpAddressFamilyIPvfourUnicastLabelVpnExport types.String `tfsdk:"export" vyos:"export,omitempty"`

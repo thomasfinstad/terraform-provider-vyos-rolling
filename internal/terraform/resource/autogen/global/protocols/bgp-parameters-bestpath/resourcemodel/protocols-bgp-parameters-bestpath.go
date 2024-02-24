@@ -12,7 +12,7 @@ import (
 
 // ProtocolsBgpParametersBestpath describes the resource data model.
 type ProtocolsBgpParametersBestpath struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpParametersBestpathBandwIDth       types.String `tfsdk:"bandwidth" vyos:"bandwidth,omitempty"`

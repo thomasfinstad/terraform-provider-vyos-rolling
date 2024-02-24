@@ -14,9 +14,9 @@ import (
 
 // ProtocolsBgpNeighborLocalRole describes the resource data model.
 type ProtocolsBgpNeighborLocalRole struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"local_role_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"local_role_id" vyos:"-,self-id"`
 
 	ParentIDProtocolsBgpNeighbor types.String `tfsdk:"neighbor" vyos:"neighbor,parent-id"`
 

@@ -14,9 +14,9 @@ import (
 
 // ServiceDNSForwardingDomain describes the resource data model.
 type ServiceDNSForwardingDomain struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"domain_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"domain_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafServiceDNSForwardingDomainServer           types.List `tfsdk:"server" vyos:"server,omitempty"`

@@ -11,7 +11,7 @@ import (
 
 // ProtocolsBgpParametersDistanceGlobal describes the resource data model.
 type ProtocolsBgpParametersDistanceGlobal struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpParametersDistanceGlobalExternal types.Number `tfsdk:"external" vyos:"external,omitempty"`

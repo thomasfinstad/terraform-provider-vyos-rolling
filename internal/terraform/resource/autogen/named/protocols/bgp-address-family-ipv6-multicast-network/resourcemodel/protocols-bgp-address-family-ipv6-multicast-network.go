@@ -13,9 +13,9 @@ import (
 
 // ProtocolsBgpAddressFamilyIPvsixMulticastNetwork describes the resource data model.
 type ProtocolsBgpAddressFamilyIPvsixMulticastNetwork struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"network_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"network_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit types.Number `tfsdk:"path_limit" vyos:"path-limit,omitempty"`

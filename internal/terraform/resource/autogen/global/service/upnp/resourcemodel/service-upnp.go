@@ -12,7 +12,7 @@ import (
 
 // ServiceUpnp describes the resource data model.
 type ServiceUpnp struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceUpnpFriendlyName    types.String `tfsdk:"friendly_name" vyos:"friendly-name,omitempty"`

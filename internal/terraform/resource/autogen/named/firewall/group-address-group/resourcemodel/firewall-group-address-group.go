@@ -13,9 +13,9 @@ import (
 
 // FirewallGroupAddressGroup describes the resource data model.
 type FirewallGroupAddressGroup struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"address_group_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"address_group_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafFirewallGroupAddressGroupAddress     types.List   `tfsdk:"address" vyos:"address,omitempty"`

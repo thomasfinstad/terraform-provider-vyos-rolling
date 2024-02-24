@@ -12,7 +12,7 @@ import (
 
 // VpnOpenconnectAuthenticationMode describes the resource data model.
 type VpnOpenconnectAuthenticationMode struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafVpnOpenconnectAuthenticationModeLocal  types.String `tfsdk:"local" vyos:"local,omitempty"`

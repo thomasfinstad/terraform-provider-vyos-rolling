@@ -11,7 +11,7 @@ import (
 
 // ProtocolsBgpParametersDefault describes the resource data model.
 type ProtocolsBgpParametersDefault struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpParametersDefaultLocalPref types.Number `tfsdk:"local_pref" vyos:"local-pref,omitempty"`

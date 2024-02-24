@@ -13,9 +13,9 @@ import (
 
 // PolicyExtcommunityListRule describes the resource data model.
 type PolicyExtcommunityListRule struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
 
 	ParentIDPolicyExtcommunityList types.String `tfsdk:"extcommunity_list" vyos:"extcommunity-list,parent-id"`
 

@@ -12,7 +12,7 @@ import (
 
 // ProtocolsBgpParameters describes the resource data model.
 type ProtocolsBgpParameters struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpParametersAlwaysCompareMed                  types.Bool   `tfsdk:"always_compare_med" vyos:"always-compare-med,omitempty"`

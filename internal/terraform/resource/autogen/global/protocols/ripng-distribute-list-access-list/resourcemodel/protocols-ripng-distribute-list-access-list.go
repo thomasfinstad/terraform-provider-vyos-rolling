@@ -11,7 +11,7 @@ import (
 
 // ProtocolsRIPngDistributeListAccessList describes the resource data model.
 type ProtocolsRIPngDistributeListAccessList struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsRIPngDistributeListAccessListIn  types.Number `tfsdk:"in" vyos:"in,omitempty"`

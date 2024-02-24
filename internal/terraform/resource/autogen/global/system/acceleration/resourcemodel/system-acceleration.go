@@ -12,7 +12,7 @@ import (
 
 // SystemAcceleration describes the resource data model.
 type SystemAcceleration struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemAccelerationQat types.Bool `tfsdk:"qat" vyos:"qat,omitempty"`

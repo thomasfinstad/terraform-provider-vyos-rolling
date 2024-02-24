@@ -11,7 +11,7 @@ import (
 
 // ServiceSnmpVthree describes the resource data model.
 type ServiceSnmpVthree struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceSnmpVthreeEngineID types.String `tfsdk:"engineid" vyos:"engineid,omitempty"`

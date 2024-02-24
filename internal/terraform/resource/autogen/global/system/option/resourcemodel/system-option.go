@@ -12,7 +12,7 @@ import (
 
 // SystemOption describes the resource data model.
 type SystemOption struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemOptionCtrlAltDelete           types.String `tfsdk:"ctrl_alt_delete" vyos:"ctrl-alt-delete,omitempty"`

@@ -14,9 +14,9 @@ import (
 
 // ProtocolsBfdPeer describes the resource data model.
 type ProtocolsBfdPeer struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"peer_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"peer_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafProtocolsBfdPeerProfile  types.String `tfsdk:"profile" vyos:"profile,omitempty"`

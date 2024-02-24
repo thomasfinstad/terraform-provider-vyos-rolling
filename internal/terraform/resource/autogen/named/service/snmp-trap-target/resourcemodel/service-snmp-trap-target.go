@@ -13,9 +13,9 @@ import (
 
 // ServiceSnmpTrapTarget describes the resource data model.
 type ServiceSnmpTrapTarget struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"trap_target_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"trap_target_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafServiceSnmpTrapTargetCommunity types.String `tfsdk:"community" vyos:"community,omitempty"`

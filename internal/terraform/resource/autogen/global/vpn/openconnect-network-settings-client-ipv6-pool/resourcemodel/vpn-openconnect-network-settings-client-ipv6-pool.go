@@ -11,7 +11,7 @@ import (
 
 // VpnOpenconnectNetworkSettingsClientIPvsixPool describes the resource data model.
 type VpnOpenconnectNetworkSettingsClientIPvsixPool struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafVpnOpenconnectNetworkSettingsClientIPvsixPoolPrefix types.String `tfsdk:"prefix" vyos:"prefix,omitempty"`

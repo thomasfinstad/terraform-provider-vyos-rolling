@@ -11,7 +11,7 @@ import (
 
 // ProtocolsBgpParametersConditionalAdvertisement describes the resource data model.
 type ProtocolsBgpParametersConditionalAdvertisement struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpParametersConditionalAdvertisementTimer types.Number `tfsdk:"timer" vyos:"timer,omitempty"`

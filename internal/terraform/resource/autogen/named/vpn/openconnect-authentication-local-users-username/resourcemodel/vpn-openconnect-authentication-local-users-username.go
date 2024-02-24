@@ -14,9 +14,9 @@ import (
 
 // VpnOpenconnectAuthenticationLocalUsersUsername describes the resource data model.
 type VpnOpenconnectAuthenticationLocalUsersUsername struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"username_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"username_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable  types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`

@@ -13,9 +13,9 @@ import (
 
 // SystemStaticHostMappingHostName describes the resource data model.
 type SystemStaticHostMappingHostName struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"host_name_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"host_name_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafSystemStaticHostMappingHostNameAlias types.List `tfsdk:"alias" vyos:"alias,omitempty"`

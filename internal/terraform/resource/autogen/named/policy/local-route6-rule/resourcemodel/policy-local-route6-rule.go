@@ -13,9 +13,9 @@ import (
 
 // PolicyLocalRoutesixRule describes the resource data model.
 type PolicyLocalRoutesixRule struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafPolicyLocalRoutesixRuleFwmark           types.Number `tfsdk:"fwmark" vyos:"fwmark,omitempty"`

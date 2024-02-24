@@ -14,9 +14,9 @@ import (
 
 // VpnIPsecRemoteAccessConnection describes the resource data model.
 type VpnIPsecRemoteAccessConnection struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"connection_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"connection_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafVpnIPsecRemoteAccessConnectionDescrIPtion  types.String `tfsdk:"description" vyos:"description,omitempty"`

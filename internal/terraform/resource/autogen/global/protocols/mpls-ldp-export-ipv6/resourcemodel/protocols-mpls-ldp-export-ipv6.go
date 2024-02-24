@@ -12,7 +12,7 @@ import (
 
 // ProtocolsMplsLdpExportIPvsix describes the resource data model.
 type ProtocolsMplsLdpExportIPvsix struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsMplsLdpExportIPvsixExplicitNull types.Bool `tfsdk:"explicit_null" vyos:"explicit-null,omitempty"`

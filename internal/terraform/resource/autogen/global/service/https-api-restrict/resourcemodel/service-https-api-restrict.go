@@ -11,7 +11,7 @@ import (
 
 // ServiceHTTPSAPIRestrict describes the resource data model.
 type ServiceHTTPSAPIRestrict struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceHTTPSAPIRestrictVirtualHost types.List `tfsdk:"virtual_host" vyos:"virtual-host,omitempty"`

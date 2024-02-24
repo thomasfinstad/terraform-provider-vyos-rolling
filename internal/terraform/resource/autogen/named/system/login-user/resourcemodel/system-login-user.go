@@ -13,9 +13,9 @@ import (
 
 // SystemLoginUser describes the resource data model.
 type SystemLoginUser struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"user_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"user_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafSystemLoginUserFullName      types.String `tfsdk:"full_name" vyos:"full-name,omitempty"`

@@ -11,7 +11,7 @@ import (
 
 // ProtocolsOspfTimersThroTTLeSpf describes the resource data model.
 type ProtocolsOspfTimersThroTTLeSpf struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsOspfTimersThroTTLeSpfDelay           types.Number `tfsdk:"delay" vyos:"delay,omitempty"`

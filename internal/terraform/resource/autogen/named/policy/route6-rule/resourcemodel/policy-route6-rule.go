@@ -14,9 +14,9 @@ import (
 
 // PolicyRoutesixRule describes the resource data model.
 type PolicyRoutesixRule struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
 
 	ParentIDPolicyRoutesix types.String `tfsdk:"route6" vyos:"route6,parent-id"`
 

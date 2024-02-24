@@ -12,7 +12,7 @@ import (
 
 // ServiceDhcpServer describes the resource data model.
 type ServiceDhcpServer struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceDhcpServerDisable          types.Bool `tfsdk:"disable" vyos:"disable,omitempty"`

@@ -11,7 +11,7 @@ import (
 
 // ServiceDhcpServerFailover describes the resource data model.
 type ServiceDhcpServerFailover struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceDhcpServerFailoverSourceAddress types.String `tfsdk:"source_address" vyos:"source-address,omitempty"`

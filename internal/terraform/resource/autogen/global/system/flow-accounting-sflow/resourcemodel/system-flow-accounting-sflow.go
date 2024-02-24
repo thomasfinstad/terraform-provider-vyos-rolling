@@ -11,7 +11,7 @@ import (
 
 // SystemFlowAccountingSflow describes the resource data model.
 type SystemFlowAccountingSflow struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemFlowAccountingSflowAgentAddress  types.String `tfsdk:"agent_address" vyos:"agent-address,omitempty"`

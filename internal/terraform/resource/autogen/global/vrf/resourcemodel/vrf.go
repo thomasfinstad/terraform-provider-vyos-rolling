@@ -12,7 +12,7 @@ import (
 
 // Vrf describes the resource data model.
 type Vrf struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafVrfBindToAll types.Bool `tfsdk:"bind_to_all" vyos:"bind-to-all,omitempty"`

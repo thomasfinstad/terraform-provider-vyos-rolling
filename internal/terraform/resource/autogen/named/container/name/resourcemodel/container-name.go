@@ -14,9 +14,9 @@ import (
 
 // ContainerName describes the resource data model.
 type ContainerName struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"name_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"name_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafContainerNameAllowHostNetworks types.Bool   `tfsdk:"allow_host_networks" vyos:"allow-host-networks,omitempty"`

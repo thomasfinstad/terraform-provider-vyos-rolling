@@ -11,7 +11,7 @@ import (
 
 // ServiceDhcpRelay describes the resource data model.
 type ServiceDhcpRelay struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceDhcpRelayInterface         types.List `tfsdk:"interface" vyos:"interface,omitempty"`

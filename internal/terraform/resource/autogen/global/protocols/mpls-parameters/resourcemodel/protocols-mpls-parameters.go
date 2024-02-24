@@ -12,7 +12,7 @@ import (
 
 // ProtocolsMplsParameters describes the resource data model.
 type ProtocolsMplsParameters struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsMplsParametersNoPropagateTTL types.Bool   `tfsdk:"no_propagate_ttl" vyos:"no-propagate-ttl,omitempty"`

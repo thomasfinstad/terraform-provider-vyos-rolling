@@ -11,7 +11,7 @@ import (
 
 // ProtocolsRIPng describes the resource data model.
 type ProtocolsRIPng struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsRIPngAggregateAddress types.List   `tfsdk:"aggregate_address" vyos:"aggregate-address,omitempty"`

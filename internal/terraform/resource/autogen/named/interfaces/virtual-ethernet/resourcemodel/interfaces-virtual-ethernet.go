@@ -14,9 +14,9 @@ import (
 
 // InterfacesVirtualEthernet describes the resource data model.
 type InterfacesVirtualEthernet struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"virtual_ethernet_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"virtual_ethernet_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafInterfacesVirtualEthernetAddress     types.List   `tfsdk:"address" vyos:"address,omitempty"`

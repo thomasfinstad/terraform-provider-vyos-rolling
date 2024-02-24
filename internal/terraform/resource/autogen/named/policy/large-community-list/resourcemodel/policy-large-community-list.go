@@ -13,9 +13,9 @@ import (
 
 // PolicyLargeCommunityList describes the resource data model.
 type PolicyLargeCommunityList struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"large_community_list_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"large_community_list_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafPolicyLargeCommunityListDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`

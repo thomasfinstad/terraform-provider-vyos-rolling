@@ -35,23 +35,23 @@ provider "vyos" {
   }
 }
 
-# resource "vyos_firewall_group_port_group" "example" {
-#   port_group_id = "TF-Examples"
+resource "vyos_firewall_group_port_group" "example" {
+  port_group_id = "TF-Examples"
 
-#   description = "Example of terraform created resource"
-#   port        = [8080, "27015-27020", 443]
-# }
+  description = "Example of terraform created resource"
+  port        = [8080, "27015-27020", 443]
+}
 
-# resource "vyos_firewall_zone" "example" {
-#   zone_id = "TF-Examples"
+resource "vyos_firewall_zone" "example" {
+  zone_id = "TF-Examples"
 
-#   intra_zone_filtering = {
-#     action = "accept"
-#     firewall = {
-#       name = "test"
-#     }
-#   }
-# }
+  intra_zone_filtering = {
+    action = "accept"
+    firewall = {
+      name = "test"
+    }
+  }
+}
 
 resource "vyos_high_availability_vrrp_global_parameters" "example" {
   startup_delay = 12

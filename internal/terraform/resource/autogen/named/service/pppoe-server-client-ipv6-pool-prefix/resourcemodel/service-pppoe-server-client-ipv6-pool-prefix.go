@@ -13,9 +13,9 @@ import (
 
 // ServicePppoeServerClientIPvsixPoolPrefix describes the resource data model.
 type ServicePppoeServerClientIPvsixPoolPrefix struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"prefix_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"prefix_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafServicePppoeServerClientIPvsixPoolPrefixMask types.Number `tfsdk:"mask" vyos:"mask,omitempty"`

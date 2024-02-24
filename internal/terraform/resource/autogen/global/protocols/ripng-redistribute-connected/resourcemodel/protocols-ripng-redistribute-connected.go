@@ -11,7 +11,7 @@ import (
 
 // ProtocolsRIPngRedistributeConnected describes the resource data model.
 type ProtocolsRIPngRedistributeConnected struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsRIPngRedistributeConnectedMetric   types.Number `tfsdk:"metric" vyos:"metric,omitempty"`

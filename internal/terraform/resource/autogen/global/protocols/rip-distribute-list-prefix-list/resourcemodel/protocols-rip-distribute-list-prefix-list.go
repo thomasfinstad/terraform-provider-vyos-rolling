@@ -11,7 +11,7 @@ import (
 
 // ProtocolsRIPDistributeListPrefixList describes the resource data model.
 type ProtocolsRIPDistributeListPrefixList struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsRIPDistributeListPrefixListIn  types.String `tfsdk:"in" vyos:"in,omitempty"`

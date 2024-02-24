@@ -14,9 +14,9 @@ import (
 
 // InterfacesWirelessVif describes the resource data model.
 type InterfacesWirelessVif struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"vif_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"vif_id" vyos:"-,self-id"`
 
 	ParentIDInterfacesWireless types.String `tfsdk:"wireless" vyos:"wireless,parent-id"`
 

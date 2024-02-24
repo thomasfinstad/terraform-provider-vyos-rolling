@@ -12,7 +12,7 @@ import (
 
 // ProtocolsIsisDefaultInformationOriginateIPvsixLevelTwo describes the resource data model.
 type ProtocolsIsisDefaultInformationOriginateIPvsixLevelTwo struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoAlways   types.Bool   `tfsdk:"always" vyos:"always,omitempty"`

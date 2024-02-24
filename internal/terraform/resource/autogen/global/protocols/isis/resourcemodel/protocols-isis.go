@@ -12,7 +12,7 @@ import (
 
 // ProtocolsIsis describes the resource data model.
 type ProtocolsIsis struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsIsisDynamicHostname     types.Bool   `tfsdk:"dynamic_hostname" vyos:"dynamic-hostname,omitempty"`

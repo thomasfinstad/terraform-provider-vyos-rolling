@@ -12,7 +12,7 @@ import (
 
 // ProtocolsBgpParametersBestpathPeerType describes the resource data model.
 type ProtocolsBgpParametersBestpathPeerType struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpParametersBestpathPeerTypeMultIPathRelax types.Bool `tfsdk:"multipath_relax" vyos:"multipath-relax,omitempty"`

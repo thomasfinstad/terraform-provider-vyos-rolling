@@ -12,7 +12,7 @@ import (
 
 // ProtocolsRIPDefaultInformation describes the resource data model.
 type ProtocolsRIPDefaultInformation struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsRIPDefaultInformationOriginate types.Bool `tfsdk:"originate" vyos:"originate,omitempty"`

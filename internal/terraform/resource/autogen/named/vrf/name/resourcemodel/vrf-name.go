@@ -14,9 +14,9 @@ import (
 
 // VrfName describes the resource data model.
 type VrfName struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"name_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"name_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafVrfNameDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`

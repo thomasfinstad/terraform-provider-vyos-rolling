@@ -11,7 +11,7 @@ import (
 
 // SystemLcd describes the resource data model.
 type SystemLcd struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemLcdModel  types.String `tfsdk:"model" vyos:"model,omitempty"`

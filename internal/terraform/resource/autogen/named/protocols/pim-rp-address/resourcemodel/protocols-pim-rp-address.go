@@ -13,9 +13,9 @@ import (
 
 // ProtocolsPimRpAddress describes the resource data model.
 type ProtocolsPimRpAddress struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"address_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"address_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafProtocolsPimRpAddressGroup types.List `tfsdk:"group" vyos:"group,omitempty"`

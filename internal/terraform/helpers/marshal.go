@@ -29,8 +29,8 @@ func MarshalVyos(ctx context.Context, data VyosResourceDataModel) (map[string]an
 				fTags = append(fTags[:i], fTags[i+1:]...)
 			}
 		}
-		tflog.Debug(ctx, "processing field", map[string]interface{}{"Field": fName, "Type": fType, "Value-Interface": fValue, "Tags": fTags})
-		fmt.Printf("Field: %s\tType: %s\tValue: %v\tTags: %v\n", fName, fType, fValue, fTags)
+		tflog.Debug(ctx, "processing field", map[string]interface{}{"Field": fName, "Type": fType, "Value-Interface": fValue, "Tags": fTags, "data": data})
+		fmt.Printf("Field: %s\tType: %s\tValue: %v\tTags: %v Data:%#v\n", fName, fType, fValue, fTags, data)
 
 		if len(fTags) < 1 {
 			tflog.Error(ctx, "no vyos tags found on field, at least the name field must be filled. an underscore can be used if no real value is propriate")
@@ -48,8 +48,9 @@ func MarshalVyos(ctx context.Context, data VyosResourceDataModel) (map[string]an
 			"tfsdk-id":  false,
 			"ignore":    false,
 		}
-		for _, tag := range fTags {
+		for _, tag := range fTags[1:] {
 			fmt.Printf("\tEnabling flag: %s\n", tag)
+			tflog.Trace(ctx, "Enabling flag", map[string]interface{}{"flag": tag})
 			flags[tag] = true
 		}
 		if flags["ignore"].(bool) || flags["child"].(bool) || flags["self-id"].(bool) || flags["parent-id"].(bool) || flags["tfsdk-id"].(bool) {
@@ -61,8 +62,8 @@ func MarshalVyos(ctx context.Context, data VyosResourceDataModel) (map[string]an
 		switch v := fValue.Interface().(type) {
 		case basetypes.StringValue:
 			if !(v.IsNull() || v.IsUnknown()) {
-				fmt.Printf("\tMarshalling String Field: %s\t%s=%s\n", fName, flags["name"].(string), v.ValueString())
-				tflog.Debug(ctx, "Marshalling String Field", map[string]interface{}{"field-name": fName, flags["name"].(string): v.ValueString()})
+				fmt.Printf("\tMarshalling String Field: %v\t%v=%v\n", fName, flags["name"], v.ValueString())
+				tflog.Debug(ctx, "Marshalling String Field", map[string]interface{}{"field-name": fName, "flag:name": flags["name"], "value-string": v.ValueString()})
 				res[flags["name"].(string)] = v.ValueString()
 			} else if !flags["omitempty"].(bool) {
 				panic(fmt.Sprintf("Missing value: %s", fName))
@@ -145,5 +146,7 @@ func MarshalVyos(ctx context.Context, data VyosResourceDataModel) (map[string]an
 	}
 
 	// Return data
+	fmt.Printf("Marshal return: %#v\n", res)
+	tflog.Trace(ctx, "Marshal return", map[string]interface{}{"res": res})
 	return res, nil
 }

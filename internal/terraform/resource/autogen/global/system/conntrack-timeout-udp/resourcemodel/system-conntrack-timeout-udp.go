@@ -11,7 +11,7 @@ import (
 
 // SystemConntrackTimeoutUDP describes the resource data model.
 type SystemConntrackTimeoutUDP struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemConntrackTimeoutUDPOther  types.Number `tfsdk:"other" vyos:"other,omitempty"`

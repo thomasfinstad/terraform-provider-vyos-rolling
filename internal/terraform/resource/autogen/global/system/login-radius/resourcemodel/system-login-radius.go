@@ -11,7 +11,7 @@ import (
 
 // SystemLoginRadius describes the resource data model.
 type SystemLoginRadius struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemLoginRadiusSourceAddress types.List   `tfsdk:"source_address" vyos:"source-address,omitempty"`

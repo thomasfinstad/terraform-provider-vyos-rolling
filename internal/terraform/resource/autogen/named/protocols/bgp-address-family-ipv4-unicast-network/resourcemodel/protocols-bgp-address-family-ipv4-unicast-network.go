@@ -14,9 +14,9 @@ import (
 
 // ProtocolsBgpAddressFamilyIPvfourUnicastNetwork describes the resource data model.
 type ProtocolsBgpAddressFamilyIPvfourUnicastNetwork struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"network_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"network_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpAddressFamilyIPvfourUnicastNetworkBackdoor types.Bool   `tfsdk:"backdoor" vyos:"backdoor,omitempty"`

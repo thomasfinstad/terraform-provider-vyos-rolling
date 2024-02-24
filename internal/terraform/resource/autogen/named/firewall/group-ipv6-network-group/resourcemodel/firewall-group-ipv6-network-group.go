@@ -13,9 +13,9 @@ import (
 
 // FirewallGroupIPvsixNetworkGroup describes the resource data model.
 type FirewallGroupIPvsixNetworkGroup struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"ipv6_network_group_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"ipv6_network_group_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafFirewallGroupIPvsixNetworkGroupDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`

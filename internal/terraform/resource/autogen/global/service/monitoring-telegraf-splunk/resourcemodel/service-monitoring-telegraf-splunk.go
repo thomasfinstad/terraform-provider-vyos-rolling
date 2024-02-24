@@ -11,7 +11,7 @@ import (
 
 // ServiceMonitoringTelegrafSplunk describes the resource data model.
 type ServiceMonitoringTelegrafSplunk struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceMonitoringTelegrafSplunkURL types.String `tfsdk:"url" vyos:"url,omitempty"`

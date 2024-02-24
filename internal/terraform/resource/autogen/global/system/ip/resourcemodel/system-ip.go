@@ -12,7 +12,7 @@ import (
 
 // SystemIP describes the resource data model.
 type SystemIP struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemIPDisableForwarding        types.Bool `tfsdk:"disable_forwarding" vyos:"disable-forwarding,omitempty"`

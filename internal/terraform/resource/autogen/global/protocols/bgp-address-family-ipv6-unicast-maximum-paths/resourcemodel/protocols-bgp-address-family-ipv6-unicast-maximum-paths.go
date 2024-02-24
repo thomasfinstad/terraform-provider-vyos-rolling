@@ -11,7 +11,7 @@ import (
 
 // ProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths describes the resource data model.
 type ProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpAddressFamilyIPvsixUnicastMaximumPathsEbgp types.Number `tfsdk:"ebgp" vyos:"ebgp,omitempty"`

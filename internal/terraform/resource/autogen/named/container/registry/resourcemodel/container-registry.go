@@ -14,9 +14,9 @@ import (
 
 // ContainerRegistry describes the resource data model.
 type ContainerRegistry struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"registry_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"registry_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafContainerRegistryDisable types.Bool `tfsdk:"disable" vyos:"disable,omitempty"`

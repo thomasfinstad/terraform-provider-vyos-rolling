@@ -14,9 +14,9 @@ import (
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsTxt describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsTxt struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"txt_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"txt_id" vyos:"-,self-id"`
 
 	ParentIDServiceDNSForwardingAuthoritativeDomain types.String `tfsdk:"authoritative_domain" vyos:"authoritative-domain,parent-id"`
 

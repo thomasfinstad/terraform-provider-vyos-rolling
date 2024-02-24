@@ -13,9 +13,9 @@ import (
 
 // QosPolicyNetworkEmulator describes the resource data model.
 type QosPolicyNetworkEmulator struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"network_emulator_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"network_emulator_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafQosPolicyNetworkEmulatorDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`

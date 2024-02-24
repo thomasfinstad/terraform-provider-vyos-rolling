@@ -13,9 +13,9 @@ import (
 
 // PolicyPrefixListRule describes the resource data model.
 type PolicyPrefixListRule struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
 
 	ParentIDPolicyPrefixList types.String `tfsdk:"prefix_list" vyos:"prefix-list,parent-id"`
 

@@ -14,9 +14,9 @@ import (
 
 // ServiceDNSDynamicInterface describes the resource data model.
 type ServiceDNSDynamicInterface struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafServiceDNSDynamicInterfaceIPvsixEnable types.Bool `tfsdk:"ipv6_enable" vyos:"ipv6-enable,omitempty"`

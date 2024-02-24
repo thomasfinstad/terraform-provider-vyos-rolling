@@ -12,7 +12,7 @@ import (
 
 // ProtocolsMplsLdpParameters describes the resource data model.
 type ProtocolsMplsLdpParameters struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsMplsLdpParametersCiscoInteropTlv        types.Bool `tfsdk:"cisco_interop_tlv" vyos:"cisco-interop-tlv,omitempty"`

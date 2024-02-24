@@ -11,7 +11,7 @@ import (
 
 // ProtocolsRIPngRedistributeBabel describes the resource data model.
 type ProtocolsRIPngRedistributeBabel struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsRIPngRedistributeBabelMetric   types.Number `tfsdk:"metric" vyos:"metric,omitempty"`

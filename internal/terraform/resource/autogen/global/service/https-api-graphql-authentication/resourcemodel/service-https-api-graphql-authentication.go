@@ -11,7 +11,7 @@ import (
 
 // ServiceHTTPSAPIGraphqlAuthentication describes the resource data model.
 type ServiceHTTPSAPIGraphqlAuthentication struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceHTTPSAPIGraphqlAuthenticationType         types.String `tfsdk:"type" vyos:"type,omitempty"`

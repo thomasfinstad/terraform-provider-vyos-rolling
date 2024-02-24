@@ -12,7 +12,7 @@ import (
 
 // ServiceWebproxyAuthenticationLdap describes the resource data model.
 type ServiceWebproxyAuthenticationLdap struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceWebproxyAuthenticationLdapBaseDn               types.String `tfsdk:"base_dn" vyos:"base-dn,omitempty"`

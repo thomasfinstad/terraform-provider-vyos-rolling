@@ -13,9 +13,9 @@ import (
 
 // QosPolicyRandomDetectPrecedence describes the resource data model.
 type QosPolicyRandomDetectPrecedence struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"precedence_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"precedence_id" vyos:"-,self-id"`
 
 	ParentIDQosPolicyRandomDetect types.String `tfsdk:"random_detect" vyos:"random-detect,parent-id"`
 

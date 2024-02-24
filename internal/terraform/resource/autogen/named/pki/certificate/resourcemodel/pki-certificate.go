@@ -14,9 +14,9 @@ import (
 
 // PkiCertificate describes the resource data model.
 type PkiCertificate struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"certificate_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"certificate_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafPkiCertificateCertificate types.String `tfsdk:"certificate" vyos:"certificate,omitempty"`

@@ -13,9 +13,9 @@ import (
 
 // QosPolicyShaperHfsc describes the resource data model.
 type QosPolicyShaperHfsc struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"shaper_hfsc_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"shaper_hfsc_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafQosPolicyShaperHfscDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`

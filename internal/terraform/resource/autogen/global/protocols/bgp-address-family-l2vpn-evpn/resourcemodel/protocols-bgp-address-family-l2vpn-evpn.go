@@ -12,7 +12,7 @@ import (
 
 // ProtocolsBgpAddressFamilyLtwovpnEvpn describes the resource data model.
 type ProtocolsBgpAddressFamilyLtwovpnEvpn struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseAllVni    types.Bool   `tfsdk:"advertise_all_vni" vyos:"advertise-all-vni,omitempty"`

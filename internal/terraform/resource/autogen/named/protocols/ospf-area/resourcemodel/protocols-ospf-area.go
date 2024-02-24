@@ -13,9 +13,9 @@ import (
 
 // ProtocolsOspfArea describes the resource data model.
 type ProtocolsOspfArea struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"area_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"area_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafProtocolsOspfAreaAuthentication types.String `tfsdk:"authentication" vyos:"authentication,omitempty"`

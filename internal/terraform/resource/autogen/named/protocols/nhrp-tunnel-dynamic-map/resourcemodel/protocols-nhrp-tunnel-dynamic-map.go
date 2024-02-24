@@ -13,9 +13,9 @@ import (
 
 // ProtocolsNhrpTunnelDynamicMap describes the resource data model.
 type ProtocolsNhrpTunnelDynamicMap struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"dynamic_map_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"dynamic_map_id" vyos:"-,self-id"`
 
 	ParentIDProtocolsNhrpTunnel types.String `tfsdk:"tunnel" vyos:"tunnel,parent-id"`
 

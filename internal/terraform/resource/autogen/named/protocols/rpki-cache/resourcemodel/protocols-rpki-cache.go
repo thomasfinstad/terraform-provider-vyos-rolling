@@ -13,9 +13,9 @@ import (
 
 // ProtocolsRpkiCache describes the resource data model.
 type ProtocolsRpkiCache struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"cache_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"cache_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafProtocolsRpkiCachePort       types.Number `tfsdk:"port" vyos:"port,omitempty"`

@@ -13,9 +13,9 @@ import (
 
 // VpnIPsecIkeGroupProposal describes the resource data model.
 type VpnIPsecIkeGroupProposal struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"proposal_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"proposal_id" vyos:"-,self-id"`
 
 	ParentIDVpnIPsecIkeGroup types.String `tfsdk:"ike_group" vyos:"ike-group,parent-id"`
 

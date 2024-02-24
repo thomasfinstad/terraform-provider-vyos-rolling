@@ -12,7 +12,7 @@ import (
 
 // ServicePppoeServerSnmp describes the resource data model.
 type ServicePppoeServerSnmp struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServicePppoeServerSnmpMasterAgent types.Bool `tfsdk:"master_agent" vyos:"master-agent,omitempty"`

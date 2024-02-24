@@ -13,9 +13,9 @@ import (
 
 // ProtocolsPimInterface describes the resource data model.
 type ProtocolsPimInterface struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafProtocolsPimInterfaceDrPriority types.Number `tfsdk:"dr_priority" vyos:"dr-priority,omitempty"`

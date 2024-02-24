@@ -11,7 +11,7 @@ import (
 
 // ProtocolsIsisRedistributeIPvfourRIPLevelOne describes the resource data model.
 type ProtocolsIsisRedistributeIPvfourRIPLevelOne struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsIsisRedistributeIPvfourRIPLevelOneMetric   types.Number `tfsdk:"metric" vyos:"metric,omitempty"`

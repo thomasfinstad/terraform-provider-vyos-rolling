@@ -105,7 +105,7 @@ func (c *Client) CommitChanges(ctx context.Context) (any, error) {
 		"data": []string{string(jsonOperations)},
 	}
 
-	tflog.Info(ctx, "Creating request for <endpoint>/configure", map[string]interface{}{"payload": payload})
+	tflog.Info(ctx, "Creating request for <endpoint>/configure", map[string]interface{}{"endpoint": c.endpoint, "payload": payload})
 
 	req, err := http.NewRequest("POST", c.endpoint+"/configure", strings.NewReader(payload.Encode()))
 	if err != nil {
@@ -129,6 +129,11 @@ func (c *Client) CommitChanges(ctx context.Context) (any, error) {
 		return nil, err
 	}
 
+	if resp.StatusCode >= 500 {
+		tflog.Error(ctx, "Request error", map[string]interface{}{"statusCode": resp.StatusCode, "header": resp.Header, "body": body})
+		return nil, fmt.Errorf("request error [%s]: %#v", resp.Status, map[string]interface{}{"statusCode": resp.StatusCode, "header": resp.Header, "body": body})
+	}
+
 	c.opsSet = [][]string{}
 	c.opsDelete = [][]string{}
 
@@ -144,7 +149,7 @@ func (c *Client) CommitChanges(ctx context.Context) (any, error) {
 		return ret["data"], nil
 	}
 
-	return nil, fmt.Errorf("API ERROR: %s", ret["error"])
+	return nil, fmt.Errorf("API ERROR [%s]: %s", resp.Status, ret["error"])
 }
 
 func (c *Client) Read(ctx context.Context, path []string) (any, error) {
@@ -164,7 +169,7 @@ func (c *Client) Read(ctx context.Context, path []string) (any, error) {
 		"data": []string{string(operation)},
 	}
 
-	tflog.Info(ctx, "Creating request for <endpoint>/retrieve", map[string]interface{}{"payload": payload})
+	tflog.Info(ctx, "Creating request for <endpoint>/retrieve", map[string]interface{}{"endpoint": c.endpoint, "payload": payload})
 
 	req, err := http.NewRequest("POST", c.endpoint+"/retrieve", strings.NewReader(payload.Encode()))
 	if err != nil {

@@ -11,7 +11,7 @@ import (
 
 // ProtocolsIsisAreaPassword describes the resource data model.
 type ProtocolsIsisAreaPassword struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsIsisAreaPasswordPlaintextPassword types.String `tfsdk:"plaintext_password" vyos:"plaintext-password,omitempty"`

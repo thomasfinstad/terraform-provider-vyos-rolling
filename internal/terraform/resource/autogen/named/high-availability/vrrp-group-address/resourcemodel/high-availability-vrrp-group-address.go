@@ -13,9 +13,9 @@ import (
 
 // HighAvailabilityVrrpGroupAddress describes the resource data model.
 type HighAvailabilityVrrpGroupAddress struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"address_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"address_id" vyos:"-,self-id"`
 
 	ParentIDHighAvailabilityVrrpGroup types.String `tfsdk:"group" vyos:"group,parent-id"`
 

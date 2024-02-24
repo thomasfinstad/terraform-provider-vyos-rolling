@@ -11,7 +11,7 @@ import (
 
 // PkiXfivezeronineDefault describes the resource data model.
 type PkiXfivezeronineDefault struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafPkiXfivezeronineDefaultCountry      types.String `tfsdk:"country" vyos:"country,omitempty"`

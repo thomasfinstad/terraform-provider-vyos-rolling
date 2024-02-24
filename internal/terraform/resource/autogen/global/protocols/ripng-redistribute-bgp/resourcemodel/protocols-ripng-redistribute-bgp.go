@@ -11,7 +11,7 @@ import (
 
 // ProtocolsRIPngRedistributeBgp describes the resource data model.
 type ProtocolsRIPngRedistributeBgp struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsRIPngRedistributeBgpMetric   types.Number `tfsdk:"metric" vyos:"metric,omitempty"`

@@ -12,7 +12,7 @@ import (
 
 // SystemSyslogGlobal describes the resource data model.
 type SystemSyslogGlobal struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemSyslogGlobalPreserveFqdn types.Bool `tfsdk:"preserve_fqdn" vyos:"preserve-fqdn,omitempty"`

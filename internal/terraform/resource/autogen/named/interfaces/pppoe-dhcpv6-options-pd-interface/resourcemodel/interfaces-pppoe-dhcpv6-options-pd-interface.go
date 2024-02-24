@@ -13,9 +13,9 @@ import (
 
 // InterfacesPppoeDhcpvsixOptionsPdInterface describes the resource data model.
 type InterfacesPppoeDhcpvsixOptionsPdInterface struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:"-,self-id"`
 
 	ParentIDInterfacesPppoe types.String `tfsdk:"pppoe" vyos:"pppoe,parent-id"`
 

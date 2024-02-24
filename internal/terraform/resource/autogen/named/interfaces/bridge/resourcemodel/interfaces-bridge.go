@@ -14,9 +14,9 @@ import (
 
 // InterfacesBrIDge describes the resource data model.
 type InterfacesBrIDge struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"bridge_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"bridge_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafInterfacesBrIDgeAddress           types.List   `tfsdk:"address" vyos:"address,omitempty"`

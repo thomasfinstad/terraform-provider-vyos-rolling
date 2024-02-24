@@ -11,7 +11,7 @@ import (
 
 // ServiceHTTPSAPICors describes the resource data model.
 type ServiceHTTPSAPICors struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceHTTPSAPICorsAllowOrigin types.List `tfsdk:"allow_origin" vyos:"allow-origin,omitempty"`

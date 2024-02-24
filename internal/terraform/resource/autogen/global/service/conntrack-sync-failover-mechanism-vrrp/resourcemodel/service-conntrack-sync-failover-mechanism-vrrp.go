@@ -11,7 +11,7 @@ import (
 
 // ServiceConntrackSyncFailoverMechanismVrrp describes the resource data model.
 type ServiceConntrackSyncFailoverMechanismVrrp struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceConntrackSyncFailoverMechanismVrrpSyncGroup types.String `tfsdk:"sync_group" vyos:"sync-group,omitempty"`

@@ -13,9 +13,9 @@ import (
 
 // PolicyExtcommunityList describes the resource data model.
 type PolicyExtcommunityList struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"extcommunity_list_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"extcommunity_list_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafPolicyExtcommunityListDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`

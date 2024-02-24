@@ -11,7 +11,7 @@ import (
 
 // ServiceIDsDdosProtectionThresholdGeneral describes the resource data model.
 type ServiceIDsDdosProtectionThresholdGeneral struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceIDsDdosProtectionThresholdGeneralFps  types.Number `tfsdk:"fps" vyos:"fps,omitempty"`

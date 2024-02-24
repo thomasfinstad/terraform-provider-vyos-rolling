@@ -13,9 +13,9 @@ import (
 
 // ServiceDNSDynamicInterfaceRfctwoonethreesix describes the resource data model.
 type ServiceDNSDynamicInterfaceRfctwoonethreesix struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"rfc2136_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"rfc2136_id" vyos:"-,self-id"`
 
 	ParentIDServiceDNSDynamicInterface types.String `tfsdk:"interface" vyos:"interface,parent-id"`
 

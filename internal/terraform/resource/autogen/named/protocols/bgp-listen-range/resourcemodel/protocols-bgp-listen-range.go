@@ -13,9 +13,9 @@ import (
 
 // ProtocolsBgpListenRange describes the resource data model.
 type ProtocolsBgpListenRange struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"range_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"range_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpListenRangePeerGroup types.String `tfsdk:"peer_group" vyos:"peer-group,omitempty"`

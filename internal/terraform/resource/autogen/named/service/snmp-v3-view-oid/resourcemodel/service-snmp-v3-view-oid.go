@@ -13,9 +13,9 @@ import (
 
 // ServiceSnmpVthreeViewOID describes the resource data model.
 type ServiceSnmpVthreeViewOID struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"oid_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"oid_id" vyos:"-,self-id"`
 
 	ParentIDServiceSnmpVthreeView types.String `tfsdk:"view" vyos:"view,parent-id"`
 

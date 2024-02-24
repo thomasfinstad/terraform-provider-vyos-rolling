@@ -13,9 +13,9 @@ import (
 
 // ServiceSnmpListenAddress describes the resource data model.
 type ServiceSnmpListenAddress struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"listen_address_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"listen_address_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafServiceSnmpListenAddressPort types.Number `tfsdk:"port" vyos:"port,omitempty"`

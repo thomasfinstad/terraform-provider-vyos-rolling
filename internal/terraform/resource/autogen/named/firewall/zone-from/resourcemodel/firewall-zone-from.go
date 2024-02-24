@@ -13,9 +13,9 @@ import (
 
 // FirewallZoneFrom describes the resource data model.
 type FirewallZoneFrom struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"from_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"from_id" vyos:"-,self-id"`
 
 	ParentIDFirewallZone types.String `tfsdk:"zone" vyos:"zone,parent-id"`
 

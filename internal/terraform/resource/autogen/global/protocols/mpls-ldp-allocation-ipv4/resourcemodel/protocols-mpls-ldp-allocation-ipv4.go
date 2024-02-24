@@ -11,7 +11,7 @@ import (
 
 // ProtocolsMplsLdpAllocationIPvfour describes the resource data model.
 type ProtocolsMplsLdpAllocationIPvfour struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsMplsLdpAllocationIPvfourAccessList types.Number `tfsdk:"access_list" vyos:"access-list,omitempty"`

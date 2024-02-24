@@ -11,7 +11,7 @@ import (
 
 // ProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsixUnicast describes the resource data model.
 type ProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsixUnicast struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsixUnicastRouteMap types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`

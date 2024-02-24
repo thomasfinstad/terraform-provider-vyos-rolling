@@ -14,9 +14,9 @@ import (
 
 // ProtocolsBgpNeighbor describes the resource data model.
 type ProtocolsBgpNeighbor struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"neighbor_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"neighbor_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpNeighborAdvertisementInterval        types.Number `tfsdk:"advertisement_interval" vyos:"advertisement-interval,omitempty"`

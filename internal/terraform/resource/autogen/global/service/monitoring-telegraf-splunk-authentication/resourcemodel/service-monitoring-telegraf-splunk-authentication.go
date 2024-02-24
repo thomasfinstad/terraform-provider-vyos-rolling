@@ -12,7 +12,7 @@ import (
 
 // ServiceMonitoringTelegrafSplunkAuthentication describes the resource data model.
 type ServiceMonitoringTelegrafSplunkAuthentication struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceMonitoringTelegrafSplunkAuthenticationToken    types.String `tfsdk:"token" vyos:"token,omitempty"`

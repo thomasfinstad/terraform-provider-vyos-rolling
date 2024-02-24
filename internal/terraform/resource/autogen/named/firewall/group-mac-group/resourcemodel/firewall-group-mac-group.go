@@ -13,9 +13,9 @@ import (
 
 // FirewallGroupMacGroup describes the resource data model.
 type FirewallGroupMacGroup struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"mac_group_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"mac_group_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafFirewallGroupMacGroupDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`

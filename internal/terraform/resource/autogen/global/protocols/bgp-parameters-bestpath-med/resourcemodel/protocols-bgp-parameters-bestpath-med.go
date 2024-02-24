@@ -12,7 +12,7 @@ import (
 
 // ProtocolsBgpParametersBestpathMed describes the resource data model.
 type ProtocolsBgpParametersBestpathMed struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpParametersBestpathMedConfed         types.Bool `tfsdk:"confed" vyos:"confed,omitempty"`

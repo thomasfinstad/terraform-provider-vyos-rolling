@@ -12,7 +12,7 @@ import (
 
 // ServiceWebproxyURLFilteringSquIDguard describes the resource data model.
 type ServiceWebproxyURLFilteringSquIDguard struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceWebproxyURLFilteringSquIDguardAllowCategory     types.List   `tfsdk:"allow_category" vyos:"allow-category,omitempty"`

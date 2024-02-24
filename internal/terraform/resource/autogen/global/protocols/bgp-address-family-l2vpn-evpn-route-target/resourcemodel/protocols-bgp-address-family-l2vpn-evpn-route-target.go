@@ -11,7 +11,7 @@ import (
 
 // ProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget describes the resource data model.
 type ProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpAddressFamilyLtwovpnEvpnRouteTargetBoth   types.List `tfsdk:"both" vyos:"both,omitempty"`

@@ -11,7 +11,7 @@ import (
 
 // VpnSstpPppOptions describes the resource data model.
 type VpnSstpPppOptions struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafVpnSstpPppOptionsMppe            types.String `tfsdk:"mppe" vyos:"mppe,omitempty"`

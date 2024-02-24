@@ -12,7 +12,7 @@ import (
 
 // VpnSstpAuthenticationRadiusRateLimit describes the resource data model.
 type VpnSstpAuthenticationRadiusRateLimit struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafVpnSstpAuthenticationRadiusRateLimitAttribute  types.String `tfsdk:"attribute" vyos:"attribute,omitempty"`

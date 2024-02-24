@@ -11,7 +11,7 @@ import (
 
 // ProtocolsRIP describes the resource data model.
 type ProtocolsRIP struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsRIPDefaultDistance  types.Number `tfsdk:"default_distance" vyos:"default-distance,omitempty"`

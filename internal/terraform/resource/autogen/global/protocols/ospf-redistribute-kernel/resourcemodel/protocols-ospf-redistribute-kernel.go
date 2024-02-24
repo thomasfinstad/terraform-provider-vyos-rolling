@@ -11,7 +11,7 @@ import (
 
 // ProtocolsOspfRedistributeKernel describes the resource data model.
 type ProtocolsOspfRedistributeKernel struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsOspfRedistributeKernelMetric     types.Number `tfsdk:"metric" vyos:"metric,omitempty"`

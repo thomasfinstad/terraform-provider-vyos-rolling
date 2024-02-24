@@ -11,7 +11,7 @@ import (
 
 // ProtocolsBgpParametersDampening describes the resource data model.
 type ProtocolsBgpParametersDampening struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpParametersDampeningHalfLife          types.Number `tfsdk:"half_life" vyos:"half-life,omitempty"`

@@ -11,7 +11,7 @@ import (
 
 // ServiceWebproxyURLFilteringSquIDguardAutoUpdate describes the resource data model.
 type ServiceWebproxyURLFilteringSquIDguardAutoUpdate struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceWebproxyURLFilteringSquIDguardAutoUpdateUpdateHour types.Number `tfsdk:"update_hour" vyos:"update-hour,omitempty"`

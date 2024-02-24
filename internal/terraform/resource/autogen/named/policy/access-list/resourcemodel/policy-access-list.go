@@ -13,9 +13,9 @@ import (
 
 // PolicyAccessList describes the resource data model.
 type PolicyAccessList struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.Number `tfsdk:"access_list_id" vyos:",self-id"`
+	SelfIdentifier types.Number `tfsdk:"access_list_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafPolicyAccessListDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`

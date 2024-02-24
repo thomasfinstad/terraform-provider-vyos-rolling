@@ -13,9 +13,9 @@ import (
 
 // ServicePppoeServerInterface describes the resource data model.
 type ServicePppoeServerInterface struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"interface_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafServicePppoeServerInterfaceVlan types.List `tfsdk:"vlan" vyos:"vlan,omitempty"`

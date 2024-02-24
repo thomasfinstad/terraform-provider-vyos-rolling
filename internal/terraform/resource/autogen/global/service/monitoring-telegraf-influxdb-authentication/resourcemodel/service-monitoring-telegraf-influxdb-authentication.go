@@ -11,7 +11,7 @@ import (
 
 // ServiceMonitoringTelegrafInfluxdbAuthentication describes the resource data model.
 type ServiceMonitoringTelegrafInfluxdbAuthentication struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceMonitoringTelegrafInfluxdbAuthenticationOrganization types.String `tfsdk:"organization" vyos:"organization,omitempty"`

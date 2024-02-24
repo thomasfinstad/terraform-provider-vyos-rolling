@@ -13,9 +13,9 @@ import (
 
 // NatStaticRule describes the resource data model.
 type NatStaticRule struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"rule_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"rule_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafNatStaticRuleDescrIPtion      types.String `tfsdk:"description" vyos:"description,omitempty"`

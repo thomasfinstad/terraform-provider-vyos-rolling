@@ -11,7 +11,7 @@ import (
 
 // ProtocolsIsisRedistributeIPvfourStaticLevelTwo describes the resource data model.
 type ProtocolsIsisRedistributeIPvfourStaticLevelTwo struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsIsisRedistributeIPvfourStaticLevelTwoMetric   types.Number `tfsdk:"metric" vyos:"metric,omitempty"`

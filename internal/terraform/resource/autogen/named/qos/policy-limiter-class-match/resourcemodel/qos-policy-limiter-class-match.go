@@ -13,9 +13,9 @@ import (
 
 // QosPolicyLimiterClassMatch describes the resource data model.
 type QosPolicyLimiterClassMatch struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"match_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"match_id" vyos:"-,self-id"`
 
 	ParentIDQosPolicyLimiter types.String `tfsdk:"limiter" vyos:"limiter,parent-id"`
 

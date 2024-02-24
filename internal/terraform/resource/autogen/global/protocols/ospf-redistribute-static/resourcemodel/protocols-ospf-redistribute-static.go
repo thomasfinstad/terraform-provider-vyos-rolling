@@ -11,7 +11,7 @@ import (
 
 // ProtocolsOspfRedistributeStatic describes the resource data model.
 type ProtocolsOspfRedistributeStatic struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsOspfRedistributeStaticMetric     types.Number `tfsdk:"metric" vyos:"metric,omitempty"`

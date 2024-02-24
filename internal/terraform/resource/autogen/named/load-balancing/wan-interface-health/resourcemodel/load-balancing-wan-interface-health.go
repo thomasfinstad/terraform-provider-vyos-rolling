@@ -13,9 +13,9 @@ import (
 
 // LoadBalancingWanInterfaceHealth describes the resource data model.
 type LoadBalancingWanInterfaceHealth struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"interface_health_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"interface_health_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafLoadBalancingWanInterfaceHealthFailureCount types.Number `tfsdk:"failure_count" vyos:"failure-count,omitempty"`

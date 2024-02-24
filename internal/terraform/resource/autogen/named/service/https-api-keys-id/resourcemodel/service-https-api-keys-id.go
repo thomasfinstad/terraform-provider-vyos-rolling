@@ -13,9 +13,9 @@ import (
 
 // ServiceHTTPSAPIKeysID describes the resource data model.
 type ServiceHTTPSAPIKeysID struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"id_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"id_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafServiceHTTPSAPIKeysIDKey types.String `tfsdk:"key" vyos:"key,omitempty"`

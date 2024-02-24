@@ -11,7 +11,7 @@ import (
 
 // VpnOpenconnectSsl describes the resource data model.
 type VpnOpenconnectSsl struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafVpnOpenconnectSslCaCertificate types.String `tfsdk:"ca_certificate" vyos:"ca-certificate,omitempty"`

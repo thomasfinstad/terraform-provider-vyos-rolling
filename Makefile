@@ -169,27 +169,17 @@ build-rolling:
 	make --always-make data/vyos/rolling-iso-build.txt
 
 	make test
-	-rm -rf ${BIN_DIR}
-	-mkdir ${BIN_DIR}
-	go build -o ${BIN_DIR}/${BINARY_PREFIX}${NAME}
+	-rm -rf "${BIN_DIR}"
+	-mkdir -p "${BIN_DIR}/local/providers/${NAME}/${VERSION_ROLLING}/${OS_ARCH}/"
+	go build -o ${BIN_DIR}/local/providers/${NAME}/${VERSION_ROLLING}/${OS_ARCH}/${BINARY_PREFIX}${NAME}
 
 	make clean
 
 .PHONY: build
 build: test
 	-rm -rf ${BIN_DIR}
-	-mkdir ${BIN_DIR}
-	go build -o ${BIN_DIR}/${BINARY_PREFIX}${NAME}
-
-.PHONY: install
-install: build
-	mkdir -p ~/.terraform.d/plugins/${HOSTNAME}/${NAMESPACE}/${NAME}/${VERSION}/${OS_ARCH}
-	cp -a ${BIN_DIR}/${BINARY_PREFIX}${NAME} ~/.terraform.d/plugins/${HOSTNAME}/${NAMESPACE}/${NAME}/${VERSION}/${OS_ARCH}
-
-.PHONY: install-rolling
-install-rolling: build-rolling
-	mkdir -p ~/.terraform.d/plugins/${HOSTNAME}/${NAMESPACE}/${NAME}/${VERSION_ROLLING}/${OS_ARCH}
-	cp -a ${BIN_DIR}/${BINARY_PREFIX}${NAME} ~/.terraform.d/plugins/${HOSTNAME}/${NAMESPACE}/${NAME}/${VERSION_ROLLING}/${OS_ARCH}
+	-mkdir -p "${BIN_DIR}/local/providers/${NAME}/${VERSION}/${OS_ARCH}/"
+	go build -o ${BIN_DIR}/local/providers/${NAME}/${VERSION}/${OS_ARCH}/${BINARY_PREFIX}${NAME}
 
 .PHONY: clean
 clean:
@@ -201,7 +191,7 @@ example-clean:
 	-rm -rfv ~/.terraform.d/plugins/
 
 .PHONY: provider-schema
-provider-schema: install-rolling
+provider-schema: build-rolling
 	mkdir -p data/provider-schema
 	cd examples/provider; make init
 	terraform -chdir=examples/provider providers schema -json | jq '.' > data/provider-schema/${VERSION_ROLLING}.json

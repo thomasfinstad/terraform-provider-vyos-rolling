@@ -11,7 +11,7 @@ import (
 
 // SystemFlowAccountingNetflowTimeout describes the resource data model.
 type SystemFlowAccountingNetflowTimeout struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemFlowAccountingNetflowTimeoutExpiryInterval types.Number `tfsdk:"expiry_interval" vyos:"expiry-interval,omitempty"`

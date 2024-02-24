@@ -12,7 +12,7 @@ import (
 
 // ServiceLldpLegacyProtocols describes the resource data model.
 type ServiceLldpLegacyProtocols struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceLldpLegacyProtocolsCdp   types.Bool `tfsdk:"cdp" vyos:"cdp,omitempty"`

@@ -11,7 +11,7 @@ import (
 
 // ServiceHTTPS describes the resource data model.
 type ServiceHTTPS struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceHTTPSVrf types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`

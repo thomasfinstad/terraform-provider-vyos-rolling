@@ -12,7 +12,7 @@ import (
 
 // SystemIPMultIPath describes the resource data model.
 type SystemIPMultIPath struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemIPMultIPathIgnoreUnreachableNexthops types.Bool `tfsdk:"ignore_unreachable_nexthops" vyos:"ignore-unreachable-nexthops,omitempty"`

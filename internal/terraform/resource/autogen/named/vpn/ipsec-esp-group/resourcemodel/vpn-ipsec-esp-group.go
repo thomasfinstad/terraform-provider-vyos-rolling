@@ -14,9 +14,9 @@ import (
 
 // VpnIPsecEspGroup describes the resource data model.
 type VpnIPsecEspGroup struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"esp_group_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"esp_group_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafVpnIPsecEspGroupCompression types.Bool   `tfsdk:"compression" vyos:"compression,omitempty"`

@@ -11,7 +11,7 @@ import (
 
 // ServiceNtpAllowClient describes the resource data model.
 type ServiceNtpAllowClient struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceNtpAllowClientAddress types.List `tfsdk:"address" vyos:"address,omitempty"`

@@ -12,7 +12,7 @@ import (
 
 // ServiceLldpSnmp describes the resource data model.
 type ServiceLldpSnmp struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceLldpSnmpEnable types.Bool `tfsdk:"enable" vyos:"enable,omitempty"`

@@ -14,9 +14,9 @@ import (
 
 // ServiceWebproxyListenAddress describes the resource data model.
 type ServiceWebproxyListenAddress struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"listen_address_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"listen_address_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafServiceWebproxyListenAddressPort               types.Number `tfsdk:"port" vyos:"port,omitempty"`

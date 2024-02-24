@@ -11,7 +11,7 @@ import (
 
 // ProtocolsBgpListen describes the resource data model.
 type ProtocolsBgpListen struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpListenLimit types.Number `tfsdk:"limit" vyos:"limit,omitempty"`

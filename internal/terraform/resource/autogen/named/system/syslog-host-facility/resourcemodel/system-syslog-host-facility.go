@@ -13,9 +13,9 @@ import (
 
 // SystemSyslogHostFacility describes the resource data model.
 type SystemSyslogHostFacility struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"facility_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"facility_id" vyos:"-,self-id"`
 
 	ParentIDSystemSyslogHost types.String `tfsdk:"host" vyos:"host,parent-id"`
 

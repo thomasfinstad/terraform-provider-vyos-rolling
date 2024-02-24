@@ -13,9 +13,9 @@ import (
 
 // InterfacesEthernetVifDhcpvsixOptionsPd describes the resource data model.
 type InterfacesEthernetVifDhcpvsixOptionsPd struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"pd_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"pd_id" vyos:"-,self-id"`
 
 	ParentIDInterfacesEthernet types.String `tfsdk:"ethernet" vyos:"ethernet,parent-id"`
 

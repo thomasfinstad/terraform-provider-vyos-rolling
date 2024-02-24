@@ -14,9 +14,9 @@ import (
 
 // VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername describes the resource data model.
 type VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"username_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"username_id" vyos:"-,self-id"`
 
 	ParentIDVpnIPsecRemoteAccessConnection types.String `tfsdk:"connection" vyos:"connection,parent-id"`
 

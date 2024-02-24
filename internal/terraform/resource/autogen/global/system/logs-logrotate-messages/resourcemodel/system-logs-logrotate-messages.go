@@ -11,7 +11,7 @@ import (
 
 // SystemLogsLogrotateMessages describes the resource data model.
 type SystemLogsLogrotateMessages struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemLogsLogrotateMessagesMaxSize types.Number `tfsdk:"max_size" vyos:"max-size,omitempty"`

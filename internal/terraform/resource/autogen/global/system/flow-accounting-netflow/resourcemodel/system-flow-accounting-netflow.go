@@ -11,7 +11,7 @@ import (
 
 // SystemFlowAccountingNetflow describes the resource data model.
 type SystemFlowAccountingNetflow struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemFlowAccountingNetflowEngineID      types.String `tfsdk:"engine_id" vyos:"engine-id,omitempty"`

@@ -14,9 +14,9 @@ import (
 
 // ProtocolsNhrpTunnel describes the resource data model.
 type ProtocolsNhrpTunnel struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"tunnel_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"tunnel_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafProtocolsNhrpTunnelCiscoAuthentication types.String `tfsdk:"cisco_authentication" vyos:"cisco-authentication,omitempty"`

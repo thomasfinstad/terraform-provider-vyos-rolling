@@ -12,7 +12,7 @@ import (
 
 // SystemUpdateCheck describes the resource data model.
 type SystemUpdateCheck struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemUpdateCheckAutoCheck types.Bool   `tfsdk:"auto_check" vyos:"auto-check,omitempty"`

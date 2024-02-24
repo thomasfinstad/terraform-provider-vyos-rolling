@@ -11,7 +11,7 @@ import (
 
 // ServiceMonitoringTelegrafAzureDataExplorerAuthentication describes the resource data model.
 type ServiceMonitoringTelegrafAzureDataExplorerAuthentication struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceMonitoringTelegrafAzureDataExplorerAuthenticationClientID     types.String `tfsdk:"client_id" vyos:"client-id,omitempty"`

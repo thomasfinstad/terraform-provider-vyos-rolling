@@ -12,7 +12,7 @@ import (
 
 // ProtocolsOspfLogAdjacencyChanges describes the resource data model.
 type ProtocolsOspfLogAdjacencyChanges struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsOspfLogAdjacencyChangesDetail types.Bool `tfsdk:"detail" vyos:"detail,omitempty"`

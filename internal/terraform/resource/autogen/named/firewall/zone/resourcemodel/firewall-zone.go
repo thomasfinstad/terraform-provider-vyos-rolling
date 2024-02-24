@@ -14,9 +14,9 @@ import (
 
 // FirewallZone describes the resource data model.
 type FirewallZone struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"zone_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"zone_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafFirewallZoneDescrIPtion      types.String `tfsdk:"description" vyos:"description,omitempty"`

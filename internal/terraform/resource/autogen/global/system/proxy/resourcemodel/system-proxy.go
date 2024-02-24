@@ -11,7 +11,7 @@ import (
 
 // SystemProxy describes the resource data model.
 type SystemProxy struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafSystemProxyURL      types.String `tfsdk:"url" vyos:"url,omitempty"`

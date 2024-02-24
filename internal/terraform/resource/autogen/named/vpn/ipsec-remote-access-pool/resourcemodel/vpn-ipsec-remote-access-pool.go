@@ -13,9 +13,9 @@ import (
 
 // VpnIPsecRemoteAccessPool describes the resource data model.
 type VpnIPsecRemoteAccessPool struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"pool_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"pool_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafVpnIPsecRemoteAccessPoolExclude    types.List   `tfsdk:"exclude" vyos:"exclude,omitempty"`

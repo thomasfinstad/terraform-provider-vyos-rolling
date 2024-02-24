@@ -13,9 +13,9 @@ import (
 
 // ServiceSnmpScrIPtExtensionsExtensionName describes the resource data model.
 type ServiceSnmpScrIPtExtensionsExtensionName struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"extension_name_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"extension_name_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafServiceSnmpScrIPtExtensionsExtensionNameScrIPt types.String `tfsdk:"script" vyos:"script,omitempty"`

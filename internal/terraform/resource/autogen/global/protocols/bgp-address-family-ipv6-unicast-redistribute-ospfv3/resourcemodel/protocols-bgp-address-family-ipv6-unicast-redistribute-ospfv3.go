@@ -11,7 +11,7 @@ import (
 
 // ProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthree describes the resource data model.
 type ProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthree struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeMetric   types.Number `tfsdk:"metric" vyos:"metric,omitempty"`

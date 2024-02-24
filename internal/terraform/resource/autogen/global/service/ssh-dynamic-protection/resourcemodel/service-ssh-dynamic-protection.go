@@ -11,7 +11,7 @@ import (
 
 // ServiceTCPDynamicProtection describes the resource data model.
 type ServiceTCPDynamicProtection struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceTCPDynamicProtectionBlockTime  types.Number `tfsdk:"block_time" vyos:"block-time,omitempty"`

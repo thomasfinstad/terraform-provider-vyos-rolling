@@ -14,9 +14,9 @@ import (
 
 // ProtocolsBgpPeerGroup describes the resource data model.
 type ProtocolsBgpPeerGroup struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"peer_group_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"peer_group_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpPeerGroupDescrIPtion                  types.String `tfsdk:"description" vyos:"description,omitempty"`

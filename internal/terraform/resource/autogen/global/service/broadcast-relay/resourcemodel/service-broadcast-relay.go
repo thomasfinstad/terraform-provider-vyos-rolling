@@ -12,7 +12,7 @@ import (
 
 // ServiceBroadcastRelay describes the resource data model.
 type ServiceBroadcastRelay struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceBroadcastRelayDisable types.Bool `tfsdk:"disable" vyos:"disable,omitempty"`

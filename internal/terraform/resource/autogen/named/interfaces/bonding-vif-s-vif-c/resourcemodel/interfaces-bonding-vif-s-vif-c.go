@@ -14,9 +14,9 @@ import (
 
 // InterfacesBondingVifSVifC describes the resource data model.
 type InterfacesBondingVifSVifC struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"vif_c_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"vif_c_id" vyos:"-,self-id"`
 
 	ParentIDInterfacesBonding types.String `tfsdk:"bonding" vyos:"bonding,parent-id"`
 

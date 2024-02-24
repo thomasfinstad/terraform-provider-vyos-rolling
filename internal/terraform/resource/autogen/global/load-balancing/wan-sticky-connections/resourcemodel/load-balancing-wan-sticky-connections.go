@@ -12,7 +12,7 @@ import (
 
 // LoadBalancingWanStickyConnections describes the resource data model.
 type LoadBalancingWanStickyConnections struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafLoadBalancingWanStickyConnectionsInbound types.Bool `tfsdk:"inbound" vyos:"inbound,omitempty"`

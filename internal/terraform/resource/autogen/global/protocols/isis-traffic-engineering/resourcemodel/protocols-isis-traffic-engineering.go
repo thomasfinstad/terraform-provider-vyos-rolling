@@ -12,7 +12,7 @@ import (
 
 // ProtocolsIsisTrafficEngineering describes the resource data model.
 type ProtocolsIsisTrafficEngineering struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsIsisTrafficEngineeringEnable  types.Bool   `tfsdk:"enable" vyos:"enable,omitempty"`

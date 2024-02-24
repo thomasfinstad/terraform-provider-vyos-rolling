@@ -11,7 +11,7 @@ import (
 
 // ServiceNtp describes the resource data model.
 type ServiceNtp struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceNtpInterface     types.List   `tfsdk:"interface" vyos:"interface,omitempty"`

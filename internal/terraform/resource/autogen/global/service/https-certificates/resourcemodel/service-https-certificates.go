@@ -11,7 +11,7 @@ import (
 
 // ServiceHTTPSCertificates describes the resource data model.
 type ServiceHTTPSCertificates struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServiceHTTPSCertificatesCaCertificate types.String `tfsdk:"ca_certificate" vyos:"ca-certificate,omitempty"`

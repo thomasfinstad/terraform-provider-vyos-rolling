@@ -13,9 +13,9 @@ import (
 
 // SystemSysctlParameter describes the resource data model.
 type SystemSysctlParameter struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"parameter_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"parameter_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafSystemSysctlParameterValue types.String `tfsdk:"value" vyos:"value,omitempty"`

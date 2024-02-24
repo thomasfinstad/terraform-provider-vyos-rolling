@@ -12,7 +12,7 @@ import (
 
 // ProtocolsBgpAddressFamilyIPvsixUnicastExport describes the resource data model.
 type ProtocolsBgpAddressFamilyIPvsixUnicastExport struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafProtocolsBgpAddressFamilyIPvsixUnicastExportVpn types.Bool `tfsdk:"vpn" vyos:"vpn,omitempty"`

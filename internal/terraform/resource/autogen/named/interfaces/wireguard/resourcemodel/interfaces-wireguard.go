@@ -14,9 +14,9 @@ import (
 
 // InterfacesWireguard describes the resource data model.
 type InterfacesWireguard struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"wireguard_id" vyos:",self-id"`
+	SelfIdentifier types.String `tfsdk:"wireguard_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafInterfacesWireguardAddress     types.List   `tfsdk:"address" vyos:"address,omitempty"`

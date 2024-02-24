@@ -11,7 +11,7 @@ import (
 
 // ServicePppoeServerLimits describes the resource data model.
 type ServicePppoeServerLimits struct {
-	ID types.String `tfsdk:"id" vyos:"_,tfsdk-id"`
+	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	// LeafNodes
 	LeafServicePppoeServerLimitsConnectionLimit types.String `tfsdk:"connection_limit" vyos:"connection-limit,omitempty"`
