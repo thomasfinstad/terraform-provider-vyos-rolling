@@ -20,7 +20,7 @@ type ServiceWebproxyURLFiltering struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceWebproxyURLFilteringSquIDguard bool `tfsdk:"-" vyos:"squidguard,omitempty"`
+	ExistsNodeServiceWebproxyURLFilteringSquIDguard bool `tfsdk:"-" vyos:"squidguard,child"`
 }
 
 // SetID configures the resource ID

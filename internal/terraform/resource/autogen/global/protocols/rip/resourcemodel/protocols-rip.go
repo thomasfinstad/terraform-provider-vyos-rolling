@@ -28,10 +28,10 @@ type ProtocolsRIP struct {
 	ExistsTagProtocolsRIPNetworkDistance bool `tfsdk:"-" vyos:"network-distance,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsRIPDefaultInformation bool `tfsdk:"-" vyos:"default-information,omitempty"`
-	ExistsNodeProtocolsRIPDistributeList     bool `tfsdk:"-" vyos:"distribute-list,omitempty"`
-	ExistsNodeProtocolsRIPRedistribute       bool `tfsdk:"-" vyos:"redistribute,omitempty"`
-	ExistsNodeProtocolsRIPTimers             bool `tfsdk:"-" vyos:"timers,omitempty"`
+	ExistsNodeProtocolsRIPDefaultInformation bool `tfsdk:"-" vyos:"default-information,child"`
+	ExistsNodeProtocolsRIPDistributeList     bool `tfsdk:"-" vyos:"distribute-list,child"`
+	ExistsNodeProtocolsRIPRedistribute       bool `tfsdk:"-" vyos:"redistribute,child"`
+	ExistsNodeProtocolsRIPTimers             bool `tfsdk:"-" vyos:"timers,child"`
 }
 
 // SetID configures the resource ID

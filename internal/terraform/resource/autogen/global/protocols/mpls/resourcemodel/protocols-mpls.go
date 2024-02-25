@@ -19,8 +19,8 @@ type ProtocolsMpls struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsMplsLdp        bool `tfsdk:"-" vyos:"ldp,omitempty"`
-	ExistsNodeProtocolsMplsParameters bool `tfsdk:"-" vyos:"parameters,omitempty"`
+	ExistsNodeProtocolsMplsLdp        bool `tfsdk:"-" vyos:"ldp,child"`
+	ExistsNodeProtocolsMplsParameters bool `tfsdk:"-" vyos:"parameters,child"`
 }
 
 // SetID configures the resource ID

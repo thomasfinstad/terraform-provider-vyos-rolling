@@ -20,9 +20,9 @@ type ServiceHTTPS struct {
 	ExistsTagServiceHTTPSVirtualHost bool `tfsdk:"-" vyos:"virtual-host,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceHTTPSAPI          bool `tfsdk:"-" vyos:"api,omitempty"`
-	ExistsNodeServiceHTTPSAPIRestrict  bool `tfsdk:"-" vyos:"api-restrict,omitempty"`
-	ExistsNodeServiceHTTPSCertificates bool `tfsdk:"-" vyos:"certificates,omitempty"`
+	ExistsNodeServiceHTTPSAPI          bool `tfsdk:"-" vyos:"api,child"`
+	ExistsNodeServiceHTTPSAPIRestrict  bool `tfsdk:"-" vyos:"api-restrict,child"`
+	ExistsNodeServiceHTTPSCertificates bool `tfsdk:"-" vyos:"certificates,child"`
 }
 
 // SetID configures the resource ID

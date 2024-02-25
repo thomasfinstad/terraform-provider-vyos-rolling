@@ -22,10 +22,10 @@ type ProtocolsBgp struct {
 	ExistsTagProtocolsBgpPeerGroup bool `tfsdk:"-" vyos:"peer-group,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsBgpAddressFamily bool `tfsdk:"-" vyos:"address-family,omitempty"`
-	ExistsNodeProtocolsBgpListen        bool `tfsdk:"-" vyos:"listen,omitempty"`
-	ExistsNodeProtocolsBgpParameters    bool `tfsdk:"-" vyos:"parameters,omitempty"`
-	ExistsNodeProtocolsBgpTimers        bool `tfsdk:"-" vyos:"timers,omitempty"`
+	ExistsNodeProtocolsBgpAddressFamily bool `tfsdk:"-" vyos:"address-family,child"`
+	ExistsNodeProtocolsBgpListen        bool `tfsdk:"-" vyos:"listen,child"`
+	ExistsNodeProtocolsBgpParameters    bool `tfsdk:"-" vyos:"parameters,child"`
+	ExistsNodeProtocolsBgpTimers        bool `tfsdk:"-" vyos:"timers,child"`
 }
 
 // SetID configures the resource ID

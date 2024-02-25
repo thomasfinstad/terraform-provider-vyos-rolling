@@ -30,9 +30,9 @@ type ServiceTCP struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceTCPAccessControl     bool `tfsdk:"-" vyos:"access-control,omitempty"`
-	ExistsNodeServiceTCPDynamicProtection bool `tfsdk:"-" vyos:"dynamic-protection,omitempty"`
-	ExistsNodeServiceTCPRekey             bool `tfsdk:"-" vyos:"rekey,omitempty"`
+	ExistsNodeServiceTCPAccessControl     bool `tfsdk:"-" vyos:"access-control,child"`
+	ExistsNodeServiceTCPDynamicProtection bool `tfsdk:"-" vyos:"dynamic-protection,child"`
+	ExistsNodeServiceTCPRekey             bool `tfsdk:"-" vyos:"rekey,child"`
 }
 
 // SetID configures the resource ID

@@ -19,13 +19,13 @@ type ProtocolsBgpAddressFamilyIPvfourUnicastRedistribute struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected bool `tfsdk:"-" vyos:"connected,omitempty"`
-	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis      bool `tfsdk:"-" vyos:"isis,omitempty"`
-	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel    bool `tfsdk:"-" vyos:"kernel,omitempty"`
-	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf      bool `tfsdk:"-" vyos:"ospf,omitempty"`
-	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP       bool `tfsdk:"-" vyos:"rip,omitempty"`
-	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel     bool `tfsdk:"-" vyos:"babel,omitempty"`
-	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic    bool `tfsdk:"-" vyos:"static,omitempty"`
+	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected bool `tfsdk:"-" vyos:"connected,child"`
+	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis      bool `tfsdk:"-" vyos:"isis,child"`
+	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel    bool `tfsdk:"-" vyos:"kernel,child"`
+	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf      bool `tfsdk:"-" vyos:"ospf,child"`
+	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP       bool `tfsdk:"-" vyos:"rip,child"`
+	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel     bool `tfsdk:"-" vyos:"babel,child"`
+	ExistsNodeProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic    bool `tfsdk:"-" vyos:"static,child"`
 }
 
 // SetID configures the resource ID

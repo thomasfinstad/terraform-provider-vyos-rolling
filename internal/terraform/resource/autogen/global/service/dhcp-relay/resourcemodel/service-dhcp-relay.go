@@ -22,7 +22,7 @@ type ServiceDhcpRelay struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceDhcpRelayRelayOptions bool `tfsdk:"-" vyos:"relay-options,omitempty"`
+	ExistsNodeServiceDhcpRelayRelayOptions bool `tfsdk:"-" vyos:"relay-options,child"`
 }
 
 // SetID configures the resource ID

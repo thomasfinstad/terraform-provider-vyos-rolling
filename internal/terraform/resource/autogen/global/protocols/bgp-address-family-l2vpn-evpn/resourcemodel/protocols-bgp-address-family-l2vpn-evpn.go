@@ -26,9 +26,9 @@ type ProtocolsBgpAddressFamilyLtwovpnEvpn struct {
 	ExistsTagProtocolsBgpAddressFamilyLtwovpnEvpnVni bool `tfsdk:"-" vyos:"vni,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise   bool `tfsdk:"-" vyos:"advertise,omitempty"`
-	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget bool `tfsdk:"-" vyos:"route-target,omitempty"`
-	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnFlooding    bool `tfsdk:"-" vyos:"flooding,omitempty"`
+	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise   bool `tfsdk:"-" vyos:"advertise,child"`
+	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget bool `tfsdk:"-" vyos:"route-target,child"`
+	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnFlooding    bool `tfsdk:"-" vyos:"flooding,child"`
 }
 
 // SetID configures the resource ID

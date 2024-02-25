@@ -20,10 +20,10 @@ type ServiceMonitoringTelegraf struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceMonitoringTelegrafInfluxdb          bool `tfsdk:"-" vyos:"influxdb,omitempty"`
-	ExistsNodeServiceMonitoringTelegrafAzureDataExplorer bool `tfsdk:"-" vyos:"azure-data-explorer,omitempty"`
-	ExistsNodeServiceMonitoringTelegrafPrometheusClient  bool `tfsdk:"-" vyos:"prometheus-client,omitempty"`
-	ExistsNodeServiceMonitoringTelegrafSplunk            bool `tfsdk:"-" vyos:"splunk,omitempty"`
+	ExistsNodeServiceMonitoringTelegrafInfluxdb          bool `tfsdk:"-" vyos:"influxdb,child"`
+	ExistsNodeServiceMonitoringTelegrafAzureDataExplorer bool `tfsdk:"-" vyos:"azure-data-explorer,child"`
+	ExistsNodeServiceMonitoringTelegrafPrometheusClient  bool `tfsdk:"-" vyos:"prometheus-client,child"`
+	ExistsNodeServiceMonitoringTelegrafSplunk            bool `tfsdk:"-" vyos:"splunk,child"`
 }
 
 // SetID configures the resource ID

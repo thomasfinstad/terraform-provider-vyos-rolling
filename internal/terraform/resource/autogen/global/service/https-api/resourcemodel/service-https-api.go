@@ -23,9 +23,9 @@ type ServiceHTTPSAPI struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceHTTPSAPIKeys    bool `tfsdk:"-" vyos:"keys,omitempty"`
-	ExistsNodeServiceHTTPSAPIGraphql bool `tfsdk:"-" vyos:"graphql,omitempty"`
-	ExistsNodeServiceHTTPSAPICors    bool `tfsdk:"-" vyos:"cors,omitempty"`
+	ExistsNodeServiceHTTPSAPIKeys    bool `tfsdk:"-" vyos:"keys,child"`
+	ExistsNodeServiceHTTPSAPIGraphql bool `tfsdk:"-" vyos:"graphql,child"`
+	ExistsNodeServiceHTTPSAPICors    bool `tfsdk:"-" vyos:"cors,child"`
 }
 
 // SetID configures the resource ID

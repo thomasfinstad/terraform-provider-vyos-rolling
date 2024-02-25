@@ -20,7 +20,7 @@ type ProtocolsMplsLdpExportIPvsix struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsMplsLdpExportIPvsixExportFilter bool `tfsdk:"-" vyos:"export-filter,omitempty"`
+	ExistsNodeProtocolsMplsLdpExportIPvsixExportFilter bool `tfsdk:"-" vyos:"export-filter,child"`
 }
 
 // SetID configures the resource ID

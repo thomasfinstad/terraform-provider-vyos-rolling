@@ -20,8 +20,8 @@ type VpnSstpAuthentication struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeVpnSstpAuthenticationLocalUsers bool `tfsdk:"-" vyos:"local-users,omitempty"`
-	ExistsNodeVpnSstpAuthenticationRadius     bool `tfsdk:"-" vyos:"radius,omitempty"`
+	ExistsNodeVpnSstpAuthenticationLocalUsers bool `tfsdk:"-" vyos:"local-users,child"`
+	ExistsNodeVpnSstpAuthenticationRadius     bool `tfsdk:"-" vyos:"radius,child"`
 }
 
 // SetID configures the resource ID

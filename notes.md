@@ -12,3 +12,5 @@ curl -k --location --request POST "https://$VYOS_HOST/configure" --form key="$VY
     {"op":"set","path":["firewall","zone","TF-Examples","intra-zone-filtering","action","accept"]},
     {"op":"set","path":["firewall","zone","TF-Examples","intra-zone-filtering","firewall","name","test"]}
 ]'
+
+curl -k --location --request POST "https://$VYOS_HOST/retrieve" --form key="$VYOS_KEY" --form data='{"op": "showConfig", "path": ["firewall"]}'

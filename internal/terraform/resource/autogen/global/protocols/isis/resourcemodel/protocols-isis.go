@@ -34,13 +34,13 @@ type ProtocolsIsis struct {
 	ExistsTagProtocolsIsisInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsIsisAreaPassword       bool `tfsdk:"-" vyos:"area-password,omitempty"`
-	ExistsNodeProtocolsIsisDefaultInformation bool `tfsdk:"-" vyos:"default-information,omitempty"`
-	ExistsNodeProtocolsIsisDomainPassword     bool `tfsdk:"-" vyos:"domain-password,omitempty"`
-	ExistsNodeProtocolsIsisTrafficEngineering bool `tfsdk:"-" vyos:"traffic-engineering,omitempty"`
-	ExistsNodeProtocolsIsisSegmentRouting     bool `tfsdk:"-" vyos:"segment-routing,omitempty"`
-	ExistsNodeProtocolsIsisRedistribute       bool `tfsdk:"-" vyos:"redistribute,omitempty"`
-	ExistsNodeProtocolsIsisSpfDelayIetf       bool `tfsdk:"-" vyos:"spf-delay-ietf,omitempty"`
+	ExistsNodeProtocolsIsisAreaPassword       bool `tfsdk:"-" vyos:"area-password,child"`
+	ExistsNodeProtocolsIsisDefaultInformation bool `tfsdk:"-" vyos:"default-information,child"`
+	ExistsNodeProtocolsIsisDomainPassword     bool `tfsdk:"-" vyos:"domain-password,child"`
+	ExistsNodeProtocolsIsisTrafficEngineering bool `tfsdk:"-" vyos:"traffic-engineering,child"`
+	ExistsNodeProtocolsIsisSegmentRouting     bool `tfsdk:"-" vyos:"segment-routing,child"`
+	ExistsNodeProtocolsIsisRedistribute       bool `tfsdk:"-" vyos:"redistribute,child"`
+	ExistsNodeProtocolsIsisSpfDelayIetf       bool `tfsdk:"-" vyos:"spf-delay-ietf,child"`
 }
 
 // SetID configures the resource ID

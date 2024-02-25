@@ -34,7 +34,7 @@ type ServiceWebproxyURLFilteringSquIDguard struct {
 	ExistsTagServiceWebproxyURLFilteringSquIDguardTimePeriod  bool `tfsdk:"-" vyos:"time-period,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceWebproxyURLFilteringSquIDguardAutoUpdate bool `tfsdk:"-" vyos:"auto-update,omitempty"`
+	ExistsNodeServiceWebproxyURLFilteringSquIDguardAutoUpdate bool `tfsdk:"-" vyos:"auto-update,child"`
 }
 
 // SetID configures the resource ID

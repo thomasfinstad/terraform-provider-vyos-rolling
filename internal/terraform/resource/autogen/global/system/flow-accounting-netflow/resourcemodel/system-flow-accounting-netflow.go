@@ -24,7 +24,7 @@ type SystemFlowAccountingNetflow struct {
 	ExistsTagSystemFlowAccountingNetflowServer bool `tfsdk:"-" vyos:"server,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeSystemFlowAccountingNetflowTimeout bool `tfsdk:"-" vyos:"timeout,omitempty"`
+	ExistsNodeSystemFlowAccountingNetflowTimeout bool `tfsdk:"-" vyos:"timeout,child"`
 }
 
 // SetID configures the resource ID

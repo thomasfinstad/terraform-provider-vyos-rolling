@@ -37,8 +37,8 @@ type Firewall struct {
 	ExistsTagFirewallZone       bool `tfsdk:"-" vyos:"zone,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeFirewallGroup       bool `tfsdk:"-" vyos:"group,omitempty"`
-	ExistsNodeFirewallStatePolicy bool `tfsdk:"-" vyos:"state-policy,omitempty"`
+	ExistsNodeFirewallGroup       bool `tfsdk:"-" vyos:"group,child"`
+	ExistsNodeFirewallStatePolicy bool `tfsdk:"-" vyos:"state-policy,child"`
 }
 
 // SetID configures the resource ID

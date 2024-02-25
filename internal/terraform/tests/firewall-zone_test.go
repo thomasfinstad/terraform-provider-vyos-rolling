@@ -16,17 +16,6 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/zone/resourcemodel"
 )
 
-/*resource "vyos_firewall_zone" "example" {
-  zone_id = "TF-Examples"
-
-  intra_zone_filtering = {
-    action = "accept"
-    firewall = {
-      name = "test"
-    }
-  }
-}*/
-
 // TestFirewallZoneMarshalVyos does some simple marshalling tests to prevent a bug with tags handling from reappearing
 func TestFirewallZoneMarshalVyos(t *testing.T) {
 	has := &resourcemodel.FirewallZone{

@@ -35,8 +35,8 @@ type ServiceWebproxy struct {
 	ExistsTagServiceWebproxyListenAddress bool `tfsdk:"-" vyos:"listen-address,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceWebproxyAuthentication bool `tfsdk:"-" vyos:"authentication,omitempty"`
-	ExistsNodeServiceWebproxyURLFiltering   bool `tfsdk:"-" vyos:"url-filtering,omitempty"`
+	ExistsNodeServiceWebproxyAuthentication bool `tfsdk:"-" vyos:"authentication,child"`
+	ExistsNodeServiceWebproxyURLFiltering   bool `tfsdk:"-" vyos:"url-filtering,child"`
 }
 
 // SetID configures the resource ID

@@ -21,12 +21,12 @@ type ProtocolsMplsLdp struct {
 	ExistsTagProtocolsMplsLdpNeighbor bool `tfsdk:"-" vyos:"neighbor,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsMplsLdpAllocation       bool `tfsdk:"-" vyos:"allocation,omitempty"`
-	ExistsNodeProtocolsMplsLdpDiscovery        bool `tfsdk:"-" vyos:"discovery,omitempty"`
-	ExistsNodeProtocolsMplsLdpTargetedNeighbor bool `tfsdk:"-" vyos:"targeted-neighbor,omitempty"`
-	ExistsNodeProtocolsMplsLdpParameters       bool `tfsdk:"-" vyos:"parameters,omitempty"`
-	ExistsNodeProtocolsMplsLdpExport           bool `tfsdk:"-" vyos:"export,omitempty"`
-	ExistsNodeProtocolsMplsLdpImport           bool `tfsdk:"-" vyos:"import,omitempty"`
+	ExistsNodeProtocolsMplsLdpAllocation       bool `tfsdk:"-" vyos:"allocation,child"`
+	ExistsNodeProtocolsMplsLdpDiscovery        bool `tfsdk:"-" vyos:"discovery,child"`
+	ExistsNodeProtocolsMplsLdpTargetedNeighbor bool `tfsdk:"-" vyos:"targeted-neighbor,child"`
+	ExistsNodeProtocolsMplsLdpParameters       bool `tfsdk:"-" vyos:"parameters,child"`
+	ExistsNodeProtocolsMplsLdpExport           bool `tfsdk:"-" vyos:"export,child"`
+	ExistsNodeProtocolsMplsLdpImport           bool `tfsdk:"-" vyos:"import,child"`
 }
 
 // SetID configures the resource ID

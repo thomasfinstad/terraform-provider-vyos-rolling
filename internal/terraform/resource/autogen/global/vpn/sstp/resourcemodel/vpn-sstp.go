@@ -22,11 +22,11 @@ type VpnSstp struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeVpnSstpAuthentication   bool `tfsdk:"-" vyos:"authentication,omitempty"`
-	ExistsNodeVpnSstpClientIPPool     bool `tfsdk:"-" vyos:"client-ip-pool,omitempty"`
-	ExistsNodeVpnSstpClientIPvsixPool bool `tfsdk:"-" vyos:"client-ipv6-pool,omitempty"`
-	ExistsNodeVpnSstpPppOptions       bool `tfsdk:"-" vyos:"ppp-options,omitempty"`
-	ExistsNodeVpnSstpSsl              bool `tfsdk:"-" vyos:"ssl,omitempty"`
+	ExistsNodeVpnSstpAuthentication   bool `tfsdk:"-" vyos:"authentication,child"`
+	ExistsNodeVpnSstpClientIPPool     bool `tfsdk:"-" vyos:"client-ip-pool,child"`
+	ExistsNodeVpnSstpClientIPvsixPool bool `tfsdk:"-" vyos:"client-ipv6-pool,child"`
+	ExistsNodeVpnSstpPppOptions       bool `tfsdk:"-" vyos:"ppp-options,child"`
+	ExistsNodeVpnSstpSsl              bool `tfsdk:"-" vyos:"ssl,child"`
 }
 
 // SetID configures the resource ID

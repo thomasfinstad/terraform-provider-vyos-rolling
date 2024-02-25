@@ -20,9 +20,9 @@ type ServiceIPoeServer struct {
 	ExistsTagServiceIPoeServerInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceIPoeServerClientIPPool     bool `tfsdk:"-" vyos:"client-ip-pool,omitempty"`
-	ExistsNodeServiceIPoeServerClientIPvsixPool bool `tfsdk:"-" vyos:"client-ipv6-pool,omitempty"`
-	ExistsNodeServiceIPoeServerAuthentication   bool `tfsdk:"-" vyos:"authentication,omitempty"`
+	ExistsNodeServiceIPoeServerClientIPPool     bool `tfsdk:"-" vyos:"client-ip-pool,child"`
+	ExistsNodeServiceIPoeServerClientIPvsixPool bool `tfsdk:"-" vyos:"client-ipv6-pool,child"`
+	ExistsNodeServiceIPoeServerAuthentication   bool `tfsdk:"-" vyos:"authentication,child"`
 }
 
 // SetID configures the resource ID

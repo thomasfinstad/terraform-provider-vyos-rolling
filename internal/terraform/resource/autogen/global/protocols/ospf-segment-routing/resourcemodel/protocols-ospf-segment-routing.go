@@ -20,8 +20,8 @@ type ProtocolsOspfSegmentRouting struct {
 	ExistsTagProtocolsOspfSegmentRoutingPrefix bool `tfsdk:"-" vyos:"prefix,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsOspfSegmentRoutingGlobalBlock bool `tfsdk:"-" vyos:"global-block,omitempty"`
-	ExistsNodeProtocolsOspfSegmentRoutingLocalBlock  bool `tfsdk:"-" vyos:"local-block,omitempty"`
+	ExistsNodeProtocolsOspfSegmentRoutingGlobalBlock bool `tfsdk:"-" vyos:"global-block,child"`
+	ExistsNodeProtocolsOspfSegmentRoutingLocalBlock  bool `tfsdk:"-" vyos:"local-block,child"`
 }
 
 // SetID configures the resource ID

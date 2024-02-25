@@ -20,7 +20,7 @@ type SystemLogin struct {
 	ExistsTagSystemLoginUser bool `tfsdk:"-" vyos:"user,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeSystemLoginRadius bool `tfsdk:"-" vyos:"radius,omitempty"`
+	ExistsNodeSystemLoginRadius bool `tfsdk:"-" vyos:"radius,child"`
 }
 
 // SetID configures the resource ID

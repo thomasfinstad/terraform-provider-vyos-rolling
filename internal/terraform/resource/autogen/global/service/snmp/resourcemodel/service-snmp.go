@@ -29,8 +29,8 @@ type ServiceSnmp struct {
 	ExistsTagServiceSnmpTrapTarget    bool `tfsdk:"-" vyos:"trap-target,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceSnmpVthree           bool `tfsdk:"-" vyos:"v3,omitempty"`
-	ExistsNodeServiceSnmpScrIPtExtensions bool `tfsdk:"-" vyos:"script-extensions,omitempty"`
+	ExistsNodeServiceSnmpVthree           bool `tfsdk:"-" vyos:"v3,child"`
+	ExistsNodeServiceSnmpScrIPtExtensions bool `tfsdk:"-" vyos:"script-extensions,child"`
 }
 
 // SetID configures the resource ID

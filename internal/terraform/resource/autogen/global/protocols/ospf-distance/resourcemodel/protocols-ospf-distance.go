@@ -19,7 +19,7 @@ type ProtocolsOspfDistance struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsOspfDistanceOspf bool `tfsdk:"-" vyos:"ospf,omitempty"`
+	ExistsNodeProtocolsOspfDistanceOspf bool `tfsdk:"-" vyos:"ospf,child"`
 }
 
 // SetID configures the resource ID

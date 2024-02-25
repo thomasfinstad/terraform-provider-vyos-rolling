@@ -21,7 +21,7 @@ type ServiceMonitoringTelegrafInfluxdb struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceMonitoringTelegrafInfluxdbAuthentication bool `tfsdk:"-" vyos:"authentication,omitempty"`
+	ExistsNodeServiceMonitoringTelegrafInfluxdbAuthentication bool `tfsdk:"-" vyos:"authentication,child"`
 }
 
 // SetID configures the resource ID

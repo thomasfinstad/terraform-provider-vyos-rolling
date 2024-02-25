@@ -20,7 +20,7 @@ type ServiceHTTPSCertificates struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceHTTPSCertificatesCertbot bool `tfsdk:"-" vyos:"certbot,omitempty"`
+	ExistsNodeServiceHTTPSCertificatesCertbot bool `tfsdk:"-" vyos:"certbot,child"`
 }
 
 // SetID configures the resource ID

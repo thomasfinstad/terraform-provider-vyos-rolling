@@ -20,8 +20,8 @@ type ServiceLldp struct {
 	ExistsTagServiceLldpInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceLldpLegacyProtocols bool `tfsdk:"-" vyos:"legacy-protocols,omitempty"`
-	ExistsNodeServiceLldpSnmp            bool `tfsdk:"-" vyos:"snmp,omitempty"`
+	ExistsNodeServiceLldpLegacyProtocols bool `tfsdk:"-" vyos:"legacy-protocols,child"`
+	ExistsNodeServiceLldpSnmp            bool `tfsdk:"-" vyos:"snmp,child"`
 }
 
 // SetID configures the resource ID

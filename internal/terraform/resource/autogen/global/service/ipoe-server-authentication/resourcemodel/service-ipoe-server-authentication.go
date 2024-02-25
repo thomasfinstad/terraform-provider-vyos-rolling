@@ -20,7 +20,7 @@ type ServiceIPoeServerAuthentication struct {
 	ExistsTagServiceIPoeServerAuthenticationInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceIPoeServerAuthenticationRadius bool `tfsdk:"-" vyos:"radius,omitempty"`
+	ExistsNodeServiceIPoeServerAuthenticationRadius bool `tfsdk:"-" vyos:"radius,child"`
 }
 
 // SetID configures the resource ID

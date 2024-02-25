@@ -19,7 +19,7 @@ type ServiceMonitoringTelegrafSplunk struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceMonitoringTelegrafSplunkAuthentication bool `tfsdk:"-" vyos:"authentication,omitempty"`
+	ExistsNodeServiceMonitoringTelegrafSplunkAuthentication bool `tfsdk:"-" vyos:"authentication,child"`
 }
 
 // SetID configures the resource ID

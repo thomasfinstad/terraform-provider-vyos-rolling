@@ -47,7 +47,7 @@ data/vyos/submodule.sha: data/vyos/rolling-iso-build.txt
 	git submodule update --init --single-branch -- data/vyos/vyos-1x
 
 	cd data/vyos/vyos-1x && \
-	commit="$$(git rev-list --date=iso-strict -n 1 --before="$$(cat "data/vyos/rolling-iso-build.txt")" "current")" && \
+	commit="$$(git rev-list --date=iso-strict -n 1 --before="$$(cat "rolling-iso-build.txt")" "current")" && \
 	git checkout "$$commit" && \
 	echo "$$commit" > ../submodule.sha
 

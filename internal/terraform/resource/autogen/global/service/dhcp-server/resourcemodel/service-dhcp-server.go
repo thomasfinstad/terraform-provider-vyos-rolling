@@ -26,7 +26,7 @@ type ServiceDhcpServer struct {
 	ExistsTagServiceDhcpServerSharedNetworkName bool `tfsdk:"-" vyos:"shared-network-name,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceDhcpServerFailover bool `tfsdk:"-" vyos:"failover,omitempty"`
+	ExistsNodeServiceDhcpServerFailover bool `tfsdk:"-" vyos:"failover,child"`
 }
 
 // SetID configures the resource ID

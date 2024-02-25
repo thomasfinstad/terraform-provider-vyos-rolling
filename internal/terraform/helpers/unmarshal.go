@@ -18,6 +18,7 @@ import (
 func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceDataModel) error {
 	valueReflection := reflect.ValueOf(value).Elem()
 	typeReflection := valueReflection.Type()
+	fmt.Printf("Unmarshaling to type:%T from data: %#v\n", value, data)
 
 	for i := 0; i < valueReflection.NumField(); i++ {
 		fName := typeReflection.Field(i).Name
@@ -39,6 +40,7 @@ func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceD
 		for _, tag := range fTags[1:] {
 			flags[tag] = true
 		}
+		fmt.Printf("\tField flags: %#v\n", flags)
 		if flags["self-id"].(bool) || flags["parent-id"].(bool) {
 			fmt.Printf("\tNot configuring field: %s\n", fName)
 			tflog.Debug(ctx, "Not configuring field", map[string]interface{}{"field-name": fName})
@@ -46,11 +48,14 @@ func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceD
 		}
 
 		if flags["child"].(bool) {
+			fmt.Printf("\tField is child\n")
 			if fieldName, ok := flags["name"].(string); ok {
+				fmt.Printf("\tName is string\n")
 				if data, ok := data[fieldName]; ok {
+					fmt.Printf("\tField has data\n")
 					if data != nil {
-						tfValue := basetypes.NewBoolValue(true)
-						tfValueRefection := reflect.ValueOf(tfValue)
+						fmt.Printf("\tData is not nil\n")
+						tfValueRefection := reflect.ValueOf(true)
 						fValue.Set(tfValueRefection)
 					}
 				}

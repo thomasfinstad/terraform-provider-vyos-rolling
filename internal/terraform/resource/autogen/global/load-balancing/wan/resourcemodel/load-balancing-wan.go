@@ -25,7 +25,7 @@ type LoadBalancingWan struct {
 	ExistsTagLoadBalancingWanRule            bool `tfsdk:"-" vyos:"rule,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeLoadBalancingWanStickyConnections bool `tfsdk:"-" vyos:"sticky-connections,omitempty"`
+	ExistsNodeLoadBalancingWanStickyConnections bool `tfsdk:"-" vyos:"sticky-connections,child"`
 }
 
 // SetID configures the resource ID

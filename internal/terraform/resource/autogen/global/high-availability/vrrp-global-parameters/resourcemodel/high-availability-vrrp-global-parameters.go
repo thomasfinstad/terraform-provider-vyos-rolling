@@ -19,7 +19,7 @@ type HighAvailabilityVrrpGlobalParameters struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeHighAvailabilityVrrpGlobalParametersGarp bool `tfsdk:"-" vyos:"garp,omitempty"`
+	ExistsNodeHighAvailabilityVrrpGlobalParametersGarp bool `tfsdk:"-" vyos:"garp,child"`
 }
 
 // SetID configures the resource ID

@@ -26,8 +26,8 @@ type SystemFlowAccounting struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeSystemFlowAccountingNetflow bool `tfsdk:"-" vyos:"netflow,omitempty"`
-	ExistsNodeSystemFlowAccountingSflow   bool `tfsdk:"-" vyos:"sflow,omitempty"`
+	ExistsNodeSystemFlowAccountingNetflow bool `tfsdk:"-" vyos:"netflow,child"`
+	ExistsNodeSystemFlowAccountingSflow   bool `tfsdk:"-" vyos:"sflow,child"`
 }
 
 // SetID configures the resource ID

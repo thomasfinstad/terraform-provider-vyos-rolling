@@ -19,7 +19,7 @@ type SystemConfigManagement struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeSystemConfigManagementCommitArchive bool `tfsdk:"-" vyos:"commit-archive,omitempty"`
+	ExistsNodeSystemConfigManagementCommitArchive bool `tfsdk:"-" vyos:"commit-archive,child"`
 }
 
 // SetID configures the resource ID

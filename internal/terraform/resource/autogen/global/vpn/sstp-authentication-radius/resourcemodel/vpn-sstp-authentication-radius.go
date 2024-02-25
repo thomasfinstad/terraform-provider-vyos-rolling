@@ -28,8 +28,8 @@ type VpnSstpAuthenticationRadius struct {
 	ExistsTagVpnSstpAuthenticationRadiusServer bool `tfsdk:"-" vyos:"server,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeVpnSstpAuthenticationRadiusDynamicAuthor bool `tfsdk:"-" vyos:"dynamic-author,omitempty"`
-	ExistsNodeVpnSstpAuthenticationRadiusRateLimit     bool `tfsdk:"-" vyos:"rate-limit,omitempty"`
+	ExistsNodeVpnSstpAuthenticationRadiusDynamicAuthor bool `tfsdk:"-" vyos:"dynamic-author,child"`
+	ExistsNodeVpnSstpAuthenticationRadiusRateLimit     bool `tfsdk:"-" vyos:"rate-limit,child"`
 }
 
 // SetID configures the resource ID

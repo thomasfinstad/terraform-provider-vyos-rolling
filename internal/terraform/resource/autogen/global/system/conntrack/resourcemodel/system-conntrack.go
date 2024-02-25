@@ -21,11 +21,11 @@ type SystemConntrack struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeSystemConntrackIgnore  bool `tfsdk:"-" vyos:"ignore,omitempty"`
-	ExistsNodeSystemConntrackLog     bool `tfsdk:"-" vyos:"log,omitempty"`
-	ExistsNodeSystemConntrackModules bool `tfsdk:"-" vyos:"modules,omitempty"`
-	ExistsNodeSystemConntrackTCP     bool `tfsdk:"-" vyos:"tcp,omitempty"`
-	ExistsNodeSystemConntrackTimeout bool `tfsdk:"-" vyos:"timeout,omitempty"`
+	ExistsNodeSystemConntrackIgnore  bool `tfsdk:"-" vyos:"ignore,child"`
+	ExistsNodeSystemConntrackLog     bool `tfsdk:"-" vyos:"log,child"`
+	ExistsNodeSystemConntrackModules bool `tfsdk:"-" vyos:"modules,child"`
+	ExistsNodeSystemConntrackTCP     bool `tfsdk:"-" vyos:"tcp,child"`
+	ExistsNodeSystemConntrackTimeout bool `tfsdk:"-" vyos:"timeout,child"`
 }
 
 // SetID configures the resource ID

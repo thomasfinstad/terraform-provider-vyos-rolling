@@ -21,7 +21,7 @@ type SystemSyslogGlobal struct {
 	ExistsTagSystemSyslogGlobalFacility bool `tfsdk:"-" vyos:"facility,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeSystemSyslogGlobalMarker bool `tfsdk:"-" vyos:"marker,omitempty"`
+	ExistsNodeSystemSyslogGlobalMarker bool `tfsdk:"-" vyos:"marker,child"`
 }
 
 // SetID configures the resource ID

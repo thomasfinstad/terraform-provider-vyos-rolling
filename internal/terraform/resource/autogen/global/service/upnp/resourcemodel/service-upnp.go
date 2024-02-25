@@ -27,8 +27,8 @@ type ServiceUpnp struct {
 	ExistsTagServiceUpnpRule bool `tfsdk:"-" vyos:"rule,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceUpnpPcpLifetime bool `tfsdk:"-" vyos:"pcp-lifetime,omitempty"`
-	ExistsNodeServiceUpnpStun        bool `tfsdk:"-" vyos:"stun,omitempty"`
+	ExistsNodeServiceUpnpPcpLifetime bool `tfsdk:"-" vyos:"pcp-lifetime,child"`
+	ExistsNodeServiceUpnpStun        bool `tfsdk:"-" vyos:"stun,child"`
 }
 
 // SetID configures the resource ID

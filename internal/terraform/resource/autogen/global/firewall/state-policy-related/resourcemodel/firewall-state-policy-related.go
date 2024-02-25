@@ -20,7 +20,7 @@ type FirewallStatePolicyRelated struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeFirewallStatePolicyRelatedLog bool `tfsdk:"-" vyos:"log,omitempty"`
+	ExistsNodeFirewallStatePolicyRelatedLog bool `tfsdk:"-" vyos:"log,child"`
 }
 
 // SetID configures the resource ID

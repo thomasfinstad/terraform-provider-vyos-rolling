@@ -28,7 +28,7 @@ type VpnPptpRemoteAccessAuthenticationRadius struct {
 	ExistsTagVpnPptpRemoteAccessAuthenticationRadiusServer bool `tfsdk:"-" vyos:"server,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeVpnPptpRemoteAccessAuthenticationRadiusDynamicAuthor bool `tfsdk:"-" vyos:"dynamic-author,omitempty"`
+	ExistsNodeVpnPptpRemoteAccessAuthenticationRadiusDynamicAuthor bool `tfsdk:"-" vyos:"dynamic-author,child"`
 }
 
 // SetID configures the resource ID

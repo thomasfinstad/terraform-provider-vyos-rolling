@@ -29,8 +29,8 @@ type ServicePppoeServerAuthenticationRadius struct {
 	ExistsTagServicePppoeServerAuthenticationRadiusServer bool `tfsdk:"-" vyos:"server,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServicePppoeServerAuthenticationRadiusDynamicAuthor bool `tfsdk:"-" vyos:"dynamic-author,omitempty"`
-	ExistsNodeServicePppoeServerAuthenticationRadiusRateLimit     bool `tfsdk:"-" vyos:"rate-limit,omitempty"`
+	ExistsNodeServicePppoeServerAuthenticationRadiusDynamicAuthor bool `tfsdk:"-" vyos:"dynamic-author,child"`
+	ExistsNodeServicePppoeServerAuthenticationRadiusRateLimit     bool `tfsdk:"-" vyos:"rate-limit,child"`
 }
 
 // SetID configures the resource ID

@@ -27,14 +27,14 @@ type ServicePppoeServer struct {
 	ExistsTagServicePppoeServerPadoDelay bool `tfsdk:"-" vyos:"pado-delay,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServicePppoeServerAuthentication   bool `tfsdk:"-" vyos:"authentication,omitempty"`
-	ExistsNodeServicePppoeServerClientIPPool     bool `tfsdk:"-" vyos:"client-ip-pool,omitempty"`
-	ExistsNodeServicePppoeServerClientIPvsixPool bool `tfsdk:"-" vyos:"client-ipv6-pool,omitempty"`
-	ExistsNodeServicePppoeServerLimits           bool `tfsdk:"-" vyos:"limits,omitempty"`
-	ExistsNodeServicePppoeServerPppOptions       bool `tfsdk:"-" vyos:"ppp-options,omitempty"`
-	ExistsNodeServicePppoeServerShaper           bool `tfsdk:"-" vyos:"shaper,omitempty"`
-	ExistsNodeServicePppoeServerSnmp             bool `tfsdk:"-" vyos:"snmp,omitempty"`
-	ExistsNodeServicePppoeServerExtendedScrIPts  bool `tfsdk:"-" vyos:"extended-scripts,omitempty"`
+	ExistsNodeServicePppoeServerAuthentication   bool `tfsdk:"-" vyos:"authentication,child"`
+	ExistsNodeServicePppoeServerClientIPPool     bool `tfsdk:"-" vyos:"client-ip-pool,child"`
+	ExistsNodeServicePppoeServerClientIPvsixPool bool `tfsdk:"-" vyos:"client-ipv6-pool,child"`
+	ExistsNodeServicePppoeServerLimits           bool `tfsdk:"-" vyos:"limits,child"`
+	ExistsNodeServicePppoeServerPppOptions       bool `tfsdk:"-" vyos:"ppp-options,child"`
+	ExistsNodeServicePppoeServerShaper           bool `tfsdk:"-" vyos:"shaper,child"`
+	ExistsNodeServicePppoeServerSnmp             bool `tfsdk:"-" vyos:"snmp,child"`
+	ExistsNodeServicePppoeServerExtendedScrIPts  bool `tfsdk:"-" vyos:"extended-scripts,child"`
 }
 
 // SetID configures the resource ID

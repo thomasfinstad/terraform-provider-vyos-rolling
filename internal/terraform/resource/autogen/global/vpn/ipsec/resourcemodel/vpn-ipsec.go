@@ -24,11 +24,11 @@ type VpnIPsec struct {
 	ExistsTagVpnIPsecProfile  bool `tfsdk:"-" vyos:"profile,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeVpnIPsecAuthentication bool `tfsdk:"-" vyos:"authentication,omitempty"`
-	ExistsNodeVpnIPsecLog            bool `tfsdk:"-" vyos:"log,omitempty"`
-	ExistsNodeVpnIPsecOptions        bool `tfsdk:"-" vyos:"options,omitempty"`
-	ExistsNodeVpnIPsecRemoteAccess   bool `tfsdk:"-" vyos:"remote-access,omitempty"`
-	ExistsNodeVpnIPsecSiteToSite     bool `tfsdk:"-" vyos:"site-to-site,omitempty"`
+	ExistsNodeVpnIPsecAuthentication bool `tfsdk:"-" vyos:"authentication,child"`
+	ExistsNodeVpnIPsecLog            bool `tfsdk:"-" vyos:"log,child"`
+	ExistsNodeVpnIPsecOptions        bool `tfsdk:"-" vyos:"options,child"`
+	ExistsNodeVpnIPsecRemoteAccess   bool `tfsdk:"-" vyos:"remote-access,child"`
+	ExistsNodeVpnIPsecSiteToSite     bool `tfsdk:"-" vyos:"site-to-site,child"`
 }
 
 // SetID configures the resource ID

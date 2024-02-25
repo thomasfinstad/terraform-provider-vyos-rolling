@@ -24,8 +24,8 @@ type ServiceIDsDdosProtection struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceIDsDdosProtectionMode      bool `tfsdk:"-" vyos:"mode,omitempty"`
-	ExistsNodeServiceIDsDdosProtectionThreshold bool `tfsdk:"-" vyos:"threshold,omitempty"`
+	ExistsNodeServiceIDsDdosProtectionMode      bool `tfsdk:"-" vyos:"mode,child"`
+	ExistsNodeServiceIDsDdosProtectionThreshold bool `tfsdk:"-" vyos:"threshold,child"`
 }
 
 // SetID configures the resource ID

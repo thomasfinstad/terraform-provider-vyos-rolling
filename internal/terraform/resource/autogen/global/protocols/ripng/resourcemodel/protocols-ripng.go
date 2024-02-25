@@ -25,10 +25,10 @@ type ProtocolsRIPng struct {
 	ExistsTagProtocolsRIPngInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsRIPngDefaultInformation bool `tfsdk:"-" vyos:"default-information,omitempty"`
-	ExistsNodeProtocolsRIPngDistributeList     bool `tfsdk:"-" vyos:"distribute-list,omitempty"`
-	ExistsNodeProtocolsRIPngRedistribute       bool `tfsdk:"-" vyos:"redistribute,omitempty"`
-	ExistsNodeProtocolsRIPngTimers             bool `tfsdk:"-" vyos:"timers,omitempty"`
+	ExistsNodeProtocolsRIPngDefaultInformation bool `tfsdk:"-" vyos:"default-information,child"`
+	ExistsNodeProtocolsRIPngDistributeList     bool `tfsdk:"-" vyos:"distribute-list,child"`
+	ExistsNodeProtocolsRIPngRedistribute       bool `tfsdk:"-" vyos:"redistribute,child"`
+	ExistsNodeProtocolsRIPngTimers             bool `tfsdk:"-" vyos:"timers,child"`
 }
 
 // SetID configures the resource ID
