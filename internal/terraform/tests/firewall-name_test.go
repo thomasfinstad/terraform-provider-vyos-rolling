@@ -114,3 +114,5 @@ func TestFirewallIPvfourNameUnmarshalVyosNoChild(t *testing.T) {
 		t.Errorf("compare failed: %v, %v", diff, err)
 	}
 }
+
+// TODO create test for CRUD helpers

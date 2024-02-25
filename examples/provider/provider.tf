@@ -30,3 +30,10 @@ resource "vyos_firewall_group_port_group" "example" {
 resource "vyos_high_availability_vrrp_global_parameters" "example" {
   startup_delay = 12
 }
+
+resource "vyos_firewall_ipv4_name" "example" {
+  name_id = "TF-Example"
+
+  default_action = "accept"
+  description    = "Another terraform test"
+}

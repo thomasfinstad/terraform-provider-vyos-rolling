@@ -8,6 +8,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/qos/policy-rate-control/resourcemodel"
@@ -29,6 +30,11 @@ type qosPolicyRateControl struct {
 // GetClient returns the vyos api client
 func (r *qosPolicyRateControl) GetClient() *client.Client {
 	return r.client
+}
+
+// GetModel returns the resource model
+func (r *qosPolicyRateControl) GetModel() helpers.VyosTopResourceDataModel {
+	return r.model
 }
 
 func (r *qosPolicyRateControl) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

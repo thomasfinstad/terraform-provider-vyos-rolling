@@ -8,6 +8,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/global/high-availability/vrrp/resourcemodel"
@@ -29,6 +30,11 @@ type highAvailabilityVrrp struct {
 // GetClient returns the vyos api client
 func (r *highAvailabilityVrrp) GetClient() *client.Client {
 	return r.client
+}
+
+// GetModel returns the resource model
+func (r *highAvailabilityVrrp) GetModel() helpers.VyosTopResourceDataModel {
+	return r.model
 }
 
 func (r *highAvailabilityVrrp) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

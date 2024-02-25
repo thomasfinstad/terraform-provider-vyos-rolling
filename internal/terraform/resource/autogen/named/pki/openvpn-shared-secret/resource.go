@@ -8,6 +8,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/pki/openvpn-shared-secret/resourcemodel"
@@ -29,6 +30,11 @@ type pkiOpenvpnSharedSecret struct {
 // GetClient returns the vyos api client
 func (r *pkiOpenvpnSharedSecret) GetClient() *client.Client {
 	return r.client
+}
+
+// GetModel returns the resource model
+func (r *pkiOpenvpnSharedSecret) GetModel() helpers.VyosTopResourceDataModel {
+	return r.model
 }
 
 func (r *pkiOpenvpnSharedSecret) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

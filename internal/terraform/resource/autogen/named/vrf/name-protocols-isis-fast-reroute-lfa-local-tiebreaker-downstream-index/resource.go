@@ -8,6 +8,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/vrf/name-protocols-isis-fast-reroute-lfa-local-tiebreaker-downstream-index/resourcemodel"
@@ -29,6 +30,11 @@ type vrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex struct {
 // GetClient returns the vyos api client
 func (r *vrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex) GetClient() *client.Client {
 	return r.client
+}
+
+// GetModel returns the resource model
+func (r *vrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex) GetModel() helpers.VyosTopResourceDataModel {
+	return r.model
 }
 
 func (r *vrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -8,6 +8,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/vrf/name-protocols-bgp-address-family-ipv6-labeled-unicast-aggregate-address/resourcemodel"
@@ -29,6 +30,11 @@ type vrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress struct
 // GetClient returns the vyos api client
 func (r *vrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress) GetClient() *client.Client {
 	return r.client
+}
+
+// GetModel returns the resource model
+func (r *vrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress) GetModel() helpers.VyosTopResourceDataModel {
+	return r.model
 }
 
 func (r *vrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

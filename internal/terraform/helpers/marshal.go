@@ -11,7 +11,7 @@ import (
 )
 
 // MarshalVyos takes a Terraform resource model pointer and returns a vyos config representation
-func MarshalVyos(ctx context.Context, data VyosResourceDataModel) (map[string]any, error) {
+func MarshalVyos(ctx context.Context, data any) (map[string]any, error) {
 	tflog.Trace(ctx, "Marshal for VyOS", map[string]interface{}{"data-model": data})
 	res := make(map[string]interface{})
 

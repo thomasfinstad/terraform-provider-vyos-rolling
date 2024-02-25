@@ -8,6 +8,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/qos/policy-round-robin/resourcemodel"
@@ -29,6 +30,11 @@ type qosPolicyRoundRobin struct {
 // GetClient returns the vyos api client
 func (r *qosPolicyRoundRobin) GetClient() *client.Client {
 	return r.client
+}
+
+// GetModel returns the resource model
+func (r *qosPolicyRoundRobin) GetModel() helpers.VyosTopResourceDataModel {
+	return r.model
 }
 
 func (r *qosPolicyRoundRobin) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

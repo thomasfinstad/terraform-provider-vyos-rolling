@@ -186,8 +186,8 @@ test: internal/terraform/resource/autogen
 build-rolling:
 	make clean
 	make --always-make data/vyos/rolling-iso-build.txt
-
 	make test
+
 	-rm -rf "${BIN_DIR}"
 	-mkdir -p "${BIN_DIR}/local/providers/${NAME}/${VERSION_ROLLING}/${OS_ARCH}/"
 	go build -o ${BIN_DIR}/local/providers/${NAME}/${VERSION_ROLLING}/${OS_ARCH}/${BINARY_PREFIX}${NAME}
