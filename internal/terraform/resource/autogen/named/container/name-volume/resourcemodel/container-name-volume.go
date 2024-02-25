@@ -23,6 +23,7 @@ type ContainerNameVolume struct {
 	LeafContainerNameVolumeSource      types.String `tfsdk:"source" vyos:"source,omitempty"`
 	LeafContainerNameVolumeDestination types.String `tfsdk:"destination" vyos:"destination,omitempty"`
 	LeafContainerNameVolumeMode        types.String `tfsdk:"mode" vyos:"mode,omitempty"`
+	LeafContainerNameVolumePropagation types.String `tfsdk:"propagation" vyos:"propagation,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -114,6 +115,25 @@ func (o ContainerNameVolume) ResourceSchemaAttributes() map[string]schema.Attrib
 `,
 
 			// Default:          stringdefault.StaticString(`rw`),
+			Computed: true,
+		},
+
+		"propagation": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Volume bind propagation
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  shared  &emsp; |  Sub-mounts of the original mount are exposed to replica mounts  |
+    |  slave  &emsp; |  Allow replica mount to see sub-mount from the original mount but not vice versa  |
+    |  private  &emsp; |  Sub-mounts within a mount are not visible to replica mounts or the original mount  |
+    |  rshared  &emsp; |  Allows sharing of mount points and their nested mount points between both the original and replica mounts  |
+    |  rslave  &emsp; |  Allows mount point and their nested mount points between original an replica mounts  |
+    |  rprivate  &emsp; |  No mount points within original or replica mounts in any direction  |
+
+`,
+
+			// Default:          stringdefault.StaticString(`rprivate`),
 			Computed: true,
 		},
 

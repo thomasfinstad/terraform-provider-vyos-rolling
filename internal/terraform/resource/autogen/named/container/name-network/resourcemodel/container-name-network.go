@@ -20,7 +20,7 @@ type ContainerNameNetwork struct {
 	ParentIDContainerName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
 	// LeafNodes
-	LeafContainerNameNetworkAddress types.String `tfsdk:"address" vyos:"address,omitempty"`
+	LeafContainerNameNetworkAddress types.List `tfsdk:"address" vyos:"address,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -78,13 +78,15 @@ func (o ContainerNameNetwork) ResourceSchemaAttributes() map[string]schema.Attri
 
 		// LeafNodes
 
-		"address": schema.StringAttribute{
-			Optional: true,
+		"address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Assign static IP address to container
 
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  ipv4  &emsp; |  IPv4 address  |
+    |  ipv6  &emsp; |  IPv6 address  |
 
 `,
 		},

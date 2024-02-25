@@ -12,6 +12,7 @@ type VrfNameProtocolsBgpNeighborCapability struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpNeighborCapabilityDynamic         types.Bool `tfsdk:"dynamic" vyos:"dynamic,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborCapabilityExtendedNexthop types.Bool `tfsdk:"extended_nexthop" vyos:"extended-nexthop,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborCapabilitySoftwareVersion types.Bool `tfsdk:"software_version" vyos:"software-version,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -35,6 +36,15 @@ func (o VrfNameProtocolsBgpNeighborCapability) ResourceSchemaAttributes() map[st
 		"extended_nexthop": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise extended-nexthop capability to this neighbor
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
+		"software_version": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Advertise Software Version capability to the peer
 
 `,
 			Default:  booldefault.StaticBool(false),

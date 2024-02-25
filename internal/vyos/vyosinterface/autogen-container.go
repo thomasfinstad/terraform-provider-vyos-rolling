@@ -25,7 +25,7 @@ func container() interfacedefinition.InterfaceDefinition {
 					Local: "properties",
 				},
 				Help:     []string{"Container applications"},
-				Priority: []string{"1280"},
+				Priority: []string{"450"},
 			}},
 			Children: []*interfacedefinition.Children{{
 				XMLName: xml.Name{
@@ -159,6 +159,50 @@ func container() interfacedefinition.InterfaceDefinition {
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},
+							NodeNameAttr: "label",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Add label variables"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Regex: []string{"[a-z0-9](?:[a-z0-9.-]&[a-z0-9])?"},
+								}},
+								ConstraintErrorMessage: []string{"Label variable name must be alphanumeric and can contain hyphen, dots and underscores"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{
+									Local: "children",
+								},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "value",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Set label option value"},
+										ValueHelp: []*interfacedefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "txt",
+											Description: "Set label option value",
+										}},
+									}},
+								}},
+							}},
+						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "tagNode",
+							},
 							NodeNameAttr: "network",
 							Properties: []*interfacedefinition.Properties{{
 								XMLName: xml.Name{
@@ -195,7 +239,7 @@ func container() interfacedefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "validator",
 												},
-												NameAttr: "ipv4-address",
+												NameAttr: "ip-address",
 											}},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
@@ -204,6 +248,17 @@ func container() interfacedefinition.InterfaceDefinition {
 											},
 											Format:      "ipv4",
 											Description: "IPv4 address",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipv6",
+											Description: "IPv6 address",
+										}},
+										Multi: []*interfacedefinition.Multi{{
+											XMLName: xml.Name{
+												Local: "multi",
+											},
 										}},
 									}},
 								}},
@@ -225,6 +280,58 @@ func container() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "listen-address",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Local IP addresses to listen on"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Validator: []*interfacedefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "ip-address",
+											}, {
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "ipv6-link-local",
+											}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipv4",
+											Description: "IPv4 address to listen for incoming connections",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipv6",
+											Description: "IPv6 address to listen for incoming connections",
+										}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											Script: []string{"${vyos_completion_dir}/list_local_ips.sh --both"},
+										}},
+										Multi: []*interfacedefinition.Multi{{
+											XMLName: xml.Name{
+												Local: "multi",
+											},
+										}},
+									}},
+								}, {
 									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
@@ -428,6 +535,68 @@ func container() interfacedefinition.InterfaceDefinition {
 											List: []string{"ro rw"},
 										}},
 									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "propagation",
+									DefaultValue: []string{"rprivate"},
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Volume bind propagation"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"(shared|slave|private|rshared|rslave|rprivate)"},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "shared",
+											Description: "Sub-mounts of the original mount are exposed to replica mounts",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "slave",
+											Description: "Allow replica mount to see sub-mount from the original mount but not vice versa",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "private",
+											Description: "Sub-mounts within a mount are not visible to replica mounts or the original mount",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "rshared",
+											Description: "Allows sharing of mount points and their nested mount points between both the original and replica mounts",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "rslave",
+											Description: "Allows mount point and their nested mount points between original an replica mounts",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "rprivate",
+											Description: "No mount points within original or replica mounts in any direction",
+										}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											List: []string{"shared slave private rshared rslave rprivate"},
+										}},
+									}},
 								}},
 							}},
 						}},
@@ -463,7 +632,7 @@ func container() interfacedefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "constraint",
 									},
-									Regex: []string{"(net-admin|net-bind-service|net-raw|setpcap|sys-admin|sys-time)"},
+									Regex: []string{"(net-admin|net-bind-service|net-raw|setpcap|sys-admin|sys-module|sys-time)"},
 								}},
 								ValueHelp: []*interfacedefinition.ValueHelp{{
 									XMLName: xml.Name{
@@ -499,6 +668,12 @@ func container() interfacedefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "valueHelp",
 									},
+									Format:      "sys-module",
+									Description: "Load, unload and delete kernel modules",
+								}, {
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
 									Format:      "sys-time",
 									Description: "Permission to set system clock",
 								}},
@@ -506,7 +681,7 @@ func container() interfacedefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "completionHelp",
 									},
-									List: []string{"net-admin net-bind-service net-raw setpcap sys-admin sys-time"},
+									List: []string{"net-admin net-bind-service net-raw setpcap sys-admin sys-module sys-time"},
 								}},
 								Multi: []*interfacedefinition.Multi{{
 									XMLName: xml.Name{
@@ -574,7 +749,7 @@ func container() interfacedefinition.InterfaceDefinition {
 									},
 									Regex: []string{"[ !#-%&(-~]+"},
 								}},
-								ConstraintErrorMessage: []string{"Entrypoint must be ascii characters, use &quot; and &apos for double and single quotes respectively"},
+								ConstraintErrorMessage: []string{"Entrypoint must be ASCII characters, use &quot; and &apos for double and single quotes respectively"},
 							}},
 						}, {
 							IsBaseNode: false,
@@ -624,7 +799,7 @@ func container() interfacedefinition.InterfaceDefinition {
 									},
 									Regex: []string{"[ !#-%&(-~]+"},
 								}},
-								ConstraintErrorMessage: []string{"Command must be ascii characters, use &quot; and &apos for double and single quotes respectively"},
+								ConstraintErrorMessage: []string{"Command must be ASCII characters, use &quot; and &apos for double and single quotes respectively"},
 							}},
 						}, {
 							IsBaseNode: false,
@@ -643,7 +818,7 @@ func container() interfacedefinition.InterfaceDefinition {
 									},
 									Regex: []string{"[ !#-%&(-~]+"},
 								}},
-								ConstraintErrorMessage: []string{"The command's arguments must be ascii characters, use &quot; and &apos for double and single quotes respectively"},
+								ConstraintErrorMessage: []string{"The command's arguments must be ASCII characters, use &quot; and &apos for double and single quotes respectively"},
 							}},
 						}, {
 							IsBaseNode: false,
@@ -767,6 +942,68 @@ func container() interfacedefinition.InterfaceDefinition {
 									List: []string{"no on-failure always"},
 								}},
 							}},
+						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
+							NodeNameAttr: "uid",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"User ID this container will run as"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Validator: []*interfacedefinition.Validator{{
+										XMLName: xml.Name{
+											Local: "validator",
+										},
+										NameAttr:     "numeric",
+										ArgumentAttr: "--range 0-65535",
+									}},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "u32:0-65535",
+									Description: "User ID this container will run as",
+								}},
+							}},
+						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
+							NodeNameAttr: "gid",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Group ID this container will run as"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Validator: []*interfacedefinition.Validator{{
+										XMLName: xml.Name{
+											Local: "validator",
+										},
+										NameAttr:     "numeric",
+										ArgumentAttr: "--range 0-65535",
+									}},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "u32:0-65535",
+									Description: "Group ID this container will run as",
+								}},
+							}},
 						}},
 					}},
 				}, {
@@ -802,7 +1039,21 @@ func container() interfacedefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Network description"},
+								Help: []string{"Description"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Regex: []string{"[[:ascii:]]{0,256}"},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "txt",
+									Description: "Description",
+								}},
+								ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 							}},
 						}, {
 							IsBaseNode: false,
@@ -848,6 +1099,31 @@ func container() interfacedefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "multi",
 									},
+								}},
+							}},
+						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
+							NodeNameAttr: "vrf",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"VRF instance name"},
+								ValueHelp: []*interfacedefinition.ValueHelp{{
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "txt",
+									Description: "VRF instance name",
+								}},
+								CompletionHelp: []*interfacedefinition.CompletionHelp{{
+									XMLName: xml.Name{
+										Local: "completionHelp",
+									},
+									Path: []string{"vrf name"},
 								}},
 							}},
 						}},

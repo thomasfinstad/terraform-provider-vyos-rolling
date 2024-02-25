@@ -61,8 +61,9 @@ Rule number for NAT
 - `destination` (Attributes) NAT destination parameters (see [below for nested schema](#nestedatt--destination))
 - `disable` (Boolean) Disable instance
 - `exclude` (Boolean) Exclude packets matching this rule from NAT
-- `log` (Boolean) NAT rule logging
-- `outbound_interface` (String) Outbound interface of NAT traffic
+- `load_balance` (Attributes) Apply NAT load balance (see [below for nested schema](#nestedatt--load_balance))
+- `log` (Boolean) Log packets hitting this rule
+- `outbound_interface` (Attributes) Match outbound-interface (see [below for nested schema](#nestedatt--outbound_interface))
 - `packet_type` (String) Packet type
 
     |  Format &emsp; | Description  |
@@ -177,6 +178,42 @@ Optional:
 - `network_group` (String) Group of networks
 - `port_group` (String) Group of ports
 
+
+
+<a id="nestedatt--load_balance"></a>
+### Nested Schema for `load_balance`
+
+Optional:
+
+- `hash` (List of String) Define the parameters of the packet header to apply the hashing
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  source-address  &emsp; |  Use source IP address for hashing  |
+    |  destination-address  &emsp; |  Use destination IP address for hashing  |
+    |  source-port  &emsp; |  Use source port for hashing  |
+    |  destination-port  &emsp; |  Use destination port for hashing  |
+    |  random  &emsp; |  Do not use information from ip header. Use random value.  |
+
+
+<a id="nestedatt--outbound_interface"></a>
+### Nested Schema for `outbound_interface`
+
+Optional:
+
+- `group` (String) Match interface-group
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Interface-group name to match  |
+    |  !txt  &emsp; |  Inverted interface-group name to match  |
+- `name` (String) Match interface
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Interface name  |
+    |  txt&  &emsp; |  Interface name with wildcard  |
+    |  !txt  &emsp; |  Inverted interface name to match  |
 
 
 <a id="nestedatt--source"></a>

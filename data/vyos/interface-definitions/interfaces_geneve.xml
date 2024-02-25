@@ -1,0 +1,575 @@
+<?xml version="1.0"?>
+<interfaceDefinition>
+  <node name="interfaces">
+    <children>
+      <tagNode name="geneve" owner="${vyos_conf_scripts_dir}/interfaces_geneve.py">
+        <properties>
+          <help>Generic Network Virtualization Encapsulation (GENEVE) Interface</help>
+          <priority>460</priority>
+          <constraint>
+            <regex>gnv[0-9]+</regex>
+          </constraint>
+          <constraintErrorMessage>GENEVE interface must be named gnvN</constraintErrorMessage>
+          <valueHelp>
+            <format>gnvN</format>
+            <description>GENEVE interface name</description>
+          </valueHelp>
+        </properties>
+        <children>
+          <!-- include start from interface/address-ipv4-ipv6.xml.i -->
+          <leafNode name="address">
+            <properties>
+              <help>IP address</help>
+              <valueHelp>
+                <format>ipv4net</format>
+                <description>IPv4 address and prefix length</description>
+              </valueHelp>
+              <valueHelp>
+                <format>ipv6net</format>
+                <description>IPv6 address and prefix length</description>
+              </valueHelp>
+              <constraint>
+                <validator name="ip-host"/>
+              </constraint>
+              <multi/>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from generic-description.xml.i -->
+          <leafNode name="description">
+            <properties>
+              <help>Description</help>
+              <valueHelp>
+                <format>txt</format>
+                <description>Description</description>
+              </valueHelp>
+              <constraint>
+                <regex>[[:ascii:]]{0,256}</regex>
+              </constraint>
+              <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/disable.xml.i -->
+          <leafNode name="disable">
+            <properties>
+              <help>Administratively disable interface</help>
+              <valueless/>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/ipv4-options.xml.i -->
+          <node name="ip">
+            <properties>
+              <help>IPv4 routing parameters</help>
+            </properties>
+            <children>
+              <!-- include start from interface/adjust-mss.xml.i -->
+              <!-- https://datatracker.ietf.org/doc/html/rfc6691 -->
+              <leafNode name="adjust-mss">
+                <properties>
+                  <help>Adjust TCP MSS value</help>
+                  <completionHelp>
+                    <list>clamp-mss-to-pmtu</list>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>clamp-mss-to-pmtu</format>
+                    <description>Automatically sets the MSS to the proper value</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>u32:536-65535</format>
+                    <description>TCP Maximum segment size in bytes</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="numeric" argument="--range 536-65535"/>
+                    <regex>(clamp-mss-to-pmtu)</regex>
+                  </constraint>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from interface/arp-cache-timeout.xml.i -->
+              <leafNode name="arp-cache-timeout">
+                <properties>
+                  <help>ARP cache entry timeout in seconds</help>
+                  <valueHelp>
+                    <format>u32:1-86400</format>
+                    <description>ARP cache entry timout in seconds</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="numeric" argument="--range 1-86400"/>
+                  </constraint>
+                  <constraintErrorMessage>ARP cache entry timeout must be between 1 and 86400 seconds</constraintErrorMessage>
+                </properties>
+                <defaultValue>30</defaultValue>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from interface/disable-arp-filter.xml.i -->
+              <leafNode name="disable-arp-filter">
+                <properties>
+                  <help>Disable ARP filter on this interface</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from interface/disable-forwarding.xml.i -->
+              <leafNode name="disable-forwarding">
+                <properties>
+                  <help>Disable IP forwarding on this interface</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from interface/enable-directed-broadcast.xml.i -->
+              <leafNode name="enable-directed-broadcast">
+                <properties>
+                  <help>Enable directed broadcast forwarding on this interface</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from interface/enable-arp-accept.xml.i -->
+              <leafNode name="enable-arp-accept">
+                <properties>
+                  <help>Enable ARP accept on this interface</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from interface/enable-arp-announce.xml.i -->
+              <leafNode name="enable-arp-announce">
+                <properties>
+                  <help>Enable ARP announce on this interface</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from interface/enable-arp-ignore.xml.i -->
+              <leafNode name="enable-arp-ignore">
+                <properties>
+                  <help>Enable ARP ignore on this interface</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from interface/enable-proxy-arp.xml.i -->
+              <leafNode name="enable-proxy-arp">
+                <properties>
+                  <help>Enable proxy-arp on this interface</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from interface/proxy-arp-pvlan.xml.i -->
+              <leafNode name="proxy-arp-pvlan">
+                <properties>
+                  <help>Enable private VLAN proxy ARP on this interface</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from interface/source-validation.xml.i -->
+              <leafNode name="source-validation">
+                <properties>
+                  <help>Source validation by reversed path (RFC3704)</help>
+                  <completionHelp>
+                    <list>strict loose disable</list>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>strict</format>
+                    <description>Enable Strict Reverse Path Forwarding as defined in RFC3704</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>loose</format>
+                    <description>Enable Loose Reverse Path Forwarding as defined in RFC3704</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>disable</format>
+                    <description>No source validation</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>(strict|loose|disable)</regex>
+                  </constraint>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+            </children>
+          </node>
+          <!-- include end -->
+          <!-- include start from interface/ipv6-options.xml.i -->
+          <node name="ipv6">
+            <properties>
+              <help>IPv6 routing parameters</help>
+            </properties>
+            <children>
+              <!-- include start from interface/adjust-mss.xml.i -->
+              <!-- https://datatracker.ietf.org/doc/html/rfc6691 -->
+              <leafNode name="adjust-mss">
+                <properties>
+                  <help>Adjust TCP MSS value</help>
+                  <completionHelp>
+                    <list>clamp-mss-to-pmtu</list>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>clamp-mss-to-pmtu</format>
+                    <description>Automatically sets the MSS to the proper value</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>u32:536-65535</format>
+                    <description>TCP Maximum segment size in bytes</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="numeric" argument="--range 536-65535"/>
+                    <regex>(clamp-mss-to-pmtu)</regex>
+                  </constraint>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from interface/disable-forwarding.xml.i -->
+              <leafNode name="disable-forwarding">
+                <properties>
+                  <help>Disable IP forwarding on this interface</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from interface/ipv6-accept-dad.xml.i -->
+              <leafNode name="accept-dad">
+                <properties>
+                  <help>Accept Duplicate Address Detection</help>
+                  <valueHelp>
+                    <format>0</format>
+                    <description>Disable DAD</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>1</format>
+                    <description>Enable DAD</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>2</format>
+                    <description>Enable DAD - disable IPv6 if MAC-based duplicate link-local address found</description>
+                  </valueHelp>
+                </properties>
+                <defaultValue>1</defaultValue>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from interface/ipv6-address.xml.i -->
+              <node name="address">
+                <properties>
+                  <help>IPv6 address configuration modes</help>
+                </properties>
+                <children>
+                  <!-- include start from interface/ipv6-address-autoconf.xml.i -->
+                  <leafNode name="autoconf">
+                    <properties>
+                      <help>Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from interface/ipv6-address-eui64.xml.i -->
+                  <leafNode name="eui64">
+                    <properties>
+                      <help>Prefix for IPv6 address with MAC-based EUI-64</help>
+                      <valueHelp>
+                        <format>&lt;h:h:h:h:h:h:h:h/64&gt;</format>
+                        <description>IPv6 /64 network</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="ipv6-eui64-prefix"/>
+                      </constraint>
+                      <constraintErrorMessage>EUI64 prefix length must be 64</constraintErrorMessage>
+                      <multi/>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from interface/ipv6-address-no-default-link-local.xml.i -->
+                  <leafNode name="no-default-link-local">
+                    <properties>
+                      <help>Remove the default link-local address from the interface</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                </children>
+              </node>
+              <!-- include end -->
+              <!-- include start from interface/ipv6-dup-addr-detect-transmits.xml.i -->
+              <leafNode name="dup-addr-detect-transmits">
+                <properties>
+                  <help>Number of NS messages to send while performing DAD</help>
+                  <valueHelp>
+                    <format>u32:0</format>
+                    <description>Disable Duplicate Address Dectection (DAD)</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>u32:1-n</format>
+                    <description>Number of NS messages to send while performing DAD</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="numeric" argument="--non-negative"/>
+                  </constraint>
+                </properties>
+                <defaultValue>1</defaultValue>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from interface/source-validation.xml.i -->
+              <leafNode name="source-validation">
+                <properties>
+                  <help>Source validation by reversed path (RFC3704)</help>
+                  <completionHelp>
+                    <list>strict loose disable</list>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>strict</format>
+                    <description>Enable Strict Reverse Path Forwarding as defined in RFC3704</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>loose</format>
+                    <description>Enable Loose Reverse Path Forwarding as defined in RFC3704</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>disable</format>
+                    <description>No source validation</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>(strict|loose|disable)</regex>
+                  </constraint>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+            </children>
+          </node>
+          <!-- include end -->
+          <!-- include start from interface/mac.xml.i -->
+          <leafNode name="mac">
+            <properties>
+              <help>Media Access Control (MAC) address</help>
+              <valueHelp>
+                <format>macaddr</format>
+                <description>Hardware (MAC) address</description>
+              </valueHelp>
+              <constraint>
+                <validator name="mac-address"/>
+              </constraint>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/mtu-1200-16000.xml.i -->
+          <leafNode name="mtu">
+            <properties>
+              <help>Maximum Transmission Unit (MTU)</help>
+              <valueHelp>
+                <format>u32:1200-16000</format>
+                <description>Maximum Transmission Unit in byte</description>
+              </valueHelp>
+              <constraint>
+                <validator name="numeric" argument="--range 1200-16000"/>
+              </constraint>
+              <constraintErrorMessage>MTU must be between 1200 and 16000</constraintErrorMessage>
+            </properties>
+            <defaultValue>1500</defaultValue>
+          </leafNode>
+          <!-- include end -->
+          <node name="parameters">
+            <properties>
+              <help>GENEVE tunnel parameters</help>
+            </properties>
+            <children>
+              <node name="ip">
+                <properties>
+                  <help>IPv4 specific tunnel parameters</help>
+                </properties>
+                <children>
+                  <!-- include start from interface/parameters-df.xml.i -->
+                  <leafNode name="df">
+                    <properties>
+                      <help>Usage of the DF (don't Fragment) bit in outgoing packets</help>
+                      <completionHelp>
+                        <list>set unset inherit</list>
+                      </completionHelp>
+                      <valueHelp>
+                        <format>set</format>
+                        <description>Always set DF (don't fragment) bit</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>unset</format>
+                        <description>Always unset DF (don't fragment) bit</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>inherit</format>
+                        <description>Copy from the original IP header</description>
+                      </valueHelp>
+                      <constraint>
+                        <regex>(set|unset|inherit)</regex>
+                      </constraint>
+                    </properties>
+                    <defaultValue>unset</defaultValue>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from interface/tunnel-parameters-tos.xml.i -->
+                  <leafNode name="tos">
+                    <properties>
+                      <help>Specifies TOS value to use in outgoing packets</help>
+                      <valueHelp>
+                        <format>u32:0-99</format>
+                        <description>Type of Service (TOS)</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 0-99"/>
+                      </constraint>
+                      <constraintErrorMessage>TOS must be between 0 and 99</constraintErrorMessage>
+                    </properties>
+                    <defaultValue>inherit</defaultValue>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from interface/parameters-ttl.xml.i -->
+                  <leafNode name="ttl">
+                    <properties>
+                      <help>Specifies TTL value to use in outgoing packets</help>
+                      <valueHelp>
+                        <format>u32:0</format>
+                        <description>Inherit - copy value from original IP header</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>u32:1-255</format>
+                        <description>Time to Live</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 0-255"/>
+                      </constraint>
+                      <constraintErrorMessage>TTL must be between 0 and 255</constraintErrorMessage>
+                    </properties>
+                    <defaultValue>0</defaultValue>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from interface/parameters-innerproto.xml.i -->
+                  <leafNode name="innerproto">
+                    <properties>
+                      <help>Use IPv4 as inner protocol instead of Ethernet</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                </children>
+              </node>
+              <node name="ipv6">
+                <properties>
+                  <help>IPv6 specific tunnel parameters</help>
+                </properties>
+                <children>
+                  <!-- include start from interface/parameters-flowlabel.xml.i -->
+                  <leafNode name="flowlabel">
+                    <properties>
+                      <help>Specifies the flow label to use in outgoing packets</help>
+                      <completionHelp>
+                        <list>inherit</list>
+                      </completionHelp>
+                      <valueHelp>
+                        <format>inherit</format>
+                        <description>Copy field from original header</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>0x0-0x0fffff</format>
+                        <description>Tunnel key, or hex value</description>
+                      </valueHelp>
+                      <constraint>
+                        <regex>((0x){0,1}(0?[0-9A-Fa-f]{1,5})|inherit)</regex>
+                      </constraint>
+                      <constraintErrorMessage>Must be 'inherit' or a number</constraintErrorMessage>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                </children>
+              </node>
+            </children>
+          </node>
+          <!-- include start from interface/mirror.xml.i -->
+          <node name="mirror">
+            <properties>
+              <help>Mirror ingress/egress packets</help>
+            </properties>
+            <children>
+              <leafNode name="ingress">
+                <properties>
+                  <help>Mirror ingress traffic to destination interface</help>
+                  <completionHelp>
+                    <script>${vyos_completion_dir}/list_interfaces</script>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Destination interface name</description>
+                  </valueHelp>
+                </properties>
+              </leafNode>
+              <leafNode name="egress">
+                <properties>
+                  <help>Mirror egress traffic to destination interface</help>
+                  <completionHelp>
+                    <script>${vyos_completion_dir}/list_interfaces</script>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Destination interface name</description>
+                  </valueHelp>
+                </properties>
+              </leafNode>
+            </children>
+          </node>
+          <!-- include end -->
+          <!-- include start from interface/redirect.xml.i -->
+          <leafNode name="redirect">
+            <properties>
+              <help>Redirect incoming packet to destination</help>
+              <completionHelp>
+                <script>${vyos_completion_dir}/list_interfaces</script>
+              </completionHelp>
+              <valueHelp>
+                <format>txt</format>
+                <description>Destination interface name</description>
+              </valueHelp>
+              <constraint>
+                <!-- include start from constraint/interface-name.xml.i -->
+                <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
+                <validator name="file-path --lookup-path /sys/class/net --directory"/>
+                <!-- include end -->
+              </constraint>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/tunnel-remote.xml.i -->
+          <leafNode name="remote">
+            <properties>
+              <help>Tunnel remote address</help>
+              <valueHelp>
+                <format>ipv4</format>
+                <description>Tunnel remote IPv4 address</description>
+              </valueHelp>
+              <valueHelp>
+                <format>ipv6</format>
+                <description>Tunnel remote IPv6 address</description>
+              </valueHelp>
+              <constraint>
+                <validator name="ip-address"/>
+              </constraint>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from vni.xml.i -->
+          <leafNode name="vni">
+            <properties>
+              <help>Virtual Network Identifier</help>
+              <valueHelp>
+                <format>u32:0-16777214</format>
+                <description>VXLAN virtual network identifier</description>
+              </valueHelp>
+              <constraint>
+                <validator name="numeric" argument="--range 0-16777214"/>
+              </constraint>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+        </children>
+      </tagNode>
+    </children>
+  </node>
+</interfaceDefinition>

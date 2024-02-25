@@ -93,6 +93,7 @@ Interface params
     |----------|---------------|
     |  number: 2-100  &emsp; |  Set multiplier for Hello holding time  |
 - `hello_padding` (Boolean) Add padding to IS-IS hello packets
+- `ldp_sync` (Attributes) LDP-IGP synchronization configuration for interface (see [below for nested schema](#nestedatt--ldp_sync))
 - `metric` (Number) Set default metric for circuit
 
     |  Format &emsp; | Description  |
@@ -127,6 +128,19 @@ Optional:
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  BFD profile name  |
+
+
+<a id="nestedatt--ldp_sync"></a>
+### Nested Schema for `ldp_sync`
+
+Optional:
+
+- `disable` (Boolean) Disable instance
+- `holddown` (Number) Hold down timer for LDP-IGP cost restoration
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 0-10000  &emsp; |  Time to wait in seconds for LDP-IGP synchronization to occur before restoring interface cost  |
 
 
 <a id="nestedatt--network"></a>

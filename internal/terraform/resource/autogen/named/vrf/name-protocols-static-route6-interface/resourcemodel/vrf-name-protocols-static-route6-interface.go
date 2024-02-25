@@ -25,6 +25,7 @@ type VrfNameProtocolsStaticRoutesixInterface struct {
 	// LeafNodes
 	LeafVrfNameProtocolsStaticRoutesixInterfaceDisable  types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafVrfNameProtocolsStaticRoutesixInterfaceDistance types.Number `tfsdk:"distance" vyos:"distance,omitempty"`
+	LeafVrfNameProtocolsStaticRoutesixInterfaceSegments types.String `tfsdk:"segments" vyos:"segments,omitempty"`
 	LeafVrfNameProtocolsStaticRoutesixInterfaceVrf      types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -128,6 +129,17 @@ func (o VrfNameProtocolsStaticRoutesixInterface) ResourceSchemaAttributes() map[
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 1-255  &emsp; |  Distance for this route  |
+
+`,
+		},
+
+		"segments": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `SRv6 segments
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Segs (SIDs)  |
 
 `,
 		},

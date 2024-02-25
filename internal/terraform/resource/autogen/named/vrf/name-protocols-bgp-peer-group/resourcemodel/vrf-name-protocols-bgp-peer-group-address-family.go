@@ -12,9 +12,13 @@ type VrfNameProtocolsBgpPeerGroupAddressFamily struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes
-	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast `tfsdk:"ipv4_unicast" vyos:"ipv4-unicast,omitempty"`
-	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast  *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast  `tfsdk:"ipv6_unicast" vyos:"ipv6-unicast,omitempty"`
-	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn    *VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn    `tfsdk:"l2vpn_evpn" vyos:"l2vpn-evpn,omitempty"`
+	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast        *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast        `tfsdk:"ipv4_unicast" vyos:"ipv4-unicast,omitempty"`
+	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast `tfsdk:"ipv4_labeled_unicast" vyos:"ipv4-labeled-unicast,omitempty"`
+	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpn            *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpn            `tfsdk:"ipv4_vpn" vyos:"ipv4-vpn,omitempty"`
+	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast         *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast         `tfsdk:"ipv6_unicast" vyos:"ipv6-unicast,omitempty"`
+	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixLabeledUnicast  *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixLabeledUnicast  `tfsdk:"ipv6_labeled_unicast" vyos:"ipv6-labeled-unicast,omitempty"`
+	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixVpn             *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixVpn             `tfsdk:"ipv6_vpn" vyos:"ipv6-vpn,omitempty"`
+	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn           *VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn           `tfsdk:"l2vpn_evpn" vyos:"l2vpn-evpn,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -32,10 +36,42 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamily) ResourceSchemaAttributes() ma
 `,
 		},
 
+		"ipv4_labeled_unicast": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `IPv4 Labeled Unicast BGP neighbor parameters
+
+`,
+		},
+
+		"ipv4_vpn": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpn{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `IPv4 VPN BGP neighbor parameters
+
+`,
+		},
+
 		"ipv6_unicast": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 BGP neighbor parameters
+
+`,
+		},
+
+		"ipv6_labeled_unicast": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixLabeledUnicast{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `IPv6 Labeled Unicast BGP neighbor parameters
+
+`,
+		},
+
+		"ipv6_vpn": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixVpn{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `IPv6 VPN BGP neighbor parameters
 
 `,
 		},

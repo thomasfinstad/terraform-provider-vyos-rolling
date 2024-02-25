@@ -13,8 +13,10 @@ type VrfNameIPvsix struct {
 	LeafVrfNameIPvsixDisableForwarding types.Bool `tfsdk:"disable_forwarding" vyos:"disable-forwarding,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	ExistsTagVrfNameIPvsixProtocol bool `tfsdk:"protocol" vyos:"protocol,child"`
 
 	// Nodes
+	NodeVrfNameIPvsixNht *VrfNameIPvsixNht `tfsdk:"nht" vyos:"nht,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -33,5 +35,12 @@ func (o VrfNameIPvsix) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 		// Nodes
 
+		"nht": schema.SingleNestedAttribute{
+			Attributes: VrfNameIPvsixNht{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Filter Next Hop tracking route resolution
+
+`,
+		},
 	}
 }

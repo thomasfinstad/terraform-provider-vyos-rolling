@@ -10,7 +10,7 @@ description: |-
   &darr;
   <br>
   <b>
-  Load-balancing virtual server address
+  Load-balancing virtual server alias
   </b>
   </div>
 ---
@@ -24,7 +24,7 @@ High availability settings
 &darr;
 <br>
 <b>
-Load-balancing virtual server address
+Load-balancing virtual server alias
 </b>
 </div>
 
@@ -35,10 +35,16 @@ Load-balancing virtual server address
 
 ### Required
 
-- `virtual_server_id` (String) Load-balancing virtual server address
+- `virtual_server_id` (String) Load-balancing virtual server alias
 
 ### Optional
 
+- `address` (String) IP address
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  ipv4  &emsp; |  IPv4 address  |
+    |  ipv6  &emsp; |  IPv6 address  |
 - `algorithm` (String) Schedule algorithm (default - least-connection)
 
     |  Format &emsp; | Description  |

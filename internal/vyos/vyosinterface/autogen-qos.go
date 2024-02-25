@@ -188,7 +188,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Flows are defined by the 5-tuple, and fairness is applied first over source addresses, then over individual flows"},
+												Help: []string{"Flows are defined by the 5-tuple, fairness is applied first over source addresses, then over individual flows"},
 												Valueless: []*interfacedefinition.Valueless{{
 													XMLName: xml.Name{
 														Local: "valueless",
@@ -205,7 +205,24 @@ func qos() interfacedefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Flows are defined by the 5-tuple, and fairness is applied first over destination addresses, then over individual flows"},
+												Help: []string{"Flows are defined by the 5-tuple, fairness is applied first over destination addresses, then over individual flows"},
+												Valueless: []*interfacedefinition.Valueless{{
+													XMLName: xml.Name{
+														Local: "valueless",
+													},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "triple-isolate",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Flows are defined by the 5-tuple, fairness is applied over source and destination addresses and also over individual flows (default)"},
 												Valueless: []*interfacedefinition.Valueless{{
 													XMLName: xml.Name{
 														Local: "valueless",
@@ -322,7 +339,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "valueHelp",
 											},
-											Format:      "<number>%",
+											Format:      "<number>%%",
 											Description: "Percentage of interface link speed",
 										}},
 									}},
@@ -914,7 +931,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "valueHelp",
 													},
-													Format:      "<number>%",
+													Format:      "<number>%%",
 													Description: "Percentage of interface link speed",
 												}},
 											}},
@@ -2388,7 +2405,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+															Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 															Validator: []*interfacedefinition.Validator{{
 																XMLName: xml.Name{
 																	Local: "validator",
@@ -2566,7 +2583,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "valueHelp",
 													},
-													Format:      "<number>%",
+													Format:      "<number>%%",
 													Description: "Percentage of interface link speed",
 												}},
 											}},
@@ -2892,7 +2909,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "valueHelp",
 											},
-											Format:      "<number>%",
+											Format:      "<number>%%",
 											Description: "Percentage of interface link speed",
 										}},
 									}},
@@ -4688,7 +4705,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+															Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 															Validator: []*interfacedefinition.Validator{{
 																XMLName: xml.Name{
 																	Local: "validator",
@@ -5514,7 +5531,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "valueHelp",
 											},
-											Format:      "<number>%",
+											Format:      "<number>%%",
 											Description: "Percentage of interface link speed",
 										}},
 									}},
@@ -7177,7 +7194,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+															Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 															Validator: []*interfacedefinition.Validator{{
 																XMLName: xml.Name{
 																	Local: "validator",
@@ -7684,7 +7701,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "valueHelp",
 													},
-													Format:      "<number>%",
+													Format:      "<number>%%",
 													Description: "Percentage of interface link speed",
 												}},
 											}},
@@ -9572,7 +9589,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+															Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 															Validator: []*interfacedefinition.Validator{{
 																XMLName: xml.Name{
 																	Local: "validator",
@@ -10530,7 +10547,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m1",
-													DefaultValue: []string{"100%%"},
+													DefaultValue: []string{"0bit"},
 													Properties: []*interfacedefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -10580,7 +10597,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m2",
-													DefaultValue: []string{"100%%"},
+													DefaultValue: []string{"100%"},
 													Properties: []*interfacedefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -10680,7 +10697,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m1",
-													DefaultValue: []string{"100%%"},
+													DefaultValue: []string{"0bit"},
 													Properties: []*interfacedefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -10730,7 +10747,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m2",
-													DefaultValue: []string{"100%%"},
+													DefaultValue: []string{"100%"},
 													Properties: []*interfacedefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -10830,7 +10847,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m1",
-													DefaultValue: []string{"100%%"},
+													DefaultValue: []string{"0bit"},
 													Properties: []*interfacedefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -10880,7 +10897,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m2",
-													DefaultValue: []string{"100%%"},
+													DefaultValue: []string{"100%"},
 													Properties: []*interfacedefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -11019,7 +11036,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m1",
-													DefaultValue: []string{"100%%"},
+													DefaultValue: []string{"0bit"},
 													Properties: []*interfacedefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -11069,7 +11086,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m2",
-													DefaultValue: []string{"100%%"},
+													DefaultValue: []string{"100%"},
 													Properties: []*interfacedefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -11169,7 +11186,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m1",
-													DefaultValue: []string{"100%%"},
+													DefaultValue: []string{"0bit"},
 													Properties: []*interfacedefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -11219,7 +11236,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m2",
-													DefaultValue: []string{"100%%"},
+													DefaultValue: []string{"100%"},
 													Properties: []*interfacedefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -11319,7 +11336,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m1",
-													DefaultValue: []string{"100%%"},
+													DefaultValue: []string{"0bit"},
 													Properties: []*interfacedefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -11369,7 +11386,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														Local: "leafNode",
 													},
 													NodeNameAttr: "m2",
-													DefaultValue: []string{"100%%"},
+													DefaultValue: []string{"100%"},
 													Properties: []*interfacedefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
@@ -12709,7 +12726,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+															Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 															Validator: []*interfacedefinition.Validator{{
 																XMLName: xml.Name{
 																	Local: "validator",
@@ -12953,7 +12970,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 							XMLName: xml.Name{
 								Local: "constraint",
 							},
-							Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+							Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 							Validator: []*interfacedefinition.Validator{{
 								XMLName: xml.Name{
 									Local: "validator",

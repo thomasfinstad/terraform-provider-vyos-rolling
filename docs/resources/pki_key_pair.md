@@ -52,7 +52,7 @@ Public and private keys
 Optional:
 
 - `key` (String) Private key in PEM format
-- `password_protected` (Boolean) Private key is password protected
+- `password_protected` (Boolean) Private key portion is password protected
 
 
 <a id="nestedatt--public"></a>

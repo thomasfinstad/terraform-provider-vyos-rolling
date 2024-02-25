@@ -10,12 +10,15 @@ import (
 // VrfNameProtocolsBgpParameters describes the resource data model.
 type VrfNameProtocolsBgpParameters struct {
 	// LeafNodes
+	LeafVrfNameProtocolsBgpParametersAllowMartianNexthop               types.Bool   `tfsdk:"allow_martian_nexthop" vyos:"allow-martian-nexthop,omitempty"`
 	LeafVrfNameProtocolsBgpParametersAlwaysCompareMed                  types.Bool   `tfsdk:"always_compare_med" vyos:"always-compare-med,omitempty"`
 	LeafVrfNameProtocolsBgpParametersClusterID                         types.String `tfsdk:"cluster_id" vyos:"cluster-id,omitempty"`
 	LeafVrfNameProtocolsBgpParametersDeterministicMed                  types.Bool   `tfsdk:"deterministic_med" vyos:"deterministic-med,omitempty"`
 	LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy                types.Bool   `tfsdk:"ebgp_requires_policy" vyos:"ebgp-requires-policy,omitempty"`
 	LeafVrfNameProtocolsBgpParametersFastConvergence                   types.Bool   `tfsdk:"fast_convergence" vyos:"fast-convergence,omitempty"`
 	LeafVrfNameProtocolsBgpParametersGracefulShutdown                  types.Bool   `tfsdk:"graceful_shutdown" vyos:"graceful-shutdown,omitempty"`
+	LeafVrfNameProtocolsBgpParametersNoHardAdministrativeReset         types.Bool   `tfsdk:"no_hard_administrative_reset" vyos:"no-hard-administrative-reset,omitempty"`
+	LeafVrfNameProtocolsBgpParametersLabeledUnicast                    types.String `tfsdk:"labeled_unicast" vyos:"labeled-unicast,omitempty"`
 	LeafVrfNameProtocolsBgpParametersLogNeighborChanges                types.Bool   `tfsdk:"log_neighbor_changes" vyos:"log-neighbor-changes,omitempty"`
 	LeafVrfNameProtocolsBgpParametersMinimumHoldtime                   types.Number `tfsdk:"minimum_holdtime" vyos:"minimum-holdtime,omitempty"`
 	LeafVrfNameProtocolsBgpParametersNetworkImportCheck                types.Bool   `tfsdk:"network_import_check" vyos:"network-import-check,omitempty"`
@@ -38,12 +41,22 @@ type VrfNameProtocolsBgpParameters struct {
 	NodeVrfNameProtocolsBgpParametersDefault                  *VrfNameProtocolsBgpParametersDefault                  `tfsdk:"default" vyos:"default,omitempty"`
 	NodeVrfNameProtocolsBgpParametersDistance                 *VrfNameProtocolsBgpParametersDistance                 `tfsdk:"distance" vyos:"distance,omitempty"`
 	NodeVrfNameProtocolsBgpParametersGracefulRestart          *VrfNameProtocolsBgpParametersGracefulRestart          `tfsdk:"graceful_restart" vyos:"graceful-restart,omitempty"`
+	NodeVrfNameProtocolsBgpParametersTCPKeepalive             *VrfNameProtocolsBgpParametersTCPKeepalive             `tfsdk:"tcp_keepalive" vyos:"tcp-keepalive,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
+
+		"allow_martian_nexthop": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Allow Martian nexthops to be received in the NLRI from a peer
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
 
 		"always_compare_med": schema.BoolAttribute{
 			Optional: true,
@@ -99,6 +112,28 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 `,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
+		},
+
+		"no_hard_administrative_reset": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Do not send hard reset CEASE Notification for 'Administrative Reset'
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
+		"labeled_unicast": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `BGP Labeled-unicast options
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  explicit-null  &emsp; |  Use explicit-null label values for all local prefixes  |
+    |  ipv4-explicit-null  &emsp; |  Use IPv4 explicit-null label value for IPv4 local prefixes  |
+    |  ipv6-explicit-null  &emsp; |  Use IPv6 explicit-null label value for IPv4 local prefixes  |
+
+`,
 		},
 
 		"log_neighbor_changes": schema.BoolAttribute{
@@ -258,6 +293,14 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			Attributes: VrfNameProtocolsBgpParametersGracefulRestart{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Graceful restart capability parameters
+
+`,
+		},
+
+		"tcp_keepalive": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpParametersTCPKeepalive{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `TCP keepalive parameters
 
 `,
 		},

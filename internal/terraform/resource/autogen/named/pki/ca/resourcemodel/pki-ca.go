@@ -70,7 +70,7 @@ func (o PkiCa) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 		"certificate": schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `CA certificate in PEM format
+			MarkdownDescription: `Certificate in PEM format
 
 `,
 		},
@@ -78,6 +78,10 @@ func (o PkiCa) ResourceSchemaAttributes() map[string]schema.Attribute {
 		"description": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -92,7 +96,7 @@ func (o PkiCa) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 		"revoke": schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `If parent CA is present, this CA certificate will be included in generated CRLs
+			MarkdownDescription: `Include certificate in parent CRL
 
 `,
 			Default:  booldefault.StaticBool(false),

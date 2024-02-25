@@ -15,6 +15,7 @@ type HighAvailabilityVrrpGlobalParameters struct {
 
 	// LeafNodes
 	LeafHighAvailabilityVrrpGlobalParametersStartupDelay types.Number `tfsdk:"startup_delay" vyos:"startup-delay,omitempty"`
+	LeafHighAvailabilityVrrpGlobalParametersVersion      types.String `tfsdk:"version" vyos:"version,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -59,6 +60,18 @@ func (o HighAvailabilityVrrpGlobalParameters) ResourceSchemaAttributes() map[str
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 1-600  &emsp; |  Interval in seconds  |
+
+`,
+		},
+
+		"version": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Default VRRP version to use, IPv6 always uses VRRP version 3
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  2  &emsp; |  VRRP version 2  |
+    |  3  &emsp; |  VRRP version 3  |
 
 `,
 		},

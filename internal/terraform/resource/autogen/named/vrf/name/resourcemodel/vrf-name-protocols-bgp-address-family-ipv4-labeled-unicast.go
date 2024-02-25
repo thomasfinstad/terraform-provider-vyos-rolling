@@ -14,15 +14,22 @@ type VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicast struct {
 	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork          bool `tfsdk:"network" vyos:"network,child"`
 
 	// Nodes
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastMaximumPaths *VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastMaximumPaths `tfsdk:"maximum_paths" vyos:"maximum-paths,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicast) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
-
 		// LeafNodes
 
 		// Nodes
 
+		"maximum_paths": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastMaximumPaths{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Forward packets over multiple paths
+
+`,
+		},
 	}
 }

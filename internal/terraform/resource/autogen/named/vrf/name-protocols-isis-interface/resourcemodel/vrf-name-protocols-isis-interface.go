@@ -35,6 +35,7 @@ type VrfNameProtocolsIsisInterface struct {
 
 	// Nodes
 	NodeVrfNameProtocolsIsisInterfaceBfd      *VrfNameProtocolsIsisInterfaceBfd      `tfsdk:"bfd" vyos:"bfd,omitempty"`
+	NodeVrfNameProtocolsIsisInterfaceLdpSync  *VrfNameProtocolsIsisInterfaceLdpSync  `tfsdk:"ldp_sync" vyos:"ldp-sync,omitempty"`
 	NodeVrfNameProtocolsIsisInterfaceNetwork  *VrfNameProtocolsIsisInterfaceNetwork  `tfsdk:"network" vyos:"network,omitempty"`
 	NodeVrfNameProtocolsIsisInterfacePassword *VrfNameProtocolsIsisInterfacePassword `tfsdk:"password" vyos:"password,omitempty"`
 }
@@ -199,6 +200,14 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Attributes: VrfNameProtocolsIsisInterfaceBfd{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Enable Bidirectional Forwarding Detection (BFD)
+
+`,
+		},
+
+		"ldp_sync": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsIsisInterfaceLdpSync{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `LDP-IGP synchronization configuration for interface
 
 `,
 		},

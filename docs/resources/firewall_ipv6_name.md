@@ -9,8 +9,13 @@ description: |-
   <br>
   &darr;
   <br>
+  IPv6 firewall
+
+  <br>
+  &darr;
+  <br>
   <b>
-  IPv6 firewall rule-set name
+  IPv6 custom firewall
   </b>
   </div>
 ---
@@ -23,8 +28,13 @@ Firewall
 <br>
 &darr;
 <br>
+IPv6 firewall
+
+<br>
+&darr;
+<br>
 <b>
-IPv6 firewall rule-set name
+IPv6 custom firewall
 </b>
 </div>
 
@@ -35,7 +45,7 @@ IPv6 firewall rule-set name
 
 ### Required
 
-- `ipv6_name_id` (String) IPv6 firewall rule-set name
+- `name_id` (String) IPv6 custom firewall
 
 ### Optional
 
@@ -48,13 +58,14 @@ IPv6 firewall rule-set name
     |  reject  &emsp; |  Drop and notify source if no prior rules are hit  |
     |  return  &emsp; |  Return from the current chain and continue at the next rule of the last chain  |
     |  accept  &emsp; |  Accept if no prior rules are hit  |
+    |  continue  &emsp; |  Continue parsing next rule  |
 - `default_jump_target` (String) Set jump target. Action jump must be defined in default-action to use this setting
+- `default_log` (Boolean) Log packets hitting default-action
 - `description` (String) Description
 
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Description  |
-- `enable_default_log` (Boolean) Log packets hitting default-action
 
 ### Read-Only
 

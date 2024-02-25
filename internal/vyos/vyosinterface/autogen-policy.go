@@ -2907,7 +2907,7 @@ func policy() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+													Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 													Validator: []*interfacedefinition.Validator{{
 														XMLName: xml.Name{
 															Local: "validator",
@@ -3053,12 +3053,7 @@ func policy() interfacedefinition.InterfaceDefinition {
 														XMLName: xml.Name{
 															Local: "validator",
 														},
-														NameAttr: "ipv4-address",
-													}, {
-														XMLName: xml.Name{
-															Local: "validator",
-														},
-														NameAttr: "ipv6-address",
+														NameAttr: "ip-address",
 													}},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
@@ -3073,6 +3068,103 @@ func policy() interfacedefinition.InterfaceDefinition {
 													},
 													Format:      "ipv6",
 													Description: "Peer IPv6 address",
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "protocol",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Match protocol via which the route was learnt"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Regex: []string{"(babel|bgp|connected|isis|kernel|ospf|ospfv3|rip|ripng|static|table|vnc)"},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "babel",
+													Description: "Babel routing protocol (Babel)",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "bgp",
+													Description: "Border Gateway Protocol (BGP)",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "connected",
+													Description: "Connected routes (directly attached subnet or host)",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "isis",
+													Description: "Intermediate System to Intermediate System (IS-IS)",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "kernel",
+													Description: "Kernel routes",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ospf",
+													Description: "Open Shortest Path First (OSPFv2)",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ospfv3",
+													Description: "Open Shortest Path First (IPv6) (OSPFv3)",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "rip",
+													Description: "Routing Information Protocol (RIP)",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ripng",
+													Description: "Routing Information Protocol next-generation (IPv6) (RIPng)",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "static",
+													Description: "Statically configured routes",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "table",
+													Description: "Non-main Kernel Routing Table",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "vnc",
+													Description: "Virtual Network Control (VNC)",
+												}},
+												CompletionHelp: []*interfacedefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													List: []string{"babel bgp connected isis kernel ospf ospfv3 rip ripng static table vnc"},
 												}},
 											}},
 										}, {
@@ -3128,7 +3220,7 @@ func policy() interfacedefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Route tag to match"},
+												Help: []string{"Route tag value"},
 												Constraint: []*interfacedefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
@@ -4479,6 +4571,7 @@ func policy() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
+													Regex: []string{"^[+|-]?rtt$"},
 													Validator: []*interfacedefinition.Validator{{
 														XMLName: xml.Name{
 															Local: "validator",
@@ -4505,6 +4598,18 @@ func policy() interfacedefinition.InterfaceDefinition {
 													},
 													Format:      "u32:0-4294967295",
 													Description: "Metric value",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "<+/-rtt>",
+													Description: "Add or subtract round trip time",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "<rtt>",
+													Description: "Round trip time",
 												}},
 											}},
 										}, {
@@ -4636,12 +4741,7 @@ func policy() interfacedefinition.InterfaceDefinition {
 														XMLName: xml.Name{
 															Local: "validator",
 														},
-														NameAttr: "ipv4-address",
-													}, {
-														XMLName: xml.Name{
-															Local: "validator",
-														},
-														NameAttr: "ipv6-address",
+														NameAttr: "ip-address",
 													}},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
@@ -4705,7 +4805,7 @@ func policy() interfacedefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Tag value for routing protocol"},
+												Help: []string{"Route tag value"},
 												Constraint: []*interfacedefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
@@ -4723,7 +4823,7 @@ func policy() interfacedefinition.InterfaceDefinition {
 														Local: "valueHelp",
 													},
 													Format:      "u32:1-65535",
-													Description: "Tag value",
+													Description: "Route tag",
 												}},
 											}},
 										}, {

@@ -10,16 +10,19 @@ import (
 type VrfNameProtocolsBgp struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpSystemAs types.Number `tfsdk:"system_as" vyos:"system-as,omitempty"`
-	LeafVrfNameProtocolsBgpRouteMap types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
+	ExistsTagVrfNameProtocolsBgpInterface bool `tfsdk:"interface" vyos:"interface,child"`
 	ExistsTagVrfNameProtocolsBgpNeighbor  bool `tfsdk:"neighbor" vyos:"neighbor,child"`
 	ExistsTagVrfNameProtocolsBgpPeerGroup bool `tfsdk:"peer_group" vyos:"peer-group,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsBgpAddressFamily *VrfNameProtocolsBgpAddressFamily `tfsdk:"address_family" vyos:"address-family,omitempty"`
+	NodeVrfNameProtocolsBgpBmp           *VrfNameProtocolsBgpBmp           `tfsdk:"bmp" vyos:"bmp,omitempty"`
 	NodeVrfNameProtocolsBgpListen        *VrfNameProtocolsBgpListen        `tfsdk:"listen" vyos:"listen,omitempty"`
 	NodeVrfNameProtocolsBgpParameters    *VrfNameProtocolsBgpParameters    `tfsdk:"parameters" vyos:"parameters,omitempty"`
+	NodeVrfNameProtocolsBgpSrvsix        *VrfNameProtocolsBgpSrvsix        `tfsdk:"srv6" vyos:"srv6,omitempty"`
+	NodeVrfNameProtocolsBgpSID           *VrfNameProtocolsBgpSID           `tfsdk:"sid" vyos:"sid,omitempty"`
 	NodeVrfNameProtocolsBgpTimers        *VrfNameProtocolsBgpTimers        `tfsdk:"timers" vyos:"timers,omitempty"`
 }
 
@@ -39,23 +42,20 @@ func (o VrfNameProtocolsBgp) ResourceSchemaAttributes() map[string]schema.Attrib
 `,
 		},
 
-		"route_map": schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `Specify route-map name to use
-
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
-
-`,
-		},
-
 		// Nodes
 
 		"address_family": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamily{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `BGP address-family parameters
+
+`,
+		},
+
+		"bmp": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpBmp{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `BGP Monitoring Protocol (BMP)
 
 `,
 		},
@@ -72,6 +72,22 @@ func (o VrfNameProtocolsBgp) ResourceSchemaAttributes() map[string]schema.Attrib
 			Attributes: VrfNameProtocolsBgpParameters{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `BGP parameters
+
+`,
+		},
+
+		"srv6": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpSrvsix{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Segment-Routing SRv6 configuration
+
+`,
+		},
+
+		"sid": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpSID{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `SID value for VRF
 
 `,
 		},

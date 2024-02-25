@@ -9,7 +9,7 @@ description: |-
   <br>
   &darr;
   <br>
-  Load-balancing virtual server address
+  Load-balancing virtual server alias
 
   <br>
   &darr;
@@ -28,7 +28,7 @@ High availability settings
 <br>
 &darr;
 <br>
-Load-balancing virtual server address
+Load-balancing virtual server alias
 
 <br>
 &darr;
@@ -46,7 +46,7 @@ Real server address
 ### Required
 
 - `real_server_id` (String) Real server address
-- `virtual_server_id` (String) Load-balancing virtual server address
+- `virtual_server_id` (String) Load-balancing virtual server alias
 
 ### Optional
 

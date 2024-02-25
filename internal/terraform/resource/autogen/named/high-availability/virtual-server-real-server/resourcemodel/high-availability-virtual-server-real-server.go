@@ -70,7 +70,7 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes() map[
 
 		"virtual_server_id": schema.StringAttribute{
 			Required: true,
-			MarkdownDescription: `Load-balancing virtual server address
+			MarkdownDescription: `Load-balancing virtual server alias
 
 `,
 			PlanModifiers: []planmodifier.String{

@@ -9,11 +9,12 @@ import (
 // FirewallIPvsixNameRuleDestinationGroup describes the resource data model.
 type FirewallIPvsixNameRuleDestinationGroup struct {
 	// LeafNodes
-	LeafFirewallIPvsixNameRuleDestinationGroupAddressGroup types.String `tfsdk:"address_group" vyos:"address-group,omitempty"`
-	LeafFirewallIPvsixNameRuleDestinationGroupDomainGroup  types.String `tfsdk:"domain_group" vyos:"domain-group,omitempty"`
-	LeafFirewallIPvsixNameRuleDestinationGroupMacGroup     types.String `tfsdk:"mac_group" vyos:"mac-group,omitempty"`
-	LeafFirewallIPvsixNameRuleDestinationGroupNetworkGroup types.String `tfsdk:"network_group" vyos:"network-group,omitempty"`
-	LeafFirewallIPvsixNameRuleDestinationGroupPortGroup    types.String `tfsdk:"port_group" vyos:"port-group,omitempty"`
+	LeafFirewallIPvsixNameRuleDestinationGroupAddressGroup        types.String `tfsdk:"address_group" vyos:"address-group,omitempty"`
+	LeafFirewallIPvsixNameRuleDestinationGroupDomainGroup         types.String `tfsdk:"domain_group" vyos:"domain-group,omitempty"`
+	LeafFirewallIPvsixNameRuleDestinationGroupMacGroup            types.String `tfsdk:"mac_group" vyos:"mac-group,omitempty"`
+	LeafFirewallIPvsixNameRuleDestinationGroupNetworkGroup        types.String `tfsdk:"network_group" vyos:"network-group,omitempty"`
+	LeafFirewallIPvsixNameRuleDestinationGroupPortGroup           types.String `tfsdk:"port_group" vyos:"port-group,omitempty"`
+	LeafFirewallIPvsixNameRuleDestinationGroupDynamicAddressGroup types.String `tfsdk:"dynamic_address_group" vyos:"dynamic-address-group,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -56,6 +57,13 @@ func (o FirewallIPvsixNameRuleDestinationGroup) ResourceSchemaAttributes() map[s
 		"port_group": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Group of ports
+
+`,
+		},
+
+		"dynamic_address_group": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Group of dynamic ipv6 addresses
 
 `,
 		},

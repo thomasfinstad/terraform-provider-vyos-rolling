@@ -11,6 +11,7 @@ type HighAvailabilityVrrpGroupHealthCheck struct {
 	// LeafNodes
 	LeafHighAvailabilityVrrpGroupHealthCheckFailureCount types.String `tfsdk:"failure_count" vyos:"failure-count,omitempty"`
 	LeafHighAvailabilityVrrpGroupHealthCheckInterval     types.String `tfsdk:"interval" vyos:"interval,omitempty"`
+	LeafHighAvailabilityVrrpGroupHealthCheckPing         types.String `tfsdk:"ping" vyos:"ping,omitempty"`
 	LeafHighAvailabilityVrrpGroupHealthCheckScrIPt       types.String `tfsdk:"script" vyos:"script,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -41,6 +42,18 @@ func (o HighAvailabilityVrrpGroupHealthCheck) ResourceSchemaAttributes() map[str
 
 			// Default:          stringdefault.StaticString(`60`),
 			Computed: true,
+		},
+
+		"ping": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `ICMP ping health check
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  ipv4  &emsp; |  IPv4 ping target address  |
+    |  ipv6  &emsp; |  IPv6 ping target address  |
+
+`,
 		},
 
 		"script": schema.StringAttribute{

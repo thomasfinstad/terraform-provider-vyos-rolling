@@ -18,8 +18,13 @@ Firewall
 <br>
 &darr;
 <br>
+IPv6 firewall
+
+<br>
+&darr;
+<br>
 <b>
-IPv6 firewall rule-set name
+IPv6 custom firewall
 </b>
 </div>
 `,

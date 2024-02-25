@@ -3,13 +3,11 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
 // VrfNameProtocolsOspfvthree describes the resource data model.
 type VrfNameProtocolsOspfvthree struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfvthreeRouteMap types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagVrfNameProtocolsOspfvthreeArea      bool `tfsdk:"area" vyos:"area,child"`
@@ -19,6 +17,7 @@ type VrfNameProtocolsOspfvthree struct {
 	NodeVrfNameProtocolsOspfvthreeAutoCost            *VrfNameProtocolsOspfvthreeAutoCost            `tfsdk:"auto_cost" vyos:"auto-cost,omitempty"`
 	NodeVrfNameProtocolsOspfvthreeDefaultInformation  *VrfNameProtocolsOspfvthreeDefaultInformation  `tfsdk:"default_information" vyos:"default-information,omitempty"`
 	NodeVrfNameProtocolsOspfvthreeDistance            *VrfNameProtocolsOspfvthreeDistance            `tfsdk:"distance" vyos:"distance,omitempty"`
+	NodeVrfNameProtocolsOspfvthreeGracefulRestart     *VrfNameProtocolsOspfvthreeGracefulRestart     `tfsdk:"graceful_restart" vyos:"graceful-restart,omitempty"`
 	NodeVrfNameProtocolsOspfvthreeLogAdjacencyChanges *VrfNameProtocolsOspfvthreeLogAdjacencyChanges `tfsdk:"log_adjacency_changes" vyos:"log-adjacency-changes,omitempty"`
 	NodeVrfNameProtocolsOspfvthreeParameters          *VrfNameProtocolsOspfvthreeParameters          `tfsdk:"parameters" vyos:"parameters,omitempty"`
 	NodeVrfNameProtocolsOspfvthreeRedistribute        *VrfNameProtocolsOspfvthreeRedistribute        `tfsdk:"redistribute" vyos:"redistribute,omitempty"`
@@ -28,17 +27,6 @@ type VrfNameProtocolsOspfvthree struct {
 func (o VrfNameProtocolsOspfvthree) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
-
-		"route_map": schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `Specify route-map name to use
-
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
-
-`,
-		},
 
 		// Nodes
 
@@ -62,6 +50,14 @@ func (o VrfNameProtocolsOspfvthree) ResourceSchemaAttributes() map[string]schema
 			Attributes: VrfNameProtocolsOspfvthreeDistance{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Administrative distance
+
+`,
+		},
+
+		"graceful_restart": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsOspfvthreeGracefulRestart{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Graceful Restart
 
 `,
 		},

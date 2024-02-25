@@ -68,14 +68,14 @@ VRRP group
     |  ipv4  &emsp; |  IP address  |
     |  ipv6  &emsp; |  IPv6 address  |
 - `garp` (Attributes) Gratuitous ARP parameters (see [below for nested schema](#nestedatt--garp))
-- `health_check` (Attributes) Health check script (see [below for nested schema](#nestedatt--health_check))
+- `health_check` (Attributes) Health check (see [below for nested schema](#nestedatt--health_check))
 - `hello_source_address` (String) VRRP hello source address
 
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  ipv4  &emsp; |  IPv4 hello source address  |
     |  ipv6  &emsp; |  IPv6 hello source address  |
-- `interface` (String) Interface Name to use
+- `interface` (String) Interface to use
 
     |  Format &emsp; | Description  |
     |----------|---------------|
@@ -168,6 +168,12 @@ Optional:
 
 - `failure_count` (String) Health check failure count required for transition to fault
 - `interval` (String) Health check execution interval in seconds
+- `ping` (String) ICMP ping health check
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  ipv4  &emsp; |  IPv4 ping target address  |
+    |  ipv6  &emsp; |  IPv6 ping target address  |
 - `script` (String) Health check script file
 
 

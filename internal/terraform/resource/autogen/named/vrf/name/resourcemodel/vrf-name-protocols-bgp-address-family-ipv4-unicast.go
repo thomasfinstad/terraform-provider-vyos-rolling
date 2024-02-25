@@ -22,7 +22,9 @@ type VrfNameProtocolsBgpAddressFamilyIPvfourUnicast struct {
 	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd           *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd           `tfsdk:"rd" vyos:"rd,omitempty"`
 	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap     *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap     `tfsdk:"route_map" vyos:"route-map,omitempty"`
 	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTarget  *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTarget  `tfsdk:"route_target" vyos:"route-target,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastNexthop      *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastNexthop      `tfsdk:"nexthop" vyos:"nexthop,omitempty"`
 	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute `tfsdk:"redistribute" vyos:"redistribute,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastSID          *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastSID          `tfsdk:"sid" vyos:"sid,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -96,10 +98,26 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceSchemaAttributes
 `,
 		},
 
+		"nexthop": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastNexthop{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Specify next hop to use for VRF advertised prefixes
+
+`,
+		},
+
 		"redistribute": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute routes from other protocols into BGP
+
+`,
+		},
+
+		"sid": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastSID{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `SID value for VRF
 
 `,
 		},

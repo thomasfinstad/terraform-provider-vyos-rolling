@@ -61,8 +61,9 @@ Rule number for NAT
 - `destination` (Attributes) NAT destination parameters (see [below for nested schema](#nestedatt--destination))
 - `disable` (Boolean) Disable instance
 - `exclude` (Boolean) Exclude packets matching this rule from NAT
-- `inbound_interface` (String) Inbound interface of NAT traffic
-- `log` (Boolean) NAT rule logging
+- `inbound_interface` (Attributes) Match inbound-interface (see [below for nested schema](#nestedatt--inbound_interface))
+- `load_balance` (Attributes) Apply NAT load balance (see [below for nested schema](#nestedatt--load_balance))
+- `log` (Boolean) Log packets hitting this rule
 - `packet_type` (String) Packet type
 
     |  Format &emsp; | Description  |
@@ -179,6 +180,42 @@ Optional:
 
 
 
+<a id="nestedatt--inbound_interface"></a>
+### Nested Schema for `inbound_interface`
+
+Optional:
+
+- `group` (String) Match interface-group
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Interface-group name to match  |
+    |  !txt  &emsp; |  Inverted interface-group name to match  |
+- `name` (String) Match interface
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Interface name  |
+    |  txt&  &emsp; |  Interface name with wildcard  |
+    |  !txt  &emsp; |  Inverted interface name to match  |
+
+
+<a id="nestedatt--load_balance"></a>
+### Nested Schema for `load_balance`
+
+Optional:
+
+- `hash` (List of String) Define the parameters of the packet header to apply the hashing
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  source-address  &emsp; |  Use source IP address for hashing  |
+    |  destination-address  &emsp; |  Use destination IP address for hashing  |
+    |  source-port  &emsp; |  Use source port for hashing  |
+    |  destination-port  &emsp; |  Use destination port for hashing  |
+    |  random  &emsp; |  Do not use information from ip header. Use random value.  |
+
+
 <a id="nestedatt--source"></a>
 ### Nested Schema for `source`
 
@@ -236,6 +273,7 @@ Optional:
     |----------|---------------|
     |  number: 1-65535  &emsp; |  Numeric IP port  |
     |  range  &emsp; |  Numbered port range (e.g., 1001-1005)  |
+- `redirect` (Attributes) Redirect to local host (see [below for nested schema](#nestedatt--translation--redirect))
 
 <a id="nestedatt--translation--options"></a>
 ### Nested Schema for `translation.options`
@@ -255,3 +293,16 @@ Optional:
     |  random  &emsp; |  Randomize source port mapping  |
     |  fully-random  &emsp; |  Full port randomization  |
     |  none  &emsp; |  Do not apply port randomization  |
+
+
+<a id="nestedatt--translation--redirect"></a>
+### Nested Schema for `translation.redirect`
+
+Optional:
+
+- `port` (String) Port number
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
+    |  range  &emsp; |  Numbered port range (e.g., 1001-1005)  |

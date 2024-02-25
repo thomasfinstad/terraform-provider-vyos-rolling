@@ -15,7 +15,6 @@ type VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast struct {
 	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAsOverrIDe           types.Bool   `tfsdk:"as_override" vyos:"as-override,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefix        types.Number `tfsdk:"maximum_prefix" vyos:"maximum-prefix,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefixOut     types.Number `tfsdk:"maximum_prefix_out" vyos:"maximum-prefix-out,omitempty"`
-	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs      types.Bool   `tfsdk:"remove_private_as" vyos:"remove-private-as,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteReflectorClient types.Bool   `tfsdk:"route_reflector_client" vyos:"route-reflector-client,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteServerClient    types.Bool   `tfsdk:"route_server_client" vyos:"route-server-client,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastUnsuppressMap        types.String `tfsdk:"unsuppress_map" vyos:"unsuppress-map,omitempty"`
@@ -33,6 +32,7 @@ type VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast struct {
 	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList         *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList         `tfsdk:"distribute_list" vyos:"distribute-list,omitempty"`
 	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList             *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList             `tfsdk:"filter_list" vyos:"filter-list,omitempty"`
 	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf            *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf            `tfsdk:"nexthop_self" vyos:"nexthop-self,omitempty"`
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs        *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs        `tfsdk:"remove_private_as" vyos:"remove-private-as,omitempty"`
 	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap               *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap               `tfsdk:"route_map" vyos:"route-map,omitempty"`
 	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration    *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration    `tfsdk:"soft_reconfiguration" vyos:"soft-reconfiguration,omitempty"`
 	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate       *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate       `tfsdk:"default_originate" vyos:"default-originate,omitempty"`
@@ -90,15 +90,6 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceSchema
     |  number: 1-4294967295  &emsp; |  Prefix limit  |
 
 `,
-		},
-
-		"remove_private_as": schema.BoolAttribute{
-			Optional: true,
-			MarkdownDescription: `Remove private AS numbers from AS path in outbound route updates
-
-`,
-			Default:  booldefault.StaticBool(false),
-			Computed: true,
 		},
 
 		"route_reflector_client": schema.BoolAttribute{
@@ -211,6 +202,14 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceSchema
 			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Disable the next hop calculation for this peer
+
+`,
+		},
+
+		"remove_private_as": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Remove private AS numbers from AS path in outbound route updates
 
 `,
 		},

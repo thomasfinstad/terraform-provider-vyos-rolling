@@ -32,7 +32,7 @@ func (o PkiKeyPairPrivate) ResourceSchemaAttributes() map[string]schema.Attribut
 
 		"password_protected": schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `Private key is password protected
+			MarkdownDescription: `Private key portion is password protected
 
 `,
 			Default:  booldefault.StaticBool(false),

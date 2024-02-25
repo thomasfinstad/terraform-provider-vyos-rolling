@@ -47,17 +47,20 @@ data/vyos/submodule.sha: data/vyos/rolling-iso-build.txt
 	git submodule update --init --single-branch -- data/vyos/vyos-1x
 
 	cd data/vyos/vyos-1x && \
-	commit="$$(git rev-list --date=iso-strict -n 1 --before="$$(cat "rolling-iso-build.txt")" "current")" && \
+	commit="$$(git rev-list --date=iso-strict -n 1 --before="$$(cat "../rolling-iso-build.txt")" "origin/current")" && \
 	git checkout "$$commit" && \
 	echo "$$commit" > ../submodule.sha
+
+	git add data/vyos/vyos-1x
 
 ###
 # Autogenerate Schemas
 
 # Convert from relaxng to XSD
 data/vyos/schema/interface-definition.xsd: data/vyos/submodule.sha
-	mkdir -p .build/vyos/schema/
+	mkdir -p data/vyos/schema/
 	java -jar tools/trang-20091111/trang.jar -I rnc -O xsd data/vyos/vyos-1x/schema/interface_definition.rnc data/vyos/schema/interface-definition.xsd
+	xmllint --format --recover --output 'data/vyos/schema/interface-definition.xsd' 'data/vyos/schema/interface-definition.xsd'
 
 # Generate go structs from XSD
 internal/vyos/schema/interfacedefinition/autogen-structs.go: data/vyos/schema/interface-definition.xsd internal/vyos/schema/interfacedefinition/interface-definition.go
@@ -95,7 +98,23 @@ data/vyos/interface-definitions: data/vyos/submodule.sha
 	bash -c " \
 		source .build/vyos/vyos-1x/venv/bin/activate && \
 		cd data/vyos/vyos-1x && \
-		pip install -r test-requirements.txt && \
+		pip install -r test-requirements.txt \
+	"
+
+	# A bit unfortunate, but we have to "extract" python requirements from the deb control to be able to make the interface defs
+	# as they are not all listed in the test-requirements.txt
+	bash -c " \
+		source .build/vyos/vyos-1x/venv/bin/activate && \
+		cd data/vyos/vyos-1x && \
+		sed -r -n '/python3*-/s/^[[:space:]]*python3*-(\w*).*/\1/p' debian/control | xargs -n1 pip install \
+	"
+
+	# Seems the build script no longer works cleanly without an assumed library function:
+	# /usr/lib/libvyosconfig.so.0: cannot open shared object file: No such file or directory
+	# TODO investigate blessed method of building interface definitions
+	-bash -c " \
+		source .build/vyos/vyos-1x/venv/bin/activate && \
+		cd data/vyos/vyos-1x && \
 		make interface_definitions \
 	"
 
@@ -184,7 +203,7 @@ build: test
 .PHONY: clean
 clean:
 	rm -rfv .build
-	git submodule deinit --all
+	git submodule deinit --all -f
 
 .PHONY: example-clean
 example-clean:

@@ -20,6 +20,7 @@ type ContainerNetwork struct {
 	// LeafNodes
 	LeafContainerNetworkDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafContainerNetworkPrefix      types.List   `tfsdk:"prefix" vyos:"prefix,omitempty"`
+	LeafContainerNetworkVrf         types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -66,7 +67,11 @@ func (o ContainerNetwork) ResourceSchemaAttributes() map[string]schema.Attribute
 
 		"description": schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `Network description
+			MarkdownDescription: `Description
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Description  |
 
 `,
 		},
@@ -80,6 +85,17 @@ func (o ContainerNetwork) ResourceSchemaAttributes() map[string]schema.Attribute
     |----------|---------------|
     |  ipv4net  &emsp; |  IPv4 network prefix  |
     |  ipv6net  &emsp; |  IPv6 network prefix  |
+
+`,
+		},
+
+		"vrf": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `VRF instance name
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  VRF instance name  |
 
 `,
 		},

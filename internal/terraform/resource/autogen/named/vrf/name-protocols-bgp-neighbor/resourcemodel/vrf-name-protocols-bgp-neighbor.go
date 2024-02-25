@@ -31,12 +31,13 @@ type VrfNameProtocolsBgpNeighbor struct {
 	LeafVrfNameProtocolsBgpNeighborPassive                      types.Bool   `tfsdk:"passive" vyos:"passive,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborPassword                     types.String `tfsdk:"password" vyos:"password,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborPeerGroup                    types.String `tfsdk:"peer_group" vyos:"peer-group,omitempty"`
-	LeafVrfNameProtocolsBgpNeighborPort                         types.Number `tfsdk:"port" vyos:"port,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborRemoteAs                     types.String `tfsdk:"remote_as" vyos:"remote-as,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborShutdown                     types.Bool   `tfsdk:"shutdown" vyos:"shutdown,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborSolo                         types.Bool   `tfsdk:"solo" vyos:"solo,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborEnforceFirstAs               types.Bool   `tfsdk:"enforce_first_as" vyos:"enforce-first-as,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborStrictCapabilityMatch        types.Bool   `tfsdk:"strict_capability_match" vyos:"strict-capability-match,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborUpdateSource                 types.String `tfsdk:"update_source" vyos:"update-source,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborPort                         types.Number `tfsdk:"port" vyos:"port,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagVrfNameProtocolsBgpNeighborLocalAs   bool `tfsdk:"-" vyos:"local-as,child"`
@@ -47,6 +48,7 @@ type VrfNameProtocolsBgpNeighbor struct {
 	NodeVrfNameProtocolsBgpNeighborBfd           *VrfNameProtocolsBgpNeighborBfd           `tfsdk:"bfd" vyos:"bfd,omitempty"`
 	NodeVrfNameProtocolsBgpNeighborCapability    *VrfNameProtocolsBgpNeighborCapability    `tfsdk:"capability" vyos:"capability,omitempty"`
 	NodeVrfNameProtocolsBgpNeighborInterface     *VrfNameProtocolsBgpNeighborInterface     `tfsdk:"interface" vyos:"interface,omitempty"`
+	NodeVrfNameProtocolsBgpNeighborPathAttribute *VrfNameProtocolsBgpNeighborPathAttribute `tfsdk:"path_attribute" vyos:"path-attribute,omitempty"`
 	NodeVrfNameProtocolsBgpNeighborTimers        *VrfNameProtocolsBgpNeighborTimers        `tfsdk:"timers" vyos:"timers,omitempty"`
 	NodeVrfNameProtocolsBgpNeighborTTLSecURIty   *VrfNameProtocolsBgpNeighborTTLSecURIty   `tfsdk:"ttl_security" vyos:"ttl-security,omitempty"`
 }
@@ -216,17 +218,6 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 `,
 		},
 
-		"port": schema.NumberAttribute{
-			Optional: true,
-			MarkdownDescription: `Neighbor BGP port
-
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Neighbor BGP port number  |
-
-`,
-		},
-
 		"remote_as": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Neighbor BGP AS number
@@ -258,6 +249,15 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Computed: true,
 		},
 
+		"enforce_first_as": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Ensure the first AS in the AS path matches the peer AS
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
 		"strict_capability_match": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable strict capability negotiation
@@ -276,6 +276,17 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
     |  ipv4  &emsp; |  IPv4 address of route source  |
     |  ipv6  &emsp; |  IPv6 address of route source  |
     |  txt  &emsp; |  Interface as route source  |
+
+`,
+		},
+
+		"port": schema.NumberAttribute{
+			Optional: true,
+			MarkdownDescription: `Port number used by connection
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 		},
@@ -310,6 +321,14 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Attributes: VrfNameProtocolsBgpNeighborInterface{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Interface parameters
+
+`,
+		},
+
+		"path_attribute": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpNeighborPathAttribute{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Manipulate path attributes from incoming UPDATE messages
 
 `,
 		},

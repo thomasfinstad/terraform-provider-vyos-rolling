@@ -8,17 +8,17 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/name/resourcemodel"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/ipv4-name/resourcemodel"
 )
 
 // TODO figure out print logging vs tflog for testing
 
-// TestFirewallNameMarshalVyos does some simple marshalling tests
-func TestFirewallNameMarshalVyos(t *testing.T) {
-	model := &resourcemodel.FirewallName{
-		SelfIdentifier:                   basetypes.NewStringValue("test-id"),
-		LeafFirewallNameDefaultAction:    basetypes.NewStringValue("drop"),
-		LeafFirewallNameEnableDefaultLog: basetypes.NewBoolValue(false),
+// TestFirewallIPvfourNameMarshalVyos does some simple marshalling tests
+func TestFirewallIPvfourNameMarshalVyos(t *testing.T) {
+	model := &resourcemodel.FirewallIPvfourName{
+		SelfIdentifier:                       basetypes.NewStringValue("test-id"),
+		LeafFirewallIPvfourNameDefaultAction: basetypes.NewStringValue("drop"),
+		LeafFirewallIPvfourNameDefaultLog:    basetypes.NewBoolValue(false),
 	}
 
 	want := map[string]interface{}{
@@ -32,18 +32,18 @@ func TestFirewallNameMarshalVyos(t *testing.T) {
 	}
 }
 
-// TestFirewallNameUnmarshalVyos does some simple unmarshalling tests
-func TestFirewallNameUnmarshalVyos(t *testing.T) {
+// TestFirewallIPvfourNameUnmarshalVyos does some simple unmarshalling tests
+func TestFirewallIPvfourNameUnmarshalVyos(t *testing.T) {
 	has := map[string]interface{}{
 		"default-action": "drop",
 	}
 
-	want := &resourcemodel.FirewallName{
-		LeafFirewallNameDefaultAction:    basetypes.NewStringValue("drop"),
-		LeafFirewallNameEnableDefaultLog: basetypes.NewBoolValue(false),
+	want := &resourcemodel.FirewallIPvfourName{
+		LeafFirewallIPvfourNameDefaultAction: basetypes.NewStringValue("drop"),
+		LeafFirewallIPvfourNameDefaultLog:    basetypes.NewBoolValue(false),
 	}
 
-	got := &resourcemodel.FirewallName{}
+	got := &resourcemodel.FirewallIPvfourName{}
 
 	err := helpers.UnmarshalVyos(context.Background(), has, got)
 	diff := deep.Equal(got, want)

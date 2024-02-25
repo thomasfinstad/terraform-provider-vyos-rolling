@@ -15,7 +15,6 @@ type VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast struct {
 	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAsOverrIDe           types.Bool   `tfsdk:"as_override" vyos:"as-override,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastMaximumPrefix        types.Number `tfsdk:"maximum_prefix" vyos:"maximum-prefix,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastMaximumPrefixOut     types.Number `tfsdk:"maximum_prefix_out" vyos:"maximum-prefix-out,omitempty"`
-	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRemovePrivateAs      types.Bool   `tfsdk:"remove_private_as" vyos:"remove-private-as,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteReflectorClient types.Bool   `tfsdk:"route_reflector_client" vyos:"route-reflector-client,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteServerClient    types.Bool   `tfsdk:"route_server_client" vyos:"route-server-client,omitempty"`
 	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastUnsuppressMap        types.String `tfsdk:"unsuppress_map" vyos:"unsuppress-map,omitempty"`
@@ -34,6 +33,7 @@ type VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast struct {
 	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDistributeList         *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDistributeList         `tfsdk:"distribute_list" vyos:"distribute-list,omitempty"`
 	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastFilterList             *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastFilterList             `tfsdk:"filter_list" vyos:"filter-list,omitempty"`
 	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopSelf            *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopSelf            `tfsdk:"nexthop_self" vyos:"nexthop-self,omitempty"`
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRemovePrivateAs        *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRemovePrivateAs        `tfsdk:"remove_private_as" vyos:"remove-private-as,omitempty"`
 	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteMap               *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteMap               `tfsdk:"route_map" vyos:"route-map,omitempty"`
 	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration    *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration    `tfsdk:"soft_reconfiguration" vyos:"soft-reconfiguration,omitempty"`
 	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDefaultOriginate       *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDefaultOriginate       `tfsdk:"default_originate" vyos:"default-originate,omitempty"`
@@ -91,15 +91,6 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) ResourceSc
     |  number: 1-4294967295  &emsp; |  Prefix limit  |
 
 `,
-		},
-
-		"remove_private_as": schema.BoolAttribute{
-			Optional: true,
-			MarkdownDescription: `Remove private AS numbers from AS path in outbound route updates
-
-`,
-			Default:  booldefault.StaticBool(false),
-			Computed: true,
 		},
 
 		"route_reflector_client": schema.BoolAttribute{
@@ -220,6 +211,14 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) ResourceSc
 			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopSelf{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Disable the next hop calculation for this peer
+
+`,
+		},
+
+		"remove_private_as": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRemovePrivateAs{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Remove private AS numbers from AS path in outbound route updates
 
 `,
 		},

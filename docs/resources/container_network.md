@@ -39,13 +39,22 @@ Network name
 
 ### Optional
 
-- `description` (String) Network description
+- `description` (String) Description
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Description  |
 - `prefix` (List of String) Prefix which allocated to that network
 
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  ipv4net  &emsp; |  IPv4 network prefix  |
     |  ipv6net  &emsp; |  IPv6 network prefix  |
+- `vrf` (String) VRF instance name
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  VRF instance name  |
 
 ### Read-Only
 

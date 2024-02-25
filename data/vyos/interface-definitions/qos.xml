@@ -17,8 +17,8 @@
             <description>Interface name</description>
           </valueHelp>
           <constraint>
-            <!-- include start from constraint/interface-name.xml.in -->
-            <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
+            <!-- include start from constraint/interface-name.xml.i -->
+            <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
             <validator name="file-path --lookup-path /sys/class/net --directory"/>
             <!-- include end -->
           </constraint>
@@ -130,7 +130,7 @@
                     <description>Terabits per second</description>
                   </valueHelp>
                   <valueHelp>
-                    <format>&lt;number&gt;%</format>
+                    <format>&lt;number&gt;%%</format>
                     <description>Percentage of interface link speed</description>
                   </valueHelp>
                   <constraint>
@@ -177,13 +177,19 @@
                   </leafNode>
                   <leafNode name="dual-src-host">
                     <properties>
-                      <help>Flows are defined by the 5-tuple, and fairness is applied first over source addresses, then over individual flows</help>
+                      <help>Flows are defined by the 5-tuple, fairness is applied first over source addresses, then over individual flows</help>
                       <valueless/>
                     </properties>
                   </leafNode>
                   <leafNode name="dual-dst-host">
                     <properties>
-                      <help>Flows are defined by the 5-tuple, and fairness is applied first over destination addresses, then over individual flows</help>
+                      <help>Flows are defined by the 5-tuple, fairness is applied first over destination addresses, then over individual flows</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <leafNode name="triple-isolate">
+                    <properties>
+                      <help>Flows are defined by the 5-tuple, fairness is applied over source and destination addresses and also over individual flows (default)</help>
                       <valueless/>
                     </properties>
                   </leafNode>
@@ -513,7 +519,7 @@
                         <description>Terabits per second</description>
                       </valueHelp>
                       <valueHelp>
-                        <format>&lt;number&gt;%</format>
+                        <format>&lt;number&gt;%%</format>
                         <description>Percentage of interface link speed</description>
                       </valueHelp>
                       <constraint>
@@ -721,8 +727,8 @@
                             <description>Interface name</description>
                           </valueHelp>
                           <constraint>
-                            <!-- include start from constraint/interface-name.xml.in -->
-                            <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
+                            <!-- include start from constraint/interface-name.xml.i -->
+                            <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
                             <validator name="file-path --lookup-path /sys/class/net --directory"/>
                             <!-- include end -->
                           </constraint>
@@ -1367,7 +1373,7 @@
                         <description>Terabits per second</description>
                       </valueHelp>
                       <valueHelp>
-                        <format>&lt;number&gt;%</format>
+                        <format>&lt;number&gt;%%</format>
                         <description>Percentage of interface link speed</description>
                       </valueHelp>
                       <constraint>
@@ -1520,7 +1526,7 @@
                     <description>Terabits per second</description>
                   </valueHelp>
                   <valueHelp>
-                    <format>&lt;number&gt;%</format>
+                    <format>&lt;number&gt;%%</format>
                     <description>Percentage of interface link speed</description>
                   </valueHelp>
                   <constraint>
@@ -1832,8 +1838,8 @@
                             <description>Interface name</description>
                           </valueHelp>
                           <constraint>
-                            <!-- include start from constraint/interface-name.xml.in -->
-                            <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
+                            <!-- include start from constraint/interface-name.xml.i -->
+                            <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
                             <validator name="file-path --lookup-path /sys/class/net --directory"/>
                             <!-- include end -->
                           </constraint>
@@ -2834,7 +2840,7 @@
                     <description>Terabits per second</description>
                   </valueHelp>
                   <valueHelp>
-                    <format>&lt;number&gt;%</format>
+                    <format>&lt;number&gt;%%</format>
                     <description>Percentage of interface link speed</description>
                   </valueHelp>
                   <constraint>
@@ -3096,8 +3102,8 @@
                             <description>Interface name</description>
                           </valueHelp>
                           <constraint>
-                            <!-- include start from constraint/interface-name.xml.in -->
-                            <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
+                            <!-- include start from constraint/interface-name.xml.i -->
+                            <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
                             <validator name="file-path --lookup-path /sys/class/net --directory"/>
                             <!-- include end -->
                           </constraint>
@@ -4251,8 +4257,8 @@
                             <description>Interface name</description>
                           </valueHelp>
                           <constraint>
-                            <!-- include start from constraint/interface-name.xml.in -->
-                            <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
+                            <!-- include start from constraint/interface-name.xml.i -->
+                            <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
                             <validator name="file-path --lookup-path /sys/class/net --directory"/>
                             <!-- include end -->
                           </constraint>
@@ -5104,7 +5110,7 @@
                         <description>Terabits per second</description>
                       </valueHelp>
                       <valueHelp>
-                        <format>&lt;number&gt;%</format>
+                        <format>&lt;number&gt;%%</format>
                         <description>Percentage of interface link speed</description>
                       </valueHelp>
                       <constraint>
@@ -5585,7 +5591,7 @@
                             <description>bps(8),kbps(8*10^3),mbps(8*10^6), gbps, tbps - Byte/sec</description>
                           </valueHelp>
                         </properties>
-                        <defaultValue>100%%</defaultValue>
+                        <defaultValue>0bit</defaultValue>
                       </leafNode>
                       <!-- include end -->
                       <!-- include start from qos/hfsc-m2.xml.i -->
@@ -5617,7 +5623,7 @@
                             <description>bps(8),kbps(8*10^3),mbps(8*10^6), gbps, tbps - Byte/sec</description>
                           </valueHelp>
                         </properties>
-                        <defaultValue>100%%</defaultValue>
+                        <defaultValue>100%</defaultValue>
                       </leafNode>
                       <!-- include end -->
                     </children>
@@ -5738,8 +5744,8 @@
                             <description>Interface name</description>
                           </valueHelp>
                           <constraint>
-                            <!-- include start from constraint/interface-name.xml.in -->
-                            <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
+                            <!-- include start from constraint/interface-name.xml.i -->
+                            <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
                             <validator name="file-path --lookup-path /sys/class/net --directory"/>
                             <!-- include end -->
                           </constraint>
@@ -6381,7 +6387,7 @@
                             <description>bps(8),kbps(8*10^3),mbps(8*10^6), gbps, tbps - Byte/sec</description>
                           </valueHelp>
                         </properties>
-                        <defaultValue>100%%</defaultValue>
+                        <defaultValue>0bit</defaultValue>
                       </leafNode>
                       <!-- include end -->
                       <!-- include start from qos/hfsc-m2.xml.i -->
@@ -6413,7 +6419,7 @@
                             <description>bps(8),kbps(8*10^3),mbps(8*10^6), gbps, tbps - Byte/sec</description>
                           </valueHelp>
                         </properties>
-                        <defaultValue>100%%</defaultValue>
+                        <defaultValue>100%</defaultValue>
                       </leafNode>
                       <!-- include end -->
                     </children>
@@ -6467,7 +6473,7 @@
                             <description>bps(8),kbps(8*10^3),mbps(8*10^6), gbps, tbps - Byte/sec</description>
                           </valueHelp>
                         </properties>
-                        <defaultValue>100%%</defaultValue>
+                        <defaultValue>0bit</defaultValue>
                       </leafNode>
                       <!-- include end -->
                       <!-- include start from qos/hfsc-m2.xml.i -->
@@ -6499,7 +6505,7 @@
                             <description>bps(8),kbps(8*10^3),mbps(8*10^6), gbps, tbps - Byte/sec</description>
                           </valueHelp>
                         </properties>
-                        <defaultValue>100%%</defaultValue>
+                        <defaultValue>100%</defaultValue>
                       </leafNode>
                       <!-- include end -->
                     </children>
@@ -6560,7 +6566,7 @@
                             <description>bps(8),kbps(8*10^3),mbps(8*10^6), gbps, tbps - Byte/sec</description>
                           </valueHelp>
                         </properties>
-                        <defaultValue>100%%</defaultValue>
+                        <defaultValue>0bit</defaultValue>
                       </leafNode>
                       <!-- include end -->
                       <!-- include start from qos/hfsc-m2.xml.i -->
@@ -6592,7 +6598,7 @@
                             <description>bps(8),kbps(8*10^3),mbps(8*10^6), gbps, tbps - Byte/sec</description>
                           </valueHelp>
                         </properties>
-                        <defaultValue>100%%</defaultValue>
+                        <defaultValue>100%</defaultValue>
                       </leafNode>
                       <!-- include end -->
                     </children>
@@ -6646,7 +6652,7 @@
                             <description>bps(8),kbps(8*10^3),mbps(8*10^6), gbps, tbps - Byte/sec</description>
                           </valueHelp>
                         </properties>
-                        <defaultValue>100%%</defaultValue>
+                        <defaultValue>0bit</defaultValue>
                       </leafNode>
                       <!-- include end -->
                       <!-- include start from qos/hfsc-m2.xml.i -->
@@ -6678,7 +6684,7 @@
                             <description>bps(8),kbps(8*10^3),mbps(8*10^6), gbps, tbps - Byte/sec</description>
                           </valueHelp>
                         </properties>
-                        <defaultValue>100%%</defaultValue>
+                        <defaultValue>100%</defaultValue>
                       </leafNode>
                       <!-- include end -->
                     </children>
@@ -6732,7 +6738,7 @@
                             <description>bps(8),kbps(8*10^3),mbps(8*10^6), gbps, tbps - Byte/sec</description>
                           </valueHelp>
                         </properties>
-                        <defaultValue>100%%</defaultValue>
+                        <defaultValue>0bit</defaultValue>
                       </leafNode>
                       <!-- include end -->
                       <!-- include start from qos/hfsc-m2.xml.i -->
@@ -6764,7 +6770,7 @@
                             <description>bps(8),kbps(8*10^3),mbps(8*10^6), gbps, tbps - Byte/sec</description>
                           </valueHelp>
                         </properties>
-                        <defaultValue>100%%</defaultValue>
+                        <defaultValue>100%</defaultValue>
                       </leafNode>
                       <!-- include end -->
                     </children>

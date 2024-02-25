@@ -24,12 +24,12 @@ func (o VrfNameProtocolsBgpTimers) ResourceSchemaAttributes() map[string]schema.
 
 		"holdtime": schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `BGP hold timer for this neighbor
+			MarkdownDescription: `Hold timer
 
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 1-65535  &emsp; |  Hold timer in seconds  |
-    |  0  &emsp; |  Hold timer disabled  |
+    |  0  &emsp; |  Disable hold timer  |
 
 `,
 		},

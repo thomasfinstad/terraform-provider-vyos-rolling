@@ -24,17 +24,29 @@
               <constraintErrorMessage>NAT66 rule number must be between 1 and 999999</constraintErrorMessage>
             </properties>
             <children>
+              <!-- include start from generic-description.xml.i -->
               <leafNode name="description">
                 <properties>
-                  <help>Rule description</help>
+                  <help>Description</help>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Description</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>[[:ascii:]]{0,256}</regex>
+                  </constraint>
+                  <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
                 </properties>
               </leafNode>
+              <!-- include end -->
+              <!-- include start from generic-disable-node.xml.i -->
               <leafNode name="disable">
                 <properties>
-                  <help>Disable NAT66 rule</help>
+                  <help>Disable instance</help>
                   <valueless/>
                 </properties>
               </leafNode>
+              <!-- include end -->
               <!-- include start from nat-exclude.xml.i -->
               <leafNode name="exclude">
                 <properties>
@@ -43,20 +55,48 @@
                 </properties>
               </leafNode>
               <!-- include end -->
+              <!-- include start from firewall/log.xml.i -->
               <leafNode name="log">
                 <properties>
-                  <help>NAT66 rule logging</help>
+                  <help>Log packets hitting this rule</help>
                   <valueless/>
                 </properties>
               </leafNode>
-              <leafNode name="outbound-interface">
+              <!-- include end -->
+              <!-- include start from firewall/outbound-interface-no-group.xml.i -->
+              <node name="outbound-interface">
                 <properties>
-                  <help>Outbound interface of NAT66 traffic</help>
-                  <completionHelp>
-                    <script>${vyos_completion_dir}/list_interfaces</script>
-                  </completionHelp>
+                  <help>Match outbound-interface</help>
                 </properties>
-              </leafNode>
+                <children>
+                  <leafNode name="name">
+                    <properties>
+                      <help>Match interface</help>
+                      <completionHelp>
+                        <script>${vyos_completion_dir}/list_interfaces</script>
+                        <path>vrf name</path>
+                      </completionHelp>
+                      <valueHelp>
+                        <format>txt</format>
+                        <description>Interface name</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>txt*</format>
+                        <description>Interface name with wildcard</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>!txt</format>
+                        <description>Inverted interface name to match</description>
+                      </valueHelp>
+                      <constraint>
+                        <regex>(\!?)(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)([0-9]?)(\*?)(.+)?|(\!?)lo</regex>
+                        <validator name="vrf-name"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                </children>
+              </node>
+              <!-- include end -->
               <!-- include start from nat/protocol.xml.i -->
               <leafNode name="protocol">
                 <properties>
@@ -263,17 +303,29 @@
               <constraintErrorMessage>NAT66 rule number must be between 1 and 999999</constraintErrorMessage>
             </properties>
             <children>
+              <!-- include start from generic-description.xml.i -->
               <leafNode name="description">
                 <properties>
-                  <help>Rule description</help>
+                  <help>Description</help>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Description</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>[[:ascii:]]{0,256}</regex>
+                  </constraint>
+                  <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
                 </properties>
               </leafNode>
+              <!-- include end -->
+              <!-- include start from generic-disable-node.xml.i -->
               <leafNode name="disable">
                 <properties>
-                  <help>Disable NAT66 rule</help>
+                  <help>Disable instance</help>
                   <valueless/>
                 </properties>
               </leafNode>
+              <!-- include end -->
               <!-- include start from nat-exclude.xml.i -->
               <leafNode name="exclude">
                 <properties>
@@ -288,15 +340,40 @@
                   <valueless/>
                 </properties>
               </leafNode>
-              <leafNode name="inbound-interface">
+              <!-- include start from firewall/inbound-interface-no-group.xml.i -->
+              <node name="inbound-interface">
                 <properties>
-                  <help>Inbound interface of NAT66 traffic</help>
-                  <completionHelp>
-                    <list>any</list>
-                    <script>${vyos_completion_dir}/list_interfaces</script>
-                  </completionHelp>
+                  <help>Match inbound-interface</help>
                 </properties>
-              </leafNode>
+                <children>
+                  <leafNode name="name">
+                    <properties>
+                      <help>Match interface</help>
+                      <completionHelp>
+                        <script>${vyos_completion_dir}/list_interfaces</script>
+                        <path>vrf name</path>
+                      </completionHelp>
+                      <valueHelp>
+                        <format>txt</format>
+                        <description>Interface name</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>txt*</format>
+                        <description>Interface name with wildcard</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>!txt</format>
+                        <description>Inverted interface name to match</description>
+                      </valueHelp>
+                      <constraint>
+                        <regex>(\!?)(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)([0-9]?)(\*?)(.+)?|(\!?)lo</regex>
+                        <validator name="vrf-name"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                </children>
+              </node>
+              <!-- include end -->
               <!-- include start from nat/protocol.xml.i -->
               <leafNode name="protocol">
                 <properties>

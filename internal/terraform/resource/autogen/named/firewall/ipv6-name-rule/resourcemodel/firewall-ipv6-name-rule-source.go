@@ -10,10 +10,10 @@ import (
 type FirewallIPvsixNameRuleSource struct {
 	// LeafNodes
 	LeafFirewallIPvsixNameRuleSourceAddress     types.String `tfsdk:"address" vyos:"address,omitempty"`
-	LeafFirewallIPvsixNameRuleSourceFqdn        types.String `tfsdk:"fqdn" vyos:"fqdn,omitempty"`
-	LeafFirewallIPvsixNameRuleSourcePort        types.String `tfsdk:"port" vyos:"port,omitempty"`
 	LeafFirewallIPvsixNameRuleSourceAddressMask types.String `tfsdk:"address_mask" vyos:"address-mask,omitempty"`
+	LeafFirewallIPvsixNameRuleSourceFqdn        types.String `tfsdk:"fqdn" vyos:"fqdn,omitempty"`
 	LeafFirewallIPvsixNameRuleSourceMacAddress  types.String `tfsdk:"mac_address" vyos:"mac-address,omitempty"`
+	LeafFirewallIPvsixNameRuleSourcePort        types.String `tfsdk:"port" vyos:"port,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -43,6 +43,17 @@ func (o FirewallIPvsixNameRuleSource) ResourceSchemaAttributes() map[string]sche
 `,
 		},
 
+		"address_mask": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `IP mask
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  ipv6  &emsp; |  IP mask to apply  |
+
+`,
+		},
+
 		"fqdn": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Fully qualified domain name
@@ -50,6 +61,18 @@ func (o FirewallIPvsixNameRuleSource) ResourceSchemaAttributes() map[string]sche
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  <fqdn>  &emsp; |  Fully qualified domain name  |
+
+`,
+		},
+
+		"mac_address": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `MAC address
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  macaddr  &emsp; |  MAC address to match  |
+    |  !macaddr  &emsp; |  Match everything except the specified MAC address  |
 
 `,
 		},
@@ -64,29 +87,6 @@ func (o FirewallIPvsixNameRuleSource) ResourceSchemaAttributes() map[string]sche
     |  number: 1-65535  &emsp; |  Numbered port  |
     |  <start-end>  &emsp; |  Numbered port range (e.g. 1001-1005)  |
     |     &emsp; |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
-
-`,
-		},
-
-		"address_mask": schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `IP mask
-
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6  &emsp; |  IP mask to apply  |
-
-`,
-		},
-
-		"mac_address": schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `MAC address
-
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  macaddr  &emsp; |  MAC address to match  |
-    |  !macaddr  &emsp; |  Match everything except the specified MAC address  |
 
 `,
 		},

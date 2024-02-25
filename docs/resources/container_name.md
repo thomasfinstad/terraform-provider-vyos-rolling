@@ -50,6 +50,7 @@ Container name
     |  net-raw  &emsp; |  Permission to create raw network sockets  |
     |  setpcap  &emsp; |  Capability sets (from bounded or inherited set)  |
     |  sys-admin  &emsp; |  Administation operations (quotactl, mount, sethostname, setdomainame)  |
+    |  sys-module  &emsp; |  Load, unload and delete kernel modules  |
     |  sys-time  &emsp; |  Permission to set system clock  |
 - `command` (String) Override the default CMD from the image
 - `description` (String) Description
@@ -59,6 +60,11 @@ Container name
     |  txt  &emsp; |  Description  |
 - `disable` (Boolean) Disable instance
 - `entrypoint` (String) Override the default ENTRYPOINT from the image
+- `gid` (Number) Group ID this container will run as
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 0-65535  &emsp; |  Group ID this container will run as  |
 - `host_name` (String) Container host name
 - `image` (String) Image name in the hub-registry
 - `memory` (Number) Memory (RAM) available to this container
@@ -80,6 +86,11 @@ Container name
     |----------|---------------|
     |  number: 0  &emsp; |  Unlimited  |
     |  number: 1-8192  &emsp; |  Container memory in megabytes (MB)  |
+- `uid` (Number) User ID this container will run as
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 0-65535  &emsp; |  User ID this container will run as  |
 
 ### Read-Only
 

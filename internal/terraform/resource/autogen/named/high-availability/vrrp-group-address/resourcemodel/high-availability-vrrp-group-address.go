@@ -66,6 +66,8 @@ func (o HighAvailabilityVrrpGroupAddress) ResourceSchemaAttributes() map[string]
     |----------|---------------|
     |  ipv4net  &emsp; |  IPv4 address and prefix length  |
     |  ipv6net  &emsp; |  IPv6 address and prefix length  |
+    |  ipv4  &emsp; |  IPv4 address  |
+    |  ipv6  &emsp; |  IPv6 address  |
 
 `,
 			PlanModifiers: []planmodifier.String{
@@ -87,7 +89,7 @@ func (o HighAvailabilityVrrpGroupAddress) ResourceSchemaAttributes() map[string]
 
 		"interface": schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `Interface Name to use
+			MarkdownDescription: `Interface to use
 
     |  Format &emsp; | Description  |
     |----------|---------------|

@@ -29,9 +29,10 @@ type VrfNameProtocolsBgpPeerGroup struct {
 	LeafVrfNameProtocolsBgpPeerGroupOverrIDeCapability           types.Bool   `tfsdk:"override_capability" vyos:"override-capability,omitempty"`
 	LeafVrfNameProtocolsBgpPeerGroupPassive                      types.Bool   `tfsdk:"passive" vyos:"passive,omitempty"`
 	LeafVrfNameProtocolsBgpPeerGroupPassword                     types.String `tfsdk:"password" vyos:"password,omitempty"`
-	LeafVrfNameProtocolsBgpPeerGroupRemoteAs                     types.String `tfsdk:"remote_as" vyos:"remote-as,omitempty"`
 	LeafVrfNameProtocolsBgpPeerGroupShutdown                     types.Bool   `tfsdk:"shutdown" vyos:"shutdown,omitempty"`
 	LeafVrfNameProtocolsBgpPeerGroupUpdateSource                 types.String `tfsdk:"update_source" vyos:"update-source,omitempty"`
+	LeafVrfNameProtocolsBgpPeerGroupRemoteAs                     types.String `tfsdk:"remote_as" vyos:"remote-as,omitempty"`
+	LeafVrfNameProtocolsBgpPeerGroupPort                         types.Number `tfsdk:"port" vyos:"port,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagVrfNameProtocolsBgpPeerGroupLocalAs   bool `tfsdk:"-" vyos:"local-as,child"`
@@ -41,6 +42,7 @@ type VrfNameProtocolsBgpPeerGroup struct {
 	NodeVrfNameProtocolsBgpPeerGroupAddressFamily *VrfNameProtocolsBgpPeerGroupAddressFamily `tfsdk:"address_family" vyos:"address-family,omitempty"`
 	NodeVrfNameProtocolsBgpPeerGroupBfd           *VrfNameProtocolsBgpPeerGroupBfd           `tfsdk:"bfd" vyos:"bfd,omitempty"`
 	NodeVrfNameProtocolsBgpPeerGroupCapability    *VrfNameProtocolsBgpPeerGroupCapability    `tfsdk:"capability" vyos:"capability,omitempty"`
+	NodeVrfNameProtocolsBgpPeerGroupPathAttribute *VrfNameProtocolsBgpPeerGroupPathAttribute `tfsdk:"path_attribute" vyos:"path-attribute,omitempty"`
 	NodeVrfNameProtocolsBgpPeerGroupTTLSecURIty   *VrfNameProtocolsBgpPeerGroupTTLSecURIty   `tfsdk:"ttl_security" vyos:"ttl-security,omitempty"`
 }
 
@@ -181,19 +183,6 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
 `,
 		},
 
-		"remote_as": schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `Neighbor BGP AS number
-
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4294967294  &emsp; |  Neighbor AS number  |
-    |  external  &emsp; |  Any AS different from the local AS  |
-    |  internal  &emsp; |  Neighbor AS number  |
-
-`,
-		},
-
 		"shutdown": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively shutdown this neighbor
@@ -212,6 +201,30 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
     |  ipv4  &emsp; |  IPv4 address of route source  |
     |  ipv6  &emsp; |  IPv6 address of route source  |
     |  txt  &emsp; |  Interface as route source  |
+
+`,
+		},
+
+		"remote_as": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Neighbor BGP AS number
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-4294967294  &emsp; |  Neighbor AS number  |
+    |  external  &emsp; |  Any AS different from the local AS  |
+    |  internal  &emsp; |  Neighbor AS number  |
+
+`,
+		},
+
+		"port": schema.NumberAttribute{
+			Optional: true,
+			MarkdownDescription: `Port number used by connection
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 
 `,
 		},
@@ -238,6 +251,14 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
 			Attributes: VrfNameProtocolsBgpPeerGroupCapability{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Advertise capabilities to this peer-group
+
+`,
+		},
+
+		"path_attribute": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpPeerGroupPathAttribute{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Manipulate path attributes from incoming UPDATE messages
 
 `,
 		},

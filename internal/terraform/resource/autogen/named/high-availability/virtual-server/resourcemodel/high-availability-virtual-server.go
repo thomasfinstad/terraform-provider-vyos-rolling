@@ -18,6 +18,7 @@ type HighAvailabilityVirtualServer struct {
 	SelfIdentifier types.String `tfsdk:"virtual_server_id" vyos:"-,self-id"`
 
 	// LeafNodes
+	LeafHighAvailabilityVirtualServerAddress            types.String `tfsdk:"address" vyos:"address,omitempty"`
 	LeafHighAvailabilityVirtualServerAlgorithm          types.String `tfsdk:"algorithm" vyos:"algorithm,omitempty"`
 	LeafHighAvailabilityVirtualServerDelayLoop          types.Number `tfsdk:"delay_loop" vyos:"delay-loop,omitempty"`
 	LeafHighAvailabilityVirtualServerForwardMethod      types.String `tfsdk:"forward_method" vyos:"forward-method,omitempty"`
@@ -60,7 +61,7 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 		},
 		"virtual_server_id": schema.StringAttribute{
 			Required: true,
-			MarkdownDescription: `Load-balancing virtual server address
+			MarkdownDescription: `Load-balancing virtual server alias
 
 `,
 			PlanModifiers: []planmodifier.String{
@@ -69,6 +70,18 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 		},
 
 		// LeafNodes
+
+		"address": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `IP address
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  ipv4  &emsp; |  IPv4 address  |
+    |  ipv6  &emsp; |  IPv6 address  |
+
+`,
+		},
 
 		"algorithm": schema.StringAttribute{
 			Optional: true,

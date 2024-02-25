@@ -16,14 +16,20 @@ type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn struct {
 	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRd                 types.String `tfsdk:"rd" vyos:"rd,omitempty"`
 	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertisePIP       types.String `tfsdk:"advertise_pip" vyos:"advertise-pip,omitempty"`
 	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRtAutoDerive       types.Bool   `tfsdk:"rt_auto_derive" vyos:"rt-auto-derive,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnDisableEadEviRx    types.Bool   `tfsdk:"disable_ead_evi_rx" vyos:"disable-ead-evi-rx,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnDisableEadEviTx    types.Bool   `tfsdk:"disable_ead_evi_tx" vyos:"disable-ead-evi-tx,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni bool `tfsdk:"vni" vyos:"vni,child"`
 
 	// Nodes
-	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise   *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise   `tfsdk:"advertise" vyos:"advertise,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget `tfsdk:"route_target" vyos:"route-target,omitempty"`
-	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding    *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding    `tfsdk:"flooding" vyos:"flooding,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise        *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise        `tfsdk:"advertise" vyos:"advertise,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget      *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget      `tfsdk:"route_target" vyos:"route-target,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnDefaultOriginate *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnDefaultOriginate `tfsdk:"default_originate" vyos:"default-originate,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnEadEsFrag        *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnEadEsFrag        `tfsdk:"ead_es_frag" vyos:"ead-es-frag,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnEadEsRouteTarget *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnEadEsRouteTarget `tfsdk:"ead_es_route_target" vyos:"ead-es-route-target,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding         *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding         `tfsdk:"flooding" vyos:"flooding,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnMacVrf           *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnMacVrf           `tfsdk:"mac_vrf" vyos:"mac-vrf,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -89,6 +95,24 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() 
 			Computed: true,
 		},
 
+		"disable_ead_evi_rx": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Activate PE on EAD-ES even if EAD-EVI is not received
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
+		"disable_ead_evi_tx": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Do not advertise EAD-EVI for local ESs
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
 		// Nodes
 
 		"advertise": schema.SingleNestedAttribute{
@@ -107,10 +131,42 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() 
 `,
 		},
 
+		"default_originate": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnDefaultOriginate{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Originate a default route
+
+`,
+		},
+
+		"ead_es_frag": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnEadEsFrag{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `EAD ES fragment config
+
+`,
+		},
+
+		"ead_es_route_target": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnEadEsRouteTarget{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `EAD ES Route Target
+
+`,
+		},
+
 		"flooding": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Specify handling for BUM packets
+
+`,
+		},
+
+		"mac_vrf": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnMacVrf{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `EVPN MAC-VRF
 
 `,
 		},

@@ -9,12 +9,11 @@ import (
 // VrfNameProtocolsEigrp describes the resource data model.
 type VrfNameProtocolsEigrp struct {
 	// LeafNodes
-	LeafVrfNameProtocolsEigrpLocalAs          types.Number `tfsdk:"local_as" vyos:"local-as,omitempty"`
+	LeafVrfNameProtocolsEigrpSystemAs         types.Number `tfsdk:"system_as" vyos:"system-as,omitempty"`
 	LeafVrfNameProtocolsEigrpMaximumPaths     types.Number `tfsdk:"maximum_paths" vyos:"maximum-paths,omitempty"`
 	LeafVrfNameProtocolsEigrpNetwork          types.List   `tfsdk:"network" vyos:"network,omitempty"`
-	LeafVrfNameProtocolsEigrpPassiveInterface types.String `tfsdk:"passive_interface" vyos:"passive-interface,omitempty"`
+	LeafVrfNameProtocolsEigrpPassiveInterface types.List   `tfsdk:"passive_interface" vyos:"passive-interface,omitempty"`
 	LeafVrfNameProtocolsEigrpRedistribute     types.List   `tfsdk:"redistribute" vyos:"redistribute,omitempty"`
-	LeafVrfNameProtocolsEigrpRouteMap         types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 	LeafVrfNameProtocolsEigrpRouterID         types.String `tfsdk:"router_id" vyos:"router-id,omitempty"`
 	LeafVrfNameProtocolsEigrpVariance         types.Number `tfsdk:"variance" vyos:"variance,omitempty"`
 
@@ -29,7 +28,7 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes() map[string]schema.Attr
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"local_as": schema.NumberAttribute{
+		"system_as": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Autonomous System Number (ASN)
 
@@ -63,8 +62,9 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes() map[string]schema.Attr
 `,
 		},
 
-		"passive_interface": schema.StringAttribute{
-			Optional: true,
+		"passive_interface": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Suppress routing updates on an interface
 
 `,
@@ -85,17 +85,6 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes() map[string]schema.Attr
     |  babel  &emsp; |  Babel routing protocol (Babel)  |
     |  static  &emsp; |  Statically configured routes  |
     |  vnc  &emsp; |  Virtual Network Control (VNC)  |
-
-`,
-		},
-
-		"route_map": schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `Specify route-map name to use
-
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
 
 `,
 		},

@@ -25,7 +25,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding) ResourceSchemaAttri
 
 		"disable": schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `Do not flood any BUM packets
+			MarkdownDescription: `Disable instance
 
 `,
 			Default:  booldefault.StaticBool(false),

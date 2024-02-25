@@ -9,13 +9,18 @@ description: |-
   <br>
   &darr;
   <br>
-  IPv6 firewall rule-set name
+  IPv6 firewall
+
+  <br>
+  &darr;
+  <br>
+  IPv6 custom firewall
 
   <br>
   &darr;
   <br>
   <b>
-  Firewall rule number (IPv6)
+  IPv6 Firewall custom rule number
   </b>
   </div>
 ---
@@ -28,13 +33,18 @@ Firewall
 <br>
 &darr;
 <br>
-IPv6 firewall rule-set name
+IPv6 firewall
+
+<br>
+&darr;
+<br>
+IPv6 custom firewall
 
 <br>
 &darr;
 <br>
 <b>
-Firewall rule number (IPv6)
+IPv6 Firewall custom rule number
 </b>
 </div>
 
@@ -45,12 +55,12 @@ Firewall rule number (IPv6)
 
 ### Required
 
-- `ipv6_name_id` (String) IPv6 firewall rule-set name
-- `rule_id` (String) Firewall rule number (IPv6)
+- `name_id` (String) IPv6 custom firewall
+- `rule_id` (String) IPv6 Firewall custom rule number
 
     |  Format &emsp; | Description  |
     |----------|---------------|
-    |  number: 1-999999  &emsp; |  Number for this Firewall rule  |
+    |  number: 1-999999  &emsp; |  Number for this firewall rule  |
 
 ### Optional
 
@@ -59,17 +69,32 @@ Firewall rule number (IPv6)
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  accept  &emsp; |  Accept matching entries  |
+    |  continue  &emsp; |  Continue parsing next rule  |
     |  jump  &emsp; |  Jump to another chain  |
     |  reject  &emsp; |  Reject matching entries  |
     |  return  &emsp; |  Return from the current chain and continue at the next rule of the last chain  |
     |  drop  &emsp; |  Drop matching entries  |
     |  queue  &emsp; |  Enqueue packet to userspace  |
+    |  offload  &emsp; |  Offload packet via flowtable  |
+    |  synproxy  &emsp; |  Synproxy connections  |
+- `add_address_to_group` (Attributes) Add ipv6 address to dynamic ipv6-address-group (see [below for nested schema](#nestedatt--add_address_to_group))
 - `connection_mark` (List of Number) Connection mark
 
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 0-2147483647  &emsp; |  Connection-mark to match  |
 - `connection_status` (Attributes) Connection status (see [below for nested schema](#nestedatt--connection_status))
+- `conntrack_helper` (List of String) Match related traffic from conntrack helpers
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  ftp  &emsp; |  Related traffic from FTP helper  |
+    |  h323  &emsp; |  Related traffic from H.323 helper  |
+    |  pptp  &emsp; |  Related traffic from PPTP helper  |
+    |  nfs  &emsp; |  Related traffic from NFS helper  |
+    |  sip  &emsp; |  Related traffic from SIP helper  |
+    |  tftp  &emsp; |  Related traffic from TFTP helper  |
+    |  sqlnet  &emsp; |  Related traffic from SQLNet helper  |
 - `description` (String) Description
 
     |  Format &emsp; | Description  |
@@ -96,24 +121,17 @@ Firewall rule number (IPv6)
 - `ipsec` (Attributes) Inbound IPsec packets (see [below for nested schema](#nestedatt--ipsec))
 - `jump_target` (String) Set jump target. Action jump must be defined to use this setting
 - `limit` (Attributes) Rate limit using a token bucket filter (see [below for nested schema](#nestedatt--limit))
-- `log` (String) Option to log packets matching rule
+- `log` (Boolean) Log packets hitting this rule
+- `log_options` (Attributes) Log options (see [below for nested schema](#nestedatt--log_options))
+- `mark` (String) Firewall mark
 
     |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  &emsp; |  Enable log  |
-    |  disable  &emsp; |  Disable log  |
-- `log_level` (String) Set log-level. Log must be enable.
-
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  emerg  &emsp; |  Emerg log level  |
-    |  alert  &emsp; |  Alert log level  |
-    |  crit  &emsp; |  Critical log level  |
-    |  err  &emsp; |  Error log level  |
-    |  warn  &emsp; |  Warning log level  |
-    |  notice  &emsp; |  Notice log level  |
-    |  info  &emsp; |  Info log level  |
-    |  debug  &emsp; |  Debug log level  |
+    |  number: 0-2147483647  &emsp; |  Firewall mark to match  |
+    |  !number: 0-2147483647  &emsp; |  Inverted Firewall mark to match  |
+    |  <start-end>  &emsp; |  Firewall mark range to match  |
+    |  !<start-end>  &emsp; |  Firewall mark inverted range to match  |
+- `offload_target` (String) Set flowtable offload target. Action offload must be defined to use this setting
 - `outbound_interface` (Attributes) Match outbound-interface (see [below for nested schema](#nestedatt--outbound_interface))
 - `packet_length` (List of String) Payload size in bytes, including header and data to match
 
@@ -157,13 +175,62 @@ Firewall rule number (IPv6)
     |  fanout  &emsp; |  Distribute packets between several queues  |
 - `recent` (Attributes) Parameters for matching recently seen sources (see [below for nested schema](#nestedatt--recent))
 - `source` (Attributes) Source parameters (see [below for nested schema](#nestedatt--source))
-- `state` (Attributes) Session state (see [below for nested schema](#nestedatt--state))
-- `tcp` (Attributes) TCP flags to match (see [below for nested schema](#nestedatt--tcp))
+- `state` (List of String) Session state
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  established  &emsp; |  Established state  |
+    |  invalid  &emsp; |  Invalid state  |
+    |  new  &emsp; |  New state  |
+    |  related  &emsp; |  Related state  |
+- `synproxy` (Attributes) Synproxy options (see [below for nested schema](#nestedatt--synproxy))
+- `tcp` (Attributes) TCP options to match (see [below for nested schema](#nestedatt--tcp))
 - `time` (Attributes) Time to match rule (see [below for nested schema](#nestedatt--time))
 
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+
+<a id="nestedatt--add_address_to_group"></a>
+### Nested Schema for `add_address_to_group`
+
+Optional:
+
+- `destination_address` (Attributes) Add destination ipv6 addresses to dynamic ipv6-address-group (see [below for nested schema](#nestedatt--add_address_to_group--destination_address))
+- `source_address` (Attributes) Add source ipv6 addresses to dynamic ipv6-address-group (see [below for nested schema](#nestedatt--add_address_to_group--source_address))
+
+<a id="nestedatt--add_address_to_group--destination_address"></a>
+### Nested Schema for `add_address_to_group.destination_address`
+
+Optional:
+
+- `address_group` (String) Dynamic ipv6-address-group
+- `timeout` (String) Set timeout
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  <number>s  &emsp; |  Timeout value in seconds  |
+    |  <number>m  &emsp; |  Timeout value in minutes  |
+    |  <number>h  &emsp; |  Timeout value in hours  |
+    |  <number>d  &emsp; |  Timeout value in days  |
+
+
+<a id="nestedatt--add_address_to_group--source_address"></a>
+### Nested Schema for `add_address_to_group.source_address`
+
+Optional:
+
+- `address_group` (String) Dynamic ipv6-address-group
+- `timeout` (String) Set timeout
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  <number>s  &emsp; |  Timeout value in seconds  |
+    |  <number>m  &emsp; |  Timeout value in minutes  |
+    |  <number>h  &emsp; |  Timeout value in hours  |
+    |  <number>d  &emsp; |  Timeout value in days  |
+
+
 
 <a id="nestedatt--connection_status"></a>
 ### Nested Schema for `connection_status`
@@ -240,6 +307,7 @@ Optional:
 
 - `address_group` (String) Group of addresses
 - `domain_group` (String) Group of domains
+- `dynamic_address_group` (String) Group of dynamic ipv6 addresses
 - `mac_group` (String) Group of MAC addresses
 - `network_group` (String) Group of networks
 - `port_group` (String) Group of ports
@@ -321,8 +389,19 @@ Optional:
 
 Optional:
 
-- `interface_group` (String) Match interface-group
-- `interface_name` (String) Match interface
+- `group` (String) Match interface-group
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Interface-group name to match  |
+    |  !txt  &emsp; |  Inverted interface-group name to match  |
+- `name` (String) Match interface
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Interface name  |
+    |  txt&  &emsp; |  Interface name with wildcard  |
+    |  !txt  &emsp; |  Inverted interface name to match  |
 
 
 <a id="nestedatt--ipsec"></a>
@@ -351,13 +430,58 @@ Optional:
     |  txt  &emsp; |  integer/unit (Example: 5/minute)  |
 
 
+<a id="nestedatt--log_options"></a>
+### Nested Schema for `log_options`
+
+Optional:
+
+- `group` (Number) Set log group
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 0-65535  &emsp; |  Log group to send messages to  |
+- `level` (String) Set log-level
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  emerg  &emsp; |  Emerg log level  |
+    |  alert  &emsp; |  Alert log level  |
+    |  crit  &emsp; |  Critical log level  |
+    |  err  &emsp; |  Error log level  |
+    |  warn  &emsp; |  Warning log level  |
+    |  notice  &emsp; |  Notice log level  |
+    |  info  &emsp; |  Info log level  |
+    |  debug  &emsp; |  Debug log level  |
+- `queue_threshold` (Number) Number of packets to queue inside the kernel before sending them to userspace
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 0-65535  &emsp; |  Number of packets to queue inside the kernel before sending them to userspace  |
+- `snapshot_length` (Number) Length of packet payload to include in netlink message
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 0-9000  &emsp; |  Length of packet payload to include in netlink message  |
+
+
 <a id="nestedatt--outbound_interface"></a>
 ### Nested Schema for `outbound_interface`
 
 Optional:
 
-- `interface_group` (String) Match interface-group
-- `interface_name` (String) Match interface
+- `group` (String) Match interface-group
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Interface-group name to match  |
+    |  !txt  &emsp; |  Inverted interface-group name to match  |
+- `name` (String) Match interface
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Interface name  |
+    |  txt&  &emsp; |  Interface name with wildcard  |
+    |  !txt  &emsp; |  Inverted interface name to match  |
 
 
 <a id="nestedatt--recent"></a>
@@ -441,41 +565,36 @@ Optional:
 
 - `address_group` (String) Group of addresses
 - `domain_group` (String) Group of domains
+- `dynamic_address_group` (String) Group of dynamic ipv6 addresses
 - `mac_group` (String) Group of MAC addresses
 - `network_group` (String) Group of networks
 - `port_group` (String) Group of ports
 
 
 
-<a id="nestedatt--state"></a>
-### Nested Schema for `state`
+<a id="nestedatt--synproxy"></a>
+### Nested Schema for `synproxy`
 
 Optional:
 
-- `established` (String) Established state
+- `tcp` (Attributes) TCP synproxy options (see [below for nested schema](#nestedatt--synproxy--tcp))
+
+<a id="nestedatt--synproxy--tcp"></a>
+### Nested Schema for `synproxy.tcp`
+
+Optional:
+
+- `mss` (Number) TCP Maximum segment size
 
     |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  &emsp; |  Enable  |
-    |  disable  &emsp; |  Disable  |
-- `invalid` (String) Invalid state
+    |  number: 501-65535  &emsp; |  Maximum segment size for synproxy connections  |
+- `window_scale` (Number) TCP window scale for synproxy connections
 
     |  Format &emsp; | Description  |
     |----------|---------------|
-    |  enable  &emsp; |  Enable  |
-    |  disable  &emsp; |  Disable  |
-- `new` (String) New state
+    |  number: 1-14  &emsp; |  TCP window scale  |
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable  |
-    |  disable  &emsp; |  Disable  |
-- `related` (String) Related state
-
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable  |
-    |  disable  &emsp; |  Disable  |
 
 
 <a id="nestedatt--tcp"></a>

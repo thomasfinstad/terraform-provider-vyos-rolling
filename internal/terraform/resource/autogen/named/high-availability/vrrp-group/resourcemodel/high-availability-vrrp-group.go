@@ -85,7 +85,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 
 		"interface": schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `Interface Name to use
+			MarkdownDescription: `Interface to use
 
     |  Format &emsp; | Description  |
     |----------|---------------|
@@ -243,7 +243,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 		"health_check": schema.SingleNestedAttribute{
 			Attributes: HighAvailabilityVrrpGroupHealthCheck{}.ResourceSchemaAttributes(),
 			Optional:   true,
-			MarkdownDescription: `Health check script
+			MarkdownDescription: `Health check
 
 `,
 		},

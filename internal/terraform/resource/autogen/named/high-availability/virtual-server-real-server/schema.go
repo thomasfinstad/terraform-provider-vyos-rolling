@@ -18,7 +18,7 @@ High availability settings
 <br>
 &darr;
 <br>
-Load-balancing virtual server address
+Load-balancing virtual server alias
 
 <br>
 &darr;

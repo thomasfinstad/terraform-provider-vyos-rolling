@@ -26,11 +26,13 @@ type VrfNameProtocolsStaticRoutesixNextHop struct {
 	LeafVrfNameProtocolsStaticRoutesixNextHopDisable   types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafVrfNameProtocolsStaticRoutesixNextHopDistance  types.Number `tfsdk:"distance" vyos:"distance,omitempty"`
 	LeafVrfNameProtocolsStaticRoutesixNextHopInterface types.String `tfsdk:"interface" vyos:"interface,omitempty"`
+	LeafVrfNameProtocolsStaticRoutesixNextHopSegments  types.String `tfsdk:"segments" vyos:"segments,omitempty"`
 	LeafVrfNameProtocolsStaticRoutesixNextHopVrf       types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes
+	NodeVrfNameProtocolsStaticRoutesixNextHopBfd *VrfNameProtocolsStaticRoutesixNextHopBfd `tfsdk:"bfd" vyos:"bfd,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -144,6 +146,17 @@ func (o VrfNameProtocolsStaticRoutesixNextHop) ResourceSchemaAttributes() map[st
 `,
 		},
 
+		"segments": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `SRv6 segments
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Segs (SIDs)  |
+
+`,
+		},
+
 		"vrf": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `VRF to leak route
@@ -157,5 +170,12 @@ func (o VrfNameProtocolsStaticRoutesixNextHop) ResourceSchemaAttributes() map[st
 
 		// Nodes
 
+		"bfd": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsStaticRoutesixNextHopBfd{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `BFD monitoring
+
+`,
+		},
 	}
 }

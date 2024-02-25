@@ -1,0 +1,248 @@
+<?xml version="1.0"?>
+<interfaceDefinition>
+  <node name="interfaces">
+    <children>
+      <tagNode name="dummy" owner="${vyos_conf_scripts_dir}/interfaces_dummy.py">
+        <properties>
+          <help>Dummy Interface</help>
+          <priority>300</priority>
+          <constraint>
+            <regex>dum[0-9]+</regex>
+          </constraint>
+          <constraintErrorMessage>Dummy interface must be named dumN</constraintErrorMessage>
+          <valueHelp>
+            <format>dumN</format>
+            <description>Dummy interface name</description>
+          </valueHelp>
+        </properties>
+        <children>
+          <!-- include start from interface/address-ipv4-ipv6.xml.i -->
+          <leafNode name="address">
+            <properties>
+              <help>IP address</help>
+              <valueHelp>
+                <format>ipv4net</format>
+                <description>IPv4 address and prefix length</description>
+              </valueHelp>
+              <valueHelp>
+                <format>ipv6net</format>
+                <description>IPv6 address and prefix length</description>
+              </valueHelp>
+              <constraint>
+                <validator name="ip-host"/>
+              </constraint>
+              <multi/>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from generic-description.xml.i -->
+          <leafNode name="description">
+            <properties>
+              <help>Description</help>
+              <valueHelp>
+                <format>txt</format>
+                <description>Description</description>
+              </valueHelp>
+              <constraint>
+                <regex>[[:ascii:]]{0,256}</regex>
+              </constraint>
+              <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/disable.xml.i -->
+          <leafNode name="disable">
+            <properties>
+              <help>Administratively disable interface</help>
+              <valueless/>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <node name="ip">
+            <properties>
+              <help>IPv4 routing parameters</help>
+            </properties>
+            <children>
+              <!-- include start from interface/source-validation.xml.i -->
+              <leafNode name="source-validation">
+                <properties>
+                  <help>Source validation by reversed path (RFC3704)</help>
+                  <completionHelp>
+                    <list>strict loose disable</list>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>strict</format>
+                    <description>Enable Strict Reverse Path Forwarding as defined in RFC3704</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>loose</format>
+                    <description>Enable Loose Reverse Path Forwarding as defined in RFC3704</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>disable</format>
+                    <description>No source validation</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>(strict|loose|disable)</regex>
+                  </constraint>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from interface/disable-forwarding.xml.i -->
+              <leafNode name="disable-forwarding">
+                <properties>
+                  <help>Disable IP forwarding on this interface</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+            </children>
+          </node>
+          <node name="ipv6">
+            <properties>
+              <help>IPv6 routing parameters</help>
+            </properties>
+            <children>
+              <!-- include start from interface/disable-forwarding.xml.i -->
+              <leafNode name="disable-forwarding">
+                <properties>
+                  <help>Disable IP forwarding on this interface</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <node name="address">
+                <properties>
+                  <help>IPv6 address configuration modes</help>
+                </properties>
+                <children>
+                  <!-- include start from interface/ipv6-address-eui64.xml.i -->
+                  <leafNode name="eui64">
+                    <properties>
+                      <help>Prefix for IPv6 address with MAC-based EUI-64</help>
+                      <valueHelp>
+                        <format>&lt;h:h:h:h:h:h:h:h/64&gt;</format>
+                        <description>IPv6 /64 network</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="ipv6-eui64-prefix"/>
+                      </constraint>
+                      <constraintErrorMessage>EUI64 prefix length must be 64</constraintErrorMessage>
+                      <multi/>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from interface/ipv6-address-no-default-link-local.xml.i -->
+                  <leafNode name="no-default-link-local">
+                    <properties>
+                      <help>Remove the default link-local address from the interface</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                </children>
+              </node>
+            </children>
+          </node>
+          <!-- include start from interface/mtu-68-16000.xml.i -->
+          <leafNode name="mtu">
+            <properties>
+              <help>Maximum Transmission Unit (MTU)</help>
+              <valueHelp>
+                <format>u32:68-16000</format>
+                <description>Maximum Transmission Unit in byte</description>
+              </valueHelp>
+              <constraint>
+                <validator name="numeric" argument="--range 68-16000"/>
+              </constraint>
+              <constraintErrorMessage>MTU must be between 68 and 16000</constraintErrorMessage>
+            </properties>
+            <defaultValue>1500</defaultValue>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/mirror.xml.i -->
+          <node name="mirror">
+            <properties>
+              <help>Mirror ingress/egress packets</help>
+            </properties>
+            <children>
+              <leafNode name="ingress">
+                <properties>
+                  <help>Mirror ingress traffic to destination interface</help>
+                  <completionHelp>
+                    <script>${vyos_completion_dir}/list_interfaces</script>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Destination interface name</description>
+                  </valueHelp>
+                </properties>
+              </leafNode>
+              <leafNode name="egress">
+                <properties>
+                  <help>Mirror egress traffic to destination interface</help>
+                  <completionHelp>
+                    <script>${vyos_completion_dir}/list_interfaces</script>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Destination interface name</description>
+                  </valueHelp>
+                </properties>
+              </leafNode>
+            </children>
+          </node>
+          <!-- include end -->
+          <!-- include start from interface/netns.xml.i -->
+          <leafNode name="netns">
+            <properties>
+              <help>Network namespace name</help>
+              <valueHelp>
+                <format>txt</format>
+                <description>Network namespace name</description>
+              </valueHelp>
+              <completionHelp>
+                <path>netns name</path>
+              </completionHelp>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/redirect.xml.i -->
+          <leafNode name="redirect">
+            <properties>
+              <help>Redirect incoming packet to destination</help>
+              <completionHelp>
+                <script>${vyos_completion_dir}/list_interfaces</script>
+              </completionHelp>
+              <valueHelp>
+                <format>txt</format>
+                <description>Destination interface name</description>
+              </valueHelp>
+              <constraint>
+                <!-- include start from constraint/interface-name.xml.i -->
+                <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
+                <validator name="file-path --lookup-path /sys/class/net --directory"/>
+                <!-- include end -->
+              </constraint>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/vrf.xml.i -->
+          <leafNode name="vrf">
+            <properties>
+              <help>VRF instance name</help>
+              <valueHelp>
+                <format>txt</format>
+                <description>VRF instance name</description>
+              </valueHelp>
+              <completionHelp>
+                <path>vrf name</path>
+              </completionHelp>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+        </children>
+      </tagNode>
+    </children>
+  </node>
+</interfaceDefinition>

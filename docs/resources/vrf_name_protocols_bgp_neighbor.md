@@ -100,6 +100,7 @@ BGP neighbor
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 1-255  &emsp; |  Number of hops  |
+- `enforce_first_as` (Boolean) Ensure the first AS in the AS path matches the peer AS
 - `graceful_restart` (String) BGP graceful restart functionality
 
     |  Format &emsp; | Description  |
@@ -111,16 +112,17 @@ BGP neighbor
 - `override_capability` (Boolean) Ignore capability negotiation with specified neighbor
 - `passive` (Boolean) Do not initiate a session with this neighbor
 - `password` (String) BGP MD5 password
+- `path_attribute` (Attributes) Manipulate path attributes from incoming UPDATE messages (see [below for nested schema](#nestedatt--path_attribute))
 - `peer_group` (String) Peer group for this peer
 
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Peer-group name  |
-- `port` (Number) Neighbor BGP port
+- `port` (Number) Port number used by connection
 
     |  Format &emsp; | Description  |
     |----------|---------------|
-    |  number: 1-65535  &emsp; |  Neighbor BGP port number  |
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 - `remote_as` (String) Neighbor BGP AS number
 
     |  Format &emsp; | Description  |
@@ -254,7 +256,7 @@ Optional:
     |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--nexthop_self))
 - `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--prefix_list))
-- `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
+- `remove_private_as` (Attributes) Remove private AS numbers from AS path in outbound route updates (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--remove_private_as))
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--route_map))
 - `route_reflector_client` (Boolean) Peer is a route reflector client
 - `route_server_client` (Boolean) Peer is a route server client
@@ -411,6 +413,14 @@ Optional:
     |  txt  &emsp; |  Name of IPv4 prefix-list  |
 
 
+<a id="nestedatt--address_family--ipv4_labeled_unicast--remove_private_as"></a>
+### Nested Schema for `address_family.ipv4_labeled_unicast.remove_private_as`
+
+Optional:
+
+- `all` (Boolean) Remove private AS numbers to all AS numbers in outbound route updates
+
+
 <a id="nestedatt--address_family--ipv4_labeled_unicast--route_map"></a>
 ### Nested Schema for `address_family.ipv4_labeled_unicast.route_map`
 
@@ -465,7 +475,7 @@ Optional:
     |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv4_multicast--nexthop_self))
 - `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_multicast--prefix_list))
-- `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
+- `remove_private_as` (Attributes) Remove private AS numbers from AS path in outbound route updates (see [below for nested schema](#nestedatt--address_family--ipv4_multicast--remove_private_as))
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_multicast--route_map))
 - `route_reflector_client` (Boolean) Peer is a route reflector client
 - `route_server_client` (Boolean) Peer is a route server client
@@ -622,6 +632,14 @@ Optional:
     |  txt  &emsp; |  Name of IPv4 prefix-list  |
 
 
+<a id="nestedatt--address_family--ipv4_multicast--remove_private_as"></a>
+### Nested Schema for `address_family.ipv4_multicast.remove_private_as`
+
+Optional:
+
+- `all` (Boolean) Remove private AS numbers to all AS numbers in outbound route updates
+
+
 <a id="nestedatt--address_family--ipv4_multicast--route_map"></a>
 ### Nested Schema for `address_family.ipv4_multicast.route_map`
 
@@ -676,7 +694,7 @@ Optional:
     |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--nexthop_self))
 - `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--prefix_list))
-- `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
+- `remove_private_as` (Attributes) Remove private AS numbers from AS path in outbound route updates (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--remove_private_as))
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--route_map))
 - `route_reflector_client` (Boolean) Peer is a route reflector client
 - `route_server_client` (Boolean) Peer is a route server client
@@ -833,6 +851,14 @@ Optional:
     |  txt  &emsp; |  Name of IPv4 prefix-list  |
 
 
+<a id="nestedatt--address_family--ipv4_unicast--remove_private_as"></a>
+### Nested Schema for `address_family.ipv4_unicast.remove_private_as`
+
+Optional:
+
+- `all` (Boolean) Remove private AS numbers to all AS numbers in outbound route updates
+
+
 <a id="nestedatt--address_family--ipv4_unicast--route_map"></a>
 ### Nested Schema for `address_family.ipv4_unicast.route_map`
 
@@ -885,7 +911,7 @@ Optional:
     |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--nexthop_self))
 - `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--prefix_list))
-- `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
+- `remove_private_as` (Attributes) Remove private AS numbers from AS path in outbound route updates (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--remove_private_as))
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--route_map))
 - `route_reflector_client` (Boolean) Peer is a route reflector client
 - `route_server_client` (Boolean) Peer is a route server client
@@ -1003,6 +1029,14 @@ Optional:
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Name of IPv4 prefix-list  |
+
+
+<a id="nestedatt--address_family--ipv4_vpn--remove_private_as"></a>
+### Nested Schema for `address_family.ipv4_vpn.remove_private_as`
+
+Optional:
+
+- `all` (Boolean) Remove private AS numbers to all AS numbers in outbound route updates
 
 
 <a id="nestedatt--address_family--ipv4_vpn--route_map"></a>
@@ -1124,7 +1158,7 @@ Optional:
 - `nexthop_local` (Attributes) Nexthop attributes (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--nexthop_local))
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--nexthop_self))
 - `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--prefix_list))
-- `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
+- `remove_private_as` (Attributes) Remove private AS numbers from AS path in outbound route updates (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--remove_private_as))
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--route_map))
 - `route_reflector_client` (Boolean) Peer is a route reflector client
 - `route_server_client` (Boolean) Peer is a route server client
@@ -1289,6 +1323,14 @@ Optional:
     |  txt  &emsp; |  Name of IPv6 prefix-list  |
 
 
+<a id="nestedatt--address_family--ipv6_labeled_unicast--remove_private_as"></a>
+### Nested Schema for `address_family.ipv6_labeled_unicast.remove_private_as`
+
+Optional:
+
+- `all` (Boolean) Remove private AS numbers to all AS numbers in outbound route updates
+
+
 <a id="nestedatt--address_family--ipv6_labeled_unicast--route_map"></a>
 ### Nested Schema for `address_family.ipv6_labeled_unicast.route_map`
 
@@ -1343,7 +1385,7 @@ Optional:
 - `nexthop_local` (Attributes) Nexthop attributes (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--nexthop_local))
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--nexthop_self))
 - `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--prefix_list))
-- `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
+- `remove_private_as` (Attributes) Remove private AS numbers from AS path in outbound route updates (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--remove_private_as))
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_multicast--route_map))
 - `route_reflector_client` (Boolean) Peer is a route reflector client
 - `route_server_client` (Boolean) Peer is a route server client
@@ -1483,6 +1525,14 @@ Optional:
     |  txt  &emsp; |  Name of IPv6 prefix-list  |
 
 
+<a id="nestedatt--address_family--ipv6_multicast--remove_private_as"></a>
+### Nested Schema for `address_family.ipv6_multicast.remove_private_as`
+
+Optional:
+
+- `all` (Boolean) Remove private AS numbers to all AS numbers in outbound route updates
+
+
 <a id="nestedatt--address_family--ipv6_multicast--route_map"></a>
 ### Nested Schema for `address_family.ipv6_multicast.route_map`
 
@@ -1538,7 +1588,7 @@ Optional:
 - `nexthop_local` (Attributes) Nexthop attributes (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--nexthop_local))
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--nexthop_self))
 - `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--prefix_list))
-- `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
+- `remove_private_as` (Attributes) Remove private AS numbers from AS path in outbound route updates (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--remove_private_as))
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--route_map))
 - `route_reflector_client` (Boolean) Peer is a route reflector client
 - `route_server_client` (Boolean) Peer is a route server client
@@ -1703,6 +1753,14 @@ Optional:
     |  txt  &emsp; |  Name of IPv6 prefix-list  |
 
 
+<a id="nestedatt--address_family--ipv6_unicast--remove_private_as"></a>
+### Nested Schema for `address_family.ipv6_unicast.remove_private_as`
+
+Optional:
+
+- `all` (Boolean) Remove private AS numbers to all AS numbers in outbound route updates
+
+
 <a id="nestedatt--address_family--ipv6_unicast--route_map"></a>
 ### Nested Schema for `address_family.ipv6_unicast.route_map`
 
@@ -1756,7 +1814,7 @@ Optional:
 - `nexthop_local` (Attributes) Nexthop attributes (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--nexthop_local))
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--nexthop_self))
 - `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--prefix_list))
-- `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
+- `remove_private_as` (Attributes) Remove private AS numbers from AS path in outbound route updates (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--remove_private_as))
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--route_map))
 - `route_reflector_client` (Boolean) Peer is a route reflector client
 - `route_server_client` (Boolean) Peer is a route server client
@@ -1884,6 +1942,14 @@ Optional:
     |  txt  &emsp; |  Name of IPv6 prefix-list  |
 
 
+<a id="nestedatt--address_family--ipv6_vpn--remove_private_as"></a>
+### Nested Schema for `address_family.ipv6_vpn.remove_private_as`
+
+Optional:
+
+- `all` (Boolean) Remove private AS numbers to all AS numbers in outbound route updates
+
+
 <a id="nestedatt--address_family--ipv6_vpn--route_map"></a>
 ### Nested Schema for `address_family.ipv6_vpn.route_map`
 
@@ -2000,6 +2066,7 @@ Optional:
 
 - `dynamic` (Boolean) Advertise dynamic capability to this neighbor
 - `extended_nexthop` (Boolean) Advertise extended-nexthop capability to this neighbor
+- `software_version` (Boolean) Advertise Software Version capability to the peer
 
 
 <a id="nestedatt--interface"></a>
@@ -2046,6 +2113,23 @@ Optional:
 
 
 
+<a id="nestedatt--path_attribute"></a>
+### Nested Schema for `path_attribute`
+
+Optional:
+
+- `discard` (List of Number) Drop specified attributes from incoming UPDATE messages
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-255  &emsp; |  Attribute number  |
+- `treat_as_withdraw` (Number) Treat-as-withdraw any incoming BGP UPDATE messages that contain the specified attribute
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-255  &emsp; |  Attribute number  |
+
+
 <a id="nestedatt--timers"></a>
 ### Nested Schema for `timers`
 
@@ -2057,12 +2141,12 @@ Optional:
     |----------|---------------|
     |  number: 1-65535  &emsp; |  Connect timer in seconds  |
     |  0  &emsp; |  Disable connect timer  |
-- `holdtime` (String) BGP hold timer for this neighbor
+- `holdtime` (String) Hold timer
 
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 1-65535  &emsp; |  Hold timer in seconds  |
-    |  0  &emsp; |  Hold timer disabled  |
+    |  0  &emsp; |  Disable hold timer  |
 - `keepalive` (Number) BGP keepalive interval for this neighbor
 
     |  Format &emsp; | Description  |

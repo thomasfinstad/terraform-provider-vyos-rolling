@@ -15,7 +15,8 @@ type NatDestinationRuleTranSLAtion struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes
-	NodeNatDestinationRuleTranSLAtionOptions *NatDestinationRuleTranSLAtionOptions `tfsdk:"options" vyos:"options,omitempty"`
+	NodeNatDestinationRuleTranSLAtionOptions  *NatDestinationRuleTranSLAtionOptions  `tfsdk:"options" vyos:"options,omitempty"`
+	NodeNatDestinationRuleTranSLAtionRedirect *NatDestinationRuleTranSLAtionRedirect `tfsdk:"redirect" vyos:"redirect,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -54,6 +55,14 @@ func (o NatDestinationRuleTranSLAtion) ResourceSchemaAttributes() map[string]sch
 			Attributes: NatDestinationRuleTranSLAtionOptions{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Translation options
+
+`,
+		},
+
+		"redirect": schema.SingleNestedAttribute{
+			Attributes: NatDestinationRuleTranSLAtionRedirect{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Redirect to local host
 
 `,
 		},

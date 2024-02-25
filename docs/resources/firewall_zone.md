@@ -49,17 +49,18 @@ Zone-policy
     |----------|---------------|
     |  drop  &emsp; |  Drop silently  |
     |  reject  &emsp; |  Drop and notify source  |
+- `default_log` (Boolean) Log packets hitting default-action
 - `description` (String) Description
 
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Description  |
-- `enable_default_log` (Boolean) Log packets hitting default-action
 - `interface` (List of String) Interface associated with zone
 
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Interface associated with zone  |
+    |  vrf  &emsp; |  VRF associated with zone  |
 - `intra_zone_filtering` (Attributes) Intra-zone filtering (see [below for nested schema](#nestedatt--intra_zone_filtering))
 - `local_zone` (Boolean) Zone to be local-zone
 

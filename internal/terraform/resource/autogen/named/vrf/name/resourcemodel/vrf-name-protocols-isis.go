@@ -10,20 +10,21 @@ import (
 // VrfNameProtocolsIsis describes the resource data model.
 type VrfNameProtocolsIsis struct {
 	// LeafNodes
-	LeafVrfNameProtocolsIsisDynamicHostname     types.Bool   `tfsdk:"dynamic_hostname" vyos:"dynamic-hostname,omitempty"`
-	LeafVrfNameProtocolsIsisLevel               types.String `tfsdk:"level" vyos:"level,omitempty"`
-	LeafVrfNameProtocolsIsisLogAdjacencyChanges types.Bool   `tfsdk:"log_adjacency_changes" vyos:"log-adjacency-changes,omitempty"`
-	LeafVrfNameProtocolsIsisLspGenInterval      types.Number `tfsdk:"lsp_gen_interval" vyos:"lsp-gen-interval,omitempty"`
-	LeafVrfNameProtocolsIsisLspMtu              types.Number `tfsdk:"lsp_mtu" vyos:"lsp-mtu,omitempty"`
-	LeafVrfNameProtocolsIsisLspRefreshInterval  types.Number `tfsdk:"lsp_refresh_interval" vyos:"lsp-refresh-interval,omitempty"`
-	LeafVrfNameProtocolsIsisMaxLspLifetime      types.Number `tfsdk:"max_lsp_lifetime" vyos:"max-lsp-lifetime,omitempty"`
-	LeafVrfNameProtocolsIsisMetricStyle         types.String `tfsdk:"metric_style" vyos:"metric-style,omitempty"`
-	LeafVrfNameProtocolsIsisNet                 types.String `tfsdk:"net" vyos:"net,omitempty"`
-	LeafVrfNameProtocolsIsisPurgeOriginator     types.Bool   `tfsdk:"purge_originator" vyos:"purge-originator,omitempty"`
-	LeafVrfNameProtocolsIsisSetAttachedBit      types.Bool   `tfsdk:"set_attached_bit" vyos:"set-attached-bit,omitempty"`
-	LeafVrfNameProtocolsIsisSetOverloadBit      types.Bool   `tfsdk:"set_overload_bit" vyos:"set-overload-bit,omitempty"`
-	LeafVrfNameProtocolsIsisSpfInterval         types.Number `tfsdk:"spf_interval" vyos:"spf-interval,omitempty"`
-	LeafVrfNameProtocolsIsisRouteMap            types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
+	LeafVrfNameProtocolsIsisAdvertiseHighMetrics types.Bool   `tfsdk:"advertise_high_metrics" vyos:"advertise-high-metrics,omitempty"`
+	LeafVrfNameProtocolsIsisAdvertisePassiveOnly types.Bool   `tfsdk:"advertise_passive_only" vyos:"advertise-passive-only,omitempty"`
+	LeafVrfNameProtocolsIsisDynamicHostname      types.Bool   `tfsdk:"dynamic_hostname" vyos:"dynamic-hostname,omitempty"`
+	LeafVrfNameProtocolsIsisLevel                types.String `tfsdk:"level" vyos:"level,omitempty"`
+	LeafVrfNameProtocolsIsisLogAdjacencyChanges  types.Bool   `tfsdk:"log_adjacency_changes" vyos:"log-adjacency-changes,omitempty"`
+	LeafVrfNameProtocolsIsisLspGenInterval       types.Number `tfsdk:"lsp_gen_interval" vyos:"lsp-gen-interval,omitempty"`
+	LeafVrfNameProtocolsIsisLspMtu               types.Number `tfsdk:"lsp_mtu" vyos:"lsp-mtu,omitempty"`
+	LeafVrfNameProtocolsIsisLspRefreshInterval   types.Number `tfsdk:"lsp_refresh_interval" vyos:"lsp-refresh-interval,omitempty"`
+	LeafVrfNameProtocolsIsisMaxLspLifetime       types.Number `tfsdk:"max_lsp_lifetime" vyos:"max-lsp-lifetime,omitempty"`
+	LeafVrfNameProtocolsIsisMetricStyle          types.String `tfsdk:"metric_style" vyos:"metric-style,omitempty"`
+	LeafVrfNameProtocolsIsisNet                  types.String `tfsdk:"net" vyos:"net,omitempty"`
+	LeafVrfNameProtocolsIsisPurgeOriginator      types.Bool   `tfsdk:"purge_originator" vyos:"purge-originator,omitempty"`
+	LeafVrfNameProtocolsIsisSetAttachedBit       types.Bool   `tfsdk:"set_attached_bit" vyos:"set-attached-bit,omitempty"`
+	LeafVrfNameProtocolsIsisSetOverloadBit       types.Bool   `tfsdk:"set_overload_bit" vyos:"set-overload-bit,omitempty"`
+	LeafVrfNameProtocolsIsisSpfInterval          types.Number `tfsdk:"spf_interval" vyos:"spf-interval,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagVrfNameProtocolsIsisInterface bool `tfsdk:"interface" vyos:"interface,child"`
@@ -32,6 +33,8 @@ type VrfNameProtocolsIsis struct {
 	NodeVrfNameProtocolsIsisAreaPassword       *VrfNameProtocolsIsisAreaPassword       `tfsdk:"area_password" vyos:"area-password,omitempty"`
 	NodeVrfNameProtocolsIsisDefaultInformation *VrfNameProtocolsIsisDefaultInformation `tfsdk:"default_information" vyos:"default-information,omitempty"`
 	NodeVrfNameProtocolsIsisDomainPassword     *VrfNameProtocolsIsisDomainPassword     `tfsdk:"domain_password" vyos:"domain-password,omitempty"`
+	NodeVrfNameProtocolsIsisLdpSync            *VrfNameProtocolsIsisLdpSync            `tfsdk:"ldp_sync" vyos:"ldp-sync,omitempty"`
+	NodeVrfNameProtocolsIsisFastReroute        *VrfNameProtocolsIsisFastReroute        `tfsdk:"fast_reroute" vyos:"fast-reroute,omitempty"`
 	NodeVrfNameProtocolsIsisTrafficEngineering *VrfNameProtocolsIsisTrafficEngineering `tfsdk:"traffic_engineering" vyos:"traffic-engineering,omitempty"`
 	NodeVrfNameProtocolsIsisSegmentRouting     *VrfNameProtocolsIsisSegmentRouting     `tfsdk:"segment_routing" vyos:"segment-routing,omitempty"`
 	NodeVrfNameProtocolsIsisRedistribute       *VrfNameProtocolsIsisRedistribute       `tfsdk:"redistribute" vyos:"redistribute,omitempty"`
@@ -42,6 +45,24 @@ type VrfNameProtocolsIsis struct {
 func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
+
+		"advertise_high_metrics": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Advertise high metric value on all interfaces
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
+		"advertise_passive_only": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Advertise prefixes of passive interfaces only
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
 
 		"dynamic_hostname": schema.BoolAttribute{
 			Optional: true,
@@ -183,17 +204,6 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 
-		"route_map": schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `Specify route-map name to use
-
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
-
-`,
-		},
-
 		// Nodes
 
 		"area_password": schema.SingleNestedAttribute{
@@ -220,10 +230,26 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 
+		"ldp_sync": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsIsisLdpSync{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Protocol wide LDP-IGP synchronization configuration
+
+`,
+		},
+
+		"fast_reroute": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsIsisFastReroute{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `IS-IS fast reroute configuration
+
+`,
+		},
+
 		"traffic_engineering": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsIsisTrafficEngineering{}.ResourceSchemaAttributes(),
 			Optional:   true,
-			MarkdownDescription: `Show IS-IS neighbor adjacencies
+			MarkdownDescription: `IS-IS traffic engineering extensions
 
 `,
 		},

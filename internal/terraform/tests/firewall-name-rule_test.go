@@ -13,22 +13,22 @@ import (
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/name-rule/resourcemodel"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/ipv4-name-rule/resourcemodel"
 )
 
-// TestFirewallNameRuleMarshalVyos does some simple marshalling tests
-func TestFirewallNameRuleMarshalVyos(t *testing.T) {
+// TestFirewallIPvfourNameRuleMarshalVyos does some simple marshalling tests
+func TestFirewallIPvfourNameRuleMarshalVyos(t *testing.T) {
 	lst, _ := basetypes.NewListValue(basetypes.StringType{}, []attr.Value{basetypes.NewStringValue("420"), basetypes.NewStringValue("13-37")})
-	model := &resourcemodel.FirewallNameRule{
+	model := &resourcemodel.FirewallIPvfourNameRule{
 		//ID:                                      basetypes.NewStringValue("firewall__name__rule-one__rule__42"),
-		SelfIdentifier:                          basetypes.NewNumberValue(big.NewFloat(42)),
-		ParentIDFirewallName:                    basetypes.NewStringValue("rule-one"),
-		LeafFirewallNameRuleAction:              basetypes.NewStringValue("accept"),
-		LeafFirewallNameRuleDisable:             basetypes.NewBoolValue(true),
-		LeafFirewallNameRuleQueue:               basetypes.NewNumberValue(big.NewFloat(28)),
-		LeafFirewallNameRulePacketLengthExclude: lst,
-		NodeFirewallNameRuleDestination: &resourcemodel.FirewallNameRuleDestination{
-			LeafFirewallNameRuleDestinationAddress: basetypes.NewStringValue("127.0.0.2"),
+		SelfIdentifier:                                 basetypes.NewNumberValue(big.NewFloat(42)),
+		ParentIDFirewallIPvfourName:                    basetypes.NewStringValue("rule-one"),
+		LeafFirewallIPvfourNameRuleAction:              basetypes.NewStringValue("accept"),
+		LeafFirewallIPvfourNameRuleDisable:             basetypes.NewBoolValue(true),
+		LeafFirewallIPvfourNameRuleQueue:               basetypes.NewNumberValue(big.NewFloat(28)),
+		LeafFirewallIPvfourNameRulePacketLengthExclude: lst,
+		NodeFirewallIPvfourNameRuleDestination: &resourcemodel.FirewallIPvfourNameRuleDestination{
+			LeafFirewallIPvfourNameRuleDestinationAddress: basetypes.NewStringValue("127.0.0.2"),
 		},
 	}
 
@@ -54,8 +54,8 @@ func TestFirewallNameRuleMarshalVyos(t *testing.T) {
 	}
 }
 
-// TestFirewallNameRuleMarshalVyos does some simple marshalling tests
-func TestFirewallNameRuleUnmarshalVyos(t *testing.T) {
+// TestFirewallIPvfourNameRuleMarshalVyos does some simple marshalling tests
+func TestFirewallIPvfourNameRuleUnmarshalVyos(t *testing.T) {
 	has := map[string]interface{}{
 		"action":                "accept",
 		"disable":               map[string]interface{}{},
@@ -67,17 +67,17 @@ func TestFirewallNameRuleUnmarshalVyos(t *testing.T) {
 	}
 
 	lst, _ := basetypes.NewListValue(basetypes.StringType{}, []attr.Value{basetypes.NewStringValue("420"), basetypes.NewStringValue("13-37")})
-	want := &resourcemodel.FirewallNameRule{
-		LeafFirewallNameRuleAction:              basetypes.NewStringValue("accept"),
-		LeafFirewallNameRuleDisable:             basetypes.NewBoolValue(true),
-		LeafFirewallNameRuleQueue:               basetypes.NewNumberValue(big.NewFloat(28)),
-		LeafFirewallNameRulePacketLengthExclude: lst,
-		NodeFirewallNameRuleDestination: &resourcemodel.FirewallNameRuleDestination{
-			LeafFirewallNameRuleDestinationAddress: basetypes.NewStringValue("127.0.0.2"),
+	want := &resourcemodel.FirewallIPvfourNameRule{
+		LeafFirewallIPvfourNameRuleAction:              basetypes.NewStringValue("accept"),
+		LeafFirewallIPvfourNameRuleDisable:             basetypes.NewBoolValue(true),
+		LeafFirewallIPvfourNameRuleQueue:               basetypes.NewNumberValue(big.NewFloat(28)),
+		LeafFirewallIPvfourNameRulePacketLengthExclude: lst,
+		NodeFirewallIPvfourNameRuleDestination: &resourcemodel.FirewallIPvfourNameRuleDestination{
+			LeafFirewallIPvfourNameRuleDestinationAddress: basetypes.NewStringValue("127.0.0.2"),
 		},
 	}
 
-	got := &resourcemodel.FirewallNameRule{}
+	got := &resourcemodel.FirewallIPvfourNameRule{}
 
 	err := helpers.UnmarshalVyos(context.Background(), has, got)
 	if err != nil {

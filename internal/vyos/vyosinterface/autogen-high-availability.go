@@ -279,6 +279,43 @@ func highavailability() interfacedefinition.InterfaceDefinition {
 											Description: "Interval in seconds",
 										}},
 									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "version",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Default VRRP version to use, IPv6 always uses VRRP version 3"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Validator: []*interfacedefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr:     "numeric",
+												ArgumentAttr: "--range 2-3",
+											}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "2",
+											Description: "VRRP version 2",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "3",
+											Description: "VRRP version 3",
+										}},
+									}},
 								}},
 							}},
 						}},
@@ -574,7 +611,7 @@ func highavailability() interfacedefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Health check script"},
+										Help: []string{"Health check"},
 									}},
 									Children: []*interfacedefinition.Children{{
 										XMLName: xml.Name{
@@ -628,6 +665,42 @@ func highavailability() interfacedefinition.InterfaceDefinition {
 														NameAttr:     "numeric",
 														ArgumentAttr: "--positive",
 													}},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "ping",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"ICMP ping health check"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ip-address",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4",
+													Description: "IPv4 ping target address",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv6",
+													Description: "IPv6 ping target address",
 												}},
 											}},
 										}, {
@@ -703,7 +776,7 @@ func highavailability() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+													Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 													Validator: []*interfacedefinition.Validator{{
 														XMLName: xml.Name{
 															Local: "validator",
@@ -863,6 +936,11 @@ func highavailability() interfacedefinition.InterfaceDefinition {
 													Local: "validator",
 												},
 												NameAttr: "ip-host",
+											}, {
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "ip-address",
 											}},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
@@ -877,6 +955,18 @@ func highavailability() interfacedefinition.InterfaceDefinition {
 											},
 											Format:      "ipv6net",
 											Description: "IPv6 address and prefix length",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipv4",
+											Description: "IPv4 address",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipv6",
+											Description: "IPv6 address",
 										}},
 									}},
 									Children: []*interfacedefinition.Children{{
@@ -893,12 +983,12 @@ func highavailability() interfacedefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Interface Name to use"},
+												Help: []string{"Interface to use"},
 												Constraint: []*interfacedefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+													Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 													Validator: []*interfacedefinition.Validator{{
 														XMLName: xml.Name{
 															Local: "validator",
@@ -933,12 +1023,12 @@ func highavailability() interfacedefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Interface Name to use"},
+										Help: []string{"Interface to use"},
 										Constraint: []*interfacedefinition.Constraint{{
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+											Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 											Validator: []*interfacedefinition.Validator{{
 												XMLName: xml.Name{
 													Local: "validator",
@@ -1054,12 +1144,7 @@ func highavailability() interfacedefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "validator",
 												},
-												NameAttr: "ipv4-address",
-											}, {
-												XMLName: xml.Name{
-													Local: "validator",
-												},
-												NameAttr: "ipv6-address",
+												NameAttr: "ip-address",
 											}},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
@@ -1095,12 +1180,7 @@ func highavailability() interfacedefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "validator",
 												},
-												NameAttr: "ipv4-address",
-											}, {
-												XMLName: xml.Name{
-													Local: "validator",
-												},
-												NameAttr: "ipv6-address",
+												NameAttr: "ip-address",
 											}},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
@@ -1455,6 +1535,24 @@ func highavailability() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}},
+						LeafNode: []*interfacedefinition.LeafNode{{
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
+							NodeNameAttr: "snmp",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Enable SNMP"},
+								Valueless: []*interfacedefinition.Valueless{{
+									XMLName: xml.Name{
+										Local: "valueless",
+									},
+								}},
+							}},
+						}},
 					}},
 				}},
 				TagNode: []*interfacedefinition.TagNode{{
@@ -1467,7 +1565,7 @@ func highavailability() interfacedefinition.InterfaceDefinition {
 						XMLName: xml.Name{
 							Local: "properties",
 						},
-						Help: []string{"Load-balancing virtual server address"},
+						Help: []string{"Load-balancing virtual server alias"},
 					}},
 					Children: []*interfacedefinition.Children{{
 						XMLName: xml.Name{
@@ -1598,6 +1696,42 @@ func highavailability() interfacedefinition.InterfaceDefinition {
 							}},
 						}},
 						LeafNode: []*interfacedefinition.LeafNode{{
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
+							NodeNameAttr: "address",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"IP address"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Validator: []*interfacedefinition.Validator{{
+										XMLName: xml.Name{
+											Local: "validator",
+										},
+										NameAttr: "ip-address",
+									}},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "ipv4",
+									Description: "IPv4 address",
+								}, {
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "ipv6",
+									Description: "IPv6 address",
+								}},
+							}},
+						}, {
 							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
@@ -1874,6 +2008,24 @@ func highavailability() interfacedefinition.InterfaceDefinition {
 									List: []string{"tcp udp"},
 								}},
 							}},
+						}},
+					}},
+				}},
+				LeafNode: []*interfacedefinition.LeafNode{{
+					IsBaseNode: false,
+					XMLName: xml.Name{
+						Local: "leafNode",
+					},
+					NodeNameAttr: "disable",
+					Properties: []*interfacedefinition.Properties{{
+						XMLName: xml.Name{
+							Local: "properties",
+						},
+						Help: []string{"Disable instance"},
+						Valueless: []*interfacedefinition.Valueless{{
+							XMLName: xml.Name{
+								Local: "valueless",
+							},
 						}},
 					}},
 				}},

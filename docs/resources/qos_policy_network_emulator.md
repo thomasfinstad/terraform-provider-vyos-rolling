@@ -63,7 +63,7 @@ Network emulator policy
     |  <number>mbit  &emsp; |  Megabits per second  |
     |  <number>gbit  &emsp; |  Gigabits per second  |
     |  <number>tbit  &emsp; |  Terabits per second  |
-    |  <number>%  &emsp; |  Percentage of interface link speed  |
+    |  <number>%%  &emsp; |  Percentage of interface link speed  |
 - `corruption` (String) Introducing error in a random position for chosen percent of packets
 
     |  Format &emsp; | Description  |

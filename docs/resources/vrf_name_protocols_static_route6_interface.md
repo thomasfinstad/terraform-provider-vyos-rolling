@@ -99,6 +99,11 @@ IPv6 gateway interface name
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 1-255  &emsp; |  Distance for this route  |
+- `segments` (String) SRv6 segments
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Segs (SIDs)  |
 - `vrf` (String) VRF to leak route
 
     |  Format &emsp; | Description  |

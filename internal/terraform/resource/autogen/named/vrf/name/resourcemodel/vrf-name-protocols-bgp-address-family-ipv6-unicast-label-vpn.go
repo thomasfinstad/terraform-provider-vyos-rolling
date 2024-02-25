@@ -14,6 +14,7 @@ type VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabelVpn struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabelVpnAllocationMode *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabelVpnAllocationMode `tfsdk:"allocation_mode" vyos:"allocation-mode,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -35,5 +36,12 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabelVpn) ResourceSchemaAtt
 
 		// Nodes
 
+		"allocation_mode": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabelVpnAllocationMode{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Label allocation mode
+
+`,
+		},
 	}
 }

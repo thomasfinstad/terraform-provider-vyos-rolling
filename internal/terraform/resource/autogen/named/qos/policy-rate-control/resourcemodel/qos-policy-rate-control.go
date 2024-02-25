@@ -95,7 +95,7 @@ func (o QosPolicyRateControl) ResourceSchemaAttributes() map[string]schema.Attri
     |  <number>mbit  &emsp; |  Megabits per second  |
     |  <number>gbit  &emsp; |  Gigabits per second  |
     |  <number>tbit  &emsp; |  Terabits per second  |
-    |  <number>%  &emsp; |  Percentage of interface link speed  |
+    |  <number>%%  &emsp; |  Percentage of interface link speed  |
 
 `,
 		},

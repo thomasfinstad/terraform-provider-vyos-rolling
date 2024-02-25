@@ -99,6 +99,12 @@ Name of peer-group
 - `override_capability` (Boolean) Ignore capability negotiation with specified neighbor
 - `passive` (Boolean) Do not initiate a session with this neighbor
 - `password` (String) BGP MD5 password
+- `path_attribute` (Attributes) Manipulate path attributes from incoming UPDATE messages (see [below for nested schema](#nestedatt--path_attribute))
+- `port` (Number) Port number used by connection
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-65535  &emsp; |  Numeric IP port  |
 - `remote_as` (String) Neighbor BGP AS number
 
     |  Format &emsp; | Description  |
@@ -125,9 +131,232 @@ Name of peer-group
 
 Optional:
 
+- `ipv4_labeled_unicast` (Attributes) IPv4 Labeled Unicast BGP neighbor parameters (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast))
 - `ipv4_unicast` (Attributes) IPv4 BGP neighbor parameters (see [below for nested schema](#nestedatt--address_family--ipv4_unicast))
+- `ipv4_vpn` (Attributes) IPv4 VPN BGP neighbor parameters (see [below for nested schema](#nestedatt--address_family--ipv4_vpn))
+- `ipv6_labeled_unicast` (Attributes) IPv6 Labeled Unicast BGP neighbor parameters (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast))
 - `ipv6_unicast` (Attributes) IPv6 BGP neighbor parameters (see [below for nested schema](#nestedatt--address_family--ipv6_unicast))
+- `ipv6_vpn` (Attributes) IPv6 VPN BGP neighbor parameters (see [below for nested schema](#nestedatt--address_family--ipv6_vpn))
 - `l2vpn_evpn` (Attributes) L2VPN EVPN BGP settings (see [below for nested schema](#nestedatt--address_family--l2vpn_evpn))
+
+<a id="nestedatt--address_family--ipv4_labeled_unicast"></a>
+### Nested Schema for `address_family.ipv4_labeled_unicast`
+
+Optional:
+
+- `addpath_tx_all` (Boolean) Use addpath to advertise all paths to a neighbor
+- `addpath_tx_per_as` (Boolean) Use addpath to advertise the bestpath per each neighboring AS
+- `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--allowas_in))
+- `as_override` (Boolean) Override ASN in outbound updates to configured neighbor local-as
+- `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--attribute_unchanged))
+- `capability` (Attributes) Advertise capabilities to this neighbor (IPv4) (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--capability))
+- `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--conditionally_advertise))
+- `default_originate` (Attributes) Originate default route to this peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--default_originate))
+- `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--disable_send_community))
+- `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--distribute_list))
+- `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--filter_list))
+- `maximum_prefix` (Number) Maximum number of prefixes to accept from this peer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
+- `maximum_prefix_out` (Number) Maximum number of prefixes to be sent to this peer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
+- `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--nexthop_self))
+- `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--prefix_list))
+- `remove_private_as` (Attributes) Remove private AS numbers from AS path in outbound route updates (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--remove_private_as))
+- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--route_map))
+- `route_reflector_client` (Boolean) Peer is a route reflector client
+- `route_server_client` (Boolean) Peer is a route server client
+- `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--soft_reconfiguration))
+- `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+- `weight` (Number) Default weight for routes from this peer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-65535  &emsp; |  Default weight  |
+
+<a id="nestedatt--address_family--ipv4_labeled_unicast--allowas_in"></a>
+### Nested Schema for `address_family.ipv4_labeled_unicast.allowas_in`
+
+Optional:
+
+- `number` (Number) Number of occurrences of AS number
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-10  &emsp; |  Number of times AS is allowed in path  |
+
+
+<a id="nestedatt--address_family--ipv4_labeled_unicast--attribute_unchanged"></a>
+### Nested Schema for `address_family.ipv4_labeled_unicast.attribute_unchanged`
+
+Optional:
+
+- `as_path` (Boolean) Send AS path unchanged
+- `med` (Boolean) Send multi-exit discriminator unchanged
+- `next_hop` (Boolean) Send nexthop unchanged
+
+
+<a id="nestedatt--address_family--ipv4_labeled_unicast--capability"></a>
+### Nested Schema for `address_family.ipv4_labeled_unicast.capability`
+
+Optional:
+
+- `orf` (Attributes) Advertise ORF capability to this peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--capability--orf))
+
+<a id="nestedatt--address_family--ipv4_labeled_unicast--capability--orf"></a>
+### Nested Schema for `address_family.ipv4_labeled_unicast.capability.orf`
+
+Optional:
+
+- `prefix_list` (Attributes) Advertise prefix-list ORF capability to this peer (see [below for nested schema](#nestedatt--address_family--ipv4_labeled_unicast--capability--orf--prefix_list))
+
+<a id="nestedatt--address_family--ipv4_labeled_unicast--capability--orf--prefix_list"></a>
+### Nested Schema for `address_family.ipv4_labeled_unicast.capability.orf.prefix_list`
+
+Optional:
+
+- `receive` (Boolean) Capability to receive the ORF
+- `send` (Boolean) Capability to send the ORF
+
+
+
+
+<a id="nestedatt--address_family--ipv4_labeled_unicast--conditionally_advertise"></a>
+### Nested Schema for `address_family.ipv4_labeled_unicast.conditionally_advertise`
+
+Optional:
+
+- `advertise_map` (String) Route-map to conditionally advertise routes
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+- `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+- `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+
+
+<a id="nestedatt--address_family--ipv4_labeled_unicast--default_originate"></a>
+### Nested Schema for `address_family.ipv4_labeled_unicast.default_originate`
+
+Optional:
+
+- `route_map` (String) Specify route-map name to use
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+
+
+<a id="nestedatt--address_family--ipv4_labeled_unicast--disable_send_community"></a>
+### Nested Schema for `address_family.ipv4_labeled_unicast.disable_send_community`
+
+Optional:
+
+- `extended` (Boolean) Disable sending extended community attributes to this peer
+- `standard` (Boolean) Disable sending standard community attributes to this peer
+
+
+<a id="nestedatt--address_family--ipv4_labeled_unicast--distribute_list"></a>
+### Nested Schema for `address_family.ipv4_labeled_unicast.distribute_list`
+
+Optional:
+
+- `export` (Number) Access-list to filter outgoing route updates to this peer-group
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-65535  &emsp; |  Access-list to filter outgoing route updates to this peer-group  |
+- `import` (Number) Access-list to filter incoming route updates from this peer-group
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-65535  &emsp; |  Access-list to filter incoming route updates from this peer-group  |
+
+
+<a id="nestedatt--address_family--ipv4_labeled_unicast--filter_list"></a>
+### Nested Schema for `address_family.ipv4_labeled_unicast.filter_list`
+
+Optional:
+
+- `export` (String) As-path-list to filter outgoing route updates to this peer
+- `import` (String) As-path-list to filter incoming route updates from this peer
+
+
+<a id="nestedatt--address_family--ipv4_labeled_unicast--nexthop_self"></a>
+### Nested Schema for `address_family.ipv4_labeled_unicast.nexthop_self`
+
+Optional:
+
+- `force` (Boolean) Set the next hop to self for reflected routes
+
+
+<a id="nestedatt--address_family--ipv4_labeled_unicast--prefix_list"></a>
+### Nested Schema for `address_family.ipv4_labeled_unicast.prefix_list`
+
+Optional:
+
+- `export` (String) IPv4-Prefix-list to filter outgoing route updates to this peer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Name of IPv4 prefix-list  |
+- `import` (String) IPv4-Prefix-list to filter incoming route updates from this peer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Name of IPv4 prefix-list  |
+
+
+<a id="nestedatt--address_family--ipv4_labeled_unicast--remove_private_as"></a>
+### Nested Schema for `address_family.ipv4_labeled_unicast.remove_private_as`
+
+Optional:
+
+- `all` (Boolean) Remove private AS numbers to all AS numbers in outbound route updates
+
+
+<a id="nestedatt--address_family--ipv4_labeled_unicast--route_map"></a>
+### Nested Schema for `address_family.ipv4_labeled_unicast.route_map`
+
+Optional:
+
+- `export` (String) Route-map to filter outgoing route updates
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+- `import` (String) Route-map to filter incoming route updates
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+
+
+<a id="nestedatt--address_family--ipv4_labeled_unicast--soft_reconfiguration"></a>
+### Nested Schema for `address_family.ipv4_labeled_unicast.soft_reconfiguration`
+
+Optional:
+
+- `inbound` (Boolean) Enable inbound soft reconfiguration
+
+
 
 <a id="nestedatt--address_family--ipv4_unicast"></a>
 ### Nested Schema for `address_family.ipv4_unicast`
@@ -157,7 +386,7 @@ Optional:
     |  number: 1-4294967295  &emsp; |  Prefix limit  |
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--nexthop_self))
 - `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--prefix_list))
-- `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
+- `remove_private_as` (Attributes) Remove private AS numbers from AS path in outbound route updates (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--remove_private_as))
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_unicast--route_map))
 - `route_reflector_client` (Boolean) Peer is a route reflector client
 - `route_server_client` (Boolean) Peer is a route server client
@@ -314,6 +543,14 @@ Optional:
     |  txt  &emsp; |  Name of IPv4 prefix-list  |
 
 
+<a id="nestedatt--address_family--ipv4_unicast--remove_private_as"></a>
+### Nested Schema for `address_family.ipv4_unicast.remove_private_as`
+
+Optional:
+
+- `all` (Boolean) Remove private AS numbers to all AS numbers in outbound route updates
+
+
 <a id="nestedatt--address_family--ipv4_unicast--route_map"></a>
 ### Nested Schema for `address_family.ipv4_unicast.route_map`
 
@@ -333,6 +570,414 @@ Optional:
 
 <a id="nestedatt--address_family--ipv4_unicast--soft_reconfiguration"></a>
 ### Nested Schema for `address_family.ipv4_unicast.soft_reconfiguration`
+
+Optional:
+
+- `inbound` (Boolean) Enable inbound soft reconfiguration
+
+
+
+<a id="nestedatt--address_family--ipv4_vpn"></a>
+### Nested Schema for `address_family.ipv4_vpn`
+
+Optional:
+
+- `addpath_tx_all` (Boolean) Use addpath to advertise all paths to a neighbor
+- `addpath_tx_per_as` (Boolean) Use addpath to advertise the bestpath per each neighboring AS
+- `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--allowas_in))
+- `as_override` (Boolean) Override ASN in outbound updates to configured neighbor local-as
+- `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--attribute_unchanged))
+- `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--conditionally_advertise))
+- `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--disable_send_community))
+- `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--distribute_list))
+- `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--filter_list))
+- `maximum_prefix` (Number) Maximum number of prefixes to accept from this peer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
+- `maximum_prefix_out` (Number) Maximum number of prefixes to be sent to this peer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
+- `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--nexthop_self))
+- `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--prefix_list))
+- `remove_private_as` (Attributes) Remove private AS numbers from AS path in outbound route updates (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--remove_private_as))
+- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--route_map))
+- `route_reflector_client` (Boolean) Peer is a route reflector client
+- `route_server_client` (Boolean) Peer is a route server client
+- `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv4_vpn--soft_reconfiguration))
+- `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+- `weight` (Number) Default weight for routes from this peer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-65535  &emsp; |  Default weight  |
+
+<a id="nestedatt--address_family--ipv4_vpn--allowas_in"></a>
+### Nested Schema for `address_family.ipv4_vpn.allowas_in`
+
+Optional:
+
+- `number` (Number) Number of occurrences of AS number
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-10  &emsp; |  Number of times AS is allowed in path  |
+
+
+<a id="nestedatt--address_family--ipv4_vpn--attribute_unchanged"></a>
+### Nested Schema for `address_family.ipv4_vpn.attribute_unchanged`
+
+Optional:
+
+- `as_path` (Boolean) Send AS path unchanged
+- `med` (Boolean) Send multi-exit discriminator unchanged
+- `next_hop` (Boolean) Send nexthop unchanged
+
+
+<a id="nestedatt--address_family--ipv4_vpn--conditionally_advertise"></a>
+### Nested Schema for `address_family.ipv4_vpn.conditionally_advertise`
+
+Optional:
+
+- `advertise_map` (String) Route-map to conditionally advertise routes
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+- `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+- `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+
+
+<a id="nestedatt--address_family--ipv4_vpn--disable_send_community"></a>
+### Nested Schema for `address_family.ipv4_vpn.disable_send_community`
+
+Optional:
+
+- `extended` (Boolean) Disable sending extended community attributes to this peer
+- `standard` (Boolean) Disable sending standard community attributes to this peer
+
+
+<a id="nestedatt--address_family--ipv4_vpn--distribute_list"></a>
+### Nested Schema for `address_family.ipv4_vpn.distribute_list`
+
+Optional:
+
+- `export` (Number) Access-list to filter outgoing route updates to this peer-group
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-65535  &emsp; |  Access-list to filter outgoing route updates to this peer-group  |
+- `import` (Number) Access-list to filter incoming route updates from this peer-group
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-65535  &emsp; |  Access-list to filter incoming route updates from this peer-group  |
+
+
+<a id="nestedatt--address_family--ipv4_vpn--filter_list"></a>
+### Nested Schema for `address_family.ipv4_vpn.filter_list`
+
+Optional:
+
+- `export` (String) As-path-list to filter outgoing route updates to this peer
+- `import` (String) As-path-list to filter incoming route updates from this peer
+
+
+<a id="nestedatt--address_family--ipv4_vpn--nexthop_self"></a>
+### Nested Schema for `address_family.ipv4_vpn.nexthop_self`
+
+Optional:
+
+- `force` (Boolean) Set the next hop to self for reflected routes
+
+
+<a id="nestedatt--address_family--ipv4_vpn--prefix_list"></a>
+### Nested Schema for `address_family.ipv4_vpn.prefix_list`
+
+Optional:
+
+- `export` (String) IPv4-Prefix-list to filter outgoing route updates to this peer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Name of IPv4 prefix-list  |
+- `import` (String) IPv4-Prefix-list to filter incoming route updates from this peer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Name of IPv4 prefix-list  |
+
+
+<a id="nestedatt--address_family--ipv4_vpn--remove_private_as"></a>
+### Nested Schema for `address_family.ipv4_vpn.remove_private_as`
+
+Optional:
+
+- `all` (Boolean) Remove private AS numbers to all AS numbers in outbound route updates
+
+
+<a id="nestedatt--address_family--ipv4_vpn--route_map"></a>
+### Nested Schema for `address_family.ipv4_vpn.route_map`
+
+Optional:
+
+- `export` (String) Route-map to filter outgoing route updates
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+- `import` (String) Route-map to filter incoming route updates
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+
+
+<a id="nestedatt--address_family--ipv4_vpn--soft_reconfiguration"></a>
+### Nested Schema for `address_family.ipv4_vpn.soft_reconfiguration`
+
+Optional:
+
+- `inbound` (Boolean) Enable inbound soft reconfiguration
+
+
+
+<a id="nestedatt--address_family--ipv6_labeled_unicast"></a>
+### Nested Schema for `address_family.ipv6_labeled_unicast`
+
+Optional:
+
+- `addpath_tx_all` (Boolean) Use addpath to advertise all paths to a neighbor
+- `addpath_tx_per_as` (Boolean) Use addpath to advertise the bestpath per each neighboring AS
+- `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--allowas_in))
+- `as_override` (Boolean) Override ASN in outbound updates to configured neighbor local-as
+- `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--attribute_unchanged))
+- `capability` (Attributes) Advertise capabilities to this neighbor (IPv6) (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--capability))
+- `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--conditionally_advertise))
+- `default_originate` (Attributes) Originate default route to this peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--default_originate))
+- `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--disable_send_community))
+- `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--distribute_list))
+- `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--filter_list))
+- `maximum_prefix` (Number) Maximum number of prefixes to accept from this peer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
+- `maximum_prefix_out` (Number) Maximum number of prefixes to be sent to this peer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
+- `nexthop_local` (Attributes) Nexthop attributes (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--nexthop_local))
+- `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--nexthop_self))
+- `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--prefix_list))
+- `remove_private_as` (Attributes) Remove private AS numbers from AS path in outbound route updates (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--remove_private_as))
+- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--route_map))
+- `route_reflector_client` (Boolean) Peer is a route reflector client
+- `route_server_client` (Boolean) Peer is a route server client
+- `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--soft_reconfiguration))
+- `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+- `weight` (Number) Default weight for routes from this peer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-65535  &emsp; |  Default weight  |
+
+<a id="nestedatt--address_family--ipv6_labeled_unicast--allowas_in"></a>
+### Nested Schema for `address_family.ipv6_labeled_unicast.allowas_in`
+
+Optional:
+
+- `number` (Number) Number of occurrences of AS number
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-10  &emsp; |  Number of times AS is allowed in path  |
+
+
+<a id="nestedatt--address_family--ipv6_labeled_unicast--attribute_unchanged"></a>
+### Nested Schema for `address_family.ipv6_labeled_unicast.attribute_unchanged`
+
+Optional:
+
+- `as_path` (Boolean) Send AS path unchanged
+- `med` (Boolean) Send multi-exit discriminator unchanged
+- `next_hop` (Boolean) Send nexthop unchanged
+
+
+<a id="nestedatt--address_family--ipv6_labeled_unicast--capability"></a>
+### Nested Schema for `address_family.ipv6_labeled_unicast.capability`
+
+Optional:
+
+- `orf` (Attributes) Advertise ORF capability to this peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--capability--orf))
+
+<a id="nestedatt--address_family--ipv6_labeled_unicast--capability--orf"></a>
+### Nested Schema for `address_family.ipv6_labeled_unicast.capability.orf`
+
+Optional:
+
+- `prefix_list` (Attributes) Advertise prefix-list ORF capability to this peer (see [below for nested schema](#nestedatt--address_family--ipv6_labeled_unicast--capability--orf--prefix_list))
+
+<a id="nestedatt--address_family--ipv6_labeled_unicast--capability--orf--prefix_list"></a>
+### Nested Schema for `address_family.ipv6_labeled_unicast.capability.orf.prefix_list`
+
+Optional:
+
+- `receive` (Boolean) Capability to receive the ORF
+- `send` (Boolean) Capability to send the ORF
+
+
+
+
+<a id="nestedatt--address_family--ipv6_labeled_unicast--conditionally_advertise"></a>
+### Nested Schema for `address_family.ipv6_labeled_unicast.conditionally_advertise`
+
+Optional:
+
+- `advertise_map` (String) Route-map to conditionally advertise routes
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+- `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+- `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+
+
+<a id="nestedatt--address_family--ipv6_labeled_unicast--default_originate"></a>
+### Nested Schema for `address_family.ipv6_labeled_unicast.default_originate`
+
+Optional:
+
+- `route_map` (String) Specify route-map name to use
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+
+
+<a id="nestedatt--address_family--ipv6_labeled_unicast--disable_send_community"></a>
+### Nested Schema for `address_family.ipv6_labeled_unicast.disable_send_community`
+
+Optional:
+
+- `extended` (Boolean) Disable sending extended community attributes to this peer
+- `standard` (Boolean) Disable sending standard community attributes to this peer
+
+
+<a id="nestedatt--address_family--ipv6_labeled_unicast--distribute_list"></a>
+### Nested Schema for `address_family.ipv6_labeled_unicast.distribute_list`
+
+Optional:
+
+- `export` (Number) Access-list to filter outgoing route updates to this peer-group
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-65535  &emsp; |  Access-list to filter outgoing route updates to this peer-group  |
+- `import` (Number) Access-list to filter incoming route updates from this peer-group
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-65535  &emsp; |  Access-list to filter incoming route updates from this peer-group  |
+
+
+<a id="nestedatt--address_family--ipv6_labeled_unicast--filter_list"></a>
+### Nested Schema for `address_family.ipv6_labeled_unicast.filter_list`
+
+Optional:
+
+- `export` (String) As-path-list to filter outgoing route updates to this peer
+- `import` (String) As-path-list to filter incoming route updates from this peer
+
+
+<a id="nestedatt--address_family--ipv6_labeled_unicast--nexthop_local"></a>
+### Nested Schema for `address_family.ipv6_labeled_unicast.nexthop_local`
+
+Optional:
+
+- `unchanged` (Boolean) Leave link-local nexthop unchanged for this peer
+
+
+<a id="nestedatt--address_family--ipv6_labeled_unicast--nexthop_self"></a>
+### Nested Schema for `address_family.ipv6_labeled_unicast.nexthop_self`
+
+Optional:
+
+- `force` (Boolean) Set the next hop to self for reflected routes
+
+
+<a id="nestedatt--address_family--ipv6_labeled_unicast--prefix_list"></a>
+### Nested Schema for `address_family.ipv6_labeled_unicast.prefix_list`
+
+Optional:
+
+- `export` (String) Prefix-list to filter outgoing route updates to this peer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Name of IPv6 prefix-list  |
+- `import` (String) Prefix-list to filter incoming route updates from this peer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Name of IPv6 prefix-list  |
+
+
+<a id="nestedatt--address_family--ipv6_labeled_unicast--remove_private_as"></a>
+### Nested Schema for `address_family.ipv6_labeled_unicast.remove_private_as`
+
+Optional:
+
+- `all` (Boolean) Remove private AS numbers to all AS numbers in outbound route updates
+
+
+<a id="nestedatt--address_family--ipv6_labeled_unicast--route_map"></a>
+### Nested Schema for `address_family.ipv6_labeled_unicast.route_map`
+
+Optional:
+
+- `export` (String) Route-map to filter outgoing route updates
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+- `import` (String) Route-map to filter incoming route updates
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+
+
+<a id="nestedatt--address_family--ipv6_labeled_unicast--soft_reconfiguration"></a>
+### Nested Schema for `address_family.ipv6_labeled_unicast.soft_reconfiguration`
 
 Optional:
 
@@ -369,7 +1014,7 @@ Optional:
 - `nexthop_local` (Attributes) Nexthop attributes (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--nexthop_local))
 - `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--nexthop_self))
 - `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--prefix_list))
-- `remove_private_as` (Boolean) Remove private AS numbers from AS path in outbound route updates
+- `remove_private_as` (Attributes) Remove private AS numbers from AS path in outbound route updates (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--remove_private_as))
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_unicast--route_map))
 - `route_reflector_client` (Boolean) Peer is a route reflector client
 - `route_server_client` (Boolean) Peer is a route server client
@@ -534,6 +1179,14 @@ Optional:
     |  txt  &emsp; |  Name of IPv6 prefix-list  |
 
 
+<a id="nestedatt--address_family--ipv6_unicast--remove_private_as"></a>
+### Nested Schema for `address_family.ipv6_unicast.remove_private_as`
+
+Optional:
+
+- `all` (Boolean) Remove private AS numbers to all AS numbers in outbound route updates
+
+
 <a id="nestedatt--address_family--ipv6_unicast--route_map"></a>
 ### Nested Schema for `address_family.ipv6_unicast.route_map`
 
@@ -553,6 +1206,195 @@ Optional:
 
 <a id="nestedatt--address_family--ipv6_unicast--soft_reconfiguration"></a>
 ### Nested Schema for `address_family.ipv6_unicast.soft_reconfiguration`
+
+Optional:
+
+- `inbound` (Boolean) Enable inbound soft reconfiguration
+
+
+
+<a id="nestedatt--address_family--ipv6_vpn"></a>
+### Nested Schema for `address_family.ipv6_vpn`
+
+Optional:
+
+- `addpath_tx_all` (Boolean) Use addpath to advertise all paths to a neighbor
+- `addpath_tx_per_as` (Boolean) Use addpath to advertise the bestpath per each neighboring AS
+- `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--allowas_in))
+- `as_override` (Boolean) Override ASN in outbound updates to configured neighbor local-as
+- `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--attribute_unchanged))
+- `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--conditionally_advertise))
+- `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--disable_send_community))
+- `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--distribute_list))
+- `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--filter_list))
+- `maximum_prefix` (Number) Maximum number of prefixes to accept from this peer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
+- `maximum_prefix_out` (Number) Maximum number of prefixes to be sent to this peer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-4294967295  &emsp; |  Prefix limit  |
+- `nexthop_local` (Attributes) Nexthop attributes (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--nexthop_local))
+- `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--nexthop_self))
+- `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--prefix_list))
+- `remove_private_as` (Attributes) Remove private AS numbers from AS path in outbound route updates (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--remove_private_as))
+- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--route_map))
+- `route_reflector_client` (Boolean) Peer is a route reflector client
+- `route_server_client` (Boolean) Peer is a route server client
+- `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--address_family--ipv6_vpn--soft_reconfiguration))
+- `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+- `weight` (Number) Default weight for routes from this peer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-65535  &emsp; |  Default weight  |
+
+<a id="nestedatt--address_family--ipv6_vpn--allowas_in"></a>
+### Nested Schema for `address_family.ipv6_vpn.allowas_in`
+
+Optional:
+
+- `number` (Number) Number of occurrences of AS number
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-10  &emsp; |  Number of times AS is allowed in path  |
+
+
+<a id="nestedatt--address_family--ipv6_vpn--attribute_unchanged"></a>
+### Nested Schema for `address_family.ipv6_vpn.attribute_unchanged`
+
+Optional:
+
+- `as_path` (Boolean) Send AS path unchanged
+- `med` (Boolean) Send multi-exit discriminator unchanged
+- `next_hop` (Boolean) Send nexthop unchanged
+
+
+<a id="nestedatt--address_family--ipv6_vpn--conditionally_advertise"></a>
+### Nested Schema for `address_family.ipv6_vpn.conditionally_advertise`
+
+Optional:
+
+- `advertise_map` (String) Route-map to conditionally advertise routes
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+- `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+- `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+
+
+<a id="nestedatt--address_family--ipv6_vpn--disable_send_community"></a>
+### Nested Schema for `address_family.ipv6_vpn.disable_send_community`
+
+Optional:
+
+- `extended` (Boolean) Disable sending extended community attributes to this peer
+- `standard` (Boolean) Disable sending standard community attributes to this peer
+
+
+<a id="nestedatt--address_family--ipv6_vpn--distribute_list"></a>
+### Nested Schema for `address_family.ipv6_vpn.distribute_list`
+
+Optional:
+
+- `export` (Number) Access-list to filter outgoing route updates to this peer-group
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-65535  &emsp; |  Access-list to filter outgoing route updates to this peer-group  |
+- `import` (Number) Access-list to filter incoming route updates from this peer-group
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-65535  &emsp; |  Access-list to filter incoming route updates from this peer-group  |
+
+
+<a id="nestedatt--address_family--ipv6_vpn--filter_list"></a>
+### Nested Schema for `address_family.ipv6_vpn.filter_list`
+
+Optional:
+
+- `export` (String) As-path-list to filter outgoing route updates to this peer
+- `import` (String) As-path-list to filter incoming route updates from this peer
+
+
+<a id="nestedatt--address_family--ipv6_vpn--nexthop_local"></a>
+### Nested Schema for `address_family.ipv6_vpn.nexthop_local`
+
+Optional:
+
+- `unchanged` (Boolean) Leave link-local nexthop unchanged for this peer
+
+
+<a id="nestedatt--address_family--ipv6_vpn--nexthop_self"></a>
+### Nested Schema for `address_family.ipv6_vpn.nexthop_self`
+
+Optional:
+
+- `force` (Boolean) Set the next hop to self for reflected routes
+
+
+<a id="nestedatt--address_family--ipv6_vpn--prefix_list"></a>
+### Nested Schema for `address_family.ipv6_vpn.prefix_list`
+
+Optional:
+
+- `export` (String) Prefix-list to filter outgoing route updates to this peer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Name of IPv6 prefix-list  |
+- `import` (String) Prefix-list to filter incoming route updates from this peer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Name of IPv6 prefix-list  |
+
+
+<a id="nestedatt--address_family--ipv6_vpn--remove_private_as"></a>
+### Nested Schema for `address_family.ipv6_vpn.remove_private_as`
+
+Optional:
+
+- `all` (Boolean) Remove private AS numbers to all AS numbers in outbound route updates
+
+
+<a id="nestedatt--address_family--ipv6_vpn--route_map"></a>
+### Nested Schema for `address_family.ipv6_vpn.route_map`
+
+Optional:
+
+- `export` (String) Route-map to filter outgoing route updates
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+- `import` (String) Route-map to filter incoming route updates
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+
+
+<a id="nestedatt--address_family--ipv6_vpn--soft_reconfiguration"></a>
+### Nested Schema for `address_family.ipv6_vpn.soft_reconfiguration`
 
 Optional:
 
@@ -650,6 +1492,24 @@ Optional:
 
 - `dynamic` (Boolean) Advertise dynamic capability to this neighbor
 - `extended_nexthop` (Boolean) Advertise extended-nexthop capability to this neighbor
+- `software_version` (Boolean) Advertise Software Version capability to the peer
+
+
+<a id="nestedatt--path_attribute"></a>
+### Nested Schema for `path_attribute`
+
+Optional:
+
+- `discard` (List of Number) Drop specified attributes from incoming UPDATE messages
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-255  &emsp; |  Attribute number  |
+- `treat_as_withdraw` (Number) Treat-as-withdraw any incoming BGP UPDATE messages that contain the specified attribute
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-255  &emsp; |  Attribute number  |
 
 
 <a id="nestedatt--ttl_security"></a>

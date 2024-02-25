@@ -512,7 +512,9 @@
             <description>BGP extended community-list name</description>
           </valueHelp>
           <constraint>
+            <!-- include start from constraint/alpha-numeric-hyphen-underscore.xml.i -->
             <regex>[-_a-zA-Z0-9]+</regex>
+            <!-- include end -->
           </constraint>
           <constraintErrorMessage>Should be an alphanumeric name</constraintErrorMessage>
         </properties>
@@ -609,7 +611,9 @@
             <description>BGP large-community-list name</description>
           </valueHelp>
           <constraint>
+            <!-- include start from constraint/alpha-numeric-hyphen-underscore.xml.i -->
             <regex>[-_a-zA-Z0-9]+</regex>
+            <!-- include end -->
           </constraint>
           <constraintErrorMessage>Should be an alphanumeric name</constraintErrorMessage>
         </properties>
@@ -706,7 +710,9 @@
             <description>Name of IPv4 prefix-list</description>
           </valueHelp>
           <constraint>
+            <!-- include start from constraint/alpha-numeric-hyphen-underscore.xml.i -->
             <regex>[-_a-zA-Z0-9]+</regex>
+            <!-- include end -->
           </constraint>
           <constraintErrorMessage>Name of prefix-list can only contain alpha-numeric letters, hyphen and underscores</constraintErrorMessage>
         </properties>
@@ -822,7 +828,9 @@
             <description>Name of IPv6 prefix-list</description>
           </valueHelp>
           <constraint>
+            <!-- include start from constraint/alpha-numeric-hyphen-underscore.xml.i -->
             <regex>[-_a-zA-Z0-9]+</regex>
+            <!-- include end -->
           </constraint>
           <constraintErrorMessage>Name of prefix-list6 can only contain alpha-numeric letters, hyphen and underscores</constraintErrorMessage>
         </properties>
@@ -938,7 +946,9 @@
             <description>Route map name</description>
           </valueHelp>
           <constraint>
+            <!-- include start from constraint/alpha-numeric-hyphen-underscore-dot.xml.i -->
             <regex>[-_a-zA-Z0-9.]+</regex>
+            <!-- include end -->
           </constraint>
           <constraintErrorMessage>Name of route-map can only contain alpha-numeric letters, hyphen and underscores</constraintErrorMessage>
         </properties>
@@ -1145,8 +1155,8 @@
                         <description>Interface name</description>
                       </valueHelp>
                       <constraint>
-                        <!-- include start from constraint/interface-name.xml.in -->
-                        <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
+                        <!-- include start from constraint/interface-name.xml.i -->
+                        <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
                         <validator name="file-path --lookup-path /sys/class/net --directory"/>
                         <!-- include end -->
                       </constraint>
@@ -1521,8 +1531,66 @@
                         <description>Peer IPv6 address</description>
                       </valueHelp>
                       <constraint>
-                        <validator name="ipv4-address"/>
-                        <validator name="ipv6-address"/>
+                        <validator name="ip-address"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <leafNode name="protocol">
+                    <properties>
+                      <help>Match protocol via which the route was learnt</help>
+                      <completionHelp>
+                        <list>babel bgp connected isis kernel ospf ospfv3 rip ripng static table vnc</list>
+                      </completionHelp>
+                      <valueHelp>
+                        <format>babel</format>
+                        <description>Babel routing protocol (Babel)</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>bgp</format>
+                        <description>Border Gateway Protocol (BGP)</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>connected</format>
+                        <description>Connected routes (directly attached subnet or host)</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>isis</format>
+                        <description>Intermediate System to Intermediate System (IS-IS)</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>kernel</format>
+                        <description>Kernel routes</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ospf</format>
+                        <description>Open Shortest Path First (OSPFv2)</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ospfv3</format>
+                        <description>Open Shortest Path First (IPv6) (OSPFv3)</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>rip</format>
+                        <description>Routing Information Protocol (RIP)</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ripng</format>
+                        <description>Routing Information Protocol next-generation (IPv6) (RIPng)</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>static</format>
+                        <description>Statically configured routes</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>table</format>
+                        <description>Non-main Kernel Routing Table</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>vnc</format>
+                        <description>Virtual Network Control (VNC)</description>
+                      </valueHelp>
+                      <constraint>
+                        <regex>(babel|bgp|connected|isis|kernel|ospf|ospfv3|rip|ripng|static|table|vnc)</regex>
                       </constraint>
                     </properties>
                   </leafNode>
@@ -1549,9 +1617,10 @@
                       </constraint>
                     </properties>
                   </leafNode>
+                  <!-- include start from policy/tag.xml.i -->
                   <leafNode name="tag">
                     <properties>
-                      <help>Route tag to match</help>
+                      <help>Route tag value</help>
                       <valueHelp>
                         <format>u32:1-65535</format>
                         <description>Route tag</description>
@@ -1561,6 +1630,7 @@
                       </constraint>
                     </properties>
                   </leafNode>
+                  <!-- include end -->
                 </children>
               </node>
               <node name="on-match">
@@ -2199,9 +2269,18 @@
                         <format>u32:0-4294967295</format>
                         <description>Metric value</description>
                       </valueHelp>
+                      <valueHelp>
+                        <format>&lt;+/-rtt&gt;</format>
+                        <description>Add or subtract round trip time</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>&lt;rtt&gt;</format>
+                        <description>Round trip time</description>
+                      </valueHelp>
                       <constraint>
                         <validator name="numeric" argument="--relative --"/>
                         <validator name="numeric" argument="--range 0-4294967295"/>
+                        <regex>^[+|-]?rtt$</regex>
                       </constraint>
                     </properties>
                   </leafNode>
@@ -2274,8 +2353,7 @@
                         <description>IPv6 address</description>
                       </valueHelp>
                       <constraint>
-                        <validator name="ipv4-address"/>
-                        <validator name="ipv6-address"/>
+                        <validator name="ip-address"/>
                       </constraint>
                     </properties>
                   </leafNode>
@@ -2291,18 +2369,20 @@
                       </constraint>
                     </properties>
                   </leafNode>
+                  <!-- include start from policy/tag.xml.i -->
                   <leafNode name="tag">
                     <properties>
-                      <help>Tag value for routing protocol</help>
+                      <help>Route tag value</help>
                       <valueHelp>
                         <format>u32:1-65535</format>
-                        <description>Tag value</description>
+                        <description>Route tag</description>
                       </valueHelp>
                       <constraint>
                         <validator name="numeric" argument="--range 1-65535"/>
                       </constraint>
                     </properties>
                   </leafNode>
+                  <!-- include end -->
                   <leafNode name="weight">
                     <properties>
                       <help>BGP weight attribute</help>

@@ -16,6 +16,7 @@ type PolicyRouteMapRuleMatch struct {
 	LeafPolicyRouteMapRuleMatchMetric          types.Number `tfsdk:"metric" vyos:"metric,omitempty"`
 	LeafPolicyRouteMapRuleMatchOrigin          types.String `tfsdk:"origin" vyos:"origin,omitempty"`
 	LeafPolicyRouteMapRuleMatchPeer            types.String `tfsdk:"peer" vyos:"peer,omitempty"`
+	LeafPolicyRouteMapRuleMatchProtocol        types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 	LeafPolicyRouteMapRuleMatchRpki            types.String `tfsdk:"rpki" vyos:"rpki,omitempty"`
 	LeafPolicyRouteMapRuleMatchTag             types.Number `tfsdk:"tag" vyos:"tag,omitempty"`
 
@@ -106,6 +107,28 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 `,
 		},
 
+		"protocol": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Match protocol via which the route was learnt
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  babel  &emsp; |  Babel routing protocol (Babel)  |
+    |  bgp  &emsp; |  Border Gateway Protocol (BGP)  |
+    |  connected  &emsp; |  Connected routes (directly attached subnet or host)  |
+    |  isis  &emsp; |  Intermediate System to Intermediate System (IS-IS)  |
+    |  kernel  &emsp; |  Kernel routes  |
+    |  ospf  &emsp; |  Open Shortest Path First (OSPFv2)  |
+    |  ospfv3  &emsp; |  Open Shortest Path First (IPv6) (OSPFv3)  |
+    |  rip  &emsp; |  Routing Information Protocol (RIP)  |
+    |  ripng  &emsp; |  Routing Information Protocol next-generation (IPv6) (RIPng)  |
+    |  static  &emsp; |  Statically configured routes  |
+    |  table  &emsp; |  Non-main Kernel Routing Table  |
+    |  vnc  &emsp; |  Virtual Network Control (VNC)  |
+
+`,
+		},
+
 		"rpki": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Match RPKI validation result
@@ -121,7 +144,7 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 
 		"tag": schema.NumberAttribute{
 			Optional: true,
-			MarkdownDescription: `Route tag to match
+			MarkdownDescription: `Route tag value
 
     |  Format &emsp; | Description  |
     |----------|---------------|

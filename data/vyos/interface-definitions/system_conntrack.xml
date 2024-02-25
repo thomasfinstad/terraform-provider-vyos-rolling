@@ -1,0 +1,2029 @@
+<?xml version="1.0"?>
+<interfaceDefinition>
+  <node name="system">
+    <children>
+      <node name="conntrack" owner="${vyos_conf_scripts_dir}/system_conntrack.py">
+        <properties>
+          <help>Connection Tracking Engine Options</help>
+          <!-- Before NAT and conntrack-sync are configured -->
+          <priority>218</priority>
+        </properties>
+        <children>
+          <leafNode name="flow-accounting">
+            <properties>
+              <help>Enable connection tracking flow accounting</help>
+              <valueless/>
+            </properties>
+          </leafNode>
+          <leafNode name="expect-table-size">
+            <properties>
+              <help>Size of connection tracking expect table</help>
+              <valueHelp>
+                <format>u32:1-50000000</format>
+                <description>Number of entries allowed in connection tracking expect table</description>
+              </valueHelp>
+              <constraint>
+                <validator name="numeric" argument="--range 1-50000000"/>
+              </constraint>
+            </properties>
+            <defaultValue>2048</defaultValue>
+          </leafNode>
+          <leafNode name="hash-size">
+            <properties>
+              <help>Hash size for connection tracking table</help>
+              <valueHelp>
+                <format>u32:1-50000000</format>
+                <description>Size of hash to use for connection tracking table</description>
+              </valueHelp>
+              <constraint>
+                <validator name="numeric" argument="--range 1-50000000"/>
+              </constraint>
+            </properties>
+            <defaultValue>32768</defaultValue>
+          </leafNode>
+          <node name="ignore">
+            <properties>
+              <help>Customized rules to ignore selective connection tracking</help>
+            </properties>
+            <children>
+              <node name="ipv4">
+                <properties>
+                  <help>IPv4 rules</help>
+                </properties>
+                <children>
+                  <tagNode name="rule">
+                    <properties>
+                      <help>Rule number</help>
+                      <valueHelp>
+                        <format>u32:1-999999</format>
+                        <description>Number of conntrack ignore rule</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-999999"/>
+                      </constraint>
+                      <constraintErrorMessage>Ignore rule number must be between 1 and 999999</constraintErrorMessage>
+                    </properties>
+                    <children>
+                      <!-- include start from generic-description.xml.i -->
+                      <leafNode name="description">
+                        <properties>
+                          <help>Description</help>
+                          <valueHelp>
+                            <format>txt</format>
+                            <description>Description</description>
+                          </valueHelp>
+                          <constraint>
+                            <regex>[[:ascii:]]{0,256}</regex>
+                          </constraint>
+                          <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                        </properties>
+                      </leafNode>
+                      <!-- include end -->
+                      <node name="destination">
+                        <properties>
+                          <help>Destination parameters</help>
+                        </properties>
+                        <children>
+                          <!-- include start from firewall/source-destination-group-ipv4.xml.i -->
+                          <node name="group">
+                            <properties>
+                              <help>Group</help>
+                            </properties>
+                            <children>
+                              <leafNode name="address-group">
+                                <properties>
+                                  <help>Group of addresses</help>
+                                  <completionHelp>
+                                    <path>firewall group address-group</path>
+                                  </completionHelp>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="domain-group">
+                                <properties>
+                                  <help>Group of domains</help>
+                                  <completionHelp>
+                                    <path>firewall group domain-group</path>
+                                  </completionHelp>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="network-group">
+                                <properties>
+                                  <help>Group of networks</help>
+                                  <completionHelp>
+                                    <path>firewall group network-group</path>
+                                  </completionHelp>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="port-group">
+                                <properties>
+                                  <help>Group of ports</help>
+                                  <completionHelp>
+                                    <path>firewall group port-group</path>
+                                  </completionHelp>
+                                </properties>
+                              </leafNode>
+                            </children>
+                          </node>
+                          <!-- include end -->
+                          <!-- include start from nat-address.xml.i -->
+                          <leafNode name="address">
+                            <properties>
+                              <help>IP address, subnet, or range</help>
+                              <valueHelp>
+                                <format>ipv4</format>
+                                <description>IPv4 address to match</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>ipv4net</format>
+                                <description>IPv4 prefix to match</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>ipv4range</format>
+                                <description>IPv4 address range to match</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>!ipv4</format>
+                                <description>Match everything except the specified address</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>!ipv4net</format>
+                                <description>Match everything except the specified prefix</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>!ipv4range</format>
+                                <description>Match everything except the specified range</description>
+                              </valueHelp>
+                              <constraint>
+                                <validator name="ipv4-address"/>
+                                <validator name="ipv4-prefix"/>
+                                <validator name="ipv4-range"/>
+                                <validator name="ipv4-address-exclude"/>
+                                <validator name="ipv4-prefix-exclude"/>
+                                <validator name="ipv4-range-exclude"/>
+                              </constraint>
+                            </properties>
+                          </leafNode>
+                          <!-- include end -->
+                          <!-- include start from nat-port.xml.i -->
+                          <leafNode name="port">
+                            <properties>
+                              <help>Port number</help>
+                              <valueHelp>
+                                <format>txt</format>
+                                <description>Named port (any name in /etc/services, e.g., http)</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>u32:1-65535</format>
+                                <description>Numeric IP port</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>start-end</format>
+                                <description>Numbered port range (e.g. 1001-1005)</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format/>
+                                <description>\n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using '!'.\nFor example: '!22,telnet,http,123,1001-1005'</description>
+                              </valueHelp>
+                              <constraint>
+                                <validator name="port-multi"/>
+                              </constraint>
+                            </properties>
+                          </leafNode>
+                          <!-- include end -->
+                        </children>
+                      </node>
+                      <leafNode name="inbound-interface">
+                        <properties>
+                          <help>Interface to ignore connections tracking on</help>
+                          <completionHelp>
+                            <list>any</list>
+                            <script>${vyos_completion_dir}/list_interfaces</script>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                      <!-- include start from ip-protocol.xml.i -->
+                      <leafNode name="protocol">
+                        <properties>
+                          <help>Protocol</help>
+                          <valueHelp>
+                            <format>txt</format>
+                            <description>Protocol name</description>
+                          </valueHelp>
+                          <completionHelp>
+                            <script>${vyos_completion_dir}/list_protocols.sh</script>
+                          </completionHelp>
+                          <constraint>
+                            <validator name="ip-protocol"/>
+                          </constraint>
+                        </properties>
+                      </leafNode>
+                      <!-- include end from ip-protocol.xml.i -->
+                      <leafNode name="protocol">
+                        <properties>
+                          <help>Protocol to match (protocol name, number, or "all")</help>
+                          <completionHelp>
+                            <script>${vyos_completion_dir}/list_protocols.sh</script>
+                            <list>all tcp_udp</list>
+                          </completionHelp>
+                          <valueHelp>
+                            <format>all</format>
+                            <description>All IP protocols</description>
+                          </valueHelp>
+                          <valueHelp>
+                            <format>tcp_udp</format>
+                            <description>Both TCP and UDP</description>
+                          </valueHelp>
+                          <valueHelp>
+                            <format>u32:0-255</format>
+                            <description>IP protocol number</description>
+                          </valueHelp>
+                          <valueHelp>
+                            <format>&lt;protocol&gt;</format>
+                            <description>IP protocol name</description>
+                          </valueHelp>
+                          <valueHelp>
+                            <format>!&lt;protocol&gt;</format>
+                            <description>IP protocol name</description>
+                          </valueHelp>
+                          <constraint>
+                            <validator name="ip-protocol"/>
+                          </constraint>
+                        </properties>
+                      </leafNode>
+                      <node name="source">
+                        <properties>
+                          <help>Source parameters</help>
+                        </properties>
+                        <children>
+                          <!-- include start from firewall/source-destination-group-ipv4.xml.i -->
+                          <node name="group">
+                            <properties>
+                              <help>Group</help>
+                            </properties>
+                            <children>
+                              <leafNode name="address-group">
+                                <properties>
+                                  <help>Group of addresses</help>
+                                  <completionHelp>
+                                    <path>firewall group address-group</path>
+                                  </completionHelp>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="domain-group">
+                                <properties>
+                                  <help>Group of domains</help>
+                                  <completionHelp>
+                                    <path>firewall group domain-group</path>
+                                  </completionHelp>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="network-group">
+                                <properties>
+                                  <help>Group of networks</help>
+                                  <completionHelp>
+                                    <path>firewall group network-group</path>
+                                  </completionHelp>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="port-group">
+                                <properties>
+                                  <help>Group of ports</help>
+                                  <completionHelp>
+                                    <path>firewall group port-group</path>
+                                  </completionHelp>
+                                </properties>
+                              </leafNode>
+                            </children>
+                          </node>
+                          <!-- include end -->
+                          <!-- include start from nat-address.xml.i -->
+                          <leafNode name="address">
+                            <properties>
+                              <help>IP address, subnet, or range</help>
+                              <valueHelp>
+                                <format>ipv4</format>
+                                <description>IPv4 address to match</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>ipv4net</format>
+                                <description>IPv4 prefix to match</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>ipv4range</format>
+                                <description>IPv4 address range to match</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>!ipv4</format>
+                                <description>Match everything except the specified address</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>!ipv4net</format>
+                                <description>Match everything except the specified prefix</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>!ipv4range</format>
+                                <description>Match everything except the specified range</description>
+                              </valueHelp>
+                              <constraint>
+                                <validator name="ipv4-address"/>
+                                <validator name="ipv4-prefix"/>
+                                <validator name="ipv4-range"/>
+                                <validator name="ipv4-address-exclude"/>
+                                <validator name="ipv4-prefix-exclude"/>
+                                <validator name="ipv4-range-exclude"/>
+                              </constraint>
+                            </properties>
+                          </leafNode>
+                          <!-- include end -->
+                          <!-- include start from nat-port.xml.i -->
+                          <leafNode name="port">
+                            <properties>
+                              <help>Port number</help>
+                              <valueHelp>
+                                <format>txt</format>
+                                <description>Named port (any name in /etc/services, e.g., http)</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>u32:1-65535</format>
+                                <description>Numeric IP port</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>start-end</format>
+                                <description>Numbered port range (e.g. 1001-1005)</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format/>
+                                <description>\n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using '!'.\nFor example: '!22,telnet,http,123,1001-1005'</description>
+                              </valueHelp>
+                              <constraint>
+                                <validator name="port-multi"/>
+                              </constraint>
+                            </properties>
+                          </leafNode>
+                          <!-- include end -->
+                        </children>
+                      </node>
+                      <!-- include start from firewall/tcp-flags.xml.i -->
+                      <node name="tcp">
+                        <properties>
+                          <help>TCP options to match</help>
+                        </properties>
+                        <children>
+                          <node name="flags">
+                            <properties>
+                              <help>TCP flags to match</help>
+                            </properties>
+                            <children>
+                              <leafNode name="syn">
+                                <properties>
+                                  <help>Synchronise flag</help>
+                                  <valueless/>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="ack">
+                                <properties>
+                                  <help>Acknowledge flag</help>
+                                  <valueless/>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="fin">
+                                <properties>
+                                  <help>Finish flag</help>
+                                  <valueless/>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="rst">
+                                <properties>
+                                  <help>Reset flag</help>
+                                  <valueless/>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="urg">
+                                <properties>
+                                  <help>Urgent flag</help>
+                                  <valueless/>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="psh">
+                                <properties>
+                                  <help>Push flag</help>
+                                  <valueless/>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="ecn">
+                                <properties>
+                                  <help>Explicit Congestion Notification flag</help>
+                                  <valueless/>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="cwr">
+                                <properties>
+                                  <help>Congestion Window Reduced flag</help>
+                                  <valueless/>
+                                </properties>
+                              </leafNode>
+                              <node name="not">
+                                <properties>
+                                  <help>Match flags not set</help>
+                                </properties>
+                                <children>
+                                  <leafNode name="syn">
+                                    <properties>
+                                      <help>Synchronise flag</help>
+                                      <valueless/>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="ack">
+                                    <properties>
+                                      <help>Acknowledge flag</help>
+                                      <valueless/>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="fin">
+                                    <properties>
+                                      <help>Finish flag</help>
+                                      <valueless/>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="rst">
+                                    <properties>
+                                      <help>Reset flag</help>
+                                      <valueless/>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="urg">
+                                    <properties>
+                                      <help>Urgent flag</help>
+                                      <valueless/>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="psh">
+                                    <properties>
+                                      <help>Push flag</help>
+                                      <valueless/>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="ecn">
+                                    <properties>
+                                      <help>Explicit Congestion Notification flag</help>
+                                      <valueless/>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="cwr">
+                                    <properties>
+                                      <help>Congestion Window Reduced flag</help>
+                                      <valueless/>
+                                    </properties>
+                                  </leafNode>
+                                </children>
+                              </node>
+                            </children>
+                          </node>
+                        </children>
+                      </node>
+                      <!-- include end -->
+                    </children>
+                  </tagNode>
+                </children>
+              </node>
+              <node name="ipv6">
+                <properties>
+                  <help>IPv6 rules</help>
+                </properties>
+                <children>
+                  <tagNode name="rule">
+                    <properties>
+                      <help>Rule number</help>
+                      <valueHelp>
+                        <format>u32:1-999999</format>
+                        <description>Number of conntrack ignore rule</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-999999"/>
+                      </constraint>
+                      <constraintErrorMessage>Ignore rule number must be between 1 and 999999</constraintErrorMessage>
+                    </properties>
+                    <children>
+                      <!-- include start from generic-description.xml.i -->
+                      <leafNode name="description">
+                        <properties>
+                          <help>Description</help>
+                          <valueHelp>
+                            <format>txt</format>
+                            <description>Description</description>
+                          </valueHelp>
+                          <constraint>
+                            <regex>[[:ascii:]]{0,256}</regex>
+                          </constraint>
+                          <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                        </properties>
+                      </leafNode>
+                      <!-- include end -->
+                      <node name="destination">
+                        <properties>
+                          <help>Destination parameters</help>
+                        </properties>
+                        <children>
+                          <!-- include start from firewall/address-ipv6.xml.i -->
+                          <leafNode name="address">
+                            <properties>
+                              <help>IP address, subnet, or range</help>
+                              <valueHelp>
+                                <format>ipv6</format>
+                                <description>IP address to match</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>ipv6net</format>
+                                <description>Subnet to match</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>ipv6range</format>
+                                <description>IP range to match</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>!ipv6</format>
+                                <description>Match everything except the specified address</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>!ipv6net</format>
+                                <description>Match everything except the specified prefix</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>!ipv6range</format>
+                                <description>Match everything except the specified range</description>
+                              </valueHelp>
+                              <constraint>
+                                <validator name="ipv6"/>
+                                <validator name="ipv6-exclude"/>
+                                <validator name="ipv6-range"/>
+                                <validator name="ipv6-range-exclude"/>
+                              </constraint>
+                            </properties>
+                          </leafNode>
+                          <!-- include end -->
+                          <!-- include start from firewall/source-destination-group-ipv6.xml.i -->
+                          <node name="group">
+                            <properties>
+                              <help>Group</help>
+                            </properties>
+                            <children>
+                              <leafNode name="address-group">
+                                <properties>
+                                  <help>Group of addresses</help>
+                                  <completionHelp>
+                                    <path>firewall group ipv6-address-group</path>
+                                  </completionHelp>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="domain-group">
+                                <properties>
+                                  <help>Group of domains</help>
+                                  <completionHelp>
+                                    <path>firewall group domain-group</path>
+                                  </completionHelp>
+                                </properties>
+                              </leafNode>
+                              <!-- include start from firewall/mac-group.xml.i -->
+                              <leafNode name="mac-group">
+                                <properties>
+                                  <help>Group of MAC addresses</help>
+                                  <completionHelp>
+                                    <path>firewall group mac-group</path>
+                                  </completionHelp>
+                                </properties>
+                              </leafNode>
+                              <!-- include start from firewall/mac-group.xml.i -->
+                              <leafNode name="network-group">
+                                <properties>
+                                  <help>Group of networks</help>
+                                  <completionHelp>
+                                    <path>firewall group ipv6-network-group</path>
+                                  </completionHelp>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="port-group">
+                                <properties>
+                                  <help>Group of ports</help>
+                                  <completionHelp>
+                                    <path>firewall group port-group</path>
+                                  </completionHelp>
+                                </properties>
+                              </leafNode>
+                            </children>
+                          </node>
+                          <!-- include end -->
+                          <!-- include start from nat-port.xml.i -->
+                          <leafNode name="port">
+                            <properties>
+                              <help>Port number</help>
+                              <valueHelp>
+                                <format>txt</format>
+                                <description>Named port (any name in /etc/services, e.g., http)</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>u32:1-65535</format>
+                                <description>Numeric IP port</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>start-end</format>
+                                <description>Numbered port range (e.g. 1001-1005)</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format/>
+                                <description>\n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using '!'.\nFor example: '!22,telnet,http,123,1001-1005'</description>
+                              </valueHelp>
+                              <constraint>
+                                <validator name="port-multi"/>
+                              </constraint>
+                            </properties>
+                          </leafNode>
+                          <!-- include end -->
+                        </children>
+                      </node>
+                      <leafNode name="inbound-interface">
+                        <properties>
+                          <help>Interface to ignore connections tracking on</help>
+                          <completionHelp>
+                            <list>any</list>
+                            <script>${vyos_completion_dir}/list_interfaces</script>
+                          </completionHelp>
+                        </properties>
+                      </leafNode>
+                      <!-- include start from ip-protocol.xml.i -->
+                      <leafNode name="protocol">
+                        <properties>
+                          <help>Protocol</help>
+                          <valueHelp>
+                            <format>txt</format>
+                            <description>Protocol name</description>
+                          </valueHelp>
+                          <completionHelp>
+                            <script>${vyos_completion_dir}/list_protocols.sh</script>
+                          </completionHelp>
+                          <constraint>
+                            <validator name="ip-protocol"/>
+                          </constraint>
+                        </properties>
+                      </leafNode>
+                      <!-- include end from ip-protocol.xml.i -->
+                      <leafNode name="protocol">
+                        <properties>
+                          <help>Protocol to match (protocol name, number, or "all")</help>
+                          <completionHelp>
+                            <script>${vyos_completion_dir}/list_protocols.sh</script>
+                            <list>all tcp_udp</list>
+                          </completionHelp>
+                          <valueHelp>
+                            <format>all</format>
+                            <description>All IP protocols</description>
+                          </valueHelp>
+                          <valueHelp>
+                            <format>tcp_udp</format>
+                            <description>Both TCP and UDP</description>
+                          </valueHelp>
+                          <valueHelp>
+                            <format>u32:0-255</format>
+                            <description>IP protocol number</description>
+                          </valueHelp>
+                          <valueHelp>
+                            <format>&lt;protocol&gt;</format>
+                            <description>IP protocol name</description>
+                          </valueHelp>
+                          <valueHelp>
+                            <format>!&lt;protocol&gt;</format>
+                            <description>IP protocol name</description>
+                          </valueHelp>
+                          <constraint>
+                            <validator name="ip-protocol"/>
+                          </constraint>
+                        </properties>
+                      </leafNode>
+                      <node name="source">
+                        <properties>
+                          <help>Source parameters</help>
+                        </properties>
+                        <children>
+                          <!-- include start from firewall/address-ipv6.xml.i -->
+                          <leafNode name="address">
+                            <properties>
+                              <help>IP address, subnet, or range</help>
+                              <valueHelp>
+                                <format>ipv6</format>
+                                <description>IP address to match</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>ipv6net</format>
+                                <description>Subnet to match</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>ipv6range</format>
+                                <description>IP range to match</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>!ipv6</format>
+                                <description>Match everything except the specified address</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>!ipv6net</format>
+                                <description>Match everything except the specified prefix</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>!ipv6range</format>
+                                <description>Match everything except the specified range</description>
+                              </valueHelp>
+                              <constraint>
+                                <validator name="ipv6"/>
+                                <validator name="ipv6-exclude"/>
+                                <validator name="ipv6-range"/>
+                                <validator name="ipv6-range-exclude"/>
+                              </constraint>
+                            </properties>
+                          </leafNode>
+                          <!-- include end -->
+                          <!-- include start from firewall/source-destination-group-ipv6.xml.i -->
+                          <node name="group">
+                            <properties>
+                              <help>Group</help>
+                            </properties>
+                            <children>
+                              <leafNode name="address-group">
+                                <properties>
+                                  <help>Group of addresses</help>
+                                  <completionHelp>
+                                    <path>firewall group ipv6-address-group</path>
+                                  </completionHelp>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="domain-group">
+                                <properties>
+                                  <help>Group of domains</help>
+                                  <completionHelp>
+                                    <path>firewall group domain-group</path>
+                                  </completionHelp>
+                                </properties>
+                              </leafNode>
+                              <!-- include start from firewall/mac-group.xml.i -->
+                              <leafNode name="mac-group">
+                                <properties>
+                                  <help>Group of MAC addresses</help>
+                                  <completionHelp>
+                                    <path>firewall group mac-group</path>
+                                  </completionHelp>
+                                </properties>
+                              </leafNode>
+                              <!-- include start from firewall/mac-group.xml.i -->
+                              <leafNode name="network-group">
+                                <properties>
+                                  <help>Group of networks</help>
+                                  <completionHelp>
+                                    <path>firewall group ipv6-network-group</path>
+                                  </completionHelp>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="port-group">
+                                <properties>
+                                  <help>Group of ports</help>
+                                  <completionHelp>
+                                    <path>firewall group port-group</path>
+                                  </completionHelp>
+                                </properties>
+                              </leafNode>
+                            </children>
+                          </node>
+                          <!-- include end -->
+                          <!-- include start from nat-port.xml.i -->
+                          <leafNode name="port">
+                            <properties>
+                              <help>Port number</help>
+                              <valueHelp>
+                                <format>txt</format>
+                                <description>Named port (any name in /etc/services, e.g., http)</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>u32:1-65535</format>
+                                <description>Numeric IP port</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format>start-end</format>
+                                <description>Numbered port range (e.g. 1001-1005)</description>
+                              </valueHelp>
+                              <valueHelp>
+                                <format/>
+                                <description>\n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using '!'.\nFor example: '!22,telnet,http,123,1001-1005'</description>
+                              </valueHelp>
+                              <constraint>
+                                <validator name="port-multi"/>
+                              </constraint>
+                            </properties>
+                          </leafNode>
+                          <!-- include end -->
+                        </children>
+                      </node>
+                      <!-- include start from firewall/tcp-flags.xml.i -->
+                      <node name="tcp">
+                        <properties>
+                          <help>TCP options to match</help>
+                        </properties>
+                        <children>
+                          <node name="flags">
+                            <properties>
+                              <help>TCP flags to match</help>
+                            </properties>
+                            <children>
+                              <leafNode name="syn">
+                                <properties>
+                                  <help>Synchronise flag</help>
+                                  <valueless/>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="ack">
+                                <properties>
+                                  <help>Acknowledge flag</help>
+                                  <valueless/>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="fin">
+                                <properties>
+                                  <help>Finish flag</help>
+                                  <valueless/>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="rst">
+                                <properties>
+                                  <help>Reset flag</help>
+                                  <valueless/>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="urg">
+                                <properties>
+                                  <help>Urgent flag</help>
+                                  <valueless/>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="psh">
+                                <properties>
+                                  <help>Push flag</help>
+                                  <valueless/>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="ecn">
+                                <properties>
+                                  <help>Explicit Congestion Notification flag</help>
+                                  <valueless/>
+                                </properties>
+                              </leafNode>
+                              <leafNode name="cwr">
+                                <properties>
+                                  <help>Congestion Window Reduced flag</help>
+                                  <valueless/>
+                                </properties>
+                              </leafNode>
+                              <node name="not">
+                                <properties>
+                                  <help>Match flags not set</help>
+                                </properties>
+                                <children>
+                                  <leafNode name="syn">
+                                    <properties>
+                                      <help>Synchronise flag</help>
+                                      <valueless/>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="ack">
+                                    <properties>
+                                      <help>Acknowledge flag</help>
+                                      <valueless/>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="fin">
+                                    <properties>
+                                      <help>Finish flag</help>
+                                      <valueless/>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="rst">
+                                    <properties>
+                                      <help>Reset flag</help>
+                                      <valueless/>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="urg">
+                                    <properties>
+                                      <help>Urgent flag</help>
+                                      <valueless/>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="psh">
+                                    <properties>
+                                      <help>Push flag</help>
+                                      <valueless/>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="ecn">
+                                    <properties>
+                                      <help>Explicit Congestion Notification flag</help>
+                                      <valueless/>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="cwr">
+                                    <properties>
+                                      <help>Congestion Window Reduced flag</help>
+                                      <valueless/>
+                                    </properties>
+                                  </leafNode>
+                                </children>
+                              </node>
+                            </children>
+                          </node>
+                        </children>
+                      </node>
+                      <!-- include end -->
+                    </children>
+                  </tagNode>
+                </children>
+              </node>
+            </children>
+          </node>
+          <node name="log">
+            <properties>
+              <help>Log connection tracking events per protocol</help>
+            </properties>
+            <children>
+              <node name="icmp">
+                <properties>
+                  <help>Log connection tracking events for ICMP</help>
+                </properties>
+                <children>
+                  <!-- include start from conntrack/log-common.xml.i -->
+                  <leafNode name="destroy">
+                    <properties>
+                      <help>Log connection deletion</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <leafNode name="new">
+                    <properties>
+                      <help>Log connection creation</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <leafNode name="update">
+                    <properties>
+                      <help>Log connection updates</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                </children>
+              </node>
+              <node name="other">
+                <properties>
+                  <help>Log connection tracking events for all protocols other than TCP, UDP and ICMP</help>
+                </properties>
+                <children>
+                  <!-- include start from conntrack/log-common.xml.i -->
+                  <leafNode name="destroy">
+                    <properties>
+                      <help>Log connection deletion</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <leafNode name="new">
+                    <properties>
+                      <help>Log connection creation</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <leafNode name="update">
+                    <properties>
+                      <help>Log connection updates</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                </children>
+              </node>
+              <node name="tcp">
+                <properties>
+                  <help>Log connection tracking events for TCP</help>
+                </properties>
+                <children>
+                  <!-- include start from conntrack/log-common.xml.i -->
+                  <leafNode name="destroy">
+                    <properties>
+                      <help>Log connection deletion</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <leafNode name="new">
+                    <properties>
+                      <help>Log connection creation</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <leafNode name="update">
+                    <properties>
+                      <help>Log connection updates</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                </children>
+              </node>
+              <node name="udp">
+                <properties>
+                  <help>Log connection tracking events for UDP</help>
+                </properties>
+                <children>
+                  <!-- include start from conntrack/log-common.xml.i -->
+                  <leafNode name="destroy">
+                    <properties>
+                      <help>Log connection deletion</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <leafNode name="new">
+                    <properties>
+                      <help>Log connection creation</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <leafNode name="update">
+                    <properties>
+                      <help>Log connection updates</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                </children>
+              </node>
+            </children>
+          </node>
+          <node name="modules">
+            <properties>
+              <help>Connection tracking modules</help>
+            </properties>
+            <children>
+              <leafNode name="ftp">
+                <properties>
+                  <help>FTP connection tracking</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <leafNode name="h323">
+                <properties>
+                  <help>H.323 connection tracking</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <leafNode name="nfs">
+                <properties>
+                  <help>NFS connection tracking</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <leafNode name="pptp">
+                <properties>
+                  <help>PPTP connection tracking</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <leafNode name="sip">
+                <properties>
+                  <help>SIP connection tracking</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <leafNode name="sqlnet">
+                <properties>
+                  <help>SQLnet connection tracking</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <leafNode name="tftp">
+                <properties>
+                  <help>TFTP connection tracking</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+            </children>
+          </node>
+          <leafNode name="table-size">
+            <properties>
+              <help>Size of connection tracking table</help>
+              <valueHelp>
+                <format>u32:1-50000000</format>
+                <description>Number of entries allowed in connection tracking table</description>
+              </valueHelp>
+              <constraint>
+                <validator name="numeric" argument="--range 1-50000000"/>
+              </constraint>
+            </properties>
+            <defaultValue>262144</defaultValue>
+          </leafNode>
+          <node name="tcp">
+            <properties>
+              <help>TCP options</help>
+            </properties>
+            <children>
+              <leafNode name="half-open-connections">
+                <properties>
+                  <help>Maximum number of TCP half-open connections</help>
+                  <valueHelp>
+                    <format>u32:1-2147483647</format>
+                    <description>Generic connection timeout in seconds</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="numeric" argument="--range 1-2147483647"/>
+                  </constraint>
+                </properties>
+                <defaultValue>512</defaultValue>
+              </leafNode>
+              <leafNode name="loose">
+                <properties>
+                  <help>Policy to track previously established connections</help>
+                  <completionHelp>
+                    <list>enable disable</list>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>enable</format>
+                    <description>Allow tracking of previously established connections</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>disable</format>
+                    <description>Do not allow tracking of previously established connections</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>(enable|disable)</regex>
+                  </constraint>
+                </properties>
+                <defaultValue>enable</defaultValue>
+              </leafNode>
+              <leafNode name="max-retrans">
+                <properties>
+                  <help>Maximum number of packets that can be retransmitted without received an ACK</help>
+                  <valueHelp>
+                    <format>u32:1-255</format>
+                    <description>Number of packets to be retransmitted</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="numeric" argument="--range 1-255"/>
+                  </constraint>
+                </properties>
+                <defaultValue>3</defaultValue>
+              </leafNode>
+            </children>
+          </node>
+          <node name="timeout">
+            <properties>
+              <help>Connection timeout options</help>
+            </properties>
+            <children>
+              <node name="custom">
+                <properties>
+                  <help>Define custom timeouts per connection</help>
+                </properties>
+                <children>
+                  <node name="ipv4">
+                    <properties>
+                      <help>IPv4 rules</help>
+                    </properties>
+                    <children>
+                      <tagNode name="rule">
+                        <properties>
+                          <help>Rule number</help>
+                          <valueHelp>
+                            <format>u32:1-999999</format>
+                            <description>Number of conntrack rule</description>
+                          </valueHelp>
+                          <constraint>
+                            <validator name="numeric" argument="--range 1-999999"/>
+                          </constraint>
+                          <constraintErrorMessage>Ignore rule number must be between 1 and 999999</constraintErrorMessage>
+                        </properties>
+                        <children>
+                          <!-- include start from generic-description.xml.i -->
+                          <leafNode name="description">
+                            <properties>
+                              <help>Description</help>
+                              <valueHelp>
+                                <format>txt</format>
+                                <description>Description</description>
+                              </valueHelp>
+                              <constraint>
+                                <regex>[[:ascii:]]{0,256}</regex>
+                              </constraint>
+                              <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                            </properties>
+                          </leafNode>
+                          <!-- include end -->
+                          <node name="destination">
+                            <properties>
+                              <help>Destination parameters</help>
+                            </properties>
+                            <children>
+                              <!-- include start from nat-address.xml.i -->
+                              <leafNode name="address">
+                                <properties>
+                                  <help>IP address, subnet, or range</help>
+                                  <valueHelp>
+                                    <format>ipv4</format>
+                                    <description>IPv4 address to match</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>ipv4net</format>
+                                    <description>IPv4 prefix to match</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>ipv4range</format>
+                                    <description>IPv4 address range to match</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>!ipv4</format>
+                                    <description>Match everything except the specified address</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>!ipv4net</format>
+                                    <description>Match everything except the specified prefix</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>!ipv4range</format>
+                                    <description>Match everything except the specified range</description>
+                                  </valueHelp>
+                                  <constraint>
+                                    <validator name="ipv4-address"/>
+                                    <validator name="ipv4-prefix"/>
+                                    <validator name="ipv4-range"/>
+                                    <validator name="ipv4-address-exclude"/>
+                                    <validator name="ipv4-prefix-exclude"/>
+                                    <validator name="ipv4-range-exclude"/>
+                                  </constraint>
+                                </properties>
+                              </leafNode>
+                              <!-- include end -->
+                              <!-- include start from nat-port.xml.i -->
+                              <leafNode name="port">
+                                <properties>
+                                  <help>Port number</help>
+                                  <valueHelp>
+                                    <format>txt</format>
+                                    <description>Named port (any name in /etc/services, e.g., http)</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>u32:1-65535</format>
+                                    <description>Numeric IP port</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>start-end</format>
+                                    <description>Numbered port range (e.g. 1001-1005)</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format/>
+                                    <description>\n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using '!'.\nFor example: '!22,telnet,http,123,1001-1005'</description>
+                                  </valueHelp>
+                                  <constraint>
+                                    <validator name="port-multi"/>
+                                  </constraint>
+                                </properties>
+                              </leafNode>
+                              <!-- include end -->
+                            </children>
+                          </node>
+                          <leafNode name="inbound-interface">
+                            <properties>
+                              <help>Interface to ignore connections tracking on</help>
+                              <completionHelp>
+                                <list>any</list>
+                                <script>${vyos_completion_dir}/list_interfaces</script>
+                              </completionHelp>
+                            </properties>
+                          </leafNode>
+                          <node name="protocol">
+                            <properties>
+                              <help>Customize protocol specific timers, one protocol configuration per rule</help>
+                            </properties>
+                            <children>
+                              <!-- include start from conntrack/timeout-custom-protocols.xml.i -->
+                              <node name="tcp">
+                                <properties>
+                                  <help>TCP connection timeout options</help>
+                                </properties>
+                                <children>
+                                  <leafNode name="close-wait">
+                                    <properties>
+                                      <help>TCP CLOSE-WAIT timeout in seconds</help>
+                                      <valueHelp>
+                                        <format>u32:1-21474836</format>
+                                        <description>TCP CLOSE-WAIT timeout in seconds</description>
+                                      </valueHelp>
+                                      <constraint>
+                                        <validator name="numeric" argument="--range 1-21474836"/>
+                                      </constraint>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="close">
+                                    <properties>
+                                      <help>TCP CLOSE timeout in seconds</help>
+                                      <valueHelp>
+                                        <format>u32:1-21474836</format>
+                                        <description>TCP CLOSE timeout in seconds</description>
+                                      </valueHelp>
+                                      <constraint>
+                                        <validator name="numeric" argument="--range 1-21474836"/>
+                                      </constraint>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="established">
+                                    <properties>
+                                      <help>TCP ESTABLISHED timeout in seconds</help>
+                                      <valueHelp>
+                                        <format>u32:1-21474836</format>
+                                        <description>TCP ESTABLISHED timeout in seconds</description>
+                                      </valueHelp>
+                                      <constraint>
+                                        <validator name="numeric" argument="--range 1-21474836"/>
+                                      </constraint>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="fin-wait">
+                                    <properties>
+                                      <help>TCP FIN-WAIT timeout in seconds</help>
+                                      <valueHelp>
+                                        <format>u32:1-21474836</format>
+                                        <description>TCP FIN-WAIT timeout in seconds</description>
+                                      </valueHelp>
+                                      <constraint>
+                                        <validator name="numeric" argument="--range 1-21474836"/>
+                                      </constraint>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="last-ack">
+                                    <properties>
+                                      <help>TCP LAST-ACK timeout in seconds</help>
+                                      <valueHelp>
+                                        <format>u32:1-21474836</format>
+                                        <description>TCP LAST-ACK timeout in seconds</description>
+                                      </valueHelp>
+                                      <constraint>
+                                        <validator name="numeric" argument="--range 1-21474836"/>
+                                      </constraint>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="syn-recv">
+                                    <properties>
+                                      <help>TCP SYN-RECEIVED timeout in seconds</help>
+                                      <valueHelp>
+                                        <format>u32:1-21474836</format>
+                                        <description>TCP SYN-RECEIVED timeout in seconds</description>
+                                      </valueHelp>
+                                      <constraint>
+                                        <validator name="numeric" argument="--range 1-21474836"/>
+                                      </constraint>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="syn-sent">
+                                    <properties>
+                                      <help>TCP SYN-SENT timeout in seconds</help>
+                                      <valueHelp>
+                                        <format>u32:1-21474836</format>
+                                        <description>TCP SYN-SENT timeout in seconds</description>
+                                      </valueHelp>
+                                      <constraint>
+                                        <validator name="numeric" argument="--range 1-21474836"/>
+                                      </constraint>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="time-wait">
+                                    <properties>
+                                      <help>TCP TIME-WAIT timeout in seconds</help>
+                                      <valueHelp>
+                                        <format>u32:1-21474836</format>
+                                        <description>TCP TIME-WAIT timeout in seconds</description>
+                                      </valueHelp>
+                                      <constraint>
+                                        <validator name="numeric" argument="--range 1-21474836"/>
+                                      </constraint>
+                                    </properties>
+                                  </leafNode>
+                                </children>
+                              </node>
+                              <node name="udp">
+                                <properties>
+                                  <help>UDP timeout options</help>
+                                </properties>
+                                <children>
+                                  <leafNode name="replied">
+                                    <properties>
+                                      <help>Timeout for UDP connection seen in both directions</help>
+                                      <valueHelp>
+                                        <format>u32:1-21474836</format>
+                                        <description>Timeout for UDP connection seen in both directions</description>
+                                      </valueHelp>
+                                      <constraint>
+                                        <validator name="numeric" argument="--range 1-21474836"/>
+                                      </constraint>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="unreplied">
+                                    <properties>
+                                      <help>Timeout for unreplied UDP</help>
+                                      <valueHelp>
+                                        <format>u32:1-21474836</format>
+                                        <description>Timeout for unreplied UDP</description>
+                                      </valueHelp>
+                                      <constraint>
+                                        <validator name="numeric" argument="--range 1-21474836"/>
+                                      </constraint>
+                                    </properties>
+                                  </leafNode>
+                                </children>
+                              </node>
+                              <!-- include end -->
+                            </children>
+                          </node>
+                          <node name="source">
+                            <properties>
+                              <help>Source parameters</help>
+                            </properties>
+                            <children>
+                              <!-- include start from nat-address.xml.i -->
+                              <leafNode name="address">
+                                <properties>
+                                  <help>IP address, subnet, or range</help>
+                                  <valueHelp>
+                                    <format>ipv4</format>
+                                    <description>IPv4 address to match</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>ipv4net</format>
+                                    <description>IPv4 prefix to match</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>ipv4range</format>
+                                    <description>IPv4 address range to match</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>!ipv4</format>
+                                    <description>Match everything except the specified address</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>!ipv4net</format>
+                                    <description>Match everything except the specified prefix</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>!ipv4range</format>
+                                    <description>Match everything except the specified range</description>
+                                  </valueHelp>
+                                  <constraint>
+                                    <validator name="ipv4-address"/>
+                                    <validator name="ipv4-prefix"/>
+                                    <validator name="ipv4-range"/>
+                                    <validator name="ipv4-address-exclude"/>
+                                    <validator name="ipv4-prefix-exclude"/>
+                                    <validator name="ipv4-range-exclude"/>
+                                  </constraint>
+                                </properties>
+                              </leafNode>
+                              <!-- include end -->
+                              <!-- include start from nat-port.xml.i -->
+                              <leafNode name="port">
+                                <properties>
+                                  <help>Port number</help>
+                                  <valueHelp>
+                                    <format>txt</format>
+                                    <description>Named port (any name in /etc/services, e.g., http)</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>u32:1-65535</format>
+                                    <description>Numeric IP port</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>start-end</format>
+                                    <description>Numbered port range (e.g. 1001-1005)</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format/>
+                                    <description>\n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using '!'.\nFor example: '!22,telnet,http,123,1001-1005'</description>
+                                  </valueHelp>
+                                  <constraint>
+                                    <validator name="port-multi"/>
+                                  </constraint>
+                                </properties>
+                              </leafNode>
+                              <!-- include end -->
+                            </children>
+                          </node>
+                        </children>
+                      </tagNode>
+                    </children>
+                  </node>
+                  <node name="ipv6">
+                    <properties>
+                      <help>IPv6 rules</help>
+                    </properties>
+                    <children>
+                      <tagNode name="rule">
+                        <properties>
+                          <help>Rule number</help>
+                          <valueHelp>
+                            <format>u32:1-999999</format>
+                            <description>Number of conntrack rule</description>
+                          </valueHelp>
+                          <constraint>
+                            <validator name="numeric" argument="--range 1-999999"/>
+                          </constraint>
+                          <constraintErrorMessage>Ignore rule number must be between 1 and 999999</constraintErrorMessage>
+                        </properties>
+                        <children>
+                          <!-- include start from generic-description.xml.i -->
+                          <leafNode name="description">
+                            <properties>
+                              <help>Description</help>
+                              <valueHelp>
+                                <format>txt</format>
+                                <description>Description</description>
+                              </valueHelp>
+                              <constraint>
+                                <regex>[[:ascii:]]{0,256}</regex>
+                              </constraint>
+                              <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                            </properties>
+                          </leafNode>
+                          <!-- include end -->
+                          <node name="destination">
+                            <properties>
+                              <help>Destination parameters</help>
+                            </properties>
+                            <children>
+                              <!-- include start from firewall/address-ipv6.xml.i -->
+                              <leafNode name="address">
+                                <properties>
+                                  <help>IP address, subnet, or range</help>
+                                  <valueHelp>
+                                    <format>ipv6</format>
+                                    <description>IP address to match</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>ipv6net</format>
+                                    <description>Subnet to match</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>ipv6range</format>
+                                    <description>IP range to match</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>!ipv6</format>
+                                    <description>Match everything except the specified address</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>!ipv6net</format>
+                                    <description>Match everything except the specified prefix</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>!ipv6range</format>
+                                    <description>Match everything except the specified range</description>
+                                  </valueHelp>
+                                  <constraint>
+                                    <validator name="ipv6"/>
+                                    <validator name="ipv6-exclude"/>
+                                    <validator name="ipv6-range"/>
+                                    <validator name="ipv6-range-exclude"/>
+                                  </constraint>
+                                </properties>
+                              </leafNode>
+                              <!-- include end -->
+                              <!-- include start from nat-port.xml.i -->
+                              <leafNode name="port">
+                                <properties>
+                                  <help>Port number</help>
+                                  <valueHelp>
+                                    <format>txt</format>
+                                    <description>Named port (any name in /etc/services, e.g., http)</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>u32:1-65535</format>
+                                    <description>Numeric IP port</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>start-end</format>
+                                    <description>Numbered port range (e.g. 1001-1005)</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format/>
+                                    <description>\n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using '!'.\nFor example: '!22,telnet,http,123,1001-1005'</description>
+                                  </valueHelp>
+                                  <constraint>
+                                    <validator name="port-multi"/>
+                                  </constraint>
+                                </properties>
+                              </leafNode>
+                              <!-- include end -->
+                            </children>
+                          </node>
+                          <leafNode name="inbound-interface">
+                            <properties>
+                              <help>Interface to ignore connections tracking on</help>
+                              <completionHelp>
+                                <list>any</list>
+                                <script>${vyos_completion_dir}/list_interfaces</script>
+                              </completionHelp>
+                            </properties>
+                          </leafNode>
+                          <node name="protocol">
+                            <properties>
+                              <help>Customize protocol specific timers, one protocol configuration per rule</help>
+                            </properties>
+                            <children>
+                              <!-- include start from conntrack/timeout-custom-protocols.xml.i -->
+                              <node name="tcp">
+                                <properties>
+                                  <help>TCP connection timeout options</help>
+                                </properties>
+                                <children>
+                                  <leafNode name="close-wait">
+                                    <properties>
+                                      <help>TCP CLOSE-WAIT timeout in seconds</help>
+                                      <valueHelp>
+                                        <format>u32:1-21474836</format>
+                                        <description>TCP CLOSE-WAIT timeout in seconds</description>
+                                      </valueHelp>
+                                      <constraint>
+                                        <validator name="numeric" argument="--range 1-21474836"/>
+                                      </constraint>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="close">
+                                    <properties>
+                                      <help>TCP CLOSE timeout in seconds</help>
+                                      <valueHelp>
+                                        <format>u32:1-21474836</format>
+                                        <description>TCP CLOSE timeout in seconds</description>
+                                      </valueHelp>
+                                      <constraint>
+                                        <validator name="numeric" argument="--range 1-21474836"/>
+                                      </constraint>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="established">
+                                    <properties>
+                                      <help>TCP ESTABLISHED timeout in seconds</help>
+                                      <valueHelp>
+                                        <format>u32:1-21474836</format>
+                                        <description>TCP ESTABLISHED timeout in seconds</description>
+                                      </valueHelp>
+                                      <constraint>
+                                        <validator name="numeric" argument="--range 1-21474836"/>
+                                      </constraint>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="fin-wait">
+                                    <properties>
+                                      <help>TCP FIN-WAIT timeout in seconds</help>
+                                      <valueHelp>
+                                        <format>u32:1-21474836</format>
+                                        <description>TCP FIN-WAIT timeout in seconds</description>
+                                      </valueHelp>
+                                      <constraint>
+                                        <validator name="numeric" argument="--range 1-21474836"/>
+                                      </constraint>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="last-ack">
+                                    <properties>
+                                      <help>TCP LAST-ACK timeout in seconds</help>
+                                      <valueHelp>
+                                        <format>u32:1-21474836</format>
+                                        <description>TCP LAST-ACK timeout in seconds</description>
+                                      </valueHelp>
+                                      <constraint>
+                                        <validator name="numeric" argument="--range 1-21474836"/>
+                                      </constraint>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="syn-recv">
+                                    <properties>
+                                      <help>TCP SYN-RECEIVED timeout in seconds</help>
+                                      <valueHelp>
+                                        <format>u32:1-21474836</format>
+                                        <description>TCP SYN-RECEIVED timeout in seconds</description>
+                                      </valueHelp>
+                                      <constraint>
+                                        <validator name="numeric" argument="--range 1-21474836"/>
+                                      </constraint>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="syn-sent">
+                                    <properties>
+                                      <help>TCP SYN-SENT timeout in seconds</help>
+                                      <valueHelp>
+                                        <format>u32:1-21474836</format>
+                                        <description>TCP SYN-SENT timeout in seconds</description>
+                                      </valueHelp>
+                                      <constraint>
+                                        <validator name="numeric" argument="--range 1-21474836"/>
+                                      </constraint>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="time-wait">
+                                    <properties>
+                                      <help>TCP TIME-WAIT timeout in seconds</help>
+                                      <valueHelp>
+                                        <format>u32:1-21474836</format>
+                                        <description>TCP TIME-WAIT timeout in seconds</description>
+                                      </valueHelp>
+                                      <constraint>
+                                        <validator name="numeric" argument="--range 1-21474836"/>
+                                      </constraint>
+                                    </properties>
+                                  </leafNode>
+                                </children>
+                              </node>
+                              <node name="udp">
+                                <properties>
+                                  <help>UDP timeout options</help>
+                                </properties>
+                                <children>
+                                  <leafNode name="replied">
+                                    <properties>
+                                      <help>Timeout for UDP connection seen in both directions</help>
+                                      <valueHelp>
+                                        <format>u32:1-21474836</format>
+                                        <description>Timeout for UDP connection seen in both directions</description>
+                                      </valueHelp>
+                                      <constraint>
+                                        <validator name="numeric" argument="--range 1-21474836"/>
+                                      </constraint>
+                                    </properties>
+                                  </leafNode>
+                                  <leafNode name="unreplied">
+                                    <properties>
+                                      <help>Timeout for unreplied UDP</help>
+                                      <valueHelp>
+                                        <format>u32:1-21474836</format>
+                                        <description>Timeout for unreplied UDP</description>
+                                      </valueHelp>
+                                      <constraint>
+                                        <validator name="numeric" argument="--range 1-21474836"/>
+                                      </constraint>
+                                    </properties>
+                                  </leafNode>
+                                </children>
+                              </node>
+                              <!-- include end -->
+                            </children>
+                          </node>
+                          <node name="source">
+                            <properties>
+                              <help>Source parameters</help>
+                            </properties>
+                            <children>
+                              <!-- include start from firewall/address-ipv6.xml.i -->
+                              <leafNode name="address">
+                                <properties>
+                                  <help>IP address, subnet, or range</help>
+                                  <valueHelp>
+                                    <format>ipv6</format>
+                                    <description>IP address to match</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>ipv6net</format>
+                                    <description>Subnet to match</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>ipv6range</format>
+                                    <description>IP range to match</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>!ipv6</format>
+                                    <description>Match everything except the specified address</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>!ipv6net</format>
+                                    <description>Match everything except the specified prefix</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>!ipv6range</format>
+                                    <description>Match everything except the specified range</description>
+                                  </valueHelp>
+                                  <constraint>
+                                    <validator name="ipv6"/>
+                                    <validator name="ipv6-exclude"/>
+                                    <validator name="ipv6-range"/>
+                                    <validator name="ipv6-range-exclude"/>
+                                  </constraint>
+                                </properties>
+                              </leafNode>
+                              <!-- include end -->
+                              <!-- include start from nat-port.xml.i -->
+                              <leafNode name="port">
+                                <properties>
+                                  <help>Port number</help>
+                                  <valueHelp>
+                                    <format>txt</format>
+                                    <description>Named port (any name in /etc/services, e.g., http)</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>u32:1-65535</format>
+                                    <description>Numeric IP port</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format>start-end</format>
+                                    <description>Numbered port range (e.g. 1001-1005)</description>
+                                  </valueHelp>
+                                  <valueHelp>
+                                    <format/>
+                                    <description>\n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using '!'.\nFor example: '!22,telnet,http,123,1001-1005'</description>
+                                  </valueHelp>
+                                  <constraint>
+                                    <validator name="port-multi"/>
+                                  </constraint>
+                                </properties>
+                              </leafNode>
+                              <!-- include end -->
+                            </children>
+                          </node>
+                        </children>
+                      </tagNode>
+                    </children>
+                  </node>
+                </children>
+              </node>
+              <!-- include start from conntrack/timeout-common-protocols.xml.i -->
+              <leafNode name="icmp">
+                <properties>
+                  <help>ICMP timeout in seconds</help>
+                  <valueHelp>
+                    <format>u32:1-21474836</format>
+                    <description>ICMP timeout in seconds</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="numeric" argument="--range 1-21474836"/>
+                  </constraint>
+                </properties>
+                <defaultValue>30</defaultValue>
+              </leafNode>
+              <leafNode name="other">
+                <properties>
+                  <help>Generic connection timeout in seconds</help>
+                  <valueHelp>
+                    <format>u32:1-21474836</format>
+                    <description>Generic connection timeout in seconds</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="numeric" argument="--range 1-21474836"/>
+                  </constraint>
+                </properties>
+                <defaultValue>600</defaultValue>
+              </leafNode>
+              <node name="tcp">
+                <properties>
+                  <help>TCP connection timeout options</help>
+                </properties>
+                <children>
+                  <leafNode name="close-wait">
+                    <properties>
+                      <help>TCP CLOSE-WAIT timeout in seconds</help>
+                      <valueHelp>
+                        <format>u32:1-21474836</format>
+                        <description>TCP CLOSE-WAIT timeout in seconds</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-21474836"/>
+                      </constraint>
+                    </properties>
+                    <defaultValue>60</defaultValue>
+                  </leafNode>
+                  <leafNode name="close">
+                    <properties>
+                      <help>TCP CLOSE timeout in seconds</help>
+                      <valueHelp>
+                        <format>u32:1-21474836</format>
+                        <description>TCP CLOSE timeout in seconds</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-21474836"/>
+                      </constraint>
+                    </properties>
+                    <defaultValue>10</defaultValue>
+                  </leafNode>
+                  <leafNode name="established">
+                    <properties>
+                      <help>TCP ESTABLISHED timeout in seconds</help>
+                      <valueHelp>
+                        <format>u32:1-21474836</format>
+                        <description>TCP ESTABLISHED timeout in seconds</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-21474836"/>
+                      </constraint>
+                    </properties>
+                    <defaultValue>432000</defaultValue>
+                  </leafNode>
+                  <leafNode name="fin-wait">
+                    <properties>
+                      <help>TCP FIN-WAIT timeout in seconds</help>
+                      <valueHelp>
+                        <format>u32:1-21474836</format>
+                        <description>TCP FIN-WAIT timeout in seconds</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-21474836"/>
+                      </constraint>
+                    </properties>
+                    <defaultValue>120</defaultValue>
+                  </leafNode>
+                  <leafNode name="last-ack">
+                    <properties>
+                      <help>TCP LAST-ACK timeout in seconds</help>
+                      <valueHelp>
+                        <format>u32:1-21474836</format>
+                        <description>TCP LAST-ACK timeout in seconds</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-21474836"/>
+                      </constraint>
+                    </properties>
+                    <defaultValue>30</defaultValue>
+                  </leafNode>
+                  <leafNode name="syn-recv">
+                    <properties>
+                      <help>TCP SYN-RECEIVED timeout in seconds</help>
+                      <valueHelp>
+                        <format>u32:1-21474836</format>
+                        <description>TCP SYN-RECEIVED timeout in seconds</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-21474836"/>
+                      </constraint>
+                    </properties>
+                    <defaultValue>60</defaultValue>
+                  </leafNode>
+                  <leafNode name="syn-sent">
+                    <properties>
+                      <help>TCP SYN-SENT timeout in seconds</help>
+                      <valueHelp>
+                        <format>u32:1-21474836</format>
+                        <description>TCP SYN-SENT timeout in seconds</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-21474836"/>
+                      </constraint>
+                    </properties>
+                    <defaultValue>120</defaultValue>
+                  </leafNode>
+                  <leafNode name="time-wait">
+                    <properties>
+                      <help>TCP TIME-WAIT timeout in seconds</help>
+                      <valueHelp>
+                        <format>u32:1-21474836</format>
+                        <description>TCP TIME-WAIT timeout in seconds</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-21474836"/>
+                      </constraint>
+                    </properties>
+                    <defaultValue>120</defaultValue>
+                  </leafNode>
+                </children>
+              </node>
+              <node name="udp">
+                <properties>
+                  <help>UDP timeout options</help>
+                </properties>
+                <children>
+                  <leafNode name="other">
+                    <properties>
+                      <help>UDP generic timeout in seconds</help>
+                      <valueHelp>
+                        <format>u32:1-21474836</format>
+                        <description>UDP generic timeout in seconds</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-21474836"/>
+                      </constraint>
+                    </properties>
+                    <defaultValue>30</defaultValue>
+                  </leafNode>
+                  <leafNode name="stream">
+                    <properties>
+                      <help>UDP stream timeout in seconds</help>
+                      <valueHelp>
+                        <format>u32:1-21474836</format>
+                        <description>UDP stream timeout in seconds</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-21474836"/>
+                      </constraint>
+                    </properties>
+                    <defaultValue>180</defaultValue>
+                  </leafNode>
+                </children>
+              </node>
+              <!-- include end -->
+            </children>
+          </node>
+        </children>
+      </node>
+    </children>
+  </node>
+</interfaceDefinition>

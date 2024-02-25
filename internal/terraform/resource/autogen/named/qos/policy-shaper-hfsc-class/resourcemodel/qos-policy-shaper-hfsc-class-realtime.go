@@ -49,7 +49,7 @@ func (o QosPolicyShaperHfscClassRealtime) ResourceSchemaAttributes() map[string]
 
 `,
 
-			// Default:          stringdefault.StaticString(`100%%`),
+			// Default:          stringdefault.StaticString(`0bit`),
 			Computed: true,
 		},
 
@@ -68,7 +68,7 @@ func (o QosPolicyShaperHfscClassRealtime) ResourceSchemaAttributes() map[string]
 
 `,
 
-			// Default:          stringdefault.StaticString(`100%%`),
+			// Default:          stringdefault.StaticString(`100%`),
 			Computed: true,
 		},
 

@@ -24,7 +24,11 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourFlowspecLocalInstall) ResourceSch
 		"interface": schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
-			MarkdownDescription: `Interface
+			MarkdownDescription: `Interface to use
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Interface name  |
 
 `,
 		},

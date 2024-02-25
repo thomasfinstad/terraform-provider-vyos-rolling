@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<interfaceDefinition>
+  <node name="service">
+    <children>
+      <node name="ntp" owner="${vyos_conf_scripts_dir}/service_ntp.py">
+        <properties>
+          <help>Network Time Protocol (NTP) configuration</help>
+          <priority>900</priority>
+        </properties>
+        <children>
+          <!-- include start from allow-client.xml.i -->
+          <node name="allow-client">
+            <properties>
+              <help>Restrict to allowed IP client addresses</help>
+            </properties>
+            <children>
+              <leafNode name="address">
+                <properties>
+                  <help>Allowed IP client addresses</help>
+                  <valueHelp>
+                    <format>ipv4</format>
+                    <description>IPv4 address</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipv6</format>
+                    <description>IPv6 address</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipv4net</format>
+                    <description>IPv4 address and prefix length</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipv6net</format>
+                    <description>IPv6 address and prefix length</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="ip-address"/>
+                    <validator name="ip-cidr"/>
+                  </constraint>
+                  <multi/>
+                </properties>
+              </leafNode>
+            </children>
+          </node>
+          <!-- include end -->
+          <!-- include start from generic-interface.xml.i -->
+          <leafNode name="interface">
+            <properties>
+              <help>Interface to use</help>
+              <completionHelp>
+                <script>${vyos_completion_dir}/list_interfaces</script>
+              </completionHelp>
+              <valueHelp>
+                <format>txt</format>
+                <description>Interface name</description>
+              </valueHelp>
+              <constraint>
+                <!-- include start from constraint/interface-name.xml.i -->
+                <regex>(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\d+)?|lo</regex>
+                <validator name="file-path --lookup-path /sys/class/net --directory"/>
+                <!-- include end -->
+              </constraint>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from listen-address.xml.i -->
+          <leafNode name="listen-address">
+            <properties>
+              <help>Local IP addresses to listen on</help>
+              <completionHelp>
+                <script>${vyos_completion_dir}/list_local_ips.sh --both</script>
+              </completionHelp>
+              <valueHelp>
+                <format>ipv4</format>
+                <description>IPv4 address to listen for incoming connections</description>
+              </valueHelp>
+              <valueHelp>
+                <format>ipv6</format>
+                <description>IPv6 address to listen for incoming connections</description>
+              </valueHelp>
+              <multi/>
+              <constraint>
+                <validator name="ip-address"/>
+                <validator name="ipv6-link-local"/>
+              </constraint>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <!-- include start from interface/vrf.xml.i -->
+          <leafNode name="vrf">
+            <properties>
+              <help>VRF instance name</help>
+              <valueHelp>
+                <format>txt</format>
+                <description>VRF instance name</description>
+              </valueHelp>
+              <completionHelp>
+                <path>vrf name</path>
+              </completionHelp>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+          <leafNode name="leap-second">
+            <properties>
+              <help>Leap second behavior</help>
+              <completionHelp>
+                <list>ignore smear system timezone</list>
+              </completionHelp>
+              <valueHelp>
+                <format>ignore</format>
+                <description>No correction is applied to the clock for the leap second</description>
+              </valueHelp>
+              <valueHelp>
+                <format>smear</format>
+                <description>Correct served time slowly be slewing instead of stepping</description>
+              </valueHelp>
+              <valueHelp>
+                <format>system</format>
+                <description>Kernel steps the system clock forward or backward</description>
+              </valueHelp>
+              <valueHelp>
+                <format>timezone</format>
+                <description>Use UTC timezone database to determine when will the next leap second occur</description>
+              </valueHelp>
+              <constraint>
+                <regex>(ignore|smear|system|timezone)</regex>
+              </constraint>
+            </properties>
+            <defaultValue>timezone</defaultValue>
+          </leafNode>
+          <tagNode name="server">
+            <properties>
+              <help>Network Time Protocol (NTP) server</help>
+              <valueHelp>
+                <format>ipv4</format>
+                <description>IP address of NTP server</description>
+              </valueHelp>
+              <valueHelp>
+                <format>ipv6</format>
+                <description>IPv6 address of NTP server</description>
+              </valueHelp>
+              <valueHelp>
+                <format>hostname</format>
+                <description>Fully qualified domain name of NTP server</description>
+              </valueHelp>
+              <constraint>
+                <validator name="ip-address"/>
+                <validator name="fqdn"/>
+              </constraint>
+            </properties>
+            <children>
+              <leafNode name="noselect">
+                <properties>
+                  <help>Marks the server as unused</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <leafNode name="nts">
+                <properties>
+                  <help>Enable Network Time Security (NTS) for the server</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <leafNode name="pool">
+                <properties>
+                  <help>Associate with a number of remote servers</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <leafNode name="prefer">
+                <properties>
+                  <help>Marks the server as preferred</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+            </children>
+          </tagNode>
+        </children>
+      </node>
+    </children>
+  </node>
+</interfaceDefinition>

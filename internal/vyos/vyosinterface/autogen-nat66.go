@@ -88,6 +88,74 @@ func nat66() interfacedefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "node",
 									},
+									NodeNameAttr: "outbound-interface",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Match outbound-interface"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "name",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Match interface"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Regex: []string{"(\\!?)(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)([0-9]?)(\\&?)(.+)?|(\\!?)lo"},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "vrf-name",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt",
+													Description: "Interface name",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt&",
+													Description: "Interface name with wildcard",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "!txt",
+													Description: "Inverted interface name to match",
+												}},
+												CompletionHelp: []*interfacedefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													Path:   []string{"vrf name"},
+													Script: []string{"${vyos_completion_dir}/list_interfaces"},
+												}},
+											}},
+										}},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "node",
+									},
 									NodeNameAttr: "destination",
 									Properties: []*interfacedefinition.Properties{{
 										XMLName: xml.Name{
@@ -414,7 +482,21 @@ func nat66() interfacedefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Rule description"},
+										Help: []string{"Description"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"[[:ascii:]]{0,256}"},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "txt",
+											Description: "Description",
+										}},
+										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 									}},
 								}, {
 									IsBaseNode: false,
@@ -426,7 +508,7 @@ func nat66() interfacedefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Disable NAT66 rule"},
+										Help: []string{"Disable instance"},
 										Valueless: []*interfacedefinition.Valueless{{
 											XMLName: xml.Name{
 												Local: "valueless",
@@ -460,29 +542,11 @@ func nat66() interfacedefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"NAT66 rule logging"},
+										Help: []string{"Log packets hitting this rule"},
 										Valueless: []*interfacedefinition.Valueless{{
 											XMLName: xml.Name{
 												Local: "valueless",
 											},
-										}},
-									}},
-								}, {
-									IsBaseNode: false,
-									XMLName: xml.Name{
-										Local: "leafNode",
-									},
-									NodeNameAttr: "outbound-interface",
-									Properties: []*interfacedefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"Outbound interface of NAT66 traffic"},
-										CompletionHelp: []*interfacedefinition.CompletionHelp{{
-											XMLName: xml.Name{
-												Local: "completionHelp",
-											},
-											Script: []string{"${vyos_completion_dir}/list_interfaces"},
 										}},
 									}},
 								}, {
@@ -603,6 +667,74 @@ func nat66() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "node",
+									},
+									NodeNameAttr: "inbound-interface",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Match inbound-interface"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "name",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Match interface"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Regex: []string{"(\\!?)(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)([0-9]?)(\\&?)(.+)?|(\\!?)lo"},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "vrf-name",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt",
+													Description: "Interface name",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt&",
+													Description: "Interface name with wildcard",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "!txt",
+													Description: "Inverted interface name to match",
+												}},
+												CompletionHelp: []*interfacedefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													Path:   []string{"vrf name"},
+													Script: []string{"${vyos_completion_dir}/list_interfaces"},
+												}},
+											}},
+										}},
+									}},
+								}, {
 									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
@@ -964,7 +1096,21 @@ func nat66() interfacedefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Rule description"},
+										Help: []string{"Description"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"[[:ascii:]]{0,256}"},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "txt",
+											Description: "Description",
+										}},
+										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 									}},
 								}, {
 									IsBaseNode: false,
@@ -976,7 +1122,7 @@ func nat66() interfacedefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Disable NAT66 rule"},
+										Help: []string{"Disable instance"},
 										Valueless: []*interfacedefinition.Valueless{{
 											XMLName: xml.Name{
 												Local: "valueless",
@@ -1015,25 +1161,6 @@ func nat66() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "valueless",
 											},
-										}},
-									}},
-								}, {
-									IsBaseNode: false,
-									XMLName: xml.Name{
-										Local: "leafNode",
-									},
-									NodeNameAttr: "inbound-interface",
-									Properties: []*interfacedefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"Inbound interface of NAT66 traffic"},
-										CompletionHelp: []*interfacedefinition.CompletionHelp{{
-											XMLName: xml.Name{
-												Local: "completionHelp",
-											},
-											List:   []string{"any"},
-											Script: []string{"${vyos_completion_dir}/list_interfaces"},
 										}},
 									}},
 								}, {

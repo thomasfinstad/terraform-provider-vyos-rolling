@@ -63,7 +63,7 @@ Common Applications Kept Enhanced (CAKE)
     |  <number>mbit  &emsp; |  Megabits per second  |
     |  <number>gbit  &emsp; |  Gigabits per second  |
     |  <number>tbit  &emsp; |  Terabits per second  |
-    |  <number>%  &emsp; |  Percentage of interface link speed  |
+    |  <number>%%  &emsp; |  Percentage of interface link speed  |
 - `description` (String) Description
 
     |  Format &emsp; | Description  |
@@ -87,9 +87,10 @@ Optional:
 
 - `blind` (Boolean) Disables flow isolation, all traffic passes through a single queue
 - `dst_host` (Boolean) Flows are defined only by destination address
-- `dual_dst_host` (Boolean) Flows are defined by the 5-tuple, and fairness is applied first over destination addresses, then over individual flows
-- `dual_src_host` (Boolean) Flows are defined by the 5-tuple, and fairness is applied first over source addresses, then over individual flows
+- `dual_dst_host` (Boolean) Flows are defined by the 5-tuple, fairness is applied first over destination addresses, then over individual flows
+- `dual_src_host` (Boolean) Flows are defined by the 5-tuple, fairness is applied first over source addresses, then over individual flows
 - `flow` (Boolean) Flows are defined by the entire 5-tuple
 - `host` (Boolean) Flows are defined by source-destination host pairs
 - `nat` (Boolean) Perform NAT lookup before applying flow-isolation rules
 - `src_host` (Boolean) Flows are defined only by source address
+- `triple_isolate` (Boolean) Flows are defined by the 5-tuple, fairness is applied over source and destination addresses and also over individual flows (default)

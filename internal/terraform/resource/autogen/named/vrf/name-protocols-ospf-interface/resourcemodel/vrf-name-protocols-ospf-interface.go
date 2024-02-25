@@ -38,6 +38,7 @@ type VrfNameProtocolsOspfInterface struct {
 	// Nodes
 	NodeVrfNameProtocolsOspfInterfaceAuthentication *VrfNameProtocolsOspfInterfaceAuthentication `tfsdk:"authentication" vyos:"authentication,omitempty"`
 	NodeVrfNameProtocolsOspfInterfaceBfd            *VrfNameProtocolsOspfInterfaceBfd            `tfsdk:"bfd" vyos:"bfd,omitempty"`
+	NodeVrfNameProtocolsOspfInterfaceLdpSync        *VrfNameProtocolsOspfInterfaceLdpSync        `tfsdk:"ldp_sync" vyos:"ldp-sync,omitempty"`
 	NodeVrfNameProtocolsOspfInterfacePassive        *VrfNameProtocolsOspfInterfacePassive        `tfsdk:"passive" vyos:"passive,omitempty"`
 }
 
@@ -256,6 +257,14 @@ func (o VrfNameProtocolsOspfInterface) ResourceSchemaAttributes() map[string]sch
 			Attributes: VrfNameProtocolsOspfInterfaceBfd{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Enable Bidirectional Forwarding Detection (BFD)
+
+`,
+		},
+
+		"ldp_sync": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsOspfInterfaceLdpSync{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `LDP-IGP synchronization configuration for interface
 
 `,
 		},

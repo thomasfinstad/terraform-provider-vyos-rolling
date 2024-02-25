@@ -19,11 +19,11 @@ type FirewallZone struct {
 	SelfIdentifier types.String `tfsdk:"zone_id" vyos:"-,self-id"`
 
 	// LeafNodes
-	LeafFirewallZoneDescrIPtion      types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafFirewallZoneEnableDefaultLog types.Bool   `tfsdk:"enable_default_log" vyos:"enable-default-log,omitempty"`
-	LeafFirewallZoneDefaultAction    types.String `tfsdk:"default_action" vyos:"default-action,omitempty"`
-	LeafFirewallZoneInterface        types.List   `tfsdk:"interface" vyos:"interface,omitempty"`
-	LeafFirewallZoneLocalZone        types.Bool   `tfsdk:"local_zone" vyos:"local-zone,omitempty"`
+	LeafFirewallZoneDescrIPtion   types.String `tfsdk:"description" vyos:"description,omitempty"`
+	LeafFirewallZoneDefaultLog    types.Bool   `tfsdk:"default_log" vyos:"default-log,omitempty"`
+	LeafFirewallZoneDefaultAction types.String `tfsdk:"default_action" vyos:"default-action,omitempty"`
+	LeafFirewallZoneInterface     types.List   `tfsdk:"interface" vyos:"interface,omitempty"`
+	LeafFirewallZoneLocalZone     types.Bool   `tfsdk:"local_zone" vyos:"local-zone,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagFirewallZoneFrom bool `tfsdk:"-" vyos:"from,child"`
@@ -85,7 +85,7 @@ func (o FirewallZone) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 
-		"enable_default_log": schema.BoolAttribute{
+		"default_log": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Log packets hitting default-action
 
@@ -117,6 +117,7 @@ func (o FirewallZone) ResourceSchemaAttributes() map[string]schema.Attribute {
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Interface associated with zone  |
+    |  vrf  &emsp; |  VRF associated with zone  |
 
 `,
 		},

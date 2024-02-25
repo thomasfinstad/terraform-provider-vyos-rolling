@@ -25,14 +25,14 @@ func (o PkiCertificatePrivate) ResourceSchemaAttributes() map[string]schema.Attr
 
 		"key": schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `Certificate private key in PEM format
+			MarkdownDescription: `Private key in PEM format
 
 `,
 		},
 
 		"password_protected": schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `Certificate private key is password protected
+			MarkdownDescription: `Private key portion is password protected
 
 `,
 			Default:  booldefault.StaticBool(false),

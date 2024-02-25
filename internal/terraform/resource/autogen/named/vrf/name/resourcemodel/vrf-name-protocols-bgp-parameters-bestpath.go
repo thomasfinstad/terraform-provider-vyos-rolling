@@ -12,12 +12,12 @@ type VrfNameProtocolsBgpParametersBestpath struct {
 	// LeafNodes
 	LeafVrfNameProtocolsBgpParametersBestpathBandwIDth       types.String `tfsdk:"bandwidth" vyos:"bandwidth,omitempty"`
 	LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID types.Bool   `tfsdk:"compare_routerid" vyos:"compare-routerid,omitempty"`
+	LeafVrfNameProtocolsBgpParametersBestpathMed             types.List   `tfsdk:"med" vyos:"med,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes
 	NodeVrfNameProtocolsBgpParametersBestpathAsPath   *VrfNameProtocolsBgpParametersBestpathAsPath   `tfsdk:"as_path" vyos:"as-path,omitempty"`
-	NodeVrfNameProtocolsBgpParametersBestpathMed      *VrfNameProtocolsBgpParametersBestpathMed      `tfsdk:"med" vyos:"med,omitempty"`
 	NodeVrfNameProtocolsBgpParametersBestpathPeerType *VrfNameProtocolsBgpParametersBestpathPeerType `tfsdk:"peer_type" vyos:"peer-type,omitempty"`
 }
 
@@ -48,20 +48,25 @@ func (o VrfNameProtocolsBgpParametersBestpath) ResourceSchemaAttributes() map[st
 			Computed: true,
 		},
 
+		"med": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
+			MarkdownDescription: `MED attribute comparison parameters
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  confed  &emsp; |  Compare MEDs among confederation paths  |
+    |  missing-as-worst  &emsp; |  Treat missing route as a MED as the least preferred one  |
+
+`,
+		},
+
 		// Nodes
 
 		"as_path": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpParametersBestpathAsPath{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `AS-path attribute comparison parameters
-
-`,
-		},
-
-		"med": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersBestpathMed{}.ResourceSchemaAttributes(),
-			Optional:   true,
-			MarkdownDescription: `MED attribute comparison parameters
 
 `,
 		},

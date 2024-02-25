@@ -31,6 +31,7 @@ type VrfNameProtocolsStaticRouteNextHop struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes
+	NodeVrfNameProtocolsStaticRouteNextHopBfd *VrfNameProtocolsStaticRouteNextHopBfd `tfsdk:"bfd" vyos:"bfd,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -157,5 +158,12 @@ func (o VrfNameProtocolsStaticRouteNextHop) ResourceSchemaAttributes() map[strin
 
 		// Nodes
 
+		"bfd": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsStaticRouteNextHopBfd{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `BFD monitoring
+
+`,
+		},
 	}
 }

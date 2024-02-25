@@ -73,6 +73,15 @@ Virtual Routing and Forwarding instance
 Optional:
 
 - `disable_forwarding` (Boolean) Disable IP forwarding on this interface
+- `nht` (Attributes) Filter Next Hop tracking route resolution (see [below for nested schema](#nestedatt--ip--nht))
+
+<a id="nestedatt--ip--nht"></a>
+### Nested Schema for `ip.nht`
+
+Optional:
+
+- `no_resolve_via_default` (Boolean) Do not resolve via default route
+
 
 
 <a id="nestedatt--ipv6"></a>
@@ -81,6 +90,15 @@ Optional:
 Optional:
 
 - `disable_forwarding` (Boolean) Disable IP forwarding on this interface
+- `nht` (Attributes) Filter Next Hop tracking route resolution (see [below for nested schema](#nestedatt--ipv6--nht))
+
+<a id="nestedatt--ipv6--nht"></a>
+### Nested Schema for `ipv6.nht`
+
+Optional:
+
+- `no_resolve_via_default` (Boolean) Do not resolve via default route
+
 
 
 <a id="nestedatt--protocols"></a>
@@ -101,13 +119,11 @@ Optional:
 Optional:
 
 - `address_family` (Attributes) BGP address-family parameters (see [below for nested schema](#nestedatt--protocols--bgp--address_family))
+- `bmp` (Attributes) BGP Monitoring Protocol (BMP) (see [below for nested schema](#nestedatt--protocols--bgp--bmp))
 - `listen` (Attributes) Listen for and accept BGP dynamic neighbors from range (see [below for nested schema](#nestedatt--protocols--bgp--listen))
 - `parameters` (Attributes) BGP parameters (see [below for nested schema](#nestedatt--protocols--bgp--parameters))
-- `route_map` (String) Specify route-map name to use
-
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+- `sid` (Attributes) SID value for VRF (see [below for nested schema](#nestedatt--protocols--bgp--sid))
+- `srv6` (Attributes) Segment-Routing SRv6 configuration (see [below for nested schema](#nestedatt--protocols--bgp--srv6))
 - `system_as` (Number) Autonomous System Number (ASN)
 
     |  Format &emsp; | Description  |
@@ -144,12 +160,37 @@ Optional:
 
 Optional:
 
-- `interface` (List of String) Interface
+- `interface` (List of String) Interface to use
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Interface name  |
 
 
 
 <a id="nestedatt--protocols--bgp--address_family--ipv4_labeled_unicast"></a>
 ### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn`
+
+Optional:
+
+- `maximum_paths` (Attributes) Forward packets over multiple paths (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--maximum_paths))
+
+<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--maximum_paths"></a>
+### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.maximum_paths`
+
+Optional:
+
+- `ebgp` (Number) eBGP maximum paths
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-256  &emsp; |  Number of paths to consider  |
+- `ibgp` (Number) iBGP maximum paths
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-256  &emsp; |  Number of paths to consider  |
+
 
 
 <a id="nestedatt--protocols--bgp--address_family--ipv4_multicast"></a>
@@ -192,10 +233,12 @@ Optional:
 - `import` (Attributes) Import routes to this address-family (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--import))
 - `label` (Attributes) Label value for VRF (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--label))
 - `maximum_paths` (Attributes) Forward packets over multiple paths (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--maximum_paths))
+- `nexthop` (Attributes) Specify next hop to use for VRF advertised prefixes (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--nexthop))
 - `rd` (Attributes) Specify route distinguisher (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--rd))
 - `redistribute` (Attributes) Redistribute routes from other protocols into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute))
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_map))
 - `route_target` (Attributes) Specify route target list (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_target))
+- `sid` (Attributes) SID value for VRF (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--sid))
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance"></a>
 ### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.distance`
@@ -252,12 +295,21 @@ Optional:
 
 Optional:
 
+- `allocation_mode` (Attributes) Label allocation mode (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--label--vpn--allocation_mode))
 - `export` (String) For routes leaked from current address-family to VPN
 
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  auto  &emsp; |  Automatically assign a label  |
     |  number: 0-1048575  &emsp; |  Label Value  |
+
+<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--label--vpn--allocation_mode"></a>
+### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.label.vpn.export`
+
+Optional:
+
+- `per_nexthop` (Boolean) Allocate a label per connected next-hop in the VRF
+
 
 
 
@@ -276,6 +328,27 @@ Optional:
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 1-256  &emsp; |  Number of paths to consider  |
+
+
+<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--nexthop"></a>
+### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.nexthop`
+
+Optional:
+
+- `vpn` (Attributes) Between current address-family and vpn (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--nexthop--vpn))
+
+<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--nexthop--vpn"></a>
+### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.nexthop.vpn`
+
+Optional:
+
+- `export` (String) For routes leaked from current address-family to vpn
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  ipv4  &emsp; |  BGP neighbor IP address  |
+    |  ipv6  &emsp; |  BGP neighbor IPv6 address  |
+
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--rd"></a>
@@ -487,6 +560,27 @@ Optional:
 
 
 
+<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--sid"></a>
+### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.sid`
+
+Optional:
+
+- `vpn` (Attributes) Between current VRF and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--sid--vpn))
+
+<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--sid--vpn"></a>
+### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.sid.vpn`
+
+Optional:
+
+- `export` (String) For routes leaked from current VRF to VPN
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-1048575  &emsp; |  SID allocation index  |
+    |  auto  &emsp; |  Automatically assign a label  |
+
+
+
 
 <a id="nestedatt--protocols--bgp--address_family--ipv4_vpn"></a>
 ### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn`
@@ -552,10 +646,12 @@ Optional:
 - `import` (Attributes) Import routes to this address-family (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--import))
 - `label` (Attributes) Label value for VRF (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--label))
 - `maximum_paths` (Attributes) Forward packets over multiple paths (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--maximum_paths))
+- `nexthop` (Attributes) Specify next hop to use for VRF advertised prefixes (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--nexthop))
 - `rd` (Attributes) Specify route distinguisher (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--rd))
 - `redistribute` (Attributes) Redistribute routes from other protocols into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute))
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_map))
 - `route_target` (Attributes) Specify route target list (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_target))
+- `sid` (Attributes) SID value for VRF (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--sid))
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance"></a>
 ### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.distance`
@@ -612,12 +708,21 @@ Optional:
 
 Optional:
 
+- `allocation_mode` (Attributes) Label allocation mode (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--label--vpn--allocation_mode))
 - `export` (String) For routes leaked from current address-family to VPN
 
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  auto  &emsp; |  Automatically assign a label  |
     |  number: 0-1048575  &emsp; |  Label Value  |
+
+<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--label--vpn--allocation_mode"></a>
+### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.label.vpn.export`
+
+Optional:
+
+- `per_nexthop` (Boolean) Allocate a label per connected next-hop in the VRF
+
 
 
 
@@ -636,6 +741,27 @@ Optional:
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 1-256  &emsp; |  Number of paths to consider  |
+
+
+<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--nexthop"></a>
+### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.nexthop`
+
+Optional:
+
+- `vpn` (Attributes) Between current address-family and vpn (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--nexthop--vpn))
+
+<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--nexthop--vpn"></a>
+### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.nexthop.vpn`
+
+Optional:
+
+- `export` (String) For routes leaked from current address-family to vpn
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  ipv4  &emsp; |  BGP neighbor IP address  |
+    |  ipv6  &emsp; |  BGP neighbor IPv6 address  |
+
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--rd"></a>
@@ -829,6 +955,27 @@ Optional:
 
 
 
+<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--sid"></a>
+### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.sid`
+
+Optional:
+
+- `vpn` (Attributes) Between current VRF and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--sid--vpn))
+
+<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--sid--vpn"></a>
+### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.sid.vpn`
+
+Optional:
+
+- `export` (String) For routes leaked from current VRF to VPN
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-1048575  &emsp; |  SID allocation index  |
+    |  auto  &emsp; |  Automatically assign a label  |
+
+
+
 
 <a id="nestedatt--protocols--bgp--address_family--ipv6_vpn"></a>
 ### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn`
@@ -848,7 +995,13 @@ Optional:
     |----------|---------------|
     |  ipv4  &emsp; |  IP address  |
 - `advertise_svi_ip` (Boolean) Advertise svi mac-ip routes in EVPN
+- `default_originate` (Attributes) Originate a default route (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--default_originate))
+- `disable_ead_evi_rx` (Boolean) Activate PE on EAD-ES even if EAD-EVI is not received
+- `disable_ead_evi_tx` (Boolean) Do not advertise EAD-EVI for local ESs
+- `ead_es_frag` (Attributes) EAD ES fragment config (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--ead_es_frag))
+- `ead_es_route_target` (Attributes) EAD ES Route Target (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--ead_es_route_target))
 - `flooding` (Attributes) Specify handling for BUM packets (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--flooding))
+- `mac_vrf` (Attributes) EVPN MAC-VRF (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--mac_vrf))
 - `rd` (String) Route Distinguisher
 
     |  Format &emsp; | Description  |
@@ -906,13 +1059,59 @@ Optional:
 
 
 
+<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--default_originate"></a>
+### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.default_originate`
+
+Optional:
+
+- `ipv4` (Boolean) IPv4 address family
+- `ipv6` (Boolean) IPv6 address family
+
+
+<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--ead_es_frag"></a>
+### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.ead_es_frag`
+
+Optional:
+
+- `evi_limit` (Number) EVIs per-fragment
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-1000  &emsp; |  limit  |
+
+
+<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--ead_es_route_target"></a>
+### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.ead_es_route_target`
+
+Optional:
+
+- `export` (List of String) Route Target export
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+
+
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--flooding"></a>
 ### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.flooding`
 
 Optional:
 
-- `disable` (Boolean) Do not flood any BUM packets
+- `disable` (Boolean) Disable instance
 - `head_end_replication` (Boolean) Flood BUM packets using head-end replication
+
+
+<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--mac_vrf"></a>
+### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.mac_vrf`
+
+Optional:
+
+- `soo` (String) Site-of-Origin extended community
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  ASN:NN  &emsp; |  based on autonomous system number in format <0-65535:0-4294967295>  |
+    |  IP:NN  &emsp; |  Based on a router-id IP address in format <IP:0-65535>  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_target"></a>
@@ -939,6 +1138,18 @@ Optional:
 
 
 
+<a id="nestedatt--protocols--bgp--bmp"></a>
+### Nested Schema for `protocols.bgp.bmp`
+
+Optional:
+
+- `mirror_buffer_limit` (Number) Maximum memory used for buffered mirroring messages (in bytes)
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 0-4294967294  &emsp; |  Limit in bytes  |
+
+
 <a id="nestedatt--protocols--bgp--listen"></a>
 ### Nested Schema for `protocols.bgp.listen`
 
@@ -956,6 +1167,7 @@ Optional:
 
 Optional:
 
+- `allow_martian_nexthop` (Boolean) Allow Martian nexthops to be received in the NLRI from a peer
 - `always_compare_med` (Boolean) Always compare MEDs from different neighbors
 - `bestpath` (Attributes) Default bestpath selection mechanism (see [below for nested schema](#nestedatt--protocols--bgp--parameters--bestpath))
 - `cluster_id` (String) Route-reflector cluster-id
@@ -973,6 +1185,13 @@ Optional:
 - `fast_convergence` (Boolean) Teardown sessions immediately whenever peer becomes unreachable
 - `graceful_restart` (Attributes) Graceful restart capability parameters (see [below for nested schema](#nestedatt--protocols--bgp--parameters--graceful_restart))
 - `graceful_shutdown` (Boolean) Graceful shutdown
+- `labeled_unicast` (String) BGP Labeled-unicast options
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  explicit-null  &emsp; |  Use explicit-null label values for all local prefixes  |
+    |  ipv4-explicit-null  &emsp; |  Use IPv4 explicit-null label value for IPv4 local prefixes  |
+    |  ipv6-explicit-null  &emsp; |  Use IPv6 explicit-null label value for IPv4 local prefixes  |
 - `log_neighbor_changes` (Boolean) Log neighbor up/down changes and reset reason
 - `minimum_holdtime` (Number) BGP minimum holdtime
 
@@ -982,6 +1201,7 @@ Optional:
 - `network_import_check` (Boolean) Enable IGP route check for network statements
 - `no_client_to_client_reflection` (Boolean) Disable client to client route reflection
 - `no_fast_external_failover` (Boolean) Disable immediate session reset on peer link down event
+- `no_hard_administrative_reset` (Boolean) Do not send hard reset CEASE Notification for 'Administrative Reset'
 - `no_suppress_duplicates` (Boolean) Disable suppress duplicate updates if the route actually not changed
 - `reject_as_sets` (Boolean) Reject routes with AS_SET or AS_CONFED_SET flag
 - `route_reflector_allow_outbound_policy` (Boolean) Route reflector client allow policy outbound
@@ -992,13 +1212,14 @@ Optional:
     |  ipv4  &emsp; |  Router-ID in IP address format  |
 - `shutdown` (Boolean) Administrative shutdown of the BGP instance
 - `suppress_fib_pending` (Boolean) Advertise only routes that are programmed in kernel to peers
+- `tcp_keepalive` (Attributes) TCP keepalive parameters (see [below for nested schema](#nestedatt--protocols--bgp--parameters--tcp_keepalive))
 
 <a id="nestedatt--protocols--bgp--parameters--bestpath"></a>
-### Nested Schema for `protocols.bgp.parameters.suppress_fib_pending`
+### Nested Schema for `protocols.bgp.parameters.tcp_keepalive`
 
 Optional:
 
-- `as_path` (Attributes) AS-path attribute comparison parameters (see [below for nested schema](#nestedatt--protocols--bgp--parameters--suppress_fib_pending--as_path))
+- `as_path` (Attributes) AS-path attribute comparison parameters (see [below for nested schema](#nestedatt--protocols--bgp--parameters--tcp_keepalive--as_path))
 - `bandwidth` (String) Link Bandwidth attribute
 
     |  Format &emsp; | Description  |
@@ -1007,11 +1228,16 @@ Optional:
     |  ignore  &emsp; |  Ignore link bandwidth (do regular ECMP, not weighted)  |
     |  skip-missing  &emsp; |  Ignore paths without link bandwidth for ECMP (if other paths have it)  |
 - `compare_routerid` (Boolean) Compare the router-id for identical EBGP paths
-- `med` (Attributes) MED attribute comparison parameters (see [below for nested schema](#nestedatt--protocols--bgp--parameters--suppress_fib_pending--med))
-- `peer_type` (Attributes) Peer type (see [below for nested schema](#nestedatt--protocols--bgp--parameters--suppress_fib_pending--peer_type))
+- `med` (List of String) MED attribute comparison parameters
 
-<a id="nestedatt--protocols--bgp--parameters--suppress_fib_pending--as_path"></a>
-### Nested Schema for `protocols.bgp.parameters.suppress_fib_pending.as_path`
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  confed  &emsp; |  Compare MEDs among confederation paths  |
+    |  missing-as-worst  &emsp; |  Treat missing route as a MED as the least preferred one  |
+- `peer_type` (Attributes) Peer type (see [below for nested schema](#nestedatt--protocols--bgp--parameters--tcp_keepalive--peer_type))
+
+<a id="nestedatt--protocols--bgp--parameters--tcp_keepalive--as_path"></a>
+### Nested Schema for `protocols.bgp.parameters.tcp_keepalive.as_path`
 
 Optional:
 
@@ -1020,17 +1246,8 @@ Optional:
 - `multipath_relax` (Boolean) Allow load sharing across routes that have different AS paths (but same length)
 
 
-<a id="nestedatt--protocols--bgp--parameters--suppress_fib_pending--med"></a>
-### Nested Schema for `protocols.bgp.parameters.suppress_fib_pending.med`
-
-Optional:
-
-- `confed` (Boolean) Compare MEDs among confederation paths
-- `missing_as_worst` (Boolean) Treat missing route as a MED as the least preferred one
-
-
-<a id="nestedatt--protocols--bgp--parameters--suppress_fib_pending--peer_type"></a>
-### Nested Schema for `protocols.bgp.parameters.suppress_fib_pending.peer_type`
+<a id="nestedatt--protocols--bgp--parameters--tcp_keepalive--peer_type"></a>
+### Nested Schema for `protocols.bgp.parameters.tcp_keepalive.peer_type`
 
 Optional:
 
@@ -1039,7 +1256,7 @@ Optional:
 
 
 <a id="nestedatt--protocols--bgp--parameters--conditional_advertisement"></a>
-### Nested Schema for `protocols.bgp.parameters.suppress_fib_pending`
+### Nested Schema for `protocols.bgp.parameters.tcp_keepalive`
 
 Optional:
 
@@ -1051,7 +1268,7 @@ Optional:
 
 
 <a id="nestedatt--protocols--bgp--parameters--confederation"></a>
-### Nested Schema for `protocols.bgp.parameters.suppress_fib_pending`
+### Nested Schema for `protocols.bgp.parameters.tcp_keepalive`
 
 Optional:
 
@@ -1068,7 +1285,7 @@ Optional:
 
 
 <a id="nestedatt--protocols--bgp--parameters--dampening"></a>
-### Nested Schema for `protocols.bgp.parameters.suppress_fib_pending`
+### Nested Schema for `protocols.bgp.parameters.tcp_keepalive`
 
 Optional:
 
@@ -1095,7 +1312,7 @@ Optional:
 
 
 <a id="nestedatt--protocols--bgp--parameters--default"></a>
-### Nested Schema for `protocols.bgp.parameters.suppress_fib_pending`
+### Nested Schema for `protocols.bgp.parameters.tcp_keepalive`
 
 Optional:
 
@@ -1107,14 +1324,14 @@ Optional:
 
 
 <a id="nestedatt--protocols--bgp--parameters--distance"></a>
-### Nested Schema for `protocols.bgp.parameters.suppress_fib_pending`
+### Nested Schema for `protocols.bgp.parameters.tcp_keepalive`
 
 Optional:
 
-- `global` (Attributes) Global administratives distances for BGP routes (see [below for nested schema](#nestedatt--protocols--bgp--parameters--suppress_fib_pending--global))
+- `global` (Attributes) Global administratives distances for BGP routes (see [below for nested schema](#nestedatt--protocols--bgp--parameters--tcp_keepalive--global))
 
-<a id="nestedatt--protocols--bgp--parameters--suppress_fib_pending--global"></a>
-### Nested Schema for `protocols.bgp.parameters.suppress_fib_pending.global`
+<a id="nestedatt--protocols--bgp--parameters--tcp_keepalive--global"></a>
+### Nested Schema for `protocols.bgp.parameters.tcp_keepalive.global`
 
 Optional:
 
@@ -1137,7 +1354,7 @@ Optional:
 
 
 <a id="nestedatt--protocols--bgp--parameters--graceful_restart"></a>
-### Nested Schema for `protocols.bgp.parameters.suppress_fib_pending`
+### Nested Schema for `protocols.bgp.parameters.tcp_keepalive`
 
 Optional:
 
@@ -1148,18 +1365,81 @@ Optional:
     |  number: 1-3600  &emsp; |  Hold time in seconds  |
 
 
+<a id="nestedatt--protocols--bgp--parameters--tcp_keepalive"></a>
+### Nested Schema for `protocols.bgp.parameters.tcp_keepalive`
+
+Optional:
+
+- `idle` (Number) TCP keepalive idle time
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-65535  &emsp; |  Idle time in seconds  |
+- `interval` (Number) TCP keepalive interval
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-65535  &emsp; |  Interval in seconds  |
+- `probes` (Number) TCP keepalive maximum probes
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-30  &emsp; |  Maximum probes  |
+
+
+
+<a id="nestedatt--protocols--bgp--sid"></a>
+### Nested Schema for `protocols.bgp.sid`
+
+Optional:
+
+- `vpn` (Attributes) Between current VRF and VPN (see [below for nested schema](#nestedatt--protocols--bgp--sid--vpn))
+
+<a id="nestedatt--protocols--bgp--sid--vpn"></a>
+### Nested Schema for `protocols.bgp.sid.vpn`
+
+Optional:
+
+- `per_vrf` (Attributes) SID per-VRF (both IPv4 and IPv6 address families) (see [below for nested schema](#nestedatt--protocols--bgp--sid--vpn--per_vrf))
+
+<a id="nestedatt--protocols--bgp--sid--vpn--per_vrf"></a>
+### Nested Schema for `protocols.bgp.sid.vpn.per_vrf`
+
+Optional:
+
+- `export` (String) For routes leaked from current VRF to VPN
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-1048575  &emsp; |  SID allocation index  |
+    |  auto  &emsp; |  Automatically assign a label  |
+
+
+
+
+<a id="nestedatt--protocols--bgp--srv6"></a>
+### Nested Schema for `protocols.bgp.srv6`
+
+Optional:
+
+- `locator` (String) Specify SRv6 locator
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  SRv6 locator name  |
+
 
 <a id="nestedatt--protocols--bgp--timers"></a>
 ### Nested Schema for `protocols.bgp.timers`
 
 Optional:
 
-- `holdtime` (String) BGP hold timer for this neighbor
+- `holdtime` (String) Hold timer
 
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 1-65535  &emsp; |  Hold timer in seconds  |
-    |  0  &emsp; |  Hold timer disabled  |
+    |  0  &emsp; |  Disable hold timer  |
 - `keepalive` (Number) BGP keepalive interval for this neighbor
 
     |  Format &emsp; | Description  |
@@ -1173,11 +1453,6 @@ Optional:
 
 Optional:
 
-- `local_as` (Number) Autonomous System Number (ASN)
-
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Autonomous System Number  |
 - `maximum_paths` (Number) Forward packets over multiple paths
 
     |  Format &emsp; | Description  |
@@ -1189,7 +1464,7 @@ Optional:
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  ipv4net  &emsp; |  EIGRP network prefix  |
-- `passive_interface` (String) Suppress routing updates on an interface
+- `passive_interface` (List of String) Suppress routing updates on an interface
 - `redistribute` (List of String) Redistribute information from another routing protocol
 
     |  Format &emsp; | Description  |
@@ -1202,16 +1477,16 @@ Optional:
     |  babel  &emsp; |  Babel routing protocol (Babel)  |
     |  static  &emsp; |  Statically configured routes  |
     |  vnc  &emsp; |  Virtual Network Control (VNC)  |
-- `route_map` (String) Specify route-map name to use
-
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
 - `router_id` (String) Override default router identifier
 
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  ipv4  &emsp; |  Router-ID in IP address format  |
+- `system_as` (Number) Autonomous System Number (ASN)
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-65535  &emsp; |  Autonomous System Number  |
 - `variance` (Number) Control load balancing variance
 
     |  Format &emsp; | Description  |
@@ -1236,10 +1511,14 @@ Optional:
 
 Optional:
 
+- `advertise_high_metrics` (Boolean) Advertise high metric value on all interfaces
+- `advertise_passive_only` (Boolean) Advertise prefixes of passive interfaces only
 - `area_password` (Attributes) Configure the authentication password for an area (see [below for nested schema](#nestedatt--protocols--isis--area_password))
 - `default_information` (Attributes) Control distribution of default information (see [below for nested schema](#nestedatt--protocols--isis--default_information))
 - `domain_password` (Attributes) Set the authentication password for a routing domain (see [below for nested schema](#nestedatt--protocols--isis--domain_password))
 - `dynamic_hostname` (Boolean) Dynamic hostname for IS-IS
+- `fast_reroute` (Attributes) IS-IS fast reroute configuration (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute))
+- `ldp_sync` (Attributes) Protocol wide LDP-IGP synchronization configuration (see [below for nested schema](#nestedatt--protocols--isis--ldp_sync))
 - `level` (String) IS-IS level number
 
     |  Format &emsp; | Description  |
@@ -1282,11 +1561,6 @@ Optional:
     |  XX.XXXX. ... .XXX.XX  &emsp; |  Network entity title (NET)  |
 - `purge_originator` (Boolean) Use the RFC 6232 purge-originator
 - `redistribute` (Attributes) Redistribute information from another routing protocol (see [below for nested schema](#nestedatt--protocols--isis--redistribute))
-- `route_map` (String) Specify route-map name to use
-
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
 - `segment_routing` (Attributes) Segment-Routing (SPRING) settings (see [below for nested schema](#nestedatt--protocols--isis--segment_routing))
 - `set_attached_bit` (Boolean) Set attached bit to identify as L1/L2 router for inter-area traffic
 - `set_overload_bit` (Boolean) Set overload bit to avoid any transit traffic
@@ -1296,7 +1570,7 @@ Optional:
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 1-120  &emsp; |  Interval in seconds  |
-- `traffic_engineering` (Attributes) Show IS-IS neighbor adjacencies (see [below for nested schema](#nestedatt--protocols--isis--traffic_engineering))
+- `traffic_engineering` (Attributes) IS-IS traffic engineering extensions (see [below for nested schema](#nestedatt--protocols--isis--traffic_engineering))
 
 <a id="nestedatt--protocols--isis--area_password"></a>
 ### Nested Schema for `protocols.isis.area_password`
@@ -1437,6 +1711,125 @@ Optional:
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Circuit password  |
+
+
+<a id="nestedatt--protocols--isis--fast_reroute"></a>
+### Nested Schema for `protocols.isis.fast_reroute`
+
+Optional:
+
+- `lfa` (Attributes) Loop free alternate functionality (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa))
+
+<a id="nestedatt--protocols--isis--fast_reroute--lfa"></a>
+### Nested Schema for `protocols.isis.fast_reroute.lfa`
+
+Optional:
+
+- `local` (Attributes) Local loop free alternate options (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local))
+- `remote` (Attributes) Remote loop free alternate options (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--remote))
+
+<a id="nestedatt--protocols--isis--fast_reroute--lfa--local"></a>
+### Nested Schema for `protocols.isis.fast_reroute.lfa.local`
+
+Optional:
+
+- `load_sharing` (Attributes) Load share prefixes across multiple backups (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--load_sharing))
+- `priority_limit` (Attributes) Limit backup computation up to the prefix priority (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--priority_limit))
+- `tiebreaker` (Attributes) Configure tiebreaker for multiple backups (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker))
+
+<a id="nestedatt--protocols--isis--fast_reroute--lfa--local--load_sharing"></a>
+### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker`
+
+Optional:
+
+- `disable` (Attributes) Disable load sharing (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--disable))
+
+<a id="nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--disable"></a>
+### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.disable`
+
+Optional:
+
+- `level_1` (Boolean) Match on IS-IS level-1 routes
+- `level_2` (Boolean) Match on IS-IS level-2 routes
+
+
+
+<a id="nestedatt--protocols--isis--fast_reroute--lfa--local--priority_limit"></a>
+### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker`
+
+Optional:
+
+- `critical` (Attributes) Compute for critical priority prefixes only (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--critical))
+- `high` (Attributes) Compute for critical, and high priority prefixes (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--high))
+- `medium` (Attributes) Compute for critical, high, and medium priority prefixes (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--medium))
+
+<a id="nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--critical"></a>
+### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.medium`
+
+Optional:
+
+- `level_1` (Boolean) Match on IS-IS level-1 routes
+- `level_2` (Boolean) Match on IS-IS level-2 routes
+
+
+<a id="nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--high"></a>
+### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.medium`
+
+Optional:
+
+- `level_1` (Boolean) Match on IS-IS level-1 routes
+- `level_2` (Boolean) Match on IS-IS level-2 routes
+
+
+<a id="nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--medium"></a>
+### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.medium`
+
+Optional:
+
+- `level_1` (Boolean) Match on IS-IS level-1 routes
+- `level_2` (Boolean) Match on IS-IS level-2 routes
+
+
+
+<a id="nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker"></a>
+### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker`
+
+Optional:
+
+- `downstream` (Attributes) Prefer backup path via downstream node (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--downstream))
+- `lowest_backup_metric` (Attributes) Prefer backup path with lowest total metric (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--lowest_backup_metric))
+- `node_protecting` (Attributes) Prefer node protecting backup path (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--node_protecting))
+
+<a id="nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--downstream"></a>
+### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.node_protecting`
+
+
+<a id="nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--lowest_backup_metric"></a>
+### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.node_protecting`
+
+
+<a id="nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--node_protecting"></a>
+### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.node_protecting`
+
+
+
+
+<a id="nestedatt--protocols--isis--fast_reroute--lfa--remote"></a>
+### Nested Schema for `protocols.isis.fast_reroute.lfa.remote`
+
+
+
+
+<a id="nestedatt--protocols--isis--ldp_sync"></a>
+### Nested Schema for `protocols.isis.ldp_sync`
+
+Optional:
+
+- `holddown` (Number) Hold down timer for LDP-IGP cost restoration
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 0-10000  &emsp; |  Time to wait in seconds for LDP-IGP synchronization to occur before restoring interface cost  |
 
 
 <a id="nestedatt--protocols--isis--redistribute"></a>
@@ -2177,7 +2570,9 @@ Optional:
 
 Optional:
 
+- `aggregation` (Attributes) External route aggregation (see [below for nested schema](#nestedatt--protocols--ospf--aggregation))
 - `auto_cost` (Attributes) Calculate interface cost according to bandwidth (see [below for nested schema](#nestedatt--protocols--ospf--auto_cost))
+- `capability` (Attributes) Enable specific OSPF features (see [below for nested schema](#nestedatt--protocols--ospf--capability))
 - `default_information` (Attributes) Default route advertisment settings (see [below for nested schema](#nestedatt--protocols--ospf--default_information))
 - `default_metric` (Number) Metric of redistributed routes
 
@@ -2185,6 +2580,8 @@ Optional:
     |----------|---------------|
     |  number: 0-16777214  &emsp; |  Metric of redistributed routes  |
 - `distance` (Attributes) Administrative distance (see [below for nested schema](#nestedatt--protocols--ospf--distance))
+- `graceful_restart` (Attributes) Graceful Restart (see [below for nested schema](#nestedatt--protocols--ospf--graceful_restart))
+- `ldp_sync` (Attributes) Protocol wide LDP-IGP synchronization configuration (see [below for nested schema](#nestedatt--protocols--ospf--ldp_sync))
 - `log_adjacency_changes` (Attributes) Log adjacency state changes (see [below for nested schema](#nestedatt--protocols--ospf--log_adjacency_changes))
 - `max_metric` (Attributes) OSPF maximum and infinite-distance metric (see [below for nested schema](#nestedatt--protocols--ospf--max_metric))
 - `maximum_paths` (Number) Maximum multiple paths (ECMP)
@@ -2201,13 +2598,20 @@ Optional:
     |  default  &emsp; |  Default to suppress routing updates on all interfaces  |
 - `redistribute` (Attributes) Redistribute information from another routing protocol (see [below for nested schema](#nestedatt--protocols--ospf--redistribute))
 - `refresh` (Attributes) Adjust refresh parameters (see [below for nested schema](#nestedatt--protocols--ospf--refresh))
-- `route_map` (String) Specify route-map name to use
+- `segment_routing` (Attributes) Segment-Routing (SPRING) settings (see [below for nested schema](#nestedatt--protocols--ospf--segment_routing))
+- `timers` (Attributes) Adjust routing timers (see [below for nested schema](#nestedatt--protocols--ospf--timers))
+
+<a id="nestedatt--protocols--ospf--aggregation"></a>
+### Nested Schema for `protocols.ospf.aggregation`
+
+Optional:
+
+- `timer` (Number) Delay timer
 
     |  Format &emsp; | Description  |
     |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
-- `segment_routing` (Attributes) Segment-Routing (SPRING) settings (see [below for nested schema](#nestedatt--protocols--ospf--segment_routing))
-- `timers` (Attributes) Adjust routing timers (see [below for nested schema](#nestedatt--protocols--ospf--timers))
+    |  number: 5-1800  &emsp; |  Timer interval in seconds  |
+
 
 <a id="nestedatt--protocols--ospf--auto_cost"></a>
 ### Nested Schema for `protocols.ospf.auto_cost`
@@ -2219,6 +2623,14 @@ Optional:
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 1-4294967  &emsp; |  Reference bandwidth cost in Mbits/sec  |
+
+
+<a id="nestedatt--protocols--ospf--capability"></a>
+### Nested Schema for `protocols.ospf.capability`
+
+Optional:
+
+- `opaque` (Boolean) Opaque LSA
 
 
 <a id="nestedatt--protocols--ospf--default_information"></a>
@@ -2285,6 +2697,58 @@ Optional:
     |----------|---------------|
     |  number: 1-255  &emsp; |  Distance for intra-area routes  |
 
+
+
+<a id="nestedatt--protocols--ospf--graceful_restart"></a>
+### Nested Schema for `protocols.ospf.graceful_restart`
+
+Optional:
+
+- `grace_period` (Number) Maximum length of the grace period
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-1800  &emsp; |  Maximum length of the grace period in seconds  |
+- `helper` (Attributes) OSPF graceful-restart helpers (see [below for nested schema](#nestedatt--protocols--ospf--graceful_restart--helper))
+
+<a id="nestedatt--protocols--ospf--graceful_restart--helper"></a>
+### Nested Schema for `protocols.ospf.graceful_restart.helper`
+
+Optional:
+
+- `enable` (Attributes) Enable helper support (see [below for nested schema](#nestedatt--protocols--ospf--graceful_restart--helper--enable))
+- `no_strict_lsa_checking` (Boolean) Disable strict LSA check
+- `planned_only` (Boolean) Supported only planned restart
+- `supported_grace_time` (Number) Supported grace timer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 10-1800  &emsp; |  Grace interval in seconds  |
+
+<a id="nestedatt--protocols--ospf--graceful_restart--helper--enable"></a>
+### Nested Schema for `protocols.ospf.graceful_restart.helper.enable`
+
+Optional:
+
+- `router_id` (List of String) Advertising Router-ID
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  ipv4  &emsp; |  Router-ID in IP address format  |
+
+
+
+
+<a id="nestedatt--protocols--ospf--ldp_sync"></a>
+### Nested Schema for `protocols.ospf.ldp_sync`
+
+Optional:
+
+- `holddown` (Number) Hold down timer for LDP-IGP cost restoration
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 0-10000  &emsp; |  Time to wait in seconds for LDP-IGP synchronization to occur before restoring interface cost  |
 
 
 <a id="nestedatt--protocols--ospf--log_adjacency_changes"></a>
@@ -2631,14 +3095,10 @@ Optional:
 - `auto_cost` (Attributes) Calculate interface cost according to bandwidth (see [below for nested schema](#nestedatt--protocols--ospfv3--auto_cost))
 - `default_information` (Attributes) Default route advertisment settings (see [below for nested schema](#nestedatt--protocols--ospfv3--default_information))
 - `distance` (Attributes) Administrative distance (see [below for nested schema](#nestedatt--protocols--ospfv3--distance))
+- `graceful_restart` (Attributes) Graceful Restart (see [below for nested schema](#nestedatt--protocols--ospfv3--graceful_restart))
 - `log_adjacency_changes` (Attributes) Log adjacency state changes (see [below for nested schema](#nestedatt--protocols--ospfv3--log_adjacency_changes))
 - `parameters` (Attributes) OSPFv3 specific parameters (see [below for nested schema](#nestedatt--protocols--ospfv3--parameters))
 - `redistribute` (Attributes) Redistribute information from another routing protocol (see [below for nested schema](#nestedatt--protocols--ospfv3--redistribute))
-- `route_map` (String) Specify route-map name to use
-
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
 
 <a id="nestedatt--protocols--ospfv3--auto_cost"></a>
 ### Nested Schema for `protocols.ospfv3.auto_cost`
@@ -2715,6 +3175,46 @@ Optional:
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  number: 1-255  &emsp; |  Distance for intra-area routes  |
+
+
+
+<a id="nestedatt--protocols--ospfv3--graceful_restart"></a>
+### Nested Schema for `protocols.ospfv3.graceful_restart`
+
+Optional:
+
+- `grace_period` (Number) Maximum length of the grace period
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-1800  &emsp; |  Maximum length of the grace period in seconds  |
+- `helper` (Attributes) OSPF graceful-restart helpers (see [below for nested schema](#nestedatt--protocols--ospfv3--graceful_restart--helper))
+
+<a id="nestedatt--protocols--ospfv3--graceful_restart--helper"></a>
+### Nested Schema for `protocols.ospfv3.graceful_restart.helper`
+
+Optional:
+
+- `enable` (Attributes) Enable helper support (see [below for nested schema](#nestedatt--protocols--ospfv3--graceful_restart--helper--enable))
+- `lsa_check_disable` (Boolean) Disable strict LSA check
+- `planned_only` (Boolean) Supported only planned restart
+- `supported_grace_time` (Number) Supported grace timer
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 10-1800  &emsp; |  Grace interval in seconds  |
+
+<a id="nestedatt--protocols--ospfv3--graceful_restart--helper--enable"></a>
+### Nested Schema for `protocols.ospfv3.graceful_restart.helper.enable`
+
+Optional:
+
+- `router_id` (List of String) Advertising Router-ID
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  ipv4  &emsp; |  Router-ID in IP address format  |
+
 
 
 

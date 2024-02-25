@@ -16,11 +16,11 @@ import (
 type FirewallIPvsixName struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
-	SelfIdentifier types.String `tfsdk:"ipv6_name_id" vyos:"-,self-id"`
+	SelfIdentifier types.String `tfsdk:"name_id" vyos:"-,self-id"`
 
 	// LeafNodes
 	LeafFirewallIPvsixNameDefaultAction     types.String `tfsdk:"default_action" vyos:"default-action,omitempty"`
-	LeafFirewallIPvsixNameEnableDefaultLog  types.Bool   `tfsdk:"enable_default_log" vyos:"enable-default-log,omitempty"`
+	LeafFirewallIPvsixNameDefaultLog        types.Bool   `tfsdk:"default_log" vyos:"default-log,omitempty"`
 	LeafFirewallIPvsixNameDescrIPtion       types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafFirewallIPvsixNameDefaultJumpTarget types.String `tfsdk:"default_jump_target" vyos:"default-jump-target,omitempty"`
 
@@ -44,7 +44,9 @@ func (o *FirewallIPvsixName) GetVyosPath() []string {
 	return []string{
 		"firewall",
 
-		"ipv6-name",
+		"ipv6",
+
+		"name",
 		o.SelfIdentifier.ValueString(),
 	}
 }
@@ -56,9 +58,9 @@ func (o FirewallIPvsixName) ResourceSchemaAttributes() map[string]schema.Attribu
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
-		"ipv6_name_id": schema.StringAttribute{
+		"name_id": schema.StringAttribute{
 			Required: true,
-			MarkdownDescription: `IPv6 firewall rule-set name
+			MarkdownDescription: `IPv6 custom firewall
 
 `,
 			PlanModifiers: []planmodifier.String{
@@ -79,6 +81,7 @@ func (o FirewallIPvsixName) ResourceSchemaAttributes() map[string]schema.Attribu
     |  reject  &emsp; |  Drop and notify source if no prior rules are hit  |
     |  return  &emsp; |  Return from the current chain and continue at the next rule of the last chain  |
     |  accept  &emsp; |  Accept if no prior rules are hit  |
+    |  continue  &emsp; |  Continue parsing next rule  |
 
 `,
 
@@ -86,7 +89,7 @@ func (o FirewallIPvsixName) ResourceSchemaAttributes() map[string]schema.Attribu
 			Computed: true,
 		},
 
-		"enable_default_log": schema.BoolAttribute{
+		"default_log": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Log packets hitting default-action
 

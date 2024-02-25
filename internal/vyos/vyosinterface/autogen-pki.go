@@ -191,6 +191,12 @@ func pki() interfacedefinition.InterfaceDefinition {
 							Local: "properties",
 						},
 						Help: []string{"Certificate Authority"},
+						Constraint: []*interfacedefinition.Constraint{{
+							XMLName: xml.Name{
+								Local: "constraint",
+							},
+							Regex: []string{"[-_a-zA-Z0-9.]+"},
+						}},
 					}},
 					Children: []*interfacedefinition.Children{{
 						XMLName: xml.Name{
@@ -222,7 +228,19 @@ func pki() interfacedefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"CA private key in PEM format"},
+										Help: []string{"Private key in PEM format"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Validator: []*interfacedefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "base64",
+											}},
+										}},
+										ConstraintErrorMessage: []string{"Private key is not base64-encoded"},
 									}},
 								}, {
 									IsBaseNode: false,
@@ -234,7 +252,7 @@ func pki() interfacedefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"CA private key is password protected"},
+										Help: []string{"Private key portion is password protected"},
 										Valueless: []*interfacedefinition.Valueless{{
 											XMLName: xml.Name{
 												Local: "valueless",
@@ -254,7 +272,19 @@ func pki() interfacedefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"CA certificate in PEM format"},
+								Help: []string{"Certificate in PEM format"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Validator: []*interfacedefinition.Validator{{
+										XMLName: xml.Name{
+											Local: "validator",
+										},
+										NameAttr: "base64",
+									}},
+								}},
+								ConstraintErrorMessage: []string{"Certificate is not base64-encoded"},
 							}},
 						}, {
 							IsBaseNode: false,
@@ -267,6 +297,20 @@ func pki() interfacedefinition.InterfaceDefinition {
 									Local: "properties",
 								},
 								Help: []string{"Description"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Regex: []string{"[[:ascii:]]{0,256}"},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "txt",
+									Description: "Description",
+								}},
+								ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 							}},
 						}, {
 							IsBaseNode: false,
@@ -279,6 +323,18 @@ func pki() interfacedefinition.InterfaceDefinition {
 									Local: "properties",
 								},
 								Help: []string{"Certificate revocation list in PEM format"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Validator: []*interfacedefinition.Validator{{
+										XMLName: xml.Name{
+											Local: "validator",
+										},
+										NameAttr: "base64",
+									}},
+								}},
+								ConstraintErrorMessage: []string{"CRL is not base64-encoded"},
 								Multi: []*interfacedefinition.Multi{{
 									XMLName: xml.Name{
 										Local: "multi",
@@ -295,7 +351,7 @@ func pki() interfacedefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"If parent CA is present, this CA certificate will be included in generated CRLs"},
+								Help: []string{"Include certificate in parent CRL"},
 								Valueless: []*interfacedefinition.Valueless{{
 									XMLName: xml.Name{
 										Local: "valueless",
@@ -315,12 +371,196 @@ func pki() interfacedefinition.InterfaceDefinition {
 							Local: "properties",
 						},
 						Help: []string{"Certificate"},
+						Constraint: []*interfacedefinition.Constraint{{
+							XMLName: xml.Name{
+								Local: "constraint",
+							},
+							Regex: []string{"[-_a-zA-Z0-9.]+"},
+						}},
 					}},
 					Children: []*interfacedefinition.Children{{
 						XMLName: xml.Name{
 							Local: "children",
 						},
 						Node: []*interfacedefinition.Node{{
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "node",
+							},
+							NodeNameAttr: "acme",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Automatic Certificate Management Environment (ACME) request"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{
+									Local: "children",
+								},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "url",
+									DefaultValue: []string{"https://acme-v02.api.letsencrypt.org/directory"},
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Remote URL"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Validator: []*interfacedefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr:     "url",
+												ArgumentAttr: "--scheme http --scheme https",
+											}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "url",
+											Description: "Remote HTTP(S) URL",
+										}},
+										ConstraintErrorMessage: []string{"Invalid HTTP(S) URL format"},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "domain-name",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Domain Name"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Validator: []*interfacedefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "fqdn",
+											}},
+										}},
+										ConstraintErrorMessage: []string{"Invalid domain name (RFC 1123 section 2).\\nMay only contain letters, numbers and .-_"},
+										Multi: []*interfacedefinition.Multi{{
+											XMLName: xml.Name{
+												Local: "multi",
+											},
+										}},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "email",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Email address to associate with certificate"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"[^\\s@]+@([^\\s@.,]+\\.)+[^\\s@.,]{2,}"},
+										}},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "listen-address",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Local IPv4 addresses to listen on"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Validator: []*interfacedefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "ipv4-address",
+											}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipv4",
+											Description: "IPv4 address to listen for incoming connections",
+										}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											Script: []string{"${vyos_completion_dir}/list_local_ips.sh --ipv4"},
+										}},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "rsa-key-size",
+									DefaultValue: []string{"2048"},
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Size of the RSA key"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"(2048|3072|4096)"},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "2048",
+											Description: "RSA key length 2048 bit",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "3072",
+											Description: "RSA key length 3072 bit",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "4096",
+											Description: "RSA key length 4096 bit",
+										}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											List: []string{"2048 3072 4096"},
+										}},
+									}},
+								}},
+							}},
+						}, {
 							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
@@ -346,7 +586,19 @@ func pki() interfacedefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Certificate private key in PEM format"},
+										Help: []string{"Private key in PEM format"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Validator: []*interfacedefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "base64",
+											}},
+										}},
+										ConstraintErrorMessage: []string{"Private key is not base64-encoded"},
 									}},
 								}, {
 									IsBaseNode: false,
@@ -358,7 +610,7 @@ func pki() interfacedefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Certificate private key is password protected"},
+										Help: []string{"Private key portion is password protected"},
 										Valueless: []*interfacedefinition.Valueless{{
 											XMLName: xml.Name{
 												Local: "valueless",
@@ -379,6 +631,18 @@ func pki() interfacedefinition.InterfaceDefinition {
 									Local: "properties",
 								},
 								Help: []string{"Certificate in PEM format"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Validator: []*interfacedefinition.Validator{{
+										XMLName: xml.Name{
+											Local: "validator",
+										},
+										NameAttr: "base64",
+									}},
+								}},
+								ConstraintErrorMessage: []string{"Certificate is not base64-encoded"},
 							}},
 						}, {
 							IsBaseNode: false,
@@ -391,6 +655,20 @@ func pki() interfacedefinition.InterfaceDefinition {
 									Local: "properties",
 								},
 								Help: []string{"Description"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Regex: []string{"[[:ascii:]]{0,256}"},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "txt",
+									Description: "Description",
+								}},
+								ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 							}},
 						}, {
 							IsBaseNode: false,
@@ -402,7 +680,7 @@ func pki() interfacedefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"If CA is present, this certificate will be included in generated CRLs"},
+								Help: []string{"Include certificate in parent CRL"},
 								Valueless: []*interfacedefinition.Valueless{{
 									XMLName: xml.Name{
 										Local: "valueless",
@@ -422,6 +700,12 @@ func pki() interfacedefinition.InterfaceDefinition {
 							Local: "properties",
 						},
 						Help: []string{"Diffie-Hellman parameters"},
+						Constraint: []*interfacedefinition.Constraint{{
+							XMLName: xml.Name{
+								Local: "constraint",
+							},
+							Regex: []string{"[-_a-zA-Z0-9.]+"},
+						}},
 					}},
 					Children: []*interfacedefinition.Children{{
 						XMLName: xml.Name{
@@ -438,6 +722,18 @@ func pki() interfacedefinition.InterfaceDefinition {
 									Local: "properties",
 								},
 								Help: []string{"DH parameters in PEM format"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Validator: []*interfacedefinition.Validator{{
+										XMLName: xml.Name{
+											Local: "validator",
+										},
+										NameAttr: "base64",
+									}},
+								}},
+								ConstraintErrorMessage: []string{"DH parameters are not base64-encoded"},
 							}},
 						}},
 					}},
@@ -484,6 +780,18 @@ func pki() interfacedefinition.InterfaceDefinition {
 											Local: "properties",
 										},
 										Help: []string{"Public key in PEM format"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Validator: []*interfacedefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "base64",
+											}},
+										}},
+										ConstraintErrorMessage: []string{"Public key is not base64-encoded"},
 									}},
 								}},
 							}},
@@ -514,6 +822,18 @@ func pki() interfacedefinition.InterfaceDefinition {
 											Local: "properties",
 										},
 										Help: []string{"Private key in PEM format"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Validator: []*interfacedefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "base64",
+											}},
+										}},
+										ConstraintErrorMessage: []string{"Private key is not base64-encoded"},
 									}},
 								}, {
 									IsBaseNode: false,
@@ -525,7 +845,157 @@ func pki() interfacedefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Private key is password protected"},
+										Help: []string{"Private key portion is password protected"},
+										Valueless: []*interfacedefinition.Valueless{{
+											XMLName: xml.Name{
+												Local: "valueless",
+											},
+										}},
+									}},
+								}},
+							}},
+						}},
+					}},
+				}, {
+					IsBaseNode: false,
+					XMLName: xml.Name{
+						Local: "tagNode",
+					},
+					NodeNameAttr: "openssh",
+					Properties: []*interfacedefinition.Properties{{
+						XMLName: xml.Name{
+							Local: "properties",
+						},
+						Help: []string{"OpenSSH public and private keys"},
+					}},
+					Children: []*interfacedefinition.Children{{
+						XMLName: xml.Name{
+							Local: "children",
+						},
+						Node: []*interfacedefinition.Node{{
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "node",
+							},
+							NodeNameAttr: "public",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Public key"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{
+									Local: "children",
+								},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "key",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Public key in PEM format"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Validator: []*interfacedefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "base64",
+											}},
+										}},
+										ConstraintErrorMessage: []string{"Public key is not base64-encoded"},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "type",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"SSH public key type"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"(ssh-rsa)"},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ssh-rsa",
+											Description: "Key pair based on RSA algorithm",
+										}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											List: []string{"ssh-rsa"},
+										}},
+									}},
+								}},
+							}},
+						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "node",
+							},
+							NodeNameAttr: "private",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Private key"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{
+									Local: "children",
+								},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "key",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Private key in PEM format"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Validator: []*interfacedefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "base64",
+											}},
+										}},
+										ConstraintErrorMessage: []string{"Private key is not base64-encoded"},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "password-protected",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Private key portion is password protected"},
 										Valueless: []*interfacedefinition.Valueless{{
 											XMLName: xml.Name{
 												Local: "valueless",

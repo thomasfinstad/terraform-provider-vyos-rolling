@@ -12,17 +12,21 @@ type VrfNameProtocolsOspf struct {
 	LeafVrfNameProtocolsOspfDefaultMetric    types.Number `tfsdk:"default_metric" vyos:"default-metric,omitempty"`
 	LeafVrfNameProtocolsOspfMaximumPaths     types.Number `tfsdk:"maximum_paths" vyos:"maximum-paths,omitempty"`
 	LeafVrfNameProtocolsOspfPassiveInterface types.String `tfsdk:"passive_interface" vyos:"passive-interface,omitempty"`
-	LeafVrfNameProtocolsOspfRouteMap         types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsOspfAccessList bool `tfsdk:"access_list" vyos:"access-list,child"`
-	ExistsTagVrfNameProtocolsOspfArea       bool `tfsdk:"area" vyos:"area,child"`
-	ExistsTagVrfNameProtocolsOspfInterface  bool `tfsdk:"interface" vyos:"interface,child"`
-	ExistsTagVrfNameProtocolsOspfNeighbor   bool `tfsdk:"neighbor" vyos:"neighbor,child"`
+	ExistsTagVrfNameProtocolsOspfAccessList     bool `tfsdk:"access_list" vyos:"access-list,child"`
+	ExistsTagVrfNameProtocolsOspfArea           bool `tfsdk:"area" vyos:"area,child"`
+	ExistsTagVrfNameProtocolsOspfInterface      bool `tfsdk:"interface" vyos:"interface,child"`
+	ExistsTagVrfNameProtocolsOspfNeighbor       bool `tfsdk:"neighbor" vyos:"neighbor,child"`
+	ExistsTagVrfNameProtocolsOspfSummaryAddress bool `tfsdk:"summary_address" vyos:"summary-address,child"`
 
 	// Nodes
+	NodeVrfNameProtocolsOspfAggregation         *VrfNameProtocolsOspfAggregation         `tfsdk:"aggregation" vyos:"aggregation,omitempty"`
 	NodeVrfNameProtocolsOspfAutoCost            *VrfNameProtocolsOspfAutoCost            `tfsdk:"auto_cost" vyos:"auto-cost,omitempty"`
+	NodeVrfNameProtocolsOspfCapability          *VrfNameProtocolsOspfCapability          `tfsdk:"capability" vyos:"capability,omitempty"`
 	NodeVrfNameProtocolsOspfDefaultInformation  *VrfNameProtocolsOspfDefaultInformation  `tfsdk:"default_information" vyos:"default-information,omitempty"`
+	NodeVrfNameProtocolsOspfGracefulRestart     *VrfNameProtocolsOspfGracefulRestart     `tfsdk:"graceful_restart" vyos:"graceful-restart,omitempty"`
+	NodeVrfNameProtocolsOspfLdpSync             *VrfNameProtocolsOspfLdpSync             `tfsdk:"ldp_sync" vyos:"ldp-sync,omitempty"`
 	NodeVrfNameProtocolsOspfDistance            *VrfNameProtocolsOspfDistance            `tfsdk:"distance" vyos:"distance,omitempty"`
 	NodeVrfNameProtocolsOspfLogAdjacencyChanges *VrfNameProtocolsOspfLogAdjacencyChanges `tfsdk:"log_adjacency_changes" vyos:"log-adjacency-changes,omitempty"`
 	NodeVrfNameProtocolsOspfMaxMetric           *VrfNameProtocolsOspfMaxMetric           `tfsdk:"max_metric" vyos:"max-metric,omitempty"`
@@ -72,18 +76,15 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 
-		"route_map": schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `Specify route-map name to use
+		// Nodes
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+		"aggregation": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsOspfAggregation{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `External route aggregation
 
 `,
 		},
-
-		// Nodes
 
 		"auto_cost": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfAutoCost{}.ResourceSchemaAttributes(),
@@ -93,10 +94,34 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 
+		"capability": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsOspfCapability{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Enable specific OSPF features
+
+`,
+		},
+
 		"default_information": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfDefaultInformation{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Default route advertisment settings
+
+`,
+		},
+
+		"graceful_restart": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsOspfGracefulRestart{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Graceful Restart
+
+`,
+		},
+
+		"ldp_sync": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsOspfLdpSync{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Protocol wide LDP-IGP synchronization configuration
 
 `,
 		},

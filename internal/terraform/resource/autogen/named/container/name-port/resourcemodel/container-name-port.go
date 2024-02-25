@@ -20,9 +20,10 @@ type ContainerNamePort struct {
 	ParentIDContainerName types.String `tfsdk:"name" vyos:"name,parent-id"`
 
 	// LeafNodes
-	LeafContainerNamePortSource      types.String `tfsdk:"source" vyos:"source,omitempty"`
-	LeafContainerNamePortDestination types.String `tfsdk:"destination" vyos:"destination,omitempty"`
-	LeafContainerNamePortProtocol    types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
+	LeafContainerNamePortListenAddress types.List   `tfsdk:"listen_address" vyos:"listen-address,omitempty"`
+	LeafContainerNamePortSource        types.String `tfsdk:"source" vyos:"source,omitempty"`
+	LeafContainerNamePortDestination   types.String `tfsdk:"destination" vyos:"destination,omitempty"`
+	LeafContainerNamePortProtocol      types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -79,6 +80,19 @@ func (o ContainerNamePort) ResourceSchemaAttributes() map[string]schema.Attribut
 		},
 
 		// LeafNodes
+
+		"listen_address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
+			MarkdownDescription: `Local IP addresses to listen on
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  ipv4  &emsp; |  IPv4 address to listen for incoming connections  |
+    |  ipv6  &emsp; |  IPv6 address to listen for incoming connections  |
+
+`,
+		},
 
 		"source": schema.StringAttribute{
 			Optional: true,

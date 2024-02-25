@@ -19,20 +19,21 @@ type NatDestinationRule struct {
 	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
 
 	// LeafNodes
-	LeafNatDestinationRuleDescrIPtion      types.String `tfsdk:"description" vyos:"description,omitempty"`
-	LeafNatDestinationRuleDisable          types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
-	LeafNatDestinationRuleExclude          types.Bool   `tfsdk:"exclude" vyos:"exclude,omitempty"`
-	LeafNatDestinationRuleLog              types.Bool   `tfsdk:"log" vyos:"log,omitempty"`
-	LeafNatDestinationRulePacketType       types.String `tfsdk:"packet_type" vyos:"packet-type,omitempty"`
-	LeafNatDestinationRuleProtocol         types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
-	LeafNatDestinationRuleInboundInterface types.String `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
+	LeafNatDestinationRuleDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
+	LeafNatDestinationRuleDisable     types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
+	LeafNatDestinationRuleExclude     types.Bool   `tfsdk:"exclude" vyos:"exclude,omitempty"`
+	LeafNatDestinationRuleLog         types.Bool   `tfsdk:"log" vyos:"log,omitempty"`
+	LeafNatDestinationRulePacketType  types.String `tfsdk:"packet_type" vyos:"packet-type,omitempty"`
+	LeafNatDestinationRuleProtocol    types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes
-	NodeNatDestinationRuleDestination *NatDestinationRuleDestination `tfsdk:"destination" vyos:"destination,omitempty"`
-	NodeNatDestinationRuleSource      *NatDestinationRuleSource      `tfsdk:"source" vyos:"source,omitempty"`
-	NodeNatDestinationRuleTranSLAtion *NatDestinationRuleTranSLAtion `tfsdk:"translation" vyos:"translation,omitempty"`
+	NodeNatDestinationRuleDestination      *NatDestinationRuleDestination      `tfsdk:"destination" vyos:"destination,omitempty"`
+	NodeNatDestinationRuleLoadBalance      *NatDestinationRuleLoadBalance      `tfsdk:"load_balance" vyos:"load-balance,omitempty"`
+	NodeNatDestinationRuleSource           *NatDestinationRuleSource           `tfsdk:"source" vyos:"source,omitempty"`
+	NodeNatDestinationRuleInboundInterface *NatDestinationRuleInboundInterface `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
+	NodeNatDestinationRuleTranSLAtion      *NatDestinationRuleTranSLAtion      `tfsdk:"translation" vyos:"translation,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -110,7 +111,7 @@ func (o NatDestinationRule) ResourceSchemaAttributes() map[string]schema.Attribu
 
 		"log": schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `NAT rule logging
+			MarkdownDescription: `Log packets hitting this rule
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -203,13 +204,6 @@ func (o NatDestinationRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Computed: true,
 		},
 
-		"inbound_interface": schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `Inbound interface of NAT traffic
-
-`,
-		},
-
 		// Nodes
 
 		"destination": schema.SingleNestedAttribute{
@@ -220,10 +214,26 @@ func (o NatDestinationRule) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 
+		"load_balance": schema.SingleNestedAttribute{
+			Attributes: NatDestinationRuleLoadBalance{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Apply NAT load balance
+
+`,
+		},
+
 		"source": schema.SingleNestedAttribute{
 			Attributes: NatDestinationRuleSource{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `NAT source parameters
+
+`,
+		},
+
+		"inbound_interface": schema.SingleNestedAttribute{
+			Attributes: NatDestinationRuleInboundInterface{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Match inbound-interface
 
 `,
 		},

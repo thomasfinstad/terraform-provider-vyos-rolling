@@ -93,6 +93,8 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
     |----------|---------------|
     |  <+/-metric>  &emsp; |  Add or subtract metric  |
     |  number: 0-4294967295  &emsp; |  Metric value  |
+    |  <+/-rtt>  &emsp; |  Add or subtract round trip time  |
+    |  <rtt>  &emsp; |  Round trip time  |
 
 `,
 		},
@@ -158,11 +160,11 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 
 		"tag": schema.NumberAttribute{
 			Optional: true,
-			MarkdownDescription: `Tag value for routing protocol
+			MarkdownDescription: `Route tag value
 
     |  Format &emsp; | Description  |
     |----------|---------------|
-    |  number: 1-65535  &emsp; |  Tag value  |
+    |  number: 1-65535  &emsp; |  Route tag  |
 
 `,
 		},

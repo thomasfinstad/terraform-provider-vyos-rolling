@@ -25,7 +25,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 					Local: "properties",
 				},
 				Help:     []string{"Virtual Routing and Forwarding"},
-				Priority: []string{"299"},
+				Priority: []string{"11"},
 			}},
 			Children: []*interfacedefinition.Children{{
 				XMLName: xml.Name{
@@ -82,6 +82,166 @@ func vrf() interfacedefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "children",
 								},
+								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "node",
+									},
+									NodeNameAttr: "nht",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Filter Next Hop tracking route resolution"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "no-resolve-via-default",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Do not resolve via default route"},
+												Valueless: []*interfacedefinition.Valueless{{
+													XMLName: xml.Name{
+														Local: "valueless",
+													},
+												}},
+											}},
+										}},
+									}},
+								}},
+								TagNode: []*interfacedefinition.TagNode{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "tagNode",
+									},
+									NodeNameAttr: "protocol",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Filter routing info exchanged between routing protocol and zebra"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"(any|babel|bgp|connected|eigrp|isis|kernel|ospf|rip|static|table)"},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "any",
+											Description: "Any of the above protocols",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "babel",
+											Description: "Babel routing protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "bgp",
+											Description: "Border Gateway Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "connected",
+											Description: "Connected routes (directly attached subnet or host)",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "eigrp",
+											Description: "Enhanced Interior Gateway Routing Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "isis",
+											Description: "Intermediate System to Intermediate System",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "kernel",
+											Description: "Kernel routes (not installed via the zebra RIB)",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ospf",
+											Description: "Open Shortest Path First (OSPFv2)",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "rip",
+											Description: "Routing Information Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "static",
+											Description: "Statically configured routes",
+										}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											List: []string{"any babel bgp connected eigrp isis kernel ospf rip static table"},
+										}},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "route-map",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Specify route-map name to use"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Regex: []string{"[-_a-zA-Z0-9.]+"},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt",
+													Description: "Route map name",
+												}},
+												ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+												CompletionHelp: []*interfacedefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													Path: []string{"policy route-map"},
+												}},
+											}},
+										}},
+									}},
+								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
 									IsBaseNode: false,
 									XMLName: xml.Name{
@@ -117,6 +277,160 @@ func vrf() interfacedefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "children",
 								},
+								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "node",
+									},
+									NodeNameAttr: "nht",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Filter Next Hop tracking route resolution"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "no-resolve-via-default",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Do not resolve via default route"},
+												Valueless: []*interfacedefinition.Valueless{{
+													XMLName: xml.Name{
+														Local: "valueless",
+													},
+												}},
+											}},
+										}},
+									}},
+								}},
+								TagNode: []*interfacedefinition.TagNode{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "tagNode",
+									},
+									NodeNameAttr: "protocol",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Filter routing info exchanged between routing protocol and zebra"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"(any|babel|bgp|connected|isis|kernel|ospfv3|ripng|static|table)"},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "any",
+											Description: "Any of the above protocols",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "babel",
+											Description: "Babel routing protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "bgp",
+											Description: "Border Gateway Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "connected",
+											Description: "Connected routes (directly attached subnet or host)",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "isis",
+											Description: "Intermediate System to Intermediate System",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "kernel",
+											Description: "Kernel routes (not installed via the zebra RIB)",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ospfv3",
+											Description: "Open Shortest Path First (OSPFv3)",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ripng",
+											Description: "Routing Information Protocol next-generation",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "static",
+											Description: "Statically configured routes",
+										}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											List: []string{"any babel bgp connected isis kernel ospfv3 ripng static table"},
+										}},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "route-map",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Specify route-map name to use"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Regex: []string{"[-_a-zA-Z0-9.]+"},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt",
+													Description: "Route map name",
+												}},
+												ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+												CompletionHelp: []*interfacedefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													Path: []string{"policy route-map"},
+												}},
+											}},
+										}},
+									}},
+								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
 									IsBaseNode: false,
 									XMLName: xml.Name{
@@ -471,6 +785,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			XMLName: xml.Name{
 																				Local: "completionHelp",
 																			},
+																			List: []string{"default"},
 																			Path: []string{"vrf name"},
 																		}},
 																		Multi: []*interfacedefinition.Multi{{
@@ -513,6 +828,42 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		XMLName: xml.Name{
 																			Local: "children",
 																		},
+																		Node: []*interfacedefinition.Node{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "node",
+																			},
+																			NodeNameAttr: "allocation-mode",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Label allocation mode"},
+																			}},
+																			Children: []*interfacedefinition.Children{{
+																				XMLName: xml.Name{
+																					Local: "children",
+																				},
+																				LeafNode: []*interfacedefinition.LeafNode{{
+																					IsBaseNode: false,
+																					XMLName: xml.Name{
+																						Local: "leafNode",
+																					},
+																					NodeNameAttr: "per-nexthop",
+																					Properties: []*interfacedefinition.Properties{{
+																						XMLName: xml.Name{
+																							Local: "properties",
+																						},
+																						Help: []string{"Allocate a label per connected next-hop in the VRF"},
+																						Valueless: []*interfacedefinition.Valueless{{
+																							XMLName: xml.Name{
+																								Local: "valueless",
+																							},
+																						}},
+																					}},
+																				}},
+																			}},
+																		}},
 																		LeafNode: []*interfacedefinition.LeafNode{{
 																			IsBaseNode: false,
 																			XMLName: xml.Name{
@@ -931,6 +1282,78 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																					},
 																					Format:      "txt",
 																					Description: "Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)",
+																				}},
+																			}},
+																		}},
+																	}},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "nexthop",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Specify next hop to use for VRF advertised prefixes"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "vpn",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Between current address-family and vpn"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "export",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"For routes leaked from current address-family to vpn"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr: "ip-address",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "ipv4",
+																					Description: "BGP neighbor IP address",
+																				}, {
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "ipv6",
+																					Description: "BGP neighbor IPv6 address",
 																				}},
 																			}},
 																		}},
@@ -1448,6 +1871,86 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "properties",
 																		},
 																		Help: []string{"Redistribute non-main Kernel Routing Table"},
+																	}},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "sid",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"SID value for VRF"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "vpn",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Between current VRF and VPN"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "export",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"For routes leaked from current VRF to VPN"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"auto"},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr:     "numeric",
+																						ArgumentAttr: "--range 1-1048575",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "u32:1-1048575",
+																					Description: "SID allocation index",
+																				}, {
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "auto",
+																					Description: "Automatically assign a label",
+																				}},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					List: []string{"auto"},
+																				}},
+																			}},
+																		}},
 																	}},
 																}},
 															}},
@@ -2042,6 +2545,87 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														XMLName: xml.Name{
 															Local: "children",
 														},
+														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "maximum-paths",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Forward packets over multiple paths"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "ebgp",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"eBGP maximum paths"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-256",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-256",
+																			Description: "Number of paths to consider",
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "ibgp",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"iBGP maximum paths"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-256",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-256",
+																			Description: "Number of paths to consider",
+																		}},
+																	}},
+																}},
+															}},
+														}},
 														TagNode: []*interfacedefinition.TagNode{{
 															IsBaseNode: false,
 															XMLName: xml.Name{
@@ -2273,7 +2857,26 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		XMLName: xml.Name{
 																			Local: "properties",
 																		},
-																		Help: []string{"Interface"},
+																		Help: []string{"Interface to use"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr: "file-path --lookup-path /sys/class/net --directory",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "txt",
+																			Description: "Interface name",
+																		}},
 																		CompletionHelp: []*interfacedefinition.CompletionHelp{{
 																			XMLName: xml.Name{
 																				Local: "completionHelp",
@@ -2691,6 +3294,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			XMLName: xml.Name{
 																				Local: "completionHelp",
 																			},
+																			List: []string{"default"},
 																			Path: []string{"vrf name"},
 																		}},
 																		Multi: []*interfacedefinition.Multi{{
@@ -2733,6 +3337,42 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		XMLName: xml.Name{
 																			Local: "children",
 																		},
+																		Node: []*interfacedefinition.Node{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "node",
+																			},
+																			NodeNameAttr: "allocation-mode",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Label allocation mode"},
+																			}},
+																			Children: []*interfacedefinition.Children{{
+																				XMLName: xml.Name{
+																					Local: "children",
+																				},
+																				LeafNode: []*interfacedefinition.LeafNode{{
+																					IsBaseNode: false,
+																					XMLName: xml.Name{
+																						Local: "leafNode",
+																					},
+																					NodeNameAttr: "per-nexthop",
+																					Properties: []*interfacedefinition.Properties{{
+																						XMLName: xml.Name{
+																							Local: "properties",
+																						},
+																						Help: []string{"Allocate a label per connected next-hop in the VRF"},
+																						Valueless: []*interfacedefinition.Valueless{{
+																							XMLName: xml.Name{
+																								Local: "valueless",
+																							},
+																						}},
+																					}},
+																				}},
+																			}},
+																		}},
 																		LeafNode: []*interfacedefinition.LeafNode{{
 																			IsBaseNode: false,
 																			XMLName: xml.Name{
@@ -3151,6 +3791,78 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																					},
 																					Format:      "txt",
 																					Description: "Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)",
+																				}},
+																			}},
+																		}},
+																	}},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "nexthop",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Specify next hop to use for VRF advertised prefixes"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "vpn",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Between current address-family and vpn"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "export",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"For routes leaked from current address-family to vpn"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr: "ip-address",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "ipv4",
+																					Description: "BGP neighbor IP address",
+																				}, {
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "ipv6",
+																					Description: "BGP neighbor IPv6 address",
 																				}},
 																			}},
 																		}},
@@ -3599,6 +4311,86 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "properties",
 																		},
 																		Help: []string{"Redistribute non-main Kernel Routing Table"},
+																	}},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "sid",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"SID value for VRF"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "vpn",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Between current VRF and VPN"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "export",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"For routes leaked from current VRF to VPN"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"auto"},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr:     "numeric",
+																						ArgumentAttr: "--range 1-1048575",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "u32:1-1048575",
+																					Description: "SID allocation index",
+																				}, {
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "auto",
+																					Description: "Automatically assign a label",
+																				}},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					List: []string{"auto"},
+																				}},
+																			}},
+																		}},
 																	}},
 																}},
 															}},
@@ -4886,6 +5678,161 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "node",
 															},
+															NodeNameAttr: "default-originate",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Originate a default route"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "ipv4",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"IPv4 address family"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "ipv6",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"IPv6 address family"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "ead-es-frag",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"EAD ES fragment config"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "evi-limit",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"EVIs per-fragment"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-1000",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-1000",
+																			Description: "limit",
+																		}},
+																	}},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "ead-es-route-target",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"EAD ES Route Target"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "export",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Route Target export"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "bgp-rd-rt",
+																				ArgumentAttr: "--route-target-multi",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "txt",
+																			Description: "Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)",
+																		}},
+																		Multi: []*interfacedefinition.Multi{{
+																			XMLName: xml.Name{
+																				Local: "multi",
+																			},
+																		}},
+																	}},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
 															NodeNameAttr: "flooding",
 															Properties: []*interfacedefinition.Properties{{
 																XMLName: xml.Name{
@@ -4907,7 +5854,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		XMLName: xml.Name{
 																			Local: "properties",
 																		},
-																		Help: []string{"Do not flood any BUM packets"},
+																		Help: []string{"Disable instance"},
 																		Valueless: []*interfacedefinition.Valueless{{
 																			XMLName: xml.Name{
 																				Local: "valueless",
@@ -4930,6 +5877,61 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				Local: "valueless",
 																			},
 																		}},
+																	}},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "mac-vrf",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"EVPN MAC-VRF"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "soo",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Site-of-Origin extended community"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr: "bgp-extended-community",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "ASN:NN",
+																			Description: "based on autonomous system number in format <0-65535:0-4294967295>",
+																		}, {
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "IP:NN",
+																			Description: "Based on a router-id IP address in format <IP:0-65535>",
+																		}},
+																		ConstraintErrorMessage: []string{"Should be in form: ASN:NN or IPADDR:NN where ASN is autonomous system number"},
 																	}},
 																}},
 															}},
@@ -5293,6 +6295,381 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	},
 																}},
 															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "disable-ead-evi-rx",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Activate PE on EAD-ES even if EAD-EVI is not received"},
+																Valueless: []*interfacedefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "disable-ead-evi-tx",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Do not advertise EAD-EVI for local ESs"},
+																Valueless: []*interfacedefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}},
+													}},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "node",
+											},
+											NodeNameAttr: "bmp",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"BGP Monitoring Protocol (BMP)"},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												TagNode: []*interfacedefinition.TagNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "tagNode",
+													},
+													NodeNameAttr: "target",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"BMP target"},
+													}},
+													Children: []*interfacedefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "monitor",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Send BMP route monitoring messages"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "ipv4-unicast",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Address family IPv4 unicast"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "pre-policy",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Send state before policy and filter processing"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "post-policy",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Send state with policy and filters applied"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "ipv6-unicast",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Address family IPv6 unicast"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "pre-policy",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Send state before policy and filter processing"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "post-policy",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Send state with policy and filters applied"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}},
+															}},
+														}},
+														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "address",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"IP address"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr: "ip-address",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "ipv4",
+																	Description: "IPv4 address",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "ipv6",
+																	Description: "IPv6 address",
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "port",
+															DefaultValue: []string{"5000"},
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Port number used by connection"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 1-65535",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:1-65535",
+																	Description: "Numeric IP port",
+																}},
+																ConstraintErrorMessage: []string{"Port number must be in range 1 to 65535"},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "min-retry",
+															DefaultValue: []string{"1000"},
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Minimum connection retry interval (in milliseconds)"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 100-86400000",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:100-86400000",
+																	Description: "Minimum connection retry interval",
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "max-retry",
+															DefaultValue: []string{"2000"},
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Maximum connection retry interval"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 100-86400000",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:100-4294967295",
+																	Description: "Maximum connection retry interval",
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "mirror",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Send BMP route mirroring messages"},
+																Valueless: []*interfacedefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}},
+													}},
+												}},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "mirror-buffer-limit",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Maximum memory used for buffered mirroring messages (in bytes)"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*interfacedefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr:     "numeric",
+																ArgumentAttr: "--range 0-4294967294",
+															}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "u32:0-4294967294",
+															Description: "Limit in bytes",
 														}},
 													}},
 												}},
@@ -5525,58 +6902,6 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "node",
 															},
-															NodeNameAttr: "med",
-															Properties: []*interfacedefinition.Properties{{
-																XMLName: xml.Name{
-																	Local: "properties",
-																},
-																Help: []string{"MED attribute comparison parameters"},
-															}},
-															Children: []*interfacedefinition.Children{{
-																XMLName: xml.Name{
-																	Local: "children",
-																},
-																LeafNode: []*interfacedefinition.LeafNode{{
-																	IsBaseNode: false,
-																	XMLName: xml.Name{
-																		Local: "leafNode",
-																	},
-																	NodeNameAttr: "confed",
-																	Properties: []*interfacedefinition.Properties{{
-																		XMLName: xml.Name{
-																			Local: "properties",
-																		},
-																		Help: []string{"Compare MEDs among confederation paths"},
-																		Valueless: []*interfacedefinition.Valueless{{
-																			XMLName: xml.Name{
-																				Local: "valueless",
-																			},
-																		}},
-																	}},
-																}, {
-																	IsBaseNode: false,
-																	XMLName: xml.Name{
-																		Local: "leafNode",
-																	},
-																	NodeNameAttr: "missing-as-worst",
-																	Properties: []*interfacedefinition.Properties{{
-																		XMLName: xml.Name{
-																			Local: "properties",
-																		},
-																		Help: []string{"Treat missing route as a MED as the least preferred one"},
-																		Valueless: []*interfacedefinition.Valueless{{
-																			XMLName: xml.Name{
-																				Local: "valueless",
-																			},
-																		}},
-																	}},
-																}},
-															}},
-														}, {
-															IsBaseNode: false,
-															XMLName: xml.Name{
-																Local: "node",
-															},
 															NodeNameAttr: "peer-type",
 															Properties: []*interfacedefinition.Properties{{
 																XMLName: xml.Name{
@@ -5665,6 +6990,48 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																Valueless: []*interfacedefinition.Valueless{{
 																	XMLName: xml.Name{
 																		Local: "valueless",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "med",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"MED attribute comparison parameters"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Regex: []string{"(confed|missing-as-worst)"},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "confed",
+																	Description: "Compare MEDs among confederation paths",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "missing-as-worst",
+																	Description: "Treat missing route as a MED as the least preferred one",
+																}},
+																CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																	XMLName: xml.Name{
+																		Local: "completionHelp",
+																	},
+																	List: []string{"confed missing-as-worst"},
+																}},
+																Multi: []*interfacedefinition.Multi{{
+																	XMLName: xml.Name{
+																		Local: "multi",
 																	},
 																}},
 															}},
@@ -6242,8 +7609,136 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
+													NodeNameAttr: "tcp-keepalive",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"TCP keepalive parameters"},
+													}},
+													Children: []*interfacedefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "idle",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"TCP keepalive idle time"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 1-65535",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:1-65535",
+																	Description: "Idle time in seconds",
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "interval",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"TCP keepalive interval"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 1-65535",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:1-65535",
+																	Description: "Interval in seconds",
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "probes",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"TCP keepalive maximum probes"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 1-30",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:1-30",
+																	Description: "Maximum probes",
+																}},
+															}},
+														}},
+													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "allow-martian-nexthop",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Allow Martian nexthops to be received in the NLRI from a peer"},
+														Valueless: []*interfacedefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
 													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
@@ -6356,6 +7851,66 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "valueless",
 															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "no-hard-administrative-reset",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Do not send hard reset CEASE Notification for 'Administrative Reset'"},
+														Valueless: []*interfacedefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "labeled-unicast",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"BGP Labeled-unicast options"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Regex: []string{"(explicit-null|ipv4-explicit-null|ipv6-explicit-null)"},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "explicit-null",
+															Description: "Use explicit-null label values for all local prefixes",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "ipv4-explicit-null",
+															Description: "Use IPv4 explicit-null label value for IPv4 local prefixes",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "ipv6-explicit-null",
+															Description: "Use IPv6 explicit-null label value for IPv4 local prefixes",
+														}},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															List: []string{"explicit-null ipv4-explicit-null ipv6-explicit-null"},
 														}},
 													}},
 												}, {
@@ -6579,6 +8134,147 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "node",
 											},
+											NodeNameAttr: "srv6",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Segment-Routing SRv6 configuration"},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "locator",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Specify SRv6 locator"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Regex: []string{"[-_a-zA-Z0-9]+"},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "txt",
+															Description: "SRv6 locator name",
+														}},
+													}},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "node",
+											},
+											NodeNameAttr: "sid",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"SID value for VRF"},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
+													NodeNameAttr: "vpn",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Between current VRF and VPN"},
+													}},
+													Children: []*interfacedefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "per-vrf",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"SID per-VRF (both IPv4 and IPv6 address families)"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "export",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"For routes leaked from current VRF to VPN"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Regex: []string{"auto"},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-1048575",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-1048575",
+																			Description: "SID allocation index",
+																		}, {
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "auto",
+																			Description: "Automatically assign a label",
+																		}},
+																		CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																			XMLName: xml.Name{
+																				Local: "completionHelp",
+																			},
+																			List: []string{"auto"},
+																		}},
+																	}},
+																}},
+															}},
+														}},
+													}},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "node",
+											},
 											NodeNameAttr: "timers",
 											Properties: []*interfacedefinition.Properties{{
 												XMLName: xml.Name{
@@ -6600,7 +8296,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														XMLName: xml.Name{
 															Local: "properties",
 														},
-														Help: []string{"BGP hold timer for this neighbor"},
+														Help: []string{"Hold timer"},
 														Constraint: []*interfacedefinition.Constraint{{
 															XMLName: xml.Name{
 																Local: "constraint",
@@ -6624,7 +8320,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																Local: "valueHelp",
 															},
 															Format:      "0",
-															Description: "Hold timer disabled",
+															Description: "Disable hold timer",
 														}},
 													}},
 												}, {
@@ -6666,6 +8362,84 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
+											NodeNameAttr: "interface",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Configure interface related parameters, e.g. MPLS"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "file-path --lookup-path /sys/class/net --directory",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt",
+													Description: "Interface name",
+												}},
+												CompletionHelp: []*interfacedefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													Script: []string{"${vyos_completion_dir}/list_interfaces"},
+												}},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
+													NodeNameAttr: "mpls",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"MPLS options"},
+													}},
+													Children: []*interfacedefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "forwarding",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Enable MPLS forwarding for eBGP directly connected peers"},
+																Valueless: []*interfacedefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}},
+													}},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "tagNode",
+											},
 											NodeNameAttr: "neighbor",
 											Properties: []*interfacedefinition.Properties{{
 												XMLName: xml.Name{
@@ -6676,17 +8450,12 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+													Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 													Validator: []*interfacedefinition.Validator{{
 														XMLName: xml.Name{
 															Local: "validator",
 														},
-														NameAttr: "ipv4-address",
-													}, {
-														XMLName: xml.Name{
-															Local: "validator",
-														},
-														NameAttr: "ipv6-address",
+														NameAttr: "ip-address",
 													}, {
 														XMLName: xml.Name{
 															Local: "validator",
@@ -7390,6 +9159,41 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
+																	NodeNameAttr: "remove-private-as",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "all",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Remove private AS numbers to all AS numbers in outbound route updates"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
 																	NodeNameAttr: "route-map",
 																	Properties: []*interfacedefinition.Properties{{
 																		XMLName: xml.Name{
@@ -7664,23 +9468,6 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			},
 																			Format:      "u32:1-4294967295",
 																			Description: "Prefix limit",
-																		}},
-																	}},
-																}, {
-																	IsBaseNode: false,
-																	XMLName: xml.Name{
-																		Local: "leafNode",
-																	},
-																	NodeNameAttr: "remove-private-as",
-																	Properties: []*interfacedefinition.Properties{{
-																		XMLName: xml.Name{
-																			Local: "properties",
-																		},
-																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
-																		Valueless: []*interfacedefinition.Valueless{{
-																			XMLName: xml.Name{
-																				Local: "valueless",
-																			},
 																		}},
 																	}},
 																}, {
@@ -8473,6 +10260,41 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
+																	NodeNameAttr: "remove-private-as",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "all",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Remove private AS numbers to all AS numbers in outbound route updates"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
 																	NodeNameAttr: "route-map",
 																	Properties: []*interfacedefinition.Properties{{
 																		XMLName: xml.Name{
@@ -8747,23 +10569,6 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			},
 																			Format:      "u32:1-4294967295",
 																			Description: "Prefix limit",
-																		}},
-																	}},
-																}, {
-																	IsBaseNode: false,
-																	XMLName: xml.Name{
-																		Local: "leafNode",
-																	},
-																	NodeNameAttr: "remove-private-as",
-																	Properties: []*interfacedefinition.Properties{{
-																		XMLName: xml.Name{
-																			Local: "properties",
-																		},
-																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
-																		Valueless: []*interfacedefinition.Valueless{{
-																			XMLName: xml.Name{
-																				Local: "valueless",
-																			},
 																		}},
 																	}},
 																}, {
@@ -9521,6 +11326,41 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
+																	NodeNameAttr: "remove-private-as",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "all",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Remove private AS numbers to all AS numbers in outbound route updates"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
 																	NodeNameAttr: "route-map",
 																	Properties: []*interfacedefinition.Properties{{
 																		XMLName: xml.Name{
@@ -9795,23 +11635,6 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			},
 																			Format:      "u32:1-4294967295",
 																			Description: "Prefix limit",
-																		}},
-																	}},
-																}, {
-																	IsBaseNode: false,
-																	XMLName: xml.Name{
-																		Local: "leafNode",
-																	},
-																	NodeNameAttr: "remove-private-as",
-																	Properties: []*interfacedefinition.Properties{{
-																		XMLName: xml.Name{
-																			Local: "properties",
-																		},
-																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
-																		Valueless: []*interfacedefinition.Valueless{{
-																			XMLName: xml.Name{
-																				Local: "valueless",
-																			},
 																		}},
 																	}},
 																}, {
@@ -10604,6 +12427,41 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
+																	NodeNameAttr: "remove-private-as",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "all",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Remove private AS numbers to all AS numbers in outbound route updates"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
 																	NodeNameAttr: "route-map",
 																	Properties: []*interfacedefinition.Properties{{
 																		XMLName: xml.Name{
@@ -10878,23 +12736,6 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			},
 																			Format:      "u32:1-4294967295",
 																			Description: "Prefix limit",
-																		}},
-																	}},
-																}, {
-																	IsBaseNode: false,
-																	XMLName: xml.Name{
-																		Local: "leafNode",
-																	},
-																	NodeNameAttr: "remove-private-as",
-																	Properties: []*interfacedefinition.Properties{{
-																		XMLName: xml.Name{
-																			Local: "properties",
-																		},
-																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
-																		Valueless: []*interfacedefinition.Valueless{{
-																			XMLName: xml.Name{
-																				Local: "valueless",
-																			},
 																		}},
 																	}},
 																}, {
@@ -11564,6 +13405,41 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
+																	NodeNameAttr: "remove-private-as",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "all",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Remove private AS numbers to all AS numbers in outbound route updates"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
 																	NodeNameAttr: "route-map",
 																	Properties: []*interfacedefinition.Properties{{
 																		XMLName: xml.Name{
@@ -11788,23 +13664,6 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			},
 																			Format:      "u32:1-4294967295",
 																			Description: "Prefix limit",
-																		}},
-																	}},
-																}, {
-																	IsBaseNode: false,
-																	XMLName: xml.Name{
-																		Local: "leafNode",
-																	},
-																	NodeNameAttr: "remove-private-as",
-																	Properties: []*interfacedefinition.Properties{{
-																		XMLName: xml.Name{
-																			Local: "properties",
-																		},
-																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
-																		Valueless: []*interfacedefinition.Valueless{{
-																			XMLName: xml.Name{
-																				Local: "valueless",
-																			},
 																		}},
 																	}},
 																}, {
@@ -12509,6 +14368,41 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
+																	NodeNameAttr: "remove-private-as",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "all",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Remove private AS numbers to all AS numbers in outbound route updates"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
 																	NodeNameAttr: "route-map",
 																	Properties: []*interfacedefinition.Properties{{
 																		XMLName: xml.Name{
@@ -12733,23 +14627,6 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			},
 																			Format:      "u32:1-4294967295",
 																			Description: "Prefix limit",
-																		}},
-																	}},
-																}, {
-																	IsBaseNode: false,
-																	XMLName: xml.Name{
-																		Local: "leafNode",
-																	},
-																	NodeNameAttr: "remove-private-as",
-																	Properties: []*interfacedefinition.Properties{{
-																		XMLName: xml.Name{
-																			Local: "properties",
-																		},
-																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
-																		Valueless: []*interfacedefinition.Valueless{{
-																			XMLName: xml.Name{
-																				Local: "valueless",
-																			},
 																		}},
 																	}},
 																}, {
@@ -14119,6 +15996,41 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
+																	NodeNameAttr: "remove-private-as",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "all",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Remove private AS numbers to all AS numbers in outbound route updates"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
 																	NodeNameAttr: "route-map",
 																	Properties: []*interfacedefinition.Properties{{
 																		XMLName: xml.Name{
@@ -14393,23 +16305,6 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			},
 																			Format:      "u32:1-4294967295",
 																			Description: "Prefix limit",
-																		}},
-																	}},
-																}, {
-																	IsBaseNode: false,
-																	XMLName: xml.Name{
-																		Local: "leafNode",
-																	},
-																	NodeNameAttr: "remove-private-as",
-																	Properties: []*interfacedefinition.Properties{{
-																		XMLName: xml.Name{
-																			Local: "properties",
-																		},
-																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
-																		Valueless: []*interfacedefinition.Valueless{{
-																			XMLName: xml.Name{
-																				Local: "valueless",
-																			},
 																		}},
 																	}},
 																}, {
@@ -15114,6 +17009,41 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
+																	NodeNameAttr: "remove-private-as",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "all",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Remove private AS numbers to all AS numbers in outbound route updates"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
 																	NodeNameAttr: "route-map",
 																	Properties: []*interfacedefinition.Properties{{
 																		XMLName: xml.Name{
@@ -15388,23 +17318,6 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			},
 																			Format:      "u32:1-4294967295",
 																			Description: "Prefix limit",
-																		}},
-																	}},
-																}, {
-																	IsBaseNode: false,
-																	XMLName: xml.Name{
-																		Local: "leafNode",
-																	},
-																	NodeNameAttr: "remove-private-as",
-																	Properties: []*interfacedefinition.Properties{{
-																		XMLName: xml.Name{
-																			Local: "properties",
-																		},
-																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
-																		Valueless: []*interfacedefinition.Valueless{{
-																			XMLName: xml.Name{
-																				Local: "valueless",
-																			},
 																		}},
 																	}},
 																}, {
@@ -15941,6 +17854,23 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	},
 																}},
 															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "software-version",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Advertise Software Version capability to the peer"},
+																Valueless: []*interfacedefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
 														}},
 													}},
 												}, {
@@ -16145,7 +18075,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	XMLName: xml.Name{
 																		Local: "constraint",
 																	},
-																	Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+																	Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 																	Validator: []*interfacedefinition.Validator{{
 																		XMLName: xml.Name{
 																			Local: "validator",
@@ -16165,6 +18095,91 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		Local: "completionHelp",
 																	},
 																	Script: []string{"${vyos_completion_dir}/list_interfaces"},
+																}},
+															}},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
+													NodeNameAttr: "path-attribute",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Manipulate path attributes from incoming UPDATE messages"},
+													}},
+													Children: []*interfacedefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "discard",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Drop specified attributes from incoming UPDATE messages"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 1-255",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:1-255",
+																	Description: "Attribute number",
+																}},
+																Multi: []*interfacedefinition.Multi{{
+																	XMLName: xml.Name{
+																		Local: "multi",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "treat-as-withdraw",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Treat-as-withdraw any incoming BGP UPDATE messages that contain the specified attribute"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 1-255",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:1-255",
+																	Description: "Attribute number",
 																}},
 															}},
 														}},
@@ -16232,7 +18247,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																XMLName: xml.Name{
 																	Local: "properties",
 																},
-																Help: []string{"BGP hold timer for this neighbor"},
+																Help: []string{"Hold timer"},
 																Constraint: []*interfacedefinition.Constraint{{
 																	XMLName: xml.Name{
 																		Local: "constraint",
@@ -16256,7 +18271,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		Local: "valueHelp",
 																	},
 																	Format:      "0",
-																	Description: "Hold timer disabled",
+																	Description: "Disable hold timer",
 																}},
 															}},
 														}, {
@@ -16735,37 +18750,6 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
-													NodeNameAttr: "port",
-													Properties: []*interfacedefinition.Properties{{
-														XMLName: xml.Name{
-															Local: "properties",
-														},
-														Help: []string{"Neighbor BGP port"},
-														Constraint: []*interfacedefinition.Constraint{{
-															XMLName: xml.Name{
-																Local: "constraint",
-															},
-															Validator: []*interfacedefinition.Validator{{
-																XMLName: xml.Name{
-																	Local: "validator",
-																},
-																NameAttr:     "numeric",
-																ArgumentAttr: "--range 1-65535",
-															}},
-														}},
-														ValueHelp: []*interfacedefinition.ValueHelp{{
-															XMLName: xml.Name{
-																Local: "valueHelp",
-															},
-															Format:      "u32:1-65535",
-															Description: "Neighbor BGP port number",
-														}},
-													}},
-												}, {
-													IsBaseNode: false,
-													XMLName: xml.Name{
-														Local: "leafNode",
-													},
 													NodeNameAttr: "remote-as",
 													Properties: []*interfacedefinition.Properties{{
 														XMLName: xml.Name{
@@ -16851,6 +18835,23 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
+													NodeNameAttr: "enforce-first-as",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Ensure the first AS in the AS path matches the peer AS"},
+														Valueless: []*interfacedefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
 													NodeNameAttr: "strict-capability-match",
 													Properties: []*interfacedefinition.Properties{{
 														XMLName: xml.Name{
@@ -16878,17 +18879,12 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+															Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 															Validator: []*interfacedefinition.Validator{{
 																XMLName: xml.Name{
 																	Local: "validator",
 																},
-																NameAttr: "ipv4-address",
-															}, {
-																XMLName: xml.Name{
-																	Local: "validator",
-																},
-																NameAttr: "ipv6-address",
+																NameAttr: "ip-address",
 															}, {
 																XMLName: xml.Name{
 																	Local: "validator",
@@ -16921,6 +18917,38 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															},
 															Script: []string{"${vyos_completion_dir}/list_local_ips.sh --both", "${vyos_completion_dir}/list_interfaces"},
 														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "port",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Port number used by connection"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*interfacedefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr:     "numeric",
+																ArgumentAttr: "--range 1-65535",
+															}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "u32:1-65535",
+															Description: "Numeric IP port",
+														}},
+														ConstraintErrorMessage: []string{"Port number must be in range 1 to 65535"},
 													}},
 												}},
 											}},
@@ -17618,6 +19646,41 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
+																	NodeNameAttr: "remove-private-as",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "all",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Remove private AS numbers to all AS numbers in outbound route updates"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
 																	NodeNameAttr: "route-map",
 																	Properties: []*interfacedefinition.Properties{{
 																		XMLName: xml.Name{
@@ -17899,16 +19962,1993 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
+																	NodeNameAttr: "route-reflector-client",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Peer is a route reflector client"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "route-server-client",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Peer is a route server client"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "unsuppress-map",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Route-map to selectively unsuppress suppressed routes"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Regex: []string{"[-_a-zA-Z0-9.]+"},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "txt",
+																			Description: "Route map name",
+																		}},
+																		ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																		CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																			XMLName: xml.Name{
+																				Local: "completionHelp",
+																			},
+																			Path: []string{"policy route-map"},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "weight",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Default weight for routes from this peer"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-65535",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-65535",
+																			Description: "Default weight",
+																		}},
+																	}},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "ipv4-labeled-unicast",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"IPv4 Labeled Unicast BGP neighbor parameters"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "capability",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Advertise capabilities to this neighbor (IPv4)"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		Node: []*interfacedefinition.Node{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "node",
+																			},
+																			NodeNameAttr: "orf",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Advertise ORF capability to this peer"},
+																			}},
+																			Children: []*interfacedefinition.Children{{
+																				XMLName: xml.Name{
+																					Local: "children",
+																				},
+																				Node: []*interfacedefinition.Node{{
+																					IsBaseNode: false,
+																					XMLName: xml.Name{
+																						Local: "node",
+																					},
+																					NodeNameAttr: "prefix-list",
+																					Properties: []*interfacedefinition.Properties{{
+																						XMLName: xml.Name{
+																							Local: "properties",
+																						},
+																						Help: []string{"Advertise prefix-list ORF capability to this peer"},
+																					}},
+																					Children: []*interfacedefinition.Children{{
+																						XMLName: xml.Name{
+																							Local: "children",
+																						},
+																						LeafNode: []*interfacedefinition.LeafNode{{
+																							IsBaseNode: false,
+																							XMLName: xml.Name{
+																								Local: "leafNode",
+																							},
+																							NodeNameAttr: "receive",
+																							Properties: []*interfacedefinition.Properties{{
+																								XMLName: xml.Name{
+																									Local: "properties",
+																								},
+																								Help: []string{"Capability to receive the ORF"},
+																								Valueless: []*interfacedefinition.Valueless{{
+																									XMLName: xml.Name{
+																										Local: "valueless",
+																									},
+																								}},
+																							}},
+																						}, {
+																							IsBaseNode: false,
+																							XMLName: xml.Name{
+																								Local: "leafNode",
+																							},
+																							NodeNameAttr: "send",
+																							Properties: []*interfacedefinition.Properties{{
+																								XMLName: xml.Name{
+																									Local: "properties",
+																								},
+																								Help: []string{"Capability to send the ORF"},
+																								Valueless: []*interfacedefinition.Valueless{{
+																									XMLName: xml.Name{
+																										Local: "valueless",
+																									},
+																								}},
+																							}},
+																						}},
+																					}},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "prefix-list",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"IPv4-Prefix-list to filter route updates to/from this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "export",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"IPv4-Prefix-list to filter outgoing route updates to this peer"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Name of IPv4 prefix-list",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of prefix-list can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy prefix-list"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "import",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"IPv4-Prefix-list to filter incoming route updates from this peer"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Name of IPv4 prefix-list",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of prefix-list can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy prefix-list"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "conditionally-advertise",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Use route-map to conditionally advertise routes"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "advertise-map",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Route-map to conditionally advertise routes"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "exist-map",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Advertise routes only if prefixes in exist-map are installed in BGP table"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "non-exist-map",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Advertise routes only if prefixes in non-exist-map are not installed in BGP table"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "allowas-in",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Accept route that contains the local-as in the as-path"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "number",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Number of occurrences of AS number"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr:     "numeric",
+																						ArgumentAttr: "--range 1-10",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "u32:1-10",
+																					Description: "Number of times AS is allowed in path",
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "attribute-unchanged",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"BGP attributes are sent unchanged"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "as-path",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Send AS path unchanged"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "med",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Send multi-exit discriminator unchanged"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "next-hop",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Send nexthop unchanged"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "disable-send-community",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Disable sending community attributes to this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "extended",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Disable sending extended community attributes to this peer"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "standard",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Disable sending standard community attributes to this peer"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "distribute-list",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Access-list to filter route updates to/from this peer-group"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "export",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Access-list to filter outgoing route updates to this peer-group"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr:     "numeric",
+																						ArgumentAttr: "--range 1-65535",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "u32:1-65535",
+																					Description: "Access-list to filter outgoing route updates to this peer-group",
+																				}},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy access-list"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "import",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Access-list to filter incoming route updates from this peer-group"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr:     "numeric",
+																						ArgumentAttr: "--range 1-65535",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "u32:1-65535",
+																					Description: "Access-list to filter incoming route updates from this peer-group",
+																				}},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy access-list"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "filter-list",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"as-path-list to filter route updates to/from this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "export",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"As-path-list to filter outgoing route updates to this peer"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy as-path-list"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "import",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"As-path-list to filter incoming route updates from this peer"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy as-path-list"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "nexthop-self",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Disable the next hop calculation for this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "force",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Set the next hop to self for reflected routes"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
 																	NodeNameAttr: "remove-private-as",
 																	Properties: []*interfacedefinition.Properties{{
 																		XMLName: xml.Name{
 																			Local: "properties",
 																		},
 																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "all",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Remove private AS numbers to all AS numbers in outbound route updates"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "route-map",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Route-map to filter route updates to/from this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "export",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Route-map to filter outgoing route updates"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "import",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Route-map to filter incoming route updates"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "soft-reconfiguration",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Soft reconfiguration for peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "inbound",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Enable inbound soft reconfiguration"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "default-originate",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Originate default route to this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "route-map",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Specify route-map name to use"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}},
+																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "addpath-tx-all",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Use addpath to advertise all paths to a neighbor"},
 																		Valueless: []*interfacedefinition.Valueless{{
 																			XMLName: xml.Name{
 																				Local: "valueless",
 																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "addpath-tx-per-as",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Use addpath to advertise the bestpath per each neighboring AS"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "as-override",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Override ASN in outbound updates to configured neighbor local-as"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "maximum-prefix",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Maximum number of prefixes to accept from this peer"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-4294967295",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-4294967295",
+																			Description: "Prefix limit",
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "maximum-prefix-out",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Maximum number of prefixes to be sent to this peer"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-4294967295",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-4294967295",
+																			Description: "Prefix limit",
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "route-reflector-client",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Peer is a route reflector client"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "route-server-client",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Peer is a route server client"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "unsuppress-map",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Route-map to selectively unsuppress suppressed routes"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Regex: []string{"[-_a-zA-Z0-9.]+"},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "txt",
+																			Description: "Route map name",
+																		}},
+																		ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																		CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																			XMLName: xml.Name{
+																				Local: "completionHelp",
+																			},
+																			Path: []string{"policy route-map"},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "weight",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Default weight for routes from this peer"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-65535",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-65535",
+																			Description: "Default weight",
+																		}},
+																	}},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "ipv4-vpn",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"IPv4 VPN BGP neighbor parameters"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "prefix-list",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"IPv4-Prefix-list to filter route updates to/from this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "export",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"IPv4-Prefix-list to filter outgoing route updates to this peer"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Name of IPv4 prefix-list",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of prefix-list can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy prefix-list"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "import",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"IPv4-Prefix-list to filter incoming route updates from this peer"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Name of IPv4 prefix-list",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of prefix-list can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy prefix-list"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "conditionally-advertise",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Use route-map to conditionally advertise routes"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "advertise-map",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Route-map to conditionally advertise routes"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "exist-map",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Advertise routes only if prefixes in exist-map are installed in BGP table"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "non-exist-map",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Advertise routes only if prefixes in non-exist-map are not installed in BGP table"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "allowas-in",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Accept route that contains the local-as in the as-path"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "number",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Number of occurrences of AS number"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr:     "numeric",
+																						ArgumentAttr: "--range 1-10",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "u32:1-10",
+																					Description: "Number of times AS is allowed in path",
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "attribute-unchanged",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"BGP attributes are sent unchanged"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "as-path",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Send AS path unchanged"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "med",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Send multi-exit discriminator unchanged"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "next-hop",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Send nexthop unchanged"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "disable-send-community",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Disable sending community attributes to this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "extended",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Disable sending extended community attributes to this peer"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "standard",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Disable sending standard community attributes to this peer"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "distribute-list",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Access-list to filter route updates to/from this peer-group"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "export",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Access-list to filter outgoing route updates to this peer-group"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr:     "numeric",
+																						ArgumentAttr: "--range 1-65535",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "u32:1-65535",
+																					Description: "Access-list to filter outgoing route updates to this peer-group",
+																				}},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy access-list"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "import",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Access-list to filter incoming route updates from this peer-group"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr:     "numeric",
+																						ArgumentAttr: "--range 1-65535",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "u32:1-65535",
+																					Description: "Access-list to filter incoming route updates from this peer-group",
+																				}},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy access-list"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "filter-list",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"as-path-list to filter route updates to/from this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "export",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"As-path-list to filter outgoing route updates to this peer"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy as-path-list"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "import",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"As-path-list to filter incoming route updates from this peer"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy as-path-list"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "nexthop-self",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Disable the next hop calculation for this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "force",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Set the next hop to self for reflected routes"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "remove-private-as",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "all",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Remove private AS numbers to all AS numbers in outbound route updates"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "route-map",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Route-map to filter route updates to/from this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "export",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Route-map to filter outgoing route updates"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "import",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Route-map to filter incoming route updates"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "soft-reconfiguration",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Soft reconfiguration for peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "inbound",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Enable inbound soft reconfiguration"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}},
+																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "addpath-tx-all",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Use addpath to advertise all paths to a neighbor"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "addpath-tx-per-as",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Use addpath to advertise the bestpath per each neighboring AS"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "as-override",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Override ASN in outbound updates to configured neighbor local-as"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "maximum-prefix",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Maximum number of prefixes to accept from this peer"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-4294967295",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-4294967295",
+																			Description: "Prefix limit",
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "maximum-prefix-out",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Maximum number of prefixes to be sent to this peer"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-4294967295",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-4294967295",
+																			Description: "Prefix limit",
 																		}},
 																	}},
 																}, {
@@ -18701,6 +22741,41 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
+																	NodeNameAttr: "remove-private-as",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "all",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Remove private AS numbers to all AS numbers in outbound route updates"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
 																	NodeNameAttr: "route-map",
 																	Properties: []*interfacedefinition.Properties{{
 																		XMLName: xml.Name{
@@ -18982,16 +23057,2063 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
+																	NodeNameAttr: "route-reflector-client",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Peer is a route reflector client"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "route-server-client",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Peer is a route server client"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "unsuppress-map",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Route-map to selectively unsuppress suppressed routes"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Regex: []string{"[-_a-zA-Z0-9.]+"},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "txt",
+																			Description: "Route map name",
+																		}},
+																		ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																		CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																			XMLName: xml.Name{
+																				Local: "completionHelp",
+																			},
+																			Path: []string{"policy route-map"},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "weight",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Default weight for routes from this peer"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-65535",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-65535",
+																			Description: "Default weight",
+																		}},
+																	}},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "ipv6-labeled-unicast",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"IPv6 Labeled Unicast BGP neighbor parameters"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "capability",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Advertise capabilities to this neighbor (IPv6)"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		Node: []*interfacedefinition.Node{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "node",
+																			},
+																			NodeNameAttr: "orf",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Advertise ORF capability to this peer"},
+																			}},
+																			Children: []*interfacedefinition.Children{{
+																				XMLName: xml.Name{
+																					Local: "children",
+																				},
+																				Node: []*interfacedefinition.Node{{
+																					IsBaseNode: false,
+																					XMLName: xml.Name{
+																						Local: "node",
+																					},
+																					NodeNameAttr: "prefix-list",
+																					Properties: []*interfacedefinition.Properties{{
+																						XMLName: xml.Name{
+																							Local: "properties",
+																						},
+																						Help: []string{"Advertise prefix-list ORF capability to this peer"},
+																					}},
+																					Children: []*interfacedefinition.Children{{
+																						XMLName: xml.Name{
+																							Local: "children",
+																						},
+																						LeafNode: []*interfacedefinition.LeafNode{{
+																							IsBaseNode: false,
+																							XMLName: xml.Name{
+																								Local: "leafNode",
+																							},
+																							NodeNameAttr: "receive",
+																							Properties: []*interfacedefinition.Properties{{
+																								XMLName: xml.Name{
+																									Local: "properties",
+																								},
+																								Help: []string{"Capability to receive the ORF"},
+																								Valueless: []*interfacedefinition.Valueless{{
+																									XMLName: xml.Name{
+																										Local: "valueless",
+																									},
+																								}},
+																							}},
+																						}, {
+																							IsBaseNode: false,
+																							XMLName: xml.Name{
+																								Local: "leafNode",
+																							},
+																							NodeNameAttr: "send",
+																							Properties: []*interfacedefinition.Properties{{
+																								XMLName: xml.Name{
+																									Local: "properties",
+																								},
+																								Help: []string{"Capability to send the ORF"},
+																								Valueless: []*interfacedefinition.Valueless{{
+																									XMLName: xml.Name{
+																										Local: "valueless",
+																									},
+																								}},
+																							}},
+																						}},
+																					}},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "nexthop-local",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Nexthop attributes"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "unchanged",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Leave link-local nexthop unchanged for this peer"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "prefix-list",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Prefix-list to filter route updates to/from this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "export",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Prefix-list to filter outgoing route updates to this peer"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Name of IPv6 prefix-list",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of prefix-list6 can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy prefix-list6"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "import",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Prefix-list to filter incoming route updates from this peer"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Name of IPv6 prefix-list",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of prefix-list6 can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy prefix-list6"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "conditionally-advertise",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Use route-map to conditionally advertise routes"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "advertise-map",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Route-map to conditionally advertise routes"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "exist-map",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Advertise routes only if prefixes in exist-map are installed in BGP table"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "non-exist-map",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Advertise routes only if prefixes in non-exist-map are not installed in BGP table"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "allowas-in",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Accept route that contains the local-as in the as-path"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "number",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Number of occurrences of AS number"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr:     "numeric",
+																						ArgumentAttr: "--range 1-10",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "u32:1-10",
+																					Description: "Number of times AS is allowed in path",
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "attribute-unchanged",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"BGP attributes are sent unchanged"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "as-path",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Send AS path unchanged"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "med",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Send multi-exit discriminator unchanged"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "next-hop",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Send nexthop unchanged"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "disable-send-community",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Disable sending community attributes to this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "extended",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Disable sending extended community attributes to this peer"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "standard",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Disable sending standard community attributes to this peer"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "distribute-list",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Access-list to filter route updates to/from this peer-group"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "export",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Access-list to filter outgoing route updates to this peer-group"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr:     "numeric",
+																						ArgumentAttr: "--range 1-65535",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "u32:1-65535",
+																					Description: "Access-list to filter outgoing route updates to this peer-group",
+																				}},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy access-list"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "import",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Access-list to filter incoming route updates from this peer-group"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr:     "numeric",
+																						ArgumentAttr: "--range 1-65535",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "u32:1-65535",
+																					Description: "Access-list to filter incoming route updates from this peer-group",
+																				}},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy access-list"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "filter-list",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"as-path-list to filter route updates to/from this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "export",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"As-path-list to filter outgoing route updates to this peer"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy as-path-list"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "import",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"As-path-list to filter incoming route updates from this peer"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy as-path-list"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "nexthop-self",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Disable the next hop calculation for this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "force",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Set the next hop to self for reflected routes"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
 																	NodeNameAttr: "remove-private-as",
 																	Properties: []*interfacedefinition.Properties{{
 																		XMLName: xml.Name{
 																			Local: "properties",
 																		},
 																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "all",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Remove private AS numbers to all AS numbers in outbound route updates"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "route-map",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Route-map to filter route updates to/from this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "export",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Route-map to filter outgoing route updates"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "import",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Route-map to filter incoming route updates"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "soft-reconfiguration",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Soft reconfiguration for peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "inbound",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Enable inbound soft reconfiguration"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "default-originate",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Originate default route to this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "route-map",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Specify route-map name to use"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}},
+																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "addpath-tx-all",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Use addpath to advertise all paths to a neighbor"},
 																		Valueless: []*interfacedefinition.Valueless{{
 																			XMLName: xml.Name{
 																				Local: "valueless",
 																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "addpath-tx-per-as",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Use addpath to advertise the bestpath per each neighboring AS"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "as-override",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Override ASN in outbound updates to configured neighbor local-as"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "maximum-prefix",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Maximum number of prefixes to accept from this peer"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-4294967295",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-4294967295",
+																			Description: "Prefix limit",
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "maximum-prefix-out",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Maximum number of prefixes to be sent to this peer"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-4294967295",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-4294967295",
+																			Description: "Prefix limit",
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "route-reflector-client",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Peer is a route reflector client"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "route-server-client",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Peer is a route server client"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "unsuppress-map",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Route-map to selectively unsuppress suppressed routes"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Regex: []string{"[-_a-zA-Z0-9.]+"},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "txt",
+																			Description: "Route map name",
+																		}},
+																		ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																		CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																			XMLName: xml.Name{
+																				Local: "completionHelp",
+																			},
+																			Path: []string{"policy route-map"},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "weight",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Default weight for routes from this peer"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-65535",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-65535",
+																			Description: "Default weight",
+																		}},
+																	}},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "ipv6-vpn",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"IPv6 VPN BGP neighbor parameters"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "nexthop-local",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Nexthop attributes"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "unchanged",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Leave link-local nexthop unchanged for this peer"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "prefix-list",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Prefix-list to filter route updates to/from this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "export",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Prefix-list to filter outgoing route updates to this peer"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Name of IPv6 prefix-list",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of prefix-list6 can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy prefix-list6"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "import",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Prefix-list to filter incoming route updates from this peer"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Name of IPv6 prefix-list",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of prefix-list6 can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy prefix-list6"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "conditionally-advertise",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Use route-map to conditionally advertise routes"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "advertise-map",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Route-map to conditionally advertise routes"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "exist-map",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Advertise routes only if prefixes in exist-map are installed in BGP table"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "non-exist-map",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Advertise routes only if prefixes in non-exist-map are not installed in BGP table"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "allowas-in",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Accept route that contains the local-as in the as-path"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "number",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Number of occurrences of AS number"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr:     "numeric",
+																						ArgumentAttr: "--range 1-10",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "u32:1-10",
+																					Description: "Number of times AS is allowed in path",
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "attribute-unchanged",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"BGP attributes are sent unchanged"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "as-path",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Send AS path unchanged"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "med",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Send multi-exit discriminator unchanged"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "next-hop",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Send nexthop unchanged"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "disable-send-community",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Disable sending community attributes to this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "extended",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Disable sending extended community attributes to this peer"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "standard",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Disable sending standard community attributes to this peer"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "distribute-list",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Access-list to filter route updates to/from this peer-group"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "export",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Access-list to filter outgoing route updates to this peer-group"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr:     "numeric",
+																						ArgumentAttr: "--range 1-65535",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "u32:1-65535",
+																					Description: "Access-list to filter outgoing route updates to this peer-group",
+																				}},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy access-list"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "import",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Access-list to filter incoming route updates from this peer-group"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr:     "numeric",
+																						ArgumentAttr: "--range 1-65535",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "u32:1-65535",
+																					Description: "Access-list to filter incoming route updates from this peer-group",
+																				}},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy access-list"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "filter-list",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"as-path-list to filter route updates to/from this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "export",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"As-path-list to filter outgoing route updates to this peer"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy as-path-list"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "import",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"As-path-list to filter incoming route updates from this peer"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy as-path-list"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "nexthop-self",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Disable the next hop calculation for this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "force",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Set the next hop to self for reflected routes"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "remove-private-as",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Remove private AS numbers from AS path in outbound route updates"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "all",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Remove private AS numbers to all AS numbers in outbound route updates"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "route-map",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Route-map to filter route updates to/from this peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "export",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Route-map to filter outgoing route updates"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "import",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Route-map to filter incoming route updates"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Regex: []string{"[-_a-zA-Z0-9.]+"},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "txt",
+																					Description: "Route map name",
+																				}},
+																				ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																				CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																					XMLName: xml.Name{
+																						Local: "completionHelp",
+																					},
+																					Path: []string{"policy route-map"},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "soft-reconfiguration",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Soft reconfiguration for peer"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "inbound",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Enable inbound soft reconfiguration"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}},
+																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "addpath-tx-all",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Use addpath to advertise all paths to a neighbor"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "addpath-tx-per-as",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Use addpath to advertise the bestpath per each neighboring AS"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "as-override",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Override ASN in outbound updates to configured neighbor local-as"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "maximum-prefix",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Maximum number of prefixes to accept from this peer"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-4294967295",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-4294967295",
+																			Description: "Prefix limit",
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "maximum-prefix-out",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Maximum number of prefixes to be sent to this peer"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-4294967295",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-4294967295",
+																			Description: "Prefix limit",
 																		}},
 																	}},
 																}, {
@@ -19528,6 +25650,108 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	},
 																}},
 															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "software-version",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Advertise Software Version capability to the peer"},
+																Valueless: []*interfacedefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
+													NodeNameAttr: "path-attribute",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Manipulate path attributes from incoming UPDATE messages"},
+													}},
+													Children: []*interfacedefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "discard",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Drop specified attributes from incoming UPDATE messages"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 1-255",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:1-255",
+																	Description: "Attribute number",
+																}},
+																Multi: []*interfacedefinition.Multi{{
+																	XMLName: xml.Name{
+																		Local: "multi",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "treat-as-withdraw",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Treat-as-withdraw any incoming BGP UPDATE messages that contain the specified attribute"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 1-255",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:1-255",
+																	Description: "Attribute number",
+																}},
+															}},
 														}},
 													}},
 												}, {
@@ -19917,6 +26141,77 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
+													NodeNameAttr: "shutdown",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Administratively shutdown this neighbor"},
+														Valueless: []*interfacedefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "update-source",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Source IP of routing updates"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+															Validator: []*interfacedefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr: "ip-address",
+															}, {
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr: "file-path --lookup-path /sys/class/net --directory",
+															}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "ipv4",
+															Description: "IPv4 address of route source",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "ipv6",
+															Description: "IPv6 address of route source",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "txt",
+															Description: "Interface as route source",
+														}},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Script: []string{"${vyos_completion_dir}/list_local_ips.sh --both", "${vyos_completion_dir}/list_interfaces"},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
 													NodeNameAttr: "remote-as",
 													Properties: []*interfacedefinition.Properties{{
 														XMLName: xml.Name{
@@ -19968,76 +26263,32 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
-													NodeNameAttr: "shutdown",
+													NodeNameAttr: "port",
 													Properties: []*interfacedefinition.Properties{{
 														XMLName: xml.Name{
 															Local: "properties",
 														},
-														Help: []string{"Administratively shutdown this neighbor"},
-														Valueless: []*interfacedefinition.Valueless{{
-															XMLName: xml.Name{
-																Local: "valueless",
-															},
-														}},
-													}},
-												}, {
-													IsBaseNode: false,
-													XMLName: xml.Name{
-														Local: "leafNode",
-													},
-													NodeNameAttr: "update-source",
-													Properties: []*interfacedefinition.Properties{{
-														XMLName: xml.Name{
-															Local: "properties",
-														},
-														Help: []string{"Source IP of routing updates"},
+														Help: []string{"Port number used by connection"},
 														Constraint: []*interfacedefinition.Constraint{{
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 															Validator: []*interfacedefinition.Validator{{
 																XMLName: xml.Name{
 																	Local: "validator",
 																},
-																NameAttr: "ipv4-address",
-															}, {
-																XMLName: xml.Name{
-																	Local: "validator",
-																},
-																NameAttr: "ipv6-address",
-															}, {
-																XMLName: xml.Name{
-																	Local: "validator",
-																},
-																NameAttr: "file-path --lookup-path /sys/class/net --directory",
+																NameAttr:     "numeric",
+																ArgumentAttr: "--range 1-65535",
 															}},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
 																Local: "valueHelp",
 															},
-															Format:      "ipv4",
-															Description: "IPv4 address of route source",
-														}, {
-															XMLName: xml.Name{
-																Local: "valueHelp",
-															},
-															Format:      "ipv6",
-															Description: "IPv6 address of route source",
-														}, {
-															XMLName: xml.Name{
-																Local: "valueHelp",
-															},
-															Format:      "txt",
-															Description: "Interface as route source",
+															Format:      "u32:1-65535",
+															Description: "Numeric IP port",
 														}},
-														CompletionHelp: []*interfacedefinition.CompletionHelp{{
-															XMLName: xml.Name{
-																Local: "completionHelp",
-															},
-															Script: []string{"${vyos_completion_dir}/list_local_ips.sh --both", "${vyos_completion_dir}/list_interfaces"},
-														}},
+														ConstraintErrorMessage: []string{"Port number must be in range 1 to 65535"},
 													}},
 												}},
 											}},
@@ -20071,38 +26322,6 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													},
 													Format:      "u32:1-4294967294",
 													Description: "Autonomous System Number",
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "route-map",
-											Properties: []*interfacedefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Specify route-map name to use"},
-												Constraint: []*interfacedefinition.Constraint{{
-													XMLName: xml.Name{
-														Local: "constraint",
-													},
-													Regex: []string{"[-_a-zA-Z0-9.]+"},
-												}},
-												ValueHelp: []*interfacedefinition.ValueHelp{{
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "txt",
-													Description: "Route map name",
-												}},
-												ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
-												CompletionHelp: []*interfacedefinition.CompletionHelp{{
-													XMLName: xml.Name{
-														Local: "completionHelp",
-													},
-													Path: []string{"policy route-map"},
 												}},
 											}},
 										}},
@@ -20180,7 +26399,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
-											NodeNameAttr: "local-as",
+											NodeNameAttr: "system-as",
 											Properties: []*interfacedefinition.Properties{{
 												XMLName: xml.Name{
 													Local: "properties",
@@ -20289,6 +26508,11 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													},
 													Script: []string{"${vyos_completion_dir}/list_interfaces"},
 												}},
+												Multi: []*interfacedefinition.Multi{{
+													XMLName: xml.Name{
+														Local: "multi",
+													},
+												}},
 											}},
 										}, {
 											IsBaseNode: false,
@@ -20366,38 +26590,6 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "multi",
 													},
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "route-map",
-											Properties: []*interfacedefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Specify route-map name to use"},
-												Constraint: []*interfacedefinition.Constraint{{
-													XMLName: xml.Name{
-														Local: "constraint",
-													},
-													Regex: []string{"[-_a-zA-Z0-9.]+"},
-												}},
-												ValueHelp: []*interfacedefinition.ValueHelp{{
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "txt",
-													Description: "Route map name",
-												}},
-												ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
-												CompletionHelp: []*interfacedefinition.CompletionHelp{{
-													XMLName: xml.Name{
-														Local: "completionHelp",
-													},
-													Path: []string{"policy route-map"},
 												}},
 											}},
 										}, {
@@ -21062,12 +27254,734 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "node",
 											},
+											NodeNameAttr: "ldp-sync",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Protocol wide LDP-IGP synchronization configuration"},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "holddown",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Hold down timer for LDP-IGP cost restoration"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*interfacedefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr:     "numeric",
+																ArgumentAttr: "--range 0-10000",
+															}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "u32:0-10000",
+															Description: "Time to wait in seconds for LDP-IGP synchronization to occur before restoring interface cost",
+														}},
+													}},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "node",
+											},
+											NodeNameAttr: "fast-reroute",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"IS-IS fast reroute configuration"},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
+													NodeNameAttr: "lfa",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Loop free alternate functionality"},
+													}},
+													Children: []*interfacedefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "remote",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Remote loop free alternate options"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																TagNode: []*interfacedefinition.TagNode{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "tagNode",
+																	},
+																	NodeNameAttr: "prefix-list",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Filter PQ node router ID based on prefix list"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Regex: []string{"[-_a-zA-Z0-9]+"},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "txt",
+																			Description: "Name of IPv4/IPv6 prefix-list",
+																		}},
+																		ConstraintErrorMessage: []string{"Name of prefix-list can only contain alpha-numeric letters, hyphen and underscores"},
+																		CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																			XMLName: xml.Name{
+																				Local: "completionHelp",
+																			},
+																			Path: []string{"policy prefix-list"},
+																		}},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "level-1",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Match on IS-IS level-1 routes"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "level-2",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Match on IS-IS level-2 routes"},
+																				Valueless: []*interfacedefinition.Valueless{{
+																					XMLName: xml.Name{
+																						Local: "valueless",
+																					},
+																				}},
+																			}},
+																		}},
+																	}},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "local",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Local loop free alternate options"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "load-sharing",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Load share prefixes across multiple backups"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		Node: []*interfacedefinition.Node{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "node",
+																			},
+																			NodeNameAttr: "disable",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Disable load sharing"},
+																			}},
+																			Children: []*interfacedefinition.Children{{
+																				XMLName: xml.Name{
+																					Local: "children",
+																				},
+																				LeafNode: []*interfacedefinition.LeafNode{{
+																					IsBaseNode: false,
+																					XMLName: xml.Name{
+																						Local: "leafNode",
+																					},
+																					NodeNameAttr: "level-1",
+																					Properties: []*interfacedefinition.Properties{{
+																						XMLName: xml.Name{
+																							Local: "properties",
+																						},
+																						Help: []string{"Match on IS-IS level-1 routes"},
+																						Valueless: []*interfacedefinition.Valueless{{
+																							XMLName: xml.Name{
+																								Local: "valueless",
+																							},
+																						}},
+																					}},
+																				}, {
+																					IsBaseNode: false,
+																					XMLName: xml.Name{
+																						Local: "leafNode",
+																					},
+																					NodeNameAttr: "level-2",
+																					Properties: []*interfacedefinition.Properties{{
+																						XMLName: xml.Name{
+																							Local: "properties",
+																						},
+																						Help: []string{"Match on IS-IS level-2 routes"},
+																						Valueless: []*interfacedefinition.Valueless{{
+																							XMLName: xml.Name{
+																								Local: "valueless",
+																							},
+																						}},
+																					}},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "priority-limit",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Limit backup computation up to the prefix priority"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		Node: []*interfacedefinition.Node{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "node",
+																			},
+																			NodeNameAttr: "medium",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Compute for critical, high, and medium priority prefixes"},
+																			}},
+																			Children: []*interfacedefinition.Children{{
+																				XMLName: xml.Name{
+																					Local: "children",
+																				},
+																				LeafNode: []*interfacedefinition.LeafNode{{
+																					IsBaseNode: false,
+																					XMLName: xml.Name{
+																						Local: "leafNode",
+																					},
+																					NodeNameAttr: "level-1",
+																					Properties: []*interfacedefinition.Properties{{
+																						XMLName: xml.Name{
+																							Local: "properties",
+																						},
+																						Help: []string{"Match on IS-IS level-1 routes"},
+																						Valueless: []*interfacedefinition.Valueless{{
+																							XMLName: xml.Name{
+																								Local: "valueless",
+																							},
+																						}},
+																					}},
+																				}, {
+																					IsBaseNode: false,
+																					XMLName: xml.Name{
+																						Local: "leafNode",
+																					},
+																					NodeNameAttr: "level-2",
+																					Properties: []*interfacedefinition.Properties{{
+																						XMLName: xml.Name{
+																							Local: "properties",
+																						},
+																						Help: []string{"Match on IS-IS level-2 routes"},
+																						Valueless: []*interfacedefinition.Valueless{{
+																							XMLName: xml.Name{
+																								Local: "valueless",
+																							},
+																						}},
+																					}},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "node",
+																			},
+																			NodeNameAttr: "high",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Compute for critical, and high priority prefixes"},
+																			}},
+																			Children: []*interfacedefinition.Children{{
+																				XMLName: xml.Name{
+																					Local: "children",
+																				},
+																				LeafNode: []*interfacedefinition.LeafNode{{
+																					IsBaseNode: false,
+																					XMLName: xml.Name{
+																						Local: "leafNode",
+																					},
+																					NodeNameAttr: "level-1",
+																					Properties: []*interfacedefinition.Properties{{
+																						XMLName: xml.Name{
+																							Local: "properties",
+																						},
+																						Help: []string{"Match on IS-IS level-1 routes"},
+																						Valueless: []*interfacedefinition.Valueless{{
+																							XMLName: xml.Name{
+																								Local: "valueless",
+																							},
+																						}},
+																					}},
+																				}, {
+																					IsBaseNode: false,
+																					XMLName: xml.Name{
+																						Local: "leafNode",
+																					},
+																					NodeNameAttr: "level-2",
+																					Properties: []*interfacedefinition.Properties{{
+																						XMLName: xml.Name{
+																							Local: "properties",
+																						},
+																						Help: []string{"Match on IS-IS level-2 routes"},
+																						Valueless: []*interfacedefinition.Valueless{{
+																							XMLName: xml.Name{
+																								Local: "valueless",
+																							},
+																						}},
+																					}},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "node",
+																			},
+																			NodeNameAttr: "critical",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Compute for critical priority prefixes only"},
+																			}},
+																			Children: []*interfacedefinition.Children{{
+																				XMLName: xml.Name{
+																					Local: "children",
+																				},
+																				LeafNode: []*interfacedefinition.LeafNode{{
+																					IsBaseNode: false,
+																					XMLName: xml.Name{
+																						Local: "leafNode",
+																					},
+																					NodeNameAttr: "level-1",
+																					Properties: []*interfacedefinition.Properties{{
+																						XMLName: xml.Name{
+																							Local: "properties",
+																						},
+																						Help: []string{"Match on IS-IS level-1 routes"},
+																						Valueless: []*interfacedefinition.Valueless{{
+																							XMLName: xml.Name{
+																								Local: "valueless",
+																							},
+																						}},
+																					}},
+																				}, {
+																					IsBaseNode: false,
+																					XMLName: xml.Name{
+																						Local: "leafNode",
+																					},
+																					NodeNameAttr: "level-2",
+																					Properties: []*interfacedefinition.Properties{{
+																						XMLName: xml.Name{
+																							Local: "properties",
+																						},
+																						Help: []string{"Match on IS-IS level-2 routes"},
+																						Valueless: []*interfacedefinition.Valueless{{
+																							XMLName: xml.Name{
+																								Local: "valueless",
+																							},
+																						}},
+																					}},
+																				}},
+																			}},
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "tiebreaker",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Configure tiebreaker for multiple backups"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		Node: []*interfacedefinition.Node{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "node",
+																			},
+																			NodeNameAttr: "downstream",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Prefer backup path via downstream node"},
+																			}},
+																			Children: []*interfacedefinition.Children{{
+																				XMLName: xml.Name{
+																					Local: "children",
+																				},
+																				TagNode: []*interfacedefinition.TagNode{{
+																					IsBaseNode: false,
+																					XMLName: xml.Name{
+																						Local: "tagNode",
+																					},
+																					NodeNameAttr: "index",
+																					Properties: []*interfacedefinition.Properties{{
+																						XMLName: xml.Name{
+																							Local: "properties",
+																						},
+																						Help: []string{"Set preference order among tiebreakers"},
+																						Constraint: []*interfacedefinition.Constraint{{
+																							XMLName: xml.Name{
+																								Local: "constraint",
+																							},
+																							Validator: []*interfacedefinition.Validator{{
+																								XMLName: xml.Name{
+																									Local: "validator",
+																								},
+																								NameAttr:     "numeric",
+																								ArgumentAttr: "--range 1-255",
+																							}},
+																						}},
+																						ValueHelp: []*interfacedefinition.ValueHelp{{
+																							XMLName: xml.Name{
+																								Local: "valueHelp",
+																							},
+																							Format:      "u32:1-255",
+																							Description: "The index integer value",
+																						}},
+																					}},
+																					Children: []*interfacedefinition.Children{{
+																						XMLName: xml.Name{
+																							Local: "children",
+																						},
+																						LeafNode: []*interfacedefinition.LeafNode{{
+																							IsBaseNode: false,
+																							XMLName: xml.Name{
+																								Local: "leafNode",
+																							},
+																							NodeNameAttr: "level-1",
+																							Properties: []*interfacedefinition.Properties{{
+																								XMLName: xml.Name{
+																									Local: "properties",
+																								},
+																								Help: []string{"Match on IS-IS level-1 routes"},
+																								Valueless: []*interfacedefinition.Valueless{{
+																									XMLName: xml.Name{
+																										Local: "valueless",
+																									},
+																								}},
+																							}},
+																						}, {
+																							IsBaseNode: false,
+																							XMLName: xml.Name{
+																								Local: "leafNode",
+																							},
+																							NodeNameAttr: "level-2",
+																							Properties: []*interfacedefinition.Properties{{
+																								XMLName: xml.Name{
+																									Local: "properties",
+																								},
+																								Help: []string{"Match on IS-IS level-2 routes"},
+																								Valueless: []*interfacedefinition.Valueless{{
+																									XMLName: xml.Name{
+																										Local: "valueless",
+																									},
+																								}},
+																							}},
+																						}},
+																					}},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "node",
+																			},
+																			NodeNameAttr: "lowest-backup-metric",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Prefer backup path with lowest total metric"},
+																			}},
+																			Children: []*interfacedefinition.Children{{
+																				XMLName: xml.Name{
+																					Local: "children",
+																				},
+																				TagNode: []*interfacedefinition.TagNode{{
+																					IsBaseNode: false,
+																					XMLName: xml.Name{
+																						Local: "tagNode",
+																					},
+																					NodeNameAttr: "index",
+																					Properties: []*interfacedefinition.Properties{{
+																						XMLName: xml.Name{
+																							Local: "properties",
+																						},
+																						Help: []string{"Set preference order among tiebreakers"},
+																						Constraint: []*interfacedefinition.Constraint{{
+																							XMLName: xml.Name{
+																								Local: "constraint",
+																							},
+																							Validator: []*interfacedefinition.Validator{{
+																								XMLName: xml.Name{
+																									Local: "validator",
+																								},
+																								NameAttr:     "numeric",
+																								ArgumentAttr: "--range 1-255",
+																							}},
+																						}},
+																						ValueHelp: []*interfacedefinition.ValueHelp{{
+																							XMLName: xml.Name{
+																								Local: "valueHelp",
+																							},
+																							Format:      "u32:1-255",
+																							Description: "The index integer value",
+																						}},
+																					}},
+																					Children: []*interfacedefinition.Children{{
+																						XMLName: xml.Name{
+																							Local: "children",
+																						},
+																						LeafNode: []*interfacedefinition.LeafNode{{
+																							IsBaseNode: false,
+																							XMLName: xml.Name{
+																								Local: "leafNode",
+																							},
+																							NodeNameAttr: "level-1",
+																							Properties: []*interfacedefinition.Properties{{
+																								XMLName: xml.Name{
+																									Local: "properties",
+																								},
+																								Help: []string{"Match on IS-IS level-1 routes"},
+																								Valueless: []*interfacedefinition.Valueless{{
+																									XMLName: xml.Name{
+																										Local: "valueless",
+																									},
+																								}},
+																							}},
+																						}, {
+																							IsBaseNode: false,
+																							XMLName: xml.Name{
+																								Local: "leafNode",
+																							},
+																							NodeNameAttr: "level-2",
+																							Properties: []*interfacedefinition.Properties{{
+																								XMLName: xml.Name{
+																									Local: "properties",
+																								},
+																								Help: []string{"Match on IS-IS level-2 routes"},
+																								Valueless: []*interfacedefinition.Valueless{{
+																									XMLName: xml.Name{
+																										Local: "valueless",
+																									},
+																								}},
+																							}},
+																						}},
+																					}},
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "node",
+																			},
+																			NodeNameAttr: "node-protecting",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Prefer node protecting backup path"},
+																			}},
+																			Children: []*interfacedefinition.Children{{
+																				XMLName: xml.Name{
+																					Local: "children",
+																				},
+																				TagNode: []*interfacedefinition.TagNode{{
+																					IsBaseNode: false,
+																					XMLName: xml.Name{
+																						Local: "tagNode",
+																					},
+																					NodeNameAttr: "index",
+																					Properties: []*interfacedefinition.Properties{{
+																						XMLName: xml.Name{
+																							Local: "properties",
+																						},
+																						Help: []string{"Set preference order among tiebreakers"},
+																						Constraint: []*interfacedefinition.Constraint{{
+																							XMLName: xml.Name{
+																								Local: "constraint",
+																							},
+																							Validator: []*interfacedefinition.Validator{{
+																								XMLName: xml.Name{
+																									Local: "validator",
+																								},
+																								NameAttr:     "numeric",
+																								ArgumentAttr: "--range 1-255",
+																							}},
+																						}},
+																						ValueHelp: []*interfacedefinition.ValueHelp{{
+																							XMLName: xml.Name{
+																								Local: "valueHelp",
+																							},
+																							Format:      "u32:1-255",
+																							Description: "The index integer value",
+																						}},
+																					}},
+																					Children: []*interfacedefinition.Children{{
+																						XMLName: xml.Name{
+																							Local: "children",
+																						},
+																						LeafNode: []*interfacedefinition.LeafNode{{
+																							IsBaseNode: false,
+																							XMLName: xml.Name{
+																								Local: "leafNode",
+																							},
+																							NodeNameAttr: "level-1",
+																							Properties: []*interfacedefinition.Properties{{
+																								XMLName: xml.Name{
+																									Local: "properties",
+																								},
+																								Help: []string{"Match on IS-IS level-1 routes"},
+																								Valueless: []*interfacedefinition.Valueless{{
+																									XMLName: xml.Name{
+																										Local: "valueless",
+																									},
+																								}},
+																							}},
+																						}, {
+																							IsBaseNode: false,
+																							XMLName: xml.Name{
+																								Local: "leafNode",
+																							},
+																							NodeNameAttr: "level-2",
+																							Properties: []*interfacedefinition.Properties{{
+																								XMLName: xml.Name{
+																									Local: "properties",
+																								},
+																								Help: []string{"Match on IS-IS level-2 routes"},
+																								Valueless: []*interfacedefinition.Valueless{{
+																									XMLName: xml.Name{
+																										Local: "valueless",
+																									},
+																								}},
+																							}},
+																						}},
+																					}},
+																				}},
+																			}},
+																		}},
+																	}},
+																}},
+															}},
+														}},
+													}},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "node",
+											},
 											NodeNameAttr: "traffic-engineering",
 											Properties: []*interfacedefinition.Properties{{
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Show IS-IS neighbor adjacencies"},
+												Help: []string{"IS-IS traffic engineering extensions"},
 											}},
 											Children: []*interfacedefinition.Children{{
 												XMLName: xml.Name{
@@ -24364,6 +31278,72 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "node",
 													},
+													NodeNameAttr: "ldp-sync",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"LDP-IGP synchronization configuration for interface"},
+													}},
+													Children: []*interfacedefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "disable",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Disable instance"},
+																Valueless: []*interfacedefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "holddown",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Hold down timer for LDP-IGP cost restoration"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 0-10000",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:0-10000",
+																	Description: "Time to wait in seconds for LDP-IGP synchronization to occur before restoring interface cost",
+																}},
+															}},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
 													NodeNameAttr: "network",
 													Properties: []*interfacedefinition.Properties{{
 														XMLName: xml.Name{
@@ -24704,6 +31684,40 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "advertise-high-metrics",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Advertise high metric value on all interfaces"},
+												Valueless: []*interfacedefinition.Valueless{{
+													XMLName: xml.Name{
+														Local: "valueless",
+													},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "advertise-passive-only",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Advertise prefixes of passive interfaces only"},
+												Valueless: []*interfacedefinition.Valueless{{
+													XMLName: xml.Name{
+														Local: "valueless",
+													},
+												}},
+											}},
+										}, {
 											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
@@ -25055,38 +32069,6 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Description: "Interval in seconds",
 												}},
 											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "route-map",
-											Properties: []*interfacedefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Specify route-map name to use"},
-												Constraint: []*interfacedefinition.Constraint{{
-													XMLName: xml.Name{
-														Local: "constraint",
-													},
-													Regex: []string{"[-_a-zA-Z0-9.]+"},
-												}},
-												ValueHelp: []*interfacedefinition.ValueHelp{{
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "txt",
-													Description: "Route map name",
-												}},
-												ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
-												CompletionHelp: []*interfacedefinition.CompletionHelp{{
-													XMLName: xml.Name{
-														Local: "completionHelp",
-													},
-													Path: []string{"policy route-map"},
-												}},
-											}},
 										}},
 									}},
 								}, {
@@ -25108,6 +32090,56 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "node",
+											},
+											NodeNameAttr: "aggregation",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"External route aggregation"},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "timer",
+													DefaultValue: []string{"5"},
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Delay timer"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*interfacedefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr:     "numeric",
+																ArgumentAttr: "--range 5-1800",
+															}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "u32:5-1800",
+															Description: "Timer interval in seconds",
+														}},
+													}},
+												}},
+											}},
+										}, {
 											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
@@ -25153,6 +32185,41 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															},
 															Format:      "u32:1-4294967",
 															Description: "Reference bandwidth cost in Mbits/sec",
+														}},
+													}},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "node",
+											},
+											NodeNameAttr: "capability",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Enable specific OSPF features"},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "opaque",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Opaque LSA"},
+														Valueless: []*interfacedefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
 														}},
 													}},
 												}},
@@ -25301,6 +32368,269 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Path: []string{"policy route-map"},
 																}},
 															}},
+														}},
+													}},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "node",
+											},
+											NodeNameAttr: "graceful-restart",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Graceful Restart"},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
+													NodeNameAttr: "helper",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"OSPF graceful-restart helpers"},
+													}},
+													Children: []*interfacedefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "enable",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Enable helper support"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "router-id",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Advertising Router-ID"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr: "ipv4-address",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "ipv4",
+																			Description: "Router-ID in IP address format",
+																		}},
+																		Multi: []*interfacedefinition.Multi{{
+																			XMLName: xml.Name{
+																				Local: "multi",
+																			},
+																		}},
+																	}},
+																}},
+															}},
+														}},
+														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "planned-only",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Supported only planned restart"},
+																Valueless: []*interfacedefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "supported-grace-time",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Supported grace timer"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 10-1800",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:10-1800",
+																	Description: "Grace interval in seconds",
+																}},
+															}},
+														}, {
+															Parent: &interfacedefinition.Node{
+																Parent: &interfacedefinition.Node{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "graceful-restart",
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		Node: []*interfacedefinition.Node{nil},
+																	}},
+																},
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "node",
+																},
+																NodeNameAttr: "helper",
+																Children: []*interfacedefinition.Children{{
+																	XMLName: xml.Name{
+																		Local: "children",
+																	},
+																	LeafNode: []*interfacedefinition.LeafNode{nil},
+																}},
+															},
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "no-strict-lsa-checking",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Disable strict LSA check"},
+																Valueless: []*interfacedefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}},
+													}},
+												}},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "grace-period",
+													DefaultValue: []string{"120"},
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Maximum length of the grace period"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*interfacedefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr:     "numeric",
+																ArgumentAttr: "--range 5-1800",
+															}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "u32:1-1800",
+															Description: "Maximum length of the grace period in seconds",
+														}},
+													}},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "node",
+											},
+											NodeNameAttr: "ldp-sync",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Protocol wide LDP-IGP synchronization configuration"},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "holddown",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Hold down timer for LDP-IGP cost restoration"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*interfacedefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr:     "numeric",
+																ArgumentAttr: "--range 0-10000",
+															}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "u32:0-10000",
+															Description: "Time to wait in seconds for LDP-IGP synchronization to occur before restoring interface cost",
 														}},
 													}},
 												}},
@@ -28267,7 +35597,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+													Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 													Validator: []*interfacedefinition.Validator{{
 														XMLName: xml.Name{
 															Local: "validator",
@@ -28458,6 +35788,72 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		Local: "completionHelp",
 																	},
 																	Path: []string{"protocols bfd profile"},
+																}},
+															}},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
+													NodeNameAttr: "ldp-sync",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"LDP-IGP synchronization configuration for interface"},
+													}},
+													Children: []*interfacedefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "disable",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Disable instance"},
+																Valueless: []*interfacedefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "holddown",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Hold down timer for LDP-IGP cost restoration"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 0-10000",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:0-10000",
+																	Description: "Time to wait in seconds for LDP-IGP synchronization to occur before restoring interface cost",
 																}},
 															}},
 														}},
@@ -28968,6 +36364,90 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "tagNode",
+											},
+											NodeNameAttr: "summary-address",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"External summary address"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-prefix",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4net",
+													Description: "OSPF area number in dotted decimal notation",
+												}},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "no-advertise",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Don not advertise summary route"},
+														Valueless: []*interfacedefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "tag",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Router tag"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*interfacedefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr:     "numeric",
+																ArgumentAttr: "--range 1-4294967295",
+															}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "u32:1-4294967295",
+															Description: "Router tag value",
+														}},
+													}},
+												}},
+											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
 											IsBaseNode: false,
@@ -29060,38 +36540,6 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														Local: "completionHelp",
 													},
 													List: []string{"default"},
-												}},
-											}},
-										}, {
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "route-map",
-											Properties: []*interfacedefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Specify route-map name to use"},
-												Constraint: []*interfacedefinition.Constraint{{
-													XMLName: xml.Name{
-														Local: "constraint",
-													},
-													Regex: []string{"[-_a-zA-Z0-9.]+"},
-												}},
-												ValueHelp: []*interfacedefinition.ValueHelp{{
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "txt",
-													Description: "Route map name",
-												}},
-												ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
-												CompletionHelp: []*interfacedefinition.CompletionHelp{{
-													XMLName: xml.Name{
-														Local: "completionHelp",
-													},
-													Path: []string{"policy route-map"},
 												}},
 											}},
 										}},
@@ -29469,6 +36917,220 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															},
 															Format:      "u32:1-255",
 															Description: "Administrative distance",
+														}},
+													}},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "node",
+											},
+											NodeNameAttr: "graceful-restart",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Graceful Restart"},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
+													NodeNameAttr: "helper",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"OSPF graceful-restart helpers"},
+													}},
+													Children: []*interfacedefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "enable",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Enable helper support"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "router-id",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Advertising Router-ID"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr: "ipv4-address",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "ipv4",
+																			Description: "Router-ID in IP address format",
+																		}},
+																		Multi: []*interfacedefinition.Multi{{
+																			XMLName: xml.Name{
+																				Local: "multi",
+																			},
+																		}},
+																	}},
+																}},
+															}},
+														}},
+														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "planned-only",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Supported only planned restart"},
+																Valueless: []*interfacedefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "supported-grace-time",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Supported grace timer"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 10-1800",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:10-1800",
+																	Description: "Grace interval in seconds",
+																}},
+															}},
+														}, {
+															Parent: &interfacedefinition.Node{
+																Parent: &interfacedefinition.Node{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "graceful-restart",
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		Node: []*interfacedefinition.Node{nil},
+																	}},
+																},
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "node",
+																},
+																NodeNameAttr: "helper",
+																Children: []*interfacedefinition.Children{{
+																	XMLName: xml.Name{
+																		Local: "children",
+																	},
+																	LeafNode: []*interfacedefinition.LeafNode{nil},
+																}},
+															},
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "lsa-check-disable",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Disable strict LSA check"},
+																Valueless: []*interfacedefinition.Valueless{{
+																	XMLName: xml.Name{
+																		Local: "valueless",
+																	},
+																}},
+															}},
+														}},
+													}},
+												}},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "grace-period",
+													DefaultValue: []string{"120"},
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Maximum length of the grace period"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*interfacedefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr:     "numeric",
+																ArgumentAttr: "--range 5-1800",
+															}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "u32:1-1800",
+															Description: "Maximum length of the grace period in seconds",
 														}},
 													}},
 												}},
@@ -30151,7 +37813,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+													Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 													Validator: []*interfacedefinition.Validator{{
 														XMLName: xml.Name{
 															Local: "validator",
@@ -30598,39 +38260,6 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}},
-										LeafNode: []*interfacedefinition.LeafNode{{
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "route-map",
-											Properties: []*interfacedefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"Specify route-map name to use"},
-												Constraint: []*interfacedefinition.Constraint{{
-													XMLName: xml.Name{
-														Local: "constraint",
-													},
-													Regex: []string{"[-_a-zA-Z0-9.]+"},
-												}},
-												ValueHelp: []*interfacedefinition.ValueHelp{{
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "txt",
-													Description: "Route map name",
-												}},
-												ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
-												CompletionHelp: []*interfacedefinition.CompletionHelp{{
-													XMLName: xml.Name{
-														Local: "completionHelp",
-													},
-													Path: []string{"policy route-map"},
-												}},
-											}},
-										}},
 									}},
 								}, {
 									IsBaseNode: false,
@@ -30860,7 +38489,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+															Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 															Validator: []*interfacedefinition.Validator{{
 																XMLName: xml.Name{
 																	Local: "validator",
@@ -31008,6 +38637,136 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														XMLName: xml.Name{
 															Local: "children",
 														},
+														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "bfd",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"BFD monitoring"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "multi-hop",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Use BFD multi hop session"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		TagNode: []*interfacedefinition.TagNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "tagNode",
+																			},
+																			NodeNameAttr: "source",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Use source for BFD session"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr: "ip-address",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "ipv4",
+																					Description: "IPv4 source address",
+																				}, {
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "ipv6",
+																					Description: "IPv6 source address",
+																				}},
+																			}},
+																			Children: []*interfacedefinition.Children{{
+																				XMLName: xml.Name{
+																					Local: "children",
+																				},
+																				LeafNode: []*interfacedefinition.LeafNode{{
+																					IsBaseNode: false,
+																					XMLName: xml.Name{
+																						Local: "leafNode",
+																					},
+																					NodeNameAttr: "profile",
+																					Properties: []*interfacedefinition.Properties{{
+																						XMLName: xml.Name{
+																							Local: "properties",
+																						},
+																						Help: []string{"Use settings from BFD profile"},
+																						ValueHelp: []*interfacedefinition.ValueHelp{{
+																							XMLName: xml.Name{
+																								Local: "valueHelp",
+																							},
+																							Format:      "txt",
+																							Description: "BFD profile name",
+																						}},
+																						CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																							XMLName: xml.Name{
+																								Local: "completionHelp",
+																							},
+																							Path: []string{"protocols bfd profile"},
+																						}},
+																					}},
+																				}},
+																			}},
+																		}},
+																	}},
+																}},
+																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "profile",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Use settings from BFD profile"},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "txt",
+																			Description: "BFD profile name",
+																		}},
+																		CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																			XMLName: xml.Name{
+																				Local: "completionHelp",
+																			},
+																			Path: []string{"protocols bfd profile"},
+																		}},
+																	}},
+																}},
+															}},
+														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
 															IsBaseNode: false,
 															XMLName: xml.Name{
@@ -31071,7 +38830,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	XMLName: xml.Name{
 																		Local: "constraint",
 																	},
-																	Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+																	Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 																	Validator: []*interfacedefinition.Validator{{
 																		XMLName: xml.Name{
 																			Local: "validator",
@@ -31149,7 +38908,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+															Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 															Validator: []*interfacedefinition.Validator{{
 																XMLName: xml.Name{
 																	Local: "validator",
@@ -31409,7 +39168,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+															Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 															Validator: []*interfacedefinition.Validator{{
 																XMLName: xml.Name{
 																	Local: "validator",
@@ -31488,6 +39247,36 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
+															NodeNameAttr: "segments",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"SRv6 segments"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr: "ipv6-srv6-segments",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "txt",
+																	Description: "Segs (SIDs)",
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
 															NodeNameAttr: "vrf",
 															Properties: []*interfacedefinition.Properties{{
 																XMLName: xml.Name{
@@ -31557,6 +39346,136 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														XMLName: xml.Name{
 															Local: "children",
 														},
+														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "bfd",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"BFD monitoring"},
+															}},
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "multi-hop",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Use BFD multi hop session"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		TagNode: []*interfacedefinition.TagNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "tagNode",
+																			},
+																			NodeNameAttr: "source",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Use source for BFD session"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr: "ip-address",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "ipv4",
+																					Description: "IPv4 source address",
+																				}, {
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "ipv6",
+																					Description: "IPv6 source address",
+																				}},
+																			}},
+																			Children: []*interfacedefinition.Children{{
+																				XMLName: xml.Name{
+																					Local: "children",
+																				},
+																				LeafNode: []*interfacedefinition.LeafNode{{
+																					IsBaseNode: false,
+																					XMLName: xml.Name{
+																						Local: "leafNode",
+																					},
+																					NodeNameAttr: "profile",
+																					Properties: []*interfacedefinition.Properties{{
+																						XMLName: xml.Name{
+																							Local: "properties",
+																						},
+																						Help: []string{"Use settings from BFD profile"},
+																						ValueHelp: []*interfacedefinition.ValueHelp{{
+																							XMLName: xml.Name{
+																								Local: "valueHelp",
+																							},
+																							Format:      "txt",
+																							Description: "BFD profile name",
+																						}},
+																						CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																							XMLName: xml.Name{
+																								Local: "completionHelp",
+																							},
+																							Path: []string{"protocols bfd profile"},
+																						}},
+																					}},
+																				}},
+																			}},
+																		}},
+																	}},
+																}},
+																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "profile",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Use settings from BFD profile"},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "txt",
+																			Description: "BFD profile name",
+																		}},
+																		CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																			XMLName: xml.Name{
+																				Local: "completionHelp",
+																			},
+																			Path: []string{"protocols bfd profile"},
+																		}},
+																	}},
+																}},
+															}},
+														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
 															IsBaseNode: false,
 															XMLName: xml.Name{
@@ -31620,7 +39539,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	XMLName: xml.Name{
 																		Local: "constraint",
 																	},
-																	Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+																	Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|ipoe|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|sstpc|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
 																	Validator: []*interfacedefinition.Validator{{
 																		XMLName: xml.Name{
 																			Local: "validator",
@@ -31640,6 +39559,36 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		Local: "completionHelp",
 																	},
 																	Script: []string{"${vyos_completion_dir}/list_interfaces"},
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "segments",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"SRv6 segments"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr: "ipv6-srv6-segments",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "txt",
+																	Description: "Segs (SIDs)",
 																}},
 															}},
 														}, {
@@ -31797,7 +39746,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 								Local: "leafNode",
 							},
 							NodeNameAttr: "vni",
-							OwnerAttr:    "${vyos_conf_scripts_dir}/vrf_vni.py",
+							OwnerAttr:    "${vyos_conf_scripts_dir}/vrf_vni.py $VAR(../@)",
 							Properties: []*interfacedefinition.Properties{{
 								XMLName: xml.Name{
 									Local: "properties",

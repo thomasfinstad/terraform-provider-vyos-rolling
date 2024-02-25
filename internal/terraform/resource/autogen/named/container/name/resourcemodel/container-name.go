@@ -31,10 +31,13 @@ type ContainerName struct {
 	LeafContainerNameMemory            types.Number `tfsdk:"memory" vyos:"memory,omitempty"`
 	LeafContainerNameSharedMemory      types.Number `tfsdk:"shared_memory" vyos:"shared-memory,omitempty"`
 	LeafContainerNameRestart           types.String `tfsdk:"restart" vyos:"restart,omitempty"`
+	LeafContainerNameUID               types.Number `tfsdk:"uid" vyos:"uid,omitempty"`
+	LeafContainerNameGID               types.Number `tfsdk:"gid" vyos:"gid,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 	ExistsTagContainerNameDevice      bool `tfsdk:"-" vyos:"device,child"`
 	ExistsTagContainerNameEnvironment bool `tfsdk:"-" vyos:"environment,child"`
+	ExistsTagContainerNameLabel       bool `tfsdk:"-" vyos:"label,child"`
 	ExistsTagContainerNameNetwork     bool `tfsdk:"-" vyos:"network,child"`
 	ExistsTagContainerNamePort        bool `tfsdk:"-" vyos:"port,child"`
 	ExistsTagContainerNameVolume      bool `tfsdk:"-" vyos:"volume,child"`
@@ -101,6 +104,7 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
     |  net-raw  &emsp; |  Permission to create raw network sockets  |
     |  setpcap  &emsp; |  Capability sets (from bounded or inherited set)  |
     |  sys-admin  &emsp; |  Administation operations (quotactl, mount, sethostname, setdomainame)  |
+    |  sys-module  &emsp; |  Load, unload and delete kernel modules  |
     |  sys-time  &emsp; |  Permission to set system clock  |
 
 `,
@@ -205,6 +209,28 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 
 			// Default:          stringdefault.StaticString(`on-failure`),
 			Computed: true,
+		},
+
+		"uid": schema.NumberAttribute{
+			Optional: true,
+			MarkdownDescription: `User ID this container will run as
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 0-65535  &emsp; |  User ID this container will run as  |
+
+`,
+		},
+
+		"gid": schema.NumberAttribute{
+			Optional: true,
+			MarkdownDescription: `Group ID this container will run as
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 0-65535  &emsp; |  Group ID this container will run as  |
+
+`,
 		},
 
 		// Nodes

@@ -93,6 +93,7 @@ IPv6 gateway address
 
 ### Optional
 
+- `bfd` (Attributes) BFD monitoring (see [below for nested schema](#nestedatt--bfd))
 - `disable` (Boolean) Disable instance
 - `distance` (Number) Distance for this route
 
@@ -104,6 +105,11 @@ IPv6 gateway address
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Gateway interface name  |
+- `segments` (String) SRv6 segments
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Segs (SIDs)  |
 - `vrf` (String) VRF to leak route
 
     |  Format &emsp; | Description  |
@@ -113,3 +119,18 @@ IPv6 gateway address
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+
+<a id="nestedatt--bfd"></a>
+### Nested Schema for `bfd`
+
+Optional:
+
+- `multi_hop` (Attributes) Use BFD multi hop session (see [below for nested schema](#nestedatt--bfd--multi_hop))
+- `profile` (String) Use settings from BFD profile
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  BFD profile name  |
+
+<a id="nestedatt--bfd--multi_hop"></a>
+### Nested Schema for `bfd.multi_hop`

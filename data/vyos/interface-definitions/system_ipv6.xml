@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<interfaceDefinition>
+  <node name="system">
+    <children>
+      <node name="ipv6" owner="${vyos_conf_scripts_dir}/system_ipv6.py">
+        <properties>
+          <help>IPv6 Settings</help>
+          <!-- must be before any interface, check /opt/vyatta/sbin/priority.pl -->
+          <priority>290</priority>
+        </properties>
+        <children>
+          <leafNode name="disable-forwarding">
+            <properties>
+              <help>Disable IPv6 forwarding on all interfaces</help>
+              <valueless/>
+            </properties>
+          </leafNode>
+          <node name="multipath">
+            <properties>
+              <help>IPv6 multipath settings</help>
+            </properties>
+            <children>
+              <leafNode name="layer4-hashing">
+                <properties>
+                  <help>Use layer 4 information for ECMP hashing</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+            </children>
+          </node>
+          <node name="neighbor">
+            <properties>
+              <help>Parameters for neighbor discovery cache</help>
+            </properties>
+            <children>
+              <!-- include start from arp-ndp-table-size.xml.i -->
+              <leafNode name="table-size">
+                <properties>
+                  <help>Maximum number of entries to keep in the cache</help>
+                  <completionHelp>
+                    <list>1024 2048 4096 8192 16384 32768</list>
+                  </completionHelp>
+                  <constraint>
+                    <regex>(1024|2048|4096|8192|16384|32768)</regex>
+                  </constraint>
+                </properties>
+                <defaultValue>8192</defaultValue>
+              </leafNode>
+              <!-- include end -->
+            </children>
+          </node>
+          <!-- include start from syslog-facility.xml.i -->
+          <node name="nht">
+            <properties>
+              <help>Filter Next Hop tracking route resolution</help>
+            </properties>
+            <children>
+              <leafNode name="no-resolve-via-default">
+                <properties>
+                  <help>Do not resolve via default route</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+            </children>
+          </node>
+          <!-- include end -->
+          <!-- include start from system-ipv6-protocol.xml.i -->
+          <tagNode name="protocol">
+            <properties>
+              <help>Filter routing info exchanged between routing protocol and zebra</help>
+              <completionHelp>
+                <list>any babel bgp connected isis kernel ospfv3 ripng static table</list>
+              </completionHelp>
+              <valueHelp>
+                <format>any</format>
+                <description>Any of the above protocols</description>
+              </valueHelp>
+              <valueHelp>
+                <format>babel</format>
+                <description>Babel routing protocol</description>
+              </valueHelp>
+              <valueHelp>
+                <format>bgp</format>
+                <description>Border Gateway Protocol</description>
+              </valueHelp>
+              <valueHelp>
+                <format>connected</format>
+                <description>Connected routes (directly attached subnet or host)</description>
+              </valueHelp>
+              <valueHelp>
+                <format>isis</format>
+                <description>Intermediate System to Intermediate System</description>
+              </valueHelp>
+              <valueHelp>
+                <format>kernel</format>
+                <description>Kernel routes (not installed via the zebra RIB)</description>
+              </valueHelp>
+              <valueHelp>
+                <format>ospfv3</format>
+                <description>Open Shortest Path First (OSPFv3)</description>
+              </valueHelp>
+              <valueHelp>
+                <format>ripng</format>
+                <description>Routing Information Protocol next-generation</description>
+              </valueHelp>
+              <valueHelp>
+                <format>static</format>
+                <description>Statically configured routes</description>
+              </valueHelp>
+              <constraint>
+                <regex>(any|babel|bgp|connected|isis|kernel|ospfv3|ripng|static|table)</regex>
+              </constraint>
+            </properties>
+            <children>
+              <!-- include start from route-map.xml.i -->
+              <leafNode name="route-map">
+                <properties>
+                  <help>Specify route-map name to use</help>
+                  <completionHelp>
+                    <path>policy route-map</path>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Route map name</description>
+                  </valueHelp>
+                  <constraint>
+                    <!-- include start from constraint/alpha-numeric-hyphen-underscore-dot.xml.i -->
+                    <regex>[-_a-zA-Z0-9.]+</regex>
+                    <!-- include end -->
+                  </constraint>
+                  <constraintErrorMessage>Name of route-map can only contain alpha-numeric letters, hyphen and underscores</constraintErrorMessage>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+            </children>
+          </tagNode>
+          <!-- include end -->
+          <leafNode name="strict-dad">
+            <properties>
+              <help>Disable IPv6 operation on interface when DAD fails on LL addr</help>
+              <valueless/>
+            </properties>
+          </leafNode>
+        </children>
+      </node>
+    </children>
+  </node>
+</interfaceDefinition>

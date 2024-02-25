@@ -9,8 +9,8 @@ import (
 // FirewallIPvsixNameRuleInboundInterface describes the resource data model.
 type FirewallIPvsixNameRuleInboundInterface struct {
 	// LeafNodes
-	LeafFirewallIPvsixNameRuleInboundInterfaceInterfaceName  types.String `tfsdk:"interface_name" vyos:"interface-name,omitempty"`
-	LeafFirewallIPvsixNameRuleInboundInterfaceInterfaceGroup types.String `tfsdk:"interface_group" vyos:"interface-group,omitempty"`
+	LeafFirewallIPvsixNameRuleInboundInterfaceName  types.String `tfsdk:"name" vyos:"name,omitempty"`
+	LeafFirewallIPvsixNameRuleInboundInterfaceGroup types.String `tfsdk:"group" vyos:"group,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -22,16 +22,27 @@ func (o FirewallIPvsixNameRuleInboundInterface) ResourceSchemaAttributes() map[s
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"interface_name": schema.StringAttribute{
+		"name": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Match interface
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Interface name  |
+    |  txt&  &emsp; |  Interface name with wildcard  |
+    |  !txt  &emsp; |  Inverted interface name to match  |
 
 `,
 		},
 
-		"interface_group": schema.StringAttribute{
+		"group": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Match interface-group
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Interface-group name to match  |
+    |  !txt  &emsp; |  Inverted interface-group name to match  |
 
 `,
 		},

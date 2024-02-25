@@ -25,7 +25,7 @@ func netns() interfacedefinition.InterfaceDefinition {
 					Local: "properties",
 				},
 				Help:     []string{"Network namespace"},
-				Priority: []string{"299"},
+				Priority: []string{"10"},
 			}},
 			Children: []*interfacedefinition.Children{{
 				XMLName: xml.Name{

@@ -26,6 +26,7 @@ type PkiCertificate struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes
+	NodePkiCertificateAcme    *PkiCertificateAcme    `tfsdk:"acme" vyos:"acme,omitempty"`
 	NodePkiCertificatePrivate *PkiCertificatePrivate `tfsdk:"private" vyos:"private,omitempty"`
 }
 
@@ -78,12 +79,16 @@ func (o PkiCertificate) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Description
 
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Description  |
+
 `,
 		},
 
 		"revoke": schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `If CA is present, this certificate will be included in generated CRLs
+			MarkdownDescription: `Include certificate in parent CRL
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -91,6 +96,14 @@ func (o PkiCertificate) ResourceSchemaAttributes() map[string]schema.Attribute {
 		},
 
 		// Nodes
+
+		"acme": schema.SingleNestedAttribute{
+			Attributes: PkiCertificateAcme{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Automatic Certificate Management Environment (ACME) request
+
+`,
+		},
 
 		"private": schema.SingleNestedAttribute{
 			Attributes: PkiCertificatePrivate{}.ResourceSchemaAttributes(),

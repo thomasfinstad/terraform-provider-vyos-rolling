@@ -1,0 +1,724 @@
+<?xml version="1.0"?>
+<interfaceDefinition>
+  <node name="load-balancing">
+    <children>
+      <node name="reverse-proxy" owner="${vyos_conf_scripts_dir}/load-balancing_reverse-proxy.py">
+        <properties>
+          <help>Configure reverse-proxy</help>
+        </properties>
+        <children>
+          <tagNode name="service">
+            <properties>
+              <help>Frontend service name</help>
+              <constraint>
+                <!-- include start from constraint/alpha-numeric-hyphen-underscore.xml.i -->
+                <regex>[-_a-zA-Z0-9]+</regex>
+                <!-- include end -->
+              </constraint>
+              <constraintErrorMessage>Server name must be alphanumeric and can contain hyphen and underscores</constraintErrorMessage>
+            </properties>
+            <children>
+              <leafNode name="backend">
+                <properties>
+                  <help>Backend member</help>
+                  <constraint>
+                    <!-- include start from constraint/alpha-numeric-hyphen-underscore.xml.i -->
+                    <regex>[-_a-zA-Z0-9]+</regex>
+                    <!-- include end -->
+                  </constraint>
+                  <constraintErrorMessage>Backend name must be alphanumeric and can contain hyphen and underscores</constraintErrorMessage>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Name of reverse-proxy backend system</description>
+                  </valueHelp>
+                  <completionHelp>
+                    <path>load-balancing reverse-proxy backend</path>
+                  </completionHelp>
+                  <multi/>
+                </properties>
+              </leafNode>
+              <!-- include start from generic-description.xml.i -->
+              <leafNode name="description">
+                <properties>
+                  <help>Description</help>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Description</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>[[:ascii:]]{0,256}</regex>
+                  </constraint>
+                  <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from listen-address.xml.i -->
+              <leafNode name="listen-address">
+                <properties>
+                  <help>Local IP addresses to listen on</help>
+                  <completionHelp>
+                    <script>${vyos_completion_dir}/list_local_ips.sh --both</script>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>ipv4</format>
+                    <description>IPv4 address to listen for incoming connections</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ipv6</format>
+                    <description>IPv6 address to listen for incoming connections</description>
+                  </valueHelp>
+                  <multi/>
+                  <constraint>
+                    <validator name="ip-address"/>
+                    <validator name="ipv6-link-local"/>
+                  </constraint>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from haproxy/mode.xml.i -->
+              <leafNode name="mode">
+                <properties>
+                  <help>Proxy mode</help>
+                  <completionHelp>
+                    <list>http tcp</list>
+                  </completionHelp>
+                  <constraintErrorMessage>invalid value</constraintErrorMessage>
+                  <valueHelp>
+                    <format>http</format>
+                    <description>HTTP proxy mode</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>tcp</format>
+                    <description>TCP proxy mode</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>(http|tcp)</regex>
+                  </constraint>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from port-number.xml.i -->
+              <leafNode name="port">
+                <properties>
+                  <help>Port number used by connection</help>
+                  <valueHelp>
+                    <format>u32:1-65535</format>
+                    <description>Numeric IP port</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="numeric" argument="--range 1-65535"/>
+                  </constraint>
+                  <constraintErrorMessage>Port number must be in range 1 to 65535</constraintErrorMessage>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from haproxy/rule.xml.i -->
+              <tagNode name="rule">
+                <properties>
+                  <help>Proxy rule number</help>
+                  <valueHelp>
+                    <format>u32:1-10000</format>
+                    <description>Number for this proxy rule</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="numeric" argument="--range 1-10000"/>
+                  </constraint>
+                  <constraintErrorMessage>Proxy rule number must be between 1 and 10000</constraintErrorMessage>
+                </properties>
+                <children>
+                  <leafNode name="domain-name">
+                    <properties>
+                      <help>Domain name to match</help>
+                      <valueHelp>
+                        <format>txt</format>
+                        <description>Domain address to match</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="fqdn"/>
+                      </constraint>
+                      <multi/>
+                    </properties>
+                  </leafNode>
+                  <node name="set">
+                    <properties>
+                      <help>Proxy modifications</help>
+                    </properties>
+                    <children>
+                      <leafNode name="redirect-location">
+                        <properties>
+                          <help>Set URL location</help>
+                          <valueHelp>
+                            <format>url</format>
+                            <description>Set URL location</description>
+                          </valueHelp>
+                          <constraint>
+                            <regex>^\/[\w\-.\/]+$</regex>
+                          </constraint>
+                          <constraintErrorMessage>Incorrect URL format</constraintErrorMessage>
+                        </properties>
+                      </leafNode>
+                      <leafNode name="backend">
+                        <properties>
+                          <help>Backend name</help>
+                          <constraint>
+                            <regex>[-_a-zA-Z0-9]+</regex>
+                          </constraint>
+                          <constraintErrorMessage>Server name must be alphanumeric and can contain hyphen and underscores</constraintErrorMessage>
+                        </properties>
+                      </leafNode>
+                    </children>
+                  </node>
+                  <leafNode name="ssl">
+                    <properties>
+                      <help>SSL match options</help>
+                      <completionHelp>
+                        <list>req-ssl-sni ssl-fc-sni</list>
+                      </completionHelp>
+                      <valueHelp>
+                        <format>req-ssl-sni</format>
+                        <description>SSL Server Name Indication (SNI) request match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ssl-fc-sni</format>
+                        <description>SSL frontend connection Server Name Indication match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ssl-fc-sni-end</format>
+                        <description>SSL frontend match end of connection Server Name Indication</description>
+                      </valueHelp>
+                      <constraint>
+                        <regex>(req-ssl-sni|ssl-fc-sni|ssl-fc-sni-end)</regex>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <node name="url-path">
+                    <properties>
+                      <help>URL path match</help>
+                    </properties>
+                    <children>
+                      <leafNode name="begin">
+                        <properties>
+                          <help>Begin URL match</help>
+                          <valueHelp>
+                            <format>url</format>
+                            <description>Begin URL</description>
+                          </valueHelp>
+                          <constraint>
+                            <regex>^\/[\w\-.\/]+$</regex>
+                          </constraint>
+                          <constraintErrorMessage>Incorrect URL format</constraintErrorMessage>
+                          <multi/>
+                        </properties>
+                      </leafNode>
+                      <leafNode name="end">
+                        <properties>
+                          <help>End URL match</help>
+                          <valueHelp>
+                            <format>url</format>
+                            <description>End URL</description>
+                          </valueHelp>
+                          <constraint>
+                            <regex>^\/[\w\-.\/]+$</regex>
+                          </constraint>
+                          <constraintErrorMessage>Incorrect URL format</constraintErrorMessage>
+                          <multi/>
+                        </properties>
+                      </leafNode>
+                      <leafNode name="exact">
+                        <properties>
+                          <help>Exactly URL match</help>
+                          <valueHelp>
+                            <format>url</format>
+                            <description>Exactly URL</description>
+                          </valueHelp>
+                          <constraint>
+                            <regex>^\/[\w\-.\/]+$</regex>
+                          </constraint>
+                          <constraintErrorMessage>Incorrect URL format</constraintErrorMessage>
+                          <multi/>
+                        </properties>
+                      </leafNode>
+                    </children>
+                  </node>
+                </children>
+              </tagNode>
+              <!-- include end -->
+              <leafNode name="redirect-http-to-https">
+                <properties>
+                  <help>Redirect HTTP to HTTPS</help>
+                  <valueless/>
+                </properties>
+              </leafNode>
+              <node name="ssl">
+                <properties>
+                  <help>SSL Certificate, SSL Key and CA</help>
+                </properties>
+                <children>
+                  <!-- include start from pki/certificate-multi.xml.i -->
+                  <leafNode name="certificate">
+                    <properties>
+                      <help>Certificate in PKI configuration</help>
+                      <completionHelp>
+                        <path>pki certificate</path>
+                      </completionHelp>
+                      <valueHelp>
+                        <format>txt</format>
+                        <description>Name of certificate in PKI configuration</description>
+                      </valueHelp>
+                      <multi/>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                </children>
+              </node>
+            </children>
+          </tagNode>
+          <tagNode name="backend">
+            <properties>
+              <help>Backend server name</help>
+              <constraint>
+                <!-- include start from constraint/alpha-numeric-hyphen-underscore.xml.i -->
+                <regex>[-_a-zA-Z0-9]+</regex>
+                <!-- include end -->
+              </constraint>
+              <constraintErrorMessage>Backend name must be alphanumeric and can contain hyphen and underscores</constraintErrorMessage>
+            </properties>
+            <children>
+              <leafNode name="balance">
+                <properties>
+                  <help>Load-balancing algorithm</help>
+                  <completionHelp>
+                    <list>source-address round-robin least-connection</list>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>source-address</format>
+                    <description>Based on hash of source IP address</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>round-robin</format>
+                    <description>Round robin</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>least-connection</format>
+                    <description>Least connection</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>(source-address|round-robin|least-connection)</regex>
+                  </constraint>
+                </properties>
+                <defaultValue>round-robin</defaultValue>
+              </leafNode>
+              <!-- include start from generic-description.xml.i -->
+              <leafNode name="description">
+                <properties>
+                  <help>Description</help>
+                  <valueHelp>
+                    <format>txt</format>
+                    <description>Description</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>[[:ascii:]]{0,256}</regex>
+                  </constraint>
+                  <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <!-- include start from haproxy/mode.xml.i -->
+              <leafNode name="mode">
+                <properties>
+                  <help>Proxy mode</help>
+                  <completionHelp>
+                    <list>http tcp</list>
+                  </completionHelp>
+                  <constraintErrorMessage>invalid value</constraintErrorMessage>
+                  <valueHelp>
+                    <format>http</format>
+                    <description>HTTP proxy mode</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>tcp</format>
+                    <description>TCP proxy mode</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>(http|tcp)</regex>
+                  </constraint>
+                </properties>
+              </leafNode>
+              <!-- include end -->
+              <node name="parameters">
+                <properties>
+                  <help>Backend parameters</help>
+                </properties>
+                <children>
+                  <leafNode name="http-check">
+                    <properties>
+                      <help>HTTP health check</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                </children>
+              </node>
+              <!-- include start from haproxy/rule.xml.i -->
+              <tagNode name="rule">
+                <properties>
+                  <help>Proxy rule number</help>
+                  <valueHelp>
+                    <format>u32:1-10000</format>
+                    <description>Number for this proxy rule</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="numeric" argument="--range 1-10000"/>
+                  </constraint>
+                  <constraintErrorMessage>Proxy rule number must be between 1 and 10000</constraintErrorMessage>
+                </properties>
+                <children>
+                  <leafNode name="domain-name">
+                    <properties>
+                      <help>Domain name to match</help>
+                      <valueHelp>
+                        <format>txt</format>
+                        <description>Domain address to match</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="fqdn"/>
+                      </constraint>
+                      <multi/>
+                    </properties>
+                  </leafNode>
+                  <node name="set">
+                    <properties>
+                      <help>Proxy modifications</help>
+                    </properties>
+                    <children>
+                      <leafNode name="redirect-location">
+                        <properties>
+                          <help>Set URL location</help>
+                          <valueHelp>
+                            <format>url</format>
+                            <description>Set URL location</description>
+                          </valueHelp>
+                          <constraint>
+                            <regex>^\/[\w\-.\/]+$</regex>
+                          </constraint>
+                          <constraintErrorMessage>Incorrect URL format</constraintErrorMessage>
+                        </properties>
+                      </leafNode>
+                      <leafNode name="server">
+                        <properties>
+                          <help>Server name</help>
+                          <constraint>
+                            <regex>[-_a-zA-Z0-9]+</regex>
+                          </constraint>
+                          <constraintErrorMessage>Server name must be alphanumeric and can contain hyphen and underscores</constraintErrorMessage>
+                        </properties>
+                      </leafNode>
+                    </children>
+                  </node>
+                  <leafNode name="ssl">
+                    <properties>
+                      <help>SSL match options</help>
+                      <completionHelp>
+                        <list>req-ssl-sni ssl-fc-sni</list>
+                      </completionHelp>
+                      <valueHelp>
+                        <format>req-ssl-sni</format>
+                        <description>SSL Server Name Indication (SNI) request match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ssl-fc-sni</format>
+                        <description>SSL frontend connection Server Name Indication match</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ssl-fc-sni-end</format>
+                        <description>SSL frontend match end of connection Server Name Indication</description>
+                      </valueHelp>
+                      <constraint>
+                        <regex>(req-ssl-sni|ssl-fc-sni|ssl-fc-sni-end)</regex>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <node name="url-path">
+                    <properties>
+                      <help>URL path match</help>
+                    </properties>
+                    <children>
+                      <leafNode name="begin">
+                        <properties>
+                          <help>Begin URL match</help>
+                          <valueHelp>
+                            <format>url</format>
+                            <description>Begin URL</description>
+                          </valueHelp>
+                          <constraint>
+                            <regex>^\/[\w\-.\/]+$</regex>
+                          </constraint>
+                          <constraintErrorMessage>Incorrect URL format</constraintErrorMessage>
+                          <multi/>
+                        </properties>
+                      </leafNode>
+                      <leafNode name="end">
+                        <properties>
+                          <help>End URL match</help>
+                          <valueHelp>
+                            <format>url</format>
+                            <description>End URL</description>
+                          </valueHelp>
+                          <constraint>
+                            <regex>^\/[\w\-.\/]+$</regex>
+                          </constraint>
+                          <constraintErrorMessage>Incorrect URL format</constraintErrorMessage>
+                          <multi/>
+                        </properties>
+                      </leafNode>
+                      <leafNode name="exact">
+                        <properties>
+                          <help>Exactly URL match</help>
+                          <valueHelp>
+                            <format>url</format>
+                            <description>Exactly URL</description>
+                          </valueHelp>
+                          <constraint>
+                            <regex>^\/[\w\-.\/]*$</regex>
+                          </constraint>
+                          <constraintErrorMessage>Incorrect URL format</constraintErrorMessage>
+                          <multi/>
+                        </properties>
+                      </leafNode>
+                    </children>
+                  </node>
+                </children>
+              </tagNode>
+              <!-- include end -->
+              <tagNode name="server">
+                <properties>
+                  <help>Backend server name</help>
+                </properties>
+                <children>
+                  <leafNode name="address">
+                    <properties>
+                      <help>Backend server address</help>
+                      <valueHelp>
+                        <format>ipv4</format>
+                        <description>IPv4 unicast peer address</description>
+                      </valueHelp>
+                      <valueHelp>
+                        <format>ipv6</format>
+                        <description>IPv6 unicast peer address</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="ip-address"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <leafNode name="backup">
+                    <properties>
+                      <help>Use backup server if other servers are not available</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <leafNode name="check">
+                    <properties>
+                      <help>Active health check backend server</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <!-- include start from port-number.xml.i -->
+                  <leafNode name="port">
+                    <properties>
+                      <help>Port number used by connection</help>
+                      <valueHelp>
+                        <format>u32:1-65535</format>
+                        <description>Numeric IP port</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-65535"/>
+                      </constraint>
+                      <constraintErrorMessage>Port number must be in range 1 to 65535</constraintErrorMessage>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <leafNode name="send-proxy">
+                    <properties>
+                      <help>Send a Proxy Protocol version 1 header (text format)</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                  <leafNode name="send-proxy-v2">
+                    <properties>
+                      <help>Send a Proxy Protocol version 2 header (binary format)</help>
+                      <valueless/>
+                    </properties>
+                  </leafNode>
+                </children>
+              </tagNode>
+              <node name="ssl">
+                <properties>
+                  <help>SSL Certificate, SSL Key and CA</help>
+                </properties>
+                <children>
+                  <!-- include start from pki/ca-certificate.xml.i -->
+                  <leafNode name="ca-certificate">
+                    <properties>
+                      <help>Certificate Authority in PKI configuration</help>
+                      <completionHelp>
+                        <path>pki ca</path>
+                      </completionHelp>
+                      <valueHelp>
+                        <format>txt</format>
+                        <description>Name of CA in PKI configuration</description>
+                      </valueHelp>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                </children>
+              </node>
+              <!-- include start from haproxy/timeout.xml.i -->
+              <node name="timeout">
+                <properties>
+                  <help>Tiemout options</help>
+                </properties>
+                <children>
+                  <leafNode name="check">
+                    <properties>
+                      <help>Timeout in seconds for established connections</help>
+                      <valueHelp>
+                        <format>u32:1-3600</format>
+                        <description>Check timeout in seconds</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-3600"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <leafNode name="connect">
+                    <properties>
+                      <help>Set the maximum time to wait for a connection attempt to a server to succeed</help>
+                      <valueHelp>
+                        <format>u32:1-3600</format>
+                        <description>Connect timeout in seconds</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-3600"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <leafNode name="server">
+                    <properties>
+                      <help>Set the maximum inactivity time on the server side</help>
+                      <valueHelp>
+                        <format>u32:1-3600</format>
+                        <description>Server timeout in seconds</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-3600"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                </children>
+              </node>
+              <!-- include end -->
+            </children>
+          </tagNode>
+          <node name="global-parameters">
+            <properties>
+              <help>Global perfomance parameters and limits</help>
+            </properties>
+            <children>
+              <leafNode name="max-connections">
+                <properties>
+                  <help>Maximum allowed connections</help>
+                  <valueHelp>
+                    <format>u32:1-2000000</format>
+                    <description>Maximum allowed connections</description>
+                  </valueHelp>
+                  <constraint>
+                    <validator name="numeric" argument="--range 1-2000000"/>
+                  </constraint>
+                </properties>
+              </leafNode>
+              <leafNode name="ssl-bind-ciphers">
+                <properties>
+                  <help>Cipher algorithms ("cipher suite") used during SSL/TLS handshake for all frontend servers</help>
+                  <completionHelp>
+                    <list>ecdhe-ecdsa-aes128-gcm-sha256 ecdhe-rsa-aes128-gcm-sha256 ecdhe-ecdsa-aes256-gcm-sha384 ecdhe-rsa-aes256-gcm-sha384 ecdhe-ecdsa-chacha20-poly1305 ecdhe-rsa-chacha20-poly1305 dhe-rsa-aes128-gcm-sha256 dhe-rsa-aes256-gcm-sha384</list>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>ecdhe-ecdsa-aes128-gcm-sha256</format>
+                    <description>ecdhe-ecdsa-aes128-gcm-sha256</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ecdhe-rsa-aes128-gcm-sha256</format>
+                    <description>ecdhe-rsa-aes128-gcm-sha256</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ecdhe-ecdsa-aes256-gcm-sha384</format>
+                    <description>ecdhe-ecdsa-aes256-gcm-sha384</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ecdhe-rsa-aes256-gcm-sha384</format>
+                    <description>ecdhe-rsa-aes256-gcm-sha384</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ecdhe-ecdsa-chacha20-poly1305</format>
+                    <description>ecdhe-ecdsa-chacha20-poly1305</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>ecdhe-rsa-chacha20-poly1305</format>
+                    <description>ecdhe-rsa-chacha20-poly1305</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>dhe-rsa-aes128-gcm-sha256</format>
+                    <description>dhe-rsa-aes128-gcm-sha256</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>dhe-rsa-aes256-gcm-sha384</format>
+                    <description>dhe-rsa-aes256-gcm-sha384</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>(ecdhe-ecdsa-aes128-gcm-sha256|ecdhe-rsa-aes128-gcm-sha256|ecdhe-ecdsa-aes256-gcm-sha384|ecdhe-rsa-aes256-gcm-sha384|ecdhe-ecdsa-chacha20-poly1305|ecdhe-rsa-chacha20-poly1305|dhe-rsa-aes128-gcm-sha256|dhe-rsa-aes256-gcm-sha384)</regex>
+                  </constraint>
+                  <multi/>
+                </properties>
+                <defaultValue>ecdhe-ecdsa-aes128-gcm-sha256 ecdhe-rsa-aes128-gcm-sha256 ecdhe-ecdsa-aes256-gcm-sha384 ecdhe-rsa-aes256-gcm-sha384 ecdhe-ecdsa-chacha20-poly1305 ecdhe-rsa-chacha20-poly1305 dhe-rsa-aes128-gcm-sha256 dhe-rsa-aes256-gcm-sha384</defaultValue>
+              </leafNode>
+              <leafNode name="tls-version-min">
+                <properties>
+                  <help>Specify the minimum required TLS version</help>
+                  <completionHelp>
+                    <list>1.2 1.3</list>
+                  </completionHelp>
+                  <valueHelp>
+                    <format>1.2</format>
+                    <description>TLS v1.2</description>
+                  </valueHelp>
+                  <valueHelp>
+                    <format>1.3</format>
+                    <description>TLS v1.3</description>
+                  </valueHelp>
+                  <constraint>
+                    <regex>(1.2|1.3)</regex>
+                  </constraint>
+                </properties>
+                <defaultValue>1.3</defaultValue>
+              </leafNode>
+            </children>
+          </node>
+          <!-- include start from interface/vrf.xml.i -->
+          <leafNode name="vrf">
+            <properties>
+              <help>VRF instance name</help>
+              <valueHelp>
+                <format>txt</format>
+                <description>VRF instance name</description>
+              </valueHelp>
+              <completionHelp>
+                <path>vrf name</path>
+              </completionHelp>
+            </properties>
+          </leafNode>
+          <!-- include end -->
+        </children>
+      </node>
+    </children>
+  </node>
+</interfaceDefinition>
