@@ -46,7 +46,16 @@ func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceD
 		}
 
 		if flags["child"].(bool) {
-			// TODO if field is a child field/resource, check if it is populated and set bool to true if it is so delete function can choose correct action to take
+			if fieldName, ok := flags["name"].(string); ok {
+				if data, ok := data[fieldName]; ok {
+					if data != nil {
+						tfValue := basetypes.NewBoolValue(true)
+						tfValueRefection := reflect.ValueOf(tfValue)
+						fValue.Set(tfValueRefection)
+					}
+				}
+			}
+
 			continue
 		}
 

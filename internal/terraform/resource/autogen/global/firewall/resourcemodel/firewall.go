@@ -31,14 +31,14 @@ type Firewall struct {
 	LeafFirewallTwaHazardsProtection   types.String `tfsdk:"twa_hazards_protection" vyos:"twa-hazards-protection,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagFirewallInterface  bool `tfsdk:"-" vyos:"interface,ignore,child"`
-	ExistsTagFirewallIPvsixName bool `tfsdk:"-" vyos:"ipv6-name,ignore,child"`
-	ExistsTagFirewallName       bool `tfsdk:"-" vyos:"name,ignore,child"`
-	ExistsTagFirewallZone       bool `tfsdk:"-" vyos:"zone,ignore,child"`
+	ExistsTagFirewallInterface  bool `tfsdk:"-" vyos:"interface,child"`
+	ExistsTagFirewallIPvsixName bool `tfsdk:"-" vyos:"ipv6-name,child"`
+	ExistsTagFirewallName       bool `tfsdk:"-" vyos:"name,child"`
+	ExistsTagFirewallZone       bool `tfsdk:"-" vyos:"zone,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeFirewallGroup       bool `tfsdk:"-" vyos:"group,ignore,omitempty"`
-	ExistsNodeFirewallStatePolicy bool `tfsdk:"-" vyos:"state-policy,ignore,omitempty"`
+	ExistsNodeFirewallGroup       bool `tfsdk:"-" vyos:"group,omitempty"`
+	ExistsNodeFirewallStatePolicy bool `tfsdk:"-" vyos:"state-policy,omitempty"`
 }
 
 // SetID configures the resource ID

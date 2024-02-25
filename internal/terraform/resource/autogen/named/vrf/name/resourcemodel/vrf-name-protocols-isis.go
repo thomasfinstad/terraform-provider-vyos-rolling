@@ -26,7 +26,7 @@ type VrfNameProtocolsIsis struct {
 	LeafVrfNameProtocolsIsisRouteMap            types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsIsisInterface bool `tfsdk:"interface" vyos:"interface,ignore,child"`
+	ExistsTagVrfNameProtocolsIsisInterface bool `tfsdk:"interface" vyos:"interface,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsIsisAreaPassword       *VrfNameProtocolsIsisAreaPassword       `tfsdk:"area_password" vyos:"area-password,omitempty"`

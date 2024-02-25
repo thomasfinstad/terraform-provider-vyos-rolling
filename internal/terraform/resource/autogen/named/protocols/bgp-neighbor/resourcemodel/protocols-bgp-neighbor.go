@@ -37,8 +37,8 @@ type ProtocolsBgpNeighbor struct {
 	LeafProtocolsBgpNeighborUpdateSource                 types.String `tfsdk:"update_source" vyos:"update-source,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsBgpNeighborLocalAs   bool `tfsdk:"-" vyos:"local-as,ignore,child"`
-	ExistsTagProtocolsBgpNeighborLocalRole bool `tfsdk:"-" vyos:"local-role,ignore,child"`
+	ExistsTagProtocolsBgpNeighborLocalAs   bool `tfsdk:"-" vyos:"local-as,child"`
+	ExistsTagProtocolsBgpNeighborLocalRole bool `tfsdk:"-" vyos:"local-role,child"`
 
 	// Nodes
 	NodeProtocolsBgpNeighborAddressFamily *ProtocolsBgpNeighborAddressFamily `tfsdk:"address_family" vyos:"address-family,omitempty"`

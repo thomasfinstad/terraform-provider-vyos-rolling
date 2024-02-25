@@ -24,8 +24,8 @@ type VrfNameProtocolsStaticRoute struct {
 	LeafVrfNameProtocolsStaticRouteDescrIPtion   types.String `tfsdk:"description" vyos:"description,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsStaticRouteInterface bool `tfsdk:"-" vyos:"interface,ignore,child"`
-	ExistsTagVrfNameProtocolsStaticRouteNextHop   bool `tfsdk:"-" vyos:"next-hop,ignore,child"`
+	ExistsTagVrfNameProtocolsStaticRouteInterface bool `tfsdk:"-" vyos:"interface,child"`
+	ExistsTagVrfNameProtocolsStaticRouteNextHop   bool `tfsdk:"-" vyos:"next-hop,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsStaticRouteBlackhole *VrfNameProtocolsStaticRouteBlackhole `tfsdk:"blackhole" vyos:"blackhole,omitempty"`

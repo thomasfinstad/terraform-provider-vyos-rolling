@@ -12,8 +12,8 @@ type VrfNameProtocolsOspfvthree struct {
 	LeafVrfNameProtocolsOspfvthreeRouteMap types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsOspfvthreeArea      bool `tfsdk:"area" vyos:"area,ignore,child"`
-	ExistsTagVrfNameProtocolsOspfvthreeInterface bool `tfsdk:"interface" vyos:"interface,ignore,child"`
+	ExistsTagVrfNameProtocolsOspfvthreeArea      bool `tfsdk:"area" vyos:"area,child"`
+	ExistsTagVrfNameProtocolsOspfvthreeInterface bool `tfsdk:"interface" vyos:"interface,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsOspfvthreeAutoCost            *VrfNameProtocolsOspfvthreeAutoCost            `tfsdk:"auto_cost" vyos:"auto-cost,omitempty"`

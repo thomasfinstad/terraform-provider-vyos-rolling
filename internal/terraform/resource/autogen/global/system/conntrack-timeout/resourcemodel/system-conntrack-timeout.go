@@ -20,9 +20,9 @@ type SystemConntrackTimeout struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeSystemConntrackTimeoutCustom bool `tfsdk:"-" vyos:"custom,ignore,omitempty"`
-	ExistsNodeSystemConntrackTimeoutTCP    bool `tfsdk:"-" vyos:"tcp,ignore,omitempty"`
-	ExistsNodeSystemConntrackTimeoutUDP    bool `tfsdk:"-" vyos:"udp,ignore,omitempty"`
+	ExistsNodeSystemConntrackTimeoutCustom bool `tfsdk:"-" vyos:"custom,omitempty"`
+	ExistsNodeSystemConntrackTimeoutTCP    bool `tfsdk:"-" vyos:"tcp,omitempty"`
+	ExistsNodeSystemConntrackTimeoutUDP    bool `tfsdk:"-" vyos:"udp,omitempty"`
 }
 
 // SetID configures the resource ID

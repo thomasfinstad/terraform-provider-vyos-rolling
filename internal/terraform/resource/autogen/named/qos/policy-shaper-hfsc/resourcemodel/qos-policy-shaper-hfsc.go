@@ -22,7 +22,7 @@ type QosPolicyShaperHfsc struct {
 	LeafQosPolicyShaperHfscBandwIDth   types.String `tfsdk:"bandwidth" vyos:"bandwidth,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagQosPolicyShaperHfscClass bool `tfsdk:"-" vyos:"class,ignore,child"`
+	ExistsTagQosPolicyShaperHfscClass bool `tfsdk:"-" vyos:"class,child"`
 
 	// Nodes
 	NodeQosPolicyShaperHfscDefault *QosPolicyShaperHfscDefault `tfsdk:"default" vyos:"default,omitempty"`

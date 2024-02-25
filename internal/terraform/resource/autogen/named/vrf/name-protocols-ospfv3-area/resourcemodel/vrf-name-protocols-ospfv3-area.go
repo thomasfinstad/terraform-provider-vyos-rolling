@@ -24,7 +24,7 @@ type VrfNameProtocolsOspfvthreeArea struct {
 	LeafVrfNameProtocolsOspfvthreeAreaImportList types.String `tfsdk:"import_list" vyos:"import-list,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsOspfvthreeAreaRange bool `tfsdk:"-" vyos:"range,ignore,child"`
+	ExistsTagVrfNameProtocolsOspfvthreeAreaRange bool `tfsdk:"-" vyos:"range,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsOspfvthreeAreaAreaType *VrfNameProtocolsOspfvthreeAreaAreaType `tfsdk:"area_type" vyos:"area-type,omitempty"`

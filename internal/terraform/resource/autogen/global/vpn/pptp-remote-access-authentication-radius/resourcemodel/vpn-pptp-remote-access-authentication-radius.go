@@ -25,10 +25,10 @@ type VpnPptpRemoteAccessAuthenticationRadius struct {
 	LeafVpnPptpRemoteAccessAuthenticationRadiusPreallocateVif    types.Bool   `tfsdk:"preallocate_vif" vyos:"preallocate-vif,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVpnPptpRemoteAccessAuthenticationRadiusServer bool `tfsdk:"-" vyos:"server,ignore,child"`
+	ExistsTagVpnPptpRemoteAccessAuthenticationRadiusServer bool `tfsdk:"-" vyos:"server,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeVpnPptpRemoteAccessAuthenticationRadiusDynamicAuthor bool `tfsdk:"-" vyos:"dynamic-author,ignore,omitempty"`
+	ExistsNodeVpnPptpRemoteAccessAuthenticationRadiusDynamicAuthor bool `tfsdk:"-" vyos:"dynamic-author,omitempty"`
 }
 
 // SetID configures the resource ID

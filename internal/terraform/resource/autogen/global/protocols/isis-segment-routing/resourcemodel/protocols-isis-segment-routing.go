@@ -17,11 +17,11 @@ type ProtocolsIsisSegmentRouting struct {
 	LeafProtocolsIsisSegmentRoutingMaximumLabelDepth types.Number `tfsdk:"maximum_label_depth" vyos:"maximum-label-depth,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsIsisSegmentRoutingPrefix bool `tfsdk:"-" vyos:"prefix,ignore,child"`
+	ExistsTagProtocolsIsisSegmentRoutingPrefix bool `tfsdk:"-" vyos:"prefix,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsIsisSegmentRoutingGlobalBlock bool `tfsdk:"-" vyos:"global-block,ignore,omitempty"`
-	ExistsNodeProtocolsIsisSegmentRoutingLocalBlock  bool `tfsdk:"-" vyos:"local-block,ignore,omitempty"`
+	ExistsNodeProtocolsIsisSegmentRoutingGlobalBlock bool `tfsdk:"-" vyos:"global-block,omitempty"`
+	ExistsNodeProtocolsIsisSegmentRoutingLocalBlock  bool `tfsdk:"-" vyos:"local-block,omitempty"`
 }
 
 // SetID configures the resource ID

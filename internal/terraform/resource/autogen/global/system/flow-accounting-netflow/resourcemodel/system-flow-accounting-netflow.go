@@ -21,10 +21,10 @@ type SystemFlowAccountingNetflow struct {
 	LeafSystemFlowAccountingNetflowVersion       types.String `tfsdk:"version" vyos:"version,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagSystemFlowAccountingNetflowServer bool `tfsdk:"-" vyos:"server,ignore,child"`
+	ExistsTagSystemFlowAccountingNetflowServer bool `tfsdk:"-" vyos:"server,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeSystemFlowAccountingNetflowTimeout bool `tfsdk:"-" vyos:"timeout,ignore,omitempty"`
+	ExistsNodeSystemFlowAccountingNetflowTimeout bool `tfsdk:"-" vyos:"timeout,omitempty"`
 }
 
 // SetID configures the resource ID

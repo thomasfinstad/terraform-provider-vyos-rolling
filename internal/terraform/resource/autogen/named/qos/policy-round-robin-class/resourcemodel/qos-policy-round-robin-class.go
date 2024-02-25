@@ -30,7 +30,7 @@ type QosPolicyRoundRobinClass struct {
 	LeafQosPolicyRoundRobinClassTarget       types.Number `tfsdk:"target" vyos:"target,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagQosPolicyRoundRobinClassMatch bool `tfsdk:"-" vyos:"match,ignore,child"`
+	ExistsTagQosPolicyRoundRobinClassMatch bool `tfsdk:"-" vyos:"match,child"`
 
 	// Nodes
 }

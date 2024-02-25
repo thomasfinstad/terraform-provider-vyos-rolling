@@ -24,11 +24,11 @@ type ServiceUpnp struct {
 	LeafServiceUpnpListen          types.List   `tfsdk:"listen" vyos:"listen,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceUpnpRule bool `tfsdk:"-" vyos:"rule,ignore,child"`
+	ExistsTagServiceUpnpRule bool `tfsdk:"-" vyos:"rule,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceUpnpPcpLifetime bool `tfsdk:"-" vyos:"pcp-lifetime,ignore,omitempty"`
-	ExistsNodeServiceUpnpStun        bool `tfsdk:"-" vyos:"stun,ignore,omitempty"`
+	ExistsNodeServiceUpnpPcpLifetime bool `tfsdk:"-" vyos:"pcp-lifetime,omitempty"`
+	ExistsNodeServiceUpnpStun        bool `tfsdk:"-" vyos:"stun,omitempty"`
 }
 
 // SetID configures the resource ID

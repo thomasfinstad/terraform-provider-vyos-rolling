@@ -13,7 +13,7 @@ type ServiceEventHandlerEventScrIPt struct {
 	LeafServiceEventHandlerEventScrIPtPath      types.String `tfsdk:"path" vyos:"path,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceEventHandlerEventScrIPtEnvironment bool `tfsdk:"environment" vyos:"environment,ignore,child"`
+	ExistsTagServiceEventHandlerEventScrIPtEnvironment bool `tfsdk:"environment" vyos:"environment,child"`
 
 	// Nodes
 }

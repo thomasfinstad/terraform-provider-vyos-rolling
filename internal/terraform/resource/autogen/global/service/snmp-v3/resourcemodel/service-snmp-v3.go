@@ -17,10 +17,10 @@ type ServiceSnmpVthree struct {
 	LeafServiceSnmpVthreeEngineID types.String `tfsdk:"engineid" vyos:"engineid,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceSnmpVthreeGroup      bool `tfsdk:"-" vyos:"group,ignore,child"`
-	ExistsTagServiceSnmpVthreeTrapTarget bool `tfsdk:"-" vyos:"trap-target,ignore,child"`
-	ExistsTagServiceSnmpVthreeUser       bool `tfsdk:"-" vyos:"user,ignore,child"`
-	ExistsTagServiceSnmpVthreeView       bool `tfsdk:"-" vyos:"view,ignore,child"`
+	ExistsTagServiceSnmpVthreeGroup      bool `tfsdk:"-" vyos:"group,child"`
+	ExistsTagServiceSnmpVthreeTrapTarget bool `tfsdk:"-" vyos:"trap-target,child"`
+	ExistsTagServiceSnmpVthreeUser       bool `tfsdk:"-" vyos:"user,child"`
+	ExistsTagServiceSnmpVthreeView       bool `tfsdk:"-" vyos:"view,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
 }

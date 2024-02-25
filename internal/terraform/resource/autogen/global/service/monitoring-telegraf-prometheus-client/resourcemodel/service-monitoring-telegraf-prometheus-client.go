@@ -22,7 +22,7 @@ type ServiceMonitoringTelegrafPrometheusClient struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceMonitoringTelegrafPrometheusClientAuthentication bool `tfsdk:"-" vyos:"authentication,ignore,omitempty"`
+	ExistsNodeServiceMonitoringTelegrafPrometheusClientAuthentication bool `tfsdk:"-" vyos:"authentication,omitempty"`
 }
 
 // SetID configures the resource ID

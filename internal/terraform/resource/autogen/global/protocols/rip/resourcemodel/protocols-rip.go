@@ -24,14 +24,14 @@ type ProtocolsRIP struct {
 	LeafProtocolsRIPVersion          types.String `tfsdk:"version" vyos:"version,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsRIPInterface       bool `tfsdk:"-" vyos:"interface,ignore,child"`
-	ExistsTagProtocolsRIPNetworkDistance bool `tfsdk:"-" vyos:"network-distance,ignore,child"`
+	ExistsTagProtocolsRIPInterface       bool `tfsdk:"-" vyos:"interface,child"`
+	ExistsTagProtocolsRIPNetworkDistance bool `tfsdk:"-" vyos:"network-distance,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsRIPDefaultInformation bool `tfsdk:"-" vyos:"default-information,ignore,omitempty"`
-	ExistsNodeProtocolsRIPDistributeList     bool `tfsdk:"-" vyos:"distribute-list,ignore,omitempty"`
-	ExistsNodeProtocolsRIPRedistribute       bool `tfsdk:"-" vyos:"redistribute,ignore,omitempty"`
-	ExistsNodeProtocolsRIPTimers             bool `tfsdk:"-" vyos:"timers,ignore,omitempty"`
+	ExistsNodeProtocolsRIPDefaultInformation bool `tfsdk:"-" vyos:"default-information,omitempty"`
+	ExistsNodeProtocolsRIPDistributeList     bool `tfsdk:"-" vyos:"distribute-list,omitempty"`
+	ExistsNodeProtocolsRIPRedistribute       bool `tfsdk:"-" vyos:"redistribute,omitempty"`
+	ExistsNodeProtocolsRIPTimers             bool `tfsdk:"-" vyos:"timers,omitempty"`
 }
 
 // SetID configures the resource ID

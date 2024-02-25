@@ -15,10 +15,10 @@ type VrfNameProtocolsOspf struct {
 	LeafVrfNameProtocolsOspfRouteMap         types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsOspfAccessList bool `tfsdk:"access_list" vyos:"access-list,ignore,child"`
-	ExistsTagVrfNameProtocolsOspfArea       bool `tfsdk:"area" vyos:"area,ignore,child"`
-	ExistsTagVrfNameProtocolsOspfInterface  bool `tfsdk:"interface" vyos:"interface,ignore,child"`
-	ExistsTagVrfNameProtocolsOspfNeighbor   bool `tfsdk:"neighbor" vyos:"neighbor,ignore,child"`
+	ExistsTagVrfNameProtocolsOspfAccessList bool `tfsdk:"access_list" vyos:"access-list,child"`
+	ExistsTagVrfNameProtocolsOspfArea       bool `tfsdk:"area" vyos:"area,child"`
+	ExistsTagVrfNameProtocolsOspfInterface  bool `tfsdk:"interface" vyos:"interface,child"`
+	ExistsTagVrfNameProtocolsOspfNeighbor   bool `tfsdk:"neighbor" vyos:"neighbor,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsOspfAutoCost            *VrfNameProtocolsOspfAutoCost            `tfsdk:"auto_cost" vyos:"auto-cost,omitempty"`

@@ -25,8 +25,8 @@ type SystemOption struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeSystemOptionHTTPClient bool `tfsdk:"-" vyos:"http-client,ignore,omitempty"`
-	ExistsNodeSystemOptionTCPClient  bool `tfsdk:"-" vyos:"ssh-client,ignore,omitempty"`
+	ExistsNodeSystemOptionHTTPClient bool `tfsdk:"-" vyos:"http-client,omitempty"`
+	ExistsNodeSystemOptionTCPClient  bool `tfsdk:"-" vyos:"ssh-client,omitempty"`
 }
 
 // SetID configures the resource ID

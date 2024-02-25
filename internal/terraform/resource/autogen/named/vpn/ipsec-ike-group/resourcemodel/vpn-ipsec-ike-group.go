@@ -27,7 +27,7 @@ type VpnIPsecIkeGroup struct {
 	LeafVpnIPsecIkeGroupMode          types.String `tfsdk:"mode" vyos:"mode,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVpnIPsecIkeGroupProposal bool `tfsdk:"-" vyos:"proposal,ignore,child"`
+	ExistsTagVpnIPsecIkeGroupProposal bool `tfsdk:"-" vyos:"proposal,child"`
 
 	// Nodes
 	NodeVpnIPsecIkeGroupDeadPeerDetection *VpnIPsecIkeGroupDeadPeerDetection `tfsdk:"dead_peer_detection" vyos:"dead-peer-detection,omitempty"`

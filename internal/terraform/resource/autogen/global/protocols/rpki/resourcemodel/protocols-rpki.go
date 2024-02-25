@@ -17,7 +17,7 @@ type ProtocolsRpki struct {
 	LeafProtocolsRpkiPollingPeriod types.Number `tfsdk:"polling_period" vyos:"polling-period,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsRpkiCache bool `tfsdk:"-" vyos:"cache,ignore,child"`
+	ExistsTagProtocolsRpkiCache bool `tfsdk:"-" vyos:"cache,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
 }

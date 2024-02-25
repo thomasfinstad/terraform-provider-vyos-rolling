@@ -25,10 +25,10 @@ type ServiceConntrackSync struct {
 	LeafServiceConntrackSyncSyncQueueSize        types.Number `tfsdk:"sync_queue_size" vyos:"sync-queue-size,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceConntrackSyncInterface bool `tfsdk:"-" vyos:"interface,ignore,child"`
+	ExistsTagServiceConntrackSyncInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceConntrackSyncFailoverMechanism bool `tfsdk:"-" vyos:"failover-mechanism,ignore,omitempty"`
+	ExistsNodeServiceConntrackSyncFailoverMechanism bool `tfsdk:"-" vyos:"failover-mechanism,omitempty"`
 }
 
 // SetID configures the resource ID

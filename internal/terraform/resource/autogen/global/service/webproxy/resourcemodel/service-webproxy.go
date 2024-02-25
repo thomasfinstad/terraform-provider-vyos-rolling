@@ -31,12 +31,12 @@ type ServiceWebproxy struct {
 	LeafServiceWebproxyReplyBodyMaxSize  types.Number `tfsdk:"reply_body_max_size" vyos:"reply-body-max-size,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceWebproxyCachePeer     bool `tfsdk:"-" vyos:"cache-peer,ignore,child"`
-	ExistsTagServiceWebproxyListenAddress bool `tfsdk:"-" vyos:"listen-address,ignore,child"`
+	ExistsTagServiceWebproxyCachePeer     bool `tfsdk:"-" vyos:"cache-peer,child"`
+	ExistsTagServiceWebproxyListenAddress bool `tfsdk:"-" vyos:"listen-address,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceWebproxyAuthentication bool `tfsdk:"-" vyos:"authentication,ignore,omitempty"`
-	ExistsNodeServiceWebproxyURLFiltering   bool `tfsdk:"-" vyos:"url-filtering,ignore,omitempty"`
+	ExistsNodeServiceWebproxyAuthentication bool `tfsdk:"-" vyos:"authentication,omitempty"`
+	ExistsNodeServiceWebproxyURLFiltering   bool `tfsdk:"-" vyos:"url-filtering,omitempty"`
 }
 
 // SetID configures the resource ID

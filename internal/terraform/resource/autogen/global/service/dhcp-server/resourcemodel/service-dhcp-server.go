@@ -23,10 +23,10 @@ type ServiceDhcpServer struct {
 	LeafServiceDhcpServerListenAddress    types.List `tfsdk:"listen_address" vyos:"listen-address,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceDhcpServerSharedNetworkName bool `tfsdk:"-" vyos:"shared-network-name,ignore,child"`
+	ExistsTagServiceDhcpServerSharedNetworkName bool `tfsdk:"-" vyos:"shared-network-name,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceDhcpServerFailover bool `tfsdk:"-" vyos:"failover,ignore,omitempty"`
+	ExistsNodeServiceDhcpServerFailover bool `tfsdk:"-" vyos:"failover,omitempty"`
 }
 
 // SetID configures the resource ID

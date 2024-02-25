@@ -17,9 +17,9 @@ type ProtocolsStatic struct {
 	LeafProtocolsStaticRouteMap types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsStaticRoute    bool `tfsdk:"-" vyos:"route,ignore,child"`
-	ExistsTagProtocolsStaticRoutesix bool `tfsdk:"-" vyos:"route6,ignore,child"`
-	ExistsTagProtocolsStaticTable    bool `tfsdk:"-" vyos:"table,ignore,child"`
+	ExistsTagProtocolsStaticRoute    bool `tfsdk:"-" vyos:"route,child"`
+	ExistsTagProtocolsStaticRoutesix bool `tfsdk:"-" vyos:"route6,child"`
+	ExistsTagProtocolsStaticTable    bool `tfsdk:"-" vyos:"table,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
 }

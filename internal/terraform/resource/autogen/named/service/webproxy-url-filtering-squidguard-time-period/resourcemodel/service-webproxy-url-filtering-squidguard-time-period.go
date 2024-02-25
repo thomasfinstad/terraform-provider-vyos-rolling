@@ -21,7 +21,7 @@ type ServiceWebproxyURLFilteringSquIDguardTimePeriod struct {
 	LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceWebproxyURLFilteringSquIDguardTimePeriodDays bool `tfsdk:"-" vyos:"days,ignore,child"`
+	ExistsTagServiceWebproxyURLFilteringSquIDguardTimePeriodDays bool `tfsdk:"-" vyos:"days,child"`
 
 	// Nodes
 }

@@ -23,18 +23,18 @@ type ServicePppoeServer struct {
 	LeafServicePppoeServerSessionControl     types.String `tfsdk:"session_control" vyos:"session-control,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServicePppoeServerInterface bool `tfsdk:"-" vyos:"interface,ignore,child"`
-	ExistsTagServicePppoeServerPadoDelay bool `tfsdk:"-" vyos:"pado-delay,ignore,child"`
+	ExistsTagServicePppoeServerInterface bool `tfsdk:"-" vyos:"interface,child"`
+	ExistsTagServicePppoeServerPadoDelay bool `tfsdk:"-" vyos:"pado-delay,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServicePppoeServerAuthentication   bool `tfsdk:"-" vyos:"authentication,ignore,omitempty"`
-	ExistsNodeServicePppoeServerClientIPPool     bool `tfsdk:"-" vyos:"client-ip-pool,ignore,omitempty"`
-	ExistsNodeServicePppoeServerClientIPvsixPool bool `tfsdk:"-" vyos:"client-ipv6-pool,ignore,omitempty"`
-	ExistsNodeServicePppoeServerLimits           bool `tfsdk:"-" vyos:"limits,ignore,omitempty"`
-	ExistsNodeServicePppoeServerPppOptions       bool `tfsdk:"-" vyos:"ppp-options,ignore,omitempty"`
-	ExistsNodeServicePppoeServerShaper           bool `tfsdk:"-" vyos:"shaper,ignore,omitempty"`
-	ExistsNodeServicePppoeServerSnmp             bool `tfsdk:"-" vyos:"snmp,ignore,omitempty"`
-	ExistsNodeServicePppoeServerExtendedScrIPts  bool `tfsdk:"-" vyos:"extended-scripts,ignore,omitempty"`
+	ExistsNodeServicePppoeServerAuthentication   bool `tfsdk:"-" vyos:"authentication,omitempty"`
+	ExistsNodeServicePppoeServerClientIPPool     bool `tfsdk:"-" vyos:"client-ip-pool,omitempty"`
+	ExistsNodeServicePppoeServerClientIPvsixPool bool `tfsdk:"-" vyos:"client-ipv6-pool,omitempty"`
+	ExistsNodeServicePppoeServerLimits           bool `tfsdk:"-" vyos:"limits,omitempty"`
+	ExistsNodeServicePppoeServerPppOptions       bool `tfsdk:"-" vyos:"ppp-options,omitempty"`
+	ExistsNodeServicePppoeServerShaper           bool `tfsdk:"-" vyos:"shaper,omitempty"`
+	ExistsNodeServicePppoeServerSnmp             bool `tfsdk:"-" vyos:"snmp,omitempty"`
+	ExistsNodeServicePppoeServerExtendedScrIPts  bool `tfsdk:"-" vyos:"extended-scripts,omitempty"`
 }
 
 // SetID configures the resource ID

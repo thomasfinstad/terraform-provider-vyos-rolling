@@ -17,10 +17,10 @@ type SystemLogin struct {
 	LeafSystemLoginTimeout types.Number `tfsdk:"timeout" vyos:"timeout,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagSystemLoginUser bool `tfsdk:"-" vyos:"user,ignore,child"`
+	ExistsTagSystemLoginUser bool `tfsdk:"-" vyos:"user,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeSystemLoginRadius bool `tfsdk:"-" vyos:"radius,ignore,omitempty"`
+	ExistsNodeSystemLoginRadius bool `tfsdk:"-" vyos:"radius,omitempty"`
 }
 
 // SetID configures the resource ID

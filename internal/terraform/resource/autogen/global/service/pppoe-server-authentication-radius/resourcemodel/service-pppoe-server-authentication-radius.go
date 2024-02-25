@@ -26,11 +26,11 @@ type ServicePppoeServerAuthenticationRadius struct {
 	LeafServicePppoeServerAuthenticationRadiusCalledSIDFormat   types.String `tfsdk:"called_sid_format" vyos:"called-sid-format,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServicePppoeServerAuthenticationRadiusServer bool `tfsdk:"-" vyos:"server,ignore,child"`
+	ExistsTagServicePppoeServerAuthenticationRadiusServer bool `tfsdk:"-" vyos:"server,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServicePppoeServerAuthenticationRadiusDynamicAuthor bool `tfsdk:"-" vyos:"dynamic-author,ignore,omitempty"`
-	ExistsNodeServicePppoeServerAuthenticationRadiusRateLimit     bool `tfsdk:"-" vyos:"rate-limit,ignore,omitempty"`
+	ExistsNodeServicePppoeServerAuthenticationRadiusDynamicAuthor bool `tfsdk:"-" vyos:"dynamic-author,omitempty"`
+	ExistsNodeServicePppoeServerAuthenticationRadiusRateLimit     bool `tfsdk:"-" vyos:"rate-limit,omitempty"`
 }
 
 // SetID configures the resource ID

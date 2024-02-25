@@ -19,10 +19,10 @@ type ServiceNtp struct {
 	LeafServiceNtpVrf           types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceNtpServer bool `tfsdk:"-" vyos:"server,ignore,child"`
+	ExistsTagServiceNtpServer bool `tfsdk:"-" vyos:"server,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceNtpAllowClient bool `tfsdk:"-" vyos:"allow-client,ignore,omitempty"`
+	ExistsNodeServiceNtpAllowClient bool `tfsdk:"-" vyos:"allow-client,omitempty"`
 }
 
 // SetID configures the resource ID

@@ -25,7 +25,7 @@ type InterfacesBrIDgeVifDhcpvsixOptionsPd struct {
 	LeafInterfacesBrIDgeVifDhcpvsixOptionsPdLength types.Number `tfsdk:"length" vyos:"length,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesBrIDgeVifDhcpvsixOptionsPdInterface bool `tfsdk:"-" vyos:"interface,ignore,child"`
+	ExistsTagInterfacesBrIDgeVifDhcpvsixOptionsPdInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes
 }

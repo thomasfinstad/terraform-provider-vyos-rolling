@@ -18,7 +18,7 @@ type SystemLoginRadius struct {
 	LeafSystemLoginRadiusVrf           types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagSystemLoginRadiusServer bool `tfsdk:"-" vyos:"server,ignore,child"`
+	ExistsTagSystemLoginRadiusServer bool `tfsdk:"-" vyos:"server,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
 }

@@ -175,11 +175,11 @@ import (
 				{{end}}
 				// TagNodes (Bools that show if child resources have been configured)
 				{{range .TagNodes -}}
-					ExistsTag{{.BaseNameCG}} bool `tfsdk:"-" vyos:"{{.BaseName}},ignore,child"`
+					ExistsTag{{.BaseNameCG}} bool `tfsdk:"-" vyos:"{{.BaseName}},child"`
 				{{end}}
 				// Nodes (Bools that show if child resources have been configured)
 				{{range .Nodes -}}
-					ExistsNode{{.BaseNameCG}} bool `tfsdk:"-" vyos:"{{.BaseName}},ignore,omitempty"`
+					ExistsNode{{.BaseNameCG}} bool `tfsdk:"-" vyos:"{{.BaseName}},omitempty"`
 				{{end}}
 			{{end}}
 		{{else}}

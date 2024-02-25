@@ -25,7 +25,7 @@ type FirewallIPvsixName struct {
 	LeafFirewallIPvsixNameDefaultJumpTarget types.String `tfsdk:"default_jump_target" vyos:"default-jump-target,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagFirewallIPvsixNameRule bool `tfsdk:"-" vyos:"rule,ignore,child"`
+	ExistsTagFirewallIPvsixNameRule bool `tfsdk:"-" vyos:"rule,child"`
 
 	// Nodes
 }

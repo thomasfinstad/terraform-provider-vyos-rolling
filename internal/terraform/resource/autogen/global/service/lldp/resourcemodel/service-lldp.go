@@ -17,11 +17,11 @@ type ServiceLldp struct {
 	LeafServiceLldpManagementAddress types.List `tfsdk:"management_address" vyos:"management-address,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceLldpInterface bool `tfsdk:"-" vyos:"interface,ignore,child"`
+	ExistsTagServiceLldpInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceLldpLegacyProtocols bool `tfsdk:"-" vyos:"legacy-protocols,ignore,omitempty"`
-	ExistsNodeServiceLldpSnmp            bool `tfsdk:"-" vyos:"snmp,ignore,omitempty"`
+	ExistsNodeServiceLldpLegacyProtocols bool `tfsdk:"-" vyos:"legacy-protocols,omitempty"`
+	ExistsNodeServiceLldpSnmp            bool `tfsdk:"-" vyos:"snmp,omitempty"`
 }
 
 // SetID configures the resource ID

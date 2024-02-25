@@ -10,8 +10,8 @@ type VrfNameProtocolsBgpAddressFamilyIPvsixUnicast struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress bool `tfsdk:"aggregate_address" vyos:"aggregate-address,ignore,child"`
-	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork          bool `tfsdk:"network" vyos:"network,ignore,child"`
+	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress bool `tfsdk:"aggregate_address" vyos:"aggregate-address,child"`
+	ExistsTagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork          bool `tfsdk:"network" vyos:"network,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance     *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance     `tfsdk:"distance" vyos:"distance,omitempty"`

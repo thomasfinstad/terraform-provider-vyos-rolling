@@ -23,7 +23,7 @@ type ProtocolsIgmpInterface struct {
 	LeafProtocolsIgmpInterfaceQueryMaxResponseTime types.Number `tfsdk:"query_max_response_time" vyos:"query-max-response-time,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsIgmpInterfaceJoin bool `tfsdk:"-" vyos:"join,ignore,child"`
+	ExistsTagProtocolsIgmpInterfaceJoin bool `tfsdk:"-" vyos:"join,child"`
 
 	// Nodes
 }

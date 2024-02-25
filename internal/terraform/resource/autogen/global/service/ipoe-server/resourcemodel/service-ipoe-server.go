@@ -17,12 +17,12 @@ type ServiceIPoeServer struct {
 	LeafServiceIPoeServerNameServer types.List `tfsdk:"name_server" vyos:"name-server,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceIPoeServerInterface bool `tfsdk:"-" vyos:"interface,ignore,child"`
+	ExistsTagServiceIPoeServerInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceIPoeServerClientIPPool     bool `tfsdk:"-" vyos:"client-ip-pool,ignore,omitempty"`
-	ExistsNodeServiceIPoeServerClientIPvsixPool bool `tfsdk:"-" vyos:"client-ipv6-pool,ignore,omitempty"`
-	ExistsNodeServiceIPoeServerAuthentication   bool `tfsdk:"-" vyos:"authentication,ignore,omitempty"`
+	ExistsNodeServiceIPoeServerClientIPPool     bool `tfsdk:"-" vyos:"client-ip-pool,omitempty"`
+	ExistsNodeServiceIPoeServerClientIPvsixPool bool `tfsdk:"-" vyos:"client-ipv6-pool,omitempty"`
+	ExistsNodeServiceIPoeServerAuthentication   bool `tfsdk:"-" vyos:"authentication,omitempty"`
 }
 
 // SetID configures the resource ID

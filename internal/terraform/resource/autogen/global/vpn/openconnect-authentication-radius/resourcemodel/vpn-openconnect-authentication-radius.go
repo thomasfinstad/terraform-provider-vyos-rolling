@@ -19,7 +19,7 @@ type VpnOpenconnectAuthenticationRadius struct {
 	LeafVpnOpenconnectAuthenticationRadiusGroupconfig   types.String `tfsdk:"groupconfig" vyos:"groupconfig,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVpnOpenconnectAuthenticationRadiusServer bool `tfsdk:"-" vyos:"server,ignore,child"`
+	ExistsTagVpnOpenconnectAuthenticationRadiusServer bool `tfsdk:"-" vyos:"server,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
 }

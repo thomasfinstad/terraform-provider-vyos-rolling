@@ -20,7 +20,7 @@ type ServiceHTTPSAPIGraphql struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceHTTPSAPIGraphqlAuthentication bool `tfsdk:"-" vyos:"authentication,ignore,omitempty"`
+	ExistsNodeServiceHTTPSAPIGraphqlAuthentication bool `tfsdk:"-" vyos:"authentication,omitempty"`
 }
 
 // SetID configures the resource ID

@@ -19,7 +19,7 @@ type SystemFlowAccountingSflow struct {
 	LeafSystemFlowAccountingSflowSourceAddress types.String `tfsdk:"source_address" vyos:"source-address,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagSystemFlowAccountingSflowServer bool `tfsdk:"-" vyos:"server,ignore,child"`
+	ExistsTagSystemFlowAccountingSflowServer bool `tfsdk:"-" vyos:"server,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
 }

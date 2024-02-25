@@ -32,8 +32,8 @@ type ProtocolsBgpPeerGroup struct {
 	LeafProtocolsBgpPeerGroupUpdateSource                 types.String `tfsdk:"update_source" vyos:"update-source,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsBgpPeerGroupLocalAs   bool `tfsdk:"-" vyos:"local-as,ignore,child"`
-	ExistsTagProtocolsBgpPeerGroupLocalRole bool `tfsdk:"-" vyos:"local-role,ignore,child"`
+	ExistsTagProtocolsBgpPeerGroupLocalAs   bool `tfsdk:"-" vyos:"local-as,child"`
+	ExistsTagProtocolsBgpPeerGroupLocalRole bool `tfsdk:"-" vyos:"local-role,child"`
 
 	// Nodes
 	NodeProtocolsBgpPeerGroupAddressFamily *ProtocolsBgpPeerGroupAddressFamily `tfsdk:"address_family" vyos:"address-family,omitempty"`

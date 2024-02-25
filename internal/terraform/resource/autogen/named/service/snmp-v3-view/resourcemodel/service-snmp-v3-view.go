@@ -20,7 +20,7 @@ type ServiceSnmpVthreeView struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceSnmpVthreeViewOID bool `tfsdk:"-" vyos:"oid,ignore,child"`
+	ExistsTagServiceSnmpVthreeViewOID bool `tfsdk:"-" vyos:"oid,child"`
 
 	// Nodes
 }

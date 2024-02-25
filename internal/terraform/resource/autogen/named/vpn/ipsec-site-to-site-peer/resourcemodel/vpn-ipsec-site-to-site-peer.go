@@ -32,7 +32,7 @@ type VpnIPsecSiteToSitePeer struct {
 	LeafVpnIPsecSiteToSitePeerVirtualAddress        types.List   `tfsdk:"virtual_address" vyos:"virtual-address,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVpnIPsecSiteToSitePeerTunnel bool `tfsdk:"-" vyos:"tunnel,ignore,child"`
+	ExistsTagVpnIPsecSiteToSitePeerTunnel bool `tfsdk:"-" vyos:"tunnel,child"`
 
 	// Nodes
 	NodeVpnIPsecSiteToSitePeerAuthentication *VpnIPsecSiteToSitePeerAuthentication `tfsdk:"authentication" vyos:"authentication,omitempty"`

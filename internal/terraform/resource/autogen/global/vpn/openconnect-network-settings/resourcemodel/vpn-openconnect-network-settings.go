@@ -22,8 +22,8 @@ type VpnOpenconnectNetworkSettings struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeVpnOpenconnectNetworkSettingsClientIPSettings bool `tfsdk:"-" vyos:"client-ip-settings,ignore,omitempty"`
-	ExistsNodeVpnOpenconnectNetworkSettingsClientIPvsixPool bool `tfsdk:"-" vyos:"client-ipv6-pool,ignore,omitempty"`
+	ExistsNodeVpnOpenconnectNetworkSettingsClientIPSettings bool `tfsdk:"-" vyos:"client-ip-settings,omitempty"`
+	ExistsNodeVpnOpenconnectNetworkSettingsClientIPvsixPool bool `tfsdk:"-" vyos:"client-ipv6-pool,omitempty"`
 }
 
 // SetID configures the resource ID

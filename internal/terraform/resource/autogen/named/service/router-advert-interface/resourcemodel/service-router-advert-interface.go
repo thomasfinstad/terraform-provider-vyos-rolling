@@ -34,8 +34,8 @@ type ServiceRouterAdvertInterface struct {
 	LeafServiceRouterAdvertInterfaceNoSendAdvert       types.Bool   `tfsdk:"no_send_advert" vyos:"no-send-advert,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceRouterAdvertInterfaceRoute  bool `tfsdk:"-" vyos:"route,ignore,child"`
-	ExistsTagServiceRouterAdvertInterfacePrefix bool `tfsdk:"-" vyos:"prefix,ignore,child"`
+	ExistsTagServiceRouterAdvertInterfaceRoute  bool `tfsdk:"-" vyos:"route,child"`
+	ExistsTagServiceRouterAdvertInterfacePrefix bool `tfsdk:"-" vyos:"prefix,child"`
 
 	// Nodes
 	NodeServiceRouterAdvertInterfaceInterval *ServiceRouterAdvertInterfaceInterval `tfsdk:"interval" vyos:"interval,omitempty"`

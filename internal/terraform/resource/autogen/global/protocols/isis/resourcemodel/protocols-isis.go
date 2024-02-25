@@ -31,16 +31,16 @@ type ProtocolsIsis struct {
 	LeafProtocolsIsisRouteMap            types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsIsisInterface bool `tfsdk:"-" vyos:"interface,ignore,child"`
+	ExistsTagProtocolsIsisInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsIsisAreaPassword       bool `tfsdk:"-" vyos:"area-password,ignore,omitempty"`
-	ExistsNodeProtocolsIsisDefaultInformation bool `tfsdk:"-" vyos:"default-information,ignore,omitempty"`
-	ExistsNodeProtocolsIsisDomainPassword     bool `tfsdk:"-" vyos:"domain-password,ignore,omitempty"`
-	ExistsNodeProtocolsIsisTrafficEngineering bool `tfsdk:"-" vyos:"traffic-engineering,ignore,omitempty"`
-	ExistsNodeProtocolsIsisSegmentRouting     bool `tfsdk:"-" vyos:"segment-routing,ignore,omitempty"`
-	ExistsNodeProtocolsIsisRedistribute       bool `tfsdk:"-" vyos:"redistribute,ignore,omitempty"`
-	ExistsNodeProtocolsIsisSpfDelayIetf       bool `tfsdk:"-" vyos:"spf-delay-ietf,ignore,omitempty"`
+	ExistsNodeProtocolsIsisAreaPassword       bool `tfsdk:"-" vyos:"area-password,omitempty"`
+	ExistsNodeProtocolsIsisDefaultInformation bool `tfsdk:"-" vyos:"default-information,omitempty"`
+	ExistsNodeProtocolsIsisDomainPassword     bool `tfsdk:"-" vyos:"domain-password,omitempty"`
+	ExistsNodeProtocolsIsisTrafficEngineering bool `tfsdk:"-" vyos:"traffic-engineering,omitempty"`
+	ExistsNodeProtocolsIsisSegmentRouting     bool `tfsdk:"-" vyos:"segment-routing,omitempty"`
+	ExistsNodeProtocolsIsisRedistribute       bool `tfsdk:"-" vyos:"redistribute,omitempty"`
+	ExistsNodeProtocolsIsisSpfDelayIetf       bool `tfsdk:"-" vyos:"spf-delay-ietf,omitempty"`
 }
 
 // SetID configures the resource ID

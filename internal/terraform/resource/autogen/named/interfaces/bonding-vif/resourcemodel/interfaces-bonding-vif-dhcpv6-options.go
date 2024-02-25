@@ -16,7 +16,7 @@ type InterfacesBondingVifDhcpvsixOptions struct {
 	LeafInterfacesBondingVifDhcpvsixOptionsTemporary      types.Bool   `tfsdk:"temporary" vyos:"temporary,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesBondingVifDhcpvsixOptionsPd bool `tfsdk:"pd" vyos:"pd,ignore,child"`
+	ExistsTagInterfacesBondingVifDhcpvsixOptionsPd bool `tfsdk:"pd" vyos:"pd,child"`
 
 	// Nodes
 }

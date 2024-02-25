@@ -20,7 +20,7 @@ type ServiceIPoeServerAuthenticationInterface struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceIPoeServerAuthenticationInterfaceMac bool `tfsdk:"-" vyos:"mac,ignore,child"`
+	ExistsTagServiceIPoeServerAuthenticationInterfaceMac bool `tfsdk:"-" vyos:"mac,child"`
 
 	// Nodes
 }

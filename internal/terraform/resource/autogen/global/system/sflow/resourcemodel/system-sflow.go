@@ -22,7 +22,7 @@ type SystemSflow struct {
 	LeafSystemSflowSamplingRate     types.Number `tfsdk:"sampling_rate" vyos:"sampling-rate,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagSystemSflowServer bool `tfsdk:"-" vyos:"server,ignore,child"`
+	ExistsTagSystemSflowServer bool `tfsdk:"-" vyos:"server,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
 }

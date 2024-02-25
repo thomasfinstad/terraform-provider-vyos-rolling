@@ -16,7 +16,7 @@ type InterfacesEthernetVifDhcpvsixOptions struct {
 	LeafInterfacesEthernetVifDhcpvsixOptionsTemporary      types.Bool   `tfsdk:"temporary" vyos:"temporary,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesEthernetVifDhcpvsixOptionsPd bool `tfsdk:"pd" vyos:"pd,ignore,child"`
+	ExistsTagInterfacesEthernetVifDhcpvsixOptionsPd bool `tfsdk:"pd" vyos:"pd,child"`
 
 	// Nodes
 }

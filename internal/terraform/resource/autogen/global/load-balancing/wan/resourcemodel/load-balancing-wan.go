@@ -21,11 +21,11 @@ type LoadBalancingWan struct {
 	LeafLoadBalancingWanHook               types.String `tfsdk:"hook" vyos:"hook,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagLoadBalancingWanInterfaceHealth bool `tfsdk:"-" vyos:"interface-health,ignore,child"`
-	ExistsTagLoadBalancingWanRule            bool `tfsdk:"-" vyos:"rule,ignore,child"`
+	ExistsTagLoadBalancingWanInterfaceHealth bool `tfsdk:"-" vyos:"interface-health,child"`
+	ExistsTagLoadBalancingWanRule            bool `tfsdk:"-" vyos:"rule,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeLoadBalancingWanStickyConnections bool `tfsdk:"-" vyos:"sticky-connections,ignore,omitempty"`
+	ExistsNodeLoadBalancingWanStickyConnections bool `tfsdk:"-" vyos:"sticky-connections,omitempty"`
 }
 
 // SetID configures the resource ID

@@ -20,7 +20,7 @@ type ProtocolsMplsLdpExportIPvfour struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsMplsLdpExportIPvfourExportFilter bool `tfsdk:"-" vyos:"export-filter,ignore,omitempty"`
+	ExistsNodeProtocolsMplsLdpExportIPvfourExportFilter bool `tfsdk:"-" vyos:"export-filter,omitempty"`
 }
 
 // SetID configures the resource ID

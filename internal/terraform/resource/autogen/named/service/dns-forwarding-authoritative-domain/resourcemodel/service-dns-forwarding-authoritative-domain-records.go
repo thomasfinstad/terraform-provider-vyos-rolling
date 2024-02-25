@@ -10,15 +10,15 @@ type ServiceDNSForwardingAuthoritativeDomainRecords struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsA     bool `tfsdk:"a" vyos:"a,ignore,child"`
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsAaaa  bool `tfsdk:"aaaa" vyos:"aaaa,ignore,child"`
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsCname bool `tfsdk:"cname" vyos:"cname,ignore,child"`
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsMx    bool `tfsdk:"mx" vyos:"mx,ignore,child"`
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsPtr   bool `tfsdk:"ptr" vyos:"ptr,ignore,child"`
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsTxt   bool `tfsdk:"txt" vyos:"txt,ignore,child"`
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsSpf   bool `tfsdk:"spf" vyos:"spf,ignore,child"`
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsSrv   bool `tfsdk:"srv" vyos:"srv,ignore,child"`
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsNaptr bool `tfsdk:"naptr" vyos:"naptr,ignore,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsA     bool `tfsdk:"a" vyos:"a,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsAaaa  bool `tfsdk:"aaaa" vyos:"aaaa,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsCname bool `tfsdk:"cname" vyos:"cname,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsMx    bool `tfsdk:"mx" vyos:"mx,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsPtr   bool `tfsdk:"ptr" vyos:"ptr,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsTxt   bool `tfsdk:"txt" vyos:"txt,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsSpf   bool `tfsdk:"spf" vyos:"spf,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsSrv   bool `tfsdk:"srv" vyos:"srv,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsNaptr bool `tfsdk:"naptr" vyos:"naptr,child"`
 
 	// Nodes
 }

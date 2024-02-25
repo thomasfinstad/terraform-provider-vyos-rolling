@@ -36,13 +36,13 @@ type ProtocolsBgpParameters struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsBgpParametersBestpath                 bool `tfsdk:"-" vyos:"bestpath,ignore,omitempty"`
-	ExistsNodeProtocolsBgpParametersConfederation            bool `tfsdk:"-" vyos:"confederation,ignore,omitempty"`
-	ExistsNodeProtocolsBgpParametersConditionalAdvertisement bool `tfsdk:"-" vyos:"conditional-advertisement,ignore,omitempty"`
-	ExistsNodeProtocolsBgpParametersDampening                bool `tfsdk:"-" vyos:"dampening,ignore,omitempty"`
-	ExistsNodeProtocolsBgpParametersDefault                  bool `tfsdk:"-" vyos:"default,ignore,omitempty"`
-	ExistsNodeProtocolsBgpParametersDistance                 bool `tfsdk:"-" vyos:"distance,ignore,omitempty"`
-	ExistsNodeProtocolsBgpParametersGracefulRestart          bool `tfsdk:"-" vyos:"graceful-restart,ignore,omitempty"`
+	ExistsNodeProtocolsBgpParametersBestpath                 bool `tfsdk:"-" vyos:"bestpath,omitempty"`
+	ExistsNodeProtocolsBgpParametersConfederation            bool `tfsdk:"-" vyos:"confederation,omitempty"`
+	ExistsNodeProtocolsBgpParametersConditionalAdvertisement bool `tfsdk:"-" vyos:"conditional-advertisement,omitempty"`
+	ExistsNodeProtocolsBgpParametersDampening                bool `tfsdk:"-" vyos:"dampening,omitempty"`
+	ExistsNodeProtocolsBgpParametersDefault                  bool `tfsdk:"-" vyos:"default,omitempty"`
+	ExistsNodeProtocolsBgpParametersDistance                 bool `tfsdk:"-" vyos:"distance,omitempty"`
+	ExistsNodeProtocolsBgpParametersGracefulRestart          bool `tfsdk:"-" vyos:"graceful-restart,omitempty"`
 }
 
 // SetID configures the resource ID

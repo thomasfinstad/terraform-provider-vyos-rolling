@@ -25,11 +25,11 @@ type ServiceIPoeServerAuthenticationRadius struct {
 	LeafServiceIPoeServerAuthenticationRadiusPreallocateVif    types.Bool   `tfsdk:"preallocate_vif" vyos:"preallocate-vif,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceIPoeServerAuthenticationRadiusServer bool `tfsdk:"-" vyos:"server,ignore,child"`
+	ExistsTagServiceIPoeServerAuthenticationRadiusServer bool `tfsdk:"-" vyos:"server,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceIPoeServerAuthenticationRadiusRateLimit     bool `tfsdk:"-" vyos:"rate-limit,ignore,omitempty"`
-	ExistsNodeServiceIPoeServerAuthenticationRadiusDynamicAuthor bool `tfsdk:"-" vyos:"dynamic-author,ignore,omitempty"`
+	ExistsNodeServiceIPoeServerAuthenticationRadiusRateLimit     bool `tfsdk:"-" vyos:"rate-limit,omitempty"`
+	ExistsNodeServiceIPoeServerAuthenticationRadiusDynamicAuthor bool `tfsdk:"-" vyos:"dynamic-author,omitempty"`
 }
 
 // SetID configures the resource ID

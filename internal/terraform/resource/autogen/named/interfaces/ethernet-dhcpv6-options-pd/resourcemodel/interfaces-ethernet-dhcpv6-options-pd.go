@@ -23,7 +23,7 @@ type InterfacesEthernetDhcpvsixOptionsPd struct {
 	LeafInterfacesEthernetDhcpvsixOptionsPdLength types.Number `tfsdk:"length" vyos:"length,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesEthernetDhcpvsixOptionsPdInterface bool `tfsdk:"-" vyos:"interface,ignore,child"`
+	ExistsTagInterfacesEthernetDhcpvsixOptionsPdInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes
 }

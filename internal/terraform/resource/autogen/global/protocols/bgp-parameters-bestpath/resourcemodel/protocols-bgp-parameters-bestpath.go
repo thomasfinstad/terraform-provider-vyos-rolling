@@ -21,9 +21,9 @@ type ProtocolsBgpParametersBestpath struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsBgpParametersBestpathAsPath   bool `tfsdk:"-" vyos:"as-path,ignore,omitempty"`
-	ExistsNodeProtocolsBgpParametersBestpathMed      bool `tfsdk:"-" vyos:"med,ignore,omitempty"`
-	ExistsNodeProtocolsBgpParametersBestpathPeerType bool `tfsdk:"-" vyos:"peer-type,ignore,omitempty"`
+	ExistsNodeProtocolsBgpParametersBestpathAsPath   bool `tfsdk:"-" vyos:"as-path,omitempty"`
+	ExistsNodeProtocolsBgpParametersBestpathMed      bool `tfsdk:"-" vyos:"med,omitempty"`
+	ExistsNodeProtocolsBgpParametersBestpathPeerType bool `tfsdk:"-" vyos:"peer-type,omitempty"`
 }
 
 // SetID configures the resource ID

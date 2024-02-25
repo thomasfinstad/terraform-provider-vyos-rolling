@@ -26,7 +26,7 @@ type ProtocolsEigrp struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsEigrpMetric bool `tfsdk:"-" vyos:"metric,ignore,omitempty"`
+	ExistsNodeProtocolsEigrpMetric bool `tfsdk:"-" vyos:"metric,omitempty"`
 }
 
 // SetID configures the resource ID

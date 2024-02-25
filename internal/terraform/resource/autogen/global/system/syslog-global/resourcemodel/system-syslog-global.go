@@ -18,10 +18,10 @@ type SystemSyslogGlobal struct {
 	LeafSystemSyslogGlobalPreserveFqdn types.Bool `tfsdk:"preserve_fqdn" vyos:"preserve-fqdn,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagSystemSyslogGlobalFacility bool `tfsdk:"-" vyos:"facility,ignore,child"`
+	ExistsTagSystemSyslogGlobalFacility bool `tfsdk:"-" vyos:"facility,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeSystemSyslogGlobalMarker bool `tfsdk:"-" vyos:"marker,ignore,omitempty"`
+	ExistsNodeSystemSyslogGlobalMarker bool `tfsdk:"-" vyos:"marker,omitempty"`
 }
 
 // SetID configures the resource ID

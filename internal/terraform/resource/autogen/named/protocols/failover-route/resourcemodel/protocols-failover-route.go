@@ -20,7 +20,7 @@ type ProtocolsFailoverRoute struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsFailoverRouteNextHop bool `tfsdk:"-" vyos:"next-hop,ignore,child"`
+	ExistsTagProtocolsFailoverRouteNextHop bool `tfsdk:"-" vyos:"next-hop,child"`
 
 	// Nodes
 }

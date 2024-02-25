@@ -10,7 +10,7 @@ type VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername bool `tfsdk:"username" vyos:"username,ignore,child"`
+	ExistsTagVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername bool `tfsdk:"username" vyos:"username,child"`
 
 	// Nodes
 }

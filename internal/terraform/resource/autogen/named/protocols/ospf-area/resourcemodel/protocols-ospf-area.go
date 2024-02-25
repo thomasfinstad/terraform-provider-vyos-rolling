@@ -25,8 +25,8 @@ type ProtocolsOspfArea struct {
 	LeafProtocolsOspfAreaImportList     types.Number `tfsdk:"import_list" vyos:"import-list,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsOspfAreaRange       bool `tfsdk:"-" vyos:"range,ignore,child"`
-	ExistsTagProtocolsOspfAreaVirtualLink bool `tfsdk:"-" vyos:"virtual-link,ignore,child"`
+	ExistsTagProtocolsOspfAreaRange       bool `tfsdk:"-" vyos:"range,child"`
+	ExistsTagProtocolsOspfAreaVirtualLink bool `tfsdk:"-" vyos:"virtual-link,child"`
 
 	// Nodes
 	NodeProtocolsOspfAreaAreaType *ProtocolsOspfAreaAreaType `tfsdk:"area_type" vyos:"area-type,omitempty"`

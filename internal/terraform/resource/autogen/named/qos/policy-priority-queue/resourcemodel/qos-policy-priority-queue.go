@@ -21,7 +21,7 @@ type QosPolicyPriorityQueue struct {
 	LeafQosPolicyPriorityQueueDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagQosPolicyPriorityQueueClass bool `tfsdk:"-" vyos:"class,ignore,child"`
+	ExistsTagQosPolicyPriorityQueueClass bool `tfsdk:"-" vyos:"class,child"`
 
 	// Nodes
 	NodeQosPolicyPriorityQueueDefault *QosPolicyPriorityQueueDefault `tfsdk:"default" vyos:"default,omitempty"`

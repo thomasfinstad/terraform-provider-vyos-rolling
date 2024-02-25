@@ -18,7 +18,7 @@ type ServiceBroadcastRelay struct {
 	LeafServiceBroadcastRelayDisable types.Bool `tfsdk:"disable" vyos:"disable,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceBroadcastRelayID bool `tfsdk:"-" vyos:"id,ignore,child"`
+	ExistsTagServiceBroadcastRelayID bool `tfsdk:"-" vyos:"id,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
 }

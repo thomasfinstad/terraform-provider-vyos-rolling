@@ -17,12 +17,12 @@ type ServiceHTTPS struct {
 	LeafServiceHTTPSVrf types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceHTTPSVirtualHost bool `tfsdk:"-" vyos:"virtual-host,ignore,child"`
+	ExistsTagServiceHTTPSVirtualHost bool `tfsdk:"-" vyos:"virtual-host,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceHTTPSAPI          bool `tfsdk:"-" vyos:"api,ignore,omitempty"`
-	ExistsNodeServiceHTTPSAPIRestrict  bool `tfsdk:"-" vyos:"api-restrict,ignore,omitempty"`
-	ExistsNodeServiceHTTPSCertificates bool `tfsdk:"-" vyos:"certificates,ignore,omitempty"`
+	ExistsNodeServiceHTTPSAPI          bool `tfsdk:"-" vyos:"api,omitempty"`
+	ExistsNodeServiceHTTPSAPIRestrict  bool `tfsdk:"-" vyos:"api-restrict,omitempty"`
+	ExistsNodeServiceHTTPSCertificates bool `tfsdk:"-" vyos:"certificates,omitempty"`
 }
 
 // SetID configures the resource ID

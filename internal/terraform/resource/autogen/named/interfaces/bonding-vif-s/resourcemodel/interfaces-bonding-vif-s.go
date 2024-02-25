@@ -32,7 +32,7 @@ type InterfacesBondingVifS struct {
 	LeafInterfacesBondingVifSVrf               types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesBondingVifSVifC bool `tfsdk:"-" vyos:"vif-c,ignore,child"`
+	ExistsTagInterfacesBondingVifSVifC bool `tfsdk:"-" vyos:"vif-c,child"`
 
 	// Nodes
 	NodeInterfacesBondingVifSDhcpOptions     *InterfacesBondingVifSDhcpOptions     `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`

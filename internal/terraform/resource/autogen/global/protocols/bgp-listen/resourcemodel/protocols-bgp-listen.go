@@ -17,7 +17,7 @@ type ProtocolsBgpListen struct {
 	LeafProtocolsBgpListenLimit types.Number `tfsdk:"limit" vyos:"limit,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsBgpListenRange bool `tfsdk:"-" vyos:"range,ignore,child"`
+	ExistsTagProtocolsBgpListenRange bool `tfsdk:"-" vyos:"range,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
 }

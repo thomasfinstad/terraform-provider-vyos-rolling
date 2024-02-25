@@ -17,10 +17,10 @@ type ServiceIPoeServerAuthentication struct {
 	LeafServiceIPoeServerAuthenticationMode types.String `tfsdk:"mode" vyos:"mode,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceIPoeServerAuthenticationInterface bool `tfsdk:"-" vyos:"interface,ignore,child"`
+	ExistsTagServiceIPoeServerAuthenticationInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceIPoeServerAuthenticationRadius bool `tfsdk:"-" vyos:"radius,ignore,omitempty"`
+	ExistsNodeServiceIPoeServerAuthenticationRadius bool `tfsdk:"-" vyos:"radius,omitempty"`
 }
 
 // SetID configures the resource ID

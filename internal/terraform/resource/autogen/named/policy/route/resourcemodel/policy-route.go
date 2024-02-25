@@ -24,7 +24,7 @@ type PolicyRoute struct {
 	LeafPolicyRouteEnableDefaultLog types.Bool   `tfsdk:"enable_default_log" vyos:"enable-default-log,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagPolicyRouteRule bool `tfsdk:"-" vyos:"rule,ignore,child"`
+	ExistsTagPolicyRouteRule bool `tfsdk:"-" vyos:"rule,child"`
 
 	// Nodes
 }

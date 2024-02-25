@@ -28,9 +28,9 @@ type ProtocolsNhrpTunnel struct {
 	LeafProtocolsNhrpTunnelShortcut            types.Bool   `tfsdk:"shortcut" vyos:"shortcut,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsNhrpTunnelDynamicMap     bool `tfsdk:"-" vyos:"dynamic-map,ignore,child"`
-	ExistsTagProtocolsNhrpTunnelMap            bool `tfsdk:"-" vyos:"map,ignore,child"`
-	ExistsTagProtocolsNhrpTunnelShortcutTarget bool `tfsdk:"-" vyos:"shortcut-target,ignore,child"`
+	ExistsTagProtocolsNhrpTunnelDynamicMap     bool `tfsdk:"-" vyos:"dynamic-map,child"`
+	ExistsTagProtocolsNhrpTunnelMap            bool `tfsdk:"-" vyos:"map,child"`
+	ExistsTagProtocolsNhrpTunnelShortcutTarget bool `tfsdk:"-" vyos:"shortcut-target,child"`
 
 	// Nodes
 }

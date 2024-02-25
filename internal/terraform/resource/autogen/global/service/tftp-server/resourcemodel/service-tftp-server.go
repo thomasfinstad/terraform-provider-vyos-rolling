@@ -20,7 +20,7 @@ type ServiceTftpServer struct {
 	LeafServiceTftpServerPort        types.Number `tfsdk:"port" vyos:"port,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceTftpServerListenAddress bool `tfsdk:"-" vyos:"listen-address,ignore,child"`
+	ExistsTagServiceTftpServerListenAddress bool `tfsdk:"-" vyos:"listen-address,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
 }

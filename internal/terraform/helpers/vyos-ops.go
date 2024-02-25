@@ -19,7 +19,7 @@ func GenerateVyosOps(ctx context.Context, vyosPath []string, vyosData map[string
 
 // Do not understand why I must clone here, but it seems the slice is some times a pointer, so it duplicates elements of the last one in the slice instead of adding all the uniqeue values otherwise
 // Is this because it comes from the marshalling function?
-// TODO deep investigation into origins of the bug requireing the cloning
+// TODO deep investigation into origins of the bug requiring the cloning
 
 func iron(ctx context.Context, vyosPath []string, values map[string]interface{}) [][]string {
 

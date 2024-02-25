@@ -23,8 +23,8 @@ type VpnPptpRemoteAccess struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeVpnPptpRemoteAccessClientIPPool   bool `tfsdk:"-" vyos:"client-ip-pool,ignore,omitempty"`
-	ExistsNodeVpnPptpRemoteAccessAuthentication bool `tfsdk:"-" vyos:"authentication,ignore,omitempty"`
+	ExistsNodeVpnPptpRemoteAccessClientIPPool   bool `tfsdk:"-" vyos:"client-ip-pool,omitempty"`
+	ExistsNodeVpnPptpRemoteAccessAuthentication bool `tfsdk:"-" vyos:"authentication,omitempty"`
 }
 
 // SetID configures the resource ID

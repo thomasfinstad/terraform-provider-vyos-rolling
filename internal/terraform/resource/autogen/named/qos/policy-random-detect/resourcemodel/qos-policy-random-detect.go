@@ -22,7 +22,7 @@ type QosPolicyRandomDetect struct {
 	LeafQosPolicyRandomDetectBandwIDth   types.String `tfsdk:"bandwidth" vyos:"bandwidth,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagQosPolicyRandomDetectPrecedence bool `tfsdk:"-" vyos:"precedence,ignore,child"`
+	ExistsTagQosPolicyRandomDetectPrecedence bool `tfsdk:"-" vyos:"precedence,child"`
 
 	// Nodes
 }

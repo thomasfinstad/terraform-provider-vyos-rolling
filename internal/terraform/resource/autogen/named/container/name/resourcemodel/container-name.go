@@ -33,11 +33,11 @@ type ContainerName struct {
 	LeafContainerNameRestart           types.String `tfsdk:"restart" vyos:"restart,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagContainerNameDevice      bool `tfsdk:"-" vyos:"device,ignore,child"`
-	ExistsTagContainerNameEnvironment bool `tfsdk:"-" vyos:"environment,ignore,child"`
-	ExistsTagContainerNameNetwork     bool `tfsdk:"-" vyos:"network,ignore,child"`
-	ExistsTagContainerNamePort        bool `tfsdk:"-" vyos:"port,ignore,child"`
-	ExistsTagContainerNameVolume      bool `tfsdk:"-" vyos:"volume,ignore,child"`
+	ExistsTagContainerNameDevice      bool `tfsdk:"-" vyos:"device,child"`
+	ExistsTagContainerNameEnvironment bool `tfsdk:"-" vyos:"environment,child"`
+	ExistsTagContainerNameNetwork     bool `tfsdk:"-" vyos:"network,child"`
+	ExistsTagContainerNamePort        bool `tfsdk:"-" vyos:"port,child"`
+	ExistsTagContainerNameVolume      bool `tfsdk:"-" vyos:"volume,child"`
 
 	// Nodes
 }

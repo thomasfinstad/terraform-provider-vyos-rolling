@@ -19,11 +19,11 @@ type VpnOpenconnect struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeVpnOpenconnectAccounting      bool `tfsdk:"-" vyos:"accounting,ignore,omitempty"`
-	ExistsNodeVpnOpenconnectAuthentication  bool `tfsdk:"-" vyos:"authentication,ignore,omitempty"`
-	ExistsNodeVpnOpenconnectListenPorts     bool `tfsdk:"-" vyos:"listen-ports,ignore,omitempty"`
-	ExistsNodeVpnOpenconnectSsl             bool `tfsdk:"-" vyos:"ssl,ignore,omitempty"`
-	ExistsNodeVpnOpenconnectNetworkSettings bool `tfsdk:"-" vyos:"network-settings,ignore,omitempty"`
+	ExistsNodeVpnOpenconnectAccounting      bool `tfsdk:"-" vyos:"accounting,omitempty"`
+	ExistsNodeVpnOpenconnectAuthentication  bool `tfsdk:"-" vyos:"authentication,omitempty"`
+	ExistsNodeVpnOpenconnectListenPorts     bool `tfsdk:"-" vyos:"listen-ports,omitempty"`
+	ExistsNodeVpnOpenconnectSsl             bool `tfsdk:"-" vyos:"ssl,omitempty"`
+	ExistsNodeVpnOpenconnectNetworkSettings bool `tfsdk:"-" vyos:"network-settings,omitempty"`
 }
 
 // SetID configures the resource ID

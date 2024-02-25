@@ -18,14 +18,14 @@ type ProtocolsBgp struct {
 	LeafProtocolsBgpRouteMap types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsBgpNeighbor  bool `tfsdk:"-" vyos:"neighbor,ignore,child"`
-	ExistsTagProtocolsBgpPeerGroup bool `tfsdk:"-" vyos:"peer-group,ignore,child"`
+	ExistsTagProtocolsBgpNeighbor  bool `tfsdk:"-" vyos:"neighbor,child"`
+	ExistsTagProtocolsBgpPeerGroup bool `tfsdk:"-" vyos:"peer-group,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsBgpAddressFamily bool `tfsdk:"-" vyos:"address-family,ignore,omitempty"`
-	ExistsNodeProtocolsBgpListen        bool `tfsdk:"-" vyos:"listen,ignore,omitempty"`
-	ExistsNodeProtocolsBgpParameters    bool `tfsdk:"-" vyos:"parameters,ignore,omitempty"`
-	ExistsNodeProtocolsBgpTimers        bool `tfsdk:"-" vyos:"timers,ignore,omitempty"`
+	ExistsNodeProtocolsBgpAddressFamily bool `tfsdk:"-" vyos:"address-family,omitempty"`
+	ExistsNodeProtocolsBgpListen        bool `tfsdk:"-" vyos:"listen,omitempty"`
+	ExistsNodeProtocolsBgpParameters    bool `tfsdk:"-" vyos:"parameters,omitempty"`
+	ExistsNodeProtocolsBgpTimers        bool `tfsdk:"-" vyos:"timers,omitempty"`
 }
 
 // SetID configures the resource ID

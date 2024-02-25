@@ -19,7 +19,7 @@ type VpnIPsecRemoteAccessRadius struct {
 	LeafVpnIPsecRemoteAccessRadiusTimeout       types.Number `tfsdk:"timeout" vyos:"timeout,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVpnIPsecRemoteAccessRadiusServer bool `tfsdk:"-" vyos:"server,ignore,child"`
+	ExistsTagVpnIPsecRemoteAccessRadiusServer bool `tfsdk:"-" vyos:"server,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
 }

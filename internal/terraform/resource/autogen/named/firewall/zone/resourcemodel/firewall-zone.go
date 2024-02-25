@@ -26,7 +26,7 @@ type FirewallZone struct {
 	LeafFirewallZoneLocalZone        types.Bool   `tfsdk:"local_zone" vyos:"local-zone,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagFirewallZoneFrom bool `tfsdk:"-" vyos:"from,ignore,child"`
+	ExistsTagFirewallZoneFrom bool `tfsdk:"-" vyos:"from,child"`
 
 	// Nodes
 	NodeFirewallZoneIntraZoneFiltering *FirewallZoneIntraZoneFiltering `tfsdk:"intra_zone_filtering" vyos:"intra-zone-filtering,omitempty"`

@@ -21,8 +21,8 @@ type SystemIP struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeSystemIPArp       bool `tfsdk:"-" vyos:"arp,ignore,omitempty"`
-	ExistsNodeSystemIPMultIPath bool `tfsdk:"-" vyos:"multipath,ignore,omitempty"`
+	ExistsNodeSystemIPArp       bool `tfsdk:"-" vyos:"arp,omitempty"`
+	ExistsNodeSystemIPMultIPath bool `tfsdk:"-" vyos:"multipath,omitempty"`
 }
 
 // SetID configures the resource ID

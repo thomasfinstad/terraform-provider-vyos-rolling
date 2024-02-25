@@ -22,13 +22,13 @@ type ProtocolsRIPng struct {
 	LeafProtocolsRIPngRouteMap         types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsRIPngInterface bool `tfsdk:"-" vyos:"interface,ignore,child"`
+	ExistsTagProtocolsRIPngInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsRIPngDefaultInformation bool `tfsdk:"-" vyos:"default-information,ignore,omitempty"`
-	ExistsNodeProtocolsRIPngDistributeList     bool `tfsdk:"-" vyos:"distribute-list,ignore,omitempty"`
-	ExistsNodeProtocolsRIPngRedistribute       bool `tfsdk:"-" vyos:"redistribute,ignore,omitempty"`
-	ExistsNodeProtocolsRIPngTimers             bool `tfsdk:"-" vyos:"timers,ignore,omitempty"`
+	ExistsNodeProtocolsRIPngDefaultInformation bool `tfsdk:"-" vyos:"default-information,omitempty"`
+	ExistsNodeProtocolsRIPngDistributeList     bool `tfsdk:"-" vyos:"distribute-list,omitempty"`
+	ExistsNodeProtocolsRIPngRedistribute       bool `tfsdk:"-" vyos:"redistribute,omitempty"`
+	ExistsNodeProtocolsRIPngTimers             bool `tfsdk:"-" vyos:"timers,omitempty"`
 }
 
 // SetID configures the resource ID

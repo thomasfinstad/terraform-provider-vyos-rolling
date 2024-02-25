@@ -23,7 +23,7 @@ type QosPolicyShaperHfscClass struct {
 	LeafQosPolicyShaperHfscClassDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagQosPolicyShaperHfscClassMatch bool `tfsdk:"-" vyos:"match,ignore,child"`
+	ExistsTagQosPolicyShaperHfscClassMatch bool `tfsdk:"-" vyos:"match,child"`
 
 	// Nodes
 	NodeQosPolicyShaperHfscClassLinkshare  *QosPolicyShaperHfscClassLinkshare  `tfsdk:"linkshare" vyos:"linkshare,omitempty"`

@@ -19,16 +19,16 @@ type VpnIPsec struct {
 	LeafVpnIPsecInterface         types.List `tfsdk:"interface" vyos:"interface,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVpnIPsecEspGroup bool `tfsdk:"-" vyos:"esp-group,ignore,child"`
-	ExistsTagVpnIPsecIkeGroup bool `tfsdk:"-" vyos:"ike-group,ignore,child"`
-	ExistsTagVpnIPsecProfile  bool `tfsdk:"-" vyos:"profile,ignore,child"`
+	ExistsTagVpnIPsecEspGroup bool `tfsdk:"-" vyos:"esp-group,child"`
+	ExistsTagVpnIPsecIkeGroup bool `tfsdk:"-" vyos:"ike-group,child"`
+	ExistsTagVpnIPsecProfile  bool `tfsdk:"-" vyos:"profile,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeVpnIPsecAuthentication bool `tfsdk:"-" vyos:"authentication,ignore,omitempty"`
-	ExistsNodeVpnIPsecLog            bool `tfsdk:"-" vyos:"log,ignore,omitempty"`
-	ExistsNodeVpnIPsecOptions        bool `tfsdk:"-" vyos:"options,ignore,omitempty"`
-	ExistsNodeVpnIPsecRemoteAccess   bool `tfsdk:"-" vyos:"remote-access,ignore,omitempty"`
-	ExistsNodeVpnIPsecSiteToSite     bool `tfsdk:"-" vyos:"site-to-site,ignore,omitempty"`
+	ExistsNodeVpnIPsecAuthentication bool `tfsdk:"-" vyos:"authentication,omitempty"`
+	ExistsNodeVpnIPsecLog            bool `tfsdk:"-" vyos:"log,omitempty"`
+	ExistsNodeVpnIPsecOptions        bool `tfsdk:"-" vyos:"options,omitempty"`
+	ExistsNodeVpnIPsecRemoteAccess   bool `tfsdk:"-" vyos:"remote-access,omitempty"`
+	ExistsNodeVpnIPsecSiteToSite     bool `tfsdk:"-" vyos:"site-to-site,omitempty"`
 }
 
 // SetID configures the resource ID

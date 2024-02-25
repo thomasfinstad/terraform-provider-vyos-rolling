@@ -18,7 +18,7 @@ type SystemConsole struct {
 	LeafSystemConsolePowersave types.Bool `tfsdk:"powersave" vyos:"powersave,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagSystemConsoleDevice bool `tfsdk:"-" vyos:"device,ignore,child"`
+	ExistsTagSystemConsoleDevice bool `tfsdk:"-" vyos:"device,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
 }

@@ -27,7 +27,7 @@ type HighAvailabilityVirtualServer struct {
 	LeafHighAvailabilityVirtualServerProtocol           types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagHighAvailabilityVirtualServerRealServer bool `tfsdk:"-" vyos:"real-server,ignore,child"`
+	ExistsTagHighAvailabilityVirtualServerRealServer bool `tfsdk:"-" vyos:"real-server,child"`
 
 	// Nodes
 }

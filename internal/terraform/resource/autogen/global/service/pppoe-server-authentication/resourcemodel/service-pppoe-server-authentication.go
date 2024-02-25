@@ -20,8 +20,8 @@ type ServicePppoeServerAuthentication struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServicePppoeServerAuthenticationLocalUsers bool `tfsdk:"-" vyos:"local-users,ignore,omitempty"`
-	ExistsNodeServicePppoeServerAuthenticationRadius     bool `tfsdk:"-" vyos:"radius,ignore,omitempty"`
+	ExistsNodeServicePppoeServerAuthenticationLocalUsers bool `tfsdk:"-" vyos:"local-users,omitempty"`
+	ExistsNodeServicePppoeServerAuthenticationRadius     bool `tfsdk:"-" vyos:"radius,omitempty"`
 }
 
 // SetID configures the resource ID

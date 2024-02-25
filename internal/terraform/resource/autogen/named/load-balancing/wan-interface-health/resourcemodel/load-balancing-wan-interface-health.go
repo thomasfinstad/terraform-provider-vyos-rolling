@@ -23,7 +23,7 @@ type LoadBalancingWanInterfaceHealth struct {
 	LeafLoadBalancingWanInterfaceHealthSuccessCount types.Number `tfsdk:"success_count" vyos:"success-count,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagLoadBalancingWanInterfaceHealthTest bool `tfsdk:"-" vyos:"test,ignore,child"`
+	ExistsTagLoadBalancingWanInterfaceHealthTest bool `tfsdk:"-" vyos:"test,child"`
 
 	// Nodes
 }

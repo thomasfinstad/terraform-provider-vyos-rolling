@@ -27,7 +27,7 @@ type LoadBalancingWanRule struct {
 	LeafLoadBalancingWanRuleProtocol           types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagLoadBalancingWanRuleInterface bool `tfsdk:"-" vyos:"interface,ignore,child"`
+	ExistsTagLoadBalancingWanRuleInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes
 	NodeLoadBalancingWanRuleDestination *LoadBalancingWanRuleDestination `tfsdk:"destination" vyos:"destination,omitempty"`

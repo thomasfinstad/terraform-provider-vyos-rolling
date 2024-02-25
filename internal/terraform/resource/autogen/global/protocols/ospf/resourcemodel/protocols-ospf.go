@@ -20,23 +20,23 @@ type ProtocolsOspf struct {
 	LeafProtocolsOspfRouteMap         types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsOspfAccessList bool `tfsdk:"-" vyos:"access-list,ignore,child"`
-	ExistsTagProtocolsOspfArea       bool `tfsdk:"-" vyos:"area,ignore,child"`
-	ExistsTagProtocolsOspfInterface  bool `tfsdk:"-" vyos:"interface,ignore,child"`
-	ExistsTagProtocolsOspfNeighbor   bool `tfsdk:"-" vyos:"neighbor,ignore,child"`
+	ExistsTagProtocolsOspfAccessList bool `tfsdk:"-" vyos:"access-list,child"`
+	ExistsTagProtocolsOspfArea       bool `tfsdk:"-" vyos:"area,child"`
+	ExistsTagProtocolsOspfInterface  bool `tfsdk:"-" vyos:"interface,child"`
+	ExistsTagProtocolsOspfNeighbor   bool `tfsdk:"-" vyos:"neighbor,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsOspfAutoCost            bool `tfsdk:"-" vyos:"auto-cost,ignore,omitempty"`
-	ExistsNodeProtocolsOspfDefaultInformation  bool `tfsdk:"-" vyos:"default-information,ignore,omitempty"`
-	ExistsNodeProtocolsOspfDistance            bool `tfsdk:"-" vyos:"distance,ignore,omitempty"`
-	ExistsNodeProtocolsOspfLogAdjacencyChanges bool `tfsdk:"-" vyos:"log-adjacency-changes,ignore,omitempty"`
-	ExistsNodeProtocolsOspfMaxMetric           bool `tfsdk:"-" vyos:"max-metric,ignore,omitempty"`
-	ExistsNodeProtocolsOspfMplsTe              bool `tfsdk:"-" vyos:"mpls-te,ignore,omitempty"`
-	ExistsNodeProtocolsOspfParameters          bool `tfsdk:"-" vyos:"parameters,ignore,omitempty"`
-	ExistsNodeProtocolsOspfSegmentRouting      bool `tfsdk:"-" vyos:"segment-routing,ignore,omitempty"`
-	ExistsNodeProtocolsOspfRedistribute        bool `tfsdk:"-" vyos:"redistribute,ignore,omitempty"`
-	ExistsNodeProtocolsOspfRefresh             bool `tfsdk:"-" vyos:"refresh,ignore,omitempty"`
-	ExistsNodeProtocolsOspfTimers              bool `tfsdk:"-" vyos:"timers,ignore,omitempty"`
+	ExistsNodeProtocolsOspfAutoCost            bool `tfsdk:"-" vyos:"auto-cost,omitempty"`
+	ExistsNodeProtocolsOspfDefaultInformation  bool `tfsdk:"-" vyos:"default-information,omitempty"`
+	ExistsNodeProtocolsOspfDistance            bool `tfsdk:"-" vyos:"distance,omitempty"`
+	ExistsNodeProtocolsOspfLogAdjacencyChanges bool `tfsdk:"-" vyos:"log-adjacency-changes,omitempty"`
+	ExistsNodeProtocolsOspfMaxMetric           bool `tfsdk:"-" vyos:"max-metric,omitempty"`
+	ExistsNodeProtocolsOspfMplsTe              bool `tfsdk:"-" vyos:"mpls-te,omitempty"`
+	ExistsNodeProtocolsOspfParameters          bool `tfsdk:"-" vyos:"parameters,omitempty"`
+	ExistsNodeProtocolsOspfSegmentRouting      bool `tfsdk:"-" vyos:"segment-routing,omitempty"`
+	ExistsNodeProtocolsOspfRedistribute        bool `tfsdk:"-" vyos:"redistribute,omitempty"`
+	ExistsNodeProtocolsOspfRefresh             bool `tfsdk:"-" vyos:"refresh,omitempty"`
+	ExistsNodeProtocolsOspfTimers              bool `tfsdk:"-" vyos:"timers,omitempty"`
 }
 
 // SetID configures the resource ID

@@ -34,8 +34,8 @@ type InterfacesEthernet struct {
 	LeafInterfacesEthernetXdp                types.Bool   `tfsdk:"xdp" vyos:"xdp,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagInterfacesEthernetVifS bool `tfsdk:"-" vyos:"vif-s,ignore,child"`
-	ExistsTagInterfacesEthernetVif  bool `tfsdk:"-" vyos:"vif,ignore,child"`
+	ExistsTagInterfacesEthernetVifS bool `tfsdk:"-" vyos:"vif-s,child"`
+	ExistsTagInterfacesEthernetVif  bool `tfsdk:"-" vyos:"vif,child"`
 
 	// Nodes
 	NodeInterfacesEthernetDhcpOptions     *InterfacesEthernetDhcpOptions     `tfsdk:"dhcp_options" vyos:"dhcp-options,omitempty"`

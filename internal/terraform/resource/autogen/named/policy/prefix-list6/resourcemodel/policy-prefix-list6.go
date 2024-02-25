@@ -21,7 +21,7 @@ type PolicyPrefixListsix struct {
 	LeafPolicyPrefixListsixDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagPolicyPrefixListsixRule bool `tfsdk:"-" vyos:"rule,ignore,child"`
+	ExistsTagPolicyPrefixListsixRule bool `tfsdk:"-" vyos:"rule,child"`
 
 	// Nodes
 }

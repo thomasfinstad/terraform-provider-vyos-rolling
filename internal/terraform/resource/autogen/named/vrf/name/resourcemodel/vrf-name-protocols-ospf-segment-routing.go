@@ -12,7 +12,7 @@ type VrfNameProtocolsOspfSegmentRouting struct {
 	LeafVrfNameProtocolsOspfSegmentRoutingMaximumLabelDepth types.Number `tfsdk:"maximum_label_depth" vyos:"maximum-label-depth,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsOspfSegmentRoutingPrefix bool `tfsdk:"prefix" vyos:"prefix,ignore,child"`
+	ExistsTagVrfNameProtocolsOspfSegmentRoutingPrefix bool `tfsdk:"prefix" vyos:"prefix,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsOspfSegmentRoutingGlobalBlock *VrfNameProtocolsOspfSegmentRoutingGlobalBlock `tfsdk:"global_block" vyos:"global-block,omitempty"`

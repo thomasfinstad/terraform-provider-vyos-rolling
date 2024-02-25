@@ -19,7 +19,7 @@ type ProtocolsIgmpProxy struct {
 	LeafProtocolsIgmpProxyDisableQuickleave types.Bool `tfsdk:"disable_quickleave" vyos:"disable-quickleave,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsIgmpProxyInterface bool `tfsdk:"-" vyos:"interface,ignore,child"`
+	ExistsTagProtocolsIgmpProxyInterface bool `tfsdk:"-" vyos:"interface,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
 }

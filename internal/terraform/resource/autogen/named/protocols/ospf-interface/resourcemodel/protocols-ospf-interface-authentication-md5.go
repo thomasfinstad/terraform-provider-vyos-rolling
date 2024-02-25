@@ -10,7 +10,7 @@ type ProtocolsOspfInterfaceAuthenticationMdfive struct {
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsOspfInterfaceAuthenticationMdfiveKeyID bool `tfsdk:"key_id" vyos:"key-id,ignore,child"`
+	ExistsTagProtocolsOspfInterfaceAuthenticationMdfiveKeyID bool `tfsdk:"key_id" vyos:"key-id,child"`
 
 	// Nodes
 }

@@ -25,7 +25,7 @@ type ServiceDNSForwardingAuthoritativeDomainRecordsSrv struct {
 	LeafServiceDNSForwardingAuthoritativeDomainRecordsSrvDisable types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry bool `tfsdk:"-" vyos:"entry,ignore,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry bool `tfsdk:"-" vyos:"entry,child"`
 
 	// Nodes
 }

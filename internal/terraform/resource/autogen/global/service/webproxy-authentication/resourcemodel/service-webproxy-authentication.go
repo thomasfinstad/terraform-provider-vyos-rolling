@@ -22,7 +22,7 @@ type ServiceWebproxyAuthentication struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceWebproxyAuthenticationLdap bool `tfsdk:"-" vyos:"ldap,ignore,omitempty"`
+	ExistsNodeServiceWebproxyAuthenticationLdap bool `tfsdk:"-" vyos:"ldap,omitempty"`
 }
 
 // SetID configures the resource ID

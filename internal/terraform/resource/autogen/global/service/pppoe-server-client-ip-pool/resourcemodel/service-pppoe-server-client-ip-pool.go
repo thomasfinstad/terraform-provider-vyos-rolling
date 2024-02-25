@@ -19,7 +19,7 @@ type ServicePppoeServerClientIPPool struct {
 	LeafServicePppoeServerClientIPPoolSubnet types.List   `tfsdk:"subnet" vyos:"subnet,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServicePppoeServerClientIPPoolName bool `tfsdk:"-" vyos:"name,ignore,child"`
+	ExistsTagServicePppoeServerClientIPPoolName bool `tfsdk:"-" vyos:"name,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
 }

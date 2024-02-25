@@ -17,7 +17,7 @@ type ProtocolsPimRp struct {
 	LeafProtocolsPimRpKeepAliveTimer types.Number `tfsdk:"keep_alive_timer" vyos:"keep-alive-timer,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsPimRpAddress bool `tfsdk:"-" vyos:"address,ignore,child"`
+	ExistsTagProtocolsPimRpAddress bool `tfsdk:"-" vyos:"address,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
 }

@@ -21,9 +21,9 @@ type VpnPptpRemoteAccessAuthentication struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeVpnPptpRemoteAccessAuthenticationLocalUsers bool `tfsdk:"-" vyos:"local-users,ignore,omitempty"`
-	ExistsNodeVpnPptpRemoteAccessAuthenticationRadius     bool `tfsdk:"-" vyos:"radius,ignore,omitempty"`
-	ExistsNodeVpnPptpRemoteAccessAuthenticationRateLimit  bool `tfsdk:"-" vyos:"rate-limit,ignore,omitempty"`
+	ExistsNodeVpnPptpRemoteAccessAuthenticationLocalUsers bool `tfsdk:"-" vyos:"local-users,omitempty"`
+	ExistsNodeVpnPptpRemoteAccessAuthenticationRadius     bool `tfsdk:"-" vyos:"radius,omitempty"`
+	ExistsNodeVpnPptpRemoteAccessAuthenticationRateLimit  bool `tfsdk:"-" vyos:"rate-limit,omitempty"`
 }
 
 // SetID configures the resource ID

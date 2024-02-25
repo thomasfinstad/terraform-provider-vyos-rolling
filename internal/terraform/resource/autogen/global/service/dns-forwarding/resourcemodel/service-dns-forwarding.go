@@ -31,8 +31,8 @@ type ServiceDNSForwarding struct {
 	LeafServiceDNSForwardingSystem                    types.Bool   `tfsdk:"system" vyos:"system,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceDNSForwardingDomain              bool `tfsdk:"-" vyos:"domain,ignore,child"`
-	ExistsTagServiceDNSForwardingAuthoritativeDomain bool `tfsdk:"-" vyos:"authoritative-domain,ignore,child"`
+	ExistsTagServiceDNSForwardingDomain              bool `tfsdk:"-" vyos:"domain,child"`
+	ExistsTagServiceDNSForwardingAuthoritativeDomain bool `tfsdk:"-" vyos:"authoritative-domain,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
 }

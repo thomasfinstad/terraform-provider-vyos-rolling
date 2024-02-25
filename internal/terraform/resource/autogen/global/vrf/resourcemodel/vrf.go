@@ -18,7 +18,7 @@ type Vrf struct {
 	LeafVrfBindToAll types.Bool `tfsdk:"bind_to_all" vyos:"bind-to-all,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfName bool `tfsdk:"-" vyos:"name,ignore,child"`
+	ExistsTagVrfName bool `tfsdk:"-" vyos:"name,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
 }

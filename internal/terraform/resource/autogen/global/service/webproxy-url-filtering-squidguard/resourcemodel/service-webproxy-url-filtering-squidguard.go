@@ -29,12 +29,12 @@ type ServiceWebproxyURLFilteringSquIDguard struct {
 	LeafServiceWebproxyURLFilteringSquIDguardRedirectURL       types.String `tfsdk:"redirect_url" vyos:"redirect-url,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceWebproxyURLFilteringSquIDguardRule        bool `tfsdk:"-" vyos:"rule,ignore,child"`
-	ExistsTagServiceWebproxyURLFilteringSquIDguardSourceGroup bool `tfsdk:"-" vyos:"source-group,ignore,child"`
-	ExistsTagServiceWebproxyURLFilteringSquIDguardTimePeriod  bool `tfsdk:"-" vyos:"time-period,ignore,child"`
+	ExistsTagServiceWebproxyURLFilteringSquIDguardRule        bool `tfsdk:"-" vyos:"rule,child"`
+	ExistsTagServiceWebproxyURLFilteringSquIDguardSourceGroup bool `tfsdk:"-" vyos:"source-group,child"`
+	ExistsTagServiceWebproxyURLFilteringSquIDguardTimePeriod  bool `tfsdk:"-" vyos:"time-period,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceWebproxyURLFilteringSquIDguardAutoUpdate bool `tfsdk:"-" vyos:"auto-update,ignore,omitempty"`
+	ExistsNodeServiceWebproxyURLFilteringSquIDguardAutoUpdate bool `tfsdk:"-" vyos:"auto-update,omitempty"`
 }
 
 // SetID configures the resource ID

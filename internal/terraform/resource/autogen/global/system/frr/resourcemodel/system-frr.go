@@ -21,7 +21,7 @@ type SystemFrr struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeSystemFrrSnmp bool `tfsdk:"-" vyos:"snmp,ignore,omitempty"`
+	ExistsNodeSystemFrrSnmp bool `tfsdk:"-" vyos:"snmp,omitempty"`
 }
 
 // SetID configures the resource ID

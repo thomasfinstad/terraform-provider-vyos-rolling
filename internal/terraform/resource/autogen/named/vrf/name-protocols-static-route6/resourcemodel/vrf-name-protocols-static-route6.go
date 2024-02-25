@@ -23,8 +23,8 @@ type VrfNameProtocolsStaticRoutesix struct {
 	LeafVrfNameProtocolsStaticRoutesixDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagVrfNameProtocolsStaticRoutesixInterface bool `tfsdk:"-" vyos:"interface,ignore,child"`
-	ExistsTagVrfNameProtocolsStaticRoutesixNextHop   bool `tfsdk:"-" vyos:"next-hop,ignore,child"`
+	ExistsTagVrfNameProtocolsStaticRoutesixInterface bool `tfsdk:"-" vyos:"interface,child"`
+	ExistsTagVrfNameProtocolsStaticRoutesixNextHop   bool `tfsdk:"-" vyos:"next-hop,child"`
 
 	// Nodes
 	NodeVrfNameProtocolsStaticRoutesixBlackhole *VrfNameProtocolsStaticRoutesixBlackhole `tfsdk:"blackhole" vyos:"blackhole,omitempty"`

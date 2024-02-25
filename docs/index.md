@@ -18,7 +18,7 @@ description: |-
 terraform {
   required_providers {
     vyos = {
-      source = "github.com/thomasfinstad/vyos"
+      source = "local/providers/vyos"
     }
   }
 }
@@ -40,17 +40,6 @@ resource "vyos_firewall_group_port_group" "example" {
 
   description = "Example of terraform created resource"
   port        = [8080, "27015-27020", 443]
-}
-
-resource "vyos_firewall_zone" "example" {
-  zone_id = "TF-Examples"
-
-  intra_zone_filtering = {
-    action = "accept"
-    firewall = {
-      name = "test"
-    }
-  }
 }
 
 resource "vyos_high_availability_vrrp_global_parameters" "example" {

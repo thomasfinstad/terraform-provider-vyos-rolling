@@ -24,13 +24,13 @@ type ServiceSnmp struct {
 	LeafServiceSnmpVrf         types.String `tfsdk:"vrf" vyos:"vrf,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagServiceSnmpCommunity     bool `tfsdk:"-" vyos:"community,ignore,child"`
-	ExistsTagServiceSnmpListenAddress bool `tfsdk:"-" vyos:"listen-address,ignore,child"`
-	ExistsTagServiceSnmpTrapTarget    bool `tfsdk:"-" vyos:"trap-target,ignore,child"`
+	ExistsTagServiceSnmpCommunity     bool `tfsdk:"-" vyos:"community,child"`
+	ExistsTagServiceSnmpListenAddress bool `tfsdk:"-" vyos:"listen-address,child"`
+	ExistsTagServiceSnmpTrapTarget    bool `tfsdk:"-" vyos:"trap-target,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeServiceSnmpVthree           bool `tfsdk:"-" vyos:"v3,ignore,omitempty"`
-	ExistsNodeServiceSnmpScrIPtExtensions bool `tfsdk:"-" vyos:"script-extensions,ignore,omitempty"`
+	ExistsNodeServiceSnmpVthree           bool `tfsdk:"-" vyos:"v3,omitempty"`
+	ExistsNodeServiceSnmpScrIPtExtensions bool `tfsdk:"-" vyos:"script-extensions,omitempty"`
 }
 
 // SetID configures the resource ID

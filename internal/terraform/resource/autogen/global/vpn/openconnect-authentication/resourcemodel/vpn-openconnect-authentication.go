@@ -19,9 +19,9 @@ type VpnOpenconnectAuthentication struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeVpnOpenconnectAuthenticationMode       bool `tfsdk:"-" vyos:"mode,ignore,omitempty"`
-	ExistsNodeVpnOpenconnectAuthenticationLocalUsers bool `tfsdk:"-" vyos:"local-users,ignore,omitempty"`
-	ExistsNodeVpnOpenconnectAuthenticationRadius     bool `tfsdk:"-" vyos:"radius,ignore,omitempty"`
+	ExistsNodeVpnOpenconnectAuthenticationMode       bool `tfsdk:"-" vyos:"mode,omitempty"`
+	ExistsNodeVpnOpenconnectAuthenticationLocalUsers bool `tfsdk:"-" vyos:"local-users,omitempty"`
+	ExistsNodeVpnOpenconnectAuthenticationRadius     bool `tfsdk:"-" vyos:"radius,omitempty"`
 }
 
 // SetID configures the resource ID

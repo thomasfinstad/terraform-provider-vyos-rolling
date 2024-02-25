@@ -23,12 +23,12 @@ type ProtocolsBgpAddressFamilyLtwovpnEvpn struct {
 	LeafProtocolsBgpAddressFamilyLtwovpnEvpnRtAutoDerive       types.Bool   `tfsdk:"rt_auto_derive" vyos:"rt-auto-derive,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
-	ExistsTagProtocolsBgpAddressFamilyLtwovpnEvpnVni bool `tfsdk:"-" vyos:"vni,ignore,child"`
+	ExistsTagProtocolsBgpAddressFamilyLtwovpnEvpnVni bool `tfsdk:"-" vyos:"vni,child"`
 
 	// Nodes (Bools that show if child resources have been configured)
-	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise   bool `tfsdk:"-" vyos:"advertise,ignore,omitempty"`
-	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget bool `tfsdk:"-" vyos:"route-target,ignore,omitempty"`
-	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnFlooding    bool `tfsdk:"-" vyos:"flooding,ignore,omitempty"`
+	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise   bool `tfsdk:"-" vyos:"advertise,omitempty"`
+	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget bool `tfsdk:"-" vyos:"route-target,omitempty"`
+	ExistsNodeProtocolsBgpAddressFamilyLtwovpnEvpnFlooding    bool `tfsdk:"-" vyos:"flooding,omitempty"`
 }
 
 // SetID configures the resource ID
