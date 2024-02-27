@@ -175,8 +175,8 @@ internal/terraform/resource/autogen: internal/vyos/vyosinterface/auto-package.go
 
 .PHONY: test
 test: internal/terraform/resource/autogen
-	cd internal/terraform/tests; \
-	go test -v
+	go test -failfast -timeout 5s ./internal/terraform/tests/... ./internal/terraform/helpers/...
+
 
 # TODO improve build situation
 # we need 1 for rolling releases and 1 for LTS 1.4 releases

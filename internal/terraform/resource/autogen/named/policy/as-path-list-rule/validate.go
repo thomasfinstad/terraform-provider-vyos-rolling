@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &policyAsPathListRule{}
+var (
+	_ resource.Resource              = &policyAsPathListRule{}
+	_ resource.ResourceWithConfigure = &policyAsPathListRule{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &policyAsPathListRule{}
+// var _ resource.ResourceWithModifyPlan = &policyAsPathListRule{}
+// var _ resource.ResourceWithUpgradeState = &policyAsPathListRule{}
+// var _ resource.ResourceWithValidateConfig = &policyAsPathListRule{}
 // var _ resource.ResourceWithImportState = &policyAsPathListRule{}

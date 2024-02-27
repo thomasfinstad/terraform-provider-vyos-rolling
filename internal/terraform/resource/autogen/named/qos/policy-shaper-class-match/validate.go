@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &qosPolicyShaperClassMatch{}
+var (
+	_ resource.Resource              = &qosPolicyShaperClassMatch{}
+	_ resource.ResourceWithConfigure = &qosPolicyShaperClassMatch{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &qosPolicyShaperClassMatch{}
+// var _ resource.ResourceWithModifyPlan = &qosPolicyShaperClassMatch{}
+// var _ resource.ResourceWithUpgradeState = &qosPolicyShaperClassMatch{}
+// var _ resource.ResourceWithValidateConfig = &qosPolicyShaperClassMatch{}
 // var _ resource.ResourceWithImportState = &qosPolicyShaperClassMatch{}

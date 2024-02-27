@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &highAvailability{}
+var (
+	_ resource.Resource              = &highAvailability{}
+	_ resource.ResourceWithConfigure = &highAvailability{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &highAvailability{}
+// var _ resource.ResourceWithModifyPlan = &highAvailability{}
+// var _ resource.ResourceWithUpgradeState = &highAvailability{}
+// var _ resource.ResourceWithValidateConfig = &highAvailability{}
 // var _ resource.ResourceWithImportState = &highAvailability{}

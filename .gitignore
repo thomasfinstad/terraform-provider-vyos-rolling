@@ -5,8 +5,8 @@ dist/
 .terraform.lock.hcl
 tmp/
 temp/
-.tmp
-.temp
+*.tmp
+*.temp
 
 
 ###

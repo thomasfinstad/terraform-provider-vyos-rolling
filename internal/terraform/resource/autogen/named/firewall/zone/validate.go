@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &firewallZone{}
+var (
+	_ resource.Resource              = &firewallZone{}
+	_ resource.ResourceWithConfigure = &firewallZone{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &firewallZone{}
+// var _ resource.ResourceWithModifyPlan = &firewallZone{}
+// var _ resource.ResourceWithUpgradeState = &firewallZone{}
+// var _ resource.ResourceWithValidateConfig = &firewallZone{}
 // var _ resource.ResourceWithImportState = &firewallZone{}

@@ -2,7 +2,7 @@ package helpers
 
 import (
 	"context"
-	"fmt"
+	"log"
 	"reflect"
 	"strings"
 
@@ -21,7 +21,7 @@ func HasChild(ctx context.Context, value VyosResourceDataModel) bool {
 		fValue := valueReflection.Field(i)
 		fTags := strings.Split(typeReflection.Field(i).Tag.Get("vyos"), ",")
 		tflog.Debug(ctx, "processing field", map[string]interface{}{"Field": fName, "Type": fType, "Tags": fTags})
-		fmt.Printf("Field: %s\tType: %s\tTags: %v\n", fName, fType, fTags)
+		log.Printf("Field: %s\tType: %s\tTags: %v\n", fName, fType, fTags)
 
 		// Set flags based on tags, first tag must be the vyos field name, the rest are bools with default of false
 		// TODO create struct of valid options
@@ -36,7 +36,7 @@ func HasChild(ctx context.Context, value VyosResourceDataModel) bool {
 			flags[tag] = true
 		}
 		if !flags["child"].(bool) {
-			fmt.Printf("\tNot a child, skipping field: %s\n", fName)
+			log.Printf("\tNot a child, skipping field: %s\n", fName)
 			continue
 		}
 

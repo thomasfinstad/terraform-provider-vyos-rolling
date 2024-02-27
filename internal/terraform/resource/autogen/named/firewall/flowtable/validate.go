@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &firewallFlowtable{}
+var (
+	_ resource.Resource              = &firewallFlowtable{}
+	_ resource.ResourceWithConfigure = &firewallFlowtable{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &firewallFlowtable{}
+// var _ resource.ResourceWithModifyPlan = &firewallFlowtable{}
+// var _ resource.ResourceWithUpgradeState = &firewallFlowtable{}
+// var _ resource.ResourceWithValidateConfig = &firewallFlowtable{}
 // var _ resource.ResourceWithImportState = &firewallFlowtable{}

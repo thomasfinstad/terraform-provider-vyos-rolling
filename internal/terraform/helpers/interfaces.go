@@ -7,6 +7,7 @@ import (
 
 // VyosResource is used to support CRUD operations for terraform resources via helpers
 type VyosResource interface {
+	// returned model must be ptr
 	GetModel() VyosTopResourceDataModel
 	GetClient() *client.Client
 }
@@ -15,7 +16,7 @@ type VyosResource interface {
 type VyosTopResourceDataModel interface {
 	VyosResourceDataModel
 	SetID(id []string)
-	GetVyosPath() (vyosPath []string)
+	GetVyosPath() []string
 }
 
 // VyosResourceDataModel defines common functions all models need in order to operate

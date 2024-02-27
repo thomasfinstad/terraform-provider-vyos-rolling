@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &natSourceRuleLoadBalanceBackend{}
+var (
+	_ resource.Resource              = &natSourceRuleLoadBalanceBackend{}
+	_ resource.ResourceWithConfigure = &natSourceRuleLoadBalanceBackend{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &natSourceRuleLoadBalanceBackend{}
+// var _ resource.ResourceWithModifyPlan = &natSourceRuleLoadBalanceBackend{}
+// var _ resource.ResourceWithUpgradeState = &natSourceRuleLoadBalanceBackend{}
+// var _ resource.ResourceWithValidateConfig = &natSourceRuleLoadBalanceBackend{}
 // var _ resource.ResourceWithImportState = &natSourceRuleLoadBalanceBackend{}

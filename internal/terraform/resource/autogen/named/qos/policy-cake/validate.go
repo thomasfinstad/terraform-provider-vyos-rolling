@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &qosPolicyCake{}
+var (
+	_ resource.Resource              = &qosPolicyCake{}
+	_ resource.ResourceWithConfigure = &qosPolicyCake{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &qosPolicyCake{}
+// var _ resource.ResourceWithModifyPlan = &qosPolicyCake{}
+// var _ resource.ResourceWithUpgradeState = &qosPolicyCake{}
+// var _ resource.ResourceWithValidateConfig = &qosPolicyCake{}
 // var _ resource.ResourceWithImportState = &qosPolicyCake{}

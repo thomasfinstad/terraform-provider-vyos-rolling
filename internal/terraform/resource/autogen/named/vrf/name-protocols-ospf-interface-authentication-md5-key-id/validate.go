@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &vrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID{}
+var (
+	_ resource.Resource              = &vrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID{}
+	_ resource.ResourceWithConfigure = &vrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &vrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID{}
+// var _ resource.ResourceWithModifyPlan = &vrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID{}
+// var _ resource.ResourceWithUpgradeState = &vrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID{}
+// var _ resource.ResourceWithValidateConfig = &vrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID{}
 // var _ resource.ResourceWithImportState = &vrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID{}

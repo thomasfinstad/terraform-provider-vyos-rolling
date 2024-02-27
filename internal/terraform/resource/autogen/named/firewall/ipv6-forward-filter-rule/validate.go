@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &firewallIPvsixForwardFilterRule{}
+var (
+	_ resource.Resource              = &firewallIPvsixForwardFilterRule{}
+	_ resource.ResourceWithConfigure = &firewallIPvsixForwardFilterRule{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &firewallIPvsixForwardFilterRule{}
+// var _ resource.ResourceWithModifyPlan = &firewallIPvsixForwardFilterRule{}
+// var _ resource.ResourceWithUpgradeState = &firewallIPvsixForwardFilterRule{}
+// var _ resource.ResourceWithValidateConfig = &firewallIPvsixForwardFilterRule{}
 // var _ resource.ResourceWithImportState = &firewallIPvsixForwardFilterRule{}

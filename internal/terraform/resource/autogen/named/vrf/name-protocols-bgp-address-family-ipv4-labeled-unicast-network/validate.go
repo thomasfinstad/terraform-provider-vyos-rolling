@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &vrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork{}
+var (
+	_ resource.Resource              = &vrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork{}
+	_ resource.ResourceWithConfigure = &vrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &vrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork{}
+// var _ resource.ResourceWithModifyPlan = &vrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork{}
+// var _ resource.ResourceWithUpgradeState = &vrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork{}
+// var _ resource.ResourceWithValidateConfig = &vrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork{}
 // var _ resource.ResourceWithImportState = &vrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork{}

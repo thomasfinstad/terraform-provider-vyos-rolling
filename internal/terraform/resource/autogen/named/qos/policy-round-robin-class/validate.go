@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &qosPolicyRoundRobinClass{}
+var (
+	_ resource.Resource              = &qosPolicyRoundRobinClass{}
+	_ resource.ResourceWithConfigure = &qosPolicyRoundRobinClass{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &qosPolicyRoundRobinClass{}
+// var _ resource.ResourceWithModifyPlan = &qosPolicyRoundRobinClass{}
+// var _ resource.ResourceWithUpgradeState = &qosPolicyRoundRobinClass{}
+// var _ resource.ResourceWithValidateConfig = &qosPolicyRoundRobinClass{}
 // var _ resource.ResourceWithImportState = &qosPolicyRoundRobinClass{}

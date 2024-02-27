@@ -38,6 +38,11 @@ import (
 {{define "validate"}}
 	// Ensure provider defined types fully satisfy framework interfaces.
 	var _ resource.Resource = &{{.BaseNameG}}{}
+	var _ resource.ResourceWithConfigure = &{{.BaseNameG}}{}
+	// var _ resource.ResourceWithConfigValidators = &{{.BaseNameG}}{}
+	// var _ resource.ResourceWithModifyPlan = &{{.BaseNameG}}{}
+	// var _ resource.ResourceWithUpgradeState = &{{.BaseNameG}}{}
+	// var _ resource.ResourceWithValidateConfig = &{{.BaseNameG}}{}
 	// var _ resource.ResourceWithImportState = &{{.BaseNameG}}{}
 {{end}}
 
@@ -71,18 +76,18 @@ import (
 			return
 		}
 
-		client, ok := req.ProviderData.(*client.Client)
+		client, ok := req.ProviderData.(client.Client)
 
 		if !ok {
 			resp.Diagnostics.AddError(
 				"Unexpected Resource Configure Type",
-				fmt.Sprintf("Expected *client.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+				fmt.Sprintf("Expected client.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
 			)
 
 			return
 		}
 
-		r.client = client
+		r.client = &client
 	}
 {{end}}
 
@@ -353,7 +358,6 @@ func (r {{.BaseNameG}}) Metadata(ctx context.Context, req resource.MetadataReque
 }
 {{end}}
 
-// TODO Add validators for map key
 // Validators:          []validator.String(nil),
 {{define "schema"}}
 // Schema method to define the schema for any resource configuration, plan, and state data.
@@ -366,9 +370,6 @@ func (r {{.BaseNameG}}) Schema(ctx context.Context, req resource.SchemaRequest, 
 }
 {{end}}
 
-// TODO add retry and timeout
-// TODO Create: check if resource already exists and fail after timeout
-// TODO Delete: check for children and fail delete after timeout if exists
 {{define "crud"}}
 	// Create method to define the logic which creates the resource and sets its initial Terraform state.
 	func (r *{{.BaseNameG}}) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {

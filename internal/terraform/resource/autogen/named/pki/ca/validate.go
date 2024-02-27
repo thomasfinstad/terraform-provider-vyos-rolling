@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &pkiCa{}
+var (
+	_ resource.Resource              = &pkiCa{}
+	_ resource.ResourceWithConfigure = &pkiCa{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &pkiCa{}
+// var _ resource.ResourceWithModifyPlan = &pkiCa{}
+// var _ resource.ResourceWithUpgradeState = &pkiCa{}
+// var _ resource.ResourceWithValidateConfig = &pkiCa{}
 // var _ resource.ResourceWithImportState = &pkiCa{}

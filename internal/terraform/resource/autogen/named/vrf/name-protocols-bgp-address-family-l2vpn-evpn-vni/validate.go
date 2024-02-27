@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &vrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni{}
+var (
+	_ resource.Resource              = &vrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni{}
+	_ resource.ResourceWithConfigure = &vrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &vrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni{}
+// var _ resource.ResourceWithModifyPlan = &vrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni{}
+// var _ resource.ResourceWithUpgradeState = &vrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni{}
+// var _ resource.ResourceWithValidateConfig = &vrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni{}
 // var _ resource.ResourceWithImportState = &vrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni{}

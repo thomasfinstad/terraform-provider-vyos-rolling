@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &vrfNameProtocolsOspfAreaRange{}
+var (
+	_ resource.Resource              = &vrfNameProtocolsOspfAreaRange{}
+	_ resource.ResourceWithConfigure = &vrfNameProtocolsOspfAreaRange{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &vrfNameProtocolsOspfAreaRange{}
+// var _ resource.ResourceWithModifyPlan = &vrfNameProtocolsOspfAreaRange{}
+// var _ resource.ResourceWithUpgradeState = &vrfNameProtocolsOspfAreaRange{}
+// var _ resource.ResourceWithValidateConfig = &vrfNameProtocolsOspfAreaRange{}
 // var _ resource.ResourceWithImportState = &vrfNameProtocolsOspfAreaRange{}

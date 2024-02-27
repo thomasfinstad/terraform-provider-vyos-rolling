@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &firewallGroupInterfaceGroup{}
+var (
+	_ resource.Resource              = &firewallGroupInterfaceGroup{}
+	_ resource.ResourceWithConfigure = &firewallGroupInterfaceGroup{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &firewallGroupInterfaceGroup{}
+// var _ resource.ResourceWithModifyPlan = &firewallGroupInterfaceGroup{}
+// var _ resource.ResourceWithUpgradeState = &firewallGroupInterfaceGroup{}
+// var _ resource.ResourceWithValidateConfig = &firewallGroupInterfaceGroup{}
 // var _ resource.ResourceWithImportState = &firewallGroupInterfaceGroup{}

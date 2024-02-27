@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &vrfNameProtocolsBgpPeerGroup{}
+var (
+	_ resource.Resource              = &vrfNameProtocolsBgpPeerGroup{}
+	_ resource.ResourceWithConfigure = &vrfNameProtocolsBgpPeerGroup{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &vrfNameProtocolsBgpPeerGroup{}
+// var _ resource.ResourceWithModifyPlan = &vrfNameProtocolsBgpPeerGroup{}
+// var _ resource.ResourceWithUpgradeState = &vrfNameProtocolsBgpPeerGroup{}
+// var _ resource.ResourceWithValidateConfig = &vrfNameProtocolsBgpPeerGroup{}
 // var _ resource.ResourceWithImportState = &vrfNameProtocolsBgpPeerGroup{}

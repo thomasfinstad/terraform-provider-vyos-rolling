@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &containerRegistry{}
+var (
+	_ resource.Resource              = &containerRegistry{}
+	_ resource.ResourceWithConfigure = &containerRegistry{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &containerRegistry{}
+// var _ resource.ResourceWithModifyPlan = &containerRegistry{}
+// var _ resource.ResourceWithUpgradeState = &containerRegistry{}
+// var _ resource.ResourceWithValidateConfig = &containerRegistry{}
 // var _ resource.ResourceWithImportState = &containerRegistry{}

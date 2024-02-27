@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &qosInterface{}
+var (
+	_ resource.Resource              = &qosInterface{}
+	_ resource.ResourceWithConfigure = &qosInterface{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &qosInterface{}
+// var _ resource.ResourceWithModifyPlan = &qosInterface{}
+// var _ resource.ResourceWithUpgradeState = &qosInterface{}
+// var _ resource.ResourceWithValidateConfig = &qosInterface{}
 // var _ resource.ResourceWithImportState = &qosInterface{}

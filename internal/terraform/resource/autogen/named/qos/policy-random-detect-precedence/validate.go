@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &qosPolicyRandomDetectPrecedence{}
+var (
+	_ resource.Resource              = &qosPolicyRandomDetectPrecedence{}
+	_ resource.ResourceWithConfigure = &qosPolicyRandomDetectPrecedence{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &qosPolicyRandomDetectPrecedence{}
+// var _ resource.ResourceWithModifyPlan = &qosPolicyRandomDetectPrecedence{}
+// var _ resource.ResourceWithUpgradeState = &qosPolicyRandomDetectPrecedence{}
+// var _ resource.ResourceWithValidateConfig = &qosPolicyRandomDetectPrecedence{}
 // var _ resource.ResourceWithImportState = &qosPolicyRandomDetectPrecedence{}

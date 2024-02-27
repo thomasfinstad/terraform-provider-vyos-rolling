@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
 	"strings"
@@ -20,10 +21,10 @@ func NewClient(
 	apiKey string,
 	userAgent string,
 	disableVerify bool,
-) *Client {
+) Client {
 
-	c := &Client{
-		httpClient: &http.Client{},
+	c := Client{
+		httpClient: http.Client{},
 
 		userAgent: userAgent,
 		endpoint:  endpoint,
@@ -45,7 +46,7 @@ func NewClient(
 // Client wrapper around http client with convinience functions
 // Use NewClient() to generate a new client
 type Client struct {
-	httpClient *http.Client
+	httpClient http.Client
 
 	userAgent string
 	endpoint  string
@@ -57,11 +58,13 @@ type Client struct {
 
 // StageSet saves vyos paths to configure during commit
 func (c *Client) StageSet(ctx context.Context, values [][]string) {
+	tflog.Trace(ctx, "stageing set ops", map[string]interface{}{"client:httpClient": fmt.Sprintf("%p:%p", c, &c.httpClient), "paths": values, "current set ops": c.opsSet})
 	c.opsSet = append(c.opsSet, values...)
 }
 
 // StageDelete saves vyos paths to delete during commit
 func (c *Client) StageDelete(ctx context.Context, values [][]string) {
+	tflog.Trace(ctx, "stageing delete ops", map[string]interface{}{"client:httpClient": fmt.Sprintf("%p:%p", c, &c.httpClient), "paths": values, "current del ops": c.opsDelete})
 	c.opsDelete = append(c.opsDelete, values...)
 }
 
@@ -70,6 +73,7 @@ func (c *Client) StageDelete(ctx context.Context, values [][]string) {
 //  1. delete
 //  2. set
 func (c *Client) CommitChanges(ctx context.Context) (any, error) {
+	endpoint := c.endpoint + "/configure"
 	operations := []map[string]interface{}{}
 
 	for _, path := range c.opsDelete {
@@ -96,8 +100,7 @@ func (c *Client) CommitChanges(ctx context.Context) (any, error) {
 		operations,
 	)
 	if err != nil {
-		tflog.Error(ctx, "Fail json marshal delete ops", map[string]interface{}{"operations": operations, "error": err})
-		return nil, err
+		return nil, fmt.Errorf("fail json marshal delete ops: %w", err)
 	}
 
 	payload := url.Values{
@@ -105,12 +108,11 @@ func (c *Client) CommitChanges(ctx context.Context) (any, error) {
 		"data": []string{string(jsonOperations)},
 	}
 
-	tflog.Info(ctx, "Creating request for <endpoint>/configure", map[string]interface{}{"endpoint": c.endpoint, "payload": payload})
+	tflog.Info(ctx, "Creating configure request", map[string]interface{}{"endpoint": endpoint, "payload": payload})
 
-	req, err := http.NewRequest("POST", c.endpoint+"/configure", strings.NewReader(payload.Encode()))
+	req, err := http.NewRequest("POST", endpoint, strings.NewReader(payload.Encode()))
 	if err != nil {
-		tflog.Error(ctx, "Failed to create http request object", map[string]interface{}{"error": err})
-		return nil, err
+		return nil, fmt.Errorf("failed to create http request object: %w", err)
 	}
 
 	req.Header.Set("User-Agent", c.userAgent)
@@ -118,20 +120,17 @@ func (c *Client) CommitChanges(ctx context.Context) (any, error) {
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
-		tflog.Error(ctx, "Failed to complete http request", map[string]interface{}{"error": err})
-		return nil, err
+		return nil, fmt.Errorf("failed to complete http request: %w", err)
 	}
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		tflog.Error(ctx, "Failed to read http response", map[string]interface{}{"error": err})
-		return nil, err
+		return nil, fmt.Errorf("failed to read http response: %w", err)
 	}
 
 	if resp.StatusCode >= 500 {
-		tflog.Error(ctx, "Request error", map[string]interface{}{"statusCode": resp.StatusCode, "header": resp.Header, "body": body})
-		return nil, fmt.Errorf("request error [%s]: %#v", resp.Status, map[string]interface{}{"statusCode": resp.StatusCode, "header": resp.Header, "body": body})
+		return nil, fmt.Errorf("http error [%s]: %s", resp.Status, string(body))
 	}
 
 	c.opsSet = [][]string{}
@@ -141,18 +140,18 @@ func (c *Client) CommitChanges(ctx context.Context) (any, error) {
 
 	err = json.Unmarshal(body, &ret)
 	if err != nil {
-		tflog.Error(ctx, "Failed to unmarshal http response body as json", map[string]interface{}{"response": body, "error": err})
-		return nil, err
+		return nil, fmt.Errorf("failed to unmarshal http response body as json: %w, body: %s", err, body)
 	}
 
 	if ret["success"] == true {
 		return ret["data"], nil
 	}
 
-	return nil, fmt.Errorf("API ERROR [%s]: %s", resp.Status, ret["error"])
+	return nil, fmt.Errorf("API ERROR [%s]: %v", resp.Status, ret["error"])
 }
 
 func (c *Client) Read(ctx context.Context, path []string) (any, error) {
+	endpoint := c.endpoint + "/retrieve"
 	operation, err := json.Marshal(
 		map[string]interface{}{
 			"op":   "showConfig",
@@ -160,8 +159,7 @@ func (c *Client) Read(ctx context.Context, path []string) (any, error) {
 		},
 	)
 	if err != nil {
-		tflog.Error(ctx, "Fail json marshal read operation", map[string]interface{}{"operation": operation, "error": err})
-		return nil, err
+		return nil, fmt.Errorf("fail json marshal read operation: %w", err)
 	}
 
 	payload := url.Values{
@@ -169,41 +167,45 @@ func (c *Client) Read(ctx context.Context, path []string) (any, error) {
 		"data": []string{string(operation)},
 	}
 
-	tflog.Info(ctx, "Creating request for <endpoint>/retrieve", map[string]interface{}{"endpoint": c.endpoint, "payload": payload})
+	tflog.Info(ctx, "Creating read request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
+	log.Println("Creating read request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
 
-	req, err := http.NewRequest("POST", c.endpoint+"/retrieve", strings.NewReader(payload.Encode()))
+	payloadEnc := payload.Encode()
+	tflog.Debug(ctx, "Request payload encoded", map[string]interface{}{"payload": payloadEnc})
+	req, err := http.NewRequest("POST", endpoint, strings.NewReader(payloadEnc))
 	if err != nil {
-		tflog.Error(ctx, "Failed to create http request object", map[string]interface{}{"error": err})
-		return nil, err
+		return nil, fmt.Errorf("failed to create http request object: %w", err)
 	}
 
 	req.Header.Set("User-Agent", c.userAgent)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
+	log.Println("Sending Request")
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
-		tflog.Error(ctx, "Failed to complete http request", map[string]interface{}{"error": err})
-		return nil, err
+		return nil, fmt.Errorf("failed to complete http request: %w", err)
 	}
 	defer resp.Body.Close()
 
+	log.Println("Reading response")
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		tflog.Error(ctx, "Failed to read http response", map[string]interface{}{"error": err})
-		return nil, err
+		return nil, fmt.Errorf("failed to read http response: %w", err)
 	}
 
 	var ret map[string]interface{}
 
+	log.Println("Unmarshaling from json")
 	err = json.Unmarshal(body, &ret)
 	if err != nil {
-		tflog.Error(ctx, "Failed to unmarshal http response body as json", map[string]interface{}{"response": body, "error": err})
-		return nil, err
+		return nil, fmt.Errorf("failed to unmarshal http response body as json: %w, body: %s", err, body)
 	}
 
 	if ret["success"] == true {
+		log.Println("API read success")
 		return ret["data"], nil
 	}
 
+	log.Println("API read failure")
 	return nil, fmt.Errorf("API ERROR: %s", ret["error"])
 }

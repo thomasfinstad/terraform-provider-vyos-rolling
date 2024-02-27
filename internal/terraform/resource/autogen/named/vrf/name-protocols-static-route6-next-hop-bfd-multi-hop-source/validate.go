@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &vrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource{}
+var (
+	_ resource.Resource              = &vrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource{}
+	_ resource.ResourceWithConfigure = &vrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &vrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource{}
+// var _ resource.ResourceWithModifyPlan = &vrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource{}
+// var _ resource.ResourceWithUpgradeState = &vrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource{}
+// var _ resource.ResourceWithValidateConfig = &vrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource{}
 // var _ resource.ResourceWithImportState = &vrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource{}

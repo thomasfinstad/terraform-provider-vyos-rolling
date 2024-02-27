@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &vrfNameProtocolsIsisInterface{}
+var (
+	_ resource.Resource              = &vrfNameProtocolsIsisInterface{}
+	_ resource.ResourceWithConfigure = &vrfNameProtocolsIsisInterface{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &vrfNameProtocolsIsisInterface{}
+// var _ resource.ResourceWithModifyPlan = &vrfNameProtocolsIsisInterface{}
+// var _ resource.ResourceWithUpgradeState = &vrfNameProtocolsIsisInterface{}
+// var _ resource.ResourceWithValidateConfig = &vrfNameProtocolsIsisInterface{}
 // var _ resource.ResourceWithImportState = &vrfNameProtocolsIsisInterface{}

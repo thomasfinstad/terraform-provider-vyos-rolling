@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &netnsName{}
+var (
+	_ resource.Resource              = &netnsName{}
+	_ resource.ResourceWithConfigure = &netnsName{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &netnsName{}
+// var _ resource.ResourceWithModifyPlan = &netnsName{}
+// var _ resource.ResourceWithUpgradeState = &netnsName{}
+// var _ resource.ResourceWithValidateConfig = &netnsName{}
 // var _ resource.ResourceWithImportState = &netnsName{}

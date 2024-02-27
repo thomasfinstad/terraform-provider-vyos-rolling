@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &highAvailabilityVrrpGroupAddress{}
+var (
+	_ resource.Resource              = &highAvailabilityVrrpGroupAddress{}
+	_ resource.ResourceWithConfigure = &highAvailabilityVrrpGroupAddress{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &highAvailabilityVrrpGroupAddress{}
+// var _ resource.ResourceWithModifyPlan = &highAvailabilityVrrpGroupAddress{}
+// var _ resource.ResourceWithUpgradeState = &highAvailabilityVrrpGroupAddress{}
+// var _ resource.ResourceWithValidateConfig = &highAvailabilityVrrpGroupAddress{}
 // var _ resource.ResourceWithImportState = &highAvailabilityVrrpGroupAddress{}

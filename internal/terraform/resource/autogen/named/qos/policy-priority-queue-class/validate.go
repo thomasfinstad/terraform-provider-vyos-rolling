@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &qosPolicyPriorityQueueClass{}
+var (
+	_ resource.Resource              = &qosPolicyPriorityQueueClass{}
+	_ resource.ResourceWithConfigure = &qosPolicyPriorityQueueClass{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &qosPolicyPriorityQueueClass{}
+// var _ resource.ResourceWithModifyPlan = &qosPolicyPriorityQueueClass{}
+// var _ resource.ResourceWithUpgradeState = &qosPolicyPriorityQueueClass{}
+// var _ resource.ResourceWithValidateConfig = &qosPolicyPriorityQueueClass{}
 // var _ resource.ResourceWithImportState = &qosPolicyPriorityQueueClass{}

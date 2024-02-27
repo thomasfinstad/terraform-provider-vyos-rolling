@@ -10,6 +10,10 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
+// TODO add retry and timeout
+// TODO check if required parent exists and fail after timeout if not
+// TODO check if resource already exists and fail after timeout
+
 // Create method to define the logic which creates the resource and sets its initial Terraform state.
 func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequest, resp *resource.CreateResponse) {
 	tflog.Debug(ctx, "New Resource")

@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &natStaticRule{}
+var (
+	_ resource.Resource              = &natStaticRule{}
+	_ resource.ResourceWithConfigure = &natStaticRule{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &natStaticRule{}
+// var _ resource.ResourceWithModifyPlan = &natStaticRule{}
+// var _ resource.ResourceWithUpgradeState = &natStaticRule{}
+// var _ resource.ResourceWithValidateConfig = &natStaticRule{}
 // var _ resource.ResourceWithImportState = &natStaticRule{}

@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &vrfNameProtocolsBgpNeighborLocalRole{}
+var (
+	_ resource.Resource              = &vrfNameProtocolsBgpNeighborLocalRole{}
+	_ resource.ResourceWithConfigure = &vrfNameProtocolsBgpNeighborLocalRole{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &vrfNameProtocolsBgpNeighborLocalRole{}
+// var _ resource.ResourceWithModifyPlan = &vrfNameProtocolsBgpNeighborLocalRole{}
+// var _ resource.ResourceWithUpgradeState = &vrfNameProtocolsBgpNeighborLocalRole{}
+// var _ resource.ResourceWithValidateConfig = &vrfNameProtocolsBgpNeighborLocalRole{}
 // var _ resource.ResourceWithImportState = &vrfNameProtocolsBgpNeighborLocalRole{}

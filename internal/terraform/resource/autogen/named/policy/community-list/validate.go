@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &policyCommunityList{}
+var (
+	_ resource.Resource              = &policyCommunityList{}
+	_ resource.ResourceWithConfigure = &policyCommunityList{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &policyCommunityList{}
+// var _ resource.ResourceWithModifyPlan = &policyCommunityList{}
+// var _ resource.ResourceWithUpgradeState = &policyCommunityList{}
+// var _ resource.ResourceWithValidateConfig = &policyCommunityList{}
 // var _ resource.ResourceWithImportState = &policyCommunityList{}

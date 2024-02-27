@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &vrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex{}
+var (
+	_ resource.Resource              = &vrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex{}
+	_ resource.ResourceWithConfigure = &vrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &vrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex{}
+// var _ resource.ResourceWithModifyPlan = &vrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex{}
+// var _ resource.ResourceWithUpgradeState = &vrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex{}
+// var _ resource.ResourceWithValidateConfig = &vrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex{}
 // var _ resource.ResourceWithImportState = &vrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex{}

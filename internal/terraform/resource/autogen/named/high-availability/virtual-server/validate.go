@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &highAvailabilityVirtualServer{}
+var (
+	_ resource.Resource              = &highAvailabilityVirtualServer{}
+	_ resource.ResourceWithConfigure = &highAvailabilityVirtualServer{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &highAvailabilityVirtualServer{}
+// var _ resource.ResourceWithModifyPlan = &highAvailabilityVirtualServer{}
+// var _ resource.ResourceWithUpgradeState = &highAvailabilityVirtualServer{}
+// var _ resource.ResourceWithValidateConfig = &highAvailabilityVirtualServer{}
 // var _ resource.ResourceWithImportState = &highAvailabilityVirtualServer{}

@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &firewallIPvfourNameRule{}
+var (
+	_ resource.Resource              = &firewallIPvfourNameRule{}
+	_ resource.ResourceWithConfigure = &firewallIPvfourNameRule{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &firewallIPvfourNameRule{}
+// var _ resource.ResourceWithModifyPlan = &firewallIPvfourNameRule{}
+// var _ resource.ResourceWithUpgradeState = &firewallIPvfourNameRule{}
+// var _ resource.ResourceWithValidateConfig = &firewallIPvfourNameRule{}
 // var _ resource.ResourceWithImportState = &firewallIPvfourNameRule{}

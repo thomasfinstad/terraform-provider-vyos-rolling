@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &qosPolicyLimiterClassMatch{}
+var (
+	_ resource.Resource              = &qosPolicyLimiterClassMatch{}
+	_ resource.ResourceWithConfigure = &qosPolicyLimiterClassMatch{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &qosPolicyLimiterClassMatch{}
+// var _ resource.ResourceWithModifyPlan = &qosPolicyLimiterClassMatch{}
+// var _ resource.ResourceWithUpgradeState = &qosPolicyLimiterClassMatch{}
+// var _ resource.ResourceWithValidateConfig = &qosPolicyLimiterClassMatch{}
 // var _ resource.ResourceWithImportState = &qosPolicyLimiterClassMatch{}

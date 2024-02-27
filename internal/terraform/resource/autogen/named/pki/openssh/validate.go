@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &pkiOpenTCP{}
+var (
+	_ resource.Resource              = &pkiOpenTCP{}
+	_ resource.ResourceWithConfigure = &pkiOpenTCP{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &pkiOpenTCP{}
+// var _ resource.ResourceWithModifyPlan = &pkiOpenTCP{}
+// var _ resource.ResourceWithUpgradeState = &pkiOpenTCP{}
+// var _ resource.ResourceWithValidateConfig = &pkiOpenTCP{}
 // var _ resource.ResourceWithImportState = &pkiOpenTCP{}

@@ -6,6 +6,13 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &firewallGlobalOptionsStatePolicyInvalID{}
+var (
+	_ resource.Resource              = &firewallGlobalOptionsStatePolicyInvalID{}
+	_ resource.ResourceWithConfigure = &firewallGlobalOptionsStatePolicyInvalID{}
+)
 
+// var _ resource.ResourceWithConfigValidators = &firewallGlobalOptionsStatePolicyInvalID{}
+// var _ resource.ResourceWithModifyPlan = &firewallGlobalOptionsStatePolicyInvalID{}
+// var _ resource.ResourceWithUpgradeState = &firewallGlobalOptionsStatePolicyInvalID{}
+// var _ resource.ResourceWithValidateConfig = &firewallGlobalOptionsStatePolicyInvalID{}
 // var _ resource.ResourceWithImportState = &firewallGlobalOptionsStatePolicyInvalID{}
