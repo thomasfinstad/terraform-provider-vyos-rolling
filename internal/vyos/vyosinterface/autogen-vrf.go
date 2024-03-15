@@ -18555,7 +18555,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"[[:ascii:]]{0,256}"},
+															Regex: []string{".{0,255}"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -18564,7 +18564,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Format:      "txt",
 															Description: "Description",
 														}},
-														ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+														ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 													}},
 												}, {
 													IsBaseNode: false,
@@ -25971,7 +25971,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"[[:ascii:]]{0,256}"},
+															Regex: []string{".{0,255}"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -25980,7 +25980,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Format:      "txt",
 															Description: "Description",
 														}},
-														ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+														ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 													}},
 												}, {
 													IsBaseNode: false,
@@ -37239,6 +37239,119 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "node",
 													},
+													NodeNameAttr: "babel",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Redistribute Babel routes"},
+													}},
+													Children: []*interfacedefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "metric",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"OSPF default metric"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 0-16777214",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:0-16777214",
+																	Description: "Default metric",
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "metric-type",
+															DefaultValue: []string{"2"},
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"OSPF metric type for default routes"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 1-2",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:1-2",
+																	Description: "Set OSPF External Type 1/2 metrics",
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "route-map",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Specify route-map name to use"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Regex: []string{"[-_a-zA-Z0-9.]+"},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "txt",
+																	Description: "Route map name",
+																}},
+																ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																	XMLName: xml.Name{
+																		Local: "completionHelp",
+																	},
+																	Path: []string{"policy route-map"},
+																}},
+															}},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
 													NodeNameAttr: "bgp",
 													Properties: []*interfacedefinition.Properties{{
 														XMLName: xml.Name{
@@ -37251,6 +37364,69 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "metric",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"OSPF default metric"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 0-16777214",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:0-16777214",
+																	Description: "Default metric",
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "metric-type",
+															DefaultValue: []string{"2"},
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"OSPF metric type for default routes"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 1-2",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:1-2",
+																	Description: "Set OSPF External Type 1/2 metrics",
+																}},
+															}},
+														}, {
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -37305,6 +37481,182 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
+															NodeNameAttr: "metric",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"OSPF default metric"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 0-16777214",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:0-16777214",
+																	Description: "Default metric",
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "metric-type",
+															DefaultValue: []string{"2"},
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"OSPF metric type for default routes"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 1-2",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:1-2",
+																	Description: "Set OSPF External Type 1/2 metrics",
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "route-map",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"Specify route-map name to use"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Regex: []string{"[-_a-zA-Z0-9.]+"},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "txt",
+																	Description: "Route map name",
+																}},
+																ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+																CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																	XMLName: xml.Name{
+																		Local: "completionHelp",
+																	},
+																	Path: []string{"policy route-map"},
+																}},
+															}},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "node",
+													},
+													NodeNameAttr: "isis",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Redistribute IS-IS routes"},
+													}},
+													Children: []*interfacedefinition.Children{{
+														XMLName: xml.Name{
+															Local: "children",
+														},
+														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "metric",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"OSPF default metric"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 0-16777214",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:0-16777214",
+																	Description: "Default metric",
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "metric-type",
+															DefaultValue: []string{"2"},
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"OSPF metric type for default routes"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 1-2",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:1-2",
+																	Description: "Set OSPF External Type 1/2 metrics",
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
 															NodeNameAttr: "route-map",
 															Properties: []*interfacedefinition.Properties{{
 																XMLName: xml.Name{
@@ -37351,6 +37703,69 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "metric",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"OSPF default metric"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 0-16777214",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:0-16777214",
+																	Description: "Default metric",
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "metric-type",
+															DefaultValue: []string{"2"},
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"OSPF metric type for default routes"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 1-2",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:1-2",
+																	Description: "Set OSPF External Type 1/2 metrics",
+																}},
+															}},
+														}, {
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -37405,52 +37820,65 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
-															NodeNameAttr: "route-map",
+															NodeNameAttr: "metric",
 															Properties: []*interfacedefinition.Properties{{
 																XMLName: xml.Name{
 																	Local: "properties",
 																},
-																Help: []string{"Specify route-map name to use"},
+																Help: []string{"OSPF default metric"},
 																Constraint: []*interfacedefinition.Constraint{{
 																	XMLName: xml.Name{
 																		Local: "constraint",
 																	},
-																	Regex: []string{"[-_a-zA-Z0-9.]+"},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 0-16777214",
+																	}},
 																}},
 																ValueHelp: []*interfacedefinition.ValueHelp{{
 																	XMLName: xml.Name{
 																		Local: "valueHelp",
 																	},
-																	Format:      "txt",
-																	Description: "Route map name",
-																}},
-																ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
-																CompletionHelp: []*interfacedefinition.CompletionHelp{{
-																	XMLName: xml.Name{
-																		Local: "completionHelp",
-																	},
-																	Path: []string{"policy route-map"},
+																	Format:      "u32:0-16777214",
+																	Description: "Default metric",
 																}},
 															}},
-														}},
-													}},
-												}, {
-													IsBaseNode: false,
-													XMLName: xml.Name{
-														Local: "node",
-													},
-													NodeNameAttr: "babel",
-													Properties: []*interfacedefinition.Properties{{
-														XMLName: xml.Name{
-															Local: "properties",
-														},
-														Help: []string{"Redistribute Babel routes"},
-													}},
-													Children: []*interfacedefinition.Children{{
-														XMLName: xml.Name{
-															Local: "children",
-														},
-														LeafNode: []*interfacedefinition.LeafNode{{
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "metric-type",
+															DefaultValue: []string{"2"},
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"OSPF metric type for default routes"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 1-2",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:1-2",
+																	Description: "Set OSPF External Type 1/2 metrics",
+																}},
+															}},
+														}, {
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -37501,6 +37929,69 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "metric",
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"OSPF default metric"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 0-16777214",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:0-16777214",
+																	Description: "Default metric",
+																}},
+															}},
+														}, {
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "leafNode",
+															},
+															NodeNameAttr: "metric-type",
+															DefaultValue: []string{"2"},
+															Properties: []*interfacedefinition.Properties{{
+																XMLName: xml.Name{
+																	Local: "properties",
+																},
+																Help: []string{"OSPF metric type for default routes"},
+																Constraint: []*interfacedefinition.Constraint{{
+																	XMLName: xml.Name{
+																		Local: "constraint",
+																	},
+																	Validator: []*interfacedefinition.Validator{{
+																		XMLName: xml.Name{
+																			Local: "validator",
+																		},
+																		NameAttr:     "numeric",
+																		ArgumentAttr: "--range 1-2",
+																	}},
+																}},
+																ValueHelp: []*interfacedefinition.ValueHelp{{
+																	XMLName: xml.Name{
+																		Local: "valueHelp",
+																	},
+																	Format:      "u32:1-2",
+																	Description: "Set OSPF External Type 1/2 metrics",
+																}},
+															}},
+														}, {
 															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
@@ -38945,7 +39436,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"[[:ascii:]]{0,256}"},
+															Regex: []string{".{0,255}"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -38954,7 +39445,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Format:      "txt",
 															Description: "Description",
 														}},
-														ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+														ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 													}},
 												}},
 											}},
@@ -39647,7 +40138,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"[[:ascii:]]{0,256}"},
+															Regex: []string{".{0,255}"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -39656,7 +40147,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Format:      "txt",
 															Description: "Description",
 														}},
-														ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+														ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 													}},
 												}},
 											}},
@@ -39680,7 +40171,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "constraint",
 									},
-									Regex: []string{"[[:ascii:]]{0,256}"},
+									Regex: []string{".{0,255}"},
 								}},
 								ValueHelp: []*interfacedefinition.ValueHelp{{
 									XMLName: xml.Name{
@@ -39689,7 +40180,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 									Format:      "txt",
 									Description: "Description",
 								}},
-								ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+								ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 							}},
 						}, {
 							IsBaseNode: false,

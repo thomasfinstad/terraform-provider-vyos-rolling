@@ -81,7 +81,7 @@ VRRP group
     |----------|---------------|
     |  txt  &emsp; |  Interface name  |
 - `no_preempt` (Boolean) Disable master preemption
-- `peer_address` (String) Unicast VRRP peer address
+- `peer_address` (List of String) Unicast VRRP peer address
 
     |  Format &emsp; | Description  |
     |----------|---------------|

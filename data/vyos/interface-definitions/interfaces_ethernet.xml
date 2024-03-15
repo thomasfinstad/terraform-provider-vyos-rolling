@@ -59,9 +59,9 @@
                 <description>Description</description>
               </valueHelp>
               <constraint>
-                <regex>[[:ascii:]]{0,256}</regex>
+                <regex>.{0,255}</regex>
               </constraint>
-              <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+              <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
             </properties>
           </leafNode>
           <!-- include end -->
@@ -80,7 +80,7 @@
                   </valueHelp>
                   <constraint>
                     <!-- include start from constraint/dhcp-client-string-option.xml.i -->
-                    <regex>[-_a-zA-Z0-9\s]+</regex>
+                    <regex>[-_a-zA-Z0-9.\s]+</regex>
                     <regex>([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]</regex>
                     <!-- include end -->
                   </constraint>
@@ -112,7 +112,7 @@
                   </valueHelp>
                   <constraint>
                     <!-- include start from constraint/dhcp-client-string-option.xml.i -->
-                    <regex>[-_a-zA-Z0-9\s]+</regex>
+                    <regex>[-_a-zA-Z0-9.\s]+</regex>
                     <regex>([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]</regex>
                     <!-- include end -->
                   </constraint>
@@ -127,7 +127,7 @@
                   </valueHelp>
                   <constraint>
                     <!-- include start from constraint/dhcp-client-string-option.xml.i -->
-                    <regex>[-_a-zA-Z0-9\s]+</regex>
+                    <regex>[-_a-zA-Z0-9.\s]+</regex>
                     <regex>([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]</regex>
                     <!-- include end -->
                   </constraint>
@@ -927,9 +927,9 @@
                     <description>Description</description>
                   </valueHelp>
                   <constraint>
-                    <regex>[[:ascii:]]{0,256}</regex>
+                    <regex>.{0,255}</regex>
                   </constraint>
-                  <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                  <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                 </properties>
               </leafNode>
               <!-- include end -->
@@ -979,7 +979,7 @@
                       </valueHelp>
                       <constraint>
                         <!-- include start from constraint/dhcp-client-string-option.xml.i -->
-                        <regex>[-_a-zA-Z0-9\s]+</regex>
+                        <regex>[-_a-zA-Z0-9.\s]+</regex>
                         <regex>([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]</regex>
                         <!-- include end -->
                       </constraint>
@@ -1011,7 +1011,7 @@
                       </valueHelp>
                       <constraint>
                         <!-- include start from constraint/dhcp-client-string-option.xml.i -->
-                        <regex>[-_a-zA-Z0-9\s]+</regex>
+                        <regex>[-_a-zA-Z0-9.\s]+</regex>
                         <regex>([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]</regex>
                         <!-- include end -->
                       </constraint>
@@ -1026,7 +1026,7 @@
                       </valueHelp>
                       <constraint>
                         <!-- include start from constraint/dhcp-client-string-option.xml.i -->
-                        <regex>[-_a-zA-Z0-9\s]+</regex>
+                        <regex>[-_a-zA-Z0-9.\s]+</regex>
                         <regex>([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]</regex>
                         <!-- include end -->
                       </constraint>
@@ -1585,9 +1585,9 @@
                         <description>Description</description>
                       </valueHelp>
                       <constraint>
-                        <regex>[[:ascii:]]{0,256}</regex>
+                        <regex>.{0,255}</regex>
                       </constraint>
-                      <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                      <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                     </properties>
                   </leafNode>
                   <!-- include end -->
@@ -1637,7 +1637,7 @@
                           </valueHelp>
                           <constraint>
                             <!-- include start from constraint/dhcp-client-string-option.xml.i -->
-                            <regex>[-_a-zA-Z0-9\s]+</regex>
+                            <regex>[-_a-zA-Z0-9.\s]+</regex>
                             <regex>([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]</regex>
                             <!-- include end -->
                           </constraint>
@@ -1669,7 +1669,7 @@
                           </valueHelp>
                           <constraint>
                             <!-- include start from constraint/dhcp-client-string-option.xml.i -->
-                            <regex>[-_a-zA-Z0-9\s]+</regex>
+                            <regex>[-_a-zA-Z0-9.\s]+</regex>
                             <regex>([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]</regex>
                             <!-- include end -->
                           </constraint>
@@ -1684,7 +1684,7 @@
                           </valueHelp>
                           <constraint>
                             <!-- include start from constraint/dhcp-client-string-option.xml.i -->
-                            <regex>[-_a-zA-Z0-9\s]+</regex>
+                            <regex>[-_a-zA-Z0-9.\s]+</regex>
                             <regex>([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]</regex>
                             <!-- include end -->
                           </constraint>
@@ -2300,9 +2300,9 @@
                     <description>Description</description>
                   </valueHelp>
                   <constraint>
-                    <regex>[[:ascii:]]{0,256}</regex>
+                    <regex>.{0,255}</regex>
                   </constraint>
-                  <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                  <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                 </properties>
               </leafNode>
               <!-- include end -->
@@ -2352,7 +2352,7 @@
                       </valueHelp>
                       <constraint>
                         <!-- include start from constraint/dhcp-client-string-option.xml.i -->
-                        <regex>[-_a-zA-Z0-9\s]+</regex>
+                        <regex>[-_a-zA-Z0-9.\s]+</regex>
                         <regex>([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]</regex>
                         <!-- include end -->
                       </constraint>
@@ -2384,7 +2384,7 @@
                       </valueHelp>
                       <constraint>
                         <!-- include start from constraint/dhcp-client-string-option.xml.i -->
-                        <regex>[-_a-zA-Z0-9\s]+</regex>
+                        <regex>[-_a-zA-Z0-9.\s]+</regex>
                         <regex>([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]</regex>
                         <!-- include end -->
                       </constraint>
@@ -2399,7 +2399,7 @@
                       </valueHelp>
                       <constraint>
                         <!-- include start from constraint/dhcp-client-string-option.xml.i -->
-                        <regex>[-_a-zA-Z0-9\s]+</regex>
+                        <regex>[-_a-zA-Z0-9.\s]+</regex>
                         <regex>([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]</regex>
                         <!-- include end -->
                       </constraint>

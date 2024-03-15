@@ -3246,6 +3246,7 @@ Optional:
 - `babel` (Attributes) Redistribute Babel routes (see [below for nested schema](#nestedatt--protocols--ospfv3--redistribute--babel))
 - `bgp` (Attributes) Redistribute BGP routes (see [below for nested schema](#nestedatt--protocols--ospfv3--redistribute--bgp))
 - `connected` (Attributes) Redistribute connected routes (see [below for nested schema](#nestedatt--protocols--ospfv3--redistribute--connected))
+- `isis` (Attributes) Redistribute IS-IS routes (see [below for nested schema](#nestedatt--protocols--ospfv3--redistribute--isis))
 - `kernel` (Attributes) Redistribute kernel routes (see [below for nested schema](#nestedatt--protocols--ospfv3--redistribute--kernel))
 - `ripng` (Attributes) Redistribute RIPNG routes (see [below for nested schema](#nestedatt--protocols--ospfv3--redistribute--ripng))
 - `static` (Attributes) Redistribute static routes (see [below for nested schema](#nestedatt--protocols--ospfv3--redistribute--static))
@@ -3255,6 +3256,16 @@ Optional:
 
 Optional:
 
+- `metric` (Number) OSPF default metric
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 0-16777214  &emsp; |  Default metric  |
+- `metric_type` (Number) OSPF metric type for default routes
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
     |  Format &emsp; | Description  |
@@ -3267,6 +3278,16 @@ Optional:
 
 Optional:
 
+- `metric` (Number) OSPF default metric
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 0-16777214  &emsp; |  Default metric  |
+- `metric_type` (Number) OSPF metric type for default routes
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
     |  Format &emsp; | Description  |
@@ -3279,6 +3300,38 @@ Optional:
 
 Optional:
 
+- `metric` (Number) OSPF default metric
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 0-16777214  &emsp; |  Default metric  |
+- `metric_type` (Number) OSPF metric type for default routes
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
+- `route_map` (String) Specify route-map name to use
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  txt  &emsp; |  Route map name  |
+
+
+<a id="nestedatt--protocols--ospfv3--redistribute--isis"></a>
+### Nested Schema for `protocols.ospfv3.redistribute.static`
+
+Optional:
+
+- `metric` (Number) OSPF default metric
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 0-16777214  &emsp; |  Default metric  |
+- `metric_type` (Number) OSPF metric type for default routes
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
     |  Format &emsp; | Description  |
@@ -3291,6 +3344,16 @@ Optional:
 
 Optional:
 
+- `metric` (Number) OSPF default metric
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 0-16777214  &emsp; |  Default metric  |
+- `metric_type` (Number) OSPF metric type for default routes
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
     |  Format &emsp; | Description  |
@@ -3303,6 +3366,16 @@ Optional:
 
 Optional:
 
+- `metric` (Number) OSPF default metric
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 0-16777214  &emsp; |  Default metric  |
+- `metric_type` (Number) OSPF metric type for default routes
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
     |  Format &emsp; | Description  |
@@ -3315,6 +3388,16 @@ Optional:
 
 Optional:
 
+- `metric` (Number) OSPF default metric
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 0-16777214  &emsp; |  Default metric  |
+- `metric_type` (Number) OSPF metric type for default routes
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
     |  Format &emsp; | Description  |

@@ -75,7 +75,7 @@ Bridge Firewall forward filter rule number
     |  drop  &emsp; |  Drop matching entries  |
     |  queue  &emsp; |  Enqueue packet to userspace  |
 - `destination` (Attributes) Destination parameters (see [below for nested schema](#nestedatt--destination))
-- `disable` (Boolean) Option to disable firewall rule
+- `disable` (Boolean) Disable instance
 - `inbound_interface` (Attributes) Match inbound-interface (see [below for nested schema](#nestedatt--inbound_interface))
 - `jump_target` (String) Set jump target. Action jump must be defined to use this setting
 - `log` (Boolean) Log packets hitting this rule

@@ -23,6 +23,7 @@ type HighAvailabilityVrrpSyncGroup struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes
+	NodeHighAvailabilityVrrpSyncGroupHealthCheck      *HighAvailabilityVrrpSyncGroupHealthCheck      `tfsdk:"health_check" vyos:"health-check,omitempty"`
 	NodeHighAvailabilityVrrpSyncGroupTransitionScrIPt *HighAvailabilityVrrpSyncGroupTransitionScrIPt `tfsdk:"transition_script" vyos:"transition-script,omitempty"`
 }
 
@@ -79,6 +80,14 @@ func (o HighAvailabilityVrrpSyncGroup) ResourceSchemaAttributes() map[string]sch
 		},
 
 		// Nodes
+
+		"health_check": schema.SingleNestedAttribute{
+			Attributes: HighAvailabilityVrrpSyncGroupHealthCheck{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Health check
+
+`,
+		},
 
 		"transition_script": schema.SingleNestedAttribute{
 			Attributes: HighAvailabilityVrrpSyncGroupTransitionScrIPt{}.ResourceSchemaAttributes(),

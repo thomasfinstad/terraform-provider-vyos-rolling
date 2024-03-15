@@ -561,9 +561,9 @@
                 <description>Description</description>
               </valueHelp>
               <constraint>
-                <regex>[[:ascii:]]{0,256}</regex>
+                <regex>.{0,255}</regex>
               </constraint>
-              <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+              <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
             </properties>
           </leafNode>
           <!-- include end -->
@@ -647,9 +647,9 @@
                     <description>Description</description>
                   </valueHelp>
                   <constraint>
-                    <regex>[[:ascii:]]{0,256}</regex>
+                    <regex>.{0,255}</regex>
                   </constraint>
-                  <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                  <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                 </properties>
               </leafNode>
               <!-- include end -->
@@ -686,9 +686,9 @@
                     <description>Description</description>
                   </valueHelp>
                   <constraint>
-                    <regex>[[:ascii:]]{0,256}</regex>
+                    <regex>.{0,255}</regex>
                   </constraint>
-                  <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                  <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                 </properties>
               </leafNode>
               <!-- include end -->
@@ -716,9 +716,9 @@
                         <description>Description</description>
                       </valueHelp>
                       <constraint>
-                        <regex>[[:ascii:]]{0,256}</regex>
+                        <regex>.{0,255}</regex>
                       </constraint>
-                      <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                      <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                     </properties>
                   </leafNode>
                   <!-- include end -->
@@ -741,9 +741,9 @@
                         <description>Description</description>
                       </valueHelp>
                       <constraint>
-                        <regex>[[:ascii:]]{0,256}</regex>
+                        <regex>.{0,255}</regex>
                       </constraint>
-                      <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                      <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                     </properties>
                   </leafNode>
                   <!-- include end -->
@@ -786,9 +786,9 @@
                     <description>Description</description>
                   </valueHelp>
                   <constraint>
-                    <regex>[[:ascii:]]{0,256}</regex>
+                    <regex>.{0,255}</regex>
                   </constraint>
-                  <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                  <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                 </properties>
               </leafNode>
               <!-- include end -->
@@ -838,9 +838,9 @@
                     <description>Description</description>
                   </valueHelp>
                   <constraint>
-                    <regex>[[:ascii:]]{0,256}</regex>
+                    <regex>.{0,255}</regex>
                   </constraint>
-                  <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                  <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                 </properties>
               </leafNode>
               <!-- include end -->
@@ -863,9 +863,9 @@
                     <description>Description</description>
                   </valueHelp>
                   <constraint>
-                    <regex>[[:ascii:]]{0,256}</regex>
+                    <regex>.{0,255}</regex>
                   </constraint>
-                  <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                  <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                 </properties>
               </leafNode>
               <!-- include end -->
@@ -910,9 +910,9 @@
                     <description>Description</description>
                   </valueHelp>
                   <constraint>
-                    <regex>[[:ascii:]]{0,256}</regex>
+                    <regex>.{0,255}</regex>
                   </constraint>
-                  <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                  <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                 </properties>
               </leafNode>
               <!-- include end -->
@@ -957,9 +957,9 @@
                     <description>Description</description>
                   </valueHelp>
                   <constraint>
-                    <regex>[[:ascii:]]{0,256}</regex>
+                    <regex>.{0,255}</regex>
                   </constraint>
-                  <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                  <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                 </properties>
               </leafNode>
               <!-- include end -->
@@ -1004,9 +1004,9 @@
                     <description>Description</description>
                   </valueHelp>
                   <constraint>
-                    <regex>[[:ascii:]]{0,256}</regex>
+                    <regex>.{0,255}</regex>
                   </constraint>
-                  <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                  <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                 </properties>
               </leafNode>
               <!-- include end -->
@@ -1099,9 +1099,9 @@
                         <description>Description</description>
                       </valueHelp>
                       <constraint>
-                        <regex>[[:ascii:]]{0,256}</regex>
+                        <regex>.{0,255}</regex>
                       </constraint>
-                      <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                      <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                     </properties>
                   </leafNode>
                   <!-- include end -->
@@ -1216,12 +1216,14 @@
                           <!-- include end -->
                         </children>
                       </node>
+                      <!-- include start from generic-disable-node.xml.i -->
                       <leafNode name="disable">
                         <properties>
-                          <help>Option to disable firewall rule</help>
+                          <help>Disable instance</help>
                           <valueless/>
                         </properties>
                       </leafNode>
+                      <!-- include end -->
                       <leafNode name="jump-target">
                         <properties>
                           <help>Set jump target. Action jump must be defined to use this setting</help>
@@ -1570,9 +1572,9 @@
                     <description>Description</description>
                   </valueHelp>
                   <constraint>
-                    <regex>[[:ascii:]]{0,256}</regex>
+                    <regex>.{0,255}</regex>
                   </constraint>
-                  <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                  <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                 </properties>
               </leafNode>
               <!-- include end -->
@@ -1695,12 +1697,14 @@
                       <!-- include end -->
                     </children>
                   </node>
+                  <!-- include start from generic-disable-node.xml.i -->
                   <leafNode name="disable">
                     <properties>
-                      <help>Option to disable firewall rule</help>
+                      <help>Disable instance</help>
                       <valueless/>
                     </properties>
                   </leafNode>
+                  <!-- include end -->
                   <leafNode name="jump-target">
                     <properties>
                       <help>Set jump target. Action jump must be defined to use this setting</help>
@@ -2040,9 +2044,9 @@
                         <description>Description</description>
                       </valueHelp>
                       <constraint>
-                        <regex>[[:ascii:]]{0,256}</regex>
+                        <regex>.{0,255}</regex>
                       </constraint>
-                      <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                      <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                     </properties>
                   </leafNode>
                   <!-- include end -->
@@ -2168,9 +2172,9 @@
                             <description>Description</description>
                           </valueHelp>
                           <constraint>
-                            <regex>[[:ascii:]]{0,256}</regex>
+                            <regex>.{0,255}</regex>
                           </constraint>
-                          <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                          <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                         </properties>
                       </leafNode>
                       <!-- include end -->
@@ -2390,12 +2394,14 @@
                         </properties>
                       </leafNode>
                       <!-- include end -->
+                      <!-- include start from generic-disable-node.xml.i -->
                       <leafNode name="disable">
                         <properties>
-                          <help>Option to disable firewall rule</help>
+                          <help>Disable instance</help>
                           <valueless/>
                         </properties>
                       </leafNode>
+                      <!-- include end -->
                       <node name="fragment">
                         <properties>
                           <help>IP fragment match</help>
@@ -3801,9 +3807,9 @@
                         <description>Description</description>
                       </valueHelp>
                       <constraint>
-                        <regex>[[:ascii:]]{0,256}</regex>
+                        <regex>.{0,255}</regex>
                       </constraint>
-                      <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                      <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                     </properties>
                   </leafNode>
                   <!-- include end -->
@@ -3880,9 +3886,9 @@
                             <description>Description</description>
                           </valueHelp>
                           <constraint>
-                            <regex>[[:ascii:]]{0,256}</regex>
+                            <regex>.{0,255}</regex>
                           </constraint>
-                          <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                          <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                         </properties>
                       </leafNode>
                       <!-- include end -->
@@ -4102,12 +4108,14 @@
                         </properties>
                       </leafNode>
                       <!-- include end -->
+                      <!-- include start from generic-disable-node.xml.i -->
                       <leafNode name="disable">
                         <properties>
-                          <help>Option to disable firewall rule</help>
+                          <help>Disable instance</help>
                           <valueless/>
                         </properties>
                       </leafNode>
+                      <!-- include end -->
                       <node name="fragment">
                         <properties>
                           <help>IP fragment match</help>
@@ -5451,9 +5459,9 @@
                         <description>Description</description>
                       </valueHelp>
                       <constraint>
-                        <regex>[[:ascii:]]{0,256}</regex>
+                        <regex>.{0,255}</regex>
                       </constraint>
-                      <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                      <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                     </properties>
                   </leafNode>
                   <!-- include end -->
@@ -5530,9 +5538,9 @@
                             <description>Description</description>
                           </valueHelp>
                           <constraint>
-                            <regex>[[:ascii:]]{0,256}</regex>
+                            <regex>.{0,255}</regex>
                           </constraint>
-                          <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                          <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                         </properties>
                       </leafNode>
                       <!-- include end -->
@@ -5752,12 +5760,14 @@
                         </properties>
                       </leafNode>
                       <!-- include end -->
+                      <!-- include start from generic-disable-node.xml.i -->
                       <leafNode name="disable">
                         <properties>
-                          <help>Option to disable firewall rule</help>
+                          <help>Disable instance</help>
                           <valueless/>
                         </properties>
                       </leafNode>
+                      <!-- include end -->
                       <node name="fragment">
                         <properties>
                           <help>IP fragment match</help>
@@ -7094,9 +7104,9 @@
                     <description>Description</description>
                   </valueHelp>
                   <constraint>
-                    <regex>[[:ascii:]]{0,256}</regex>
+                    <regex>.{0,255}</regex>
                   </constraint>
-                  <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                  <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                 </properties>
               </leafNode>
               <!-- include end -->
@@ -7181,9 +7191,9 @@
                         <description>Description</description>
                       </valueHelp>
                       <constraint>
-                        <regex>[[:ascii:]]{0,256}</regex>
+                        <regex>.{0,255}</regex>
                       </constraint>
-                      <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                      <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                     </properties>
                   </leafNode>
                   <!-- include end -->
@@ -7403,12 +7413,14 @@
                     </properties>
                   </leafNode>
                   <!-- include end -->
+                  <!-- include start from generic-disable-node.xml.i -->
                   <leafNode name="disable">
                     <properties>
-                      <help>Option to disable firewall rule</help>
+                      <help>Disable instance</help>
                       <valueless/>
                     </properties>
                   </leafNode>
+                  <!-- include end -->
                   <node name="fragment">
                     <properties>
                       <help>IP fragment match</help>
@@ -8819,9 +8831,9 @@
                         <description>Description</description>
                       </valueHelp>
                       <constraint>
-                        <regex>[[:ascii:]]{0,256}</regex>
+                        <regex>.{0,255}</regex>
                       </constraint>
-                      <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                      <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                     </properties>
                   </leafNode>
                   <!-- include end -->
@@ -8947,9 +8959,9 @@
                             <description>Description</description>
                           </valueHelp>
                           <constraint>
-                            <regex>[[:ascii:]]{0,256}</regex>
+                            <regex>.{0,255}</regex>
                           </constraint>
-                          <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                          <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                         </properties>
                       </leafNode>
                       <!-- include end -->
@@ -9169,12 +9181,14 @@
                         </properties>
                       </leafNode>
                       <!-- include end -->
+                      <!-- include start from generic-disable-node.xml.i -->
                       <leafNode name="disable">
                         <properties>
-                          <help>Option to disable firewall rule</help>
+                          <help>Disable instance</help>
                           <valueless/>
                         </properties>
                       </leafNode>
+                      <!-- include end -->
                       <node name="fragment">
                         <properties>
                           <help>IP fragment match</help>
@@ -10588,9 +10602,9 @@
                         <description>Description</description>
                       </valueHelp>
                       <constraint>
-                        <regex>[[:ascii:]]{0,256}</regex>
+                        <regex>.{0,255}</regex>
                       </constraint>
-                      <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                      <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                     </properties>
                   </leafNode>
                   <!-- include end -->
@@ -10667,9 +10681,9 @@
                             <description>Description</description>
                           </valueHelp>
                           <constraint>
-                            <regex>[[:ascii:]]{0,256}</regex>
+                            <regex>.{0,255}</regex>
                           </constraint>
-                          <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                          <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                         </properties>
                       </leafNode>
                       <!-- include end -->
@@ -10889,12 +10903,14 @@
                         </properties>
                       </leafNode>
                       <!-- include end -->
+                      <!-- include start from generic-disable-node.xml.i -->
                       <leafNode name="disable">
                         <properties>
-                          <help>Option to disable firewall rule</help>
+                          <help>Disable instance</help>
                           <valueless/>
                         </properties>
                       </leafNode>
+                      <!-- include end -->
                       <node name="fragment">
                         <properties>
                           <help>IP fragment match</help>
@@ -12246,9 +12262,9 @@
                         <description>Description</description>
                       </valueHelp>
                       <constraint>
-                        <regex>[[:ascii:]]{0,256}</regex>
+                        <regex>.{0,255}</regex>
                       </constraint>
-                      <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                      <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                     </properties>
                   </leafNode>
                   <!-- include end -->
@@ -12325,9 +12341,9 @@
                             <description>Description</description>
                           </valueHelp>
                           <constraint>
-                            <regex>[[:ascii:]]{0,256}</regex>
+                            <regex>.{0,255}</regex>
                           </constraint>
-                          <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                          <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                         </properties>
                       </leafNode>
                       <!-- include end -->
@@ -12547,12 +12563,14 @@
                         </properties>
                       </leafNode>
                       <!-- include end -->
+                      <!-- include start from generic-disable-node.xml.i -->
                       <leafNode name="disable">
                         <properties>
-                          <help>Option to disable firewall rule</help>
+                          <help>Disable instance</help>
                           <valueless/>
                         </properties>
                       </leafNode>
+                      <!-- include end -->
                       <node name="fragment">
                         <properties>
                           <help>IP fragment match</help>
@@ -13897,9 +13915,9 @@
                     <description>Description</description>
                   </valueHelp>
                   <constraint>
-                    <regex>[[:ascii:]]{0,256}</regex>
+                    <regex>.{0,255}</regex>
                   </constraint>
-                  <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                  <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                 </properties>
               </leafNode>
               <!-- include end -->
@@ -13984,9 +14002,9 @@
                         <description>Description</description>
                       </valueHelp>
                       <constraint>
-                        <regex>[[:ascii:]]{0,256}</regex>
+                        <regex>.{0,255}</regex>
                       </constraint>
-                      <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+                      <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
                     </properties>
                   </leafNode>
                   <!-- include end -->
@@ -14206,12 +14224,14 @@
                     </properties>
                   </leafNode>
                   <!-- include end -->
+                  <!-- include start from generic-disable-node.xml.i -->
                   <leafNode name="disable">
                     <properties>
-                      <help>Option to disable firewall rule</help>
+                      <help>Disable instance</help>
                       <valueless/>
                     </properties>
                   </leafNode>
+                  <!-- include end -->
                   <node name="fragment">
                     <properties>
                       <help>IP fragment match</help>
@@ -15596,9 +15616,9 @@
                 <description>Description</description>
               </valueHelp>
               <constraint>
-                <regex>[[:ascii:]]{0,256}</regex>
+                <regex>.{0,255}</regex>
               </constraint>
-              <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+              <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
             </properties>
           </leafNode>
           <!-- include end -->

@@ -993,7 +993,7 @@ func loadbalancing_wan() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"[[:ascii:]]{0,256}"},
+											Regex: []string{".{0,255}"},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
 											XMLName: xml.Name{
@@ -1002,7 +1002,7 @@ func loadbalancing_wan() interfacedefinition.InterfaceDefinition {
 											Format:      "txt",
 											Description: "Description",
 										}},
-										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+										ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 									}},
 								}, {
 									IsBaseNode: false,

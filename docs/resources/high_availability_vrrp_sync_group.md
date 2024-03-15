@@ -49,6 +49,7 @@ VRRP sync group
 
 ### Optional
 
+- `health_check` (Attributes) Health check (see [below for nested schema](#nestedatt--health_check))
 - `member` (List of String) Sync group member
 
     |  Format &emsp; | Description  |
@@ -59,6 +60,22 @@ VRRP sync group
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+
+<a id="nestedatt--health_check"></a>
+### Nested Schema for `health_check`
+
+Optional:
+
+- `failure_count` (String) Health check failure count required for transition to fault
+- `interval` (String) Health check execution interval in seconds
+- `ping` (String) ICMP ping health check
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  ipv4  &emsp; |  IPv4 ping target address  |
+    |  ipv6  &emsp; |  IPv6 ping target address  |
+- `script` (String) Health check script file
+
 
 <a id="nestedatt--transition_script"></a>
 ### Nested Schema for `transition_script`

@@ -7211,7 +7211,7 @@ func vpn_l2tp() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"[[:ascii:]]{0,256}"},
+											Regex: []string{".{0,255}"},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
 											XMLName: xml.Name{
@@ -7220,7 +7220,7 @@ func vpn_l2tp() interfacedefinition.InterfaceDefinition {
 											Format:      "txt",
 											Description: "Description",
 										}},
-										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+										ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 									}},
 								}, {
 									IsBaseNode: false,

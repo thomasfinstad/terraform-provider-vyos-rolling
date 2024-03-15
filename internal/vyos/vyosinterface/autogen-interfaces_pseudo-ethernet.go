@@ -86,7 +86,7 @@ func interfaces_pseudoethernet() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"[-_a-zA-Z0-9\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
+											Regex: []string{"[-_a-zA-Z0-9.\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
 											XMLName: xml.Name{
@@ -147,7 +147,7 @@ func interfaces_pseudoethernet() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"[-_a-zA-Z0-9\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
+											Regex: []string{"[-_a-zA-Z0-9.\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
 											XMLName: xml.Name{
@@ -172,7 +172,7 @@ func interfaces_pseudoethernet() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"[-_a-zA-Z0-9\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
+											Regex: []string{"[-_a-zA-Z0-9.\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
 											XMLName: xml.Name{
@@ -1239,7 +1239,7 @@ func interfaces_pseudoethernet() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"[-_a-zA-Z0-9\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
+													Regex: []string{"[-_a-zA-Z0-9.\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -1300,7 +1300,7 @@ func interfaces_pseudoethernet() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"[-_a-zA-Z0-9\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
+													Regex: []string{"[-_a-zA-Z0-9.\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -1325,7 +1325,7 @@ func interfaces_pseudoethernet() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"[-_a-zA-Z0-9\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
+													Regex: []string{"[-_a-zA-Z0-9.\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -2385,7 +2385,7 @@ func interfaces_pseudoethernet() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"[-_a-zA-Z0-9\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
+															Regex: []string{"[-_a-zA-Z0-9.\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -2446,7 +2446,7 @@ func interfaces_pseudoethernet() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"[-_a-zA-Z0-9\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
+															Regex: []string{"[-_a-zA-Z0-9.\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -2471,7 +2471,7 @@ func interfaces_pseudoethernet() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"[-_a-zA-Z0-9\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
+															Regex: []string{"[-_a-zA-Z0-9.\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -3486,7 +3486,7 @@ func interfaces_pseudoethernet() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"[[:ascii:]]{0,256}"},
+													Regex: []string{".{0,255}"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -3495,7 +3495,7 @@ func interfaces_pseudoethernet() interfacedefinition.InterfaceDefinition {
 													Format:      "txt",
 													Description: "Description",
 												}},
-												ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+												ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 											}},
 										}, {
 											IsBaseNode: false,
@@ -3734,7 +3734,7 @@ func interfaces_pseudoethernet() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"[[:ascii:]]{0,256}"},
+											Regex: []string{".{0,255}"},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
 											XMLName: xml.Name{
@@ -3743,7 +3743,7 @@ func interfaces_pseudoethernet() interfacedefinition.InterfaceDefinition {
 											Format:      "txt",
 											Description: "Description",
 										}},
-										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+										ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 									}},
 								}, {
 									IsBaseNode: false,
@@ -4072,7 +4072,7 @@ func interfaces_pseudoethernet() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"[-_a-zA-Z0-9\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
+													Regex: []string{"[-_a-zA-Z0-9.\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -4133,7 +4133,7 @@ func interfaces_pseudoethernet() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"[-_a-zA-Z0-9\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
+													Regex: []string{"[-_a-zA-Z0-9.\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -4158,7 +4158,7 @@ func interfaces_pseudoethernet() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"[-_a-zA-Z0-9\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
+													Regex: []string{"[-_a-zA-Z0-9.\\s]+", "([a-fA-F0-9][a-fA-F0-9]:){2,}[a-fA-F0-9][a-fA-F0-9]"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -5173,7 +5173,7 @@ func interfaces_pseudoethernet() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"[[:ascii:]]{0,256}"},
+											Regex: []string{".{0,255}"},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
 											XMLName: xml.Name{
@@ -5182,7 +5182,7 @@ func interfaces_pseudoethernet() interfacedefinition.InterfaceDefinition {
 											Format:      "txt",
 											Description: "Description",
 										}},
-										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+										ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 									}},
 								}, {
 									IsBaseNode: false,
@@ -5533,7 +5533,7 @@ func interfaces_pseudoethernet() interfacedefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "constraint",
 									},
-									Regex: []string{"[[:ascii:]]{0,256}"},
+									Regex: []string{".{0,255}"},
 								}},
 								ValueHelp: []*interfacedefinition.ValueHelp{{
 									XMLName: xml.Name{
@@ -5542,7 +5542,7 @@ func interfaces_pseudoethernet() interfacedefinition.InterfaceDefinition {
 									Format:      "txt",
 									Description: "Description",
 								}},
-								ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+								ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 							}},
 						}, {
 							IsBaseNode: false,

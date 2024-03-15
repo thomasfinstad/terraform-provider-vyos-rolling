@@ -138,7 +138,7 @@ func (o FirewallBrIDgeNameRule) ResourceSchemaAttributes() map[string]schema.Att
 
 		"disable": schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `Option to disable firewall rule
+			MarkdownDescription: `Disable instance
 
 `,
 			Default:  booldefault.StaticBool(false),

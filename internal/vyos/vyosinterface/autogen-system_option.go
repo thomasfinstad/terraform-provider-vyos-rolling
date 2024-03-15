@@ -74,6 +74,23 @@ func system_option() interfacedefinition.InterfaceDefinition {
 											},
 										}},
 									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "disable-power-saving",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Disable CPU power saving mechanisms also known as C states"},
+										Valueless: []*interfacedefinition.Valueless{{
+											XMLName: xml.Name{
+												Local: "valueless",
+											},
+										}},
+									}},
 								}},
 							}},
 						}, {

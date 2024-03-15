@@ -42,3 +42,26 @@ func main() {
 		log.Fatal(err.Error())
 	}
 }
+
+// TODO Clean up logging
+//  Find out if there is a better way to allow logging during tests
+//  and general terraform logging to cooperate. Also clean up different
+//  logging levels being used and create a clear guideline for what
+//  is included in the different log levels.
+
+// TODO Mask any known sensitive information
+//  Such as API keys. Also investigate if there is any information
+//  in the vyos schema about (leaf)nodes that contain sensitive
+//  information.
+
+// TODO Create a CONTRIBUTION.md doc
+//  include meta info such as
+//  - [ ] how schema is used
+//  - [ ] how the code generation works
+//  - [ ] why so many extra files are commited to the repo
+//  - [ ] diagram of the makefile workflow
+
+// TODO Autogenerate CHANGELOG.md
+//  - [ ] Investigate how to add "chglog" friendly part to commit message
+//  - [ ] Add git commit messages
+//  - [ ] Autogenerate resource changes from provider-schema files

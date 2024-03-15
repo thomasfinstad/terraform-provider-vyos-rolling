@@ -27,7 +27,7 @@ func main() {
 
 	vyosInterfaces := vyosinterface.GetInterfaces()
 
-	var pkgs []autogenTemplateInfo
+	var packagesToGenerate []autogenTemplateInfo
 
 	// Compile resources
 	for _, vyosInterface := range vyosInterfaces {
@@ -36,14 +36,15 @@ func main() {
 		TagNodes, ok := vyosInterface.TagNodes()
 		if ok {
 			for _, tagNode := range TagNodes {
-				pkgs = append(pkgs, namedResources(tagNode, skipDirAbsNames, fmt.Sprintf("%s/named", rootOutputDirectory), "named", selfImportRoot)...)
+				packagesToGenerate = append(packagesToGenerate, namedResources(tagNode, skipDirAbsNames, fmt.Sprintf("%s/named", rootOutputDirectory), "named", selfImportRoot)...)
 			}
 		}
 
+		// Global (Node) resources
 		Nodes, ok := vyosInterface.Nodes()
 		if ok {
 			for _, node := range Nodes {
-				pkgs = append(pkgs, globalResources(node, skipDirAbsNames, fmt.Sprintf("%s/global", rootOutputDirectory), "global", selfImportRoot)...)
+				packagesToGenerate = append(packagesToGenerate, globalResources(node, skipDirAbsNames, fmt.Sprintf("%s/global", rootOutputDirectory), "global", selfImportRoot)...)
 			}
 		}
 	}
@@ -51,33 +52,33 @@ func main() {
 	//sort.Slice(pkgs, func(i, j int) bool { return reflect.DeepEqual(pkgs[i], pkgs[j]) })
 	//slices.Compact[[]autogenTemplateInfo](pkgs)
 	// ugly ugly boy needs to remove duplicates of himself, but is too scared of the mirror
-	var pkgsCompact []autogenTemplateInfo
-	for _, opkg := range pkgs {
-		mcon := false
-		mname := false
-		mpath := false
-		for _, npkg := range pkgsCompact {
-			if opkg.PkgConstructor == npkg.PkgConstructor {
-				mcon = true
+	var packagesToGenerateDeduped []autogenTemplateInfo
+	for _, currentPkg := range packagesToGenerate {
+		matchedConstructor := false
+		matchedName := false
+		matchedPath := false
+		for _, preHandledPackage := range packagesToGenerateDeduped {
+			if currentPkg.PkgConstructor == preHandledPackage.PkgConstructor {
+				matchedConstructor = true
 			}
-			if opkg.PkgName == npkg.PkgName {
-				mname = true
+			if currentPkg.PkgName == preHandledPackage.PkgName {
+				matchedName = true
 			}
-			if opkg.PkgPath == npkg.PkgPath {
-				mpath = true
+			if currentPkg.PkgPath == preHandledPackage.PkgPath {
+				matchedPath = true
 			}
-			if mcon || mname || mpath {
-				if !(mcon && mname && mpath) {
+			if matchedConstructor || matchedName || matchedPath {
+				if !(matchedConstructor && matchedName && matchedPath) {
 					fmt.Println("Found duplicate, but not all fields match!")
-					fmt.Printf("npkg: %#v \t opkg: %#v", npkg, opkg)
+					fmt.Printf("npkg: %#v \t opkg: %#v", preHandledPackage, currentPkg)
 				}
 				break
 			}
 		}
-		if mcon || mname || mpath {
+		if matchedConstructor || matchedName || matchedPath {
 			continue
 		}
-		pkgsCompact = append(pkgsCompact, opkg)
+		packagesToGenerateDeduped = append(packagesToGenerateDeduped, currentPkg)
 	}
 
 	// Create package resource inclusion function
@@ -94,15 +95,18 @@ func main() {
 	}
 	defer file.Close()
 
-	// Write file
+	// Render and write file
 	t, err := template.New("package_generation").ParseFiles(filepath.Join(thisDir, "package-resource-include.gotmpl"))
 	if err != nil {
 		die(err)
 	}
-	err = t.ExecuteTemplate(file, "package", map[string]any{"pkgName": "autogen", "importRoot": strings.ToLower(selfImportRoot), "pkgs": pkgsCompact})
+	err = t.ExecuteTemplate(file, "package", map[string]any{"pkgName": "autogen", "importRoot": strings.ToLower(selfImportRoot), "pkgs": packagesToGenerateDeduped})
 	if err != nil {
 		die(err)
 	}
+
+	// TODO autogenerate resource import doc
+	//  making it easier for users to import resources by following the documentation
 }
 
 func namedResources(tagNode *interfacedefinition.TagNode, skipDirAbsNames []string, rootOutputDirectory string, rootPkgName string, selfImportRoot string) (pkgs []autogenTemplateInfo) {

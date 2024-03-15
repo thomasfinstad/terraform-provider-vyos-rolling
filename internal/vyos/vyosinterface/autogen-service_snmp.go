@@ -1042,6 +1042,11 @@ func service_snmp() interfacedefinition.InterfaceDefinition {
 															Local: "properties",
 														},
 														Help: []string{"Exclude is an optional argument"},
+														Multi: []*interfacedefinition.Multi{{
+															XMLName: xml.Name{
+																Local: "multi",
+															},
+														}},
 													}},
 												}, {
 													IsBaseNode: false,
@@ -1500,7 +1505,7 @@ func service_snmp() interfacedefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "constraint",
 									},
-									Regex: []string{"[[:ascii:]]{0,256}"},
+									Regex: []string{".{0,255}"},
 								}},
 								ValueHelp: []*interfacedefinition.ValueHelp{{
 									XMLName: xml.Name{
@@ -1509,7 +1514,7 @@ func service_snmp() interfacedefinition.InterfaceDefinition {
 									Format:      "txt",
 									Description: "Description",
 								}},
-								ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+								ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 							}},
 						}, {
 							IsBaseNode: false,

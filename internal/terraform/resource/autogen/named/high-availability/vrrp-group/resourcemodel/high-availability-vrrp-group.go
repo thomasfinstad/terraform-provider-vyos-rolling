@@ -24,7 +24,7 @@ type HighAvailabilityVrrpGroup struct {
 	LeafHighAvailabilityVrrpGroupDescrIPtion                        types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafHighAvailabilityVrrpGroupDisable                            types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafHighAvailabilityVrrpGroupHelloSourceAddress                 types.String `tfsdk:"hello_source_address" vyos:"hello-source-address,omitempty"`
-	LeafHighAvailabilityVrrpGroupPeerAddress                        types.String `tfsdk:"peer_address" vyos:"peer-address,omitempty"`
+	LeafHighAvailabilityVrrpGroupPeerAddress                        types.List   `tfsdk:"peer_address" vyos:"peer-address,omitempty"`
 	LeafHighAvailabilityVrrpGroupNoPreempt                          types.Bool   `tfsdk:"no_preempt" vyos:"no-preempt,omitempty"`
 	LeafHighAvailabilityVrrpGroupPreemptDelay                       types.Number `tfsdk:"preempt_delay" vyos:"preempt-delay,omitempty"`
 	LeafHighAvailabilityVrrpGroupPriority                           types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
@@ -140,8 +140,9 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 
-		"peer_address": schema.StringAttribute{
-			Optional: true,
+		"peer_address": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
 			MarkdownDescription: `Unicast VRRP peer address
 
     |  Format &emsp; | Description  |

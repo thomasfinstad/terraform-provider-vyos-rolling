@@ -272,6 +272,23 @@ func service_conntracksync() interfacedefinition.InterfaceDefinition {
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
+							NodeNameAttr: "disable-syslog",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Disable connection logging via Syslog"},
+								Valueless: []*interfacedefinition.Valueless{{
+									XMLName: xml.Name{
+										Local: "valueless",
+									},
+								}},
+							}},
+						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
 							NodeNameAttr: "event-listen-queue-size",
 							DefaultValue: []string{"8"},
 							Properties: []*interfacedefinition.Properties{{

@@ -110,7 +110,7 @@ IPv6 Firewall output filter rule number
     |----------|---------------|
     |  txt  &emsp; |  Description  |
 - `destination` (Attributes) Destination parameters (see [below for nested schema](#nestedatt--destination))
-- `disable` (Boolean) Option to disable firewall rule
+- `disable` (Boolean) Disable instance
 - `dscp` (List of String) DSCP value
 
     |  Format &emsp; | Description  |

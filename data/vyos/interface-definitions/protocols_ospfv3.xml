@@ -597,11 +597,96 @@
               <help>Redistribute information from another routing protocol</help>
             </properties>
             <children>
+              <node name="babel">
+                <properties>
+                  <help>Redistribute Babel routes</help>
+                </properties>
+                <children>
+                  <!-- include start from ospf/metric.xml.i -->
+                  <leafNode name="metric">
+                    <properties>
+                      <help>OSPF default metric</help>
+                      <valueHelp>
+                        <format>u32:0-16777214</format>
+                        <description>Default metric</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 0-16777214"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from ospf/metric-type.xml.i -->
+                  <leafNode name="metric-type">
+                    <properties>
+                      <help>OSPF metric type for default routes</help>
+                      <valueHelp>
+                        <format>u32:1-2</format>
+                        <description>Set OSPF External Type 1/2 metrics</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-2"/>
+                      </constraint>
+                    </properties>
+                    <defaultValue>2</defaultValue>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from route-map.xml.i -->
+                  <leafNode name="route-map">
+                    <properties>
+                      <help>Specify route-map name to use</help>
+                      <completionHelp>
+                        <path>policy route-map</path>
+                      </completionHelp>
+                      <valueHelp>
+                        <format>txt</format>
+                        <description>Route map name</description>
+                      </valueHelp>
+                      <constraint>
+                        <!-- include start from constraint/alpha-numeric-hyphen-underscore-dot.xml.i -->
+                        <regex>[-_a-zA-Z0-9.]+</regex>
+                        <!-- include end -->
+                      </constraint>
+                      <constraintErrorMessage>Name of route-map can only contain alpha-numeric letters, hyphen and underscores</constraintErrorMessage>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                </children>
+              </node>
               <node name="bgp">
                 <properties>
                   <help>Redistribute BGP routes</help>
                 </properties>
                 <children>
+                  <!-- include start from ospf/metric.xml.i -->
+                  <leafNode name="metric">
+                    <properties>
+                      <help>OSPF default metric</help>
+                      <valueHelp>
+                        <format>u32:0-16777214</format>
+                        <description>Default metric</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 0-16777214"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from ospf/metric-type.xml.i -->
+                  <leafNode name="metric-type">
+                    <properties>
+                      <help>OSPF metric type for default routes</help>
+                      <valueHelp>
+                        <format>u32:1-2</format>
+                        <description>Set OSPF External Type 1/2 metrics</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-2"/>
+                      </constraint>
+                    </properties>
+                    <defaultValue>2</defaultValue>
+                  </leafNode>
+                  <!-- include end -->
                   <!-- include start from route-map.xml.i -->
                   <leafNode name="route-map">
                     <properties>
@@ -629,6 +714,91 @@
                   <help>Redistribute connected routes</help>
                 </properties>
                 <children>
+                  <!-- include start from ospf/metric.xml.i -->
+                  <leafNode name="metric">
+                    <properties>
+                      <help>OSPF default metric</help>
+                      <valueHelp>
+                        <format>u32:0-16777214</format>
+                        <description>Default metric</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 0-16777214"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from ospf/metric-type.xml.i -->
+                  <leafNode name="metric-type">
+                    <properties>
+                      <help>OSPF metric type for default routes</help>
+                      <valueHelp>
+                        <format>u32:1-2</format>
+                        <description>Set OSPF External Type 1/2 metrics</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-2"/>
+                      </constraint>
+                    </properties>
+                    <defaultValue>2</defaultValue>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from route-map.xml.i -->
+                  <leafNode name="route-map">
+                    <properties>
+                      <help>Specify route-map name to use</help>
+                      <completionHelp>
+                        <path>policy route-map</path>
+                      </completionHelp>
+                      <valueHelp>
+                        <format>txt</format>
+                        <description>Route map name</description>
+                      </valueHelp>
+                      <constraint>
+                        <!-- include start from constraint/alpha-numeric-hyphen-underscore-dot.xml.i -->
+                        <regex>[-_a-zA-Z0-9.]+</regex>
+                        <!-- include end -->
+                      </constraint>
+                      <constraintErrorMessage>Name of route-map can only contain alpha-numeric letters, hyphen and underscores</constraintErrorMessage>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                </children>
+              </node>
+              <node name="isis">
+                <properties>
+                  <help>Redistribute IS-IS routes</help>
+                </properties>
+                <children>
+                  <!-- include start from ospf/metric.xml.i -->
+                  <leafNode name="metric">
+                    <properties>
+                      <help>OSPF default metric</help>
+                      <valueHelp>
+                        <format>u32:0-16777214</format>
+                        <description>Default metric</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 0-16777214"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from ospf/metric-type.xml.i -->
+                  <leafNode name="metric-type">
+                    <properties>
+                      <help>OSPF metric type for default routes</help>
+                      <valueHelp>
+                        <format>u32:1-2</format>
+                        <description>Set OSPF External Type 1/2 metrics</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-2"/>
+                      </constraint>
+                    </properties>
+                    <defaultValue>2</defaultValue>
+                  </leafNode>
+                  <!-- include end -->
                   <!-- include start from route-map.xml.i -->
                   <leafNode name="route-map">
                     <properties>
@@ -656,6 +826,35 @@
                   <help>Redistribute kernel routes</help>
                 </properties>
                 <children>
+                  <!-- include start from ospf/metric.xml.i -->
+                  <leafNode name="metric">
+                    <properties>
+                      <help>OSPF default metric</help>
+                      <valueHelp>
+                        <format>u32:0-16777214</format>
+                        <description>Default metric</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 0-16777214"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from ospf/metric-type.xml.i -->
+                  <leafNode name="metric-type">
+                    <properties>
+                      <help>OSPF metric type for default routes</help>
+                      <valueHelp>
+                        <format>u32:1-2</format>
+                        <description>Set OSPF External Type 1/2 metrics</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-2"/>
+                      </constraint>
+                    </properties>
+                    <defaultValue>2</defaultValue>
+                  </leafNode>
+                  <!-- include end -->
                   <!-- include start from route-map.xml.i -->
                   <leafNode name="route-map">
                     <properties>
@@ -683,33 +882,35 @@
                   <help>Redistribute RIPNG routes</help>
                 </properties>
                 <children>
-                  <!-- include start from route-map.xml.i -->
-                  <leafNode name="route-map">
+                  <!-- include start from ospf/metric.xml.i -->
+                  <leafNode name="metric">
                     <properties>
-                      <help>Specify route-map name to use</help>
-                      <completionHelp>
-                        <path>policy route-map</path>
-                      </completionHelp>
+                      <help>OSPF default metric</help>
                       <valueHelp>
-                        <format>txt</format>
-                        <description>Route map name</description>
+                        <format>u32:0-16777214</format>
+                        <description>Default metric</description>
                       </valueHelp>
                       <constraint>
-                        <!-- include start from constraint/alpha-numeric-hyphen-underscore-dot.xml.i -->
-                        <regex>[-_a-zA-Z0-9.]+</regex>
-                        <!-- include end -->
+                        <validator name="numeric" argument="--range 0-16777214"/>
                       </constraint>
-                      <constraintErrorMessage>Name of route-map can only contain alpha-numeric letters, hyphen and underscores</constraintErrorMessage>
                     </properties>
                   </leafNode>
                   <!-- include end -->
-                </children>
-              </node>
-              <node name="babel">
-                <properties>
-                  <help>Redistribute Babel routes</help>
-                </properties>
-                <children>
+                  <!-- include start from ospf/metric-type.xml.i -->
+                  <leafNode name="metric-type">
+                    <properties>
+                      <help>OSPF metric type for default routes</help>
+                      <valueHelp>
+                        <format>u32:1-2</format>
+                        <description>Set OSPF External Type 1/2 metrics</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-2"/>
+                      </constraint>
+                    </properties>
+                    <defaultValue>2</defaultValue>
+                  </leafNode>
+                  <!-- include end -->
                   <!-- include start from route-map.xml.i -->
                   <leafNode name="route-map">
                     <properties>
@@ -737,6 +938,35 @@
                   <help>Redistribute static routes</help>
                 </properties>
                 <children>
+                  <!-- include start from ospf/metric.xml.i -->
+                  <leafNode name="metric">
+                    <properties>
+                      <help>OSPF default metric</help>
+                      <valueHelp>
+                        <format>u32:0-16777214</format>
+                        <description>Default metric</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 0-16777214"/>
+                      </constraint>
+                    </properties>
+                  </leafNode>
+                  <!-- include end -->
+                  <!-- include start from ospf/metric-type.xml.i -->
+                  <leafNode name="metric-type">
+                    <properties>
+                      <help>OSPF metric type for default routes</help>
+                      <valueHelp>
+                        <format>u32:1-2</format>
+                        <description>Set OSPF External Type 1/2 metrics</description>
+                      </valueHelp>
+                      <constraint>
+                        <validator name="numeric" argument="--range 1-2"/>
+                      </constraint>
+                    </properties>
+                    <defaultValue>2</defaultValue>
+                  </leafNode>
+                  <!-- include end -->
                   <!-- include start from route-map.xml.i -->
                   <leafNode name="route-map">
                     <properties>

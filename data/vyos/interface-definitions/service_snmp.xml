@@ -86,9 +86,9 @@
                 <description>Description</description>
               </valueHelp>
               <constraint>
-                <regex>[[:ascii:]]{0,256}</regex>
+                <regex>.{0,255}</regex>
               </constraint>
-              <constraintErrorMessage>Description too long (limit 256 characters)</constraintErrorMessage>
+              <constraintErrorMessage>Description too long (limit 255 characters)</constraintErrorMessage>
             </properties>
           </leafNode>
           <!-- include end -->
@@ -762,6 +762,7 @@
                       <leafNode name="exclude">
                         <properties>
                           <help>Exclude is an optional argument</help>
+                          <multi/>
                         </properties>
                       </leafNode>
                       <leafNode name="mask">

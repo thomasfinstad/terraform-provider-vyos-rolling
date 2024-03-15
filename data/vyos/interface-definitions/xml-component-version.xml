@@ -25,7 +25,7 @@
   <syntaxVersion component="dhcp-relay" version="2"/>
   <!-- include end -->
   <!-- include start from include/version/dhcp-server-version.xml.i -->
-  <syntaxVersion component="dhcp-server" version="9"/>
+  <syntaxVersion component="dhcp-server" version="10"/>
   <!-- include end -->
   <!-- include start from include/version/dhcpv6-server-version.xml.i -->
   <syntaxVersion component="dhcpv6-server" version="5"/>

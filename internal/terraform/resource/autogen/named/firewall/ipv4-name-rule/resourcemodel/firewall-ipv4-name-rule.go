@@ -284,7 +284,7 @@ func (o FirewallIPvfourNameRule) ResourceSchemaAttributes() map[string]schema.At
 
 		"disable": schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `Option to disable firewall rule
+			MarkdownDescription: `Disable instance
 
 `,
 			Default:  booldefault.StaticBool(false),

@@ -3519,7 +3519,7 @@ func service_dhcpserver() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"[[:ascii:]]{0,256}"},
+															Regex: []string{".{0,255}"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -3528,7 +3528,7 @@ func service_dhcpserver() interfacedefinition.InterfaceDefinition {
 															Format:      "txt",
 															Description: "Description",
 														}},
-														ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+														ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 													}},
 												}, {
 													IsBaseNode: false,
@@ -3651,7 +3651,7 @@ func service_dhcpserver() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"[[:ascii:]]{0,256}"},
+													Regex: []string{".{0,255}"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -3660,7 +3660,7 @@ func service_dhcpserver() interfacedefinition.InterfaceDefinition {
 													Format:      "txt",
 													Description: "Description",
 												}},
-												ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+												ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 											}},
 										}, {
 											IsBaseNode: false,
@@ -3711,6 +3711,23 @@ func service_dhcpserver() interfacedefinition.InterfaceDefinition {
 												Multi: []*interfacedefinition.Multi{{
 													XMLName: xml.Name{
 														Local: "multi",
+													},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "ignore-client-id",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Ignore client identifier for lease lookups"},
+												Valueless: []*interfacedefinition.Valueless{{
+													XMLName: xml.Name{
+														Local: "valueless",
 													},
 												}},
 											}},
@@ -3813,7 +3830,7 @@ func service_dhcpserver() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"[[:ascii:]]{0,256}"},
+											Regex: []string{".{0,255}"},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
 											XMLName: xml.Name{
@@ -3822,7 +3839,7 @@ func service_dhcpserver() interfacedefinition.InterfaceDefinition {
 											Format:      "txt",
 											Description: "Description",
 										}},
-										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+										ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 									}},
 								}, {
 									IsBaseNode: false,

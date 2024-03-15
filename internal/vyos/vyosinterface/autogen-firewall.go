@@ -1107,7 +1107,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"[[:ascii:]]{0,256}"},
+													Regex: []string{".{0,255}"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -1116,7 +1116,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													Format:      "txt",
 													Description: "Description",
 												}},
-												ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+												ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 											}},
 										}},
 									}},
@@ -1157,7 +1157,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"[[:ascii:]]{0,256}"},
+													Regex: []string{".{0,255}"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -1166,7 +1166,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													Format:      "txt",
 													Description: "Description",
 												}},
-												ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+												ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 											}},
 										}},
 									}},
@@ -1279,7 +1279,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"[[:ascii:]]{0,256}"},
+											Regex: []string{".{0,255}"},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
 											XMLName: xml.Name{
@@ -1288,7 +1288,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											Format:      "txt",
 											Description: "Description",
 										}},
-										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+										ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 									}},
 								}},
 							}},
@@ -1365,7 +1365,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"[[:ascii:]]{0,256}"},
+											Regex: []string{".{0,255}"},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
 											XMLName: xml.Name{
@@ -1374,7 +1374,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											Format:      "txt",
 											Description: "Description",
 										}},
-										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+										ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 									}},
 								}},
 							}},
@@ -1461,7 +1461,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"[[:ascii:]]{0,256}"},
+											Regex: []string{".{0,255}"},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
 											XMLName: xml.Name{
@@ -1470,7 +1470,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											Format:      "txt",
 											Description: "Description",
 										}},
-										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+										ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 									}},
 								}},
 							}},
@@ -1580,7 +1580,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"[[:ascii:]]{0,256}"},
+											Regex: []string{".{0,255}"},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
 											XMLName: xml.Name{
@@ -1589,7 +1589,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											Format:      "txt",
 											Description: "Description",
 										}},
-										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+										ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 									}},
 								}},
 							}},
@@ -1630,7 +1630,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"[[:ascii:]]{0,256}"},
+											Regex: []string{".{0,255}"},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
 											XMLName: xml.Name{
@@ -1639,7 +1639,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											Format:      "txt",
 											Description: "Description",
 										}},
-										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+										ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 									}},
 								}, {
 									IsBaseNode: false,
@@ -1738,7 +1738,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"[[:ascii:]]{0,256}"},
+											Regex: []string{".{0,255}"},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
 											XMLName: xml.Name{
@@ -1747,7 +1747,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											Format:      "txt",
 											Description: "Description",
 										}},
-										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+										ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 									}},
 								}, {
 									IsBaseNode: false,
@@ -1846,7 +1846,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"[[:ascii:]]{0,256}"},
+											Regex: []string{".{0,255}"},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
 											XMLName: xml.Name{
@@ -1855,7 +1855,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											Format:      "txt",
 											Description: "Description",
 										}},
-										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+										ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 									}},
 								}, {
 									IsBaseNode: false,
@@ -1954,7 +1954,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"[[:ascii:]]{0,256}"},
+											Regex: []string{".{0,255}"},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
 											XMLName: xml.Name{
@@ -1963,7 +1963,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											Format:      "txt",
 											Description: "Description",
 										}},
-										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+										ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 									}},
 								}, {
 									IsBaseNode: false,
@@ -2861,7 +2861,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 														XMLName: xml.Name{
 															Local: "properties",
 														},
-														Help: []string{"Option to disable firewall rule"},
+														Help: []string{"Disable instance"},
 														Valueless: []*interfacedefinition.Valueless{{
 															XMLName: xml.Name{
 																Local: "valueless",
@@ -2976,7 +2976,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"[[:ascii:]]{0,256}"},
+													Regex: []string{".{0,255}"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -2985,7 +2985,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													Format:      "txt",
 													Description: "Description",
 												}},
-												ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+												ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 											}},
 										}},
 									}},
@@ -3788,7 +3788,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Option to disable firewall rule"},
+												Help: []string{"Disable instance"},
 												Valueless: []*interfacedefinition.Valueless{{
 													XMLName: xml.Name{
 														Local: "valueless",
@@ -3927,7 +3927,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"[[:ascii:]]{0,256}"},
+											Regex: []string{".{0,255}"},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
 											XMLName: xml.Name{
@@ -3936,7 +3936,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											Format:      "txt",
 											Description: "Description",
 										}},
-										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+										ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 									}},
 								}, {
 									IsBaseNode: false,
@@ -6880,7 +6880,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"[[:ascii:]]{0,256}"},
+															Regex: []string{".{0,255}"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -6889,7 +6889,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															Format:      "txt",
 															Description: "Description",
 														}},
-														ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+														ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 													}},
 												}, {
 													IsBaseNode: false,
@@ -7348,7 +7348,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 														XMLName: xml.Name{
 															Local: "properties",
 														},
-														Help: []string{"Option to disable firewall rule"},
+														Help: []string{"Disable instance"},
 														Valueless: []*interfacedefinition.Valueless{{
 															XMLName: xml.Name{
 																Local: "valueless",
@@ -7596,7 +7596,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"[[:ascii:]]{0,256}"},
+													Regex: []string{".{0,255}"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -7605,7 +7605,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													Format:      "txt",
 													Description: "Description",
 												}},
-												ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+												ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 											}},
 										}},
 									}},
@@ -10416,7 +10416,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"[[:ascii:]]{0,256}"},
+															Regex: []string{".{0,255}"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -10425,7 +10425,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															Format:      "txt",
 															Description: "Description",
 														}},
-														ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+														ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 													}},
 												}, {
 													IsBaseNode: false,
@@ -10884,7 +10884,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 														XMLName: xml.Name{
 															Local: "properties",
 														},
-														Help: []string{"Option to disable firewall rule"},
+														Help: []string{"Disable instance"},
 														Valueless: []*interfacedefinition.Valueless{{
 															XMLName: xml.Name{
 																Local: "valueless",
@@ -11114,7 +11114,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"[[:ascii:]]{0,256}"},
+													Regex: []string{".{0,255}"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -11123,7 +11123,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													Format:      "txt",
 													Description: "Description",
 												}},
-												ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+												ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 											}},
 										}},
 									}},
@@ -13882,7 +13882,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"[[:ascii:]]{0,256}"},
+															Regex: []string{".{0,255}"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -13891,7 +13891,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															Format:      "txt",
 															Description: "Description",
 														}},
-														ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+														ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 													}},
 												}, {
 													IsBaseNode: false,
@@ -14350,7 +14350,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 														XMLName: xml.Name{
 															Local: "properties",
 														},
-														Help: []string{"Option to disable firewall rule"},
+														Help: []string{"Disable instance"},
 														Valueless: []*interfacedefinition.Valueless{{
 															XMLName: xml.Name{
 																Local: "valueless",
@@ -14580,7 +14580,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"[[:ascii:]]{0,256}"},
+													Regex: []string{".{0,255}"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -14589,7 +14589,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													Format:      "txt",
 													Description: "Description",
 												}},
-												ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+												ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 											}},
 										}},
 									}},
@@ -17490,7 +17490,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"[[:ascii:]]{0,256}"},
+													Regex: []string{".{0,255}"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -17499,7 +17499,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													Format:      "txt",
 													Description: "Description",
 												}},
-												ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+												ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 											}},
 										}, {
 											IsBaseNode: false,
@@ -17958,7 +17958,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Option to disable firewall rule"},
+												Help: []string{"Disable instance"},
 												Valueless: []*interfacedefinition.Valueless{{
 													XMLName: xml.Name{
 														Local: "valueless",
@@ -18230,7 +18230,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"[[:ascii:]]{0,256}"},
+											Regex: []string{".{0,255}"},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
 											XMLName: xml.Name{
@@ -18239,7 +18239,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											Format:      "txt",
 											Description: "Description",
 										}},
-										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+										ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 									}},
 								}, {
 									IsBaseNode: false,
@@ -21181,7 +21181,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"[[:ascii:]]{0,256}"},
+															Regex: []string{".{0,255}"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -21190,7 +21190,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															Format:      "txt",
 															Description: "Description",
 														}},
-														ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+														ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 													}},
 												}, {
 													IsBaseNode: false,
@@ -21649,7 +21649,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 														XMLName: xml.Name{
 															Local: "properties",
 														},
-														Help: []string{"Option to disable firewall rule"},
+														Help: []string{"Disable instance"},
 														Valueless: []*interfacedefinition.Valueless{{
 															XMLName: xml.Name{
 																Local: "valueless",
@@ -21897,7 +21897,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"[[:ascii:]]{0,256}"},
+													Regex: []string{".{0,255}"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -21906,7 +21906,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													Format:      "txt",
 													Description: "Description",
 												}},
-												ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+												ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 											}},
 										}},
 									}},
@@ -24715,7 +24715,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"[[:ascii:]]{0,256}"},
+															Regex: []string{".{0,255}"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -24724,7 +24724,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															Format:      "txt",
 															Description: "Description",
 														}},
-														ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+														ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 													}},
 												}, {
 													IsBaseNode: false,
@@ -25183,7 +25183,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 														XMLName: xml.Name{
 															Local: "properties",
 														},
-														Help: []string{"Option to disable firewall rule"},
+														Help: []string{"Disable instance"},
 														Valueless: []*interfacedefinition.Valueless{{
 															XMLName: xml.Name{
 																Local: "valueless",
@@ -25413,7 +25413,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"[[:ascii:]]{0,256}"},
+													Regex: []string{".{0,255}"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -25422,7 +25422,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													Format:      "txt",
 													Description: "Description",
 												}},
-												ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+												ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 											}},
 										}},
 									}},
@@ -28179,7 +28179,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"[[:ascii:]]{0,256}"},
+															Regex: []string{".{0,255}"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -28188,7 +28188,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															Format:      "txt",
 															Description: "Description",
 														}},
-														ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+														ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 													}},
 												}, {
 													IsBaseNode: false,
@@ -28647,7 +28647,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 														XMLName: xml.Name{
 															Local: "properties",
 														},
-														Help: []string{"Option to disable firewall rule"},
+														Help: []string{"Disable instance"},
 														Valueless: []*interfacedefinition.Valueless{{
 															XMLName: xml.Name{
 																Local: "valueless",
@@ -28877,7 +28877,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"[[:ascii:]]{0,256}"},
+													Regex: []string{".{0,255}"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -28886,7 +28886,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													Format:      "txt",
 													Description: "Description",
 												}},
-												ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+												ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 											}},
 										}},
 									}},
@@ -31785,7 +31785,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"[[:ascii:]]{0,256}"},
+													Regex: []string{".{0,255}"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -31794,7 +31794,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													Format:      "txt",
 													Description: "Description",
 												}},
-												ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+												ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 											}},
 										}, {
 											IsBaseNode: false,
@@ -32253,7 +32253,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Option to disable firewall rule"},
+												Help: []string{"Disable instance"},
 												Valueless: []*interfacedefinition.Valueless{{
 													XMLName: xml.Name{
 														Local: "valueless",
@@ -32525,7 +32525,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "constraint",
 											},
-											Regex: []string{"[[:ascii:]]{0,256}"},
+											Regex: []string{".{0,255}"},
 										}},
 										ValueHelp: []*interfacedefinition.ValueHelp{{
 											XMLName: xml.Name{
@@ -32534,7 +32534,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 											Format:      "txt",
 											Description: "Description",
 										}},
-										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+										ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 									}},
 								}, {
 									IsBaseNode: false,
@@ -32596,7 +32596,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "constraint",
 									},
-									Regex: []string{"[[:ascii:]]{0,256}"},
+									Regex: []string{".{0,255}"},
 								}},
 								ValueHelp: []*interfacedefinition.ValueHelp{{
 									XMLName: xml.Name{
@@ -32605,7 +32605,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 									Format:      "txt",
 									Description: "Description",
 								}},
-								ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+								ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 							}},
 						}, {
 							IsBaseNode: false,
@@ -32904,7 +32904,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "constraint",
 									},
-									Regex: []string{"[[:ascii:]]{0,256}"},
+									Regex: []string{".{0,255}"},
 								}},
 								ValueHelp: []*interfacedefinition.ValueHelp{{
 									XMLName: xml.Name{
@@ -32913,7 +32913,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 									Format:      "txt",
 									Description: "Description",
 								}},
-								ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+								ConstraintErrorMessage: []string{"Description too long (limit 255 characters)"},
 							}},
 						}, {
 							IsBaseNode: false,

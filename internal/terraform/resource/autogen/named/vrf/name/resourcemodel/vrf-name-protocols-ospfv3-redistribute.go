@@ -12,11 +12,12 @@ type VrfNameProtocolsOspfvthreeRedistribute struct {
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes
+	NodeVrfNameProtocolsOspfvthreeRedistributeBabel     *VrfNameProtocolsOspfvthreeRedistributeBabel     `tfsdk:"babel" vyos:"babel,omitempty"`
 	NodeVrfNameProtocolsOspfvthreeRedistributeBgp       *VrfNameProtocolsOspfvthreeRedistributeBgp       `tfsdk:"bgp" vyos:"bgp,omitempty"`
 	NodeVrfNameProtocolsOspfvthreeRedistributeConnected *VrfNameProtocolsOspfvthreeRedistributeConnected `tfsdk:"connected" vyos:"connected,omitempty"`
+	NodeVrfNameProtocolsOspfvthreeRedistributeIsis      *VrfNameProtocolsOspfvthreeRedistributeIsis      `tfsdk:"isis" vyos:"isis,omitempty"`
 	NodeVrfNameProtocolsOspfvthreeRedistributeKernel    *VrfNameProtocolsOspfvthreeRedistributeKernel    `tfsdk:"kernel" vyos:"kernel,omitempty"`
 	NodeVrfNameProtocolsOspfvthreeRedistributeRIPng     *VrfNameProtocolsOspfvthreeRedistributeRIPng     `tfsdk:"ripng" vyos:"ripng,omitempty"`
-	NodeVrfNameProtocolsOspfvthreeRedistributeBabel     *VrfNameProtocolsOspfvthreeRedistributeBabel     `tfsdk:"babel" vyos:"babel,omitempty"`
 	NodeVrfNameProtocolsOspfvthreeRedistributeStatic    *VrfNameProtocolsOspfvthreeRedistributeStatic    `tfsdk:"static" vyos:"static,omitempty"`
 }
 
@@ -26,6 +27,14 @@ func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceSchemaAttributes() map[s
 		// LeafNodes
 
 		// Nodes
+
+		"babel": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsOspfvthreeRedistributeBabel{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Redistribute Babel routes
+
+`,
+		},
 
 		"bgp": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfvthreeRedistributeBgp{}.ResourceSchemaAttributes(),
@@ -43,6 +52,14 @@ func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceSchemaAttributes() map[s
 `,
 		},
 
+		"isis": schema.SingleNestedAttribute{
+			Attributes: VrfNameProtocolsOspfvthreeRedistributeIsis{}.ResourceSchemaAttributes(),
+			Optional:   true,
+			MarkdownDescription: `Redistribute IS-IS routes
+
+`,
+		},
+
 		"kernel": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfvthreeRedistributeKernel{}.ResourceSchemaAttributes(),
 			Optional:   true,
@@ -55,14 +72,6 @@ func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceSchemaAttributes() map[s
 			Attributes: VrfNameProtocolsOspfvthreeRedistributeRIPng{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute RIPNG routes
-
-`,
-		},
-
-		"babel": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeRedistributeBabel{}.ResourceSchemaAttributes(),
-			Optional:   true,
-			MarkdownDescription: `Redistribute Babel routes
 
 `,
 		},

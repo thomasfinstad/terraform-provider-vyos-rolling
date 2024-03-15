@@ -9,7 +9,9 @@ import (
 // VrfNameProtocolsOspfvthreeRedistributeBgp describes the resource data model.
 type VrfNameProtocolsOspfvthreeRedistributeBgp struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfvthreeRedistributeBgpRouteMap types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeRedistributeBgpMetric     types.Number `tfsdk:"metric" vyos:"metric,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeRedistributeBgpMetricType types.Number `tfsdk:"metric_type" vyos:"metric-type,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeRedistributeBgpRouteMap   types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -20,6 +22,31 @@ type VrfNameProtocolsOspfvthreeRedistributeBgp struct {
 func (o VrfNameProtocolsOspfvthreeRedistributeBgp) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
+
+		"metric": schema.NumberAttribute{
+			Optional: true,
+			MarkdownDescription: `OSPF default metric
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 0-16777214  &emsp; |  Default metric  |
+
+`,
+		},
+
+		"metric_type": schema.NumberAttribute{
+			Optional: true,
+			MarkdownDescription: `OSPF metric type for default routes
+
+    |  Format &emsp; | Description  |
+    |----------|---------------|
+    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
+
+`,
+
+			// Default:          stringdefault.StaticString(`2`),
+			Computed: true,
+		},
 
 		"route_map": schema.StringAttribute{
 			Optional: true,

@@ -12,6 +12,13 @@ BIN_DIR=dist
 
 GO_IMPORT_ROOT:=${HOSTNAME}/${NAMESPACE}/terraform-provider-vyos
 
+# TODO improve build situation
+#  we need 1 for rolling releases and 1 for LTS 1.4 releases
+#  figure out if these should be seperate repos, branches or what else
+#  Also look into cleaning up this Makefil and its targets to streamline usage
+#  and improve the help target to only show the ones intended for people
+#  by default.
+
 ###
 # Default helper target
 help:
@@ -179,11 +186,6 @@ internal/terraform/resource/autogen: internal/vyos/vyosinterface/auto-package.go
 .PHONY: test
 test: internal/terraform/resource/autogen
 	go test -failfast -timeout 5s ./internal/terraform/tests/... ./internal/terraform/helpers/...
-
-
-# TODO improve build situation
-# we need 1 for rolling releases and 1 for LTS 1.4 releases
-# figure out if these should be seperate repos, branches or what else
 
 .PHONY: build-rolling
 build-rolling:

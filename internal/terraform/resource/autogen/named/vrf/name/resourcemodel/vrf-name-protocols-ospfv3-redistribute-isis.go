@@ -6,12 +6,12 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-// VrfNameProtocolsOspfvthreeRedistributeConnected describes the resource data model.
-type VrfNameProtocolsOspfvthreeRedistributeConnected struct {
+// VrfNameProtocolsOspfvthreeRedistributeIsis describes the resource data model.
+type VrfNameProtocolsOspfvthreeRedistributeIsis struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfvthreeRedistributeConnectedMetric     types.Number `tfsdk:"metric" vyos:"metric,omitempty"`
-	LeafVrfNameProtocolsOspfvthreeRedistributeConnectedMetricType types.Number `tfsdk:"metric_type" vyos:"metric-type,omitempty"`
-	LeafVrfNameProtocolsOspfvthreeRedistributeConnectedRouteMap   types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeRedistributeIsisMetric     types.Number `tfsdk:"metric" vyos:"metric,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeRedistributeIsisMetricType types.Number `tfsdk:"metric_type" vyos:"metric-type,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeRedistributeIsisRouteMap   types.String `tfsdk:"route_map" vyos:"route-map,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -19,7 +19,7 @@ type VrfNameProtocolsOspfvthreeRedistributeConnected struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsOspfvthreeRedistributeConnected) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsOspfvthreeRedistributeIsis) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
