@@ -53,6 +53,9 @@ data/vyos/submodule.sha: data/vyos/rolling-iso-build.txt
 
 	git add data/vyos/vyos-1x
 
+data/vyos/Makefile: data/vyos/submodule.sha
+	git submodule update --init --single-branch -- data/vyos/vyos-1x
+
 ###
 # Autogenerate Schemas
 
@@ -90,7 +93,7 @@ internal/vyos/schema/interfacedefinition/autogen-structs.go: data/vyos/schema/in
 # Terraform Resource Schemas
 
 # Compile interface devfinitions
-data/vyos/interface-definitions: data/vyos/submodule.sha
+data/vyos/interface-definitions: data/vyos/submodule.sha data/vyos/Makefile
 
 	@rm -rf "data/vyos/interface-definitions"
 	python -m venv .build/vyos/vyos-1x/venv
