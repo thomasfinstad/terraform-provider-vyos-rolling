@@ -111,8 +111,7 @@ func (o VrfNameProtocolsStaticRouteInterface) ResourceSchemaAttributes() map[str
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
-			},
-			Validators: []validator.String{
+			}, Validators: []validator.String{
 				stringvalidator.All(
 					helpers.StringNot(
 						stringvalidator.RegexMatches(
@@ -139,8 +138,7 @@ func (o VrfNameProtocolsStaticRouteInterface) ResourceSchemaAttributes() map[str
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
-			},
-			Validators: []validator.String{
+			}, Validators: []validator.String{
 				stringvalidator.All(
 					helpers.StringNot(
 						stringvalidator.RegexMatches(

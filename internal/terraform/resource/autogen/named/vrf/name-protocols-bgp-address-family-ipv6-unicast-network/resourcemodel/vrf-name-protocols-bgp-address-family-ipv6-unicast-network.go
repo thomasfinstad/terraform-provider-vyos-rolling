@@ -108,8 +108,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork) ResourceSchemaAttr
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
-			},
-			Validators: []validator.String{
+			}, Validators: []validator.String{
 				stringvalidator.All(
 					helpers.StringNot(
 						stringvalidator.RegexMatches(

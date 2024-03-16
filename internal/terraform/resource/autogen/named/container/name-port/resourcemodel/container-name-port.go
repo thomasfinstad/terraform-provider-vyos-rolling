@@ -94,8 +94,7 @@ func (o ContainerNamePort) ResourceSchemaAttributes() map[string]schema.Attribut
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
-			},
-			Validators: []validator.String{
+			}, Validators: []validator.String{
 				stringvalidator.All(
 					helpers.StringNot(
 						stringvalidator.RegexMatches(

@@ -7,6 +7,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -22,7 +23,7 @@ type NatDestinationRuleLoadBalanceBackend struct {
 
 	SelfIdentifier types.String `tfsdk:"backend_id" vyos:"-,self-id"`
 
-	ParentIDNatDestinationRule types.String `tfsdk:"rule_id" vyos:"rule,parent-id"`
+	ParentIDNatDestinationRule types.Number `tfsdk:"rule_id" vyos:"rule,parent-id"`
 
 	// LeafNodes
 	LeafNatDestinationRuleLoadBalanceBackendWeight types.Number `tfsdk:"weight" vyos:"weight,omitempty"`
@@ -49,7 +50,7 @@ func (o *NatDestinationRuleLoadBalanceBackend) GetVyosPath() []string {
 		"destination",
 
 		"rule",
-		o.ParentIDNatDestinationRule.ValueString(),
+		o.ParentIDNatDestinationRule.ValueBigFloat().String(),
 
 		"load-balance",
 
@@ -92,7 +93,7 @@ func (o NatDestinationRuleLoadBalanceBackend) ResourceSchemaAttributes() map[str
 			},
 		},
 
-		"rule_id": schema.StringAttribute{
+		"rule_id": schema.NumberAttribute{
 			Required: true,
 			MarkdownDescription: `Rule number for NAT
 
@@ -101,22 +102,8 @@ func (o NatDestinationRuleLoadBalanceBackend) ResourceSchemaAttributes() map[str
     |  number: 1-999999  &emsp; |  Number of NAT rule  |
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			},
-			Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in rule_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  rule_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+			PlanModifiers: []planmodifier.Number{
+				numberplanmodifier.RequiresReplace(),
 			},
 		},
 

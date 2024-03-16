@@ -10,6 +10,7 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
+// TODO check provider config if we must check for children
 // TODO check for children and fail delete after timeout if exists
 
 // Delete method to define the logic which deletes the resource and removes the Terraform state on success.

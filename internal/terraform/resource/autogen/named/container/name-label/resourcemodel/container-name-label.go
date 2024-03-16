@@ -91,8 +91,7 @@ func (o ContainerNameLabel) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
-			},
-			Validators: []validator.String{
+			}, Validators: []validator.String{
 				stringvalidator.All(
 					helpers.StringNot(
 						stringvalidator.RegexMatches(

@@ -110,8 +110,7 @@ func (o VrfNameIPProtocol) ResourceSchemaAttributes() map[string]schema.Attribut
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
-			},
-			Validators: []validator.String{
+			}, Validators: []validator.String{
 				stringvalidator.All(
 					helpers.StringNot(
 						stringvalidator.RegexMatches(

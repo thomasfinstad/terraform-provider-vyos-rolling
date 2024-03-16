@@ -93,8 +93,7 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
-			},
-			Validators: []validator.String{
+			}, Validators: []validator.String{
 				stringvalidator.All(
 					helpers.StringNot(
 						stringvalidator.RegexMatches(

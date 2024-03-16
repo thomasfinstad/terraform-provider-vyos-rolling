@@ -7,6 +7,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -24,7 +25,7 @@ type QosPolicyLimiterClassMatch struct {
 
 	ParentIDQosPolicyLimiter types.String `tfsdk:"limiter_id" vyos:"limiter,parent-id"`
 
-	ParentIDQosPolicyLimiterClass types.String `tfsdk:"class_id" vyos:"class,parent-id"`
+	ParentIDQosPolicyLimiterClass types.Number `tfsdk:"class_id" vyos:"class,parent-id"`
 
 	// LeafNodes
 	LeafQosPolicyLimiterClassMatchDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -60,7 +61,7 @@ func (o *QosPolicyLimiterClassMatch) GetVyosPath() []string {
 		o.ParentIDQosPolicyLimiter.ValueString(),
 
 		"class",
-		o.ParentIDQosPolicyLimiterClass.ValueString(),
+		o.ParentIDQosPolicyLimiterClass.ValueBigFloat().String(),
 
 		"match",
 		o.SelfIdentifier.ValueString(),
@@ -108,8 +109,7 @@ func (o QosPolicyLimiterClassMatch) ResourceSchemaAttributes() map[string]schema
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
-			},
-			Validators: []validator.String{
+			}, Validators: []validator.String{
 				stringvalidator.All(
 					helpers.StringNot(
 						stringvalidator.RegexMatches(
@@ -125,7 +125,7 @@ func (o QosPolicyLimiterClassMatch) ResourceSchemaAttributes() map[string]schema
 			},
 		},
 
-		"class_id": schema.StringAttribute{
+		"class_id": schema.NumberAttribute{
 			Required: true,
 			MarkdownDescription: `Class ID
 
@@ -134,22 +134,8 @@ func (o QosPolicyLimiterClassMatch) ResourceSchemaAttributes() map[string]schema
     |  number: 1-4090  &emsp; |  Class Identifier  |
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
-			},
-			Validators: []validator.String{
-				stringvalidator.All(
-					helpers.StringNot(
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^.*__.*$`),
-							"double underscores in class_id, conflicts with the internal resource id",
-						),
-					),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  class_id, value must match: ^[a-zA-Z0-9-_]*$",
-					),
-				),
+			PlanModifiers: []planmodifier.Number{
+				numberplanmodifier.RequiresReplace(),
 			},
 		},
 

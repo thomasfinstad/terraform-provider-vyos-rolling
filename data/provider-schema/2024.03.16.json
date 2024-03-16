@@ -10048,7 +10048,7 @@
                 "computed": true
               },
               "rule_id": {
-                "type": "string",
+                "type": "number",
                 "description": "Rule number for NAT\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  number: 1-999999  &emsp; |  Number of NAT rule  |\n\n",
                 "description_kind": "markdown",
                 "required": true
@@ -10354,7 +10354,7 @@
                 "computed": true
               },
               "rule_id": {
-                "type": "string",
+                "type": "number",
                 "description": "Rule number for NAT\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  number: 1-999999  &emsp; |  Number of NAT rule  |\n\n",
                 "description_kind": "markdown",
                 "required": true
@@ -10999,7 +10999,7 @@
           "block": {
             "attributes": {
               "access_list_id": {
-                "type": "string",
+                "type": "number",
                 "description": "IP access-list filter\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  number: 1-99  &emsp; |  IP standard access list  |\n    |  number: 100-199  &emsp; |  IP extended access list  |\n    |  number: 1300-1999  &emsp; |  IP standard access list (expanded range)  |\n    |  number: 2000-2699  &emsp; |  IP extended access list (expanded range)  |\n\n",
                 "description_kind": "markdown",
                 "required": true
@@ -12752,7 +12752,7 @@
           "block": {
             "attributes": {
               "class_id": {
-                "type": "string",
+                "type": "number",
                 "description": "Class ID\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  number: 1-4090  &emsp; |  Class Identifier  |\n\n",
                 "description_kind": "markdown",
                 "required": true
@@ -13250,7 +13250,7 @@
           "block": {
             "attributes": {
               "class_id": {
-                "type": "string",
+                "type": "number",
                 "description": "Class Handle\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  number: 1-7  &emsp; |  Priority  |\n\n",
                 "description_kind": "markdown",
                 "required": true
@@ -13826,7 +13826,7 @@
           "block": {
             "attributes": {
               "class_id": {
-                "type": "string",
+                "type": "number",
                 "description": "Class ID\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  number: 1-4095  &emsp; |  Class Identifier  |\n\n",
                 "description_kind": "markdown",
                 "required": true
@@ -14326,7 +14326,7 @@
           "block": {
             "attributes": {
               "class_id": {
-                "type": "string",
+                "type": "number",
                 "description": "Class ID\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  number: 2-4095  &emsp; |  Class Identifier  |\n\n",
                 "description_kind": "markdown",
                 "required": true
@@ -14860,7 +14860,7 @@
           "block": {
             "attributes": {
               "class_id": {
-                "type": "string",
+                "type": "number",
                 "description": "Class ID\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  number: 1-4095  &emsp; |  Class Identifier  |\n\n",
                 "description_kind": "markdown",
                 "required": true

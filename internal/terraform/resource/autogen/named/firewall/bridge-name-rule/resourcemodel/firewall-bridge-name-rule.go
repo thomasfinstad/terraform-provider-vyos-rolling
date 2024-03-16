@@ -97,8 +97,7 @@ func (o FirewallBrIDgeNameRule) ResourceSchemaAttributes() map[string]schema.Att
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
-			},
-			Validators: []validator.String{
+			}, Validators: []validator.String{
 				stringvalidator.All(
 					helpers.StringNot(
 						stringvalidator.RegexMatches(

@@ -91,8 +91,7 @@ func (o PolicyPrefixListRule) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
-			},
-			Validators: []validator.String{
+			}, Validators: []validator.String{
 				stringvalidator.All(
 					helpers.StringNot(
 						stringvalidator.RegexMatches(

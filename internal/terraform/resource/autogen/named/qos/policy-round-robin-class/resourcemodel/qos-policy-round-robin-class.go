@@ -97,8 +97,7 @@ func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes() map[string]schema.A
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
-			},
-			Validators: []validator.String{
+			}, Validators: []validator.String{
 				stringvalidator.All(
 					helpers.StringNot(
 						stringvalidator.RegexMatches(

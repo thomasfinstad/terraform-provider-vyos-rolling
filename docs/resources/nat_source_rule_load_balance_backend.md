@@ -70,7 +70,7 @@ Translated IP address
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  ipv4  &emsp; |  IPv4 address to match  |
-- `rule_id` (String) Rule number for NAT
+- `rule_id` (Number) Rule number for NAT
 
     |  Format &emsp; | Description  |
     |----------|---------------|

@@ -102,7 +102,13 @@ import (
 		{{template "resource-model-parent-id-hack" .Parent}}
 	{{end}}
 	{{if eq .NodeType "TagNode"}}
-		ParentID{{.BaseNameCG}} types.String `tfsdk:"{{.BaseNameS}}_id" vyos:"{{.BaseName}},parent-id"`
+		ParentID{{.BaseNameCG}} {{ if eq .ValueType "string" -}}
+								types.String
+							{{- else  if eq .ValueType "number" -}}
+								types.Number
+							{{- else -}}
+								UNKNOWN TYPE: {{.ValueType}}
+							{{- end -}} `tfsdk:"{{.BaseNameS}}_id" vyos:"{{.BaseName}},parent-id"`
 	{{end}}
 {{end}}
 
@@ -112,7 +118,13 @@ import (
 	{{- end}}
 	"{{.BaseName}}",
 	{{- if eq .NodeType "TagNode"}}
-		o.ParentID{{.BaseNameCG}}.ValueString(),
+		{{if eq .ValueType "string" -}}
+			o.ParentID{{.BaseNameCG}}.ValueString(),
+		{{- else  if eq .ValueType "number" -}}
+			o.ParentID{{.BaseNameCG}}.ValueBigFloat().String(),
+		{{- else -}}
+			UNSUPPORTED TYPE
+		{{- end}}
 	{{- end}}
 {{end}}
 
@@ -120,26 +132,51 @@ import (
 	{{if .Parent}}
 		{{template "resource-model-parent-schema-hack" .Parent}}
 		{{- if eq .NodeType "TagNode" -}}
-			"{{.BaseNameS}}_id":         schema.StringAttribute{
+			"{{.BaseNameS}}_id":
+				{{- if eq .ValueType "string" -}}
+					schema.StringAttribute
+				{{- else  if eq .ValueType "number" -}}
+					schema.NumberAttribute
+				{{- else if eq .ValueType "bool" -}}
+					schema.BoolAttribute
+				{{- else -}}
+					UNKNOWN TYPE: {{.ValueType}}
+				{{- end -}}
+			{
 				Required:            true,
 				MarkdownDescription: `{{.Description}}`,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplace(),
-				},
-				Validators: []validator.String{
-					stringvalidator.All(
-						helpers.StringNot(
-							stringvalidator.RegexMatches(
-								regexp.MustCompile(`^.*__.*$`),
-								"double underscores in {{.BaseNameS}}_id, conflicts with the internal resource id",
+				PlanModifiers:
+					{{- if eq .ValueType "string" -}}
+						[]planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						},
+					{{- else  if eq .ValueType "number" -}}
+						[]planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					{{- else if eq .ValueType "bool" -}}
+						[]planmodifier.Bool{
+							boolplanmodifier.RequiresReplace(),
+						},
+					{{- else -}}
+						UNKNOWN TYPE: {{.ValueType}}
+					{{- end -}}
+					{{if eq .ValueType "string" -}}
+						Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in {{.BaseNameS}}_id, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illigal character in  {{.BaseNameS}}_id, value must match: ^[a-zA-Z0-9-_]*$",
+								),
 							),
-						),
-						stringvalidator.RegexMatches(
-							regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-							"illigal character in  {{.BaseNameS}}_id, value must match: ^[a-zA-Z0-9-_]*$",
-						),
-					),
-				},
+						},
+					{{- end }}
 			},
 		{{end}}
 	{{end}}
@@ -319,15 +356,15 @@ import (
 					MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 				},
 				"{{.BaseNameS}}_id":
-				{{- if eq .ValueType "string" -}}
-					schema.StringAttribute
-				{{- else  if eq .ValueType "number" -}}
-					schema.NumberAttribute
-				{{- else if eq .ValueType "bool" -}}
-					schema.BoolAttribute
-				{{- else -}}
-					UNKNOWN TYPE: {{.ValueType}}
-				{{- end -}}
+					{{- if eq .ValueType "string" -}}
+						schema.StringAttribute
+					{{- else  if eq .ValueType "number" -}}
+						schema.NumberAttribute
+					{{- else if eq .ValueType "bool" -}}
+						schema.BoolAttribute
+					{{- else -}}
+						UNKNOWN TYPE: {{.ValueType}}
+					{{- end -}}
 				{
 					Required:            true,
 					MarkdownDescription: `{{.Description}}`,

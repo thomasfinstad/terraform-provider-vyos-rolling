@@ -92,8 +92,7 @@ func (o ContainerNameDevice) ResourceSchemaAttributes() map[string]schema.Attrib
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
-			},
-			Validators: []validator.String{
+			}, Validators: []validator.String{
 				stringvalidator.All(
 					helpers.StringNot(
 						stringvalidator.RegexMatches(

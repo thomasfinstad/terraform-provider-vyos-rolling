@@ -65,7 +65,7 @@ Class matching rule name
 
 ### Required
 
-- `class_id` (String) Class Handle
+- `class_id` (Number) Class Handle
 
     |  Format &emsp; | Description  |
     |----------|---------------|

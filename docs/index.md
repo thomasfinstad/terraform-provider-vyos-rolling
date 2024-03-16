@@ -73,6 +73,11 @@ resource "vyos_firewall_ipv4_name_rule" "example2" {
 }
  */
 
+# resource "vyos_policy_access_list" "name" {
+#   access_list_id = 2
+
+# }
+
 resource "vyos_policy_access_list_rule" "name" {
   access_list_id = 2
   rule_id        = 5

@@ -96,8 +96,7 @@ func (o VrfNameProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[stri
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
-			},
-			Validators: []validator.String{
+			}, Validators: []validator.String{
 				stringvalidator.All(
 					helpers.StringNot(
 						stringvalidator.RegexMatches(
@@ -120,8 +119,7 @@ func (o VrfNameProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[stri
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
-			},
-			Validators: []validator.String{
+			}, Validators: []validator.String{
 				stringvalidator.All(
 					helpers.StringNot(
 						stringvalidator.RegexMatches(
