@@ -6,8 +6,8 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
@@ -64,7 +64,7 @@ func (o NatDestinationRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
-		"rule_id": schema.StringAttribute{
+		"rule_id": schema.NumberAttribute{
 			Required: true,
 			MarkdownDescription: `Rule number for NAT
 
@@ -73,8 +73,8 @@ func (o NatDestinationRule) ResourceSchemaAttributes() map[string]schema.Attribu
     |  number: 1-999999  &emsp; |  Number of NAT rule  |
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
+			PlanModifiers: []planmodifier.Number{
+				numberplanmodifier.RequiresReplace(),
 			},
 		},
 

@@ -56,7 +56,7 @@ Bridge Firewall forward filter rule number
 ### Required
 
 - `name_id` (String) Bridge custom firewall
-- `rule_id` (String) Bridge Firewall forward filter rule number
+- `rule_id` (Number) Bridge Firewall forward filter rule number
 
     |  Format &emsp; | Description  |
     |----------|---------------|

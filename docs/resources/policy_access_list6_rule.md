@@ -50,7 +50,7 @@ Rule for this access-list6
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Name of IPv6 access-list  |
-- `rule_id` (String) Rule for this access-list6
+- `rule_id` (Number) Rule for this access-list6
 
     |  Format &emsp; | Description  |
     |----------|---------------|

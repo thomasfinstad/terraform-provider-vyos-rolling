@@ -2,13 +2,18 @@
 package resourcemodel
 
 import (
+	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // FirewallZoneFrom describes the resource data model.
@@ -17,7 +22,7 @@ type FirewallZoneFrom struct {
 
 	SelfIdentifier types.String `tfsdk:"from_id" vyos:"-,self-id"`
 
-	ParentIDFirewallZone types.String `tfsdk:"zone" vyos:"zone,parent-id"`
+	ParentIDFirewallZone types.String `tfsdk:"zone_id" vyos:"zone,parent-id"`
 
 	// LeafNodes
 
@@ -63,6 +68,19 @@ func (o FirewallZoneFrom) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			}, Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in from_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  from_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 
@@ -77,6 +95,20 @@ func (o FirewallZoneFrom) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in zone_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  zone_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 

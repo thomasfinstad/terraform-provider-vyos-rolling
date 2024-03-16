@@ -17,6 +17,7 @@ func Delete(ctx context.Context, r helpers.VyosResource, req resource.DeleteRequ
 	tflog.Debug(ctx, "Delete Resource")
 	tflog.Trace(ctx, "Fetching data model")
 	stateModel := r.GetModel()
+	client := r.GetClient()
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, stateModel)...)
@@ -28,10 +29,10 @@ func Delete(ctx context.Context, r helpers.VyosResource, req resource.DeleteRequ
 	vyosOps := [][]string{stateModel.GetVyosPath()}
 	tflog.Error(ctx, "Compiling vyos operations", map[string]interface{}{"vyosOps": vyosOps})
 
-	r.GetClient().StageDelete(ctx, vyosOps)
+	client.StageDelete(ctx, vyosOps)
 
 	// Commit changes to api
-	response, err := r.GetClient().CommitChanges(ctx)
+	response, err := client.CommitChanges(ctx)
 	if err != nil {
 		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", stateModel.GetVyosPath(), err))
 		return

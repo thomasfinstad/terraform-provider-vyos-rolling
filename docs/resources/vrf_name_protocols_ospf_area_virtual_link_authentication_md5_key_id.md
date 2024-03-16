@@ -111,7 +111,7 @@ MD5 key id
     |----------|---------------|
     |  u32  &emsp; |  OSPF area number in decimal notation  |
     |  ipv4  &emsp; |  OSPF area number in dotted decimal notation  |
-- `key_id_id` (String) MD5 key id
+- `key_id_id` (Number) MD5 key id
 
     |  Format &emsp; | Description  |
     |----------|---------------|

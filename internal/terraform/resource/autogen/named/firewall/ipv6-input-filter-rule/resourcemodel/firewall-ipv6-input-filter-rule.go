@@ -6,8 +6,8 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
@@ -89,7 +89,7 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
-		"rule_id": schema.StringAttribute{
+		"rule_id": schema.NumberAttribute{
 			Required: true,
 			MarkdownDescription: `IPv6 Firewall input filter rule number
 
@@ -98,8 +98,8 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
     |  number: 1-999999  &emsp; |  Number for this firewall rule  |
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
+			PlanModifiers: []planmodifier.Number{
+				numberplanmodifier.RequiresReplace(),
 			},
 		},
 

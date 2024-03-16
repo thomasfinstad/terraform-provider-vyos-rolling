@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/container/registry/resourcemodel"
@@ -23,13 +24,13 @@ func NewContainerRegistry() resource.Resource {
 
 // containerRegistry defines the resource implementation.
 type containerRegistry struct {
-	client *client.Client
-	model  *resourcemodel.ContainerRegistry
+	providerData data.ProviderData
+	model        *resourcemodel.ContainerRegistry
 }
 
 // GetClient returns the vyos api client
-func (r *containerRegistry) GetClient() *client.Client {
-	return r.client
+func (r *containerRegistry) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *containerRegistry) Configure(ctx context.Context, req resource.Configur
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *containerRegistry) Configure(ctx context.Context, req resource.Configur
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

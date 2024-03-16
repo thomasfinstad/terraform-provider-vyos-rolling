@@ -80,7 +80,7 @@ Redistribute non-main Kernel Routing Table
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  VRF instance name  |
-- `table_id` (String) Redistribute non-main Kernel Routing Table
+- `table_id` (Number) Redistribute non-main Kernel Routing Table
 
     |  Format &emsp; | Description  |
     |----------|---------------|

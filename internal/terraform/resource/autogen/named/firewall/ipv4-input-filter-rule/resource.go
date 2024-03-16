@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/ipv4-input-filter-rule/resourcemodel"
@@ -23,13 +24,13 @@ func NewFirewallIPvfourInputFilterRule() resource.Resource {
 
 // firewallIPvfourInputFilterRule defines the resource implementation.
 type firewallIPvfourInputFilterRule struct {
-	client *client.Client
-	model  *resourcemodel.FirewallIPvfourInputFilterRule
+	providerData data.ProviderData
+	model        *resourcemodel.FirewallIPvfourInputFilterRule
 }
 
 // GetClient returns the vyos api client
-func (r *firewallIPvfourInputFilterRule) GetClient() *client.Client {
-	return r.client
+func (r *firewallIPvfourInputFilterRule) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *firewallIPvfourInputFilterRule) Configure(ctx context.Context, req reso
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *firewallIPvfourInputFilterRule) Configure(ctx context.Context, req reso
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

@@ -2,14 +2,19 @@
 package resourcemodel
 
 import (
+	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // VrfNameProtocolsOspfvthreeInterface describes the resource data model.
@@ -18,7 +23,7 @@ type VrfNameProtocolsOspfvthreeInterface struct {
 
 	SelfIdentifier types.String `tfsdk:"interface_id" vyos:"-,self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsOspfvthreeInterfaceArea               types.String `tfsdk:"area" vyos:"area,omitempty"`
@@ -84,6 +89,19 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceSchemaAttributes() map[stri
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			}, Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in interface_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  interface_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 
@@ -98,6 +116,20 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceSchemaAttributes() map[stri
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in name_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 

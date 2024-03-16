@@ -2,13 +2,19 @@
 package resourcemodel
 
 import (
+	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // QosPolicyPriorityQueueClass describes the resource data model.
@@ -17,7 +23,7 @@ type QosPolicyPriorityQueueClass struct {
 
 	SelfIdentifier types.Number `tfsdk:"class_id" vyos:"-,self-id"`
 
-	ParentIDQosPolicyPriorityQueue types.String `tfsdk:"priority_queue" vyos:"priority-queue,parent-id"`
+	ParentIDQosPolicyPriorityQueue types.String `tfsdk:"priority_queue_id" vyos:"priority-queue,parent-id"`
 
 	// LeafNodes
 	LeafQosPolicyPriorityQueueClassDescrIPtion  types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -65,7 +71,7 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
-		"class_id": schema.StringAttribute{
+		"class_id": schema.NumberAttribute{
 			Required: true,
 			MarkdownDescription: `Class Handle
 
@@ -74,8 +80,8 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
     |  number: 1-7  &emsp; |  Priority  |
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
+			PlanModifiers: []planmodifier.Number{
+				numberplanmodifier.RequiresReplace(),
 			},
 		},
 
@@ -90,6 +96,20 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in priority_queue_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  priority_queue_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 

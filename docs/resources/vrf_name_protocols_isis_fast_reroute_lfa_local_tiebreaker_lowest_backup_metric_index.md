@@ -115,7 +115,7 @@ Set preference order among tiebreakers
 
 ### Required
 
-- `index_id` (String) Set preference order among tiebreakers
+- `index_id` (Number) Set preference order among tiebreakers
 
     |  Format &emsp; | Description  |
     |----------|---------------|

@@ -90,7 +90,7 @@ VXLAN Network Identifier
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  VRF instance name  |
-- `vni_id` (String) VXLAN Network Identifier
+- `vni_id` (Number) VXLAN Network Identifier
 
     |  Format &emsp; | Description  |
     |----------|---------------|

@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/bridge-name-rule/resourcemodel"
@@ -23,13 +24,13 @@ func NewFirewallBrIDgeNameRule() resource.Resource {
 
 // firewallBrIDgeNameRule defines the resource implementation.
 type firewallBrIDgeNameRule struct {
-	client *client.Client
-	model  *resourcemodel.FirewallBrIDgeNameRule
+	providerData data.ProviderData
+	model        *resourcemodel.FirewallBrIDgeNameRule
 }
 
 // GetClient returns the vyos api client
-func (r *firewallBrIDgeNameRule) GetClient() *client.Client {
-	return r.client
+func (r *firewallBrIDgeNameRule) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *firewallBrIDgeNameRule) Configure(ctx context.Context, req resource.Con
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *firewallBrIDgeNameRule) Configure(ctx context.Context, req resource.Con
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

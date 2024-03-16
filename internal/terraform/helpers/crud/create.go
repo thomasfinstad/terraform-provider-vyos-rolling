@@ -11,6 +11,8 @@ import (
 )
 
 // TODO add retry and timeout
+// TODO check provider config if we must check for parent before creating
+// TODO check provider config if we must check if resource exists before creating
 // TODO check if required parent exists and fail after timeout if not
 // TODO check if resource already exists and fail after timeout
 
@@ -19,6 +21,7 @@ func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequ
 	tflog.Debug(ctx, "New Resource")
 	tflog.Trace(ctx, "Fetching data model")
 	planModel := r.GetModel()
+	client := r.GetClient()
 
 	// Read Terraform plan data into the model
 	tflog.Trace(ctx, "Fetching plan data")
@@ -42,11 +45,11 @@ func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequ
 
 	// Stage changes
 	tflog.Debug(ctx, "staging vyos changes api calls")
-	r.GetClient().StageSet(ctx, vyosOps)
+	client.StageSet(ctx, vyosOps)
 
 	// Commit changes
 	tflog.Info(ctx, "committing vyos changes api calls")
-	response, err := r.GetClient().CommitChanges(ctx)
+	response, err := client.CommitChanges(ctx)
 	if err != nil {
 		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", planModel.GetVyosPath(), err))
 		return

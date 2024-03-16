@@ -53,7 +53,7 @@ Rule for this access-list
     |  number: 100-199  &emsp; |  IP extended access list  |
     |  number: 1300-1999  &emsp; |  IP standard access list (expanded range)  |
     |  number: 2000-2699  &emsp; |  IP extended access list (expanded range)  |
-- `rule_id` (String) Rule for this access-list
+- `rule_id` (Number) Rule for this access-list
 
     |  Format &emsp; | Description  |
     |----------|---------------|

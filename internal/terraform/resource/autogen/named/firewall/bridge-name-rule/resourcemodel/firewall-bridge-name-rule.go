@@ -2,14 +2,20 @@
 package resourcemodel
 
 import (
+	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // FirewallBrIDgeNameRule describes the resource data model.
@@ -18,7 +24,7 @@ type FirewallBrIDgeNameRule struct {
 
 	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
 
-	ParentIDFirewallBrIDgeName types.String `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDFirewallBrIDgeName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafFirewallBrIDgeNameRuleAction       types.String `tfsdk:"action" vyos:"action,omitempty"`
@@ -70,7 +76,7 @@ func (o FirewallBrIDgeNameRule) ResourceSchemaAttributes() map[string]schema.Att
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
-		"rule_id": schema.StringAttribute{
+		"rule_id": schema.NumberAttribute{
 			Required: true,
 			MarkdownDescription: `Bridge Firewall forward filter rule number
 
@@ -79,8 +85,8 @@ func (o FirewallBrIDgeNameRule) ResourceSchemaAttributes() map[string]schema.Att
     |  number: 1-999999  &emsp; |  Number for this firewall rule  |
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
+			PlanModifiers: []planmodifier.Number{
+				numberplanmodifier.RequiresReplace(),
 			},
 		},
 
@@ -91,6 +97,20 @@ func (o FirewallBrIDgeNameRule) ResourceSchemaAttributes() map[string]schema.Att
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in name_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 

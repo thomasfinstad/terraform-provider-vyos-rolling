@@ -55,7 +55,7 @@ IP precedence
 
 ### Required
 
-- `precedence_id` (String) IP precedence
+- `precedence_id` (Number) IP precedence
 
     |  Format &emsp; | Description  |
     |----------|---------------|

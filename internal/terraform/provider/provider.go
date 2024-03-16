@@ -12,6 +12,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen"
 )
 
@@ -70,11 +71,6 @@ func (p *VyosProvider) Schema(ctx context.Context, req provider.SchemaRequest, r
 func (p *VyosProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
 	tflog.Info(ctx, "Configuring vyos client")
 
-	// TODO implement env var provider settings overrides
-	// Check environment variables
-	// apiToken := os.Getenv("EXAMPLECLOUD_API_TOKEN")
-	// endpoint := os.Getenv("EXAMPLECLOUD_ENDPOINT")
-
 	var providerModel VyosProviderModel
 
 	resp.Diagnostics.Append(req.Config.Get(ctx, &providerModel)...)
@@ -113,9 +109,11 @@ func (p *VyosProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 	}
 
 	// Client configuration for data sources and resources
-	client := client.NewClient(ctx, endpoint, apiKey, "TODO: add useragent with provider version", disableVerify)
-	resp.DataSourceData = client
-	resp.ResourceData = client
+	config := data.NewProviderData(
+		client.NewClient(ctx, endpoint, apiKey, "TODO: add useragent with provider version", disableVerify),
+	)
+	resp.DataSourceData = config
+	resp.ResourceData = config
 }
 
 // Resources method to define the provider's resources.

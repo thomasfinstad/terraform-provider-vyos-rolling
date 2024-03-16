@@ -35,7 +35,7 @@ IP access-list filter
 
 ### Required
 
-- `access_list_id` (String) IP access-list filter
+- `access_list_id` (Number) IP access-list filter
 
     |  Format &emsp; | Description  |
     |----------|---------------|

@@ -2,14 +2,19 @@
 package resourcemodel
 
 import (
+	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // VrfNameProtocolsStaticRoutesixInterface describes the resource data model.
@@ -18,9 +23,9 @@ type VrfNameProtocolsStaticRoutesixInterface struct {
 
 	SelfIdentifier types.String `tfsdk:"interface_id" vyos:"-,self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
 
-	ParentIDVrfNameProtocolsStaticRoutesix types.String `tfsdk:"route6" vyos:"route6,parent-id"`
+	ParentIDVrfNameProtocolsStaticRoutesix types.String `tfsdk:"route6_id" vyos:"route6,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsStaticRoutesixInterfaceDisable  types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -80,6 +85,19 @@ func (o VrfNameProtocolsStaticRoutesixInterface) ResourceSchemaAttributes() map[
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			}, Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in interface_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  interface_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 
@@ -95,6 +113,20 @@ func (o VrfNameProtocolsStaticRoutesixInterface) ResourceSchemaAttributes() map[
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in name_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
+			},
 		},
 
 		"route6_id": schema.StringAttribute{
@@ -108,6 +140,20 @@ func (o VrfNameProtocolsStaticRoutesixInterface) ResourceSchemaAttributes() map[
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in route6_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  route6_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 

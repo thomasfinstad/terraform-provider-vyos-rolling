@@ -65,7 +65,7 @@ Access list to filter networks in routing updates
 
 ### Required
 
-- `access_list_id` (String) Access list to filter networks in routing updates
+- `access_list_id` (Number) Access list to filter networks in routing updates
 
     |  Format &emsp; | Description  |
     |----------|---------------|

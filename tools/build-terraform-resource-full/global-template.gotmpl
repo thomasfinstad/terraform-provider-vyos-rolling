@@ -14,6 +14,7 @@ import (
 	"net/http"
 	"reflect"
 	"encoding/json"
+	"regexp"
 
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
@@ -22,13 +23,16 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/crud"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	{{if .}}
 		// Extra Imports
@@ -60,13 +64,13 @@ import (
 
 	// {{.BaseNameG}} defines the resource implementation.
 	type {{.BaseNameG}} struct {
-		client       *client.Client
-		model        *resourcemodel.{{.BaseNameCG}}
+		providerData data.ProviderData
+		model  *resourcemodel.{{.BaseNameCG}}
 	}
 
 	// GetClient returns the vyos api client
-	func (r *{{.BaseNameG}}) GetClient() *client.Client {
-		return r.client
+	func (r *{{.BaseNameG}}) GetClient() client.Client {
+		return r.providerData.Client
 	}
 
 	// GetModel returns the resource model
@@ -80,7 +84,7 @@ import (
 			return
 		}
 
-		client, ok := req.ProviderData.(client.Client)
+		data, ok := req.ProviderData.(data.ProviderData)
 
 		if !ok {
 			resp.Diagnostics.AddError(
@@ -91,7 +95,7 @@ import (
 			return
 		}
 
-		r.client = &client
+		r.providerData = data
 	}
 {{end}}
 

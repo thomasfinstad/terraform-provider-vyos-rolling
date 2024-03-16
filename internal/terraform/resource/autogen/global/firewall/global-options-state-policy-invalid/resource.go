@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/global/firewall/global-options-state-policy-invalid/resourcemodel"
@@ -23,13 +24,13 @@ func NewFirewallGlobalOptionsStatePolicyInvalID() resource.Resource {
 
 // firewallGlobalOptionsStatePolicyInvalID defines the resource implementation.
 type firewallGlobalOptionsStatePolicyInvalID struct {
-	client *client.Client
-	model  *resourcemodel.FirewallGlobalOptionsStatePolicyInvalID
+	providerData data.ProviderData
+	model        *resourcemodel.FirewallGlobalOptionsStatePolicyInvalID
 }
 
 // GetClient returns the vyos api client
-func (r *firewallGlobalOptionsStatePolicyInvalID) GetClient() *client.Client {
-	return r.client
+func (r *firewallGlobalOptionsStatePolicyInvalID) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *firewallGlobalOptionsStatePolicyInvalID) Configure(ctx context.Context,
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *firewallGlobalOptionsStatePolicyInvalID) Configure(ctx context.Context,
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

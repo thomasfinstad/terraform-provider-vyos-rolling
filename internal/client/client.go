@@ -73,6 +73,14 @@ func (c *Client) StageDelete(ctx context.Context, values [][]string) {
 //  1. delete
 //  2. set
 func (c *Client) CommitChanges(ctx context.Context) (any, error) {
+
+	// TODO investigate options to speed up multiple resource config
+	//	Suggestes pesudo solution:
+	//  1. Make client, or some part, a pointer shared across all resources
+	//	2. wait 500ms to allow multiple resources to gather up changes to be commited
+	//  3. on failure remove some resources changes from the commit and try again
+	//  4. on success return so to the resources that succeeded
+
 	endpoint := c.endpoint + "/configure"
 	operations := []map[string]interface{}{}
 

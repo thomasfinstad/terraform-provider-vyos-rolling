@@ -2,6 +2,13 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/go
 {
 	"name": "vyos_api",
+	// TODO migrate to Dockerfile
+	//  Should be compatible with working as a pure container using the Makefile if possible
+	//  This is to enable those that do not wish to use devcontainers, docker or vscode
+	//  to be able to easily follow this repositorys guidelines and formatting, and use the
+	//  tooling.
+	//  Verify by running a full clean test and build and pre-commit hook run in a pure podman
+	//  container.
 	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	//"build": { "dockerfile": "Dockerfile" },

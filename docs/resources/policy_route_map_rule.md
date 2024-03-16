@@ -50,7 +50,7 @@ Rule for this route-map
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Route map name  |
-- `rule_id` (String) Rule for this route-map
+- `rule_id` (Number) Rule for this route-map
 
     |  Format &emsp; | Description  |
     |----------|---------------|

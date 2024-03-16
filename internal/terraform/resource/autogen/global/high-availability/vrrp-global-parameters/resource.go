@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/global/high-availability/vrrp-global-parameters/resourcemodel"
@@ -23,13 +24,13 @@ func NewHighAvailabilityVrrpGlobalParameters() resource.Resource {
 
 // highAvailabilityVrrpGlobalParameters defines the resource implementation.
 type highAvailabilityVrrpGlobalParameters struct {
-	client *client.Client
-	model  *resourcemodel.HighAvailabilityVrrpGlobalParameters
+	providerData data.ProviderData
+	model        *resourcemodel.HighAvailabilityVrrpGlobalParameters
 }
 
 // GetClient returns the vyos api client
-func (r *highAvailabilityVrrpGlobalParameters) GetClient() *client.Client {
-	return r.client
+func (r *highAvailabilityVrrpGlobalParameters) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *highAvailabilityVrrpGlobalParameters) Configure(ctx context.Context, re
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *highAvailabilityVrrpGlobalParameters) Configure(ctx context.Context, re
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

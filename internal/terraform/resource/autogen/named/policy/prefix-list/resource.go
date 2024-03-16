@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/policy/prefix-list/resourcemodel"
@@ -23,13 +24,13 @@ func NewPolicyPrefixList() resource.Resource {
 
 // policyPrefixList defines the resource implementation.
 type policyPrefixList struct {
-	client *client.Client
-	model  *resourcemodel.PolicyPrefixList
+	providerData data.ProviderData
+	model        *resourcemodel.PolicyPrefixList
 }
 
 // GetClient returns the vyos api client
-func (r *policyPrefixList) GetClient() *client.Client {
-	return r.client
+func (r *policyPrefixList) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *policyPrefixList) Configure(ctx context.Context, req resource.Configure
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *policyPrefixList) Configure(ctx context.Context, req resource.Configure
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

@@ -37,8 +37,9 @@ func Read(ctx context.Context, r helpers.VyosResource, req resource.ReadRequest,
 	resp.Diagnostics.Append(resp.State.Set(ctx, stateModel)...)
 }
 
+// read populates resource model
 // model must be a ptr
-func read(ctx context.Context, client *client.Client, model helpers.VyosTopResourceDataModel) error {
+func read(ctx context.Context, client client.Client, model helpers.VyosTopResourceDataModel) error {
 	tflog.Debug(ctx, "Fetching API data")
 	response, err := client.Read(ctx, model.GetVyosPath())
 	if err != nil {
@@ -49,7 +50,6 @@ func read(ctx context.Context, client *client.Client, model helpers.VyosTopResou
 			return fmt.Errorf("unable to read %s, got error: %s", model.GetVyosPath(), err)
 		}
 	} else {
-		// Populate resource model
 		if responseAssrt, ok := response.(map[string]any); ok {
 			err := helpers.UnmarshalVyos(ctx, responseAssrt, model)
 			if err != nil {

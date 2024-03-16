@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/policy/extcommunity-list-rule/resourcemodel"
@@ -23,13 +24,13 @@ func NewPolicyExtcommunityListRule() resource.Resource {
 
 // policyExtcommunityListRule defines the resource implementation.
 type policyExtcommunityListRule struct {
-	client *client.Client
-	model  *resourcemodel.PolicyExtcommunityListRule
+	providerData data.ProviderData
+	model        *resourcemodel.PolicyExtcommunityListRule
 }
 
 // GetClient returns the vyos api client
-func (r *policyExtcommunityListRule) GetClient() *client.Client {
-	return r.client
+func (r *policyExtcommunityListRule) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *policyExtcommunityListRule) Configure(ctx context.Context, req resource
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *policyExtcommunityListRule) Configure(ctx context.Context, req resource
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

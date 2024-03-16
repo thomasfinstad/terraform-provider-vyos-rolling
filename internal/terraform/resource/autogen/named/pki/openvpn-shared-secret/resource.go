@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/pki/openvpn-shared-secret/resourcemodel"
@@ -23,13 +24,13 @@ func NewPkiOpenvpnSharedSecret() resource.Resource {
 
 // pkiOpenvpnSharedSecret defines the resource implementation.
 type pkiOpenvpnSharedSecret struct {
-	client *client.Client
-	model  *resourcemodel.PkiOpenvpnSharedSecret
+	providerData data.ProviderData
+	model        *resourcemodel.PkiOpenvpnSharedSecret
 }
 
 // GetClient returns the vyos api client
-func (r *pkiOpenvpnSharedSecret) GetClient() *client.Client {
-	return r.client
+func (r *pkiOpenvpnSharedSecret) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *pkiOpenvpnSharedSecret) Configure(ctx context.Context, req resource.Con
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *pkiOpenvpnSharedSecret) Configure(ctx context.Context, req resource.Con
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

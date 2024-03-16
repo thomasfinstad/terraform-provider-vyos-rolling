@@ -50,7 +50,7 @@ Rule for this as-path-list
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  AS path list name  |
-- `rule_id` (String) Rule for this as-path-list
+- `rule_id` (Number) Rule for this as-path-list
 
     |  Format &emsp; | Description  |
     |----------|---------------|

@@ -2,13 +2,18 @@
 package resourcemodel
 
 import (
+	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // VrfNameProtocolsOspfAreaVirtualLink describes the resource data model.
@@ -17,9 +22,9 @@ type VrfNameProtocolsOspfAreaVirtualLink struct {
 
 	SelfIdentifier types.String `tfsdk:"virtual_link_id" vyos:"-,self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
 
-	ParentIDVrfNameProtocolsOspfArea types.String `tfsdk:"area" vyos:"area,parent-id"`
+	ParentIDVrfNameProtocolsOspfArea types.String `tfsdk:"area_id" vyos:"area,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsOspfAreaVirtualLinkDeadInterval       types.Number `tfsdk:"dead_interval" vyos:"dead-interval,omitempty"`
@@ -80,6 +85,19 @@ func (o VrfNameProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[stri
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			}, Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in virtual_link_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  virtual_link_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 
@@ -95,6 +113,20 @@ func (o VrfNameProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[stri
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in name_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
+			},
 		},
 
 		"area_id": schema.StringAttribute{
@@ -109,6 +141,20 @@ func (o VrfNameProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[stri
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in area_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  area_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 

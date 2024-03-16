@@ -2,13 +2,18 @@
 package resourcemodel
 
 import (
+	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // VrfNameProtocolsBgpListenRange describes the resource data model.
@@ -17,7 +22,7 @@ type VrfNameProtocolsBgpListenRange struct {
 
 	SelfIdentifier types.String `tfsdk:"range_id" vyos:"-,self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsBgpListenRangePeerGroup types.String `tfsdk:"peer_group" vyos:"peer-group,omitempty"`
@@ -74,6 +79,19 @@ func (o VrfNameProtocolsBgpListenRange) ResourceSchemaAttributes() map[string]sc
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			}, Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in range_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  range_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 
@@ -88,6 +106,20 @@ func (o VrfNameProtocolsBgpListenRange) ResourceSchemaAttributes() map[string]sc
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in name_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 

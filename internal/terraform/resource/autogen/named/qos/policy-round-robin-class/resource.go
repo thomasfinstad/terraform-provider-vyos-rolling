@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/qos/policy-round-robin-class/resourcemodel"
@@ -23,13 +24,13 @@ func NewQosPolicyRoundRobinClass() resource.Resource {
 
 // qosPolicyRoundRobinClass defines the resource implementation.
 type qosPolicyRoundRobinClass struct {
-	client *client.Client
-	model  *resourcemodel.QosPolicyRoundRobinClass
+	providerData data.ProviderData
+	model        *resourcemodel.QosPolicyRoundRobinClass
 }
 
 // GetClient returns the vyos api client
-func (r *qosPolicyRoundRobinClass) GetClient() *client.Client {
-	return r.client
+func (r *qosPolicyRoundRobinClass) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *qosPolicyRoundRobinClass) Configure(ctx context.Context, req resource.C
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *qosPolicyRoundRobinClass) Configure(ctx context.Context, req resource.C
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

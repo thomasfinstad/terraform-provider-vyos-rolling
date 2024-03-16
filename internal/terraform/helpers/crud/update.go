@@ -46,7 +46,7 @@ func Update(ctx context.Context, r helpers.VyosResource, req resource.UpdateRequ
 	resp.Diagnostics.Append(resp.State.Set(ctx, planModel)...)
 }
 
-func update(ctx context.Context, client *client.Client, stateModel, planModel helpers.VyosTopResourceDataModel) error {
+func update(ctx context.Context, client client.Client, stateModel, planModel helpers.VyosTopResourceDataModel) error {
 	// Delete existing config
 	stateVyosData, err := helpers.MarshalVyos(ctx, stateModel)
 	if err != nil {
@@ -72,7 +72,7 @@ func update(ctx context.Context, client *client.Client, stateModel, planModel he
 	// Commit changes to api
 	response, err := client.CommitChanges(ctx)
 	if err != nil {
-		return fmt.Errorf("client(%p) error: unable to create '%s', got error: %s", client, planModel.GetVyosPath(), err)
+		return fmt.Errorf("client error: unable to create '%s', got error: %s", planModel.GetVyosPath(), err)
 	}
 	if response != nil {
 		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})

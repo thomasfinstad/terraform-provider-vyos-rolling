@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/qos/policy-shaper-hfsc-class-match/resourcemodel"
@@ -23,13 +24,13 @@ func NewQosPolicyShaperHfscClassMatch() resource.Resource {
 
 // qosPolicyShaperHfscClassMatch defines the resource implementation.
 type qosPolicyShaperHfscClassMatch struct {
-	client *client.Client
-	model  *resourcemodel.QosPolicyShaperHfscClassMatch
+	providerData data.ProviderData
+	model        *resourcemodel.QosPolicyShaperHfscClassMatch
 }
 
 // GetClient returns the vyos api client
-func (r *qosPolicyShaperHfscClassMatch) GetClient() *client.Client {
-	return r.client
+func (r *qosPolicyShaperHfscClassMatch) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *qosPolicyShaperHfscClassMatch) Configure(ctx context.Context, req resou
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *qosPolicyShaperHfscClassMatch) Configure(ctx context.Context, req resou
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

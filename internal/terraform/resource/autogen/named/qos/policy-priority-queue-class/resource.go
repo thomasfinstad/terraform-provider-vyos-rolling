@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/qos/policy-priority-queue-class/resourcemodel"
@@ -23,13 +24,13 @@ func NewQosPolicyPriorityQueueClass() resource.Resource {
 
 // qosPolicyPriorityQueueClass defines the resource implementation.
 type qosPolicyPriorityQueueClass struct {
-	client *client.Client
-	model  *resourcemodel.QosPolicyPriorityQueueClass
+	providerData data.ProviderData
+	model        *resourcemodel.QosPolicyPriorityQueueClass
 }
 
 // GetClient returns the vyos api client
-func (r *qosPolicyPriorityQueueClass) GetClient() *client.Client {
-	return r.client
+func (r *qosPolicyPriorityQueueClass) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *qosPolicyPriorityQueueClass) Configure(ctx context.Context, req resourc
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *qosPolicyPriorityQueueClass) Configure(ctx context.Context, req resourc
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

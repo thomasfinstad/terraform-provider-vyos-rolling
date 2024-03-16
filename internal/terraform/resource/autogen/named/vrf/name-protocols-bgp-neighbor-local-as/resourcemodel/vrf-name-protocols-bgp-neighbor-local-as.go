@@ -2,13 +2,19 @@
 package resourcemodel
 
 import (
+	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // VrfNameProtocolsBgpNeighborLocalAs describes the resource data model.
@@ -17,9 +23,9 @@ type VrfNameProtocolsBgpNeighborLocalAs struct {
 
 	SelfIdentifier types.Number `tfsdk:"local_as_id" vyos:"-,self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
 
-	ParentIDVrfNameProtocolsBgpNeighbor types.String `tfsdk:"neighbor" vyos:"neighbor,parent-id"`
+	ParentIDVrfNameProtocolsBgpNeighbor types.String `tfsdk:"neighbor_id" vyos:"neighbor,parent-id"`
 
 	// LeafNodes
 
@@ -65,7 +71,7 @@ func (o VrfNameProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes() map[strin
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
-		"local_as_id": schema.StringAttribute{
+		"local_as_id": schema.NumberAttribute{
 			Required: true,
 			MarkdownDescription: `Specify alternate ASN for this BGP process
 
@@ -74,8 +80,8 @@ func (o VrfNameProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes() map[strin
     |  number: 1-4294967294  &emsp; |  Autonomous System Number (ASN)  |
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
+			PlanModifiers: []planmodifier.Number{
+				numberplanmodifier.RequiresReplace(),
 			},
 		},
 
@@ -90,6 +96,20 @@ func (o VrfNameProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes() map[strin
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in name_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 
@@ -106,6 +126,20 @@ func (o VrfNameProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes() map[strin
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in neighbor_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  neighbor_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 

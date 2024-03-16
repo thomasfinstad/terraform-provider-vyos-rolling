@@ -31,6 +31,8 @@ help:
 # VyOS ISO Upload timestamp
 
 # Fetch and format newest successful rolling ISO build time
+# TODO use release page for version and commit
+#  ref: https://github.com/vyos/vyos-rolling-nightly-builds/releases
 data/vyos/rolling-iso-build.txt:
 	-mkdir -p .build
 	curl -L \
@@ -50,6 +52,12 @@ data/vyos/rolling-iso-build.txt:
 
 ###
 # VyOS src repo at correct commit
+#  Requireing this also means the first step likely needs to be
+#  `make git-submodules` to make sure the submodule is populated.
+#  It is done this way because I do not know make well enough to
+#  ensure the submodule exists without depending on a file within it
+#  since that is problematic when it comes to the timestamps of the files
+#  and pulls in more build steps than needed.
 data/vyos/submodule.sha: data/vyos/rolling-iso-build.txt
 	git submodule update --init --single-branch -- data/vyos/vyos-1x
 
@@ -60,7 +68,8 @@ data/vyos/submodule.sha: data/vyos/rolling-iso-build.txt
 
 	git add data/vyos/vyos-1x
 
-data/vyos/Makefile: data/vyos/submodule.sha
+.PHONY:git-submodules
+git-submodules: data/vyos/submodule.sha
 	git submodule update --init --single-branch -- data/vyos/vyos-1x
 
 ###
@@ -68,6 +77,8 @@ data/vyos/Makefile: data/vyos/submodule.sha
 
 # Convert from relaxng to XSD
 data/vyos/schema/interface-definition.xsd: data/vyos/submodule.sha
+	make git-submodules
+
 	mkdir -p data/vyos/schema/
 	java -jar tools/trang-20091111/trang.jar -I rnc -O xsd data/vyos/vyos-1x/schema/interface_definition.rnc data/vyos/schema/interface-definition.xsd
 	xmllint --format --recover --output 'data/vyos/schema/interface-definition.xsd' 'data/vyos/schema/interface-definition.xsd'
@@ -100,7 +111,8 @@ internal/vyos/schema/interfacedefinition/autogen-structs.go: data/vyos/schema/in
 # Terraform Resource Schemas
 
 # Compile interface devfinitions
-data/vyos/interface-definitions: data/vyos/submodule.sha data/vyos/Makefile
+data/vyos/interface-definitions: data/vyos/submodule.sha
+	make git-submodules
 
 	@rm -rf "data/vyos/interface-definitions"
 	python -m venv .build/vyos/vyos-1x/venv

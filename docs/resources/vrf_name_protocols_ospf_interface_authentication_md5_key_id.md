@@ -100,7 +100,7 @@ MD5 key id
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Interface name  |
-- `key_id_id` (String) MD5 key id
+- `key_id_id` (Number) MD5 key id
 
     |  Format &emsp; | Description  |
     |----------|---------------|

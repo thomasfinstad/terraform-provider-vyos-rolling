@@ -56,7 +56,7 @@ IPv4 Firewall custom rule number
 ### Required
 
 - `name_id` (String) IPv4 custom firewall
-- `rule_id` (String) IPv4 Firewall custom rule number
+- `rule_id` (Number) IPv4 Firewall custom rule number
 
     |  Format &emsp; | Description  |
     |----------|---------------|

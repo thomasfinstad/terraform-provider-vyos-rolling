@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/policy/large-community-list-rule/resourcemodel"
@@ -23,13 +24,13 @@ func NewPolicyLargeCommunityListRule() resource.Resource {
 
 // policyLargeCommunityListRule defines the resource implementation.
 type policyLargeCommunityListRule struct {
-	client *client.Client
-	model  *resourcemodel.PolicyLargeCommunityListRule
+	providerData data.ProviderData
+	model        *resourcemodel.PolicyLargeCommunityListRule
 }
 
 // GetClient returns the vyos api client
-func (r *policyLargeCommunityListRule) GetClient() *client.Client {
-	return r.client
+func (r *policyLargeCommunityListRule) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *policyLargeCommunityListRule) Configure(ctx context.Context, req resour
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *policyLargeCommunityListRule) Configure(ctx context.Context, req resour
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

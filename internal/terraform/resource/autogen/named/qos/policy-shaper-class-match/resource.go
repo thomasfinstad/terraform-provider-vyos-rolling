@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/qos/policy-shaper-class-match/resourcemodel"
@@ -23,13 +24,13 @@ func NewQosPolicyShaperClassMatch() resource.Resource {
 
 // qosPolicyShaperClassMatch defines the resource implementation.
 type qosPolicyShaperClassMatch struct {
-	client *client.Client
-	model  *resourcemodel.QosPolicyShaperClassMatch
+	providerData data.ProviderData
+	model        *resourcemodel.QosPolicyShaperClassMatch
 }
 
 // GetClient returns the vyos api client
-func (r *qosPolicyShaperClassMatch) GetClient() *client.Client {
-	return r.client
+func (r *qosPolicyShaperClassMatch) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *qosPolicyShaperClassMatch) Configure(ctx context.Context, req resource.
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *qosPolicyShaperClassMatch) Configure(ctx context.Context, req resource.
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

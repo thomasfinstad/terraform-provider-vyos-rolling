@@ -65,7 +65,7 @@ IPv6 Firewall input filter rule number
 
 ### Required
 
-- `rule_id` (String) IPv6 Firewall input filter rule number
+- `rule_id` (Number) IPv6 Firewall input filter rule number
 
     |  Format &emsp; | Description  |
     |----------|---------------|

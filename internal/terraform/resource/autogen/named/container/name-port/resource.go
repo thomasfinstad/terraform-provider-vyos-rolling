@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/container/name-port/resourcemodel"
@@ -23,13 +24,13 @@ func NewContainerNamePort() resource.Resource {
 
 // containerNamePort defines the resource implementation.
 type containerNamePort struct {
-	client *client.Client
-	model  *resourcemodel.ContainerNamePort
+	providerData data.ProviderData
+	model        *resourcemodel.ContainerNamePort
 }
 
 // GetClient returns the vyos api client
-func (r *containerNamePort) GetClient() *client.Client {
-	return r.client
+func (r *containerNamePort) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *containerNamePort) Configure(ctx context.Context, req resource.Configur
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *containerNamePort) Configure(ctx context.Context, req resource.Configur
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

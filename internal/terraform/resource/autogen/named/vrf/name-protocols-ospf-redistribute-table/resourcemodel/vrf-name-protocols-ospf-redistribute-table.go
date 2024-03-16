@@ -2,13 +2,19 @@
 package resourcemodel
 
 import (
+	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // VrfNameProtocolsOspfRedistributeTable describes the resource data model.
@@ -17,7 +23,7 @@ type VrfNameProtocolsOspfRedistributeTable struct {
 
 	SelfIdentifier types.Number `tfsdk:"table_id" vyos:"-,self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsOspfRedistributeTableMetric     types.Number `tfsdk:"metric" vyos:"metric,omitempty"`
@@ -64,7 +70,7 @@ func (o VrfNameProtocolsOspfRedistributeTable) ResourceSchemaAttributes() map[st
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
-		"table_id": schema.StringAttribute{
+		"table_id": schema.NumberAttribute{
 			Required: true,
 			MarkdownDescription: `Redistribute non-main Kernel Routing Table
 
@@ -73,8 +79,8 @@ func (o VrfNameProtocolsOspfRedistributeTable) ResourceSchemaAttributes() map[st
     |  number: 1-200  &emsp; |  Policy route table number  |
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
+			PlanModifiers: []planmodifier.Number{
+				numberplanmodifier.RequiresReplace(),
 			},
 		},
 
@@ -89,6 +95,20 @@ func (o VrfNameProtocolsOspfRedistributeTable) ResourceSchemaAttributes() map[st
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in name_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 

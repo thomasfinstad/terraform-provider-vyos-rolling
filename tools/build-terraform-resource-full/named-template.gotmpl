@@ -12,21 +12,27 @@ import (
 	"net/http"
 	"reflect"
 	"encoding/json"
+	"regexp"
 
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/crud"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	{{if .}}
 		// Extra Imports
@@ -56,13 +62,13 @@ import (
 
 	// {{.BaseNameG}} defines the resource implementation.
 	type {{.BaseNameG}} struct {
-		client       *client.Client
-		model        *resourcemodel.{{.BaseNameCG}}
+		providerData data.ProviderData
+		model  *resourcemodel.{{.BaseNameCG}}
 	}
 
 	// GetClient returns the vyos api client
-	func (r *{{.BaseNameG}}) GetClient() *client.Client {
-		return r.client
+	func (r *{{.BaseNameG}}) GetClient() client.Client {
+		return r.providerData.Client
 	}
 
 	// GetModel returns the resource model
@@ -76,7 +82,7 @@ import (
 			return
 		}
 
-		client, ok := req.ProviderData.(client.Client)
+		data, ok := req.ProviderData.(data.ProviderData)
 
 		if !ok {
 			resp.Diagnostics.AddError(
@@ -87,7 +93,7 @@ import (
 			return
 		}
 
-		r.client = &client
+		r.providerData = data
 	}
 {{end}}
 
@@ -96,7 +102,7 @@ import (
 		{{template "resource-model-parent-id-hack" .Parent}}
 	{{end}}
 	{{if eq .NodeType "TagNode"}}
-		ParentID{{.BaseNameCG}} types.String `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},parent-id"`
+		ParentID{{.BaseNameCG}} types.String `tfsdk:"{{.BaseNameS}}_id" vyos:"{{.BaseName}},parent-id"`
 	{{end}}
 {{end}}
 
@@ -119,6 +125,20 @@ import (
 				MarkdownDescription: `{{.Description}}`,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
+				},
+				Validators: []validator.String{
+					stringvalidator.All(
+						helpers.StringNot(
+							stringvalidator.RegexMatches(
+								regexp.MustCompile(`^.*__.*$`),
+								"double underscores in {{.BaseNameS}}_id, conflicts with the internal resource id",
+							),
+						),
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+							"illigal character in  {{.BaseNameS}}_id, value must match: ^[a-zA-Z0-9-_]*$",
+						),
+					),
 				},
 			},
 		{{end}}
@@ -200,6 +220,8 @@ import (
 								types.String
 							{{- else  if eq .ValueType "number" -}}
 								types.Number
+							{{- else -}}
+								UNKNOWN TYPE: {{.ValueType}}
 							{{- end -}}
 			`tfsdk:"{{.BaseNameS}}_id" vyos:"-,self-id"`
 			{{if .Parent}}
@@ -296,12 +318,51 @@ import (
 					Computed: true,
 					MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 				},
-				"{{.BaseNameS}}_id": schema.StringAttribute{
+				"{{.BaseNameS}}_id":
+				{{- if eq .ValueType "string" -}}
+					schema.StringAttribute
+				{{- else  if eq .ValueType "number" -}}
+					schema.NumberAttribute
+				{{- else if eq .ValueType "bool" -}}
+					schema.BoolAttribute
+				{{- else -}}
+					UNKNOWN TYPE: {{.ValueType}}
+				{{- end -}}
+				{
 					Required:            true,
 					MarkdownDescription: `{{.Description}}`,
-					PlanModifiers: []planmodifier.String{
-						stringplanmodifier.RequiresReplace(),
-					},
+					PlanModifiers:
+					{{- if eq .ValueType "string" -}}
+						[]planmodifier.String{
+							stringplanmodifier.RequiresReplace(),
+						},
+					{{- else  if eq .ValueType "number" -}}
+						[]planmodifier.Number{
+							numberplanmodifier.RequiresReplace(),
+						},
+					{{- else if eq .ValueType "bool" -}}
+						[]planmodifier.Bool{
+							boolplanmodifier.RequiresReplace(),
+						},
+					{{- else -}}
+						UNKNOWN TYPE: {{.ValueType}}
+					{{- end -}}
+					{{if eq .ValueType "string" -}}
+						Validators: []validator.String{
+							stringvalidator.All(
+								helpers.StringNot(
+									stringvalidator.RegexMatches(
+										regexp.MustCompile(`^.*__.*$`),
+										"double underscores in {{.BaseNameS}}_id, conflicts with the internal resource id",
+									),
+								),
+								stringvalidator.RegexMatches(
+									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+									"illigal character in  {{.BaseNameS}}_id, value must match: ^[a-zA-Z0-9-_]*$",
+								),
+							),
+						},
+					{{- end }}
 				},
 				{{if .Parent}}
 					{{template "resource-model-parent-schema-hack" .Parent}}

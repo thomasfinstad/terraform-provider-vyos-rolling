@@ -9,7 +9,7 @@ import (
 type VyosResource interface {
 	// returned model must be ptr
 	GetModel() VyosTopResourceDataModel
-	GetClient() *client.Client
+	GetClient() client.Client
 }
 
 // VyosTopResourceDataModel defines common functions all models need in order to operate

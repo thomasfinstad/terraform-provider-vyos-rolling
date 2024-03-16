@@ -2,13 +2,19 @@
 package resourcemodel
 
 import (
+	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // VrfNameProtocolsOspfAccessList describes the resource data model.
@@ -17,7 +23,7 @@ type VrfNameProtocolsOspfAccessList struct {
 
 	SelfIdentifier types.Number `tfsdk:"access_list_id" vyos:"-,self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsOspfAccessListExport types.List `tfsdk:"export" vyos:"export,omitempty"`
@@ -60,7 +66,7 @@ func (o VrfNameProtocolsOspfAccessList) ResourceSchemaAttributes() map[string]sc
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
-		"access_list_id": schema.StringAttribute{
+		"access_list_id": schema.NumberAttribute{
 			Required: true,
 			MarkdownDescription: `Access list to filter networks in routing updates
 
@@ -69,8 +75,8 @@ func (o VrfNameProtocolsOspfAccessList) ResourceSchemaAttributes() map[string]sc
     |  u32  &emsp; |  Access-list number  |
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
+			PlanModifiers: []planmodifier.Number{
+				numberplanmodifier.RequiresReplace(),
 			},
 		},
 
@@ -85,6 +91,20 @@ func (o VrfNameProtocolsOspfAccessList) ResourceSchemaAttributes() map[string]sc
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in name_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 

@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/vrf/name-protocols-isis-segment-routing-prefix/resourcemodel"
@@ -23,13 +24,13 @@ func NewVrfNameProtocolsIsisSegmentRoutingPrefix() resource.Resource {
 
 // vrfNameProtocolsIsisSegmentRoutingPrefix defines the resource implementation.
 type vrfNameProtocolsIsisSegmentRoutingPrefix struct {
-	client *client.Client
-	model  *resourcemodel.VrfNameProtocolsIsisSegmentRoutingPrefix
+	providerData data.ProviderData
+	model        *resourcemodel.VrfNameProtocolsIsisSegmentRoutingPrefix
 }
 
 // GetClient returns the vyos api client
-func (r *vrfNameProtocolsIsisSegmentRoutingPrefix) GetClient() *client.Client {
-	return r.client
+func (r *vrfNameProtocolsIsisSegmentRoutingPrefix) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *vrfNameProtocolsIsisSegmentRoutingPrefix) Configure(ctx context.Context
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *vrfNameProtocolsIsisSegmentRoutingPrefix) Configure(ctx context.Context
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

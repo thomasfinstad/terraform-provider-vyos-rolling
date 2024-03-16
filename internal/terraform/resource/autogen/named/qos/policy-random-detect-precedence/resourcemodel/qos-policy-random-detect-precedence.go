@@ -2,13 +2,19 @@
 package resourcemodel
 
 import (
+	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // QosPolicyRandomDetectPrecedence describes the resource data model.
@@ -17,7 +23,7 @@ type QosPolicyRandomDetectPrecedence struct {
 
 	SelfIdentifier types.Number `tfsdk:"precedence_id" vyos:"-,self-id"`
 
-	ParentIDQosPolicyRandomDetect types.String `tfsdk:"random_detect" vyos:"random-detect,parent-id"`
+	ParentIDQosPolicyRandomDetect types.String `tfsdk:"random_detect_id" vyos:"random-detect,parent-id"`
 
 	// LeafNodes
 	LeafQosPolicyRandomDetectPrecedenceQueueLimit       types.Number `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
@@ -62,7 +68,7 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
-		"precedence_id": schema.StringAttribute{
+		"precedence_id": schema.NumberAttribute{
 			Required: true,
 			MarkdownDescription: `IP precedence
 
@@ -71,8 +77,8 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
     |  number: 0-7  &emsp; |  IP precedence value  |
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
+			PlanModifiers: []planmodifier.Number{
+				numberplanmodifier.RequiresReplace(),
 			},
 		},
 
@@ -87,6 +93,20 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in random_detect_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  random_detect_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 

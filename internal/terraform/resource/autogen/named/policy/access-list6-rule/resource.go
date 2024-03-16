@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/policy/access-list6-rule/resourcemodel"
@@ -23,13 +24,13 @@ func NewPolicyAccessListsixRule() resource.Resource {
 
 // policyAccessListsixRule defines the resource implementation.
 type policyAccessListsixRule struct {
-	client *client.Client
-	model  *resourcemodel.PolicyAccessListsixRule
+	providerData data.ProviderData
+	model        *resourcemodel.PolicyAccessListsixRule
 }
 
 // GetClient returns the vyos api client
-func (r *policyAccessListsixRule) GetClient() *client.Client {
-	return r.client
+func (r *policyAccessListsixRule) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *policyAccessListsixRule) Configure(ctx context.Context, req resource.Co
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *policyAccessListsixRule) Configure(ctx context.Context, req resource.Co
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

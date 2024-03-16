@@ -2,13 +2,19 @@
 package resourcemodel
 
 import (
+	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID describes the resource data model.
@@ -17,9 +23,9 @@ type VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID struct {
 
 	SelfIdentifier types.Number `tfsdk:"key_id_id" vyos:"-,self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
 
-	ParentIDVrfNameProtocolsOspfInterface types.String `tfsdk:"interface" vyos:"interface,parent-id"`
+	ParentIDVrfNameProtocolsOspfInterface types.String `tfsdk:"interface_id" vyos:"interface,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyIDMdfiveKey types.String `tfsdk:"md5_key" vyos:"md5-key,omitempty"`
@@ -69,7 +75,7 @@ func (o VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) ResourceSchemaAt
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
-		"key_id_id": schema.StringAttribute{
+		"key_id_id": schema.NumberAttribute{
 			Required: true,
 			MarkdownDescription: `MD5 key id
 
@@ -78,8 +84,8 @@ func (o VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) ResourceSchemaAt
     |  number: 1-255  &emsp; |  MD5 key id  |
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
+			PlanModifiers: []planmodifier.Number{
+				numberplanmodifier.RequiresReplace(),
 			},
 		},
 
@@ -95,6 +101,20 @@ func (o VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) ResourceSchemaAt
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in name_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
+			},
 		},
 
 		"interface_id": schema.StringAttribute{
@@ -108,6 +128,20 @@ func (o VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) ResourceSchemaAt
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in interface_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  interface_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 

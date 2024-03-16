@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/vrf/name-protocols-isis-fast-reroute-lfa-local-tiebreaker-downstream-index/resourcemodel"
@@ -23,13 +24,13 @@ func NewVrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex() resou
 
 // vrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex defines the resource implementation.
 type vrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex struct {
-	client *client.Client
-	model  *resourcemodel.VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex
+	providerData data.ProviderData
+	model        *resourcemodel.VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex
 }
 
 // GetClient returns the vyos api client
-func (r *vrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex) GetClient() *client.Client {
-	return r.client
+func (r *vrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *vrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex) Confi
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *vrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex) Confi
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

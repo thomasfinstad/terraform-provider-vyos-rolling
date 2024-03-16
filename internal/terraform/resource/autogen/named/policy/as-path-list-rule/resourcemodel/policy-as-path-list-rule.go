@@ -2,13 +2,19 @@
 package resourcemodel
 
 import (
+	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // PolicyAsPathListRule describes the resource data model.
@@ -17,7 +23,7 @@ type PolicyAsPathListRule struct {
 
 	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
 
-	ParentIDPolicyAsPathList types.String `tfsdk:"as_path_list" vyos:"as-path-list,parent-id"`
+	ParentIDPolicyAsPathList types.String `tfsdk:"as_path_list_id" vyos:"as-path-list,parent-id"`
 
 	// LeafNodes
 	LeafPolicyAsPathListRuleAction      types.String `tfsdk:"action" vyos:"action,omitempty"`
@@ -58,7 +64,7 @@ func (o PolicyAsPathListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
-		"rule_id": schema.StringAttribute{
+		"rule_id": schema.NumberAttribute{
 			Required: true,
 			MarkdownDescription: `Rule for this as-path-list
 
@@ -67,8 +73,8 @@ func (o PolicyAsPathListRule) ResourceSchemaAttributes() map[string]schema.Attri
     |  number: 1-65535  &emsp; |  AS path list rule number  |
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
+			PlanModifiers: []planmodifier.Number{
+				numberplanmodifier.RequiresReplace(),
 			},
 		},
 
@@ -83,6 +89,20 @@ func (o PolicyAsPathListRule) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in as_path_list_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  as_path_list_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 

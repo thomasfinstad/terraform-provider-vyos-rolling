@@ -20,20 +20,56 @@ provider "vyos" {
   }
 }
 
-resource "vyos_firewall_group_port_group" "example" {
+/* resource "vyos_firewall_group_port_group" "example" {
   port_group_id = "TF-Examples"
 
-  description = "Example of terraform created resource ${timestamp()}"
+  description = "Example of terraform created resource ${plantimestamp()}"
   port        = [8080, "27015-27020", 44]
-}
-
-resource "vyos_high_availability_vrrp_global_parameters" "example" {
-  startup_delay = 13
 }
 
 resource "vyos_firewall_ipv4_name" "example" {
   name_id = "TF-Example"
 
   default_action = "accept"
-  description    = "Another terraform t ${timestamp()}"
+  description    = "Another terraform t ${plantimestamp()}"
+} */
+
+/* resource "vyos_firewall_ipv4_name" "example2" {
+  count = 1
+
+  name_id = "TF-Example2-${count.index}-${replace(plantimestamp(), ":", "-")}"
+
+  default_action = "accept"
+  description    = "Another terraform test"
+}
+
+resource "vyos_firewall_ipv4_name_rule" "example2" {
+  count = length(vyos_firewall_ipv4_name.example2)
+
+  name_id = vyos_firewall_ipv4_name.example2[count.index].name_id
+  rule_id = 99
+
+  action = "accept"
+
+  icmp = {
+    code = 0
+    type = 0
+  }
+}
+ */
+
+# resource "vyos_policy_access_list" "name" {
+#   access_list_id = 2
+
+# }
+
+resource "vyos_policy_access_list_rule" "name" {
+  access_list_id = 2
+  rule_id        = 5
+
+  description = plantimestamp()
+  action      = "permit"
+  source = {
+    host = "55.55.55.55"
+  }
 }

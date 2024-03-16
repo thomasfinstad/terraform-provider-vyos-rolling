@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/qos/policy-fair-queue/resourcemodel"
@@ -23,13 +24,13 @@ func NewQosPolicyFairQueue() resource.Resource {
 
 // qosPolicyFairQueue defines the resource implementation.
 type qosPolicyFairQueue struct {
-	client *client.Client
-	model  *resourcemodel.QosPolicyFairQueue
+	providerData data.ProviderData
+	model        *resourcemodel.QosPolicyFairQueue
 }
 
 // GetClient returns the vyos api client
-func (r *qosPolicyFairQueue) GetClient() *client.Client {
-	return r.client
+func (r *qosPolicyFairQueue) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *qosPolicyFairQueue) Configure(ctx context.Context, req resource.Configu
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *qosPolicyFairQueue) Configure(ctx context.Context, req resource.Configu
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

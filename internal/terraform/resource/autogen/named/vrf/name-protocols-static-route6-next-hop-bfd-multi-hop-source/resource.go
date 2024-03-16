@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/vrf/name-protocols-static-route6-next-hop-bfd-multi-hop-source/resourcemodel"
@@ -23,13 +24,13 @@ func NewVrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource() resource.Resour
 
 // vrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource defines the resource implementation.
 type vrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource struct {
-	client *client.Client
-	model  *resourcemodel.VrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource
+	providerData data.ProviderData
+	model        *resourcemodel.VrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource
 }
 
 // GetClient returns the vyos api client
-func (r *vrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource) GetClient() *client.Client {
-	return r.client
+func (r *vrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *vrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource) Configure(ctx c
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *vrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource) Configure(ctx c
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

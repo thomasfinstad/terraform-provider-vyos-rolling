@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/group-dynamic-group-address-group/resourcemodel"
@@ -23,13 +24,13 @@ func NewFirewallGroupDynamicGroupAddressGroup() resource.Resource {
 
 // firewallGroupDynamicGroupAddressGroup defines the resource implementation.
 type firewallGroupDynamicGroupAddressGroup struct {
-	client *client.Client
-	model  *resourcemodel.FirewallGroupDynamicGroupAddressGroup
+	providerData data.ProviderData
+	model        *resourcemodel.FirewallGroupDynamicGroupAddressGroup
 }
 
 // GetClient returns the vyos api client
-func (r *firewallGroupDynamicGroupAddressGroup) GetClient() *client.Client {
-	return r.client
+func (r *firewallGroupDynamicGroupAddressGroup) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *firewallGroupDynamicGroupAddressGroup) Configure(ctx context.Context, r
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *firewallGroupDynamicGroupAddressGroup) Configure(ctx context.Context, r
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

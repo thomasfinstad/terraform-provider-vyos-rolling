@@ -2,13 +2,19 @@
 package resourcemodel
 
 import (
+	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID describes the resource data model.
@@ -17,11 +23,11 @@ type VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID struct {
 
 	SelfIdentifier types.Number `tfsdk:"key_id_id" vyos:"-,self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
 
-	ParentIDVrfNameProtocolsOspfArea types.String `tfsdk:"area" vyos:"area,parent-id"`
+	ParentIDVrfNameProtocolsOspfArea types.String `tfsdk:"area_id" vyos:"area,parent-id"`
 
-	ParentIDVrfNameProtocolsOspfAreaVirtualLink types.String `tfsdk:"virtual_link" vyos:"virtual-link,parent-id"`
+	ParentIDVrfNameProtocolsOspfAreaVirtualLink types.String `tfsdk:"virtual_link_id" vyos:"virtual-link,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyIDMdfiveKey types.String `tfsdk:"md5_key" vyos:"md5-key,omitempty"`
@@ -74,7 +80,7 @@ func (o VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSc
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
-		"key_id_id": schema.StringAttribute{
+		"key_id_id": schema.NumberAttribute{
 			Required: true,
 			MarkdownDescription: `MD5 key id
 
@@ -83,8 +89,8 @@ func (o VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSc
     |  number: 1-255  &emsp; |  MD5 key id  |
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
+			PlanModifiers: []planmodifier.Number{
+				numberplanmodifier.RequiresReplace(),
 			},
 		},
 
@@ -99,6 +105,20 @@ func (o VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSc
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in name_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 
@@ -115,6 +135,20 @@ func (o VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSc
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in area_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  area_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
+			},
 		},
 
 		"virtual_link_id": schema.StringAttribute{
@@ -128,6 +162,20 @@ func (o VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSc
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in virtual_link_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  virtual_link_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 

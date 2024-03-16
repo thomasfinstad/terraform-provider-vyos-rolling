@@ -2,14 +2,20 @@
 package resourcemodel
 
 import (
+	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni describes the resource data model.
@@ -18,7 +24,7 @@ type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni struct {
 
 	SelfIdentifier types.Number `tfsdk:"vni_id" vyos:"-,self-id"`
 
-	ParentIDVrfName types.String `tfsdk:"name" vyos:"name,parent-id"`
+	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw types.Bool   `tfsdk:"advertise_default_gw" vyos:"advertise-default-gw,omitempty"`
@@ -68,7 +74,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
-		"vni_id": schema.StringAttribute{
+		"vni_id": schema.NumberAttribute{
 			Required: true,
 			MarkdownDescription: `VXLAN Network Identifier
 
@@ -77,8 +83,8 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes
     |  number: 1-16777215  &emsp; |  VNI number  |
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
+			PlanModifiers: []planmodifier.Number{
+				numberplanmodifier.RequiresReplace(),
 			},
 		},
 
@@ -93,6 +99,20 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in name_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 

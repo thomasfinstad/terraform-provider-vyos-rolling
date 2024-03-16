@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/ipv4-name-rule/resourcemodel"
@@ -23,13 +24,13 @@ func NewFirewallIPvfourNameRule() resource.Resource {
 
 // firewallIPvfourNameRule defines the resource implementation.
 type firewallIPvfourNameRule struct {
-	client *client.Client
-	model  *resourcemodel.FirewallIPvfourNameRule
+	providerData data.ProviderData
+	model        *resourcemodel.FirewallIPvfourNameRule
 }
 
 // GetClient returns the vyos api client
-func (r *firewallIPvfourNameRule) GetClient() *client.Client {
-	return r.client
+func (r *firewallIPvfourNameRule) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *firewallIPvfourNameRule) Configure(ctx context.Context, req resource.Co
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *firewallIPvfourNameRule) Configure(ctx context.Context, req resource.Co
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

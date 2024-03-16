@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/vrf/name-protocols-bgp-peer-group-local-role/resourcemodel"
@@ -23,13 +24,13 @@ func NewVrfNameProtocolsBgpPeerGroupLocalRole() resource.Resource {
 
 // vrfNameProtocolsBgpPeerGroupLocalRole defines the resource implementation.
 type vrfNameProtocolsBgpPeerGroupLocalRole struct {
-	client *client.Client
-	model  *resourcemodel.VrfNameProtocolsBgpPeerGroupLocalRole
+	providerData data.ProviderData
+	model        *resourcemodel.VrfNameProtocolsBgpPeerGroupLocalRole
 }
 
 // GetClient returns the vyos api client
-func (r *vrfNameProtocolsBgpPeerGroupLocalRole) GetClient() *client.Client {
-	return r.client
+func (r *vrfNameProtocolsBgpPeerGroupLocalRole) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *vrfNameProtocolsBgpPeerGroupLocalRole) Configure(ctx context.Context, r
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *vrfNameProtocolsBgpPeerGroupLocalRole) Configure(ctx context.Context, r
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

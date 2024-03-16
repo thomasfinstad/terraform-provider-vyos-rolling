@@ -55,7 +55,7 @@ Class Handle
 
 ### Required
 
-- `class_id` (String) Class Handle
+- `class_id` (Number) Class Handle
 
     |  Format &emsp; | Description  |
     |----------|---------------|

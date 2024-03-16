@@ -2,13 +2,19 @@
 package resourcemodel
 
 import (
+	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // PolicyLargeCommunityListRule describes the resource data model.
@@ -17,7 +23,7 @@ type PolicyLargeCommunityListRule struct {
 
 	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
 
-	ParentIDPolicyLargeCommunityList types.String `tfsdk:"large_community_list" vyos:"large-community-list,parent-id"`
+	ParentIDPolicyLargeCommunityList types.String `tfsdk:"large_community_list_id" vyos:"large-community-list,parent-id"`
 
 	// LeafNodes
 	LeafPolicyLargeCommunityListRuleAction      types.String `tfsdk:"action" vyos:"action,omitempty"`
@@ -58,7 +64,7 @@ func (o PolicyLargeCommunityListRule) ResourceSchemaAttributes() map[string]sche
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
-		"rule_id": schema.StringAttribute{
+		"rule_id": schema.NumberAttribute{
 			Required: true,
 			MarkdownDescription: `Rule for this BGP extended community list
 
@@ -67,8 +73,8 @@ func (o PolicyLargeCommunityListRule) ResourceSchemaAttributes() map[string]sche
     |  number: 1-65535  &emsp; |  Large community-list rule number  |
 
 `,
-			PlanModifiers: []planmodifier.String{
-				stringplanmodifier.RequiresReplace(),
+			PlanModifiers: []planmodifier.Number{
+				numberplanmodifier.RequiresReplace(),
 			},
 		},
 
@@ -83,6 +89,20 @@ func (o PolicyLargeCommunityListRule) ResourceSchemaAttributes() map[string]sche
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in large_community_list_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  large_community_list_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 

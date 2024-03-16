@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/vrf/name-protocols-isis-interface/resourcemodel"
@@ -23,13 +24,13 @@ func NewVrfNameProtocolsIsisInterface() resource.Resource {
 
 // vrfNameProtocolsIsisInterface defines the resource implementation.
 type vrfNameProtocolsIsisInterface struct {
-	client *client.Client
-	model  *resourcemodel.VrfNameProtocolsIsisInterface
+	providerData data.ProviderData
+	model        *resourcemodel.VrfNameProtocolsIsisInterface
 }
 
 // GetClient returns the vyos api client
-func (r *vrfNameProtocolsIsisInterface) GetClient() *client.Client {
-	return r.client
+func (r *vrfNameProtocolsIsisInterface) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *vrfNameProtocolsIsisInterface) Configure(ctx context.Context, req resou
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *vrfNameProtocolsIsisInterface) Configure(ctx context.Context, req resou
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

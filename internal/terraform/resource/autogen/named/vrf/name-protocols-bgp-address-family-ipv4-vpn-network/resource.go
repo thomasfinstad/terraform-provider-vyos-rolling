@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/vrf/name-protocols-bgp-address-family-ipv4-vpn-network/resourcemodel"
@@ -23,13 +24,13 @@ func NewVrfNameProtocolsBgpAddressFamilyIPvfourVpnNetwork() resource.Resource {
 
 // vrfNameProtocolsBgpAddressFamilyIPvfourVpnNetwork defines the resource implementation.
 type vrfNameProtocolsBgpAddressFamilyIPvfourVpnNetwork struct {
-	client *client.Client
-	model  *resourcemodel.VrfNameProtocolsBgpAddressFamilyIPvfourVpnNetwork
+	providerData data.ProviderData
+	model        *resourcemodel.VrfNameProtocolsBgpAddressFamilyIPvfourVpnNetwork
 }
 
 // GetClient returns the vyos api client
-func (r *vrfNameProtocolsBgpAddressFamilyIPvfourVpnNetwork) GetClient() *client.Client {
-	return r.client
+func (r *vrfNameProtocolsBgpAddressFamilyIPvfourVpnNetwork) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *vrfNameProtocolsBgpAddressFamilyIPvfourVpnNetwork) Configure(ctx contex
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *vrfNameProtocolsBgpAddressFamilyIPvfourVpnNetwork) Configure(ctx contex
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

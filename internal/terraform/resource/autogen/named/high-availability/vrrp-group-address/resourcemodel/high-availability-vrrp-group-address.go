@@ -2,13 +2,18 @@
 package resourcemodel
 
 import (
+	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // HighAvailabilityVrrpGroupAddress describes the resource data model.
@@ -17,7 +22,7 @@ type HighAvailabilityVrrpGroupAddress struct {
 
 	SelfIdentifier types.String `tfsdk:"address_id" vyos:"-,self-id"`
 
-	ParentIDHighAvailabilityVrrpGroup types.String `tfsdk:"group" vyos:"group,parent-id"`
+	ParentIDHighAvailabilityVrrpGroup types.String `tfsdk:"group_id" vyos:"group,parent-id"`
 
 	// LeafNodes
 	LeafHighAvailabilityVrrpGroupAddressInterface types.String `tfsdk:"interface" vyos:"interface,omitempty"`
@@ -72,6 +77,19 @@ func (o HighAvailabilityVrrpGroupAddress) ResourceSchemaAttributes() map[string]
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			}, Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in address_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  address_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 
@@ -82,6 +100,20 @@ func (o HighAvailabilityVrrpGroupAddress) ResourceSchemaAttributes() map[string]
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in group_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  group_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 

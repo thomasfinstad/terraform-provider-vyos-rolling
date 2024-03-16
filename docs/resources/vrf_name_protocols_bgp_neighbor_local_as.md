@@ -75,7 +75,7 @@ Specify alternate ASN for this BGP process
 
 ### Required
 
-- `local_as_id` (String) Specify alternate ASN for this BGP process
+- `local_as_id` (Number) Specify alternate ASN for this BGP process
 
     |  Format &emsp; | Description  |
     |----------|---------------|

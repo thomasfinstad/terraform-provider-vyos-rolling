@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/high-availability/vrrp-sync-group/resourcemodel"
@@ -23,13 +24,13 @@ func NewHighAvailabilityVrrpSyncGroup() resource.Resource {
 
 // highAvailabilityVrrpSyncGroup defines the resource implementation.
 type highAvailabilityVrrpSyncGroup struct {
-	client *client.Client
-	model  *resourcemodel.HighAvailabilityVrrpSyncGroup
+	providerData data.ProviderData
+	model        *resourcemodel.HighAvailabilityVrrpSyncGroup
 }
 
 // GetClient returns the vyos api client
-func (r *highAvailabilityVrrpSyncGroup) GetClient() *client.Client {
-	return r.client
+func (r *highAvailabilityVrrpSyncGroup) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *highAvailabilityVrrpSyncGroup) Configure(ctx context.Context, req resou
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *highAvailabilityVrrpSyncGroup) Configure(ctx context.Context, req resou
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

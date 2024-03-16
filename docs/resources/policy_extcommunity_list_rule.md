@@ -50,7 +50,7 @@ Rule for this BGP extended community list
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  BGP extended community-list name  |
-- `rule_id` (String) Rule for this BGP extended community list
+- `rule_id` (Number) Rule for this BGP extended community list
 
     |  Format &emsp; | Description  |
     |----------|---------------|

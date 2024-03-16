@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/vrf/name-protocols-bgp-address-family-ipv6-labeled-unicast-network/resourcemodel"
@@ -23,13 +24,13 @@ func NewVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork() resource.R
 
 // vrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork defines the resource implementation.
 type vrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork struct {
-	client *client.Client
-	model  *resourcemodel.VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork
+	providerData data.ProviderData
+	model        *resourcemodel.VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork
 }
 
 // GetClient returns the vyos api client
-func (r *vrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork) GetClient() *client.Client {
-	return r.client
+func (r *vrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *vrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork) Configure(
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *vrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork) Configure(
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

@@ -55,7 +55,7 @@ Class ID
 
 ### Required
 
-- `class_id` (String) Class ID
+- `class_id` (Number) Class ID
 
     |  Format &emsp; | Description  |
     |----------|---------------|

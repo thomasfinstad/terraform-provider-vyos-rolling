@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/global/pki/x509-default/resourcemodel"
@@ -23,13 +24,13 @@ func NewPkiXfivezeronineDefault() resource.Resource {
 
 // pkiXfivezeronineDefault defines the resource implementation.
 type pkiXfivezeronineDefault struct {
-	client *client.Client
-	model  *resourcemodel.PkiXfivezeronineDefault
+	providerData data.ProviderData
+	model        *resourcemodel.PkiXfivezeronineDefault
 }
 
 // GetClient returns the vyos api client
-func (r *pkiXfivezeronineDefault) GetClient() *client.Client {
-	return r.client
+func (r *pkiXfivezeronineDefault) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *pkiXfivezeronineDefault) Configure(ctx context.Context, req resource.Co
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *pkiXfivezeronineDefault) Configure(ctx context.Context, req resource.Co
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

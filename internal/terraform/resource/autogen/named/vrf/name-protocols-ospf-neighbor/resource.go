@@ -9,6 +9,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 
 	// Extra Imports
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/vrf/name-protocols-ospf-neighbor/resourcemodel"
@@ -23,13 +24,13 @@ func NewVrfNameProtocolsOspfNeighbor() resource.Resource {
 
 // vrfNameProtocolsOspfNeighbor defines the resource implementation.
 type vrfNameProtocolsOspfNeighbor struct {
-	client *client.Client
-	model  *resourcemodel.VrfNameProtocolsOspfNeighbor
+	providerData data.ProviderData
+	model        *resourcemodel.VrfNameProtocolsOspfNeighbor
 }
 
 // GetClient returns the vyos api client
-func (r *vrfNameProtocolsOspfNeighbor) GetClient() *client.Client {
-	return r.client
+func (r *vrfNameProtocolsOspfNeighbor) GetClient() client.Client {
+	return r.providerData.Client
 }
 
 // GetModel returns the resource model
@@ -43,7 +44,7 @@ func (r *vrfNameProtocolsOspfNeighbor) Configure(ctx context.Context, req resour
 		return
 	}
 
-	client, ok := req.ProviderData.(client.Client)
+	data, ok := req.ProviderData.(data.ProviderData)
 
 	if !ok {
 		resp.Diagnostics.AddError(
@@ -54,5 +55,5 @@ func (r *vrfNameProtocolsOspfNeighbor) Configure(ctx context.Context, req resour
 		return
 	}
 
-	r.client = &client
+	r.providerData = data
 }

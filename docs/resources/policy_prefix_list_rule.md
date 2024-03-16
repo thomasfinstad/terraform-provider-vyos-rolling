@@ -50,7 +50,7 @@ Rule for this prefix-list
     |  Format &emsp; | Description  |
     |----------|---------------|
     |  txt  &emsp; |  Name of IPv4 prefix-list  |
-- `rule_id` (String) Rule for this prefix-list
+- `rule_id` (Number) Rule for this prefix-list
 
     |  Format &emsp; | Description  |
     |----------|---------------|

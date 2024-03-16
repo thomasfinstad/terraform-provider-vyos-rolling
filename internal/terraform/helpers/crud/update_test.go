@@ -152,7 +152,7 @@ func TestCrudUpdateCrossResourceContamination(t *testing.T) {
 	go func() {
 		defer wg.Done()
 
-		err := update(ctx, &client1, groupState, groupPlan)
+		err := update(ctx, client1, groupState, groupPlan)
 		if err != nil {
 			t.Logf("[grp] update error: %v", err.Error())
 		}
@@ -162,7 +162,7 @@ func TestCrudUpdateCrossResourceContamination(t *testing.T) {
 	go func() {
 		defer wg.Done()
 
-		err := update(ctx, &client2, fwState, fwPlan)
+		err := update(ctx, client2, fwState, fwPlan)
 		if err != nil {
 			t.Logf("[fw] compare failed: %v", err.Error())
 		}

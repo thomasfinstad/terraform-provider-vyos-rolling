@@ -68,7 +68,7 @@ func TestCrudRead(t *testing.T) {
 		ExistsTagFirewallIPvfourNameRule:     true,
 	}
 
-	err := read(ctx, &client, model)
+	err := read(ctx, client, model)
 	if err != nil {
 		t.Errorf("read failed: %v", err)
 	}

@@ -2,13 +2,18 @@
 package resourcemodel
 
 import (
+	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // QosPolicyLimiterClassMatch describes the resource data model.
@@ -17,9 +22,9 @@ type QosPolicyLimiterClassMatch struct {
 
 	SelfIdentifier types.String `tfsdk:"match_id" vyos:"-,self-id"`
 
-	ParentIDQosPolicyLimiter types.String `tfsdk:"limiter" vyos:"limiter,parent-id"`
+	ParentIDQosPolicyLimiter types.String `tfsdk:"limiter_id" vyos:"limiter,parent-id"`
 
-	ParentIDQosPolicyLimiterClass types.String `tfsdk:"class" vyos:"class,parent-id"`
+	ParentIDQosPolicyLimiterClass types.String `tfsdk:"class_id" vyos:"class,parent-id"`
 
 	// LeafNodes
 	LeafQosPolicyLimiterClassMatchDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -76,6 +81,19 @@ func (o QosPolicyLimiterClassMatch) ResourceSchemaAttributes() map[string]schema
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			}, Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in match_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  match_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 
@@ -91,6 +109,20 @@ func (o QosPolicyLimiterClassMatch) ResourceSchemaAttributes() map[string]schema
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in limiter_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  limiter_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
+			},
 		},
 
 		"class_id": schema.StringAttribute{
@@ -104,6 +136,20 @@ func (o QosPolicyLimiterClassMatch) ResourceSchemaAttributes() map[string]schema
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
+			},
+			Validators: []validator.String{
+				stringvalidator.All(
+					helpers.StringNot(
+						stringvalidator.RegexMatches(
+							regexp.MustCompile(`^.*__.*$`),
+							"double underscores in class_id, conflicts with the internal resource id",
+						),
+					),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
+						"illigal character in  class_id, value must match: ^[a-zA-Z0-9-_]*$",
+					),
+				),
 			},
 		},
 
