@@ -2,6 +2,7 @@ package crud
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
@@ -28,6 +29,11 @@ func Read(ctx context.Context, r helpers.VyosResource, req resource.ReadRequest,
 	// Fetch live state from Vyos
 	err := read(ctx, r.GetClient(), stateModel)
 	if err != nil {
+		var apiNotFoundError *client.APINotFoundError
+		if errors.As(err, &apiNotFoundError) {
+			resp.State.RemoveResource(ctx)
+			return
+		}
 		resp.Diagnostics.AddError("API Read error", err.Error())
 	}
 
@@ -43,21 +49,17 @@ func read(ctx context.Context, client client.Client, model helpers.VyosTopResour
 	tflog.Debug(ctx, "Fetching API data")
 	response, err := client.Read(ctx, model.GetVyosPath())
 	if err != nil {
-		if err.Error() == "API ERROR: Configuration under specified path is empty\n" {
-			tflog.Warn(ctx, "API Error: Empty resource", map[string]interface{}{"vyos-path": model.GetVyosPath(), "error": err, "response": response})
-		} else {
-			tflog.Error(ctx, "API Error", map[string]interface{}{"vyos-path": model.GetVyosPath(), "error": err, "response": response})
-			return fmt.Errorf("unable to read %s, got error: %s", model.GetVyosPath(), err)
+		tflog.Warn(ctx, "API Error:", map[string]interface{}{"vyos-path": model.GetVyosPath(), "error": err, "response": response})
+		return err
+	}
+
+	if responseAssrt, ok := response.(map[string]any); ok {
+		err := helpers.UnmarshalVyos(ctx, responseAssrt, model)
+		if err != nil {
+			return fmt.Errorf("vyos API response unmarshalling error: %#v", err)
 		}
 	} else {
-		if responseAssrt, ok := response.(map[string]any); ok {
-			err := helpers.UnmarshalVyos(ctx, responseAssrt, model)
-			if err != nil {
-				return fmt.Errorf("vyos API response unmarshalling error: %#v", err)
-			}
-		} else {
-			return fmt.Errorf("wrong API return type, expected map[string]any, got: %#v", response)
-		}
+		return fmt.Errorf("wrong API return type, expected map[string]any, got: %#v", response)
 	}
 
 	return nil

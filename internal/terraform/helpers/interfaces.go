@@ -17,8 +17,18 @@ type VyosResource interface {
 // VyosTopResourceDataModel defines common functions all models need in order to operate
 type VyosTopResourceDataModel interface {
 	VyosResourceDataModel
+
+	// SetID configures the resource ID
 	SetID(id []string)
+
+	// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 	GetVyosPath() []string
+
+	// GetVyosParentPath returns the list of strings to use to get to the correct
+	// vyos configuration for the nearest parent that is not a global resource.
+	// If this is the top level named resource the list is zero elements long.
+	// This is intended to use with the resource CRUD create function to check if the required parent exists.
+	GetVyosParentPath() []string
 }
 
 // VyosResourceDataModel defines common functions all models need in order to operate

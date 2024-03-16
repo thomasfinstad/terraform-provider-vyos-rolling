@@ -69,6 +69,21 @@ func (o *QosPolicyRoundRobinClass) GetVyosPath() []string {
 	}
 }
 
+// GetVyosParentPath returns the list of strings to use to get to the correct
+// vyos configuration for the nearest parent that is not a global resource.
+// If this is the top level named resource the list is zero elements long.
+// This is intended to use with the resource CRUD create function to check if the required parent exists.
+func (o *QosPolicyRoundRobinClass) GetVyosParentPath() []string {
+	return []string{
+		"qos",
+
+		"policy",
+
+		"round-robin",
+		o.ParentIDQosPolicyRoundRobin.ValueString(),
+	}
+}
+
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{

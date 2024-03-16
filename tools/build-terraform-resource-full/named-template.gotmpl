@@ -120,22 +120,6 @@ import (
 	{{end}}
 {{end}}
 
-{{define "resource-model-parent-vyos-path-hack"}}
-	{{- if .Parent}}
-		{{template "resource-model-parent-vyos-path-hack" .Parent}}
-	{{- end}}
-	"{{.BaseName}}",
-	{{- if eq .NodeType "TagNode"}}
-		{{if eq .ValueType "string" -}}
-			o.ParentID{{.BaseNameCG}}.ValueString(),
-		{{- else  if eq .ValueType "number" -}}
-			o.ParentID{{.BaseNameCG}}.ValueBigFloat().String(),
-		{{- else -}}
-			UNSUPPORTED TYPE
-		{{- end}}
-	{{- end}}
-{{end}}
-
 {{define "resource-model-parent-schema-hack"}}
 	{{if .Parent}}
 		{{template "resource-model-parent-schema-hack" .Parent}}
@@ -360,6 +344,18 @@ import (
 				{{- end}}
 			}
 		}
+
+		// GetVyosParentPath returns the list of strings to use to get to the correct
+		// vyos configuration for the nearest parent that is not a global resource.
+		// If this is the top level named resource the list is zero elements long.
+		// This is intended to use with the resource CRUD create function to check if the required parent exists.
+		func (o *{{.BaseNameCG}}) GetVyosParentPath() []string {
+			return []string{
+				{{- if .Parent -}}
+					{{template "resource-model-parent-vyos-path-hack-for-non-global" .Parent}}
+				{{- end}}
+			}
+		}
 	{{end}}
 
 	// ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -462,6 +458,38 @@ import (
 			{{end}}
 		}
 	}
+{{end}}
+
+{{/* This is so we can more easily get the api config path */}}
+{{define "resource-model-parent-vyos-path-hack"}}
+	{{- if .Parent}}
+		{{template "resource-model-parent-vyos-path-hack" .Parent}}
+	{{- end}}
+	"{{.BaseName}}",
+	{{- if eq .NodeType "TagNode"}}
+		{{if eq .ValueType "string" -}}
+			o.ParentID{{.BaseNameCG}}.ValueString(),
+		{{- else  if eq .ValueType "number" -}}
+			o.ParentID{{.BaseNameCG}}.ValueBigFloat().String(),
+		{{- else -}}
+			UNSUPPORTED TYPE
+		{{- end}}
+	{{- end}}
+{{end}}
+
+{{/* This is so we can check for required parents before createing a resource */}}
+{{define "resource-model-parent-vyos-path-hack-for-non-global"}}
+	{{- if  ne .NodeType "TagNode" }}
+		{{- if .Parent}}
+			{{template "resource-model-parent-vyos-path-hack-for-non-global" .Parent}}
+		{{end}}
+	{{ else if not .IsBaseNode}}
+		{{- if .Parent}}
+			{{template "resource-model-parent-vyos-path-hack-for-non-global" .Parent}}
+		{{end}}
+	{{ else }}
+		{{template "resource-model-parent-vyos-path-hack" .}}
+	{{ end }}
 {{end}}
 
 {{define "metadata"}}

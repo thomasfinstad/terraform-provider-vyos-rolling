@@ -12,6 +12,9 @@ import (
 	"golang.org/x/text/language"
 )
 
+// Validate conformity
+var _ NodeBase = &LeafNode{}
+
 // AbsName returns each name in the node hirarchy starting with the root as the first element and this node as the last element
 func (o *LeafNode) AbsName() []string {
 	if o.Parent == nil {

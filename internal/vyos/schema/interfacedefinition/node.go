@@ -12,6 +12,9 @@ import (
 	"golang.org/x/text/language"
 )
 
+// Validate conformity
+var _ NodeParent = &Node{}
+
 // InformLinage will recursively set the Parent field in all children
 func (o *Node) InformLinage() {
 	for _, cn := range o.GetChildren().Node {

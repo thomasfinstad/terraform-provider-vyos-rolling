@@ -33,6 +33,8 @@ provider "vyos" {
   certificate = {
     disable_verify = true
   }
+
+  #overwrite_existing_resources_on_create = true
 }
 
 /* resource "vyos_firewall_group_port_group" "example" {
@@ -101,6 +103,8 @@ resource "vyos_policy_access_list_rule" "name" {
 ### Optional
 
 - `certificate` (Attributes) (see [below for nested schema](#nestedatt--certificate))
+- `overwrite_existing_resources_on_create` (Boolean) Enables overwriting/ignoring existing resources.
+This can be helpful when trying to avoid and change many resources at once.
 
 <a id="nestedatt--certificate"></a>
 ### Nested Schema for `certificate`

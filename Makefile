@@ -229,7 +229,7 @@ example-clean:
 .PHONY: provider-schema
 provider-schema: build-rolling
 	mkdir -p data/provider-schema
-	cd examples/provider; make init
+	cd examples/provider && make init
 	terraform -chdir=examples/provider providers schema -json | jq '.' > data/provider-schema/${VERSION_ROLLING}.json
 
 	# if diff data/provider-schema/$(shell ls data/provider-schema | sort -V | tail -n1) data/provider-schema/${VERSION_ROLLING}.json; then \

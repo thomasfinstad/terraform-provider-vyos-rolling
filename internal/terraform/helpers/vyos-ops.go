@@ -96,6 +96,10 @@ func iron(ctx context.Context, vyosPath []string, values map[string]interface{})
 		log.Printf("CurrentReturnValue: %#v\n", ret)
 	}
 
+	if len(ret) == 0 {
+		ret = [][]string{vyosPath}
+	}
+
 	tflog.Trace(ctx, "ironing result", map[string]interface{}{"result": fmt.Sprintf("%#v", ret)})
 	log.Printf("returning: %#v\n", ret)
 	return ret

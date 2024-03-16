@@ -167,7 +167,7 @@ func (c *Client) Read(ctx context.Context, path []string) (any, error) {
 		},
 	)
 	if err != nil {
-		return nil, fmt.Errorf("fail json marshal read operation: %w", err)
+		return nil, &MarshalError{message: "read operation", marshalErr: err}
 	}
 
 	payload := url.Values{
@@ -215,5 +215,17 @@ func (c *Client) Read(ctx context.Context, path []string) (any, error) {
 	}
 
 	log.Println("API read failure")
-	return nil, fmt.Errorf("API ERROR: %s", ret["error"])
+
+	if errmsg, ok := ret["error"]; ok {
+		if errmsg, ok := errmsg.(string); ok && errmsg == "Configuration under specified path is empty\n" {
+			return nil, &APINotFoundError{
+				message: strings.TrimSuffix(errmsg, "\n"),
+				path:    strings.Join(path, " "),
+			}
+		}
+
+		return nil, fmt.Errorf("[api error]: %s", errmsg)
+	}
+
+	return nil, fmt.Errorf("[api error]: %v", ret)
 }

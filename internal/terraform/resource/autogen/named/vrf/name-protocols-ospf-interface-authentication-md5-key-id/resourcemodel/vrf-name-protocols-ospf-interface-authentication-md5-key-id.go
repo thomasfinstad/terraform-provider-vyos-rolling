@@ -72,6 +72,26 @@ func (o *VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) GetVyosPath() [
 	}
 }
 
+// GetVyosParentPath returns the list of strings to use to get to the correct
+// vyos configuration for the nearest parent that is not a global resource.
+// If this is the top level named resource the list is zero elements long.
+// This is intended to use with the resource CRUD create function to check if the required parent exists.
+func (o *VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) GetVyosParentPath() []string {
+	return []string{
+		"vrf",
+
+		"name",
+		o.ParentIDVrfName.ValueString(),
+
+		"protocols",
+
+		"ospf",
+
+		"interface",
+		o.ParentIDVrfNameProtocolsOspfInterface.ValueString(),
+	}
+}
+
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
 func (o VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
