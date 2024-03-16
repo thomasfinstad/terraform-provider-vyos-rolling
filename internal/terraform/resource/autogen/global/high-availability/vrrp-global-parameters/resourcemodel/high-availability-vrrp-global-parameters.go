@@ -7,7 +7,12 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
+
+// Validate compliance
+var _ helpers.VyosTopResourceDataModel = &HighAvailabilityVrrpGlobalParameters{}
 
 // HighAvailabilityVrrpGlobalParameters describes the resource data model.
 type HighAvailabilityVrrpGlobalParameters struct {

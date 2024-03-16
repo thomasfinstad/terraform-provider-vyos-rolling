@@ -3,7 +3,13 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
+
+// Validate compliance
+
+var _ helpers.VyosResourceDataModel = &VrfNameProtocolsOspfTimersThroTTLe{}
 
 // VrfNameProtocolsOspfTimersThroTTLe describes the resource data model.
 type VrfNameProtocolsOspfTimersThroTTLe struct {

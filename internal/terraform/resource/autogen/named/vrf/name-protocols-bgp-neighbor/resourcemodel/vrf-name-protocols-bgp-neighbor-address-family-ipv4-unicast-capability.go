@@ -3,7 +3,13 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
+
+// Validate compliance
+
+var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastCapability{}
 
 // VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastCapability describes the resource data model.
 type VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastCapability struct {

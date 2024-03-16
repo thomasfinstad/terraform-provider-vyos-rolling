@@ -3,6 +3,8 @@ package namedvrfnameprotocolsisisinterface
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -16,3 +18,6 @@ var (
 // var _ resource.ResourceWithUpgradeState = &vrfNameProtocolsIsisInterface{}
 // var _ resource.ResourceWithValidateConfig = &vrfNameProtocolsIsisInterface{}
 // var _ resource.ResourceWithImportState = &vrfNameProtocolsIsisInterface{}
+
+// Ensure we fully satisfy helper pkg interfaces
+var _ helpers.VyosResource = &vrfNameProtocolsIsisInterface{}

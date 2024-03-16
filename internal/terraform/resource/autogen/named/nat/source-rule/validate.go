@@ -3,6 +3,8 @@ package namednatsourcerule
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -16,3 +18,6 @@ var (
 // var _ resource.ResourceWithUpgradeState = &natSourceRule{}
 // var _ resource.ResourceWithValidateConfig = &natSourceRule{}
 // var _ resource.ResourceWithImportState = &natSourceRule{}
+
+// Ensure we fully satisfy helper pkg interfaces
+var _ helpers.VyosResource = &natSourceRule{}

@@ -38,6 +38,11 @@ func (r *natStaticRule) GetModel() helpers.VyosTopResourceDataModel {
 	return r.model
 }
 
+// GetProviderConfig returns global provider data config
+func (r *natStaticRule) GetProviderConfig() data.ProviderData {
+	return r.providerData
+}
+
 func (r *natStaticRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

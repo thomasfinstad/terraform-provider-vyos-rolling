@@ -38,6 +38,11 @@ func (r *vrfNameProtocolsBgpPeerGroupLocalRole) GetModel() helpers.VyosTopResour
 	return r.model
 }
 
+// GetProviderConfig returns global provider data config
+func (r *vrfNameProtocolsBgpPeerGroupLocalRole) GetProviderConfig() data.ProviderData {
+	return r.providerData
+}
+
 func (r *vrfNameProtocolsBgpPeerGroupLocalRole) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

@@ -3,7 +3,13 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
+
+// Validate compliance
+
+var _ helpers.VyosResourceDataModel = &VrfNameProtocolsIsisRedistributeIPvsixOspfsix{}
 
 // VrfNameProtocolsIsisRedistributeIPvsixOspfsix describes the resource data model.
 type VrfNameProtocolsIsisRedistributeIPvsixOspfsix struct {

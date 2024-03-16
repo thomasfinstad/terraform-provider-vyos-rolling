@@ -50,6 +50,9 @@ import (
 	// var _ resource.ResourceWithUpgradeState = &{{.BaseNameG}}{}
 	// var _ resource.ResourceWithValidateConfig = &{{.BaseNameG}}{}
 	// var _ resource.ResourceWithImportState = &{{.BaseNameG}}{}
+
+	// Ensure we fully satisfy helper pkg interfaces
+	var _ helpers.VyosResource = &{{.BaseNameG}}{}
 {{end}}
 
 {{define "resource-tagnode-based-full"}}
@@ -74,6 +77,11 @@ import (
 	// GetModel returns the resource model
 	func (r *{{.BaseNameG}}) GetModel() helpers.VyosTopResourceDataModel {
 		return r.model
+	}
+
+	// GetProviderConfig returns global provider data config
+	func (r *{{.BaseNameG}}) GetProviderConfig() data.ProviderData {
+		return r.providerData
 	}
 
 	func (r *{{.BaseNameG}}) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
@@ -248,6 +256,13 @@ import (
 {{end}}
 
 {{define "resource-model"}}
+	// Validate compliance
+	{{if .IsBaseNode }}
+	var _ helpers.VyosTopResourceDataModel = &{{.BaseNameCG}}{}
+	{{ else }}
+	var _ helpers.VyosResourceDataModel = &{{.BaseNameCG}}{}
+	{{ end }}
+
 	// {{.BaseNameCG}} describes the resource data model.
 	type {{.BaseNameCG}} struct {
 		{{if .IsBaseNode }}

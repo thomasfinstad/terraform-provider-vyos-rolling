@@ -38,6 +38,11 @@ func (r *vrfNameProtocolsOspfInterface) GetModel() helpers.VyosTopResourceDataMo
 	return r.model
 }
 
+// GetProviderConfig returns global provider data config
+func (r *vrfNameProtocolsOspfInterface) GetProviderConfig() data.ProviderData {
+	return r.providerData
+}
+
 func (r *vrfNameProtocolsOspfInterface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

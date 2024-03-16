@@ -3,6 +3,8 @@ package namedqospolicyshaperhfscclass
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -16,3 +18,6 @@ var (
 // var _ resource.ResourceWithUpgradeState = &qosPolicyShaperHfscClass{}
 // var _ resource.ResourceWithValidateConfig = &qosPolicyShaperHfscClass{}
 // var _ resource.ResourceWithImportState = &qosPolicyShaperHfscClass{}
+
+// Ensure we fully satisfy helper pkg interfaces
+var _ helpers.VyosResource = &qosPolicyShaperHfscClass{}

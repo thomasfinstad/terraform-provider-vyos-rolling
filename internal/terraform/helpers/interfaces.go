@@ -3,6 +3,7 @@ package helpers
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 )
 
 // VyosResource is used to support CRUD operations for terraform resources via helpers
@@ -10,6 +11,7 @@ type VyosResource interface {
 	// returned model must be ptr
 	GetModel() VyosTopResourceDataModel
 	GetClient() client.Client
+	GetProviderConfig() data.ProviderData
 }
 
 // VyosTopResourceDataModel defines common functions all models need in order to operate

@@ -32,6 +32,12 @@
               "description": "VyOS API Endpoint",
               "description_kind": "markdown",
               "required": true
+            },
+            "overwrite_existing_resources_on_create": {
+              "type": "bool",
+              "description": "Enables overwriting/ignoring existing resources.\nThis can be helpful when trying to avoid and change many resources at once.",
+              "description_kind": "markdown",
+              "optional": true
             }
           },
           "description_kind": "plain"

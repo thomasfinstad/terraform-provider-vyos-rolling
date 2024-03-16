@@ -3,6 +3,8 @@ package namedfirewallipvfouroutputfilterrule
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -16,3 +18,6 @@ var (
 // var _ resource.ResourceWithUpgradeState = &firewallIPvfourOutputFilterRule{}
 // var _ resource.ResourceWithValidateConfig = &firewallIPvfourOutputFilterRule{}
 // var _ resource.ResourceWithImportState = &firewallIPvfourOutputFilterRule{}
+
+// Ensure we fully satisfy helper pkg interfaces
+var _ helpers.VyosResource = &firewallIPvfourOutputFilterRule{}

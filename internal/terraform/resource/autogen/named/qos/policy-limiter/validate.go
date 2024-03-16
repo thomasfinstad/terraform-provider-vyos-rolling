@@ -3,6 +3,8 @@ package namedqospolicylimiter
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -16,3 +18,6 @@ var (
 // var _ resource.ResourceWithUpgradeState = &qosPolicyLimiter{}
 // var _ resource.ResourceWithValidateConfig = &qosPolicyLimiter{}
 // var _ resource.ResourceWithImportState = &qosPolicyLimiter{}
+
+// Ensure we fully satisfy helper pkg interfaces
+var _ helpers.VyosResource = &qosPolicyLimiter{}

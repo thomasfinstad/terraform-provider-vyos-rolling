@@ -3,7 +3,9 @@ package crud
 import (
 	"context"
 	"fmt"
+	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 
@@ -12,9 +14,8 @@ import (
 
 // TODO add retry and timeout
 // TODO check provider config if we must check for parent before creating
-// TODO check provider config if we must check if resource exists before creating
 // TODO check if required parent exists and fail after timeout if not
-// TODO check if resource already exists and fail after timeout
+// TODO add timeout and retry to existing resource check
 
 // Create method to define the logic which creates the resource and sets its initial Terraform state.
 func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequest, resp *resource.CreateResponse) {
@@ -22,12 +23,35 @@ func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequ
 	tflog.Trace(ctx, "Fetching data model")
 	planModel := r.GetModel()
 	client := r.GetClient()
+	providerCfg := r.GetProviderConfig()
 
 	// Read Terraform plan data into the model
 	tflog.Trace(ctx, "Fetching plan data")
 	resp.Diagnostics.Append(req.Plan.Get(ctx, planModel)...)
 	if resp.Diagnostics.HasError() {
 		return
+	}
+
+	// Check if nearest parent exists
+
+	// Check if resource already exists
+	if !providerCfg.Config.CrudSkipExistingResourceCheck {
+		_, err := client.Read(ctx, planModel.GetVyosPath())
+		if err == nil {
+			resp.Diagnostics.Append(
+				diag.NewErrorDiagnostic(
+					"resource already exists: '"+strings.Join(planModel.GetVyosPath(), " ")+"'",
+					"remove the resource in vyos, import the resource, or configure the provider to overwrite existing resources",
+				))
+			return
+		} else if err.Error() != "API ERROR: Configuration under specified path is empty\n" {
+			resp.Diagnostics.Append(
+				diag.NewErrorDiagnostic(
+					"error reading API endpoint",
+					fmt.Sprintf("unable to read %s, got error: %s", planModel.GetVyosPath(), err),
+				))
+			return
+		}
 	}
 
 	// Marshal resource model for vyos

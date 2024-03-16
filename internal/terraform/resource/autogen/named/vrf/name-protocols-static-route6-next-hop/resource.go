@@ -38,6 +38,11 @@ func (r *vrfNameProtocolsStaticRoutesixNextHop) GetModel() helpers.VyosTopResour
 	return r.model
 }
 
+// GetProviderConfig returns global provider data config
+func (r *vrfNameProtocolsStaticRoutesixNextHop) GetProviderConfig() data.ProviderData {
+	return r.providerData
+}
+
 func (r *vrfNameProtocolsStaticRoutesixNextHop) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

@@ -38,6 +38,11 @@ func (r *qosPolicyCake) GetModel() helpers.VyosTopResourceDataModel {
 	return r.model
 }
 
+// GetProviderConfig returns global provider data config
+func (r *qosPolicyCake) GetProviderConfig() data.ProviderData {
+	return r.providerData
+}
+
 func (r *qosPolicyCake) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

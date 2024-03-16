@@ -17,6 +17,10 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
+// Validate compliance
+
+var _ helpers.VyosTopResourceDataModel = &QosPolicyRandomDetectPrecedence{}
+
 // QosPolicyRandomDetectPrecedence describes the resource data model.
 type QosPolicyRandomDetectPrecedence struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`

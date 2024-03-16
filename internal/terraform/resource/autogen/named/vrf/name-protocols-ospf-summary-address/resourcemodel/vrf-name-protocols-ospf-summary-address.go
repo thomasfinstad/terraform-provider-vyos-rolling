@@ -17,6 +17,10 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
+// Validate compliance
+
+var _ helpers.VyosTopResourceDataModel = &VrfNameProtocolsOspfSummaryAddress{}
+
 // VrfNameProtocolsOspfSummaryAddress describes the resource data model.
 type VrfNameProtocolsOspfSummaryAddress struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`

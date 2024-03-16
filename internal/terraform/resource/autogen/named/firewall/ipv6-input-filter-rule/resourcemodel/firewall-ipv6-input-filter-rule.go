@@ -10,7 +10,13 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
+
+// Validate compliance
+
+var _ helpers.VyosTopResourceDataModel = &FirewallIPvsixInputFilterRule{}
 
 // FirewallIPvsixInputFilterRule describes the resource data model.
 type FirewallIPvsixInputFilterRule struct {

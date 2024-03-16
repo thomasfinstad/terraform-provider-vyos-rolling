@@ -3,6 +3,8 @@ package namedfirewallbridgenamerule
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -16,3 +18,6 @@ var (
 // var _ resource.ResourceWithUpgradeState = &firewallBrIDgeNameRule{}
 // var _ resource.ResourceWithValidateConfig = &firewallBrIDgeNameRule{}
 // var _ resource.ResourceWithImportState = &firewallBrIDgeNameRule{}
+
+// Ensure we fully satisfy helper pkg interfaces
+var _ helpers.VyosResource = &firewallBrIDgeNameRule{}

@@ -3,6 +3,8 @@ package namedfirewallipvfourforwardfilterrule
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -16,3 +18,6 @@ var (
 // var _ resource.ResourceWithUpgradeState = &firewallIPvfourForwardFilterRule{}
 // var _ resource.ResourceWithValidateConfig = &firewallIPvfourForwardFilterRule{}
 // var _ resource.ResourceWithImportState = &firewallIPvfourForwardFilterRule{}
+
+// Ensure we fully satisfy helper pkg interfaces
+var _ helpers.VyosResource = &firewallIPvfourForwardFilterRule{}

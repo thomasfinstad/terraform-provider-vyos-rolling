@@ -38,6 +38,11 @@ func (r *firewallGlobalOptionsStatePolicyInvalID) GetModel() helpers.VyosTopReso
 	return r.model
 }
 
+// GetProviderConfig returns global provider data config
+func (r *firewallGlobalOptionsStatePolicyInvalID) GetProviderConfig() data.ProviderData {
+	return r.providerData
+}
+
 func (r *firewallGlobalOptionsStatePolicyInvalID) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

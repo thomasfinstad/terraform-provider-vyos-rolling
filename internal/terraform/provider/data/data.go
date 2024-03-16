@@ -9,8 +9,9 @@ func NewProviderData(c client.Client) ProviderData {
 	return ProviderData{
 		Client: c,
 		Config: Config{
-			CrudCheckParentBeforeCreate: true,
-			CrudCheckChildBeforeDelete:  true,
+			CrudSkipCheckParentBeforeCreate: false,
+			CrudSkipExistingResourceCheck:   false,
+			CrudSkipCheckChildBeforeDelete:  false,
 		},
 	}
 }
@@ -27,6 +28,7 @@ type ProviderData struct {
 Config contains provider level configurations
 */
 type Config struct {
-	CrudCheckParentBeforeCreate bool
-	CrudCheckChildBeforeDelete  bool
+	CrudSkipCheckParentBeforeCreate bool
+	CrudSkipExistingResourceCheck   bool
+	CrudSkipCheckChildBeforeDelete  bool
 }

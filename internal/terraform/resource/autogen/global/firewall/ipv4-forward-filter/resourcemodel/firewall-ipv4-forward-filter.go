@@ -8,7 +8,12 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
+
+// Validate compliance
+var _ helpers.VyosTopResourceDataModel = &FirewallIPvfourForwardFilter{}
 
 // FirewallIPvfourForwardFilter describes the resource data model.
 type FirewallIPvfourForwardFilter struct {

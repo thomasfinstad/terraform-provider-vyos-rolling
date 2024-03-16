@@ -3,6 +3,8 @@ package namednatsourceruleloadbalancebackend
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -16,3 +18,6 @@ var (
 // var _ resource.ResourceWithUpgradeState = &natSourceRuleLoadBalanceBackend{}
 // var _ resource.ResourceWithValidateConfig = &natSourceRuleLoadBalanceBackend{}
 // var _ resource.ResourceWithImportState = &natSourceRuleLoadBalanceBackend{}
+
+// Ensure we fully satisfy helper pkg interfaces
+var _ helpers.VyosResource = &natSourceRuleLoadBalanceBackend{}

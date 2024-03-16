@@ -16,6 +16,10 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
+// Validate compliance
+
+var _ helpers.VyosTopResourceDataModel = &VrfNameProtocolsBgpAddressFamilyIPvfourVpnNetwork{}
+
 // VrfNameProtocolsBgpAddressFamilyIPvfourVpnNetwork describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvfourVpnNetwork struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`

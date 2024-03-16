@@ -18,6 +18,10 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
+// Validate compliance
+
+var _ helpers.VyosTopResourceDataModel = &FirewallIPvfourNameRule{}
+
 // FirewallIPvfourNameRule describes the resource data model.
 type FirewallIPvfourNameRule struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`

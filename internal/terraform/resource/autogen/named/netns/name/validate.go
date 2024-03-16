@@ -3,6 +3,8 @@ package namednetnsname
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -16,3 +18,6 @@ var (
 // var _ resource.ResourceWithUpgradeState = &netnsName{}
 // var _ resource.ResourceWithValidateConfig = &netnsName{}
 // var _ resource.ResourceWithImportState = &netnsName{}
+
+// Ensure we fully satisfy helper pkg interfaces
+var _ helpers.VyosResource = &netnsName{}

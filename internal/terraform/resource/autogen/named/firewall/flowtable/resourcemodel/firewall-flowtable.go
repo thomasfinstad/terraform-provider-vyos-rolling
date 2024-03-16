@@ -16,6 +16,10 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
+// Validate compliance
+
+var _ helpers.VyosTopResourceDataModel = &FirewallFlowtable{}
+
 // FirewallFlowtable describes the resource data model.
 type FirewallFlowtable struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`

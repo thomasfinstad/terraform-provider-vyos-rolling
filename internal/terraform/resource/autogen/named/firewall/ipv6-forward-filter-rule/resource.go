@@ -38,6 +38,11 @@ func (r *firewallIPvsixForwardFilterRule) GetModel() helpers.VyosTopResourceData
 	return r.model
 }
 
+// GetProviderConfig returns global provider data config
+func (r *firewallIPvsixForwardFilterRule) GetProviderConfig() data.ProviderData {
+	return r.providerData
+}
+
 func (r *firewallIPvsixForwardFilterRule) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

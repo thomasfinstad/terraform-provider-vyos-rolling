@@ -3,6 +3,8 @@ package namedvrfnameprotocolsbgppeergroup
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -16,3 +18,6 @@ var (
 // var _ resource.ResourceWithUpgradeState = &vrfNameProtocolsBgpPeerGroup{}
 // var _ resource.ResourceWithValidateConfig = &vrfNameProtocolsBgpPeerGroup{}
 // var _ resource.ResourceWithImportState = &vrfNameProtocolsBgpPeerGroup{}
+
+// Ensure we fully satisfy helper pkg interfaces
+var _ helpers.VyosResource = &vrfNameProtocolsBgpPeerGroup{}

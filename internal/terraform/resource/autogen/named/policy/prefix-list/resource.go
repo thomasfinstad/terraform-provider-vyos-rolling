@@ -38,6 +38,11 @@ func (r *policyPrefixList) GetModel() helpers.VyosTopResourceDataModel {
 	return r.model
 }
 
+// GetProviderConfig returns global provider data config
+func (r *policyPrefixList) GetProviderConfig() data.ProviderData {
+	return r.providerData
+}
+
 func (r *policyPrefixList) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

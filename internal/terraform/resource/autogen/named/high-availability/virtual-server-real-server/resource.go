@@ -38,6 +38,11 @@ func (r *highAvailabilityVirtualServerRealServer) GetModel() helpers.VyosTopReso
 	return r.model
 }
 
+// GetProviderConfig returns global provider data config
+func (r *highAvailabilityVirtualServerRealServer) GetProviderConfig() data.ProviderData {
+	return r.providerData
+}
+
 func (r *highAvailabilityVirtualServerRealServer) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

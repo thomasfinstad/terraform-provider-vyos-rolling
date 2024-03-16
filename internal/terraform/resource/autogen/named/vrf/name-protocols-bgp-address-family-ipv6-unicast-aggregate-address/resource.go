@@ -38,6 +38,11 @@ func (r *vrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress) GetModel
 	return r.model
 }
 
+// GetProviderConfig returns global provider data config
+func (r *vrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress) GetProviderConfig() data.ProviderData {
+	return r.providerData
+}
+
 func (r *vrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

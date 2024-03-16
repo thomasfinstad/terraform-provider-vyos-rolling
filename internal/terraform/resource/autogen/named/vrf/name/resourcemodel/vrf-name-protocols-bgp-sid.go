@@ -3,7 +3,13 @@ package resourcemodel
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
+
+// Validate compliance
+
+var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpSID{}
 
 // VrfNameProtocolsBgpSID describes the resource data model.
 type VrfNameProtocolsBgpSID struct {

@@ -18,6 +18,10 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
+// Validate compliance
+
+var _ helpers.VyosTopResourceDataModel = &VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricIndex{}
+
 // VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricIndex describes the resource data model.
 type VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricIndex struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`

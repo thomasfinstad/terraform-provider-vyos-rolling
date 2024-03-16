@@ -17,6 +17,10 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
+// Validate compliance
+
+var _ helpers.VyosTopResourceDataModel = &VrfNameProtocolsBgpPeerGroupLocalRole{}
+
 // VrfNameProtocolsBgpPeerGroupLocalRole describes the resource data model.
 type VrfNameProtocolsBgpPeerGroupLocalRole struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`

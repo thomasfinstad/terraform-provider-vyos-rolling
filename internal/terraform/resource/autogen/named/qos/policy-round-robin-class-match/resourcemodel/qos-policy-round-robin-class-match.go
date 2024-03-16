@@ -17,6 +17,10 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
+// Validate compliance
+
+var _ helpers.VyosTopResourceDataModel = &QosPolicyRoundRobinClassMatch{}
+
 // QosPolicyRoundRobinClassMatch describes the resource data model.
 type QosPolicyRoundRobinClassMatch struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`

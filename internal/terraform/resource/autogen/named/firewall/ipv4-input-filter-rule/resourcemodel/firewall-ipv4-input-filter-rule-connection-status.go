@@ -4,7 +4,13 @@ package resourcemodel
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
+
+// Validate compliance
+
+var _ helpers.VyosResourceDataModel = &FirewallIPvfourInputFilterRuleConnectionStatus{}
 
 // FirewallIPvfourInputFilterRuleConnectionStatus describes the resource data model.
 type FirewallIPvfourInputFilterRuleConnectionStatus struct {

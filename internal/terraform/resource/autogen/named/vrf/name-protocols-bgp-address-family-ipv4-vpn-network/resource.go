@@ -38,6 +38,11 @@ func (r *vrfNameProtocolsBgpAddressFamilyIPvfourVpnNetwork) GetModel() helpers.V
 	return r.model
 }
 
+// GetProviderConfig returns global provider data config
+func (r *vrfNameProtocolsBgpAddressFamilyIPvfourVpnNetwork) GetProviderConfig() data.ProviderData {
+	return r.providerData
+}
+
 func (r *vrfNameProtocolsBgpAddressFamilyIPvfourVpnNetwork) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

@@ -4,7 +4,13 @@ package resourcemodel
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
+
+// Validate compliance
+
+var _ helpers.VyosResourceDataModel = &VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastConditionallyAdvertise{}
 
 // VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastConditionallyAdvertise describes the resource data model.
 type VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastConditionallyAdvertise struct {

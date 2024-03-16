@@ -38,6 +38,11 @@ func (r *vrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) GetModel() helpers.Vyos
 	return r.model
 }
 
+// GetProviderConfig returns global provider data config
+func (r *vrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) GetProviderConfig() data.ProviderData {
+	return r.providerData
+}
+
 func (r *vrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

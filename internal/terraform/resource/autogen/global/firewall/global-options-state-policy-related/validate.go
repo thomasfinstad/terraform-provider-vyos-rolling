@@ -3,6 +3,8 @@ package globalfirewallglobaloptionsstatepolicyrelated
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -16,3 +18,6 @@ var (
 // var _ resource.ResourceWithUpgradeState = &firewallGlobalOptionsStatePolicyRelated{}
 // var _ resource.ResourceWithValidateConfig = &firewallGlobalOptionsStatePolicyRelated{}
 // var _ resource.ResourceWithImportState = &firewallGlobalOptionsStatePolicyRelated{}
+
+// Ensure we fully satisfy helper pkg interfaces
+var _ helpers.VyosResource = &firewallGlobalOptionsStatePolicyRelated{}

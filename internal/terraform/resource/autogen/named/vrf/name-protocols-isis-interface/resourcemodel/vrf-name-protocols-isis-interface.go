@@ -17,6 +17,10 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
+// Validate compliance
+
+var _ helpers.VyosTopResourceDataModel = &VrfNameProtocolsIsisInterface{}
+
 // VrfNameProtocolsIsisInterface describes the resource data model.
 type VrfNameProtocolsIsisInterface struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`

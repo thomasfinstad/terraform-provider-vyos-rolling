@@ -38,6 +38,11 @@ func (r *vrfNameProtocolsStaticRouteNextHopBfdMultiHopSource) GetModel() helpers
 	return r.model
 }
 
+// GetProviderConfig returns global provider data config
+func (r *vrfNameProtocolsStaticRouteNextHopBfdMultiHopSource) GetProviderConfig() data.ProviderData {
+	return r.providerData
+}
+
 func (r *vrfNameProtocolsStaticRouteNextHopBfdMultiHopSource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {

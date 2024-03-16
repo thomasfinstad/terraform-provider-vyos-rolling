@@ -16,6 +16,10 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
+// Validate compliance
+
+var _ helpers.VyosTopResourceDataModel = &PolicyAccessListsix{}
+
 // PolicyAccessListsix describes the resource data model.
 type PolicyAccessListsix struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`

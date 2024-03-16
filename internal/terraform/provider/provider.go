@@ -29,9 +29,10 @@ type VyosProvider struct {
 
 // VyosProviderModel Contains all global configurations for the provider
 type VyosProviderModel struct {
-	Endpoint    types.String `tfsdk:"endpoint"`
-	Key         types.String `tfsdk:"api_key"`
-	Certificate types.Object `tfsdk:"certificate"`
+	Endpoint             types.String `tfsdk:"endpoint"`
+	Key                  types.String `tfsdk:"api_key"`
+	Certificate          types.Object `tfsdk:"certificate"`
+	OverwriteExistingRes types.Bool   `tfsdk:"overwrite_existing_resources_on_create"`
 }
 
 // Metadata method to define the provider type name for inclusion in each data source and resource type name.
@@ -62,6 +63,11 @@ func (p *VyosProvider) Schema(ctx context.Context, req provider.SchemaRequest, r
 						Optional:            true,
 					},
 				},
+			},
+			"overwrite_existing_resources_on_create": schema.BoolAttribute{
+				MarkdownDescription: `Enables overwriting/ignoring existing resources.
+This can be helpful when trying to avoid and change many resources at once.`,
+				Optional: true,
 			},
 		},
 	}
@@ -112,6 +118,9 @@ func (p *VyosProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 	config := data.NewProviderData(
 		client.NewClient(ctx, endpoint, apiKey, "TODO: add useragent with provider version", disableVerify),
 	)
+
+	config.Config.CrudSkipExistingResourceCheck = providerModel.OverwriteExistingRes.ValueBool()
+
 	resp.DataSourceData = config
 	resp.ResourceData = config
 }

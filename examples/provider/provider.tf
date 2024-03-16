@@ -18,6 +18,8 @@ provider "vyos" {
   certificate = {
     disable_verify = true
   }
+
+  #overwrite_existing_resources_on_create = true
 }
 
 /* resource "vyos_firewall_group_port_group" "example" {

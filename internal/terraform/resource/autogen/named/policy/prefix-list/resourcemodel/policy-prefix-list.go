@@ -16,6 +16,10 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
+// Validate compliance
+
+var _ helpers.VyosTopResourceDataModel = &PolicyPrefixList{}
+
 // PolicyPrefixList describes the resource data model.
 type PolicyPrefixList struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`

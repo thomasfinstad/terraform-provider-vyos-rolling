@@ -3,6 +3,8 @@ package namedpkicertificate
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -16,3 +18,6 @@ var (
 // var _ resource.ResourceWithUpgradeState = &pkiCertificate{}
 // var _ resource.ResourceWithValidateConfig = &pkiCertificate{}
 // var _ resource.ResourceWithImportState = &pkiCertificate{}
+
+// Ensure we fully satisfy helper pkg interfaces
+var _ helpers.VyosResource = &pkiCertificate{}

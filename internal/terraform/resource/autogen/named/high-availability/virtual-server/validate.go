@@ -3,6 +3,8 @@ package namedhighavailabilityvirtualserver
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -16,3 +18,6 @@ var (
 // var _ resource.ResourceWithUpgradeState = &highAvailabilityVirtualServer{}
 // var _ resource.ResourceWithValidateConfig = &highAvailabilityVirtualServer{}
 // var _ resource.ResourceWithImportState = &highAvailabilityVirtualServer{}
+
+// Ensure we fully satisfy helper pkg interfaces
+var _ helpers.VyosResource = &highAvailabilityVirtualServer{}

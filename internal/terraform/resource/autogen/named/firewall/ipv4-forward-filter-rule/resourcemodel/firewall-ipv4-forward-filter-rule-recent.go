@@ -4,7 +4,13 @@ package resourcemodel
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
+
+// Validate compliance
+
+var _ helpers.VyosResourceDataModel = &FirewallIPvfourForwardFilterRuleRecent{}
 
 // FirewallIPvfourForwardFilterRuleRecent describes the resource data model.
 type FirewallIPvfourForwardFilterRuleRecent struct {
