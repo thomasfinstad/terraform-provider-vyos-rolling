@@ -18,11 +18,12 @@ import (
 
 // TODO figure out print logging vs tflog for testing
 
-// resource "vyos_policy_access_list" "name" {
-// 	access_list_id = 2
-
-//   }
-
+// TestPolicyAccessListEmptyMarshal tests that that an empty resource marshals to the correct empty representation
+//
+//	Simulated resource:
+//		resource "vyos_policy_access_list" "name" {
+//			access_list_id = 42
+//		}
 func TestPolicyAccessListEmptyMarshal(t *testing.T) {
 	model := &resourcemodel.PolicyAccessList{
 		SelfIdentifier: basetypes.NewNumberValue(big.NewFloat(42)),
@@ -41,7 +42,12 @@ func TestPolicyAccessListEmptyMarshal(t *testing.T) {
 	}
 }
 
-// TestFirewallIPvfourNameMarshalVyos does some simple marshalling tests
+// TestPolicyAccessListEmptyGenerateVyosOps tests that an empty resource generates the correct vyos operations
+//
+//	Simulated resource:
+//		resource "vyos_policy_access_list" "name" {
+//			access_list_id = 42
+//		}
 func TestPolicyAccessListEmptyGenerateVyosOps(t *testing.T) {
 	hasPath := []string{"policy", "access-list", "42"}
 	hasData := make(map[string]any)

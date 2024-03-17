@@ -170,7 +170,6 @@ internal/vyos/vyosinterface/auto-package.go: data/vyos/interface-definitions too
 	gofumpt -w ./internal/vyos/vyosinterface/*.go
 
 internal/terraform/resource/autogen: internal/vyos/vyosinterface/auto-package.go tools/build-terraform-resource-full/named-template.gotmpl tools/build-terraform-resource-full/global-template.gotmpl
-
 	# Prep dirs
 	@rm -rfv internal/terraform/resource/autogen
 	@rm -rfv docs/resources
@@ -195,9 +194,35 @@ internal/terraform/resource/autogen: internal/vyos/vyosinterface/auto-package.go
 		sed -i "s|subcategory:.*|subcategory: \"$$SC\"|" "$$f"; \
 	done
 
+## Ref: https://stackoverflow.com/a/45003119
+# problems of method 2:
+# 	If an argument has same name as an existing target then make will print a warning that it is being overwritten.
+# 	no workaround that I know of
+#
+# 	Arguments with an equal sign will still be interpreted by make and not passed
+# 	no workaround
+#
+# 	Arguments with spaces is still awkward
+# 	no workaround
+#
+# 	Arguments with space breaks eval trying to create do nothing targets.
+# 	workaround: create the global catch all target doing nothing as above. with the problem as above that it will again silently ignore mistyped legitimate targets.
+#
+# 	it uses eval to modify the makefile at runtime. how much worse can you go in terms of readability and debugability and the Principle of least astonishment.
+# 	workaround: don't!
+#
+# If the first argument is "test"...
+# Example usage: make test -- -test.run TestPolicyAccessListEmptyResponseFromApi
+ifeq (test,$(firstword $(MAKECMDGOALS)))
+  # use the rest as arguments for target
+  INPUT_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  # ...and turn them into do-nothing targets
+  $(eval $(INPUT_ARGS):;@:)
+endif
 .PHONY: test
 test: internal/terraform/resource/autogen
-	go test -failfast -timeout 5s ./internal/terraform/tests/... ./internal/terraform/helpers/...
+	@echo Input Args: $(INPUT_ARGS)
+	go test -failfast -timeout 5s ./internal/terraform/tests/... ./internal/terraform/helpers/... $(INPUT_ARGS)
 
 .PHONY: build-rolling
 build-rolling:
@@ -207,7 +232,7 @@ build-rolling:
 
 	-rm -rf "${BIN_DIR}"
 	-mkdir -p "${BIN_DIR}/local/providers/${NAME}/${VERSION_ROLLING}/${OS_ARCH}/"
-	go build -o ${BIN_DIR}/local/providers/${NAME}/${VERSION_ROLLING}/${OS_ARCH}/${BINARY_PREFIX}${NAME}
+	go build -o ${BIN_DIR}/local/providers/${NAME}/${VERSION_ROLLING}/${OS_ARCH}/${BINARY_PREFIX}${NAME} $(RUN_ARGS)
 
 	make clean
 

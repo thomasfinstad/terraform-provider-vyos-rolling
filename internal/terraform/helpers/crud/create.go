@@ -33,9 +33,9 @@ func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequ
 	}
 
 	// Check if nearest parent exists
-	if !providerCfg.Config.CrudSkipCheckParentBeforeCreate && (len(planModel.GetVyosParentPath()) > 0) {
-		parentSemiPath := planModel.GetVyosParentPath()[:len(planModel.GetVyosParentPath())-2]
-		parentIDComponenets := planModel.GetVyosParentPath()[len(planModel.GetVyosParentPath())-2:]
+	if !providerCfg.Config.CrudSkipCheckParentBeforeCreate && (len(planModel.GetVyosNamedParentPath()) > 0) {
+		parentSemiPath := planModel.GetVyosNamedParentPath()[:len(planModel.GetVyosNamedParentPath())-2]
+		parentIDComponenets := planModel.GetVyosNamedParentPath()[len(planModel.GetVyosNamedParentPath())-2:]
 
 		tflog.Debug(ctx, fmt.Sprintf("checking for parent: '%s' under '%s'", parentIDComponenets, strings.Join(parentSemiPath, " ")))
 		ret, err := c.Read(ctx, parentSemiPath)
@@ -44,7 +44,7 @@ func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequ
 			if errors.As(err, &apiNotFoundError) {
 				resp.Diagnostics.Append(
 					diag.NewErrorDiagnostic(
-						fmt.Sprintf("missing parent: '%s'", strings.Join(planModel.GetVyosParentPath(), " ")),
+						fmt.Sprintf("missing parent: '%s'", strings.Join(planModel.GetVyosNamedParentPath(), " ")),
 						fmt.Sprintf(`[%s] create the parent resource or configure the provider to ignore missing parents`, err.Error()),
 					))
 				return
@@ -53,7 +53,7 @@ func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequ
 			resp.Diagnostics.Append(
 				diag.NewErrorDiagnostic(
 					"error reading API endpoint",
-					fmt.Sprintf("unable to read '%s', got error: '%s'", planModel.GetVyosParentPath(), err),
+					fmt.Sprintf("unable to read '%s', got error: '%s'", planModel.GetVyosNamedParentPath(), err),
 				))
 			return
 
@@ -63,7 +63,7 @@ func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequ
 		for _, idComponent := range parentIDComponenets {
 			var ok bool
 			if tmpRet, ok = tmpRet.(map[string]any)[idComponent]; !ok {
-				tflog.Info(ctx, fmt.Sprintf("missing parent: '%s', API returned: '%v'", strings.Join(planModel.GetVyosParentPath(), " "), ret))
+				tflog.Info(ctx, fmt.Sprintf("missing parent: '%s', API returned: '%v'", strings.Join(planModel.GetVyosNamedParentPath(), " "), ret))
 				resp.Diagnostics.Append(
 					diag.NewErrorDiagnostic(
 						fmt.Sprintf("missing parent: '%s'", strings.Join(append(parentSemiPath, parentIDComponenets...), " ")),

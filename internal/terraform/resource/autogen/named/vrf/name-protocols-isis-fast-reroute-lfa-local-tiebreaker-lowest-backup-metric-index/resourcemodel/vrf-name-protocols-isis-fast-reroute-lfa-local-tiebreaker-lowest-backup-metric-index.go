@@ -50,6 +50,18 @@ func (o *VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricInde
 		return strings.Split(o.ID.ValueString(), "__")
 	}
 
+	return append(
+		o.GetVyosParentPath(),
+		"index",
+		o.SelfIdentifier.ValueBigFloat().String(),
+	)
+}
+
+// GetVyosParentPath returns the list of strings to use to get to the correct
+// vyos configuration for the nearest parent.
+// If this is the top level resource the list might end up returning the entire interface definition tree.
+// This is intended to use with the resource CRUD read function to check for empty resources.
+func (o *VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricIndex) GetVyosParentPath() []string {
 	return []string{
 		"vrf",
 
@@ -69,17 +81,14 @@ func (o *VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricInde
 		"tiebreaker",
 
 		"lowest-backup-metric",
-
-		"index",
-		o.SelfIdentifier.ValueBigFloat().String(),
 	}
 }
 
-// GetVyosParentPath returns the list of strings to use to get to the correct
+// GetVyosNamedParentPath returns the list of strings to use to get to the correct
 // vyos configuration for the nearest parent that is not a global resource.
 // If this is the top level named resource the list is zero elements long.
 // This is intended to use with the resource CRUD create function to check if the required parent exists.
-func (o *VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricIndex) GetVyosParentPath() []string {
+func (o *VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricIndex) GetVyosNamedParentPath() []string {
 	return []string{
 		"vrf",
 

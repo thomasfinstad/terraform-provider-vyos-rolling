@@ -60,18 +60,19 @@ resource "vyos_firewall_ipv4_name_rule" "example2" {
 }
  */
 
+// Empty named resource
 resource "vyos_policy_access_list" "name" {
-  access_list_id = 2
-
+  access_list_id = 42
 }
 
-# resource "vyos_policy_access_list_rule" "name" {
-#   access_list_id = 2
-#   rule_id        = 5
+// Child of empty
+resource "vyos_policy_access_list_rule" "name" {
+  access_list_id = 42
+  rule_id        = 69
 
-#   description = plantimestamp()
-#   action      = "permit"
-#   source = {
-#     host = "55.55.55.55"
-#   }
-# }
+  description = plantimestamp()
+  action      = "permit"
+  source = {
+    host = "55.55.55.55"
+  }
+}
