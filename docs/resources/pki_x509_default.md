@@ -5,27 +5,24 @@ subcategory: "pki"
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
   <div style="text-align: center">
+
   VyOS PKI configuration
 
-  <br>
   &darr;
-  <br>
+
   X509 Settings
 
-  <br>
   &darr;
-  <br>
-  <b>
+
+
   X509 Default Values
-  </b>
-  </div>
 ---
 
 # vyos_pki_x509_default (Resource)
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-<div style="text-align: center">
+	<div style="text-align: center">
 VyOS PKI configuration
 
 <br>

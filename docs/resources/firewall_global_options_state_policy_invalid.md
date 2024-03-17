@@ -5,32 +5,28 @@ subcategory: "firewall"
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
   <div style="text-align: center">
+
   Firewall
 
-  <br>
   &darr;
-  <br>
+
   Global Options
 
-  <br>
   &darr;
-  <br>
+
   Global firewall state-policy
 
-  <br>
   &darr;
-  <br>
-  <b>
+
+
   Global firewall policy for packets part of an invalid connection
-  </b>
-  </div>
 ---
 
 # vyos_firewall_global_options_state_policy_invalid (Resource)
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-<div style="text-align: center">
+	<div style="text-align: center">
 Firewall
 
 <br>

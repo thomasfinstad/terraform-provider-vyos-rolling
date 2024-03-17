@@ -5,17 +5,16 @@ subcategory: "high"
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
   <div style="text-align: center">
-  <b>
+
+
   High availability settings
-  </b>
-  </div>
 ---
 
 # vyos_high_availability (Resource)
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-<div style="text-align: center">
+	<div style="text-align: center">
 <b>
 High availability settings
 </b>

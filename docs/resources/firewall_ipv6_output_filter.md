@@ -5,32 +5,28 @@ subcategory: "firewall"
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
   <div style="text-align: center">
+
   Firewall
 
-  <br>
   &darr;
-  <br>
+
   IPv6 firewall
 
-  <br>
   &darr;
-  <br>
+
   IPv6 output firewall
 
-  <br>
   &darr;
-  <br>
-  <b>
+
+
   IPv6 firewall output filter
-  </b>
-  </div>
 ---
 
 # vyos_firewall_ipv6_output_filter (Resource)
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-<div style="text-align: center">
+	<div style="text-align: center">
 Firewall
 
 <br>

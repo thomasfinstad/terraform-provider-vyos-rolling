@@ -31,7 +31,7 @@ func main() {
 	flag.Parse()
 
 	opts := providerserver.ServeOpts{
-		// TODO: Update this string with the published name of your provider.
+		// TODO: Update this string with the published name of provider.
 		Address: "github.com/thomasfinstad/vyos",
 		Debug:   debug,
 	}

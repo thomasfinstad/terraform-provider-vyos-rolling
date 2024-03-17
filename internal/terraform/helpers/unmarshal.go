@@ -185,14 +185,9 @@ func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceD
 			fValue.Set(tfValueRefection)
 
 		default:
-			//var tfval VyosResourceDataModel
-
 			if !KeyInMap(flags["name"].(string), data) {
 				log.Printf("\tNo data for field: %s, skipping\n", fName)
 				tflog.Debug(ctx, "No data for field, skipping", map[string]interface{}{"field-name": fName})
-
-				// TODO set nil / null for terraform state on sub-objects
-				//tfval = basetypes.NewObjectNull()
 				continue
 			}
 			dataValue := data[flags["name"].(string)]

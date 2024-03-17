@@ -5,32 +5,28 @@ subcategory: "firewall"
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
   <div style="text-align: center">
+
   Firewall
 
-  <br>
   &darr;
-  <br>
+
   Bridge firewall
 
-  <br>
   &darr;
-  <br>
+
   Bridge forward firewall
 
-  <br>
   &darr;
-  <br>
-  <b>
+
+
   Bridge firewall forward filter
-  </b>
-  </div>
 ---
 
 # vyos_firewall_bridge_forward_filter (Resource)
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-<div style="text-align: center">
+	<div style="text-align: center">
 Firewall
 
 <br>

@@ -14,7 +14,7 @@ func (r pkiXfivezeronineDefault) Schema(ctx context.Context, req resource.Schema
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-<div style="text-align: center">
+	<div style="text-align: center">
 VyOS PKI configuration
 
 <br>

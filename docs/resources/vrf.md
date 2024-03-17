@@ -5,17 +5,16 @@ subcategory: "vrf.md"
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
   <div style="text-align: center">
-  <b>
+
+
   Virtual Routing and Forwarding
-  </b>
-  </div>
 ---
 
 # vyos_vrf (Resource)
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-<div style="text-align: center">
+	<div style="text-align: center">
 <b>
 Virtual Routing and Forwarding
 </b>

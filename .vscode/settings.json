@@ -4,5 +4,10 @@
     "editor.suggest.preview": true,
     "files.associations": {
         "*.gotmpl": "gotemplate"
-    }
+    },
+    "todo-tree.filtering.ignoreGitSubmodules": true,
+    "todo-tree.filtering.excludeGlobs": [
+        "**/tools/trang-20091111/**",
+        "**/panic.go"
+    ]
 }

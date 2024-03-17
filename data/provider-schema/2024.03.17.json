@@ -529,7 +529,7 @@
                 "computed": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\nBridge firewall\n\n<br>\n&darr;\n<br>\nBridge forward firewall\n\n<br>\n&darr;\n<br>\n<b>\nBridge firewall forward filter\n</b>\n</div>\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\nBridge firewall\n\n<br>\n&darr;\n<br>\nBridge forward firewall\n\n<br>\n&darr;\n<br>\n<b>\nBridge firewall forward filter\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -1126,7 +1126,7 @@
                 "computed": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\n<b>\nGlobal Options\n</b>\n</div>\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\n<b>\nGlobal Options\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -1160,7 +1160,7 @@
                 "optional": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\nGlobal Options\n\n<br>\n&darr;\n<br>\nGlobal firewall state-policy\n\n<br>\n&darr;\n<br>\n<b>\nGlobal firewall policy for packets part of an established connection\n</b>\n</div>\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\nGlobal Options\n\n<br>\n&darr;\n<br>\nGlobal firewall state-policy\n\n<br>\n&darr;\n<br>\n<b>\nGlobal firewall policy for packets part of an established connection\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -1194,7 +1194,7 @@
                 "optional": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\nGlobal Options\n\n<br>\n&darr;\n<br>\nGlobal firewall state-policy\n\n<br>\n&darr;\n<br>\n<b>\nGlobal firewall policy for packets part of an invalid connection\n</b>\n</div>\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\nGlobal Options\n\n<br>\n&darr;\n<br>\nGlobal firewall state-policy\n\n<br>\n&darr;\n<br>\n<b>\nGlobal firewall policy for packets part of an invalid connection\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -1228,7 +1228,7 @@
                 "optional": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\nGlobal Options\n\n<br>\n&darr;\n<br>\nGlobal firewall state-policy\n\n<br>\n&darr;\n<br>\n<b>\nGlobal firewall policy for packets part of a related connection\n</b>\n</div>\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\nGlobal Options\n\n<br>\n&darr;\n<br>\nGlobal firewall state-policy\n\n<br>\n&darr;\n<br>\n<b>\nGlobal firewall policy for packets part of a related connection\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -1668,7 +1668,7 @@
                 "computed": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\nIPv4 firewall\n\n<br>\n&darr;\n<br>\nIPv4 forward firewall\n\n<br>\n&darr;\n<br>\n<b>\nIPv4 firewall forward filter\n</b>\n</div>\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\nIPv4 firewall\n\n<br>\n&darr;\n<br>\nIPv4 forward firewall\n\n<br>\n&darr;\n<br>\n<b>\nIPv4 firewall forward filter\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -2598,7 +2598,7 @@
                 "computed": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\nIPv4 firewall\n\n<br>\n&darr;\n<br>\nIPv4 input firewall\n\n<br>\n&darr;\n<br>\n<b>\nIPv4 firewall input filter\n</b>\n</div>\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\nIPv4 firewall\n\n<br>\n&darr;\n<br>\nIPv4 input firewall\n\n<br>\n&darr;\n<br>\n<b>\nIPv4 firewall input filter\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -4448,7 +4448,7 @@
                 "computed": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\nIPv4 firewall\n\n<br>\n&darr;\n<br>\nIPv4 output firewall\n\n<br>\n&darr;\n<br>\n<b>\nIPv4 firewall output filter\n</b>\n</div>\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\nIPv4 firewall\n\n<br>\n&darr;\n<br>\nIPv4 output firewall\n\n<br>\n&darr;\n<br>\n<b>\nIPv4 firewall output filter\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -5326,7 +5326,7 @@
                 "computed": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\nIPv6 firewall\n\n<br>\n&darr;\n<br>\nIPv6 forward firewall\n\n<br>\n&darr;\n<br>\n<b>\nIPv6 firewall forward filter\n</b>\n</div>\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\nIPv6 firewall\n\n<br>\n&darr;\n<br>\nIPv6 forward firewall\n\n<br>\n&darr;\n<br>\n<b>\nIPv6 firewall forward filter\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -6256,7 +6256,7 @@
                 "computed": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\nIPv6 firewall\n\n<br>\n&darr;\n<br>\nIPv6 input firewall\n\n<br>\n&darr;\n<br>\n<b>\nIPv6 firewall input filter\n</b>\n</div>\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\nIPv6 firewall\n\n<br>\n&darr;\n<br>\nIPv6 input firewall\n\n<br>\n&darr;\n<br>\n<b>\nIPv6 firewall input filter\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -8106,7 +8106,7 @@
                 "computed": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\nIPv6 firewall\n\n<br>\n&darr;\n<br>\nIPv6 output firewall\n\n<br>\n&darr;\n<br>\n<b>\nIPv6 firewall output filter\n</b>\n</div>\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t<div style=\"text-align: center\">\nFirewall\n\n<br>\n&darr;\n<br>\nIPv6 firewall\n\n<br>\n&darr;\n<br>\nIPv6 output firewall\n\n<br>\n&darr;\n<br>\n<b>\nIPv6 firewall output filter\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -9115,7 +9115,7 @@
                 "computed": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n<div style=\"text-align: center\">\n<b>\nHigh availability settings\n</b>\n</div>\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t<div style=\"text-align: center\">\n<b>\nHigh availability settings\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -9266,7 +9266,7 @@
                 "computed": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n<div style=\"text-align: center\">\nHigh availability settings\n\n<br>\n&darr;\n<br>\n<b>\nVirtual Router Redundancy Protocol settings\n</b>\n</div>\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t<div style=\"text-align: center\">\nHigh availability settings\n\n<br>\n&darr;\n<br>\n<b>\nVirtual Router Redundancy Protocol settings\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -9293,7 +9293,7 @@
                 "optional": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n<div style=\"text-align: center\">\nHigh availability settings\n\n<br>\n&darr;\n<br>\nVirtual Router Redundancy Protocol settings\n\n<br>\n&darr;\n<br>\n<b>\nVRRP global parameters\n</b>\n</div>\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t<div style=\"text-align: center\">\nHigh availability settings\n\n<br>\n&darr;\n<br>\nVirtual Router Redundancy Protocol settings\n\n<br>\n&darr;\n<br>\n<b>\nVRRP global parameters\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -9343,7 +9343,7 @@
                 "computed": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n<div style=\"text-align: center\">\nHigh availability settings\n\n<br>\n&darr;\n<br>\nVirtual Router Redundancy Protocol settings\n\n<br>\n&darr;\n<br>\nVRRP global parameters\n\n<br>\n&darr;\n<br>\n<b>\nGratuitous ARP parameters\n</b>\n</div>\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t<div style=\"text-align: center\">\nHigh availability settings\n\n<br>\n&darr;\n<br>\nVirtual Router Redundancy Protocol settings\n\n<br>\n&darr;\n<br>\nVRRP global parameters\n\n<br>\n&darr;\n<br>\n<b>\nGratuitous ARP parameters\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -10873,7 +10873,7 @@
                 "computed": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n<div style=\"text-align: center\">\nVyOS PKI configuration\n\n<br>\n&darr;\n<br>\nX509 Settings\n\n<br>\n&darr;\n<br>\n<b>\nX509 Default Values\n</b>\n</div>\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t<div style=\"text-align: center\">\nVyOS PKI configuration\n\n<br>\n&darr;\n<br>\nX509 Settings\n\n<br>\n&darr;\n<br>\n<b>\nX509 Default Values\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -15156,7 +15156,7 @@
                 "computed": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n<div style=\"text-align: center\">\n<b>\nVirtual Routing and Forwarding\n</b>\n</div>\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t<div style=\"text-align: center\">\n<b>\nVirtual Routing and Forwarding\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },

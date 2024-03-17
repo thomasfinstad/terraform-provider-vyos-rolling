@@ -5,32 +5,28 @@ subcategory: "high"
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
   <div style="text-align: center">
+
   High availability settings
 
-  <br>
   &darr;
-  <br>
+
   Virtual Router Redundancy Protocol settings
 
-  <br>
   &darr;
-  <br>
+
   VRRP global parameters
 
-  <br>
   &darr;
-  <br>
-  <b>
+
+
   Gratuitous ARP parameters
-  </b>
-  </div>
 ---
 
 # vyos_high_availability_vrrp_global_parameters_garp (Resource)
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-<div style="text-align: center">
+	<div style="text-align: center">
 High availability settings
 
 <br>
