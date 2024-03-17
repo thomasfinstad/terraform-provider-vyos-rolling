@@ -4,7 +4,7 @@ page_title: "vyos_pki_certificate Resource - vyos"
 subcategory: "pki"
 description: |-
   <div style="text-align: center">
-  VyOS PKI configuration
+  Public key infrastructure (PKI)
 
   <br>
   &darr;
@@ -18,7 +18,7 @@ description: |-
 # vyos_pki_certificate (Resource)
 
 <div style="text-align: center">
-VyOS PKI configuration
+Public key infrastructure (PKI)
 
 <br>
 &darr;

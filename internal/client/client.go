@@ -116,7 +116,8 @@ func (c *Client) CommitChanges(ctx context.Context) (any, error) {
 		"data": []string{string(jsonOperations)},
 	}
 
-	tflog.Info(ctx, "Creating configure request", map[string]interface{}{"endpoint": endpoint, "payload": payload})
+	tflog.Info(ctx, "Creating configure request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
+	log.Println("Creating configure request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
 
 	req, err := http.NewRequest("POST", endpoint, strings.NewReader(payload.Encode()))
 	if err != nil {
@@ -148,7 +149,7 @@ func (c *Client) CommitChanges(ctx context.Context) (any, error) {
 
 	err = json.Unmarshal(body, &ret)
 	if err != nil {
-		return nil, fmt.Errorf("failed to unmarshal http response body as json: %w, body: %s", err, body)
+		return nil, fmt.Errorf("failed to unmarshal http response body: '%s' as json: %w", body, err)
 	}
 
 	if ret["success"] == true {
@@ -206,7 +207,7 @@ func (c *Client) Read(ctx context.Context, path []string) (any, error) {
 	log.Println("Unmarshaling from json")
 	err = json.Unmarshal(body, &ret)
 	if err != nil {
-		return nil, fmt.Errorf("failed to unmarshal http response body as json: %w, body: %s", err, body)
+		return nil, fmt.Errorf("failed to unmarshal http response body: '%s' as json: %w", body, err)
 	}
 
 	if ret["success"] == true {

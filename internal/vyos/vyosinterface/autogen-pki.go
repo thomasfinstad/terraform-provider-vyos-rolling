@@ -24,7 +24,7 @@ func pki() interfacedefinition.InterfaceDefinition {
 				XMLName: xml.Name{
 					Local: "properties",
 				},
-				Help:     []string{"VyOS PKI configuration"},
+				Help:     []string{"Public key infrastructure (PKI)"},
 				Priority: []string{"300"},
 			}},
 			Children: []*interfacedefinition.Children{{

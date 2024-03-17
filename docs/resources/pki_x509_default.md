@@ -6,7 +6,7 @@ description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
   <div style="text-align: center">
 
-  VyOS PKI configuration
+  Public key infrastructure (PKI)
 
   &darr;
 
@@ -23,7 +23,7 @@ description: |-
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
 	<div style="text-align: center">
-VyOS PKI configuration
+Public key infrastructure (PKI)
 
 <br>
 &darr;

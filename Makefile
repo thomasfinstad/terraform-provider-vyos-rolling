@@ -222,6 +222,7 @@ endif
 .PHONY: test
 test: internal/terraform/resource/autogen
 	@echo Input Args: $(INPUT_ARGS)
+	go clean -testcache
 	go test -failfast -timeout 5s ./internal/terraform/tests/... ./internal/terraform/helpers/... $(INPUT_ARGS)
 
 .PHONY: build-rolling

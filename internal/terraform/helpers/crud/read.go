@@ -35,7 +35,7 @@ func Read(ctx context.Context, r helpers.VyosResource, req resource.ReadRequest,
 			resp.State.RemoveResource(ctx)
 			return
 		}
-		resp.Diagnostics.AddError("API Read error", err.Error())
+		resp.Diagnostics.AddError("read error", err.Error())
 	}
 
 	// Save updated data into Terraform state
@@ -46,6 +46,8 @@ func Read(ctx context.Context, r helpers.VyosResource, req resource.ReadRequest,
 
 // read populates resource model
 // model must be a ptr
+// this function is seperated out to keep the terraform provider
+// logic and API logic seperate so we can test the API logic easier
 func read(ctx context.Context, c client.Client, model helpers.VyosTopResourceDataModel) error {
 	tflog.Debug(ctx, "Fetching API data")
 	response, err := c.Read(ctx, model.GetVyosPath())

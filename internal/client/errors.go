@@ -1,6 +1,8 @@
 package client
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // APINotFoundError desiered path was not found when reading the API
 type APINotFoundError struct {
@@ -21,5 +23,5 @@ type MarshalError struct {
 
 // Error returns human friendly version of error
 func (e *MarshalError) Error() string {
-	return fmt.Sprintf("[marshal error] %s: %w", e.message, e.marshalErr)
+	return fmt.Sprintf("[marshal error] %s: %s", e.message, e.marshalErr)
 }

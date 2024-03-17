@@ -12,6 +12,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 )
 
 // TODO add "timeout" and "retry" functionality to required parent check
@@ -22,8 +23,6 @@ func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequ
 	tflog.Debug(ctx, "New Resource")
 	tflog.Trace(ctx, "Fetching data model")
 	planModel := r.GetModel()
-	c := r.GetClient()
-	providerCfg := r.GetProviderConfig()
 
 	// Read Terraform plan data into the model
 	tflog.Trace(ctx, "Fetching plan data")
@@ -32,68 +31,88 @@ func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequ
 		return
 	}
 
+	// Fetch resource from API
+	err := create(ctx, r.GetProviderConfig(), r.GetClient(), planModel)
+	if err != nil {
+		resp.Diagnostics.Append(
+			diag.NewErrorDiagnostic(
+				"unable to create resource",
+				err.Error(),
+			))
+		return
+	}
+
+	// Add ID to the resource model
+	planModel.SetID(planModel.GetVyosPath())
+	tflog.Info(ctx, "setting newly created resource id", map[string]interface{}{"vyos-path": planModel.GetVyosPath()})
+
+	// Save data to Terraform state
+	tflog.Trace(ctx, "resource created")
+	tflog.Error(ctx, "Setting state", map[string]interface{}{"data": fmt.Sprintf("%#v", planModel)})
+	resp.Diagnostics.Append(resp.State.Set(ctx, planModel)...)
+}
+
+// create populates resource model
+// model must be a ptr
+// this function is seperated out to keep the terraform provider
+// logic and API logic seperate so we can test the API logic easier
+func create(ctx context.Context, providerCfg data.ProviderData, c client.Client, planModel helpers.VyosTopResourceDataModel) error {
+	// TODO consolidate parent check and self check API calls
+	//  When running the API call for the parent check we should have enough data
+	//  to also check if the resource already exists and can skip the extra
+	//  API call
+
 	// Check if nearest parent exists
 	if !providerCfg.Config.CrudSkipCheckParentBeforeCreate && (len(planModel.GetVyosNamedParentPath()) > 0) {
 		parentSemiPath := planModel.GetVyosNamedParentPath()[:len(planModel.GetVyosNamedParentPath())-2]
 		parentIDComponenets := planModel.GetVyosNamedParentPath()[len(planModel.GetVyosNamedParentPath())-2:]
 
 		tflog.Debug(ctx, fmt.Sprintf("checking for parent: '%s' under '%s'", parentIDComponenets, strings.Join(parentSemiPath, " ")))
+
+		// TODO Look into get values API call to reduce overhead of multiple lookups
+		//  Ref: https://vyos.dev/T6135
+		//  This method returns a lot more than is strictly needed, but it saves us from checking if the
+		//  parent actually exists but is empty after a perfectly targeted search and APINotFoundError.
+		//  The response for creating a "firewall ipv4 name xYz rule 123" resource will look up
+		//  the entirety of all firewall rules "firewall ipv4", this can easily return a disgustingly large
+		//  blob, and is very wasteful.
+		//  There is a chance that it would be better to not support empty resources at all.
 		ret, err := c.Read(ctx, parentSemiPath)
 		if err != nil {
 			var apiNotFoundError *client.APINotFoundError
 			if errors.As(err, &apiNotFoundError) {
-				resp.Diagnostics.Append(
-					diag.NewErrorDiagnostic(
-						fmt.Sprintf("missing parent: '%s'", strings.Join(planModel.GetVyosNamedParentPath(), " ")),
-						fmt.Sprintf(`[%s] create the parent resource or configure the provider to ignore missing parents`, err.Error()),
-					))
-				return
+				return fmt.Errorf(
+					"missing parent config: '%s': %w",
+					strings.Join(planModel.GetVyosNamedParentPath(), " "),
+					err,
+				)
 			}
-
-			resp.Diagnostics.Append(
-				diag.NewErrorDiagnostic(
-					"error reading API endpoint",
-					fmt.Sprintf("unable to read '%s', got error: '%s'", planModel.GetVyosNamedParentPath(), err),
-				))
-			return
-
+			return fmt.Errorf("API error: '%s': %w", parentSemiPath, err)
 		}
 
+		// Check for empty but existing parent resource
 		tmpRet := ret
 		for _, idComponent := range parentIDComponenets {
 			var ok bool
 			if tmpRet, ok = tmpRet.(map[string]any)[idComponent]; !ok {
-				tflog.Info(ctx, fmt.Sprintf("missing parent: '%s', API returned: '%v'", strings.Join(planModel.GetVyosNamedParentPath(), " "), ret))
-				resp.Diagnostics.Append(
-					diag.NewErrorDiagnostic(
-						fmt.Sprintf("missing parent: '%s'", strings.Join(append(parentSemiPath, parentIDComponenets...), " ")),
-						`create the parent  resource or configure the provider to ignore missing parents`,
-					))
-				return
+				tflog.Debug(ctx, fmt.Sprintf("missing parent: '%s', API returned: '%v'", strings.Join(planModel.GetVyosNamedParentPath(), " "), ret))
+				return fmt.Errorf("missing parent: '%s': ", strings.Join(append(parentSemiPath, parentIDComponenets...), " "))
 			}
 		}
 	}
 
 	// Check if resource already exists
 	if !providerCfg.Config.CrudSkipExistingResourceCheck {
+		tflog.Debug(ctx, fmt.Sprintf("checking for existing resource: '%s'", planModel.GetVyosPath()))
+
 		_, err := c.Read(ctx, planModel.GetVyosPath())
 		if err == nil {
-			resp.Diagnostics.Append(
-				diag.NewErrorDiagnostic(
-					fmt.Sprintf("resource already exists: '%s'", strings.Join(planModel.GetVyosPath(), " ")),
-					"remove the resource in vyos, import the resource, or configure the provider to overwrite existing resources",
-				))
-			return
+			return fmt.Errorf("resource already exists: '%s'", strings.Join(planModel.GetVyosPath(), " "))
 		}
 
 		var apiNotFoundError *client.APINotFoundError
 		if !errors.As(err, &apiNotFoundError) {
-			resp.Diagnostics.Append(
-				diag.NewErrorDiagnostic(
-					"error reading API endpoint",
-					fmt.Sprintf("unable to read %s, got error: %s", planModel.GetVyosPath(), err),
-				))
-			return
+			return fmt.Errorf("API error: %w", err)
 		}
 	}
 
@@ -101,8 +120,7 @@ func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequ
 	tflog.Trace(ctx, "Marshalling plan for VyOS")
 	vyosData, err := helpers.MarshalVyos(ctx, planModel)
 	if err != nil {
-		resp.Diagnostics.AddError("API Marshalling error", fmt.Sprintf("%s", err))
-		return
+		return fmt.Errorf("marshalling error: %w", err)
 	}
 
 	// Create vyos api ops
@@ -118,19 +136,11 @@ func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequ
 	tflog.Info(ctx, "committing vyos changes api calls")
 	response, err := c.CommitChanges(ctx)
 	if err != nil {
-		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", planModel.GetVyosPath(), err))
-		return
+		return fmt.Errorf("unable to create resource '%s' due to client error: %w", planModel.GetVyosPath(), err)
 	}
 	if response != nil {
 		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
 	}
 
-	// Add ID to the resource model
-	planModel.SetID(planModel.GetVyosPath())
-	tflog.Info(ctx, "setting newly created resource id", map[string]interface{}{"vyos-path": planModel.GetVyosPath()})
-
-	// Save data to Terraform state
-	tflog.Trace(ctx, "resource created")
-	tflog.Error(ctx, "Setting state", map[string]interface{}{"data": fmt.Sprintf("%#v", planModel)})
-	resp.Diagnostics.Append(resp.State.Set(ctx, planModel)...)
+	return nil
 }

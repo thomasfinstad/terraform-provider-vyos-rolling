@@ -33,9 +33,15 @@
               "description_kind": "markdown",
               "required": true
             },
+            "ignore_missing_parent_resource_on_create": {
+              "type": "bool",
+              "description": "Disables the check to see if the required parent resource exists on the target machine.\nThis can be helpful when encountering a bug with the provider.",
+              "description_kind": "markdown",
+              "optional": true
+            },
             "overwrite_existing_resources_on_create": {
               "type": "bool",
-              "description": "Enables overwriting/ignoring existing resources.\nThis can be helpful when trying to avoid and change many resources at once.",
+              "description": "Disables the check to see if the resource already exists on the target machine, resulting in possibly overwriting configs without notice.\nThis can be helpful when trying to avoid and change many resources at once.",
               "description_kind": "markdown",
               "optional": true
             }
@@ -1766,7 +1772,7 @@
                   "list",
                   "string"
                 ],
-                "description": "Match related traffic from conntrack helpers\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  ftp  &emsp; |  Related traffic from FTP helper  |\n    |  h323  &emsp; |  Related traffic from H.323 helper  |\n    |  pptp  &emsp; |  Related traffic from PPTP helper  |\n    |  nfs  &emsp; |  Related traffic from NFS helper  |\n    |  sip  &emsp; |  Related traffic from SIP helper  |\n    |  tftp  &emsp; |  Related traffic from TFTP helper  |\n    |  sqlnet  &emsp; |  Related traffic from SQLNet helper  |\n\n",
+                "description": "Match related traffic from conntrack helpers\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  ftp  &emsp; |  Related traffic from FTP helper  |\n    |  h323  &emsp; |  Related traffic from H.323 helper  |\n    |  pptp  &emsp; |  Related traffic from PPTP helper  |\n    |  nfs  &emsp; |  Related traffic from NFS helper  |\n    |  rtsp  &emsp; |  Related traffic from RTSP helper  |\n    |  sip  &emsp; |  Related traffic from SIP helper  |\n    |  tftp  &emsp; |  Related traffic from TFTP helper  |\n    |  sqlnet  &emsp; |  Related traffic from SQLNet helper  |\n\n",
                 "description_kind": "markdown",
                 "optional": true
               },
@@ -2696,7 +2702,7 @@
                   "list",
                   "string"
                 ],
-                "description": "Match related traffic from conntrack helpers\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  ftp  &emsp; |  Related traffic from FTP helper  |\n    |  h323  &emsp; |  Related traffic from H.323 helper  |\n    |  pptp  &emsp; |  Related traffic from PPTP helper  |\n    |  nfs  &emsp; |  Related traffic from NFS helper  |\n    |  sip  &emsp; |  Related traffic from SIP helper  |\n    |  tftp  &emsp; |  Related traffic from TFTP helper  |\n    |  sqlnet  &emsp; |  Related traffic from SQLNet helper  |\n\n",
+                "description": "Match related traffic from conntrack helpers\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  ftp  &emsp; |  Related traffic from FTP helper  |\n    |  h323  &emsp; |  Related traffic from H.323 helper  |\n    |  pptp  &emsp; |  Related traffic from PPTP helper  |\n    |  nfs  &emsp; |  Related traffic from NFS helper  |\n    |  rtsp  &emsp; |  Related traffic from RTSP helper  |\n    |  sip  &emsp; |  Related traffic from SIP helper  |\n    |  tftp  &emsp; |  Related traffic from TFTP helper  |\n    |  sqlnet  &emsp; |  Related traffic from SQLNet helper  |\n\n",
                 "description_kind": "markdown",
                 "optional": true
               },
@@ -3610,7 +3616,7 @@
                   "list",
                   "string"
                 ],
-                "description": "Match related traffic from conntrack helpers\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  ftp  &emsp; |  Related traffic from FTP helper  |\n    |  h323  &emsp; |  Related traffic from H.323 helper  |\n    |  pptp  &emsp; |  Related traffic from PPTP helper  |\n    |  nfs  &emsp; |  Related traffic from NFS helper  |\n    |  sip  &emsp; |  Related traffic from SIP helper  |\n    |  tftp  &emsp; |  Related traffic from TFTP helper  |\n    |  sqlnet  &emsp; |  Related traffic from SQLNet helper  |\n\n",
+                "description": "Match related traffic from conntrack helpers\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  ftp  &emsp; |  Related traffic from FTP helper  |\n    |  h323  &emsp; |  Related traffic from H.323 helper  |\n    |  pptp  &emsp; |  Related traffic from PPTP helper  |\n    |  nfs  &emsp; |  Related traffic from NFS helper  |\n    |  rtsp  &emsp; |  Related traffic from RTSP helper  |\n    |  sip  &emsp; |  Related traffic from SIP helper  |\n    |  tftp  &emsp; |  Related traffic from TFTP helper  |\n    |  sqlnet  &emsp; |  Related traffic from SQLNet helper  |\n\n",
                 "description_kind": "markdown",
                 "optional": true
               },
@@ -4546,7 +4552,7 @@
                   "list",
                   "string"
                 ],
-                "description": "Match related traffic from conntrack helpers\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  ftp  &emsp; |  Related traffic from FTP helper  |\n    |  h323  &emsp; |  Related traffic from H.323 helper  |\n    |  pptp  &emsp; |  Related traffic from PPTP helper  |\n    |  nfs  &emsp; |  Related traffic from NFS helper  |\n    |  sip  &emsp; |  Related traffic from SIP helper  |\n    |  tftp  &emsp; |  Related traffic from TFTP helper  |\n    |  sqlnet  &emsp; |  Related traffic from SQLNet helper  |\n\n",
+                "description": "Match related traffic from conntrack helpers\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  ftp  &emsp; |  Related traffic from FTP helper  |\n    |  h323  &emsp; |  Related traffic from H.323 helper  |\n    |  pptp  &emsp; |  Related traffic from PPTP helper  |\n    |  nfs  &emsp; |  Related traffic from NFS helper  |\n    |  rtsp  &emsp; |  Related traffic from RTSP helper  |\n    |  sip  &emsp; |  Related traffic from SIP helper  |\n    |  tftp  &emsp; |  Related traffic from TFTP helper  |\n    |  sqlnet  &emsp; |  Related traffic from SQLNet helper  |\n\n",
                 "description_kind": "markdown",
                 "optional": true
               },
@@ -5424,7 +5430,7 @@
                   "list",
                   "string"
                 ],
-                "description": "Match related traffic from conntrack helpers\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  ftp  &emsp; |  Related traffic from FTP helper  |\n    |  h323  &emsp; |  Related traffic from H.323 helper  |\n    |  pptp  &emsp; |  Related traffic from PPTP helper  |\n    |  nfs  &emsp; |  Related traffic from NFS helper  |\n    |  sip  &emsp; |  Related traffic from SIP helper  |\n    |  tftp  &emsp; |  Related traffic from TFTP helper  |\n    |  sqlnet  &emsp; |  Related traffic from SQLNet helper  |\n\n",
+                "description": "Match related traffic from conntrack helpers\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  ftp  &emsp; |  Related traffic from FTP helper  |\n    |  h323  &emsp; |  Related traffic from H.323 helper  |\n    |  pptp  &emsp; |  Related traffic from PPTP helper  |\n    |  nfs  &emsp; |  Related traffic from NFS helper  |\n    |  rtsp  &emsp; |  Related traffic from RTSP helper  |\n    |  sip  &emsp; |  Related traffic from SIP helper  |\n    |  tftp  &emsp; |  Related traffic from TFTP helper  |\n    |  sqlnet  &emsp; |  Related traffic from SQLNet helper  |\n\n",
                 "description_kind": "markdown",
                 "optional": true
               },
@@ -6354,7 +6360,7 @@
                   "list",
                   "string"
                 ],
-                "description": "Match related traffic from conntrack helpers\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  ftp  &emsp; |  Related traffic from FTP helper  |\n    |  h323  &emsp; |  Related traffic from H.323 helper  |\n    |  pptp  &emsp; |  Related traffic from PPTP helper  |\n    |  nfs  &emsp; |  Related traffic from NFS helper  |\n    |  sip  &emsp; |  Related traffic from SIP helper  |\n    |  tftp  &emsp; |  Related traffic from TFTP helper  |\n    |  sqlnet  &emsp; |  Related traffic from SQLNet helper  |\n\n",
+                "description": "Match related traffic from conntrack helpers\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  ftp  &emsp; |  Related traffic from FTP helper  |\n    |  h323  &emsp; |  Related traffic from H.323 helper  |\n    |  pptp  &emsp; |  Related traffic from PPTP helper  |\n    |  nfs  &emsp; |  Related traffic from NFS helper  |\n    |  rtsp  &emsp; |  Related traffic from RTSP helper  |\n    |  sip  &emsp; |  Related traffic from SIP helper  |\n    |  tftp  &emsp; |  Related traffic from TFTP helper  |\n    |  sqlnet  &emsp; |  Related traffic from SQLNet helper  |\n\n",
                 "description_kind": "markdown",
                 "optional": true
               },
@@ -7268,7 +7274,7 @@
                   "list",
                   "string"
                 ],
-                "description": "Match related traffic from conntrack helpers\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  ftp  &emsp; |  Related traffic from FTP helper  |\n    |  h323  &emsp; |  Related traffic from H.323 helper  |\n    |  pptp  &emsp; |  Related traffic from PPTP helper  |\n    |  nfs  &emsp; |  Related traffic from NFS helper  |\n    |  sip  &emsp; |  Related traffic from SIP helper  |\n    |  tftp  &emsp; |  Related traffic from TFTP helper  |\n    |  sqlnet  &emsp; |  Related traffic from SQLNet helper  |\n\n",
+                "description": "Match related traffic from conntrack helpers\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  ftp  &emsp; |  Related traffic from FTP helper  |\n    |  h323  &emsp; |  Related traffic from H.323 helper  |\n    |  pptp  &emsp; |  Related traffic from PPTP helper  |\n    |  nfs  &emsp; |  Related traffic from NFS helper  |\n    |  rtsp  &emsp; |  Related traffic from RTSP helper  |\n    |  sip  &emsp; |  Related traffic from SIP helper  |\n    |  tftp  &emsp; |  Related traffic from TFTP helper  |\n    |  sqlnet  &emsp; |  Related traffic from SQLNet helper  |\n\n",
                 "description_kind": "markdown",
                 "optional": true
               },
@@ -8204,7 +8210,7 @@
                   "list",
                   "string"
                 ],
-                "description": "Match related traffic from conntrack helpers\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  ftp  &emsp; |  Related traffic from FTP helper  |\n    |  h323  &emsp; |  Related traffic from H.323 helper  |\n    |  pptp  &emsp; |  Related traffic from PPTP helper  |\n    |  nfs  &emsp; |  Related traffic from NFS helper  |\n    |  sip  &emsp; |  Related traffic from SIP helper  |\n    |  tftp  &emsp; |  Related traffic from TFTP helper  |\n    |  sqlnet  &emsp; |  Related traffic from SQLNet helper  |\n\n",
+                "description": "Match related traffic from conntrack helpers\n\n    |  Format &emsp; | Description  |\n    |----------|---------------|\n    |  ftp  &emsp; |  Related traffic from FTP helper  |\n    |  h323  &emsp; |  Related traffic from H.323 helper  |\n    |  pptp  &emsp; |  Related traffic from PPTP helper  |\n    |  nfs  &emsp; |  Related traffic from NFS helper  |\n    |  rtsp  &emsp; |  Related traffic from RTSP helper  |\n    |  sip  &emsp; |  Related traffic from SIP helper  |\n    |  tftp  &emsp; |  Related traffic from TFTP helper  |\n    |  sqlnet  &emsp; |  Related traffic from SQLNet helper  |\n\n",
                 "description_kind": "markdown",
                 "optional": true
               },
@@ -10536,7 +10542,7 @@
                 "computed": true
               }
             },
-            "description": "<div style=\"text-align: center\">\nVyOS PKI configuration\n\n<br>\n&darr;\n<br>\n<b>\nCertificate Authority\n</b>\n</div>\n",
+            "description": "<div style=\"text-align: center\">\nPublic key infrastructure (PKI)\n\n<br>\n&darr;\n<br>\n<b>\nCertificate Authority\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -10644,7 +10650,7 @@
                 "computed": true
               }
             },
-            "description": "<div style=\"text-align: center\">\nVyOS PKI configuration\n\n<br>\n&darr;\n<br>\n<b>\nCertificate\n</b>\n</div>\n",
+            "description": "<div style=\"text-align: center\">\nPublic key infrastructure (PKI)\n\n<br>\n&darr;\n<br>\n<b>\nCertificate\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -10671,7 +10677,7 @@
                 "optional": true
               }
             },
-            "description": "<div style=\"text-align: center\">\nVyOS PKI configuration\n\n<br>\n&darr;\n<br>\n<b>\nDiffie-Hellman parameters\n</b>\n</div>\n",
+            "description": "<div style=\"text-align: center\">\nPublic key infrastructure (PKI)\n\n<br>\n&darr;\n<br>\n<b>\nDiffie-Hellman parameters\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -10731,7 +10737,7 @@
                 "optional": true
               }
             },
-            "description": "<div style=\"text-align: center\">\nVyOS PKI configuration\n\n<br>\n&darr;\n<br>\n<b>\nPublic and private keys\n</b>\n</div>\n",
+            "description": "<div style=\"text-align: center\">\nPublic key infrastructure (PKI)\n\n<br>\n&darr;\n<br>\n<b>\nPublic and private keys\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -10797,7 +10803,7 @@
                 "optional": true
               }
             },
-            "description": "<div style=\"text-align: center\">\nVyOS PKI configuration\n\n<br>\n&darr;\n<br>\n<b>\nOpenSSH public and private keys\n</b>\n</div>\n",
+            "description": "<div style=\"text-align: center\">\nPublic key infrastructure (PKI)\n\n<br>\n&darr;\n<br>\n<b>\nOpenSSH public and private keys\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -10830,7 +10836,7 @@
                 "optional": true
               }
             },
-            "description": "<div style=\"text-align: center\">\nVyOS PKI configuration\n\n<br>\n&darr;\n<br>\nOpenVPN keys\n\n<br>\n&darr;\n<br>\n<b>\nOpenVPN shared secret key\n</b>\n</div>\n",
+            "description": "<div style=\"text-align: center\">\nPublic key infrastructure (PKI)\n\n<br>\n&darr;\n<br>\nOpenVPN keys\n\n<br>\n&darr;\n<br>\n<b>\nOpenVPN shared secret key\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },
@@ -10873,7 +10879,7 @@
                 "computed": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t<div style=\"text-align: center\">\nVyOS PKI configuration\n\n<br>\n&darr;\n<br>\nX509 Settings\n\n<br>\n&darr;\n<br>\n<b>\nX509 Default Values\n</b>\n</div>\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t<div style=\"text-align: center\">\nPublic key infrastructure (PKI)\n\n<br>\n&darr;\n<br>\nX509 Settings\n\n<br>\n&darr;\n<br>\n<b>\nX509 Default Values\n</b>\n</div>\n",
             "description_kind": "markdown"
           }
         },

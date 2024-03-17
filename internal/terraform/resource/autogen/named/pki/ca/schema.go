@@ -13,7 +13,7 @@ func (r pkiCa) Schema(ctx context.Context, req resource.SchemaRequest, resp *res
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `<div style="text-align: center">
-VyOS PKI configuration
+Public key infrastructure (PKI)
 
 <br>
 &darr;

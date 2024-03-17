@@ -2,11 +2,18 @@ package api
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
+	"fmt"
 	"log"
 	"net"
 	"net/http"
 	"os"
+	"slices"
+	"strings"
+
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 )
 
 // used by CRUD helper tests
@@ -97,6 +104,11 @@ func (e *Exchange) Expect(uri, key string, ops string) *Exchange {
 	return e
 }
 
+// Sexpect returns a human friendly string representation of the expect config
+func (e *Exchange) Sexpect() string {
+	return fmt.Sprintf("URI: %v\nKEY: %v\nOPS: %v", e.expect.uri, e.expect.key, e.expect.ops)
+}
+
 // Response configures how the Exchange should respond when matched
 func (e *Exchange) Response(code int, body string) *Exchange {
 	e.response = response{
@@ -127,20 +139,70 @@ type expect struct {
 }
 
 func (e expect) matches(r *http.Request) bool {
+	// Check the simple parameters first to see if we can skip some work
 	if !(e.uri == r.RequestURI && e.key == r.FormValue("key")) {
 		return false
 	}
 
-	formData := r.FormValue("data")
-	if e.ops != formData {
-		log.Printf("FormData mismatch!\t")
-		log.Printf("Expected: '%#v'\t", e.ops)
-		log.Printf("Got: '%#v'\n", formData)
-		return false
+	// sorting function for the cmp.Equal call
+	// I do not know of a lazier way to do a botched "Deep Equals" that
+	// don't care about slice order for deeply complex slices.
+	// this should work fairly ok as we know anything that will be passed to it has
+	// already been unmarashled from json.
+	//
+	// possible issue: If two objects contains the same
+	// JSONified letters but with different meanings, eg: ["redhat", "thread"] and ["thread", "hatred"]
+	// they will be considered equal for the sorting and might cause issues
+	// if there are multiple of them
+	sillySort := func(v1, v2 any) bool {
+		v1Byte, err := json.Marshal(v1)
+		if err != nil {
+			panic(err)
+		}
+		v1StrSlice := strings.Split(string(v1Byte), "")
+		slices.Sort(v1StrSlice)
+
+		v2Byte, err := json.Marshal(v2)
+		if err != nil {
+			panic(err)
+		}
+		v2StrSlice := strings.Split(string(v2Byte), "")
+		slices.Sort(v2StrSlice)
+
+		return strings.Join(v1StrSlice, "") > strings.Join(v2StrSlice, "")
 	}
 
-	return true
+	formData := r.FormValue("data")
 
+	// Check if we can match a JSON blob to maps
+	eOpsJSONM := make(map[string]any)
+	formDataJSONM := make(map[string]any)
+	opsErr := json.Unmarshal([]byte(e.ops), &eOpsJSONM)
+	formErr := json.Unmarshal([]byte(formData), &formDataJSONM)
+	if opsErr == nil && formErr == nil {
+		log.Printf("map[string]any exchange check\n")
+		return cmp.Equal(eOpsJSONM, formDataJSONM,
+			cmpopts.SortMaps(sillySort),
+			cmpopts.SortSlices(sillySort),
+		)
+	}
+
+	// Check if we can match a JSON blob to lists
+	eOpsJSONL := []interface{}{}
+	formDataJSONL := []interface{}{}
+	opsErr = json.Unmarshal([]byte(e.ops), &eOpsJSONL)
+	formErr = json.Unmarshal([]byte(formData), &formDataJSONL)
+	if opsErr == nil && formErr == nil {
+		log.Printf("[]interface{}{} exchange check\n")
+		return cmp.Equal(eOpsJSONL, formDataJSONL,
+			cmpopts.SortMaps(sillySort),
+			cmpopts.SortSlices(sillySort),
+		)
+	}
+
+	// Otherwise try to just match as a simple string
+	log.Printf("comparing exchange expect as string\n")
+	return e.ops == formData
 }
 
 type response struct {

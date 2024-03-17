@@ -263,6 +263,7 @@ func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes() map[string]
     |  h323  &emsp; |  Related traffic from H.323 helper  |
     |  pptp  &emsp; |  Related traffic from PPTP helper  |
     |  nfs  &emsp; |  Related traffic from NFS helper  |
+    |  rtsp  &emsp; |  Related traffic from RTSP helper  |
     |  sip  &emsp; |  Related traffic from SIP helper  |
     |  tftp  &emsp; |  Related traffic from TFTP helper  |
     |  sqlnet  &emsp; |  Related traffic from SQLNet helper  |

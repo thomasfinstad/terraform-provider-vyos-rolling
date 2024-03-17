@@ -104,7 +104,9 @@ resource "vyos_policy_access_list_rule" "name" {
 ### Optional
 
 - `certificate` (Attributes) (see [below for nested schema](#nestedatt--certificate))
-- `overwrite_existing_resources_on_create` (Boolean) Enables overwriting/ignoring existing resources.
+- `ignore_missing_parent_resource_on_create` (Boolean) Disables the check to see if the required parent resource exists on the target machine.
+This can be helpful when encountering a bug with the provider.
+- `overwrite_existing_resources_on_create` (Boolean) Disables the check to see if the resource already exists on the target machine, resulting in possibly overwriting configs without notice.
 This can be helpful when trying to avoid and change many resources at once.
 
 <a id="nestedatt--certificate"></a>

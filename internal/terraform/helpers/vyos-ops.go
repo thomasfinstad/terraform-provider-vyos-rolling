@@ -39,9 +39,7 @@ func iron(ctx context.Context, vyosPath []string, values map[string]interface{})
 			val := append(cVyosPath, value)
 			val = slices.Clone(val)
 			tflog.Trace(ctx, "appending to ret", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret), "val": fmt.Sprintf("%#v", val)})
-			log.Printf("1 ret: %#v, val: %#v\n", ret, val)
 			ret = append(ret, val)
-			log.Printf("2 ret: %#v, val: %#v\n", ret, val)
 		// LeafNodes
 		case bool:
 			log.Printf("type: bool\n")
@@ -80,12 +78,10 @@ func iron(ctx context.Context, vyosPath []string, values map[string]interface{})
 			tflog.Trace(ctx, "recursing for ret", map[string]interface{}{"cVyosPath": fmt.Sprintf("%#v", cVyosPath)})
 			val := iron(ctx, cVyosPath, value)
 			val = slices.Clone(val)
-			log.Printf("3 ret: %#v, val: %#v\n", ret, val)
 			ret = append(
 				ret,
 				val...,
 			)
-			log.Printf("4 ret: %#v, val: %#v\n", ret, val)
 
 		// ERROR
 		default:

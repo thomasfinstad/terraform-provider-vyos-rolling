@@ -2352,6 +2352,23 @@ func system_conntrack() interfacedefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
+									NodeNameAttr: "rtsp",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"RTSP connection tracking"},
+										Valueless: []*interfacedefinition.Valueless{{
+											XMLName: xml.Name{
+												Local: "valueless",
+											},
+										}},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
 									NodeNameAttr: "sip",
 									Properties: []*interfacedefinition.Properties{{
 										XMLName: xml.Name{

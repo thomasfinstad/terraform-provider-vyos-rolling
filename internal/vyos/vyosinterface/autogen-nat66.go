@@ -24,7 +24,7 @@ func nat66() interfacedefinition.InterfaceDefinition {
 				XMLName: xml.Name{
 					Local: "properties",
 				},
-				Help:     []string{"IPv6-to-IPv6 Network Prefix Translation (NAT66/NPT) Settings"},
+				Help:     []string{"Network Prefix Translation (NAT66/NPTv6) parameters"},
 				Priority: []string{"500"},
 			}},
 			Children: []*interfacedefinition.Children{{

@@ -24,7 +24,7 @@ func nat64() interfacedefinition.InterfaceDefinition {
 				XMLName: xml.Name{
 					Local: "properties",
 				},
-				Help:     []string{"IPv6-to-IPv4 Network Address Translation (NAT64) Settings"},
+				Help:     []string{"Network Address Translation (NAT64) parameters"},
 				Priority: []string{"501"},
 			}},
 			Children: []*interfacedefinition.Children{{

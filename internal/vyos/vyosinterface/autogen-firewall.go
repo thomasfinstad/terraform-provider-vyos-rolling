@@ -7208,7 +7208,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"(ftp|h323|pptp|nfs|sip|tftp|sqlnet)"},
+															Regex: []string{"(ftp|h323|pptp|nfs|rtsp|sip|tftp|sqlnet)"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -7234,6 +7234,12 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															},
 															Format:      "nfs",
 															Description: "Related traffic from NFS helper",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "rtsp",
+															Description: "Related traffic from RTSP helper",
 														}, {
 															XMLName: xml.Name{
 																Local: "valueHelp",
@@ -10744,7 +10750,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"(ftp|h323|pptp|nfs|sip|tftp|sqlnet)"},
+															Regex: []string{"(ftp|h323|pptp|nfs|rtsp|sip|tftp|sqlnet)"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -10770,6 +10776,12 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															},
 															Format:      "nfs",
 															Description: "Related traffic from NFS helper",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "rtsp",
+															Description: "Related traffic from RTSP helper",
 														}, {
 															XMLName: xml.Name{
 																Local: "valueHelp",
@@ -14210,7 +14222,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"(ftp|h323|pptp|nfs|sip|tftp|sqlnet)"},
+															Regex: []string{"(ftp|h323|pptp|nfs|rtsp|sip|tftp|sqlnet)"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -14236,6 +14248,12 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															},
 															Format:      "nfs",
 															Description: "Related traffic from NFS helper",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "rtsp",
+															Description: "Related traffic from RTSP helper",
 														}, {
 															XMLName: xml.Name{
 																Local: "valueHelp",
@@ -17818,7 +17836,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"(ftp|h323|pptp|nfs|sip|tftp|sqlnet)"},
+													Regex: []string{"(ftp|h323|pptp|nfs|rtsp|sip|tftp|sqlnet)"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -17844,6 +17862,12 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													},
 													Format:      "nfs",
 													Description: "Related traffic from NFS helper",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "rtsp",
+													Description: "Related traffic from RTSP helper",
 												}, {
 													XMLName: xml.Name{
 														Local: "valueHelp",
@@ -21509,7 +21533,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"(ftp|h323|pptp|nfs|sip|tftp|sqlnet)"},
+															Regex: []string{"(ftp|h323|pptp|nfs|rtsp|sip|tftp|sqlnet)"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -21535,6 +21559,12 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															},
 															Format:      "nfs",
 															Description: "Related traffic from NFS helper",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "rtsp",
+															Description: "Related traffic from RTSP helper",
 														}, {
 															XMLName: xml.Name{
 																Local: "valueHelp",
@@ -25043,7 +25073,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"(ftp|h323|pptp|nfs|sip|tftp|sqlnet)"},
+															Regex: []string{"(ftp|h323|pptp|nfs|rtsp|sip|tftp|sqlnet)"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -25069,6 +25099,12 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															},
 															Format:      "nfs",
 															Description: "Related traffic from NFS helper",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "rtsp",
+															Description: "Related traffic from RTSP helper",
 														}, {
 															XMLName: xml.Name{
 																Local: "valueHelp",
@@ -28507,7 +28543,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"(ftp|h323|pptp|nfs|sip|tftp|sqlnet)"},
+															Regex: []string{"(ftp|h323|pptp|nfs|rtsp|sip|tftp|sqlnet)"},
 														}},
 														ValueHelp: []*interfacedefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -28533,6 +28569,12 @@ func firewall() interfacedefinition.InterfaceDefinition {
 															},
 															Format:      "nfs",
 															Description: "Related traffic from NFS helper",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "rtsp",
+															Description: "Related traffic from RTSP helper",
 														}, {
 															XMLName: xml.Name{
 																Local: "valueHelp",
@@ -32113,7 +32155,7 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{"(ftp|h323|pptp|nfs|sip|tftp|sqlnet)"},
+													Regex: []string{"(ftp|h323|pptp|nfs|rtsp|sip|tftp|sqlnet)"},
 												}},
 												ValueHelp: []*interfacedefinition.ValueHelp{{
 													XMLName: xml.Name{
@@ -32139,6 +32181,12 @@ func firewall() interfacedefinition.InterfaceDefinition {
 													},
 													Format:      "nfs",
 													Description: "Related traffic from NFS helper",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "rtsp",
+													Description: "Related traffic from RTSP helper",
 												}, {
 													XMLName: xml.Name{
 														Local: "valueHelp",
