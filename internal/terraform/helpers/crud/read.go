@@ -13,6 +13,8 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
+// TODO wrap read() call in "timeout" and "retry" functionality
+
 // Read method to define the logic which refreshes the Terraform state for the resource.
 func Read(ctx context.Context, r helpers.VyosResource, req resource.ReadRequest, resp *resource.ReadResponse) {
 	tflog.Debug(ctx, "Read Resource")

@@ -12,6 +12,8 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
+// TODO wrap update() call in "timeout" and "retry" functionality
+
 // Update method to define the logic which updates the resource and sets the updated Terraform state on success.
 func Update(ctx context.Context, r helpers.VyosResource, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	tflog.Debug(ctx, "Update Resource")

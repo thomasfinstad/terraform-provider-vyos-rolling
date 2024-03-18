@@ -15,8 +15,7 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 )
 
-// TODO add "timeout" and "retry" functionality to required parent check
-// TODO add "timeout" and "retry" functionality to existing resource check
+// TODO wrap create() call in "timeout" and "retry" functionality
 
 // Create method to define the logic which creates the resource and sets its initial Terraform state.
 func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequest, resp *resource.CreateResponse) {

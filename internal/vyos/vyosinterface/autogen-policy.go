@@ -3435,6 +3435,7 @@ func policy() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
+															Regex: []string{"(all)"},
 															Validator: []*interfacedefinition.Validator{{
 																XMLName: xml.Name{
 																	Local: "validator",
@@ -3446,8 +3447,20 @@ func policy() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "valueHelp",
 															},
-															Format:      "u32",
+															Format:      "u32:1-4294967295",
 															Description: "AS number",
+														}, {
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "all",
+															Description: "Exclude all AS numbers from the as-path",
+														}},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															List: []string{"all"},
 														}},
 													}},
 												}, {
@@ -3476,7 +3489,7 @@ func policy() interfacedefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "valueHelp",
 															},
-															Format:      "u32",
+															Format:      "u32:1-4294967295",
 															Description: "AS number",
 														}},
 													}},

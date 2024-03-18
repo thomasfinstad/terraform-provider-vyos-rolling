@@ -323,11 +323,26 @@ import (
 			o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 		}
 
+		// IsGlobalResource returns true if this is global
+		// This is useful during CRUD delete
+		func (o *{{.BaseNameCG}}) IsGlobalResource() bool {
+			return
+				{{- if eq .NodeType "TagNode" -}}
+					(false)
+				{{- else if eq .NodeType "Node" -}}
+					(true)
+				{{- else -}}
+					(UNKNOWN NODE TYPE: {{.NodeType}})
+				{{end}}
+		}
+
 		// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 		func (o *{{.BaseNameCG}}) GetVyosPath() []string {
-			if o.ID.ValueString() != "" {
-				return strings.Split(o.ID.ValueString(), "__")
-			}
+			{{- if eq .NodeType "TagNode"}}
+				if o.ID.ValueString() != "" {
+					return strings.Split(o.ID.ValueString(), "__")
+				}
+			{{end}}
 
 			return append(
 				o.GetVyosParentPath(),

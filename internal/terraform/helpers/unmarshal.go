@@ -49,19 +49,25 @@ func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceD
 		}
 
 		if flags["child"].(bool) {
-			log.Printf("\tField is child\n")
-			if fieldName, ok := flags["name"].(string); ok {
-				log.Printf("\tName is string\n")
-				if data, ok := data[fieldName]; ok {
-					log.Printf("\tField has data\n")
-					if data != nil {
-						log.Printf("\tData is not nil\n")
-						tfValueRefection := reflect.ValueOf(true)
-						fValue.Set(tfValueRefection)
-					}
-				}
+			log.Printf("\tField is child resource. ")
+
+			if !KeyInMap(flags["name"].(string), data) {
+				log.Printf("No child entry found.\n")
+				continue
 			}
 
+			log.Printf("Found child entry. ")
+
+			if data == nil {
+				log.Printf("Field does not have data. \n")
+				tfValueRefection := reflect.ValueOf(false)
+				fValue.Set(tfValueRefection)
+				continue
+			}
+
+			log.Printf("Field has data. \n")
+			tfValueRefection := reflect.ValueOf(true)
+			fValue.Set(tfValueRefection)
 			continue
 		}
 

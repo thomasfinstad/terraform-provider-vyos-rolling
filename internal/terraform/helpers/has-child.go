@@ -9,9 +9,9 @@ import (
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
-// HasChild takes a resource model and checks if it has children configured
+// GetChild takes a resource model and checks if it has children configured
 // This is useful to halt deleting of resources
-func HasChild(ctx context.Context, value VyosResourceDataModel) bool {
+func GetChild(ctx context.Context, value VyosResourceDataModel) (childField string, hasChild bool) {
 	valueReflection := reflect.ValueOf(value).Elem()
 	typeReflection := valueReflection.Type()
 
@@ -41,10 +41,10 @@ func HasChild(ctx context.Context, value VyosResourceDataModel) bool {
 		}
 
 		if fValue.Equal(reflect.ValueOf(true)) {
-			return true
+			return flags["name"].(string), true
 		}
 	}
 
 	// No child was configured
-	return false
+	return "", false
 }

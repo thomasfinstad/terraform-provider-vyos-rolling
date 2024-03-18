@@ -34,6 +34,7 @@ type VyosProviderModel struct {
 	Certificate            types.Object `tfsdk:"certificate"`
 	OverwriteExistingRes   types.Bool   `tfsdk:"overwrite_existing_resources_on_create"`
 	IgnoreMissingParentRes types.Bool   `tfsdk:"ignore_missing_parent_resource_on_create"`
+	IgnoreChildResOnDelete types.Bool   `tfsdk:"ignore_child_resource_on_delete"`
 }
 
 // Metadata method to define the provider type name for inclusion in each data source and resource type name.
@@ -72,6 +73,13 @@ This can be helpful when trying to avoid and change many resources at once.`,
 			"ignore_missing_parent_resource_on_create": schema.BoolAttribute{
 				MarkdownDescription: `Disables the check to see if the required parent resource exists on the target machine.
 This can be helpful when encountering a bug with the provider.`,
+				Optional: true,
+			},
+			"ignore_child_resource_on_delete": schema.BoolAttribute{
+				MarkdownDescription: ` !> **WARNING:** This is extremly destructive and will delete everything below the destroyed resource.
+Disables the check to see if the resouce has any child resources.
+This can be useful when only a parent resource is configured via terraform.
+This has no effect on global resources.`,
 				Optional: true,
 			},
 		},
@@ -126,6 +134,7 @@ func (p *VyosProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 
 	config.Config.CrudSkipExistingResourceCheck = providerModel.OverwriteExistingRes.ValueBool()
 	config.Config.CrudSkipCheckParentBeforeCreate = providerModel.IgnoreMissingParentRes.ValueBool()
+	config.Config.CrudSkipCheckChildBeforeDelete = providerModel.IgnoreChildResOnDelete.ValueBool()
 
 	resp.DataSourceData = config
 	resp.ResourceData = config

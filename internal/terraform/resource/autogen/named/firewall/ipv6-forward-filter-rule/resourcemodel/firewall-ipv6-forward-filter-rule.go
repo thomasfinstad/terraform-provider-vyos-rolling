@@ -70,6 +70,12 @@ func (o *FirewallIPvsixForwardFilterRule) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
+// IsGlobalResource returns true if this is global
+// This is useful during CRUD delete
+func (o *FirewallIPvsixForwardFilterRule) IsGlobalResource() bool {
+	return (false)
+}
+
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 func (o *FirewallIPvsixForwardFilterRule) GetVyosPath() []string {
 	if o.ID.ValueString() != "" {

@@ -15,7 +15,7 @@ var _ helpers.VyosResourceDataModel = &PolicyRouteMapRuleSetAsPath{}
 // PolicyRouteMapRuleSetAsPath describes the resource data model.
 type PolicyRouteMapRuleSetAsPath struct {
 	// LeafNodes
-	LeafPolicyRouteMapRuleSetAsPathExclude       types.Number `tfsdk:"exclude" vyos:"exclude,omitempty"`
+	LeafPolicyRouteMapRuleSetAsPathExclude       types.String `tfsdk:"exclude" vyos:"exclude,omitempty"`
 	LeafPolicyRouteMapRuleSetAsPathPrepend       types.Number `tfsdk:"prepend" vyos:"prepend,omitempty"`
 	LeafPolicyRouteMapRuleSetAsPathPrependLastAs types.Number `tfsdk:"prepend_last_as" vyos:"prepend-last-as,omitempty"`
 
@@ -29,13 +29,14 @@ func (o PolicyRouteMapRuleSetAsPath) ResourceSchemaAttributes() map[string]schem
 	return map[string]schema.Attribute{
 		// LeafNodes
 
-		"exclude": schema.NumberAttribute{
+		"exclude": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Remove/exclude from the as-path attribute
 
     |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  &emsp; |  AS number  |
+    |  number: 1-4294967295  &emsp; |  AS number  |
+    |  all  &emsp; |  Exclude all AS numbers from the as-path  |
 
 `,
 		},
@@ -46,7 +47,7 @@ func (o PolicyRouteMapRuleSetAsPath) ResourceSchemaAttributes() map[string]schem
 
     |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  &emsp; |  AS number  |
+    |  number: 1-4294967295  &emsp; |  AS number  |
 
 `,
 		},

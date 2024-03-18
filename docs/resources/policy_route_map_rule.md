@@ -441,16 +441,17 @@ Optional:
 
 Optional:
 
-- `exclude` (Number) Remove/exclude from the as-path attribute
+- `exclude` (String) Remove/exclude from the as-path attribute
 
     |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  &emsp; |  AS number  |
+    |  number: 1-4294967295  &emsp; |  AS number  |
+    |  all  &emsp; |  Exclude all AS numbers from the as-path  |
 - `prepend` (Number) Prepend to the as-path
 
     |  Format &emsp; | Description  |
     |----------|---------------|
-    |  u32  &emsp; |  AS number  |
+    |  number: 1-4294967295  &emsp; |  AS number  |
 - `prepend_last_as` (Number) Use the last AS-number in the as-path
 
     |  Format &emsp; | Description  |

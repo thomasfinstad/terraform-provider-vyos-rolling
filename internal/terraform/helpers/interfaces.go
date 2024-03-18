@@ -21,6 +21,10 @@ type VyosTopResourceDataModel interface {
 	// SetID configures the resource ID
 	SetID(id []string)
 
+	// IsGlobalResource returns true if this is global
+	// This is useful during CRUD delete
+	IsGlobalResource() bool
+
 	// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
 	GetVyosPath() []string
 

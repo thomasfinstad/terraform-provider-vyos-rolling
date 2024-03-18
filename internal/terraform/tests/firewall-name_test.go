@@ -85,7 +85,7 @@ func TestFirewallIPvfourNameUnmarshalVyosHasChild(t *testing.T) {
 		t.Fatalf(`desired value can not be unmarshaled: %v`, err)
 	}
 
-	got := helpers.HasChild(context.Background(), resource)
+	_, got := helpers.GetChild(context.Background(), resource)
 
 	diff := deep.Equal(got, want)
 	if diff != nil {
@@ -107,7 +107,7 @@ func TestFirewallIPvfourNameUnmarshalVyosNoChild(t *testing.T) {
 		t.Fatalf(`desired value can not be unmarshaled: %v`, err)
 	}
 
-	got := helpers.HasChild(context.Background(), resource)
+	_, got := helpers.GetChild(context.Background(), resource)
 
 	diff := deep.Equal(got, want)
 	if diff != nil {
