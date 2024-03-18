@@ -27,25 +27,12 @@ func TestCrudCreateSuccess(t *testing.T) {
 	exchangeParentExistsCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"showConfig","path":["firewall","ipv4"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name"]}`,
 	).Response(
 		200,
 		`{
 			"success": true,
-			"data": {
-				"name": {
-					"Test-Fw-Name": {
-						"default-action": "reject",
-						"default-log": {},
-						"description": "Managed by terraform",
-						"rule": {
-							"1": {"action": "accept", "description": "Allow established connections", "protocol": "all", "state": "established"},
-							"2": {"action": "accept", "description": "Allow related connections", "protocol": "all", "state": "related"},
-							"3": {"action": "drop", "description": "Disallow invalid packets", "log": {}, "protocol": "all", "state": "invalid"}
-						}
-					}
-				}
-			},
+			"data": true,
 			"error": null
 		}`,
 	)
@@ -55,13 +42,13 @@ func TestCrudCreateSuccess(t *testing.T) {
 	exchangeExistingResourceCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"showConfig","path":["firewall","ipv4","name","Test-Fw-Name","rule","42"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name","rule","42"]}`,
 	).Response(
-		400,
+		200,
 		`{
-			"success": false,
-			"error": "Configuration under specified path is empty\n",
-			"data": null
+			"success": true,
+			"data": false,
+			"error": null
 		}`,
 	)
 
@@ -116,6 +103,7 @@ func TestCrudCreateSuccess(t *testing.T) {
 	err := create(ctx, providerData, client, model)
 	if err != nil {
 		t.Errorf("Create failed: %v", err)
+		return
 	}
 
 	// Validate API calls
@@ -124,6 +112,7 @@ func TestCrudCreateSuccess(t *testing.T) {
 			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
 		}
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		return
 	}
 }
 
@@ -140,44 +129,28 @@ func TestCrudCreateResourceAlreadyExsitsFailure(t *testing.T) {
 	exchangeParentExistsCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"showConfig","path":["firewall","ipv4"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name"]}`,
 	).Response(
 		200,
 		`{
 			"success": true,
-			"data": {
-				"name": {
-					"Test-Fw-Name": {
-						"default-action": "reject",
-						"default-log": {},
-						"description": "Managed by terraform",
-						"rule": {
-							"1": {"action": "accept", "description": "Allow established connections", "protocol": "all", "state": "established"},
-							"2": {"action": "accept", "description": "Allow related connections", "protocol": "all", "state": "related"},
-							"3": {"action": "drop", "description": "Disallow invalid packets", "log": {}, "protocol": "all", "state": "invalid"},
-							"42": {"action": "accept", "description": "Allow http outgoing traffic", "protocol": "tcp", "destination": {"group": {"port-group": "Web"}}}
-						}
-					}
-				}
-			},
+			"data": true,
 			"error": null
 		}`,
 	)
 
 	// Self check API call
-	exchangeExsitingResourceCheck := eList.Add()
-	exchangeExsitingResourceCheck.Expect(
+	exchangeExistingResourceCheck := eList.Add()
+	exchangeExistingResourceCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"showConfig","path":["firewall","ipv4","name","Test-Fw-Name","rule","42"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name","rule","42"]}`,
 	).Response(
 		200,
 		`{
 			"success": true,
+			"data": true,
 			"error": null
-			"data": {
-				"42": {"action": "accept", "description": "Allow http outgoing traffic", "protocol": "tcp", "destination": {"group": {"port-group": "Web"}}}
-			}
 		}`,
 	)
 
@@ -212,6 +185,7 @@ func TestCrudCreateResourceAlreadyExsitsFailure(t *testing.T) {
 	err := create(ctx, providerData, client, model)
 	if err == nil {
 		t.Errorf("Should have failed to create existing resource")
+		return
 	}
 
 	// Validate API calls
@@ -220,6 +194,7 @@ func TestCrudCreateResourceAlreadyExsitsFailure(t *testing.T) {
 			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
 		}
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		return
 	}
 }
 
@@ -232,31 +207,18 @@ func TestCrudCreateResourceAlreadyExsitsIgnore(t *testing.T) {
 	apiKey := "test-key"
 
 	// Parent check API call
-	echangeParentExistsCheck := eList.Add()
-	echangeParentExistsCheck.Expect(
+	exchangeParentExistsCheck := eList.Add()
+	exchangeParentExistsCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"showConfig","path":["firewall","ipv4"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name"]}`,
 	).Response(
 		200,
 		`{
-		"success": true,
-		"data": {
-			"name": {
-				"Test-Fw-Name": {
-					"default-action": "reject",
-					"default-log": {},
-					"description": "Managed by terraform",
-					"rule": {
-						"1": {"action": "accept", "description": "Allow established connections", "protocol": "all", "state": "established"},
-						"2": {"action": "accept", "description": "Allow related connections", "protocol": "all", "state": "related"},
-						"3": {"action": "drop", "description": "Disallow invalid packets", "log": {}, "protocol": "all", "state": "invalid"}
-					}
-				}
-			}
-		},
-		"error": null
-	}`,
+			"success": true,
+			"data": true,
+			"error": null
+		}`,
 	)
 
 	// Create resource API call
@@ -311,6 +273,7 @@ func TestCrudCreateResourceAlreadyExsitsIgnore(t *testing.T) {
 	err := create(ctx, providerData, client, model)
 	if err != nil {
 		t.Errorf("Create failed: %v", err)
+		return
 	}
 
 	// Validate API calls
@@ -319,6 +282,7 @@ func TestCrudCreateResourceAlreadyExsitsIgnore(t *testing.T) {
 			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
 		}
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		return
 	}
 }
 
@@ -337,26 +301,12 @@ func TestCrudCreateResourceParentMissingFailure(t *testing.T) {
 	exchangeParentExistsCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"showConfig","path":["firewall","ipv4"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name"]}`,
 	).Response(
 		200,
 		`{
 			"success": true,
-			"data": {
-				"name": {
-					"WRONG-PARENT-NAME": {
-						"default-action": "reject",
-						"default-log": {},
-						"description": "Managed by terraform",
-						"rule": {
-							"1": {"action": "accept", "description": "Allow established connections", "protocol": "all", "state": "established"},
-							"2": {"action": "accept", "description": "Allow related connections", "protocol": "all", "state": "related"},
-							"3": {"action": "drop", "description": "Disallow invalid packets", "log": {}, "protocol": "all", "state": "invalid"},
-							"42": {"action": "accept", "description": "Allow http outgoing traffic", "protocol": "tcp", "destination": {"group": {"port-group": "Web"}}}
-						}
-					}
-				}
-			},
+			"data": false,
 			"error": null
 		}`,
 	)
@@ -392,6 +342,7 @@ func TestCrudCreateResourceParentMissingFailure(t *testing.T) {
 	err := create(ctx, providerData, client, model)
 	if err == nil {
 		t.Errorf("Should have failed to create resource without parent")
+		return
 	}
 
 	// Validate API calls
@@ -400,6 +351,7 @@ func TestCrudCreateResourceParentMissingFailure(t *testing.T) {
 			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
 		}
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		return
 	}
 }
 
@@ -418,13 +370,13 @@ func TestCrudCreateResourceParentMissingIgnore(t *testing.T) {
 	exchangeExistingResourceCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"showConfig","path":["firewall","ipv4","name","Test-Fw-Name","rule","42"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name","rule","42"]}`,
 	).Response(
-		400,
+		200,
 		`{
-			"success": false,
-			"error": "Configuration under specified path is empty\n",
-			"data": null
+			"success": true,
+			"data": false,
+			"error": null
 		}`,
 	)
 
@@ -480,6 +432,7 @@ func TestCrudCreateResourceParentMissingIgnore(t *testing.T) {
 	err := create(ctx, providerData, client, model)
 	if err != nil {
 		t.Errorf("Create failed: %v", err)
+		return
 	}
 
 	// Validate API calls
@@ -488,5 +441,6 @@ func TestCrudCreateResourceParentMissingIgnore(t *testing.T) {
 			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
 		}
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		return
 	}
 }

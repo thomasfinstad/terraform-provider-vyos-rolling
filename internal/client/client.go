@@ -14,6 +14,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
+// TODO create a client request internal function
+//  deduplicate the work being done in the public functions by
+//  having a private function to send the request and receive the response
+
 // NewClient creates a new client object to use with VyOS CRUD functions
 func NewClient(
 	ctx context.Context,
@@ -159,6 +163,80 @@ func (c *Client) CommitChanges(ctx context.Context) (any, error) {
 	return nil, fmt.Errorf("API ERROR [%s]: %v", resp.Status, ret["error"])
 }
 
+// Has checks the provided path for a configuration and returns
+// true if found, false otherwise.
+// Also returns true for empty config blocks by
+// using the `exists` API operation.
+func (c *Client) Has(ctx context.Context, path []string) (bool, error) {
+	endpoint := c.endpoint + "/retrieve"
+	operation, err := json.Marshal(
+		map[string]interface{}{
+			"op":   "exists",
+			"path": path,
+		},
+	)
+	if err != nil {
+		return false, &MarshalError{message: "read operation", marshalErr: err}
+	}
+
+	payload := url.Values{
+		"key":  []string{c.apiKey},
+		"data": []string{string(operation)},
+	}
+
+	tflog.Info(ctx, "Creating exists request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
+	log.Println("Creating exists request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
+
+	payloadEnc := payload.Encode()
+	tflog.Debug(ctx, "Request payload encoded", map[string]interface{}{"payload": payloadEnc})
+	req, err := http.NewRequest("POST", endpoint, strings.NewReader(payloadEnc))
+	if err != nil {
+		return false, fmt.Errorf("failed to create http request object: %w", err)
+	}
+
+	req.Header.Set("User-Agent", c.userAgent)
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+
+	log.Println("Sending Request")
+	resp, err := c.httpClient.Do(req)
+	if err != nil {
+		return false, fmt.Errorf("failed to complete http request: %w", err)
+	}
+	defer resp.Body.Close()
+
+	log.Println("Reading response")
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return false, fmt.Errorf("failed to read http response: %w", err)
+	}
+
+	var ret map[string]interface{}
+
+	log.Println("Unmarshaling from json")
+	err = json.Unmarshal(body, &ret)
+	if err != nil {
+		return false, fmt.Errorf("failed to unmarshal http response body: '%s' as json: %w", body, err)
+	}
+
+	if ret["success"] == true {
+		log.Println("API exists success")
+		if retB, ok := ret["data"].(bool); ok {
+			return retB, nil
+		}
+		return false, fmt.Errorf("[api error]: could not convert returned 'data' field to bool: %v", ret)
+	}
+
+	log.Println("API exists failure")
+
+	if errmsg, ok := ret["error"]; ok {
+		if errmsg, ok := errmsg.(string); ok {
+			return false, fmt.Errorf("[api error]: %s", errmsg)
+		}
+	}
+
+	return false, fmt.Errorf("[api error]: %v", ret)
+}
+
 func (c *Client) Read(ctx context.Context, path []string) (any, error) {
 	endpoint := c.endpoint + "/retrieve"
 	operation, err := json.Marshal(
@@ -168,7 +246,7 @@ func (c *Client) Read(ctx context.Context, path []string) (any, error) {
 		},
 	)
 	if err != nil {
-		return nil, &MarshalError{message: "read operation", marshalErr: err}
+		return nil, &MarshalError{message: "showConfig operation", marshalErr: err}
 	}
 
 	payload := url.Values{
@@ -176,8 +254,8 @@ func (c *Client) Read(ctx context.Context, path []string) (any, error) {
 		"data": []string{string(operation)},
 	}
 
-	tflog.Info(ctx, "Creating read request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
-	log.Println("Creating read request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
+	tflog.Info(ctx, "Creating showConfig request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
+	log.Println("Creating showConfig request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
 
 	payloadEnc := payload.Encode()
 	tflog.Debug(ctx, "Request payload encoded", map[string]interface{}{"payload": payloadEnc})
@@ -211,11 +289,11 @@ func (c *Client) Read(ctx context.Context, path []string) (any, error) {
 	}
 
 	if ret["success"] == true {
-		log.Println("API read success")
+		log.Println("API showConfig success")
 		return ret["data"], nil
 	}
 
-	log.Println("API read failure")
+	log.Println("API showConfig failure")
 
 	if errmsg, ok := ret["error"]; ok {
 		if errmsg, ok := errmsg.(string); ok && errmsg == "Configuration under specified path is empty\n" {

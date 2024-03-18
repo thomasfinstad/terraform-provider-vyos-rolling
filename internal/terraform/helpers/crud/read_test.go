@@ -14,7 +14,7 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/tests/api"
 )
 
-// TestCrudRead test CRUD helper: Read
+// TestCrudReadSuccess test CRUD helper: Read
 //
 // curl -k --location --request POST "https://$VYOS_HOST/retrieve" --form key="$VYOS_KEY" --form data='{"op":"showConfig","path":["firewall","ipv4","name","SrvMain-WanTelia"]}'
 //
@@ -35,8 +35,7 @@ import (
 //		rule_id = 1000...
 //		...
 //	}
-
-func TestCrudRead(t *testing.T) {
+func TestCrudReadSuccess(t *testing.T) {
 	ctx := context.Background()
 
 	// When Mock API Server
@@ -104,7 +103,7 @@ func TestCrudRead(t *testing.T) {
 	}
 }
 
-// TestPolicyEmptyResponseFromApi tests that an empty resource response from API is checked correctly
+// TestCrudReadEmptyResource tests that an empty resource response from API is checked correctly
 //
 // curl -k --location --request POST "https://$VYOS_HOST/retrieve" --form key="$VYOS_KEY" --form data='{"op":"showConfig","path":["policy","access-list","2"]}'
 //
@@ -112,7 +111,7 @@ func TestCrudRead(t *testing.T) {
 //	resource "vyos_policy_access_list" "name" {
 //		access_list_id = 42
 //	}
-func TestPolicyEmptyResponseFromApi(t *testing.T) {
+func TestCrudReadEmptyResource(t *testing.T) {
 	ctx := context.Background()
 
 	// When Mock API Server
@@ -125,7 +124,7 @@ func TestPolicyEmptyResponseFromApi(t *testing.T) {
 
 	eList := api.NewExchangeList()
 
-	// Initial (normal) request
+	// Initial retrieve request
 	e1 := eList.Add()
 	e1.Expect(
 		uri,
@@ -136,15 +135,19 @@ func TestPolicyEmptyResponseFromApi(t *testing.T) {
 		`{"success": false, "error": "Configuration under specified path is empty\n", "data": null}`,
 	)
 
-	// Dedicated (special case) request to check for empty resources
+	// Dedicated retrieve request that checks for empty resource
 	e2 := eList.Add()
 	e2.Expect(
 		uri,
 		key,
-		`{"op":"showConfig","path":["policy"]}`,
+		`{"op":"exists","path":["policy","access-list","42"]}`,
 	).Response(
 		200,
-		`{"success": true, "data": {"access-list": {"42": {}}}, "error": null}`,
+		`{
+			"success": true,
+			"data": true,
+			"error": null
+		}`,
 	)
 
 	api.Server(srv, eList)

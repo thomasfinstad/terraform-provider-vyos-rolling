@@ -2,7 +2,6 @@ package crud
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"strings"
 
@@ -63,40 +62,15 @@ func create(ctx context.Context, providerCfg data.ProviderData, c client.Client,
 
 	// Check if nearest parent exists
 	if !providerCfg.Config.CrudSkipCheckParentBeforeCreate && (len(planModel.GetVyosNamedParentPath()) > 0) {
-		parentSemiPath := planModel.GetVyosNamedParentPath()[:len(planModel.GetVyosNamedParentPath())-2]
-		parentIDComponenets := planModel.GetVyosNamedParentPath()[len(planModel.GetVyosNamedParentPath())-2:]
+		tflog.Debug(ctx, fmt.Sprintf("checking for parent: '%s'", planModel.GetVyosNamedParentPath()))
 
-		tflog.Debug(ctx, fmt.Sprintf("checking for parent: '%s' under '%s'", parentIDComponenets, strings.Join(parentSemiPath, " ")))
-
-		// TODO Look into get values API call to reduce overhead of multiple lookups
-		//  Ref: https://vyos.dev/T6135
-		//  This method returns a lot more than is strictly needed, but it saves us from checking if the
-		//  parent actually exists but is empty after a perfectly targeted search and APINotFoundError.
-		//  The response for creating a "firewall ipv4 name xYz rule 123" resource will look up
-		//  the entirety of all firewall rules "firewall ipv4", this can easily return a disgustingly large
-		//  blob, and is very wasteful.
-		//  There is a chance that it would be better to not support empty resources at all.
-		ret, err := c.Read(ctx, parentSemiPath)
+		ret, err := c.Has(ctx, planModel.GetVyosNamedParentPath())
 		if err != nil {
-			var apiNotFoundError *client.APINotFoundError
-			if errors.As(err, &apiNotFoundError) {
-				return fmt.Errorf(
-					"missing parent config: '%s': %w",
-					strings.Join(planModel.GetVyosNamedParentPath(), " "),
-					err,
-				)
-			}
-			return fmt.Errorf("API error: '%s': %w", parentSemiPath, err)
+			return fmt.Errorf("parent check error for: '%s': %w", planModel.GetVyosNamedParentPath(), err)
 		}
 
-		// Check for empty but existing parent resource
-		tmpRet := ret
-		for _, idComponent := range parentIDComponenets {
-			var ok bool
-			if tmpRet, ok = tmpRet.(map[string]any)[idComponent]; !ok {
-				tflog.Debug(ctx, fmt.Sprintf("missing parent: '%s', API returned: '%v'", strings.Join(planModel.GetVyosNamedParentPath(), " "), ret))
-				return fmt.Errorf("missing parent: '%s': ", strings.Join(append(parentSemiPath, parentIDComponenets...), " "))
-			}
+		if !ret {
+			return fmt.Errorf("missing parent: '%s': ", planModel.GetVyosNamedParentPath())
 		}
 	}
 
@@ -104,14 +78,13 @@ func create(ctx context.Context, providerCfg data.ProviderData, c client.Client,
 	if !providerCfg.Config.CrudSkipExistingResourceCheck {
 		tflog.Debug(ctx, fmt.Sprintf("checking for existing resource: '%s'", planModel.GetVyosPath()))
 
-		_, err := c.Read(ctx, planModel.GetVyosPath())
-		if err == nil {
-			return fmt.Errorf("resource already exists: '%s'", strings.Join(planModel.GetVyosPath(), " "))
+		ret, err := c.Has(ctx, planModel.GetVyosPath())
+		if err != nil {
+			return fmt.Errorf("resource check error for: '%s': %w", planModel.GetVyosNamedParentPath(), err)
 		}
 
-		var apiNotFoundError *client.APINotFoundError
-		if !errors.As(err, &apiNotFoundError) {
-			return fmt.Errorf("API error: %w", err)
+		if ret {
+			return fmt.Errorf("resource already exists: '%s'", strings.Join(planModel.GetVyosPath(), " "))
 		}
 	}
 

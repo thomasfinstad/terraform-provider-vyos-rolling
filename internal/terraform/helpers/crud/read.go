@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"strings"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
@@ -56,37 +55,22 @@ func read(ctx context.Context, c client.Client, model helpers.VyosTopResourceDat
 	if err != nil {
 		tflog.Warn(ctx, "API Error:", map[string]interface{}{"vyos-path": model.GetVyosPath(), "error": err, "response": response})
 
-		// If we could not find ourselfs, check the parent for an empty resource config
-		var apiNotFoundError *client.APINotFoundError
-		if errors.As(err, &apiNotFoundError) && len(model.GetVyosParentPath()) > 0 {
-			parentPath := model.GetVyosParentPath()
-			selfIDComponenets := model.GetVyosPath()[len(model.GetVyosParentPath()):]
-
-			tflog.Debug(ctx, fmt.Sprintf("checking for parent: '%s' under '%s'", selfIDComponenets, strings.Join(parentPath, " ")))
-			ret, perr := c.Read(ctx, parentPath)
-			if perr != nil {
-				return err
-			}
-
-			// See if we can walk into parent and find our selvs step by step, owtherwise return original error
-			tmpRet := ret
-			for _, idComponent := range selfIDComponenets {
-				var ok bool
-				if tmpRet, ok = tmpRet.(map[string]any)[idComponent]; !ok {
-					tflog.Debug(ctx, fmt.Sprintf("missing parent: '%s', API returned: '%v'", strings.Join(model.GetVyosNamedParentPath(), " "), ret))
-					return err
-				}
-			}
-
-			// Reaching this point means we found ourselvs as an empty resource
-			err := helpers.UnmarshalVyos(ctx, make(map[string]any), model)
-			if err != nil {
-				return fmt.Errorf("vyos API response unmarshalling error: %w", err)
-			}
-			return nil
+		// Check if we exists, if so this means we are an empty resource
+		ret, hasErr := c.Has(ctx, model.GetVyosPath())
+		if hasErr != nil {
+			return fmt.Errorf("resource check error for: '%s': %w", model.GetVyosNamedParentPath(), hasErr)
 		}
 
-		return err
+		if !ret {
+			return hasErr
+		}
+
+		// Marshal up as empty
+		err := helpers.UnmarshalVyos(ctx, make(map[string]any), model)
+		if err != nil {
+			return fmt.Errorf("vyos API response unmarshalling error: %w", err)
+		}
+		return nil
 
 	}
 
