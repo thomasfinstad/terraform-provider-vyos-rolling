@@ -34,6 +34,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourFlowspec) ResourceSchemaAttribute
 			MarkdownDescription: `Apply local policy routing to interface
 
 `,
+			Description: `Apply local policy routing to interface
+
+`,
 		},
 	}
 }

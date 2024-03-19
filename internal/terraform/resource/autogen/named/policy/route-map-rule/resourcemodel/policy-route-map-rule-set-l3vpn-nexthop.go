@@ -34,6 +34,9 @@ func (o PolicyRouteMapRuleSetLthreevpnNexthop) ResourceSchemaAttributes() map[st
 			MarkdownDescription: `Encapsulation options (for BGP only)
 
 `,
+			Description: `Encapsulation options (for BGP only)
+
+`,
 		},
 	}
 }

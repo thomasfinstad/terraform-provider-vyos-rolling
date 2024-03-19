@@ -34,6 +34,9 @@ func (o FirewallIPvsixForwardFilterRuleSynproxy) ResourceSchemaAttributes() map[
 			MarkdownDescription: `TCP synproxy options
 
 `,
+			Description: `TCP synproxy options
+
+`,
 		},
 	}
 }

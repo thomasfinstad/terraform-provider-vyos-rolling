@@ -77,36 +77,36 @@ BMP target
 
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `target_id` (String) BMP target
 
 ### Optional
 
 - `address` (String) IP address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address  |
-    |  ipv6  &emsp; |  IPv6 address  |
+    |  Format  &emsp;|  Description   |
+    |----------------|----------------|
+    |  ipv4    &emsp;|  IPv4 address  |
+    |  ipv6    &emsp;|  IPv6 address  |
 - `max_retry` (Number) Maximum connection retry interval
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 100-4294967295  &emsp; |  Maximum connection retry interval  |
+    |  Format          &emsp;|  Description                        |
+    |------------------------|-------------------------------------|
+    |  100-4294967295  &emsp;|  Maximum connection retry interval  |
 - `min_retry` (Number) Minimum connection retry interval (in milliseconds)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 100-86400000  &emsp; |  Minimum connection retry interval  |
+    |  Format        &emsp;|  Description                        |
+    |----------------------|-------------------------------------|
+    |  100-86400000  &emsp;|  Minimum connection retry interval  |
 - `mirror` (Boolean) Send BMP route mirroring messages
 - `monitor` (Attributes) Send BMP route monitoring messages (see [below for nested schema](#nestedatt--monitor))
 - `port` (Number) Port number used by connection
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Numeric IP port  |
+    |  Format   &emsp;|  Description      |
+    |-----------------|-------------------|
+    |  1-65535  &emsp;|  Numeric IP port  |
 
 ### Read-Only
 

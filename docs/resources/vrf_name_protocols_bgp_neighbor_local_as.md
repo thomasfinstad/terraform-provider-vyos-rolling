@@ -77,21 +77,21 @@ Specify alternate ASN for this BGP process
 
 - `local_as_id` (Number) Specify alternate ASN for this BGP process
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4294967294  &emsp; |  Autonomous System Number (ASN)  |
+    |  Format        &emsp;|  Description                     |
+    |----------------------|----------------------------------|
+    |  1-4294967294  &emsp;|  Autonomous System Number (ASN)  |
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `neighbor_id` (String) BGP neighbor
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  BGP neighbor IP address  |
-    |  ipv6  &emsp; |  BGP neighbor IPv6 address  |
-    |  txt  &emsp; |  Interface name  |
+    |  Format  &emsp;|  Description                |
+    |----------------|-----------------------------|
+    |  ipv4    &emsp;|  BGP neighbor IP address    |
+    |  ipv6    &emsp;|  BGP neighbor IPv6 address  |
+    |  txt     &emsp;|  Interface name             |
 
 ### Optional
 

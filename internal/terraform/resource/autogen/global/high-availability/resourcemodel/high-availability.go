@@ -80,6 +80,9 @@ func (o HighAvailability) ResourceSchemaAttributes() map[string]schema.Attribute
 			MarkdownDescription: `Disable instance
 
 `,
+			Description: `Disable instance
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},

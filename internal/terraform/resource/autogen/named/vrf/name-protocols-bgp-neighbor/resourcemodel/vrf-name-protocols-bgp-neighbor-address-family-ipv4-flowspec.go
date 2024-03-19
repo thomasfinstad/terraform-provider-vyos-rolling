@@ -38,6 +38,9 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec) ResourceSchemaA
 			MarkdownDescription: `Peer is a route reflector client
 
 `,
+			Description: `Peer is a route reflector client
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -45,6 +48,9 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec) ResourceSchemaA
 		"route_server_client": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer is a route server client
+
+`,
+			Description: `Peer is a route server client
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -59,12 +65,18 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec) ResourceSchemaA
 			MarkdownDescription: `IPv4-Prefix-list to filter route updates to/from this peer
 
 `,
+			Description: `IPv4-Prefix-list to filter route updates to/from this peer
+
+`,
 		},
 
 		"filter_list": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecFilterList{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `as-path-list to filter route updates to/from this peer
+
+`,
+			Description: `as-path-list to filter route updates to/from this peer
 
 `,
 		},
@@ -75,12 +87,18 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec) ResourceSchemaA
 			MarkdownDescription: `Route-map to filter route updates to/from this peer
 
 `,
+			Description: `Route-map to filter route updates to/from this peer
+
+`,
 		},
 
 		"soft_reconfiguration": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecSoftReconfiguration{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Soft reconfiguration for peer
+
+`,
+			Description: `Soft reconfiguration for peer
 
 `,
 		},

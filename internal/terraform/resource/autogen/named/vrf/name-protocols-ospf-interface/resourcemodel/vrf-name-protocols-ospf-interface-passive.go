@@ -33,6 +33,9 @@ func (o VrfNameProtocolsOspfInterfacePassive) ResourceSchemaAttributes() map[str
 			MarkdownDescription: `Disable instance
 
 `,
+			Description: `Disable instance
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},

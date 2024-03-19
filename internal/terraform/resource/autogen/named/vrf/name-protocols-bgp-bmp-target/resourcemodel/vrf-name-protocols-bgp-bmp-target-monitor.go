@@ -35,12 +35,18 @@ func (o VrfNameProtocolsBgpBmpTargetMonitor) ResourceSchemaAttributes() map[stri
 			MarkdownDescription: `Address family IPv4 unicast
 
 `,
+			Description: `Address family IPv4 unicast
+
+`,
 		},
 
 		"ipv6_unicast": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpBmpTargetMonitorIPvsixUnicast{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Address family IPv6 unicast
+
+`,
+			Description: `Address family IPv6 unicast
 
 `,
 		},

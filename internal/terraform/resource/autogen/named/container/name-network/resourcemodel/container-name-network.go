@@ -98,6 +98,9 @@ func (o ContainerNameNetwork) ResourceSchemaAttributes() map[string]schema.Attri
 			MarkdownDescription: `Attach user defined network to container
 
 `,
+			Description: `Attach user defined network to container
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -119,6 +122,9 @@ func (o ContainerNameNetwork) ResourceSchemaAttributes() map[string]schema.Attri
 		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Container name
+
+`,
+			Description: `Container name
 
 `,
 			PlanModifiers: []planmodifier.String{
@@ -146,11 +152,17 @@ func (o ContainerNameNetwork) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional:    true,
 			MarkdownDescription: `Assign static IP address to container
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address  |
-    |  ipv6  &emsp; |  IPv6 address  |
+    |  Format  &emsp;|  Description   |
+    |----------------|----------------|
+    |  ipv4    &emsp;|  IPv4 address  |
+    |  ipv6    &emsp;|  IPv6 address  |
+`,
+			Description: `Assign static IP address to container
 
+    |  Format  |  Description   |
+    |----------------|----------------|
+    |  ipv4    |  IPv4 address  |
+    |  ipv6    |  IPv6 address  |
 `,
 		},
 

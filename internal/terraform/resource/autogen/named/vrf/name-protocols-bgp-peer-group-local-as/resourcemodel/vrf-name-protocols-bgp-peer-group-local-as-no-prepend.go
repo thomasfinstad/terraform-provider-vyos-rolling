@@ -33,6 +33,9 @@ func (o VrfNameProtocolsBgpPeerGroupLocalAsNoPrepend) ResourceSchemaAttributes()
 			MarkdownDescription: `Prepend only local-as from/to updates for eBGP peers
 
 `,
+			Description: `Prepend only local-as from/to updates for eBGP peers
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},

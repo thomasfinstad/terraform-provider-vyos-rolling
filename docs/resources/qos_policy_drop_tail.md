@@ -47,22 +47,22 @@ Packet limited First In, First Out queue
 
 - `drop_tail_id` (String) Packet limited First In, First Out queue
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Policy name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Policy name  |
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `queue_limit` (Number) Maximum queue size
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4294967295  &emsp; |  Queue size in packets  |
+    |  Format        &emsp;|  Description            |
+    |----------------------|-------------------------|
+    |  1-4294967295  &emsp;|  Queue size in packets  |
 
 ### Read-Only
 

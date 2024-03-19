@@ -93,6 +93,9 @@ func (o PkiCertificate) ResourceSchemaAttributes() map[string]schema.Attribute {
 			MarkdownDescription: `Certificate
 
 `,
+			Description: `Certificate
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -118,22 +121,33 @@ func (o PkiCertificate) ResourceSchemaAttributes() map[string]schema.Attribute {
 			MarkdownDescription: `Certificate in PEM format
 
 `,
+			Description: `Certificate in PEM format
+
+`,
 		},
 
 		"description": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
 		"revoke": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Include certificate in parent CRL
+
+`,
+			Description: `Include certificate in parent CRL
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -148,12 +162,18 @@ func (o PkiCertificate) ResourceSchemaAttributes() map[string]schema.Attribute {
 			MarkdownDescription: `Automatic Certificate Management Environment (ACME) request
 
 `,
+			Description: `Automatic Certificate Management Environment (ACME) request
+
+`,
 		},
 
 		"private": schema.SingleNestedAttribute{
 			Attributes: PkiCertificatePrivate{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Certificate private key
+
+`,
+			Description: `Certificate private key
 
 `,
 		},

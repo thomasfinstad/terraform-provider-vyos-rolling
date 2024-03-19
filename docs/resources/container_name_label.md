@@ -52,9 +52,9 @@ Add label variables
 
 - `value` (String) Set label option value
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Set label option value  |
+    |  Format  &emsp;|  Description             |
+    |----------------|--------------------------|
+    |  txt     &emsp;|  Set label option value  |
 
 ### Read-Only
 

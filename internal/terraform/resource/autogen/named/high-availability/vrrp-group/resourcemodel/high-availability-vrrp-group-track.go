@@ -34,6 +34,9 @@ func (o HighAvailabilityVrrpGroupTrack) ResourceSchemaAttributes() map[string]sc
 			MarkdownDescription: `Disable track state of main interface
 
 `,
+			Description: `Disable track state of main interface
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -43,10 +46,15 @@ func (o HighAvailabilityVrrpGroupTrack) ResourceSchemaAttributes() map[string]sc
 			Optional:    true,
 			MarkdownDescription: `Interface name state check
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Interface name  |
+`,
+			Description: `Interface name state check
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  txt     |  Interface name  |
 `,
 		},
 

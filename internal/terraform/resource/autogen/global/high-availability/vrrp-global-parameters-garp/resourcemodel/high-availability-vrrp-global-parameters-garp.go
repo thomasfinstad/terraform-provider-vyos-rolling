@@ -86,10 +86,15 @@ func (o HighAvailabilityVrrpGlobalParametersGarp) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `Interval between Gratuitous ARP
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <0.000-1000>  &emsp; |  Interval in seconds, resolution microseconds  |
+    |  Format              &emsp;|  Description                                   |
+    |----------------------------|------------------------------------------------|
+    |  &lt;0.000-1000&gt;  &emsp;|  Interval in seconds, resolution microseconds  |
+`,
+			Description: `Interval between Gratuitous ARP
 
+    |  Format              |  Description                                   |
+    |----------------------------|------------------------------------------------|
+    |  <0.000-1000>  |  Interval in seconds, resolution microseconds  |
 `,
 
 			// Default:          stringdefault.StaticString(`0`),
@@ -100,10 +105,15 @@ func (o HighAvailabilityVrrpGlobalParametersGarp) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `Delay for second set of gratuitous ARPs after transition to master
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-1000  &emsp; |  Delay in seconds  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  1-1000  &emsp;|  Delay in seconds  |
+`,
+			Description: `Delay for second set of gratuitous ARPs after transition to master
 
+    |  Format  |  Description       |
+    |----------------|--------------------|
+    |  1-1000  |  Delay in seconds  |
 `,
 
 			// Default:          stringdefault.StaticString(`5`),
@@ -114,11 +124,17 @@ func (o HighAvailabilityVrrpGlobalParametersGarp) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `Minimum time interval for refreshing gratuitous ARPs while beeing master
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0  &emsp; |  No refresh  |
-    |  number: 1-255  &emsp; |  Interval in seconds  |
+    |  Format  &emsp;|  Description          |
+    |----------------|-----------------------|
+    |  0       &emsp;|  No refresh           |
+    |  1-255   &emsp;|  Interval in seconds  |
+`,
+			Description: `Minimum time interval for refreshing gratuitous ARPs while beeing master
 
+    |  Format  |  Description          |
+    |----------------|-----------------------|
+    |  0       |  No refresh           |
+    |  1-255   |  Interval in seconds  |
 `,
 
 			// Default:          stringdefault.StaticString(`5`),
@@ -129,10 +145,15 @@ func (o HighAvailabilityVrrpGlobalParametersGarp) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `Number of gratuitous ARP messages to send at a time while beeing master
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Number of gratuitous ARP messages  |
+    |  Format  &emsp;|  Description                        |
+    |----------------|-------------------------------------|
+    |  1-255   &emsp;|  Number of gratuitous ARP messages  |
+`,
+			Description: `Number of gratuitous ARP messages to send at a time while beeing master
 
+    |  Format  |  Description                        |
+    |----------------|-------------------------------------|
+    |  1-255   |  Number of gratuitous ARP messages  |
 `,
 
 			// Default:          stringdefault.StaticString(`1`),
@@ -143,10 +164,15 @@ func (o HighAvailabilityVrrpGlobalParametersGarp) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `Number of gratuitous ARP messages to send at a time after transition to master
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Number of gratuitous ARP messages  |
+    |  Format  &emsp;|  Description                        |
+    |----------------|-------------------------------------|
+    |  1-255   &emsp;|  Number of gratuitous ARP messages  |
+`,
+			Description: `Number of gratuitous ARP messages to send at a time after transition to master
 
+    |  Format  |  Description                        |
+    |----------------|-------------------------------------|
+    |  1-255   |  Number of gratuitous ARP messages  |
 `,
 
 			// Default:          stringdefault.StaticString(`5`),

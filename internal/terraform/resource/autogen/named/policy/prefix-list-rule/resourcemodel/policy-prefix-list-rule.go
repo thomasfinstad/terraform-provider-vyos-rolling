@@ -102,10 +102,15 @@ func (o PolicyPrefixListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Required: true,
 			MarkdownDescription: `Rule for this prefix-list
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Prefix-list rule number  |
+    |  Format   &emsp;|  Description              |
+    |-----------------|---------------------------|
+    |  1-65535  &emsp;|  Prefix-list rule number  |
+`,
+			Description: `Rule for this prefix-list
 
+    |  Format   |  Description              |
+    |-----------------|---------------------------|
+    |  1-65535  |  Prefix-list rule number  |
 `,
 			PlanModifiers: []planmodifier.Number{
 				numberplanmodifier.RequiresReplace(),
@@ -116,10 +121,15 @@ func (o PolicyPrefixListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Required: true,
 			MarkdownDescription: `IP prefix-list filter
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Name of IPv4 prefix-list  |
+    |  Format  &emsp;|  Description               |
+    |----------------|----------------------------|
+    |  txt     &emsp;|  Name of IPv4 prefix-list  |
+`,
+			Description: `IP prefix-list filter
 
+    |  Format  |  Description               |
+    |----------------|----------------------------|
+    |  txt     |  Name of IPv4 prefix-list  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -145,11 +155,17 @@ func (o PolicyPrefixListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  permit  &emsp; |  Permit matching entries  |
-    |  deny  &emsp; |  Deny matching entries  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  permit  &emsp;|  Permit matching entries  |
+    |  deny    &emsp;|  Deny matching entries    |
+`,
+			Description: `Action to take on entries matching this rule
 
+    |  Format  |  Description              |
+    |----------------|---------------------------|
+    |  permit  |  Permit matching entries  |
+    |  deny    |  Deny matching entries    |
 `,
 		},
 
@@ -157,10 +173,15 @@ func (o PolicyPrefixListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -168,10 +189,15 @@ func (o PolicyPrefixListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Prefix length to match a netmask greater than or equal to it
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-32  &emsp; |  Netmask greater than length  |
+    |  Format  &emsp;|  Description                  |
+    |----------------|-------------------------------|
+    |  0-32    &emsp;|  Netmask greater than length  |
+`,
+			Description: `Prefix length to match a netmask greater than or equal to it
 
+    |  Format  |  Description                  |
+    |----------------|-------------------------------|
+    |  0-32    |  Netmask greater than length  |
 `,
 		},
 
@@ -179,10 +205,15 @@ func (o PolicyPrefixListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Prefix length to match a netmask less than or equal to it
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-32  &emsp; |  Netmask less than length  |
+    |  Format  &emsp;|  Description               |
+    |----------------|----------------------------|
+    |  0-32    &emsp;|  Netmask less than length  |
+`,
+			Description: `Prefix length to match a netmask less than or equal to it
 
+    |  Format  |  Description               |
+    |----------------|----------------------------|
+    |  0-32    |  Netmask less than length  |
 `,
 		},
 
@@ -190,10 +221,15 @@ func (o PolicyPrefixListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Prefix to match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  Prefix to match against  |
+    |  Format   &emsp;|  Description              |
+    |-----------------|---------------------------|
+    |  ipv4net  &emsp;|  Prefix to match against  |
+`,
+			Description: `Prefix to match
 
+    |  Format   |  Description              |
+    |-----------------|---------------------------|
+    |  ipv4net  |  Prefix to match against  |
 `,
 		},
 

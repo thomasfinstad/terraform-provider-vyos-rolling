@@ -37,17 +37,17 @@ IP route-map
 
 - `route_map_id` (String) IP route-map
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Route map name  |
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 
 ### Read-Only
 

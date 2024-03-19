@@ -32,11 +32,17 @@ func (o QosPolicyLimiterClassMatchIPSource) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `IPv4 destination address for this match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address  |
-    |  ipv4net  &emsp; |  IPv4 prefix  |
+    |  Format   &emsp;|  Description   |
+    |-----------------|----------------|
+    |  ipv4     &emsp;|  IPv4 address  |
+    |  ipv4net  &emsp;|  IPv4 prefix   |
+`,
+			Description: `IPv4 destination address for this match
 
+    |  Format   |  Description   |
+    |-----------------|----------------|
+    |  ipv4     |  IPv4 address  |
+    |  ipv4net  |  IPv4 prefix   |
 `,
 		},
 
@@ -44,10 +50,15 @@ func (o QosPolicyLimiterClassMatchIPSource) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Numeric IP port  |
+    |  Format   &emsp;|  Description      |
+    |-----------------|-------------------|
+    |  1-65535  &emsp;|  Numeric IP port  |
+`,
+			Description: `Port number used by connection
 
+    |  Format   |  Description      |
+    |-----------------|-------------------|
+    |  1-65535  |  Numeric IP port  |
 `,
 		},
 

@@ -31,10 +31,15 @@ func (o VrfNameProtocolsOspfvthreeAutoCost) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Reference bandwidth method to assign cost
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4294967  &emsp; |  Reference bandwidth cost in Mbits/sec  |
+    |  Format     &emsp;|  Description                            |
+    |-------------------|-----------------------------------------|
+    |  1-4294967  &emsp;|  Reference bandwidth cost in Mbits/sec  |
+`,
+			Description: `Reference bandwidth method to assign cost
 
+    |  Format     |  Description                            |
+    |-------------------|-----------------------------------------|
+    |  1-4294967  |  Reference bandwidth cost in Mbits/sec  |
 `,
 
 			// Default:          stringdefault.StaticString(`100`),

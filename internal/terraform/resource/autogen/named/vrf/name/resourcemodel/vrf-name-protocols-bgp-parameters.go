@@ -60,6 +60,9 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Allow Martian nexthops to be received in the NLRI from a peer
 
 `,
+			Description: `Allow Martian nexthops to be received in the NLRI from a peer
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -67,6 +70,9 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 		"always_compare_med": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Always compare MEDs from different neighbors
+
+`,
+			Description: `Always compare MEDs from different neighbors
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -77,16 +83,24 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Route-reflector cluster-id
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  Route-reflector cluster-id  |
+    |  Format  &emsp;|  Description                 |
+    |----------------|------------------------------|
+    |  ipv4    &emsp;|  Route-reflector cluster-id  |
+`,
+			Description: `Route-reflector cluster-id
 
+    |  Format  |  Description                 |
+    |----------------|------------------------------|
+    |  ipv4    |  Route-reflector cluster-id  |
 `,
 		},
 
 		"deterministic_med": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Compare MEDs between different peers in the same AS
+
+`,
+			Description: `Compare MEDs between different peers in the same AS
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -98,6 +112,9 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Require in and out policy for eBGP peers (RFC8212)
 
 `,
+			Description: `Require in and out policy for eBGP peers (RFC8212)
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -105,6 +122,9 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 		"fast_convergence": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Teardown sessions immediately whenever peer becomes unreachable
+
+`,
+			Description: `Teardown sessions immediately whenever peer becomes unreachable
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -116,6 +136,9 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Graceful shutdown
 
 `,
+			Description: `Graceful shutdown
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -123,6 +146,9 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 		"no_hard_administrative_reset": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not send hard reset CEASE Notification for 'Administrative Reset'
+
+`,
+			Description: `Do not send hard reset CEASE Notification for 'Administrative Reset'
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -133,18 +159,28 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `BGP Labeled-unicast options
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  explicit-null  &emsp; |  Use explicit-null label values for all local prefixes  |
-    |  ipv4-explicit-null  &emsp; |  Use IPv4 explicit-null label value for IPv4 local prefixes  |
-    |  ipv6-explicit-null  &emsp; |  Use IPv6 explicit-null label value for IPv4 local prefixes  |
+    |  Format              &emsp;|  Description                                                 |
+    |----------------------------|--------------------------------------------------------------|
+    |  explicit-null       &emsp;|  Use explicit-null label values for all local prefixes       |
+    |  ipv4-explicit-null  &emsp;|  Use IPv4 explicit-null label value for IPv4 local prefixes  |
+    |  ipv6-explicit-null  &emsp;|  Use IPv6 explicit-null label value for IPv4 local prefixes  |
+`,
+			Description: `BGP Labeled-unicast options
 
+    |  Format              |  Description                                                 |
+    |----------------------------|--------------------------------------------------------------|
+    |  explicit-null       |  Use explicit-null label values for all local prefixes       |
+    |  ipv4-explicit-null  |  Use IPv4 explicit-null label value for IPv4 local prefixes  |
+    |  ipv6-explicit-null  |  Use IPv6 explicit-null label value for IPv4 local prefixes  |
 `,
 		},
 
 		"log_neighbor_changes": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Log neighbor up/down changes and reset reason
+
+`,
+			Description: `Log neighbor up/down changes and reset reason
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -155,16 +191,24 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `BGP minimum holdtime
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Minimum holdtime in seconds  |
+    |  Format   &emsp;|  Description                  |
+    |-----------------|-------------------------------|
+    |  1-65535  &emsp;|  Minimum holdtime in seconds  |
+`,
+			Description: `BGP minimum holdtime
 
+    |  Format   |  Description                  |
+    |-----------------|-------------------------------|
+    |  1-65535  |  Minimum holdtime in seconds  |
 `,
 		},
 
 		"network_import_check": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable IGP route check for network statements
+
+`,
+			Description: `Enable IGP route check for network statements
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -176,6 +220,9 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Route reflector client allow policy outbound
 
 `,
+			Description: `Route reflector client allow policy outbound
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -183,6 +230,9 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 		"no_client_to_client_reflection": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable client to client route reflection
+
+`,
+			Description: `Disable client to client route reflection
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -194,6 +244,9 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Disable immediate session reset on peer link down event
 
 `,
+			Description: `Disable immediate session reset on peer link down event
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -201,6 +254,9 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 		"no_suppress_duplicates": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable suppress duplicate updates if the route actually not changed
+
+`,
+			Description: `Disable suppress duplicate updates if the route actually not changed
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -212,6 +268,9 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Reject routes with AS_SET or AS_CONFED_SET flag
 
 `,
+			Description: `Reject routes with AS_SET or AS_CONFED_SET flag
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -219,6 +278,9 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 		"shutdown": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administrative shutdown of the BGP instance
+
+`,
+			Description: `Administrative shutdown of the BGP instance
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -230,6 +292,9 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Advertise only routes that are programmed in kernel to peers
 
 `,
+			Description: `Advertise only routes that are programmed in kernel to peers
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -238,10 +303,15 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Override default router identifier
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  Router-ID in IP address format  |
+    |  Format  &emsp;|  Description                     |
+    |----------------|----------------------------------|
+    |  ipv4    &emsp;|  Router-ID in IP address format  |
+`,
+			Description: `Override default router identifier
 
+    |  Format  |  Description                     |
+    |----------------|----------------------------------|
+    |  ipv4    |  Router-ID in IP address format  |
 `,
 		},
 
@@ -253,12 +323,18 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Default bestpath selection mechanism
 
 `,
+			Description: `Default bestpath selection mechanism
+
+`,
 		},
 
 		"confederation": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpParametersConfederation{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `AS confederation parameters
+
+`,
+			Description: `AS confederation parameters
 
 `,
 		},
@@ -269,12 +345,18 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Conditional advertisement settings
 
 `,
+			Description: `Conditional advertisement settings
+
+`,
 		},
 
 		"dampening": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpParametersDampening{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Enable route-flap dampening
+
+`,
+			Description: `Enable route-flap dampening
 
 `,
 		},
@@ -285,12 +367,18 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `BGP defaults
 
 `,
+			Description: `BGP defaults
+
+`,
 		},
 
 		"distance": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpParametersDistance{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Administratives distances for BGP routes
+
+`,
+			Description: `Administratives distances for BGP routes
 
 `,
 		},
@@ -301,12 +389,18 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Graceful restart capability parameters
 
 `,
+			Description: `Graceful restart capability parameters
+
+`,
 		},
 
 		"tcp_keepalive": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpParametersTCPKeepalive{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `TCP keepalive parameters
+
+`,
+			Description: `TCP keepalive parameters
 
 `,
 		},

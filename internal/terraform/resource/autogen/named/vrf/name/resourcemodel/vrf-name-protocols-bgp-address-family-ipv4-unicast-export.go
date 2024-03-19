@@ -33,6 +33,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastExport) ResourceSchemaAttr
 			MarkdownDescription: `to/from default instance VPN RIB
 
 `,
+			Description: `to/from default instance VPN RIB
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},

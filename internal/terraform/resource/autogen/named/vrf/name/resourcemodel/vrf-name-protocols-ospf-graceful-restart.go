@@ -32,10 +32,15 @@ func (o VrfNameProtocolsOspfGracefulRestart) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Maximum length of the grace period
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-1800  &emsp; |  Maximum length of the grace period in seconds  |
+    |  Format  &emsp;|  Description                                    |
+    |----------------|-------------------------------------------------|
+    |  1-1800  &emsp;|  Maximum length of the grace period in seconds  |
+`,
+			Description: `Maximum length of the grace period
 
+    |  Format  |  Description                                    |
+    |----------------|-------------------------------------------------|
+    |  1-1800  |  Maximum length of the grace period in seconds  |
 `,
 
 			// Default:          stringdefault.StaticString(`120`),
@@ -48,6 +53,9 @@ func (o VrfNameProtocolsOspfGracefulRestart) ResourceSchemaAttributes() map[stri
 			Attributes: VrfNameProtocolsOspfGracefulRestartHelper{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `OSPF graceful-restart helpers
+
+`,
+			Description: `OSPF graceful-restart helpers
 
 `,
 		},

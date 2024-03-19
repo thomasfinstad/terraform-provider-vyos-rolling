@@ -109,10 +109,15 @@ func (o VrfNameProtocolsIsisFastRerouteLfaRemotePrefixList) ResourceSchemaAttrib
 			Required: true,
 			MarkdownDescription: `Filter PQ node router ID based on prefix list
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Name of IPv4/IPv6 prefix-list  |
+    |  Format  &emsp;|  Description                    |
+    |----------------|---------------------------------|
+    |  txt     &emsp;|  Name of IPv4/IPv6 prefix-list  |
+`,
+			Description: `Filter PQ node router ID based on prefix list
 
+    |  Format  |  Description                    |
+    |----------------|---------------------------------|
+    |  txt     |  Name of IPv4/IPv6 prefix-list  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -136,10 +141,15 @@ func (o VrfNameProtocolsIsisFastRerouteLfaRemotePrefixList) ResourceSchemaAttrib
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -166,6 +176,9 @@ func (o VrfNameProtocolsIsisFastRerouteLfaRemotePrefixList) ResourceSchemaAttrib
 			MarkdownDescription: `Match on IS-IS level-1 routes
 
 `,
+			Description: `Match on IS-IS level-1 routes
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -173,6 +186,9 @@ func (o VrfNameProtocolsIsisFastRerouteLfaRemotePrefixList) ResourceSchemaAttrib
 		"level_2": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Match on IS-IS level-2 routes
+
+`,
+			Description: `Match on IS-IS level-2 routes
 
 `,
 			Default:  booldefault.StaticBool(false),

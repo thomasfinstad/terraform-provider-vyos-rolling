@@ -67,41 +67,41 @@ Class matching rule name
 
 - `class_id` (Number) Class ID
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4095  &emsp; |  Class Identifier  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  1-4095  &emsp;|  Class Identifier  |
 - `match_id` (String) Class matching rule name
 - `round_robin_id` (String) Deficit Round Robin Scheduler
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Policy name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Policy name  |
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `ether` (Attributes) Ethernet header match (see [below for nested schema](#nestedatt--ether))
 - `interface` (String) Interface to use
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Interface name  |
 - `ip` (Attributes) Match IP protocol header (see [below for nested schema](#nestedatt--ip))
 - `ipv6` (Attributes) Match IPv6 protocol header (see [below for nested schema](#nestedatt--ipv6))
 - `mark` (Number) Match on mark applied by firewall
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  FW mark to match  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  u32     &emsp;|  FW mark to match  |
 - `vif` (Number) Virtual Local Area Network (VLAN) ID for this match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-4095  &emsp; |  Virtual Local Area Network (VLAN) tag   |
+    |  Format  &emsp;|  Description                             |
+    |----------------|------------------------------------------|
+    |  0-4095  &emsp;|  Virtual Local Area Network (VLAN) tag   |
 
 ### Read-Only
 
@@ -114,27 +114,27 @@ Optional:
 
 - `destination` (String) Ethernet destination address for this match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  macaddr  &emsp; |  MAC address to match  |
+    |  Format   &emsp;|  Description           |
+    |-----------------|------------------------|
+    |  macaddr  &emsp;|  MAC address to match  |
 - `protocol` (String) Ethernet protocol for this match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-65535  &emsp; |  Ethernet protocol number  |
-    |  txt  &emsp; |  Ethernet protocol name  |
-    |  all  &emsp; |  Any protocol  |
-    |  ip  &emsp; |  Internet IP (IPv4)  |
-    |  ipv6  &emsp; |  Internet IP (IPv6)  |
-    |  arp  &emsp; |  Address Resolution Protocol  |
-    |  atalk  &emsp; |  Appletalk  |
-    |  ipx  &emsp; |  Novell Internet Packet Exchange  |
-    |  802.1Q  &emsp; |  802.1Q VLAN tag  |
+    |  Format   &emsp;|  Description                      |
+    |-----------------|-----------------------------------|
+    |  0-65535  &emsp;|  Ethernet protocol number         |
+    |  txt      &emsp;|  Ethernet protocol name           |
+    |  all      &emsp;|  Any protocol                     |
+    |  ip       &emsp;|  Internet IP (IPv4)               |
+    |  ipv6     &emsp;|  Internet IP (IPv6)               |
+    |  arp      &emsp;|  Address Resolution Protocol      |
+    |  atalk    &emsp;|  Appletalk                        |
+    |  ipx      &emsp;|  Novell Internet Packet Exchange  |
+    |  802.1Q   &emsp;|  802.1Q VLAN tag                  |
 - `source` (String) Ethernet source address for this match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  macaddr  &emsp; |  MAC address to match  |
+    |  Format   &emsp;|  Description           |
+    |-----------------|------------------------|
+    |  macaddr  &emsp;|  MAC address to match  |
 
 
 <a id="nestedatt--ip"></a>
@@ -145,50 +145,50 @@ Optional:
 - `destination` (Attributes) Match on destination port or address (see [below for nested schema](#nestedatt--ip--destination))
 - `dscp` (String) Match on Differentiated Services Codepoint (DSCP)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-63  &emsp; |  Differentiated Services Codepoint (DSCP) value   |
-    |  default  &emsp; |  match DSCP (000000)  |
-    |  reliability  &emsp; |  match DSCP (000001)  |
-    |  throughput  &emsp; |  match DSCP (000010)  |
-    |  lowdelay  &emsp; |  match DSCP (000100)  |
-    |  priority  &emsp; |  match DSCP (001000)  |
-    |  immediate  &emsp; |  match DSCP (010000)  |
-    |  flash  &emsp; |  match DSCP (011000)  |
-    |  flash-override  &emsp; |  match DSCP (100000)  |
-    |  critical  &emsp; |  match DSCP (101000)  |
-    |  internet  &emsp; |  match DSCP (110000)  |
-    |  network  &emsp; |  match DSCP (111000)  |
-    |  AF11  &emsp; |  High-throughput data  |
-    |  AF12  &emsp; |  High-throughput data  |
-    |  AF13  &emsp; |  High-throughput data  |
-    |  AF21  &emsp; |  Low-latency data  |
-    |  AF22  &emsp; |  Low-latency data  |
-    |  AF23  &emsp; |  Low-latency data  |
-    |  AF31  &emsp; |  Multimedia streaming  |
-    |  AF32  &emsp; |  Multimedia streaming  |
-    |  AF33  &emsp; |  Multimedia streaming  |
-    |  AF41  &emsp; |  Multimedia conferencing  |
-    |  AF42  &emsp; |  Multimedia conferencing  |
-    |  AF43  &emsp; |  Multimedia conferencing  |
-    |  CS1  &emsp; |  Low-priority data  |
-    |  CS2  &emsp; |  OAM  |
-    |  CS3  &emsp; |  Broadcast video  |
-    |  CS4  &emsp; |  Real-time interactive  |
-    |  CS5  &emsp; |  Signaling  |
-    |  CS6  &emsp; |  Network control  |
-    |  CS7  &emsp; |    |
-    |  EF  &emsp; |  Expedited Forwarding  |
+    |  Format          &emsp;|  Description                                      |
+    |------------------------|---------------------------------------------------|
+    |  0-63            &emsp;|  Differentiated Services Codepoint (DSCP) value   |
+    |  default         &emsp;|  match DSCP (000000)                              |
+    |  reliability     &emsp;|  match DSCP (000001)                              |
+    |  throughput      &emsp;|  match DSCP (000010)                              |
+    |  lowdelay        &emsp;|  match DSCP (000100)                              |
+    |  priority        &emsp;|  match DSCP (001000)                              |
+    |  immediate       &emsp;|  match DSCP (010000)                              |
+    |  flash           &emsp;|  match DSCP (011000)                              |
+    |  flash-override  &emsp;|  match DSCP (100000)                              |
+    |  critical        &emsp;|  match DSCP (101000)                              |
+    |  internet        &emsp;|  match DSCP (110000)                              |
+    |  network         &emsp;|  match DSCP (111000)                              |
+    |  AF11            &emsp;|  High-throughput data                             |
+    |  AF12            &emsp;|  High-throughput data                             |
+    |  AF13            &emsp;|  High-throughput data                             |
+    |  AF21            &emsp;|  Low-latency data                                 |
+    |  AF22            &emsp;|  Low-latency data                                 |
+    |  AF23            &emsp;|  Low-latency data                                 |
+    |  AF31            &emsp;|  Multimedia streaming                             |
+    |  AF32            &emsp;|  Multimedia streaming                             |
+    |  AF33            &emsp;|  Multimedia streaming                             |
+    |  AF41            &emsp;|  Multimedia conferencing                          |
+    |  AF42            &emsp;|  Multimedia conferencing                          |
+    |  AF43            &emsp;|  Multimedia conferencing                          |
+    |  CS1             &emsp;|  Low-priority data                                |
+    |  CS2             &emsp;|  OAM                                              |
+    |  CS3             &emsp;|  Broadcast video                                  |
+    |  CS4             &emsp;|  Real-time interactive                            |
+    |  CS5             &emsp;|  Signaling                                        |
+    |  CS6             &emsp;|  Network control                                  |
+    |  CS7             &emsp;|  N/A                                              |
+    |  EF              &emsp;|  Expedited Forwarding                             |
 - `max_length` (Number) Maximum packet length
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Maximum packet/payload length  |
+    |  Format   &emsp;|  Description                    |
+    |-----------------|---------------------------------|
+    |  1-65535  &emsp;|  Maximum packet/payload length  |
 - `protocol` (String) Protocol
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Protocol name  |
+    |  Format  &emsp;|  Description    |
+    |----------------|-----------------|
+    |  txt     &emsp;|  Protocol name  |
 - `source` (Attributes) Match on source port or address (see [below for nested schema](#nestedatt--ip--source))
 - `tcp` (Attributes) TCP Flags matching (see [below for nested schema](#nestedatt--ip--tcp))
 
@@ -199,15 +199,15 @@ Optional:
 
 - `address` (String) IPv4 destination address for this match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address  |
-    |  ipv4net  &emsp; |  IPv4 prefix  |
+    |  Format   &emsp;|  Description   |
+    |-----------------|----------------|
+    |  ipv4     &emsp;|  IPv4 address  |
+    |  ipv4net  &emsp;|  IPv4 prefix   |
 - `port` (Number) Port number used by connection
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Numeric IP port  |
+    |  Format   &emsp;|  Description      |
+    |-----------------|-------------------|
+    |  1-65535  &emsp;|  Numeric IP port  |
 
 
 <a id="nestedatt--ip--source"></a>
@@ -217,15 +217,15 @@ Optional:
 
 - `address` (String) IPv4 destination address for this match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address  |
-    |  ipv4net  &emsp; |  IPv4 prefix  |
+    |  Format   &emsp;|  Description   |
+    |-----------------|----------------|
+    |  ipv4     &emsp;|  IPv4 address  |
+    |  ipv4net  &emsp;|  IPv4 prefix   |
 - `port` (Number) Port number used by connection
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Numeric IP port  |
+    |  Format   &emsp;|  Description      |
+    |-----------------|-------------------|
+    |  1-65535  &emsp;|  Numeric IP port  |
 
 
 <a id="nestedatt--ip--tcp"></a>
@@ -246,50 +246,50 @@ Optional:
 - `destination` (Attributes) Match on destination port or address (see [below for nested schema](#nestedatt--ipv6--destination))
 - `dscp` (String) Match on Differentiated Services Codepoint (DSCP)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-63  &emsp; |  Differentiated Services Codepoint (DSCP) value   |
-    |  default  &emsp; |  match DSCP (000000)  |
-    |  reliability  &emsp; |  match DSCP (000001)  |
-    |  throughput  &emsp; |  match DSCP (000010)  |
-    |  lowdelay  &emsp; |  match DSCP (000100)  |
-    |  priority  &emsp; |  match DSCP (001000)  |
-    |  immediate  &emsp; |  match DSCP (010000)  |
-    |  flash  &emsp; |  match DSCP (011000)  |
-    |  flash-override  &emsp; |  match DSCP (100000)  |
-    |  critical  &emsp; |  match DSCP (101000)  |
-    |  internet  &emsp; |  match DSCP (110000)  |
-    |  network  &emsp; |  match DSCP (111000)  |
-    |  AF11  &emsp; |  High-throughput data  |
-    |  AF12  &emsp; |  High-throughput data  |
-    |  AF13  &emsp; |  High-throughput data  |
-    |  AF21  &emsp; |  Low-latency data  |
-    |  AF22  &emsp; |  Low-latency data  |
-    |  AF23  &emsp; |  Low-latency data  |
-    |  AF31  &emsp; |  Multimedia streaming  |
-    |  AF32  &emsp; |  Multimedia streaming  |
-    |  AF33  &emsp; |  Multimedia streaming  |
-    |  AF41  &emsp; |  Multimedia conferencing  |
-    |  AF42  &emsp; |  Multimedia conferencing  |
-    |  AF43  &emsp; |  Multimedia conferencing  |
-    |  CS1  &emsp; |  Low-priority data  |
-    |  CS2  &emsp; |  OAM  |
-    |  CS3  &emsp; |  Broadcast video  |
-    |  CS4  &emsp; |  Real-time interactive  |
-    |  CS5  &emsp; |  Signaling  |
-    |  CS6  &emsp; |  Network control  |
-    |  CS7  &emsp; |    |
-    |  EF  &emsp; |  Expedited Forwarding  |
+    |  Format          &emsp;|  Description                                      |
+    |------------------------|---------------------------------------------------|
+    |  0-63            &emsp;|  Differentiated Services Codepoint (DSCP) value   |
+    |  default         &emsp;|  match DSCP (000000)                              |
+    |  reliability     &emsp;|  match DSCP (000001)                              |
+    |  throughput      &emsp;|  match DSCP (000010)                              |
+    |  lowdelay        &emsp;|  match DSCP (000100)                              |
+    |  priority        &emsp;|  match DSCP (001000)                              |
+    |  immediate       &emsp;|  match DSCP (010000)                              |
+    |  flash           &emsp;|  match DSCP (011000)                              |
+    |  flash-override  &emsp;|  match DSCP (100000)                              |
+    |  critical        &emsp;|  match DSCP (101000)                              |
+    |  internet        &emsp;|  match DSCP (110000)                              |
+    |  network         &emsp;|  match DSCP (111000)                              |
+    |  AF11            &emsp;|  High-throughput data                             |
+    |  AF12            &emsp;|  High-throughput data                             |
+    |  AF13            &emsp;|  High-throughput data                             |
+    |  AF21            &emsp;|  Low-latency data                                 |
+    |  AF22            &emsp;|  Low-latency data                                 |
+    |  AF23            &emsp;|  Low-latency data                                 |
+    |  AF31            &emsp;|  Multimedia streaming                             |
+    |  AF32            &emsp;|  Multimedia streaming                             |
+    |  AF33            &emsp;|  Multimedia streaming                             |
+    |  AF41            &emsp;|  Multimedia conferencing                          |
+    |  AF42            &emsp;|  Multimedia conferencing                          |
+    |  AF43            &emsp;|  Multimedia conferencing                          |
+    |  CS1             &emsp;|  Low-priority data                                |
+    |  CS2             &emsp;|  OAM                                              |
+    |  CS3             &emsp;|  Broadcast video                                  |
+    |  CS4             &emsp;|  Real-time interactive                            |
+    |  CS5             &emsp;|  Signaling                                        |
+    |  CS6             &emsp;|  Network control                                  |
+    |  CS7             &emsp;|  N/A                                              |
+    |  EF              &emsp;|  Expedited Forwarding                             |
 - `max_length` (Number) Maximum packet length
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Maximum packet/payload length  |
+    |  Format   &emsp;|  Description                    |
+    |-----------------|---------------------------------|
+    |  1-65535  &emsp;|  Maximum packet/payload length  |
 - `protocol` (String) Protocol
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Protocol name  |
+    |  Format  &emsp;|  Description    |
+    |----------------|-----------------|
+    |  txt     &emsp;|  Protocol name  |
 - `source` (Attributes) Match on source port or address (see [below for nested schema](#nestedatt--ipv6--source))
 - `tcp` (Attributes) TCP Flags matching (see [below for nested schema](#nestedatt--ipv6--tcp))
 
@@ -300,14 +300,14 @@ Optional:
 
 - `address` (String) IPv6 destination address for this match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
+    |  Format   &emsp;|  Description                     |
+    |-----------------|----------------------------------|
+    |  ipv6net  &emsp;|  IPv6 address and prefix length  |
 - `port` (Number) Port number used by connection
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Numeric IP port  |
+    |  Format   &emsp;|  Description      |
+    |-----------------|-------------------|
+    |  1-65535  &emsp;|  Numeric IP port  |
 
 
 <a id="nestedatt--ipv6--source"></a>
@@ -317,14 +317,14 @@ Optional:
 
 - `address` (String) IPv6 destination address for this match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
+    |  Format   &emsp;|  Description                     |
+    |-----------------|----------------------------------|
+    |  ipv6net  &emsp;|  IPv6 address and prefix length  |
 - `port` (Number) Port number used by connection
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Numeric IP port  |
+    |  Format   &emsp;|  Description      |
+    |-----------------|-------------------|
+    |  1-65535  &emsp;|  Numeric IP port  |
 
 
 <a id="nestedatt--ipv6--tcp"></a>

@@ -3,7 +3,8 @@
 
 package tools
 
+// Ensure documentation tooling is not removed from go.mod.
 import (
-	// Ensure documentation tooling is not removed from go.mod.
-	_ "github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs"
+	// XSD schema tool, not a main package so to ensure versioning it can not be installed with `go install ....`
+	_ "github.com/xuri/xgen/cmd/xgen"
 )

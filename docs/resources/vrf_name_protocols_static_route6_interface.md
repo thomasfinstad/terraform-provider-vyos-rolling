@@ -77,38 +77,38 @@ IPv6 gateway interface name
 
 - `interface_id` (String) IPv6 gateway interface name
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Gateway interface name  |
+    |  Format  &emsp;|  Description             |
+    |----------------|--------------------------|
+    |  txt     &emsp;|  Gateway interface name  |
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `route6_id` (String) Static IPv6 route
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6net  &emsp; |  IPv6 static route  |
+    |  Format   &emsp;|  Description        |
+    |-----------------|---------------------|
+    |  ipv6net  &emsp;|  IPv6 static route  |
 
 ### Optional
 
 - `disable` (Boolean) Disable instance
 - `distance` (Number) Distance for this route
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Distance for this route  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  1-255   &emsp;|  Distance for this route  |
 - `segments` (String) SRv6 segments
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Segs (SIDs)  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Segs (SIDs)  |
 - `vrf` (String) VRF to leak route
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Name of VRF to leak to  |
+    |  Format  &emsp;|  Description             |
+    |----------------|--------------------------|
+    |  txt     &emsp;|  Name of VRF to leak to  |
 
 ### Read-Only
 

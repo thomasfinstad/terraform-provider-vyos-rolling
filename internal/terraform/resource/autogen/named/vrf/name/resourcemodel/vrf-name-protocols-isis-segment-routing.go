@@ -34,10 +34,15 @@ func (o VrfNameProtocolsIsisSegmentRouting) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Maximum MPLS labels allowed for this router
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-16  &emsp; |  MPLS label depth  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  1-16    &emsp;|  MPLS label depth  |
+`,
+			Description: `Maximum MPLS labels allowed for this router
 
+    |  Format  |  Description       |
+    |----------------|--------------------|
+    |  1-16    |  MPLS label depth  |
 `,
 		},
 
@@ -49,12 +54,18 @@ func (o VrfNameProtocolsIsisSegmentRouting) ResourceSchemaAttributes() map[strin
 			MarkdownDescription: `Segment Routing Global Block label range
 
 `,
+			Description: `Segment Routing Global Block label range
+
+`,
 		},
 
 		"local_block": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsIsisSegmentRoutingLocalBlock{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Segment Routing Local Block label range
+
+`,
+			Description: `Segment Routing Local Block label range
 
 `,
 		},

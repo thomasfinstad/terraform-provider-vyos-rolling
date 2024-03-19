@@ -34,6 +34,9 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocalPriorityLimitMedium) ResourceSche
 			MarkdownDescription: `Match on IS-IS level-1 routes
 
 `,
+			Description: `Match on IS-IS level-1 routes
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -41,6 +44,9 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocalPriorityLimitMedium) ResourceSche
 		"level_2": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Match on IS-IS level-2 routes
+
+`,
+			Description: `Match on IS-IS level-2 routes
 
 `,
 			Default:  booldefault.StaticBool(false),

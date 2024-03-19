@@ -94,10 +94,15 @@ func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -123,16 +128,24 @@ func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
 		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively disable interface
+
+`,
+			Description: `Administratively disable interface
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -143,10 +156,15 @@ func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Routing table associated with this instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 100-65535  &emsp; |  Routing table ID  |
+    |  Format     &emsp;|  Description       |
+    |-------------------|--------------------|
+    |  100-65535  &emsp;|  Routing table ID  |
+`,
+			Description: `Routing table associated with this instance
 
+    |  Format     |  Description       |
+    |-------------------|--------------------|
+    |  100-65535  |  Routing table ID  |
 `,
 		},
 
@@ -154,10 +172,15 @@ func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Virtual Network Identifier
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-16777214  &emsp; |  VXLAN virtual network identifier  |
+    |  Format      &emsp;|  Description                       |
+    |--------------------|------------------------------------|
+    |  0-16777214  &emsp;|  VXLAN virtual network identifier  |
+`,
+			Description: `Virtual Network Identifier
 
+    |  Format      |  Description                       |
+    |--------------------|------------------------------------|
+    |  0-16777214  |  VXLAN virtual network identifier  |
 `,
 		},
 
@@ -169,6 +192,9 @@ func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			MarkdownDescription: `IPv4 routing parameters
 
 `,
+			Description: `IPv4 routing parameters
+
+`,
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
@@ -177,12 +203,18 @@ func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			MarkdownDescription: `IPv6 routing parameters
 
 `,
+			Description: `IPv6 routing parameters
+
+`,
 		},
 
 		"protocols": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocols{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Routing protocol parameters
+
+`,
+			Description: `Routing protocol parameters
 
 `,
 		},

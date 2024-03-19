@@ -32,10 +32,15 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnEadEsRouteTarget) ResourceSch
 			Optional:    true,
 			MarkdownDescription: `Route Target export
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  &emsp;|  Description                                |
+    |----------------|---------------------------------------------|
+    |  txt     &emsp;|  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+`,
+			Description: `Route Target export
 
+    |  Format  |  Description                                |
+    |----------------|---------------------------------------------|
+    |  txt     |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 `,
 		},
 

@@ -34,6 +34,9 @@ func (o VrfNameProtocolsBgpSIDVpn) ResourceSchemaAttributes() map[string]schema.
 			MarkdownDescription: `SID per-VRF (both IPv4 and IPv6 address families)
 
 `,
+			Description: `SID per-VRF (both IPv4 and IPv6 address families)
+
+`,
 		},
 	}
 }

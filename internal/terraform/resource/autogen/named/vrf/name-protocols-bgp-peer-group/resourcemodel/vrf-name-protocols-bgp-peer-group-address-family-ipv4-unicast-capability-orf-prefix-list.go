@@ -34,6 +34,9 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastCapabilityOrfPref
 			MarkdownDescription: `Capability to receive the ORF
 
 `,
+			Description: `Capability to receive the ORF
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -41,6 +44,9 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastCapabilityOrfPref
 		"send": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Capability to send the ORF
+
+`,
+			Description: `Capability to send the ORF
 
 `,
 			Default:  booldefault.StaticBool(false),

@@ -57,21 +57,21 @@ Virtual IP address
 
 - `address_id` (String) Virtual IP address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  IPv4 address and prefix length  |
-    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
-    |  ipv4  &emsp; |  IPv4 address  |
-    |  ipv6  &emsp; |  IPv6 address  |
+    |  Format   &emsp;|  Description                     |
+    |-----------------|----------------------------------|
+    |  ipv4net  &emsp;|  IPv4 address and prefix length  |
+    |  ipv6net  &emsp;|  IPv6 address and prefix length  |
+    |  ipv4     &emsp;|  IPv4 address                    |
+    |  ipv6     &emsp;|  IPv6 address                    |
 - `group_id` (String) VRRP group
 
 ### Optional
 
 - `interface` (String) Interface to use
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Interface name  |
 
 ### Read-Only
 

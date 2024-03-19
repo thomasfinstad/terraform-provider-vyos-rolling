@@ -33,10 +33,15 @@ func (o VrfNameProtocolsBgpPeerGroupPathAttribute) ResourceSchemaAttributes() ma
 			Optional:    true,
 			MarkdownDescription: `Drop specified attributes from incoming UPDATE messages
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Attribute number  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  1-255   &emsp;|  Attribute number  |
+`,
+			Description: `Drop specified attributes from incoming UPDATE messages
 
+    |  Format  |  Description       |
+    |----------------|--------------------|
+    |  1-255   |  Attribute number  |
 `,
 		},
 
@@ -44,10 +49,15 @@ func (o VrfNameProtocolsBgpPeerGroupPathAttribute) ResourceSchemaAttributes() ma
 			Optional: true,
 			MarkdownDescription: `Treat-as-withdraw any incoming BGP UPDATE messages that contain the specified attribute
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Attribute number  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  1-255   &emsp;|  Attribute number  |
+`,
+			Description: `Treat-as-withdraw any incoming BGP UPDATE messages that contain the specified attribute
 
+    |  Format  |  Description       |
+    |----------------|--------------------|
+    |  1-255   |  Attribute number  |
 `,
 		},
 

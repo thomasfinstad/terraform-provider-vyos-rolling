@@ -36,25 +36,45 @@ func (o PolicyRouteMapRuleSetCommunity) ResourceSchemaAttributes() map[string]sc
 			Optional:    true,
 			MarkdownDescription: `Add communities to a prefix
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <AS:VAL>  &emsp; |  Community number in <0-65535:0-65535> format  |
-    |  local-as  &emsp; |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
-    |  no-advertise  &emsp; |  Well-known communities value NO_ADVERTISE 0xFFFFFF02  |
-    |  no-export  &emsp; |  Well-known communities value NO_EXPORT 0xFFFFFF01  |
-    |  internet  &emsp; |  Well-known communities value 0  |
-    |  graceful-shutdown  &emsp; |  Well-known communities value GRACEFUL_SHUTDOWN 0xFFFF0000  |
-    |  accept-own  &emsp; |  Well-known communities value ACCEPT_OWN 0xFFFF0001  |
-    |  route-filter-translated-v4  &emsp; |  Well-known communities value ROUTE_FILTER_TRANSLATED_v4 0xFFFF0002  |
-    |  route-filter-v4  &emsp; |  Well-known communities value ROUTE_FILTER_v4 0xFFFF0003  |
-    |  route-filter-translated-v6  &emsp; |  Well-known communities value ROUTE_FILTER_TRANSLATED_v6 0xFFFF0004  |
-    |  route-filter-v6  &emsp; |  Well-known communities value ROUTE_FILTER_v6 0xFFFF0005  |
-    |  llgr-stale  &emsp; |  Well-known communities value LLGR_STALE 0xFFFF0006  |
-    |  no-llgr  &emsp; |  Well-known communities value NO_LLGR 0xFFFF0007  |
-    |  accept-own-nexthop  &emsp; |  Well-known communities value accept-own-nexthop 0xFFFF0008  |
-    |  blackhole  &emsp; |  Well-known communities value BLACKHOLE 0xFFFF029A  |
-    |  no-peer  &emsp; |  Well-known communities value NOPEER 0xFFFFFF04  |
+    |  Format                      &emsp;|  Description                                                         |
+    |------------------------------------|----------------------------------------------------------------------|
+    |  &lt;AS:VAL&gt;              &emsp;|  Community number in &lt;0-65535:0-65535&gt; format                  |
+    |  local-as                    &emsp;|  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03         |
+    |  no-advertise                &emsp;|  Well-known communities value NO_ADVERTISE 0xFFFFFF02                |
+    |  no-export                   &emsp;|  Well-known communities value NO_EXPORT 0xFFFFFF01                   |
+    |  internet                    &emsp;|  Well-known communities value 0                                      |
+    |  graceful-shutdown           &emsp;|  Well-known communities value GRACEFUL_SHUTDOWN 0xFFFF0000           |
+    |  accept-own                  &emsp;|  Well-known communities value ACCEPT_OWN 0xFFFF0001                  |
+    |  route-filter-translated-v4  &emsp;|  Well-known communities value ROUTE_FILTER_TRANSLATED_v4 0xFFFF0002  |
+    |  route-filter-v4             &emsp;|  Well-known communities value ROUTE_FILTER_v4 0xFFFF0003             |
+    |  route-filter-translated-v6  &emsp;|  Well-known communities value ROUTE_FILTER_TRANSLATED_v6 0xFFFF0004  |
+    |  route-filter-v6             &emsp;|  Well-known communities value ROUTE_FILTER_v6 0xFFFF0005             |
+    |  llgr-stale                  &emsp;|  Well-known communities value LLGR_STALE 0xFFFF0006                  |
+    |  no-llgr                     &emsp;|  Well-known communities value NO_LLGR 0xFFFF0007                     |
+    |  accept-own-nexthop          &emsp;|  Well-known communities value accept-own-nexthop 0xFFFF0008          |
+    |  blackhole                   &emsp;|  Well-known communities value BLACKHOLE 0xFFFF029A                   |
+    |  no-peer                     &emsp;|  Well-known communities value NOPEER 0xFFFFFF04                      |
+`,
+			Description: `Add communities to a prefix
 
+    |  Format                      |  Description                                                         |
+    |------------------------------------|----------------------------------------------------------------------|
+    |  <AS:VAL>              |  Community number in <0-65535:0-65535> format                  |
+    |  local-as                    |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03         |
+    |  no-advertise                |  Well-known communities value NO_ADVERTISE 0xFFFFFF02                |
+    |  no-export                   |  Well-known communities value NO_EXPORT 0xFFFFFF01                   |
+    |  internet                    |  Well-known communities value 0                                      |
+    |  graceful-shutdown           |  Well-known communities value GRACEFUL_SHUTDOWN 0xFFFF0000           |
+    |  accept-own                  |  Well-known communities value ACCEPT_OWN 0xFFFF0001                  |
+    |  route-filter-translated-v4  |  Well-known communities value ROUTE_FILTER_TRANSLATED_v4 0xFFFF0002  |
+    |  route-filter-v4             |  Well-known communities value ROUTE_FILTER_v4 0xFFFF0003             |
+    |  route-filter-translated-v6  |  Well-known communities value ROUTE_FILTER_TRANSLATED_v6 0xFFFF0004  |
+    |  route-filter-v6             |  Well-known communities value ROUTE_FILTER_v6 0xFFFF0005             |
+    |  llgr-stale                  |  Well-known communities value LLGR_STALE 0xFFFF0006                  |
+    |  no-llgr                     |  Well-known communities value NO_LLGR 0xFFFF0007                     |
+    |  accept-own-nexthop          |  Well-known communities value accept-own-nexthop 0xFFFF0008          |
+    |  blackhole                   |  Well-known communities value BLACKHOLE 0xFFFF029A                   |
+    |  no-peer                     |  Well-known communities value NOPEER 0xFFFFFF04                      |
 `,
 		},
 
@@ -63,31 +83,54 @@ func (o PolicyRouteMapRuleSetCommunity) ResourceSchemaAttributes() map[string]sc
 			Optional:    true,
 			MarkdownDescription: `Set communities for a prefix
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <AS:VAL>  &emsp; |  Community number in <0-65535:0-65535> format  |
-    |  local-as  &emsp; |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
-    |  no-advertise  &emsp; |  Well-known communities value NO_ADVERTISE 0xFFFFFF02  |
-    |  no-export  &emsp; |  Well-known communities value NO_EXPORT 0xFFFFFF01  |
-    |  internet  &emsp; |  Well-known communities value 0  |
-    |  graceful-shutdown  &emsp; |  Well-known communities value GRACEFUL_SHUTDOWN 0xFFFF0000  |
-    |  accept-own  &emsp; |  Well-known communities value ACCEPT_OWN 0xFFFF0001  |
-    |  route-filter-translated-v4  &emsp; |  Well-known communities value ROUTE_FILTER_TRANSLATED_v4 0xFFFF0002  |
-    |  route-filter-v4  &emsp; |  Well-known communities value ROUTE_FILTER_v4 0xFFFF0003  |
-    |  route-filter-translated-v6  &emsp; |  Well-known communities value ROUTE_FILTER_TRANSLATED_v6 0xFFFF0004  |
-    |  route-filter-v6  &emsp; |  Well-known communities value ROUTE_FILTER_v6 0xFFFF0005  |
-    |  llgr-stale  &emsp; |  Well-known communities value LLGR_STALE 0xFFFF0006  |
-    |  no-llgr  &emsp; |  Well-known communities value NO_LLGR 0xFFFF0007  |
-    |  accept-own-nexthop  &emsp; |  Well-known communities value accept-own-nexthop 0xFFFF0008  |
-    |  blackhole  &emsp; |  Well-known communities value BLACKHOLE 0xFFFF029A  |
-    |  no-peer  &emsp; |  Well-known communities value NOPEER 0xFFFFFF04  |
+    |  Format                      &emsp;|  Description                                                         |
+    |------------------------------------|----------------------------------------------------------------------|
+    |  &lt;AS:VAL&gt;              &emsp;|  Community number in &lt;0-65535:0-65535&gt; format                  |
+    |  local-as                    &emsp;|  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03         |
+    |  no-advertise                &emsp;|  Well-known communities value NO_ADVERTISE 0xFFFFFF02                |
+    |  no-export                   &emsp;|  Well-known communities value NO_EXPORT 0xFFFFFF01                   |
+    |  internet                    &emsp;|  Well-known communities value 0                                      |
+    |  graceful-shutdown           &emsp;|  Well-known communities value GRACEFUL_SHUTDOWN 0xFFFF0000           |
+    |  accept-own                  &emsp;|  Well-known communities value ACCEPT_OWN 0xFFFF0001                  |
+    |  route-filter-translated-v4  &emsp;|  Well-known communities value ROUTE_FILTER_TRANSLATED_v4 0xFFFF0002  |
+    |  route-filter-v4             &emsp;|  Well-known communities value ROUTE_FILTER_v4 0xFFFF0003             |
+    |  route-filter-translated-v6  &emsp;|  Well-known communities value ROUTE_FILTER_TRANSLATED_v6 0xFFFF0004  |
+    |  route-filter-v6             &emsp;|  Well-known communities value ROUTE_FILTER_v6 0xFFFF0005             |
+    |  llgr-stale                  &emsp;|  Well-known communities value LLGR_STALE 0xFFFF0006                  |
+    |  no-llgr                     &emsp;|  Well-known communities value NO_LLGR 0xFFFF0007                     |
+    |  accept-own-nexthop          &emsp;|  Well-known communities value accept-own-nexthop 0xFFFF0008          |
+    |  blackhole                   &emsp;|  Well-known communities value BLACKHOLE 0xFFFF029A                   |
+    |  no-peer                     &emsp;|  Well-known communities value NOPEER 0xFFFFFF04                      |
+`,
+			Description: `Set communities for a prefix
 
+    |  Format                      |  Description                                                         |
+    |------------------------------------|----------------------------------------------------------------------|
+    |  <AS:VAL>              |  Community number in <0-65535:0-65535> format                  |
+    |  local-as                    |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03         |
+    |  no-advertise                |  Well-known communities value NO_ADVERTISE 0xFFFFFF02                |
+    |  no-export                   |  Well-known communities value NO_EXPORT 0xFFFFFF01                   |
+    |  internet                    |  Well-known communities value 0                                      |
+    |  graceful-shutdown           |  Well-known communities value GRACEFUL_SHUTDOWN 0xFFFF0000           |
+    |  accept-own                  |  Well-known communities value ACCEPT_OWN 0xFFFF0001                  |
+    |  route-filter-translated-v4  |  Well-known communities value ROUTE_FILTER_TRANSLATED_v4 0xFFFF0002  |
+    |  route-filter-v4             |  Well-known communities value ROUTE_FILTER_v4 0xFFFF0003             |
+    |  route-filter-translated-v6  |  Well-known communities value ROUTE_FILTER_TRANSLATED_v6 0xFFFF0004  |
+    |  route-filter-v6             |  Well-known communities value ROUTE_FILTER_v6 0xFFFF0005             |
+    |  llgr-stale                  |  Well-known communities value LLGR_STALE 0xFFFF0006                  |
+    |  no-llgr                     |  Well-known communities value NO_LLGR 0xFFFF0007                     |
+    |  accept-own-nexthop          |  Well-known communities value accept-own-nexthop 0xFFFF0008          |
+    |  blackhole                   |  Well-known communities value BLACKHOLE 0xFFFF029A                   |
+    |  no-peer                     |  Well-known communities value NOPEER 0xFFFFFF04                      |
 `,
 		},
 
 		"none": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Completely remove communities attribute from a prefix
+
+`,
+			Description: `Completely remove communities attribute from a prefix
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -98,10 +141,15 @@ func (o PolicyRouteMapRuleSetCommunity) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `Remove communities defined in a list from a prefix
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Community-list  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Community-list  |
+`,
+			Description: `Remove communities defined in a list from a prefix
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  txt     |  Community-list  |
 `,
 		},
 

@@ -33,6 +33,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabelVpnAllocationMode) Re
 			MarkdownDescription: `Allocate a label per connected next-hop in the VRF
 
 `,
+			Description: `Allocate a label per connected next-hop in the VRF
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},

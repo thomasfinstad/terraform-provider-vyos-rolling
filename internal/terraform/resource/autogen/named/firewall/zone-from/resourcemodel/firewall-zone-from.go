@@ -98,6 +98,9 @@ func (o FirewallZoneFrom) ResourceSchemaAttributes() map[string]schema.Attribute
 			MarkdownDescription: `Zone from which to filter traffic
 
 `,
+			Description: `Zone from which to filter traffic
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -120,10 +123,15 @@ func (o FirewallZoneFrom) ResourceSchemaAttributes() map[string]schema.Attribute
 			Required: true,
 			MarkdownDescription: `Zone-policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Zone name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Zone name    |
+`,
+			Description: `Zone-policy
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Zone name    |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -151,6 +159,9 @@ func (o FirewallZoneFrom) ResourceSchemaAttributes() map[string]schema.Attribute
 			Attributes: FirewallZoneFromFirewall{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Firewall options
+
+`,
+			Description: `Firewall options
 
 `,
 		},

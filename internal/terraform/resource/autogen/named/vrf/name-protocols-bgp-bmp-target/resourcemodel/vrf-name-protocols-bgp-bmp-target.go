@@ -110,6 +110,9 @@ func (o VrfNameProtocolsBgpBmpTarget) ResourceSchemaAttributes() map[string]sche
 			MarkdownDescription: `BMP target
 
 `,
+			Description: `BMP target
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -132,10 +135,15 @@ func (o VrfNameProtocolsBgpBmpTarget) ResourceSchemaAttributes() map[string]sche
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -161,11 +169,17 @@ func (o VrfNameProtocolsBgpBmpTarget) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `IP address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address  |
-    |  ipv6  &emsp; |  IPv6 address  |
+    |  Format  &emsp;|  Description   |
+    |----------------|----------------|
+    |  ipv4    &emsp;|  IPv4 address  |
+    |  ipv6    &emsp;|  IPv6 address  |
+`,
+			Description: `IP address
 
+    |  Format  |  Description   |
+    |----------------|----------------|
+    |  ipv4    |  IPv4 address  |
+    |  ipv6    |  IPv6 address  |
 `,
 		},
 
@@ -173,10 +187,15 @@ func (o VrfNameProtocolsBgpBmpTarget) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Numeric IP port  |
+    |  Format   &emsp;|  Description      |
+    |-----------------|-------------------|
+    |  1-65535  &emsp;|  Numeric IP port  |
+`,
+			Description: `Port number used by connection
 
+    |  Format   |  Description      |
+    |-----------------|-------------------|
+    |  1-65535  |  Numeric IP port  |
 `,
 
 			// Default:          stringdefault.StaticString(`5000`),
@@ -187,10 +206,15 @@ func (o VrfNameProtocolsBgpBmpTarget) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Minimum connection retry interval (in milliseconds)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 100-86400000  &emsp; |  Minimum connection retry interval  |
+    |  Format        &emsp;|  Description                        |
+    |----------------------|-------------------------------------|
+    |  100-86400000  &emsp;|  Minimum connection retry interval  |
+`,
+			Description: `Minimum connection retry interval (in milliseconds)
 
+    |  Format        |  Description                        |
+    |----------------------|-------------------------------------|
+    |  100-86400000  |  Minimum connection retry interval  |
 `,
 
 			// Default:          stringdefault.StaticString(`1000`),
@@ -201,10 +225,15 @@ func (o VrfNameProtocolsBgpBmpTarget) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Maximum connection retry interval
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 100-4294967295  &emsp; |  Maximum connection retry interval  |
+    |  Format          &emsp;|  Description                        |
+    |------------------------|-------------------------------------|
+    |  100-4294967295  &emsp;|  Maximum connection retry interval  |
+`,
+			Description: `Maximum connection retry interval
 
+    |  Format          |  Description                        |
+    |------------------------|-------------------------------------|
+    |  100-4294967295  |  Maximum connection retry interval  |
 `,
 
 			// Default:          stringdefault.StaticString(`2000`),
@@ -214,6 +243,9 @@ func (o VrfNameProtocolsBgpBmpTarget) ResourceSchemaAttributes() map[string]sche
 		"mirror": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Send BMP route mirroring messages
+
+`,
+			Description: `Send BMP route mirroring messages
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -226,6 +258,9 @@ func (o VrfNameProtocolsBgpBmpTarget) ResourceSchemaAttributes() map[string]sche
 			Attributes: VrfNameProtocolsBgpBmpTargetMonitor{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Send BMP route monitoring messages
+
+`,
+			Description: `Send BMP route monitoring messages
 
 `,
 		},

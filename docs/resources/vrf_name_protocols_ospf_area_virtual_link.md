@@ -77,44 +77,44 @@ Virtual link
 
 - `area_id` (String) OSPF area settings
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  OSPF area number in decimal notation  |
-    |  ipv4  &emsp; |  OSPF area number in dotted decimal notation  |
+    |  Format  &emsp;|  Description                                  |
+    |----------------|-----------------------------------------------|
+    |  u32     &emsp;|  OSPF area number in decimal notation         |
+    |  ipv4    &emsp;|  OSPF area number in dotted decimal notation  |
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `virtual_link_id` (String) Virtual link
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  OSPF area in dotted decimal notation  |
+    |  Format  &emsp;|  Description                           |
+    |----------------|----------------------------------------|
+    |  ipv4    &emsp;|  OSPF area in dotted decimal notation  |
 
 ### Optional
 
 - `authentication` (Attributes) Authentication (see [below for nested schema](#nestedatt--authentication))
 - `dead_interval` (Number) Interval after which a neighbor is declared dead
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Neighbor dead interval (seconds)  |
+    |  Format   &emsp;|  Description                       |
+    |-----------------|------------------------------------|
+    |  1-65535  &emsp;|  Neighbor dead interval (seconds)  |
 - `hello_interval` (Number) Interval between hello packets
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Hello interval (seconds)  |
+    |  Format   &emsp;|  Description               |
+    |-----------------|----------------------------|
+    |  1-65535  &emsp;|  Hello interval (seconds)  |
 - `retransmit_interval` (Number) Interval between retransmitting lost link state advertisements
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Retransmit interval (seconds)  |
+    |  Format   &emsp;|  Description                    |
+    |-----------------|---------------------------------|
+    |  1-65535  &emsp;|  Retransmit interval (seconds)  |
 - `transmit_delay` (Number) Link state transmit delay
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Link state transmit delay (seconds)  |
+    |  Format   &emsp;|  Description                          |
+    |-----------------|---------------------------------------|
+    |  1-65535  &emsp;|  Link state transmit delay (seconds)  |
 
 ### Read-Only
 
@@ -128,9 +128,9 @@ Optional:
 - `md5` (Attributes) MD5 key id (see [below for nested schema](#nestedatt--authentication--md5))
 - `plaintext_password` (String) Plain text password
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Plain text password (8 characters or less)  |
+    |  Format  &emsp;|  Description                                 |
+    |----------------|----------------------------------------------|
+    |  txt     &emsp;|  Plain text password (8 characters or less)  |
 
 <a id="nestedatt--authentication--md5"></a>
 ### Nested Schema for `authentication.md5`

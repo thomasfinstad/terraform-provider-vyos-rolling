@@ -57,42 +57,42 @@ IP precedence
 
 - `precedence_id` (Number) IP precedence
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-7  &emsp; |  IP precedence value  |
+    |  Format  &emsp;|  Description          |
+    |----------------|-----------------------|
+    |  0-7     &emsp;|  IP precedence value  |
 - `random_detect_id` (String) Weighted Random Early Detect policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Policy name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Policy name  |
 
 ### Optional
 
 - `average_packet` (Number) Average packet size (bytes)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 16-10240  &emsp; |  Average packet size in bytes  |
+    |  Format    &emsp;|  Description                   |
+    |------------------|--------------------------------|
+    |  16-10240  &emsp;|  Average packet size in bytes  |
 - `mark_probability` (String) Mark probability for this precedence
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Numeric value (1/N)  |
+    |  Format          &emsp;|  Description          |
+    |------------------------|-----------------------|
+    |  &lt;number&gt;  &emsp;|  Numeric value (1/N)  |
 - `maximum_threshold` (Number) Maximum threshold for random detection
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-4096  &emsp; |  Maximum Threshold in packets  |
+    |  Format  &emsp;|  Description                   |
+    |----------------|--------------------------------|
+    |  0-4096  &emsp;|  Maximum Threshold in packets  |
 - `minimum_threshold` (Number) Minimum  threshold for random detection
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-4096  &emsp; |  Maximum Threshold in packets  |
+    |  Format  &emsp;|  Description                   |
+    |----------------|--------------------------------|
+    |  0-4096  &emsp;|  Maximum Threshold in packets  |
 - `queue_limit` (Number) Maximum queue size
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4294967295  &emsp; |  Queue size in packets  |
+    |  Format        &emsp;|  Description            |
+    |----------------------|-------------------------|
+    |  1-4294967295  &emsp;|  Queue size in packets  |
 
 ### Read-Only
 

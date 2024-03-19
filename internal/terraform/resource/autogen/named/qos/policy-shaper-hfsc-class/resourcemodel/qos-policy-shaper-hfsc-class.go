@@ -106,10 +106,15 @@ func (o QosPolicyShaperHfscClass) ResourceSchemaAttributes() map[string]schema.A
 			Required: true,
 			MarkdownDescription: `Class ID
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4095  &emsp; |  Class Identifier  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  1-4095  &emsp;|  Class Identifier  |
+`,
+			Description: `Class ID
 
+    |  Format  |  Description       |
+    |----------------|--------------------|
+    |  1-4095  |  Class Identifier  |
 `,
 			PlanModifiers: []planmodifier.Number{
 				numberplanmodifier.RequiresReplace(),
@@ -120,10 +125,15 @@ func (o QosPolicyShaperHfscClass) ResourceSchemaAttributes() map[string]schema.A
 			Required: true,
 			MarkdownDescription: `Hierarchical Fair Service Curve's policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Policy name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Policy name  |
+`,
+			Description: `Hierarchical Fair Service Curve's policy
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Policy name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -149,10 +159,15 @@ func (o QosPolicyShaperHfscClass) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -164,6 +179,9 @@ func (o QosPolicyShaperHfscClass) ResourceSchemaAttributes() map[string]schema.A
 			MarkdownDescription: `Linkshare class settings
 
 `,
+			Description: `Linkshare class settings
+
+`,
 		},
 
 		"realtime": schema.SingleNestedAttribute{
@@ -172,12 +190,18 @@ func (o QosPolicyShaperHfscClass) ResourceSchemaAttributes() map[string]schema.A
 			MarkdownDescription: `Realtime class settings
 
 `,
+			Description: `Realtime class settings
+
+`,
 		},
 
 		"upperlimit": schema.SingleNestedAttribute{
 			Attributes: QosPolicyShaperHfscClassUpperlimit{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Upperlimit class settings
+
+`,
+			Description: `Upperlimit class settings
 
 `,
 		},

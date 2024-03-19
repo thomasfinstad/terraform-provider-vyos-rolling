@@ -104,10 +104,15 @@ func (o NatDestinationRuleLoadBalanceBackend) ResourceSchemaAttributes() map[str
 			Required: true,
 			MarkdownDescription: `Translated IP address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address to match  |
+    |  Format  &emsp;|  Description            |
+    |----------------|-------------------------|
+    |  ipv4    &emsp;|  IPv4 address to match  |
+`,
+			Description: `Translated IP address
 
+    |  Format  |  Description            |
+    |----------------|-------------------------|
+    |  ipv4    |  IPv4 address to match  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -131,10 +136,15 @@ func (o NatDestinationRuleLoadBalanceBackend) ResourceSchemaAttributes() map[str
 			Required: true,
 			MarkdownDescription: `Rule number for NAT
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-999999  &emsp; |  Number of NAT rule  |
+    |  Format    &emsp;|  Description         |
+    |------------------|----------------------|
+    |  1-999999  &emsp;|  Number of NAT rule  |
+`,
+			Description: `Rule number for NAT
 
+    |  Format    |  Description         |
+    |------------------|----------------------|
+    |  1-999999  |  Number of NAT rule  |
 `,
 			PlanModifiers: []planmodifier.Number{
 				numberplanmodifier.RequiresReplace(),
@@ -147,10 +157,15 @@ func (o NatDestinationRuleLoadBalanceBackend) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Set probability for this output value
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-100  &emsp; |  Set probability for this output value  |
+    |  Format  &emsp;|  Description                            |
+    |----------------|-----------------------------------------|
+    |  1-100   &emsp;|  Set probability for this output value  |
+`,
+			Description: `Set probability for this output value
 
+    |  Format  |  Description                            |
+    |----------------|-----------------------------------------|
+    |  1-100   |  Set probability for this output value  |
 `,
 		},
 

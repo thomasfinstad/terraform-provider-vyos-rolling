@@ -47,39 +47,39 @@ Rate limiting policy (Token Bucket Filter)
 
 - `rate_control_id` (String) Rate limiting policy (Token Bucket Filter)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Policy name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Policy name  |
 
 ### Optional
 
 - `bandwidth` (String) Available bandwidth for this policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Bits per second  |
-    |  <number>bit  &emsp; |  Bits per second  |
-    |  <number>kbit  &emsp; |  Kilobits per second  |
-    |  <number>mbit  &emsp; |  Megabits per second  |
-    |  <number>gbit  &emsp; |  Gigabits per second  |
-    |  <number>tbit  &emsp; |  Terabits per second  |
-    |  <number>%%  &emsp; |  Percentage of interface link speed  |
+    |  Format              &emsp;|  Description                         |
+    |----------------------------|--------------------------------------|
+    |  &lt;number&gt;      &emsp;|  Bits per second                     |
+    |  &lt;number&gt;bit   &emsp;|  Bits per second                     |
+    |  &lt;number&gt;kbit  &emsp;|  Kilobits per second                 |
+    |  &lt;number&gt;mbit  &emsp;|  Megabits per second                 |
+    |  &lt;number&gt;gbit  &emsp;|  Gigabits per second                 |
+    |  &lt;number&gt;tbit  &emsp;|  Terabits per second                 |
+    |  &lt;number&gt;%%    &emsp;|  Percentage of interface link speed  |
 - `burst` (String) Burst size for this class
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Bytes  |
-    |  <number><suffix>  &emsp; |  Bytes with scaling suffix (kb, mb, gb)  |
+    |  Format                        &emsp;|  Description                             |
+    |--------------------------------------|------------------------------------------|
+    |  &lt;number&gt;                &emsp;|  Bytes                                   |
+    |  &lt;number&gt;&lt;suffix&gt;  &emsp;|  Bytes with scaling suffix (kb, mb, gb)  |
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `latency` (String) Maximum latency
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Time in milliseconds  |
+    |  Format          &emsp;|  Description           |
+    |------------------------|------------------------|
+    |  &lt;number&gt;  &emsp;|  Time in milliseconds  |
 
 ### Read-Only
 

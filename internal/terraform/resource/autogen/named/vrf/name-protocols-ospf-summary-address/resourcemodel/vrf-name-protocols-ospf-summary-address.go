@@ -103,10 +103,15 @@ func (o VrfNameProtocolsOspfSummaryAddress) ResourceSchemaAttributes() map[strin
 			Required: true,
 			MarkdownDescription: `External summary address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  OSPF area number in dotted decimal notation  |
+    |  Format   &emsp;|  Description                                  |
+    |-----------------|-----------------------------------------------|
+    |  ipv4net  &emsp;|  OSPF area number in dotted decimal notation  |
+`,
+			Description: `External summary address
 
+    |  Format   |  Description                                  |
+    |-----------------|-----------------------------------------------|
+    |  ipv4net  |  OSPF area number in dotted decimal notation  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -130,10 +135,15 @@ func (o VrfNameProtocolsOspfSummaryAddress) ResourceSchemaAttributes() map[strin
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -160,6 +170,9 @@ func (o VrfNameProtocolsOspfSummaryAddress) ResourceSchemaAttributes() map[strin
 			MarkdownDescription: `Don not advertise summary route
 
 `,
+			Description: `Don not advertise summary route
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -168,10 +181,15 @@ func (o VrfNameProtocolsOspfSummaryAddress) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Router tag
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4294967295  &emsp; |  Router tag value  |
+    |  Format        &emsp;|  Description       |
+    |----------------------|--------------------|
+    |  1-4294967295  &emsp;|  Router tag value  |
+`,
+			Description: `Router tag
 
+    |  Format        |  Description       |
+    |----------------------|--------------------|
+    |  1-4294967295  |  Router tag value  |
 `,
 		},
 

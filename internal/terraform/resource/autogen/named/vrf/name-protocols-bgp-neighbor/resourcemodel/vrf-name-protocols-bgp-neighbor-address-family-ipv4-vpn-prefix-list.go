@@ -32,10 +32,15 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnPrefixList) ResourceSc
 			Optional: true,
 			MarkdownDescription: `IPv4-Prefix-list to filter outgoing route updates to this peer
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Name of IPv4 prefix-list  |
+    |  Format  &emsp;|  Description               |
+    |----------------|----------------------------|
+    |  txt     &emsp;|  Name of IPv4 prefix-list  |
+`,
+			Description: `IPv4-Prefix-list to filter outgoing route updates to this peer
 
+    |  Format  |  Description               |
+    |----------------|----------------------------|
+    |  txt     |  Name of IPv4 prefix-list  |
 `,
 		},
 
@@ -43,10 +48,15 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnPrefixList) ResourceSc
 			Optional: true,
 			MarkdownDescription: `IPv4-Prefix-list to filter incoming route updates from this peer
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Name of IPv4 prefix-list  |
+    |  Format  &emsp;|  Description               |
+    |----------------|----------------------------|
+    |  txt     &emsp;|  Name of IPv4 prefix-list  |
+`,
+			Description: `IPv4-Prefix-list to filter incoming route updates from this peer
 
+    |  Format  |  Description               |
+    |----------------|----------------------------|
+    |  txt     |  Name of IPv4 prefix-list  |
 `,
 		},
 

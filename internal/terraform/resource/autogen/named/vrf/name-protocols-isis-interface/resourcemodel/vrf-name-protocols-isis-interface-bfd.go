@@ -31,10 +31,15 @@ func (o VrfNameProtocolsIsisInterfaceBfd) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Use settings from BFD profile
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  BFD profile name  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  txt     &emsp;|  BFD profile name  |
+`,
+			Description: `Use settings from BFD profile
 
+    |  Format  |  Description       |
+    |----------------|--------------------|
+    |  txt     |  BFD profile name  |
 `,
 		},
 

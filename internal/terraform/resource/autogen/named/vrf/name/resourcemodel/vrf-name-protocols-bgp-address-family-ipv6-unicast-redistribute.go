@@ -38,6 +38,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) ResourceSchem
 			MarkdownDescription: `Redistribute non-main Kernel Routing Table
 
 `,
+			Description: `Redistribute non-main Kernel Routing Table
+
+`,
 		},
 
 		// Nodes
@@ -48,12 +51,18 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) ResourceSchem
 			MarkdownDescription: `Redistribute connected routes into BGP
 
 `,
+			Description: `Redistribute connected routes into BGP
+
+`,
 		},
 
 		"kernel": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeKernel{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute kernel routes into BGP
+
+`,
+			Description: `Redistribute kernel routes into BGP
 
 `,
 		},
@@ -64,12 +73,18 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) ResourceSchem
 			MarkdownDescription: `Redistribute OSPFv3 routes into BGP
 
 `,
+			Description: `Redistribute OSPFv3 routes into BGP
+
+`,
 		},
 
 		"ripng": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeRIPng{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute RIPng routes into BGP
+
+`,
+			Description: `Redistribute RIPng routes into BGP
 
 `,
 		},
@@ -80,12 +95,18 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute) ResourceSchem
 			MarkdownDescription: `Redistribute Babel routes into BGP
 
 `,
+			Description: `Redistribute Babel routes into BGP
+
+`,
 		},
 
 		"static": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeStatic{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute static routes into BGP
+
+`,
+			Description: `Redistribute static routes into BGP
 
 `,
 		},

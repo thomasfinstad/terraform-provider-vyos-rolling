@@ -51,14 +51,14 @@ Firewall domain-group
 
 - `address` (List of String) Domain-group member
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Domain address to match  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  txt     &emsp;|  Domain address to match  |
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 
 ### Read-Only
 

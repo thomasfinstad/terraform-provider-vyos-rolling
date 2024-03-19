@@ -47,28 +47,28 @@ Stochastic Fairness Queueing
 
 - `fair_queue_id` (String) Stochastic Fairness Queueing
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Policy name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Policy name  |
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `hash_interval` (Number) Interval in seconds for queue algorithm perturbation
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0  &emsp; |  No perturbation  |
-    |  number: 1-127  &emsp; |  Interval in seconds for queue algorithm perturbation (advised: 10)  |
+    |  Format  &emsp;|  Description                                                         |
+    |----------------|----------------------------------------------------------------------|
+    |  0       &emsp;|  No perturbation                                                     |
+    |  1-127   &emsp;|  Interval in seconds for queue algorithm perturbation (advised: 10)  |
 - `queue_limit` (Number) Upper limit of the SFQ
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-127  &emsp; |  Queue size in packets  |
+    |  Format  &emsp;|  Description            |
+    |----------------|-------------------------|
+    |  1-127   &emsp;|  Queue size in packets  |
 
 ### Read-Only
 

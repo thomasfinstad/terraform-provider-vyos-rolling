@@ -51,9 +51,9 @@ Firewall interface-group
 
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `include` (List of String) Include another interface-group
 - `interface` (List of String) Interface-group member
 

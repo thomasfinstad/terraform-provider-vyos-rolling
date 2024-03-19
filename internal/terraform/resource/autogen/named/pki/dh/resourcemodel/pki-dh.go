@@ -88,6 +88,9 @@ func (o PkiDh) ResourceSchemaAttributes() map[string]schema.Attribute {
 			MarkdownDescription: `Diffie-Hellman parameters
 
 `,
+			Description: `Diffie-Hellman parameters
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -111,6 +114,9 @@ func (o PkiDh) ResourceSchemaAttributes() map[string]schema.Attribute {
 		"parameters": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `DH parameters in PEM format
+
+`,
+			Description: `DH parameters in PEM format
 
 `,
 		},

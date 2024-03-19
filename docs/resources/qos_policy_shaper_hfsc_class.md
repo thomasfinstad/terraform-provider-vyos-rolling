@@ -57,22 +57,22 @@ Class ID
 
 - `class_id` (Number) Class ID
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4095  &emsp; |  Class Identifier  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  1-4095  &emsp;|  Class Identifier  |
 - `shaper_hfsc_id` (String) Hierarchical Fair Service Curve's policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Policy name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Policy name  |
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `linkshare` (Attributes) Linkshare class settings (see [below for nested schema](#nestedatt--linkshare))
 - `realtime` (Attributes) Realtime class settings (see [below for nested schema](#nestedatt--realtime))
 - `upperlimit` (Attributes) Upperlimit class settings (see [below for nested schema](#nestedatt--upperlimit))
@@ -88,29 +88,29 @@ Optional:
 
 - `d` (String) Service curve delay
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Time in milliseconds  |
+    |  Format          &emsp;|  Description           |
+    |------------------------|------------------------|
+    |  &lt;number&gt;  &emsp;|  Time in milliseconds  |
 - `m1` (String) Linkshare m1 parameter for class traffic
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Rate in kbit (kilobit per second)  |
-    |  <number>%%  &emsp; |  Percentage of overall rate  |
-    |  <number>bit  &emsp; |  bit(1), kbit(10^3), mbit(10^6), gbit, tbit  |
-    |  <number>ibit  &emsp; |  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
-    |  <number>ibps  &emsp; |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
-    |  <number>bps  &emsp; |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
+    |  Format              &emsp;|  Description                                              |
+    |----------------------------|-----------------------------------------------------------|
+    |  &lt;number&gt;      &emsp;|  Rate in kbit (kilobit per second)                        |
+    |  &lt;number&gt;%%    &emsp;|  Percentage of overall rate                               |
+    |  &lt;number&gt;bit   &emsp;|  bit(1), kbit(10^3), mbit(10^6), gbit, tbit               |
+    |  &lt;number&gt;ibit  &emsp;|  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
+    |  &lt;number&gt;ibps  &emsp;|  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
+    |  &lt;number&gt;bps   &emsp;|  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
 - `m2` (String) Linkshare m2 parameter for class traffic
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Rate in kbit (kilobit per second)  |
-    |  <number>%%  &emsp; |  Percentage of overall rate  |
-    |  <number>bit  &emsp; |  bit(1), kbit(10^3), mbit(10^6), gbit, tbit  |
-    |  <number>ibit  &emsp; |  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
-    |  <number>ibps  &emsp; |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
-    |  <number>bps  &emsp; |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
+    |  Format              &emsp;|  Description                                              |
+    |----------------------------|-----------------------------------------------------------|
+    |  &lt;number&gt;      &emsp;|  Rate in kbit (kilobit per second)                        |
+    |  &lt;number&gt;%%    &emsp;|  Percentage of overall rate                               |
+    |  &lt;number&gt;bit   &emsp;|  bit(1), kbit(10^3), mbit(10^6), gbit, tbit               |
+    |  &lt;number&gt;ibit  &emsp;|  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
+    |  &lt;number&gt;ibps  &emsp;|  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
+    |  &lt;number&gt;bps   &emsp;|  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
 
 
 <a id="nestedatt--realtime"></a>
@@ -120,29 +120,29 @@ Optional:
 
 - `d` (String) Service curve delay
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Time in milliseconds  |
+    |  Format          &emsp;|  Description           |
+    |------------------------|------------------------|
+    |  &lt;number&gt;  &emsp;|  Time in milliseconds  |
 - `m1` (String) Linkshare m1 parameter for class traffic
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Rate in kbit (kilobit per second)  |
-    |  <number>%%  &emsp; |  Percentage of overall rate  |
-    |  <number>bit  &emsp; |  bit(1), kbit(10^3), mbit(10^6), gbit, tbit  |
-    |  <number>ibit  &emsp; |  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
-    |  <number>ibps  &emsp; |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
-    |  <number>bps  &emsp; |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
+    |  Format              &emsp;|  Description                                              |
+    |----------------------------|-----------------------------------------------------------|
+    |  &lt;number&gt;      &emsp;|  Rate in kbit (kilobit per second)                        |
+    |  &lt;number&gt;%%    &emsp;|  Percentage of overall rate                               |
+    |  &lt;number&gt;bit   &emsp;|  bit(1), kbit(10^3), mbit(10^6), gbit, tbit               |
+    |  &lt;number&gt;ibit  &emsp;|  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
+    |  &lt;number&gt;ibps  &emsp;|  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
+    |  &lt;number&gt;bps   &emsp;|  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
 - `m2` (String) Linkshare m2 parameter for class traffic
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Rate in kbit (kilobit per second)  |
-    |  <number>%%  &emsp; |  Percentage of overall rate  |
-    |  <number>bit  &emsp; |  bit(1), kbit(10^3), mbit(10^6), gbit, tbit  |
-    |  <number>ibit  &emsp; |  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
-    |  <number>ibps  &emsp; |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
-    |  <number>bps  &emsp; |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
+    |  Format              &emsp;|  Description                                              |
+    |----------------------------|-----------------------------------------------------------|
+    |  &lt;number&gt;      &emsp;|  Rate in kbit (kilobit per second)                        |
+    |  &lt;number&gt;%%    &emsp;|  Percentage of overall rate                               |
+    |  &lt;number&gt;bit   &emsp;|  bit(1), kbit(10^3), mbit(10^6), gbit, tbit               |
+    |  &lt;number&gt;ibit  &emsp;|  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
+    |  &lt;number&gt;ibps  &emsp;|  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
+    |  &lt;number&gt;bps   &emsp;|  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
 
 
 <a id="nestedatt--upperlimit"></a>
@@ -152,26 +152,26 @@ Optional:
 
 - `d` (String) Service curve delay
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Time in milliseconds  |
+    |  Format          &emsp;|  Description           |
+    |------------------------|------------------------|
+    |  &lt;number&gt;  &emsp;|  Time in milliseconds  |
 - `m1` (String) Linkshare m1 parameter for class traffic
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Rate in kbit (kilobit per second)  |
-    |  <number>%%  &emsp; |  Percentage of overall rate  |
-    |  <number>bit  &emsp; |  bit(1), kbit(10^3), mbit(10^6), gbit, tbit  |
-    |  <number>ibit  &emsp; |  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
-    |  <number>ibps  &emsp; |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
-    |  <number>bps  &emsp; |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
+    |  Format              &emsp;|  Description                                              |
+    |----------------------------|-----------------------------------------------------------|
+    |  &lt;number&gt;      &emsp;|  Rate in kbit (kilobit per second)                        |
+    |  &lt;number&gt;%%    &emsp;|  Percentage of overall rate                               |
+    |  &lt;number&gt;bit   &emsp;|  bit(1), kbit(10^3), mbit(10^6), gbit, tbit               |
+    |  &lt;number&gt;ibit  &emsp;|  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
+    |  &lt;number&gt;ibps  &emsp;|  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
+    |  &lt;number&gt;bps   &emsp;|  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
 - `m2` (String) Linkshare m2 parameter for class traffic
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Rate in kbit (kilobit per second)  |
-    |  <number>%%  &emsp; |  Percentage of overall rate  |
-    |  <number>bit  &emsp; |  bit(1), kbit(10^3), mbit(10^6), gbit, tbit  |
-    |  <number>ibit  &emsp; |  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
-    |  <number>ibps  &emsp; |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
-    |  <number>bps  &emsp; |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
+    |  Format              &emsp;|  Description                                              |
+    |----------------------------|-----------------------------------------------------------|
+    |  &lt;number&gt;      &emsp;|  Rate in kbit (kilobit per second)                        |
+    |  &lt;number&gt;%%    &emsp;|  Percentage of overall rate                               |
+    |  &lt;number&gt;bit   &emsp;|  bit(1), kbit(10^3), mbit(10^6), gbit, tbit               |
+    |  &lt;number&gt;ibit  &emsp;|  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
+    |  &lt;number&gt;ibps  &emsp;|  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
+    |  &lt;number&gt;bps   &emsp;|  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |

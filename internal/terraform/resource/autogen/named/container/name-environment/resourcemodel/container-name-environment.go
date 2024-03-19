@@ -98,6 +98,9 @@ func (o ContainerNameEnvironment) ResourceSchemaAttributes() map[string]schema.A
 			MarkdownDescription: `Add custom environment variables
 
 `,
+			Description: `Add custom environment variables
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -119,6 +122,9 @@ func (o ContainerNameEnvironment) ResourceSchemaAttributes() map[string]schema.A
 		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Container name
+
+`,
+			Description: `Container name
 
 `,
 			PlanModifiers: []planmodifier.String{
@@ -145,10 +151,15 @@ func (o ContainerNameEnvironment) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Set environment option value
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Set environment option value  |
+    |  Format  &emsp;|  Description                   |
+    |----------------|--------------------------------|
+    |  txt     &emsp;|  Set environment option value  |
+`,
+			Description: `Set environment option value
 
+    |  Format  |  Description                   |
+    |----------------|--------------------------------|
+    |  txt     |  Set environment option value  |
 `,
 		},
 

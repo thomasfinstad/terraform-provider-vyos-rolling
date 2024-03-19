@@ -34,6 +34,9 @@ func (o VrfNameProtocolsIsisFastReroute) ResourceSchemaAttributes() map[string]s
 			MarkdownDescription: `Loop free alternate functionality
 
 `,
+			Description: `Loop free alternate functionality
+
+`,
 		},
 	}
 }

@@ -52,30 +52,30 @@ Mount a volume into the container
 
 - `destination` (String) Destination container directory
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Destination container directory  |
+    |  Format  &emsp;|  Description                      |
+    |----------------|-----------------------------------|
+    |  txt     &emsp;|  Destination container directory  |
 - `mode` (String) Volume access mode ro/rw
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ro  &emsp; |  Volume mounted into the container as read-only  |
-    |  rw  &emsp; |  Volume mounted into the container as read-write  |
+    |  Format  &emsp;|  Description                                      |
+    |----------------|---------------------------------------------------|
+    |  ro      &emsp;|  Volume mounted into the container as read-only   |
+    |  rw      &emsp;|  Volume mounted into the container as read-write  |
 - `propagation` (String) Volume bind propagation
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  shared  &emsp; |  Sub-mounts of the original mount are exposed to replica mounts  |
-    |  slave  &emsp; |  Allow replica mount to see sub-mount from the original mount but not vice versa  |
-    |  private  &emsp; |  Sub-mounts within a mount are not visible to replica mounts or the original mount  |
-    |  rshared  &emsp; |  Allows sharing of mount points and their nested mount points between both the original and replica mounts  |
-    |  rslave  &emsp; |  Allows mount point and their nested mount points between original an replica mounts  |
-    |  rprivate  &emsp; |  No mount points within original or replica mounts in any direction  |
+    |  Format    &emsp;|  Description                                                                                                |
+    |------------------|-------------------------------------------------------------------------------------------------------------|
+    |  shared    &emsp;|  Sub-mounts of the original mount are exposed to replica mounts                                             |
+    |  slave     &emsp;|  Allow replica mount to see sub-mount from the original mount but not vice versa                            |
+    |  private   &emsp;|  Sub-mounts within a mount are not visible to replica mounts or the original mount                          |
+    |  rshared   &emsp;|  Allows sharing of mount points and their nested mount points between both the original and replica mounts  |
+    |  rslave    &emsp;|  Allows mount point and their nested mount points between original an replica mounts                        |
+    |  rprivate  &emsp;|  No mount points within original or replica mounts in any direction                                         |
 - `source` (String) Source host directory
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Source host directory  |
+    |  Format  &emsp;|  Description            |
+    |----------------|-------------------------|
+    |  txt     &emsp;|  Source host directory  |
 
 ### Read-Only
 

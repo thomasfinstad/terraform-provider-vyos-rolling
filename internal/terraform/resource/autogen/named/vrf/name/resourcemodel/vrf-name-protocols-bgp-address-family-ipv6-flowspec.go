@@ -34,6 +34,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixFlowspec) ResourceSchemaAttributes
 			MarkdownDescription: `Apply local policy routing to interface
 
 `,
+			Description: `Apply local policy routing to interface
+
+`,
 		},
 	}
 }

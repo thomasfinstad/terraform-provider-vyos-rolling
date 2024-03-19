@@ -87,23 +87,23 @@ BGP network
 
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `network_id` (String) BGP network
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  BGP network  |
+    |  Format   &emsp;|  Description  |
+    |-----------------|---------------|
+    |  ipv4net  &emsp;|  BGP network  |
 
 ### Optional
 
 - `backdoor` (Boolean) Network as a backdoor route
 - `route_map` (String) Specify route-map name to use
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Route map name  |
 
 ### Read-Only
 

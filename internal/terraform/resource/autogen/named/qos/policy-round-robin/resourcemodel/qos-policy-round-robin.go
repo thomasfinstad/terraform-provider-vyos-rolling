@@ -91,10 +91,15 @@ func (o QosPolicyRoundRobin) ResourceSchemaAttributes() map[string]schema.Attrib
 			Required: true,
 			MarkdownDescription: `Deficit Round Robin Scheduler
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Policy name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Policy name  |
+`,
+			Description: `Deficit Round Robin Scheduler
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Policy name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -120,10 +125,15 @@ func (o QosPolicyRoundRobin) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -133,6 +143,9 @@ func (o QosPolicyRoundRobin) ResourceSchemaAttributes() map[string]schema.Attrib
 			Attributes: QosPolicyRoundRobinDefault{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Default policy
+
+`,
+			Description: `Default policy
 
 `,
 		},

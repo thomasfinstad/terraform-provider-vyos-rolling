@@ -41,12 +41,18 @@ func (o VrfNameProtocolsOspfRedistribute) ResourceSchemaAttributes() map[string]
 			MarkdownDescription: `Redistribute BGP routes
 
 `,
+			Description: `Redistribute BGP routes
+
+`,
 		},
 
 		"connected": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfRedistributeConnected{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute connected routes
+
+`,
+			Description: `Redistribute connected routes
 
 `,
 		},
@@ -57,12 +63,18 @@ func (o VrfNameProtocolsOspfRedistribute) ResourceSchemaAttributes() map[string]
 			MarkdownDescription: `Redistribute IS-IS routes
 
 `,
+			Description: `Redistribute IS-IS routes
+
+`,
 		},
 
 		"kernel": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfRedistributeKernel{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute Kernel routes
+
+`,
+			Description: `Redistribute Kernel routes
 
 `,
 		},
@@ -73,6 +85,9 @@ func (o VrfNameProtocolsOspfRedistribute) ResourceSchemaAttributes() map[string]
 			MarkdownDescription: `Redistribute RIP routes
 
 `,
+			Description: `Redistribute RIP routes
+
+`,
 		},
 
 		"babel": schema.SingleNestedAttribute{
@@ -81,12 +96,18 @@ func (o VrfNameProtocolsOspfRedistribute) ResourceSchemaAttributes() map[string]
 			MarkdownDescription: `Redistribute Babel routes
 
 `,
+			Description: `Redistribute Babel routes
+
+`,
 		},
 
 		"static": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfRedistributeStatic{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute statically configured routes
+
+`,
+			Description: `Redistribute statically configured routes
 
 `,
 		},

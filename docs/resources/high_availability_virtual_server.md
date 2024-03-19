@@ -41,54 +41,54 @@ Load-balancing virtual server alias
 
 - `address` (String) IP address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address  |
-    |  ipv6  &emsp; |  IPv6 address  |
+    |  Format  &emsp;|  Description   |
+    |----------------|----------------|
+    |  ipv4    &emsp;|  IPv4 address  |
+    |  ipv6    &emsp;|  IPv6 address  |
 - `algorithm` (String) Schedule algorithm (default - least-connection)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  round-robin  &emsp; |  Round robin  |
-    |  weighted-round-robin  &emsp; |  Weighted round robin  |
-    |  least-connection  &emsp; |  Least connection  |
-    |  weighted-least-connection  &emsp; |  Weighted least connection  |
-    |  source-hashing  &emsp; |  Source hashing  |
-    |  destination-hashing  &emsp; |  Destination hashing  |
-    |  locality-based-least-connection  &emsp; |  Locality-Based least connection  |
+    |  Format                           &emsp;|  Description                      |
+    |-----------------------------------------|-----------------------------------|
+    |  round-robin                      &emsp;|  Round robin                      |
+    |  weighted-round-robin             &emsp;|  Weighted round robin             |
+    |  least-connection                 &emsp;|  Least connection                 |
+    |  weighted-least-connection        &emsp;|  Weighted least connection        |
+    |  source-hashing                   &emsp;|  Source hashing                   |
+    |  destination-hashing              &emsp;|  Destination hashing              |
+    |  locality-based-least-connection  &emsp;|  Locality-Based least connection  |
 - `delay_loop` (Number) Interval between health-checks (in seconds)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-600  &emsp; |  Interval in seconds  |
+    |  Format  &emsp;|  Description          |
+    |----------------|-----------------------|
+    |  1-600   &emsp;|  Interval in seconds  |
 - `forward_method` (String) Forwarding method
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  direct  &emsp; |  Direct routing  |
-    |  nat  &emsp; |  NAT  |
-    |  tunnel  &emsp; |  Tunneling  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  direct  &emsp;|  Direct routing  |
+    |  nat     &emsp;|  NAT             |
+    |  tunnel  &emsp;|  Tunneling       |
 - `fwmark` (Number) Match fwmark value
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-2147483647  &emsp; |  Match firewall mark value  |
+    |  Format        &emsp;|  Description                |
+    |----------------------|-----------------------------|
+    |  1-2147483647  &emsp;|  Match firewall mark value  |
 - `persistence_timeout` (Number) Timeout for persistent connections
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-86400  &emsp; |  Timeout for persistent connections  |
+    |  Format   &emsp;|  Description                         |
+    |-----------------|--------------------------------------|
+    |  1-86400  &emsp;|  Timeout for persistent connections  |
 - `port` (Number) Port number used by connection
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-65535  &emsp; |  Numeric IP port  |
+    |  Format   &emsp;|  Description      |
+    |-----------------|-------------------|
+    |  0-65535  &emsp;|  Numeric IP port  |
 - `protocol` (String) Protocol for port checks
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  tcp  &emsp; |  TCP  |
-    |  udp  &emsp; |  UDP  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  tcp     &emsp;|  TCP          |
+    |  udp     &emsp;|  UDP          |
 
 ### Read-Only
 

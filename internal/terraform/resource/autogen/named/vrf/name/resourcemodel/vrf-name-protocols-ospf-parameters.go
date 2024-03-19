@@ -35,13 +35,21 @@ func (o VrfNameProtocolsOspfParameters) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `OSPF ABR type
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  cisco  &emsp; |  Cisco ABR type  |
-    |  ibm  &emsp; |  IBM ABR type  |
-    |  shortcut  &emsp; |  Shortcut ABR type  |
-    |  standard  &emsp; |  Standard ABR type  |
+    |  Format    &emsp;|  Description        |
+    |------------------|---------------------|
+    |  cisco     &emsp;|  Cisco ABR type     |
+    |  ibm       &emsp;|  IBM ABR type       |
+    |  shortcut  &emsp;|  Shortcut ABR type  |
+    |  standard  &emsp;|  Standard ABR type  |
+`,
+			Description: `OSPF ABR type
 
+    |  Format    |  Description        |
+    |------------------|---------------------|
+    |  cisco     |  Cisco ABR type     |
+    |  ibm       |  IBM ABR type       |
+    |  shortcut  |  Shortcut ABR type  |
+    |  standard  |  Standard ABR type  |
 `,
 
 			// Default:          stringdefault.StaticString(`cisco`),
@@ -53,6 +61,9 @@ func (o VrfNameProtocolsOspfParameters) ResourceSchemaAttributes() map[string]sc
 			MarkdownDescription: `Enable the Opaque-LSA capability (rfc2370)
 
 `,
+			Description: `Enable the Opaque-LSA capability (rfc2370)
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -60,6 +71,9 @@ func (o VrfNameProtocolsOspfParameters) ResourceSchemaAttributes() map[string]sc
 		"rfc1583_compatibility": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Enable RFC1583 criteria for handling AS external routes
+
+`,
+			Description: `Enable RFC1583 criteria for handling AS external routes
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -70,10 +84,15 @@ func (o VrfNameProtocolsOspfParameters) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `Override default router identifier
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  Router-ID in IP address format  |
+    |  Format  &emsp;|  Description                     |
+    |----------------|----------------------------------|
+    |  ipv4    &emsp;|  Router-ID in IP address format  |
+`,
+			Description: `Override default router identifier
 
+    |  Format  |  Description                     |
+    |----------------|----------------------------------|
+    |  ipv4    |  Router-ID in IP address format  |
 `,
 		},
 

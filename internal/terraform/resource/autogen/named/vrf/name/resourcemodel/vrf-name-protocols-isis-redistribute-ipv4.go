@@ -40,12 +40,18 @@ func (o VrfNameProtocolsIsisRedistributeIPvfour) ResourceSchemaAttributes() map[
 			MarkdownDescription: `Border Gateway Protocol (BGP)
 
 `,
+			Description: `Border Gateway Protocol (BGP)
+
+`,
 		},
 
 		"connected": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsIsisRedistributeIPvfourConnected{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute connected routes into IS-IS
+
+`,
+			Description: `Redistribute connected routes into IS-IS
 
 `,
 		},
@@ -56,12 +62,18 @@ func (o VrfNameProtocolsIsisRedistributeIPvfour) ResourceSchemaAttributes() map[
 			MarkdownDescription: `Redistribute kernel routes into IS-IS
 
 `,
+			Description: `Redistribute kernel routes into IS-IS
+
+`,
 		},
 
 		"ospf": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsIsisRedistributeIPvfourOspf{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute OSPF routes into IS-IS
+
+`,
+			Description: `Redistribute OSPF routes into IS-IS
 
 `,
 		},
@@ -72,6 +84,9 @@ func (o VrfNameProtocolsIsisRedistributeIPvfour) ResourceSchemaAttributes() map[
 			MarkdownDescription: `Redistribute RIP routes into IS-IS
 
 `,
+			Description: `Redistribute RIP routes into IS-IS
+
+`,
 		},
 
 		"babel": schema.SingleNestedAttribute{
@@ -80,12 +95,18 @@ func (o VrfNameProtocolsIsisRedistributeIPvfour) ResourceSchemaAttributes() map[
 			MarkdownDescription: `Redistribute Babel routes into IS-IS
 
 `,
+			Description: `Redistribute Babel routes into IS-IS
+
+`,
 		},
 
 		"static": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsIsisRedistributeIPvfourStatic{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute static routes into IS-IS
+
+`,
+			Description: `Redistribute static routes into IS-IS
 
 `,
 		},

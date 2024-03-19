@@ -34,16 +34,24 @@ func (o FirewallIPvsixInputFilterRuleSourceGeoIP) ResourceSchemaAttributes() map
 			Optional:    true,
 			MarkdownDescription: `GeoIP country code
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <country>  &emsp; |  Country code (2 characters)  |
+    |  Format           &emsp;|  Description                  |
+    |-------------------------|-------------------------------|
+    |  &lt;country&gt;  &emsp;|  Country code (2 characters)  |
+`,
+			Description: `GeoIP country code
 
+    |  Format           |  Description                  |
+    |-------------------------|-------------------------------|
+    |  <country>  |  Country code (2 characters)  |
 `,
 		},
 
 		"inverse_match": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Inverse match of country-codes
+
+`,
+			Description: `Inverse match of country-codes
 
 `,
 			Default:  booldefault.StaticBool(false),

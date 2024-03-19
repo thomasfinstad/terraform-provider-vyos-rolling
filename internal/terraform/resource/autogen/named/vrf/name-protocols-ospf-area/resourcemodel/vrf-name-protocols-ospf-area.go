@@ -108,11 +108,17 @@ func (o VrfNameProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.A
 			Required: true,
 			MarkdownDescription: `OSPF area settings
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  OSPF area number in decimal notation  |
-    |  ipv4  &emsp; |  OSPF area number in dotted decimal notation  |
+    |  Format  &emsp;|  Description                                  |
+    |----------------|-----------------------------------------------|
+    |  u32     &emsp;|  OSPF area number in decimal notation         |
+    |  ipv4    &emsp;|  OSPF area number in dotted decimal notation  |
+`,
+			Description: `OSPF area settings
 
+    |  Format  |  Description                                  |
+    |----------------|-----------------------------------------------|
+    |  u32     |  OSPF area number in decimal notation         |
+    |  ipv4    |  OSPF area number in dotted decimal notation  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -136,10 +142,15 @@ func (o VrfNameProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.A
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -165,11 +176,17 @@ func (o VrfNameProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `OSPF area authentication type
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  plaintext-password  &emsp; |  Use plain-text authentication  |
-    |  md5  &emsp; |  Use MD5 authentication  |
+    |  Format              &emsp;|  Description                    |
+    |----------------------------|---------------------------------|
+    |  plaintext-password  &emsp;|  Use plain-text authentication  |
+    |  md5                 &emsp;|  Use MD5 authentication         |
+`,
+			Description: `OSPF area authentication type
 
+    |  Format              |  Description                    |
+    |----------------------------|---------------------------------|
+    |  plaintext-password  |  Use plain-text authentication  |
+    |  md5                 |  Use MD5 authentication         |
 `,
 		},
 
@@ -178,10 +195,15 @@ func (o VrfNameProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.A
 			Optional:    true,
 			MarkdownDescription: `OSPF network
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  OSPF network  |
+    |  Format   &emsp;|  Description   |
+    |-----------------|----------------|
+    |  ipv4net  &emsp;|  OSPF network  |
+`,
+			Description: `OSPF network
 
+    |  Format   |  Description   |
+    |-----------------|----------------|
+    |  ipv4net  |  OSPF network  |
 `,
 		},
 
@@ -189,12 +211,19 @@ func (o VrfNameProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Area shortcut mode
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  default  &emsp; |  Set default  |
-    |  disable  &emsp; |  Disable shortcutting mode  |
-    |  enable  &emsp; |  Enable shortcutting mode  |
+    |  Format   &emsp;|  Description                |
+    |-----------------|-----------------------------|
+    |  default  &emsp;|  Set default                |
+    |  disable  &emsp;|  Disable shortcutting mode  |
+    |  enable   &emsp;|  Enable shortcutting mode   |
+`,
+			Description: `Area shortcut mode
 
+    |  Format   |  Description                |
+    |-----------------|-----------------------------|
+    |  default  |  Set default                |
+    |  disable  |  Disable shortcutting mode  |
+    |  enable   |  Enable shortcutting mode   |
 `,
 		},
 
@@ -202,10 +231,15 @@ func (o VrfNameProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Set the filter for networks announced to other areas
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  Access-list number  |
+    |  Format  &emsp;|  Description         |
+    |----------------|----------------------|
+    |  u32     &emsp;|  Access-list number  |
+`,
+			Description: `Set the filter for networks announced to other areas
 
+    |  Format  |  Description         |
+    |----------------|----------------------|
+    |  u32     |  Access-list number  |
 `,
 		},
 
@@ -213,10 +247,15 @@ func (o VrfNameProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Set the filter for networks from other areas announced
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  Access-list number  |
+    |  Format  &emsp;|  Description         |
+    |----------------|----------------------|
+    |  u32     &emsp;|  Access-list number  |
+`,
+			Description: `Set the filter for networks from other areas announced
 
+    |  Format  |  Description         |
+    |----------------|----------------------|
+    |  u32     |  Access-list number  |
 `,
 		},
 
@@ -226,6 +265,9 @@ func (o VrfNameProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.A
 			Attributes: VrfNameProtocolsOspfAreaAreaType{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Area type
+
+`,
+			Description: `Area type
 
 `,
 		},

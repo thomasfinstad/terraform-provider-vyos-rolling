@@ -105,10 +105,15 @@ func (o VrfNameProtocolsStaticRoutesix) ResourceSchemaAttributes() map[string]sc
 			Required: true,
 			MarkdownDescription: `Static IPv6 route
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6net  &emsp; |  IPv6 static route  |
+    |  Format   &emsp;|  Description        |
+    |-----------------|---------------------|
+    |  ipv6net  &emsp;|  IPv6 static route  |
+`,
+			Description: `Static IPv6 route
 
+    |  Format   |  Description        |
+    |-----------------|---------------------|
+    |  ipv6net  |  IPv6 static route  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -132,10 +137,15 @@ func (o VrfNameProtocolsStaticRoutesix) ResourceSchemaAttributes() map[string]sc
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -161,10 +171,15 @@ func (o VrfNameProtocolsStaticRoutesix) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -176,12 +191,18 @@ func (o VrfNameProtocolsStaticRoutesix) ResourceSchemaAttributes() map[string]sc
 			MarkdownDescription: `Silently discard pkts when matched
 
 `,
+			Description: `Silently discard pkts when matched
+
+`,
 		},
 
 		"reject": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsStaticRoutesixReject{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Emit an ICMP unreachable when matched
+
+`,
+			Description: `Emit an ICMP unreachable when matched
 
 `,
 		},

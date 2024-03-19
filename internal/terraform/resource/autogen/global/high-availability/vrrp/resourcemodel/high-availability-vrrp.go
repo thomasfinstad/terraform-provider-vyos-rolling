@@ -83,6 +83,9 @@ func (o HighAvailabilityVrrp) ResourceSchemaAttributes() map[string]schema.Attri
 			MarkdownDescription: `Enable SNMP
 
 `,
+			Description: `Enable SNMP
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},

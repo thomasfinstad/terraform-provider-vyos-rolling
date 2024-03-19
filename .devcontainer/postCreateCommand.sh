@@ -26,7 +26,7 @@ pre-commit install --hook-type pre-commit --hook-type commit-msg
 # Tooling
 go install mvdan.cc/gofumpt@v0.6.0
 go install golang.org/x/tools/cmd/goimports@v0.19.0
-go install github.com/xuri/xgen@v0.0.0-20230702070049-db840e1a4605
+go install github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs@v0.14.1
 
 # Local terraform provider
 cat > "$HOME/.terraformrc" <<EOL

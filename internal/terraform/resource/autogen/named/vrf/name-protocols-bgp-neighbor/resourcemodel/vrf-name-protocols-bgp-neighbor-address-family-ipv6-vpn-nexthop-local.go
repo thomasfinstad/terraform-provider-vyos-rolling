@@ -33,6 +33,9 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnNexthopLocal) ResourceS
 			MarkdownDescription: `Leave link-local nexthop unchanged for this peer
 
 `,
+			Description: `Leave link-local nexthop unchanged for this peer
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},

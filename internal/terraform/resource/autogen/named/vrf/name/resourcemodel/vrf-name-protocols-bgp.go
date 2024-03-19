@@ -41,10 +41,15 @@ func (o VrfNameProtocolsBgp) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Autonomous System Number (ASN)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4294967294  &emsp; |  Autonomous System Number  |
+    |  Format        &emsp;|  Description               |
+    |----------------------|----------------------------|
+    |  1-4294967294  &emsp;|  Autonomous System Number  |
+`,
+			Description: `Autonomous System Number (ASN)
 
+    |  Format        |  Description               |
+    |----------------------|----------------------------|
+    |  1-4294967294  |  Autonomous System Number  |
 `,
 		},
 
@@ -56,12 +61,18 @@ func (o VrfNameProtocolsBgp) ResourceSchemaAttributes() map[string]schema.Attrib
 			MarkdownDescription: `BGP address-family parameters
 
 `,
+			Description: `BGP address-family parameters
+
+`,
 		},
 
 		"bmp": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpBmp{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `BGP Monitoring Protocol (BMP)
+
+`,
+			Description: `BGP Monitoring Protocol (BMP)
 
 `,
 		},
@@ -72,12 +83,18 @@ func (o VrfNameProtocolsBgp) ResourceSchemaAttributes() map[string]schema.Attrib
 			MarkdownDescription: `Listen for and accept BGP dynamic neighbors from range
 
 `,
+			Description: `Listen for and accept BGP dynamic neighbors from range
+
+`,
 		},
 
 		"parameters": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpParameters{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `BGP parameters
+
+`,
+			Description: `BGP parameters
 
 `,
 		},
@@ -88,6 +105,9 @@ func (o VrfNameProtocolsBgp) ResourceSchemaAttributes() map[string]schema.Attrib
 			MarkdownDescription: `Segment-Routing SRv6 configuration
 
 `,
+			Description: `Segment-Routing SRv6 configuration
+
+`,
 		},
 
 		"sid": schema.SingleNestedAttribute{
@@ -96,12 +116,18 @@ func (o VrfNameProtocolsBgp) ResourceSchemaAttributes() map[string]schema.Attrib
 			MarkdownDescription: `SID value for VRF
 
 `,
+			Description: `SID value for VRF
+
+`,
 		},
 
 		"timers": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpTimers{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `BGP protocol timers
+
+`,
+			Description: `BGP protocol timers
 
 `,
 		},

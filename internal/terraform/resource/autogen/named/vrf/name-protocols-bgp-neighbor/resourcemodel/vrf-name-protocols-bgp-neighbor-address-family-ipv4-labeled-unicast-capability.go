@@ -34,6 +34,9 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapability)
 			MarkdownDescription: `Advertise ORF capability to this peer
 
 `,
+			Description: `Advertise ORF capability to this peer
+
+`,
 		},
 	}
 }

@@ -32,11 +32,17 @@ func (o VrfNameProtocolsBgpTimers) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Hold timer
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Hold timer in seconds  |
-    |  0  &emsp; |  Disable hold timer  |
+    |  Format   &emsp;|  Description            |
+    |-----------------|-------------------------|
+    |  1-65535  &emsp;|  Hold timer in seconds  |
+    |  0        &emsp;|  Disable hold timer     |
+`,
+			Description: `Hold timer
 
+    |  Format   |  Description            |
+    |-----------------|-------------------------|
+    |  1-65535  |  Hold timer in seconds  |
+    |  0        |  Disable hold timer     |
 `,
 		},
 
@@ -44,10 +50,15 @@ func (o VrfNameProtocolsBgpTimers) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `BGP keepalive interval for this neighbor
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Keepalive interval in seconds  |
+    |  Format   &emsp;|  Description                    |
+    |-----------------|---------------------------------|
+    |  1-65535  &emsp;|  Keepalive interval in seconds  |
+`,
+			Description: `BGP keepalive interval for this neighbor
 
+    |  Format   |  Description                    |
+    |-----------------|---------------------------------|
+    |  1-65535  |  Keepalive interval in seconds  |
 `,
 		},
 

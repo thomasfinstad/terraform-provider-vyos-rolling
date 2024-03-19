@@ -90,6 +90,9 @@ func (o ContainerRegistry) ResourceSchemaAttributes() map[string]schema.Attribut
 			MarkdownDescription: `Registry Name
 
 `,
+			Description: `Registry Name
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -115,6 +118,9 @@ func (o ContainerRegistry) ResourceSchemaAttributes() map[string]schema.Attribut
 			MarkdownDescription: `Disable instance
 
 `,
+			Description: `Disable instance
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -125,6 +131,9 @@ func (o ContainerRegistry) ResourceSchemaAttributes() map[string]schema.Attribut
 			Attributes: ContainerRegistryAuthentication{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Authentication settings
+
+`,
+			Description: `Authentication settings
 
 `,
 		},

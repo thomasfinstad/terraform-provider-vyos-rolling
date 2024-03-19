@@ -33,16 +33,24 @@ func (o VrfNameProtocolsOspfAreaAreaTypeStub) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Summary-default cost
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-16777215  &emsp; |  Summary default cost  |
+    |  Format      &emsp;|  Description           |
+    |--------------------|------------------------|
+    |  0-16777215  &emsp;|  Summary default cost  |
+`,
+			Description: `Summary-default cost
 
+    |  Format      |  Description           |
+    |--------------------|------------------------|
+    |  0-16777215  |  Summary default cost  |
 `,
 		},
 
 		"no_summary": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not inject inter-area routes into the stub
+
+`,
+			Description: `Do not inject inter-area routes into the stub
 
 `,
 			Default:  booldefault.StaticBool(false),

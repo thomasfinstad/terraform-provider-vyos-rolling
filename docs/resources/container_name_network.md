@@ -52,10 +52,10 @@ Attach user defined network to container
 
 - `address` (List of String) Assign static IP address to container
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address  |
-    |  ipv6  &emsp; |  IPv6 address  |
+    |  Format  &emsp;|  Description   |
+    |----------------|----------------|
+    |  ipv4    &emsp;|  IPv4 address  |
+    |  ipv6    &emsp;|  IPv6 address  |
 
 ### Read-Only
 

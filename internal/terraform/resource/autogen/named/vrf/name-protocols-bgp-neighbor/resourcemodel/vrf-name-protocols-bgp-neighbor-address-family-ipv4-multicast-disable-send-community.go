@@ -34,6 +34,9 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommu
 			MarkdownDescription: `Disable sending extended community attributes to this peer
 
 `,
+			Description: `Disable sending extended community attributes to this peer
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -41,6 +44,9 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommu
 		"standard": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable sending standard community attributes to this peer
+
+`,
+			Description: `Disable sending standard community attributes to this peer
 
 `,
 			Default:  booldefault.StaticBool(false),

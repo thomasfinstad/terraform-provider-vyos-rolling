@@ -77,19 +77,19 @@ IPv6 gateway address
 
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `next_hop_id` (String) IPv6 gateway address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6  &emsp; |  Next-hop IPv6 router  |
+    |  Format  &emsp;|  Description           |
+    |----------------|------------------------|
+    |  ipv6    &emsp;|  Next-hop IPv6 router  |
 - `route6_id` (String) Static IPv6 route
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6net  &emsp; |  IPv6 static route  |
+    |  Format   &emsp;|  Description        |
+    |-----------------|---------------------|
+    |  ipv6net  &emsp;|  IPv6 static route  |
 
 ### Optional
 
@@ -97,24 +97,24 @@ IPv6 gateway address
 - `disable` (Boolean) Disable instance
 - `distance` (Number) Distance for this route
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Distance for this route  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  1-255   &emsp;|  Distance for this route  |
 - `interface` (String) Gateway interface name
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Gateway interface name  |
+    |  Format  &emsp;|  Description             |
+    |----------------|--------------------------|
+    |  txt     &emsp;|  Gateway interface name  |
 - `segments` (String) SRv6 segments
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Segs (SIDs)  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Segs (SIDs)  |
 - `vrf` (String) VRF to leak route
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Name of VRF to leak to  |
+    |  Format  &emsp;|  Description             |
+    |----------------|--------------------------|
+    |  txt     &emsp;|  Name of VRF to leak to  |
 
 ### Read-Only
 
@@ -128,9 +128,9 @@ Optional:
 - `multi_hop` (Attributes) Use BFD multi hop session (see [below for nested schema](#nestedatt--bfd--multi_hop))
 - `profile` (String) Use settings from BFD profile
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  BFD profile name  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  txt     &emsp;|  BFD profile name  |
 
 <a id="nestedatt--bfd--multi_hop"></a>
 ### Nested Schema for `bfd.multi_hop`

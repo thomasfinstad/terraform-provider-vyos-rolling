@@ -35,6 +35,9 @@ func (o VrfNameProtocolsBgpParametersDistance) ResourceSchemaAttributes() map[st
 			MarkdownDescription: `Global administratives distances for BGP routes
 
 `,
+			Description: `Global administratives distances for BGP routes
+
+`,
 		},
 	}
 }

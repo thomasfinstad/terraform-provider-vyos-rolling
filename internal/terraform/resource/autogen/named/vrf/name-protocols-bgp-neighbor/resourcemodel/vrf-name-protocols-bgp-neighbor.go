@@ -127,12 +127,19 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Required: true,
 			MarkdownDescription: `BGP neighbor
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  BGP neighbor IP address  |
-    |  ipv6  &emsp; |  BGP neighbor IPv6 address  |
-    |  txt  &emsp; |  Interface name  |
+    |  Format  &emsp;|  Description                |
+    |----------------|-----------------------------|
+    |  ipv4    &emsp;|  BGP neighbor IP address    |
+    |  ipv6    &emsp;|  BGP neighbor IPv6 address  |
+    |  txt     &emsp;|  Interface name             |
+`,
+			Description: `BGP neighbor
 
+    |  Format  |  Description                |
+    |----------------|-----------------------------|
+    |  ipv4    |  BGP neighbor IP address    |
+    |  ipv6    |  BGP neighbor IPv6 address  |
+    |  txt     |  Interface name             |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -156,10 +163,15 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -185,10 +197,15 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Minimum interval for sending routing updates
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-600  &emsp; |  Advertisement interval in seconds  |
+    |  Format  &emsp;|  Description                        |
+    |----------------|-------------------------------------|
+    |  0-600   &emsp;|  Advertisement interval in seconds  |
+`,
+			Description: `Minimum interval for sending routing updates
 
+    |  Format  |  Description                        |
+    |----------------|-------------------------------------|
+    |  0-600   |  Advertisement interval in seconds  |
 `,
 		},
 
@@ -196,16 +213,24 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
 		"disable_capability_negotiation": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable capability negotiation with this neighbor
+
+`,
+			Description: `Disable capability negotiation with this neighbor
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -217,6 +242,9 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			MarkdownDescription: `Disable check to see if eBGP peer address is a connected route
 
 `,
+			Description: `Disable check to see if eBGP peer address is a connected route
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -225,10 +253,15 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Allow this EBGP neighbor to not be on a directly connected network
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Number of hops  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  1-255   &emsp;|  Number of hops  |
+`,
+			Description: `Allow this EBGP neighbor to not be on a directly connected network
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  1-255   |  Number of hops  |
 `,
 		},
 
@@ -236,18 +269,28 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `BGP graceful restart functionality
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable BGP graceful restart at peer level  |
-    |  disable  &emsp; |  Disable BGP graceful restart at peer level  |
-    |  restart-helper  &emsp; |  Enable BGP graceful restart helper only functionality  |
+    |  Format          &emsp;|  Description                                            |
+    |------------------------|---------------------------------------------------------|
+    |  enable          &emsp;|  Enable BGP graceful restart at peer level              |
+    |  disable         &emsp;|  Disable BGP graceful restart at peer level             |
+    |  restart-helper  &emsp;|  Enable BGP graceful restart helper only functionality  |
+`,
+			Description: `BGP graceful restart functionality
 
+    |  Format          |  Description                                            |
+    |------------------------|---------------------------------------------------------|
+    |  enable          |  Enable BGP graceful restart at peer level              |
+    |  disable         |  Disable BGP graceful restart at peer level             |
+    |  restart-helper  |  Enable BGP graceful restart helper only functionality  |
 `,
 		},
 
 		"override_capability": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ignore capability negotiation with specified neighbor
+
+`,
+			Description: `Ignore capability negotiation with specified neighbor
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -259,6 +302,9 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			MarkdownDescription: `Do not initiate a session with this neighbor
 
 `,
+			Description: `Do not initiate a session with this neighbor
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -268,16 +314,24 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			MarkdownDescription: `BGP MD5 password
 
 `,
+			Description: `BGP MD5 password
+
+`,
 		},
 
 		"peer_group": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer group for this peer
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Peer-group name  |
+    |  Format  &emsp;|  Description      |
+    |----------------|-------------------|
+    |  txt     &emsp;|  Peer-group name  |
+`,
+			Description: `Peer group for this peer
 
+    |  Format  |  Description      |
+    |----------------|-------------------|
+    |  txt     |  Peer-group name  |
 `,
 		},
 
@@ -285,18 +339,28 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Neighbor BGP AS number
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4294967294  &emsp; |  Neighbor AS number  |
-    |  external  &emsp; |  Any AS different from the local AS  |
-    |  internal  &emsp; |  Neighbor AS number  |
+    |  Format        &emsp;|  Description                         |
+    |----------------------|--------------------------------------|
+    |  1-4294967294  &emsp;|  Neighbor AS number                  |
+    |  external      &emsp;|  Any AS different from the local AS  |
+    |  internal      &emsp;|  Neighbor AS number                  |
+`,
+			Description: `Neighbor BGP AS number
 
+    |  Format        |  Description                         |
+    |----------------------|--------------------------------------|
+    |  1-4294967294  |  Neighbor AS number                  |
+    |  external      |  Any AS different from the local AS  |
+    |  internal      |  Neighbor AS number                  |
 `,
 		},
 
 		"shutdown": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Administratively shutdown this neighbor
+
+`,
+			Description: `Administratively shutdown this neighbor
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -308,6 +372,9 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			MarkdownDescription: `Do not send back prefixes learned from the neighbor
 
 `,
+			Description: `Do not send back prefixes learned from the neighbor
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -315,6 +382,9 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 		"enforce_first_as": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Ensure the first AS in the AS path matches the peer AS
+
+`,
+			Description: `Ensure the first AS in the AS path matches the peer AS
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -326,6 +396,9 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			MarkdownDescription: `Enable strict capability negotiation
 
 `,
+			Description: `Enable strict capability negotiation
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -334,12 +407,19 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Source IP of routing updates
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address of route source  |
-    |  ipv6  &emsp; |  IPv6 address of route source  |
-    |  txt  &emsp; |  Interface as route source  |
+    |  Format  &emsp;|  Description                   |
+    |----------------|--------------------------------|
+    |  ipv4    &emsp;|  IPv4 address of route source  |
+    |  ipv6    &emsp;|  IPv6 address of route source  |
+    |  txt     &emsp;|  Interface as route source     |
+`,
+			Description: `Source IP of routing updates
 
+    |  Format  |  Description                   |
+    |----------------|--------------------------------|
+    |  ipv4    |  IPv4 address of route source  |
+    |  ipv6    |  IPv6 address of route source  |
+    |  txt     |  Interface as route source     |
 `,
 		},
 
@@ -347,10 +427,15 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Numeric IP port  |
+    |  Format   &emsp;|  Description      |
+    |-----------------|-------------------|
+    |  1-65535  &emsp;|  Numeric IP port  |
+`,
+			Description: `Port number used by connection
 
+    |  Format   |  Description      |
+    |-----------------|-------------------|
+    |  1-65535  |  Numeric IP port  |
 `,
 		},
 
@@ -362,12 +447,18 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			MarkdownDescription: `Address-family parameters
 
 `,
+			Description: `Address-family parameters
+
+`,
 		},
 
 		"bfd": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpNeighborBfd{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Enable Bidirectional Forwarding Detection (BFD) support
+
+`,
+			Description: `Enable Bidirectional Forwarding Detection (BFD) support
 
 `,
 		},
@@ -378,12 +469,18 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			MarkdownDescription: `Advertise capabilities to this peer-group
 
 `,
+			Description: `Advertise capabilities to this peer-group
+
+`,
 		},
 
 		"interface": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpNeighborInterface{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Interface parameters
+
+`,
+			Description: `Interface parameters
 
 `,
 		},
@@ -394,6 +491,9 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			MarkdownDescription: `Manipulate path attributes from incoming UPDATE messages
 
 `,
+			Description: `Manipulate path attributes from incoming UPDATE messages
+
+`,
 		},
 
 		"timers": schema.SingleNestedAttribute{
@@ -402,12 +502,18 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			MarkdownDescription: `Neighbor timers
 
 `,
+			Description: `Neighbor timers
+
+`,
 		},
 
 		"ttl_security": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpNeighborTTLSecURIty{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Ttl security mechanism
+
+`,
+			Description: `Ttl security mechanism
 
 `,
 		},

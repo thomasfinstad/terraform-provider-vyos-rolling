@@ -77,18 +77,18 @@ Local role for BGP neighbor (RFC9234)
 
 - `local_role_id` (String) Local role for BGP neighbor (RFC9234)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  customer  &emsp; |  Using Transit  |
-    |  peer  &emsp; |  Public/Private Peering  |
-    |  provider  &emsp; |  Providing Transit  |
-    |  rs-client  &emsp; |  RS Client  |
-    |  rs-server  &emsp; |  Route Server  |
+    |  Format     &emsp;|  Description             |
+    |-------------------|--------------------------|
+    |  customer   &emsp;|  Using Transit           |
+    |  peer       &emsp;|  Public/Private Peering  |
+    |  provider   &emsp;|  Providing Transit       |
+    |  rs-client  &emsp;|  RS Client               |
+    |  rs-server  &emsp;|  Route Server            |
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `peer_group_id` (String) Name of peer-group
 
 ### Optional

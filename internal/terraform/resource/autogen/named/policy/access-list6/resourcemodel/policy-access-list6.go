@@ -88,10 +88,15 @@ func (o PolicyAccessListsix) ResourceSchemaAttributes() map[string]schema.Attrib
 			Required: true,
 			MarkdownDescription: `IPv6 access-list filter
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Name of IPv6 access-list  |
+    |  Format  &emsp;|  Description               |
+    |----------------|----------------------------|
+    |  txt     &emsp;|  Name of IPv6 access-list  |
+`,
+			Description: `IPv6 access-list filter
 
+    |  Format  |  Description               |
+    |----------------|----------------------------|
+    |  txt     |  Name of IPv6 access-list  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -117,10 +122,15 @@ func (o PolicyAccessListsix) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 

@@ -34,6 +34,9 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding) ResourceSchemaAttri
 			MarkdownDescription: `Disable instance
 
 `,
+			Description: `Disable instance
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -41,6 +44,9 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding) ResourceSchemaAttri
 		"head_end_replication": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Flood BUM packets using head-end replication
+
+`,
+			Description: `Flood BUM packets using head-end replication
 
 `,
 			Default:  booldefault.StaticBool(false),

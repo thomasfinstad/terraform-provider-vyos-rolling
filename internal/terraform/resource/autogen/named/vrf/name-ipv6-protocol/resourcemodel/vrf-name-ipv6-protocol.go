@@ -99,18 +99,31 @@ func (o VrfNameIPvsixProtocol) ResourceSchemaAttributes() map[string]schema.Attr
 			Required: true,
 			MarkdownDescription: `Filter routing info exchanged between routing protocol and zebra
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  any  &emsp; |  Any of the above protocols  |
-    |  babel  &emsp; |  Babel routing protocol  |
-    |  bgp  &emsp; |  Border Gateway Protocol  |
-    |  connected  &emsp; |  Connected routes (directly attached subnet or host)  |
-    |  isis  &emsp; |  Intermediate System to Intermediate System  |
-    |  kernel  &emsp; |  Kernel routes (not installed via the zebra RIB)  |
-    |  ospfv3  &emsp; |  Open Shortest Path First (OSPFv3)  |
-    |  ripng  &emsp; |  Routing Information Protocol next-generation  |
-    |  static  &emsp; |  Statically configured routes  |
+    |  Format     &emsp;|  Description                                          |
+    |-------------------|-------------------------------------------------------|
+    |  any        &emsp;|  Any of the above protocols                           |
+    |  babel      &emsp;|  Babel routing protocol                               |
+    |  bgp        &emsp;|  Border Gateway Protocol                              |
+    |  connected  &emsp;|  Connected routes (directly attached subnet or host)  |
+    |  isis       &emsp;|  Intermediate System to Intermediate System           |
+    |  kernel     &emsp;|  Kernel routes (not installed via the zebra RIB)      |
+    |  ospfv3     &emsp;|  Open Shortest Path First (OSPFv3)                    |
+    |  ripng      &emsp;|  Routing Information Protocol next-generation         |
+    |  static     &emsp;|  Statically configured routes                         |
+`,
+			Description: `Filter routing info exchanged between routing protocol and zebra
 
+    |  Format     |  Description                                          |
+    |-------------------|-------------------------------------------------------|
+    |  any        |  Any of the above protocols                           |
+    |  babel      |  Babel routing protocol                               |
+    |  bgp        |  Border Gateway Protocol                              |
+    |  connected  |  Connected routes (directly attached subnet or host)  |
+    |  isis       |  Intermediate System to Intermediate System           |
+    |  kernel     |  Kernel routes (not installed via the zebra RIB)      |
+    |  ospfv3     |  Open Shortest Path First (OSPFv3)                    |
+    |  ripng      |  Routing Information Protocol next-generation         |
+    |  static     |  Statically configured routes                         |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -134,10 +147,15 @@ func (o VrfNameIPvsixProtocol) ResourceSchemaAttributes() map[string]schema.Attr
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -163,10 +181,15 @@ func (o VrfNameIPvsixProtocol) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Route map name  |
+`,
+			Description: `Specify route-map name to use
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  txt     |  Route map name  |
 `,
 		},
 

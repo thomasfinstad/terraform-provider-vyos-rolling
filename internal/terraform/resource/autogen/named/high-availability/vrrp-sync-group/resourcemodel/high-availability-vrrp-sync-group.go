@@ -92,6 +92,9 @@ func (o HighAvailabilityVrrpSyncGroup) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `VRRP sync group
 
 `,
+			Description: `VRRP sync group
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -117,10 +120,15 @@ func (o HighAvailabilityVrrpSyncGroup) ResourceSchemaAttributes() map[string]sch
 			Optional:    true,
 			MarkdownDescription: `Sync group member
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRRP group name  |
+    |  Format  &emsp;|  Description      |
+    |----------------|-------------------|
+    |  txt     &emsp;|  VRRP group name  |
+`,
+			Description: `Sync group member
 
+    |  Format  |  Description      |
+    |----------------|-------------------|
+    |  txt     |  VRRP group name  |
 `,
 		},
 
@@ -132,12 +140,18 @@ func (o HighAvailabilityVrrpSyncGroup) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Health check
 
 `,
+			Description: `Health check
+
+`,
 		},
 
 		"transition_script": schema.SingleNestedAttribute{
 			Attributes: HighAvailabilityVrrpSyncGroupTransitionScrIPt{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `VRRP transition scripts
+
+`,
+			Description: `VRRP transition scripts
 
 `,
 		},

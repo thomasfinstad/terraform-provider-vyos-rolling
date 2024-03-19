@@ -34,6 +34,9 @@ func (o VrfNameProtocolsOspfTimersThroTTLe) ResourceSchemaAttributes() map[strin
 			MarkdownDescription: `OSPF SPF timers
 
 `,
+			Description: `OSPF SPF timers
+
+`,
 		},
 	}
 }

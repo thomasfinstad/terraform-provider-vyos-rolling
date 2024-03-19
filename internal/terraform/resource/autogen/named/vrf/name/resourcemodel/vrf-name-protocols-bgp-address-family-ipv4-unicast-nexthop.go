@@ -34,6 +34,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastNexthop) ResourceSchemaAtt
 			MarkdownDescription: `Between current address-family and vpn
 
 `,
+			Description: `Between current address-family and vpn
+
+`,
 		},
 	}
 }

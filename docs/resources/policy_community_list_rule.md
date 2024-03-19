@@ -47,38 +47,38 @@ Rule for this BGP community list
 
 - `community_list_id` (String) Add a BGP community list entry
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  BGP community-list name  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  txt     &emsp;|  BGP community-list name  |
 - `rule_id` (Number) Rule for this BGP community list
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Community-list rule number  |
+    |  Format   &emsp;|  Description                 |
+    |-----------------|------------------------------|
+    |  1-65535  &emsp;|  Community-list rule number  |
 
 ### Optional
 
 - `action` (String) Action to take on entries matching this rule
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  permit  &emsp; |  Permit matching entries  |
-    |  deny  &emsp; |  Deny matching entries  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  permit  &emsp;|  Permit matching entries  |
+    |  deny    &emsp;|  Deny matching entries    |
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `regex` (String) Regular expression to match against a community-list
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <aa:nn>  &emsp; |  Community number in AA:NN format  |
-    |  local-AS  &emsp; |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
-    |  no-advertise  &emsp; |  Well-known communities value NO_ADVERTISE 0xFFFFFF02  |
-    |  no-export  &emsp; |  Well-known communities value NO_EXPORT 0xFFFFFF01  |
-    |  internet  &emsp; |  Well-known communities value 0  |
-    |  additive  &emsp; |  New value is appended to the existing value  |
+    |  Format         &emsp;|  Description                                                  |
+    |-----------------------|---------------------------------------------------------------|
+    |  &lt;aa:nn&gt;  &emsp;|  Community number in AA:NN format                             |
+    |  local-AS       &emsp;|  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
+    |  no-advertise   &emsp;|  Well-known communities value NO_ADVERTISE 0xFFFFFF02         |
+    |  no-export      &emsp;|  Well-known communities value NO_EXPORT 0xFFFFFF01            |
+    |  internet       &emsp;|  Well-known communities value 0                               |
+    |  additive       &emsp;|  New value is appended to the existing value                  |
 
 ### Read-Only
 

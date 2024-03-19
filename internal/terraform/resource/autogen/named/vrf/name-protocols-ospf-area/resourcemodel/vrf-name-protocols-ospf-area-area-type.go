@@ -35,6 +35,9 @@ func (o VrfNameProtocolsOspfAreaAreaType) ResourceSchemaAttributes() map[string]
 			MarkdownDescription: `Normal OSPF area
 
 `,
+			Description: `Normal OSPF area
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -47,12 +50,18 @@ func (o VrfNameProtocolsOspfAreaAreaType) ResourceSchemaAttributes() map[string]
 			MarkdownDescription: `Not-So-Stubby OSPF area
 
 `,
+			Description: `Not-So-Stubby OSPF area
+
+`,
 		},
 
 		"stub": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfAreaAreaTypeStub{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Stub OSPF area
+
+`,
+			Description: `Stub OSPF area
 
 `,
 		},

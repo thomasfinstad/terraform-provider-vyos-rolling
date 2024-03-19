@@ -32,10 +32,15 @@ func (o VrfNameProtocolsBgpParametersConfederation) ResourceSchemaAttributes() m
 			Optional: true,
 			MarkdownDescription: `Confederation AS identifier
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4294967294  &emsp; |  Confederation AS id  |
+    |  Format        &emsp;|  Description          |
+    |----------------------|-----------------------|
+    |  1-4294967294  &emsp;|  Confederation AS id  |
+`,
+			Description: `Confederation AS identifier
 
+    |  Format        |  Description          |
+    |----------------------|-----------------------|
+    |  1-4294967294  |  Confederation AS id  |
 `,
 		},
 
@@ -44,10 +49,15 @@ func (o VrfNameProtocolsBgpParametersConfederation) ResourceSchemaAttributes() m
 			Optional:    true,
 			MarkdownDescription: `Peer ASs in the BGP confederation
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4294967294  &emsp; |  Peer AS number  |
+    |  Format        &emsp;|  Description     |
+    |----------------------|------------------|
+    |  1-4294967294  &emsp;|  Peer AS number  |
+`,
+			Description: `Peer ASs in the BGP confederation
 
+    |  Format        |  Description     |
+    |----------------------|------------------|
+    |  1-4294967294  |  Peer AS number  |
 `,
 		},
 

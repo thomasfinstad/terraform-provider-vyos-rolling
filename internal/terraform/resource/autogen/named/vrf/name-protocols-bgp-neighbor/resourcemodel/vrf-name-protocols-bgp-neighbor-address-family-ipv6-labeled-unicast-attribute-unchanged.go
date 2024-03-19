@@ -35,6 +35,9 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAttributeUnc
 			MarkdownDescription: `Send AS path unchanged
 
 `,
+			Description: `Send AS path unchanged
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -44,6 +47,9 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAttributeUnc
 			MarkdownDescription: `Send multi-exit discriminator unchanged
 
 `,
+			Description: `Send multi-exit discriminator unchanged
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -51,6 +57,9 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAttributeUnc
 		"next_hop": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Send nexthop unchanged
+
+`,
+			Description: `Send nexthop unchanged
 
 `,
 			Default:  booldefault.StaticBool(false),

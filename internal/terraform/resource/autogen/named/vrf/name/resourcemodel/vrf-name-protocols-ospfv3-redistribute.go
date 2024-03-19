@@ -40,12 +40,18 @@ func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceSchemaAttributes() map[s
 			MarkdownDescription: `Redistribute Babel routes
 
 `,
+			Description: `Redistribute Babel routes
+
+`,
 		},
 
 		"bgp": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfvthreeRedistributeBgp{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute BGP routes
+
+`,
+			Description: `Redistribute BGP routes
 
 `,
 		},
@@ -56,12 +62,18 @@ func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceSchemaAttributes() map[s
 			MarkdownDescription: `Redistribute connected routes
 
 `,
+			Description: `Redistribute connected routes
+
+`,
 		},
 
 		"isis": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfvthreeRedistributeIsis{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute IS-IS routes
+
+`,
+			Description: `Redistribute IS-IS routes
 
 `,
 		},
@@ -72,6 +84,9 @@ func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceSchemaAttributes() map[s
 			MarkdownDescription: `Redistribute kernel routes
 
 `,
+			Description: `Redistribute kernel routes
+
+`,
 		},
 
 		"ripng": schema.SingleNestedAttribute{
@@ -80,12 +95,18 @@ func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceSchemaAttributes() map[s
 			MarkdownDescription: `Redistribute RIPNG routes
 
 `,
+			Description: `Redistribute RIPNG routes
+
+`,
 		},
 
 		"static": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfvthreeRedistributeStatic{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute static routes
+
+`,
+			Description: `Redistribute static routes
 
 `,
 		},

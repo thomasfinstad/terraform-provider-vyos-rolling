@@ -33,6 +33,9 @@ func (o VrfNameProtocolsOspfCapability) ResourceSchemaAttributes() map[string]sc
 			MarkdownDescription: `Opaque LSA
 
 `,
+			Description: `Opaque LSA
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},

@@ -33,11 +33,17 @@ func (o FirewallZoneIntraZoneFilteringFirewall) ResourceSchemaAttributes() map[s
 			MarkdownDescription: `IPv6 firewall ruleset
 
 `,
+			Description: `IPv6 firewall ruleset
+
+`,
 		},
 
 		"name": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv4 firewall ruleset
+
+`,
+			Description: `IPv4 firewall ruleset
 
 `,
 		},

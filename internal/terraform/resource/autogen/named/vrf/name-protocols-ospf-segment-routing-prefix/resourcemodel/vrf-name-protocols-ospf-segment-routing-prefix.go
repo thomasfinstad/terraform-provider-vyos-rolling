@@ -103,10 +103,15 @@ func (o VrfNameProtocolsOspfSegmentRoutingPrefix) ResourceSchemaAttributes() map
 			Required: true,
 			MarkdownDescription: `Static IPv4 prefix segment/label mapping
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  IPv4 prefix segment  |
+    |  Format   &emsp;|  Description          |
+    |-----------------|-----------------------|
+    |  ipv4net  &emsp;|  IPv4 prefix segment  |
+`,
+			Description: `Static IPv4 prefix segment/label mapping
 
+    |  Format   |  Description          |
+    |-----------------|-----------------------|
+    |  ipv4net  |  IPv4 prefix segment  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -130,10 +135,15 @@ func (o VrfNameProtocolsOspfSegmentRoutingPrefix) ResourceSchemaAttributes() map
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -161,6 +171,9 @@ func (o VrfNameProtocolsOspfSegmentRoutingPrefix) ResourceSchemaAttributes() map
 			Attributes: VrfNameProtocolsOspfSegmentRoutingPrefixIndex{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Specify the index value of prefix segment/label ID
+
+`,
+			Description: `Specify the index value of prefix segment/label ID
 
 `,
 		},

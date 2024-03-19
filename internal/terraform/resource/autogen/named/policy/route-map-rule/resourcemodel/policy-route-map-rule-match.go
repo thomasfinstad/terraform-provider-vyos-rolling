@@ -46,11 +46,17 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 			MarkdownDescription: `BGP as-path-list to match
 
 `,
+			Description: `BGP as-path-list to match
+
+`,
 		},
 
 		"extcommunity": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `BGP extended community to match
+
+`,
+			Description: `BGP extended community to match
 
 `,
 		},
@@ -59,10 +65,15 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Interface to use
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Interface name  |
+`,
+			Description: `Interface to use
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  txt     |  Interface name  |
 `,
 		},
 
@@ -70,10 +81,15 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Local Preference
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-4294967295  &emsp; |  Local Preference  |
+    |  Format        &emsp;|  Description       |
+    |----------------------|--------------------|
+    |  0-4294967295  &emsp;|  Local Preference  |
+`,
+			Description: `Local Preference
 
+    |  Format        |  Description       |
+    |----------------------|--------------------|
+    |  0-4294967295  |  Local Preference  |
 `,
 		},
 
@@ -81,10 +97,15 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Metric of route to match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Route metric  |
+    |  Format   &emsp;|  Description   |
+    |-----------------|----------------|
+    |  1-65535  &emsp;|  Route metric  |
+`,
+			Description: `Metric of route to match
 
+    |  Format   |  Description   |
+    |-----------------|----------------|
+    |  1-65535  |  Route metric  |
 `,
 		},
 
@@ -92,12 +113,19 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `BGP origin code to match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  egp  &emsp; |  Exterior gateway protocol origin  |
-    |  igp  &emsp; |  Interior gateway protocol origin  |
-    |  incomplete  &emsp; |  Incomplete origin  |
+    |  Format      &emsp;|  Description                       |
+    |--------------------|------------------------------------|
+    |  egp         &emsp;|  Exterior gateway protocol origin  |
+    |  igp         &emsp;|  Interior gateway protocol origin  |
+    |  incomplete  &emsp;|  Incomplete origin                 |
+`,
+			Description: `BGP origin code to match
 
+    |  Format      |  Description                       |
+    |--------------------|------------------------------------|
+    |  egp         |  Exterior gateway protocol origin  |
+    |  igp         |  Interior gateway protocol origin  |
+    |  incomplete  |  Incomplete origin                 |
 `,
 		},
 
@@ -105,11 +133,17 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Peer address to match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  Peer IP address  |
-    |  ipv6  &emsp; |  Peer IPv6 address  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  ipv4    &emsp;|  Peer IP address    |
+    |  ipv6    &emsp;|  Peer IPv6 address  |
+`,
+			Description: `Peer address to match
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  ipv4    |  Peer IP address    |
+    |  ipv6    |  Peer IPv6 address  |
 `,
 		},
 
@@ -117,21 +151,37 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Match protocol via which the route was learnt
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  babel  &emsp; |  Babel routing protocol (Babel)  |
-    |  bgp  &emsp; |  Border Gateway Protocol (BGP)  |
-    |  connected  &emsp; |  Connected routes (directly attached subnet or host)  |
-    |  isis  &emsp; |  Intermediate System to Intermediate System (IS-IS)  |
-    |  kernel  &emsp; |  Kernel routes  |
-    |  ospf  &emsp; |  Open Shortest Path First (OSPFv2)  |
-    |  ospfv3  &emsp; |  Open Shortest Path First (IPv6) (OSPFv3)  |
-    |  rip  &emsp; |  Routing Information Protocol (RIP)  |
-    |  ripng  &emsp; |  Routing Information Protocol next-generation (IPv6) (RIPng)  |
-    |  static  &emsp; |  Statically configured routes  |
-    |  table  &emsp; |  Non-main Kernel Routing Table  |
-    |  vnc  &emsp; |  Virtual Network Control (VNC)  |
+    |  Format     &emsp;|  Description                                                  |
+    |-------------------|---------------------------------------------------------------|
+    |  babel      &emsp;|  Babel routing protocol (Babel)                               |
+    |  bgp        &emsp;|  Border Gateway Protocol (BGP)                                |
+    |  connected  &emsp;|  Connected routes (directly attached subnet or host)          |
+    |  isis       &emsp;|  Intermediate System to Intermediate System (IS-IS)           |
+    |  kernel     &emsp;|  Kernel routes                                                |
+    |  ospf       &emsp;|  Open Shortest Path First (OSPFv2)                            |
+    |  ospfv3     &emsp;|  Open Shortest Path First (IPv6) (OSPFv3)                     |
+    |  rip        &emsp;|  Routing Information Protocol (RIP)                           |
+    |  ripng      &emsp;|  Routing Information Protocol next-generation (IPv6) (RIPng)  |
+    |  static     &emsp;|  Statically configured routes                                 |
+    |  table      &emsp;|  Non-main Kernel Routing Table                                |
+    |  vnc        &emsp;|  Virtual Network Control (VNC)                                |
+`,
+			Description: `Match protocol via which the route was learnt
 
+    |  Format     |  Description                                                  |
+    |-------------------|---------------------------------------------------------------|
+    |  babel      |  Babel routing protocol (Babel)                               |
+    |  bgp        |  Border Gateway Protocol (BGP)                                |
+    |  connected  |  Connected routes (directly attached subnet or host)          |
+    |  isis       |  Intermediate System to Intermediate System (IS-IS)           |
+    |  kernel     |  Kernel routes                                                |
+    |  ospf       |  Open Shortest Path First (OSPFv2)                            |
+    |  ospfv3     |  Open Shortest Path First (IPv6) (OSPFv3)                     |
+    |  rip        |  Routing Information Protocol (RIP)                           |
+    |  ripng      |  Routing Information Protocol next-generation (IPv6) (RIPng)  |
+    |  static     |  Statically configured routes                                 |
+    |  table      |  Non-main Kernel Routing Table                                |
+    |  vnc        |  Virtual Network Control (VNC)                                |
 `,
 		},
 
@@ -139,12 +189,19 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Match RPKI validation result
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  invalid  &emsp; |  Match invalid entries  |
-    |  notfound  &emsp; |  Match notfound entries  |
-    |  valid  &emsp; |  Match valid entries  |
+    |  Format    &emsp;|  Description             |
+    |------------------|--------------------------|
+    |  invalid   &emsp;|  Match invalid entries   |
+    |  notfound  &emsp;|  Match notfound entries  |
+    |  valid     &emsp;|  Match valid entries     |
+`,
+			Description: `Match RPKI validation result
 
+    |  Format    |  Description             |
+    |------------------|--------------------------|
+    |  invalid   |  Match invalid entries   |
+    |  notfound  |  Match notfound entries  |
+    |  valid     |  Match valid entries     |
 `,
 		},
 
@@ -152,10 +209,15 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Route tag value
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Route tag  |
+    |  Format   &emsp;|  Description  |
+    |-----------------|---------------|
+    |  1-65535  &emsp;|  Route tag    |
+`,
+			Description: `Route tag value
 
+    |  Format   |  Description  |
+    |-----------------|---------------|
+    |  1-65535  |  Route tag    |
 `,
 		},
 
@@ -167,12 +229,18 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 			MarkdownDescription: `BGP community-list to match
 
 `,
+			Description: `BGP community-list to match
+
+`,
 		},
 
 		"evpn": schema.SingleNestedAttribute{
 			Attributes: PolicyRouteMapRuleMatchEvpn{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Ethernet Virtual Private Network
+
+`,
+			Description: `Ethernet Virtual Private Network
 
 `,
 		},
@@ -183,6 +251,9 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 			MarkdownDescription: `IP prefix parameters to match
 
 `,
+			Description: `IP prefix parameters to match
+
+`,
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
@@ -191,12 +262,18 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 			MarkdownDescription: `IPv6 prefix parameters to match
 
 `,
+			Description: `IPv6 prefix parameters to match
+
+`,
 		},
 
 		"large_community": schema.SingleNestedAttribute{
 			Attributes: PolicyRouteMapRuleMatchLargeCommunity{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Match BGP large communities
+
+`,
+			Description: `Match BGP large communities
 
 `,
 		},

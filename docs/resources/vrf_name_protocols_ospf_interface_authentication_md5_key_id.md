@@ -97,27 +97,27 @@ MD5 key id
 
 - `interface_id` (String) Interface configuration
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Interface name  |
 - `key_id_id` (Number) MD5 key id
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  MD5 key id  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  1-255   &emsp;|  MD5 key id   |
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 
 ### Optional
 
 - `md5_key` (String) MD5 authentication type
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  MD5 Key (16 characters or less)  |
+    |  Format  &emsp;|  Description                      |
+    |----------------|-----------------------------------|
+    |  txt     &emsp;|  MD5 Key (16 characters or less)  |
 
 ### Read-Only
 

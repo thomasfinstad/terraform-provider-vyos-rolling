@@ -136,7 +136,8 @@ import (
 				{{- end -}}
 			{
 				Required:            true,
-				MarkdownDescription: `{{.Description}}`,
+				MarkdownDescription: `{{.MarkdownDescription}}`,
+				Description: `{{.Description}}`,
 				PlanModifiers:
 					{{- if eq .ValueType "string" -}}
 						[]planmodifier.String{
@@ -178,7 +179,8 @@ import (
 	{{if eq .ValueType "string" -}}
 		schema.StringAttribute{
 			Optional:            true,
-			MarkdownDescription: `{{.Description}}`,
+			MarkdownDescription: `{{.MarkdownDescription}}`,
+			Description: `{{.Description}}`,
 			{{if .Default }}
 				// Default:          stringdefault.StaticString({{.Default}}),
 				Computed:            true,
@@ -187,7 +189,8 @@ import (
 	{{- else  if eq .ValueType "number" -}}
 		schema.NumberAttribute{
 			Optional:            true,
-			MarkdownDescription: `{{.Description}}`,
+			MarkdownDescription: `{{.MarkdownDescription}}`,
+			Description: `{{.Description}}`,
 			{{if .Default }}
 				// Default:          stringdefault.StaticString({{.Default}}),
 				Computed:            true,
@@ -196,7 +199,8 @@ import (
 	{{- else if eq .ValueType "bool" -}}
 		schema.BoolAttribute{
 			Optional:            true,
-			MarkdownDescription: `{{.Description}}`,
+			MarkdownDescription: `{{.MarkdownDescription}}`,
+			Description: `{{.Description}}`,
 			Default: booldefault.StaticBool(false),
 			Computed:            true,
 		},
@@ -210,7 +214,8 @@ import (
 		schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:            true,
-			MarkdownDescription: `{{.Description}}`,
+			MarkdownDescription: `{{.MarkdownDescription}}`,
+			Description: `{{.Description}}`,
 			{{if .Default }}
 				// Default:          stringdefault.StaticString({{.Default}}),
 				Computed:            true,
@@ -220,7 +225,8 @@ import (
 		schema.ListAttribute{
 			ElementType: types.NumberType,
 			Optional:            true,
-			MarkdownDescription: `{{.Description}}`,
+			MarkdownDescription: `{{.MarkdownDescription}}`,
+			Description: `{{.Description}}`,
 			{{if .Default }}
 				// Default:          stringdefault.StaticString({{.Default}}),
 				Computed:            true,
@@ -230,7 +236,8 @@ import (
 		schema.ListAttribute{
 			ElementType: types.BoolType,
 			Optional:            true,
-			MarkdownDescription: `{{.Description}}`,
+			MarkdownDescription: `{{.MarkdownDescription}}`,
+			Description: `{{.Description}}`,
 			Default: booldefault.StaticBool(false),
 			Computed:            true,
 		},
@@ -402,7 +409,8 @@ import (
 					{{- end -}}
 				{
 					Required:            true,
-					MarkdownDescription: `{{.Description}}`,
+					MarkdownDescription: `{{.MarkdownDescription}}`,
+					Description: `{{.Description}}`,
 					PlanModifiers:
 					{{- if eq .ValueType "string" -}}
 						[]planmodifier.String{
@@ -455,7 +463,8 @@ import (
 						"{{.BaseNameSB}}": schema.SingleNestedAttribute{
 							Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(),
 							Optional:            true,
-							MarkdownDescription: `{{.Description}}`,
+							MarkdownDescription: `{{.MarkdownDescription}}`,
+							Description: `{{.Description}}`,
 						},
 					{{end}}
 				{{end}}
@@ -475,7 +484,8 @@ import (
 						"{{.BaseNameS}}": schema.SingleNestedAttribute{
 							Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(),
 							Optional:            true,
-							MarkdownDescription: `{{.Description}}`,
+							MarkdownDescription: `{{.MarkdownDescription}}`,
+							Description: `{{.Description}}`,
 						},
 					{{end}}
 				{{end}}

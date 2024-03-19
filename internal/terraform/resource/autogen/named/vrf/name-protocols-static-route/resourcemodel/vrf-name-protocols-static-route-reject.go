@@ -32,10 +32,15 @@ func (o VrfNameProtocolsStaticRouteReject) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `Distance for this route
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Distance for this route  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  1-255   &emsp;|  Distance for this route  |
+`,
+			Description: `Distance for this route
 
+    |  Format  |  Description              |
+    |----------------|---------------------------|
+    |  1-255   |  Distance for this route  |
 `,
 		},
 
@@ -43,10 +48,15 @@ func (o VrfNameProtocolsStaticRouteReject) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `Tag value for this route
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4294967295  &emsp; |  Tag value for this route  |
+    |  Format        &emsp;|  Description               |
+    |----------------------|----------------------------|
+    |  1-4294967295  &emsp;|  Tag value for this route  |
+`,
+			Description: `Tag value for this route
 
+    |  Format        |  Description               |
+    |----------------------|----------------------------|
+    |  1-4294967295  |  Tag value for this route  |
 `,
 		},
 

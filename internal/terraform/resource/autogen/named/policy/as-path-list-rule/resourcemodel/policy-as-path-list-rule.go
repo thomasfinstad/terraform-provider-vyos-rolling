@@ -100,10 +100,15 @@ func (o PolicyAsPathListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Required: true,
 			MarkdownDescription: `Rule for this as-path-list
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  AS path list rule number  |
+    |  Format   &emsp;|  Description               |
+    |-----------------|----------------------------|
+    |  1-65535  &emsp;|  AS path list rule number  |
+`,
+			Description: `Rule for this as-path-list
 
+    |  Format   |  Description               |
+    |-----------------|----------------------------|
+    |  1-65535  |  AS path list rule number  |
 `,
 			PlanModifiers: []planmodifier.Number{
 				numberplanmodifier.RequiresReplace(),
@@ -114,10 +119,15 @@ func (o PolicyAsPathListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Required: true,
 			MarkdownDescription: `Add a BGP autonomous system path filter
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  AS path list name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  AS path list name  |
+`,
+			Description: `Add a BGP autonomous system path filter
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  AS path list name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -143,11 +153,17 @@ func (o PolicyAsPathListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  permit  &emsp; |  Permit matching entries  |
-    |  deny  &emsp; |  Deny matching entries  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  permit  &emsp;|  Permit matching entries  |
+    |  deny    &emsp;|  Deny matching entries    |
+`,
+			Description: `Action to take on entries matching this rule
 
+    |  Format  |  Description              |
+    |----------------|---------------------------|
+    |  permit  |  Permit matching entries  |
+    |  deny    |  Deny matching entries    |
 `,
 		},
 
@@ -155,10 +171,15 @@ func (o PolicyAsPathListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -166,10 +187,15 @@ func (o PolicyAsPathListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Regular expression to match against an AS path
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  AS path regular expression (ex: "64501 64502")  |
+    |  Format  &emsp;|  Description                                     |
+    |----------------|--------------------------------------------------|
+    |  txt     &emsp;|  AS path regular expression (ex: "64501 64502")  |
+`,
+			Description: `Regular expression to match against an AS path
 
+    |  Format  |  Description                                     |
+    |----------------|--------------------------------------------------|
+    |  txt     |  AS path regular expression (ex: "64501 64502")  |
 `,
 		},
 

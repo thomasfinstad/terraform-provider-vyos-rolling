@@ -98,6 +98,9 @@ func (o ContainerNameLabel) ResourceSchemaAttributes() map[string]schema.Attribu
 			MarkdownDescription: `Add label variables
 
 `,
+			Description: `Add label variables
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -119,6 +122,9 @@ func (o ContainerNameLabel) ResourceSchemaAttributes() map[string]schema.Attribu
 		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Container name
+
+`,
+			Description: `Container name
 
 `,
 			PlanModifiers: []planmodifier.String{
@@ -145,10 +151,15 @@ func (o ContainerNameLabel) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Set label option value
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Set label option value  |
+    |  Format  &emsp;|  Description             |
+    |----------------|--------------------------|
+    |  txt     &emsp;|  Set label option value  |
+`,
+			Description: `Set label option value
 
+    |  Format  |  Description             |
+    |----------------|--------------------------|
+    |  txt     |  Set label option value  |
 `,
 		},
 

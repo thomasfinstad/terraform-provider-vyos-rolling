@@ -33,6 +33,9 @@ func (o VrfNameProtocolsOspfvthreeLogAdjacencyChanges) ResourceSchemaAttributes(
 			MarkdownDescription: `Log all state changes
 
 `,
+			Description: `Log all state changes
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},

@@ -34,6 +34,9 @@ func (o FirewallIPvfourNameRuleIPsec) ResourceSchemaAttributes() map[string]sche
 			MarkdownDescription: `Inbound IPsec packets
 
 `,
+			Description: `Inbound IPsec packets
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -41,6 +44,9 @@ func (o FirewallIPvfourNameRuleIPsec) ResourceSchemaAttributes() map[string]sche
 		"match_none": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Inbound non-IPsec packets
+
+`,
+			Description: `Inbound non-IPsec packets
 
 `,
 			Default:  booldefault.StaticBool(false),

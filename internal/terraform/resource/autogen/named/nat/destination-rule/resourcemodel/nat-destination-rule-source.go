@@ -33,15 +33,25 @@ func (o NatDestinationRuleSource) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `IP address, subnet, or range
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address to match  |
-    |  ipv4net  &emsp; |  IPv4 prefix to match  |
-    |  ipv4range  &emsp; |  IPv4 address range to match  |
-    |  !ipv4  &emsp; |  Match everything except the specified address  |
-    |  !ipv4net  &emsp; |  Match everything except the specified prefix  |
-    |  !ipv4range  &emsp; |  Match everything except the specified range  |
+    |  Format      &emsp;|  Description                                    |
+    |--------------------|-------------------------------------------------|
+    |  ipv4        &emsp;|  IPv4 address to match                          |
+    |  ipv4net     &emsp;|  IPv4 prefix to match                           |
+    |  ipv4range   &emsp;|  IPv4 address range to match                    |
+    |  !ipv4       &emsp;|  Match everything except the specified address  |
+    |  !ipv4net    &emsp;|  Match everything except the specified prefix   |
+    |  !ipv4range  &emsp;|  Match everything except the specified range    |
+`,
+			Description: `IP address, subnet, or range
 
+    |  Format      |  Description                                    |
+    |--------------------|-------------------------------------------------|
+    |  ipv4        |  IPv4 address to match                          |
+    |  ipv4net     |  IPv4 prefix to match                           |
+    |  ipv4range   |  IPv4 address range to match                    |
+    |  !ipv4       |  Match everything except the specified address  |
+    |  !ipv4net    |  Match everything except the specified prefix   |
+    |  !ipv4range  |  Match everything except the specified range    |
 `,
 		},
 
@@ -49,13 +59,21 @@ func (o NatDestinationRuleSource) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Port number
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Named port (any name in /etc/services, e.g., http)  |
-    |  number: 1-65535  &emsp; |  Numeric IP port  |
-    |  start-end  &emsp; |  Numbered port range (e.g. 1001-1005)  |
-    |   &emsp; |   |
+    |  Format     &emsp;|  Description                                                                                                                                                              |
+    |-------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    |  txt        &emsp;|  Named port (any name in /etc/services, e.g., http)                                                                                                                       |
+    |  1-65535    &emsp;|  Numeric IP port                                                                                                                                                          |
+    |  start-end  &emsp;|  Numbered port range (e.g. 1001-1005)                                                                                                                                     |
+    |             &emsp;|  \n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using '!'.\nFor example: '!22,telnet,http,123,1001-1005'  |
+`,
+			Description: `Port number
 
+    |  Format     |  Description                                                                                                                                                              |
+    |-------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    |  txt        |  Named port (any name in /etc/services, e.g., http)                                                                                                                       |
+    |  1-65535    |  Numeric IP port                                                                                                                                                          |
+    |  start-end  |  Numbered port range (e.g. 1001-1005)                                                                                                                                     |
+    |             |  \n\nMultiple destination ports can be specified as a comma-separated list.\nThe whole list can also be negated using '!'.\nFor example: '!22,telnet,http,123,1001-1005'  |
 `,
 		},
 
@@ -65,6 +83,9 @@ func (o NatDestinationRuleSource) ResourceSchemaAttributes() map[string]schema.A
 			Attributes: NatDestinationRuleSourceGroup{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Group
+
+`,
+			Description: `Group
 
 `,
 		},

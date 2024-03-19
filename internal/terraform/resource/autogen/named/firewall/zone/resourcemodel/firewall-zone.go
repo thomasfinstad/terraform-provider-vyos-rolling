@@ -94,10 +94,15 @@ func (o FirewallZone) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Required: true,
 			MarkdownDescription: `Zone-policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Zone name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Zone name    |
+`,
+			Description: `Zone-policy
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Zone name    |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -123,16 +128,24 @@ func (o FirewallZone) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
 		"default_log": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Log packets hitting default-action
+
+`,
+			Description: `Log packets hitting default-action
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -143,11 +156,17 @@ func (o FirewallZone) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Default-action for traffic coming into this zone
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  drop  &emsp; |  Drop silently  |
-    |  reject  &emsp; |  Drop and notify source  |
+    |  Format  &emsp;|  Description             |
+    |----------------|--------------------------|
+    |  drop    &emsp;|  Drop silently           |
+    |  reject  &emsp;|  Drop and notify source  |
+`,
+			Description: `Default-action for traffic coming into this zone
 
+    |  Format  |  Description             |
+    |----------------|--------------------------|
+    |  drop    |  Drop silently           |
+    |  reject  |  Drop and notify source  |
 `,
 
 			// Default:          stringdefault.StaticString(`drop`),
@@ -159,17 +178,26 @@ func (o FirewallZone) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional:    true,
 			MarkdownDescription: `Interface associated with zone
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface associated with zone  |
-    |  vrf  &emsp; |  VRF associated with zone  |
+    |  Format  &emsp;|  Description                     |
+    |----------------|----------------------------------|
+    |  txt     &emsp;|  Interface associated with zone  |
+    |  vrf     &emsp;|  VRF associated with zone        |
+`,
+			Description: `Interface associated with zone
 
+    |  Format  |  Description                     |
+    |----------------|----------------------------------|
+    |  txt     |  Interface associated with zone  |
+    |  vrf     |  VRF associated with zone        |
 `,
 		},
 
 		"local_zone": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Zone to be local-zone
+
+`,
+			Description: `Zone to be local-zone
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -182,6 +210,9 @@ func (o FirewallZone) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Attributes: FirewallZoneIntraZoneFiltering{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Intra-zone filtering
+
+`,
+			Description: `Intra-zone filtering
 
 `,
 		},

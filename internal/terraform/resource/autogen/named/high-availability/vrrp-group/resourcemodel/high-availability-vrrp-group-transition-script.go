@@ -35,11 +35,17 @@ func (o HighAvailabilityVrrpGroupTransitionScrIPt) ResourceSchemaAttributes() ma
 			MarkdownDescription: `Script to run on VRRP state transition to master
 
 `,
+			Description: `Script to run on VRRP state transition to master
+
+`,
 		},
 
 		"backup": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Script to run on VRRP state transition to backup
+
+`,
+			Description: `Script to run on VRRP state transition to backup
 
 `,
 		},
@@ -49,11 +55,17 @@ func (o HighAvailabilityVrrpGroupTransitionScrIPt) ResourceSchemaAttributes() ma
 			MarkdownDescription: `Script to run on VRRP state transition to fault
 
 `,
+			Description: `Script to run on VRRP state transition to fault
+
+`,
 		},
 
 		"stop": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Script to run on VRRP state transition to stop
+
+`,
+			Description: `Script to run on VRRP state transition to stop
 
 `,
 		},

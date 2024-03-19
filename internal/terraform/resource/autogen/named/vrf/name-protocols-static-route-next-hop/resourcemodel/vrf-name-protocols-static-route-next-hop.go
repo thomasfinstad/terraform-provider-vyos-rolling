@@ -118,10 +118,15 @@ func (o VrfNameProtocolsStaticRouteNextHop) ResourceSchemaAttributes() map[strin
 			Required: true,
 			MarkdownDescription: `Next-hop IPv4 router address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  Next-hop router address  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  ipv4    &emsp;|  Next-hop router address  |
+`,
+			Description: `Next-hop IPv4 router address
 
+    |  Format  |  Description              |
+    |----------------|---------------------------|
+    |  ipv4    |  Next-hop router address  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -145,10 +150,15 @@ func (o VrfNameProtocolsStaticRouteNextHop) ResourceSchemaAttributes() map[strin
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -172,10 +182,15 @@ func (o VrfNameProtocolsStaticRouteNextHop) ResourceSchemaAttributes() map[strin
 			Required: true,
 			MarkdownDescription: `Static IPv4 route
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  IPv4 static route  |
+    |  Format   &emsp;|  Description        |
+    |-----------------|---------------------|
+    |  ipv4net  &emsp;|  IPv4 static route  |
+`,
+			Description: `Static IPv4 route
 
+    |  Format   |  Description        |
+    |-----------------|---------------------|
+    |  ipv4net  |  IPv4 static route  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -202,6 +217,9 @@ func (o VrfNameProtocolsStaticRouteNextHop) ResourceSchemaAttributes() map[strin
 			MarkdownDescription: `Disable instance
 
 `,
+			Description: `Disable instance
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -210,10 +228,15 @@ func (o VrfNameProtocolsStaticRouteNextHop) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Distance for this route
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Distance for this route  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  1-255   &emsp;|  Distance for this route  |
+`,
+			Description: `Distance for this route
 
+    |  Format  |  Description              |
+    |----------------|---------------------------|
+    |  1-255   |  Distance for this route  |
 `,
 		},
 
@@ -221,10 +244,15 @@ func (o VrfNameProtocolsStaticRouteNextHop) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Gateway interface name
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Gateway interface name  |
+    |  Format  &emsp;|  Description             |
+    |----------------|--------------------------|
+    |  txt     &emsp;|  Gateway interface name  |
+`,
+			Description: `Gateway interface name
 
+    |  Format  |  Description             |
+    |----------------|--------------------------|
+    |  txt     |  Gateway interface name  |
 `,
 		},
 
@@ -232,10 +260,15 @@ func (o VrfNameProtocolsStaticRouteNextHop) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `VRF to leak route
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Name of VRF to leak to  |
+    |  Format  &emsp;|  Description             |
+    |----------------|--------------------------|
+    |  txt     &emsp;|  Name of VRF to leak to  |
+`,
+			Description: `VRF to leak route
 
+    |  Format  |  Description             |
+    |----------------|--------------------------|
+    |  txt     |  Name of VRF to leak to  |
 `,
 		},
 
@@ -245,6 +278,9 @@ func (o VrfNameProtocolsStaticRouteNextHop) ResourceSchemaAttributes() map[strin
 			Attributes: VrfNameProtocolsStaticRouteNextHopBfd{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `BFD monitoring
+
+`,
+			Description: `BFD monitoring
 
 `,
 		},

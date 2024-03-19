@@ -34,6 +34,9 @@ func (o VrfNameProtocolsOspfDefaultInformation) ResourceSchemaAttributes() map[s
 			MarkdownDescription: `Distribute a default route
 
 `,
+			Description: `Distribute a default route
+
+`,
 		},
 	}
 }

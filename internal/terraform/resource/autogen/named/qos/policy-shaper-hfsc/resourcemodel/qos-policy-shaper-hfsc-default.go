@@ -36,6 +36,9 @@ func (o QosPolicyShaperHfscDefault) ResourceSchemaAttributes() map[string]schema
 			MarkdownDescription: `Linkshare class settings
 
 `,
+			Description: `Linkshare class settings
+
+`,
 		},
 
 		"realtime": schema.SingleNestedAttribute{
@@ -44,12 +47,18 @@ func (o QosPolicyShaperHfscDefault) ResourceSchemaAttributes() map[string]schema
 			MarkdownDescription: `Realtime class settings
 
 `,
+			Description: `Realtime class settings
+
+`,
 		},
 
 		"upperlimit": schema.SingleNestedAttribute{
 			Attributes: QosPolicyShaperHfscDefaultUpperlimit{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Upperlimit class settings
+
+`,
+			Description: `Upperlimit class settings
 
 `,
 		},

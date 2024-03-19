@@ -31,10 +31,15 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnEadEsFrag) ResourceSchemaAttr
 			Optional: true,
 			MarkdownDescription: `EVIs per-fragment
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-1000  &emsp; |  limit  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  1-1000  &emsp;|  limit        |
+`,
+			Description: `EVIs per-fragment
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  1-1000  |  limit        |
 `,
 		},
 

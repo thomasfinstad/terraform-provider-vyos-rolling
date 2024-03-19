@@ -104,11 +104,17 @@ func (o VrfNameProtocolsOspfvthreeArea) ResourceSchemaAttributes() map[string]sc
 			Required: true,
 			MarkdownDescription: `OSPFv3 Area
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  Area ID as a decimal value  |
-    |  ipv4  &emsp; |  Area ID in IP address forma  |
+    |  Format  &emsp;|  Description                  |
+    |----------------|-------------------------------|
+    |  u32     &emsp;|  Area ID as a decimal value   |
+    |  ipv4    &emsp;|  Area ID in IP address forma  |
+`,
+			Description: `OSPFv3 Area
 
+    |  Format  |  Description                  |
+    |----------------|-------------------------------|
+    |  u32     |  Area ID as a decimal value   |
+    |  ipv4    |  Area ID in IP address forma  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -132,10 +138,15 @@ func (o VrfNameProtocolsOspfvthreeArea) ResourceSchemaAttributes() map[string]sc
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -162,11 +173,17 @@ func (o VrfNameProtocolsOspfvthreeArea) ResourceSchemaAttributes() map[string]sc
 			MarkdownDescription: `Name of export-list
 
 `,
+			Description: `Name of export-list
+
+`,
 		},
 
 		"import_list": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Name of import-list
+
+`,
+			Description: `Name of import-list
 
 `,
 		},
@@ -177,6 +194,9 @@ func (o VrfNameProtocolsOspfvthreeArea) ResourceSchemaAttributes() map[string]sc
 			Attributes: VrfNameProtocolsOspfvthreeAreaAreaType{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `OSPFv3 Area type
+
+`,
+			Description: `OSPFv3 Area type
 
 `,
 		},

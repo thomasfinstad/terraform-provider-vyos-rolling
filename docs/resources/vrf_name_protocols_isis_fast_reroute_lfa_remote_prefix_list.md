@@ -97,14 +97,14 @@ Filter PQ node router ID based on prefix list
 
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `prefix_list_id` (String) Filter PQ node router ID based on prefix list
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Name of IPv4/IPv6 prefix-list  |
+    |  Format  &emsp;|  Description                    |
+    |----------------|---------------------------------|
+    |  txt     &emsp;|  Name of IPv4/IPv6 prefix-list  |
 
 ### Optional
 

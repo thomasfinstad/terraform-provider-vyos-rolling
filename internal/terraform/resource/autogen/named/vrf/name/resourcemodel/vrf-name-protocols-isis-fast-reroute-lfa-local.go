@@ -36,6 +36,9 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocal) ResourceSchemaAttributes() map[
 			MarkdownDescription: `Load share prefixes across multiple backups
 
 `,
+			Description: `Load share prefixes across multiple backups
+
+`,
 		},
 
 		"priority_limit": schema.SingleNestedAttribute{
@@ -44,12 +47,18 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocal) ResourceSchemaAttributes() map[
 			MarkdownDescription: `Limit backup computation up to the prefix priority
 
 `,
+			Description: `Limit backup computation up to the prefix priority
+
+`,
 		},
 
 		"tiebreaker": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalTiebreaker{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Configure tiebreaker for multiple backups
+
+`,
+			Description: `Configure tiebreaker for multiple backups
 
 `,
 		},

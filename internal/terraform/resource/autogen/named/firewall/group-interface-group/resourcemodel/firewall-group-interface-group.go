@@ -92,6 +92,9 @@ func (o FirewallGroupInterfaceGroup) ResourceSchemaAttributes() map[string]schem
 			MarkdownDescription: `Firewall interface-group
 
 `,
+			Description: `Firewall interface-group
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -118,6 +121,9 @@ func (o FirewallGroupInterfaceGroup) ResourceSchemaAttributes() map[string]schem
 			MarkdownDescription: `Interface-group member
 
 `,
+			Description: `Interface-group member
+
+`,
 		},
 
 		"include": schema.ListAttribute{
@@ -126,16 +132,24 @@ func (o FirewallGroupInterfaceGroup) ResourceSchemaAttributes() map[string]schem
 			MarkdownDescription: `Include another interface-group
 
 `,
+			Description: `Include another interface-group
+
+`,
 		},
 
 		"description": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 

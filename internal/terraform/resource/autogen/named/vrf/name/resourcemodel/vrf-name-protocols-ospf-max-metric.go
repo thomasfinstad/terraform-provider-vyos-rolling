@@ -34,6 +34,9 @@ func (o VrfNameProtocolsOspfMaxMetric) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Advertise own Router-LSA with infinite distance (stub router)
 
 `,
+			Description: `Advertise own Router-LSA with infinite distance (stub router)
+
+`,
 		},
 	}
 }

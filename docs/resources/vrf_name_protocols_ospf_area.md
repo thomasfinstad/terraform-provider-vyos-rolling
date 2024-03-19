@@ -67,47 +67,47 @@ OSPF area settings
 
 - `area_id` (String) OSPF area settings
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  OSPF area number in decimal notation  |
-    |  ipv4  &emsp; |  OSPF area number in dotted decimal notation  |
+    |  Format  &emsp;|  Description                                  |
+    |----------------|-----------------------------------------------|
+    |  u32     &emsp;|  OSPF area number in decimal notation         |
+    |  ipv4    &emsp;|  OSPF area number in dotted decimal notation  |
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 
 ### Optional
 
 - `area_type` (Attributes) Area type (see [below for nested schema](#nestedatt--area_type))
 - `authentication` (String) OSPF area authentication type
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  plaintext-password  &emsp; |  Use plain-text authentication  |
-    |  md5  &emsp; |  Use MD5 authentication  |
+    |  Format              &emsp;|  Description                    |
+    |----------------------------|---------------------------------|
+    |  plaintext-password  &emsp;|  Use plain-text authentication  |
+    |  md5                 &emsp;|  Use MD5 authentication         |
 - `export_list` (Number) Set the filter for networks announced to other areas
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  Access-list number  |
+    |  Format  &emsp;|  Description         |
+    |----------------|----------------------|
+    |  u32     &emsp;|  Access-list number  |
 - `import_list` (Number) Set the filter for networks from other areas announced
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  Access-list number  |
+    |  Format  &emsp;|  Description         |
+    |----------------|----------------------|
+    |  u32     &emsp;|  Access-list number  |
 - `network` (List of String) OSPF network
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  OSPF network  |
+    |  Format   &emsp;|  Description   |
+    |-----------------|----------------|
+    |  ipv4net  &emsp;|  OSPF network  |
 - `shortcut` (String) Area shortcut mode
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  default  &emsp; |  Set default  |
-    |  disable  &emsp; |  Disable shortcutting mode  |
-    |  enable  &emsp; |  Enable shortcutting mode  |
+    |  Format   &emsp;|  Description                |
+    |-----------------|-----------------------------|
+    |  default  &emsp;|  Set default                |
+    |  disable  &emsp;|  Disable shortcutting mode  |
+    |  enable   &emsp;|  Enable shortcutting mode   |
 
 ### Read-Only
 
@@ -129,17 +129,17 @@ Optional:
 
 - `default_cost` (Number) Summary-default cost of an NSSA area
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-16777215  &emsp; |  Summary default cost  |
+    |  Format      &emsp;|  Description           |
+    |--------------------|------------------------|
+    |  0-16777215  &emsp;|  Summary default cost  |
 - `no_summary` (Boolean) Do not inject inter-area routes into stub
 - `translate` (String) Configure NSSA-ABR
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  always  &emsp; |  Always translate LSA types  |
-    |  candidate  &emsp; |  Translate for election  |
-    |  never  &emsp; |  Never translate LSA types  |
+    |  Format     &emsp;|  Description                 |
+    |-------------------|------------------------------|
+    |  always     &emsp;|  Always translate LSA types  |
+    |  candidate  &emsp;|  Translate for election      |
+    |  never      &emsp;|  Never translate LSA types   |
 
 
 <a id="nestedatt--area_type--stub"></a>
@@ -149,7 +149,7 @@ Optional:
 
 - `default_cost` (Number) Summary-default cost
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-16777215  &emsp; |  Summary default cost  |
+    |  Format      &emsp;|  Description           |
+    |--------------------|------------------------|
+    |  0-16777215  &emsp;|  Summary default cost  |
 - `no_summary` (Boolean) Do not inject inter-area routes into the stub

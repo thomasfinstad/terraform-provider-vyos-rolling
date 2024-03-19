@@ -84,6 +84,9 @@ func (o PkiXfivezeronineDefault) ResourceSchemaAttributes() map[string]schema.At
 			MarkdownDescription: `Default country
 
 `,
+			Description: `Default country
+
+`,
 
 			// Default:          stringdefault.StaticString(`GB`),
 			Computed: true,
@@ -92,6 +95,9 @@ func (o PkiXfivezeronineDefault) ResourceSchemaAttributes() map[string]schema.At
 		"state": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Default state
+
+`,
+			Description: `Default state
 
 `,
 
@@ -104,6 +110,9 @@ func (o PkiXfivezeronineDefault) ResourceSchemaAttributes() map[string]schema.At
 			MarkdownDescription: `Default locality
 
 `,
+			Description: `Default locality
+
+`,
 
 			// Default:          stringdefault.StaticString(`Some-City`),
 			Computed: true,
@@ -112,6 +121,9 @@ func (o PkiXfivezeronineDefault) ResourceSchemaAttributes() map[string]schema.At
 		"organization": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Default organization
+
+`,
+			Description: `Default organization
 
 `,
 

@@ -91,10 +91,15 @@ func (o QosPolicyFairQueue) ResourceSchemaAttributes() map[string]schema.Attribu
 			Required: true,
 			MarkdownDescription: `Stochastic Fairness Queueing
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Policy name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Policy name  |
+`,
+			Description: `Stochastic Fairness Queueing
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Policy name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -120,10 +125,15 @@ func (o QosPolicyFairQueue) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -131,11 +141,17 @@ func (o QosPolicyFairQueue) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Interval in seconds for queue algorithm perturbation
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0  &emsp; |  No perturbation  |
-    |  number: 1-127  &emsp; |  Interval in seconds for queue algorithm perturbation (advised: 10)  |
+    |  Format  &emsp;|  Description                                                         |
+    |----------------|----------------------------------------------------------------------|
+    |  0       &emsp;|  No perturbation                                                     |
+    |  1-127   &emsp;|  Interval in seconds for queue algorithm perturbation (advised: 10)  |
+`,
+			Description: `Interval in seconds for queue algorithm perturbation
 
+    |  Format  |  Description                                                         |
+    |----------------|----------------------------------------------------------------------|
+    |  0       |  No perturbation                                                     |
+    |  1-127   |  Interval in seconds for queue algorithm perturbation (advised: 10)  |
 `,
 
 			// Default:          stringdefault.StaticString(`0`),
@@ -146,10 +162,15 @@ func (o QosPolicyFairQueue) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Upper limit of the SFQ
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-127  &emsp; |  Queue size in packets  |
+    |  Format  &emsp;|  Description            |
+    |----------------|-------------------------|
+    |  1-127   &emsp;|  Queue size in packets  |
+`,
+			Description: `Upper limit of the SFQ
 
+    |  Format  |  Description            |
+    |----------------|-------------------------|
+    |  1-127   |  Queue size in packets  |
 `,
 
 			// Default:          stringdefault.StaticString(`127`),

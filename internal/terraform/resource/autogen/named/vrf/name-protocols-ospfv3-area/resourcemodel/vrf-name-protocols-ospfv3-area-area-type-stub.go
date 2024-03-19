@@ -33,6 +33,9 @@ func (o VrfNameProtocolsOspfvthreeAreaAreaTypeStub) ResourceSchemaAttributes() m
 			MarkdownDescription: `Do not inject inter-area routes into the stub
 
 `,
+			Description: `Do not inject inter-area routes into the stub
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},

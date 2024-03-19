@@ -47,34 +47,34 @@ Common Applications Kept Enhanced (CAKE)
 
 - `cake_id` (String) Common Applications Kept Enhanced (CAKE)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Policy name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Policy name  |
 
 ### Optional
 
 - `bandwidth` (String) Available bandwidth for this policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Bits per second  |
-    |  <number>bit  &emsp; |  Bits per second  |
-    |  <number>kbit  &emsp; |  Kilobits per second  |
-    |  <number>mbit  &emsp; |  Megabits per second  |
-    |  <number>gbit  &emsp; |  Gigabits per second  |
-    |  <number>tbit  &emsp; |  Terabits per second  |
-    |  <number>%%  &emsp; |  Percentage of interface link speed  |
+    |  Format              &emsp;|  Description                         |
+    |----------------------------|--------------------------------------|
+    |  &lt;number&gt;      &emsp;|  Bits per second                     |
+    |  &lt;number&gt;bit   &emsp;|  Bits per second                     |
+    |  &lt;number&gt;kbit  &emsp;|  Kilobits per second                 |
+    |  &lt;number&gt;mbit  &emsp;|  Megabits per second                 |
+    |  &lt;number&gt;gbit  &emsp;|  Gigabits per second                 |
+    |  &lt;number&gt;tbit  &emsp;|  Terabits per second                 |
+    |  &lt;number&gt;%%    &emsp;|  Percentage of interface link speed  |
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `flow_isolation` (Attributes) Flow isolation settings (see [below for nested schema](#nestedatt--flow_isolation))
 - `rtt` (Number) Round-Trip-Time for Active Queue Management (AQM)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-3600000  &emsp; |  RTT in ms  |
+    |  Format     &emsp;|  Description  |
+    |-------------------|---------------|
+    |  1-3600000  &emsp;|  RTT in ms    |
 
 ### Read-Only
 

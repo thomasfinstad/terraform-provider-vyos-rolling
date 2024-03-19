@@ -35,6 +35,9 @@ func (o VrfNameProtocolsBgpNeighborCapability) ResourceSchemaAttributes() map[st
 			MarkdownDescription: `Advertise dynamic capability to this neighbor
 
 `,
+			Description: `Advertise dynamic capability to this neighbor
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -44,6 +47,9 @@ func (o VrfNameProtocolsBgpNeighborCapability) ResourceSchemaAttributes() map[st
 			MarkdownDescription: `Advertise extended-nexthop capability to this neighbor
 
 `,
+			Description: `Advertise extended-nexthop capability to this neighbor
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -51,6 +57,9 @@ func (o VrfNameProtocolsBgpNeighborCapability) ResourceSchemaAttributes() map[st
 		"software_version": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise Software Version capability to the peer
+
+`,
+			Description: `Advertise Software Version capability to the peer
 
 `,
 			Default:  booldefault.StaticBool(false),

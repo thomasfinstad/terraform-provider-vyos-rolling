@@ -88,10 +88,15 @@ func (o PolicyExtcommunityList) ResourceSchemaAttributes() map[string]schema.Att
 			Required: true,
 			MarkdownDescription: `Add a BGP extended community list entry
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  BGP extended community-list name  |
+    |  Format  &emsp;|  Description                       |
+    |----------------|------------------------------------|
+    |  txt     &emsp;|  BGP extended community-list name  |
+`,
+			Description: `Add a BGP extended community list entry
 
+    |  Format  |  Description                       |
+    |----------------|------------------------------------|
+    |  txt     |  BGP extended community-list name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -117,10 +122,15 @@ func (o PolicyExtcommunityList) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 

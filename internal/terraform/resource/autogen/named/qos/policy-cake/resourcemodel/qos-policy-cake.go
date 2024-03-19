@@ -92,10 +92,15 @@ func (o QosPolicyCake) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Required: true,
 			MarkdownDescription: `Common Applications Kept Enhanced (CAKE)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Policy name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Policy name  |
+`,
+			Description: `Common Applications Kept Enhanced (CAKE)
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Policy name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -121,10 +126,15 @@ func (o QosPolicyCake) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -132,16 +142,27 @@ func (o QosPolicyCake) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Available bandwidth for this policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Bits per second  |
-    |  <number>bit  &emsp; |  Bits per second  |
-    |  <number>kbit  &emsp; |  Kilobits per second  |
-    |  <number>mbit  &emsp; |  Megabits per second  |
-    |  <number>gbit  &emsp; |  Gigabits per second  |
-    |  <number>tbit  &emsp; |  Terabits per second  |
-    |  <number>%%  &emsp; |  Percentage of interface link speed  |
+    |  Format              &emsp;|  Description                         |
+    |----------------------------|--------------------------------------|
+    |  &lt;number&gt;      &emsp;|  Bits per second                     |
+    |  &lt;number&gt;bit   &emsp;|  Bits per second                     |
+    |  &lt;number&gt;kbit  &emsp;|  Kilobits per second                 |
+    |  &lt;number&gt;mbit  &emsp;|  Megabits per second                 |
+    |  &lt;number&gt;gbit  &emsp;|  Gigabits per second                 |
+    |  &lt;number&gt;tbit  &emsp;|  Terabits per second                 |
+    |  &lt;number&gt;%%    &emsp;|  Percentage of interface link speed  |
+`,
+			Description: `Available bandwidth for this policy
 
+    |  Format              |  Description                         |
+    |----------------------------|--------------------------------------|
+    |  <number>      |  Bits per second                     |
+    |  <number>bit   |  Bits per second                     |
+    |  <number>kbit  |  Kilobits per second                 |
+    |  <number>mbit  |  Megabits per second                 |
+    |  <number>gbit  |  Gigabits per second                 |
+    |  <number>tbit  |  Terabits per second                 |
+    |  <number>%%    |  Percentage of interface link speed  |
 `,
 		},
 
@@ -149,10 +170,15 @@ func (o QosPolicyCake) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Round-Trip-Time for Active Queue Management (AQM)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-3600000  &emsp; |  RTT in ms  |
+    |  Format     &emsp;|  Description  |
+    |-------------------|---------------|
+    |  1-3600000  &emsp;|  RTT in ms    |
+`,
+			Description: `Round-Trip-Time for Active Queue Management (AQM)
 
+    |  Format     |  Description  |
+    |-------------------|---------------|
+    |  1-3600000  |  RTT in ms    |
 `,
 
 			// Default:          stringdefault.StaticString(`100`),
@@ -165,6 +191,9 @@ func (o QosPolicyCake) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Attributes: QosPolicyCakeFlowIsolation{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Flow isolation settings
+
+`,
+			Description: `Flow isolation settings
 
 `,
 		},

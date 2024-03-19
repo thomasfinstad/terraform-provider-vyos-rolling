@@ -107,10 +107,15 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastNetwork) ResourceSchemaA
 			Required: true,
 			MarkdownDescription: `Import BGP network/prefix into multicast IPv4 RIB
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  Multicast IPv4 BGP network/prefix  |
+    |  Format   &emsp;|  Description                        |
+    |-----------------|-------------------------------------|
+    |  ipv4net  &emsp;|  Multicast IPv4 BGP network/prefix  |
+`,
+			Description: `Import BGP network/prefix into multicast IPv4 RIB
 
+    |  Format   |  Description                        |
+    |-----------------|-------------------------------------|
+    |  ipv4net  |  Multicast IPv4 BGP network/prefix  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -134,10 +139,15 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastNetwork) ResourceSchemaA
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -164,6 +174,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastNetwork) ResourceSchemaA
 			MarkdownDescription: `Use BGP network/prefix as a backdoor route
 
 `,
+			Description: `Use BGP network/prefix as a backdoor route
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -172,10 +185,15 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastNetwork) ResourceSchemaA
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Route map name  |
+`,
+			Description: `Specify route-map name to use
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  txt     |  Route map name  |
 `,
 		},
 

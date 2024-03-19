@@ -34,6 +34,9 @@ func (o VrfNameProtocolsOspfvthreeAreaAreaTypeNssa) ResourceSchemaAttributes() m
 			MarkdownDescription: `Originate Type 7 default into NSSA area
 
 `,
+			Description: `Originate Type 7 default into NSSA area
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -41,6 +44,9 @@ func (o VrfNameProtocolsOspfvthreeAreaAreaTypeNssa) ResourceSchemaAttributes() m
 		"no_summary": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not inject inter-area routes into the stub
+
+`,
+			Description: `Do not inject inter-area routes into the stub
 
 `,
 			Default:  booldefault.StaticBool(false),

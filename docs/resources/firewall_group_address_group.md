@@ -51,15 +51,15 @@ Firewall address-group
 
 - `address` (List of String) Address-group member
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address to match  |
-    |  ipv4range  &emsp; |  IPv4 range to match (e.g. 10.0.0.1-10.0.0.200)  |
+    |  Format     &emsp;|  Description                                     |
+    |-------------------|--------------------------------------------------|
+    |  ipv4       &emsp;|  IPv4 address to match                           |
+    |  ipv4range  &emsp;|  IPv4 range to match (e.g. 10.0.0.1-10.0.0.200)  |
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `include` (List of String) Include another address-group
 
 ### Read-Only

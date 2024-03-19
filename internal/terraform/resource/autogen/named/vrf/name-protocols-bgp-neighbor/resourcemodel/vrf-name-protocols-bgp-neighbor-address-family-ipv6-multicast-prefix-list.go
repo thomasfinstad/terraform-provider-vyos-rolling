@@ -32,10 +32,15 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastPrefixList) Resou
 			Optional: true,
 			MarkdownDescription: `Prefix-list to filter outgoing route updates to this peer
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Name of IPv6 prefix-list  |
+    |  Format  &emsp;|  Description               |
+    |----------------|----------------------------|
+    |  txt     &emsp;|  Name of IPv6 prefix-list  |
+`,
+			Description: `Prefix-list to filter outgoing route updates to this peer
 
+    |  Format  |  Description               |
+    |----------------|----------------------------|
+    |  txt     |  Name of IPv6 prefix-list  |
 `,
 		},
 
@@ -43,10 +48,15 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastPrefixList) Resou
 			Optional: true,
 			MarkdownDescription: `Prefix-list to filter incoming route updates from this peer
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Name of IPv6 prefix-list  |
+    |  Format  &emsp;|  Description               |
+    |----------------|----------------------------|
+    |  txt     &emsp;|  Name of IPv6 prefix-list  |
+`,
+			Description: `Prefix-list to filter incoming route updates from this peer
 
+    |  Format  |  Description               |
+    |----------------|----------------------------|
+    |  txt     |  Name of IPv6 prefix-list  |
 `,
 		},
 

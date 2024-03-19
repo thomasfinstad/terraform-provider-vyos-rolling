@@ -52,6 +52,9 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 			MarkdownDescription: `BGP atomic aggregate attribute
 
 `,
+			Description: `BGP atomic aggregate attribute
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -60,10 +63,15 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Locally significant administrative distance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-255  &emsp; |  Distance value  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  0-255   &emsp;|  Distance value  |
+`,
+			Description: `Locally significant administrative distance
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  0-255   |  Distance value  |
 `,
 		},
 
@@ -71,12 +79,19 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Nexthop IP address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IP address  |
-    |  unchanged  &emsp; |  Set the BGP nexthop address as unchanged  |
-    |  peer-address  &emsp; |  Set the BGP nexthop address to the address of the peer  |
+    |  Format        &emsp;|  Description                                             |
+    |----------------------|----------------------------------------------------------|
+    |  ipv4          &emsp;|  IP address                                              |
+    |  unchanged     &emsp;|  Set the BGP nexthop address as unchanged                |
+    |  peer-address  &emsp;|  Set the BGP nexthop address to the address of the peer  |
+`,
+			Description: `Nexthop IP address
 
+    |  Format        |  Description                                             |
+    |----------------------|----------------------------------------------------------|
+    |  ipv4          |  IP address                                              |
+    |  unchanged     |  Set the BGP nexthop address as unchanged                |
+    |  peer-address  |  Set the BGP nexthop address to the address of the peer  |
 `,
 		},
 
@@ -84,10 +99,15 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `BGP local preference attribute
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-4294967295  &emsp; |  Local preference value  |
+    |  Format        &emsp;|  Description             |
+    |----------------------|--------------------------|
+    |  0-4294967295  &emsp;|  Local preference value  |
+`,
+			Description: `BGP local preference attribute
 
+    |  Format        |  Description             |
+    |----------------------|--------------------------|
+    |  0-4294967295  |  Local preference value  |
 `,
 		},
 
@@ -95,13 +115,21 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Destination routing protocol metric
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <+/-metric>  &emsp; |  Add or subtract metric  |
-    |  number: 0-4294967295  &emsp; |  Metric value  |
-    |  <+/-rtt>  &emsp; |  Add or subtract round trip time  |
-    |  <rtt>  &emsp; |  Round trip time  |
+    |  Format             &emsp;|  Description                      |
+    |---------------------------|-----------------------------------|
+    |  &lt;+/-metric&gt;  &emsp;|  Add or subtract metric           |
+    |  0-4294967295       &emsp;|  Metric value                     |
+    |  &lt;+/-rtt&gt;     &emsp;|  Add or subtract round trip time  |
+    |  &lt;rtt&gt;        &emsp;|  Round trip time                  |
+`,
+			Description: `Destination routing protocol metric
 
+    |  Format             |  Description                      |
+    |---------------------------|-----------------------------------|
+    |  <+/-metric>  |  Add or subtract metric           |
+    |  0-4294967295       |  Metric value                     |
+    |  <+/-rtt>     |  Add or subtract round trip time  |
+    |  <rtt>        |  Round trip time                  |
 `,
 		},
 
@@ -109,11 +137,17 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Open Shortest Path First (OSPF) external metric-type
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  type-1  &emsp; |  OSPF external type 1 metric  |
-    |  type-2  &emsp; |  OSPF external type 2 metric  |
+    |  Format  &emsp;|  Description                  |
+    |----------------|-------------------------------|
+    |  type-1  &emsp;|  OSPF external type 1 metric  |
+    |  type-2  &emsp;|  OSPF external type 2 metric  |
+`,
+			Description: `Open Shortest Path First (OSPF) external metric-type
 
+    |  Format  |  Description                  |
+    |----------------|-------------------------------|
+    |  type-1  |  OSPF external type 1 metric  |
+    |  type-2  |  OSPF external type 2 metric  |
 `,
 		},
 
@@ -121,12 +155,19 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Border Gateway Protocl (BGP) origin code
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  igp  &emsp; |  Interior gateway protocol origin  |
-    |  egp  &emsp; |  Exterior gateway protocol origin  |
-    |  incomplete  &emsp; |  Incomplete origin  |
+    |  Format      &emsp;|  Description                       |
+    |--------------------|------------------------------------|
+    |  igp         &emsp;|  Interior gateway protocol origin  |
+    |  egp         &emsp;|  Exterior gateway protocol origin  |
+    |  incomplete  &emsp;|  Incomplete origin                 |
+`,
+			Description: `Border Gateway Protocl (BGP) origin code
 
+    |  Format      |  Description                       |
+    |--------------------|------------------------------------|
+    |  igp         |  Interior gateway protocol origin  |
+    |  egp         |  Exterior gateway protocol origin  |
+    |  incomplete  |  Incomplete origin                 |
 `,
 		},
 
@@ -134,10 +175,15 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `BGP originator ID attribute
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  Orignator IP address  |
+    |  Format  &emsp;|  Description           |
+    |----------------|------------------------|
+    |  ipv4    &emsp;|  Orignator IP address  |
+`,
+			Description: `BGP originator ID attribute
 
+    |  Format  |  Description           |
+    |----------------|------------------------|
+    |  ipv4    |  Orignator IP address  |
 `,
 		},
 
@@ -145,11 +191,17 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Source address for route
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address  |
-    |  ipv6  &emsp; |  IPv6 address  |
+    |  Format  &emsp;|  Description   |
+    |----------------|----------------|
+    |  ipv4    &emsp;|  IPv4 address  |
+    |  ipv6    &emsp;|  IPv6 address  |
+`,
+			Description: `Source address for route
 
+    |  Format  |  Description   |
+    |----------------|----------------|
+    |  ipv4    |  IPv4 address  |
+    |  ipv6    |  IPv6 address  |
 `,
 		},
 
@@ -157,10 +209,15 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Set prefixes to table
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-200  &emsp; |  Table value  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  1-200   &emsp;|  Table value  |
+`,
+			Description: `Set prefixes to table
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  1-200   |  Table value  |
 `,
 		},
 
@@ -168,10 +225,15 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Route tag value
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Route tag  |
+    |  Format   &emsp;|  Description  |
+    |-----------------|---------------|
+    |  1-65535  &emsp;|  Route tag    |
+`,
+			Description: `Route tag value
 
+    |  Format   |  Description  |
+    |-----------------|---------------|
+    |  1-65535  |  Route tag    |
 `,
 		},
 
@@ -179,10 +241,15 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `BGP weight attribute
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-4294967295  &emsp; |  BGP weight  |
+    |  Format        &emsp;|  Description  |
+    |----------------------|---------------|
+    |  0-4294967295  &emsp;|  BGP weight   |
+`,
+			Description: `BGP weight attribute
 
+    |  Format        |  Description  |
+    |----------------------|---------------|
+    |  0-4294967295  |  BGP weight   |
 `,
 		},
 
@@ -194,12 +261,18 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 			MarkdownDescription: `BGP aggregator attribute
 
 `,
+			Description: `BGP aggregator attribute
+
+`,
 		},
 
 		"as_path": schema.SingleNestedAttribute{
 			Attributes: PolicyRouteMapRuleSetAsPath{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Transform BGP AS_PATH attribute
+
+`,
+			Description: `Transform BGP AS_PATH attribute
 
 `,
 		},
@@ -210,12 +283,18 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 			MarkdownDescription: `BGP community attribute
 
 `,
+			Description: `BGP community attribute
+
+`,
 		},
 
 		"large_community": schema.SingleNestedAttribute{
 			Attributes: PolicyRouteMapRuleSetLargeCommunity{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `BGP large community attribute
+
+`,
+			Description: `BGP large community attribute
 
 `,
 		},
@@ -226,12 +305,18 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 			MarkdownDescription: `BGP extended community attribute
 
 `,
+			Description: `BGP extended community attribute
+
+`,
 		},
 
 		"evpn": schema.SingleNestedAttribute{
 			Attributes: PolicyRouteMapRuleSetEvpn{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Ethernet Virtual Private Network
+
+`,
+			Description: `Ethernet Virtual Private Network
 
 `,
 		},
@@ -242,12 +327,18 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 			MarkdownDescription: `Nexthop IPv6 address
 
 `,
+			Description: `Nexthop IPv6 address
+
+`,
 		},
 
 		"l3vpn_nexthop": schema.SingleNestedAttribute{
 			Attributes: PolicyRouteMapRuleSetLthreevpnNexthop{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Next hop Information
+
+`,
+			Description: `Next hop Information
 
 `,
 		},

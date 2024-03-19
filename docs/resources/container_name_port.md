@@ -52,28 +52,28 @@ Publish port to the container
 
 - `destination` (String) Destination container port
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Destination container port  |
-    |  start-end  &emsp; |  Destination container port range (e.g. 10025-10030)  |
+    |  Format     &emsp;|  Description                                          |
+    |-------------------|-------------------------------------------------------|
+    |  1-65535    &emsp;|  Destination container port                           |
+    |  start-end  &emsp;|  Destination container port range (e.g. 10025-10030)  |
 - `listen_address` (List of String) Local IP addresses to listen on
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address to listen for incoming connections  |
-    |  ipv6  &emsp; |  IPv6 address to listen for incoming connections  |
+    |  Format  &emsp;|  Description                                      |
+    |----------------|---------------------------------------------------|
+    |  ipv4    &emsp;|  IPv4 address to listen for incoming connections  |
+    |  ipv6    &emsp;|  IPv6 address to listen for incoming connections  |
 - `protocol` (String) Transport protocol used for port mapping
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  tcp  &emsp; |  Use Transmission Control Protocol for given port  |
-    |  udp  &emsp; |  Use User Datagram Protocol for given port  |
+    |  Format  &emsp;|  Description                                       |
+    |----------------|----------------------------------------------------|
+    |  tcp     &emsp;|  Use Transmission Control Protocol for given port  |
+    |  udp     &emsp;|  Use User Datagram Protocol for given port         |
 - `source` (String) Source host port
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Source host port  |
-    |  start-end  &emsp; |  Source host port range (e.g. 10025-10030)  |
+    |  Format     &emsp;|  Description                                |
+    |-------------------|---------------------------------------------|
+    |  1-65535    &emsp;|  Source host port                           |
+    |  start-end  &emsp;|  Source host port range (e.g. 10025-10030)  |
 
 ### Read-Only
 

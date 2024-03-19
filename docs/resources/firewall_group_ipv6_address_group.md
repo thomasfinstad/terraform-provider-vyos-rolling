@@ -51,15 +51,15 @@ Firewall ipv6-address-group
 
 - `address` (List of String) Address-group member
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6  &emsp; |  IPv6 address to match  |
-    |  ipv6range  &emsp; |  IPv6 range to match (e.g. 2002::1-2002::ff)  |
+    |  Format     &emsp;|  Description                                  |
+    |-------------------|-----------------------------------------------|
+    |  ipv6       &emsp;|  IPv6 address to match                        |
+    |  ipv6range  &emsp;|  IPv6 range to match (e.g. 2002::1-2002::ff)  |
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `include` (List of String) Include another ipv6-address-group
 
 ### Read-Only

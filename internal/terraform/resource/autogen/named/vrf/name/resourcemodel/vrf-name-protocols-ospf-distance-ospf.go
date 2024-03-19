@@ -33,10 +33,15 @@ func (o VrfNameProtocolsOspfDistanceOspf) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Distance for external routes
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Distance for external routes  |
+    |  Format  &emsp;|  Description                   |
+    |----------------|--------------------------------|
+    |  1-255   &emsp;|  Distance for external routes  |
+`,
+			Description: `Distance for external routes
 
+    |  Format  |  Description                   |
+    |----------------|--------------------------------|
+    |  1-255   |  Distance for external routes  |
 `,
 		},
 
@@ -44,10 +49,15 @@ func (o VrfNameProtocolsOspfDistanceOspf) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Distance for inter-area routes
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Distance for inter-area routes  |
+    |  Format  &emsp;|  Description                     |
+    |----------------|----------------------------------|
+    |  1-255   &emsp;|  Distance for inter-area routes  |
+`,
+			Description: `Distance for inter-area routes
 
+    |  Format  |  Description                     |
+    |----------------|----------------------------------|
+    |  1-255   |  Distance for inter-area routes  |
 `,
 		},
 
@@ -55,10 +65,15 @@ func (o VrfNameProtocolsOspfDistanceOspf) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Distance for intra-area routes
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Distance for intra-area routes  |
+    |  Format  &emsp;|  Description                     |
+    |----------------|----------------------------------|
+    |  1-255   &emsp;|  Distance for intra-area routes  |
+`,
+			Description: `Distance for intra-area routes
 
+    |  Format  |  Description                     |
+    |----------------|----------------------------------|
+    |  1-255   |  Distance for intra-area routes  |
 `,
 		},
 

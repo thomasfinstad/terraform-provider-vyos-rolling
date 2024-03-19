@@ -51,17 +51,17 @@ Firewall port-group
 
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `include` (List of String) Include another port-group
 - `port` (List of String) Port-group member
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Named port (any name in /etc/services, e.g., http)  |
-    |  number: 1-65535  &emsp; |  Numbered port  |
-    |  start-end  &emsp; |  Numbered port range (e.g. 1001-1050)  |
+    |  Format     &emsp;|  Description                                         |
+    |-------------------|------------------------------------------------------|
+    |  txt        &emsp;|  Named port (any name in /etc/services, e.g., http)  |
+    |  1-65535    &emsp;|  Numbered port                                       |
+    |  start-end  &emsp;|  Numbered port range (e.g. 1001-1050)                |
 
 ### Read-Only
 

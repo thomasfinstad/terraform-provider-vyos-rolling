@@ -118,10 +118,15 @@ func (o VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) ResourceSchemaAt
 			Required: true,
 			MarkdownDescription: `MD5 key id
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  MD5 key id  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  1-255   &emsp;|  MD5 key id   |
+`,
+			Description: `MD5 key id
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  1-255   |  MD5 key id   |
 `,
 			PlanModifiers: []planmodifier.Number{
 				numberplanmodifier.RequiresReplace(),
@@ -132,10 +137,15 @@ func (o VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) ResourceSchemaAt
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -159,10 +169,15 @@ func (o VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) ResourceSchemaAt
 			Required: true,
 			MarkdownDescription: `Interface configuration
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Interface name  |
+`,
+			Description: `Interface configuration
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  txt     |  Interface name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -188,10 +203,15 @@ func (o VrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) ResourceSchemaAt
 			Optional: true,
 			MarkdownDescription: `MD5 authentication type
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  MD5 Key (16 characters or less)  |
+    |  Format  &emsp;|  Description                      |
+    |----------------|-----------------------------------|
+    |  txt     &emsp;|  MD5 Key (16 characters or less)  |
+`,
+			Description: `MD5 authentication type
 
+    |  Format  |  Description                      |
+    |----------------|-----------------------------------|
+    |  txt     |  MD5 Key (16 characters or less)  |
 `,
 		},
 

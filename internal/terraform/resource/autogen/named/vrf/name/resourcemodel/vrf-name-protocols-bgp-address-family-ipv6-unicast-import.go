@@ -34,6 +34,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport) ResourceSchemaAttri
 			MarkdownDescription: `to/from default instance VPN RIB
 
 `,
+			Description: `to/from default instance VPN RIB
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -43,10 +46,15 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport) ResourceSchemaAttri
 			Optional:    true,
 			MarkdownDescription: `VRF to import from
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `VRF to import from
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 		},
 

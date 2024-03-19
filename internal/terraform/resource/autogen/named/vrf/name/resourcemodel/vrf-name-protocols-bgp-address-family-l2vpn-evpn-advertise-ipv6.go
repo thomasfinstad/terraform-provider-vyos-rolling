@@ -34,6 +34,9 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix) ResourceSche
 			MarkdownDescription: `IPv4 address family
 
 `,
+			Description: `IPv4 address family
+
+`,
 		},
 	}
 }

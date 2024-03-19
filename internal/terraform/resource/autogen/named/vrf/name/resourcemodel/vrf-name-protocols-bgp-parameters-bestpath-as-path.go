@@ -35,6 +35,9 @@ func (o VrfNameProtocolsBgpParametersBestpathAsPath) ResourceSchemaAttributes() 
 			MarkdownDescription: `Compare AS-path lengths including confederation sets and sequences
 
 `,
+			Description: `Compare AS-path lengths including confederation sets and sequences
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -44,6 +47,9 @@ func (o VrfNameProtocolsBgpParametersBestpathAsPath) ResourceSchemaAttributes() 
 			MarkdownDescription: `Ignore AS-path length in selecting a route
 
 `,
+			Description: `Ignore AS-path length in selecting a route
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -51,6 +57,9 @@ func (o VrfNameProtocolsBgpParametersBestpathAsPath) ResourceSchemaAttributes() 
 		"multipath_relax": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow load sharing across routes that have different AS paths (but same length)
+
+`,
+			Description: `Allow load sharing across routes that have different AS paths (but same length)
 
 `,
 			Default:  booldefault.StaticBool(false),

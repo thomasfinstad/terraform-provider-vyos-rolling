@@ -40,12 +40,18 @@ func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceSchemaAttributes() map[s
 			MarkdownDescription: `Redistribute BGP routes into IS-IS
 
 `,
+			Description: `Redistribute BGP routes into IS-IS
+
+`,
 		},
 
 		"connected": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsIsisRedistributeIPvsixConnected{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute connected routes into IS-IS
+
+`,
+			Description: `Redistribute connected routes into IS-IS
 
 `,
 		},
@@ -56,12 +62,18 @@ func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceSchemaAttributes() map[s
 			MarkdownDescription: `Redistribute kernel routes into IS-IS
 
 `,
+			Description: `Redistribute kernel routes into IS-IS
+
+`,
 		},
 
 		"ospf6": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsIsisRedistributeIPvsixOspfsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute OSPFv3 routes into IS-IS
+
+`,
+			Description: `Redistribute OSPFv3 routes into IS-IS
 
 `,
 		},
@@ -72,6 +84,9 @@ func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceSchemaAttributes() map[s
 			MarkdownDescription: `Redistribute RIPng routes into IS-IS
 
 `,
+			Description: `Redistribute RIPng routes into IS-IS
+
+`,
 		},
 
 		"babel": schema.SingleNestedAttribute{
@@ -80,12 +95,18 @@ func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceSchemaAttributes() map[s
 			MarkdownDescription: `Redistribute Babel routes into IS-IS
 
 `,
+			Description: `Redistribute Babel routes into IS-IS
+
+`,
 		},
 
 		"static": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsIsisRedistributeIPvsixStatic{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute static routes into IS-IS
+
+`,
+			Description: `Redistribute static routes into IS-IS
 
 `,
 		},

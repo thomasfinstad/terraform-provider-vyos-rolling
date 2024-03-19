@@ -93,6 +93,9 @@ func (o NatStaticRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 			MarkdownDescription: `Rule number for NAT
 
 `,
+			Description: `Rule number for NAT
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -117,16 +120,24 @@ func (o NatStaticRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
 		"inbound_interface": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Inbound interface of NAT traffic
+
+`,
+			Description: `Inbound interface of NAT traffic
 
 `,
 		},
@@ -139,12 +150,18 @@ func (o NatStaticRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 			MarkdownDescription: `NAT destination parameters
 
 `,
+			Description: `NAT destination parameters
+
+`,
 		},
 
 		"translation": schema.SingleNestedAttribute{
 			Attributes: NatStaticRuleTranSLAtion{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Translation address or prefix
+
+`,
+			Description: `Translation address or prefix
 
 `,
 		},

@@ -32,10 +32,15 @@ func (o VrfNameProtocolsStaticRoutesixNextHopBfd) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `Use settings from BFD profile
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  BFD profile name  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  txt     &emsp;|  BFD profile name  |
+`,
+			Description: `Use settings from BFD profile
 
+    |  Format  |  Description       |
+    |----------------|--------------------|
+    |  txt     |  BFD profile name  |
 `,
 		},
 
@@ -45,6 +50,9 @@ func (o VrfNameProtocolsStaticRoutesixNextHopBfd) ResourceSchemaAttributes() map
 			Attributes: VrfNameProtocolsStaticRoutesixNextHopBfdMultiHop{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Use BFD multi hop session
+
+`,
+			Description: `Use BFD multi hop session
 
 `,
 		},

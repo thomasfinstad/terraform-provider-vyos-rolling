@@ -36,11 +36,17 @@ func (o NatDestinationRuleSourceGroup) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Group of addresses
 
 `,
+			Description: `Group of addresses
+
+`,
 		},
 
 		"domain_group": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Group of domains
+
+`,
+			Description: `Group of domains
 
 `,
 		},
@@ -50,6 +56,9 @@ func (o NatDestinationRuleSourceGroup) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Group of MAC addresses
 
 `,
+			Description: `Group of MAC addresses
+
+`,
 		},
 
 		"network_group": schema.StringAttribute{
@@ -57,11 +66,17 @@ func (o NatDestinationRuleSourceGroup) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Group of networks
 
 `,
+			Description: `Group of networks
+
+`,
 		},
 
 		"port_group": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Group of ports
+
+`,
+			Description: `Group of ports
 
 `,
 		},

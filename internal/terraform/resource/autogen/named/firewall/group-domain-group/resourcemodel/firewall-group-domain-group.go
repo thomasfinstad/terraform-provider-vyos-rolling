@@ -91,6 +91,9 @@ func (o FirewallGroupDomainGroup) ResourceSchemaAttributes() map[string]schema.A
 			MarkdownDescription: `Firewall domain-group
 
 `,
+			Description: `Firewall domain-group
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -116,10 +119,15 @@ func (o FirewallGroupDomainGroup) ResourceSchemaAttributes() map[string]schema.A
 			Optional:    true,
 			MarkdownDescription: `Domain-group member
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Domain address to match  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  txt     &emsp;|  Domain address to match  |
+`,
+			Description: `Domain-group member
 
+    |  Format  |  Description              |
+    |----------------|---------------------------|
+    |  txt     |  Domain address to match  |
 `,
 		},
 
@@ -127,10 +135,15 @@ func (o FirewallGroupDomainGroup) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 

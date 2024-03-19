@@ -110,10 +110,15 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes
 			Required: true,
 			MarkdownDescription: `VXLAN Network Identifier
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-16777215  &emsp; |  VNI number  |
+    |  Format      &emsp;|  Description  |
+    |--------------------|---------------|
+    |  1-16777215  &emsp;|  VNI number   |
+`,
+			Description: `VXLAN Network Identifier
 
+    |  Format      |  Description  |
+    |--------------------|---------------|
+    |  1-16777215  |  VNI number   |
 `,
 			PlanModifiers: []planmodifier.Number{
 				numberplanmodifier.RequiresReplace(),
@@ -124,10 +129,15 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -154,6 +164,9 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes
 			MarkdownDescription: `Advertise All default g/w mac-ip routes in EVPN
 
 `,
+			Description: `Advertise All default g/w mac-ip routes in EVPN
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -161,6 +174,9 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes
 		"advertise_svi_ip": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise svi mac-ip routes in EVPN
+
+`,
+			Description: `Advertise svi mac-ip routes in EVPN
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -171,10 +187,15 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes
 			Optional: true,
 			MarkdownDescription: `Route Distinguisher
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp; |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  Format                   &emsp;|  Description                                   |
+    |---------------------------------|------------------------------------------------|
+    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp;|  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+`,
+			Description: `Route Distinguisher
 
+    |  Format                   |  Description                                   |
+    |---------------------------------|------------------------------------------------|
+    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 `,
 		},
 
@@ -184,6 +205,9 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes
 			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Route Target
+
+`,
+			Description: `Route Target
 
 `,
 		},

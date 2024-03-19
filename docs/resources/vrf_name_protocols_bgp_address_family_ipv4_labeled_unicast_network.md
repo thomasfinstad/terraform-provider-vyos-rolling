@@ -87,23 +87,23 @@ Import BGP network/prefix into labeled unicast IPv4 RIB
 
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `network_id` (String) Import BGP network/prefix into labeled unicast IPv4 RIB
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  Labeled Unicast IPv4 BGP network/prefix  |
+    |  Format   &emsp;|  Description                              |
+    |-----------------|-------------------------------------------|
+    |  ipv4net  &emsp;|  Labeled Unicast IPv4 BGP network/prefix  |
 
 ### Optional
 
 - `backdoor` (Boolean) Use BGP network/prefix as a backdoor route
 - `route_map` (String) Specify route-map name to use
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Route map name  |
 
 ### Read-Only
 

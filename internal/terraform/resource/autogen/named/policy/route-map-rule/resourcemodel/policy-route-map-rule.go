@@ -104,10 +104,15 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Required: true,
 			MarkdownDescription: `Rule for this route-map
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Route-map rule number  |
+    |  Format   &emsp;|  Description            |
+    |-----------------|-------------------------|
+    |  1-65535  &emsp;|  Route-map rule number  |
+`,
+			Description: `Rule for this route-map
 
+    |  Format   |  Description            |
+    |-----------------|-------------------------|
+    |  1-65535  |  Route-map rule number  |
 `,
 			PlanModifiers: []planmodifier.Number{
 				numberplanmodifier.RequiresReplace(),
@@ -118,10 +123,15 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Required: true,
 			MarkdownDescription: `IP route-map
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Route map name  |
+`,
+			Description: `IP route-map
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  txt     |  Route map name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -147,11 +157,17 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  permit  &emsp; |  Permit matching entries  |
-    |  deny  &emsp; |  Deny matching entries  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  permit  &emsp;|  Permit matching entries  |
+    |  deny    &emsp;|  Deny matching entries    |
+`,
+			Description: `Action to take on entries matching this rule
 
+    |  Format  |  Description              |
+    |----------------|---------------------------|
+    |  permit  |  Permit matching entries  |
+    |  deny    |  Deny matching entries    |
 `,
 		},
 
@@ -159,10 +175,15 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Call another route-map on match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Route map name  |
+`,
+			Description: `Call another route-map on match
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  txt     |  Route map name  |
 `,
 		},
 
@@ -170,10 +191,15 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Jump to a different rule in this route-map on a match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Rule number  |
+    |  Format   &emsp;|  Description  |
+    |-----------------|---------------|
+    |  1-65535  &emsp;|  Rule number  |
+`,
+			Description: `Jump to a different rule in this route-map on a match
 
+    |  Format   |  Description  |
+    |-----------------|---------------|
+    |  1-65535  |  Rule number  |
 `,
 		},
 
@@ -181,10 +207,15 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -196,6 +227,9 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			MarkdownDescription: `Route parameters to match
 
 `,
+			Description: `Route parameters to match
+
+`,
 		},
 
 		"on_match": schema.SingleNestedAttribute{
@@ -204,12 +238,18 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			MarkdownDescription: `Exit policy on matches
 
 `,
+			Description: `Exit policy on matches
+
+`,
 		},
 
 		"set": schema.SingleNestedAttribute{
 			Attributes: PolicyRouteMapRuleSet{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Route parameters
+
+`,
+			Description: `Route parameters
 
 `,
 		},

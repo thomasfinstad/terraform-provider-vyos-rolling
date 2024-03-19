@@ -34,6 +34,9 @@ func (o FirewallIPvfourNameRuleSynproxy) ResourceSchemaAttributes() map[string]s
 			MarkdownDescription: `TCP synproxy options
 
 `,
+			Description: `TCP synproxy options
+
+`,
 		},
 	}
 }

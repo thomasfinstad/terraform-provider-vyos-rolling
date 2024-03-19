@@ -32,10 +32,15 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastRouteMap) R
 			Optional: true,
 			MarkdownDescription: `Route-map to filter outgoing route updates
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Route map name  |
+`,
+			Description: `Route-map to filter outgoing route updates
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  txt     |  Route map name  |
 `,
 		},
 
@@ -43,10 +48,15 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastRouteMap) R
 			Optional: true,
 			MarkdownDescription: `Route-map to filter incoming route updates
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Route map name  |
+`,
+			Description: `Route-map to filter incoming route updates
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  txt     |  Route map name  |
 `,
 		},
 

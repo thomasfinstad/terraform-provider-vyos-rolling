@@ -115,6 +115,9 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Interface params
 
 `,
+			Description: `Interface params
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -137,10 +140,15 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -166,18 +174,28 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Configure circuit type for interface
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  level-1  &emsp; |  Level-1 only adjacencies are formed  |
-    |  level-1-2  &emsp; |  Level-1-2 adjacencies are formed  |
-    |  level-2-only  &emsp; |  Level-2 only adjacencies are formed  |
+    |  Format        &emsp;|  Description                          |
+    |----------------------|---------------------------------------|
+    |  level-1       &emsp;|  Level-1 only adjacencies are formed  |
+    |  level-1-2     &emsp;|  Level-1-2 adjacencies are formed     |
+    |  level-2-only  &emsp;|  Level-2 only adjacencies are formed  |
+`,
+			Description: `Configure circuit type for interface
 
+    |  Format        |  Description                          |
+    |----------------------|---------------------------------------|
+    |  level-1       |  Level-1 only adjacencies are formed  |
+    |  level-1-2     |  Level-1-2 adjacencies are formed     |
+    |  level-2-only  |  Level-2 only adjacencies are formed  |
 `,
 		},
 
 		"hello_padding": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Add padding to IS-IS hello packets
+
+`,
+			Description: `Add padding to IS-IS hello packets
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -188,10 +206,15 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Set Hello interval
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-600  &emsp; |  Set Hello interval  |
+    |  Format  &emsp;|  Description         |
+    |----------------|----------------------|
+    |  1-600   &emsp;|  Set Hello interval  |
+`,
+			Description: `Set Hello interval
 
+    |  Format  |  Description         |
+    |----------------|----------------------|
+    |  1-600   |  Set Hello interval  |
 `,
 		},
 
@@ -199,10 +222,15 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Set Hello interval
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 2-100  &emsp; |  Set multiplier for Hello holding time  |
+    |  Format  &emsp;|  Description                            |
+    |----------------|-----------------------------------------|
+    |  2-100   &emsp;|  Set multiplier for Hello holding time  |
+`,
+			Description: `Set Hello interval
 
+    |  Format  |  Description                            |
+    |----------------|-----------------------------------------|
+    |  2-100   |  Set multiplier for Hello holding time  |
 `,
 		},
 
@@ -210,16 +238,24 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Set default metric for circuit
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-16777215  &emsp; |  Default metric value  |
+    |  Format      &emsp;|  Description           |
+    |--------------------|------------------------|
+    |  0-16777215  &emsp;|  Default metric value  |
+`,
+			Description: `Set default metric for circuit
 
+    |  Format      |  Description           |
+    |--------------------|------------------------|
+    |  0-16777215  |  Default metric value  |
 `,
 		},
 
 		"passive": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Configure passive mode for interface
+
+`,
+			Description: `Configure passive mode for interface
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -230,10 +266,15 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Set priority for Designated Router election
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-127  &emsp; |  Priority value  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  0-127   &emsp;|  Priority value  |
+`,
+			Description: `Set priority for Designated Router election
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  0-127   |  Priority value  |
 `,
 		},
 
@@ -241,16 +282,24 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Set PSNP interval
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-127  &emsp; |  PSNP interval in seconds  |
+    |  Format  &emsp;|  Description               |
+    |----------------|----------------------------|
+    |  0-127   &emsp;|  PSNP interval in seconds  |
+`,
+			Description: `Set PSNP interval
 
+    |  Format  |  Description               |
+    |----------------|----------------------------|
+    |  0-127   |  PSNP interval in seconds  |
 `,
 		},
 
 		"no_three_way_handshake": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable three-way handshake
+
+`,
+			Description: `Disable three-way handshake
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -265,12 +314,18 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Enable Bidirectional Forwarding Detection (BFD)
 
 `,
+			Description: `Enable Bidirectional Forwarding Detection (BFD)
+
+`,
 		},
 
 		"ldp_sync": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsIsisInterfaceLdpSync{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `LDP-IGP synchronization configuration for interface
+
+`,
+			Description: `LDP-IGP synchronization configuration for interface
 
 `,
 		},
@@ -281,12 +336,18 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Set network type
 
 `,
+			Description: `Set network type
+
+`,
 		},
 
 		"password": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsIsisInterfacePassword{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Configure the authentication password for a circuit
+
+`,
+			Description: `Configure the authentication password for a circuit
 
 `,
 		},

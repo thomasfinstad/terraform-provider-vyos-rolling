@@ -32,10 +32,15 @@ func (o VrfNameProtocolsOspfSegmentRoutingGlobalBlock) ResourceSchemaAttributes(
 			Optional: true,
 			MarkdownDescription: `MPLS label lower bound
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 16-1048575  &emsp; |  Label value (recommended minimum value: 300)  |
+    |  Format      &emsp;|  Description                                   |
+    |--------------------|------------------------------------------------|
+    |  16-1048575  &emsp;|  Label value (recommended minimum value: 300)  |
+`,
+			Description: `MPLS label lower bound
 
+    |  Format      |  Description                                   |
+    |--------------------|------------------------------------------------|
+    |  16-1048575  |  Label value (recommended minimum value: 300)  |
 `,
 		},
 
@@ -43,10 +48,15 @@ func (o VrfNameProtocolsOspfSegmentRoutingGlobalBlock) ResourceSchemaAttributes(
 			Optional: true,
 			MarkdownDescription: `MPLS label upper bound
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 16-1048575  &emsp; |  Label value  |
+    |  Format      &emsp;|  Description  |
+    |--------------------|---------------|
+    |  16-1048575  &emsp;|  Label value  |
+`,
+			Description: `MPLS label upper bound
 
+    |  Format      |  Description  |
+    |--------------------|---------------|
+    |  16-1048575  |  Label value  |
 `,
 		},
 

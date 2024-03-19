@@ -34,6 +34,9 @@ func (o QosPolicyShaperClassMatchIPTCP) ResourceSchemaAttributes() map[string]sc
 			MarkdownDescription: `Match TCP ACK
 
 `,
+			Description: `Match TCP ACK
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -41,6 +44,9 @@ func (o QosPolicyShaperClassMatchIPTCP) ResourceSchemaAttributes() map[string]sc
 		"syn": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Match TCP SYN
+
+`,
+			Description: `Match TCP SYN
 
 `,
 			Default:  booldefault.StaticBool(false),

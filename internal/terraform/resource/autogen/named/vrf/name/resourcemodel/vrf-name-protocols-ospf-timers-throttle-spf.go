@@ -33,10 +33,15 @@ func (o VrfNameProtocolsOspfTimersThroTTLeSpf) ResourceSchemaAttributes() map[st
 			Optional: true,
 			MarkdownDescription: `Delay from the first change received to SPF calculation
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-600000  &emsp; |  Delay in milliseconds  |
+    |  Format    &emsp;|  Description            |
+    |------------------|-------------------------|
+    |  0-600000  &emsp;|  Delay in milliseconds  |
+`,
+			Description: `Delay from the first change received to SPF calculation
 
+    |  Format    |  Description            |
+    |------------------|-------------------------|
+    |  0-600000  |  Delay in milliseconds  |
 `,
 
 			// Default:          stringdefault.StaticString(`200`),
@@ -47,10 +52,15 @@ func (o VrfNameProtocolsOspfTimersThroTTLeSpf) ResourceSchemaAttributes() map[st
 			Optional: true,
 			MarkdownDescription: `Initial hold time between consecutive SPF calculations
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-600000  &emsp; |  Initial hold time in milliseconds  |
+    |  Format    &emsp;|  Description                        |
+    |------------------|-------------------------------------|
+    |  0-600000  &emsp;|  Initial hold time in milliseconds  |
+`,
+			Description: `Initial hold time between consecutive SPF calculations
 
+    |  Format    |  Description                        |
+    |------------------|-------------------------------------|
+    |  0-600000  |  Initial hold time in milliseconds  |
 `,
 
 			// Default:          stringdefault.StaticString(`1000`),
@@ -61,10 +71,15 @@ func (o VrfNameProtocolsOspfTimersThroTTLeSpf) ResourceSchemaAttributes() map[st
 			Optional: true,
 			MarkdownDescription: `Maximum hold time
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-600000  &emsp; |  Max hold time in milliseconds  |
+    |  Format    &emsp;|  Description                    |
+    |------------------|---------------------------------|
+    |  0-600000  &emsp;|  Max hold time in milliseconds  |
+`,
+			Description: `Maximum hold time
 
+    |  Format    |  Description                    |
+    |------------------|---------------------------------|
+    |  0-600000  |  Max hold time in milliseconds  |
 `,
 
 			// Default:          stringdefault.StaticString(`10000`),

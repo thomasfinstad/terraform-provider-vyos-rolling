@@ -87,23 +87,23 @@ BGP aggregate network
 
 - `aggregate_address_id` (String) BGP aggregate network
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  BGP aggregate network  |
+    |  Format   &emsp;|  Description            |
+    |-----------------|-------------------------|
+    |  ipv4net  &emsp;|  BGP aggregate network  |
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 
 ### Optional
 
 - `as_set` (Boolean) Generate AS-set path information for this aggregate address
 - `route_map` (String) Specify route-map name to use
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Route map name  |
 - `summary_only` (Boolean) Announce the aggregate summary network only
 
 ### Read-Only

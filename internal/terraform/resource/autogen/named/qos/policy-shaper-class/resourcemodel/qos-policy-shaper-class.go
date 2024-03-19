@@ -114,10 +114,15 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 			Required: true,
 			MarkdownDescription: `Class ID
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 2-4095  &emsp; |  Class Identifier  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  2-4095  &emsp;|  Class Identifier  |
+`,
+			Description: `Class ID
 
+    |  Format  |  Description       |
+    |----------------|--------------------|
+    |  2-4095  |  Class Identifier  |
 `,
 			PlanModifiers: []planmodifier.Number{
 				numberplanmodifier.RequiresReplace(),
@@ -128,10 +133,15 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 			Required: true,
 			MarkdownDescription: `Traffic shaping based policy (Hierarchy Token Bucket)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Policy name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Policy name  |
+`,
+			Description: `Traffic shaping based policy (Hierarchy Token Bucket)
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Policy name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -157,10 +167,15 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -168,17 +183,29 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Available bandwidth for this policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  auto  &emsp; |  Bandwidth matches interface speed  |
-    |  <number>  &emsp; |  Bits per second  |
-    |  <number>bit  &emsp; |  Bits per second  |
-    |  <number>kbit  &emsp; |  Kilobits per second  |
-    |  <number>mbit  &emsp; |  Megabits per second  |
-    |  <number>gbit  &emsp; |  Gigabits per second  |
-    |  <number>tbit  &emsp; |  Terabits per second  |
-    |  <number>%%  &emsp; |  Percentage of interface link speed  |
+    |  Format              &emsp;|  Description                         |
+    |----------------------------|--------------------------------------|
+    |  auto                &emsp;|  Bandwidth matches interface speed   |
+    |  &lt;number&gt;      &emsp;|  Bits per second                     |
+    |  &lt;number&gt;bit   &emsp;|  Bits per second                     |
+    |  &lt;number&gt;kbit  &emsp;|  Kilobits per second                 |
+    |  &lt;number&gt;mbit  &emsp;|  Megabits per second                 |
+    |  &lt;number&gt;gbit  &emsp;|  Gigabits per second                 |
+    |  &lt;number&gt;tbit  &emsp;|  Terabits per second                 |
+    |  &lt;number&gt;%%    &emsp;|  Percentage of interface link speed  |
+`,
+			Description: `Available bandwidth for this policy
 
+    |  Format              |  Description                         |
+    |----------------------------|--------------------------------------|
+    |  auto                |  Bandwidth matches interface speed   |
+    |  <number>      |  Bits per second                     |
+    |  <number>bit   |  Bits per second                     |
+    |  <number>kbit  |  Kilobits per second                 |
+    |  <number>mbit  |  Megabits per second                 |
+    |  <number>gbit  |  Gigabits per second                 |
+    |  <number>tbit  |  Terabits per second                 |
+    |  <number>%%    |  Percentage of interface link speed  |
 `,
 
 			// Default:          stringdefault.StaticString(`auto`),
@@ -189,11 +216,17 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Burst size for this class
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Bytes  |
-    |  <number><suffix>  &emsp; |  Bytes with scaling suffix (kb, mb, gb)  |
+    |  Format                        &emsp;|  Description                             |
+    |--------------------------------------|------------------------------------------|
+    |  &lt;number&gt;                &emsp;|  Bytes                                   |
+    |  &lt;number&gt;&lt;suffix&gt;  &emsp;|  Bytes with scaling suffix (kb, mb, gb)  |
+`,
+			Description: `Burst size for this class
 
+    |  Format                        |  Description                             |
+    |--------------------------------------|------------------------------------------|
+    |  <number>                |  Bytes                                   |
+    |  <number><suffix>  |  Bytes with scaling suffix (kb, mb, gb)  |
 `,
 
 			// Default:          stringdefault.StaticString(`15k`),
@@ -204,15 +237,25 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Bandwidth limit for this class
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Rate in kbit (kilobit per second)  |
-    |  <number>%%  &emsp; |  Percentage of overall rate  |
-    |  <number>bit  &emsp; |  bit(1), kbit(10^3), mbit(10^6), gbit, tbit  |
-    |  <number>ibit  &emsp; |  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
-    |  <number>ibps  &emsp; |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
-    |  <number>bps  &emsp; |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
+    |  Format              &emsp;|  Description                                              |
+    |----------------------------|-----------------------------------------------------------|
+    |  &lt;number&gt;      &emsp;|  Rate in kbit (kilobit per second)                        |
+    |  &lt;number&gt;%%    &emsp;|  Percentage of overall rate                               |
+    |  &lt;number&gt;bit   &emsp;|  bit(1), kbit(10^3), mbit(10^6), gbit, tbit               |
+    |  &lt;number&gt;ibit  &emsp;|  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
+    |  &lt;number&gt;ibps  &emsp;|  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
+    |  &lt;number&gt;bps   &emsp;|  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
+`,
+			Description: `Bandwidth limit for this class
 
+    |  Format              |  Description                                              |
+    |----------------------------|-----------------------------------------------------------|
+    |  <number>      |  Rate in kbit (kilobit per second)                        |
+    |  <number>%%    |  Percentage of overall rate                               |
+    |  <number>bit   |  bit(1), kbit(10^3), mbit(10^6), gbit, tbit               |
+    |  <number>ibit  |  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
+    |  <number>ibps  |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
+    |  <number>bps   |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
 `,
 		},
 
@@ -220,10 +263,15 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Deficit in the fair queuing algorithm
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-1048576  &emsp; |  Number of bytes used as 'deficit'  |
+    |  Format     &emsp;|  Description                        |
+    |-------------------|-------------------------------------|
+    |  0-1048576  &emsp;|  Number of bytes used as 'deficit'  |
+`,
+			Description: `Deficit in the fair queuing algorithm
 
+    |  Format     |  Description                        |
+    |-------------------|-------------------------------------|
+    |  0-1048576  |  Number of bytes used as 'deficit'  |
 `,
 
 			// Default:          stringdefault.StaticString(`1514`),
@@ -234,10 +282,15 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Number of flows into which the incoming packets are classified
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65536  &emsp; |  Number of flows  |
+    |  Format   &emsp;|  Description      |
+    |-----------------|-------------------|
+    |  1-65536  &emsp;|  Number of flows  |
+`,
+			Description: `Number of flows into which the incoming packets are classified
 
+    |  Format   |  Description      |
+    |-----------------|-------------------|
+    |  1-65536  |  Number of flows  |
 `,
 
 			// Default:          stringdefault.StaticString(`1024`),
@@ -248,10 +301,15 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Interval used to measure the delay
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  Interval in milliseconds  |
+    |  Format  &emsp;|  Description               |
+    |----------------|----------------------------|
+    |  u32     &emsp;|  Interval in milliseconds  |
+`,
+			Description: `Interval used to measure the delay
 
+    |  Format  |  Description               |
+    |----------------|----------------------------|
+    |  u32     |  Interval in milliseconds  |
 `,
 
 			// Default:          stringdefault.StaticString(`100`),
@@ -262,10 +320,15 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Priority for rule evaluation
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-20  &emsp; |  Priority for match rule evaluation  |
+    |  Format  &emsp;|  Description                         |
+    |----------------|--------------------------------------|
+    |  0-20    &emsp;|  Priority for match rule evaluation  |
+`,
+			Description: `Priority for rule evaluation
 
+    |  Format  |  Description                         |
+    |----------------|--------------------------------------|
+    |  0-20    |  Priority for match rule evaluation  |
 `,
 		},
 
@@ -273,10 +336,15 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4294967295  &emsp; |  Queue size in packets  |
+    |  Format        &emsp;|  Description            |
+    |----------------------|-------------------------|
+    |  1-4294967295  &emsp;|  Queue size in packets  |
+`,
+			Description: `Maximum queue size
 
+    |  Format        |  Description            |
+    |----------------------|-------------------------|
+    |  1-4294967295  |  Queue size in packets  |
 `,
 		},
 
@@ -284,14 +352,23 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Queue type for default traffic
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  drop-tail  &emsp; |  First-In-First-Out (FIFO)  |
-    |  fair-queue  &emsp; |  Stochastic Fair Queue (SFQ)  |
-    |  fq-codel  &emsp; |  Fair Queue Codel  |
-    |  priority  &emsp; |  Priority queuing  |
-    |  random-detect  &emsp; |  Random Early Detection (RED)  |
+    |  Format         &emsp;|  Description                   |
+    |-----------------------|--------------------------------|
+    |  drop-tail      &emsp;|  First-In-First-Out (FIFO)     |
+    |  fair-queue     &emsp;|  Stochastic Fair Queue (SFQ)   |
+    |  fq-codel       &emsp;|  Fair Queue Codel              |
+    |  priority       &emsp;|  Priority queuing              |
+    |  random-detect  &emsp;|  Random Early Detection (RED)  |
+`,
+			Description: `Queue type for default traffic
 
+    |  Format         |  Description                   |
+    |-----------------------|--------------------------------|
+    |  drop-tail      |  First-In-First-Out (FIFO)     |
+    |  fair-queue     |  Stochastic Fair Queue (SFQ)   |
+    |  fq-codel       |  Fair Queue Codel              |
+    |  priority       |  Priority queuing              |
+    |  random-detect  |  Random Early Detection (RED)  |
 `,
 
 			// Default:          stringdefault.StaticString(`fq-codel`),
@@ -302,41 +379,77 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Change the Differentiated Services (DiffServ) field in the IP header
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-63  &emsp; |  Priority order for bandwidth pool  |
-    |  default  &emsp; |  match DSCP (000000)  |
-    |  reliability  &emsp; |  match DSCP (000001)  |
-    |  throughput  &emsp; |  match DSCP (000010)  |
-    |  lowdelay  &emsp; |  match DSCP (000100)  |
-    |  priority  &emsp; |  match DSCP (001000)  |
-    |  immediate  &emsp; |  match DSCP (010000)  |
-    |  flash  &emsp; |  match DSCP (011000)  |
-    |  flash-override  &emsp; |  match DSCP (100000)  |
-    |  critical  &emsp; |  match DSCP (101000)  |
-    |  internet  &emsp; |  match DSCP (110000)  |
-    |  network  &emsp; |  match DSCP (111000)  |
-    |  AF11  &emsp; |  High-throughput data  |
-    |  AF12  &emsp; |  High-throughput data  |
-    |  AF13  &emsp; |  High-throughput data  |
-    |  AF21  &emsp; |  Low-latency data  |
-    |  AF22  &emsp; |  Low-latency data  |
-    |  AF23  &emsp; |  Low-latency data  |
-    |  AF31  &emsp; |  Multimedia streaming  |
-    |  AF32  &emsp; |  Multimedia streaming  |
-    |  AF33  &emsp; |  Multimedia streaming  |
-    |  AF41  &emsp; |  Multimedia conferencing  |
-    |  AF42  &emsp; |  Multimedia conferencing  |
-    |  AF43  &emsp; |  Multimedia conferencing  |
-    |  CS1  &emsp; |  Low-priority data  |
-    |  CS2  &emsp; |  OAM  |
-    |  CS3  &emsp; |  Broadcast video  |
-    |  CS4  &emsp; |  Real-time interactive  |
-    |  CS5  &emsp; |  Signaling  |
-    |  CS6  &emsp; |  Network control  |
-    |  CS7  &emsp; |    |
-    |  EF  &emsp; |  Expedited Forwarding  |
+    |  Format          &emsp;|  Description                        |
+    |------------------------|-------------------------------------|
+    |  0-63            &emsp;|  Priority order for bandwidth pool  |
+    |  default         &emsp;|  match DSCP (000000)                |
+    |  reliability     &emsp;|  match DSCP (000001)                |
+    |  throughput      &emsp;|  match DSCP (000010)                |
+    |  lowdelay        &emsp;|  match DSCP (000100)                |
+    |  priority        &emsp;|  match DSCP (001000)                |
+    |  immediate       &emsp;|  match DSCP (010000)                |
+    |  flash           &emsp;|  match DSCP (011000)                |
+    |  flash-override  &emsp;|  match DSCP (100000)                |
+    |  critical        &emsp;|  match DSCP (101000)                |
+    |  internet        &emsp;|  match DSCP (110000)                |
+    |  network         &emsp;|  match DSCP (111000)                |
+    |  AF11            &emsp;|  High-throughput data               |
+    |  AF12            &emsp;|  High-throughput data               |
+    |  AF13            &emsp;|  High-throughput data               |
+    |  AF21            &emsp;|  Low-latency data                   |
+    |  AF22            &emsp;|  Low-latency data                   |
+    |  AF23            &emsp;|  Low-latency data                   |
+    |  AF31            &emsp;|  Multimedia streaming               |
+    |  AF32            &emsp;|  Multimedia streaming               |
+    |  AF33            &emsp;|  Multimedia streaming               |
+    |  AF41            &emsp;|  Multimedia conferencing            |
+    |  AF42            &emsp;|  Multimedia conferencing            |
+    |  AF43            &emsp;|  Multimedia conferencing            |
+    |  CS1             &emsp;|  Low-priority data                  |
+    |  CS2             &emsp;|  OAM                                |
+    |  CS3             &emsp;|  Broadcast video                    |
+    |  CS4             &emsp;|  Real-time interactive              |
+    |  CS5             &emsp;|  Signaling                          |
+    |  CS6             &emsp;|  Network control                    |
+    |  CS7             &emsp;|  N/A                                |
+    |  EF              &emsp;|  Expedited Forwarding               |
+`,
+			Description: `Change the Differentiated Services (DiffServ) field in the IP header
 
+    |  Format          |  Description                        |
+    |------------------------|-------------------------------------|
+    |  0-63            |  Priority order for bandwidth pool  |
+    |  default         |  match DSCP (000000)                |
+    |  reliability     |  match DSCP (000001)                |
+    |  throughput      |  match DSCP (000010)                |
+    |  lowdelay        |  match DSCP (000100)                |
+    |  priority        |  match DSCP (001000)                |
+    |  immediate       |  match DSCP (010000)                |
+    |  flash           |  match DSCP (011000)                |
+    |  flash-override  |  match DSCP (100000)                |
+    |  critical        |  match DSCP (101000)                |
+    |  internet        |  match DSCP (110000)                |
+    |  network         |  match DSCP (111000)                |
+    |  AF11            |  High-throughput data               |
+    |  AF12            |  High-throughput data               |
+    |  AF13            |  High-throughput data               |
+    |  AF21            |  Low-latency data                   |
+    |  AF22            |  Low-latency data                   |
+    |  AF23            |  Low-latency data                   |
+    |  AF31            |  Multimedia streaming               |
+    |  AF32            |  Multimedia streaming               |
+    |  AF33            |  Multimedia streaming               |
+    |  AF41            |  Multimedia conferencing            |
+    |  AF42            |  Multimedia conferencing            |
+    |  AF43            |  Multimedia conferencing            |
+    |  CS1             |  Low-priority data                  |
+    |  CS2             |  OAM                                |
+    |  CS3             |  Broadcast video                    |
+    |  CS4             |  Real-time interactive              |
+    |  CS5             |  Signaling                          |
+    |  CS6             |  Network control                    |
+    |  CS7             |  N/A                                |
+    |  EF              |  Expedited Forwarding               |
 `,
 		},
 
@@ -344,10 +457,15 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Acceptable minimum standing/persistent queue delay
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  Queue delay in milliseconds  |
+    |  Format  &emsp;|  Description                  |
+    |----------------|-------------------------------|
+    |  u32     &emsp;|  Queue delay in milliseconds  |
+`,
+			Description: `Acceptable minimum standing/persistent queue delay
 
+    |  Format  |  Description                  |
+    |----------------|-------------------------------|
+    |  u32     |  Queue delay in milliseconds  |
 `,
 
 			// Default:          stringdefault.StaticString(`5`),

@@ -99,6 +99,9 @@ func (o ContainerNameDevice) ResourceSchemaAttributes() map[string]schema.Attrib
 			MarkdownDescription: `Add a host device to the container
 
 `,
+			Description: `Add a host device to the container
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -120,6 +123,9 @@ func (o ContainerNameDevice) ResourceSchemaAttributes() map[string]schema.Attrib
 		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Container name
+
+`,
+			Description: `Container name
 
 `,
 			PlanModifiers: []planmodifier.String{
@@ -146,10 +152,15 @@ func (o ContainerNameDevice) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Source device (Example: "/dev/x")
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Source device  |
+    |  Format  &emsp;|  Description    |
+    |----------------|-----------------|
+    |  txt     &emsp;|  Source device  |
+`,
+			Description: `Source device (Example: "/dev/x")
 
+    |  Format  |  Description    |
+    |----------------|-----------------|
+    |  txt     |  Source device  |
 `,
 		},
 
@@ -157,10 +168,15 @@ func (o ContainerNameDevice) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Destination container device (Example: "/dev/x")
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Destination container device  |
+    |  Format  &emsp;|  Description                   |
+    |----------------|--------------------------------|
+    |  txt     &emsp;|  Destination container device  |
+`,
+			Description: `Destination container device (Example: "/dev/x")
 
+    |  Format  |  Description                   |
+    |----------------|--------------------------------|
+    |  txt     |  Destination container device  |
 `,
 		},
 

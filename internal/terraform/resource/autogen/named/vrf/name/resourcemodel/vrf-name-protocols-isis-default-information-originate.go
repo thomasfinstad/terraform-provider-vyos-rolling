@@ -35,12 +35,18 @@ func (o VrfNameProtocolsIsisDefaultInformationOriginate) ResourceSchemaAttribute
 			MarkdownDescription: `Distribute default route for IPv4
 
 `,
+			Description: `Distribute default route for IPv4
+
+`,
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsIsisDefaultInformationOriginateIPvsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Distribute default route for IPv6
+
+`,
+			Description: `Distribute default route for IPv6
 
 `,
 		},

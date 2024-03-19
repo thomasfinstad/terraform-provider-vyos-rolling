@@ -47,15 +47,15 @@ VRRP global parameters
 
 - `startup_delay` (Number) Time VRRP startup process (in seconds)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-600  &emsp; |  Interval in seconds  |
+    |  Format  &emsp;|  Description          |
+    |----------------|-----------------------|
+    |  1-600   &emsp;|  Interval in seconds  |
 - `version` (String) Default VRRP version to use, IPv6 always uses VRRP version 3
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  2  &emsp; |  VRRP version 2  |
-    |  3  &emsp; |  VRRP version 3  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  2       &emsp;|  VRRP version 2  |
+    |  3       &emsp;|  VRRP version 3  |
 
 ### Read-Only
 

@@ -122,10 +122,15 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			Required: true,
 			MarkdownDescription: `IPv6 Firewall input filter rule number
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-999999  &emsp; |  Number for this firewall rule  |
+    |  Format    &emsp;|  Description                    |
+    |------------------|---------------------------------|
+    |  1-999999  &emsp;|  Number for this firewall rule  |
+`,
+			Description: `IPv6 Firewall input filter rule number
 
+    |  Format    |  Description                    |
+    |------------------|---------------------------------|
+    |  1-999999  |  Number for this firewall rule  |
 `,
 			PlanModifiers: []planmodifier.Number{
 				numberplanmodifier.RequiresReplace(),
@@ -138,18 +143,31 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Rule action
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  accept  &emsp; |  Accept matching entries  |
-    |  continue  &emsp; |  Continue parsing next rule  |
-    |  jump  &emsp; |  Jump to another chain  |
-    |  reject  &emsp; |  Reject matching entries  |
-    |  return  &emsp; |  Return from the current chain and continue at the next rule of the last chain  |
-    |  drop  &emsp; |  Drop matching entries  |
-    |  queue  &emsp; |  Enqueue packet to userspace  |
-    |  offload  &emsp; |  Offload packet via flowtable  |
-    |  synproxy  &emsp; |  Synproxy connections  |
+    |  Format    &emsp;|  Description                                                                    |
+    |------------------|---------------------------------------------------------------------------------|
+    |  accept    &emsp;|  Accept matching entries                                                        |
+    |  continue  &emsp;|  Continue parsing next rule                                                     |
+    |  jump      &emsp;|  Jump to another chain                                                          |
+    |  reject    &emsp;|  Reject matching entries                                                        |
+    |  return    &emsp;|  Return from the current chain and continue at the next rule of the last chain  |
+    |  drop      &emsp;|  Drop matching entries                                                          |
+    |  queue     &emsp;|  Enqueue packet to userspace                                                    |
+    |  offload   &emsp;|  Offload packet via flowtable                                                   |
+    |  synproxy  &emsp;|  Synproxy connections                                                           |
+`,
+			Description: `Rule action
 
+    |  Format    |  Description                                                                    |
+    |------------------|---------------------------------------------------------------------------------|
+    |  accept    |  Accept matching entries                                                        |
+    |  continue  |  Continue parsing next rule                                                     |
+    |  jump      |  Jump to another chain                                                          |
+    |  reject    |  Reject matching entries                                                        |
+    |  return    |  Return from the current chain and continue at the next rule of the last chain  |
+    |  drop      |  Drop matching entries                                                          |
+    |  queue     |  Enqueue packet to userspace                                                    |
+    |  offload   |  Offload packet via flowtable                                                   |
+    |  synproxy  |  Synproxy connections                                                           |
 `,
 		},
 
@@ -157,10 +175,15 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -169,11 +192,17 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			Optional:    true,
 			MarkdownDescription: `DSCP value
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-63  &emsp; |  DSCP value to match  |
-    |  <start-end>  &emsp; |  DSCP range to match  |
+    |  Format             &emsp;|  Description          |
+    |---------------------------|-----------------------|
+    |  0-63               &emsp;|  DSCP value to match  |
+    |  &lt;start-end&gt;  &emsp;|  DSCP range to match  |
+`,
+			Description: `DSCP value
 
+    |  Format             |  Description          |
+    |---------------------------|-----------------------|
+    |  0-63               |  DSCP value to match  |
+    |  <start-end>  |  DSCP range to match  |
 `,
 		},
 
@@ -182,11 +211,17 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			Optional:    true,
 			MarkdownDescription: `DSCP value not to match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-63  &emsp; |  DSCP value not to match  |
-    |  <start-end>  &emsp; |  DSCP range not to match  |
+    |  Format             &emsp;|  Description              |
+    |---------------------------|---------------------------|
+    |  0-63               &emsp;|  DSCP value not to match  |
+    |  &lt;start-end&gt;  &emsp;|  DSCP range not to match  |
+`,
+			Description: `DSCP value not to match
 
+    |  Format             |  Description              |
+    |---------------------------|---------------------------|
+    |  0-63               |  DSCP value not to match  |
+    |  <start-end>  |  DSCP range not to match  |
 `,
 		},
 
@@ -195,11 +230,17 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			Optional:    true,
 			MarkdownDescription: `Payload size in bytes, including header and data to match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Packet length to match  |
-    |  <start-end>  &emsp; |  Packet length range to match  |
+    |  Format             &emsp;|  Description                   |
+    |---------------------------|--------------------------------|
+    |  1-65535            &emsp;|  Packet length to match        |
+    |  &lt;start-end&gt;  &emsp;|  Packet length range to match  |
+`,
+			Description: `Payload size in bytes, including header and data to match
 
+    |  Format             |  Description                   |
+    |---------------------------|--------------------------------|
+    |  1-65535            |  Packet length to match        |
+    |  <start-end>  |  Packet length range to match  |
 `,
 		},
 
@@ -208,11 +249,17 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			Optional:    true,
 			MarkdownDescription: `Payload size in bytes, including header and data not to match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Packet length not to match  |
-    |  <start-end>  &emsp; |  Packet length range not to match  |
+    |  Format             &emsp;|  Description                       |
+    |---------------------------|------------------------------------|
+    |  1-65535            &emsp;|  Packet length not to match        |
+    |  &lt;start-end&gt;  &emsp;|  Packet length range not to match  |
+`,
+			Description: `Payload size in bytes, including header and data not to match
 
+    |  Format             |  Description                       |
+    |---------------------------|------------------------------------|
+    |  1-65535            |  Packet length not to match        |
+    |  <start-end>  |  Packet length range not to match  |
 `,
 		},
 
@@ -220,13 +267,21 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Packet type
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  broadcast  &emsp; |  Match broadcast packet type  |
-    |  host  &emsp; |  Match host packet type, addressed to local host  |
-    |  multicast  &emsp; |  Match multicast packet type  |
-    |  other  &emsp; |  Match packet addressed to another host  |
+    |  Format     &emsp;|  Description                                      |
+    |-------------------|---------------------------------------------------|
+    |  broadcast  &emsp;|  Match broadcast packet type                      |
+    |  host       &emsp;|  Match host packet type, addressed to local host  |
+    |  multicast  &emsp;|  Match multicast packet type                      |
+    |  other      &emsp;|  Match packet addressed to another host           |
+`,
+			Description: `Packet type
 
+    |  Format     |  Description                                      |
+    |-------------------|---------------------------------------------------|
+    |  broadcast  |  Match broadcast packet type                      |
+    |  host       |  Match host packet type, addressed to local host  |
+    |  multicast  |  Match multicast packet type                      |
+    |  other      |  Match packet addressed to another host           |
 `,
 		},
 
@@ -234,13 +289,21 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Firewall mark
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-2147483647  &emsp; |  Firewall mark to match  |
-    |  !number: 0-2147483647  &emsp; |  Inverted Firewall mark to match  |
-    |  <start-end>  &emsp; |  Firewall mark range to match  |
-    |  !<start-end>  &emsp; |  Firewall mark inverted range to match  |
+    |  Format              &emsp;|  Description                            |
+    |----------------------------|-----------------------------------------|
+    |  0-2147483647        &emsp;|  Firewall mark to match                 |
+    |  !0-2147483647       &emsp;|  Inverted Firewall mark to match        |
+    |  &lt;start-end&gt;   &emsp;|  Firewall mark range to match           |
+    |  !&lt;start-end&gt;  &emsp;|  Firewall mark inverted range to match  |
+`,
+			Description: `Firewall mark
 
+    |  Format              |  Description                            |
+    |----------------------------|-----------------------------------------|
+    |  0-2147483647        |  Firewall mark to match                 |
+    |  !0-2147483647       |  Inverted Firewall mark to match        |
+    |  <start-end>   |  Firewall mark range to match           |
+    |  !<start-end>  |  Firewall mark inverted range to match  |
 `,
 		},
 
@@ -249,10 +312,15 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			Optional:    true,
 			MarkdownDescription: `Connection mark
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-2147483647  &emsp; |  Connection-mark to match  |
+    |  Format        &emsp;|  Description               |
+    |----------------------|----------------------------|
+    |  0-2147483647  &emsp;|  Connection-mark to match  |
+`,
+			Description: `Connection mark
 
+    |  Format        |  Description               |
+    |----------------------|----------------------------|
+    |  0-2147483647  |  Connection-mark to match  |
 `,
 		},
 
@@ -261,17 +329,29 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			Optional:    true,
 			MarkdownDescription: `Match related traffic from conntrack helpers
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ftp  &emsp; |  Related traffic from FTP helper  |
-    |  h323  &emsp; |  Related traffic from H.323 helper  |
-    |  pptp  &emsp; |  Related traffic from PPTP helper  |
-    |  nfs  &emsp; |  Related traffic from NFS helper  |
-    |  rtsp  &emsp; |  Related traffic from RTSP helper  |
-    |  sip  &emsp; |  Related traffic from SIP helper  |
-    |  tftp  &emsp; |  Related traffic from TFTP helper  |
-    |  sqlnet  &emsp; |  Related traffic from SQLNet helper  |
+    |  Format  &emsp;|  Description                         |
+    |----------------|--------------------------------------|
+    |  ftp     &emsp;|  Related traffic from FTP helper     |
+    |  h323    &emsp;|  Related traffic from H.323 helper   |
+    |  pptp    &emsp;|  Related traffic from PPTP helper    |
+    |  nfs     &emsp;|  Related traffic from NFS helper     |
+    |  rtsp    &emsp;|  Related traffic from RTSP helper    |
+    |  sip     &emsp;|  Related traffic from SIP helper     |
+    |  tftp    &emsp;|  Related traffic from TFTP helper    |
+    |  sqlnet  &emsp;|  Related traffic from SQLNet helper  |
+`,
+			Description: `Match related traffic from conntrack helpers
 
+    |  Format  |  Description                         |
+    |----------------|--------------------------------------|
+    |  ftp     |  Related traffic from FTP helper     |
+    |  h323    |  Related traffic from H.323 helper   |
+    |  pptp    |  Related traffic from PPTP helper    |
+    |  nfs     |  Related traffic from NFS helper     |
+    |  rtsp    |  Related traffic from RTSP helper    |
+    |  sip     |  Related traffic from SIP helper     |
+    |  tftp    |  Related traffic from TFTP helper    |
+    |  sqlnet  |  Related traffic from SQLNet helper  |
 `,
 		},
 
@@ -279,10 +359,15 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Queue target to use. Action queue must be defined to use this setting
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-65535  &emsp; |  Queue target  |
+    |  Format   &emsp;|  Description   |
+    |-----------------|----------------|
+    |  0-65535  &emsp;|  Queue target  |
+`,
+			Description: `Queue target to use. Action queue must be defined to use this setting
 
+    |  Format   |  Description   |
+    |-----------------|----------------|
+    |  0-65535  |  Queue target  |
 `,
 		},
 
@@ -291,17 +376,26 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			Optional:    true,
 			MarkdownDescription: `Options used for queue target. Action queue must be defined to use this setting
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  bypass  &emsp; |  Let packets go through if userspace application cannot back off  |
-    |  fanout  &emsp; |  Distribute packets between several queues  |
+    |  Format  &emsp;|  Description                                                      |
+    |----------------|-------------------------------------------------------------------|
+    |  bypass  &emsp;|  Let packets go through if userspace application cannot back off  |
+    |  fanout  &emsp;|  Distribute packets between several queues                        |
+`,
+			Description: `Options used for queue target. Action queue must be defined to use this setting
 
+    |  Format  |  Description                                                      |
+    |----------------|-------------------------------------------------------------------|
+    |  bypass  |  Let packets go through if userspace application cannot back off  |
+    |  fanout  |  Distribute packets between several queues                        |
 `,
 		},
 
 		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
+
+`,
+			Description: `Disable instance
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -313,6 +407,9 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Log packets hitting this rule
 
 `,
+			Description: `Log packets hitting this rule
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -321,14 +418,23 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Protocol to match (protocol name, number, or "all")
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  all  &emsp; |  All IP protocols  |
-    |  tcp_udp  &emsp; |  Both TCP and UDP  |
-    |  number: 0-255  &emsp; |  IP protocol number  |
-    |  <protocol>  &emsp; |  IP protocol name  |
-    |  !<protocol>  &emsp; |  IP protocol name  |
+    |  Format             &emsp;|  Description         |
+    |---------------------------|----------------------|
+    |  all                &emsp;|  All IP protocols    |
+    |  tcp_udp            &emsp;|  Both TCP and UDP    |
+    |  0-255              &emsp;|  IP protocol number  |
+    |  &lt;protocol&gt;   &emsp;|  IP protocol name    |
+    |  !&lt;protocol&gt;  &emsp;|  IP protocol name    |
+`,
+			Description: `Protocol to match (protocol name, number, or "all")
 
+    |  Format             |  Description         |
+    |---------------------------|----------------------|
+    |  all                |  All IP protocols    |
+    |  tcp_udp            |  Both TCP and UDP    |
+    |  0-255              |  IP protocol number  |
+    |  <protocol>   |  IP protocol name    |
+    |  !<protocol>  |  IP protocol name    |
 `,
 		},
 
@@ -337,19 +443,30 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			Optional:    true,
 			MarkdownDescription: `Session state
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  established  &emsp; |  Established state  |
-    |  invalid  &emsp; |  Invalid state  |
-    |  new  &emsp; |  New state  |
-    |  related  &emsp; |  Related state  |
+    |  Format       &emsp;|  Description        |
+    |---------------------|---------------------|
+    |  established  &emsp;|  Established state  |
+    |  invalid      &emsp;|  Invalid state      |
+    |  new          &emsp;|  New state          |
+    |  related      &emsp;|  Related state      |
+`,
+			Description: `Session state
 
+    |  Format       |  Description        |
+    |---------------------|---------------------|
+    |  established  |  Established state  |
+    |  invalid      |  Invalid state      |
+    |  new          |  New state          |
+    |  related      |  Related state      |
 `,
 		},
 
 		"jump_target": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Set jump target. Action jump must be defined to use this setting
+
+`,
+			Description: `Set jump target. Action jump must be defined to use this setting
 
 `,
 		},
@@ -362,12 +479,18 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `IP fragment match
 
 `,
+			Description: `IP fragment match
+
+`,
 		},
 
 		"limit": schema.SingleNestedAttribute{
 			Attributes: FirewallIPvsixInputFilterRuleLimit{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Rate limit using a token bucket filter
+
+`,
+			Description: `Rate limit using a token bucket filter
 
 `,
 		},
@@ -378,12 +501,18 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Log options
 
 `,
+			Description: `Log options
+
+`,
 		},
 
 		"connection_status": schema.SingleNestedAttribute{
 			Attributes: FirewallIPvsixInputFilterRuleConnectionStatus{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Connection status
+
+`,
+			Description: `Connection status
 
 `,
 		},
@@ -394,12 +523,18 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Parameters for matching recently seen sources
 
 `,
+			Description: `Parameters for matching recently seen sources
+
+`,
 		},
 
 		"synproxy": schema.SingleNestedAttribute{
 			Attributes: FirewallIPvsixInputFilterRuleSynproxy{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Synproxy options
+
+`,
+			Description: `Synproxy options
 
 `,
 		},
@@ -410,12 +545,18 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `TCP options to match
 
 `,
+			Description: `TCP options to match
+
+`,
 		},
 
 		"time": schema.SingleNestedAttribute{
 			Attributes: FirewallIPvsixInputFilterRuleTime{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Time to match rule
+
+`,
+			Description: `Time to match rule
 
 `,
 		},
@@ -426,12 +567,18 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Hop limit
 
 `,
+			Description: `Hop limit
+
+`,
 		},
 
 		"add_address_to_group": schema.SingleNestedAttribute{
 			Attributes: FirewallIPvsixInputFilterRuleAddAddressToGroup{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Add ipv6 address to dynamic ipv6-address-group
+
+`,
+			Description: `Add ipv6 address to dynamic ipv6-address-group
 
 `,
 		},
@@ -442,12 +589,18 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Destination parameters
 
 `,
+			Description: `Destination parameters
+
+`,
 		},
 
 		"icmpv6": schema.SingleNestedAttribute{
 			Attributes: FirewallIPvsixInputFilterRuleIcmpvsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `ICMPv6 type and code information
+
+`,
+			Description: `ICMPv6 type and code information
 
 `,
 		},
@@ -458,6 +611,9 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Source parameters
 
 `,
+			Description: `Source parameters
+
+`,
 		},
 
 		"inbound_interface": schema.SingleNestedAttribute{
@@ -466,12 +622,18 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Match inbound-interface
 
 `,
+			Description: `Match inbound-interface
+
+`,
 		},
 
 		"ipsec": schema.SingleNestedAttribute{
 			Attributes: FirewallIPvsixInputFilterRuleIPsec{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Inbound IPsec packets
+
+`,
+			Description: `Inbound IPsec packets
 
 `,
 		},

@@ -47,18 +47,18 @@ Traffic input limiting policy
 
 - `limiter_id` (String) Traffic input limiting policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Policy name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Policy name  |
 
 ### Optional
 
 - `default` (Attributes) Default policy (see [below for nested schema](#nestedatt--default))
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 
 ### Read-Only
 
@@ -71,36 +71,36 @@ Optional:
 
 - `bandwidth` (String) Available bandwidth for this policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Bits per second  |
-    |  <number>bit  &emsp; |  Bits per second  |
-    |  <number>kbit  &emsp; |  Kilobits per second  |
-    |  <number>mbit  &emsp; |  Megabits per second  |
-    |  <number>gbit  &emsp; |  Gigabits per second  |
-    |  <number>tbit  &emsp; |  Terabits per second  |
-    |  <number>%%  &emsp; |  Percentage of interface link speed  |
+    |  Format              &emsp;|  Description                         |
+    |----------------------------|--------------------------------------|
+    |  &lt;number&gt;      &emsp;|  Bits per second                     |
+    |  &lt;number&gt;bit   &emsp;|  Bits per second                     |
+    |  &lt;number&gt;kbit  &emsp;|  Kilobits per second                 |
+    |  &lt;number&gt;mbit  &emsp;|  Megabits per second                 |
+    |  &lt;number&gt;gbit  &emsp;|  Gigabits per second                 |
+    |  &lt;number&gt;tbit  &emsp;|  Terabits per second                 |
+    |  &lt;number&gt;%%    &emsp;|  Percentage of interface link speed  |
 - `burst` (String) Burst size for this class
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Bytes  |
-    |  <number><suffix>  &emsp; |  Bytes with scaling suffix (kb, mb, gb)  |
+    |  Format                        &emsp;|  Description                             |
+    |--------------------------------------|------------------------------------------|
+    |  &lt;number&gt;                &emsp;|  Bytes                                   |
+    |  &lt;number&gt;&lt;suffix&gt;  &emsp;|  Bytes with scaling suffix (kb, mb, gb)  |
 - `exceed` (String) Default action for packets exceeding the limiter
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  continue  &emsp; |  Do not do anything, just continue with the next action in line  |
-    |  drop  &emsp; |  Drop the packet immediately  |
-    |  ok  &emsp; |  Accept the packet  |
-    |  reclassify  &emsp; |  Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
-    |  pipe  &emsp; |  Pass the packet to the next action in line  |
+    |  Format      &emsp;|  Description                                                                                                                   |
+    |--------------------|--------------------------------------------------------------------------------------------------------------------------------|
+    |  continue    &emsp;|  Do not do anything, just continue with the next action in line                                                                |
+    |  drop        &emsp;|  Drop the packet immediately                                                                                                   |
+    |  ok          &emsp;|  Accept the packet                                                                                                             |
+    |  reclassify  &emsp;|  Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
+    |  pipe        &emsp;|  Pass the packet to the next action in line                                                                                    |
 - `not_exceed` (String) Default action for packets not exceeding the limiter
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  continue  &emsp; |  Do not do anything, just continue with the next action in line  |
-    |  drop  &emsp; |  Drop the packet immediately  |
-    |  ok  &emsp; |  Accept the packet  |
-    |  reclassify  &emsp; |  Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
-    |  pipe  &emsp; |  Pass the packet to the next action in line  |
+    |  Format      &emsp;|  Description                                                                                                                   |
+    |--------------------|--------------------------------------------------------------------------------------------------------------------------------|
+    |  continue    &emsp;|  Do not do anything, just continue with the next action in line                                                                |
+    |  drop        &emsp;|  Drop the packet immediately                                                                                                   |
+    |  ok          &emsp;|  Accept the packet                                                                                                             |
+    |  reclassify  &emsp;|  Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
+    |  pipe        &emsp;|  Pass the packet to the next action in line                                                                                    |

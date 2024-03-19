@@ -41,16 +41,16 @@ Flowtable
 
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `interface` (List of String) Interfaces to use this flowtable
 - `offload` (String) Offloading method
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  hardware  &emsp; |  Hardware offload  |
-    |  software  &emsp; |  Software offload  |
+    |  Format    &emsp;|  Description       |
+    |------------------|--------------------|
+    |  hardware  &emsp;|  Hardware offload  |
+    |  software  &emsp;|  Software offload  |
 
 ### Read-Only
 

@@ -63,6 +63,6 @@ Optional:
 - `key` (String) Public key in PEM format
 - `type` (String) SSH public key type
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ssh-rsa  &emsp; |  Key pair based on RSA algorithm  |
+    |  Format   &emsp;|  Description                      |
+    |-----------------|-----------------------------------|
+    |  ssh-rsa  &emsp;|  Key pair based on RSA algorithm  |

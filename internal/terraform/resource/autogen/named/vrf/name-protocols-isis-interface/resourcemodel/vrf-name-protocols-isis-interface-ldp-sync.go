@@ -34,6 +34,9 @@ func (o VrfNameProtocolsIsisInterfaceLdpSync) ResourceSchemaAttributes() map[str
 			MarkdownDescription: `Disable instance
 
 `,
+			Description: `Disable instance
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -42,10 +45,15 @@ func (o VrfNameProtocolsIsisInterfaceLdpSync) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Hold down timer for LDP-IGP cost restoration
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-10000  &emsp; |  Time to wait in seconds for LDP-IGP synchronization to occur before restoring interface cost  |
+    |  Format   &emsp;|  Description                                                                                   |
+    |-----------------|------------------------------------------------------------------------------------------------|
+    |  0-10000  &emsp;|  Time to wait in seconds for LDP-IGP synchronization to occur before restoring interface cost  |
+`,
+			Description: `Hold down timer for LDP-IGP cost restoration
 
+    |  Format   |  Description                                                                                   |
+    |-----------------|------------------------------------------------------------------------------------------------|
+    |  0-10000  |  Time to wait in seconds for LDP-IGP synchronization to occur before restoring interface cost  |
 `,
 		},
 

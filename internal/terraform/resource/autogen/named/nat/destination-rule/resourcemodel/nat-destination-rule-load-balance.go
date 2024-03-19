@@ -33,14 +33,23 @@ func (o NatDestinationRuleLoadBalance) ResourceSchemaAttributes() map[string]sch
 			Optional:    true,
 			MarkdownDescription: `Define the parameters of the packet header to apply the hashing
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  source-address  &emsp; |  Use source IP address for hashing  |
-    |  destination-address  &emsp; |  Use destination IP address for hashing  |
-    |  source-port  &emsp; |  Use source port for hashing  |
-    |  destination-port  &emsp; |  Use destination port for hashing  |
-    |  random  &emsp; |  Do not use information from ip header. Use random value.  |
+    |  Format               &emsp;|  Description                                               |
+    |-----------------------------|------------------------------------------------------------|
+    |  source-address       &emsp;|  Use source IP address for hashing                         |
+    |  destination-address  &emsp;|  Use destination IP address for hashing                    |
+    |  source-port          &emsp;|  Use source port for hashing                               |
+    |  destination-port     &emsp;|  Use destination port for hashing                          |
+    |  random               &emsp;|  Do not use information from ip header. Use random value.  |
+`,
+			Description: `Define the parameters of the packet header to apply the hashing
 
+    |  Format               |  Description                                               |
+    |-----------------------------|------------------------------------------------------------|
+    |  source-address       |  Use source IP address for hashing                         |
+    |  destination-address  |  Use destination IP address for hashing                    |
+    |  source-port          |  Use source port for hashing                               |
+    |  destination-port     |  Use destination port for hashing                          |
+    |  random               |  Do not use information from ip header. Use random value.  |
 `,
 
 			// Default:          stringdefault.StaticString(`random`),

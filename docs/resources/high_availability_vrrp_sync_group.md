@@ -52,9 +52,9 @@ VRRP sync group
 - `health_check` (Attributes) Health check (see [below for nested schema](#nestedatt--health_check))
 - `member` (List of String) Sync group member
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRRP group name  |
+    |  Format  &emsp;|  Description      |
+    |----------------|-------------------|
+    |  txt     &emsp;|  VRRP group name  |
 - `transition_script` (Attributes) VRRP transition scripts (see [below for nested schema](#nestedatt--transition_script))
 
 ### Read-Only
@@ -70,10 +70,10 @@ Optional:
 - `interval` (String) Health check execution interval in seconds
 - `ping` (String) ICMP ping health check
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 ping target address  |
-    |  ipv6  &emsp; |  IPv6 ping target address  |
+    |  Format  &emsp;|  Description               |
+    |----------------|----------------------------|
+    |  ipv4    &emsp;|  IPv4 ping target address  |
+    |  ipv6    &emsp;|  IPv6 ping target address  |
 - `script` (String) Health check script file
 
 

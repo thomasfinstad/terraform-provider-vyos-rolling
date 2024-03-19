@@ -41,6 +41,9 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes() map[string]schema
 			MarkdownDescription: `Disables flow isolation, all traffic passes through a single queue
 
 `,
+			Description: `Disables flow isolation, all traffic passes through a single queue
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -48,6 +51,9 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes() map[string]schema
 		"src_host": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Flows are defined only by source address
+
+`,
+			Description: `Flows are defined only by source address
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -59,6 +65,9 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes() map[string]schema
 			MarkdownDescription: `Flows are defined only by destination address
 
 `,
+			Description: `Flows are defined only by destination address
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -66,6 +75,9 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes() map[string]schema
 		"host": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Flows are defined by source-destination host pairs
+
+`,
+			Description: `Flows are defined by source-destination host pairs
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -77,6 +89,9 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes() map[string]schema
 			MarkdownDescription: `Flows are defined by the entire 5-tuple
 
 `,
+			Description: `Flows are defined by the entire 5-tuple
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -84,6 +99,9 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes() map[string]schema
 		"dual_src_host": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Flows are defined by the 5-tuple, fairness is applied first over source addresses, then over individual flows
+
+`,
+			Description: `Flows are defined by the 5-tuple, fairness is applied first over source addresses, then over individual flows
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -95,6 +113,9 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes() map[string]schema
 			MarkdownDescription: `Flows are defined by the 5-tuple, fairness is applied first over destination addresses, then over individual flows
 
 `,
+			Description: `Flows are defined by the 5-tuple, fairness is applied first over destination addresses, then over individual flows
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -104,6 +125,9 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes() map[string]schema
 			MarkdownDescription: `Flows are defined by the 5-tuple, fairness is applied over source and destination addresses and also over individual flows (default)
 
 `,
+			Description: `Flows are defined by the 5-tuple, fairness is applied over source and destination addresses and also over individual flows (default)
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -111,6 +135,9 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes() map[string]schema
 		"nat": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Perform NAT lookup before applying flow-isolation rules
+
+`,
+			Description: `Perform NAT lookup before applying flow-isolation rules
 
 `,
 			Default:  booldefault.StaticBool(false),

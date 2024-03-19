@@ -34,6 +34,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap) ResourceSchemaAtt
 			MarkdownDescription: `Between current address-family and VPN
 
 `,
+			Description: `Between current address-family and VPN
+
+`,
 		},
 	}
 }

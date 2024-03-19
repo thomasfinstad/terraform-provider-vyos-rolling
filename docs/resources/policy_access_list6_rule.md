@@ -47,28 +47,28 @@ Rule for this access-list6
 
 - `access_list6_id` (String) IPv6 access-list filter
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Name of IPv6 access-list  |
+    |  Format  &emsp;|  Description               |
+    |----------------|----------------------------|
+    |  txt     &emsp;|  Name of IPv6 access-list  |
 - `rule_id` (Number) Rule for this access-list6
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Access-list6 rule number  |
+    |  Format   &emsp;|  Description               |
+    |-----------------|----------------------------|
+    |  1-65535  &emsp;|  Access-list6 rule number  |
 
 ### Optional
 
 - `action` (String) Action to take on entries matching this rule
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  permit  &emsp; |  Permit matching entries  |
-    |  deny  &emsp; |  Deny matching entries  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  permit  &emsp;|  Permit matching entries  |
+    |  deny    &emsp;|  Deny matching entries    |
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `source` (Attributes) Source IPv6 network to match (see [below for nested schema](#nestedatt--source))
 
 ### Read-Only
@@ -84,6 +84,6 @@ Optional:
 - `exact_match` (Boolean) Exact match of the network prefixes
 - `network` (String) Network/netmask to match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
+    |  Format   &emsp;|  Description                     |
+    |-----------------|----------------------------------|
+    |  ipv6net  &emsp;|  IPv6 address and prefix length  |

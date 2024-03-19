@@ -47,31 +47,31 @@ Rule for this access-list
 
 - `access_list_id` (Number) IP access-list filter
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-99  &emsp; |  IP standard access list  |
-    |  number: 100-199  &emsp; |  IP extended access list  |
-    |  number: 1300-1999  &emsp; |  IP standard access list (expanded range)  |
-    |  number: 2000-2699  &emsp; |  IP extended access list (expanded range)  |
+    |  Format     &emsp;|  Description                               |
+    |-------------------|--------------------------------------------|
+    |  1-99       &emsp;|  IP standard access list                   |
+    |  100-199    &emsp;|  IP extended access list                   |
+    |  1300-1999  &emsp;|  IP standard access list (expanded range)  |
+    |  2000-2699  &emsp;|  IP extended access list (expanded range)  |
 - `rule_id` (Number) Rule for this access-list
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Access-list rule number  |
+    |  Format   &emsp;|  Description              |
+    |-----------------|---------------------------|
+    |  1-65535  &emsp;|  Access-list rule number  |
 
 ### Optional
 
 - `action` (String) Action to take on entries matching this rule
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  permit  &emsp; |  Permit matching entries  |
-    |  deny  &emsp; |  Deny matching entries  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  permit  &emsp;|  Permit matching entries  |
+    |  deny    &emsp;|  Deny matching entries    |
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `destination` (Attributes) Destination network or address (see [below for nested schema](#nestedatt--destination))
 - `source` (Attributes) Source network or address to match (see [below for nested schema](#nestedatt--source))
 
@@ -87,19 +87,19 @@ Optional:
 - `any` (Boolean) Any IP address to match
 - `host` (String) Single host IP address to match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  Host address to match  |
+    |  Format  &emsp;|  Description            |
+    |----------------|-------------------------|
+    |  ipv4    &emsp;|  Host address to match  |
 - `inverse_mask` (String) Network/netmask to match (requires network be defined)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  Inverse-mask to match  |
+    |  Format  &emsp;|  Description            |
+    |----------------|-------------------------|
+    |  ipv4    &emsp;|  Inverse-mask to match  |
 - `network` (String) Network/netmask to match (requires inverse-mask be defined)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  Inverse-mask to match  |
+    |  Format   &emsp;|  Description            |
+    |-----------------|-------------------------|
+    |  ipv4net  &emsp;|  Inverse-mask to match  |
 
 
 <a id="nestedatt--source"></a>
@@ -110,16 +110,16 @@ Optional:
 - `any` (Boolean) Any IP address to match
 - `host` (String) Single host IP address to match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  Host address to match  |
+    |  Format  &emsp;|  Description            |
+    |----------------|-------------------------|
+    |  ipv4    &emsp;|  Host address to match  |
 - `inverse_mask` (String) Network/netmask to match (requires network be defined)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  Inverse-mask to match  |
+    |  Format  &emsp;|  Description            |
+    |----------------|-------------------------|
+    |  ipv4    &emsp;|  Inverse-mask to match  |
 - `network` (String) Network/netmask to match (requires inverse-mask be defined)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  Inverse-mask to match  |
+    |  Format   &emsp;|  Description            |
+    |-----------------|-------------------------|
+    |  ipv4net  &emsp;|  Inverse-mask to match  |

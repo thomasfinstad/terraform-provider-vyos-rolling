@@ -86,11 +86,17 @@ func (o FirewallIPvfourOutputFilter) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Default-action for rule-set
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  drop  &emsp; |  Drop if no prior rules are hit  |
-    |  accept  &emsp; |  Accept if no prior rules are hit  |
+    |  Format  &emsp;|  Description                       |
+    |----------------|------------------------------------|
+    |  drop    &emsp;|  Drop if no prior rules are hit    |
+    |  accept  &emsp;|  Accept if no prior rules are hit  |
+`,
+			Description: `Default-action for rule-set
 
+    |  Format  |  Description                       |
+    |----------------|------------------------------------|
+    |  drop    |  Drop if no prior rules are hit    |
+    |  accept  |  Accept if no prior rules are hit  |
 `,
 
 			// Default:          stringdefault.StaticString(`accept`),
@@ -102,6 +108,9 @@ func (o FirewallIPvfourOutputFilter) ResourceSchemaAttributes() map[string]schem
 			MarkdownDescription: `Log packets hitting default-action
 
 `,
+			Description: `Log packets hitting default-action
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -110,10 +119,15 @@ func (o FirewallIPvfourOutputFilter) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 	}

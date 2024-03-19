@@ -41,6 +41,9 @@ func (o FirewallIPvsixNameRuleTCPFlags) ResourceSchemaAttributes() map[string]sc
 			MarkdownDescription: `Synchronise flag
 
 `,
+			Description: `Synchronise flag
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -48,6 +51,9 @@ func (o FirewallIPvsixNameRuleTCPFlags) ResourceSchemaAttributes() map[string]sc
 		"ack": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Acknowledge flag
+
+`,
+			Description: `Acknowledge flag
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -59,6 +65,9 @@ func (o FirewallIPvsixNameRuleTCPFlags) ResourceSchemaAttributes() map[string]sc
 			MarkdownDescription: `Finish flag
 
 `,
+			Description: `Finish flag
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -66,6 +75,9 @@ func (o FirewallIPvsixNameRuleTCPFlags) ResourceSchemaAttributes() map[string]sc
 		"rst": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Reset flag
+
+`,
+			Description: `Reset flag
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -77,6 +89,9 @@ func (o FirewallIPvsixNameRuleTCPFlags) ResourceSchemaAttributes() map[string]sc
 			MarkdownDescription: `Urgent flag
 
 `,
+			Description: `Urgent flag
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -84,6 +99,9 @@ func (o FirewallIPvsixNameRuleTCPFlags) ResourceSchemaAttributes() map[string]sc
 		"psh": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Push flag
+
+`,
+			Description: `Push flag
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -95,6 +113,9 @@ func (o FirewallIPvsixNameRuleTCPFlags) ResourceSchemaAttributes() map[string]sc
 			MarkdownDescription: `Explicit Congestion Notification flag
 
 `,
+			Description: `Explicit Congestion Notification flag
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -102,6 +123,9 @@ func (o FirewallIPvsixNameRuleTCPFlags) ResourceSchemaAttributes() map[string]sc
 		"cwr": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Congestion Window Reduced flag
+
+`,
+			Description: `Congestion Window Reduced flag
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -114,6 +138,9 @@ func (o FirewallIPvsixNameRuleTCPFlags) ResourceSchemaAttributes() map[string]sc
 			Attributes: FirewallIPvsixNameRuleTCPFlagsNot{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Match flags not set
+
+`,
+			Description: `Match flags not set
 
 `,
 		},

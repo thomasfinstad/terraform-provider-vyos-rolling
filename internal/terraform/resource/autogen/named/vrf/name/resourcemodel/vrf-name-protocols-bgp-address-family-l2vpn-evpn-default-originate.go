@@ -34,6 +34,9 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnDefaultOriginate) ResourceSch
 			MarkdownDescription: `IPv4 address family
 
 `,
+			Description: `IPv4 address family
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -41,6 +44,9 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnDefaultOriginate) ResourceSch
 		"ipv6": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `IPv6 address family
+
+`,
+			Description: `IPv6 address family
 
 `,
 			Default:  booldefault.StaticBool(false),

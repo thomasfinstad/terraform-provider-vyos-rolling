@@ -32,10 +32,15 @@ func (o VrfNameProtocolsIsisRedistributeIPvfourStaticLevelTwo) ResourceSchemaAtt
 			Optional: true,
 			MarkdownDescription: `Set default metric for circuit
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-16777215  &emsp; |  Default metric value  |
+    |  Format      &emsp;|  Description           |
+    |--------------------|------------------------|
+    |  0-16777215  &emsp;|  Default metric value  |
+`,
+			Description: `Set default metric for circuit
 
+    |  Format      |  Description           |
+    |--------------------|------------------------|
+    |  0-16777215  |  Default metric value  |
 `,
 		},
 
@@ -43,10 +48,15 @@ func (o VrfNameProtocolsIsisRedistributeIPvfourStaticLevelTwo) ResourceSchemaAtt
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Route map name  |
+`,
+			Description: `Specify route-map name to use
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  txt     |  Route map name  |
 `,
 		},
 

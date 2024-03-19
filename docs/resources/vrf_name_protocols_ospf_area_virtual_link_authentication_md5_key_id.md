@@ -107,33 +107,33 @@ MD5 key id
 
 - `area_id` (String) OSPF area settings
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  OSPF area number in decimal notation  |
-    |  ipv4  &emsp; |  OSPF area number in dotted decimal notation  |
+    |  Format  &emsp;|  Description                                  |
+    |----------------|-----------------------------------------------|
+    |  u32     &emsp;|  OSPF area number in decimal notation         |
+    |  ipv4    &emsp;|  OSPF area number in dotted decimal notation  |
 - `key_id_id` (Number) MD5 key id
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  MD5 key id  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  1-255   &emsp;|  MD5 key id   |
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `virtual_link_id` (String) Virtual link
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  OSPF area in dotted decimal notation  |
+    |  Format  &emsp;|  Description                           |
+    |----------------|----------------------------------------|
+    |  ipv4    &emsp;|  OSPF area in dotted decimal notation  |
 
 ### Optional
 
 - `md5_key` (String) MD5 authentication type
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  MD5 Key (16 characters or less)  |
+    |  Format  &emsp;|  Description                      |
+    |----------------|-----------------------------------|
+    |  txt     &emsp;|  MD5 Key (16 characters or less)  |
 
 ### Read-Only
 

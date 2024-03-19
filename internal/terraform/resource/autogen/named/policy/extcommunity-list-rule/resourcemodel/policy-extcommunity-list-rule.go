@@ -100,10 +100,15 @@ func (o PolicyExtcommunityListRule) ResourceSchemaAttributes() map[string]schema
 			Required: true,
 			MarkdownDescription: `Rule for this BGP extended community list
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Extended community-list rule number  |
+    |  Format   &emsp;|  Description                          |
+    |-----------------|---------------------------------------|
+    |  1-65535  &emsp;|  Extended community-list rule number  |
+`,
+			Description: `Rule for this BGP extended community list
 
+    |  Format   |  Description                          |
+    |-----------------|---------------------------------------|
+    |  1-65535  |  Extended community-list rule number  |
 `,
 			PlanModifiers: []planmodifier.Number{
 				numberplanmodifier.RequiresReplace(),
@@ -114,10 +119,15 @@ func (o PolicyExtcommunityListRule) ResourceSchemaAttributes() map[string]schema
 			Required: true,
 			MarkdownDescription: `Add a BGP extended community list entry
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  BGP extended community-list name  |
+    |  Format  &emsp;|  Description                       |
+    |----------------|------------------------------------|
+    |  txt     &emsp;|  BGP extended community-list name  |
+`,
+			Description: `Add a BGP extended community list entry
 
+    |  Format  |  Description                       |
+    |----------------|------------------------------------|
+    |  txt     |  BGP extended community-list name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -143,11 +153,17 @@ func (o PolicyExtcommunityListRule) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  permit  &emsp; |  Permit matching entries  |
-    |  deny  &emsp; |  Deny matching entries  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  permit  &emsp;|  Permit matching entries  |
+    |  deny    &emsp;|  Deny matching entries    |
+`,
+			Description: `Action to take on entries matching this rule
 
+    |  Format  |  Description              |
+    |----------------|---------------------------|
+    |  permit  |  Permit matching entries  |
+    |  deny    |  Deny matching entries    |
 `,
 		},
 
@@ -155,10 +171,15 @@ func (o PolicyExtcommunityListRule) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -166,12 +187,19 @@ func (o PolicyExtcommunityListRule) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Regular expression to match against an extended community list
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <aa:nn:nn>  &emsp; |  Extended community list regular expression  |
-    |  <rt aa:nn:nn>  &emsp; |  Route Target regular expression  |
-    |  <soo aa:nn:nn>  &emsp; |  Site of Origin regular expression  |
+    |  Format                &emsp;|  Description                                 |
+    |------------------------------|----------------------------------------------|
+    |  &lt;aa:nn:nn&gt;      &emsp;|  Extended community list regular expression  |
+    |  &lt;rt aa:nn:nn&gt;   &emsp;|  Route Target regular expression             |
+    |  &lt;soo aa:nn:nn&gt;  &emsp;|  Site of Origin regular expression           |
+`,
+			Description: `Regular expression to match against an extended community list
 
+    |  Format                |  Description                                 |
+    |------------------------------|----------------------------------------------|
+    |  <aa:nn:nn>      |  Extended community list regular expression  |
+    |  <rt aa:nn:nn>   |  Route Target regular expression             |
+    |  <soo aa:nn:nn>  |  Site of Origin regular expression           |
 `,
 		},
 

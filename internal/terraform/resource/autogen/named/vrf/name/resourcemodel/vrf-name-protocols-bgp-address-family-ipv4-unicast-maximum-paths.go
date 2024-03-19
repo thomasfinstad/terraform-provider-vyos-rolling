@@ -32,10 +32,15 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths) ResourceSche
 			Optional: true,
 			MarkdownDescription: `eBGP maximum paths
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-256  &emsp; |  Number of paths to consider  |
+    |  Format  &emsp;|  Description                  |
+    |----------------|-------------------------------|
+    |  1-256   &emsp;|  Number of paths to consider  |
+`,
+			Description: `eBGP maximum paths
 
+    |  Format  |  Description                  |
+    |----------------|-------------------------------|
+    |  1-256   |  Number of paths to consider  |
 `,
 		},
 
@@ -43,10 +48,15 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths) ResourceSche
 			Optional: true,
 			MarkdownDescription: `iBGP maximum paths
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-256  &emsp; |  Number of paths to consider  |
+    |  Format  &emsp;|  Description                  |
+    |----------------|-------------------------------|
+    |  1-256   &emsp;|  Number of paths to consider  |
+`,
+			Description: `iBGP maximum paths
 
+    |  Format  |  Description                  |
+    |----------------|-------------------------------|
+    |  1-256   |  Number of paths to consider  |
 `,
 		},
 

@@ -92,6 +92,9 @@ func (o FirewallGroupDynamicGroupAddressGroup) ResourceSchemaAttributes() map[st
 			MarkdownDescription: `Firewall dynamic address group
 
 `,
+			Description: `Firewall dynamic address group
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -116,10 +119,15 @@ func (o FirewallGroupDynamicGroupAddressGroup) ResourceSchemaAttributes() map[st
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 

@@ -90,10 +90,15 @@ func (o QosPolicyDropTail) ResourceSchemaAttributes() map[string]schema.Attribut
 			Required: true,
 			MarkdownDescription: `Packet limited First In, First Out queue
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Policy name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Policy name  |
+`,
+			Description: `Packet limited First In, First Out queue
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Policy name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -119,10 +124,15 @@ func (o QosPolicyDropTail) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -130,10 +140,15 @@ func (o QosPolicyDropTail) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4294967295  &emsp; |  Queue size in packets  |
+    |  Format        &emsp;|  Description            |
+    |----------------------|-------------------------|
+    |  1-4294967295  &emsp;|  Queue size in packets  |
+`,
+			Description: `Maximum queue size
 
+    |  Format        |  Description            |
+    |----------------------|-------------------------|
+    |  1-4294967295  |  Queue size in packets  |
 `,
 		},
 

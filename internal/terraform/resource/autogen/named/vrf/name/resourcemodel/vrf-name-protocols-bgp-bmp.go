@@ -32,10 +32,15 @@ func (o VrfNameProtocolsBgpBmp) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Maximum memory used for buffered mirroring messages (in bytes)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-4294967294  &emsp; |  Limit in bytes  |
+    |  Format        &emsp;|  Description     |
+    |----------------------|------------------|
+    |  0-4294967294  &emsp;|  Limit in bytes  |
+`,
+			Description: `Maximum memory used for buffered mirroring messages (in bytes)
 
+    |  Format        |  Description     |
+    |----------------------|------------------|
+    |  0-4294967294  |  Limit in bytes  |
 `,
 		},
 

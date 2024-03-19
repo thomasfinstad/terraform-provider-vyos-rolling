@@ -34,6 +34,9 @@ func (o FirewallIPvsixNameRuleFragment) ResourceSchemaAttributes() map[string]sc
 			MarkdownDescription: `Second and further fragments of fragmented packets
 
 `,
+			Description: `Second and further fragments of fragmented packets
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -41,6 +44,9 @@ func (o FirewallIPvsixNameRuleFragment) ResourceSchemaAttributes() map[string]sc
 		"match_non_frag": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Head fragments or unfragmented packets
+
+`,
+			Description: `Head fragments or unfragmented packets
 
 `,
 			Default:  booldefault.StaticBool(false),

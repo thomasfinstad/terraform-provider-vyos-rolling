@@ -34,16 +34,24 @@ func (o VrfNameProtocolsOspfSegmentRoutingPrefixIndex) ResourceSchemaAttributes(
 			Optional: true,
 			MarkdownDescription: `Specify the index value of prefix segment/label ID
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-65535  &emsp; |  The index segment/label ID value  |
+    |  Format   &emsp;|  Description                       |
+    |-----------------|------------------------------------|
+    |  0-65535  &emsp;|  The index segment/label ID value  |
+`,
+			Description: `Specify the index value of prefix segment/label ID
 
+    |  Format   |  Description                       |
+    |-----------------|------------------------------------|
+    |  0-65535  |  The index segment/label ID value  |
 `,
 		},
 
 		"explicit_null": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Request upstream neighbor to replace segment/label with explicit null label
+
+`,
+			Description: `Request upstream neighbor to replace segment/label with explicit null label
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -53,6 +61,9 @@ func (o VrfNameProtocolsOspfSegmentRoutingPrefixIndex) ResourceSchemaAttributes(
 		"no_php_flag": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not request penultimate hop popping for segment/label
+
+`,
+			Description: `Do not request penultimate hop popping for segment/label
 
 `,
 			Default:  booldefault.StaticBool(false),

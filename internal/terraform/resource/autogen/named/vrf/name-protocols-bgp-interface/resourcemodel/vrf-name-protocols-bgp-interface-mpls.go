@@ -33,6 +33,9 @@ func (o VrfNameProtocolsBgpInterfaceMpls) ResourceSchemaAttributes() map[string]
 			MarkdownDescription: `Enable MPLS forwarding for eBGP directly connected peers
 
 `,
+			Description: `Enable MPLS forwarding for eBGP directly connected peers
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},

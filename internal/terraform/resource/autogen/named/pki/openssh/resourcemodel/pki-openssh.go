@@ -89,6 +89,9 @@ func (o PkiOpenTCP) ResourceSchemaAttributes() map[string]schema.Attribute {
 			MarkdownDescription: `OpenSSH public and private keys
 
 `,
+			Description: `OpenSSH public and private keys
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -117,12 +120,18 @@ func (o PkiOpenTCP) ResourceSchemaAttributes() map[string]schema.Attribute {
 			MarkdownDescription: `Public key
 
 `,
+			Description: `Public key
+
+`,
 		},
 
 		"private": schema.SingleNestedAttribute{
 			Attributes: PkiOpenTCPPrivate{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Private key
+
+`,
+			Description: `Private key
 
 `,
 		},

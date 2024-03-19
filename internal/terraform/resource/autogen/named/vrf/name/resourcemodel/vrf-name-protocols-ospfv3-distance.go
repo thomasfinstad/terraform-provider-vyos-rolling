@@ -32,10 +32,15 @@ func (o VrfNameProtocolsOspfvthreeDistance) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Administrative distance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Administrative distance  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  1-255   &emsp;|  Administrative distance  |
+`,
+			Description: `Administrative distance
 
+    |  Format  |  Description              |
+    |----------------|---------------------------|
+    |  1-255   |  Administrative distance  |
 `,
 		},
 
@@ -45,6 +50,9 @@ func (o VrfNameProtocolsOspfvthreeDistance) ResourceSchemaAttributes() map[strin
 			Attributes: VrfNameProtocolsOspfvthreeDistanceOspfvthree{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `OSPFv3 administrative distance
+
+`,
+			Description: `OSPFv3 administrative distance
 
 `,
 		},

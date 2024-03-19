@@ -92,6 +92,9 @@ func (o FirewallGroupIPvsixNetworkGroup) ResourceSchemaAttributes() map[string]s
 			MarkdownDescription: `Firewall ipv6-network-group
 
 `,
+			Description: `Firewall ipv6-network-group
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -116,10 +119,15 @@ func (o FirewallGroupIPvsixNetworkGroup) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -128,10 +136,15 @@ func (o FirewallGroupIPvsixNetworkGroup) ResourceSchemaAttributes() map[string]s
 			Optional:    true,
 			MarkdownDescription: `Network-group member
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6net  &emsp; |  IPv6 address to match  |
+    |  Format   &emsp;|  Description            |
+    |-----------------|-------------------------|
+    |  ipv6net  &emsp;|  IPv6 address to match  |
+`,
+			Description: `Network-group member
 
+    |  Format   |  Description            |
+    |-----------------|-------------------------|
+    |  ipv6net  |  IPv6 address to match  |
 `,
 		},
 
@@ -139,6 +152,9 @@ func (o FirewallGroupIPvsixNetworkGroup) ResourceSchemaAttributes() map[string]s
 			ElementType: types.StringType,
 			Optional:    true,
 			MarkdownDescription: `Include another ipv6-network-group
+
+`,
+			Description: `Include another ipv6-network-group
 
 `,
 		},

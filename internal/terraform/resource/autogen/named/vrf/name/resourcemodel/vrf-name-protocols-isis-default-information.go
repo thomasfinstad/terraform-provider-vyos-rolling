@@ -34,6 +34,9 @@ func (o VrfNameProtocolsIsisDefaultInformation) ResourceSchemaAttributes() map[s
 			MarkdownDescription: `Distribute a default route
 
 `,
+			Description: `Distribute a default route
+
+`,
 		},
 	}
 }

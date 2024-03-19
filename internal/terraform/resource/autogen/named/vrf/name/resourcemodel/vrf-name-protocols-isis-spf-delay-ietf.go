@@ -35,10 +35,15 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Delay used while in QUIET state
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-60000  &emsp; |  Delay used while in QUIET state (in ms)  |
+    |  Format   &emsp;|  Description                              |
+    |-----------------|-------------------------------------------|
+    |  0-60000  &emsp;|  Delay used while in QUIET state (in ms)  |
+`,
+			Description: `Delay used while in QUIET state
 
+    |  Format   |  Description                              |
+    |-----------------|-------------------------------------------|
+    |  0-60000  |  Delay used while in QUIET state (in ms)  |
 `,
 		},
 
@@ -46,10 +51,15 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Delay used while in SHORT_WAIT state
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-60000  &emsp; |  Delay used while in SHORT_WAIT state (in ms)  |
+    |  Format   &emsp;|  Description                                   |
+    |-----------------|------------------------------------------------|
+    |  0-60000  &emsp;|  Delay used while in SHORT_WAIT state (in ms)  |
+`,
+			Description: `Delay used while in SHORT_WAIT state
 
+    |  Format   |  Description                                   |
+    |-----------------|------------------------------------------------|
+    |  0-60000  |  Delay used while in SHORT_WAIT state (in ms)  |
 `,
 		},
 
@@ -57,10 +67,15 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Delay used while in LONG_WAIT
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-60000  &emsp; |  Delay used while in LONG_WAIT state in ms  |
+    |  Format   &emsp;|  Description                                |
+    |-----------------|---------------------------------------------|
+    |  0-60000  &emsp;|  Delay used while in LONG_WAIT state in ms  |
+`,
+			Description: `Delay used while in LONG_WAIT
 
+    |  Format   |  Description                                |
+    |-----------------|---------------------------------------------|
+    |  0-60000  |  Delay used while in LONG_WAIT state in ms  |
 `,
 		},
 
@@ -68,10 +83,15 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Time with no received IGP events before considering IGP stable
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-60000  &emsp; |  Time with no received IGP events before considering IGP stable in ms  |
+    |  Format   &emsp;|  Description                                                           |
+    |-----------------|------------------------------------------------------------------------|
+    |  0-60000  &emsp;|  Time with no received IGP events before considering IGP stable in ms  |
+`,
+			Description: `Time with no received IGP events before considering IGP stable
 
+    |  Format   |  Description                                                           |
+    |-----------------|------------------------------------------------------------------------|
+    |  0-60000  |  Time with no received IGP events before considering IGP stable in ms  |
 `,
 		},
 
@@ -79,10 +99,15 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Maximum duration needed to learn all the events related to a single failure
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-60000  &emsp; |  Maximum duration needed to learn all the events related to a single failure in ms  |
+    |  Format   &emsp;|  Description                                                                        |
+    |-----------------|-------------------------------------------------------------------------------------|
+    |  0-60000  &emsp;|  Maximum duration needed to learn all the events related to a single failure in ms  |
+`,
+			Description: `Maximum duration needed to learn all the events related to a single failure
 
+    |  Format   |  Description                                                                        |
+    |-----------------|-------------------------------------------------------------------------------------|
+    |  0-60000  |  Maximum duration needed to learn all the events related to a single failure in ms  |
 `,
 		},
 

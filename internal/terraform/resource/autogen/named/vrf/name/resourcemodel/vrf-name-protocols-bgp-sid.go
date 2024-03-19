@@ -34,6 +34,9 @@ func (o VrfNameProtocolsBgpSID) ResourceSchemaAttributes() map[string]schema.Att
 			MarkdownDescription: `Between current VRF and VPN
 
 `,
+			Description: `Between current VRF and VPN
+
+`,
 		},
 	}
 }

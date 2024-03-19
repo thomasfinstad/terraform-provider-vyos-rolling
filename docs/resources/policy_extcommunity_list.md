@@ -37,17 +37,17 @@ Add a BGP extended community list entry
 
 - `extcommunity_list_id` (String) Add a BGP extended community list entry
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  BGP extended community-list name  |
+    |  Format  &emsp;|  Description                       |
+    |----------------|------------------------------------|
+    |  txt     &emsp;|  BGP extended community-list name  |
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 
 ### Read-Only
 

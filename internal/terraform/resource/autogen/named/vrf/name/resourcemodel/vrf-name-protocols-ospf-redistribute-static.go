@@ -33,10 +33,15 @@ func (o VrfNameProtocolsOspfRedistributeStatic) ResourceSchemaAttributes() map[s
 			Optional: true,
 			MarkdownDescription: `OSPF default metric
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-16777214  &emsp; |  Default metric  |
+    |  Format      &emsp;|  Description     |
+    |--------------------|------------------|
+    |  0-16777214  &emsp;|  Default metric  |
+`,
+			Description: `OSPF default metric
 
+    |  Format      |  Description     |
+    |--------------------|------------------|
+    |  0-16777214  |  Default metric  |
 `,
 		},
 
@@ -44,10 +49,15 @@ func (o VrfNameProtocolsOspfRedistributeStatic) ResourceSchemaAttributes() map[s
 			Optional: true,
 			MarkdownDescription: `OSPF metric type for default routes
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
+    |  Format  &emsp;|  Description                         |
+    |----------------|--------------------------------------|
+    |  1-2     &emsp;|  Set OSPF External Type 1/2 metrics  |
+`,
+			Description: `OSPF metric type for default routes
 
+    |  Format  |  Description                         |
+    |----------------|--------------------------------------|
+    |  1-2     |  Set OSPF External Type 1/2 metrics  |
 `,
 
 			// Default:          stringdefault.StaticString(`2`),
@@ -58,10 +68,15 @@ func (o VrfNameProtocolsOspfRedistributeStatic) ResourceSchemaAttributes() map[s
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Route map name  |
+`,
+			Description: `Specify route-map name to use
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  txt     |  Route map name  |
 `,
 		},
 

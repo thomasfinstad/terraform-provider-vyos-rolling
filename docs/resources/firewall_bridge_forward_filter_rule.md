@@ -67,22 +67,22 @@ Bridge Firewall forward filter rule number
 
 - `rule_id` (Number) Bridge Firewall forward filter rule number
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-999999  &emsp; |  Number for this firewall rule  |
+    |  Format    &emsp;|  Description                    |
+    |------------------|---------------------------------|
+    |  1-999999  &emsp;|  Number for this firewall rule  |
 
 ### Optional
 
 - `action` (String) Rule action
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  accept  &emsp; |  Accept matching entries  |
-    |  continue  &emsp; |  Continue parsing next rule  |
-    |  jump  &emsp; |  Jump to another chain  |
-    |  return  &emsp; |  Return from the current chain and continue at the next rule of the last chain  |
-    |  drop  &emsp; |  Drop matching entries  |
-    |  queue  &emsp; |  Enqueue packet to userspace  |
+    |  Format    &emsp;|  Description                                                                    |
+    |------------------|---------------------------------------------------------------------------------|
+    |  accept    &emsp;|  Accept matching entries                                                        |
+    |  continue  &emsp;|  Continue parsing next rule                                                     |
+    |  jump      &emsp;|  Jump to another chain                                                          |
+    |  return    &emsp;|  Return from the current chain and continue at the next rule of the last chain  |
+    |  drop      &emsp;|  Drop matching entries                                                          |
+    |  queue     &emsp;|  Enqueue packet to userspace                                                    |
 - `destination` (Attributes) Destination parameters (see [below for nested schema](#nestedatt--destination))
 - `disable` (Boolean) Disable instance
 - `inbound_interface` (Attributes) Match inbound-interface (see [below for nested schema](#nestedatt--inbound_interface))
@@ -92,15 +92,15 @@ Bridge Firewall forward filter rule number
 - `outbound_interface` (Attributes) Match outbound-interface (see [below for nested schema](#nestedatt--outbound_interface))
 - `queue` (Number) Queue target to use. Action queue must be defined to use this setting
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-65535  &emsp; |  Queue target  |
+    |  Format   &emsp;|  Description   |
+    |-----------------|----------------|
+    |  0-65535  &emsp;|  Queue target  |
 - `queue_options` (List of String) Options used for queue target. Action queue must be defined to use this setting
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  bypass  &emsp; |  Let packets go through if userspace application cannot back off  |
-    |  fanout  &emsp; |  Distribute packets between several queues  |
+    |  Format  &emsp;|  Description                                                      |
+    |----------------|-------------------------------------------------------------------|
+    |  bypass  &emsp;|  Let packets go through if userspace application cannot back off  |
+    |  fanout  &emsp;|  Distribute packets between several queues                        |
 - `source` (Attributes) Source parameters (see [below for nested schema](#nestedatt--source))
 - `vlan` (Attributes) VLAN parameters (see [below for nested schema](#nestedatt--vlan))
 
@@ -115,10 +115,10 @@ Optional:
 
 - `mac_address` (String) MAC address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  macaddr  &emsp; |  MAC address to match  |
-    |  !macaddr  &emsp; |  Match everything except the specified MAC address  |
+    |  Format    &emsp;|  Description                                        |
+    |------------------|-----------------------------------------------------|
+    |  macaddr   &emsp;|  MAC address to match                               |
+    |  !macaddr  &emsp;|  Match everything except the specified MAC address  |
 
 
 <a id="nestedatt--inbound_interface"></a>
@@ -128,17 +128,17 @@ Optional:
 
 - `group` (String) Match interface-group
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface-group name to match  |
-    |  !txt  &emsp; |  Inverted interface-group name to match  |
+    |  Format  &emsp;|  Description                             |
+    |----------------|------------------------------------------|
+    |  txt     &emsp;|  Interface-group name to match           |
+    |  !txt    &emsp;|  Inverted interface-group name to match  |
 - `name` (String) Match interface
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface name  |
-    |  txt&  &emsp; |  Interface name with wildcard  |
-    |  !txt  &emsp; |  Inverted interface name to match  |
+    |  Format  &emsp;|  Description                       |
+    |----------------|------------------------------------|
+    |  txt     &emsp;|  Interface name                    |
+    |  txt&    &emsp;|  Interface name with wildcard      |
+    |  !txt    &emsp;|  Inverted interface name to match  |
 
 
 <a id="nestedatt--log_options"></a>
@@ -148,31 +148,31 @@ Optional:
 
 - `group` (Number) Set log group
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-65535  &emsp; |  Log group to send messages to  |
+    |  Format   &emsp;|  Description                    |
+    |-----------------|---------------------------------|
+    |  0-65535  &emsp;|  Log group to send messages to  |
 - `level` (String) Set log-level
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  emerg  &emsp; |  Emerg log level  |
-    |  alert  &emsp; |  Alert log level  |
-    |  crit  &emsp; |  Critical log level  |
-    |  err  &emsp; |  Error log level  |
-    |  warn  &emsp; |  Warning log level  |
-    |  notice  &emsp; |  Notice log level  |
-    |  info  &emsp; |  Info log level  |
-    |  debug  &emsp; |  Debug log level  |
+    |  Format  &emsp;|  Description         |
+    |----------------|----------------------|
+    |  emerg   &emsp;|  Emerg log level     |
+    |  alert   &emsp;|  Alert log level     |
+    |  crit    &emsp;|  Critical log level  |
+    |  err     &emsp;|  Error log level     |
+    |  warn    &emsp;|  Warning log level   |
+    |  notice  &emsp;|  Notice log level    |
+    |  info    &emsp;|  Info log level      |
+    |  debug   &emsp;|  Debug log level     |
 - `queue_threshold` (Number) Number of packets to queue inside the kernel before sending them to userspace
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-65535  &emsp; |  Number of packets to queue inside the kernel before sending them to userspace  |
+    |  Format   &emsp;|  Description                                                                    |
+    |-----------------|---------------------------------------------------------------------------------|
+    |  0-65535  &emsp;|  Number of packets to queue inside the kernel before sending them to userspace  |
 - `snapshot_length` (Number) Length of packet payload to include in netlink message
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-9000  &emsp; |  Length of packet payload to include in netlink message  |
+    |  Format  &emsp;|  Description                                             |
+    |----------------|----------------------------------------------------------|
+    |  0-9000  &emsp;|  Length of packet payload to include in netlink message  |
 
 
 <a id="nestedatt--outbound_interface"></a>
@@ -182,17 +182,17 @@ Optional:
 
 - `group` (String) Match interface-group
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface-group name to match  |
-    |  !txt  &emsp; |  Inverted interface-group name to match  |
+    |  Format  &emsp;|  Description                             |
+    |----------------|------------------------------------------|
+    |  txt     &emsp;|  Interface-group name to match           |
+    |  !txt    &emsp;|  Inverted interface-group name to match  |
 - `name` (String) Match interface
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface name  |
-    |  txt&  &emsp; |  Interface name with wildcard  |
-    |  !txt  &emsp; |  Inverted interface name to match  |
+    |  Format  &emsp;|  Description                       |
+    |----------------|------------------------------------|
+    |  txt     &emsp;|  Interface name                    |
+    |  txt&    &emsp;|  Interface name with wildcard      |
+    |  !txt    &emsp;|  Inverted interface name to match  |
 
 
 <a id="nestedatt--source"></a>
@@ -202,10 +202,10 @@ Optional:
 
 - `mac_address` (String) MAC address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  macaddr  &emsp; |  MAC address to match  |
-    |  !macaddr  &emsp; |  Match everything except the specified MAC address  |
+    |  Format    &emsp;|  Description                                        |
+    |------------------|-----------------------------------------------------|
+    |  macaddr   &emsp;|  MAC address to match                               |
+    |  !macaddr  &emsp;|  Match everything except the specified MAC address  |
 
 
 <a id="nestedatt--vlan"></a>
@@ -215,13 +215,13 @@ Optional:
 
 - `id` (String) Vlan id
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-4096  &emsp; |  Vlan id  |
-    |  <start-end>  &emsp; |  Vlan id range to match  |
+    |  Format             &emsp;|  Description             |
+    |---------------------------|--------------------------|
+    |  0-4096             &emsp;|  Vlan id                 |
+    |  &lt;start-end&gt;  &emsp;|  Vlan id range to match  |
 - `priority` (String) Vlan priority(pcp)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-7  &emsp; |  Vlan priority  |
-    |  <start-end>  &emsp; |  Vlan priority range to match  |
+    |  Format             &emsp;|  Description                   |
+    |---------------------------|--------------------------------|
+    |  0-7                &emsp;|  Vlan priority                 |
+    |  &lt;start-end&gt;  &emsp;|  Vlan priority range to match  |

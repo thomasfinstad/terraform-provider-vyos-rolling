@@ -32,10 +32,15 @@ func (o FirewallIPvsixForwardFilterRuleRecent) ResourceSchemaAttributes() map[st
 			Optional: true,
 			MarkdownDescription: `Source addresses seen more than N times
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Source addresses seen more than N times  |
+    |  Format  &emsp;|  Description                              |
+    |----------------|-------------------------------------------|
+    |  1-255   &emsp;|  Source addresses seen more than N times  |
+`,
+			Description: `Source addresses seen more than N times
 
+    |  Format  |  Description                              |
+    |----------------|-------------------------------------------|
+    |  1-255   |  Source addresses seen more than N times  |
 `,
 		},
 
@@ -43,12 +48,19 @@ func (o FirewallIPvsixForwardFilterRuleRecent) ResourceSchemaAttributes() map[st
 			Optional: true,
 			MarkdownDescription: `Source addresses seen in the last second/minute/hour
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  second  &emsp; |  Source addresses seen COUNT times in the last second  |
-    |  minute  &emsp; |  Source addresses seen COUNT times in the last minute  |
-    |  hour  &emsp; |  Source addresses seen COUNT times in the last hour  |
+    |  Format  &emsp;|  Description                                           |
+    |----------------|--------------------------------------------------------|
+    |  second  &emsp;|  Source addresses seen COUNT times in the last second  |
+    |  minute  &emsp;|  Source addresses seen COUNT times in the last minute  |
+    |  hour    &emsp;|  Source addresses seen COUNT times in the last hour    |
+`,
+			Description: `Source addresses seen in the last second/minute/hour
 
+    |  Format  |  Description                                           |
+    |----------------|--------------------------------------------------------|
+    |  second  |  Source addresses seen COUNT times in the last second  |
+    |  minute  |  Source addresses seen COUNT times in the last minute  |
+    |  hour    |  Source addresses seen COUNT times in the last hour    |
 `,
 		},
 

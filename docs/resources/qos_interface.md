@@ -37,22 +37,22 @@ Interface to apply QoS policy
 
 - `interface_id` (String) Interface to apply QoS policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Interface name  |
 
 ### Optional
 
 - `egress` (String) Interface egress traffic policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  QoS policy to use  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  QoS policy to use  |
 - `ingress` (String) Interface ingress traffic policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  QoS policy to use  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  QoS policy to use  |
 
 ### Read-Only
 

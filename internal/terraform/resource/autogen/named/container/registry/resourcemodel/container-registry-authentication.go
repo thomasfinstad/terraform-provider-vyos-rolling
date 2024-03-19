@@ -32,10 +32,15 @@ func (o ContainerRegistryAuthentication) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Username used for authentication
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Username  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Username     |
+`,
+			Description: `Username used for authentication
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Username     |
 `,
 		},
 
@@ -43,10 +48,15 @@ func (o ContainerRegistryAuthentication) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Password used for authentication
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Password  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Password     |
+`,
+			Description: `Password used for authentication
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Password     |
 `,
 		},
 

@@ -53,10 +53,15 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Metric of redistributed routes
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-16777214  &emsp; |  Metric of redistributed routes  |
+    |  Format      &emsp;|  Description                     |
+    |--------------------|----------------------------------|
+    |  0-16777214  &emsp;|  Metric of redistributed routes  |
+`,
+			Description: `Metric of redistributed routes
 
+    |  Format      |  Description                     |
+    |--------------------|----------------------------------|
+    |  0-16777214  |  Metric of redistributed routes  |
 `,
 		},
 
@@ -64,10 +69,15 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Maximum multiple paths (ECMP)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-64  &emsp; |  Maximum multiple paths (ECMP)  |
+    |  Format  &emsp;|  Description                    |
+    |----------------|---------------------------------|
+    |  1-64    &emsp;|  Maximum multiple paths (ECMP)  |
+`,
+			Description: `Maximum multiple paths (ECMP)
 
+    |  Format  |  Description                    |
+    |----------------|---------------------------------|
+    |  1-64    |  Maximum multiple paths (ECMP)  |
 `,
 		},
 
@@ -75,10 +85,15 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Suppress routing updates on an interface
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  default  &emsp; |  Default to suppress routing updates on all interfaces  |
+    |  Format   &emsp;|  Description                                            |
+    |-----------------|---------------------------------------------------------|
+    |  default  &emsp;|  Default to suppress routing updates on all interfaces  |
+`,
+			Description: `Suppress routing updates on an interface
 
+    |  Format   |  Description                                            |
+    |-----------------|---------------------------------------------------------|
+    |  default  |  Default to suppress routing updates on all interfaces  |
 `,
 		},
 
@@ -90,12 +105,18 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 			MarkdownDescription: `External route aggregation
 
 `,
+			Description: `External route aggregation
+
+`,
 		},
 
 		"auto_cost": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfAutoCost{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Calculate interface cost according to bandwidth
+
+`,
+			Description: `Calculate interface cost according to bandwidth
 
 `,
 		},
@@ -106,12 +127,18 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 			MarkdownDescription: `Enable specific OSPF features
 
 `,
+			Description: `Enable specific OSPF features
+
+`,
 		},
 
 		"default_information": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfDefaultInformation{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Default route advertisment settings
+
+`,
+			Description: `Default route advertisment settings
 
 `,
 		},
@@ -122,12 +149,18 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 			MarkdownDescription: `Graceful Restart
 
 `,
+			Description: `Graceful Restart
+
+`,
 		},
 
 		"ldp_sync": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfLdpSync{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Protocol wide LDP-IGP synchronization configuration
+
+`,
+			Description: `Protocol wide LDP-IGP synchronization configuration
 
 `,
 		},
@@ -138,12 +171,18 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 			MarkdownDescription: `Administrative distance
 
 `,
+			Description: `Administrative distance
+
+`,
 		},
 
 		"log_adjacency_changes": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfLogAdjacencyChanges{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Log adjacency state changes
+
+`,
+			Description: `Log adjacency state changes
 
 `,
 		},
@@ -154,12 +193,18 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 			MarkdownDescription: `OSPF maximum and infinite-distance metric
 
 `,
+			Description: `OSPF maximum and infinite-distance metric
+
+`,
 		},
 
 		"mpls_te": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfMplsTe{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `MultiProtocol Label Switching-Traffic Engineering (MPLS-TE) parameters
+
+`,
+			Description: `MultiProtocol Label Switching-Traffic Engineering (MPLS-TE) parameters
 
 `,
 		},
@@ -170,12 +215,18 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 			MarkdownDescription: `OSPF specific parameters
 
 `,
+			Description: `OSPF specific parameters
+
+`,
 		},
 
 		"segment_routing": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfSegmentRouting{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Segment-Routing (SPRING) settings
+
+`,
+			Description: `Segment-Routing (SPRING) settings
 
 `,
 		},
@@ -186,6 +237,9 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 			MarkdownDescription: `Redistribute information from another routing protocol
 
 `,
+			Description: `Redistribute information from another routing protocol
+
+`,
 		},
 
 		"refresh": schema.SingleNestedAttribute{
@@ -194,12 +248,18 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 			MarkdownDescription: `Adjust refresh parameters
 
 `,
+			Description: `Adjust refresh parameters
+
+`,
 		},
 
 		"timers": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfTimers{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Adjust routing timers
+
+`,
+			Description: `Adjust routing timers
 
 `,
 		},

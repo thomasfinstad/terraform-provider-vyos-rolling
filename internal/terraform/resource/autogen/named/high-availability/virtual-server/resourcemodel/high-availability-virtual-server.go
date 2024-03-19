@@ -96,6 +96,9 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Load-balancing virtual server alias
 
 `,
+			Description: `Load-balancing virtual server alias
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -120,11 +123,17 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `IP address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address  |
-    |  ipv6  &emsp; |  IPv6 address  |
+    |  Format  &emsp;|  Description   |
+    |----------------|----------------|
+    |  ipv4    &emsp;|  IPv4 address  |
+    |  ipv6    &emsp;|  IPv6 address  |
+`,
+			Description: `IP address
 
+    |  Format  |  Description   |
+    |----------------|----------------|
+    |  ipv4    |  IPv4 address  |
+    |  ipv6    |  IPv6 address  |
 `,
 		},
 
@@ -132,16 +141,27 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Schedule algorithm (default - least-connection)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  round-robin  &emsp; |  Round robin  |
-    |  weighted-round-robin  &emsp; |  Weighted round robin  |
-    |  least-connection  &emsp; |  Least connection  |
-    |  weighted-least-connection  &emsp; |  Weighted least connection  |
-    |  source-hashing  &emsp; |  Source hashing  |
-    |  destination-hashing  &emsp; |  Destination hashing  |
-    |  locality-based-least-connection  &emsp; |  Locality-Based least connection  |
+    |  Format                           &emsp;|  Description                      |
+    |-----------------------------------------|-----------------------------------|
+    |  round-robin                      &emsp;|  Round robin                      |
+    |  weighted-round-robin             &emsp;|  Weighted round robin             |
+    |  least-connection                 &emsp;|  Least connection                 |
+    |  weighted-least-connection        &emsp;|  Weighted least connection        |
+    |  source-hashing                   &emsp;|  Source hashing                   |
+    |  destination-hashing              &emsp;|  Destination hashing              |
+    |  locality-based-least-connection  &emsp;|  Locality-Based least connection  |
+`,
+			Description: `Schedule algorithm (default - least-connection)
 
+    |  Format                           |  Description                      |
+    |-----------------------------------------|-----------------------------------|
+    |  round-robin                      |  Round robin                      |
+    |  weighted-round-robin             |  Weighted round robin             |
+    |  least-connection                 |  Least connection                 |
+    |  weighted-least-connection        |  Weighted least connection        |
+    |  source-hashing                   |  Source hashing                   |
+    |  destination-hashing              |  Destination hashing              |
+    |  locality-based-least-connection  |  Locality-Based least connection  |
 `,
 
 			// Default:          stringdefault.StaticString(`least-connection`),
@@ -152,10 +172,15 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Interval between health-checks (in seconds)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-600  &emsp; |  Interval in seconds  |
+    |  Format  &emsp;|  Description          |
+    |----------------|-----------------------|
+    |  1-600   &emsp;|  Interval in seconds  |
+`,
+			Description: `Interval between health-checks (in seconds)
 
+    |  Format  |  Description          |
+    |----------------|-----------------------|
+    |  1-600   |  Interval in seconds  |
 `,
 
 			// Default:          stringdefault.StaticString(`10`),
@@ -166,12 +191,19 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Forwarding method
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  direct  &emsp; |  Direct routing  |
-    |  nat  &emsp; |  NAT  |
-    |  tunnel  &emsp; |  Tunneling  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  direct  &emsp;|  Direct routing  |
+    |  nat     &emsp;|  NAT             |
+    |  tunnel  &emsp;|  Tunneling       |
+`,
+			Description: `Forwarding method
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  direct  |  Direct routing  |
+    |  nat     |  NAT             |
+    |  tunnel  |  Tunneling       |
 `,
 
 			// Default:          stringdefault.StaticString(`nat`),
@@ -182,10 +214,15 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Match fwmark value
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-2147483647  &emsp; |  Match firewall mark value  |
+    |  Format        &emsp;|  Description                |
+    |----------------------|-----------------------------|
+    |  1-2147483647  &emsp;|  Match firewall mark value  |
+`,
+			Description: `Match fwmark value
 
+    |  Format        |  Description                |
+    |----------------------|-----------------------------|
+    |  1-2147483647  |  Match firewall mark value  |
 `,
 		},
 
@@ -193,10 +230,15 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-65535  &emsp; |  Numeric IP port  |
+    |  Format   &emsp;|  Description      |
+    |-----------------|-------------------|
+    |  0-65535  &emsp;|  Numeric IP port  |
+`,
+			Description: `Port number used by connection
 
+    |  Format   |  Description      |
+    |-----------------|-------------------|
+    |  0-65535  |  Numeric IP port  |
 `,
 		},
 
@@ -204,10 +246,15 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Timeout for persistent connections
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-86400  &emsp; |  Timeout for persistent connections  |
+    |  Format   &emsp;|  Description                         |
+    |-----------------|--------------------------------------|
+    |  1-86400  &emsp;|  Timeout for persistent connections  |
+`,
+			Description: `Timeout for persistent connections
 
+    |  Format   |  Description                         |
+    |-----------------|--------------------------------------|
+    |  1-86400  |  Timeout for persistent connections  |
 `,
 
 			// Default:          stringdefault.StaticString(`300`),
@@ -218,11 +265,17 @@ func (o HighAvailabilityVirtualServer) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Protocol for port checks
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  tcp  &emsp; |  TCP  |
-    |  udp  &emsp; |  UDP  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  tcp     &emsp;|  TCP          |
+    |  udp     &emsp;|  UDP          |
+`,
+			Description: `Protocol for port checks
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  tcp     |  TCP          |
+    |  udp     |  UDP          |
 `,
 
 			// Default:          stringdefault.StaticString(`tcp`),

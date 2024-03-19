@@ -37,20 +37,20 @@ IP access-list filter
 
 - `access_list_id` (Number) IP access-list filter
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-99  &emsp; |  IP standard access list  |
-    |  number: 100-199  &emsp; |  IP extended access list  |
-    |  number: 1300-1999  &emsp; |  IP standard access list (expanded range)  |
-    |  number: 2000-2699  &emsp; |  IP extended access list (expanded range)  |
+    |  Format     &emsp;|  Description                               |
+    |-------------------|--------------------------------------------|
+    |  1-99       &emsp;|  IP standard access list                   |
+    |  100-199    &emsp;|  IP extended access list                   |
+    |  1300-1999  &emsp;|  IP standard access list (expanded range)  |
+    |  2000-2699  &emsp;|  IP extended access list (expanded range)  |
 
 ### Optional
 
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 
 ### Read-Only
 

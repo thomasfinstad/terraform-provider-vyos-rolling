@@ -37,15 +37,25 @@ func (o FirewallIPvfourForwardFilterRuleSource) ResourceSchemaAttributes() map[s
 			Optional: true,
 			MarkdownDescription: `IP address, subnet, or range
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address to match  |
-    |  ipv4net  &emsp; |  IPv4 prefix to match  |
-    |  ipv4range  &emsp; |  IPv4 address range to match  |
-    |  !ipv4  &emsp; |  Match everything except the specified address  |
-    |  !ipv4net  &emsp; |  Match everything except the specified prefix  |
-    |  !ipv4range  &emsp; |  Match everything except the specified range  |
+    |  Format      &emsp;|  Description                                    |
+    |--------------------|-------------------------------------------------|
+    |  ipv4        &emsp;|  IPv4 address to match                          |
+    |  ipv4net     &emsp;|  IPv4 prefix to match                           |
+    |  ipv4range   &emsp;|  IPv4 address range to match                    |
+    |  !ipv4       &emsp;|  Match everything except the specified address  |
+    |  !ipv4net    &emsp;|  Match everything except the specified prefix   |
+    |  !ipv4range  &emsp;|  Match everything except the specified range    |
+`,
+			Description: `IP address, subnet, or range
 
+    |  Format      |  Description                                    |
+    |--------------------|-------------------------------------------------|
+    |  ipv4        |  IPv4 address to match                          |
+    |  ipv4net     |  IPv4 prefix to match                           |
+    |  ipv4range   |  IPv4 address range to match                    |
+    |  !ipv4       |  Match everything except the specified address  |
+    |  !ipv4net    |  Match everything except the specified prefix   |
+    |  !ipv4range  |  Match everything except the specified range    |
 `,
 		},
 
@@ -53,10 +63,15 @@ func (o FirewallIPvfourForwardFilterRuleSource) ResourceSchemaAttributes() map[s
 			Optional: true,
 			MarkdownDescription: `IP mask
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 mask to apply  |
+    |  Format  &emsp;|  Description         |
+    |----------------|----------------------|
+    |  ipv4    &emsp;|  IPv4 mask to apply  |
+`,
+			Description: `IP mask
 
+    |  Format  |  Description         |
+    |----------------|----------------------|
+    |  ipv4    |  IPv4 mask to apply  |
 `,
 		},
 
@@ -64,10 +79,15 @@ func (o FirewallIPvfourForwardFilterRuleSource) ResourceSchemaAttributes() map[s
 			Optional: true,
 			MarkdownDescription: `Fully qualified domain name
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <fqdn>  &emsp; |  Fully qualified domain name  |
+    |  Format        &emsp;|  Description                  |
+    |----------------------|-------------------------------|
+    |  &lt;fqdn&gt;  &emsp;|  Fully qualified domain name  |
+`,
+			Description: `Fully qualified domain name
 
+    |  Format        |  Description                  |
+    |----------------------|-------------------------------|
+    |  <fqdn>  |  Fully qualified domain name  |
 `,
 		},
 
@@ -75,11 +95,17 @@ func (o FirewallIPvfourForwardFilterRuleSource) ResourceSchemaAttributes() map[s
 			Optional: true,
 			MarkdownDescription: `MAC address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  macaddr  &emsp; |  MAC address to match  |
-    |  !macaddr  &emsp; |  Match everything except the specified MAC address  |
+    |  Format    &emsp;|  Description                                        |
+    |------------------|-----------------------------------------------------|
+    |  macaddr   &emsp;|  MAC address to match                               |
+    |  !macaddr  &emsp;|  Match everything except the specified MAC address  |
+`,
+			Description: `MAC address
 
+    |  Format    |  Description                                        |
+    |------------------|-----------------------------------------------------|
+    |  macaddr   |  MAC address to match                               |
+    |  !macaddr  |  Match everything except the specified MAC address  |
 `,
 		},
 
@@ -87,13 +113,21 @@ func (o FirewallIPvfourForwardFilterRuleSource) ResourceSchemaAttributes() map[s
 			Optional: true,
 			MarkdownDescription: `Port
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Named port (any name in /etc/services, e.g., http)  |
-    |  number: 1-65535  &emsp; |  Numbered port  |
-    |  <start-end>  &emsp; |  Numbered port range (e.g. 1001-1005)  |
-    |     &emsp; |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
+    |  Format             &emsp;|  Description                                                                                                               |
+    |---------------------------|----------------------------------------------------------------------------------------------------------------------------|
+    |  txt                &emsp;|  Named port (any name in /etc/services, e.g., http)                                                                        |
+    |  1-65535            &emsp;|  Numbered port                                                                                                             |
+    |  &lt;start-end&gt;  &emsp;|  Numbered port range (e.g. 1001-1005)                                                                                      |
+    |                     &emsp;|  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
+`,
+			Description: `Port
 
+    |  Format             |  Description                                                                                                               |
+    |---------------------------|----------------------------------------------------------------------------------------------------------------------------|
+    |  txt                |  Named port (any name in /etc/services, e.g., http)                                                                        |
+    |  1-65535            |  Numbered port                                                                                                             |
+    |  <start-end>  |  Numbered port range (e.g. 1001-1005)                                                                                      |
+    |                     |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
 `,
 		},
 
@@ -105,12 +139,18 @@ func (o FirewallIPvfourForwardFilterRuleSource) ResourceSchemaAttributes() map[s
 			MarkdownDescription: `GeoIP options - Data provided by DB-IP.com
 
 `,
+			Description: `GeoIP options - Data provided by DB-IP.com
+
+`,
 		},
 
 		"group": schema.SingleNestedAttribute{
 			Attributes: FirewallIPvfourForwardFilterRuleSourceGroup{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Group
+
+`,
+			Description: `Group
 
 `,
 		},

@@ -108,10 +108,15 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress) Resource
 			Required: true,
 			MarkdownDescription: `BGP aggregate network
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  BGP aggregate network  |
+    |  Format   &emsp;|  Description            |
+    |-----------------|-------------------------|
+    |  ipv4net  &emsp;|  BGP aggregate network  |
+`,
+			Description: `BGP aggregate network
 
+    |  Format   |  Description            |
+    |-----------------|-------------------------|
+    |  ipv4net  |  BGP aggregate network  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -135,10 +140,15 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress) Resource
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -165,6 +175,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress) Resource
 			MarkdownDescription: `Generate AS-set path information for this aggregate address
 
 `,
+			Description: `Generate AS-set path information for this aggregate address
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -173,16 +186,24 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress) Resource
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Route map name  |
+`,
+			Description: `Specify route-map name to use
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  txt     |  Route map name  |
 `,
 		},
 
 		"summary_only": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Announce the aggregate summary network only
+
+`,
+			Description: `Announce the aggregate summary network only
 
 `,
 			Default:  booldefault.StaticBool(false),

@@ -35,12 +35,18 @@ func (o FirewallIPvfourNameRuleAddAddressToGroup) ResourceSchemaAttributes() map
 			MarkdownDescription: `Add source ip addresses to dynamic address-group
 
 `,
+			Description: `Add source ip addresses to dynamic address-group
+
+`,
 		},
 
 		"destination_address": schema.SingleNestedAttribute{
 			Attributes: FirewallIPvfourNameRuleAddAddressToGroupDestinationAddress{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Add destination ip addresses to dynamic address-group
+
+`,
+			Description: `Add destination ip addresses to dynamic address-group
 
 `,
 		},

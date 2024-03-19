@@ -33,6 +33,9 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastNexthopSelf) Resou
 			MarkdownDescription: `Set the next hop to self for reflected routes
 
 `,
+			Description: `Set the next hop to self for reflected routes
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},

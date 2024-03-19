@@ -35,10 +35,15 @@ func (o PolicyRouteMapRuleSetIPvsixNextHop) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Nexthop IPv6 global address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6  &emsp; |  IPv6 address and prefix length  |
+    |  Format  &emsp;|  Description                     |
+    |----------------|----------------------------------|
+    |  ipv6    &emsp;|  IPv6 address and prefix length  |
+`,
+			Description: `Nexthop IPv6 global address
 
+    |  Format  |  Description                     |
+    |----------------|----------------------------------|
+    |  ipv6    |  IPv6 address and prefix length  |
 `,
 		},
 
@@ -46,16 +51,24 @@ func (o PolicyRouteMapRuleSetIPvsixNextHop) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Nexthop IPv6 local address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6  &emsp; |  IPv6 address and prefix length  |
+    |  Format  &emsp;|  Description                     |
+    |----------------|----------------------------------|
+    |  ipv6    &emsp;|  IPv6 address and prefix length  |
+`,
+			Description: `Nexthop IPv6 local address
 
+    |  Format  |  Description                     |
+    |----------------|----------------------------------|
+    |  ipv6    |  IPv6 address and prefix length  |
 `,
 		},
 
 		"peer_address": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Use peer address (for BGP only)
+
+`,
+			Description: `Use peer address (for BGP only)
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -65,6 +78,9 @@ func (o PolicyRouteMapRuleSetIPvsixNextHop) ResourceSchemaAttributes() map[strin
 		"prefer_global": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Prefer global address as the nexthop
+
+`,
+			Description: `Prefer global address as the nexthop
 
 `,
 			Default:  booldefault.StaticBool(false),

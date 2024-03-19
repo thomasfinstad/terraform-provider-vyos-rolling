@@ -33,16 +33,24 @@ func (o PkiOpenTCPPublic) ResourceSchemaAttributes() map[string]schema.Attribute
 			MarkdownDescription: `Public key in PEM format
 
 `,
+			Description: `Public key in PEM format
+
+`,
 		},
 
 		"type": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `SSH public key type
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ssh-rsa  &emsp; |  Key pair based on RSA algorithm  |
+    |  Format   &emsp;|  Description                      |
+    |-----------------|-----------------------------------|
+    |  ssh-rsa  &emsp;|  Key pair based on RSA algorithm  |
+`,
+			Description: `SSH public key type
 
+    |  Format   |  Description                      |
+    |-----------------|-----------------------------------|
+    |  ssh-rsa  |  Key pair based on RSA algorithm  |
 `,
 		},
 

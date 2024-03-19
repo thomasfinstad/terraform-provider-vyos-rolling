@@ -46,12 +46,18 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceSchemaAttributes
 			MarkdownDescription: `Administrative distances for BGP routes
 
 `,
+			Description: `Administrative distances for BGP routes
+
+`,
 		},
 
 		"export": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastExport{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Export routes from this address-family
+
+`,
+			Description: `Export routes from this address-family
 
 `,
 		},
@@ -62,12 +68,18 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceSchemaAttributes
 			MarkdownDescription: `Import routes to this address-family
 
 `,
+			Description: `Import routes to this address-family
+
+`,
 		},
 
 		"label": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabel{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Label value for VRF
+
+`,
+			Description: `Label value for VRF
 
 `,
 		},
@@ -78,12 +90,18 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceSchemaAttributes
 			MarkdownDescription: `Forward packets over multiple paths
 
 `,
+			Description: `Forward packets over multiple paths
+
+`,
 		},
 
 		"rd": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Specify route distinguisher
+
+`,
+			Description: `Specify route distinguisher
 
 `,
 		},
@@ -94,12 +112,18 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceSchemaAttributes
 			MarkdownDescription: `Route-map to filter route updates to/from this peer
 
 `,
+			Description: `Route-map to filter route updates to/from this peer
+
+`,
 		},
 
 		"route_target": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTarget{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Specify route target list
+
+`,
+			Description: `Specify route target list
 
 `,
 		},
@@ -110,6 +134,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceSchemaAttributes
 			MarkdownDescription: `Specify next hop to use for VRF advertised prefixes
 
 `,
+			Description: `Specify next hop to use for VRF advertised prefixes
+
+`,
 		},
 
 		"redistribute": schema.SingleNestedAttribute{
@@ -118,12 +145,18 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceSchemaAttributes
 			MarkdownDescription: `Redistribute routes from other protocols into BGP
 
 `,
+			Description: `Redistribute routes from other protocols into BGP
+
+`,
 		},
 
 		"sid": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastSID{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `SID value for VRF
+
+`,
+			Description: `SID value for VRF
 
 `,
 		},

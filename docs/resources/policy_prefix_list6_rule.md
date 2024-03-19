@@ -47,43 +47,43 @@ Rule for this prefix-list6
 
 - `prefix_list6_id` (String) IPv6 prefix-list filter
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Name of IPv6 prefix-list  |
+    |  Format  &emsp;|  Description               |
+    |----------------|----------------------------|
+    |  txt     &emsp;|  Name of IPv6 prefix-list  |
 - `rule_id` (Number) Rule for this prefix-list6
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Prefix-list rule number  |
+    |  Format   &emsp;|  Description              |
+    |-----------------|---------------------------|
+    |  1-65535  &emsp;|  Prefix-list rule number  |
 
 ### Optional
 
 - `action` (String) Action to take on entries matching this rule
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  permit  &emsp; |  Permit matching entries  |
-    |  deny  &emsp; |  Deny matching entries  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  permit  &emsp;|  Permit matching entries  |
+    |  deny    &emsp;|  Deny matching entries    |
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `ge` (Number) Prefix length to match a netmask greater than or equal to it
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-128  &emsp; |  Netmask greater than length  |
+    |  Format  &emsp;|  Description                  |
+    |----------------|-------------------------------|
+    |  0-128   &emsp;|  Netmask greater than length  |
 - `le` (Number) Prefix length to match a netmask less than or equal to it
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-128  &emsp; |  Netmask less than length  |
+    |  Format  &emsp;|  Description               |
+    |----------------|----------------------------|
+    |  0-128   &emsp;|  Netmask less than length  |
 - `prefix` (String) Prefix to match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6net  &emsp; |  IPv6 prefix  |
+    |  Format   &emsp;|  Description  |
+    |-----------------|---------------|
+    |  ipv6net  &emsp;|  IPv6 prefix  |
 
 ### Read-Only
 

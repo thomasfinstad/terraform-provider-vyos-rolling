@@ -39,6 +39,9 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn) ResourceSchemaAttr
 			MarkdownDescription: `Peer is a route reflector client
 
 `,
+			Description: `Peer is a route reflector client
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -46,6 +49,9 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn) ResourceSchemaAttr
 		"route_server_client": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Peer is a route server client
+
+`,
+			Description: `Peer is a route server client
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -60,12 +66,18 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn) ResourceSchemaAttr
 			MarkdownDescription: `Accept route that contains the local-as in the as-path
 
 `,
+			Description: `Accept route that contains the local-as in the as-path
+
+`,
 		},
 
 		"attribute_unchanged": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAttributeUnchanged{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `BGP attributes are sent unchanged
+
+`,
+			Description: `BGP attributes are sent unchanged
 
 `,
 		},
@@ -76,6 +88,9 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn) ResourceSchemaAttr
 			MarkdownDescription: `Disable the next hop calculation for this peer
 
 `,
+			Description: `Disable the next hop calculation for this peer
+
+`,
 		},
 
 		"route_map": schema.SingleNestedAttribute{
@@ -84,12 +99,18 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn) ResourceSchemaAttr
 			MarkdownDescription: `Route-map to filter route updates to/from this peer
 
 `,
+			Description: `Route-map to filter route updates to/from this peer
+
+`,
 		},
 
 		"soft_reconfiguration": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnSoftReconfiguration{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Soft reconfiguration for peer
+
+`,
+			Description: `Soft reconfiguration for peer
 
 `,
 		},

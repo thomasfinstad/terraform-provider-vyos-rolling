@@ -34,6 +34,9 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocalLoadSharing) ResourceSchemaAttrib
 			MarkdownDescription: `Disable load sharing
 
 `,
+			Description: `Disable load sharing
+
+`,
 		},
 	}
 }

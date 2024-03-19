@@ -114,10 +114,15 @@ func (o VrfNameProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[stri
 			Required: true,
 			MarkdownDescription: `Specify alternate ASN for this BGP process
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4294967294  &emsp; |  Autonomous System Number (ASN)  |
+    |  Format        &emsp;|  Description                     |
+    |----------------------|----------------------------------|
+    |  1-4294967294  &emsp;|  Autonomous System Number (ASN)  |
+`,
+			Description: `Specify alternate ASN for this BGP process
 
+    |  Format        |  Description                     |
+    |----------------------|----------------------------------|
+    |  1-4294967294  |  Autonomous System Number (ASN)  |
 `,
 			PlanModifiers: []planmodifier.Number{
 				numberplanmodifier.RequiresReplace(),
@@ -128,10 +133,15 @@ func (o VrfNameProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[stri
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -154,6 +164,9 @@ func (o VrfNameProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[stri
 		"peer_group_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Name of peer-group
+
+`,
+			Description: `Name of peer-group
 
 `,
 			PlanModifiers: []planmodifier.String{
@@ -182,6 +195,9 @@ func (o VrfNameProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[stri
 			Attributes: VrfNameProtocolsBgpPeerGroupLocalAsNoPrepend{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Disable prepending local-as from/to updates for eBGP peers
+
+`,
+			Description: `Disable prepending local-as from/to updates for eBGP peers
 
 `,
 		},

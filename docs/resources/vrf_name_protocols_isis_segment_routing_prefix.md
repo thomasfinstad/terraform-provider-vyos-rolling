@@ -77,15 +77,15 @@ Static IPv4/IPv6 prefix segment/label mapping
 
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `prefix_id` (String) Static IPv4/IPv6 prefix segment/label mapping
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  IPv4 prefix segment  |
-    |  ipv6net  &emsp; |  IPv6 prefix segment  |
+    |  Format   &emsp;|  Description          |
+    |-----------------|-----------------------|
+    |  ipv4net  &emsp;|  IPv4 prefix segment  |
+    |  ipv6net  &emsp;|  IPv6 prefix segment  |
 
 ### Optional
 
@@ -105,9 +105,9 @@ Optional:
 - `no_php_flag` (Boolean) Do not request penultimate hop popping for segment/label
 - `value` (Number) Specify the absolute value of prefix segment/label ID
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 16-1048575  &emsp; |  The absolute segment/label ID value  |
+    |  Format      &emsp;|  Description                          |
+    |--------------------|---------------------------------------|
+    |  16-1048575  &emsp;|  The absolute segment/label ID value  |
 
 
 <a id="nestedatt--index"></a>
@@ -119,6 +119,6 @@ Optional:
 - `no_php_flag` (Boolean) Do not request penultimate hop popping for segment/label
 - `value` (Number) Specify the index value of prefix segment/label ID
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-65535  &emsp; |  The index segment/label ID value  |
+    |  Format   &emsp;|  Description                       |
+    |-----------------|------------------------------------|
+    |  0-65535  &emsp;|  The index segment/label ID value  |

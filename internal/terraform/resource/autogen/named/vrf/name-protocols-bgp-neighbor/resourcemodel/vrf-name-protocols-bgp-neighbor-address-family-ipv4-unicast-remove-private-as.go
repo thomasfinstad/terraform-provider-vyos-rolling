@@ -33,6 +33,9 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRemovePrivateAs) R
 			MarkdownDescription: `Remove private AS numbers to all AS numbers in outbound route updates
 
 `,
+			Description: `Remove private AS numbers to all AS numbers in outbound route updates
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},

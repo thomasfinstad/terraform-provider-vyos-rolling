@@ -43,9 +43,9 @@ Certificate
 - `certificate` (String) Certificate in PEM format
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `private` (Attributes) Certificate private key (see [below for nested schema](#nestedatt--private))
 - `revoke` (Boolean) Include certificate in parent CRL
 
@@ -62,21 +62,21 @@ Optional:
 - `email` (String) Email address to associate with certificate
 - `listen_address` (String) Local IPv4 addresses to listen on
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address to listen for incoming connections  |
+    |  Format  &emsp;|  Description                                      |
+    |----------------|---------------------------------------------------|
+    |  ipv4    &emsp;|  IPv4 address to listen for incoming connections  |
 - `rsa_key_size` (String) Size of the RSA key
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  2048  &emsp; |  RSA key length 2048 bit  |
-    |  3072  &emsp; |  RSA key length 3072 bit  |
-    |  4096  &emsp; |  RSA key length 4096 bit  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  2048    &emsp;|  RSA key length 2048 bit  |
+    |  3072    &emsp;|  RSA key length 3072 bit  |
+    |  4096    &emsp;|  RSA key length 4096 bit  |
 - `url` (String) Remote URL
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  url  &emsp; |  Remote HTTP(S) URL  |
+    |  Format  &emsp;|  Description         |
+    |----------------|----------------------|
+    |  url     &emsp;|  Remote HTTP(S) URL  |
 
 
 <a id="nestedatt--private"></a>

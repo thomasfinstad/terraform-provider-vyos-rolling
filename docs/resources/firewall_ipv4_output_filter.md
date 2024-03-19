@@ -56,16 +56,16 @@ IPv4 firewall output filter
 
 - `default_action` (String) Default-action for rule-set
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  drop  &emsp; |  Drop if no prior rules are hit  |
-    |  accept  &emsp; |  Accept if no prior rules are hit  |
+    |  Format  &emsp;|  Description                       |
+    |----------------|------------------------------------|
+    |  drop    &emsp;|  Drop if no prior rules are hit    |
+    |  accept  &emsp;|  Accept if no prior rules are hit  |
 - `default_log` (Boolean) Log packets hitting default-action
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 
 ### Read-Only
 

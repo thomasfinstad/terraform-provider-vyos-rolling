@@ -67,15 +67,15 @@ OSPFv3 Area
 
 - `area_id` (String) OSPFv3 Area
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  Area ID as a decimal value  |
-    |  ipv4  &emsp; |  Area ID in IP address forma  |
+    |  Format  &emsp;|  Description                  |
+    |----------------|-------------------------------|
+    |  u32     &emsp;|  Area ID as a decimal value   |
+    |  ipv4    &emsp;|  Area ID in IP address forma  |
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 
 ### Optional
 

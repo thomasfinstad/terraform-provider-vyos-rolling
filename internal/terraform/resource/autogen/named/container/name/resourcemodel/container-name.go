@@ -108,6 +108,9 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			MarkdownDescription: `Container name
 
 `,
+			Description: `Container name
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -133,6 +136,9 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			MarkdownDescription: `Allow host networks in container
 
 `,
+			Description: `Allow host networks in container
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -142,16 +148,27 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional:    true,
 			MarkdownDescription: `Container capabilities/permissions
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  net-admin  &emsp; |  Network operations (interface, firewall, routing tables)  |
-    |  net-bind-service  &emsp; |  Bind a socket to privileged ports (port numbers less than 1024)  |
-    |  net-raw  &emsp; |  Permission to create raw network sockets  |
-    |  setpcap  &emsp; |  Capability sets (from bounded or inherited set)  |
-    |  sys-admin  &emsp; |  Administation operations (quotactl, mount, sethostname, setdomainame)  |
-    |  sys-module  &emsp; |  Load, unload and delete kernel modules  |
-    |  sys-time  &emsp; |  Permission to set system clock  |
+    |  Format            &emsp;|  Description                                                            |
+    |--------------------------|-------------------------------------------------------------------------|
+    |  net-admin         &emsp;|  Network operations (interface, firewall, routing tables)               |
+    |  net-bind-service  &emsp;|  Bind a socket to privileged ports (port numbers less than 1024)        |
+    |  net-raw           &emsp;|  Permission to create raw network sockets                               |
+    |  setpcap           &emsp;|  Capability sets (from bounded or inherited set)                        |
+    |  sys-admin         &emsp;|  Administation operations (quotactl, mount, sethostname, setdomainame)  |
+    |  sys-module        &emsp;|  Load, unload and delete kernel modules                                 |
+    |  sys-time          &emsp;|  Permission to set system clock                                         |
+`,
+			Description: `Container capabilities/permissions
 
+    |  Format            |  Description                                                            |
+    |--------------------------|-------------------------------------------------------------------------|
+    |  net-admin         |  Network operations (interface, firewall, routing tables)               |
+    |  net-bind-service  |  Bind a socket to privileged ports (port numbers less than 1024)        |
+    |  net-raw           |  Permission to create raw network sockets                               |
+    |  setpcap           |  Capability sets (from bounded or inherited set)                        |
+    |  sys-admin         |  Administation operations (quotactl, mount, sethostname, setdomainame)  |
+    |  sys-module        |  Load, unload and delete kernel modules                                 |
+    |  sys-time          |  Permission to set system clock                                         |
 `,
 		},
 
@@ -159,16 +176,24 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
 		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
+
+`,
+			Description: `Disable instance
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -180,11 +205,17 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			MarkdownDescription: `Override the default ENTRYPOINT from the image
 
 `,
+			Description: `Override the default ENTRYPOINT from the image
+
+`,
 		},
 
 		"host_name": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Container host name
+
+`,
+			Description: `Container host name
 
 `,
 		},
@@ -194,11 +225,17 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			MarkdownDescription: `Image name in the hub-registry
 
 `,
+			Description: `Image name in the hub-registry
+
+`,
 		},
 
 		"command": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Override the default CMD from the image
+
+`,
+			Description: `Override the default CMD from the image
 
 `,
 		},
@@ -208,17 +245,26 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			MarkdownDescription: `The command's arguments for this container
 
 `,
+			Description: `The command's arguments for this container
+
+`,
 		},
 
 		"memory": schema.NumberAttribute{
 			Optional: true,
 			MarkdownDescription: `Memory (RAM) available to this container
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0  &emsp; |  Unlimited  |
-    |  number: 1-16384  &emsp; |  Container memory in megabytes (MB)  |
+    |  Format   &emsp;|  Description                         |
+    |-----------------|--------------------------------------|
+    |  0        &emsp;|  Unlimited                           |
+    |  1-16384  &emsp;|  Container memory in megabytes (MB)  |
+`,
+			Description: `Memory (RAM) available to this container
 
+    |  Format   |  Description                         |
+    |-----------------|--------------------------------------|
+    |  0        |  Unlimited                           |
+    |  1-16384  |  Container memory in megabytes (MB)  |
 `,
 
 			// Default:          stringdefault.StaticString(`512`),
@@ -229,11 +275,17 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Shared memory available to this container
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0  &emsp; |  Unlimited  |
-    |  number: 1-8192  &emsp; |  Container memory in megabytes (MB)  |
+    |  Format  &emsp;|  Description                         |
+    |----------------|--------------------------------------|
+    |  0       &emsp;|  Unlimited                           |
+    |  1-8192  &emsp;|  Container memory in megabytes (MB)  |
+`,
+			Description: `Shared memory available to this container
 
+    |  Format  |  Description                         |
+    |----------------|--------------------------------------|
+    |  0       |  Unlimited                           |
+    |  1-8192  |  Container memory in megabytes (MB)  |
 `,
 
 			// Default:          stringdefault.StaticString(`64`),
@@ -244,12 +296,19 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Restart options for container
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  no  &emsp; |  Do not restart containers on exit  |
-    |  on-failure  &emsp; |  Restart containers when they exit with a non-zero exit code, retrying indefinitely  |
-    |  always  &emsp; |  Restart containers when they exit, regardless of status, retrying indefinitely  |
+    |  Format      &emsp;|  Description                                                                         |
+    |--------------------|--------------------------------------------------------------------------------------|
+    |  no          &emsp;|  Do not restart containers on exit                                                   |
+    |  on-failure  &emsp;|  Restart containers when they exit with a non-zero exit code, retrying indefinitely  |
+    |  always      &emsp;|  Restart containers when they exit, regardless of status, retrying indefinitely      |
+`,
+			Description: `Restart options for container
 
+    |  Format      |  Description                                                                         |
+    |--------------------|--------------------------------------------------------------------------------------|
+    |  no          |  Do not restart containers on exit                                                   |
+    |  on-failure  |  Restart containers when they exit with a non-zero exit code, retrying indefinitely  |
+    |  always      |  Restart containers when they exit, regardless of status, retrying indefinitely      |
 `,
 
 			// Default:          stringdefault.StaticString(`on-failure`),
@@ -260,10 +319,15 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `User ID this container will run as
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-65535  &emsp; |  User ID this container will run as  |
+    |  Format   &emsp;|  Description                         |
+    |-----------------|--------------------------------------|
+    |  0-65535  &emsp;|  User ID this container will run as  |
+`,
+			Description: `User ID this container will run as
 
+    |  Format   |  Description                         |
+    |-----------------|--------------------------------------|
+    |  0-65535  |  User ID this container will run as  |
 `,
 		},
 
@@ -271,10 +335,15 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Group ID this container will run as
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-65535  &emsp; |  Group ID this container will run as  |
+    |  Format   &emsp;|  Description                          |
+    |-----------------|---------------------------------------|
+    |  0-65535  &emsp;|  Group ID this container will run as  |
+`,
+			Description: `Group ID this container will run as
 
+    |  Format   |  Description                          |
+    |-----------------|---------------------------------------|
+    |  0-65535  |  Group ID this container will run as  |
 `,
 		},
 

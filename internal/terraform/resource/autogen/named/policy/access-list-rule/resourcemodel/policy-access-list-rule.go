@@ -97,10 +97,15 @@ func (o PolicyAccessListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Required: true,
 			MarkdownDescription: `Rule for this access-list
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Access-list rule number  |
+    |  Format   &emsp;|  Description              |
+    |-----------------|---------------------------|
+    |  1-65535  &emsp;|  Access-list rule number  |
+`,
+			Description: `Rule for this access-list
 
+    |  Format   |  Description              |
+    |-----------------|---------------------------|
+    |  1-65535  |  Access-list rule number  |
 `,
 			PlanModifiers: []planmodifier.Number{
 				numberplanmodifier.RequiresReplace(),
@@ -111,13 +116,21 @@ func (o PolicyAccessListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Required: true,
 			MarkdownDescription: `IP access-list filter
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-99  &emsp; |  IP standard access list  |
-    |  number: 100-199  &emsp; |  IP extended access list  |
-    |  number: 1300-1999  &emsp; |  IP standard access list (expanded range)  |
-    |  number: 2000-2699  &emsp; |  IP extended access list (expanded range)  |
+    |  Format     &emsp;|  Description                               |
+    |-------------------|--------------------------------------------|
+    |  1-99       &emsp;|  IP standard access list                   |
+    |  100-199    &emsp;|  IP extended access list                   |
+    |  1300-1999  &emsp;|  IP standard access list (expanded range)  |
+    |  2000-2699  &emsp;|  IP extended access list (expanded range)  |
+`,
+			Description: `IP access-list filter
 
+    |  Format     |  Description                               |
+    |-------------------|--------------------------------------------|
+    |  1-99       |  IP standard access list                   |
+    |  100-199    |  IP extended access list                   |
+    |  1300-1999  |  IP standard access list (expanded range)  |
+    |  2000-2699  |  IP extended access list (expanded range)  |
 `,
 			PlanModifiers: []planmodifier.Number{
 				numberplanmodifier.RequiresReplace(),
@@ -130,11 +143,17 @@ func (o PolicyAccessListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  permit  &emsp; |  Permit matching entries  |
-    |  deny  &emsp; |  Deny matching entries  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  permit  &emsp;|  Permit matching entries  |
+    |  deny    &emsp;|  Deny matching entries    |
+`,
+			Description: `Action to take on entries matching this rule
 
+    |  Format  |  Description              |
+    |----------------|---------------------------|
+    |  permit  |  Permit matching entries  |
+    |  deny    |  Deny matching entries    |
 `,
 		},
 
@@ -142,10 +161,15 @@ func (o PolicyAccessListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -157,12 +181,18 @@ func (o PolicyAccessListRule) ResourceSchemaAttributes() map[string]schema.Attri
 			MarkdownDescription: `Destination network or address
 
 `,
+			Description: `Destination network or address
+
+`,
 		},
 
 		"source": schema.SingleNestedAttribute{
 			Attributes: PolicyAccessListRuleSource{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Source network or address to match
+
+`,
+			Description: `Source network or address to match
 
 `,
 		},

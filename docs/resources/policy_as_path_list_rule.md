@@ -47,33 +47,33 @@ Rule for this as-path-list
 
 - `as_path_list_id` (String) Add a BGP autonomous system path filter
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  AS path list name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  AS path list name  |
 - `rule_id` (Number) Rule for this as-path-list
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  AS path list rule number  |
+    |  Format   &emsp;|  Description               |
+    |-----------------|----------------------------|
+    |  1-65535  &emsp;|  AS path list rule number  |
 
 ### Optional
 
 - `action` (String) Action to take on entries matching this rule
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  permit  &emsp; |  Permit matching entries  |
-    |  deny  &emsp; |  Deny matching entries  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  permit  &emsp;|  Permit matching entries  |
+    |  deny    &emsp;|  Deny matching entries    |
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `regex` (String) Regular expression to match against an AS path
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  AS path regular expression (ex: "64501 64502")  |
+    |  Format  &emsp;|  Description                                     |
+    |----------------|--------------------------------------------------|
+    |  txt     &emsp;|  AS path regular expression (ex: "64501 64502")  |
 
 ### Read-Only
 

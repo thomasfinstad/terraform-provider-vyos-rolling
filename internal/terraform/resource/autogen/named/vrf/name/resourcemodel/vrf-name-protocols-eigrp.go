@@ -38,10 +38,15 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Autonomous System Number (ASN)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Autonomous System Number  |
+    |  Format   &emsp;|  Description               |
+    |-----------------|----------------------------|
+    |  1-65535  &emsp;|  Autonomous System Number  |
+`,
+			Description: `Autonomous System Number (ASN)
 
+    |  Format   |  Description               |
+    |-----------------|----------------------------|
+    |  1-65535  |  Autonomous System Number  |
 `,
 		},
 
@@ -49,10 +54,15 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Forward packets over multiple paths
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-32  &emsp; |  Number of paths  |
+    |  Format  &emsp;|  Description      |
+    |----------------|-------------------|
+    |  1-32    &emsp;|  Number of paths  |
+`,
+			Description: `Forward packets over multiple paths
 
+    |  Format  |  Description      |
+    |----------------|-------------------|
+    |  1-32    |  Number of paths  |
 `,
 		},
 
@@ -61,10 +71,15 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional:    true,
 			MarkdownDescription: `Enable routing on an IP network
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  EIGRP network prefix  |
+    |  Format   &emsp;|  Description           |
+    |-----------------|------------------------|
+    |  ipv4net  &emsp;|  EIGRP network prefix  |
+`,
+			Description: `Enable routing on an IP network
 
+    |  Format   |  Description           |
+    |-----------------|------------------------|
+    |  ipv4net  |  EIGRP network prefix  |
 `,
 		},
 
@@ -74,6 +89,9 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes() map[string]schema.Attr
 			MarkdownDescription: `Suppress routing updates on an interface
 
 `,
+			Description: `Suppress routing updates on an interface
+
+`,
 		},
 
 		"redistribute": schema.ListAttribute{
@@ -81,17 +99,29 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional:    true,
 			MarkdownDescription: `Redistribute information from another routing protocol
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  bgp  &emsp; |  Border Gateway Protocol (BGP)  |
-    |  connected  &emsp; |  Connected routes  |
-    |  nhrp  &emsp; |  Next Hop Resolution Protocol (NHRP)  |
-    |  ospf  &emsp; |  Open Shortest Path First (OSPFv2)  |
-    |  rip  &emsp; |  Routing Information Protocol (RIP)  |
-    |  babel  &emsp; |  Babel routing protocol (Babel)  |
-    |  static  &emsp; |  Statically configured routes  |
-    |  vnc  &emsp; |  Virtual Network Control (VNC)  |
+    |  Format     &emsp;|  Description                          |
+    |-------------------|---------------------------------------|
+    |  bgp        &emsp;|  Border Gateway Protocol (BGP)        |
+    |  connected  &emsp;|  Connected routes                     |
+    |  nhrp       &emsp;|  Next Hop Resolution Protocol (NHRP)  |
+    |  ospf       &emsp;|  Open Shortest Path First (OSPFv2)    |
+    |  rip        &emsp;|  Routing Information Protocol (RIP)   |
+    |  babel      &emsp;|  Babel routing protocol (Babel)       |
+    |  static     &emsp;|  Statically configured routes         |
+    |  vnc        &emsp;|  Virtual Network Control (VNC)        |
+`,
+			Description: `Redistribute information from another routing protocol
 
+    |  Format     |  Description                          |
+    |-------------------|---------------------------------------|
+    |  bgp        |  Border Gateway Protocol (BGP)        |
+    |  connected  |  Connected routes                     |
+    |  nhrp       |  Next Hop Resolution Protocol (NHRP)  |
+    |  ospf       |  Open Shortest Path First (OSPFv2)    |
+    |  rip        |  Routing Information Protocol (RIP)   |
+    |  babel      |  Babel routing protocol (Babel)       |
+    |  static     |  Statically configured routes         |
+    |  vnc        |  Virtual Network Control (VNC)        |
 `,
 		},
 
@@ -99,10 +129,15 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Override default router identifier
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  Router-ID in IP address format  |
+    |  Format  &emsp;|  Description                     |
+    |----------------|----------------------------------|
+    |  ipv4    &emsp;|  Router-ID in IP address format  |
+`,
+			Description: `Override default router identifier
 
+    |  Format  |  Description                     |
+    |----------------|----------------------------------|
+    |  ipv4    |  Router-ID in IP address format  |
 `,
 		},
 
@@ -110,10 +145,15 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Control load balancing variance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-128  &emsp; |  Metric variance multiplier  |
+    |  Format  &emsp;|  Description                 |
+    |----------------|------------------------------|
+    |  1-128   &emsp;|  Metric variance multiplier  |
+`,
+			Description: `Control load balancing variance
 
+    |  Format  |  Description                 |
+    |----------------|------------------------------|
+    |  1-128   |  Metric variance multiplier  |
 `,
 		},
 
@@ -123,6 +163,9 @@ func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes() map[string]schema.Attr
 			Attributes: VrfNameProtocolsEigrpMetric{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Modify metrics and parameters for advertisement
+
+`,
+			Description: `Modify metrics and parameters for advertisement
 
 `,
 		},

@@ -33,16 +33,24 @@ func (o VrfNameProtocolsBgpPeerGroupBfd) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Use settings from BFD profile
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  BFD profile name  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  txt     &emsp;|  BFD profile name  |
+`,
+			Description: `Use settings from BFD profile
 
+    |  Format  |  Description       |
+    |----------------|--------------------|
+    |  txt     |  BFD profile name  |
 `,
 		},
 
 		"check_control_plane_failure": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Allow to write CBIT independence in BFD outgoing packets and read both C-BIT value of BFD and lookup BGP peer status
+
+`,
+			Description: `Allow to write CBIT independence in BFD outgoing packets and read both C-BIT value of BFD and lookup BGP peer status
 
 `,
 			Default:  booldefault.StaticBool(false),

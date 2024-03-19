@@ -35,10 +35,15 @@ func (o PkiCertificateAcme) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Remote URL
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  url  &emsp; |  Remote HTTP(S) URL  |
+    |  Format  &emsp;|  Description         |
+    |----------------|----------------------|
+    |  url     &emsp;|  Remote HTTP(S) URL  |
+`,
+			Description: `Remote URL
 
+    |  Format  |  Description         |
+    |----------------|----------------------|
+    |  url     |  Remote HTTP(S) URL  |
 `,
 
 			// Default:          stringdefault.StaticString(`https://acme-v02.api.letsencrypt.org/directory`),
@@ -51,11 +56,17 @@ func (o PkiCertificateAcme) ResourceSchemaAttributes() map[string]schema.Attribu
 			MarkdownDescription: `Domain Name
 
 `,
+			Description: `Domain Name
+
+`,
 		},
 
 		"email": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Email address to associate with certificate
+
+`,
+			Description: `Email address to associate with certificate
 
 `,
 		},
@@ -64,10 +75,15 @@ func (o PkiCertificateAcme) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Local IPv4 addresses to listen on
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address to listen for incoming connections  |
+    |  Format  &emsp;|  Description                                      |
+    |----------------|---------------------------------------------------|
+    |  ipv4    &emsp;|  IPv4 address to listen for incoming connections  |
+`,
+			Description: `Local IPv4 addresses to listen on
 
+    |  Format  |  Description                                      |
+    |----------------|---------------------------------------------------|
+    |  ipv4    |  IPv4 address to listen for incoming connections  |
 `,
 		},
 
@@ -75,12 +91,19 @@ func (o PkiCertificateAcme) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Size of the RSA key
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  2048  &emsp; |  RSA key length 2048 bit  |
-    |  3072  &emsp; |  RSA key length 3072 bit  |
-    |  4096  &emsp; |  RSA key length 4096 bit  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  2048    &emsp;|  RSA key length 2048 bit  |
+    |  3072    &emsp;|  RSA key length 3072 bit  |
+    |  4096    &emsp;|  RSA key length 4096 bit  |
+`,
+			Description: `Size of the RSA key
 
+    |  Format  |  Description              |
+    |----------------|---------------------------|
+    |  2048    |  RSA key length 2048 bit  |
+    |  3072    |  RSA key length 3072 bit  |
+    |  4096    |  RSA key length 4096 bit  |
 `,
 
 			// Default:          stringdefault.StaticString(`2048`),

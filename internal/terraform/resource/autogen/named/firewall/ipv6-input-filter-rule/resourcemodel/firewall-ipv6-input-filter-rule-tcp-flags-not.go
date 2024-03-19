@@ -40,6 +40,9 @@ func (o FirewallIPvsixInputFilterRuleTCPFlagsNot) ResourceSchemaAttributes() map
 			MarkdownDescription: `Synchronise flag
 
 `,
+			Description: `Synchronise flag
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -47,6 +50,9 @@ func (o FirewallIPvsixInputFilterRuleTCPFlagsNot) ResourceSchemaAttributes() map
 		"ack": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Acknowledge flag
+
+`,
+			Description: `Acknowledge flag
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -58,6 +64,9 @@ func (o FirewallIPvsixInputFilterRuleTCPFlagsNot) ResourceSchemaAttributes() map
 			MarkdownDescription: `Finish flag
 
 `,
+			Description: `Finish flag
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -65,6 +74,9 @@ func (o FirewallIPvsixInputFilterRuleTCPFlagsNot) ResourceSchemaAttributes() map
 		"rst": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Reset flag
+
+`,
+			Description: `Reset flag
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -76,6 +88,9 @@ func (o FirewallIPvsixInputFilterRuleTCPFlagsNot) ResourceSchemaAttributes() map
 			MarkdownDescription: `Urgent flag
 
 `,
+			Description: `Urgent flag
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -83,6 +98,9 @@ func (o FirewallIPvsixInputFilterRuleTCPFlagsNot) ResourceSchemaAttributes() map
 		"psh": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Push flag
+
+`,
+			Description: `Push flag
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -94,6 +112,9 @@ func (o FirewallIPvsixInputFilterRuleTCPFlagsNot) ResourceSchemaAttributes() map
 			MarkdownDescription: `Explicit Congestion Notification flag
 
 `,
+			Description: `Explicit Congestion Notification flag
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -101,6 +122,9 @@ func (o FirewallIPvsixInputFilterRuleTCPFlagsNot) ResourceSchemaAttributes() map
 		"cwr": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Congestion Window Reduced flag
+
+`,
+			Description: `Congestion Window Reduced flag
 
 `,
 			Default:  booldefault.StaticBool(false),

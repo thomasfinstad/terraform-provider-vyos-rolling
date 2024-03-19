@@ -34,16 +34,24 @@ func (o VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute) ResourceSchemaAttribut
 			Optional: true,
 			MarkdownDescription: `Specify the absolute value of prefix segment/label ID
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 16-1048575  &emsp; |  The absolute segment/label ID value  |
+    |  Format      &emsp;|  Description                          |
+    |--------------------|---------------------------------------|
+    |  16-1048575  &emsp;|  The absolute segment/label ID value  |
+`,
+			Description: `Specify the absolute value of prefix segment/label ID
 
+    |  Format      |  Description                          |
+    |--------------------|---------------------------------------|
+    |  16-1048575  |  The absolute segment/label ID value  |
 `,
 		},
 
 		"explicit_null": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Request upstream neighbor to replace segment/label with explicit null label
+
+`,
+			Description: `Request upstream neighbor to replace segment/label with explicit null label
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -53,6 +61,9 @@ func (o VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute) ResourceSchemaAttribut
 		"no_php_flag": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not request penultimate hop popping for segment/label
+
+`,
+			Description: `Do not request penultimate hop popping for segment/label
 
 `,
 			Default:  booldefault.StaticBool(false),

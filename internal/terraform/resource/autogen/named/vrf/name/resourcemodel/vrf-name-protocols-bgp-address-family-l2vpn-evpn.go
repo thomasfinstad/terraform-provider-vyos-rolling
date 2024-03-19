@@ -48,6 +48,9 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() 
 			MarkdownDescription: `Advertise All local VNIs
 
 `,
+			Description: `Advertise All local VNIs
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -55,6 +58,9 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() 
 		"advertise_default_gw": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Advertise All default g/w mac-ip routes in EVPN
+
+`,
+			Description: `Advertise All default g/w mac-ip routes in EVPN
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -66,6 +72,9 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() 
 			MarkdownDescription: `Advertise svi mac-ip routes in EVPN
 
 `,
+			Description: `Advertise svi mac-ip routes in EVPN
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -74,10 +83,15 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() 
 			Optional: true,
 			MarkdownDescription: `Route Distinguisher
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp; |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  Format                   &emsp;|  Description                                   |
+    |---------------------------------|------------------------------------------------|
+    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp;|  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+`,
+			Description: `Route Distinguisher
 
+    |  Format                   |  Description                                   |
+    |---------------------------------|------------------------------------------------|
+    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 `,
 		},
 
@@ -85,16 +99,24 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() 
 			Optional: true,
 			MarkdownDescription: `EVPN system primary IP
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IP address  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  ipv4    &emsp;|  IP address   |
+`,
+			Description: `EVPN system primary IP
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  ipv4    |  IP address   |
 `,
 		},
 
 		"rt_auto_derive": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Auto derivation of Route Target (RFC8365)
+
+`,
+			Description: `Auto derivation of Route Target (RFC8365)
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -106,6 +128,9 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() 
 			MarkdownDescription: `Activate PE on EAD-ES even if EAD-EVI is not received
 
 `,
+			Description: `Activate PE on EAD-ES even if EAD-EVI is not received
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -113,6 +138,9 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() 
 		"disable_ead_evi_tx": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not advertise EAD-EVI for local ESs
+
+`,
+			Description: `Do not advertise EAD-EVI for local ESs
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -127,12 +155,18 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() 
 			MarkdownDescription: `Advertise prefix routes
 
 `,
+			Description: `Advertise prefix routes
+
+`,
 		},
 
 		"route_target": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Route Target
+
+`,
+			Description: `Route Target
 
 `,
 		},
@@ -143,12 +177,18 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() 
 			MarkdownDescription: `Originate a default route
 
 `,
+			Description: `Originate a default route
+
+`,
 		},
 
 		"ead_es_frag": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnEadEsFrag{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `EAD ES fragment config
+
+`,
+			Description: `EAD ES fragment config
 
 `,
 		},
@@ -159,6 +199,9 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() 
 			MarkdownDescription: `EAD ES Route Target
 
 `,
+			Description: `EAD ES Route Target
+
+`,
 		},
 
 		"flooding": schema.SingleNestedAttribute{
@@ -167,12 +210,18 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() 
 			MarkdownDescription: `Specify handling for BUM packets
 
 `,
+			Description: `Specify handling for BUM packets
+
+`,
 		},
 
 		"mac_vrf": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnMacVrf{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `EVPN MAC-VRF
+
+`,
+			Description: `EVPN MAC-VRF
 
 `,
 		},

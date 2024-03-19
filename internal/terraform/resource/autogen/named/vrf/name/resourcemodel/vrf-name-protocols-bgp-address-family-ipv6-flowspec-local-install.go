@@ -33,6 +33,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixFlowspecLocalInstall) ResourceSche
 			MarkdownDescription: `Interface
 
 `,
+			Description: `Interface
+
+`,
 		},
 
 		// Nodes

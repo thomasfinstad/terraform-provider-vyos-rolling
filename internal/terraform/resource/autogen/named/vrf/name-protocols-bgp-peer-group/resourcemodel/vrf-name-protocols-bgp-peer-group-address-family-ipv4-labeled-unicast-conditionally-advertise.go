@@ -33,10 +33,15 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastConditiona
 			Optional: true,
 			MarkdownDescription: `Route-map to conditionally advertise routes
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Route map name  |
+`,
+			Description: `Route-map to conditionally advertise routes
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  txt     |  Route map name  |
 `,
 		},
 
@@ -44,10 +49,15 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastConditiona
 			Optional: true,
 			MarkdownDescription: `Advertise routes only if prefixes in exist-map are installed in BGP table
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Route map name  |
+`,
+			Description: `Advertise routes only if prefixes in exist-map are installed in BGP table
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  txt     |  Route map name  |
 `,
 		},
 
@@ -55,10 +65,15 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastConditiona
 			Optional: true,
 			MarkdownDescription: `Advertise routes only if prefixes in non-exist-map are not installed in BGP table
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Route map name  |
+`,
+			Description: `Advertise routes only if prefixes in non-exist-map are not installed in BGP table
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  txt     |  Route map name  |
 `,
 		},
 

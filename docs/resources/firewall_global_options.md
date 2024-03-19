@@ -38,84 +38,84 @@ Global Options
 
 - `all_ping` (String) Policy for handling of all IPv4 ICMP echo requests
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable processing of all IPv4 ICMP echo requests  |
-    |  disable  &emsp; |  Disable processing of all IPv4 ICMP echo requests  |
+    |  Format   &emsp;|  Description                                        |
+    |-----------------|-----------------------------------------------------|
+    |  enable   &emsp;|  Enable processing of all IPv4 ICMP echo requests   |
+    |  disable  &emsp;|  Disable processing of all IPv4 ICMP echo requests  |
 - `broadcast_ping` (String) Policy for handling broadcast IPv4 ICMP echo and timestamp requests
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable processing of broadcast IPv4 ICMP echo/timestamp requests  |
-    |  disable  &emsp; |  Disable processing of broadcast IPv4 ICMP echo/timestamp requests  |
+    |  Format   &emsp;|  Description                                                        |
+    |-----------------|---------------------------------------------------------------------|
+    |  enable   &emsp;|  Enable processing of broadcast IPv4 ICMP echo/timestamp requests   |
+    |  disable  &emsp;|  Disable processing of broadcast IPv4 ICMP echo/timestamp requests  |
 - `ip_src_route` (String) Policy for handling IPv4 packets with source route option
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable processing of IPv4 packets with source route option  |
-    |  disable  &emsp; |  Disable processing of IPv4 packets with source route option  |
+    |  Format   &emsp;|  Description                                                  |
+    |-----------------|---------------------------------------------------------------|
+    |  enable   &emsp;|  Enable processing of IPv4 packets with source route option   |
+    |  disable  &emsp;|  Disable processing of IPv4 packets with source route option  |
 - `ipv6_receive_redirects` (String) Policy for handling received ICMPv6 redirect messages
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable processing of received ICMPv6 redirect messages  |
-    |  disable  &emsp; |  Disable processing of received ICMPv6 redirect messages  |
+    |  Format   &emsp;|  Description                                              |
+    |-----------------|-----------------------------------------------------------|
+    |  enable   &emsp;|  Enable processing of received ICMPv6 redirect messages   |
+    |  disable  &emsp;|  Disable processing of received ICMPv6 redirect messages  |
 - `ipv6_source_validation` (String) Policy for IPv6 source validation by reversed path, as specified in RFC3704
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  strict  &emsp; |  Enable IPv6 Strict Reverse Path Forwarding as defined in RFC3704  |
-    |  loose  &emsp; |  Enable IPv6 Loose Reverse Path Forwarding as defined in RFC3704  |
-    |  disable  &emsp; |  No IPv6 source validation  |
+    |  Format   &emsp;|  Description                                                       |
+    |-----------------|--------------------------------------------------------------------|
+    |  strict   &emsp;|  Enable IPv6 Strict Reverse Path Forwarding as defined in RFC3704  |
+    |  loose    &emsp;|  Enable IPv6 Loose Reverse Path Forwarding as defined in RFC3704   |
+    |  disable  &emsp;|  No IPv6 source validation                                         |
 - `ipv6_src_route` (String) Policy for handling IPv6 packets with routing extension header
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable processing of IPv6 packets with routing header type 2  |
-    |  disable  &emsp; |  Disable processing of IPv6 packets with routing header  |
+    |  Format   &emsp;|  Description                                                   |
+    |-----------------|----------------------------------------------------------------|
+    |  enable   &emsp;|  Enable processing of IPv6 packets with routing header type 2  |
+    |  disable  &emsp;|  Disable processing of IPv6 packets with routing header        |
 - `log_martians` (String) Policy for logging IPv4 packets with invalid addresses
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable logging of IPv4 packets with invalid addresses  |
-    |  disable  &emsp; |  Disable logging of Ipv4 packets with invalid addresses  |
+    |  Format   &emsp;|  Description                                             |
+    |-----------------|----------------------------------------------------------|
+    |  enable   &emsp;|  Enable logging of IPv4 packets with invalid addresses   |
+    |  disable  &emsp;|  Disable logging of Ipv4 packets with invalid addresses  |
 - `receive_redirects` (String) Policy for handling received IPv4 ICMP redirect messages
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable processing of received IPv4 ICMP redirect messages  |
-    |  disable  &emsp; |  Disable processing of received IPv4 ICMP redirect messages  |
+    |  Format   &emsp;|  Description                                                 |
+    |-----------------|--------------------------------------------------------------|
+    |  enable   &emsp;|  Enable processing of received IPv4 ICMP redirect messages   |
+    |  disable  &emsp;|  Disable processing of received IPv4 ICMP redirect messages  |
 - `resolver_cache` (Boolean) Retains last successful value if domain resolution fails
 - `resolver_interval` (Number) Domain resolver update interval
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 10-3600  &emsp; |  Interval (seconds)  |
+    |  Format   &emsp;|  Description         |
+    |-----------------|----------------------|
+    |  10-3600  &emsp;|  Interval (seconds)  |
 - `send_redirects` (String) Policy for sending IPv4 ICMP redirect messages
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable sending IPv4 ICMP redirect messages  |
-    |  disable  &emsp; |  Disable sending IPv4 ICMP redirect messages  |
+    |  Format   &emsp;|  Description                                  |
+    |-----------------|-----------------------------------------------|
+    |  enable   &emsp;|  Enable sending IPv4 ICMP redirect messages   |
+    |  disable  &emsp;|  Disable sending IPv4 ICMP redirect messages  |
 - `source_validation` (String) Policy for IPv4 source validation by reversed path, as specified in RFC3704
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  strict  &emsp; |  Enable IPv4 Strict Reverse Path Forwarding as defined in RFC3704  |
-    |  loose  &emsp; |  Enable IPv4 Loose Reverse Path Forwarding as defined in RFC3704  |
-    |  disable  &emsp; |  No IPv4 source validation  |
+    |  Format   &emsp;|  Description                                                       |
+    |-----------------|--------------------------------------------------------------------|
+    |  strict   &emsp;|  Enable IPv4 Strict Reverse Path Forwarding as defined in RFC3704  |
+    |  loose    &emsp;|  Enable IPv4 Loose Reverse Path Forwarding as defined in RFC3704   |
+    |  disable  &emsp;|  No IPv4 source validation                                         |
 - `syn_cookies` (String) Policy for using TCP SYN cookies with IPv4
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable use of TCP SYN cookies with IPv4  |
-    |  disable  &emsp; |  Disable use of TCP SYN cookies with IPv4  |
+    |  Format   &emsp;|  Description                               |
+    |-----------------|--------------------------------------------|
+    |  enable   &emsp;|  Enable use of TCP SYN cookies with IPv4   |
+    |  disable  &emsp;|  Disable use of TCP SYN cookies with IPv4  |
 - `twa_hazards_protection` (String) RFC1337 TCP TIME-WAIT assasination hazards protection
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable RFC1337 TIME-WAIT hazards protection  |
-    |  disable  &emsp; |  Disable RFC1337 TIME-WAIT hazards protection  |
+    |  Format   &emsp;|  Description                                   |
+    |-----------------|------------------------------------------------|
+    |  enable   &emsp;|  Enable RFC1337 TIME-WAIT hazards protection   |
+    |  disable  &emsp;|  Disable RFC1337 TIME-WAIT hazards protection  |
 
 ### Read-Only
 

@@ -47,34 +47,34 @@ Rule for this BGP extended community list
 
 - `large_community_list_id` (String) Add a BGP large community list entry
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  BGP large-community-list name  |
+    |  Format  &emsp;|  Description                    |
+    |----------------|---------------------------------|
+    |  txt     &emsp;|  BGP large-community-list name  |
 - `rule_id` (Number) Rule for this BGP extended community list
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Large community-list rule number  |
+    |  Format   &emsp;|  Description                       |
+    |-----------------|------------------------------------|
+    |  1-65535  &emsp;|  Large community-list rule number  |
 
 ### Optional
 
 - `action` (String) Action to take on entries matching this rule
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  permit  &emsp; |  Permit matching entries  |
-    |  deny  &emsp; |  Deny matching entries  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  permit  &emsp;|  Permit matching entries  |
+    |  deny    &emsp;|  Deny matching entries    |
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `regex` (String) Regular expression to match against a large community list
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ASN:NN:NN  &emsp; |  BGP large-community-list filter  |
-    |  IP:NN:NN  &emsp; |  BGP large-community-list filter (IPv4 address format)  |
+    |  Format     &emsp;|  Description                                            |
+    |-------------------|---------------------------------------------------------|
+    |  ASN:NN:NN  &emsp;|  BGP large-community-list filter                        |
+    |  IP:NN:NN   &emsp;|  BGP large-community-list filter (IPv4 address format)  |
 
 ### Read-Only
 

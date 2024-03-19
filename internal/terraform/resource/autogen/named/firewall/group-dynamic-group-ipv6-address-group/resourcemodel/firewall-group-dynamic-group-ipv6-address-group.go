@@ -92,6 +92,9 @@ func (o FirewallGroupDynamicGroupIPvsixAddressGroup) ResourceSchemaAttributes() 
 			MarkdownDescription: `Firewall dynamic IPv6 address group
 
 `,
+			Description: `Firewall dynamic IPv6 address group
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -116,10 +119,15 @@ func (o FirewallGroupDynamicGroupIPvsixAddressGroup) ResourceSchemaAttributes() 
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 

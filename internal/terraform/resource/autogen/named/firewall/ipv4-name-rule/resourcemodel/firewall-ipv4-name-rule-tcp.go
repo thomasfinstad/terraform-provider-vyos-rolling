@@ -32,11 +32,17 @@ func (o FirewallIPvfourNameRuleTCP) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Maximum segment size (MSS)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-16384  &emsp; |  Maximum segment size  |
-    |  <min>-<max>  &emsp; |  TCP MSS range (use '-' as delimiter)  |
+    |  Format                   &emsp;|  Description                           |
+    |---------------------------------|----------------------------------------|
+    |  1-16384                  &emsp;|  Maximum segment size                  |
+    |  &lt;min&gt;-&lt;max&gt;  &emsp;|  TCP MSS range (use '-' as delimiter)  |
+`,
+			Description: `Maximum segment size (MSS)
 
+    |  Format                   |  Description                           |
+    |---------------------------------|----------------------------------------|
+    |  1-16384                  |  Maximum segment size                  |
+    |  <min>-<max>  |  TCP MSS range (use '-' as delimiter)  |
 `,
 		},
 
@@ -46,6 +52,9 @@ func (o FirewallIPvfourNameRuleTCP) ResourceSchemaAttributes() map[string]schema
 			Attributes: FirewallIPvfourNameRuleTCPFlags{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `TCP flags to match
+
+`,
+			Description: `TCP flags to match
 
 `,
 		},

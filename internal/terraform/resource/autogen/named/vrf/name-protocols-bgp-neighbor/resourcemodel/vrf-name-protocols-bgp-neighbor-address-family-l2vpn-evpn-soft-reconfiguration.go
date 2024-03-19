@@ -33,6 +33,9 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnSoftReconfiguration) 
 			MarkdownDescription: `Enable inbound soft reconfiguration
 
 `,
+			Description: `Enable inbound soft reconfiguration
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},

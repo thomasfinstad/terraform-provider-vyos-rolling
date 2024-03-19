@@ -35,12 +35,18 @@ func (o VrfNameProtocolsOspfvthreeAreaAreaType) ResourceSchemaAttributes() map[s
 			MarkdownDescription: `NSSA OSPFv3 area
 
 `,
+			Description: `NSSA OSPFv3 area
+
+`,
 		},
 
 		"stub": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfvthreeAreaAreaTypeStub{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Stub OSPFv3 area
+
+`,
+			Description: `Stub OSPFv3 area
 
 `,
 		},

@@ -35,6 +35,9 @@ func (o PolicyAccessListsixRuleSource) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Any IP address to match
 
 `,
+			Description: `Any IP address to match
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -42,6 +45,9 @@ func (o PolicyAccessListsixRuleSource) ResourceSchemaAttributes() map[string]sch
 		"exact_match": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Exact match of the network prefixes
+
+`,
+			Description: `Exact match of the network prefixes
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -52,10 +58,15 @@ func (o PolicyAccessListsixRuleSource) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Network/netmask to match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6net  &emsp; |  IPv6 address and prefix length  |
+    |  Format   &emsp;|  Description                     |
+    |-----------------|----------------------------------|
+    |  ipv6net  &emsp;|  IPv6 address and prefix length  |
+`,
+			Description: `Network/netmask to match
 
+    |  Format   |  Description                     |
+    |-----------------|----------------------------------|
+    |  ipv6net  |  IPv6 address and prefix length  |
 `,
 		},
 

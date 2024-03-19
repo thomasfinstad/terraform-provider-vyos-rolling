@@ -68,51 +68,51 @@ Interface params
 - `interface_id` (String) Interface params
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 
 ### Optional
 
 - `bfd` (Attributes) Enable Bidirectional Forwarding Detection (BFD) (see [below for nested schema](#nestedatt--bfd))
 - `circuit_type` (String) Configure circuit type for interface
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  level-1  &emsp; |  Level-1 only adjacencies are formed  |
-    |  level-1-2  &emsp; |  Level-1-2 adjacencies are formed  |
-    |  level-2-only  &emsp; |  Level-2 only adjacencies are formed  |
+    |  Format        &emsp;|  Description                          |
+    |----------------------|---------------------------------------|
+    |  level-1       &emsp;|  Level-1 only adjacencies are formed  |
+    |  level-1-2     &emsp;|  Level-1-2 adjacencies are formed     |
+    |  level-2-only  &emsp;|  Level-2 only adjacencies are formed  |
 - `hello_interval` (Number) Set Hello interval
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-600  &emsp; |  Set Hello interval  |
+    |  Format  &emsp;|  Description         |
+    |----------------|----------------------|
+    |  1-600   &emsp;|  Set Hello interval  |
 - `hello_multiplier` (Number) Set Hello interval
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 2-100  &emsp; |  Set multiplier for Hello holding time  |
+    |  Format  &emsp;|  Description                            |
+    |----------------|-----------------------------------------|
+    |  2-100   &emsp;|  Set multiplier for Hello holding time  |
 - `hello_padding` (Boolean) Add padding to IS-IS hello packets
 - `ldp_sync` (Attributes) LDP-IGP synchronization configuration for interface (see [below for nested schema](#nestedatt--ldp_sync))
 - `metric` (Number) Set default metric for circuit
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-16777215  &emsp; |  Default metric value  |
+    |  Format      &emsp;|  Description           |
+    |--------------------|------------------------|
+    |  0-16777215  &emsp;|  Default metric value  |
 - `network` (Attributes) Set network type (see [below for nested schema](#nestedatt--network))
 - `no_three_way_handshake` (Boolean) Disable three-way handshake
 - `passive` (Boolean) Configure passive mode for interface
 - `password` (Attributes) Configure the authentication password for a circuit (see [below for nested schema](#nestedatt--password))
 - `priority` (Number) Set priority for Designated Router election
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-127  &emsp; |  Priority value  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  0-127   &emsp;|  Priority value  |
 - `psnp_interval` (Number) Set PSNP interval
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-127  &emsp; |  PSNP interval in seconds  |
+    |  Format  &emsp;|  Description               |
+    |----------------|----------------------------|
+    |  0-127   &emsp;|  PSNP interval in seconds  |
 
 ### Read-Only
 
@@ -125,9 +125,9 @@ Optional:
 
 - `profile` (String) Use settings from BFD profile
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  BFD profile name  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  txt     &emsp;|  BFD profile name  |
 
 
 <a id="nestedatt--ldp_sync"></a>
@@ -138,9 +138,9 @@ Optional:
 - `disable` (Boolean) Disable instance
 - `holddown` (Number) Hold down timer for LDP-IGP cost restoration
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-10000  &emsp; |  Time to wait in seconds for LDP-IGP synchronization to occur before restoring interface cost  |
+    |  Format   &emsp;|  Description                                                                                   |
+    |-----------------|------------------------------------------------------------------------------------------------|
+    |  0-10000  &emsp;|  Time to wait in seconds for LDP-IGP synchronization to occur before restoring interface cost  |
 
 
 <a id="nestedatt--network"></a>
@@ -158,11 +158,11 @@ Optional:
 
 - `md5` (String) MD5 authentication type
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Level-wide password  |
+    |  Format  &emsp;|  Description          |
+    |----------------|-----------------------|
+    |  txt     &emsp;|  Level-wide password  |
 - `plaintext_password` (String) Plain-text authentication type
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Circuit password  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  txt     &emsp;|  Circuit password  |

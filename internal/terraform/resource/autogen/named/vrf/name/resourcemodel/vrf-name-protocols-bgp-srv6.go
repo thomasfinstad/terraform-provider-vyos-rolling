@@ -31,10 +31,15 @@ func (o VrfNameProtocolsBgpSrvsix) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Specify SRv6 locator
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  SRv6 locator name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  SRv6 locator name  |
+`,
+			Description: `Specify SRv6 locator
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  SRv6 locator name  |
 `,
 		},
 

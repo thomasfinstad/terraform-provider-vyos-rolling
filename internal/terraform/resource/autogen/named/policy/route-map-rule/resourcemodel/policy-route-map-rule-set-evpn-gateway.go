@@ -32,10 +32,15 @@ func (o PolicyRouteMapRuleSetEvpnGateway) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Set gateway IPv4 address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  Gateway IPv4 address  |
+    |  Format  &emsp;|  Description           |
+    |----------------|------------------------|
+    |  ipv4    &emsp;|  Gateway IPv4 address  |
+`,
+			Description: `Set gateway IPv4 address
 
+    |  Format  |  Description           |
+    |----------------|------------------------|
+    |  ipv4    |  Gateway IPv4 address  |
 `,
 		},
 
@@ -43,10 +48,15 @@ func (o PolicyRouteMapRuleSetEvpnGateway) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Set gateway IPv6 address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6  &emsp; |  Gateway IPv6 address  |
+    |  Format  &emsp;|  Description           |
+    |----------------|------------------------|
+    |  ipv6    &emsp;|  Gateway IPv6 address  |
+`,
+			Description: `Set gateway IPv6 address
 
+    |  Format  |  Description           |
+    |----------------|------------------------|
+    |  ipv6    |  Gateway IPv6 address  |
 `,
 		},
 

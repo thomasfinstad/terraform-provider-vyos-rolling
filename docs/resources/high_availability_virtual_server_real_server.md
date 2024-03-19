@@ -52,15 +52,15 @@ Real server address
 
 - `connection_timeout` (Number) Server connection timeout
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-86400  &emsp; |  Connection timeout to remote server  |
+    |  Format   &emsp;|  Description                          |
+    |-----------------|---------------------------------------|
+    |  1-86400  &emsp;|  Connection timeout to remote server  |
 - `health_check` (Attributes) Health check script (see [below for nested schema](#nestedatt--health_check))
 - `port` (Number) Port number used by connection
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-65535  &emsp; |  Numeric IP port  |
+    |  Format   &emsp;|  Description      |
+    |-----------------|-------------------|
+    |  0-65535  &emsp;|  Numeric IP port  |
 
 ### Read-Only
 

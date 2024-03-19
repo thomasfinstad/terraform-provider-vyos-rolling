@@ -34,6 +34,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastSID) ResourceSchemaAttribu
 			MarkdownDescription: `Between current VRF and VPN
 
 `,
+			Description: `Between current VRF and VPN
+
+`,
 		},
 	}
 }

@@ -89,6 +89,9 @@ func (o PkiKeyPair) ResourceSchemaAttributes() map[string]schema.Attribute {
 			MarkdownDescription: `Public and private keys
 
 `,
+			Description: `Public and private keys
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -117,12 +120,18 @@ func (o PkiKeyPair) ResourceSchemaAttributes() map[string]schema.Attribute {
 			MarkdownDescription: `Public key
 
 `,
+			Description: `Public key
+
+`,
 		},
 
 		"private": schema.SingleNestedAttribute{
 			Attributes: PkiKeyPairPrivate{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Private key
+
+`,
+			Description: `Private key
 
 `,
 		},

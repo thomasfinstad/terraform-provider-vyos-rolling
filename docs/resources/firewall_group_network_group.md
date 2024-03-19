@@ -51,15 +51,15 @@ Firewall network-group
 
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `include` (List of String) Include another network-group
 - `network` (List of String) Network-group member
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  IPv4 Subnet to match  |
+    |  Format   &emsp;|  Description           |
+    |-----------------|------------------------|
+    |  ipv4net  &emsp;|  IPv4 Subnet to match  |
 
 ### Read-Only
 

@@ -47,42 +47,42 @@ Fair Queuing (FQ) with Controlled Delay (CoDel)
 
 - `fq_codel_id` (String) Fair Queuing (FQ) with Controlled Delay (CoDel)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Policy name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Policy name  |
 
 ### Optional
 
 - `codel_quantum` (Number) Deficit in the fair queuing algorithm
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-1048576  &emsp; |  Number of bytes used as 'deficit'  |
+    |  Format     &emsp;|  Description                        |
+    |-------------------|-------------------------------------|
+    |  0-1048576  &emsp;|  Number of bytes used as 'deficit'  |
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `flows` (Number) Number of flows into which the incoming packets are classified
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65536  &emsp; |  Number of flows  |
+    |  Format   &emsp;|  Description      |
+    |-----------------|-------------------|
+    |  1-65536  &emsp;|  Number of flows  |
 - `interval` (Number) Interval used to measure the delay
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  Interval in milliseconds  |
+    |  Format  &emsp;|  Description               |
+    |----------------|----------------------------|
+    |  u32     &emsp;|  Interval in milliseconds  |
 - `queue_limit` (Number) Upper limit of the queue
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 2-10999  &emsp; |  Queue size in packets  |
+    |  Format   &emsp;|  Description            |
+    |-----------------|-------------------------|
+    |  2-10999  &emsp;|  Queue size in packets  |
 - `target` (Number) Acceptable minimum standing/persistent queue delay
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  Queue delay in milliseconds  |
+    |  Format  &emsp;|  Description                  |
+    |----------------|-------------------------------|
+    |  u32     &emsp;|  Queue delay in milliseconds  |
 
 ### Read-Only
 

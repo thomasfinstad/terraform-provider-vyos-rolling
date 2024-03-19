@@ -35,12 +35,18 @@ func (o VrfNameProtocolsIsisRedistributeIPvfourBgp) ResourceSchemaAttributes() m
 			MarkdownDescription: `Redistribute into level-1
 
 `,
+			Description: `Redistribute into level-1
+
+`,
 		},
 
 		"level_2": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsIsisRedistributeIPvfourBgpLevelTwo{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute into level-2
+
+`,
+			Description: `Redistribute into level-2
 
 `,
 		},

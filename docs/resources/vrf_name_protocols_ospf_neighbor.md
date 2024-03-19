@@ -67,27 +67,27 @@ Specify neighbor router
 
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `neighbor_id` (String) Specify neighbor router
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  Neighbor IP address  |
+    |  Format  &emsp;|  Description          |
+    |----------------|-----------------------|
+    |  ipv4    &emsp;|  Neighbor IP address  |
 
 ### Optional
 
 - `poll_interval` (Number) Dead neighbor polling interval
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Seconds between dead neighbor polling interval  |
+    |  Format   &emsp;|  Description                                     |
+    |-----------------|--------------------------------------------------|
+    |  1-65535  &emsp;|  Seconds between dead neighbor polling interval  |
 - `priority` (Number) Neighbor priority in seconds
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-255  &emsp; |  Neighbor priority  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  0-255   &emsp;|  Neighbor priority  |
 
 ### Read-Only
 

@@ -77,34 +77,34 @@ Summarize routes matching a prefix (border routers only)
 
 - `area_id` (String) OSPF area settings
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  OSPF area number in decimal notation  |
-    |  ipv4  &emsp; |  OSPF area number in dotted decimal notation  |
+    |  Format  &emsp;|  Description                                  |
+    |----------------|-----------------------------------------------|
+    |  u32     &emsp;|  OSPF area number in decimal notation         |
+    |  ipv4    &emsp;|  OSPF area number in dotted decimal notation  |
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `range_id` (String) Summarize routes matching a prefix (border routers only)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  Area range prefix  |
+    |  Format   &emsp;|  Description        |
+    |-----------------|---------------------|
+    |  ipv4net  &emsp;|  Area range prefix  |
 
 ### Optional
 
 - `cost` (Number) Metric for this range
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-16777215  &emsp; |  Metric for this range  |
+    |  Format      &emsp;|  Description            |
+    |--------------------|-------------------------|
+    |  0-16777215  &emsp;|  Metric for this range  |
 - `not_advertise` (Boolean) Do not advertise this range
 - `substitute` (String) Advertise area range as another prefix
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  Advertise area range as another prefix  |
+    |  Format   &emsp;|  Description                             |
+    |-----------------|------------------------------------------|
+    |  ipv4net  &emsp;|  Advertise area range as another prefix  |
 
 ### Read-Only
 

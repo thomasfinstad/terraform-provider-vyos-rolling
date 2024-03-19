@@ -34,6 +34,9 @@ func (o VrfNameProtocolsOspfvthreeDefaultInformation) ResourceSchemaAttributes()
 			MarkdownDescription: `Distribute a default route
 
 `,
+			Description: `Distribute a default route
+
+`,
 		},
 	}
 }

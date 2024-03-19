@@ -31,10 +31,15 @@ func (o VrfNameProtocolsEigrpMetric) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Modify metric coefficients
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-255  &emsp; |  K1  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  0-255   &emsp;|  K1           |
+`,
+			Description: `Modify metric coefficients
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  0-255   |  K1           |
 `,
 		},
 

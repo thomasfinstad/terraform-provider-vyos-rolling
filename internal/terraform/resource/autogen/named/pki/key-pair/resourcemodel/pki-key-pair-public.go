@@ -32,6 +32,9 @@ func (o PkiKeyPairPublic) ResourceSchemaAttributes() map[string]schema.Attribute
 			MarkdownDescription: `Public key in PEM format
 
 `,
+			Description: `Public key in PEM format
+
+`,
 		},
 
 		// Nodes

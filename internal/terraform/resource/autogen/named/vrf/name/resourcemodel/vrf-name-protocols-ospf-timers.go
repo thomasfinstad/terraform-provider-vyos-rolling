@@ -34,6 +34,9 @@ func (o VrfNameProtocolsOspfTimers) ResourceSchemaAttributes() map[string]schema
 			MarkdownDescription: `Throttling adaptive timers
 
 `,
+			Description: `Throttling adaptive timers
+
+`,
 		},
 	}
 }

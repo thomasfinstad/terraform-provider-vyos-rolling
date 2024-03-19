@@ -37,30 +37,30 @@ Zone-policy
 
 - `zone_id` (String) Zone-policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Zone name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Zone name    |
 
 ### Optional
 
 - `default_action` (String) Default-action for traffic coming into this zone
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  drop  &emsp; |  Drop silently  |
-    |  reject  &emsp; |  Drop and notify source  |
+    |  Format  &emsp;|  Description             |
+    |----------------|--------------------------|
+    |  drop    &emsp;|  Drop silently           |
+    |  reject  &emsp;|  Drop and notify source  |
 - `default_log` (Boolean) Log packets hitting default-action
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `interface` (List of String) Interface associated with zone
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface associated with zone  |
-    |  vrf  &emsp; |  VRF associated with zone  |
+    |  Format  &emsp;|  Description                     |
+    |----------------|----------------------------------|
+    |  txt     &emsp;|  Interface associated with zone  |
+    |  vrf     &emsp;|  VRF associated with zone        |
 - `intra_zone_filtering` (Attributes) Intra-zone filtering (see [below for nested schema](#nestedatt--intra_zone_filtering))
 - `local_zone` (Boolean) Zone to be local-zone
 
@@ -75,10 +75,10 @@ Optional:
 
 - `action` (String) Action for intra-zone traffic
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  accept  &emsp; |  Accept traffic  |
-    |  drop  &emsp; |  Drop silently  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  accept  &emsp;|  Accept traffic  |
+    |  drop    &emsp;|  Drop silently   |
 - `firewall` (Attributes) Use the specified firewall chain (see [below for nested schema](#nestedatt--intra_zone_filtering--firewall))
 
 <a id="nestedatt--intra_zone_filtering--firewall"></a>

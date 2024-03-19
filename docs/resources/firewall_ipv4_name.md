@@ -51,21 +51,21 @@ IPv4 custom firewall
 
 - `default_action` (String) Default-action for rule-set
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  drop  &emsp; |  Drop if no prior rules are hit  |
-    |  jump  &emsp; |  Jump to another chain if no prior rules are hit  |
-    |  reject  &emsp; |  Drop and notify source if no prior rules are hit  |
-    |  return  &emsp; |  Return from the current chain and continue at the next rule of the last chain  |
-    |  accept  &emsp; |  Accept if no prior rules are hit  |
-    |  continue  &emsp; |  Continue parsing next rule  |
+    |  Format    &emsp;|  Description                                                                    |
+    |------------------|---------------------------------------------------------------------------------|
+    |  drop      &emsp;|  Drop if no prior rules are hit                                                 |
+    |  jump      &emsp;|  Jump to another chain if no prior rules are hit                                |
+    |  reject    &emsp;|  Drop and notify source if no prior rules are hit                               |
+    |  return    &emsp;|  Return from the current chain and continue at the next rule of the last chain  |
+    |  accept    &emsp;|  Accept if no prior rules are hit                                               |
+    |  continue  &emsp;|  Continue parsing next rule                                                     |
 - `default_jump_target` (String) Set jump target. Action jump must be defined in default-action to use this setting
 - `default_log` (Boolean) Log packets hitting default-action
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 
 ### Read-Only
 

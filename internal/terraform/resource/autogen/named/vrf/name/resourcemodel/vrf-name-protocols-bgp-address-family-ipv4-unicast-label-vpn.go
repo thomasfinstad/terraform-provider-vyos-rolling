@@ -32,11 +32,17 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabelVpn) ResourceSchemaAt
 			Optional: true,
 			MarkdownDescription: `For routes leaked from current address-family to VPN
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  auto  &emsp; |  Automatically assign a label  |
-    |  number: 0-1048575  &emsp; |  Label Value  |
+    |  Format     &emsp;|  Description                   |
+    |-------------------|--------------------------------|
+    |  auto       &emsp;|  Automatically assign a label  |
+    |  0-1048575  &emsp;|  Label Value                   |
+`,
+			Description: `For routes leaked from current address-family to VPN
 
+    |  Format     |  Description                   |
+    |-------------------|--------------------------------|
+    |  auto       |  Automatically assign a label  |
+    |  0-1048575  |  Label Value                   |
 `,
 		},
 
@@ -46,6 +52,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabelVpn) ResourceSchemaAt
 			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabelVpnAllocationMode{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Label allocation mode
+
+`,
+			Description: `Label allocation mode
 
 `,
 		},

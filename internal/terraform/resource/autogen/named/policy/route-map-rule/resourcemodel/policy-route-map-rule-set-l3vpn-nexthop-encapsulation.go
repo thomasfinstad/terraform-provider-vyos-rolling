@@ -33,6 +33,9 @@ func (o PolicyRouteMapRuleSetLthreevpnNexthopEncapsulation) ResourceSchemaAttrib
 			MarkdownDescription: `Accept L3VPN traffic over GRE encapsulation
 
 `,
+			Description: `Accept L3VPN traffic over GRE encapsulation
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},

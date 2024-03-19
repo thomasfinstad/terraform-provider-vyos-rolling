@@ -100,6 +100,9 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes() map[
 			MarkdownDescription: `Real server address
 
 `,
+			Description: `Real server address
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -121,6 +124,9 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes() map[
 		"virtual_server_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Load-balancing virtual server alias
+
+`,
+			Description: `Load-balancing virtual server alias
 
 `,
 			PlanModifiers: []planmodifier.String{
@@ -147,10 +153,15 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-65535  &emsp; |  Numeric IP port  |
+    |  Format   &emsp;|  Description      |
+    |-----------------|-------------------|
+    |  0-65535  &emsp;|  Numeric IP port  |
+`,
+			Description: `Port number used by connection
 
+    |  Format   |  Description      |
+    |-----------------|-------------------|
+    |  0-65535  |  Numeric IP port  |
 `,
 		},
 
@@ -158,10 +169,15 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `Server connection timeout
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-86400  &emsp; |  Connection timeout to remote server  |
+    |  Format   &emsp;|  Description                          |
+    |-----------------|---------------------------------------|
+    |  1-86400  &emsp;|  Connection timeout to remote server  |
+`,
+			Description: `Server connection timeout
 
+    |  Format   |  Description                          |
+    |-----------------|---------------------------------------|
+    |  1-86400  |  Connection timeout to remote server  |
 `,
 		},
 
@@ -171,6 +187,9 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes() map[
 			Attributes: HighAvailabilityVirtualServerRealServerHealthCheck{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Health check script
+
+`,
+			Description: `Health check script
 
 `,
 		},

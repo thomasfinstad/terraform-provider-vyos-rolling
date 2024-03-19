@@ -35,12 +35,18 @@ func (o VrfNameProtocolsIsisRedistribute) ResourceSchemaAttributes() map[string]
 			MarkdownDescription: `Redistribute IPv4 routes
 
 `,
+			Description: `Redistribute IPv4 routes
+
+`,
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsIsisRedistributeIPvsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute IPv6 routes
+
+`,
+			Description: `Redistribute IPv6 routes
 
 `,
 		},

@@ -47,35 +47,35 @@ Rule for this BGP extended community list
 
 - `extcommunity_list_id` (String) Add a BGP extended community list entry
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  BGP extended community-list name  |
+    |  Format  &emsp;|  Description                       |
+    |----------------|------------------------------------|
+    |  txt     &emsp;|  BGP extended community-list name  |
 - `rule_id` (Number) Rule for this BGP extended community list
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Extended community-list rule number  |
+    |  Format   &emsp;|  Description                          |
+    |-----------------|---------------------------------------|
+    |  1-65535  &emsp;|  Extended community-list rule number  |
 
 ### Optional
 
 - `action` (String) Action to take on entries matching this rule
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  permit  &emsp; |  Permit matching entries  |
-    |  deny  &emsp; |  Deny matching entries  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  permit  &emsp;|  Permit matching entries  |
+    |  deny    &emsp;|  Deny matching entries    |
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `regex` (String) Regular expression to match against an extended community list
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <aa:nn:nn>  &emsp; |  Extended community list regular expression  |
-    |  <rt aa:nn:nn>  &emsp; |  Route Target regular expression  |
-    |  <soo aa:nn:nn>  &emsp; |  Site of Origin regular expression  |
+    |  Format                &emsp;|  Description                                 |
+    |------------------------------|----------------------------------------------|
+    |  &lt;aa:nn:nn&gt;      &emsp;|  Extended community list regular expression  |
+    |  &lt;rt aa:nn:nn&gt;   &emsp;|  Route Target regular expression             |
+    |  &lt;soo aa:nn:nn&gt;  &emsp;|  Site of Origin regular expression           |
 
 ### Read-Only
 

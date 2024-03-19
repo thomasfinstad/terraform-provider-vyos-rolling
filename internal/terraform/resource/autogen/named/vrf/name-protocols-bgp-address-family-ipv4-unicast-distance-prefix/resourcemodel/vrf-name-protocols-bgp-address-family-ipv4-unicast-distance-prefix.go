@@ -107,10 +107,15 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix) ResourceSc
 			Required: true,
 			MarkdownDescription: `Administrative distance for a specific BGP prefix
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  Administrative distance for a specific BGP prefix  |
+    |  Format   &emsp;|  Description                                        |
+    |-----------------|-----------------------------------------------------|
+    |  ipv4net  &emsp;|  Administrative distance for a specific BGP prefix  |
+`,
+			Description: `Administrative distance for a specific BGP prefix
 
+    |  Format   |  Description                                        |
+    |-----------------|-----------------------------------------------------|
+    |  ipv4net  |  Administrative distance for a specific BGP prefix  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -134,10 +139,15 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix) ResourceSc
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -163,10 +173,15 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix) ResourceSc
 			Optional: true,
 			MarkdownDescription: `Administrative distance for prefix
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Administrative distance for external BGP routes  |
+    |  Format  &emsp;|  Description                                      |
+    |----------------|---------------------------------------------------|
+    |  1-255   &emsp;|  Administrative distance for external BGP routes  |
+`,
+			Description: `Administrative distance for prefix
 
+    |  Format  |  Description                                      |
+    |----------------|---------------------------------------------------|
+    |  1-255   |  Administrative distance for external BGP routes  |
 `,
 		},
 

@@ -36,6 +36,9 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocalPriorityLimit) ResourceSchemaAttr
 			MarkdownDescription: `Compute for critical, high, and medium priority prefixes
 
 `,
+			Description: `Compute for critical, high, and medium priority prefixes
+
+`,
 		},
 
 		"high": schema.SingleNestedAttribute{
@@ -44,12 +47,18 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocalPriorityLimit) ResourceSchemaAttr
 			MarkdownDescription: `Compute for critical, and high priority prefixes
 
 `,
+			Description: `Compute for critical, and high priority prefixes
+
+`,
 		},
 
 		"critical": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalPriorityLimitCritical{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Compute for critical priority prefixes only
+
+`,
+			Description: `Compute for critical priority prefixes only
 
 `,
 		},

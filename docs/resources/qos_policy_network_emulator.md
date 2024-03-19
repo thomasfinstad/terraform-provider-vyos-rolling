@@ -47,58 +47,58 @@ Network emulator policy
 
 - `network_emulator_id` (String) Network emulator policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Policy name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Policy name  |
 
 ### Optional
 
 - `bandwidth` (String) Available bandwidth for this policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Bits per second  |
-    |  <number>bit  &emsp; |  Bits per second  |
-    |  <number>kbit  &emsp; |  Kilobits per second  |
-    |  <number>mbit  &emsp; |  Megabits per second  |
-    |  <number>gbit  &emsp; |  Gigabits per second  |
-    |  <number>tbit  &emsp; |  Terabits per second  |
-    |  <number>%%  &emsp; |  Percentage of interface link speed  |
+    |  Format              &emsp;|  Description                         |
+    |----------------------------|--------------------------------------|
+    |  &lt;number&gt;      &emsp;|  Bits per second                     |
+    |  &lt;number&gt;bit   &emsp;|  Bits per second                     |
+    |  &lt;number&gt;kbit  &emsp;|  Kilobits per second                 |
+    |  &lt;number&gt;mbit  &emsp;|  Megabits per second                 |
+    |  &lt;number&gt;gbit  &emsp;|  Gigabits per second                 |
+    |  &lt;number&gt;tbit  &emsp;|  Terabits per second                 |
+    |  &lt;number&gt;%%    &emsp;|  Percentage of interface link speed  |
 - `corruption` (String) Introducing error in a random position for chosen percent of packets
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Percentage of packets affected  |
+    |  Format          &emsp;|  Description                     |
+    |------------------------|----------------------------------|
+    |  &lt;number&gt;  &emsp;|  Percentage of packets affected  |
 - `delay` (String) Adds delay to packets outgoing to chosen network interface
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Time in milliseconds  |
+    |  Format          &emsp;|  Description           |
+    |------------------------|------------------------|
+    |  &lt;number&gt;  &emsp;|  Time in milliseconds  |
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `duplicate` (String) Cosen percent of packets is duplicated before queuing them
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Percentage of packets affected  |
+    |  Format          &emsp;|  Description                     |
+    |------------------------|----------------------------------|
+    |  &lt;number&gt;  &emsp;|  Percentage of packets affected  |
 - `loss` (String) Add independent loss probability to the packets outgoing to chosen network interface
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Percentage of packets affected  |
+    |  Format          &emsp;|  Description                     |
+    |------------------------|----------------------------------|
+    |  &lt;number&gt;  &emsp;|  Percentage of packets affected  |
 - `queue_limit` (Number) Maximum queue size
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4294967295  &emsp; |  Queue size in packets  |
+    |  Format        &emsp;|  Description            |
+    |----------------------|-------------------------|
+    |  1-4294967295  &emsp;|  Queue size in packets  |
 - `reordering` (String) Emulated packet reordering percentage
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Percentage of packets affected  |
+    |  Format          &emsp;|  Description                     |
+    |------------------------|----------------------------------|
+    |  &lt;number&gt;  &emsp;|  Percentage of packets affected  |
 
 ### Read-Only
 

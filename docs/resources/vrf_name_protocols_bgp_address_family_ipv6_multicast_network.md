@@ -87,27 +87,27 @@ Import BGP network/prefix into multicast IPv6 RIB
 
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `network_id` (String) Import BGP network/prefix into multicast IPv6 RIB
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6net  &emsp; |  Multicast IPv6 BGP network/prefix  |
+    |  Format   &emsp;|  Description                        |
+    |-----------------|-------------------------------------|
+    |  ipv6net  &emsp;|  Multicast IPv6 BGP network/prefix  |
 
 ### Optional
 
 - `path_limit` (Number) AS-path hopcount limit
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-255  &emsp; |  AS path hop count limit  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  0-255   &emsp;|  AS path hop count limit  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Route map name  |
 
 ### Read-Only
 

@@ -39,6 +39,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceSche
 			MarkdownDescription: `Redistribute non-main Kernel Routing Table
 
 `,
+			Description: `Redistribute non-main Kernel Routing Table
+
+`,
 		},
 
 		// Nodes
@@ -49,12 +52,18 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceSche
 			MarkdownDescription: `Redistribute connected routes into BGP
 
 `,
+			Description: `Redistribute connected routes into BGP
+
+`,
 		},
 
 		"isis": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute IS-IS routes into BGP
+
+`,
+			Description: `Redistribute IS-IS routes into BGP
 
 `,
 		},
@@ -65,12 +74,18 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceSche
 			MarkdownDescription: `Redistribute kernel routes into BGP
 
 `,
+			Description: `Redistribute kernel routes into BGP
+
+`,
 		},
 
 		"ospf": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute OSPF routes into BGP
+
+`,
+			Description: `Redistribute OSPF routes into BGP
 
 `,
 		},
@@ -81,6 +96,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceSche
 			MarkdownDescription: `Redistribute RIP routes into BGP
 
 `,
+			Description: `Redistribute RIP routes into BGP
+
+`,
 		},
 
 		"babel": schema.SingleNestedAttribute{
@@ -89,12 +107,18 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceSche
 			MarkdownDescription: `Redistribute Babel routes into BGP
 
 `,
+			Description: `Redistribute Babel routes into BGP
+
+`,
 		},
 
 		"static": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute static routes into BGP
+
+`,
+			Description: `Redistribute static routes into BGP
 
 `,
 		},

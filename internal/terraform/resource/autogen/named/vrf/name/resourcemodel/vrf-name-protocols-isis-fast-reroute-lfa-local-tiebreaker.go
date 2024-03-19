@@ -36,6 +36,9 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocalTiebreaker) ResourceSchemaAttribu
 			MarkdownDescription: `Prefer backup path via downstream node
 
 `,
+			Description: `Prefer backup path via downstream node
+
+`,
 		},
 
 		"lowest_backup_metric": schema.SingleNestedAttribute{
@@ -44,12 +47,18 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocalTiebreaker) ResourceSchemaAttribu
 			MarkdownDescription: `Prefer backup path with lowest total metric
 
 `,
+			Description: `Prefer backup path with lowest total metric
+
+`,
 		},
 
 		"node_protecting": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerNodeProtecting{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Prefer node protecting backup path
+
+`,
+			Description: `Prefer node protecting backup path
 
 `,
 		},

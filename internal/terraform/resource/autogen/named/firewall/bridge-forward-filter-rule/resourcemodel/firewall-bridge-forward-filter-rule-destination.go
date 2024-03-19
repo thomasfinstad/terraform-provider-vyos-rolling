@@ -31,11 +31,17 @@ func (o FirewallBrIDgeForwardFilterRuleDestination) ResourceSchemaAttributes() m
 			Optional: true,
 			MarkdownDescription: `MAC address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  macaddr  &emsp; |  MAC address to match  |
-    |  !macaddr  &emsp; |  Match everything except the specified MAC address  |
+    |  Format    &emsp;|  Description                                        |
+    |------------------|-----------------------------------------------------|
+    |  macaddr   &emsp;|  MAC address to match                               |
+    |  !macaddr  &emsp;|  Match everything except the specified MAC address  |
+`,
+			Description: `MAC address
 
+    |  Format    |  Description                                        |
+    |------------------|-----------------------------------------------------|
+    |  macaddr   |  MAC address to match                               |
+    |  !macaddr  |  Match everything except the specified MAC address  |
 `,
 		},
 

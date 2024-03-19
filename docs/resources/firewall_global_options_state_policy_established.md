@@ -56,24 +56,24 @@ Global firewall policy for packets part of an established connection
 
 - `action` (String) Action for packets
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  accept  &emsp; |  Action to accept  |
-    |  drop  &emsp; |  Action to drop  |
-    |  reject  &emsp; |  Action to reject  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  accept  &emsp;|  Action to accept  |
+    |  drop    &emsp;|  Action to drop    |
+    |  reject  &emsp;|  Action to reject  |
 - `log` (Boolean) Log packets hitting this rule
 - `log_level` (String) Set log-level. Log must be enable.
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  emerg  &emsp; |  Emerg log level  |
-    |  alert  &emsp; |  Alert log level  |
-    |  crit  &emsp; |  Critical log level  |
-    |  err  &emsp; |  Error log level  |
-    |  warn  &emsp; |  Warning log level  |
-    |  notice  &emsp; |  Notice log level  |
-    |  info  &emsp; |  Info log level  |
-    |  debug  &emsp; |  Debug log level  |
+    |  Format  &emsp;|  Description         |
+    |----------------|----------------------|
+    |  emerg   &emsp;|  Emerg log level     |
+    |  alert   &emsp;|  Alert log level     |
+    |  crit    &emsp;|  Critical log level  |
+    |  err     &emsp;|  Error log level     |
+    |  warn    &emsp;|  Warning log level   |
+    |  notice  &emsp;|  Notice log level    |
+    |  info    &emsp;|  Info log level      |
+    |  debug   &emsp;|  Debug log level     |
 
 ### Read-Only
 

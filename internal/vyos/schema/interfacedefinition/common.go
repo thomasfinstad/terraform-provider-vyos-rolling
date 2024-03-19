@@ -1,17 +1,9 @@
 package interfacedefinition
 
-import "log"
-
 func terraformReservedParameternames() []string {
 	return []string{
 		"id",
 		"connection",
-	}
-}
-
-func die(err error) {
-	if err != nil {
-		log.Fatal(err)
 	}
 }
 

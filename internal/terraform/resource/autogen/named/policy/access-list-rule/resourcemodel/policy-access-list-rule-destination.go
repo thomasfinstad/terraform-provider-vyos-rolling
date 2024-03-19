@@ -36,6 +36,9 @@ func (o PolicyAccessListRuleDestination) ResourceSchemaAttributes() map[string]s
 			MarkdownDescription: `Any IP address to match
 
 `,
+			Description: `Any IP address to match
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -44,10 +47,15 @@ func (o PolicyAccessListRuleDestination) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Single host IP address to match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  Host address to match  |
+    |  Format  &emsp;|  Description            |
+    |----------------|-------------------------|
+    |  ipv4    &emsp;|  Host address to match  |
+`,
+			Description: `Single host IP address to match
 
+    |  Format  |  Description            |
+    |----------------|-------------------------|
+    |  ipv4    |  Host address to match  |
 `,
 		},
 
@@ -55,10 +63,15 @@ func (o PolicyAccessListRuleDestination) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Network/netmask to match (requires network be defined)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  Inverse-mask to match  |
+    |  Format  &emsp;|  Description            |
+    |----------------|-------------------------|
+    |  ipv4    &emsp;|  Inverse-mask to match  |
+`,
+			Description: `Network/netmask to match (requires network be defined)
 
+    |  Format  |  Description            |
+    |----------------|-------------------------|
+    |  ipv4    |  Inverse-mask to match  |
 `,
 		},
 
@@ -66,10 +79,15 @@ func (o PolicyAccessListRuleDestination) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Network/netmask to match (requires inverse-mask be defined)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  Inverse-mask to match  |
+    |  Format   &emsp;|  Description            |
+    |-----------------|-------------------------|
+    |  ipv4net  &emsp;|  Inverse-mask to match  |
+`,
+			Description: `Network/netmask to match (requires inverse-mask be defined)
 
+    |  Format   |  Description            |
+    |-----------------|-------------------------|
+    |  ipv4net  |  Inverse-mask to match  |
 `,
 		},
 

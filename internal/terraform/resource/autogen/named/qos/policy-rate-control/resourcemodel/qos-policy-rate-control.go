@@ -92,10 +92,15 @@ func (o QosPolicyRateControl) ResourceSchemaAttributes() map[string]schema.Attri
 			Required: true,
 			MarkdownDescription: `Rate limiting policy (Token Bucket Filter)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Policy name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Policy name  |
+`,
+			Description: `Rate limiting policy (Token Bucket Filter)
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Policy name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -121,10 +126,15 @@ func (o QosPolicyRateControl) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -132,16 +142,27 @@ func (o QosPolicyRateControl) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Available bandwidth for this policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Bits per second  |
-    |  <number>bit  &emsp; |  Bits per second  |
-    |  <number>kbit  &emsp; |  Kilobits per second  |
-    |  <number>mbit  &emsp; |  Megabits per second  |
-    |  <number>gbit  &emsp; |  Gigabits per second  |
-    |  <number>tbit  &emsp; |  Terabits per second  |
-    |  <number>%%  &emsp; |  Percentage of interface link speed  |
+    |  Format              &emsp;|  Description                         |
+    |----------------------------|--------------------------------------|
+    |  &lt;number&gt;      &emsp;|  Bits per second                     |
+    |  &lt;number&gt;bit   &emsp;|  Bits per second                     |
+    |  &lt;number&gt;kbit  &emsp;|  Kilobits per second                 |
+    |  &lt;number&gt;mbit  &emsp;|  Megabits per second                 |
+    |  &lt;number&gt;gbit  &emsp;|  Gigabits per second                 |
+    |  &lt;number&gt;tbit  &emsp;|  Terabits per second                 |
+    |  &lt;number&gt;%%    &emsp;|  Percentage of interface link speed  |
+`,
+			Description: `Available bandwidth for this policy
 
+    |  Format              |  Description                         |
+    |----------------------------|--------------------------------------|
+    |  <number>      |  Bits per second                     |
+    |  <number>bit   |  Bits per second                     |
+    |  <number>kbit  |  Kilobits per second                 |
+    |  <number>mbit  |  Megabits per second                 |
+    |  <number>gbit  |  Gigabits per second                 |
+    |  <number>tbit  |  Terabits per second                 |
+    |  <number>%%    |  Percentage of interface link speed  |
 `,
 		},
 
@@ -149,11 +170,17 @@ func (o QosPolicyRateControl) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Burst size for this class
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Bytes  |
-    |  <number><suffix>  &emsp; |  Bytes with scaling suffix (kb, mb, gb)  |
+    |  Format                        &emsp;|  Description                             |
+    |--------------------------------------|------------------------------------------|
+    |  &lt;number&gt;                &emsp;|  Bytes                                   |
+    |  &lt;number&gt;&lt;suffix&gt;  &emsp;|  Bytes with scaling suffix (kb, mb, gb)  |
+`,
+			Description: `Burst size for this class
 
+    |  Format                        |  Description                             |
+    |--------------------------------------|------------------------------------------|
+    |  <number>                |  Bytes                                   |
+    |  <number><suffix>  |  Bytes with scaling suffix (kb, mb, gb)  |
 `,
 
 			// Default:          stringdefault.StaticString(`15k`),
@@ -164,10 +191,15 @@ func (o QosPolicyRateControl) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Maximum latency
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>  &emsp; |  Time in milliseconds  |
+    |  Format          &emsp;|  Description           |
+    |------------------------|------------------------|
+    |  &lt;number&gt;  &emsp;|  Time in milliseconds  |
+`,
+			Description: `Maximum latency
 
+    |  Format          |  Description           |
+    |------------------------|------------------------|
+    |  <number>  |  Time in milliseconds  |
 `,
 
 			// Default:          stringdefault.StaticString(`50`),

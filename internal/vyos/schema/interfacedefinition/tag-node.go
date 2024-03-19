@@ -151,9 +151,26 @@ func (o *TagNode) GetChildren() *Children {
 
 // Description returns the formatted description of the node, including help text
 func (o TagNode) Description() string {
-	strReplaceFormat := map[string]string{
+	regexReplaceWithString := map[string]string{
+		"&emsp;": "",
+		"&lt;":   "<",
+		"&gt;":   ">",
+	}
+	ret := o.MarkdownDescription()
+	for regex, repl := range regexReplaceWithString {
+		ret = regexp.MustCompile(regex).ReplaceAllString(ret, repl)
+	}
+
+	return ret
+}
+
+// MarkdownDescription returns the markdown formatted description of the node, including help text
+func (o TagNode) MarkdownDescription() string {
+	regexReplaceWithString := map[string]string{
 		`\r?\n`: "<br>",
-		`u32:`:  "number: ",
+		`u32:`:  "",
+		"<":     "&lt;",
+		">":     "&gt;",
 	}
 
 	var desc string
@@ -164,33 +181,43 @@ func (o TagNode) Description() string {
 
 		// Adding &emsp; gives tables better readability on terraform registry documentation page
 		if p.ValueHelp != nil {
-			desc += "    |  Format &emsp; | Description  |\n"
-			desc += "    |----------|---------------|\n"
+			var valueHelp [][]string
+			formatMaxLen := len("Format")
+			descriptionMaxLen := len("Description")
 			for _, vh := range p.ValueHelp {
-				// Format Column
-				if vh.Format != "" {
-					formatStr := vh.Format
-					for regex, repl := range strReplaceFormat {
-						formatStr = regexp.MustCompile(regex).ReplaceAllString(formatStr, repl)
+				format := ""
+				description := "N/A"
+				if vh.Format != "N/A" {
+					// Format Column
+
+					format = vh.Format
+					for regex, repl := range regexReplaceWithString {
+						format = regexp.MustCompile(regex).ReplaceAllString(format, repl)
 					}
-					desc += fmt.Sprintf("    |  %s  &emsp; |", formatStr)
-				} else {
-					desc += "    |   &emsp; |"
+					formatMaxLen = max(formatMaxLen, len(format))
 				}
 
-				// Description Column
-				if vh.Format != "" {
-					formatStr := vh.Description
-					for regex, repl := range strReplaceFormat {
-						formatStr = regexp.MustCompile(regex).ReplaceAllString(formatStr, repl)
+				if vh.Description != "" {
+					// Description Column
+					description = vh.Description
+					for regex, repl := range regexReplaceWithString {
+						description = regexp.MustCompile(regex).ReplaceAllString(description, repl)
 					}
-					desc += fmt.Sprintf("  %s  |\n", formatStr)
-				} else {
-					desc += "   |\n"
+					descriptionMaxLen = max(descriptionMaxLen, len(description))
 				}
+
+				// Add modified help txt
+				valueHelp = append(valueHelp, []string{format, description})
 			}
 
-			desc += "\n"
+			// Add paded text to description
+			// the &emsp; (4 spaces) is used so the documentation render in a more readable way on the registry hosting site
+			desc += fmt.Sprintf("    |  %-*s  &emsp;|  %-*s  |\n", formatMaxLen, "Format", descriptionMaxLen, "Description") +
+				fmt.Sprintf("    |--%s--------|--%s--|\n", strings.Repeat("-", formatMaxLen), strings.Repeat("-", descriptionMaxLen))
+
+			for _, row := range valueHelp {
+				desc += fmt.Sprintf("    |  %-*s  &emsp;|  %-*s  |\n", formatMaxLen, row[0], descriptionMaxLen, row[1])
+			}
 		}
 	}
 

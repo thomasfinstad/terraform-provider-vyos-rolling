@@ -31,11 +31,17 @@ func (o NatDestinationRuleTranSLAtionRedirect) ResourceSchemaAttributes() map[st
 			Optional: true,
 			MarkdownDescription: `Port number
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Numeric IP port  |
-    |  range  &emsp; |  Numbered port range (e.g., 1001-1005)  |
+    |  Format   &emsp;|  Description                            |
+    |-----------------|-----------------------------------------|
+    |  1-65535  &emsp;|  Numeric IP port                        |
+    |  range    &emsp;|  Numbered port range (e.g., 1001-1005)  |
+`,
+			Description: `Port number
 
+    |  Format   |  Description                            |
+    |-----------------|-----------------------------------------|
+    |  1-65535  |  Numeric IP port                        |
+    |  range    |  Numbered port range (e.g., 1001-1005)  |
 `,
 		},
 

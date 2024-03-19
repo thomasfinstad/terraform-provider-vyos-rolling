@@ -34,11 +34,17 @@ func (o PolicyRouteMapRuleMatchCommunity) ResourceSchemaAttributes() map[string]
 			MarkdownDescription: `BGP community-list to match
 
 `,
+			Description: `BGP community-list to match
+
+`,
 		},
 
 		"exact_match": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Community-list to exactly match
+
+`,
+			Description: `Community-list to exactly match
 
 `,
 			Default:  booldefault.StaticBool(false),

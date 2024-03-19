@@ -34,10 +34,15 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance) ResourceSchemaAtt
 			Optional: true,
 			MarkdownDescription: `eBGP routes administrative distance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  eBGP routes administrative distance  |
+    |  Format  &emsp;|  Description                          |
+    |----------------|---------------------------------------|
+    |  1-255   &emsp;|  eBGP routes administrative distance  |
+`,
+			Description: `eBGP routes administrative distance
 
+    |  Format  |  Description                          |
+    |----------------|---------------------------------------|
+    |  1-255   |  eBGP routes administrative distance  |
 `,
 		},
 
@@ -45,10 +50,15 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance) ResourceSchemaAtt
 			Optional: true,
 			MarkdownDescription: `iBGP routes administrative distance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  iBGP routes administrative distance  |
+    |  Format  &emsp;|  Description                          |
+    |----------------|---------------------------------------|
+    |  1-255   &emsp;|  iBGP routes administrative distance  |
+`,
+			Description: `iBGP routes administrative distance
 
+    |  Format  |  Description                          |
+    |----------------|---------------------------------------|
+    |  1-255   |  iBGP routes administrative distance  |
 `,
 		},
 
@@ -56,10 +66,15 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance) ResourceSchemaAtt
 			Optional: true,
 			MarkdownDescription: `Locally originated BGP routes administrative distance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Locally originated BGP routes administrative distance  |
+    |  Format  &emsp;|  Description                                            |
+    |----------------|---------------------------------------------------------|
+    |  1-255   &emsp;|  Locally originated BGP routes administrative distance  |
+`,
+			Description: `Locally originated BGP routes administrative distance
 
+    |  Format  |  Description                                            |
+    |----------------|---------------------------------------------------------|
+    |  1-255   |  Locally originated BGP routes administrative distance  |
 `,
 		},
 

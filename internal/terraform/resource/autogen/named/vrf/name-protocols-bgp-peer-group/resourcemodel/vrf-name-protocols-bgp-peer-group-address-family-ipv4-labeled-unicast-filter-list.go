@@ -33,11 +33,17 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastFilterList
 			MarkdownDescription: `As-path-list to filter outgoing route updates to this peer
 
 `,
+			Description: `As-path-list to filter outgoing route updates to this peer
+
+`,
 		},
 
 		"import": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `As-path-list to filter incoming route updates from this peer
+
+`,
+			Description: `As-path-list to filter incoming route updates from this peer
 
 `,
 		},

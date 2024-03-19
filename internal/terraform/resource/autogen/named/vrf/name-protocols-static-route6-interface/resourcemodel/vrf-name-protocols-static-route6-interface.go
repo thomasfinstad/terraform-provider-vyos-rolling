@@ -117,10 +117,15 @@ func (o VrfNameProtocolsStaticRoutesixInterface) ResourceSchemaAttributes() map[
 			Required: true,
 			MarkdownDescription: `IPv6 gateway interface name
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Gateway interface name  |
+    |  Format  &emsp;|  Description             |
+    |----------------|--------------------------|
+    |  txt     &emsp;|  Gateway interface name  |
+`,
+			Description: `IPv6 gateway interface name
 
+    |  Format  |  Description             |
+    |----------------|--------------------------|
+    |  txt     |  Gateway interface name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -144,10 +149,15 @@ func (o VrfNameProtocolsStaticRoutesixInterface) ResourceSchemaAttributes() map[
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -171,10 +181,15 @@ func (o VrfNameProtocolsStaticRoutesixInterface) ResourceSchemaAttributes() map[
 			Required: true,
 			MarkdownDescription: `Static IPv6 route
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6net  &emsp; |  IPv6 static route  |
+    |  Format   &emsp;|  Description        |
+    |-----------------|---------------------|
+    |  ipv6net  &emsp;|  IPv6 static route  |
+`,
+			Description: `Static IPv6 route
 
+    |  Format   |  Description        |
+    |-----------------|---------------------|
+    |  ipv6net  |  IPv6 static route  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -201,6 +216,9 @@ func (o VrfNameProtocolsStaticRoutesixInterface) ResourceSchemaAttributes() map[
 			MarkdownDescription: `Disable instance
 
 `,
+			Description: `Disable instance
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -209,10 +227,15 @@ func (o VrfNameProtocolsStaticRoutesixInterface) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `Distance for this route
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Distance for this route  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  1-255   &emsp;|  Distance for this route  |
+`,
+			Description: `Distance for this route
 
+    |  Format  |  Description              |
+    |----------------|---------------------------|
+    |  1-255   |  Distance for this route  |
 `,
 		},
 
@@ -220,10 +243,15 @@ func (o VrfNameProtocolsStaticRoutesixInterface) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `SRv6 segments
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Segs (SIDs)  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Segs (SIDs)  |
+`,
+			Description: `SRv6 segments
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Segs (SIDs)  |
 `,
 		},
 
@@ -231,10 +259,15 @@ func (o VrfNameProtocolsStaticRoutesixInterface) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `VRF to leak route
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Name of VRF to leak to  |
+    |  Format  &emsp;|  Description             |
+    |----------------|--------------------------|
+    |  txt     &emsp;|  Name of VRF to leak to  |
+`,
+			Description: `VRF to leak route
 
+    |  Format  |  Description             |
+    |----------------|--------------------------|
+    |  txt     |  Name of VRF to leak to  |
 `,
 		},
 

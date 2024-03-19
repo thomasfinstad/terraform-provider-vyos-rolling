@@ -32,11 +32,17 @@ func (o FirewallZoneIntraZoneFiltering) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `Action for intra-zone traffic
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  accept  &emsp; |  Accept traffic  |
-    |  drop  &emsp; |  Drop silently  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  accept  &emsp;|  Accept traffic  |
+    |  drop    &emsp;|  Drop silently   |
+`,
+			Description: `Action for intra-zone traffic
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  accept  |  Accept traffic  |
+    |  drop    |  Drop silently   |
 `,
 		},
 
@@ -46,6 +52,9 @@ func (o FirewallZoneIntraZoneFiltering) ResourceSchemaAttributes() map[string]sc
 			Attributes: FirewallZoneIntraZoneFilteringFirewall{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Use the specified firewall chain
+
+`,
+			Description: `Use the specified firewall chain
 
 `,
 		},

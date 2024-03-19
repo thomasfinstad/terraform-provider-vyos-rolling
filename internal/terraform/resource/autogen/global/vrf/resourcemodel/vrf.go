@@ -79,6 +79,9 @@ func (o Vrf) ResourceSchemaAttributes() map[string]schema.Attribute {
 			MarkdownDescription: `Enable binding services to all VRFs
 
 `,
+			Description: `Enable binding services to all VRFs
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},

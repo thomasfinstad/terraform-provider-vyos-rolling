@@ -90,6 +90,9 @@ func (o FirewallFlowtable) ResourceSchemaAttributes() map[string]schema.Attribut
 			MarkdownDescription: `Flowtable
 
 `,
+			Description: `Flowtable
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -114,10 +117,15 @@ func (o FirewallFlowtable) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -127,17 +135,26 @@ func (o FirewallFlowtable) ResourceSchemaAttributes() map[string]schema.Attribut
 			MarkdownDescription: `Interfaces to use this flowtable
 
 `,
+			Description: `Interfaces to use this flowtable
+
+`,
 		},
 
 		"offload": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Offloading method
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  hardware  &emsp; |  Hardware offload  |
-    |  software  &emsp; |  Software offload  |
+    |  Format    &emsp;|  Description       |
+    |------------------|--------------------|
+    |  hardware  &emsp;|  Hardware offload  |
+    |  software  &emsp;|  Software offload  |
+`,
+			Description: `Offloading method
 
+    |  Format    |  Description       |
+    |------------------|--------------------|
+    |  hardware  |  Hardware offload  |
+    |  software  |  Software offload  |
 `,
 
 			// Default:          stringdefault.StaticString(`software`),

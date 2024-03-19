@@ -67,22 +67,22 @@ Translated IP address
 
 - `backend_id` (String) Translated IP address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address to match  |
+    |  Format  &emsp;|  Description            |
+    |----------------|-------------------------|
+    |  ipv4    &emsp;|  IPv4 address to match  |
 - `rule_id` (Number) Rule number for NAT
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-999999  &emsp; |  Number of NAT rule  |
+    |  Format    &emsp;|  Description         |
+    |------------------|----------------------|
+    |  1-999999  &emsp;|  Number of NAT rule  |
 
 ### Optional
 
 - `weight` (Number) Set probability for this output value
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-100  &emsp; |  Set probability for this output value  |
+    |  Format  &emsp;|  Description                            |
+    |----------------|-----------------------------------------|
+    |  1-100   &emsp;|  Set probability for this output value  |
 
 ### Read-Only
 

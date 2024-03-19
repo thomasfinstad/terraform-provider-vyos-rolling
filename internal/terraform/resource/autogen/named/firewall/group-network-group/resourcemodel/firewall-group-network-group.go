@@ -92,6 +92,9 @@ func (o FirewallGroupNetworkGroup) ResourceSchemaAttributes() map[string]schema.
 			MarkdownDescription: `Firewall network-group
 
 `,
+			Description: `Firewall network-group
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -116,10 +119,15 @@ func (o FirewallGroupNetworkGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -128,10 +136,15 @@ func (o FirewallGroupNetworkGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional:    true,
 			MarkdownDescription: `Network-group member
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  IPv4 Subnet to match  |
+    |  Format   &emsp;|  Description           |
+    |-----------------|------------------------|
+    |  ipv4net  &emsp;|  IPv4 Subnet to match  |
+`,
+			Description: `Network-group member
 
+    |  Format   |  Description           |
+    |-----------------|------------------------|
+    |  ipv4net  |  IPv4 Subnet to match  |
 `,
 		},
 
@@ -139,6 +152,9 @@ func (o FirewallGroupNetworkGroup) ResourceSchemaAttributes() map[string]schema.
 			ElementType: types.StringType,
 			Optional:    true,
 			MarkdownDescription: `Include another network-group
+
+`,
+			Description: `Include another network-group
 
 `,
 		},

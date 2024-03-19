@@ -32,12 +32,19 @@ func (o FirewallBrIDgeForwardFilterRuleOutboundInterface) ResourceSchemaAttribut
 			Optional: true,
 			MarkdownDescription: `Match interface
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface name  |
-    |  txt&  &emsp; |  Interface name with wildcard  |
-    |  !txt  &emsp; |  Inverted interface name to match  |
+    |  Format  &emsp;|  Description                       |
+    |----------------|------------------------------------|
+    |  txt     &emsp;|  Interface name                    |
+    |  txt&    &emsp;|  Interface name with wildcard      |
+    |  !txt    &emsp;|  Inverted interface name to match  |
+`,
+			Description: `Match interface
 
+    |  Format  |  Description                       |
+    |----------------|------------------------------------|
+    |  txt     |  Interface name                    |
+    |  txt&    |  Interface name with wildcard      |
+    |  !txt    |  Inverted interface name to match  |
 `,
 		},
 
@@ -45,11 +52,17 @@ func (o FirewallBrIDgeForwardFilterRuleOutboundInterface) ResourceSchemaAttribut
 			Optional: true,
 			MarkdownDescription: `Match interface-group
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface-group name to match  |
-    |  !txt  &emsp; |  Inverted interface-group name to match  |
+    |  Format  &emsp;|  Description                             |
+    |----------------|------------------------------------------|
+    |  txt     &emsp;|  Interface-group name to match           |
+    |  !txt    &emsp;|  Inverted interface-group name to match  |
+`,
+			Description: `Match interface-group
 
+    |  Format  |  Description                             |
+    |----------------|------------------------------------------|
+    |  txt     |  Interface-group name to match           |
+    |  !txt    |  Inverted interface-group name to match  |
 `,
 		},
 

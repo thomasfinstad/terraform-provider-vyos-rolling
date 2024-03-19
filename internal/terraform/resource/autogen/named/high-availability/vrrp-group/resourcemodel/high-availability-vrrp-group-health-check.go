@@ -35,6 +35,9 @@ func (o HighAvailabilityVrrpGroupHealthCheck) ResourceSchemaAttributes() map[str
 			MarkdownDescription: `Health check failure count required for transition to fault
 
 `,
+			Description: `Health check failure count required for transition to fault
+
+`,
 
 			// Default:          stringdefault.StaticString(`3`),
 			Computed: true,
@@ -43,6 +46,9 @@ func (o HighAvailabilityVrrpGroupHealthCheck) ResourceSchemaAttributes() map[str
 		"interval": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Health check execution interval in seconds
+
+`,
+			Description: `Health check execution interval in seconds
 
 `,
 
@@ -54,17 +60,26 @@ func (o HighAvailabilityVrrpGroupHealthCheck) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `ICMP ping health check
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 ping target address  |
-    |  ipv6  &emsp; |  IPv6 ping target address  |
+    |  Format  &emsp;|  Description               |
+    |----------------|----------------------------|
+    |  ipv4    &emsp;|  IPv4 ping target address  |
+    |  ipv6    &emsp;|  IPv6 ping target address  |
+`,
+			Description: `ICMP ping health check
 
+    |  Format  |  Description               |
+    |----------------|----------------------------|
+    |  ipv4    |  IPv4 ping target address  |
+    |  ipv6    |  IPv6 ping target address  |
 `,
 		},
 
 		"script": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Health check script file
+
+`,
+			Description: `Health check script file
 
 `,
 		},

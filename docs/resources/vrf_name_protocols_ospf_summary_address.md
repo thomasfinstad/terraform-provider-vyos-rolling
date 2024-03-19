@@ -67,23 +67,23 @@ External summary address
 
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `summary_address_id` (String) External summary address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  OSPF area number in dotted decimal notation  |
+    |  Format   &emsp;|  Description                                  |
+    |-----------------|-----------------------------------------------|
+    |  ipv4net  &emsp;|  OSPF area number in dotted decimal notation  |
 
 ### Optional
 
 - `no_advertise` (Boolean) Don not advertise summary route
 - `tag` (Number) Router tag
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4294967295  &emsp; |  Router tag value  |
+    |  Format        &emsp;|  Description       |
+    |----------------------|--------------------|
+    |  1-4294967295  &emsp;|  Router tag value  |
 
 ### Read-Only
 

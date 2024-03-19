@@ -33,6 +33,9 @@ func (o VrfNameProtocolsIsisInterfaceNetwork) ResourceSchemaAttributes() map[str
 			MarkdownDescription: `point-to-point network type
 
 `,
+			Description: `point-to-point network type
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},

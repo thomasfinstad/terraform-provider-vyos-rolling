@@ -32,6 +32,9 @@ func (o HighAvailabilityVirtualServerRealServerHealthCheck) ResourceSchemaAttrib
 			MarkdownDescription: `Health check script file
 
 `,
+			Description: `Health check script file
+
+`,
 		},
 
 		// Nodes

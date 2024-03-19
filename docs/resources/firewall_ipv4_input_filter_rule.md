@@ -67,63 +67,63 @@ IPv4 Firewall input filter rule number
 
 - `rule_id` (Number) IPv4 Firewall input filter rule number
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-999999  &emsp; |  Number for this firewall rule  |
+    |  Format    &emsp;|  Description                    |
+    |------------------|---------------------------------|
+    |  1-999999  &emsp;|  Number for this firewall rule  |
 
 ### Optional
 
 - `action` (String) Rule action
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  accept  &emsp; |  Accept matching entries  |
-    |  continue  &emsp; |  Continue parsing next rule  |
-    |  jump  &emsp; |  Jump to another chain  |
-    |  reject  &emsp; |  Reject matching entries  |
-    |  return  &emsp; |  Return from the current chain and continue at the next rule of the last chain  |
-    |  drop  &emsp; |  Drop matching entries  |
-    |  queue  &emsp; |  Enqueue packet to userspace  |
-    |  offload  &emsp; |  Offload packet via flowtable  |
-    |  synproxy  &emsp; |  Synproxy connections  |
+    |  Format    &emsp;|  Description                                                                    |
+    |------------------|---------------------------------------------------------------------------------|
+    |  accept    &emsp;|  Accept matching entries                                                        |
+    |  continue  &emsp;|  Continue parsing next rule                                                     |
+    |  jump      &emsp;|  Jump to another chain                                                          |
+    |  reject    &emsp;|  Reject matching entries                                                        |
+    |  return    &emsp;|  Return from the current chain and continue at the next rule of the last chain  |
+    |  drop      &emsp;|  Drop matching entries                                                          |
+    |  queue     &emsp;|  Enqueue packet to userspace                                                    |
+    |  offload   &emsp;|  Offload packet via flowtable                                                   |
+    |  synproxy  &emsp;|  Synproxy connections                                                           |
 - `add_address_to_group` (Attributes) Add ip address to dynamic address-group (see [below for nested schema](#nestedatt--add_address_to_group))
 - `connection_mark` (List of Number) Connection mark
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-2147483647  &emsp; |  Connection-mark to match  |
+    |  Format        &emsp;|  Description               |
+    |----------------------|----------------------------|
+    |  0-2147483647  &emsp;|  Connection-mark to match  |
 - `connection_status` (Attributes) Connection status (see [below for nested schema](#nestedatt--connection_status))
 - `conntrack_helper` (List of String) Match related traffic from conntrack helpers
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ftp  &emsp; |  Related traffic from FTP helper  |
-    |  h323  &emsp; |  Related traffic from H.323 helper  |
-    |  pptp  &emsp; |  Related traffic from PPTP helper  |
-    |  nfs  &emsp; |  Related traffic from NFS helper  |
-    |  rtsp  &emsp; |  Related traffic from RTSP helper  |
-    |  sip  &emsp; |  Related traffic from SIP helper  |
-    |  tftp  &emsp; |  Related traffic from TFTP helper  |
-    |  sqlnet  &emsp; |  Related traffic from SQLNet helper  |
+    |  Format  &emsp;|  Description                         |
+    |----------------|--------------------------------------|
+    |  ftp     &emsp;|  Related traffic from FTP helper     |
+    |  h323    &emsp;|  Related traffic from H.323 helper   |
+    |  pptp    &emsp;|  Related traffic from PPTP helper    |
+    |  nfs     &emsp;|  Related traffic from NFS helper     |
+    |  rtsp    &emsp;|  Related traffic from RTSP helper    |
+    |  sip     &emsp;|  Related traffic from SIP helper     |
+    |  tftp    &emsp;|  Related traffic from TFTP helper    |
+    |  sqlnet  &emsp;|  Related traffic from SQLNet helper  |
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `destination` (Attributes) Destination parameters (see [below for nested schema](#nestedatt--destination))
 - `disable` (Boolean) Disable instance
 - `dscp` (List of String) DSCP value
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-63  &emsp; |  DSCP value to match  |
-    |  <start-end>  &emsp; |  DSCP range to match  |
+    |  Format             &emsp;|  Description          |
+    |---------------------------|-----------------------|
+    |  0-63               &emsp;|  DSCP value to match  |
+    |  &lt;start-end&gt;  &emsp;|  DSCP range to match  |
 - `dscp_exclude` (List of String) DSCP value not to match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-63  &emsp; |  DSCP value not to match  |
-    |  <start-end>  &emsp; |  DSCP range not to match  |
+    |  Format             &emsp;|  Description              |
+    |---------------------------|---------------------------|
+    |  0-63               &emsp;|  DSCP value not to match  |
+    |  &lt;start-end&gt;  &emsp;|  DSCP range not to match  |
 - `fragment` (Attributes) IP fragment match (see [below for nested schema](#nestedatt--fragment))
 - `icmp` (Attributes) ICMP type and code information (see [below for nested schema](#nestedatt--icmp))
 - `inbound_interface` (Attributes) Match inbound-interface (see [below for nested schema](#nestedatt--inbound_interface))
@@ -134,62 +134,62 @@ IPv4 Firewall input filter rule number
 - `log_options` (Attributes) Log options (see [below for nested schema](#nestedatt--log_options))
 - `mark` (String) Firewall mark
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-2147483647  &emsp; |  Firewall mark to match  |
-    |  !number: 0-2147483647  &emsp; |  Inverted Firewall mark to match  |
-    |  <start-end>  &emsp; |  Firewall mark range to match  |
-    |  !<start-end>  &emsp; |  Firewall mark inverted range to match  |
+    |  Format              &emsp;|  Description                            |
+    |----------------------------|-----------------------------------------|
+    |  0-2147483647        &emsp;|  Firewall mark to match                 |
+    |  !0-2147483647       &emsp;|  Inverted Firewall mark to match        |
+    |  &lt;start-end&gt;   &emsp;|  Firewall mark range to match           |
+    |  !&lt;start-end&gt;  &emsp;|  Firewall mark inverted range to match  |
 - `packet_length` (List of String) Payload size in bytes, including header and data to match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Packet length to match  |
-    |  <start-end>  &emsp; |  Packet length range to match  |
+    |  Format             &emsp;|  Description                   |
+    |---------------------------|--------------------------------|
+    |  1-65535            &emsp;|  Packet length to match        |
+    |  &lt;start-end&gt;  &emsp;|  Packet length range to match  |
 - `packet_length_exclude` (List of String) Payload size in bytes, including header and data not to match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Packet length not to match  |
-    |  <start-end>  &emsp; |  Packet length range not to match  |
+    |  Format             &emsp;|  Description                       |
+    |---------------------------|------------------------------------|
+    |  1-65535            &emsp;|  Packet length not to match        |
+    |  &lt;start-end&gt;  &emsp;|  Packet length range not to match  |
 - `packet_type` (String) Packet type
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  broadcast  &emsp; |  Match broadcast packet type  |
-    |  host  &emsp; |  Match host packet type, addressed to local host  |
-    |  multicast  &emsp; |  Match multicast packet type  |
-    |  other  &emsp; |  Match packet addressed to another host  |
+    |  Format     &emsp;|  Description                                      |
+    |-------------------|---------------------------------------------------|
+    |  broadcast  &emsp;|  Match broadcast packet type                      |
+    |  host       &emsp;|  Match host packet type, addressed to local host  |
+    |  multicast  &emsp;|  Match multicast packet type                      |
+    |  other      &emsp;|  Match packet addressed to another host           |
 - `protocol` (String) Protocol to match (protocol name, number, or "all")
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  all  &emsp; |  All IP protocols  |
-    |  tcp_udp  &emsp; |  Both TCP and UDP  |
-    |  number: 0-255  &emsp; |  IP protocol number  |
-    |  <protocol>  &emsp; |  IP protocol name  |
-    |  !<protocol>  &emsp; |  IP protocol name  |
+    |  Format             &emsp;|  Description         |
+    |---------------------------|----------------------|
+    |  all                &emsp;|  All IP protocols    |
+    |  tcp_udp            &emsp;|  Both TCP and UDP    |
+    |  0-255              &emsp;|  IP protocol number  |
+    |  &lt;protocol&gt;   &emsp;|  IP protocol name    |
+    |  !&lt;protocol&gt;  &emsp;|  IP protocol name    |
 - `queue` (Number) Queue target to use. Action queue must be defined to use this setting
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-65535  &emsp; |  Queue target  |
+    |  Format   &emsp;|  Description   |
+    |-----------------|----------------|
+    |  0-65535  &emsp;|  Queue target  |
 - `queue_options` (List of String) Options used for queue target. Action queue must be defined to use this setting
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  bypass  &emsp; |  Let packets go through if userspace application cannot back off  |
-    |  fanout  &emsp; |  Distribute packets between several queues  |
+    |  Format  &emsp;|  Description                                                      |
+    |----------------|-------------------------------------------------------------------|
+    |  bypass  &emsp;|  Let packets go through if userspace application cannot back off  |
+    |  fanout  &emsp;|  Distribute packets between several queues                        |
 - `recent` (Attributes) Parameters for matching recently seen sources (see [below for nested schema](#nestedatt--recent))
 - `source` (Attributes) Source parameters (see [below for nested schema](#nestedatt--source))
 - `state` (List of String) Session state
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  established  &emsp; |  Established state  |
-    |  invalid  &emsp; |  Invalid state  |
-    |  new  &emsp; |  New state  |
-    |  related  &emsp; |  Related state  |
+    |  Format       &emsp;|  Description        |
+    |---------------------|---------------------|
+    |  established  &emsp;|  Established state  |
+    |  invalid      &emsp;|  Invalid state      |
+    |  new          &emsp;|  New state          |
+    |  related      &emsp;|  Related state      |
 - `synproxy` (Attributes) Synproxy options (see [below for nested schema](#nestedatt--synproxy))
 - `tcp` (Attributes) TCP options to match (see [below for nested schema](#nestedatt--tcp))
 - `time` (Attributes) Time to match rule (see [below for nested schema](#nestedatt--time))
@@ -215,12 +215,12 @@ Optional:
 - `address_group` (String) Dynamic address-group
 - `timeout` (String) Set timeout
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>s  &emsp; |  Timeout value in seconds  |
-    |  <number>m  &emsp; |  Timeout value in minutes  |
-    |  <number>h  &emsp; |  Timeout value in hours  |
-    |  <number>d  &emsp; |  Timeout value in days  |
+    |  Format           &emsp;|  Description               |
+    |-------------------------|----------------------------|
+    |  &lt;number&gt;s  &emsp;|  Timeout value in seconds  |
+    |  &lt;number&gt;m  &emsp;|  Timeout value in minutes  |
+    |  &lt;number&gt;h  &emsp;|  Timeout value in hours    |
+    |  &lt;number&gt;d  &emsp;|  Timeout value in days     |
 
 
 <a id="nestedatt--add_address_to_group--source_address"></a>
@@ -231,12 +231,12 @@ Optional:
 - `address_group` (String) Dynamic address-group
 - `timeout` (String) Set timeout
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>s  &emsp; |  Timeout value in seconds  |
-    |  <number>m  &emsp; |  Timeout value in minutes  |
-    |  <number>h  &emsp; |  Timeout value in hours  |
-    |  <number>d  &emsp; |  Timeout value in days  |
+    |  Format           &emsp;|  Description               |
+    |-------------------------|----------------------------|
+    |  &lt;number&gt;s  &emsp;|  Timeout value in seconds  |
+    |  &lt;number&gt;m  &emsp;|  Timeout value in minutes  |
+    |  &lt;number&gt;h  &emsp;|  Timeout value in hours    |
+    |  &lt;number&gt;d  &emsp;|  Timeout value in days     |
 
 
 
@@ -247,10 +247,10 @@ Optional:
 
 - `nat` (String) NAT connection status
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  destination  &emsp; |  Match connections that are subject to destination NAT  |
-    |  source  &emsp; |  Match connections that are subject to source NAT  |
+    |  Format       &emsp;|  Description                                            |
+    |---------------------|---------------------------------------------------------|
+    |  destination  &emsp;|  Match connections that are subject to destination NAT  |
+    |  source       &emsp;|  Match connections that are subject to source NAT       |
 
 
 <a id="nestedatt--destination"></a>
@@ -260,40 +260,40 @@ Optional:
 
 - `address` (String) IP address, subnet, or range
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address to match  |
-    |  ipv4net  &emsp; |  IPv4 prefix to match  |
-    |  ipv4range  &emsp; |  IPv4 address range to match  |
-    |  !ipv4  &emsp; |  Match everything except the specified address  |
-    |  !ipv4net  &emsp; |  Match everything except the specified prefix  |
-    |  !ipv4range  &emsp; |  Match everything except the specified range  |
+    |  Format      &emsp;|  Description                                    |
+    |--------------------|-------------------------------------------------|
+    |  ipv4        &emsp;|  IPv4 address to match                          |
+    |  ipv4net     &emsp;|  IPv4 prefix to match                           |
+    |  ipv4range   &emsp;|  IPv4 address range to match                    |
+    |  !ipv4       &emsp;|  Match everything except the specified address  |
+    |  !ipv4net    &emsp;|  Match everything except the specified prefix   |
+    |  !ipv4range  &emsp;|  Match everything except the specified range    |
 - `address_mask` (String) IP mask
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 mask to apply  |
+    |  Format  &emsp;|  Description         |
+    |----------------|----------------------|
+    |  ipv4    &emsp;|  IPv4 mask to apply  |
 - `fqdn` (String) Fully qualified domain name
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <fqdn>  &emsp; |  Fully qualified domain name  |
+    |  Format        &emsp;|  Description                  |
+    |----------------------|-------------------------------|
+    |  &lt;fqdn&gt;  &emsp;|  Fully qualified domain name  |
 - `geoip` (Attributes) GeoIP options - Data provided by DB-IP.com (see [below for nested schema](#nestedatt--destination--geoip))
 - `group` (Attributes) Group (see [below for nested schema](#nestedatt--destination--group))
 - `mac_address` (String) MAC address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  macaddr  &emsp; |  MAC address to match  |
-    |  !macaddr  &emsp; |  Match everything except the specified MAC address  |
+    |  Format    &emsp;|  Description                                        |
+    |------------------|-----------------------------------------------------|
+    |  macaddr   &emsp;|  MAC address to match                               |
+    |  !macaddr  &emsp;|  Match everything except the specified MAC address  |
 - `port` (String) Port
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Named port (any name in /etc/services, e.g., http)  |
-    |  number: 1-65535  &emsp; |  Numbered port  |
-    |  <start-end>  &emsp; |  Numbered port range (e.g. 1001-1005)  |
-    |     &emsp; |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
+    |  Format             &emsp;|  Description                                                                                                               |
+    |---------------------------|----------------------------------------------------------------------------------------------------------------------------|
+    |  txt                &emsp;|  Named port (any name in /etc/services, e.g., http)                                                                        |
+    |  1-65535            &emsp;|  Numbered port                                                                                                             |
+    |  &lt;start-end&gt;  &emsp;|  Numbered port range (e.g. 1001-1005)                                                                                      |
+    |                     &emsp;|  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
 
 <a id="nestedatt--destination--geoip"></a>
 ### Nested Schema for `destination.geoip`
@@ -302,9 +302,9 @@ Optional:
 
 - `country_code` (List of String) GeoIP country code
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <country>  &emsp; |  Country code (2 characters)  |
+    |  Format           &emsp;|  Description                  |
+    |-------------------------|-------------------------------|
+    |  &lt;country&gt;  &emsp;|  Country code (2 characters)  |
 - `inverse_match` (Boolean) Inverse match of country-codes
 
 
@@ -338,33 +338,33 @@ Optional:
 
 - `code` (Number) ICMP code
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-255  &emsp; |  ICMP code (0-255)  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  0-255   &emsp;|  ICMP code (0-255)  |
 - `type` (Number) ICMP type
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-255  &emsp; |  ICMP type (0-255)  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  0-255   &emsp;|  ICMP type (0-255)  |
 - `type_name` (String) ICMP type-name
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  echo-reply  &emsp; |  ICMP type 0: echo-reply  |
-    |  destination-unreachable  &emsp; |  ICMP type 3: destination-unreachable  |
-    |  source-quench  &emsp; |  ICMP type 4: source-quench  |
-    |  redirect  &emsp; |  ICMP type 5: redirect  |
-    |  echo-request  &emsp; |  ICMP type 8: echo-request  |
-    |  router-advertisement  &emsp; |  ICMP type 9: router-advertisement  |
-    |  router-solicitation  &emsp; |  ICMP type 10: router-solicitation  |
-    |  time-exceeded  &emsp; |  ICMP type 11: time-exceeded  |
-    |  parameter-problem  &emsp; |  ICMP type 12: parameter-problem  |
-    |  timestamp-request  &emsp; |  ICMP type 13: timestamp-request  |
-    |  timestamp-reply  &emsp; |  ICMP type 14: timestamp-reply  |
-    |  info-request  &emsp; |  ICMP type 15: info-request  |
-    |  info-reply  &emsp; |  ICMP type 16: info-reply  |
-    |  address-mask-request  &emsp; |  ICMP type 17: address-mask-request  |
-    |  address-mask-reply  &emsp; |  ICMP type 18: address-mask-reply  |
+    |  Format                   &emsp;|  Description                           |
+    |---------------------------------|----------------------------------------|
+    |  echo-reply               &emsp;|  ICMP type 0: echo-reply               |
+    |  destination-unreachable  &emsp;|  ICMP type 3: destination-unreachable  |
+    |  source-quench            &emsp;|  ICMP type 4: source-quench            |
+    |  redirect                 &emsp;|  ICMP type 5: redirect                 |
+    |  echo-request             &emsp;|  ICMP type 8: echo-request             |
+    |  router-advertisement     &emsp;|  ICMP type 9: router-advertisement     |
+    |  router-solicitation      &emsp;|  ICMP type 10: router-solicitation     |
+    |  time-exceeded            &emsp;|  ICMP type 11: time-exceeded           |
+    |  parameter-problem        &emsp;|  ICMP type 12: parameter-problem       |
+    |  timestamp-request        &emsp;|  ICMP type 13: timestamp-request       |
+    |  timestamp-reply          &emsp;|  ICMP type 14: timestamp-reply         |
+    |  info-request             &emsp;|  ICMP type 15: info-request            |
+    |  info-reply               &emsp;|  ICMP type 16: info-reply              |
+    |  address-mask-request     &emsp;|  ICMP type 17: address-mask-request    |
+    |  address-mask-reply       &emsp;|  ICMP type 18: address-mask-reply      |
 
 
 <a id="nestedatt--inbound_interface"></a>
@@ -374,17 +374,17 @@ Optional:
 
 - `group` (String) Match interface-group
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface-group name to match  |
-    |  !txt  &emsp; |  Inverted interface-group name to match  |
+    |  Format  &emsp;|  Description                             |
+    |----------------|------------------------------------------|
+    |  txt     &emsp;|  Interface-group name to match           |
+    |  !txt    &emsp;|  Inverted interface-group name to match  |
 - `name` (String) Match interface
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface name  |
-    |  txt&  &emsp; |  Interface name with wildcard  |
-    |  !txt  &emsp; |  Inverted interface name to match  |
+    |  Format  &emsp;|  Description                       |
+    |----------------|------------------------------------|
+    |  txt     &emsp;|  Interface name                    |
+    |  txt&    &emsp;|  Interface name with wildcard      |
+    |  !txt    &emsp;|  Inverted interface name to match  |
 
 
 <a id="nestedatt--ipsec"></a>
@@ -403,14 +403,14 @@ Optional:
 
 - `burst` (Number) Maximum number of packets to allow in excess of rate
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-4294967295  &emsp; |  Maximum number of packets to allow in excess of rate  |
+    |  Format        &emsp;|  Description                                           |
+    |----------------------|--------------------------------------------------------|
+    |  0-4294967295  &emsp;|  Maximum number of packets to allow in excess of rate  |
 - `rate` (String) Maximum average matching rate
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  integer/unit (Example: 5/minute)  |
+    |  Format  &emsp;|  Description                       |
+    |----------------|------------------------------------|
+    |  txt     &emsp;|  integer/unit (Example: 5/minute)  |
 
 
 <a id="nestedatt--log_options"></a>
@@ -420,31 +420,31 @@ Optional:
 
 - `group` (Number) Set log group
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-65535  &emsp; |  Log group to send messages to  |
+    |  Format   &emsp;|  Description                    |
+    |-----------------|---------------------------------|
+    |  0-65535  &emsp;|  Log group to send messages to  |
 - `level` (String) Set log-level
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  emerg  &emsp; |  Emerg log level  |
-    |  alert  &emsp; |  Alert log level  |
-    |  crit  &emsp; |  Critical log level  |
-    |  err  &emsp; |  Error log level  |
-    |  warn  &emsp; |  Warning log level  |
-    |  notice  &emsp; |  Notice log level  |
-    |  info  &emsp; |  Info log level  |
-    |  debug  &emsp; |  Debug log level  |
+    |  Format  &emsp;|  Description         |
+    |----------------|----------------------|
+    |  emerg   &emsp;|  Emerg log level     |
+    |  alert   &emsp;|  Alert log level     |
+    |  crit    &emsp;|  Critical log level  |
+    |  err     &emsp;|  Error log level     |
+    |  warn    &emsp;|  Warning log level   |
+    |  notice  &emsp;|  Notice log level    |
+    |  info    &emsp;|  Info log level      |
+    |  debug   &emsp;|  Debug log level     |
 - `queue_threshold` (Number) Number of packets to queue inside the kernel before sending them to userspace
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-65535  &emsp; |  Number of packets to queue inside the kernel before sending them to userspace  |
+    |  Format   &emsp;|  Description                                                                    |
+    |-----------------|---------------------------------------------------------------------------------|
+    |  0-65535  &emsp;|  Number of packets to queue inside the kernel before sending them to userspace  |
 - `snapshot_length` (Number) Length of packet payload to include in netlink message
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-9000  &emsp; |  Length of packet payload to include in netlink message  |
+    |  Format  &emsp;|  Description                                             |
+    |----------------|----------------------------------------------------------|
+    |  0-9000  &emsp;|  Length of packet payload to include in netlink message  |
 
 
 <a id="nestedatt--recent"></a>
@@ -454,16 +454,16 @@ Optional:
 
 - `count` (Number) Source addresses seen more than N times
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Source addresses seen more than N times  |
+    |  Format  &emsp;|  Description                              |
+    |----------------|-------------------------------------------|
+    |  1-255   &emsp;|  Source addresses seen more than N times  |
 - `time` (String) Source addresses seen in the last second/minute/hour
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  second  &emsp; |  Source addresses seen COUNT times in the last second  |
-    |  minute  &emsp; |  Source addresses seen COUNT times in the last minute  |
-    |  hour  &emsp; |  Source addresses seen COUNT times in the last hour  |
+    |  Format  &emsp;|  Description                                           |
+    |----------------|--------------------------------------------------------|
+    |  second  &emsp;|  Source addresses seen COUNT times in the last second  |
+    |  minute  &emsp;|  Source addresses seen COUNT times in the last minute  |
+    |  hour    &emsp;|  Source addresses seen COUNT times in the last hour    |
 
 
 <a id="nestedatt--source"></a>
@@ -473,40 +473,40 @@ Optional:
 
 - `address` (String) IP address, subnet, or range
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address to match  |
-    |  ipv4net  &emsp; |  IPv4 prefix to match  |
-    |  ipv4range  &emsp; |  IPv4 address range to match  |
-    |  !ipv4  &emsp; |  Match everything except the specified address  |
-    |  !ipv4net  &emsp; |  Match everything except the specified prefix  |
-    |  !ipv4range  &emsp; |  Match everything except the specified range  |
+    |  Format      &emsp;|  Description                                    |
+    |--------------------|-------------------------------------------------|
+    |  ipv4        &emsp;|  IPv4 address to match                          |
+    |  ipv4net     &emsp;|  IPv4 prefix to match                           |
+    |  ipv4range   &emsp;|  IPv4 address range to match                    |
+    |  !ipv4       &emsp;|  Match everything except the specified address  |
+    |  !ipv4net    &emsp;|  Match everything except the specified prefix   |
+    |  !ipv4range  &emsp;|  Match everything except the specified range    |
 - `address_mask` (String) IP mask
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 mask to apply  |
+    |  Format  &emsp;|  Description         |
+    |----------------|----------------------|
+    |  ipv4    &emsp;|  IPv4 mask to apply  |
 - `fqdn` (String) Fully qualified domain name
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <fqdn>  &emsp; |  Fully qualified domain name  |
+    |  Format        &emsp;|  Description                  |
+    |----------------------|-------------------------------|
+    |  &lt;fqdn&gt;  &emsp;|  Fully qualified domain name  |
 - `geoip` (Attributes) GeoIP options - Data provided by DB-IP.com (see [below for nested schema](#nestedatt--source--geoip))
 - `group` (Attributes) Group (see [below for nested schema](#nestedatt--source--group))
 - `mac_address` (String) MAC address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  macaddr  &emsp; |  MAC address to match  |
-    |  !macaddr  &emsp; |  Match everything except the specified MAC address  |
+    |  Format    &emsp;|  Description                                        |
+    |------------------|-----------------------------------------------------|
+    |  macaddr   &emsp;|  MAC address to match                               |
+    |  !macaddr  &emsp;|  Match everything except the specified MAC address  |
 - `port` (String) Port
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Named port (any name in /etc/services, e.g., http)  |
-    |  number: 1-65535  &emsp; |  Numbered port  |
-    |  <start-end>  &emsp; |  Numbered port range (e.g. 1001-1005)  |
-    |     &emsp; |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
+    |  Format             &emsp;|  Description                                                                                                               |
+    |---------------------------|----------------------------------------------------------------------------------------------------------------------------|
+    |  txt                &emsp;|  Named port (any name in /etc/services, e.g., http)                                                                        |
+    |  1-65535            &emsp;|  Numbered port                                                                                                             |
+    |  &lt;start-end&gt;  &emsp;|  Numbered port range (e.g. 1001-1005)                                                                                      |
+    |                     &emsp;|  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
 
 <a id="nestedatt--source--geoip"></a>
 ### Nested Schema for `source.geoip`
@@ -515,9 +515,9 @@ Optional:
 
 - `country_code` (List of String) GeoIP country code
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <country>  &emsp; |  Country code (2 characters)  |
+    |  Format           &emsp;|  Description                  |
+    |-------------------------|-------------------------------|
+    |  &lt;country&gt;  &emsp;|  Country code (2 characters)  |
 - `inverse_match` (Boolean) Inverse match of country-codes
 
 
@@ -549,14 +549,14 @@ Optional:
 
 - `mss` (Number) TCP Maximum segment size
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 501-65535  &emsp; |  Maximum segment size for synproxy connections  |
+    |  Format     &emsp;|  Description                                    |
+    |-------------------|-------------------------------------------------|
+    |  501-65535  &emsp;|  Maximum segment size for synproxy connections  |
 - `window_scale` (Number) TCP window scale for synproxy connections
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-14  &emsp; |  TCP window scale  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  1-14    &emsp;|  TCP window scale  |
 
 
 
@@ -568,10 +568,10 @@ Optional:
 - `flags` (Attributes) TCP flags to match (see [below for nested schema](#nestedatt--tcp--flags))
 - `mss` (String) Maximum segment size (MSS)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-16384  &emsp; |  Maximum segment size  |
-    |  <min>-<max>  &emsp; |  TCP MSS range (use '-' as delimiter)  |
+    |  Format                   &emsp;|  Description                           |
+    |---------------------------------|----------------------------------------|
+    |  1-16384                  &emsp;|  Maximum segment size                  |
+    |  &lt;min&gt;-&lt;max&gt;  &emsp;|  TCP MSS range (use '-' as delimiter)  |
 
 <a id="nestedatt--tcp--flags"></a>
 ### Nested Schema for `tcp.flags`
@@ -612,30 +612,30 @@ Optional:
 
 - `startdate` (String) Date to start matching rule
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Enter date using following notation - YYYY-MM-DD  |
+    |  Format  &emsp;|  Description                                       |
+    |----------------|----------------------------------------------------|
+    |  txt     &emsp;|  Enter date using following notation - YYYY-MM-DD  |
 - `starttime` (String) Time of day to start matching rule
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Enter time using using 24 hour notation - hh:mm:ss  |
+    |  Format  &emsp;|  Description                                         |
+    |----------------|------------------------------------------------------|
+    |  txt     &emsp;|  Enter time using using 24 hour notation - hh:mm:ss  |
 - `stopdate` (String) Date to stop matching rule
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Enter date using following notation - YYYY-MM-DD  |
+    |  Format  &emsp;|  Description                                       |
+    |----------------|----------------------------------------------------|
+    |  txt     &emsp;|  Enter date using following notation - YYYY-MM-DD  |
 - `stoptime` (String) Time of day to stop matching rule
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Enter time using using 24 hour notation - hh:mm:ss  |
+    |  Format  &emsp;|  Description                                         |
+    |----------------|------------------------------------------------------|
+    |  txt     &emsp;|  Enter time using using 24 hour notation - hh:mm:ss  |
 - `weekdays` (String) Comma separated weekdays to match rule on
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Name of day (Monday, Tuesday, Wednesday, Thursdays, Friday, Saturday, Sunday)  |
-    |  number: 0-6  &emsp; |  Day number (0 = Sunday ... 6 = Saturday)  |
+    |  Format  &emsp;|  Description                                                                    |
+    |----------------|---------------------------------------------------------------------------------|
+    |  txt     &emsp;|  Name of day (Monday, Tuesday, Wednesday, Thursdays, Friday, Saturday, Sunday)  |
+    |  0-6     &emsp;|  Day number (0 = Sunday ... 6 = Saturday)                                       |
 
 
 <a id="nestedatt--ttl"></a>
@@ -645,16 +645,16 @@ Optional:
 
 - `eq` (Number) Match on equal value
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-255  &emsp; |  Equal to value  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  0-255   &emsp;|  Equal to value  |
 - `gt` (Number) Match on greater then value
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-255  &emsp; |  Greater then value  |
+    |  Format  &emsp;|  Description         |
+    |----------------|----------------------|
+    |  0-255   &emsp;|  Greater then value  |
 - `lt` (Number) Match on less then value
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-255  &emsp; |  Less then value  |
+    |  Format  &emsp;|  Description      |
+    |----------------|-------------------|
+    |  0-255   &emsp;|  Less then value  |

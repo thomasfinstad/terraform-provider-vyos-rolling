@@ -101,6 +101,9 @@ func (o ContainerNameVolume) ResourceSchemaAttributes() map[string]schema.Attrib
 			MarkdownDescription: `Mount a volume into the container
 
 `,
+			Description: `Mount a volume into the container
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -122,6 +125,9 @@ func (o ContainerNameVolume) ResourceSchemaAttributes() map[string]schema.Attrib
 		"name_id": schema.StringAttribute{
 			Required: true,
 			MarkdownDescription: `Container name
+
+`,
+			Description: `Container name
 
 `,
 			PlanModifiers: []planmodifier.String{
@@ -148,10 +154,15 @@ func (o ContainerNameVolume) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Source host directory
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Source host directory  |
+    |  Format  &emsp;|  Description            |
+    |----------------|-------------------------|
+    |  txt     &emsp;|  Source host directory  |
+`,
+			Description: `Source host directory
 
+    |  Format  |  Description            |
+    |----------------|-------------------------|
+    |  txt     |  Source host directory  |
 `,
 		},
 
@@ -159,10 +170,15 @@ func (o ContainerNameVolume) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Destination container directory
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Destination container directory  |
+    |  Format  &emsp;|  Description                      |
+    |----------------|-----------------------------------|
+    |  txt     &emsp;|  Destination container directory  |
+`,
+			Description: `Destination container directory
 
+    |  Format  |  Description                      |
+    |----------------|-----------------------------------|
+    |  txt     |  Destination container directory  |
 `,
 		},
 
@@ -170,11 +186,17 @@ func (o ContainerNameVolume) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Volume access mode ro/rw
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ro  &emsp; |  Volume mounted into the container as read-only  |
-    |  rw  &emsp; |  Volume mounted into the container as read-write  |
+    |  Format  &emsp;|  Description                                      |
+    |----------------|---------------------------------------------------|
+    |  ro      &emsp;|  Volume mounted into the container as read-only   |
+    |  rw      &emsp;|  Volume mounted into the container as read-write  |
+`,
+			Description: `Volume access mode ro/rw
 
+    |  Format  |  Description                                      |
+    |----------------|---------------------------------------------------|
+    |  ro      |  Volume mounted into the container as read-only   |
+    |  rw      |  Volume mounted into the container as read-write  |
 `,
 
 			// Default:          stringdefault.StaticString(`rw`),
@@ -185,15 +207,25 @@ func (o ContainerNameVolume) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Volume bind propagation
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  shared  &emsp; |  Sub-mounts of the original mount are exposed to replica mounts  |
-    |  slave  &emsp; |  Allow replica mount to see sub-mount from the original mount but not vice versa  |
-    |  private  &emsp; |  Sub-mounts within a mount are not visible to replica mounts or the original mount  |
-    |  rshared  &emsp; |  Allows sharing of mount points and their nested mount points between both the original and replica mounts  |
-    |  rslave  &emsp; |  Allows mount point and their nested mount points between original an replica mounts  |
-    |  rprivate  &emsp; |  No mount points within original or replica mounts in any direction  |
+    |  Format    &emsp;|  Description                                                                                                |
+    |------------------|-------------------------------------------------------------------------------------------------------------|
+    |  shared    &emsp;|  Sub-mounts of the original mount are exposed to replica mounts                                             |
+    |  slave     &emsp;|  Allow replica mount to see sub-mount from the original mount but not vice versa                            |
+    |  private   &emsp;|  Sub-mounts within a mount are not visible to replica mounts or the original mount                          |
+    |  rshared   &emsp;|  Allows sharing of mount points and their nested mount points between both the original and replica mounts  |
+    |  rslave    &emsp;|  Allows mount point and their nested mount points between original an replica mounts                        |
+    |  rprivate  &emsp;|  No mount points within original or replica mounts in any direction                                         |
+`,
+			Description: `Volume bind propagation
 
+    |  Format    |  Description                                                                                                |
+    |------------------|-------------------------------------------------------------------------------------------------------------|
+    |  shared    |  Sub-mounts of the original mount are exposed to replica mounts                                             |
+    |  slave     |  Allow replica mount to see sub-mount from the original mount but not vice versa                            |
+    |  private   |  Sub-mounts within a mount are not visible to replica mounts or the original mount                          |
+    |  rshared   |  Allows sharing of mount points and their nested mount points between both the original and replica mounts  |
+    |  rslave    |  Allows mount point and their nested mount points between original an replica mounts                        |
+    |  rprivate  |  No mount points within original or replica mounts in any direction                                         |
 `,
 
 			// Default:          stringdefault.StaticString(`rprivate`),

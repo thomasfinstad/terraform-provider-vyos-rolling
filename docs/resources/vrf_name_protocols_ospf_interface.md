@@ -67,76 +67,76 @@ Interface configuration
 
 - `interface_id` (String) Interface configuration
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Interface name  |
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 
 ### Optional
 
 - `area` (String) Enable OSPF on this interface
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  OSPF area ID as decimal notation  |
-    |  ipv4  &emsp; |  OSPF area ID in IP address notation  |
+    |  Format  &emsp;|  Description                          |
+    |----------------|---------------------------------------|
+    |  u32     &emsp;|  OSPF area ID as decimal notation     |
+    |  ipv4    &emsp;|  OSPF area ID in IP address notation  |
 - `authentication` (Attributes) Authentication (see [below for nested schema](#nestedatt--authentication))
 - `bandwidth` (Number) Interface bandwidth (Mbit/s)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-100000  &emsp; |  Bandwidth in Megabit/sec (for calculating OSPF cost)  |
+    |  Format    &emsp;|  Description                                           |
+    |------------------|--------------------------------------------------------|
+    |  1-100000  &emsp;|  Bandwidth in Megabit/sec (for calculating OSPF cost)  |
 - `bfd` (Attributes) Enable Bidirectional Forwarding Detection (BFD) (see [below for nested schema](#nestedatt--bfd))
 - `cost` (Number) Interface cost
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  OSPF interface cost  |
+    |  Format   &emsp;|  Description          |
+    |-----------------|-----------------------|
+    |  1-65535  &emsp;|  OSPF interface cost  |
 - `dead_interval` (Number) Interval after which a neighbor is declared dead
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Neighbor dead interval (seconds)  |
+    |  Format   &emsp;|  Description                       |
+    |-----------------|------------------------------------|
+    |  1-65535  &emsp;|  Neighbor dead interval (seconds)  |
 - `hello_interval` (Number) Interval between hello packets
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Hello interval (seconds)  |
+    |  Format   &emsp;|  Description               |
+    |-----------------|----------------------------|
+    |  1-65535  &emsp;|  Hello interval (seconds)  |
 - `hello_multiplier` (Number) Hello multiplier factor
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-10  &emsp; |  Number of Hellos to send each second  |
+    |  Format  &emsp;|  Description                           |
+    |----------------|----------------------------------------|
+    |  1-10    &emsp;|  Number of Hellos to send each second  |
 - `ldp_sync` (Attributes) LDP-IGP synchronization configuration for interface (see [below for nested schema](#nestedatt--ldp_sync))
 - `mtu_ignore` (Boolean) Disable Maximum Transmission Unit (MTU) mismatch detection
 - `network` (String) Network type
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  broadcast  &emsp; |  Broadcast network type  |
-    |  non-broadcast  &emsp; |  Non-broadcast network type  |
-    |  point-to-multipoint  &emsp; |  Point-to-multipoint network type  |
-    |  point-to-point  &emsp; |  Point-to-point network type  |
+    |  Format               &emsp;|  Description                       |
+    |-----------------------------|------------------------------------|
+    |  broadcast            &emsp;|  Broadcast network type            |
+    |  non-broadcast        &emsp;|  Non-broadcast network type        |
+    |  point-to-multipoint  &emsp;|  Point-to-multipoint network type  |
+    |  point-to-point       &emsp;|  Point-to-point network type       |
 - `passive` (Attributes) Suppress routing updates on an interface (see [below for nested schema](#nestedatt--passive))
 - `priority` (Number) Router priority
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-255  &emsp; |  OSPF router priority cost  |
+    |  Format  &emsp;|  Description                |
+    |----------------|-----------------------------|
+    |  0-255   &emsp;|  OSPF router priority cost  |
 - `retransmit_interval` (Number) Interval between retransmitting lost link state advertisements
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Retransmit interval (seconds)  |
+    |  Format   &emsp;|  Description                    |
+    |-----------------|---------------------------------|
+    |  1-65535  &emsp;|  Retransmit interval (seconds)  |
 - `transmit_delay` (Number) Link state transmit delay
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Link state transmit delay (seconds)  |
+    |  Format   &emsp;|  Description                          |
+    |-----------------|---------------------------------------|
+    |  1-65535  &emsp;|  Link state transmit delay (seconds)  |
 
 ### Read-Only
 
@@ -150,9 +150,9 @@ Optional:
 - `md5` (Attributes) MD5 key id (see [below for nested schema](#nestedatt--authentication--md5))
 - `plaintext_password` (String) Plain text password
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Plain text password (8 characters or less)  |
+    |  Format  &emsp;|  Description                                 |
+    |----------------|----------------------------------------------|
+    |  txt     &emsp;|  Plain text password (8 characters or less)  |
 
 <a id="nestedatt--authentication--md5"></a>
 ### Nested Schema for `authentication.md5`
@@ -166,9 +166,9 @@ Optional:
 
 - `profile` (String) Use settings from BFD profile
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  BFD profile name  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  txt     &emsp;|  BFD profile name  |
 
 
 <a id="nestedatt--ldp_sync"></a>
@@ -179,9 +179,9 @@ Optional:
 - `disable` (Boolean) Disable instance
 - `holddown` (Number) Hold down timer for LDP-IGP cost restoration
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-10000  &emsp; |  Time to wait in seconds for LDP-IGP synchronization to occur before restoring interface cost  |
+    |  Format   &emsp;|  Description                                                                                   |
+    |-----------------|------------------------------------------------------------------------------------------------|
+    |  0-10000  &emsp;|  Time to wait in seconds for LDP-IGP synchronization to occur before restoring interface cost  |
 
 
 <a id="nestedatt--passive"></a>

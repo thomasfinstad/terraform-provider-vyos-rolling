@@ -77,32 +77,32 @@ Redistribute non-main Kernel Routing Table
 
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `table_id` (Number) Redistribute non-main Kernel Routing Table
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-200  &emsp; |  Policy route table number  |
+    |  Format  &emsp;|  Description                |
+    |----------------|-----------------------------|
+    |  1-200   &emsp;|  Policy route table number  |
 
 ### Optional
 
 - `metric` (Number) OSPF default metric
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-16777214  &emsp; |  Default metric  |
+    |  Format      &emsp;|  Description     |
+    |--------------------|------------------|
+    |  0-16777214  &emsp;|  Default metric  |
 - `metric_type` (Number) OSPF metric type for default routes
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-2  &emsp; |  Set OSPF External Type 1/2 metrics  |
+    |  Format  &emsp;|  Description                         |
+    |----------------|--------------------------------------|
+    |  1-2     &emsp;|  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Route map name  |
 
 ### Read-Only
 

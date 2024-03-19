@@ -107,33 +107,33 @@ Use source for BFD session
 
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `next_hop_id` (String) IPv6 gateway address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6  &emsp; |  Next-hop IPv6 router  |
+    |  Format  &emsp;|  Description           |
+    |----------------|------------------------|
+    |  ipv6    &emsp;|  Next-hop IPv6 router  |
 - `route6_id` (String) Static IPv6 route
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6net  &emsp; |  IPv6 static route  |
+    |  Format   &emsp;|  Description        |
+    |-----------------|---------------------|
+    |  ipv6net  &emsp;|  IPv6 static route  |
 - `source_id` (String) Use source for BFD session
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 source address  |
-    |  ipv6  &emsp; |  IPv6 source address  |
+    |  Format  &emsp;|  Description          |
+    |----------------|-----------------------|
+    |  ipv4    &emsp;|  IPv4 source address  |
+    |  ipv6    &emsp;|  IPv6 source address  |
 
 ### Optional
 
 - `profile` (String) Use settings from BFD profile
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  BFD profile name  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  txt     &emsp;|  BFD profile name  |
 
 ### Read-Only
 

@@ -91,6 +91,9 @@ func (o PkiOpenvpnSharedSecret) ResourceSchemaAttributes() map[string]schema.Att
 			MarkdownDescription: `OpenVPN shared secret key
 
 `,
+			Description: `OpenVPN shared secret key
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -116,11 +119,17 @@ func (o PkiOpenvpnSharedSecret) ResourceSchemaAttributes() map[string]schema.Att
 			MarkdownDescription: `OpenVPN shared secret key data
 
 `,
+			Description: `OpenVPN shared secret key data
+
+`,
 		},
 
 		"version": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `OpenVPN shared secret key version
+
+`,
+			Description: `OpenVPN shared secret key version
 
 `,
 		},

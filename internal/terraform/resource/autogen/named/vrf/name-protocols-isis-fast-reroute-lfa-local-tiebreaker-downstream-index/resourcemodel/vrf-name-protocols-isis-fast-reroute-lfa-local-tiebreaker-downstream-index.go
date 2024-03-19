@@ -114,10 +114,15 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex) Resour
 			Required: true,
 			MarkdownDescription: `Set preference order among tiebreakers
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  The index integer value  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  1-255   &emsp;|  The index integer value  |
+`,
+			Description: `Set preference order among tiebreakers
 
+    |  Format  |  Description              |
+    |----------------|---------------------------|
+    |  1-255   |  The index integer value  |
 `,
 			PlanModifiers: []planmodifier.Number{
 				numberplanmodifier.RequiresReplace(),
@@ -128,10 +133,15 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex) Resour
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -158,6 +168,9 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex) Resour
 			MarkdownDescription: `Match on IS-IS level-1 routes
 
 `,
+			Description: `Match on IS-IS level-1 routes
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -165,6 +178,9 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex) Resour
 		"level_2": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Match on IS-IS level-2 routes
+
+`,
+			Description: `Match on IS-IS level-2 routes
 
 `,
 			Default:  booldefault.StaticBool(false),

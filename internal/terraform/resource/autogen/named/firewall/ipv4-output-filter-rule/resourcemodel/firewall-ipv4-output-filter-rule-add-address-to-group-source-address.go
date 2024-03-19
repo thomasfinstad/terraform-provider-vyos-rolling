@@ -33,19 +33,30 @@ func (o FirewallIPvfourOutputFilterRuleAddAddressToGroupSourceAddress) ResourceS
 			MarkdownDescription: `Dynamic address-group
 
 `,
+			Description: `Dynamic address-group
+
+`,
 		},
 
 		"timeout": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Set timeout
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <number>s  &emsp; |  Timeout value in seconds  |
-    |  <number>m  &emsp; |  Timeout value in minutes  |
-    |  <number>h  &emsp; |  Timeout value in hours  |
-    |  <number>d  &emsp; |  Timeout value in days  |
+    |  Format           &emsp;|  Description               |
+    |-------------------------|----------------------------|
+    |  &lt;number&gt;s  &emsp;|  Timeout value in seconds  |
+    |  &lt;number&gt;m  &emsp;|  Timeout value in minutes  |
+    |  &lt;number&gt;h  &emsp;|  Timeout value in hours    |
+    |  &lt;number&gt;d  &emsp;|  Timeout value in days     |
+`,
+			Description: `Set timeout
 
+    |  Format           |  Description               |
+    |-------------------------|----------------------------|
+    |  <number>s  |  Timeout value in seconds  |
+    |  <number>m  |  Timeout value in minutes  |
+    |  <number>h  |  Timeout value in hours    |
+    |  <number>d  |  Timeout value in days     |
 `,
 		},
 

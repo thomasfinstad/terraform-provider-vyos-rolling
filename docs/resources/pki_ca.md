@@ -43,9 +43,9 @@ Certificate Authority
 - `crl` (List of String) Certificate revocation list in PEM format
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `private` (Attributes) CA private key in PEM format (see [below for nested schema](#nestedatt--private))
 - `revoke` (Boolean) Include certificate in parent CRL
 

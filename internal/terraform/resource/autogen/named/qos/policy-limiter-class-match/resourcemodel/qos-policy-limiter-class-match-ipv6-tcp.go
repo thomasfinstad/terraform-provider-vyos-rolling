@@ -34,6 +34,9 @@ func (o QosPolicyLimiterClassMatchIPvsixTCP) ResourceSchemaAttributes() map[stri
 			MarkdownDescription: `Match TCP ACK
 
 `,
+			Description: `Match TCP ACK
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -41,6 +44,9 @@ func (o QosPolicyLimiterClassMatchIPvsixTCP) ResourceSchemaAttributes() map[stri
 		"syn": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Match TCP SYN
+
+`,
+			Description: `Match TCP SYN
 
 `,
 			Default:  booldefault.StaticBool(false),

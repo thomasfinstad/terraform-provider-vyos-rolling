@@ -88,10 +88,15 @@ func (o QosInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Required: true,
 			MarkdownDescription: `Interface to apply QoS policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Interface name  |
+`,
+			Description: `Interface to apply QoS policy
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  txt     |  Interface name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -117,10 +122,15 @@ func (o QosInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Interface ingress traffic policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  QoS policy to use  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  QoS policy to use  |
+`,
+			Description: `Interface ingress traffic policy
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  QoS policy to use  |
 `,
 		},
 
@@ -128,10 +138,15 @@ func (o QosInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Interface egress traffic policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  QoS policy to use  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  QoS policy to use  |
+`,
+			Description: `Interface egress traffic policy
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  QoS policy to use  |
 `,
 		},
 

@@ -92,6 +92,9 @@ func (o FirewallGroupAddressGroup) ResourceSchemaAttributes() map[string]schema.
 			MarkdownDescription: `Firewall address-group
 
 `,
+			Description: `Firewall address-group
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -117,11 +120,17 @@ func (o FirewallGroupAddressGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional:    true,
 			MarkdownDescription: `Address-group member
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 address to match  |
-    |  ipv4range  &emsp; |  IPv4 range to match (e.g. 10.0.0.1-10.0.0.200)  |
+    |  Format     &emsp;|  Description                                     |
+    |-------------------|--------------------------------------------------|
+    |  ipv4       &emsp;|  IPv4 address to match                           |
+    |  ipv4range  &emsp;|  IPv4 range to match (e.g. 10.0.0.1-10.0.0.200)  |
+`,
+			Description: `Address-group member
 
+    |  Format     |  Description                                     |
+    |-------------------|--------------------------------------------------|
+    |  ipv4       |  IPv4 address to match                           |
+    |  ipv4range  |  IPv4 range to match (e.g. 10.0.0.1-10.0.0.200)  |
 `,
 		},
 
@@ -131,16 +140,24 @@ func (o FirewallGroupAddressGroup) ResourceSchemaAttributes() map[string]schema.
 			MarkdownDescription: `Include another address-group
 
 `,
+			Description: `Include another address-group
+
+`,
 		},
 
 		"description": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 

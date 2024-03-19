@@ -39,12 +39,18 @@ func (o VrfNameProtocols) ResourceSchemaAttributes() map[string]schema.Attribute
 			MarkdownDescription: `Border Gateway Protocol (BGP)
 
 `,
+			Description: `Border Gateway Protocol (BGP)
+
+`,
 		},
 
 		"eigrp": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsEigrp{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Enhanced Interior Gateway Routing Protocol (EIGRP)
+
+`,
+			Description: `Enhanced Interior Gateway Routing Protocol (EIGRP)
 
 `,
 		},
@@ -55,12 +61,18 @@ func (o VrfNameProtocols) ResourceSchemaAttributes() map[string]schema.Attribute
 			MarkdownDescription: `Intermediate System to Intermediate System (IS-IS)
 
 `,
+			Description: `Intermediate System to Intermediate System (IS-IS)
+
+`,
 		},
 
 		"ospf": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspf{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Open Shortest Path First (OSPF)
+
+`,
+			Description: `Open Shortest Path First (OSPF)
 
 `,
 		},
@@ -71,12 +83,18 @@ func (o VrfNameProtocols) ResourceSchemaAttributes() map[string]schema.Attribute
 			MarkdownDescription: `Open Shortest Path First (OSPF) for IPv6
 
 `,
+			Description: `Open Shortest Path First (OSPF) for IPv6
+
+`,
 		},
 
 		"static": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsStatic{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Static Routing
+
+`,
+			Description: `Static Routing
 
 `,
 		},

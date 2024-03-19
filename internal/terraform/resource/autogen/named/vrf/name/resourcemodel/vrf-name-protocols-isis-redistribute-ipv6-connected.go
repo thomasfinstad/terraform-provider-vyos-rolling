@@ -35,12 +35,18 @@ func (o VrfNameProtocolsIsisRedistributeIPvsixConnected) ResourceSchemaAttribute
 			MarkdownDescription: `Redistribute into level-1
 
 `,
+			Description: `Redistribute into level-1
+
+`,
 		},
 
 		"level_2": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsIsisRedistributeIPvsixConnectedLevelTwo{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute into level-2
+
+`,
+			Description: `Redistribute into level-2
 
 `,
 		},

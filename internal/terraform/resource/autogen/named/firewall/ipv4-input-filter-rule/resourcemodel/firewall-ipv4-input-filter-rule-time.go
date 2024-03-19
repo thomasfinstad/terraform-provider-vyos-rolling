@@ -35,10 +35,15 @@ func (o FirewallIPvfourInputFilterRuleTime) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Date to start matching rule
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Enter date using following notation - YYYY-MM-DD  |
+    |  Format  &emsp;|  Description                                       |
+    |----------------|----------------------------------------------------|
+    |  txt     &emsp;|  Enter date using following notation - YYYY-MM-DD  |
+`,
+			Description: `Date to start matching rule
 
+    |  Format  |  Description                                       |
+    |----------------|----------------------------------------------------|
+    |  txt     |  Enter date using following notation - YYYY-MM-DD  |
 `,
 		},
 
@@ -46,10 +51,15 @@ func (o FirewallIPvfourInputFilterRuleTime) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Time of day to start matching rule
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Enter time using using 24 hour notation - hh:mm:ss  |
+    |  Format  &emsp;|  Description                                         |
+    |----------------|------------------------------------------------------|
+    |  txt     &emsp;|  Enter time using using 24 hour notation - hh:mm:ss  |
+`,
+			Description: `Time of day to start matching rule
 
+    |  Format  |  Description                                         |
+    |----------------|------------------------------------------------------|
+    |  txt     |  Enter time using using 24 hour notation - hh:mm:ss  |
 `,
 		},
 
@@ -57,10 +67,15 @@ func (o FirewallIPvfourInputFilterRuleTime) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Date to stop matching rule
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Enter date using following notation - YYYY-MM-DD  |
+    |  Format  &emsp;|  Description                                       |
+    |----------------|----------------------------------------------------|
+    |  txt     &emsp;|  Enter date using following notation - YYYY-MM-DD  |
+`,
+			Description: `Date to stop matching rule
 
+    |  Format  |  Description                                       |
+    |----------------|----------------------------------------------------|
+    |  txt     |  Enter date using following notation - YYYY-MM-DD  |
 `,
 		},
 
@@ -68,10 +83,15 @@ func (o FirewallIPvfourInputFilterRuleTime) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Time of day to stop matching rule
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Enter time using using 24 hour notation - hh:mm:ss  |
+    |  Format  &emsp;|  Description                                         |
+    |----------------|------------------------------------------------------|
+    |  txt     &emsp;|  Enter time using using 24 hour notation - hh:mm:ss  |
+`,
+			Description: `Time of day to stop matching rule
 
+    |  Format  |  Description                                         |
+    |----------------|------------------------------------------------------|
+    |  txt     |  Enter time using using 24 hour notation - hh:mm:ss  |
 `,
 		},
 
@@ -79,11 +99,17 @@ func (o FirewallIPvfourInputFilterRuleTime) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Comma separated weekdays to match rule on
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Name of day (Monday, Tuesday, Wednesday, Thursdays, Friday, Saturday, Sunday)  |
-    |  number: 0-6  &emsp; |  Day number (0 = Sunday ... 6 = Saturday)  |
+    |  Format  &emsp;|  Description                                                                    |
+    |----------------|---------------------------------------------------------------------------------|
+    |  txt     &emsp;|  Name of day (Monday, Tuesday, Wednesday, Thursdays, Friday, Saturday, Sunday)  |
+    |  0-6     &emsp;|  Day number (0 = Sunday ... 6 = Saturday)                                       |
+`,
+			Description: `Comma separated weekdays to match rule on
 
+    |  Format  |  Description                                                                    |
+    |----------------|---------------------------------------------------------------------------------|
+    |  txt     |  Name of day (Monday, Tuesday, Wednesday, Thursdays, Friday, Saturday, Sunday)  |
+    |  0-6     |  Day number (0 = Sunday ... 6 = Saturday)                                       |
 `,
 		},
 

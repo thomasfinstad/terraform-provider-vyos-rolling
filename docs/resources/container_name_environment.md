@@ -52,9 +52,9 @@ Add custom environment variables
 
 - `value` (String) Set environment option value
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Set environment option value  |
+    |  Format  &emsp;|  Description                   |
+    |----------------|--------------------------------|
+    |  txt     &emsp;|  Set environment option value  |
 
 ### Read-Only
 

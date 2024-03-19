@@ -34,6 +34,9 @@ func (o VrfNameProtocolsBgpBmpTargetMonitorIPvsixUnicast) ResourceSchemaAttribut
 			MarkdownDescription: `Send state before policy and filter processing
 
 `,
+			Description: `Send state before policy and filter processing
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -41,6 +44,9 @@ func (o VrfNameProtocolsBgpBmpTargetMonitorIPvsixUnicast) ResourceSchemaAttribut
 		"post_policy": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Send state with policy and filters applied
+
+`,
+			Description: `Send state with policy and filters applied
 
 `,
 			Default:  booldefault.StaticBool(false),

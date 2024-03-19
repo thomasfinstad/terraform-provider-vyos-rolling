@@ -33,16 +33,24 @@ func (o PolicyRouteMapRuleOnMatch) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Rule number to goto on match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65535  &emsp; |  Rule number  |
+    |  Format   &emsp;|  Description  |
+    |-----------------|---------------|
+    |  1-65535  &emsp;|  Rule number  |
+`,
+			Description: `Rule number to goto on match
 
+    |  Format   |  Description  |
+    |-----------------|---------------|
+    |  1-65535  |  Rule number  |
 `,
 		},
 
 		"next": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Next sequence number to goto on match
+
+`,
+			Description: `Next sequence number to goto on match
 
 `,
 			Default:  booldefault.StaticBool(false),

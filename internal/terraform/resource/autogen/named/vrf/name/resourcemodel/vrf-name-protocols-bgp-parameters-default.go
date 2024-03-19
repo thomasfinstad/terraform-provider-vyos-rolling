@@ -31,10 +31,15 @@ func (o VrfNameProtocolsBgpParametersDefault) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Default local preference
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  Local preference  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  u32     &emsp;|  Local preference  |
+`,
+			Description: `Default local preference
 
+    |  Format  |  Description       |
+    |----------------|--------------------|
+    |  u32     |  Local preference  |
 `,
 		},
 

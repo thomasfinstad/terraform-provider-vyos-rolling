@@ -34,6 +34,9 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrf) R
 			MarkdownDescription: `Advertise prefix-list ORF capability to this peer
 
 `,
+			Description: `Advertise prefix-list ORF capability to this peer
+
+`,
 		},
 	}
 }

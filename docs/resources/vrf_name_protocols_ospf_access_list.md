@@ -67,27 +67,27 @@ Access list to filter networks in routing updates
 
 - `access_list_id` (Number) Access list to filter networks in routing updates
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  Access-list number  |
+    |  Format  &emsp;|  Description         |
+    |----------------|----------------------|
+    |  u32     &emsp;|  Access-list number  |
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 
 ### Optional
 
 - `export` (List of String) Filter for outgoing routing update
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  bgp  &emsp; |  Filter BGP routes  |
-    |  connected  &emsp; |  Filter connected routes  |
-    |  isis  &emsp; |  Filter IS-IS routes  |
-    |  kernel  &emsp; |  Filter Kernel routes  |
-    |  rip  &emsp; |  Filter RIP routes  |
-    |  static  &emsp; |  Filter static routes  |
+    |  Format     &emsp;|  Description              |
+    |-------------------|---------------------------|
+    |  bgp        &emsp;|  Filter BGP routes        |
+    |  connected  &emsp;|  Filter connected routes  |
+    |  isis       &emsp;|  Filter IS-IS routes      |
+    |  kernel     &emsp;|  Filter Kernel routes     |
+    |  rip        &emsp;|  Filter RIP routes        |
+    |  static     &emsp;|  Filter static routes     |
 
 ### Read-Only
 

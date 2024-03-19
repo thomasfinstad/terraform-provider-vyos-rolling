@@ -114,10 +114,15 @@ func (o VrfNameProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes() map[strin
 			Required: true,
 			MarkdownDescription: `Specify alternate ASN for this BGP process
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4294967294  &emsp; |  Autonomous System Number (ASN)  |
+    |  Format        &emsp;|  Description                     |
+    |----------------------|----------------------------------|
+    |  1-4294967294  &emsp;|  Autonomous System Number (ASN)  |
+`,
+			Description: `Specify alternate ASN for this BGP process
 
+    |  Format        |  Description                     |
+    |----------------------|----------------------------------|
+    |  1-4294967294  |  Autonomous System Number (ASN)  |
 `,
 			PlanModifiers: []planmodifier.Number{
 				numberplanmodifier.RequiresReplace(),
@@ -128,10 +133,15 @@ func (o VrfNameProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes() map[strin
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -155,12 +165,19 @@ func (o VrfNameProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes() map[strin
 			Required: true,
 			MarkdownDescription: `BGP neighbor
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  BGP neighbor IP address  |
-    |  ipv6  &emsp; |  BGP neighbor IPv6 address  |
-    |  txt  &emsp; |  Interface name  |
+    |  Format  &emsp;|  Description                |
+    |----------------|-----------------------------|
+    |  ipv4    &emsp;|  BGP neighbor IP address    |
+    |  ipv6    &emsp;|  BGP neighbor IPv6 address  |
+    |  txt     &emsp;|  Interface name             |
+`,
+			Description: `BGP neighbor
 
+    |  Format  |  Description                |
+    |----------------|-----------------------------|
+    |  ipv4    |  BGP neighbor IP address    |
+    |  ipv6    |  BGP neighbor IPv6 address  |
+    |  txt     |  Interface name             |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -188,6 +205,9 @@ func (o VrfNameProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes() map[strin
 			Attributes: VrfNameProtocolsBgpNeighborLocalAsNoPrepend{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Disable prepending local-as from/to updates for eBGP peers
+
+`,
+			Description: `Disable prepending local-as from/to updates for eBGP peers
 
 `,
 		},

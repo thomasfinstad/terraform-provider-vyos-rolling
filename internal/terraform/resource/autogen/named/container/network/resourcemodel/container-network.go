@@ -90,6 +90,9 @@ func (o ContainerNetwork) ResourceSchemaAttributes() map[string]schema.Attribute
 			MarkdownDescription: `Network name
 
 `,
+			Description: `Network name
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -114,10 +117,15 @@ func (o ContainerNetwork) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -126,11 +134,17 @@ func (o ContainerNetwork) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional:    true,
 			MarkdownDescription: `Prefix which allocated to that network
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  IPv4 network prefix  |
-    |  ipv6net  &emsp; |  IPv6 network prefix  |
+    |  Format   &emsp;|  Description          |
+    |-----------------|-----------------------|
+    |  ipv4net  &emsp;|  IPv4 network prefix  |
+    |  ipv6net  &emsp;|  IPv6 network prefix  |
+`,
+			Description: `Prefix which allocated to that network
 
+    |  Format   |  Description          |
+    |-----------------|-----------------------|
+    |  ipv4net  |  IPv4 network prefix  |
+    |  ipv6net  |  IPv6 network prefix  |
 `,
 		},
 
@@ -138,10 +152,15 @@ func (o ContainerNetwork) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `VRF instance name
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `VRF instance name
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 		},
 

@@ -33,10 +33,15 @@ func (o FirewallIPvfourForwardFilterRuleIcmp) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `ICMP code
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-255  &emsp; |  ICMP code (0-255)  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  0-255   &emsp;|  ICMP code (0-255)  |
+`,
+			Description: `ICMP code
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  0-255   |  ICMP code (0-255)  |
 `,
 		},
 
@@ -44,10 +49,15 @@ func (o FirewallIPvfourForwardFilterRuleIcmp) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `ICMP type
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-255  &emsp; |  ICMP type (0-255)  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  0-255   &emsp;|  ICMP type (0-255)  |
+`,
+			Description: `ICMP type
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  0-255   |  ICMP type (0-255)  |
 `,
 		},
 
@@ -55,24 +65,43 @@ func (o FirewallIPvfourForwardFilterRuleIcmp) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `ICMP type-name
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  echo-reply  &emsp; |  ICMP type 0: echo-reply  |
-    |  destination-unreachable  &emsp; |  ICMP type 3: destination-unreachable  |
-    |  source-quench  &emsp; |  ICMP type 4: source-quench  |
-    |  redirect  &emsp; |  ICMP type 5: redirect  |
-    |  echo-request  &emsp; |  ICMP type 8: echo-request  |
-    |  router-advertisement  &emsp; |  ICMP type 9: router-advertisement  |
-    |  router-solicitation  &emsp; |  ICMP type 10: router-solicitation  |
-    |  time-exceeded  &emsp; |  ICMP type 11: time-exceeded  |
-    |  parameter-problem  &emsp; |  ICMP type 12: parameter-problem  |
-    |  timestamp-request  &emsp; |  ICMP type 13: timestamp-request  |
-    |  timestamp-reply  &emsp; |  ICMP type 14: timestamp-reply  |
-    |  info-request  &emsp; |  ICMP type 15: info-request  |
-    |  info-reply  &emsp; |  ICMP type 16: info-reply  |
-    |  address-mask-request  &emsp; |  ICMP type 17: address-mask-request  |
-    |  address-mask-reply  &emsp; |  ICMP type 18: address-mask-reply  |
+    |  Format                   &emsp;|  Description                           |
+    |---------------------------------|----------------------------------------|
+    |  echo-reply               &emsp;|  ICMP type 0: echo-reply               |
+    |  destination-unreachable  &emsp;|  ICMP type 3: destination-unreachable  |
+    |  source-quench            &emsp;|  ICMP type 4: source-quench            |
+    |  redirect                 &emsp;|  ICMP type 5: redirect                 |
+    |  echo-request             &emsp;|  ICMP type 8: echo-request             |
+    |  router-advertisement     &emsp;|  ICMP type 9: router-advertisement     |
+    |  router-solicitation      &emsp;|  ICMP type 10: router-solicitation     |
+    |  time-exceeded            &emsp;|  ICMP type 11: time-exceeded           |
+    |  parameter-problem        &emsp;|  ICMP type 12: parameter-problem       |
+    |  timestamp-request        &emsp;|  ICMP type 13: timestamp-request       |
+    |  timestamp-reply          &emsp;|  ICMP type 14: timestamp-reply         |
+    |  info-request             &emsp;|  ICMP type 15: info-request            |
+    |  info-reply               &emsp;|  ICMP type 16: info-reply              |
+    |  address-mask-request     &emsp;|  ICMP type 17: address-mask-request    |
+    |  address-mask-reply       &emsp;|  ICMP type 18: address-mask-reply      |
+`,
+			Description: `ICMP type-name
 
+    |  Format                   |  Description                           |
+    |---------------------------------|----------------------------------------|
+    |  echo-reply               |  ICMP type 0: echo-reply               |
+    |  destination-unreachable  |  ICMP type 3: destination-unreachable  |
+    |  source-quench            |  ICMP type 4: source-quench            |
+    |  redirect                 |  ICMP type 5: redirect                 |
+    |  echo-request             |  ICMP type 8: echo-request             |
+    |  router-advertisement     |  ICMP type 9: router-advertisement     |
+    |  router-solicitation      |  ICMP type 10: router-solicitation     |
+    |  time-exceeded            |  ICMP type 11: time-exceeded           |
+    |  parameter-problem        |  ICMP type 12: parameter-problem       |
+    |  timestamp-request        |  ICMP type 13: timestamp-request       |
+    |  timestamp-reply          |  ICMP type 14: timestamp-reply         |
+    |  info-request             |  ICMP type 15: info-request            |
+    |  info-reply               |  ICMP type 16: info-reply              |
+    |  address-mask-request     |  ICMP type 17: address-mask-request    |
+    |  address-mask-reply       |  ICMP type 18: address-mask-reply      |
 `,
 		},
 

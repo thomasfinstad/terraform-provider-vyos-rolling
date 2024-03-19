@@ -33,6 +33,9 @@ func (o VrfNameIPNht) ResourceSchemaAttributes() map[string]schema.Attribute {
 			MarkdownDescription: `Do not resolve via default route
 
 `,
+			Description: `Do not resolve via default route
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},

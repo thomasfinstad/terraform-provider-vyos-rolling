@@ -57,61 +57,61 @@ Class ID
 
 - `class_id` (Number) Class ID
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4095  &emsp; |  Class Identifier  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  1-4095  &emsp;|  Class Identifier  |
 - `round_robin_id` (String) Deficit Round Robin Scheduler
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Policy name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Policy name  |
 
 ### Optional
 
 - `codel_quantum` (Number) Deficit in the fair queuing algorithm
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-1048576  &emsp; |  Number of bytes used as 'deficit'  |
+    |  Format     &emsp;|  Description                        |
+    |-------------------|-------------------------------------|
+    |  0-1048576  &emsp;|  Number of bytes used as 'deficit'  |
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `flows` (Number) Number of flows into which the incoming packets are classified
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-65536  &emsp; |  Number of flows  |
+    |  Format   &emsp;|  Description      |
+    |-----------------|-------------------|
+    |  1-65536  &emsp;|  Number of flows  |
 - `interval` (Number) Interval used to measure the delay
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  Interval in milliseconds  |
+    |  Format  &emsp;|  Description               |
+    |----------------|----------------------------|
+    |  u32     &emsp;|  Interval in milliseconds  |
 - `quantum` (Number) Packet scheduling quantum
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4294967295  &emsp; |  Packet scheduling quantum (bytes)  |
+    |  Format        &emsp;|  Description                        |
+    |----------------------|-------------------------------------|
+    |  1-4294967295  &emsp;|  Packet scheduling quantum (bytes)  |
 - `queue_limit` (Number) Maximum queue size
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4294967295  &emsp; |  Queue size in packets  |
+    |  Format        &emsp;|  Description            |
+    |----------------------|-------------------------|
+    |  1-4294967295  &emsp;|  Queue size in packets  |
 - `queue_type` (String) Queue type for default traffic
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  drop-tail  &emsp; |  First-In-First-Out (FIFO)  |
-    |  fair-queue  &emsp; |  Stochastic Fair Queue (SFQ)  |
-    |  fq-codel  &emsp; |  Fair Queue Codel  |
-    |  priority  &emsp; |  Priority queuing  |
-    |  random-detect  &emsp; |  Random Early Detection (RED)  |
+    |  Format         &emsp;|  Description                   |
+    |-----------------------|--------------------------------|
+    |  drop-tail      &emsp;|  First-In-First-Out (FIFO)     |
+    |  fair-queue     &emsp;|  Stochastic Fair Queue (SFQ)   |
+    |  fq-codel       &emsp;|  Fair Queue Codel              |
+    |  priority       &emsp;|  Priority queuing              |
+    |  random-detect  &emsp;|  Random Early Detection (RED)  |
 - `target` (Number) Acceptable minimum standing/persistent queue delay
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  Queue delay in milliseconds  |
+    |  Format  &emsp;|  Description                  |
+    |----------------|-------------------------------|
+    |  u32     &emsp;|  Queue delay in milliseconds  |
 
 ### Read-Only
 

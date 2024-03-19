@@ -87,22 +87,22 @@ Administrative distance for a specific BGP prefix
 
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `prefix_id` (String) Administrative distance for a specific BGP prefix
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  Administrative distance for a specific BGP prefix  |
+    |  Format   &emsp;|  Description                                        |
+    |-----------------|-----------------------------------------------------|
+    |  ipv4net  &emsp;|  Administrative distance for a specific BGP prefix  |
 
 ### Optional
 
 - `distance` (Number) Administrative distance for prefix
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Administrative distance for external BGP routes  |
+    |  Format  &emsp;|  Description                                      |
+    |----------------|---------------------------------------------------|
+    |  1-255   &emsp;|  Administrative distance for external BGP routes  |
 
 ### Read-Only
 

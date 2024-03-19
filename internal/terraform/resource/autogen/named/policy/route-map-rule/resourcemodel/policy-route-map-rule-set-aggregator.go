@@ -32,10 +32,15 @@ func (o PolicyRouteMapRuleSetAggregator) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `AS number of an aggregation
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4294967295  &emsp; |  Rule number  |
+    |  Format        &emsp;|  Description  |
+    |----------------------|---------------|
+    |  1-4294967295  &emsp;|  Rule number  |
+`,
+			Description: `AS number of an aggregation
 
+    |  Format        |  Description  |
+    |----------------------|---------------|
+    |  1-4294967295  |  Rule number  |
 `,
 		},
 
@@ -43,10 +48,15 @@ func (o PolicyRouteMapRuleSetAggregator) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `IP address of an aggregation
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IP address  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  ipv4    &emsp;|  IP address   |
+`,
+			Description: `IP address of an aggregation
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  ipv4    |  IP address   |
 `,
 		},
 

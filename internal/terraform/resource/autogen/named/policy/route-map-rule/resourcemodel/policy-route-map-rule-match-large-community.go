@@ -32,6 +32,9 @@ func (o PolicyRouteMapRuleMatchLargeCommunity) ResourceSchemaAttributes() map[st
 			MarkdownDescription: `BGP large-community-list to match
 
 `,
+			Description: `BGP large-community-list to match
+
+`,
 		},
 
 		// Nodes

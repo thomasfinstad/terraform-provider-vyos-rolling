@@ -77,23 +77,23 @@ BGP dynamic neighbors listen range
 
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `range_id` (String) BGP dynamic neighbors listen range
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  IPv4 dynamic neighbors listen range  |
-    |  ipv6net  &emsp; |  IPv6 dynamic neighbors listen range  |
+    |  Format   &emsp;|  Description                          |
+    |-----------------|---------------------------------------|
+    |  ipv4net  &emsp;|  IPv4 dynamic neighbors listen range  |
+    |  ipv6net  &emsp;|  IPv6 dynamic neighbors listen range  |
 
 ### Optional
 
 - `peer_group` (String) Peer group for this peer
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Peer-group name  |
+    |  Format  &emsp;|  Description      |
+    |----------------|-------------------|
+    |  txt     &emsp;|  Peer-group name  |
 
 ### Read-Only
 

@@ -34,16 +34,24 @@ func (o VrfNameProtocolsOspfAreaAreaTypeNssa) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Summary-default cost of an NSSA area
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-16777215  &emsp; |  Summary default cost  |
+    |  Format      &emsp;|  Description           |
+    |--------------------|------------------------|
+    |  0-16777215  &emsp;|  Summary default cost  |
+`,
+			Description: `Summary-default cost of an NSSA area
 
+    |  Format      |  Description           |
+    |--------------------|------------------------|
+    |  0-16777215  |  Summary default cost  |
 `,
 		},
 
 		"no_summary": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not inject inter-area routes into stub
+
+`,
+			Description: `Do not inject inter-area routes into stub
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -54,12 +62,19 @@ func (o VrfNameProtocolsOspfAreaAreaTypeNssa) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Configure NSSA-ABR
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  always  &emsp; |  Always translate LSA types  |
-    |  candidate  &emsp; |  Translate for election  |
-    |  never  &emsp; |  Never translate LSA types  |
+    |  Format     &emsp;|  Description                 |
+    |-------------------|------------------------------|
+    |  always     &emsp;|  Always translate LSA types  |
+    |  candidate  &emsp;|  Translate for election      |
+    |  never      &emsp;|  Never translate LSA types   |
+`,
+			Description: `Configure NSSA-ABR
 
+    |  Format     |  Description                 |
+    |-------------------|------------------------------|
+    |  always     |  Always translate LSA types  |
+    |  candidate  |  Translate for election      |
+    |  never      |  Never translate LSA types   |
 `,
 
 			// Default:          stringdefault.StaticString(`candidate`),

@@ -117,6 +117,9 @@ func (o QosPolicyRoundRobinClassMatch) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Class matching rule name
 
 `,
+			Description: `Class matching rule name
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -139,10 +142,15 @@ func (o QosPolicyRoundRobinClassMatch) ResourceSchemaAttributes() map[string]sch
 			Required: true,
 			MarkdownDescription: `Deficit Round Robin Scheduler
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Policy name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Policy name  |
+`,
+			Description: `Deficit Round Robin Scheduler
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Policy name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -166,10 +174,15 @@ func (o QosPolicyRoundRobinClassMatch) ResourceSchemaAttributes() map[string]sch
 			Required: true,
 			MarkdownDescription: `Class ID
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-4095  &emsp; |  Class Identifier  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  1-4095  &emsp;|  Class Identifier  |
+`,
+			Description: `Class ID
 
+    |  Format  |  Description       |
+    |----------------|--------------------|
+    |  1-4095  |  Class Identifier  |
 `,
 			PlanModifiers: []planmodifier.Number{
 				numberplanmodifier.RequiresReplace(),
@@ -182,10 +195,15 @@ func (o QosPolicyRoundRobinClassMatch) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -193,10 +211,15 @@ func (o QosPolicyRoundRobinClassMatch) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Interface to use
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Interface name  |
+`,
+			Description: `Interface to use
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  txt     |  Interface name  |
 `,
 		},
 
@@ -204,10 +227,15 @@ func (o QosPolicyRoundRobinClassMatch) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Match on mark applied by firewall
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  FW mark to match  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  u32     &emsp;|  FW mark to match  |
+`,
+			Description: `Match on mark applied by firewall
 
+    |  Format  |  Description       |
+    |----------------|--------------------|
+    |  u32     |  FW mark to match  |
 `,
 		},
 
@@ -215,10 +243,15 @@ func (o QosPolicyRoundRobinClassMatch) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Virtual Local Area Network (VLAN) ID for this match
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-4095  &emsp; |  Virtual Local Area Network (VLAN) tag   |
+    |  Format  &emsp;|  Description                             |
+    |----------------|------------------------------------------|
+    |  0-4095  &emsp;|  Virtual Local Area Network (VLAN) tag   |
+`,
+			Description: `Virtual Local Area Network (VLAN) ID for this match
 
+    |  Format  |  Description                             |
+    |----------------|------------------------------------------|
+    |  0-4095  |  Virtual Local Area Network (VLAN) tag   |
 `,
 		},
 
@@ -230,6 +263,9 @@ func (o QosPolicyRoundRobinClassMatch) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Ethernet header match
 
 `,
+			Description: `Ethernet header match
+
+`,
 		},
 
 		"ip": schema.SingleNestedAttribute{
@@ -238,12 +274,18 @@ func (o QosPolicyRoundRobinClassMatch) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `Match IP protocol header
 
 `,
+			Description: `Match IP protocol header
+
+`,
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
 			Attributes: QosPolicyRoundRobinClassMatchIPvsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Match IPv6 protocol header
+
+`,
+			Description: `Match IPv6 protocol header
 
 `,
 		},

@@ -35,6 +35,9 @@ func (o VrfNameIP) ResourceSchemaAttributes() map[string]schema.Attribute {
 			MarkdownDescription: `Disable IP forwarding on this interface
 
 `,
+			Description: `Disable IP forwarding on this interface
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -45,6 +48,9 @@ func (o VrfNameIP) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Attributes: VrfNameIPNht{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Filter Next Hop tracking route resolution
+
+`,
+			Description: `Filter Next Hop tracking route resolution
 
 `,
 		},

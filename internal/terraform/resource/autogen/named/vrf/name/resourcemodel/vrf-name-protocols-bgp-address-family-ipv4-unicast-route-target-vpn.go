@@ -33,10 +33,15 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpn) ResourceSc
 			Optional: true,
 			MarkdownDescription: `Route Target both import and export
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  &emsp;|  Description                                                     |
+    |----------------|------------------------------------------------------------------|
+    |  txt     &emsp;|  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+`,
+			Description: `Route Target both import and export
 
+    |  Format  |  Description                                                     |
+    |----------------|------------------------------------------------------------------|
+    |  txt     |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 `,
 		},
 
@@ -44,10 +49,15 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpn) ResourceSc
 			Optional: true,
 			MarkdownDescription: `Route Target import
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  &emsp;|  Description                                                     |
+    |----------------|------------------------------------------------------------------|
+    |  txt     &emsp;|  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+`,
+			Description: `Route Target import
 
+    |  Format  |  Description                                                     |
+    |----------------|------------------------------------------------------------------|
+    |  txt     |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 `,
 		},
 
@@ -55,10 +65,15 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTargetVpn) ResourceSc
 			Optional: true,
 			MarkdownDescription: `Route Target export
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  &emsp;|  Description                                                     |
+    |----------------|------------------------------------------------------------------|
+    |  txt     &emsp;|  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+`,
+			Description: `Route Target export
 
+    |  Format  |  Description                                                     |
+    |----------------|------------------------------------------------------------------|
+    |  txt     |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 `,
 		},
 

@@ -36,6 +36,9 @@ func (o PolicyRouteMapRuleMatchIP) ResourceSchemaAttributes() map[string]schema.
 			MarkdownDescription: `IP address of route to match
 
 `,
+			Description: `IP address of route to match
+
+`,
 		},
 
 		"nexthop": schema.SingleNestedAttribute{
@@ -44,12 +47,18 @@ func (o PolicyRouteMapRuleMatchIP) ResourceSchemaAttributes() map[string]schema.
 			MarkdownDescription: `IP next-hop of route to match
 
 `,
+			Description: `IP next-hop of route to match
+
+`,
 		},
 
 		"route_source": schema.SingleNestedAttribute{
 			Attributes: PolicyRouteMapRuleMatchIPRouteSource{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Match advertising source address of route
+
+`,
+			Description: `Match advertising source address of route
 
 `,
 		},

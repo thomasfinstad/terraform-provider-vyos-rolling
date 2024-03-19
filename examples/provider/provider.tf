@@ -36,7 +36,7 @@ resource "vyos_firewall_ipv4_name" "example" {
   description    = "Another terraform t ${plantimestamp()}"
 } */
 
-/* resource "vyos_firewall_ipv4_name" "example2" {
+resource "vyos_firewall_ipv4_name" "example2" {
   count = 1
 
   name_id = "TF-Example2-${count.index}-${replace(plantimestamp(), ":", "-")}"
@@ -58,7 +58,7 @@ resource "vyos_firewall_ipv4_name_rule" "example2" {
     type = 0
   }
 }
- */
+
 
 // Empty named resource
 resource "vyos_policy_access_list" "name" {

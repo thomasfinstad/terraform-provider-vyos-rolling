@@ -35,12 +35,18 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise) ResourceSchemaAttr
 			MarkdownDescription: `IPv4 address family
 
 `,
+			Description: `IPv4 address family
+
+`,
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 address family
+
+`,
+			Description: `IPv6 address family
 
 `,
 		},

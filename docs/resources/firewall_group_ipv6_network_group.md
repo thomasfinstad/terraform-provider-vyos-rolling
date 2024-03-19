@@ -51,15 +51,15 @@ Firewall ipv6-network-group
 
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `include` (List of String) Include another ipv6-network-group
 - `network` (List of String) Network-group member
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6net  &emsp; |  IPv6 address to match  |
+    |  Format   &emsp;|  Description            |
+    |-----------------|-------------------------|
+    |  ipv6net  &emsp;|  IPv6 address to match  |
 
 ### Read-Only
 

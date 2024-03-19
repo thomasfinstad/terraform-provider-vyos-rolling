@@ -35,12 +35,18 @@ func (o FirewallIPvsixNameRuleAddAddressToGroup) ResourceSchemaAttributes() map[
 			MarkdownDescription: `Add source ipv6 addresses to dynamic ipv6-address-group
 
 `,
+			Description: `Add source ipv6 addresses to dynamic ipv6-address-group
+
+`,
 		},
 
 		"destination_address": schema.SingleNestedAttribute{
 			Attributes: FirewallIPvsixNameRuleAddAddressToGroupDestinationAddress{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Add destination ipv6 addresses to dynamic ipv6-address-group
+
+`,
+			Description: `Add destination ipv6 addresses to dynamic ipv6-address-group
 
 `,
 		},

@@ -87,27 +87,27 @@ Import BGP network/prefix into unicast VPN IPv6 RIB
 
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `network_id` (String) Import BGP network/prefix into unicast VPN IPv6 RIB
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6net  &emsp; |  Unicast VPN IPv6 BGP network/prefix  |
+    |  Format   &emsp;|  Description                          |
+    |-----------------|---------------------------------------|
+    |  ipv6net  &emsp;|  Unicast VPN IPv6 BGP network/prefix  |
 
 ### Optional
 
 - `label` (Number) MPLS label value assigned to route
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-1048575  &emsp; |  MPLS label value  |
+    |  Format     &emsp;|  Description       |
+    |-------------------|--------------------|
+    |  0-1048575  &emsp;|  MPLS label value  |
 - `rd` (String) Route Distinguisher
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp; |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  Format                   &emsp;|  Description                                   |
+    |---------------------------------|------------------------------------------------|
+    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp;|  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 
 ### Read-Only
 

@@ -125,11 +125,17 @@ func (o VrfNameProtocolsStaticRouteNextHopBfdMultiHopSource) ResourceSchemaAttri
 			Required: true,
 			MarkdownDescription: `Use source for BFD session
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 source address  |
-    |  ipv6  &emsp; |  IPv6 source address  |
+    |  Format  &emsp;|  Description          |
+    |----------------|-----------------------|
+    |  ipv4    &emsp;|  IPv4 source address  |
+    |  ipv6    &emsp;|  IPv6 source address  |
+`,
+			Description: `Use source for BFD session
 
+    |  Format  |  Description          |
+    |----------------|-----------------------|
+    |  ipv4    |  IPv4 source address  |
+    |  ipv6    |  IPv6 source address  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -153,10 +159,15 @@ func (o VrfNameProtocolsStaticRouteNextHopBfdMultiHopSource) ResourceSchemaAttri
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -180,10 +191,15 @@ func (o VrfNameProtocolsStaticRouteNextHopBfdMultiHopSource) ResourceSchemaAttri
 			Required: true,
 			MarkdownDescription: `Static IPv4 route
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  IPv4 static route  |
+    |  Format   &emsp;|  Description        |
+    |-----------------|---------------------|
+    |  ipv4net  &emsp;|  IPv4 static route  |
+`,
+			Description: `Static IPv4 route
 
+    |  Format   |  Description        |
+    |-----------------|---------------------|
+    |  ipv4net  |  IPv4 static route  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -207,10 +223,15 @@ func (o VrfNameProtocolsStaticRouteNextHopBfdMultiHopSource) ResourceSchemaAttri
 			Required: true,
 			MarkdownDescription: `Next-hop IPv4 router address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  Next-hop router address  |
+    |  Format  &emsp;|  Description              |
+    |----------------|---------------------------|
+    |  ipv4    &emsp;|  Next-hop router address  |
+`,
+			Description: `Next-hop IPv4 router address
 
+    |  Format  |  Description              |
+    |----------------|---------------------------|
+    |  ipv4    |  Next-hop router address  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -236,10 +257,15 @@ func (o VrfNameProtocolsStaticRouteNextHopBfdMultiHopSource) ResourceSchemaAttri
 			Optional: true,
 			MarkdownDescription: `Use settings from BFD profile
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  BFD profile name  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  txt     &emsp;|  BFD profile name  |
+`,
+			Description: `Use settings from BFD profile
 
+    |  Format  |  Description       |
+    |----------------|--------------------|
+    |  txt     |  BFD profile name  |
 `,
 		},
 

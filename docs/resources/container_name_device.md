@@ -52,14 +52,14 @@ Add a host device to the container
 
 - `destination` (String) Destination container device (Example: "/dev/x")
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Destination container device  |
+    |  Format  &emsp;|  Description                   |
+    |----------------|--------------------------------|
+    |  txt     &emsp;|  Destination container device  |
 - `source` (String) Source device (Example: "/dev/x")
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Source device  |
+    |  Format  &emsp;|  Description    |
+    |----------------|-----------------|
+    |  txt     &emsp;|  Source device  |
 
 ### Read-Only
 

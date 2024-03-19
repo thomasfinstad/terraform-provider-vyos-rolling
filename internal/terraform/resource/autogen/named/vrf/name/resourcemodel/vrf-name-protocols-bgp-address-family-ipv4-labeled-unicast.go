@@ -36,6 +36,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicast) ResourceSchemaAtt
 			MarkdownDescription: `Forward packets over multiple paths
 
 `,
+			Description: `Forward packets over multiple paths
+
+`,
 		},
 	}
 }

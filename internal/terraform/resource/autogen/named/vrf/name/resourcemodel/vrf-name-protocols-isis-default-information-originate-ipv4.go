@@ -35,12 +35,18 @@ func (o VrfNameProtocolsIsisDefaultInformationOriginateIPvfour) ResourceSchemaAt
 			MarkdownDescription: `Distribute default route into level-1
 
 `,
+			Description: `Distribute default route into level-1
+
+`,
 		},
 
 		"level_2": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Distribute default route into level-2
+
+`,
+			Description: `Distribute default route into level-2
 
 `,
 		},

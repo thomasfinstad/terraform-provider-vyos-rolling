@@ -48,9 +48,9 @@ Zone from which to filter traffic
 - `from_id` (String) Zone from which to filter traffic
 - `zone_id` (String) Zone-policy
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Zone name  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Zone name    |
 
 ### Optional
 

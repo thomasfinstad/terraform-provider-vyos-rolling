@@ -92,6 +92,9 @@ func (o FirewallGroupMacGroup) ResourceSchemaAttributes() map[string]schema.Attr
 			MarkdownDescription: `Firewall mac-group
 
 `,
+			Description: `Firewall mac-group
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -116,10 +119,15 @@ func (o FirewallGroupMacGroup) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -128,10 +136,15 @@ func (o FirewallGroupMacGroup) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional:    true,
 			MarkdownDescription: `Mac-group member
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  macaddr  &emsp; |  MAC address to match  |
+    |  Format   &emsp;|  Description           |
+    |-----------------|------------------------|
+    |  macaddr  &emsp;|  MAC address to match  |
+`,
+			Description: `Mac-group member
 
+    |  Format   |  Description           |
+    |-----------------|------------------------|
+    |  macaddr  |  MAC address to match  |
 `,
 		},
 
@@ -139,6 +152,9 @@ func (o FirewallGroupMacGroup) ResourceSchemaAttributes() map[string]schema.Attr
 			ElementType: types.StringType,
 			Optional:    true,
 			MarkdownDescription: `Include another mac-group
+
+`,
+			Description: `Include another mac-group
 
 `,
 		},

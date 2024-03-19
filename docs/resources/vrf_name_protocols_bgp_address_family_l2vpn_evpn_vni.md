@@ -87,14 +87,14 @@ VXLAN Network Identifier
 
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `vni_id` (Number) VXLAN Network Identifier
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-16777215  &emsp; |  VNI number  |
+    |  Format      &emsp;|  Description  |
+    |--------------------|---------------|
+    |  1-16777215  &emsp;|  VNI number   |
 
 ### Optional
 
@@ -102,9 +102,9 @@ VXLAN Network Identifier
 - `advertise_svi_ip` (Boolean) Advertise svi mac-ip routes in EVPN
 - `rd` (String) Route Distinguisher
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp; |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  Format                   &emsp;|  Description                                   |
+    |---------------------------------|------------------------------------------------|
+    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp;|  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 - `route_target` (Attributes) Route Target (see [below for nested schema](#nestedatt--route_target))
 
 ### Read-Only
@@ -118,16 +118,16 @@ Optional:
 
 - `both` (List of String) Route Target both import and export
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  &emsp;|  Description                                |
+    |----------------|---------------------------------------------|
+    |  txt     &emsp;|  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `export` (List of String) Route Target export
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  &emsp;|  Description                                |
+    |----------------|---------------------------------------------|
+    |  txt     &emsp;|  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `import` (List of String) Route Target import
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  &emsp;|  Description                                |
+    |----------------|---------------------------------------------|
+    |  txt     &emsp;|  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |

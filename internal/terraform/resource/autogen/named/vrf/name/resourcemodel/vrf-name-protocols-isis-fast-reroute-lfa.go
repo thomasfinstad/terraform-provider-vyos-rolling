@@ -35,12 +35,18 @@ func (o VrfNameProtocolsIsisFastRerouteLfa) ResourceSchemaAttributes() map[strin
 			MarkdownDescription: `Remote loop free alternate options
 
 `,
+			Description: `Remote loop free alternate options
+
+`,
 		},
 
 		"local": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocal{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Local loop free alternate options
+
+`,
+			Description: `Local loop free alternate options
 
 `,
 		},

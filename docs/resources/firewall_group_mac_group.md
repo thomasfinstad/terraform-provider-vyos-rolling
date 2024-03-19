@@ -51,15 +51,15 @@ Firewall mac-group
 
 - `description` (String) Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
 - `include` (List of String) Include another mac-group
 - `mac_address` (List of String) Mac-group member
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  macaddr  &emsp; |  MAC address to match  |
+    |  Format   &emsp;|  Description           |
+    |-----------------|------------------------|
+    |  macaddr  &emsp;|  MAC address to match  |
 
 ### Read-Only
 

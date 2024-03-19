@@ -93,11 +93,17 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Policy for handling of all IPv4 ICMP echo requests
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable processing of all IPv4 ICMP echo requests  |
-    |  disable  &emsp; |  Disable processing of all IPv4 ICMP echo requests  |
+    |  Format   &emsp;|  Description                                        |
+    |-----------------|-----------------------------------------------------|
+    |  enable   &emsp;|  Enable processing of all IPv4 ICMP echo requests   |
+    |  disable  &emsp;|  Disable processing of all IPv4 ICMP echo requests  |
+`,
+			Description: `Policy for handling of all IPv4 ICMP echo requests
 
+    |  Format   |  Description                                        |
+    |-----------------|-----------------------------------------------------|
+    |  enable   |  Enable processing of all IPv4 ICMP echo requests   |
+    |  disable  |  Disable processing of all IPv4 ICMP echo requests  |
 `,
 
 			// Default:          stringdefault.StaticString(`enable`),
@@ -108,11 +114,17 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Policy for handling broadcast IPv4 ICMP echo and timestamp requests
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable processing of broadcast IPv4 ICMP echo/timestamp requests  |
-    |  disable  &emsp; |  Disable processing of broadcast IPv4 ICMP echo/timestamp requests  |
+    |  Format   &emsp;|  Description                                                        |
+    |-----------------|---------------------------------------------------------------------|
+    |  enable   &emsp;|  Enable processing of broadcast IPv4 ICMP echo/timestamp requests   |
+    |  disable  &emsp;|  Disable processing of broadcast IPv4 ICMP echo/timestamp requests  |
+`,
+			Description: `Policy for handling broadcast IPv4 ICMP echo and timestamp requests
 
+    |  Format   |  Description                                                        |
+    |-----------------|---------------------------------------------------------------------|
+    |  enable   |  Enable processing of broadcast IPv4 ICMP echo/timestamp requests   |
+    |  disable  |  Disable processing of broadcast IPv4 ICMP echo/timestamp requests  |
 `,
 
 			// Default:          stringdefault.StaticString(`disable`),
@@ -123,11 +135,17 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Policy for handling IPv4 packets with source route option
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable processing of IPv4 packets with source route option  |
-    |  disable  &emsp; |  Disable processing of IPv4 packets with source route option  |
+    |  Format   &emsp;|  Description                                                  |
+    |-----------------|---------------------------------------------------------------|
+    |  enable   &emsp;|  Enable processing of IPv4 packets with source route option   |
+    |  disable  &emsp;|  Disable processing of IPv4 packets with source route option  |
+`,
+			Description: `Policy for handling IPv4 packets with source route option
 
+    |  Format   |  Description                                                  |
+    |-----------------|---------------------------------------------------------------|
+    |  enable   |  Enable processing of IPv4 packets with source route option   |
+    |  disable  |  Disable processing of IPv4 packets with source route option  |
 `,
 
 			// Default:          stringdefault.StaticString(`disable`),
@@ -138,11 +156,17 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Policy for logging IPv4 packets with invalid addresses
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable logging of IPv4 packets with invalid addresses  |
-    |  disable  &emsp; |  Disable logging of Ipv4 packets with invalid addresses  |
+    |  Format   &emsp;|  Description                                             |
+    |-----------------|----------------------------------------------------------|
+    |  enable   &emsp;|  Enable logging of IPv4 packets with invalid addresses   |
+    |  disable  &emsp;|  Disable logging of Ipv4 packets with invalid addresses  |
+`,
+			Description: `Policy for logging IPv4 packets with invalid addresses
 
+    |  Format   |  Description                                             |
+    |-----------------|----------------------------------------------------------|
+    |  enable   |  Enable logging of IPv4 packets with invalid addresses   |
+    |  disable  |  Disable logging of Ipv4 packets with invalid addresses  |
 `,
 
 			// Default:          stringdefault.StaticString(`enable`),
@@ -153,11 +177,17 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Policy for handling received IPv4 ICMP redirect messages
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable processing of received IPv4 ICMP redirect messages  |
-    |  disable  &emsp; |  Disable processing of received IPv4 ICMP redirect messages  |
+    |  Format   &emsp;|  Description                                                 |
+    |-----------------|--------------------------------------------------------------|
+    |  enable   &emsp;|  Enable processing of received IPv4 ICMP redirect messages   |
+    |  disable  &emsp;|  Disable processing of received IPv4 ICMP redirect messages  |
+`,
+			Description: `Policy for handling received IPv4 ICMP redirect messages
 
+    |  Format   |  Description                                                 |
+    |-----------------|--------------------------------------------------------------|
+    |  enable   |  Enable processing of received IPv4 ICMP redirect messages   |
+    |  disable  |  Disable processing of received IPv4 ICMP redirect messages  |
 `,
 
 			// Default:          stringdefault.StaticString(`disable`),
@@ -169,6 +199,9 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes() map[string]schema.Attr
 			MarkdownDescription: `Retains last successful value if domain resolution fails
 
 `,
+			Description: `Retains last successful value if domain resolution fails
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -177,10 +210,15 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Domain resolver update interval
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 10-3600  &emsp; |  Interval (seconds)  |
+    |  Format   &emsp;|  Description         |
+    |-----------------|----------------------|
+    |  10-3600  &emsp;|  Interval (seconds)  |
+`,
+			Description: `Domain resolver update interval
 
+    |  Format   |  Description         |
+    |-----------------|----------------------|
+    |  10-3600  |  Interval (seconds)  |
 `,
 
 			// Default:          stringdefault.StaticString(`300`),
@@ -191,11 +229,17 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Policy for sending IPv4 ICMP redirect messages
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable sending IPv4 ICMP redirect messages  |
-    |  disable  &emsp; |  Disable sending IPv4 ICMP redirect messages  |
+    |  Format   &emsp;|  Description                                  |
+    |-----------------|-----------------------------------------------|
+    |  enable   &emsp;|  Enable sending IPv4 ICMP redirect messages   |
+    |  disable  &emsp;|  Disable sending IPv4 ICMP redirect messages  |
+`,
+			Description: `Policy for sending IPv4 ICMP redirect messages
 
+    |  Format   |  Description                                  |
+    |-----------------|-----------------------------------------------|
+    |  enable   |  Enable sending IPv4 ICMP redirect messages   |
+    |  disable  |  Disable sending IPv4 ICMP redirect messages  |
 `,
 
 			// Default:          stringdefault.StaticString(`enable`),
@@ -206,12 +250,19 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Policy for IPv4 source validation by reversed path, as specified in RFC3704
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  strict  &emsp; |  Enable IPv4 Strict Reverse Path Forwarding as defined in RFC3704  |
-    |  loose  &emsp; |  Enable IPv4 Loose Reverse Path Forwarding as defined in RFC3704  |
-    |  disable  &emsp; |  No IPv4 source validation  |
+    |  Format   &emsp;|  Description                                                       |
+    |-----------------|--------------------------------------------------------------------|
+    |  strict   &emsp;|  Enable IPv4 Strict Reverse Path Forwarding as defined in RFC3704  |
+    |  loose    &emsp;|  Enable IPv4 Loose Reverse Path Forwarding as defined in RFC3704   |
+    |  disable  &emsp;|  No IPv4 source validation                                         |
+`,
+			Description: `Policy for IPv4 source validation by reversed path, as specified in RFC3704
 
+    |  Format   |  Description                                                       |
+    |-----------------|--------------------------------------------------------------------|
+    |  strict   |  Enable IPv4 Strict Reverse Path Forwarding as defined in RFC3704  |
+    |  loose    |  Enable IPv4 Loose Reverse Path Forwarding as defined in RFC3704   |
+    |  disable  |  No IPv4 source validation                                         |
 `,
 
 			// Default:          stringdefault.StaticString(`disable`),
@@ -222,11 +273,17 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Policy for using TCP SYN cookies with IPv4
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable use of TCP SYN cookies with IPv4  |
-    |  disable  &emsp; |  Disable use of TCP SYN cookies with IPv4  |
+    |  Format   &emsp;|  Description                               |
+    |-----------------|--------------------------------------------|
+    |  enable   &emsp;|  Enable use of TCP SYN cookies with IPv4   |
+    |  disable  &emsp;|  Disable use of TCP SYN cookies with IPv4  |
+`,
+			Description: `Policy for using TCP SYN cookies with IPv4
 
+    |  Format   |  Description                               |
+    |-----------------|--------------------------------------------|
+    |  enable   |  Enable use of TCP SYN cookies with IPv4   |
+    |  disable  |  Disable use of TCP SYN cookies with IPv4  |
 `,
 
 			// Default:          stringdefault.StaticString(`enable`),
@@ -237,11 +294,17 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `RFC1337 TCP TIME-WAIT assasination hazards protection
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable RFC1337 TIME-WAIT hazards protection  |
-    |  disable  &emsp; |  Disable RFC1337 TIME-WAIT hazards protection  |
+    |  Format   &emsp;|  Description                                   |
+    |-----------------|------------------------------------------------|
+    |  enable   &emsp;|  Enable RFC1337 TIME-WAIT hazards protection   |
+    |  disable  &emsp;|  Disable RFC1337 TIME-WAIT hazards protection  |
+`,
+			Description: `RFC1337 TCP TIME-WAIT assasination hazards protection
 
+    |  Format   |  Description                                   |
+    |-----------------|------------------------------------------------|
+    |  enable   |  Enable RFC1337 TIME-WAIT hazards protection   |
+    |  disable  |  Disable RFC1337 TIME-WAIT hazards protection  |
 `,
 
 			// Default:          stringdefault.StaticString(`disable`),
@@ -252,11 +315,17 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Policy for handling received ICMPv6 redirect messages
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable processing of received ICMPv6 redirect messages  |
-    |  disable  &emsp; |  Disable processing of received ICMPv6 redirect messages  |
+    |  Format   &emsp;|  Description                                              |
+    |-----------------|-----------------------------------------------------------|
+    |  enable   &emsp;|  Enable processing of received ICMPv6 redirect messages   |
+    |  disable  &emsp;|  Disable processing of received ICMPv6 redirect messages  |
+`,
+			Description: `Policy for handling received ICMPv6 redirect messages
 
+    |  Format   |  Description                                              |
+    |-----------------|-----------------------------------------------------------|
+    |  enable   |  Enable processing of received ICMPv6 redirect messages   |
+    |  disable  |  Disable processing of received ICMPv6 redirect messages  |
 `,
 
 			// Default:          stringdefault.StaticString(`disable`),
@@ -267,12 +336,19 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Policy for IPv6 source validation by reversed path, as specified in RFC3704
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  strict  &emsp; |  Enable IPv6 Strict Reverse Path Forwarding as defined in RFC3704  |
-    |  loose  &emsp; |  Enable IPv6 Loose Reverse Path Forwarding as defined in RFC3704  |
-    |  disable  &emsp; |  No IPv6 source validation  |
+    |  Format   &emsp;|  Description                                                       |
+    |-----------------|--------------------------------------------------------------------|
+    |  strict   &emsp;|  Enable IPv6 Strict Reverse Path Forwarding as defined in RFC3704  |
+    |  loose    &emsp;|  Enable IPv6 Loose Reverse Path Forwarding as defined in RFC3704   |
+    |  disable  &emsp;|  No IPv6 source validation                                         |
+`,
+			Description: `Policy for IPv6 source validation by reversed path, as specified in RFC3704
 
+    |  Format   |  Description                                                       |
+    |-----------------|--------------------------------------------------------------------|
+    |  strict   |  Enable IPv6 Strict Reverse Path Forwarding as defined in RFC3704  |
+    |  loose    |  Enable IPv6 Loose Reverse Path Forwarding as defined in RFC3704   |
+    |  disable  |  No IPv6 source validation                                         |
 `,
 
 			// Default:          stringdefault.StaticString(`disable`),
@@ -283,11 +359,17 @@ func (o FirewallGlobalOptions) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Policy for handling IPv6 packets with routing extension header
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  enable  &emsp; |  Enable processing of IPv6 packets with routing header type 2  |
-    |  disable  &emsp; |  Disable processing of IPv6 packets with routing header  |
+    |  Format   &emsp;|  Description                                                   |
+    |-----------------|----------------------------------------------------------------|
+    |  enable   &emsp;|  Enable processing of IPv6 packets with routing header type 2  |
+    |  disable  &emsp;|  Disable processing of IPv6 packets with routing header        |
+`,
+			Description: `Policy for handling IPv6 packets with routing extension header
 
+    |  Format   |  Description                                                   |
+    |-----------------|----------------------------------------------------------------|
+    |  enable   |  Enable processing of IPv6 packets with routing header type 2  |
+    |  disable  |  Disable processing of IPv6 packets with routing header        |
 `,
 
 			// Default:          stringdefault.StaticString(`disable`),

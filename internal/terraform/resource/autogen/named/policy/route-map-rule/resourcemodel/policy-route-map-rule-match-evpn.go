@@ -36,6 +36,9 @@ func (o PolicyRouteMapRuleMatchEvpn) ResourceSchemaAttributes() map[string]schem
 			MarkdownDescription: `Default EVPN type-5 route
 
 `,
+			Description: `Default EVPN type-5 route
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -44,10 +47,15 @@ func (o PolicyRouteMapRuleMatchEvpn) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Route Distinguisher
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp; |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  Format                   &emsp;|  Description                                   |
+    |---------------------------------|------------------------------------------------|
+    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp;|  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+`,
+			Description: `Route Distinguisher
 
+    |  Format                   |  Description                                   |
+    |---------------------------------|------------------------------------------------|
+    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 `,
 		},
 
@@ -55,12 +63,19 @@ func (o PolicyRouteMapRuleMatchEvpn) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Match route-type
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  macip  &emsp; |  mac-ip route  |
-    |  multicast  &emsp; |  IMET route  |
-    |  prefix  &emsp; |  Prefix route  |
+    |  Format     &emsp;|  Description   |
+    |-------------------|----------------|
+    |  macip      &emsp;|  mac-ip route  |
+    |  multicast  &emsp;|  IMET route    |
+    |  prefix     &emsp;|  Prefix route  |
+`,
+			Description: `Match route-type
 
+    |  Format     |  Description   |
+    |-------------------|----------------|
+    |  macip      |  mac-ip route  |
+    |  multicast  |  IMET route    |
+    |  prefix     |  Prefix route  |
 `,
 		},
 
@@ -68,10 +83,15 @@ func (o PolicyRouteMapRuleMatchEvpn) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Virtual Network Identifier
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-16777214  &emsp; |  VXLAN virtual network identifier  |
+    |  Format      &emsp;|  Description                       |
+    |--------------------|------------------------------------|
+    |  0-16777214  &emsp;|  VXLAN virtual network identifier  |
+`,
+			Description: `Virtual Network Identifier
 
+    |  Format      |  Description                       |
+    |--------------------|------------------------------------|
+    |  0-16777214  |  VXLAN virtual network identifier  |
 `,
 		},
 

@@ -56,30 +56,30 @@ Gratuitous ARP parameters
 
 - `interval` (String) Interval between Gratuitous ARP
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  <0.000-1000>  &emsp; |  Interval in seconds, resolution microseconds  |
+    |  Format              &emsp;|  Description                                   |
+    |----------------------------|------------------------------------------------|
+    |  &lt;0.000-1000&gt;  &emsp;|  Interval in seconds, resolution microseconds  |
 - `master_delay` (Number) Delay for second set of gratuitous ARPs after transition to master
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-1000  &emsp; |  Delay in seconds  |
+    |  Format  &emsp;|  Description       |
+    |----------------|--------------------|
+    |  1-1000  &emsp;|  Delay in seconds  |
 - `master_refresh` (Number) Minimum time interval for refreshing gratuitous ARPs while beeing master
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0  &emsp; |  No refresh  |
-    |  number: 1-255  &emsp; |  Interval in seconds  |
+    |  Format  &emsp;|  Description          |
+    |----------------|-----------------------|
+    |  0       &emsp;|  No refresh           |
+    |  1-255   &emsp;|  Interval in seconds  |
 - `master_refresh_repeat` (Number) Number of gratuitous ARP messages to send at a time while beeing master
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Number of gratuitous ARP messages  |
+    |  Format  &emsp;|  Description                        |
+    |----------------|-------------------------------------|
+    |  1-255   &emsp;|  Number of gratuitous ARP messages  |
 - `master_repeat` (Number) Number of gratuitous ARP messages to send at a time after transition to master
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Number of gratuitous ARP messages  |
+    |  Format  &emsp;|  Description                        |
+    |----------------|-------------------------------------|
+    |  1-255   &emsp;|  Number of gratuitous ARP messages  |
 
 ### Read-Only
 

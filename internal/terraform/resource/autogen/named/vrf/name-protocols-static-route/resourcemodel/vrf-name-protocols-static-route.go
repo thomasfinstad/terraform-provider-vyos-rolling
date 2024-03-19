@@ -106,10 +106,15 @@ func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schem
 			Required: true,
 			MarkdownDescription: `Static IPv4 route
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4net  &emsp; |  IPv4 static route  |
+    |  Format   &emsp;|  Description        |
+    |-----------------|---------------------|
+    |  ipv4net  &emsp;|  IPv4 static route  |
+`,
+			Description: `Static IPv4 route
 
+    |  Format   |  Description        |
+    |-----------------|---------------------|
+    |  ipv4net  |  IPv4 static route  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -133,10 +138,15 @@ func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schem
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -162,10 +172,15 @@ func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `DHCP interface supplying next-hop IP address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  DHCP interface name  |
+    |  Format  &emsp;|  Description          |
+    |----------------|-----------------------|
+    |  txt     &emsp;|  DHCP interface name  |
+`,
+			Description: `DHCP interface supplying next-hop IP address
 
+    |  Format  |  Description          |
+    |----------------|-----------------------|
+    |  txt     |  DHCP interface name  |
 `,
 		},
 
@@ -173,10 +188,15 @@ func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
@@ -188,12 +208,18 @@ func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schem
 			MarkdownDescription: `Silently discard pkts when matched
 
 `,
+			Description: `Silently discard pkts when matched
+
+`,
 		},
 
 		"reject": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsStaticRouteReject{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Emit an ICMP unreachable when matched
+
+`,
+			Description: `Emit an ICMP unreachable when matched
 
 `,
 		},

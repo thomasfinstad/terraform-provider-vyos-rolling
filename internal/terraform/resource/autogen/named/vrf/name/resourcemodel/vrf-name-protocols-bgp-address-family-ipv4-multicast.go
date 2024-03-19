@@ -36,6 +36,9 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticast) ResourceSchemaAttribut
 			MarkdownDescription: `Administrative distances for BGP routes
 
 `,
+			Description: `Administrative distances for BGP routes
+
+`,
 		},
 	}
 }

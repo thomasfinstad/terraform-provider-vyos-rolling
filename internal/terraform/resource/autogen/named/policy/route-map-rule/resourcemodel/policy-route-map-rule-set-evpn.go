@@ -34,6 +34,9 @@ func (o PolicyRouteMapRuleSetEvpn) ResourceSchemaAttributes() map[string]schema.
 			MarkdownDescription: `Set gateway IP for prefix advertisement route
 
 `,
+			Description: `Set gateway IP for prefix advertisement route
+
+`,
 		},
 	}
 }

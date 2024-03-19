@@ -35,12 +35,18 @@ func (o PolicyRouteMapRuleMatchIPvsix) ResourceSchemaAttributes() map[string]sch
 			MarkdownDescription: `IPv6 address of route to match
 
 `,
+			Description: `IPv6 address of route to match
+
+`,
 		},
 
 		"nexthop": schema.SingleNestedAttribute{
 			Attributes: PolicyRouteMapRuleMatchIPvsixNexthop{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 next-hop of route to match
+
+`,
+			Description: `IPv6 next-hop of route to match
 
 `,
 		},

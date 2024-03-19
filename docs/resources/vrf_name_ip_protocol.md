@@ -57,31 +57,31 @@ Filter routing info exchanged between routing protocol and zebra
 
 - `name_id` (String) Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
 - `protocol_id` (String) Filter routing info exchanged between routing protocol and zebra
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  any  &emsp; |  Any of the above protocols  |
-    |  babel  &emsp; |  Babel routing protocol  |
-    |  bgp  &emsp; |  Border Gateway Protocol  |
-    |  connected  &emsp; |  Connected routes (directly attached subnet or host)  |
-    |  eigrp  &emsp; |  Enhanced Interior Gateway Routing Protocol  |
-    |  isis  &emsp; |  Intermediate System to Intermediate System  |
-    |  kernel  &emsp; |  Kernel routes (not installed via the zebra RIB)  |
-    |  ospf  &emsp; |  Open Shortest Path First (OSPFv2)  |
-    |  rip  &emsp; |  Routing Information Protocol  |
-    |  static  &emsp; |  Statically configured routes  |
+    |  Format     &emsp;|  Description                                          |
+    |-------------------|-------------------------------------------------------|
+    |  any        &emsp;|  Any of the above protocols                           |
+    |  babel      &emsp;|  Babel routing protocol                               |
+    |  bgp        &emsp;|  Border Gateway Protocol                              |
+    |  connected  &emsp;|  Connected routes (directly attached subnet or host)  |
+    |  eigrp      &emsp;|  Enhanced Interior Gateway Routing Protocol           |
+    |  isis       &emsp;|  Intermediate System to Intermediate System           |
+    |  kernel     &emsp;|  Kernel routes (not installed via the zebra RIB)      |
+    |  ospf       &emsp;|  Open Shortest Path First (OSPFv2)                    |
+    |  rip        &emsp;|  Routing Information Protocol                         |
+    |  static     &emsp;|  Statically configured routes                         |
 
 ### Optional
 
 - `route_map` (String) Specify route-map name to use
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Route map name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Route map name  |
 
 ### Read-Only
 

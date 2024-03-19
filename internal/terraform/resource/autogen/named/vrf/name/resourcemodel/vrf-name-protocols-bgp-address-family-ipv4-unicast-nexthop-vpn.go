@@ -31,11 +31,17 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastNexthopVpn) ResourceSchema
 			Optional: true,
 			MarkdownDescription: `For routes leaked from current address-family to vpn
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  BGP neighbor IP address  |
-    |  ipv6  &emsp; |  BGP neighbor IPv6 address  |
+    |  Format  &emsp;|  Description                |
+    |----------------|-----------------------------|
+    |  ipv4    &emsp;|  BGP neighbor IP address    |
+    |  ipv6    &emsp;|  BGP neighbor IPv6 address  |
+`,
+			Description: `For routes leaked from current address-family to vpn
 
+    |  Format  |  Description                |
+    |----------------|-----------------------------|
+    |  ipv4    |  BGP neighbor IP address    |
+    |  ipv6    |  BGP neighbor IPv6 address  |
 `,
 		},
 

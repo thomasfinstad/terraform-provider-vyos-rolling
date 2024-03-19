@@ -115,10 +115,15 @@ func (o VrfNameProtocolsOspfvthreeAreaRange) ResourceSchemaAttributes() map[stri
 			Required: true,
 			MarkdownDescription: `Specify IPv6 prefix (border routers only)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv6net  &emsp; |  Specify IPv6 prefix (border routers only)  |
+    |  Format   &emsp;|  Description                                |
+    |-----------------|---------------------------------------------|
+    |  ipv6net  &emsp;|  Specify IPv6 prefix (border routers only)  |
+`,
+			Description: `Specify IPv6 prefix (border routers only)
 
+    |  Format   |  Description                                |
+    |-----------------|---------------------------------------------|
+    |  ipv6net  |  Specify IPv6 prefix (border routers only)  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -142,10 +147,15 @@ func (o VrfNameProtocolsOspfvthreeAreaRange) ResourceSchemaAttributes() map[stri
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  VRF instance name  |
+    |  Format  &emsp;|  Description        |
+    |----------------|---------------------|
+    |  txt     &emsp;|  VRF instance name  |
+`,
+			Description: `Virtual Routing and Forwarding instance
 
+    |  Format  |  Description        |
+    |----------------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -169,11 +179,17 @@ func (o VrfNameProtocolsOspfvthreeAreaRange) ResourceSchemaAttributes() map[stri
 			Required: true,
 			MarkdownDescription: `OSPFv3 Area
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  u32  &emsp; |  Area ID as a decimal value  |
-    |  ipv4  &emsp; |  Area ID in IP address forma  |
+    |  Format  &emsp;|  Description                  |
+    |----------------|-------------------------------|
+    |  u32     &emsp;|  Area ID as a decimal value   |
+    |  ipv4    &emsp;|  Area ID in IP address forma  |
+`,
+			Description: `OSPFv3 Area
 
+    |  Format  |  Description                  |
+    |----------------|-------------------------------|
+    |  u32     |  Area ID as a decimal value   |
+    |  ipv4    |  Area ID in IP address forma  |
 `,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
@@ -200,6 +216,9 @@ func (o VrfNameProtocolsOspfvthreeAreaRange) ResourceSchemaAttributes() map[stri
 			MarkdownDescription: `Advertise this range
 
 `,
+			Description: `Advertise this range
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -207,6 +226,9 @@ func (o VrfNameProtocolsOspfvthreeAreaRange) ResourceSchemaAttributes() map[stri
 		"not_advertise": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Do not advertise this range
+
+`,
+			Description: `Do not advertise this range
 
 `,
 			Default:  booldefault.StaticBool(false),

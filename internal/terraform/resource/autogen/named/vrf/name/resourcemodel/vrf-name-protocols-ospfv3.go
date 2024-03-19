@@ -42,12 +42,18 @@ func (o VrfNameProtocolsOspfvthree) ResourceSchemaAttributes() map[string]schema
 			MarkdownDescription: `Calculate interface cost according to bandwidth
 
 `,
+			Description: `Calculate interface cost according to bandwidth
+
+`,
 		},
 
 		"default_information": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfvthreeDefaultInformation{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Default route advertisment settings
+
+`,
+			Description: `Default route advertisment settings
 
 `,
 		},
@@ -58,12 +64,18 @@ func (o VrfNameProtocolsOspfvthree) ResourceSchemaAttributes() map[string]schema
 			MarkdownDescription: `Administrative distance
 
 `,
+			Description: `Administrative distance
+
+`,
 		},
 
 		"graceful_restart": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfvthreeGracefulRestart{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Graceful Restart
+
+`,
+			Description: `Graceful Restart
 
 `,
 		},
@@ -74,6 +86,9 @@ func (o VrfNameProtocolsOspfvthree) ResourceSchemaAttributes() map[string]schema
 			MarkdownDescription: `Log adjacency state changes
 
 `,
+			Description: `Log adjacency state changes
+
+`,
 		},
 
 		"parameters": schema.SingleNestedAttribute{
@@ -82,12 +97,18 @@ func (o VrfNameProtocolsOspfvthree) ResourceSchemaAttributes() map[string]schema
 			MarkdownDescription: `OSPFv3 specific parameters
 
 `,
+			Description: `OSPFv3 specific parameters
+
+`,
 		},
 
 		"redistribute": schema.SingleNestedAttribute{
 			Attributes: VrfNameProtocolsOspfvthreeRedistribute{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute information from another routing protocol
+
+`,
+			Description: `Redistribute information from another routing protocol
 
 `,
 		},

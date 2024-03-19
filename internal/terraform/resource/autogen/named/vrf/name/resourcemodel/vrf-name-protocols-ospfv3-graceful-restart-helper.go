@@ -36,6 +36,9 @@ func (o VrfNameProtocolsOspfvthreeGracefulRestartHelper) ResourceSchemaAttribute
 			MarkdownDescription: `Supported only planned restart
 
 `,
+			Description: `Supported only planned restart
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -44,16 +47,24 @@ func (o VrfNameProtocolsOspfvthreeGracefulRestartHelper) ResourceSchemaAttribute
 			Optional: true,
 			MarkdownDescription: `Supported grace timer
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 10-1800  &emsp; |  Grace interval in seconds  |
+    |  Format   &emsp;|  Description                |
+    |-----------------|-----------------------------|
+    |  10-1800  &emsp;|  Grace interval in seconds  |
+`,
+			Description: `Supported grace timer
 
+    |  Format   |  Description                |
+    |-----------------|-----------------------------|
+    |  10-1800  |  Grace interval in seconds  |
 `,
 		},
 
 		"lsa_check_disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable strict LSA check
+
+`,
+			Description: `Disable strict LSA check
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -66,6 +77,9 @@ func (o VrfNameProtocolsOspfvthreeGracefulRestartHelper) ResourceSchemaAttribute
 			Attributes: VrfNameProtocolsOspfvthreeGracefulRestartHelperEnable{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Enable helper support
+
+`,
+			Description: `Enable helper support
 
 `,
 		},

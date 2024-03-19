@@ -108,6 +108,9 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			MarkdownDescription: `VRRP group
 
 `,
+			Description: `VRRP group
+
+`,
 			PlanModifiers: []planmodifier.String{
 				stringplanmodifier.RequiresReplace(),
 			}, Validators: []validator.String{
@@ -132,10 +135,15 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Interface to use
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Interface name  |
+    |  Format  &emsp;|  Description     |
+    |----------------|------------------|
+    |  txt     &emsp;|  Interface name  |
+`,
+			Description: `Interface to use
 
+    |  Format  |  Description     |
+    |----------------|------------------|
+    |  txt     |  Interface name  |
 `,
 		},
 
@@ -143,10 +151,15 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Advertise interval
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Advertise interval in seconds  |
+    |  Format  &emsp;|  Description                    |
+    |----------------|---------------------------------|
+    |  1-255   &emsp;|  Advertise interval in seconds  |
+`,
+			Description: `Advertise interval
 
+    |  Format  |  Description                    |
+    |----------------|---------------------------------|
+    |  1-255   |  Advertise interval in seconds  |
 `,
 
 			// Default:          stringdefault.StaticString(`1`),
@@ -157,16 +170,24 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  txt  &emsp; |  Description  |
+    |  Format  &emsp;|  Description  |
+    |----------------|---------------|
+    |  txt     &emsp;|  Description  |
+`,
+			Description: `Description
 
+    |  Format  |  Description  |
+    |----------------|---------------|
+    |  txt     |  Description  |
 `,
 		},
 
 		"disable": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable instance
+
+`,
+			Description: `Disable instance
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -177,11 +198,17 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `VRRP hello source address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 hello source address  |
-    |  ipv6  &emsp; |  IPv6 hello source address  |
+    |  Format  &emsp;|  Description                |
+    |----------------|-----------------------------|
+    |  ipv4    &emsp;|  IPv4 hello source address  |
+    |  ipv6    &emsp;|  IPv6 hello source address  |
+`,
+			Description: `VRRP hello source address
 
+    |  Format  |  Description                |
+    |----------------|-----------------------------|
+    |  ipv4    |  IPv4 hello source address  |
+    |  ipv6    |  IPv6 hello source address  |
 `,
 		},
 
@@ -190,17 +217,26 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional:    true,
 			MarkdownDescription: `Unicast VRRP peer address
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IPv4 unicast peer address  |
-    |  ipv6  &emsp; |  IPv6 unicast peer address  |
+    |  Format  &emsp;|  Description                |
+    |----------------|-----------------------------|
+    |  ipv4    &emsp;|  IPv4 unicast peer address  |
+    |  ipv6    &emsp;|  IPv6 unicast peer address  |
+`,
+			Description: `Unicast VRRP peer address
 
+    |  Format  |  Description                |
+    |----------------|-----------------------------|
+    |  ipv4    |  IPv4 unicast peer address  |
+    |  ipv6    |  IPv6 unicast peer address  |
 `,
 		},
 
 		"no_preempt": schema.BoolAttribute{
 			Optional: true,
 			MarkdownDescription: `Disable master preemption
+
+`,
+			Description: `Disable master preemption
 
 `,
 			Default:  booldefault.StaticBool(false),
@@ -211,10 +247,15 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Preempt delay (in seconds)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 0-1000  &emsp; |  preempt delay  |
+    |  Format  &emsp;|  Description    |
+    |----------------|-----------------|
+    |  0-1000  &emsp;|  preempt delay  |
+`,
+			Description: `Preempt delay (in seconds)
 
+    |  Format  |  Description    |
+    |----------------|-----------------|
+    |  0-1000  |  preempt delay  |
 `,
 
 			// Default:          stringdefault.StaticString(`0`),
@@ -225,10 +266,15 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Router priority
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Router priority  |
+    |  Format  &emsp;|  Description      |
+    |----------------|-------------------|
+    |  1-255   &emsp;|  Router priority  |
+`,
+			Description: `Router priority
 
+    |  Format  |  Description      |
+    |----------------|-------------------|
+    |  1-255   |  Router priority  |
 `,
 
 			// Default:          stringdefault.StaticString(`100`),
@@ -240,6 +286,9 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			MarkdownDescription: `Use VRRP virtual MAC address as per RFC3768
 
 `,
+			Description: `Use VRRP virtual MAC address as per RFC3768
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
@@ -249,11 +298,17 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional:    true,
 			MarkdownDescription: `Virtual address (If you need additional IPv4 and IPv6 in same group)
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  ipv4  &emsp; |  IP address  |
-    |  ipv6  &emsp; |  IPv6 address  |
+    |  Format  &emsp;|  Description   |
+    |----------------|----------------|
+    |  ipv4    &emsp;|  IP address    |
+    |  ipv6    &emsp;|  IPv6 address  |
+`,
+			Description: `Virtual address (If you need additional IPv4 and IPv6 in same group)
 
+    |  Format  |  Description   |
+    |----------------|----------------|
+    |  ipv4    |  IP address    |
+    |  ipv6    |  IPv6 address  |
 `,
 		},
 
@@ -261,10 +316,15 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Virtual router identifier
 
-    |  Format &emsp; | Description  |
-    |----------|---------------|
-    |  number: 1-255  &emsp; |  Virtual router identifier  |
+    |  Format  &emsp;|  Description                |
+    |----------------|-----------------------------|
+    |  1-255   &emsp;|  Virtual router identifier  |
+`,
+			Description: `Virtual router identifier
 
+    |  Format  |  Description                |
+    |----------------|-----------------------------|
+    |  1-255   |  Virtual router identifier  |
 `,
 		},
 
@@ -276,12 +336,18 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			MarkdownDescription: `Gratuitous ARP parameters
 
 `,
+			Description: `Gratuitous ARP parameters
+
+`,
 		},
 
 		"authentication": schema.SingleNestedAttribute{
 			Attributes: HighAvailabilityVrrpGroupAuthentication{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `VRRP authentication
+
+`,
+			Description: `VRRP authentication
 
 `,
 		},
@@ -292,6 +358,9 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			MarkdownDescription: `Health check
 
 `,
+			Description: `Health check
+
+`,
 		},
 
 		"track": schema.SingleNestedAttribute{
@@ -300,12 +369,18 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			MarkdownDescription: `Track settings
 
 `,
+			Description: `Track settings
+
+`,
 		},
 
 		"transition_script": schema.SingleNestedAttribute{
 			Attributes: HighAvailabilityVrrpGroupTransitionScrIPt{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `VRRP transition scripts
+
+`,
+			Description: `VRRP transition scripts
 
 `,
 		},

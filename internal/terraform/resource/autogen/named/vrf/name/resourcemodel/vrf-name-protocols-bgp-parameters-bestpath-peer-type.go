@@ -33,6 +33,9 @@ func (o VrfNameProtocolsBgpParametersBestpathPeerType) ResourceSchemaAttributes(
 			MarkdownDescription: `Allow load sharing across routes learned from different peer types
 
 `,
+			Description: `Allow load sharing across routes learned from different peer types
+
+`,
 			Default:  booldefault.StaticBool(false),
 			Computed: true,
 		},
