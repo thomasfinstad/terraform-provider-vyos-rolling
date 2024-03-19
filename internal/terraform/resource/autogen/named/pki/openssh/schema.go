@@ -16,6 +16,6 @@ func (r pkiOpenTCP) Schema(ctx context.Context, req resource.SchemaRequest, resp
 ⯯
 **OpenSSH public and private keys**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

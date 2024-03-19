@@ -24,6 +24,6 @@ Static IPv6 route
 ⯯
 **IPv6 gateway address**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

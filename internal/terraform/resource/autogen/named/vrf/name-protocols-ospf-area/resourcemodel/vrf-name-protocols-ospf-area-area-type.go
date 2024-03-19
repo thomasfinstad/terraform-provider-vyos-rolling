@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -26,7 +28,7 @@ type VrfNameProtocolsOspfAreaAreaType struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsOspfAreaAreaType) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsOspfAreaAreaType) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -45,7 +47,7 @@ func (o VrfNameProtocolsOspfAreaAreaType) ResourceSchemaAttributes() map[string]
 		// Nodes
 
 		"nssa": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfAreaAreaTypeNssa{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfAreaAreaTypeNssa{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Not-So-Stubby OSPF area
 
@@ -56,7 +58,7 @@ func (o VrfNameProtocolsOspfAreaAreaType) ResourceSchemaAttributes() map[string]
 		},
 
 		"stub": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfAreaAreaTypeStub{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfAreaAreaTypeStub{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Stub OSPF area
 

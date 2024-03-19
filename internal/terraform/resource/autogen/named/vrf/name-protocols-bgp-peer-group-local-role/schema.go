@@ -24,6 +24,6 @@ Name of peer-group
 ⯯
 **Local role for BGP neighbor (RFC9234)**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

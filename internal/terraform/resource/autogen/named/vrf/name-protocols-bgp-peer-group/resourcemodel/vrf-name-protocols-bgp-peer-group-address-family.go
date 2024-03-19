@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -28,14 +30,14 @@ type VrfNameProtocolsBgpPeerGroupAddressFamily struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpPeerGroupAddressFamily) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpPeerGroupAddressFamily) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"ipv4_unicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IPv4 BGP neighbor parameters
 
@@ -46,7 +48,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamily) ResourceSchemaAttributes() ma
 		},
 
 		"ipv4_labeled_unicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IPv4 Labeled Unicast BGP neighbor parameters
 
@@ -57,7 +59,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamily) ResourceSchemaAttributes() ma
 		},
 
 		"ipv4_vpn": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpn{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpn{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IPv4 VPN BGP neighbor parameters
 
@@ -68,7 +70,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamily) ResourceSchemaAttributes() ma
 		},
 
 		"ipv6_unicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IPv6 BGP neighbor parameters
 
@@ -79,7 +81,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamily) ResourceSchemaAttributes() ma
 		},
 
 		"ipv6_labeled_unicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixLabeledUnicast{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixLabeledUnicast{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IPv6 Labeled Unicast BGP neighbor parameters
 
@@ -90,7 +92,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamily) ResourceSchemaAttributes() ma
 		},
 
 		"ipv6_vpn": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixVpn{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixVpn{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IPv6 VPN BGP neighbor parameters
 
@@ -101,7 +103,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamily) ResourceSchemaAttributes() ma
 		},
 
 		"l2vpn_evpn": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `L2VPN EVPN BGP settings
 

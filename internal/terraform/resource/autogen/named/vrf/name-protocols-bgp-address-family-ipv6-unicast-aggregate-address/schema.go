@@ -26,6 +26,6 @@ IPv6 BGP settings
 ⯯
 **BGP aggregate network**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

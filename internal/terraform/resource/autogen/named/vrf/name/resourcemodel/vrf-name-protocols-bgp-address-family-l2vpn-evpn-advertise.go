@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -23,14 +25,14 @@ type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"ipv4": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IPv4 address family
 
@@ -41,7 +43,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise) ResourceSchemaAttr
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IPv6 address family
 

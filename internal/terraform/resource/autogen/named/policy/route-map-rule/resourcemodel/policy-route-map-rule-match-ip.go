@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -24,14 +26,14 @@ type PolicyRouteMapRuleMatchIP struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o PolicyRouteMapRuleMatchIP) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o PolicyRouteMapRuleMatchIP) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"address": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleMatchIPAddress{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleMatchIPAddress{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IP address of route to match
 
@@ -42,7 +44,7 @@ func (o PolicyRouteMapRuleMatchIP) ResourceSchemaAttributes() map[string]schema.
 		},
 
 		"nexthop": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleMatchIPNexthop{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleMatchIPNexthop{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IP next-hop of route to match
 
@@ -53,7 +55,7 @@ func (o PolicyRouteMapRuleMatchIP) ResourceSchemaAttributes() map[string]schema.
 		},
 
 		"route_source": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleMatchIPRouteSource{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleMatchIPRouteSource{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Match advertising source address of route
 

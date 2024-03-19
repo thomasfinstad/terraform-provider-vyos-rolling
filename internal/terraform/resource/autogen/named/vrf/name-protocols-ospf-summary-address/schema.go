@@ -22,6 +22,6 @@ Open Shortest Path First (OSPF)
 ⯯
 **External summary address**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

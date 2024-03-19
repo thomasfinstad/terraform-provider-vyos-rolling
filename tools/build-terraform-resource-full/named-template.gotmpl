@@ -27,6 +27,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
@@ -271,6 +272,7 @@ import (
 				{{template "resource-model-parent-id-hack" .Parent}}
 			{{end}}
 
+			Timeouts    timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 			{{with .GetChildren }}
 				// LeafNodes
@@ -328,6 +330,11 @@ import (
 		// SetID configures the resource ID
 		func (o *{{.BaseNameCG}}) SetID(id []string) {
 			o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+		}
+
+		// GetTimeouts returns resource timeout config
+		func (o *{{.BaseNameCG}}) GetTimeouts() timeouts.Value {
+			return o.Timeouts
 		}
 
 		// IsGlobalResource returns true if this is global
@@ -390,7 +397,7 @@ import (
 	{{end}}
 
 	// ResourceSchemaAttributes generates the schema attributes for the resource at this level
-	func (o {{.BaseNameCG}}) ResourceSchemaAttributes() map[string]schema.Attribute {
+	func (o {{.BaseNameCG}}) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 		return map[string]schema.Attribute{
 			{{if .IsBaseNode }}
 				"id": schema.StringAttribute{
@@ -448,6 +455,10 @@ import (
 					{{template "resource-model-parent-schema-hack" .Parent}}
 				{{end}}
 
+				"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+					Create: true,
+				}),
+
 				{{with .GetChildren }}
 					// LeafNodes
 					{{range .LeafNodes }}
@@ -461,7 +472,7 @@ import (
 					// Nodes
 					{{range .Nodes }}
 						"{{.BaseNameSB}}": schema.SingleNestedAttribute{
-							Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(),
+							Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(ctx),
 							Optional:            true,
 							MarkdownDescription: `{{.MarkdownDescription}}`,
 							Description: `{{.Description}}`,
@@ -482,7 +493,7 @@ import (
 					// Nodes
 					{{range .Nodes }}
 						"{{.BaseNameS}}": schema.SingleNestedAttribute{
-							Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(),
+							Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(ctx),
 							Optional:            true,
 							MarkdownDescription: `{{.MarkdownDescription}}`,
 							Description: `{{.Description}}`,
@@ -540,7 +551,7 @@ func (r {{.BaseNameG}}) Schema(ctx context.Context, req resource.SchemaRequest, 
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `{{.AncestorDescription}}`,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }
 {{end}}

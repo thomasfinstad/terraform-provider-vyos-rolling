@@ -20,6 +20,6 @@ IPv4 routing parameters
 ⯯
 **Filter routing info exchanged between routing protocol and zebra**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

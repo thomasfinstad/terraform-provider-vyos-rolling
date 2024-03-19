@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
@@ -28,6 +30,8 @@ type VrfNameProtocolsStaticRoute struct {
 
 	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafVrfNameProtocolsStaticRouteDhcpInterface types.String `tfsdk:"dhcp_interface" vyos:"dhcp-interface,omitempty"`
 	LeafVrfNameProtocolsStaticRouteDescrIPtion   types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -44,6 +48,11 @@ type VrfNameProtocolsStaticRoute struct {
 // SetID configures the resource ID
 func (o *VrfNameProtocolsStaticRoute) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *VrfNameProtocolsStaticRoute) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -96,7 +105,7 @@ func (o *VrfNameProtocolsStaticRoute) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -166,6 +175,10 @@ func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schem
 			},
 		},
 
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
+
 		// LeafNodes
 
 		"dhcp_interface": schema.StringAttribute{
@@ -203,7 +216,7 @@ func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schem
 		// Nodes
 
 		"blackhole": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsStaticRouteBlackhole{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsStaticRouteBlackhole{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Silently discard pkts when matched
 
@@ -214,7 +227,7 @@ func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schem
 		},
 
 		"reject": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsStaticRouteReject{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsStaticRouteReject{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Emit an ICMP unreachable when matched
 

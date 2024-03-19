@@ -16,6 +16,6 @@ func (r highAvailabilityVirtualServer) Schema(ctx context.Context, req resource.
 ⯯
 **Load-balancing virtual server alias**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

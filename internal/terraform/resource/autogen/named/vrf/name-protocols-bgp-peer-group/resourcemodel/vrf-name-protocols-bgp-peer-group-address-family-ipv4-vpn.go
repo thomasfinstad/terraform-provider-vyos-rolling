@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -43,7 +45,7 @@ type VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpn struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -174,7 +176,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttri
 		// Nodes
 
 		"prefix_list": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnPrefixList{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnPrefixList{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IPv4-Prefix-list to filter route updates to/from this peer
 
@@ -185,7 +187,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttri
 		},
 
 		"conditionally_advertise": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnConditionallyAdvertise{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnConditionallyAdvertise{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Use route-map to conditionally advertise routes
 
@@ -196,7 +198,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttri
 		},
 
 		"allowas_in": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnAllowasIn{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnAllowasIn{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Accept route that contains the local-as in the as-path
 
@@ -207,7 +209,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttri
 		},
 
 		"attribute_unchanged": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnAttributeUnchanged{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnAttributeUnchanged{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `BGP attributes are sent unchanged
 
@@ -218,7 +220,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttri
 		},
 
 		"disable_send_community": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnDisableSendCommunity{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnDisableSendCommunity{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Disable sending community attributes to this peer
 
@@ -229,7 +231,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttri
 		},
 
 		"distribute_list": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnDistributeList{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnDistributeList{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Access-list to filter route updates to/from this peer-group
 
@@ -240,7 +242,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttri
 		},
 
 		"filter_list": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnFilterList{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnFilterList{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `as-path-list to filter route updates to/from this peer
 
@@ -251,7 +253,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttri
 		},
 
 		"nexthop_self": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnNexthopSelf{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnNexthopSelf{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Disable the next hop calculation for this peer
 
@@ -262,7 +264,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttri
 		},
 
 		"remove_private_as": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnRemovePrivateAs{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnRemovePrivateAs{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Remove private AS numbers from AS path in outbound route updates
 
@@ -273,7 +275,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttri
 		},
 
 		"route_map": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnRouteMap{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnRouteMap{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Route-map to filter route updates to/from this peer
 
@@ -284,7 +286,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpn) ResourceSchemaAttri
 		},
 
 		"soft_reconfiguration": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnSoftReconfiguration{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnSoftReconfiguration{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Soft reconfiguration for peer
 

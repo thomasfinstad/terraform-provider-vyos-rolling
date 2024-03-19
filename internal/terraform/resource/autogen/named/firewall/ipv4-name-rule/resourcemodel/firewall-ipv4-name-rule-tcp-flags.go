@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -32,7 +34,7 @@ type FirewallIPvfourNameRuleTCPFlags struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o FirewallIPvfourNameRuleTCPFlags) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o FirewallIPvfourNameRuleTCPFlags) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -135,7 +137,7 @@ func (o FirewallIPvfourNameRuleTCPFlags) ResourceSchemaAttributes() map[string]s
 		// Nodes
 
 		"not": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourNameRuleTCPFlagsNot{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourNameRuleTCPFlagsNot{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Match flags not set
 

@@ -2,8 +2,10 @@
 package resourcemodel
 
 import (
+	"context"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
@@ -23,6 +25,8 @@ type FirewallIPvsixInputFilterRule struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
+
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafFirewallIPvsixInputFilterRuleAction              types.String `tfsdk:"action" vyos:"action,omitempty"`
@@ -66,6 +70,11 @@ type FirewallIPvsixInputFilterRule struct {
 // SetID configures the resource ID
 func (o *FirewallIPvsixInputFilterRule) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *FirewallIPvsixInputFilterRule) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -112,7 +121,7 @@ func (o *FirewallIPvsixInputFilterRule) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -136,6 +145,10 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 				numberplanmodifier.RequiresReplace(),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 
@@ -474,7 +487,7 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 		// Nodes
 
 		"fragment": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixInputFilterRuleFragment{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvsixInputFilterRuleFragment{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IP fragment match
 
@@ -485,7 +498,7 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"limit": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixInputFilterRuleLimit{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvsixInputFilterRuleLimit{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Rate limit using a token bucket filter
 
@@ -496,7 +509,7 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"log_options": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixInputFilterRuleLogOptions{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvsixInputFilterRuleLogOptions{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Log options
 
@@ -507,7 +520,7 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"connection_status": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixInputFilterRuleConnectionStatus{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvsixInputFilterRuleConnectionStatus{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Connection status
 
@@ -518,7 +531,7 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"recent": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixInputFilterRuleRecent{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvsixInputFilterRuleRecent{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Parameters for matching recently seen sources
 
@@ -529,7 +542,7 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"synproxy": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixInputFilterRuleSynproxy{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvsixInputFilterRuleSynproxy{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Synproxy options
 
@@ -540,7 +553,7 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"tcp": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixInputFilterRuleTCP{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvsixInputFilterRuleTCP{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `TCP options to match
 
@@ -551,7 +564,7 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"time": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixInputFilterRuleTime{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvsixInputFilterRuleTime{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Time to match rule
 
@@ -562,7 +575,7 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"hop_limit": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixInputFilterRuleHopLimit{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvsixInputFilterRuleHopLimit{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Hop limit
 
@@ -573,7 +586,7 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"add_address_to_group": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixInputFilterRuleAddAddressToGroup{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvsixInputFilterRuleAddAddressToGroup{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Add ipv6 address to dynamic ipv6-address-group
 
@@ -584,7 +597,7 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"destination": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixInputFilterRuleDestination{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvsixInputFilterRuleDestination{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Destination parameters
 
@@ -595,7 +608,7 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"icmpv6": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixInputFilterRuleIcmpvsix{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvsixInputFilterRuleIcmpvsix{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `ICMPv6 type and code information
 
@@ -606,7 +619,7 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"source": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixInputFilterRuleSource{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvsixInputFilterRuleSource{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Source parameters
 
@@ -617,7 +630,7 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"inbound_interface": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixInputFilterRuleInboundInterface{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvsixInputFilterRuleInboundInterface{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Match inbound-interface
 
@@ -628,7 +641,7 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"ipsec": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixInputFilterRuleIPsec{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvsixInputFilterRuleIPsec{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Inbound IPsec packets
 

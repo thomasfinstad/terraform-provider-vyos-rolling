@@ -20,6 +20,6 @@ Bridge custom firewall
 ⯯
 **Bridge Firewall forward filter rule number**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

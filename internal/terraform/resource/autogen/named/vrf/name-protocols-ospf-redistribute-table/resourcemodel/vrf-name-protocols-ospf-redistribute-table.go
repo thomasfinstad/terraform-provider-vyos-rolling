@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
@@ -29,6 +31,8 @@ type VrfNameProtocolsOspfRedistributeTable struct {
 
 	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafVrfNameProtocolsOspfRedistributeTableMetric     types.Number `tfsdk:"metric" vyos:"metric,omitempty"`
 	LeafVrfNameProtocolsOspfRedistributeTableMetricType types.Number `tfsdk:"metric_type" vyos:"metric-type,omitempty"`
@@ -42,6 +46,11 @@ type VrfNameProtocolsOspfRedistributeTable struct {
 // SetID configures the resource ID
 func (o *VrfNameProtocolsOspfRedistributeTable) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *VrfNameProtocolsOspfRedistributeTable) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -96,7 +105,7 @@ func (o *VrfNameProtocolsOspfRedistributeTable) GetVyosNamedParentPath() []strin
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsOspfRedistributeTable) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsOspfRedistributeTable) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -152,6 +161,10 @@ func (o VrfNameProtocolsOspfRedistributeTable) ResourceSchemaAttributes() map[st
 				),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 

@@ -18,6 +18,6 @@ IP route-map
 ⯯
 **Rule for this route-map**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
@@ -28,6 +30,8 @@ type HighAvailabilityVrrpGroupAddress struct {
 
 	ParentIDHighAvailabilityVrrpGroup types.String `tfsdk:"group_id" vyos:"group,parent-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafHighAvailabilityVrrpGroupAddressInterface types.String `tfsdk:"interface" vyos:"interface,omitempty"`
 
@@ -39,6 +43,11 @@ type HighAvailabilityVrrpGroupAddress struct {
 // SetID configures the resource ID
 func (o *HighAvailabilityVrrpGroupAddress) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *HighAvailabilityVrrpGroupAddress) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -91,7 +100,7 @@ func (o *HighAvailabilityVrrpGroupAddress) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o HighAvailabilityVrrpGroupAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o HighAvailabilityVrrpGroupAddress) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -160,6 +169,10 @@ func (o HighAvailabilityVrrpGroupAddress) ResourceSchemaAttributes() map[string]
 				),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 

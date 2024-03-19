@@ -22,6 +22,6 @@ Open Shortest Path First (OSPF)
 ⯯
 **OSPF area settings**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

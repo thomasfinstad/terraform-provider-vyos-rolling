@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
@@ -26,6 +28,8 @@ type QosPolicyCake struct {
 
 	SelfIdentifier types.String `tfsdk:"cake_id" vyos:"-,self-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafQosPolicyCakeDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafQosPolicyCakeBandwIDth   types.String `tfsdk:"bandwidth" vyos:"bandwidth,omitempty"`
@@ -40,6 +44,11 @@ type QosPolicyCake struct {
 // SetID configures the resource ID
 func (o *QosPolicyCake) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *QosPolicyCake) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -82,7 +91,7 @@ func (o *QosPolicyCake) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o QosPolicyCake) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o QosPolicyCake) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -119,6 +128,10 @@ func (o QosPolicyCake) ResourceSchemaAttributes() map[string]schema.Attribute {
 				),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 
@@ -188,7 +201,7 @@ func (o QosPolicyCake) ResourceSchemaAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"flow_isolation": schema.SingleNestedAttribute{
-			Attributes: QosPolicyCakeFlowIsolation{}.ResourceSchemaAttributes(),
+			Attributes: QosPolicyCakeFlowIsolation{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Flow isolation settings
 

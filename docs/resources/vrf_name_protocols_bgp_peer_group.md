@@ -81,6 +81,7 @@ Border Gateway Protocol (BGP)
     &emsp;|external      &emsp;|Any AS different from the local AS  |
     &emsp;|internal      &emsp;|Neighbor AS number                  |
 - `shutdown` (Boolean) Administratively shutdown this neighbor
+- `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `ttl_security` (Attributes) Ttl security mechanism (see [below for nested schema](#nestedatt--ttl_security))
 - `update_source` (String) Source IP of routing updates
 
@@ -1478,6 +1479,14 @@ Optional:
     &emsp;|Format  &emsp;|Description       |
     |----------|--------------------|
     &emsp;|1-255   &emsp;|Attribute number  |
+
+
+&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+### Nested Schema for `timeouts`
+
+Optional:
+
+- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).
 
 
 &lt;a id=&#34;nestedatt--ttl_security&#34;&gt;&lt;/a&gt;

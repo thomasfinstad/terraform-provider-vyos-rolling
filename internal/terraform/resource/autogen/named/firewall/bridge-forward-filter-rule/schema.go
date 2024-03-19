@@ -22,6 +22,6 @@ Bridge firewall forward filter
 ⯯
 **Bridge Firewall forward filter rule number**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

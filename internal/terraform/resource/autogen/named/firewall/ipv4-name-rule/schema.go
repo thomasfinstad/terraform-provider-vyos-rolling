@@ -20,6 +20,6 @@ IPv4 custom firewall
 ⯯
 **IPv4 Firewall custom rule number**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

@@ -20,6 +20,6 @@ Priority queuing based policy
 ⯯
 **Class Handle**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

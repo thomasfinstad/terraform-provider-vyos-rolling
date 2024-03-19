@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
@@ -26,6 +28,8 @@ type NatStaticRule struct {
 
 	SelfIdentifier types.String `tfsdk:"rule_id" vyos:"-,self-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafNatStaticRuleDescrIPtion      types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafNatStaticRuleInboundInterface types.String `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
@@ -40,6 +44,11 @@ type NatStaticRule struct {
 // SetID configures the resource ID
 func (o *NatStaticRule) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *NatStaticRule) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -82,7 +91,7 @@ func (o *NatStaticRule) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o NatStaticRule) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o NatStaticRule) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -113,6 +122,10 @@ func (o NatStaticRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 				),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 
@@ -145,7 +158,7 @@ func (o NatStaticRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"destination": schema.SingleNestedAttribute{
-			Attributes: NatStaticRuleDestination{}.ResourceSchemaAttributes(),
+			Attributes: NatStaticRuleDestination{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `NAT destination parameters
 
@@ -156,7 +169,7 @@ func (o NatStaticRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 		},
 
 		"translation": schema.SingleNestedAttribute{
-			Attributes: NatStaticRuleTranSLAtion{}.ResourceSchemaAttributes(),
+			Attributes: NatStaticRuleTranSLAtion{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Translation address or prefix
 

@@ -22,6 +22,6 @@ VRRP global parameters
 ⯯
 **Gratuitous ARP parameters**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

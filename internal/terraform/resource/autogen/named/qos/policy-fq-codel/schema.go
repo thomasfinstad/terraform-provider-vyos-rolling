@@ -18,6 +18,6 @@ Service Policy definitions
 ⯯
 **Fair Queuing (FQ) with Controlled Delay (CoDel)**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

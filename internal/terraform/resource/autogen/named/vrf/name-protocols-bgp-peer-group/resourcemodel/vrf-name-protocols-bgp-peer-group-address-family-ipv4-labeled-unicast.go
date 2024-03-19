@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -45,7 +47,7 @@ type VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -176,7 +178,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast) Resource
 		// Nodes
 
 		"capability": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastCapability{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastCapability{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Advertise capabilities to this neighbor (IPv4)
 
@@ -187,7 +189,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast) Resource
 		},
 
 		"prefix_list": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastPrefixList{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastPrefixList{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IPv4-Prefix-list to filter route updates to/from this peer
 
@@ -198,7 +200,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast) Resource
 		},
 
 		"conditionally_advertise": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastConditionallyAdvertise{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastConditionallyAdvertise{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Use route-map to conditionally advertise routes
 
@@ -209,7 +211,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast) Resource
 		},
 
 		"allowas_in": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastAllowasIn{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastAllowasIn{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Accept route that contains the local-as in the as-path
 
@@ -220,7 +222,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast) Resource
 		},
 
 		"attribute_unchanged": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastAttributeUnchanged{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastAttributeUnchanged{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `BGP attributes are sent unchanged
 
@@ -231,7 +233,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast) Resource
 		},
 
 		"disable_send_community": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastDisableSendCommunity{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastDisableSendCommunity{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Disable sending community attributes to this peer
 
@@ -242,7 +244,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast) Resource
 		},
 
 		"distribute_list": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastDistributeList{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastDistributeList{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Access-list to filter route updates to/from this peer-group
 
@@ -253,7 +255,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast) Resource
 		},
 
 		"filter_list": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastFilterList{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastFilterList{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `as-path-list to filter route updates to/from this peer
 
@@ -264,7 +266,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast) Resource
 		},
 
 		"nexthop_self": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastNexthopSelf{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastNexthopSelf{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Disable the next hop calculation for this peer
 
@@ -275,7 +277,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast) Resource
 		},
 
 		"remove_private_as": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastRemovePrivateAs{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastRemovePrivateAs{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Remove private AS numbers from AS path in outbound route updates
 
@@ -286,7 +288,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast) Resource
 		},
 
 		"route_map": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastRouteMap{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastRouteMap{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Route-map to filter route updates to/from this peer
 
@@ -297,7 +299,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast) Resource
 		},
 
 		"soft_reconfiguration": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastSoftReconfiguration{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastSoftReconfiguration{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Soft reconfiguration for peer
 
@@ -308,7 +310,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicast) Resource
 		},
 
 		"default_originate": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastDefaultOriginate{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourLabeledUnicastDefaultOriginate{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Originate default route to this peer
 

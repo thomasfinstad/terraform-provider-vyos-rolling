@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
@@ -30,6 +32,8 @@ type FirewallBrIDgeNameRule struct {
 
 	ParentIDFirewallBrIDgeName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafFirewallBrIDgeNameRuleAction       types.String `tfsdk:"action" vyos:"action,omitempty"`
 	LeafFirewallBrIDgeNameRuleQueue        types.Number `tfsdk:"queue" vyos:"queue,omitempty"`
@@ -52,6 +56,11 @@ type FirewallBrIDgeNameRule struct {
 // SetID configures the resource ID
 func (o *FirewallBrIDgeNameRule) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *FirewallBrIDgeNameRule) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -104,7 +113,7 @@ func (o *FirewallBrIDgeNameRule) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o FirewallBrIDgeNameRule) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o FirewallBrIDgeNameRule) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -154,6 +163,10 @@ func (o FirewallBrIDgeNameRule) ResourceSchemaAttributes() map[string]schema.Att
 				),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 
@@ -255,7 +268,7 @@ func (o FirewallBrIDgeNameRule) ResourceSchemaAttributes() map[string]schema.Att
 		// Nodes
 
 		"destination": schema.SingleNestedAttribute{
-			Attributes: FirewallBrIDgeNameRuleDestination{}.ResourceSchemaAttributes(),
+			Attributes: FirewallBrIDgeNameRuleDestination{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Destination parameters
 
@@ -266,7 +279,7 @@ func (o FirewallBrIDgeNameRule) ResourceSchemaAttributes() map[string]schema.Att
 		},
 
 		"log_options": schema.SingleNestedAttribute{
-			Attributes: FirewallBrIDgeNameRuleLogOptions{}.ResourceSchemaAttributes(),
+			Attributes: FirewallBrIDgeNameRuleLogOptions{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Log options
 
@@ -277,7 +290,7 @@ func (o FirewallBrIDgeNameRule) ResourceSchemaAttributes() map[string]schema.Att
 		},
 
 		"source": schema.SingleNestedAttribute{
-			Attributes: FirewallBrIDgeNameRuleSource{}.ResourceSchemaAttributes(),
+			Attributes: FirewallBrIDgeNameRuleSource{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Source parameters
 
@@ -288,7 +301,7 @@ func (o FirewallBrIDgeNameRule) ResourceSchemaAttributes() map[string]schema.Att
 		},
 
 		"inbound_interface": schema.SingleNestedAttribute{
-			Attributes: FirewallBrIDgeNameRuleInboundInterface{}.ResourceSchemaAttributes(),
+			Attributes: FirewallBrIDgeNameRuleInboundInterface{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Match inbound-interface
 
@@ -299,7 +312,7 @@ func (o FirewallBrIDgeNameRule) ResourceSchemaAttributes() map[string]schema.Att
 		},
 
 		"outbound_interface": schema.SingleNestedAttribute{
-			Attributes: FirewallBrIDgeNameRuleOutboundInterface{}.ResourceSchemaAttributes(),
+			Attributes: FirewallBrIDgeNameRuleOutboundInterface{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Match outbound-interface
 
@@ -310,7 +323,7 @@ func (o FirewallBrIDgeNameRule) ResourceSchemaAttributes() map[string]schema.Att
 		},
 
 		"vlan": schema.SingleNestedAttribute{
-			Attributes: FirewallBrIDgeNameRuleVlan{}.ResourceSchemaAttributes(),
+			Attributes: FirewallBrIDgeNameRuleVlan{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `VLAN parameters
 

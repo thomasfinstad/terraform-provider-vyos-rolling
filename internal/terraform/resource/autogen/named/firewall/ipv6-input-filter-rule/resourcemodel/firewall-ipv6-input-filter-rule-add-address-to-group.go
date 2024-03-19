@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -23,14 +25,14 @@ type FirewallIPvsixInputFilterRuleAddAddressToGroup struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o FirewallIPvsixInputFilterRuleAddAddressToGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o FirewallIPvsixInputFilterRuleAddAddressToGroup) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"source_address": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixInputFilterRuleAddAddressToGroupSourceAddress{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvsixInputFilterRuleAddAddressToGroupSourceAddress{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Add source ipv6 addresses to dynamic ipv6-address-group
 
@@ -41,7 +43,7 @@ func (o FirewallIPvsixInputFilterRuleAddAddressToGroup) ResourceSchemaAttributes
 		},
 
 		"destination_address": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixInputFilterRuleAddAddressToGroupDestinationAddress{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvsixInputFilterRuleAddAddressToGroupDestinationAddress{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Add destination ipv6 addresses to dynamic ipv6-address-group
 

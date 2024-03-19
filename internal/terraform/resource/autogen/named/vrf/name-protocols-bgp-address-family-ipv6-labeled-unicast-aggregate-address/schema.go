@@ -26,6 +26,6 @@ Labeled Unicast IPv6 BGP settings
 ⯯
 **BGP aggregate network/prefix**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

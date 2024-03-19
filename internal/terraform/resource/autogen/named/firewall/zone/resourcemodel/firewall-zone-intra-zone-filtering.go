@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -24,7 +26,7 @@ type FirewallZoneIntraZoneFiltering struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o FirewallZoneIntraZoneFiltering) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o FirewallZoneIntraZoneFiltering) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -49,7 +51,7 @@ func (o FirewallZoneIntraZoneFiltering) ResourceSchemaAttributes() map[string]sc
 		// Nodes
 
 		"firewall": schema.SingleNestedAttribute{
-			Attributes: FirewallZoneIntraZoneFilteringFirewall{}.ResourceSchemaAttributes(),
+			Attributes: FirewallZoneIntraZoneFilteringFirewall{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Use the specified firewall chain
 

@@ -16,6 +16,6 @@ func (r pkiCertificate) Schema(ctx context.Context, req resource.SchemaRequest, 
 ⯯
 **Certificate**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

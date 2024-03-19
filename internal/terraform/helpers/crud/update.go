@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"reflect"
+	"time"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
@@ -11,8 +12,6 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
-
-// TODO wrap update() call in "timeout" and "retry" functionality
 
 // Update method to define the logic which updates the resource and sets the updated Terraform state on success.
 func Update(ctx context.Context, r helpers.VyosResource, req resource.UpdateRequest, resp *resource.UpdateResponse) {
@@ -36,6 +35,16 @@ func Update(ctx context.Context, r helpers.VyosResource, req resource.UpdateRequ
 		return
 	}
 
+	// Setup timeout
+	createTimeout, diags := stateModel.GetTimeouts().Update(ctx, time.Duration(r.GetProviderConfig().Config.CrudDefaultTimeouts)*time.Minute)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+	ctx, cancel := context.WithTimeout(ctx, createTimeout)
+	defer cancel()
+
+	// Execute
 	err := update(ctx, r.GetClient(), stateModel, planModel)
 	if err != nil {
 		resp.Diagnostics.AddError("API Config error", err.Error())
@@ -48,6 +57,11 @@ func Update(ctx context.Context, r helpers.VyosResource, req resource.UpdateRequ
 	resp.Diagnostics.Append(resp.State.Set(ctx, planModel)...)
 }
 
+// update re-configures all resource parameters
+// model must be a ptr
+// this function is seperated out to keep the terraform provider
+// logic and API logic seperate so we can test the API logic easier
+// TODO add retry support to update()
 func update(ctx context.Context, client client.Client, stateModel, planModel helpers.VyosTopResourceDataModel) error {
 	// Delete existing config
 	stateVyosData, err := helpers.MarshalVyos(ctx, stateModel)

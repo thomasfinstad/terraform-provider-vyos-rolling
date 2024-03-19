@@ -18,6 +18,6 @@ Container name
 ⯯
 **Add a host device to the container**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

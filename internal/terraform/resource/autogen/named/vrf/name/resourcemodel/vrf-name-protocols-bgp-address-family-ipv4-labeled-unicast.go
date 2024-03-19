@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -24,14 +26,14 @@ type VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicast struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicast) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicast) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"maximum_paths": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastMaximumPaths{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastMaximumPaths{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Forward packets over multiple paths
 

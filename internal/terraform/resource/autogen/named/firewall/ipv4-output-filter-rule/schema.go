@@ -22,6 +22,6 @@ IPv4 firewall output filter
 ⯯
 **IPv4 Firewall output filter rule number**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

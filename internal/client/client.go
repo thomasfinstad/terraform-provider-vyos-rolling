@@ -123,7 +123,7 @@ func (c *Client) CommitChanges(ctx context.Context) (any, error) {
 	tflog.Info(ctx, "Creating configure request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
 	log.Println("Creating configure request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
 
-	req, err := http.NewRequest("POST", endpoint, strings.NewReader(payload.Encode()))
+	req, err := http.NewRequestWithContext(ctx, "POST", endpoint, strings.NewReader(payload.Encode()))
 	if err != nil {
 		return nil, fmt.Errorf("failed to create http request object: %w", err)
 	}
@@ -189,7 +189,7 @@ func (c *Client) Has(ctx context.Context, path []string) (bool, error) {
 
 	payloadEnc := payload.Encode()
 	tflog.Debug(ctx, "Request payload encoded", map[string]interface{}{"payload": payloadEnc})
-	req, err := http.NewRequest("POST", endpoint, strings.NewReader(payloadEnc))
+	req, err := http.NewRequestWithContext(ctx, "POST", endpoint, strings.NewReader(payloadEnc))
 	if err != nil {
 		return false, fmt.Errorf("failed to create http request object: %w", err)
 	}
@@ -259,7 +259,7 @@ func (c *Client) Read(ctx context.Context, path []string) (any, error) {
 
 	payloadEnc := payload.Encode()
 	tflog.Debug(ctx, "Request payload encoded", map[string]interface{}{"payload": payloadEnc})
-	req, err := http.NewRequest("POST", endpoint, strings.NewReader(payloadEnc))
+	req, err := http.NewRequestWithContext(ctx, "POST", endpoint, strings.NewReader(payloadEnc))
 	if err != nil {
 		return nil, fmt.Errorf("failed to create http request object: %w", err)
 	}

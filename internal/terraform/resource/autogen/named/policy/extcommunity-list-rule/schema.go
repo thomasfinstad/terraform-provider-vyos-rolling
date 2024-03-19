@@ -18,6 +18,6 @@ Add a BGP extended community list entry
 ⯯
 **Rule for this BGP extended community list**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

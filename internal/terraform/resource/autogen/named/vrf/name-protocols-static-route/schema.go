@@ -22,6 +22,6 @@ Static Routing
 ⯯
 **Static IPv4 route**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

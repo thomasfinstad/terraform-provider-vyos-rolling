@@ -20,6 +20,6 @@ X509 Settings
 ⯯
 **X509 Default Values**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

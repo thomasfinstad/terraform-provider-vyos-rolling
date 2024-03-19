@@ -2,8 +2,10 @@
 package resourcemodel
 
 import (
+	"context"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
@@ -23,6 +25,8 @@ type NatDestinationRule struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
+
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafNatDestinationRuleDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -45,6 +49,11 @@ type NatDestinationRule struct {
 // SetID configures the resource ID
 func (o *NatDestinationRule) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *NatDestinationRule) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -87,7 +96,7 @@ func (o *NatDestinationRule) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o NatDestinationRule) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o NatDestinationRule) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -111,6 +120,10 @@ func (o NatDestinationRule) ResourceSchemaAttributes() map[string]schema.Attribu
 				numberplanmodifier.RequiresReplace(),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 
@@ -326,7 +339,7 @@ func (o NatDestinationRule) ResourceSchemaAttributes() map[string]schema.Attribu
 		// Nodes
 
 		"destination": schema.SingleNestedAttribute{
-			Attributes: NatDestinationRuleDestination{}.ResourceSchemaAttributes(),
+			Attributes: NatDestinationRuleDestination{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `NAT destination parameters
 
@@ -337,7 +350,7 @@ func (o NatDestinationRule) ResourceSchemaAttributes() map[string]schema.Attribu
 		},
 
 		"load_balance": schema.SingleNestedAttribute{
-			Attributes: NatDestinationRuleLoadBalance{}.ResourceSchemaAttributes(),
+			Attributes: NatDestinationRuleLoadBalance{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Apply NAT load balance
 
@@ -348,7 +361,7 @@ func (o NatDestinationRule) ResourceSchemaAttributes() map[string]schema.Attribu
 		},
 
 		"source": schema.SingleNestedAttribute{
-			Attributes: NatDestinationRuleSource{}.ResourceSchemaAttributes(),
+			Attributes: NatDestinationRuleSource{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `NAT source parameters
 
@@ -359,7 +372,7 @@ func (o NatDestinationRule) ResourceSchemaAttributes() map[string]schema.Attribu
 		},
 
 		"inbound_interface": schema.SingleNestedAttribute{
-			Attributes: NatDestinationRuleInboundInterface{}.ResourceSchemaAttributes(),
+			Attributes: NatDestinationRuleInboundInterface{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Match inbound-interface
 
@@ -370,7 +383,7 @@ func (o NatDestinationRule) ResourceSchemaAttributes() map[string]schema.Attribu
 		},
 
 		"translation": schema.SingleNestedAttribute{
-			Attributes: NatDestinationRuleTranSLAtion{}.ResourceSchemaAttributes(),
+			Attributes: NatDestinationRuleTranSLAtion{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Inside NAT IP (destination NAT only)
 

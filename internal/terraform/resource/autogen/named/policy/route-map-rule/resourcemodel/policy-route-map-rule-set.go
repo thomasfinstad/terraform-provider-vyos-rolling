@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -43,7 +45,7 @@ type PolicyRouteMapRuleSet struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -256,7 +258,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 		// Nodes
 
 		"aggregator": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSetAggregator{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleSetAggregator{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `BGP aggregator attribute
 
@@ -267,7 +269,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 		},
 
 		"as_path": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSetAsPath{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleSetAsPath{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Transform BGP AS_PATH attribute
 
@@ -278,7 +280,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 		},
 
 		"community": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSetCommunity{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleSetCommunity{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `BGP community attribute
 
@@ -289,7 +291,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 		},
 
 		"large_community": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSetLargeCommunity{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleSetLargeCommunity{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `BGP large community attribute
 
@@ -300,7 +302,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 		},
 
 		"extcommunity": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSetExtcommunity{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleSetExtcommunity{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `BGP extended community attribute
 
@@ -311,7 +313,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 		},
 
 		"evpn": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSetEvpn{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleSetEvpn{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Ethernet Virtual Private Network
 
@@ -322,7 +324,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 		},
 
 		"ipv6_next_hop": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSetIPvsixNextHop{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleSetIPvsixNextHop{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Nexthop IPv6 address
 
@@ -333,7 +335,7 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attr
 		},
 
 		"l3vpn_nexthop": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSetLthreevpnNexthop{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleSetLthreevpnNexthop{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Next hop Information
 

@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"time"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
@@ -11,8 +12,6 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
-
-// TODO wrap read() call in "timeout" and "retry" functionality
 
 // Read method to define the logic which refreshes the Terraform state for the resource.
 func Read(ctx context.Context, r helpers.VyosResource, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -27,6 +26,15 @@ func Read(ctx context.Context, r helpers.VyosResource, req resource.ReadRequest,
 	if resp.Diagnostics.HasError() {
 		return
 	}
+
+	// Setup timeout
+	createTimeout, diags := stateModel.GetTimeouts().Read(ctx, time.Duration(r.GetProviderConfig().Config.CrudDefaultTimeouts)*time.Minute)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+	ctx, cancel := context.WithTimeout(ctx, createTimeout)
+	defer cancel()
 
 	// Fetch live state from Vyos
 	err := read(ctx, r.GetClient(), stateModel)
@@ -49,6 +57,7 @@ func Read(ctx context.Context, r helpers.VyosResource, req resource.ReadRequest,
 // model must be a ptr
 // this function is seperated out to keep the terraform provider
 // logic and API logic seperate so we can test the API logic easier
+// TODO add retry support to read()
 func read(ctx context.Context, c client.Client, model helpers.VyosTopResourceDataModel) error {
 	tflog.Debug(ctx, "Fetching API data")
 	response, err := c.Read(ctx, model.GetVyosPath())

@@ -16,6 +16,6 @@ func (r policyAccessListsix) Schema(ctx context.Context, req resource.SchemaRequ
 ⯯
 **IPv6 access-list filter**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -28,14 +30,14 @@ type VrfNameProtocolsIsisRedistributeIPvsix struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"bgp": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvsixBgp{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvsixBgp{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute BGP routes into IS-IS
 
@@ -46,7 +48,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceSchemaAttributes() map[s
 		},
 
 		"connected": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvsixConnected{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvsixConnected{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute connected routes into IS-IS
 
@@ -57,7 +59,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceSchemaAttributes() map[s
 		},
 
 		"kernel": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvsixKernel{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvsixKernel{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute kernel routes into IS-IS
 
@@ -68,7 +70,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceSchemaAttributes() map[s
 		},
 
 		"ospf6": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvsixOspfsix{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvsixOspfsix{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute OSPFv3 routes into IS-IS
 
@@ -79,7 +81,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceSchemaAttributes() map[s
 		},
 
 		"ripng": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvsixRIPng{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvsixRIPng{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute RIPng routes into IS-IS
 
@@ -90,7 +92,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceSchemaAttributes() map[s
 		},
 
 		"babel": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvsixBabel{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvsixBabel{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute Babel routes into IS-IS
 
@@ -101,7 +103,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceSchemaAttributes() map[s
 		},
 
 		"static": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvsixStatic{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvsixStatic{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute static routes into IS-IS
 

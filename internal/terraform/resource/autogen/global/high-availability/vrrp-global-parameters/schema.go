@@ -20,6 +20,6 @@ Virtual Router Redundancy Protocol settings
 ⯯
 **VRRP global parameters**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

@@ -16,6 +16,6 @@ func (r firewallFlowtable) Schema(ctx context.Context, req resource.SchemaReques
 ⯯
 **Flowtable**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

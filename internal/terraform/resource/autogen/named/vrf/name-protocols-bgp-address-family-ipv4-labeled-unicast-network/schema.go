@@ -26,6 +26,6 @@ Labeled Unicast IPv4 BGP settings
 ⯯
 **Import BGP network/prefix into labeled unicast IPv4 RIB**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

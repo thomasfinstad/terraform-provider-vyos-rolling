@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
@@ -26,6 +28,8 @@ type PkiKeyPair struct {
 
 	SelfIdentifier types.String `tfsdk:"key_pair_id" vyos:"-,self-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -38,6 +42,11 @@ type PkiKeyPair struct {
 // SetID configures the resource ID
 func (o *PkiKeyPair) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *PkiKeyPair) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -78,7 +87,7 @@ func (o *PkiKeyPair) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o PkiKeyPair) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o PkiKeyPair) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -110,12 +119,16 @@ func (o PkiKeyPair) ResourceSchemaAttributes() map[string]schema.Attribute {
 			},
 		},
 
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
+
 		// LeafNodes
 
 		// Nodes
 
 		"public": schema.SingleNestedAttribute{
-			Attributes: PkiKeyPairPublic{}.ResourceSchemaAttributes(),
+			Attributes: PkiKeyPairPublic{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Public key
 
@@ -126,7 +139,7 @@ func (o PkiKeyPair) ResourceSchemaAttributes() map[string]schema.Attribute {
 		},
 
 		"private": schema.SingleNestedAttribute{
-			Attributes: PkiKeyPairPrivate{}.ResourceSchemaAttributes(),
+			Attributes: PkiKeyPairPrivate{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Private key
 

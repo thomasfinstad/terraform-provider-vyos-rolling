@@ -24,6 +24,6 @@ Segment-Routing (SPRING) settings
 ⯯
 **Static IPv4 prefix segment/label mapping**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

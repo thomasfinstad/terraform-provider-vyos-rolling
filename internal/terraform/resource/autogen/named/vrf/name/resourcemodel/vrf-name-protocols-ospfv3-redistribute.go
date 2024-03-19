@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -28,14 +30,14 @@ type VrfNameProtocolsOspfvthreeRedistribute struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"babel": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeRedistributeBabel{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeRedistributeBabel{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute Babel routes
 
@@ -46,7 +48,7 @@ func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceSchemaAttributes() map[s
 		},
 
 		"bgp": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeRedistributeBgp{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeRedistributeBgp{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute BGP routes
 
@@ -57,7 +59,7 @@ func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceSchemaAttributes() map[s
 		},
 
 		"connected": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeRedistributeConnected{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeRedistributeConnected{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute connected routes
 
@@ -68,7 +70,7 @@ func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceSchemaAttributes() map[s
 		},
 
 		"isis": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeRedistributeIsis{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeRedistributeIsis{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute IS-IS routes
 
@@ -79,7 +81,7 @@ func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceSchemaAttributes() map[s
 		},
 
 		"kernel": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeRedistributeKernel{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeRedistributeKernel{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute kernel routes
 
@@ -90,7 +92,7 @@ func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceSchemaAttributes() map[s
 		},
 
 		"ripng": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeRedistributeRIPng{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeRedistributeRIPng{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute RIPNG routes
 
@@ -101,7 +103,7 @@ func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceSchemaAttributes() map[s
 		},
 
 		"static": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeRedistributeStatic{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeRedistributeStatic{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute static routes
 

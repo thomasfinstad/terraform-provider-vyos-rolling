@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
@@ -28,6 +30,8 @@ type VrfNameProtocolsBgpNeighbor struct {
 	SelfIdentifier types.String `tfsdk:"neighbor_id" vyos:"-,self-id"`
 
 	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
+
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsBgpNeighborAdvertisementInterval        types.Number `tfsdk:"advertisement_interval" vyos:"advertisement-interval,omitempty"`
@@ -65,6 +69,11 @@ type VrfNameProtocolsBgpNeighbor struct {
 // SetID configures the resource ID
 func (o *VrfNameProtocolsBgpNeighbor) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *VrfNameProtocolsBgpNeighbor) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -117,7 +126,7 @@ func (o *VrfNameProtocolsBgpNeighbor) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -190,6 +199,10 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 				),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 
@@ -442,7 +455,7 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 		// Nodes
 
 		"address_family": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborAddressFamily{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborAddressFamily{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Address-family parameters
 
@@ -453,7 +466,7 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 		},
 
 		"bfd": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborBfd{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborBfd{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Enable Bidirectional Forwarding Detection (BFD) support
 
@@ -464,7 +477,7 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 		},
 
 		"capability": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborCapability{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborCapability{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Advertise capabilities to this peer-group
 
@@ -475,7 +488,7 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 		},
 
 		"interface": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborInterface{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborInterface{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Interface parameters
 
@@ -486,7 +499,7 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 		},
 
 		"path_attribute": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborPathAttribute{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborPathAttribute{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Manipulate path attributes from incoming UPDATE messages
 
@@ -497,7 +510,7 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 		},
 
 		"timers": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborTimers{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborTimers{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Neighbor timers
 
@@ -508,7 +521,7 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 		},
 
 		"ttl_security": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborTTLSecURIty{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborTTLSecURIty{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Ttl security mechanism
 

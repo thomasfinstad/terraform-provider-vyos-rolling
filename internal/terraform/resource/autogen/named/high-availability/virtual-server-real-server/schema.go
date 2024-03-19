@@ -18,6 +18,6 @@ Load-balancing virtual server alias
 ⯯
 **Real server address**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

@@ -16,6 +16,6 @@ func (r highAvailability) Schema(ctx context.Context, req resource.SchemaRequest
 
 	**High availability settings**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

@@ -22,6 +22,6 @@ Border Gateway Protocol (BGP)
 ⯯
 **Configure interface related parameters, e.g. MPLS**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

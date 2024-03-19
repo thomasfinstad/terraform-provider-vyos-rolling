@@ -30,6 +30,6 @@ Use BFD multi hop session
 ⯯
 **Use source for BFD session**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

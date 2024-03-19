@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -30,14 +32,14 @@ type VrfNameProtocolsOspfvthree struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsOspfvthree) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsOspfvthree) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"auto_cost": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeAutoCost{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeAutoCost{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Calculate interface cost according to bandwidth
 
@@ -48,7 +50,7 @@ func (o VrfNameProtocolsOspfvthree) ResourceSchemaAttributes() map[string]schema
 		},
 
 		"default_information": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeDefaultInformation{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeDefaultInformation{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Default route advertisment settings
 
@@ -59,7 +61,7 @@ func (o VrfNameProtocolsOspfvthree) ResourceSchemaAttributes() map[string]schema
 		},
 
 		"distance": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeDistance{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeDistance{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Administrative distance
 
@@ -70,7 +72,7 @@ func (o VrfNameProtocolsOspfvthree) ResourceSchemaAttributes() map[string]schema
 		},
 
 		"graceful_restart": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeGracefulRestart{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeGracefulRestart{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Graceful Restart
 
@@ -81,7 +83,7 @@ func (o VrfNameProtocolsOspfvthree) ResourceSchemaAttributes() map[string]schema
 		},
 
 		"log_adjacency_changes": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeLogAdjacencyChanges{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeLogAdjacencyChanges{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Log adjacency state changes
 
@@ -92,7 +94,7 @@ func (o VrfNameProtocolsOspfvthree) ResourceSchemaAttributes() map[string]schema
 		},
 
 		"parameters": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeParameters{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeParameters{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `OSPFv3 specific parameters
 
@@ -103,7 +105,7 @@ func (o VrfNameProtocolsOspfvthree) ResourceSchemaAttributes() map[string]schema
 		},
 
 		"redistribute": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeRedistribute{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeRedistribute{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute information from another routing protocol
 

@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -29,7 +31,7 @@ type FirewallIPvfourForwardFilterRuleDestination struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o FirewallIPvfourForwardFilterRuleDestination) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o FirewallIPvfourForwardFilterRuleDestination) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -134,7 +136,7 @@ func (o FirewallIPvfourForwardFilterRuleDestination) ResourceSchemaAttributes() 
 		// Nodes
 
 		"geoip": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourForwardFilterRuleDestinationGeoIP{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourForwardFilterRuleDestinationGeoIP{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `GeoIP options - Data provided by DB-IP.com
 
@@ -145,7 +147,7 @@ func (o FirewallIPvfourForwardFilterRuleDestination) ResourceSchemaAttributes() 
 		},
 
 		"group": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourForwardFilterRuleDestinationGroup{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourForwardFilterRuleDestinationGroup{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Group
 

@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -23,14 +25,14 @@ type VrfNameProtocolsIsisRedistributeIPvfourRIP struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsIsisRedistributeIPvfourRIP) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsIsisRedistributeIPvfourRIP) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"level_1": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvfourRIPLevelOne{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvfourRIPLevelOne{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute into level-1
 
@@ -41,7 +43,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvfourRIP) ResourceSchemaAttributes() m
 		},
 
 		"level_2": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvfourRIPLevelTwo{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvfourRIPLevelTwo{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute into level-2
 

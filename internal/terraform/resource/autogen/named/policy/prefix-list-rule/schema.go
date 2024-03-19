@@ -18,6 +18,6 @@ IP prefix-list filter
 ⯯
 **Rule for this prefix-list**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

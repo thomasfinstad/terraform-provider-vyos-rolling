@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -25,7 +27,7 @@ type FirewallIPvfourOutputFilterRuleTTL struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o FirewallIPvfourOutputFilterRuleTTL) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o FirewallIPvfourOutputFilterRuleTTL) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 

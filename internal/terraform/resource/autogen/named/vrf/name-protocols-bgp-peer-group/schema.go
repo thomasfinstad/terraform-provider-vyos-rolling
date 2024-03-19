@@ -22,6 +22,6 @@ Border Gateway Protocol (BGP)
 ⯯
 **Name of peer-group**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

@@ -20,6 +20,6 @@ Traffic shaping based policy (Hierarchy Token Bucket)
 ⯯
 **Class ID**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

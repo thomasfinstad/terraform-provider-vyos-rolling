@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -22,14 +24,14 @@ type VrfNameProtocolsIsisFastRerouteLfaLocalLoadSharing struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsIsisFastRerouteLfaLocalLoadSharing) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsIsisFastRerouteLfaLocalLoadSharing) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"disable": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalLoadSharingDisable{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalLoadSharingDisable{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Disable load sharing
 

@@ -22,6 +22,6 @@ IPv4 firewall forward filter
 ⯯
 **IPv4 Firewall forward filter rule number**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

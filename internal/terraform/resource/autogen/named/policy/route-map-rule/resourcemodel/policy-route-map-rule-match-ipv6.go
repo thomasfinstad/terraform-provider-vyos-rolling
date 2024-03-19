@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -23,14 +25,14 @@ type PolicyRouteMapRuleMatchIPvsix struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o PolicyRouteMapRuleMatchIPvsix) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o PolicyRouteMapRuleMatchIPvsix) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"address": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleMatchIPvsixAddress{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleMatchIPvsixAddress{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IPv6 address of route to match
 
@@ -41,7 +43,7 @@ func (o PolicyRouteMapRuleMatchIPvsix) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"nexthop": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleMatchIPvsixNexthop{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleMatchIPvsixNexthop{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IPv6 next-hop of route to match
 

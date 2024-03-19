@@ -39,7 +39,7 @@ func TestCrudReadSuccess(t *testing.T) {
 	ctx := context.Background()
 
 	// When Mock API Server
-	address := "localhost:8080"
+	address := "localhost:50012"
 	uri := "/retrieve"
 	key := "test-key"
 	srv := &http.Server{
@@ -115,7 +115,7 @@ func TestCrudReadEmptyResource(t *testing.T) {
 	ctx := context.Background()
 
 	// When Mock API Server
-	address := "localhost:8080"
+	address := "localhost:50013"
 	uri := "/retrieve"
 	key := "test-key"
 	srv := &http.Server{

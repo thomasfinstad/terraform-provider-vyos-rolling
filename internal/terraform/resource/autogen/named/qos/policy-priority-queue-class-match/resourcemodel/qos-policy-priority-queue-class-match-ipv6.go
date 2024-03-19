@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -28,7 +30,7 @@ type QosPolicyPriorityQueueClassMatchIPvsix struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o QosPolicyPriorityQueueClassMatchIPvsix) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o QosPolicyPriorityQueueClassMatchIPvsix) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -145,7 +147,7 @@ func (o QosPolicyPriorityQueueClassMatchIPvsix) ResourceSchemaAttributes() map[s
 		// Nodes
 
 		"destination": schema.SingleNestedAttribute{
-			Attributes: QosPolicyPriorityQueueClassMatchIPvsixDestination{}.ResourceSchemaAttributes(),
+			Attributes: QosPolicyPriorityQueueClassMatchIPvsixDestination{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Match on destination port or address
 
@@ -156,7 +158,7 @@ func (o QosPolicyPriorityQueueClassMatchIPvsix) ResourceSchemaAttributes() map[s
 		},
 
 		"source": schema.SingleNestedAttribute{
-			Attributes: QosPolicyPriorityQueueClassMatchIPvsixSource{}.ResourceSchemaAttributes(),
+			Attributes: QosPolicyPriorityQueueClassMatchIPvsixSource{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Match on source port or address
 
@@ -167,7 +169,7 @@ func (o QosPolicyPriorityQueueClassMatchIPvsix) ResourceSchemaAttributes() map[s
 		},
 
 		"tcp": schema.SingleNestedAttribute{
-			Attributes: QosPolicyPriorityQueueClassMatchIPvsixTCP{}.ResourceSchemaAttributes(),
+			Attributes: QosPolicyPriorityQueueClassMatchIPvsixTCP{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `TCP Flags matching
 

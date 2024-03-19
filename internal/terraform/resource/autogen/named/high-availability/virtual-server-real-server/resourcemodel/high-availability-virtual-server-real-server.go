@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
@@ -28,6 +30,8 @@ type HighAvailabilityVirtualServerRealServer struct {
 
 	ParentIDHighAvailabilityVirtualServer types.String `tfsdk:"virtual_server_id" vyos:"virtual-server,parent-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafHighAvailabilityVirtualServerRealServerPort              types.Number `tfsdk:"port" vyos:"port,omitempty"`
 	LeafHighAvailabilityVirtualServerRealServerConnectionTimeout types.Number `tfsdk:"connection_timeout" vyos:"connection-timeout,omitempty"`
@@ -41,6 +45,11 @@ type HighAvailabilityVirtualServerRealServer struct {
 // SetID configures the resource ID
 func (o *HighAvailabilityVirtualServerRealServer) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *HighAvailabilityVirtualServerRealServer) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -89,7 +98,7 @@ func (o *HighAvailabilityVirtualServerRealServer) GetVyosNamedParentPath() []str
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -147,6 +156,10 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes() map[
 			},
 		},
 
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
+
 		// LeafNodes
 
 		"port": schema.NumberAttribute{
@@ -184,7 +197,7 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes() map[
 		// Nodes
 
 		"health_check": schema.SingleNestedAttribute{
-			Attributes: HighAvailabilityVirtualServerRealServerHealthCheck{}.ResourceSchemaAttributes(),
+			Attributes: HighAvailabilityVirtualServerRealServerHealthCheck{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Health check script
 

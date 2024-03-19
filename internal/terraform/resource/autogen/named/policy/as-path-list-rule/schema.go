@@ -18,6 +18,6 @@ Add a BGP autonomous system path filter
 ⯯
 **Rule for this as-path-list**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

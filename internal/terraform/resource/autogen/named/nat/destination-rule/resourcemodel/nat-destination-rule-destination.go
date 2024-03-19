@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -25,7 +27,7 @@ type NatDestinationRuleDestination struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o NatDestinationRuleDestination) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o NatDestinationRuleDestination) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -80,7 +82,7 @@ func (o NatDestinationRuleDestination) ResourceSchemaAttributes() map[string]sch
 		// Nodes
 
 		"group": schema.SingleNestedAttribute{
-			Attributes: NatDestinationRuleDestinationGroup{}.ResourceSchemaAttributes(),
+			Attributes: NatDestinationRuleDestinationGroup{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Group
 

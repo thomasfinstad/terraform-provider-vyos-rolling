@@ -30,6 +30,6 @@ MD5 key id
 ⯯
 **MD5 key id**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

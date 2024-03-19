@@ -16,6 +16,6 @@ func (r policyAsPathList) Schema(ctx context.Context, req resource.SchemaRequest
 ⯯
 **Add a BGP autonomous system path filter**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

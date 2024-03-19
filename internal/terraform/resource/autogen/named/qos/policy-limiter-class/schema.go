@@ -20,6 +20,6 @@ Traffic input limiting policy
 ⯯
 **Class ID**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

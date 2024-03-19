@@ -11,6 +11,7 @@ import (
 	"os"
 	"slices"
 	"strings"
+	"time"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
@@ -58,6 +59,7 @@ type ExchangeList struct {
 func (el *ExchangeList) Add() *Exchange {
 	e := &Exchange{
 		matched: false,
+		delay:   0,
 	}
 	el.exchanges = append(el.exchanges, e)
 	return e
@@ -91,6 +93,7 @@ type Exchange struct {
 	matched  bool
 	expect   expect
 	response response
+	delay    time.Duration
 }
 
 // Expect configures how the incoming request is expected to look
@@ -100,6 +103,13 @@ func (e *Exchange) Expect(uri, key string, ops string) *Exchange {
 		key: key,
 		ops: ops,
 	}
+
+	return e
+}
+
+// Delay configures how long to wait before responding
+func (e *Exchange) Delay(delay time.Duration) *Exchange {
+	e.delay = delay
 
 	return e
 }
@@ -122,6 +132,11 @@ func (e *Exchange) Response(code int, body string) *Exchange {
 func (e *Exchange) handle(w http.ResponseWriter, r *http.Request) (ok bool) {
 	if !e.expect.matches(r) {
 		return false
+	}
+
+	if e.delay > 0 {
+		log.Printf("Delaying response for: %dms", e.delay/time.Millisecond)
+		time.Sleep(e.delay)
 	}
 
 	if !e.response.reply(w) {
@@ -267,4 +282,6 @@ func Server(srv *http.Server, el *ExchangeList) {
 			os.Exit(1)
 		}
 	}()
+
+	time.Sleep(50 * time.Millisecond)
 }

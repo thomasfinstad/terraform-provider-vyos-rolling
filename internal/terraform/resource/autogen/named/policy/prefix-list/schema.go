@@ -16,6 +16,6 @@ func (r policyPrefixList) Schema(ctx context.Context, req resource.SchemaRequest
 ⯯
 **IP prefix-list filter**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -24,7 +26,7 @@ type ContainerRegistryAuthentication struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o ContainerRegistryAuthentication) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o ContainerRegistryAuthentication) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 

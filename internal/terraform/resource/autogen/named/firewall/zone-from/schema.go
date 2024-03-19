@@ -18,6 +18,6 @@ Zone-policy
 ⯯
 **Zone from which to filter traffic**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

@@ -2,8 +2,10 @@
 package resourcemodel
 
 import (
+	"context"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
@@ -23,6 +25,8 @@ type FirewallBrIDgeForwardFilterRule struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
+
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafFirewallBrIDgeForwardFilterRuleAction       types.String `tfsdk:"action" vyos:"action,omitempty"`
@@ -46,6 +50,11 @@ type FirewallBrIDgeForwardFilterRule struct {
 // SetID configures the resource ID
 func (o *FirewallBrIDgeForwardFilterRule) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *FirewallBrIDgeForwardFilterRule) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -92,7 +101,7 @@ func (o *FirewallBrIDgeForwardFilterRule) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o FirewallBrIDgeForwardFilterRule) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o FirewallBrIDgeForwardFilterRule) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -116,6 +125,10 @@ func (o FirewallBrIDgeForwardFilterRule) ResourceSchemaAttributes() map[string]s
 				numberplanmodifier.RequiresReplace(),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 
@@ -217,7 +230,7 @@ func (o FirewallBrIDgeForwardFilterRule) ResourceSchemaAttributes() map[string]s
 		// Nodes
 
 		"destination": schema.SingleNestedAttribute{
-			Attributes: FirewallBrIDgeForwardFilterRuleDestination{}.ResourceSchemaAttributes(),
+			Attributes: FirewallBrIDgeForwardFilterRuleDestination{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Destination parameters
 
@@ -228,7 +241,7 @@ func (o FirewallBrIDgeForwardFilterRule) ResourceSchemaAttributes() map[string]s
 		},
 
 		"log_options": schema.SingleNestedAttribute{
-			Attributes: FirewallBrIDgeForwardFilterRuleLogOptions{}.ResourceSchemaAttributes(),
+			Attributes: FirewallBrIDgeForwardFilterRuleLogOptions{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Log options
 
@@ -239,7 +252,7 @@ func (o FirewallBrIDgeForwardFilterRule) ResourceSchemaAttributes() map[string]s
 		},
 
 		"source": schema.SingleNestedAttribute{
-			Attributes: FirewallBrIDgeForwardFilterRuleSource{}.ResourceSchemaAttributes(),
+			Attributes: FirewallBrIDgeForwardFilterRuleSource{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Source parameters
 
@@ -250,7 +263,7 @@ func (o FirewallBrIDgeForwardFilterRule) ResourceSchemaAttributes() map[string]s
 		},
 
 		"inbound_interface": schema.SingleNestedAttribute{
-			Attributes: FirewallBrIDgeForwardFilterRuleInboundInterface{}.ResourceSchemaAttributes(),
+			Attributes: FirewallBrIDgeForwardFilterRuleInboundInterface{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Match inbound-interface
 
@@ -261,7 +274,7 @@ func (o FirewallBrIDgeForwardFilterRule) ResourceSchemaAttributes() map[string]s
 		},
 
 		"outbound_interface": schema.SingleNestedAttribute{
-			Attributes: FirewallBrIDgeForwardFilterRuleOutboundInterface{}.ResourceSchemaAttributes(),
+			Attributes: FirewallBrIDgeForwardFilterRuleOutboundInterface{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Match outbound-interface
 
@@ -272,7 +285,7 @@ func (o FirewallBrIDgeForwardFilterRule) ResourceSchemaAttributes() map[string]s
 		},
 
 		"vlan": schema.SingleNestedAttribute{
-			Attributes: FirewallBrIDgeForwardFilterRuleVlan{}.ResourceSchemaAttributes(),
+			Attributes: FirewallBrIDgeForwardFilterRuleVlan{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `VLAN parameters
 

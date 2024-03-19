@@ -18,6 +18,6 @@ func (r firewallGlobalOptions) Schema(ctx context.Context, req resource.SchemaRe
 ⯯
 **Global Options**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

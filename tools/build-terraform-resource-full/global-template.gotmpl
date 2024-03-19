@@ -28,6 +28,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
@@ -188,6 +189,8 @@ import (
 		{{if .IsBaseNode }}
 			ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
+			Timeouts    timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 			{{with .GetChildren }}
 				// LeafNodes
 				{{range .LeafNodes -}}
@@ -245,6 +248,11 @@ import (
 		// SetID configures the resource ID
 		func (o *{{.BaseNameCG}}) SetID(id []string) {
 			o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+		}
+
+		// GetTimeouts returns resource timeout config
+		func (o *{{.BaseNameCG}}) GetTimeouts() timeouts.Value {
+			return o.Timeouts
 		}
 
 		// IsGlobalResource returns true if this is global
@@ -310,13 +318,17 @@ import (
 	{{end}}
 
 	// ResourceSchemaAttributes generates the schema attributes for the resource at this level
-	func (o {{.BaseNameCG}}) ResourceSchemaAttributes() map[string]schema.Attribute {
+	func (o {{.BaseNameCG}}) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 		return map[string]schema.Attribute{
 			{{if .IsBaseNode }}
 				"id": schema.StringAttribute{
 					Computed: true,
 					MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 				},
+
+				"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+					Create: true,
+				}),
 
 				{{with .GetChildren }}
 					// LeafNodes
@@ -391,7 +403,7 @@ import (
 			MarkdownDescription: `~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
 	{{.AncestorDescription}}`,
-			Attributes: r.model.ResourceSchemaAttributes(),
+			Attributes: r.model.ResourceSchemaAttributes(ctx),
 		}
 	}
 {{end}}

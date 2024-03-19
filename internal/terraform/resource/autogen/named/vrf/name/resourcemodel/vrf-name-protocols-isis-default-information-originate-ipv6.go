@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -23,14 +25,14 @@ type VrfNameProtocolsIsisDefaultInformationOriginateIPvsix struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsIsisDefaultInformationOriginateIPvsix) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsIsisDefaultInformationOriginateIPvsix) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"level_1": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOne{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelOne{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Distribute default route into level-1
 
@@ -41,7 +43,7 @@ func (o VrfNameProtocolsIsisDefaultInformationOriginateIPvsix) ResourceSchemaAtt
 		},
 
 		"level_2": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwo{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwo{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Distribute default route into level-2
 

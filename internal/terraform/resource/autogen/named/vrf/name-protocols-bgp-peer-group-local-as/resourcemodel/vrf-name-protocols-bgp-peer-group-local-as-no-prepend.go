@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -24,7 +26,7 @@ type VrfNameProtocolsBgpPeerGroupLocalAsNoPrepend struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpPeerGroupLocalAsNoPrepend) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpPeerGroupLocalAsNoPrepend) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 

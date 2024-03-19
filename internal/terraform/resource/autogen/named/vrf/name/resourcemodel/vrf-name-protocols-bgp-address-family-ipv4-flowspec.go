@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -22,14 +24,14 @@ type VrfNameProtocolsBgpAddressFamilyIPvfourFlowspec struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvfourFlowspec) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpAddressFamilyIPvfourFlowspec) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"local_install": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourFlowspecLocalInstall{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourFlowspecLocalInstall{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Apply local policy routing to interface
 

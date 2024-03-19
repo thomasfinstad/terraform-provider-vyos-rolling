@@ -35,6 +35,7 @@ type VyosProviderModel struct {
 	OverwriteExistingRes   types.Bool   `tfsdk:"overwrite_existing_resources_on_create"`
 	IgnoreMissingParentRes types.Bool   `tfsdk:"ignore_missing_parent_resource_on_create"`
 	IgnoreChildResOnDelete types.Bool   `tfsdk:"ignore_child_resource_on_delete"`
+	DefaultTimeouts        types.Number `tfsdk:"default_timeouts"`
 }
 
 // Metadata method to define the provider type name for inclusion in each data source and resource type name.
@@ -64,6 +65,10 @@ func (p *VyosProvider) Schema(ctx context.Context, req provider.SchemaRequest, r
 						Optional:            true,
 					},
 				},
+			},
+			"default_timeouts": schema.NumberAttribute{
+				MarkdownDescription: "Default Create/Read/Update/Destroy timeouts in minutes, can be overridden on a per resource basis. If not configured, defaults to 15.",
+				Optional:            true,
 			},
 			"overwrite_existing_resources_on_create": schema.BoolAttribute{
 				MarkdownDescription: `Disables the check to see if the resource already exists on the target machine, resulting in possibly overwriting configs without notice.
@@ -132,6 +137,12 @@ func (p *VyosProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 		client.NewClient(ctx, endpoint, apiKey, "TODO: add useragent with provider version", disableVerify),
 	)
 
+	t, _ := providerModel.DefaultTimeouts.ValueBigFloat().Float64()
+	if t == 0.0 {
+		config.Config.CrudDefaultTimeouts = 15
+	} else {
+		config.Config.CrudDefaultTimeouts = t
+	}
 	config.Config.CrudSkipExistingResourceCheck = providerModel.OverwriteExistingRes.ValueBool()
 	config.Config.CrudSkipCheckParentBeforeCreate = providerModel.IgnoreMissingParentRes.ValueBool()
 	config.Config.CrudSkipCheckChildBeforeDelete = providerModel.IgnoreChildResOnDelete.ValueBool()

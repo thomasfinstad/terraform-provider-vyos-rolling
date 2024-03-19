@@ -28,6 +28,6 @@ Remote loop free alternate options
 ⯯
 **Filter PQ node router ID based on prefix list**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

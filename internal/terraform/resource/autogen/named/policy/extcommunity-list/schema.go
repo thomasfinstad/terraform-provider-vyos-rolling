@@ -16,6 +16,6 @@ func (r policyExtcommunityList) Schema(ctx context.Context, req resource.SchemaR
 ⯯
 **Add a BGP extended community list entry**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

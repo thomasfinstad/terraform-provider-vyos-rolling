@@ -24,6 +24,6 @@ Listen for and accept BGP dynamic neighbors from range
 ⯯
 **BGP dynamic neighbors listen range**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

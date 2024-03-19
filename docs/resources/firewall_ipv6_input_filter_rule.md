@@ -162,6 +162,7 @@ IPv6 firewall input filter
 - `synproxy` (Attributes) Synproxy options (see [below for nested schema](#nestedatt--synproxy))
 - `tcp` (Attributes) TCP options to match (see [below for nested schema](#nestedatt--tcp))
 - `time` (Attributes) Time to match rule (see [below for nested schema](#nestedatt--time))
+- `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
@@ -628,4 +629,12 @@ Optional:
     &emsp;|Format  &emsp;|Description                                                                    |
     |----------|---------------------------------------------------------------------------------|
     &emsp;|txt     &emsp;|Name of day (Monday, Tuesday, Wednesday, Thursdays, Friday, Saturday, Sunday)  |
-    &emsp;|0-6     &emsp;|Day number (0 = Sunday ... 6 = Saturday)                                       |  &emsp;|
+    &emsp;|0-6     &emsp;|Day number (0 = Sunday ... 6 = Saturday)                                       |
+
+
+&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+### Nested Schema for `timeouts`
+
+Optional:
+
+- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  &emsp;|

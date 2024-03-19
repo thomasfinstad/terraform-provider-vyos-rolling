@@ -18,6 +18,6 @@ Service Policy definitions
 ⯯
 **Packet limited First In, First Out queue**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

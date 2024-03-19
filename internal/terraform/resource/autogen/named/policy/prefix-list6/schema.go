@@ -16,6 +16,6 @@ func (r policyPrefixListsix) Schema(ctx context.Context, req resource.SchemaRequ
 ⯯
 **IPv6 prefix-list filter**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

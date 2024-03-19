@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
@@ -29,6 +31,8 @@ type PolicyRouteMapRule struct {
 
 	ParentIDPolicyRouteMap types.String `tfsdk:"route_map_id" vyos:"route-map,parent-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafPolicyRouteMapRuleAction      types.String `tfsdk:"action" vyos:"action,omitempty"`
 	LeafPolicyRouteMapRuleCall        types.String `tfsdk:"call" vyos:"call,omitempty"`
@@ -46,6 +50,11 @@ type PolicyRouteMapRule struct {
 // SetID configures the resource ID
 func (o *PolicyRouteMapRule) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *PolicyRouteMapRule) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -94,7 +103,7 @@ func (o *PolicyRouteMapRule) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o PolicyRouteMapRule) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -150,6 +159,10 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 				),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 
@@ -222,7 +235,7 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 		// Nodes
 
 		"match": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleMatch{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleMatch{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Route parameters to match
 
@@ -233,7 +246,7 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 		},
 
 		"on_match": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleOnMatch{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleOnMatch{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Exit policy on matches
 
@@ -244,7 +257,7 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 		},
 
 		"set": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSet{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleSet{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Route parameters
 

@@ -1,6 +1,8 @@
 package data
 
-import "github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+import (
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+)
 
 /*
 NewProviderData sets defaults
@@ -31,4 +33,5 @@ type Config struct {
 	CrudSkipCheckParentBeforeCreate bool
 	CrudSkipExistingResourceCheck   bool
 	CrudSkipCheckChildBeforeDelete  bool
+	CrudDefaultTimeouts             float64
 }

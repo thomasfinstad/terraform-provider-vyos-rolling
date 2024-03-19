@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -29,14 +31,14 @@ type VrfNameProtocolsOspfRedistribute struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsOspfRedistribute) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsOspfRedistribute) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"bgp": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfRedistributeBgp{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfRedistributeBgp{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute BGP routes
 
@@ -47,7 +49,7 @@ func (o VrfNameProtocolsOspfRedistribute) ResourceSchemaAttributes() map[string]
 		},
 
 		"connected": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfRedistributeConnected{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfRedistributeConnected{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute connected routes
 
@@ -58,7 +60,7 @@ func (o VrfNameProtocolsOspfRedistribute) ResourceSchemaAttributes() map[string]
 		},
 
 		"isis": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfRedistributeIsis{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfRedistributeIsis{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute IS-IS routes
 
@@ -69,7 +71,7 @@ func (o VrfNameProtocolsOspfRedistribute) ResourceSchemaAttributes() map[string]
 		},
 
 		"kernel": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfRedistributeKernel{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfRedistributeKernel{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute Kernel routes
 
@@ -80,7 +82,7 @@ func (o VrfNameProtocolsOspfRedistribute) ResourceSchemaAttributes() map[string]
 		},
 
 		"rip": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfRedistributeRIP{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfRedistributeRIP{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute RIP routes
 
@@ -91,7 +93,7 @@ func (o VrfNameProtocolsOspfRedistribute) ResourceSchemaAttributes() map[string]
 		},
 
 		"babel": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfRedistributeBabel{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfRedistributeBabel{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute Babel routes
 
@@ -102,7 +104,7 @@ func (o VrfNameProtocolsOspfRedistribute) ResourceSchemaAttributes() map[string]
 		},
 
 		"static": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfRedistributeStatic{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfRedistributeStatic{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute statically configured routes
 

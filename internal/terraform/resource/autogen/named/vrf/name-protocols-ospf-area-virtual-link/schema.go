@@ -24,6 +24,6 @@ OSPF area settings
 ⯯
 **Virtual link**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

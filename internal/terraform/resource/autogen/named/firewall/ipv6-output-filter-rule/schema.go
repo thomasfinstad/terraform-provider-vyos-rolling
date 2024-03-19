@@ -22,6 +22,6 @@ IPv6 firewall output filter
 ⯯
 **IPv6 Firewall output filter rule number**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

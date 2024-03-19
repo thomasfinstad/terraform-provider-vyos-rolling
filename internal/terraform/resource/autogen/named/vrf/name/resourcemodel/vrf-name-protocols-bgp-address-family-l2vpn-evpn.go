@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -39,7 +41,7 @@ type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -150,7 +152,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() 
 		// Nodes
 
 		"advertise": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Advertise prefix routes
 
@@ -161,7 +163,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() 
 		},
 
 		"route_target": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Route Target
 
@@ -172,7 +174,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() 
 		},
 
 		"default_originate": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnDefaultOriginate{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnDefaultOriginate{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Originate a default route
 
@@ -183,7 +185,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() 
 		},
 
 		"ead_es_frag": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnEadEsFrag{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnEadEsFrag{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `EAD ES fragment config
 
@@ -194,7 +196,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() 
 		},
 
 		"ead_es_route_target": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnEadEsRouteTarget{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnEadEsRouteTarget{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `EAD ES Route Target
 
@@ -205,7 +207,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() 
 		},
 
 		"flooding": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Specify handling for BUM packets
 
@@ -216,7 +218,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() 
 		},
 
 		"mac_vrf": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnMacVrf{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnMacVrf{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `EVPN MAC-VRF
 

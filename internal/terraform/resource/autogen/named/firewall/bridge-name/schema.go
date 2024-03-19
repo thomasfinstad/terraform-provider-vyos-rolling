@@ -18,6 +18,6 @@ Bridge firewall
 ⯯
 **Bridge custom firewall**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

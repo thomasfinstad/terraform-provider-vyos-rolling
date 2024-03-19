@@ -116,6 +116,7 @@ Destination NAT settings
     &emsp;|rohc             &emsp;|Robust Header Compression                     |
     &emsp;|0-255            &emsp;|IP protocol number                            |
 - `source` (Attributes) NAT source parameters (see [below for nested schema](#nestedatt--source))
+- `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `translation` (Attributes) Inside NAT IP (destination NAT only) (see [below for nested schema](#nestedatt--translation))
 
 ### Read-Only
@@ -232,6 +233,14 @@ Optional:
 - `network_group` (String) Group of networks
 - `port_group` (String) Group of ports
 
+
+
+&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+### Nested Schema for `timeouts`
+
+Optional:
+
+- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).
 
 
 &lt;a id=&#34;nestedatt--translation&#34;&gt;&lt;/a&gt;

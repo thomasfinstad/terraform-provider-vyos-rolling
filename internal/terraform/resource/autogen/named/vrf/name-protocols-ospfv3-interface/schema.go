@@ -22,6 +22,6 @@ Open Shortest Path First (OSPF) for IPv6
 ⯯
 **Enable routing on an IPv6 interface**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

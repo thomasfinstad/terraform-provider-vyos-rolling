@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
@@ -29,6 +31,8 @@ type NatSourceRuleLoadBalanceBackend struct {
 
 	ParentIDNatSourceRule types.Number `tfsdk:"rule_id" vyos:"rule,parent-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafNatSourceRuleLoadBalanceBackendWeight types.Number `tfsdk:"weight" vyos:"weight,omitempty"`
 
@@ -40,6 +44,11 @@ type NatSourceRuleLoadBalanceBackend struct {
 // SetID configures the resource ID
 func (o *NatSourceRuleLoadBalanceBackend) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *NatSourceRuleLoadBalanceBackend) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -94,7 +103,7 @@ func (o *NatSourceRuleLoadBalanceBackend) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o NatSourceRuleLoadBalanceBackend) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o NatSourceRuleLoadBalanceBackend) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -150,6 +159,10 @@ func (o NatSourceRuleLoadBalanceBackend) ResourceSchemaAttributes() map[string]s
 				numberplanmodifier.RequiresReplace(),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 

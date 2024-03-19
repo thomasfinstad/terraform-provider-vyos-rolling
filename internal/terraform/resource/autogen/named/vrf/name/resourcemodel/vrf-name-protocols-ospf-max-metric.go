@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -22,14 +24,14 @@ type VrfNameProtocolsOspfMaxMetric struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsOspfMaxMetric) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsOspfMaxMetric) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"router_lsa": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfMaxMetricRouterLsa{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfMaxMetricRouterLsa{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Advertise own Router-LSA with infinite distance (stub router)
 

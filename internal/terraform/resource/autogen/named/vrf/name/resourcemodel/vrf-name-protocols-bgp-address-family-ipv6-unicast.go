@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -34,14 +36,14 @@ type VrfNameProtocolsBgpAddressFamilyIPvsixUnicast struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"distance": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Administrative distances for BGP routes
 
@@ -52,7 +54,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) ResourceSchemaAttributes(
 		},
 
 		"export": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Export routes from this address-family
 
@@ -63,7 +65,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) ResourceSchemaAttributes(
 		},
 
 		"import": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Import routes to this address-family
 
@@ -74,7 +76,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) ResourceSchemaAttributes(
 		},
 
 		"label": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Label value for VRF
 
@@ -85,7 +87,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) ResourceSchemaAttributes(
 		},
 
 		"maximum_paths": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Forward packets over multiple paths
 
@@ -96,7 +98,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) ResourceSchemaAttributes(
 		},
 
 		"rd": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Specify route distinguisher
 
@@ -107,7 +109,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) ResourceSchemaAttributes(
 		},
 
 		"route_map": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Route-map to filter route updates to/from this peer
 
@@ -118,7 +120,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) ResourceSchemaAttributes(
 		},
 
 		"route_target": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Specify route target list
 
@@ -129,7 +131,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) ResourceSchemaAttributes(
 		},
 
 		"nexthop": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNexthop{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNexthop{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Specify next hop to use for VRF advertised prefixes
 
@@ -140,7 +142,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) ResourceSchemaAttributes(
 		},
 
 		"redistribute": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute routes from other protocols into BGP
 
@@ -151,7 +153,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) ResourceSchemaAttributes(
 		},
 
 		"sid": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastSID{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastSID{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `SID value for VRF
 

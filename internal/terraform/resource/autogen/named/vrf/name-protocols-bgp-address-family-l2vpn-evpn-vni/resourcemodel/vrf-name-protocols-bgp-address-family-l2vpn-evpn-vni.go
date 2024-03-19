@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
@@ -30,6 +32,8 @@ type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni struct {
 
 	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw types.Bool   `tfsdk:"advertise_default_gw" vyos:"advertise-default-gw,omitempty"`
 	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseSviIP     types.Bool   `tfsdk:"advertise_svi_ip" vyos:"advertise-svi-ip,omitempty"`
@@ -44,6 +48,11 @@ type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni struct {
 // SetID configures the resource ID
 func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -100,7 +109,7 @@ func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) GetVyosNamedParentPath(
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -157,6 +166,10 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes
 			},
 		},
 
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
+
 		// LeafNodes
 
 		"advertise_default_gw": schema.BoolAttribute{
@@ -202,7 +215,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes
 		// Nodes
 
 		"route_target": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Route Target
 

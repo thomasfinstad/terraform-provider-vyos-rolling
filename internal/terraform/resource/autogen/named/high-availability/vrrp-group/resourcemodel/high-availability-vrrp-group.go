@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
@@ -26,6 +28,8 @@ type HighAvailabilityVrrpGroup struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	SelfIdentifier types.String `tfsdk:"group_id" vyos:"-,self-id"`
+
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafHighAvailabilityVrrpGroupInterface                          types.String `tfsdk:"interface" vyos:"interface,omitempty"`
@@ -55,6 +59,11 @@ type HighAvailabilityVrrpGroup struct {
 // SetID configures the resource ID
 func (o *HighAvailabilityVrrpGroup) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *HighAvailabilityVrrpGroup) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -97,7 +106,7 @@ func (o *HighAvailabilityVrrpGroup) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -128,6 +137,10 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 				),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 
@@ -331,7 +344,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 		// Nodes
 
 		"garp": schema.SingleNestedAttribute{
-			Attributes: HighAvailabilityVrrpGroupGarp{}.ResourceSchemaAttributes(),
+			Attributes: HighAvailabilityVrrpGroupGarp{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Gratuitous ARP parameters
 
@@ -342,7 +355,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 		},
 
 		"authentication": schema.SingleNestedAttribute{
-			Attributes: HighAvailabilityVrrpGroupAuthentication{}.ResourceSchemaAttributes(),
+			Attributes: HighAvailabilityVrrpGroupAuthentication{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `VRRP authentication
 
@@ -353,7 +366,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 		},
 
 		"health_check": schema.SingleNestedAttribute{
-			Attributes: HighAvailabilityVrrpGroupHealthCheck{}.ResourceSchemaAttributes(),
+			Attributes: HighAvailabilityVrrpGroupHealthCheck{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Health check
 
@@ -364,7 +377,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 		},
 
 		"track": schema.SingleNestedAttribute{
-			Attributes: HighAvailabilityVrrpGroupTrack{}.ResourceSchemaAttributes(),
+			Attributes: HighAvailabilityVrrpGroupTrack{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Track settings
 
@@ -375,7 +388,7 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 		},
 
 		"transition_script": schema.SingleNestedAttribute{
-			Attributes: HighAvailabilityVrrpGroupTransitionScrIPt{}.ResourceSchemaAttributes(),
+			Attributes: HighAvailabilityVrrpGroupTransitionScrIPt{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `VRRP transition scripts
 

@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -24,7 +26,7 @@ type VrfNameProtocolsStaticRouteNextHopBfd struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsStaticRouteNextHopBfd) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsStaticRouteNextHopBfd) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -47,7 +49,7 @@ func (o VrfNameProtocolsStaticRouteNextHopBfd) ResourceSchemaAttributes() map[st
 		// Nodes
 
 		"multi_hop": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsStaticRouteNextHopBfdMultiHop{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsStaticRouteNextHopBfdMultiHop{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Use BFD multi hop session
 

@@ -78,6 +78,7 @@ Virtual Router Redundancy Protocol settings
     |----------|-------------------|
     &emsp;|1-255   &emsp;|Router priority  |
 - `rfc3768_compatibility` (Boolean) Use VRRP virtual MAC address as per RFC3768
+- `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `track` (Attributes) Track settings (see [below for nested schema](#nestedatt--track))
 - `transition_script` (Attributes) VRRP transition scripts (see [below for nested schema](#nestedatt--transition_script))
 - `vrid` (Number) Virtual router identifier
@@ -155,6 +156,14 @@ Optional:
     &emsp;|ipv4    &emsp;|IPv4 ping target address  |
     &emsp;|ipv6    &emsp;|IPv6 ping target address  |
 - `script` (String) Health check script file
+
+
+&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+### Nested Schema for `timeouts`
+
+Optional:
+
+- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).
 
 
 &lt;a id=&#34;nestedatt--track&#34;&gt;&lt;/a&gt;

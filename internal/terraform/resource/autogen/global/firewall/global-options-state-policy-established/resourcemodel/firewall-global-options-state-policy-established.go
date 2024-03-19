@@ -2,8 +2,10 @@
 package resourcemodel
 
 import (
+	"context"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -19,6 +21,8 @@ var _ helpers.VyosTopResourceDataModel = &FirewallGlobalOptionsStatePolicyEstabl
 type FirewallGlobalOptionsStatePolicyEstablished struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafFirewallGlobalOptionsStatePolicyEstablishedAction   types.String `tfsdk:"action" vyos:"action,omitempty"`
 	LeafFirewallGlobalOptionsStatePolicyEstablishedLog      types.Bool   `tfsdk:"log" vyos:"log,omitempty"`
@@ -32,6 +36,11 @@ type FirewallGlobalOptionsStatePolicyEstablished struct {
 // SetID configures the resource ID
 func (o *FirewallGlobalOptionsStatePolicyEstablished) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *FirewallGlobalOptionsStatePolicyEstablished) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -72,12 +81,16 @@ func (o *FirewallGlobalOptionsStatePolicyEstablished) GetVyosNamedParentPath() [
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o FirewallGlobalOptionsStatePolicyEstablished) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o FirewallGlobalOptionsStatePolicyEstablished) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
 			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 

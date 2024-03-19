@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -27,14 +29,14 @@ type VrfNameProtocols struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocols) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocols) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"bgp": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgp{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgp{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Border Gateway Protocol (BGP)
 
@@ -45,7 +47,7 @@ func (o VrfNameProtocols) ResourceSchemaAttributes() map[string]schema.Attribute
 		},
 
 		"eigrp": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsEigrp{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsEigrp{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Enhanced Interior Gateway Routing Protocol (EIGRP)
 
@@ -56,7 +58,7 @@ func (o VrfNameProtocols) ResourceSchemaAttributes() map[string]schema.Attribute
 		},
 
 		"isis": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsis{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsis{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Intermediate System to Intermediate System (IS-IS)
 
@@ -67,7 +69,7 @@ func (o VrfNameProtocols) ResourceSchemaAttributes() map[string]schema.Attribute
 		},
 
 		"ospf": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspf{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspf{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Open Shortest Path First (OSPF)
 
@@ -78,7 +80,7 @@ func (o VrfNameProtocols) ResourceSchemaAttributes() map[string]schema.Attribute
 		},
 
 		"ospfv3": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthree{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfvthree{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Open Shortest Path First (OSPF) for IPv6
 
@@ -89,7 +91,7 @@ func (o VrfNameProtocols) ResourceSchemaAttributes() map[string]schema.Attribute
 		},
 
 		"static": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsStatic{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsStatic{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Static Routing
 

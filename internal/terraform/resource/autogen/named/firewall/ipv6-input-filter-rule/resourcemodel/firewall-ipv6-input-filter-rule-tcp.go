@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -24,7 +26,7 @@ type FirewallIPvsixInputFilterRuleTCP struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o FirewallIPvsixInputFilterRuleTCP) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o FirewallIPvsixInputFilterRuleTCP) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -49,7 +51,7 @@ func (o FirewallIPvsixInputFilterRuleTCP) ResourceSchemaAttributes() map[string]
 		// Nodes
 
 		"flags": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixInputFilterRuleTCPFlags{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvsixInputFilterRuleTCPFlags{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `TCP flags to match
 

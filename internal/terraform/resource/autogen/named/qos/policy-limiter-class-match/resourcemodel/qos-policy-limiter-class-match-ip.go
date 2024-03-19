@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -28,7 +30,7 @@ type QosPolicyLimiterClassMatchIP struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o QosPolicyLimiterClassMatchIP) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o QosPolicyLimiterClassMatchIP) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -145,7 +147,7 @@ func (o QosPolicyLimiterClassMatchIP) ResourceSchemaAttributes() map[string]sche
 		// Nodes
 
 		"destination": schema.SingleNestedAttribute{
-			Attributes: QosPolicyLimiterClassMatchIPDestination{}.ResourceSchemaAttributes(),
+			Attributes: QosPolicyLimiterClassMatchIPDestination{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Match on destination port or address
 
@@ -156,7 +158,7 @@ func (o QosPolicyLimiterClassMatchIP) ResourceSchemaAttributes() map[string]sche
 		},
 
 		"source": schema.SingleNestedAttribute{
-			Attributes: QosPolicyLimiterClassMatchIPSource{}.ResourceSchemaAttributes(),
+			Attributes: QosPolicyLimiterClassMatchIPSource{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Match on source port or address
 
@@ -167,7 +169,7 @@ func (o QosPolicyLimiterClassMatchIP) ResourceSchemaAttributes() map[string]sche
 		},
 
 		"tcp": schema.SingleNestedAttribute{
-			Attributes: QosPolicyLimiterClassMatchIPTCP{}.ResourceSchemaAttributes(),
+			Attributes: QosPolicyLimiterClassMatchIPTCP{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `TCP Flags matching
 

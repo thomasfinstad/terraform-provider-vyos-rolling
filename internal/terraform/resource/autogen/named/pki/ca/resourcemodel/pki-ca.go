@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
@@ -27,6 +29,8 @@ type PkiCa struct {
 
 	SelfIdentifier types.String `tfsdk:"ca_id" vyos:"-,self-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafPkiCaCertificate types.String `tfsdk:"certificate" vyos:"certificate,omitempty"`
 	LeafPkiCaDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -42,6 +46,11 @@ type PkiCa struct {
 // SetID configures the resource ID
 func (o *PkiCa) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *PkiCa) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -82,7 +91,7 @@ func (o *PkiCa) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o PkiCa) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o PkiCa) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -113,6 +122,10 @@ func (o PkiCa) ResourceSchemaAttributes() map[string]schema.Attribute {
 				),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 
@@ -168,7 +181,7 @@ func (o PkiCa) ResourceSchemaAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"private": schema.SingleNestedAttribute{
-			Attributes: PkiCaPrivate{}.ResourceSchemaAttributes(),
+			Attributes: PkiCaPrivate{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `CA private key in PEM format
 

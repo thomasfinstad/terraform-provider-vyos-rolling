@@ -26,6 +26,6 @@ Multicast IPv6 BGP settings
 ⯯
 **Import BGP network/prefix into multicast IPv6 RIB**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

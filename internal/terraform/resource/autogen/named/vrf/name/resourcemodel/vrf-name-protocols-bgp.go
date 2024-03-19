@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -33,7 +35,7 @@ type VrfNameProtocolsBgp struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgp) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgp) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -56,7 +58,7 @@ func (o VrfNameProtocolsBgp) ResourceSchemaAttributes() map[string]schema.Attrib
 		// Nodes
 
 		"address_family": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamily{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamily{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `BGP address-family parameters
 
@@ -67,7 +69,7 @@ func (o VrfNameProtocolsBgp) ResourceSchemaAttributes() map[string]schema.Attrib
 		},
 
 		"bmp": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpBmp{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpBmp{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `BGP Monitoring Protocol (BMP)
 
@@ -78,7 +80,7 @@ func (o VrfNameProtocolsBgp) ResourceSchemaAttributes() map[string]schema.Attrib
 		},
 
 		"listen": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpListen{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpListen{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Listen for and accept BGP dynamic neighbors from range
 
@@ -89,7 +91,7 @@ func (o VrfNameProtocolsBgp) ResourceSchemaAttributes() map[string]schema.Attrib
 		},
 
 		"parameters": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParameters{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpParameters{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `BGP parameters
 
@@ -100,7 +102,7 @@ func (o VrfNameProtocolsBgp) ResourceSchemaAttributes() map[string]schema.Attrib
 		},
 
 		"srv6": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpSrvsix{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpSrvsix{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Segment-Routing SRv6 configuration
 
@@ -111,7 +113,7 @@ func (o VrfNameProtocolsBgp) ResourceSchemaAttributes() map[string]schema.Attrib
 		},
 
 		"sid": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpSID{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpSID{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `SID value for VRF
 
@@ -122,7 +124,7 @@ func (o VrfNameProtocolsBgp) ResourceSchemaAttributes() map[string]schema.Attrib
 		},
 
 		"timers": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpTimers{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpTimers{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `BGP protocol timers
 

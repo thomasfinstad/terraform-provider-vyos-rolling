@@ -22,6 +22,6 @@ Bridge forward firewall
 ⯯
 **Bridge firewall forward filter**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

@@ -18,6 +18,6 @@ Service Policy definitions
 ⯯
 **Hierarchical Fair Service Curve's policy**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

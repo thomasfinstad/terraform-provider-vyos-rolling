@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -48,7 +50,7 @@ type VrfNameProtocolsIsis struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -278,7 +280,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 		// Nodes
 
 		"area_password": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisAreaPassword{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisAreaPassword{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Configure the authentication password for an area
 
@@ -289,7 +291,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"default_information": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisDefaultInformation{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisDefaultInformation{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Control distribution of default information
 
@@ -300,7 +302,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"domain_password": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisDomainPassword{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisDomainPassword{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Set the authentication password for a routing domain
 
@@ -311,7 +313,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"ldp_sync": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisLdpSync{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisLdpSync{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Protocol wide LDP-IGP synchronization configuration
 
@@ -322,7 +324,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"fast_reroute": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisFastReroute{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisFastReroute{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IS-IS fast reroute configuration
 
@@ -333,7 +335,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"traffic_engineering": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisTrafficEngineering{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisTrafficEngineering{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IS-IS traffic engineering extensions
 
@@ -344,7 +346,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"segment_routing": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisSegmentRouting{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisSegmentRouting{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Segment-Routing (SPRING) settings
 
@@ -355,7 +357,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"redistribute": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistribute{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistribute{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute information from another routing protocol
 
@@ -366,7 +368,7 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"spf_delay_ietf": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisSpfDelayIetf{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisSpfDelayIetf{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IETF SPF delay algorithm
 

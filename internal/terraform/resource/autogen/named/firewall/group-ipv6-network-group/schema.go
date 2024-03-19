@@ -18,6 +18,6 @@ Firewall group
 ⯯
 **Firewall ipv6-network-group**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

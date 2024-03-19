@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -24,7 +26,7 @@ type VrfNameProtocolsOspfvthreeDistance struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsOspfvthreeDistance) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsOspfvthreeDistance) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -47,7 +49,7 @@ func (o VrfNameProtocolsOspfvthreeDistance) ResourceSchemaAttributes() map[strin
 		// Nodes
 
 		"ospfv3": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeDistanceOspfvthree{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeDistanceOspfvthree{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `OSPFv3 administrative distance
 

@@ -16,6 +16,6 @@ func (r firewallZone) Schema(ctx context.Context, req resource.SchemaRequest, re
 ⯯
 **Zone-policy**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

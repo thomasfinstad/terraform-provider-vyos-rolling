@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -26,7 +28,7 @@ type VrfNameProtocolsIsisSegmentRouting struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsIsisSegmentRouting) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsIsisSegmentRouting) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -49,7 +51,7 @@ func (o VrfNameProtocolsIsisSegmentRouting) ResourceSchemaAttributes() map[strin
 		// Nodes
 
 		"global_block": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisSegmentRoutingGlobalBlock{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisSegmentRoutingGlobalBlock{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Segment Routing Global Block label range
 
@@ -60,7 +62,7 @@ func (o VrfNameProtocolsIsisSegmentRouting) ResourceSchemaAttributes() map[strin
 		},
 
 		"local_block": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisSegmentRoutingLocalBlock{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisSegmentRoutingLocalBlock{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Segment Routing Local Block label range
 

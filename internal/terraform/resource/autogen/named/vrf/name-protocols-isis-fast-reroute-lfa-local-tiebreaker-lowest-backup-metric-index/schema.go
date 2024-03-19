@@ -32,6 +32,6 @@ Prefer backup path with lowest total metric
 ⯯
 **Set preference order among tiebreakers**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

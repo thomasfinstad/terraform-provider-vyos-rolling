@@ -16,6 +16,6 @@ func (r containerName) Schema(ctx context.Context, req resource.SchemaRequest, r
 ⯯
 **Container name**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

@@ -18,6 +18,6 @@ Service Policy definitions
 ⯯
 **Stochastic Fairness Queueing**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

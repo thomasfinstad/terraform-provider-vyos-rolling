@@ -20,6 +20,6 @@ VRRP group
 ⯯
 **Virtual IP address**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

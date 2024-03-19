@@ -37,12 +37,13 @@ func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceD
 			"parent-id": false,
 			"omitempty": false,
 			"child":     false,
+			"timeout":   false,
 		}
 		for _, tag := range fTags[1:] {
 			flags[tag] = true
 		}
 		log.Printf("\tField flags: %#v\n", flags)
-		if flags["self-id"].(bool) || flags["parent-id"].(bool) {
+		if flags["self-id"].(bool) || flags["parent-id"].(bool) || flags["timeout"].(bool) {
 			log.Printf("\tNot configuring field: %s\n", fName)
 			tflog.Debug(ctx, "Not configuring field", map[string]interface{}{"field-name": fName})
 			continue
@@ -159,7 +160,7 @@ func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceD
 		case basetypes.ListValue:
 			var tfval basetypes.ListValuable
 			tfSchemaName := strings.Split(typeReflection.Field(i).Tag.Get("tfsdk"), ",")[0]
-			schemaAttr := value.ResourceSchemaAttributes()[tfSchemaName]
+			schemaAttr := value.ResourceSchemaAttributes(ctx)[tfSchemaName]
 			listAttr := schemaAttr.(schema.ListAttribute)
 			elemType := listAttr.ElementType
 

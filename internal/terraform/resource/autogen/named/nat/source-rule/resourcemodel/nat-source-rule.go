@@ -2,8 +2,10 @@
 package resourcemodel
 
 import (
+	"context"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
@@ -23,6 +25,8 @@ type NatSourceRule struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
+
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafNatSourceRuleDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -45,6 +49,11 @@ type NatSourceRule struct {
 // SetID configures the resource ID
 func (o *NatSourceRule) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *NatSourceRule) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -87,7 +96,7 @@ func (o *NatSourceRule) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o NatSourceRule) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o NatSourceRule) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -111,6 +120,10 @@ func (o NatSourceRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 				numberplanmodifier.RequiresReplace(),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 
@@ -326,7 +339,7 @@ func (o NatSourceRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"destination": schema.SingleNestedAttribute{
-			Attributes: NatSourceRuleDestination{}.ResourceSchemaAttributes(),
+			Attributes: NatSourceRuleDestination{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `NAT destination parameters
 
@@ -337,7 +350,7 @@ func (o NatSourceRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 		},
 
 		"load_balance": schema.SingleNestedAttribute{
-			Attributes: NatSourceRuleLoadBalance{}.ResourceSchemaAttributes(),
+			Attributes: NatSourceRuleLoadBalance{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Apply NAT load balance
 
@@ -348,7 +361,7 @@ func (o NatSourceRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 		},
 
 		"source": schema.SingleNestedAttribute{
-			Attributes: NatSourceRuleSource{}.ResourceSchemaAttributes(),
+			Attributes: NatSourceRuleSource{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `NAT source parameters
 
@@ -359,7 +372,7 @@ func (o NatSourceRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 		},
 
 		"outbound_interface": schema.SingleNestedAttribute{
-			Attributes: NatSourceRuleOutboundInterface{}.ResourceSchemaAttributes(),
+			Attributes: NatSourceRuleOutboundInterface{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Match outbound-interface
 
@@ -370,7 +383,7 @@ func (o NatSourceRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 		},
 
 		"translation": schema.SingleNestedAttribute{
-			Attributes: NatSourceRuleTranSLAtion{}.ResourceSchemaAttributes(),
+			Attributes: NatSourceRuleTranSLAtion{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Outside NAT IP (source NAT only)
 

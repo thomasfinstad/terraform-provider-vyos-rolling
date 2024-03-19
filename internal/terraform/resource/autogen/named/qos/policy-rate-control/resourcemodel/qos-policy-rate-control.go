@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
@@ -26,6 +28,8 @@ type QosPolicyRateControl struct {
 
 	SelfIdentifier types.String `tfsdk:"rate_control_id" vyos:"-,self-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafQosPolicyRateControlDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafQosPolicyRateControlBandwIDth   types.String `tfsdk:"bandwidth" vyos:"bandwidth,omitempty"`
@@ -40,6 +44,11 @@ type QosPolicyRateControl struct {
 // SetID configures the resource ID
 func (o *QosPolicyRateControl) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *QosPolicyRateControl) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -82,7 +91,7 @@ func (o *QosPolicyRateControl) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o QosPolicyRateControl) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o QosPolicyRateControl) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -119,6 +128,10 @@ func (o QosPolicyRateControl) ResourceSchemaAttributes() map[string]schema.Attri
 				),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 

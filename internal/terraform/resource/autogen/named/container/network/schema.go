@@ -16,6 +16,6 @@ func (r containerNetwork) Schema(ctx context.Context, req resource.SchemaRequest
 ⯯
 **Network name**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

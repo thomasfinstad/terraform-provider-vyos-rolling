@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -24,14 +26,14 @@ type VrfNameProtocolsIsisFastRerouteLfaLocalPriorityLimit struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsIsisFastRerouteLfaLocalPriorityLimit) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsIsisFastRerouteLfaLocalPriorityLimit) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"medium": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalPriorityLimitMedium{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalPriorityLimitMedium{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Compute for critical, high, and medium priority prefixes
 
@@ -42,7 +44,7 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocalPriorityLimit) ResourceSchemaAttr
 		},
 
 		"high": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalPriorityLimitHigh{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalPriorityLimitHigh{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Compute for critical, and high priority prefixes
 
@@ -53,7 +55,7 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocalPriorityLimit) ResourceSchemaAttr
 		},
 
 		"critical": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalPriorityLimitCritical{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalPriorityLimitCritical{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Compute for critical priority prefixes only
 

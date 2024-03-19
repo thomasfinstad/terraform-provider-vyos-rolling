@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -30,7 +32,7 @@ type VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -47,7 +49,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceSche
 		// Nodes
 
 		"connected": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute connected routes into BGP
 
@@ -58,7 +60,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceSche
 		},
 
 		"isis": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute IS-IS routes into BGP
 
@@ -69,7 +71,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceSche
 		},
 
 		"kernel": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute kernel routes into BGP
 
@@ -80,7 +82,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceSche
 		},
 
 		"ospf": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute OSPF routes into BGP
 
@@ -91,7 +93,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceSche
 		},
 
 		"rip": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute RIP routes into BGP
 
@@ -102,7 +104,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceSche
 		},
 
 		"babel": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute Babel routes into BGP
 
@@ -113,7 +115,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceSche
 		},
 
 		"static": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute static routes into BGP
 

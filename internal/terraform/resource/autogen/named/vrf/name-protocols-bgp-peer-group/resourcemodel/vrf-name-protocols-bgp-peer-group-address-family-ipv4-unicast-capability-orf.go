@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -22,14 +24,14 @@ type VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastCapabilityOrf struct
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastCapabilityOrf) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastCapabilityOrf) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"prefix_list": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastCapabilityOrfPrefixList{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastCapabilityOrfPrefixList{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Advertise prefix-list ORF capability to this peer
 

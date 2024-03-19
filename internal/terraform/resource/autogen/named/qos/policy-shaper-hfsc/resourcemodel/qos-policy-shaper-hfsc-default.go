@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -24,14 +26,14 @@ type QosPolicyShaperHfscDefault struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o QosPolicyShaperHfscDefault) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o QosPolicyShaperHfscDefault) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"linkshare": schema.SingleNestedAttribute{
-			Attributes: QosPolicyShaperHfscDefaultLinkshare{}.ResourceSchemaAttributes(),
+			Attributes: QosPolicyShaperHfscDefaultLinkshare{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Linkshare class settings
 
@@ -42,7 +44,7 @@ func (o QosPolicyShaperHfscDefault) ResourceSchemaAttributes() map[string]schema
 		},
 
 		"realtime": schema.SingleNestedAttribute{
-			Attributes: QosPolicyShaperHfscDefaultRealtime{}.ResourceSchemaAttributes(),
+			Attributes: QosPolicyShaperHfscDefaultRealtime{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Realtime class settings
 
@@ -53,7 +55,7 @@ func (o QosPolicyShaperHfscDefault) ResourceSchemaAttributes() map[string]schema
 		},
 
 		"upperlimit": schema.SingleNestedAttribute{
-			Attributes: QosPolicyShaperHfscDefaultUpperlimit{}.ResourceSchemaAttributes(),
+			Attributes: QosPolicyShaperHfscDefaultUpperlimit{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Upperlimit class settings
 

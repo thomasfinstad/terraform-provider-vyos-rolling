@@ -55,6 +55,7 @@ Service Policy definitions
     &emsp;|Format     &emsp;|Description  |
     |-------------|---------------|
     &emsp;|1-3600000  &emsp;|RTT in ms    |
+- `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
@@ -73,4 +74,12 @@ Optional:
 - `host` (Boolean) Flows are defined by source-destination host pairs
 - `nat` (Boolean) Perform NAT lookup before applying flow-isolation rules
 - `src_host` (Boolean) Flows are defined only by source address
-- `triple_isolate` (Boolean) Flows are defined by the 5-tuple, fairness is applied over source and destination addresses and also over individual flows (default)  &emsp;|
+- `triple_isolate` (Boolean) Flows are defined by the 5-tuple, fairness is applied over source and destination addresses and also over individual flows (default)
+
+
+&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+### Nested Schema for `timeouts`
+
+Optional:
+
+- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  &emsp;|

@@ -18,6 +18,6 @@ Service Policy definitions
 ⯯
 **Rate limiting policy (Token Bucket Filter)**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

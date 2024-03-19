@@ -18,6 +18,6 @@ Container name
 ⯯
 **Publish port to the container**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

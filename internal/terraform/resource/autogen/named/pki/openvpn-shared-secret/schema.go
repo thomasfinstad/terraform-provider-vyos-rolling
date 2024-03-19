@@ -18,6 +18,6 @@ OpenVPN keys
 ⯯
 **OpenVPN shared secret key**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

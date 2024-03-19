@@ -20,6 +20,6 @@ Deficit Round Robin Scheduler
 ⯯
 **Class ID**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

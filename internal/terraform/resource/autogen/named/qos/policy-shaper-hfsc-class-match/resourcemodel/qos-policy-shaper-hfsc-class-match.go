@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
@@ -31,6 +33,8 @@ type QosPolicyShaperHfscClassMatch struct {
 
 	ParentIDQosPolicyShaperHfscClass types.Number `tfsdk:"class_id" vyos:"class,parent-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafQosPolicyShaperHfscClassMatchDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafQosPolicyShaperHfscClassMatchInterface   types.String `tfsdk:"interface" vyos:"interface,omitempty"`
@@ -48,6 +52,11 @@ type QosPolicyShaperHfscClassMatch struct {
 // SetID configures the resource ID
 func (o *QosPolicyShaperHfscClassMatch) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *QosPolicyShaperHfscClassMatch) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -106,7 +115,7 @@ func (o *QosPolicyShaperHfscClassMatch) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o QosPolicyShaperHfscClassMatch) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o QosPolicyShaperHfscClassMatch) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -189,6 +198,10 @@ func (o QosPolicyShaperHfscClassMatch) ResourceSchemaAttributes() map[string]sch
 			},
 		},
 
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
@@ -258,7 +271,7 @@ func (o QosPolicyShaperHfscClassMatch) ResourceSchemaAttributes() map[string]sch
 		// Nodes
 
 		"ether": schema.SingleNestedAttribute{
-			Attributes: QosPolicyShaperHfscClassMatchEther{}.ResourceSchemaAttributes(),
+			Attributes: QosPolicyShaperHfscClassMatchEther{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Ethernet header match
 
@@ -269,7 +282,7 @@ func (o QosPolicyShaperHfscClassMatch) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"ip": schema.SingleNestedAttribute{
-			Attributes: QosPolicyShaperHfscClassMatchIP{}.ResourceSchemaAttributes(),
+			Attributes: QosPolicyShaperHfscClassMatchIP{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Match IP protocol header
 
@@ -280,7 +293,7 @@ func (o QosPolicyShaperHfscClassMatch) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
-			Attributes: QosPolicyShaperHfscClassMatchIPvsix{}.ResourceSchemaAttributes(),
+			Attributes: QosPolicyShaperHfscClassMatchIPvsix{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Match IPv6 protocol header
 

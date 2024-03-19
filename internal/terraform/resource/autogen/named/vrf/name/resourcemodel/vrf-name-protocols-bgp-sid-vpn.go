@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -22,14 +24,14 @@ type VrfNameProtocolsBgpSIDVpn struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpSIDVpn) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpSIDVpn) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"per_vrf": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpSIDVpnPerVrf{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpSIDVpnPerVrf{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `SID per-VRF (both IPv4 and IPv6 address families)
 

@@ -18,6 +18,6 @@ Firewall group
 ⯯
 **Firewall domain-group**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

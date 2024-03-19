@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
@@ -28,6 +30,8 @@ type VrfNameProtocolsBgpPeerGroup struct {
 	SelfIdentifier types.String `tfsdk:"peer_group_id" vyos:"-,self-id"`
 
 	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
+
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafVrfNameProtocolsBgpPeerGroupDescrIPtion                  types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -58,6 +62,11 @@ type VrfNameProtocolsBgpPeerGroup struct {
 // SetID configures the resource ID
 func (o *VrfNameProtocolsBgpPeerGroup) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *VrfNameProtocolsBgpPeerGroup) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -110,7 +119,7 @@ func (o *VrfNameProtocolsBgpPeerGroup) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -173,6 +182,10 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
 				),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 
@@ -357,7 +370,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
 		// Nodes
 
 		"address_family": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamily{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamily{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Address-family parameters
 
@@ -368,7 +381,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
 		},
 
 		"bfd": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupBfd{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupBfd{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Enable Bidirectional Forwarding Detection (BFD) support
 
@@ -379,7 +392,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
 		},
 
 		"capability": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupCapability{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupCapability{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Advertise capabilities to this peer-group
 
@@ -390,7 +403,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
 		},
 
 		"path_attribute": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupPathAttribute{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupPathAttribute{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Manipulate path attributes from incoming UPDATE messages
 
@@ -401,7 +414,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
 		},
 
 		"ttl_security": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupTTLSecURIty{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupTTLSecURIty{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Ttl security mechanism
 

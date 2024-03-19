@@ -2,8 +2,10 @@
 package resourcemodel
 
 import (
+	"context"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
@@ -23,6 +25,8 @@ type PolicyAccessList struct {
 
 	SelfIdentifier types.Number `tfsdk:"access_list_id" vyos:"-,self-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafPolicyAccessListDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 
@@ -35,6 +39,11 @@ type PolicyAccessList struct {
 // SetID configures the resource ID
 func (o *PolicyAccessList) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *PolicyAccessList) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -75,7 +84,7 @@ func (o *PolicyAccessList) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o PolicyAccessList) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o PolicyAccessList) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -105,6 +114,10 @@ func (o PolicyAccessList) ResourceSchemaAttributes() map[string]schema.Attribute
 				numberplanmodifier.RequiresReplace(),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 

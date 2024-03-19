@@ -16,6 +16,6 @@ func (r policyLargeCommunityList) Schema(ctx context.Context, req resource.Schem
 ⯯
 **Add a BGP large community list entry**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

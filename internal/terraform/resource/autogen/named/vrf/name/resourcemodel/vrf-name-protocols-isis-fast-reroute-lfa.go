@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -23,14 +25,14 @@ type VrfNameProtocolsIsisFastRerouteLfa struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsIsisFastRerouteLfa) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsIsisFastRerouteLfa) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"remote": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisFastRerouteLfaRemote{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisFastRerouteLfaRemote{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Remote loop free alternate options
 
@@ -41,7 +43,7 @@ func (o VrfNameProtocolsIsisFastRerouteLfa) ResourceSchemaAttributes() map[strin
 		},
 
 		"local": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocal{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocal{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Local loop free alternate options
 

@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -45,7 +47,7 @@ type VrfNameProtocolsOspf struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsOspf) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -100,7 +102,7 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 		// Nodes
 
 		"aggregation": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfAggregation{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfAggregation{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `External route aggregation
 
@@ -111,7 +113,7 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"auto_cost": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfAutoCost{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfAutoCost{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Calculate interface cost according to bandwidth
 
@@ -122,7 +124,7 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"capability": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfCapability{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfCapability{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Enable specific OSPF features
 
@@ -133,7 +135,7 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"default_information": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfDefaultInformation{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfDefaultInformation{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Default route advertisment settings
 
@@ -144,7 +146,7 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"graceful_restart": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfGracefulRestart{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfGracefulRestart{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Graceful Restart
 
@@ -155,7 +157,7 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"ldp_sync": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfLdpSync{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfLdpSync{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Protocol wide LDP-IGP synchronization configuration
 
@@ -166,7 +168,7 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"distance": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfDistance{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfDistance{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Administrative distance
 
@@ -177,7 +179,7 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"log_adjacency_changes": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfLogAdjacencyChanges{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfLogAdjacencyChanges{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Log adjacency state changes
 
@@ -188,7 +190,7 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"max_metric": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfMaxMetric{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfMaxMetric{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `OSPF maximum and infinite-distance metric
 
@@ -199,7 +201,7 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"mpls_te": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfMplsTe{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfMplsTe{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `MultiProtocol Label Switching-Traffic Engineering (MPLS-TE) parameters
 
@@ -210,7 +212,7 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"parameters": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfParameters{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfParameters{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `OSPF specific parameters
 
@@ -221,7 +223,7 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"segment_routing": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfSegmentRouting{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfSegmentRouting{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Segment-Routing (SPRING) settings
 
@@ -232,7 +234,7 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"redistribute": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfRedistribute{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfRedistribute{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute information from another routing protocol
 
@@ -243,7 +245,7 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"refresh": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfRefresh{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfRefresh{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Adjust refresh parameters
 
@@ -254,7 +256,7 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 		},
 
 		"timers": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfTimers{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfTimers{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Adjust routing timers
 

@@ -2,10 +2,16 @@ package crud
 
 import (
 	"context"
+	"errors"
 	"math/big"
+	"net"
 	"net/http"
 	"testing"
+	"time"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
@@ -88,7 +94,7 @@ func TestCrudCreateSuccess(t *testing.T) {
 	}
 
 	// Server
-	apiAddress := "localhost:8080"
+	apiAddress := "localhost:50001"
 	srv := &http.Server{
 		Addr: apiAddress,
 	}
@@ -170,7 +176,7 @@ func TestCrudCreateResourceAlreadyExsitsFailure(t *testing.T) {
 	}
 
 	// Server
-	apiAddress := "localhost:8080"
+	apiAddress := "localhost:50002"
 	srv := &http.Server{
 		Addr: apiAddress,
 	}
@@ -257,7 +263,7 @@ func TestCrudCreateResourceAlreadyExsitsIgnore(t *testing.T) {
 	}
 
 	// Server
-	apiAddress := "localhost:8080"
+	apiAddress := "localhost:50003"
 	srv := &http.Server{
 		Addr: apiAddress,
 	}
@@ -327,7 +333,7 @@ func TestCrudCreateResourceParentMissingFailure(t *testing.T) {
 	}
 
 	// Server
-	apiAddress := "localhost:8080"
+	apiAddress := "localhost:50004"
 	srv := &http.Server{
 		Addr: apiAddress,
 	}
@@ -416,7 +422,7 @@ func TestCrudCreateResourceParentMissingIgnore(t *testing.T) {
 	}
 
 	// Server
-	apiAddress := "localhost:8080"
+	apiAddress := "localhost:50014"
 	srv := &http.Server{
 		Addr: apiAddress,
 	}
@@ -442,5 +448,258 @@ func TestCrudCreateResourceParentMissingIgnore(t *testing.T) {
 		}
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
 		return
+	}
+}
+
+// TestCrudCreateTimeoutSuccess test CRUD helper: Create
+//
+//	Verify that resource will wait for configured timeout
+func TestCrudCreateTimeoutSuccess(t *testing.T) {
+	// API mocking
+	eList := api.NewExchangeList()
+	apiKey := "test-key"
+
+	// Parent check API call
+	exchangeParentExistsCheck := eList.Add()
+	exchangeParentExistsCheck.Expect(
+		"/retrieve",
+		apiKey,
+		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name"]}`,
+	).Response(
+		200,
+		`{
+			"success": true,
+			"data": true,
+			"error": null
+		}`,
+	).Delay(10 * time.Millisecond)
+
+	// Self check API call
+	exchangeExistingResourceCheck := eList.Add()
+	exchangeExistingResourceCheck.Expect(
+		"/retrieve",
+		apiKey,
+		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name","rule","42"]}`,
+	).Response(
+		200,
+		`{
+			"success": true,
+			"data": false,
+			"error": null
+		}`,
+	).Delay(10 * time.Millisecond)
+
+	// Create resource API call
+	exchangeCreateResource := eList.Add()
+	exchangeCreateResource.Expect(
+		"/configure",
+		apiKey,
+		`[`+
+			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","action","accept"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","description","Allow http outgoing traffic"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","protocol","tcp"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","destination","group","port-group","Web"]}`+
+			`]`,
+	).Response(
+		200,
+		`{
+			"success": true,
+			"data": null,
+			"error": null
+		}`,
+	).Delay(10 * time.Millisecond)
+
+	// From resource model
+	model := &resourcemodel.FirewallIPvfourNameRule{
+
+		Timeouts: timeouts.Value{
+			Object: types.ObjectValueMust(
+				map[string]attr.Type{
+					"create": types.StringType,
+					"read":   types.StringType,
+					"update": types.StringType,
+					"delete": types.StringType,
+				},
+				map[string]attr.Value{
+					"create": types.StringValue("1s"),
+					"read":   types.StringValue("1s"),
+					"update": types.StringValue("1s"),
+					"delete": types.StringValue("1s"),
+				},
+			),
+		},
+
+		ParentIDFirewallIPvfourName: basetypes.NewStringValue("Test-Fw-Name"),
+		SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
+
+		LeafFirewallIPvfourNameRuleAction:      basetypes.NewStringValue("accept"),
+		LeafFirewallIPvfourNameRuleDescrIPtion: basetypes.NewStringValue("Allow http outgoing traffic"),
+		NodeFirewallIPvfourNameRuleDestination: &resourcemodel.FirewallIPvfourNameRuleDestination{
+			NodeFirewallIPvfourNameRuleDestinationGroup: &resourcemodel.FirewallIPvfourNameRuleDestinationGroup{
+				LeafFirewallIPvfourNameRuleDestinationGroupPortGroup: basetypes.NewStringValue("Web"),
+			},
+		},
+		LeafFirewallIPvfourNameRuleProtocol: basetypes.NewStringValue("tcp"),
+	}
+
+	// Server
+	apiAddress := "localhost:50005"
+	srv := &http.Server{
+		Addr: apiAddress,
+	}
+	api.Server(srv, eList)
+
+	// Client
+	start := time.Now()
+	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
+	defer cancel()
+	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
+	providerData := data.NewProviderData(client)
+
+	// Execute test
+	err := create(ctx, providerData, client, model)
+	if err != nil {
+		d, ok := ctx.Deadline()
+		t.Error("Start        :", start)
+		t.Error("Now          :", time.Now())
+		t.Error("DeadLine Time:", d, ok)
+		t.Error("DeadLine Left:", time.Until(d))
+		t.Error("Since        :", time.Since(start))
+		t.Error("Create failed:", err)
+		return
+	}
+
+	// Validate API calls
+	if len(eList.Unmatched()) > 0 {
+		for _, e := range eList.Unmatched() {
+			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
+		}
+		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		return
+	}
+}
+
+// TestCrudCreateTimeoutFailure test CRUD helper: Create
+//
+//	Verify that resource will timeout after configured time
+func TestCrudCreateTimeoutFailure(t *testing.T) {
+	// API mocking
+	eList := api.NewExchangeList()
+	apiKey := "test-key"
+
+	// Parent check API call
+	exchangeParentExistsCheck := eList.Add()
+	exchangeParentExistsCheck.Expect(
+		"/retrieve",
+		apiKey,
+		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name"]}`,
+	).Response(
+		200,
+		`{
+			"success": true,
+			"data": true,
+			"error": null
+		}`,
+	).Delay(10 * time.Millisecond)
+
+	// Self check API call
+	exchangeExistingResourceCheck := eList.Add()
+	exchangeExistingResourceCheck.Expect(
+		"/retrieve",
+		apiKey,
+		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name","rule","42"]}`,
+	).Response(
+		200,
+		`{
+			"success": true,
+			"data": false,
+			"error": null
+		}`,
+	).Delay(10 * time.Millisecond)
+
+	// Create resource API call
+	exchangeCreateResource := eList.Add()
+	exchangeCreateResource.Expect(
+		"/configure",
+		apiKey,
+		`[`+
+			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","action","accept"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","description","Allow http outgoing traffic"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","protocol","tcp"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","destination","group","port-group","Web"]}`+
+			`]`,
+	).Response(
+		200,
+		`{
+			"success": true,
+			"data": null,
+			"error": null
+		}`,
+	).Delay(1 * time.Second)
+
+	// From resource model
+	model := &resourcemodel.FirewallIPvfourNameRule{
+
+		// This logic is handled in the public function,
+		// we are testing the private function, and will
+		// just send a context.Context with timeout
+		//
+		// Timeouts: timeouts.Value{
+		// 	Object: types.ObjectValueMust(
+		// 		map[string]attr.Type{
+		// 			"create": types.StringType,
+		// 			"read":   types.StringType,
+		// 			"update": types.StringType,
+		// 			"delete": types.StringType,
+		// 		},
+		// 		map[string]attr.Value{
+		// 			"create": types.StringValue("2s"),
+		// 			"read":   types.StringValue("2s"),
+		// 			"update": types.StringValue("2s"),
+		// 			"delete": types.StringValue("2s"),
+		// 		},
+		// 	),
+		// },
+
+		ParentIDFirewallIPvfourName: basetypes.NewStringValue("Test-Fw-Name"),
+		SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
+
+		LeafFirewallIPvfourNameRuleAction:      basetypes.NewStringValue("accept"),
+		LeafFirewallIPvfourNameRuleDescrIPtion: basetypes.NewStringValue("Allow http outgoing traffic"),
+		NodeFirewallIPvfourNameRuleDestination: &resourcemodel.FirewallIPvfourNameRuleDestination{
+			NodeFirewallIPvfourNameRuleDestinationGroup: &resourcemodel.FirewallIPvfourNameRuleDestinationGroup{
+				LeafFirewallIPvfourNameRuleDestinationGroupPortGroup: basetypes.NewStringValue("Web"),
+			},
+		},
+		LeafFirewallIPvfourNameRuleProtocol: basetypes.NewStringValue("tcp"),
+	}
+
+	// Server
+	apiAddress := "localhost:50006"
+	srv := &http.Server{
+		Addr: apiAddress,
+	}
+	api.Server(srv, eList)
+
+	// Client
+	ctx, cancel := context.WithTimeout(context.Background(), 50*time.Millisecond)
+	defer cancel()
+	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
+	providerData := data.NewProviderData(client)
+
+	// Execute test
+	err := create(ctx, providerData, client, model)
+
+	var netErr net.Error
+	if !errors.As(err, &netErr) && netErr.Timeout() {
+		t.Errorf("Create timeout failed: %v", err)
+	}
+
+	// Validate API calls
+	if len(eList.Unmatched()) != 1 {
+		for _, e := range eList.Unmatched() {
+			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
+		}
+		t.Errorf("Expected 1 unmatched exchange. Total unmatched exchanges: %d", len(eList.Unmatched()))
 	}
 }

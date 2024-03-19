@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -26,7 +28,7 @@ type VrfNameIPvsix struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameIPvsix) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameIPvsix) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -45,7 +47,7 @@ func (o VrfNameIPvsix) ResourceSchemaAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"nht": schema.SingleNestedAttribute{
-			Attributes: VrfNameIPvsixNht{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameIPvsixNht{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Filter Next Hop tracking route resolution
 

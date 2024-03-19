@@ -3,6 +3,7 @@ package crud
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
@@ -11,8 +12,6 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 )
-
-// TODO wrap delete() call in "timeout" and "retry" functionality
 
 // Delete method to define the logic which deletes the resource and removes the Terraform state on success.
 func Delete(ctx context.Context, r helpers.VyosResource, req resource.DeleteRequest, resp *resource.DeleteResponse) {
@@ -26,6 +25,15 @@ func Delete(ctx context.Context, r helpers.VyosResource, req resource.DeleteRequ
 	if resp.Diagnostics.HasError() {
 		return
 	}
+
+	// Setup timeout
+	createTimeout, diags := stateModel.GetTimeouts().Delete(ctx, time.Duration(r.GetProviderConfig().Config.CrudDefaultTimeouts)*time.Minute)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+	ctx, cancel := context.WithTimeout(ctx, createTimeout)
+	defer cancel()
 
 	// Delete resource
 	err := delete(ctx, r.GetProviderConfig(), c, stateModel)
@@ -43,6 +51,7 @@ func Delete(ctx context.Context, r helpers.VyosResource, req resource.DeleteRequ
 // model must be a ptr
 // this function is seperated out to keep the terraform provider
 // logic and API logic seperate so we can test the API logic easier
+// TODO add retry support to delete()
 func delete(ctx context.Context, providerCfg data.ProviderData, c client.Client, stateModel helpers.VyosTopResourceDataModel) error {
 	var vyosOps [][]string
 

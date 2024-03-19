@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -23,14 +25,14 @@ type FirewallIPvfourOutputFilterRuleAddAddressToGroup struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o FirewallIPvfourOutputFilterRuleAddAddressToGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o FirewallIPvfourOutputFilterRuleAddAddressToGroup) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"source_address": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourOutputFilterRuleAddAddressToGroupSourceAddress{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourOutputFilterRuleAddAddressToGroupSourceAddress{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Add source ip addresses to dynamic address-group
 
@@ -41,7 +43,7 @@ func (o FirewallIPvfourOutputFilterRuleAddAddressToGroup) ResourceSchemaAttribut
 		},
 
 		"destination_address": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourOutputFilterRuleAddAddressToGroupDestinationAddress{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourOutputFilterRuleAddAddressToGroupDestinationAddress{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Add destination ip addresses to dynamic address-group
 

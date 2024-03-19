@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -24,14 +26,14 @@ type VrfNameProtocolsIsisFastRerouteLfaLocal struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsIsisFastRerouteLfaLocal) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsIsisFastRerouteLfaLocal) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"load_sharing": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalLoadSharing{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalLoadSharing{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Load share prefixes across multiple backups
 
@@ -42,7 +44,7 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocal) ResourceSchemaAttributes() map[
 		},
 
 		"priority_limit": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalPriorityLimit{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalPriorityLimit{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Limit backup computation up to the prefix priority
 
@@ -53,7 +55,7 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocal) ResourceSchemaAttributes() map[
 		},
 
 		"tiebreaker": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalTiebreaker{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalTiebreaker{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Configure tiebreaker for multiple backups
 

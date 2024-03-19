@@ -22,6 +22,6 @@ Apply NAT load balance
 ⯯
 **Translated IP address**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

@@ -22,6 +22,6 @@ Open Shortest Path First (OSPF)
 ⯯
 **Specify neighbor router**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

@@ -20,6 +20,6 @@ Firewall dynamic group
 ⯯
 **Firewall dynamic IPv6 address group**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
@@ -27,6 +29,8 @@ type PkiCertificate struct {
 
 	SelfIdentifier types.String `tfsdk:"certificate_id" vyos:"-,self-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafPkiCertificateCertificate types.String `tfsdk:"certificate" vyos:"certificate,omitempty"`
 	LeafPkiCertificateDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -42,6 +46,11 @@ type PkiCertificate struct {
 // SetID configures the resource ID
 func (o *PkiCertificate) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *PkiCertificate) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -82,7 +91,7 @@ func (o *PkiCertificate) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o PkiCertificate) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o PkiCertificate) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -113,6 +122,10 @@ func (o PkiCertificate) ResourceSchemaAttributes() map[string]schema.Attribute {
 				),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 
@@ -157,7 +170,7 @@ func (o PkiCertificate) ResourceSchemaAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"acme": schema.SingleNestedAttribute{
-			Attributes: PkiCertificateAcme{}.ResourceSchemaAttributes(),
+			Attributes: PkiCertificateAcme{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Automatic Certificate Management Environment (ACME) request
 
@@ -168,7 +181,7 @@ func (o PkiCertificate) ResourceSchemaAttributes() map[string]schema.Attribute {
 		},
 
 		"private": schema.SingleNestedAttribute{
-			Attributes: PkiCertificatePrivate{}.ResourceSchemaAttributes(),
+			Attributes: PkiCertificatePrivate{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Certificate private key
 

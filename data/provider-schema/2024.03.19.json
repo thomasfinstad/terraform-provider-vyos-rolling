@@ -27,6 +27,12 @@
               "description_kind": "plain",
               "optional": true
             },
+            "default_timeouts": {
+              "type": "number",
+              "description": "Default Create/Read/Update/Destroy timeouts in minutes, can be overridden on a per resource basis. If not configured, defaults to 15.",
+              "description_kind": "markdown",
+              "optional": true
+            },
             "endpoint": {
               "type": "string",
               "description": "VyOS API Endpoint",
@@ -158,6 +164,21 @@
                 "optional": true,
                 "computed": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "uid": {
                 "type": "number",
                 "description": "User ID this container will run as\n\n    |  Format   |  Description                         |\n    |-----------|--------------------------------------|\n    |  0-65535  |  User ID this container will run as  |\n",
@@ -202,6 +223,21 @@
                 "description": "Source device (Example: \"/dev/x\")\n\n    |  Format  |  Description    |\n    |----------|-----------------|\n    |  txt     |  Source device  |\n",
                 "description_kind": "markdown",
                 "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Container applications\n⯯\nContainer name\n⯯\n**Add a host device to the container**\n",
@@ -229,6 +265,21 @@
                 "description": "Container name\n\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               },
               "value": {
                 "type": "string",
@@ -262,6 +313,21 @@
                 "description": "Container name\n\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               },
               "value": {
                 "type": "string",
@@ -304,6 +370,21 @@
                 "description": "Attach user defined network to container\n\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Container applications\n⯯\nContainer name\n⯯\n**Attach user defined network to container**\n",
@@ -359,6 +440,21 @@
                 "description": "Source host port\n\n    |  Format     |  Description                                |\n    |-------------|---------------------------------------------|\n    |  1-65535    |  Source host port                           |\n    |  start-end  |  Source host port range (e.g. 10025-10030)  |\n",
                 "description_kind": "markdown",
                 "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Container applications\n⯯\nContainer name\n⯯\n**Publish port to the container**\n",
@@ -407,6 +503,21 @@
                 "description_kind": "markdown",
                 "optional": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "volume_id": {
                 "type": "string",
                 "description": "Mount a volume into the container\n\n",
@@ -447,6 +558,21 @@
                 ],
                 "description": "Prefix which allocated to that network\n\n    |  Format   |  Description          |\n    |-----------|-----------------------|\n    |  ipv4net  |  IPv4 network prefix  |\n    |  ipv6net  |  IPv6 network prefix  |\n",
                 "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
                 "optional": true
               },
               "vrf": {
@@ -504,6 +630,21 @@
                 "description": "Registry Name\n\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Container applications\n⯯\n**Registry Name**\n",
@@ -539,6 +680,21 @@
                 "description": "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
                 "description_kind": "markdown",
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall\n⯯\nBridge firewall\n⯯\nBridge forward firewall\n⯯\n**Bridge firewall forward filter**\n",
@@ -712,6 +868,21 @@
                 "description_kind": "markdown",
                 "optional": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "vlan": {
                 "nested_type": {
                   "attributes": {
@@ -780,6 +951,21 @@
                 "description": "Bridge custom firewall\n\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Firewall\n⯯\nBridge firewall\n⯯\n**Bridge custom firewall**\n",
@@ -959,6 +1145,21 @@
                 "description_kind": "markdown",
                 "optional": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "vlan": {
                 "nested_type": {
                   "attributes": {
@@ -1023,6 +1224,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Firewall\n⯯\n**Flowtable**\n",
@@ -1130,6 +1346,21 @@
                 "optional": true,
                 "computed": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "twa_hazards_protection": {
                 "type": "string",
                 "description": "RFC1337 TCP TIME-WAIT assasination hazards protection\n\n    |  Format   |  Description                                   |\n    |-----------|------------------------------------------------|\n    |  enable   |  Enable RFC1337 TIME-WAIT hazards protection   |\n    |  disable  |  Disable RFC1337 TIME-WAIT hazards protection  |\n",
@@ -1170,6 +1401,21 @@
                 "description": "Set log-level. Log must be enable.\n\n    |  Format  |  Description         |\n    |----------|----------------------|\n    |  emerg   |  Emerg log level     |\n    |  alert   |  Alert log level     |\n    |  crit    |  Critical log level  |\n    |  err     |  Error log level     |\n    |  warn    |  Warning log level   |\n    |  notice  |  Notice log level    |\n    |  info    |  Info log level      |\n    |  debug   |  Debug log level     |\n",
                 "description_kind": "markdown",
                 "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall\n⯯\nGlobal Options\n⯯\nGlobal firewall state-policy\n⯯\n**Global firewall policy for packets part of an established connection**\n",
@@ -1204,6 +1450,21 @@
                 "description": "Set log-level. Log must be enable.\n\n    |  Format  |  Description         |\n    |----------|----------------------|\n    |  emerg   |  Emerg log level     |\n    |  alert   |  Alert log level     |\n    |  crit    |  Critical log level  |\n    |  err     |  Error log level     |\n    |  warn    |  Warning log level   |\n    |  notice  |  Notice log level    |\n    |  info    |  Info log level      |\n    |  debug   |  Debug log level     |\n",
                 "description_kind": "markdown",
                 "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall\n⯯\nGlobal Options\n⯯\nGlobal firewall state-policy\n⯯\n**Global firewall policy for packets part of an invalid connection**\n",
@@ -1237,6 +1498,21 @@
                 "type": "string",
                 "description": "Set log-level. Log must be enable.\n\n    |  Format  |  Description         |\n    |----------|----------------------|\n    |  emerg   |  Emerg log level     |\n    |  alert   |  Alert log level     |\n    |  crit    |  Critical log level  |\n    |  err     |  Error log level     |\n    |  warn    |  Warning log level   |\n    |  notice  |  Notice log level    |\n    |  info    |  Info log level      |\n    |  debug   |  Debug log level     |\n",
                 "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
                 "optional": true
               }
             },
@@ -1283,6 +1559,21 @@
                 "description": "Include another address-group\n\n",
                 "description_kind": "markdown",
                 "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Firewall\n⯯\nFirewall group\n⯯\n**Firewall address-group**\n",
@@ -1319,6 +1610,21 @@
                 "description": "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
                 "description_kind": "markdown",
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Firewall\n⯯\nFirewall group\n⯯\n**Firewall domain-group**\n",
@@ -1346,6 +1652,21 @@
                 "description": "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
                 "description_kind": "markdown",
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Firewall\n⯯\nFirewall group\n⯯\nFirewall dynamic group\n⯯\n**Firewall dynamic address group**\n",
@@ -1373,6 +1694,21 @@
                 "description": "Firewall dynamic IPv6 address group\n\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Firewall\n⯯\nFirewall group\n⯯\nFirewall dynamic group\n⯯\n**Firewall dynamic IPv6 address group**\n",
@@ -1418,6 +1754,21 @@
                 "description": "Firewall interface-group\n\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Firewall\n⯯\nFirewall group\n⯯\n**Firewall interface-group**\n",
@@ -1463,6 +1814,21 @@
                 "description": "Firewall ipv6-address-group\n\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Firewall\n⯯\nFirewall group\n⯯\n**Firewall ipv6-address-group**\n",
@@ -1507,6 +1873,21 @@
                 ],
                 "description": "Network-group member\n\n    |  Format   |  Description            |\n    |-----------|-------------------------|\n    |  ipv6net  |  IPv6 address to match  |\n",
                 "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
                 "optional": true
               }
             },
@@ -1553,6 +1934,21 @@
                 "description": "Firewall mac-group\n\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Firewall\n⯯\nFirewall group\n⯯\n**Firewall mac-group**\n",
@@ -1598,6 +1994,21 @@
                 "description": "Firewall network-group\n\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Firewall\n⯯\nFirewall group\n⯯\n**Firewall network-group**\n",
@@ -1643,6 +2054,21 @@
                 "description": "Firewall port-group\n\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Firewall\n⯯\nFirewall group\n⯯\n**Firewall port-group**\n",
@@ -1678,6 +2104,21 @@
                 "description": "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
                 "description_kind": "markdown",
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall\n⯯\nIPv4 firewall\n⯯\nIPv4 forward firewall\n⯯\n**IPv4 firewall forward filter**\n",
@@ -2546,6 +2987,21 @@
                 "description_kind": "markdown",
                 "optional": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "ttl": {
                 "nested_type": {
                   "attributes": {
@@ -2608,6 +3064,21 @@
                 "description": "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
                 "description_kind": "markdown",
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall\n⯯\nIPv4 firewall\n⯯\nIPv4 input firewall\n⯯\n**IPv4 firewall input filter**\n",
@@ -3448,6 +3919,21 @@
                 "description_kind": "markdown",
                 "optional": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "ttl": {
                 "nested_type": {
                   "attributes": {
@@ -3522,6 +4008,21 @@
                 "description": "IPv4 custom firewall\n\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Firewall\n⯯\nIPv4 firewall\n⯯\n**IPv4 custom firewall**\n",
@@ -4396,6 +4897,21 @@
                 "description_kind": "markdown",
                 "optional": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "ttl": {
                 "nested_type": {
                   "attributes": {
@@ -4458,6 +4974,21 @@
                 "description": "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
                 "description_kind": "markdown",
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall\n⯯\nIPv4 firewall\n⯯\nIPv4 output firewall\n⯯\n**IPv4 firewall output filter**\n",
@@ -5274,6 +5805,21 @@
                 "description_kind": "markdown",
                 "optional": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "ttl": {
                 "nested_type": {
                   "attributes": {
@@ -5336,6 +5882,21 @@
                 "description": "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
                 "description_kind": "markdown",
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall\n⯯\nIPv6 firewall\n⯯\nIPv6 forward firewall\n⯯\n**IPv6 firewall forward filter**\n",
@@ -6231,6 +6792,21 @@
                 "description": "Time to match rule\n\n",
                 "description_kind": "markdown",
                 "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Firewall\n⯯\nIPv6 firewall\n⯯\nIPv6 forward firewall\n⯯\nIPv6 firewall forward filter\n⯯\n**IPv6 Firewall forward filter rule number**\n",
@@ -6266,6 +6842,21 @@
                 "description": "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
                 "description_kind": "markdown",
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall\n⯯\nIPv6 firewall\n⯯\nIPv6 input firewall\n⯯\n**IPv6 firewall input filter**\n",
@@ -7133,6 +7724,21 @@
                 "description": "Time to match rule\n\n",
                 "description_kind": "markdown",
                 "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Firewall\n⯯\nIPv6 firewall\n⯯\nIPv6 input firewall\n⯯\nIPv6 firewall input filter\n⯯\n**IPv6 Firewall input filter rule number**\n",
@@ -7180,6 +7786,21 @@
                 "description": "IPv6 custom firewall\n\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Firewall\n⯯\nIPv6 firewall\n⯯\n**IPv6 custom firewall**\n",
@@ -8081,6 +8702,21 @@
                 "description": "Time to match rule\n\n",
                 "description_kind": "markdown",
                 "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Firewall\n⯯\nIPv6 firewall\n⯯\nIPv6 custom firewall\n⯯\n**IPv6 Firewall custom rule number**\n",
@@ -8116,6 +8752,21 @@
                 "description": "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
                 "description_kind": "markdown",
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall\n⯯\nIPv6 firewall\n⯯\nIPv6 output firewall\n⯯\n**IPv6 firewall output filter**\n",
@@ -8959,6 +9610,21 @@
                 "description": "Time to match rule\n\n",
                 "description_kind": "markdown",
                 "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Firewall\n⯯\nIPv6 firewall\n⯯\nIPv6 output firewall\n⯯\nIPv6 firewall output filter\n⯯\n**IPv6 Firewall output filter rule number**\n",
@@ -9049,6 +9715,21 @@
                 "optional": true,
                 "computed": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "zone_id": {
                 "type": "string",
                 "description": "Zone-policy\n\n    |  Format  |  Description  |\n    |----------|---------------|\n    |  txt     |  Zone name    |\n",
@@ -9098,6 +9779,21 @@
                 "description_kind": "markdown",
                 "computed": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "zone_id": {
                 "type": "string",
                 "description": "Zone-policy\n\n    |  Format  |  Description  |\n    |----------|---------------|\n    |  txt     |  Zone name    |\n",
@@ -9125,6 +9821,21 @@
                 "description": "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
                 "description_kind": "markdown",
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t**High availability settings**\n",
@@ -9194,6 +9905,21 @@
                 "optional": true,
                 "computed": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "virtual_server_id": {
                 "type": "string",
                 "description": "Load-balancing virtual server alias\n\n",
@@ -9249,6 +9975,21 @@
                 "description_kind": "markdown",
                 "required": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "virtual_server_id": {
                 "type": "string",
                 "description": "Load-balancing virtual server alias\n\n",
@@ -9276,6 +10017,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tHigh availability settings\n⯯\n**Virtual Router Redundancy Protocol settings**\n",
@@ -9296,6 +10052,21 @@
                 "type": "number",
                 "description": "Time VRRP startup process (in seconds)\n\n    |  Format  |  Description          |\n    |----------|-----------------------|\n    |  1-600   |  Interval in seconds  |\n",
                 "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
                 "optional": true
               },
               "version": {
@@ -9353,6 +10124,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tHigh availability settings\n⯯\nVirtual Router Redundancy Protocol settings\n⯯\nVRRP global parameters\n⯯\n**Gratuitous ARP parameters**\n",
@@ -9556,6 +10342,21 @@
                 "optional": true,
                 "computed": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "track": {
                 "nested_type": {
                   "attributes": {
@@ -9654,6 +10455,21 @@
                 "description": "Interface to use\n\n    |  Format  |  Description     |\n    |----------|------------------|\n    |  txt     |  Interface name  |\n",
                 "description_kind": "markdown",
                 "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "High availability settings\n⯯\nVirtual Router Redundancy Protocol settings\n⯯\nVRRP group\n⯯\n**Virtual IP address**\n",
@@ -9720,6 +10536,21 @@
                 "description": "VRRP sync group\n\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               },
               "transition_script": {
                 "nested_type": {
@@ -9982,6 +10813,21 @@
                 "description_kind": "markdown",
                 "optional": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "translation": {
                 "nested_type": {
                   "attributes": {
@@ -10070,6 +10916,21 @@
                 "description": "Rule number for NAT\n\n    |  Format    |  Description         |\n    |------------|----------------------|\n    |  1-999999  |  Number of NAT rule  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               },
               "weight": {
                 "type": "number",
@@ -10304,6 +11165,21 @@
                 "description_kind": "markdown",
                 "optional": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "translation": {
                 "nested_type": {
                   "attributes": {
@@ -10377,6 +11253,21 @@
                 "description_kind": "markdown",
                 "required": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "weight": {
                 "type": "number",
                 "description": "Set probability for this output value\n\n    |  Format  |  Description                            |\n    |----------|-----------------------------------------|\n    |  1-100   |  Set probability for this output value  |\n",
@@ -10432,6 +11323,21 @@
                 "description_kind": "markdown",
                 "required": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "translation": {
                 "nested_type": {
                   "attributes": {
@@ -10474,6 +11380,21 @@
                 "description": "Network namespace name\n\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Network namespace\n⯯\n**Network namespace name**\n",
@@ -10546,6 +11467,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Public key infrastructure (PKI)\n⯯\n**Certificate Authority**\n",
@@ -10654,6 +11590,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Public key infrastructure (PKI)\n⯯\n**Certificate**\n",
@@ -10680,6 +11631,21 @@
                 "type": "string",
                 "description": "DH parameters in PEM format\n\n",
                 "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
                 "optional": true
               }
             },
@@ -10740,6 +11706,21 @@
                 },
                 "description": "Public key\n\n",
                 "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
                 "optional": true
               }
             },
@@ -10807,6 +11788,21 @@
                 "description": "Public key\n\n",
                 "description_kind": "markdown",
                 "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Public key infrastructure (PKI)\n⯯\n**OpenSSH public and private keys**\n",
@@ -10834,6 +11830,21 @@
                 "description": "OpenVPN shared secret key\n\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               },
               "version": {
                 "type": "string",
@@ -10883,6 +11894,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tPublic key infrastructure (PKI)\n⯯\nX509 Settings\n⯯\n**X509 Default Values**\n",
@@ -10910,6 +11936,21 @@
                 "description": "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
                 "description_kind": "markdown",
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Routing policy\n⯯\n**IP access-list filter**\n",
@@ -10937,6 +11978,21 @@
                 "description": "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
                 "description_kind": "markdown",
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Routing policy\n⯯\n**IPv6 access-list filter**\n",
@@ -11005,6 +12061,21 @@
                 },
                 "description": "Source IPv6 network to match\n\n",
                 "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
                 "optional": true
               }
             },
@@ -11115,6 +12186,21 @@
                 "description": "Source network or address to match\n\n",
                 "description_kind": "markdown",
                 "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Routing policy\n⯯\nIP access-list filter\n⯯\n**Rule for this access-list**\n",
@@ -11142,6 +12228,21 @@
                 "description": "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
                 "description_kind": "markdown",
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Routing policy\n⯯\n**Add a BGP autonomous system path filter**\n",
@@ -11187,6 +12288,21 @@
                 "description": "Rule for this as-path-list\n\n    |  Format   |  Description               |\n    |-----------|----------------------------|\n    |  1-65535  |  AS path list rule number  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Routing policy\n⯯\nAdd a BGP autonomous system path filter\n⯯\n**Rule for this as-path-list**\n",
@@ -11214,6 +12330,21 @@
                 "description": "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
                 "description_kind": "markdown",
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Routing policy\n⯯\n**Add a BGP community list entry**\n",
@@ -11259,6 +12390,21 @@
                 "description": "Rule for this BGP community list\n\n    |  Format   |  Description                 |\n    |-----------|------------------------------|\n    |  1-65535  |  Community-list rule number  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Routing policy\n⯯\nAdd a BGP community list entry\n⯯\n**Rule for this BGP community list**\n",
@@ -11286,6 +12432,21 @@
                 "description": "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
                 "description_kind": "markdown",
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Routing policy\n⯯\n**Add a BGP extended community list entry**\n",
@@ -11331,6 +12492,21 @@
                 "description": "Rule for this BGP extended community list\n\n    |  Format   |  Description                          |\n    |-----------|---------------------------------------|\n    |  1-65535  |  Extended community-list rule number  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Routing policy\n⯯\nAdd a BGP extended community list entry\n⯯\n**Rule for this BGP extended community list**\n",
@@ -11358,6 +12534,21 @@
                 "description": "Add a BGP large community list entry\n\n    |  Format  |  Description                    |\n    |----------|---------------------------------|\n    |  txt     |  BGP large-community-list name  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Routing policy\n⯯\n**Add a BGP large community list entry**\n",
@@ -11403,6 +12594,21 @@
                 "description": "Rule for this BGP extended community list\n\n    |  Format   |  Description                       |\n    |-----------|------------------------------------|\n    |  1-65535  |  Large community-list rule number  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Routing policy\n⯯\nAdd a BGP large community list entry\n⯯\n**Rule for this BGP extended community list**\n",
@@ -11430,6 +12636,21 @@
                 "description": "IP prefix-list filter\n\n    |  Format  |  Description               |\n    |----------|----------------------------|\n    |  txt     |  Name of IPv4 prefix-list  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Routing policy\n⯯\n**IP prefix-list filter**\n",
@@ -11457,6 +12678,21 @@
                 "description": "IPv6 prefix-list filter\n\n    |  Format  |  Description               |\n    |----------|----------------------------|\n    |  txt     |  Name of IPv6 prefix-list  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Routing policy\n⯯\n**IPv6 prefix-list filter**\n",
@@ -11514,6 +12750,21 @@
                 "description": "Rule for this prefix-list6\n\n    |  Format   |  Description              |\n    |-----------|---------------------------|\n    |  1-65535  |  Prefix-list rule number  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Routing policy\n⯯\nIPv6 prefix-list filter\n⯯\n**Rule for this prefix-list6**\n",
@@ -11571,6 +12822,21 @@
                 "description": "Rule for this prefix-list\n\n    |  Format   |  Description              |\n    |-----------|---------------------------|\n    |  1-65535  |  Prefix-list rule number  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Routing policy\n⯯\nIP prefix-list filter\n⯯\n**Rule for this prefix-list**\n",
@@ -11598,6 +12864,21 @@
                 "description": "IP route-map\n\n    |  Format  |  Description     |\n    |----------|------------------|\n    |  txt     |  Route map name  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Routing policy\n⯯\n**IP route-map**\n",
@@ -12346,6 +13627,21 @@
                 "description": "Route parameters\n\n",
                 "description_kind": "markdown",
                 "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Routing policy\n⯯\nIP route-map\n⯯\n**Rule for this route-map**\n",
@@ -12379,6 +13675,21 @@
                 "description": "Interface to apply QoS policy\n\n    |  Format  |  Description     |\n    |----------|------------------|\n    |  txt     |  Interface name  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Quality of Service (QoS)\n⯯\n**Interface to apply QoS policy**\n",
@@ -12492,6 +13803,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Common Applications Kept Enhanced (CAKE)**\n",
@@ -12524,6 +13850,21 @@
                 "type": "number",
                 "description": "Maximum queue size\n\n    |  Format        |  Description            |\n    |----------------|-------------------------|\n    |  1-4294967295  |  Queue size in packets  |\n",
                 "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
                 "optional": true
               }
             },
@@ -12566,6 +13907,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Stochastic Fairness Queueing**\n",
@@ -12628,6 +13984,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Fair Queuing (FQ) with Controlled Delay (CoDel)**\n",
@@ -12692,6 +14063,21 @@
                 "description": "Traffic input limiting policy\n\n    |  Format  |  Description  |\n    |----------|---------------|\n    |  txt     |  Policy name  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Traffic input limiting policy**\n",
@@ -12759,6 +14145,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\nTraffic input limiting policy\n⯯\n**Class ID**\n",
@@ -13031,6 +14432,21 @@
                 "description_kind": "markdown",
                 "required": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "vif": {
                 "type": "number",
                 "description": "Virtual Local Area Network (VLAN) ID for this match\n\n    |  Format  |  Description                             |\n    |----------|------------------------------------------|\n    |  0-4095  |  Virtual Local Area Network (VLAN) tag   |\n",
@@ -13104,6 +14520,21 @@
                 "type": "string",
                 "description": "Emulated packet reordering percentage\n\n    |  Format    |  Description                     |\n    |------------|----------------------------------|\n    |  <number>  |  Percentage of packets affected  |\n",
                 "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
                 "optional": true
               }
             },
@@ -13183,6 +14614,21 @@
                 "description": "Priority queuing based policy\n\n    |  Format  |  Description  |\n    |----------|---------------|\n    |  txt     |  Policy name  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Priority queuing based policy**\n",
@@ -13257,6 +14703,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\nPriority queuing based policy\n⯯\n**Class Handle**\n",
@@ -13529,6 +14990,21 @@
                 "description_kind": "markdown",
                 "required": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "vif": {
                 "type": "number",
                 "description": "Virtual Local Area Network (VLAN) ID for this match\n\n    |  Format  |  Description                             |\n    |----------|------------------------------------------|\n    |  0-4095  |  Virtual Local Area Network (VLAN) tag   |\n",
@@ -13568,6 +15044,21 @@
                 "description": "Weighted Random Early Detect policy\n\n    |  Format  |  Description  |\n    |----------|---------------|\n    |  txt     |  Policy name  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Weighted Random Early Detect policy**\n",
@@ -13628,6 +15119,21 @@
                 "description": "Weighted Random Early Detect policy\n\n    |  Format  |  Description  |\n    |----------|---------------|\n    |  txt     |  Policy name  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\nWeighted Random Early Detect policy\n⯯\n**IP precedence**\n",
@@ -13675,6 +15181,21 @@
                 "description": "Rate limiting policy (Token Bucket Filter)\n\n    |  Format  |  Description  |\n    |----------|---------------|\n    |  txt     |  Policy name  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Rate limiting policy (Token Bucket Filter)**\n",
@@ -13753,6 +15274,21 @@
                 "description": "Deficit Round Robin Scheduler\n\n    |  Format  |  Description  |\n    |----------|---------------|\n    |  txt     |  Policy name  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Deficit Round Robin Scheduler**\n",
@@ -13833,6 +15369,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\nDeficit Round Robin Scheduler\n⯯\n**Class ID**\n",
@@ -14105,6 +15656,21 @@
                 "description_kind": "markdown",
                 "required": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "vif": {
                 "type": "number",
                 "description": "Virtual Local Area Network (VLAN) ID for this match\n\n    |  Format  |  Description                             |\n    |----------|------------------------------------------|\n    |  0-4095  |  Virtual Local Area Network (VLAN) tag   |\n",
@@ -14227,6 +15793,21 @@
                 "description": "Traffic shaping based policy (Hierarchy Token Bucket)\n\n    |  Format  |  Description  |\n    |----------|---------------|\n    |  txt     |  Policy name  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Traffic shaping based policy (Hierarchy Token Bucket)**\n",
@@ -14333,6 +15914,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\nTraffic shaping based policy (Hierarchy Token Bucket)\n⯯\n**Class ID**\n",
@@ -14605,6 +16201,21 @@
                 "description_kind": "markdown",
                 "required": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "vif": {
                 "type": "number",
                 "description": "Virtual Local Area Network (VLAN) ID for this match\n\n    |  Format  |  Description                             |\n    |----------|------------------------------------------|\n    |  0-4095  |  Virtual Local Area Network (VLAN) tag   |\n",
@@ -14744,6 +16355,21 @@
                 "description": "Hierarchical Fair Service Curve's policy\n\n    |  Format  |  Description  |\n    |----------|---------------|\n    |  txt     |  Policy name  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Hierarchical Fair Service Curve's policy**\n",
@@ -14837,6 +16463,21 @@
                 "description": "Hierarchical Fair Service Curve's policy\n\n    |  Format  |  Description  |\n    |----------|---------------|\n    |  txt     |  Policy name  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               },
               "upperlimit": {
                 "nested_type": {
@@ -15139,6 +16780,21 @@
                 "description_kind": "markdown",
                 "required": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "vif": {
                 "type": "number",
                 "description": "Virtual Local Area Network (VLAN) ID for this match\n\n    |  Format  |  Description                             |\n    |----------|------------------------------------------|\n    |  0-4095  |  Virtual Local Area Network (VLAN) tag   |\n",
@@ -15166,6 +16822,21 @@
                 "description": "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
                 "description_kind": "markdown",
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\t**Virtual Routing and Forwarding**\n",
@@ -19818,6 +21489,21 @@
                 "description_kind": "markdown",
                 "optional": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "vni": {
                 "type": "number",
                 "description": "Virtual Network Identifier\n\n    |  Format      |  Description                       |\n    |--------------|------------------------------------|\n    |  0-16777214  |  VXLAN virtual network identifier  |\n",
@@ -19856,6 +21542,21 @@
                 "description": "Specify route-map name to use\n\n    |  Format  |  Description     |\n    |----------|------------------|\n    |  txt     |  Route map name  |\n",
                 "description_kind": "markdown",
                 "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nIPv4 routing parameters\n⯯\n**Filter routing info exchanged between routing protocol and zebra**\n",
@@ -19888,6 +21589,21 @@
                 "type": "string",
                 "description": "Specify route-map name to use\n\n    |  Format  |  Description     |\n    |----------|------------------|\n    |  txt     |  Route map name  |\n",
                 "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
                 "optional": true
               }
             },
@@ -19936,6 +21652,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nLabeled Unicast IPv4 BGP settings\n⯯\n**BGP aggregate network/prefix**\n",
@@ -19975,6 +21706,21 @@
                 "type": "string",
                 "description": "Specify route-map name to use\n\n    |  Format  |  Description     |\n    |----------|------------------|\n    |  txt     |  Route map name  |\n",
                 "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
                 "optional": true
               }
             },
@@ -20023,6 +21769,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nMulticast IPv4 BGP settings\n⯯\n**BGP aggregate network/prefix**\n",
@@ -20056,6 +21817,21 @@
                 "description": "Administrative distance for a specific BGP prefix\n\n    |  Format   |  Description                                        |\n    |-----------|-----------------------------------------------------|\n    |  ipv4net  |  Administrative distance for a specific BGP prefix  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nMulticast IPv4 BGP settings\n⯯\nAdministrative distances for BGP routes\n⯯\n**Administrative distance for a specific BGP prefix**\n",
@@ -20095,6 +21871,21 @@
                 "type": "string",
                 "description": "Specify route-map name to use\n\n    |  Format  |  Description     |\n    |----------|------------------|\n    |  txt     |  Route map name  |\n",
                 "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
                 "optional": true
               }
             },
@@ -20143,6 +21934,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nIPv4 BGP settings\n⯯\n**BGP aggregate network**\n",
@@ -20176,6 +21982,21 @@
                 "description": "Administrative distance for a specific BGP prefix\n\n    |  Format   |  Description                                        |\n    |-----------|-----------------------------------------------------|\n    |  ipv4net  |  Administrative distance for a specific BGP prefix  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nIPv4 BGP settings\n⯯\nAdministrative distances for BGP routes\n⯯\n**Administrative distance for a specific BGP prefix**\n",
@@ -20216,6 +22037,21 @@
                 "description": "Specify route-map name to use\n\n    |  Format  |  Description     |\n    |----------|------------------|\n    |  txt     |  Route map name  |\n",
                 "description_kind": "markdown",
                 "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nIPv4 BGP settings\n⯯\n**BGP network**\n",
@@ -20254,6 +22090,21 @@
                 "type": "string",
                 "description": "Route Distinguisher\n\n    |  Format                   |  Description                                   |\n    |---------------------------|------------------------------------------------|\n    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |\n",
                 "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
                 "optional": true
               }
             },
@@ -20302,6 +22153,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nLabeled Unicast IPv6 BGP settings\n⯯\n**BGP aggregate network/prefix**\n",
@@ -20341,6 +22207,21 @@
                 "type": "string",
                 "description": "Specify route-map name to use\n\n    |  Format  |  Description     |\n    |----------|------------------|\n    |  txt     |  Route map name  |\n",
                 "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
                 "optional": true
               }
             },
@@ -20389,6 +22270,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nMulticast IPv6 BGP settings\n⯯\n**BGP aggregate network/prefix**\n",
@@ -20422,6 +22318,21 @@
                 "description": "Administrative distance for a specific BGP prefix\n\n    |  Format   |  Description                                        |\n    |-----------|-----------------------------------------------------|\n    |  ipv6net  |  Administrative distance for a specific BGP prefix  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nMulticast IPv6 BGP settings\n⯯\nAdministrative distances for BGP routes\n⯯\n**Administrative distance for a specific BGP prefix**\n",
@@ -20460,6 +22371,21 @@
                 "type": "string",
                 "description": "Specify route-map name to use\n\n    |  Format  |  Description     |\n    |----------|------------------|\n    |  txt     |  Route map name  |\n",
                 "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
                 "optional": true
               }
             },
@@ -20508,6 +22434,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nIPv6 BGP settings\n⯯\n**BGP aggregate network**\n",
@@ -20541,6 +22482,21 @@
                 "description": "Administrative distance for a specific BGP prefix\n\n    |  Format   |  Description                                        |\n    |-----------|-----------------------------------------------------|\n    |  ipv6net  |  Administrative distance for a specific BGP prefix  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nIPv6 BGP settings\n⯯\nAdministrative distances for BGP routes\n⯯\n**Administrative distance for a specific BGP prefix**\n",
@@ -20580,6 +22536,21 @@
                 "description": "Specify route-map name to use\n\n    |  Format  |  Description     |\n    |----------|------------------|\n    |  txt     |  Route map name  |\n",
                 "description_kind": "markdown",
                 "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nIPv6 BGP settings\n⯯\n**BGP network**\n",
@@ -20618,6 +22589,21 @@
                 "type": "string",
                 "description": "Route Distinguisher\n\n    |  Format                   |  Description                                   |\n    |---------------------------|------------------------------------------------|\n    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |\n",
                 "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
                 "optional": true
               }
             },
@@ -20696,6 +22682,21 @@
                 },
                 "description": "Route Target\n\n",
                 "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
                 "optional": true
               },
               "vni_id": {
@@ -20822,6 +22823,21 @@
                 "description": "BMP target\n\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP Monitoring Protocol (BMP)\n⯯\n**BMP target**\n",
@@ -20866,6 +22882,21 @@
                 "description": "Virtual Routing and Forwarding instance\n\n    |  Format  |  Description        |\n    |----------|---------------------|\n    |  txt     |  VRF instance name  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\n**Configure interface related parameters, e.g. MPLS**\n",
@@ -20899,6 +22930,21 @@
                 "description": "BGP dynamic neighbors listen range\n\n    |  Format   |  Description                          |\n    |-----------|---------------------------------------|\n    |  ipv4net  |  IPv4 dynamic neighbors listen range  |\n    |  ipv6net  |  IPv6 dynamic neighbors listen range  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nListen for and accept BGP dynamic neighbors from range\n⯯\n**BGP dynamic neighbors listen range**\n",
@@ -24351,6 +26397,21 @@
                 "optional": true,
                 "computed": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "timers": {
                 "nested_type": {
                   "attributes": {
@@ -24450,6 +26511,21 @@
                 "description": "Disable prepending local-as from/to updates for eBGP peers\n\n",
                 "description_kind": "markdown",
                 "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP neighbor\n⯯\n**Specify alternate ASN for this BGP process**\n",
@@ -24490,6 +26566,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP neighbor\n⯯\n**Local role for BGP neighbor (RFC9234)**\n",
@@ -24523,6 +26614,21 @@
                 "description": "Administrative distance for a specific BGP prefix\n\n    |  Format   |  Description                                        |\n    |-----------|-----------------------------------------------------|\n    |  ipv4net  |  Administrative distance for a specific BGP prefix  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP parameters\n⯯\nAdministratives distances for BGP routes\n⯯\n**Administrative distance for a specific BGP prefix**\n",
@@ -26971,6 +29077,21 @@
                 "optional": true,
                 "computed": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "ttl_security": {
                 "nested_type": {
                   "attributes": {
@@ -27042,6 +29163,21 @@
                 "description": "Name of peer-group\n\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nName of peer-group\n⯯\n**Specify alternate ASN for this BGP process**\n",
@@ -27082,6 +29218,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nName of peer-group\n⯯\n**Local role for BGP neighbor (RFC9234)**\n",
@@ -27123,6 +29274,21 @@
                 "description": "Virtual Routing and Forwarding instance\n\n    |  Format  |  Description        |\n    |----------|---------------------|\n    |  txt     |  VRF instance name  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nIntermediate System to Intermediate System (IS-IS)\n⯯\nIS-IS fast reroute configuration\n⯯\nLoop free alternate functionality\n⯯\nLocal loop free alternate options\n⯯\nConfigure tiebreaker for multiple backups\n⯯\nPrefer backup path via downstream node\n⯯\n**Set preference order among tiebreakers**\n",
@@ -27164,6 +29330,21 @@
                 "description": "Virtual Routing and Forwarding instance\n\n    |  Format  |  Description        |\n    |----------|---------------------|\n    |  txt     |  VRF instance name  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nIntermediate System to Intermediate System (IS-IS)\n⯯\nIS-IS fast reroute configuration\n⯯\nLoop free alternate functionality\n⯯\nLocal loop free alternate options\n⯯\nConfigure tiebreaker for multiple backups\n⯯\nPrefer backup path with lowest total metric\n⯯\n**Set preference order among tiebreakers**\n",
@@ -27205,6 +29386,21 @@
                 "description": "Virtual Routing and Forwarding instance\n\n    |  Format  |  Description        |\n    |----------|---------------------|\n    |  txt     |  VRF instance name  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nIntermediate System to Intermediate System (IS-IS)\n⯯\nIS-IS fast reroute configuration\n⯯\nLoop free alternate functionality\n⯯\nLocal loop free alternate options\n⯯\nConfigure tiebreaker for multiple backups\n⯯\nPrefer node protecting backup path\n⯯\n**Set preference order among tiebreakers**\n",
@@ -27246,6 +29442,21 @@
                 "description": "Filter PQ node router ID based on prefix list\n\n    |  Format  |  Description                    |\n    |----------|---------------------------------|\n    |  txt     |  Name of IPv4/IPv6 prefix-list  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nIntermediate System to Intermediate System (IS-IS)\n⯯\nIS-IS fast reroute configuration\n⯯\nLoop free alternate functionality\n⯯\nRemote loop free alternate options\n⯯\n**Filter PQ node router ID based on prefix list**\n",
@@ -27408,6 +29619,21 @@
                 "description": "Set PSNP interval\n\n    |  Format  |  Description               |\n    |----------|----------------------------|\n    |  0-127   |  PSNP interval in seconds  |\n",
                 "description_kind": "markdown",
                 "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nIntermediate System to Intermediate System (IS-IS)\n⯯\n**Interface params**\n",
@@ -27495,6 +29721,21 @@
                 "description": "Static IPv4/IPv6 prefix segment/label mapping\n\n    |  Format   |  Description          |\n    |-----------|-----------------------|\n    |  ipv4net  |  IPv4 prefix segment  |\n    |  ipv6net  |  IPv6 prefix segment  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nIntermediate System to Intermediate System (IS-IS)\n⯯\nSegment-Routing (SPRING) settings\n⯯\n**Static IPv4/IPv6 prefix segment/label mapping**\n",
@@ -27531,6 +29772,21 @@
                 "description": "Virtual Routing and Forwarding instance\n\n    |  Format  |  Description        |\n    |----------|---------------------|\n    |  txt     |  VRF instance name  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF)\n⯯\n**Access list to filter networks in routing updates**\n",
@@ -27661,6 +29917,21 @@
                 "description": "Area shortcut mode\n\n    |  Format   |  Description                |\n    |-----------|-----------------------------|\n    |  default  |  Set default                |\n    |  disable  |  Disable shortcutting mode  |\n    |  enable   |  Enable shortcutting mode   |\n",
                 "description_kind": "markdown",
                 "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF)\n⯯\n**OSPF area settings**\n",
@@ -27712,6 +29983,21 @@
                 "type": "string",
                 "description": "Advertise area range as another prefix\n\n    |  Format   |  Description                             |\n    |-----------|------------------------------------------|\n    |  ipv4net  |  Advertise area range as another prefix  |\n",
                 "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
                 "optional": true
               }
             },
@@ -27786,6 +30072,21 @@
                 "optional": true,
                 "computed": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "transmit_delay": {
                 "type": "number",
                 "description": "Link state transmit delay\n\n    |  Format   |  Description                          |\n    |-----------|---------------------------------------|\n    |  1-65535  |  Link state transmit delay (seconds)  |\n",
@@ -27837,6 +30138,21 @@
                 "description": "Virtual Routing and Forwarding instance\n\n    |  Format  |  Description        |\n    |----------|---------------------|\n    |  txt     |  VRF instance name  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               },
               "virtual_link_id": {
                 "type": "string",
@@ -28016,6 +30332,21 @@
                 "optional": true,
                 "computed": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "transmit_delay": {
                 "type": "number",
                 "description": "Link state transmit delay\n\n    |  Format   |  Description                          |\n    |-----------|---------------------------------------|\n    |  1-65535  |  Link state transmit delay (seconds)  |\n",
@@ -28061,6 +30392,21 @@
                 "description": "Virtual Routing and Forwarding instance\n\n    |  Format  |  Description        |\n    |----------|---------------------|\n    |  txt     |  VRF instance name  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF)\n⯯\nInterface configuration\n⯯\nAuthentication\n⯯\nMD5 key id\n⯯\n**MD5 key id**\n",
@@ -28102,6 +30448,21 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF)\n⯯\n**Specify neighbor router**\n",
@@ -28148,6 +30509,21 @@
                 "description": "Redistribute non-main Kernel Routing Table\n\n    |  Format  |  Description                |\n    |----------|-----------------------------|\n    |  1-200   |  Policy route table number  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF)\n⯯\nRedistribute information from another routing protocol\n⯯\n**Redistribute non-main Kernel Routing Table**\n",
@@ -28205,6 +30581,21 @@
                 "description": "Static IPv4 prefix segment/label mapping\n\n    |  Format   |  Description          |\n    |-----------|-----------------------|\n    |  ipv4net  |  IPv4 prefix segment  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF)\n⯯\nSegment-Routing (SPRING) settings\n⯯\n**Static IPv4 prefix segment/label mapping**\n",
@@ -28244,6 +30635,21 @@
                 "type": "number",
                 "description": "Router tag\n\n    |  Format        |  Description       |\n    |----------------|--------------------|\n    |  1-4294967295  |  Router tag value  |\n",
                 "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
                 "optional": true
               }
             },
@@ -28335,6 +30741,21 @@
                 "description": "Virtual Routing and Forwarding instance\n\n    |  Format  |  Description        |\n    |----------|---------------------|\n    |  txt     |  VRF instance name  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF) for IPv6\n⯯\n**OSPFv3 Area**\n",
@@ -28382,6 +30803,21 @@
                 "description": "Specify IPv6 prefix (border routers only)\n\n    |  Format   |  Description                                |\n    |-----------|---------------------------------------------|\n    |  ipv6net  |  Specify IPv6 prefix (border routers only)  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF) for IPv6\n⯯\nOSPFv3 Area\n⯯\n**Specify IPv6 prefix (border routers only)**\n",
@@ -28499,6 +30935,21 @@
                 "optional": true,
                 "computed": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "transmit_delay": {
                 "type": "number",
                 "description": "Link state transmit delay\n\n    |  Format   |  Description                          |\n    |-----------|---------------------------------------|\n    |  1-65535  |  Link state transmit delay (seconds)  |\n",
@@ -28588,6 +31039,21 @@
                 "description": "Static IPv4 route\n\n    |  Format   |  Description        |\n    |-----------|---------------------|\n    |  ipv4net  |  IPv4 static route  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nStatic Routing\n⯯\n**Static IPv4 route**\n",
@@ -28665,6 +31131,21 @@
                 "description": "Static IPv6 route\n\n    |  Format   |  Description        |\n    |-----------|---------------------|\n    |  ipv6net  |  IPv6 static route  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nStatic Routing\n⯯\n**Static IPv6 route**\n",
@@ -28716,6 +31197,21 @@
                 "type": "string",
                 "description": "SRv6 segments\n\n    |  Format  |  Description  |\n    |----------|---------------|\n    |  txt     |  Segs (SIDs)  |\n",
                 "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
                 "optional": true
               },
               "vrf": {
@@ -28806,6 +31302,21 @@
                 "description_kind": "markdown",
                 "optional": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "vrf": {
                 "type": "string",
                 "description": "VRF to leak route\n\n    |  Format  |  Description             |\n    |----------|--------------------------|\n    |  txt     |  Name of VRF to leak to  |\n",
@@ -28856,6 +31367,21 @@
                 "description": "Use source for BFD session\n\n    |  Format  |  Description          |\n    |----------|-----------------------|\n    |  ipv4    |  IPv4 source address  |\n    |  ipv6    |  IPv6 source address  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nStatic Routing\n⯯\nStatic IPv6 route\n⯯\nIPv6 gateway address\n⯯\nBFD monitoring\n⯯\nUse BFD multi hop session\n⯯\n**Use source for BFD session**\n",
@@ -28902,6 +31428,21 @@
                 "description": "Static IPv4 route\n\n    |  Format   |  Description        |\n    |-----------|---------------------|\n    |  ipv4net  |  IPv4 static route  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               },
               "vrf": {
                 "type": "string",
@@ -28985,6 +31526,21 @@
                 "description_kind": "markdown",
                 "required": true
               },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
               "vrf": {
                 "type": "string",
                 "description": "VRF to leak route\n\n    |  Format  |  Description             |\n    |----------|--------------------------|\n    |  txt     |  Name of VRF to leak to  |\n",
@@ -29035,6 +31591,21 @@
                 "description": "Use source for BFD session\n\n    |  Format  |  Description          |\n    |----------|-----------------------|\n    |  ipv4    |  IPv4 source address  |\n    |  ipv6    |  IPv6 source address  |\n",
                 "description_kind": "markdown",
                 "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
               }
             },
             "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nStatic Routing\n⯯\nStatic IPv4 route\n⯯\nNext-hop IPv4 router address\n⯯\nBFD monitoring\n⯯\nUse BFD multi hop session\n⯯\n**Use source for BFD session**\n",

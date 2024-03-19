@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
@@ -31,6 +33,8 @@ type VrfNameProtocolsOspfAreaRange struct {
 
 	ParentIDVrfNameProtocolsOspfArea types.String `tfsdk:"area_id" vyos:"area,parent-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafVrfNameProtocolsOspfAreaRangeCost         types.Number `tfsdk:"cost" vyos:"cost,omitempty"`
 	LeafVrfNameProtocolsOspfAreaRangeNotAdvertise types.Bool   `tfsdk:"not_advertise" vyos:"not-advertise,omitempty"`
@@ -44,6 +48,11 @@ type VrfNameProtocolsOspfAreaRange struct {
 // SetID configures the resource ID
 func (o *VrfNameProtocolsOspfAreaRange) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *VrfNameProtocolsOspfAreaRange) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -106,7 +115,7 @@ func (o *VrfNameProtocolsOspfAreaRange) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsOspfAreaRange) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsOspfAreaRange) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -209,6 +218,10 @@ func (o VrfNameProtocolsOspfAreaRange) ResourceSchemaAttributes() map[string]sch
 				),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 

@@ -24,6 +24,6 @@ Name of peer-group
 ⯯
 **Specify alternate ASN for this BGP process**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

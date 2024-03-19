@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -22,14 +24,14 @@ type FirewallIPvsixForwardFilterRuleSynproxy struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o FirewallIPvsixForwardFilterRuleSynproxy) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o FirewallIPvsixForwardFilterRuleSynproxy) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"tcp": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixForwardFilterRuleSynproxyTCP{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvsixForwardFilterRuleSynproxyTCP{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `TCP synproxy options
 

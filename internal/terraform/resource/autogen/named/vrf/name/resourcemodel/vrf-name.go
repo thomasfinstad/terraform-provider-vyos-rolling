@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
@@ -27,6 +29,8 @@ type VrfName struct {
 
 	SelfIdentifier types.String `tfsdk:"name_id" vyos:"-,self-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafVrfNameDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafVrfNameDisable     types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
@@ -44,6 +48,11 @@ type VrfName struct {
 // SetID configures the resource ID
 func (o *VrfName) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *VrfName) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -84,7 +93,7 @@ func (o *VrfName) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfName) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -121,6 +130,10 @@ func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 				),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 
@@ -187,7 +200,7 @@ func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"ip": schema.SingleNestedAttribute{
-			Attributes: VrfNameIP{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameIP{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IPv4 routing parameters
 
@@ -198,7 +211,7 @@ func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
-			Attributes: VrfNameIPvsix{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameIPvsix{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IPv6 routing parameters
 
@@ -209,7 +222,7 @@ func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 		},
 
 		"protocols": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocols{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocols{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Routing protocol parameters
 

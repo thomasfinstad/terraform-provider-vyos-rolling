@@ -18,6 +18,6 @@ Container name
 ⯯
 **Mount a volume into the container**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

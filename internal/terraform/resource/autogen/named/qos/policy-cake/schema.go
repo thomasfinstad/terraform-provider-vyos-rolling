@@ -18,6 +18,6 @@ Service Policy definitions
 ⯯
 **Common Applications Kept Enhanced (CAKE)**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

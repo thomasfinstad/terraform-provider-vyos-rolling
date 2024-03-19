@@ -1,6 +1,9 @@
 package helpers
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
@@ -20,6 +23,9 @@ type VyosTopResourceDataModel interface {
 
 	// SetID configures the resource ID
 	SetID(id []string)
+
+	// GetTimeouts returns resource timeout config
+	GetTimeouts() timeouts.Value
 
 	// IsGlobalResource returns true if this is global
 	// This is useful during CRUD delete
@@ -43,5 +49,5 @@ type VyosTopResourceDataModel interface {
 
 // VyosResourceDataModel defines common functions all models need in order to operate
 type VyosResourceDataModel interface {
-	ResourceSchemaAttributes() map[string]schema.Attribute
+	ResourceSchemaAttributes(context.Context) map[string]schema.Attribute
 }

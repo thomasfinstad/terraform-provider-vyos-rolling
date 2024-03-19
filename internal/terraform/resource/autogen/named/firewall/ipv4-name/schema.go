@@ -18,6 +18,6 @@ IPv4 firewall
 ⯯
 **IPv4 custom firewall**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

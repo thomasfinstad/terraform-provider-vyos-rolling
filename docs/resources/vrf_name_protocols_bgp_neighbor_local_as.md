@@ -58,6 +58,7 @@ BGP neighbor
 ### Optional
 
 - `no_prepend` (Attributes) Disable prepending local-as from/to updates for eBGP peers (see [below for nested schema](#nestedatt--no_prepend))
+- `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
@@ -68,4 +69,12 @@ BGP neighbor
 
 Optional:
 
-- `replace_as` (Boolean) Prepend only local-as from/to updates for eBGP peers  &emsp;|
+- `replace_as` (Boolean) Prepend only local-as from/to updates for eBGP peers
+
+
+&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+### Nested Schema for `timeouts`
+
+Optional:
+
+- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  &emsp;|

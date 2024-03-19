@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -32,14 +34,14 @@ type VrfNameProtocolsBgpAddressFamily struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamily) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpAddressFamily) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"ipv4_unicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicast{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicast{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IPv4 BGP settings
 
@@ -50,7 +52,7 @@ func (o VrfNameProtocolsBgpAddressFamily) ResourceSchemaAttributes() map[string]
 		},
 
 		"ipv4_multicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourMulticast{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourMulticast{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Multicast IPv4 BGP settings
 
@@ -61,7 +63,7 @@ func (o VrfNameProtocolsBgpAddressFamily) ResourceSchemaAttributes() map[string]
 		},
 
 		"ipv4_labeled_unicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicast{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicast{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Labeled Unicast IPv4 BGP settings
 
@@ -72,7 +74,7 @@ func (o VrfNameProtocolsBgpAddressFamily) ResourceSchemaAttributes() map[string]
 		},
 
 		"ipv4_flowspec": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourFlowspec{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourFlowspec{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Flowspec IPv4 BGP settings
 
@@ -83,7 +85,7 @@ func (o VrfNameProtocolsBgpAddressFamily) ResourceSchemaAttributes() map[string]
 		},
 
 		"ipv4_vpn": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourVpn{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourVpn{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Unicast VPN IPv4 BGP settings
 
@@ -94,7 +96,7 @@ func (o VrfNameProtocolsBgpAddressFamily) ResourceSchemaAttributes() map[string]
 		},
 
 		"ipv6_unicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicast{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicast{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IPv6 BGP settings
 
@@ -105,7 +107,7 @@ func (o VrfNameProtocolsBgpAddressFamily) ResourceSchemaAttributes() map[string]
 		},
 
 		"ipv6_multicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixMulticast{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixMulticast{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Multicast IPv6 BGP settings
 
@@ -116,7 +118,7 @@ func (o VrfNameProtocolsBgpAddressFamily) ResourceSchemaAttributes() map[string]
 		},
 
 		"ipv6_labeled_unicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicast{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicast{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Labeled Unicast IPv6 BGP settings
 
@@ -127,7 +129,7 @@ func (o VrfNameProtocolsBgpAddressFamily) ResourceSchemaAttributes() map[string]
 		},
 
 		"ipv6_flowspec": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixFlowspec{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixFlowspec{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Flowspec IPv6 BGP settings
 
@@ -138,7 +140,7 @@ func (o VrfNameProtocolsBgpAddressFamily) ResourceSchemaAttributes() map[string]
 		},
 
 		"ipv6_vpn": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixVpn{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixVpn{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Unicast VPN IPv6 BGP settings
 
@@ -149,7 +151,7 @@ func (o VrfNameProtocolsBgpAddressFamily) ResourceSchemaAttributes() map[string]
 		},
 
 		"l2vpn_evpn": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `L2VPN EVPN BGP settings
 

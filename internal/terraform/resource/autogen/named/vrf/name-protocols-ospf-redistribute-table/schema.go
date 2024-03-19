@@ -24,6 +24,6 @@ Redistribute information from another routing protocol
 ⯯
 **Redistribute non-main Kernel Routing Table**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

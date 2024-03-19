@@ -22,6 +22,6 @@ Class Handle
 ⯯
 **Class matching rule name**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

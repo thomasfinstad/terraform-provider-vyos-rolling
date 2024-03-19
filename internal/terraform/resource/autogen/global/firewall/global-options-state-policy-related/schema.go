@@ -22,6 +22,6 @@ Global firewall state-policy
 ⯯
 **Global firewall policy for packets part of a related connection**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

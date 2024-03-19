@@ -18,6 +18,6 @@ Service Policy definitions
 ⯯
 **Network emulator policy**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

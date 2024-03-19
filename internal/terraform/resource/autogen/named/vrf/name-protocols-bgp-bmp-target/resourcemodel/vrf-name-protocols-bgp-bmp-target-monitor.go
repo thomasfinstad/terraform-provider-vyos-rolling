@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -23,14 +25,14 @@ type VrfNameProtocolsBgpBmpTargetMonitor struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpBmpTargetMonitor) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpBmpTargetMonitor) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"ipv4_unicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpBmpTargetMonitorIPvfourUnicast{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpBmpTargetMonitorIPvfourUnicast{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Address family IPv4 unicast
 
@@ -41,7 +43,7 @@ func (o VrfNameProtocolsBgpBmpTargetMonitor) ResourceSchemaAttributes() map[stri
 		},
 
 		"ipv6_unicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpBmpTargetMonitorIPvsixUnicast{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpBmpTargetMonitorIPvsixUnicast{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Address family IPv6 unicast
 

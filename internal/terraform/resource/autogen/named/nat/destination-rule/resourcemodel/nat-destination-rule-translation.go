@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -26,7 +28,7 @@ type NatDestinationRuleTranSLAtion struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o NatDestinationRuleTranSLAtion) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o NatDestinationRuleTranSLAtion) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -71,7 +73,7 @@ func (o NatDestinationRuleTranSLAtion) ResourceSchemaAttributes() map[string]sch
 		// Nodes
 
 		"options": schema.SingleNestedAttribute{
-			Attributes: NatDestinationRuleTranSLAtionOptions{}.ResourceSchemaAttributes(),
+			Attributes: NatDestinationRuleTranSLAtionOptions{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Translation options
 
@@ -82,7 +84,7 @@ func (o NatDestinationRuleTranSLAtion) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"redirect": schema.SingleNestedAttribute{
-			Attributes: NatDestinationRuleTranSLAtionRedirect{}.ResourceSchemaAttributes(),
+			Attributes: NatDestinationRuleTranSLAtionRedirect{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redirect to local host
 

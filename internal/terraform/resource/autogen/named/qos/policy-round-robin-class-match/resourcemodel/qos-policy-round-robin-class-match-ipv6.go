@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -28,7 +30,7 @@ type QosPolicyRoundRobinClassMatchIPvsix struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o QosPolicyRoundRobinClassMatchIPvsix) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o QosPolicyRoundRobinClassMatchIPvsix) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -145,7 +147,7 @@ func (o QosPolicyRoundRobinClassMatchIPvsix) ResourceSchemaAttributes() map[stri
 		// Nodes
 
 		"destination": schema.SingleNestedAttribute{
-			Attributes: QosPolicyRoundRobinClassMatchIPvsixDestination{}.ResourceSchemaAttributes(),
+			Attributes: QosPolicyRoundRobinClassMatchIPvsixDestination{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Match on destination port or address
 
@@ -156,7 +158,7 @@ func (o QosPolicyRoundRobinClassMatchIPvsix) ResourceSchemaAttributes() map[stri
 		},
 
 		"source": schema.SingleNestedAttribute{
-			Attributes: QosPolicyRoundRobinClassMatchIPvsixSource{}.ResourceSchemaAttributes(),
+			Attributes: QosPolicyRoundRobinClassMatchIPvsixSource{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Match on source port or address
 
@@ -167,7 +169,7 @@ func (o QosPolicyRoundRobinClassMatchIPvsix) ResourceSchemaAttributes() map[stri
 		},
 
 		"tcp": schema.SingleNestedAttribute{
-			Attributes: QosPolicyRoundRobinClassMatchIPvsixTCP{}.ResourceSchemaAttributes(),
+			Attributes: QosPolicyRoundRobinClassMatchIPvsixTCP{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `TCP Flags matching
 

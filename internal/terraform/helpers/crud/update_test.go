@@ -19,7 +19,7 @@ func TestCrudUpdateCrossResourceContamination(t *testing.T) {
 	ctx := context.Background()
 
 	// When Mock API Server
-	address := "localhost:8081"
+	address := "localhost:50015"
 	uri := "/configure"
 	key := "test-key"
 	srv := &http.Server{

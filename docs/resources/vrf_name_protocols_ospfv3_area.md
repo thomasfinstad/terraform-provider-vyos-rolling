@@ -50,6 +50,7 @@ Open Shortest Path First (OSPF) for IPv6
 - `area_type` (Attributes) OSPFv3 Area type (see [below for nested schema](#nestedatt--area_type))
 - `export_list` (String) Name of export-list
 - `import_list` (String) Name of import-list
+- `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
@@ -77,4 +78,13 @@ Optional:
 
 Optional:
 
-- `no_summary` (Boolean) Do not inject inter-area routes into the stub  &emsp;|
+- `no_summary` (Boolean) Do not inject inter-area routes into the stub
+
+
+
+&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+### Nested Schema for `timeouts`
+
+Optional:
+
+- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  &emsp;|

@@ -26,6 +26,6 @@ Unicast VPN IPv4 BGP settings
 ⯯
 **Import BGP network/prefix into unicast VPN IPv4 RIB**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

@@ -98,6 +98,7 @@ description: |-
     |-----------|--------------------------------------------|
     &emsp;|enable   &emsp;|Enable use of TCP SYN cookies with IPv4   |
     &emsp;|disable  &emsp;|Disable use of TCP SYN cookies with IPv4  |
+- `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `twa_hazards_protection` (String) RFC1337 TCP TIME-WAIT assasination hazards protection
 
     &emsp;|Format   &emsp;|Description                                   |
@@ -107,4 +108,11 @@ description: |-
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).  &emsp;|
+- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+### Nested Schema for `timeouts`
+
+Optional:
+
+- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  &emsp;|

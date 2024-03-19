@@ -104,6 +104,7 @@ resource "vyos_policy_access_list_rule" "name" {
 ### Optional
 
 - `certificate` (Attributes) (see [below for nested schema](#nestedatt--certificate))
+- `default_timeouts` (Number) Default Create/Read/Update/Destroy timeouts in minutes, can be overridden on a per resource basis. If not configured, defaults to 15.
 - `ignore_child_resource_on_delete` (Boolean) !> **WARNING:** This is extremly destructive and will delete everything below the destroyed resource.
 Disables the check to see if the resouce has any child resources.
 This can be useful when only a parent resource is configured via terraform.

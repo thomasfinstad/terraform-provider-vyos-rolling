@@ -18,6 +18,6 @@ Service Policy definitions
 ⯯
 **Traffic input limiting policy**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

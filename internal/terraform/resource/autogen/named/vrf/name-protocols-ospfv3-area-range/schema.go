@@ -24,6 +24,6 @@ OSPFv3 Area
 ⯯
 **Specify IPv6 prefix (border routers only)**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

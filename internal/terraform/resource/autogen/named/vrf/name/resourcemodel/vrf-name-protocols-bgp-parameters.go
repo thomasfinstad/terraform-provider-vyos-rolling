@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -51,7 +53,7 @@ type VrfNameProtocolsBgpParameters struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -318,7 +320,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 		// Nodes
 
 		"bestpath": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersBestpath{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpParametersBestpath{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Default bestpath selection mechanism
 
@@ -329,7 +331,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"confederation": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersConfederation{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpParametersConfederation{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `AS confederation parameters
 
@@ -340,7 +342,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"conditional_advertisement": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersConditionalAdvertisement{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpParametersConditionalAdvertisement{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Conditional advertisement settings
 
@@ -351,7 +353,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"dampening": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersDampening{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpParametersDampening{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Enable route-flap dampening
 
@@ -362,7 +364,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"default": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersDefault{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpParametersDefault{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `BGP defaults
 
@@ -373,7 +375,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"distance": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersDistance{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpParametersDistance{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Administratives distances for BGP routes
 
@@ -384,7 +386,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"graceful_restart": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersGracefulRestart{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpParametersGracefulRestart{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Graceful restart capability parameters
 
@@ -395,7 +397,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"tcp_keepalive": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersTCPKeepalive{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpParametersTCPKeepalive{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `TCP keepalive parameters
 

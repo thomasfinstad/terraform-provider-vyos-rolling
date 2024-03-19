@@ -32,6 +32,6 @@ Prefer node protecting backup path
 ⯯
 **Set preference order among tiebreakers**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

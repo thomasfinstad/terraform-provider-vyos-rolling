@@ -48,6 +48,7 @@ func MarshalVyos(ctx context.Context, data any) (map[string]any, error) {
 			"parent-id": false,
 			"omitempty": false,
 			"child":     false,
+			"timeout":   false,
 			"tfsdk-id":  false,
 		}
 		for _, tag := range fTags[1:] {
@@ -55,7 +56,7 @@ func MarshalVyos(ctx context.Context, data any) (map[string]any, error) {
 			tflog.Trace(ctx, "Enabling flag", map[string]interface{}{"flag": tag})
 			flags[tag] = true
 		}
-		if flags["child"].(bool) || flags["self-id"].(bool) || flags["parent-id"].(bool) || flags["tfsdk-id"].(bool) {
+		if flags["child"].(bool) || flags["self-id"].(bool) || flags["parent-id"].(bool) || flags["tfsdk-id"].(bool) || flags["timeout"].(bool) {
 			//log.Printf("\tNot configuring field: %s with flags: %v\n", fName, flags)
 			tflog.Debug(ctx, "Not configuring field", map[string]interface{}{"field-name": fName, "flags": flags})
 			continue

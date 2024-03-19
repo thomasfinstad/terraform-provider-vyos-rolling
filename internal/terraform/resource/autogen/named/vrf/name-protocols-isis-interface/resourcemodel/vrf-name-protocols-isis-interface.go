@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
@@ -29,6 +31,8 @@ type VrfNameProtocolsIsisInterface struct {
 
 	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafVrfNameProtocolsIsisInterfaceCircuitType         types.String `tfsdk:"circuit_type" vyos:"circuit-type,omitempty"`
 	LeafVrfNameProtocolsIsisInterfaceHelloPadding        types.Bool   `tfsdk:"hello_padding" vyos:"hello-padding,omitempty"`
@@ -52,6 +56,11 @@ type VrfNameProtocolsIsisInterface struct {
 // SetID configures the resource ID
 func (o *VrfNameProtocolsIsisInterface) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *VrfNameProtocolsIsisInterface) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -104,7 +113,7 @@ func (o *VrfNameProtocolsIsisInterface) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -167,6 +176,10 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 				),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 
@@ -309,7 +322,7 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 		// Nodes
 
 		"bfd": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisInterfaceBfd{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisInterfaceBfd{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Enable Bidirectional Forwarding Detection (BFD)
 
@@ -320,7 +333,7 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"ldp_sync": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisInterfaceLdpSync{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisInterfaceLdpSync{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `LDP-IGP synchronization configuration for interface
 
@@ -331,7 +344,7 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"network": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisInterfaceNetwork{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisInterfaceNetwork{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Set network type
 
@@ -342,7 +355,7 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 		},
 
 		"password": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisInterfacePassword{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisInterfacePassword{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Configure the authentication password for a circuit
 

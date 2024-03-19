@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -22,14 +24,14 @@ type VrfNameProtocolsOspfTimers struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsOspfTimers) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsOspfTimers) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"throttle": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfTimersThroTTLe{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfTimersThroTTLe{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Throttling adaptive timers
 

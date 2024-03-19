@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -24,7 +26,7 @@ type VrfNameProtocolsOspfInterfaceAuthentication struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsOspfInterfaceAuthentication) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsOspfInterfaceAuthentication) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -47,7 +49,7 @@ func (o VrfNameProtocolsOspfInterfaceAuthentication) ResourceSchemaAttributes() 
 		// Nodes
 
 		"md5": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfInterfaceAuthenticationMdfive{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfInterfaceAuthenticationMdfive{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `MD5 key id
 

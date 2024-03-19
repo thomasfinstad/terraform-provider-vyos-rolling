@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -37,7 +39,7 @@ type PolicyRouteMapRuleMatch struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -224,7 +226,7 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 		// Nodes
 
 		"community": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleMatchCommunity{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleMatchCommunity{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `BGP community-list to match
 
@@ -235,7 +237,7 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 		},
 
 		"evpn": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleMatchEvpn{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleMatchEvpn{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Ethernet Virtual Private Network
 
@@ -246,7 +248,7 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 		},
 
 		"ip": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleMatchIP{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleMatchIP{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IP prefix parameters to match
 
@@ -257,7 +259,7 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleMatchIPvsix{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleMatchIPvsix{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IPv6 prefix parameters to match
 
@@ -268,7 +270,7 @@ func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.At
 		},
 
 		"large_community": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleMatchLargeCommunity{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleMatchLargeCommunity{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Match BGP large communities
 

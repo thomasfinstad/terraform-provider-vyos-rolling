@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -22,14 +24,14 @@ type PolicyRouteMapRuleSetEvpn struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o PolicyRouteMapRuleSetEvpn) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o PolicyRouteMapRuleSetEvpn) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"gateway": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSetEvpnGateway{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleSetEvpnGateway{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Set gateway IP for prefix advertisement route
 

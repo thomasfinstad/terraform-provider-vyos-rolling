@@ -22,6 +22,6 @@ Intermediate System to Intermediate System (IS-IS)
 ⯯
 **Interface params**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

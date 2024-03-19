@@ -62,6 +62,7 @@ IP route-map
 - `match` (Attributes) Route parameters to match (see [below for nested schema](#nestedatt--match))
 - `on_match` (Attributes) Exit policy on matches (see [below for nested schema](#nestedatt--on_match))
 - `set` (Attributes) Route parameters (see [below for nested schema](#nestedatt--set))
+- `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
@@ -600,4 +601,13 @@ Optional:
 
     &emsp;|Format          &emsp;|Description                                                   |
     |------------------|----------------------------------------------------------------|
-    &emsp;|&lt;GA:LDP1:LDP2&gt;  &emsp;|Community in format &lt;0-4294967295:0-4294967295:0-4294967295&gt;  |  &emsp;|
+    &emsp;|&lt;GA:LDP1:LDP2&gt;  &emsp;|Community in format &lt;0-4294967295:0-4294967295:0-4294967295&gt;  |
+
+
+
+&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+### Nested Schema for `timeouts`
+
+Optional:
+
+- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  &emsp;|

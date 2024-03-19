@@ -50,6 +50,7 @@ IPv6 access-list filter
     |----------|---------------|
     &emsp;|txt     &emsp;|Description  |
 - `source` (Attributes) Source IPv6 network to match (see [below for nested schema](#nestedatt--source))
+- `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
@@ -66,4 +67,12 @@ Optional:
 
     &emsp;|Format   &emsp;|Description                     |
     |-----------|----------------------------------|
-    &emsp;|ipv6net  &emsp;|IPv6 address and prefix length  |  &emsp;|
+    &emsp;|ipv6net  &emsp;|IPv6 address and prefix length  |
+
+
+&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+### Nested Schema for `timeouts`
+
+Optional:
+
+- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  &emsp;|

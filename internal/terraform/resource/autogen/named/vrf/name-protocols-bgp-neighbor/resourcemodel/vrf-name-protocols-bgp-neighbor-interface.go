@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -26,7 +28,7 @@ type VrfNameProtocolsBgpNeighborInterface struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpNeighborInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpNeighborInterface) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -85,7 +87,7 @@ func (o VrfNameProtocolsBgpNeighborInterface) ResourceSchemaAttributes() map[str
 		// Nodes
 
 		"v6only": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborInterfaceVsixonly{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborInterfaceVsixonly{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Enable BGP with v6 link-local only
 

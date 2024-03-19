@@ -18,6 +18,6 @@ Service Policy definitions
 ⯯
 **Weighted Random Early Detect policy**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

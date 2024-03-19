@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -24,7 +26,7 @@ type VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabelVpn struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabelVpn) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabelVpn) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -49,7 +51,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabelVpn) ResourceSchemaAtt
 		// Nodes
 
 		"allocation_mode": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabelVpnAllocationMode{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabelVpnAllocationMode{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Label allocation mode
 

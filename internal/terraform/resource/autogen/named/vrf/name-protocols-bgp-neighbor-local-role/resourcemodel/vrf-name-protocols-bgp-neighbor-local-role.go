@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
@@ -31,6 +33,8 @@ type VrfNameProtocolsBgpNeighborLocalRole struct {
 
 	ParentIDVrfNameProtocolsBgpNeighbor types.String `tfsdk:"neighbor_id" vyos:"neighbor,parent-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafVrfNameProtocolsBgpNeighborLocalRoleStrict types.Bool `tfsdk:"strict" vyos:"strict,omitempty"`
 
@@ -42,6 +46,11 @@ type VrfNameProtocolsBgpNeighborLocalRole struct {
 // SetID configures the resource ID
 func (o *VrfNameProtocolsBgpNeighborLocalRole) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *VrfNameProtocolsBgpNeighborLocalRole) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -104,7 +113,7 @@ func (o *VrfNameProtocolsBgpNeighborLocalRole) GetVyosNamedParentPath() []string
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpNeighborLocalRole) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpNeighborLocalRole) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -217,6 +226,10 @@ func (o VrfNameProtocolsBgpNeighborLocalRole) ResourceSchemaAttributes() map[str
 				),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 

@@ -22,6 +22,6 @@ Open Shortest Path First (OSPF)
 ⯯
 **Access list to filter networks in routing updates**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

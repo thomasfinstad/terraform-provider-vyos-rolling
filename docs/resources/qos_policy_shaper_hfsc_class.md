@@ -49,6 +49,7 @@ Hierarchical Fair Service Curve's policy
     &emsp;|txt     &emsp;|Description  |
 - `linkshare` (Attributes) Linkshare class settings (see [below for nested schema](#nestedatt--linkshare))
 - `realtime` (Attributes) Realtime class settings (see [below for nested schema](#nestedatt--realtime))
+- `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `upperlimit` (Attributes) Upperlimit class settings (see [below for nested schema](#nestedatt--upperlimit))
 
 ### Read-Only
@@ -117,6 +118,14 @@ Optional:
     &emsp;|&lt;number&gt;ibit  &emsp;|kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
     &emsp;|&lt;number&gt;ibps  &emsp;|kibps(1024&amp;8), mibps(1024^2&amp;8), gibps, tibps - Byte/sec  |
     &emsp;|&lt;number&gt;bps   &emsp;|bps(8),kbps(8&amp;10^3),mbps(8&amp;10^6), gbps, tbps - Byte/sec  |
+
+
+&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+### Nested Schema for `timeouts`
+
+Optional:
+
+- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).
 
 
 &lt;a id=&#34;nestedatt--upperlimit&#34;&gt;&lt;/a&gt;

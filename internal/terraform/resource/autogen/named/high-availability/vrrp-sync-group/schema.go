@@ -18,6 +18,6 @@ Virtual Router Redundancy Protocol settings
 ⯯
 **VRRP sync group**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

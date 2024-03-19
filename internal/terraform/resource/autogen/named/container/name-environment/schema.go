@@ -18,6 +18,6 @@ Container name
 ⯯
 **Add custom environment variables**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

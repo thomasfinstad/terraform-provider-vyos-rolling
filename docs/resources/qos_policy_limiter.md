@@ -39,6 +39,7 @@ Service Policy definitions
     &emsp;|Format  &emsp;|Description  |
     |----------|---------------|
     &emsp;|txt     &emsp;|Description  |
+- `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 
 ### Read-Only
 
@@ -83,4 +84,12 @@ Optional:
     &emsp;|drop        &emsp;|Drop the packet immediately                                                                                                   |
     &emsp;|ok          &emsp;|Accept the packet                                                                                                             |
     &emsp;|reclassify  &emsp;|Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
-    &emsp;|pipe        &emsp;|Pass the packet to the next action in line                                                                                    |  &emsp;|
+    &emsp;|pipe        &emsp;|Pass the packet to the next action in line                                                                                    |
+
+
+&lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
+### Nested Schema for `timeouts`
+
+Optional:
+
+- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  &emsp;|

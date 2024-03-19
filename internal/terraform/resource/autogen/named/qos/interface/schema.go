@@ -16,6 +16,6 @@ func (r qosInterface) Schema(ctx context.Context, req resource.SchemaRequest, re
 ⯯
 **Interface to apply QoS policy**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

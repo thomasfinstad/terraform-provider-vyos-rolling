@@ -18,6 +18,6 @@ Service Policy definitions
 ⯯
 **Traffic shaping based policy (Hierarchy Token Bucket)**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

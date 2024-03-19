@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -24,14 +26,14 @@ type VrfNameProtocolsIsisFastRerouteLfaLocalTiebreaker struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsIsisFastRerouteLfaLocalTiebreaker) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsIsisFastRerouteLfaLocalTiebreaker) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"downstream": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstream{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstream{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Prefer backup path via downstream node
 
@@ -42,7 +44,7 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocalTiebreaker) ResourceSchemaAttribu
 		},
 
 		"lowest_backup_metric": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetric{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetric{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Prefer backup path with lowest total metric
 
@@ -53,7 +55,7 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocalTiebreaker) ResourceSchemaAttribu
 		},
 
 		"node_protecting": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerNodeProtecting{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerNodeProtecting{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Prefer node protecting backup path
 

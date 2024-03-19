@@ -2,8 +2,10 @@
 package resourcemodel
 
 import (
+	"context"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
@@ -23,6 +25,8 @@ type FirewallIPvfourForwardFilterRule struct {
 	ID types.String `tfsdk:"id" vyos:"-,tfsdk-id"`
 
 	SelfIdentifier types.Number `tfsdk:"rule_id" vyos:"-,self-id"`
+
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
 	LeafFirewallIPvfourForwardFilterRuleAction              types.String `tfsdk:"action" vyos:"action,omitempty"`
@@ -70,6 +74,11 @@ func (o *FirewallIPvfourForwardFilterRule) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
 }
 
+// GetTimeouts returns resource timeout config
+func (o *FirewallIPvfourForwardFilterRule) GetTimeouts() timeouts.Value {
+	return o.Timeouts
+}
+
 // IsGlobalResource returns true if this is global
 // This is useful during CRUD delete
 func (o *FirewallIPvfourForwardFilterRule) IsGlobalResource() bool {
@@ -114,7 +123,7 @@ func (o *FirewallIPvfourForwardFilterRule) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -138,6 +147,10 @@ func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes() map[string]
 				numberplanmodifier.RequiresReplace(),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 
@@ -486,7 +499,7 @@ func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes() map[string]
 		// Nodes
 
 		"fragment": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourForwardFilterRuleFragment{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourForwardFilterRuleFragment{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `IP fragment match
 
@@ -497,7 +510,7 @@ func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes() map[string]
 		},
 
 		"limit": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourForwardFilterRuleLimit{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourForwardFilterRuleLimit{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Rate limit using a token bucket filter
 
@@ -508,7 +521,7 @@ func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes() map[string]
 		},
 
 		"log_options": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourForwardFilterRuleLogOptions{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourForwardFilterRuleLogOptions{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Log options
 
@@ -519,7 +532,7 @@ func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes() map[string]
 		},
 
 		"connection_status": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourForwardFilterRuleConnectionStatus{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourForwardFilterRuleConnectionStatus{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Connection status
 
@@ -530,7 +543,7 @@ func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes() map[string]
 		},
 
 		"recent": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourForwardFilterRuleRecent{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourForwardFilterRuleRecent{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Parameters for matching recently seen sources
 
@@ -541,7 +554,7 @@ func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes() map[string]
 		},
 
 		"synproxy": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourForwardFilterRuleSynproxy{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourForwardFilterRuleSynproxy{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Synproxy options
 
@@ -552,7 +565,7 @@ func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes() map[string]
 		},
 
 		"tcp": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourForwardFilterRuleTCP{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourForwardFilterRuleTCP{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `TCP options to match
 
@@ -563,7 +576,7 @@ func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes() map[string]
 		},
 
 		"time": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourForwardFilterRuleTime{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourForwardFilterRuleTime{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Time to match rule
 
@@ -574,7 +587,7 @@ func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes() map[string]
 		},
 
 		"ttl": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourForwardFilterRuleTTL{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourForwardFilterRuleTTL{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Time to live limit
 
@@ -585,7 +598,7 @@ func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes() map[string]
 		},
 
 		"add_address_to_group": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourForwardFilterRuleAddAddressToGroup{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourForwardFilterRuleAddAddressToGroup{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Add ip address to dynamic address-group
 
@@ -596,7 +609,7 @@ func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes() map[string]
 		},
 
 		"destination": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourForwardFilterRuleDestination{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourForwardFilterRuleDestination{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Destination parameters
 
@@ -607,7 +620,7 @@ func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes() map[string]
 		},
 
 		"icmp": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourForwardFilterRuleIcmp{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourForwardFilterRuleIcmp{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `ICMP type and code information
 
@@ -618,7 +631,7 @@ func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes() map[string]
 		},
 
 		"source": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourForwardFilterRuleSource{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourForwardFilterRuleSource{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Source parameters
 
@@ -629,7 +642,7 @@ func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes() map[string]
 		},
 
 		"inbound_interface": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourForwardFilterRuleInboundInterface{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourForwardFilterRuleInboundInterface{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Match inbound-interface
 
@@ -640,7 +653,7 @@ func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes() map[string]
 		},
 
 		"ipsec": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourForwardFilterRuleIPsec{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourForwardFilterRuleIPsec{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Inbound IPsec packets
 
@@ -651,7 +664,7 @@ func (o FirewallIPvfourForwardFilterRule) ResourceSchemaAttributes() map[string]
 		},
 
 		"outbound_interface": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourForwardFilterRuleOutboundInterface{}.ResourceSchemaAttributes(),
+			Attributes: FirewallIPvfourForwardFilterRuleOutboundInterface{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Match outbound-interface
 

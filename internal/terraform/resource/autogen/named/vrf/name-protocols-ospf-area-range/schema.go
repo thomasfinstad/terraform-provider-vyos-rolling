@@ -24,6 +24,6 @@ OSPF area settings
 ⯯
 **Summarize routes matching a prefix (border routers only)**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

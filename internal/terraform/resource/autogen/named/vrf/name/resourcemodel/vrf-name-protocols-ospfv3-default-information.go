@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -22,14 +24,14 @@ type VrfNameProtocolsOspfvthreeDefaultInformation struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsOspfvthreeDefaultInformation) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsOspfvthreeDefaultInformation) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"originate": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeDefaultInformationOriginate{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeDefaultInformationOriginate{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Distribute a default route
 

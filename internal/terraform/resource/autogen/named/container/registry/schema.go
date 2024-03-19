@@ -16,6 +16,6 @@ func (r containerRegistry) Schema(ctx context.Context, req resource.SchemaReques
 ⯯
 **Registry Name**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

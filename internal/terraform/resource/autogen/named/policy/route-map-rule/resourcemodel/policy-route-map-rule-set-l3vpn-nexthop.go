@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -22,14 +24,14 @@ type PolicyRouteMapRuleSetLthreevpnNexthop struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o PolicyRouteMapRuleSetLthreevpnNexthop) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o PolicyRouteMapRuleSetLthreevpnNexthop) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"encapsulation": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSetLthreevpnNexthopEncapsulation{}.ResourceSchemaAttributes(),
+			Attributes: PolicyRouteMapRuleSetLthreevpnNexthopEncapsulation{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Encapsulation options (for BGP only)
 

@@ -26,6 +26,6 @@ Administratives distances for BGP routes
 ⯯
 **Administrative distance for a specific BGP prefix**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

@@ -22,6 +22,6 @@ IPv6 firewall forward filter
 ⯯
 **IPv6 Firewall forward filter rule number**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

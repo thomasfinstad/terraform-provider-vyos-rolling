@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
@@ -28,14 +30,14 @@ type VrfNameProtocolsIsisRedistributeIPvfour struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsIsisRedistributeIPvfour) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsIsisRedistributeIPvfour) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		// Nodes
 
 		"bgp": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvfourBgp{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvfourBgp{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Border Gateway Protocol (BGP)
 
@@ -46,7 +48,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvfour) ResourceSchemaAttributes() map[
 		},
 
 		"connected": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvfourConnected{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvfourConnected{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute connected routes into IS-IS
 
@@ -57,7 +59,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvfour) ResourceSchemaAttributes() map[
 		},
 
 		"kernel": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvfourKernel{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvfourKernel{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute kernel routes into IS-IS
 
@@ -68,7 +70,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvfour) ResourceSchemaAttributes() map[
 		},
 
 		"ospf": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvfourOspf{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvfourOspf{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute OSPF routes into IS-IS
 
@@ -79,7 +81,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvfour) ResourceSchemaAttributes() map[
 		},
 
 		"rip": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvfourRIP{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvfourRIP{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute RIP routes into IS-IS
 
@@ -90,7 +92,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvfour) ResourceSchemaAttributes() map[
 		},
 
 		"babel": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvfourBabel{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvfourBabel{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute Babel routes into IS-IS
 
@@ -101,7 +103,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvfour) ResourceSchemaAttributes() map[
 		},
 
 		"static": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvfourStatic{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvfourStatic{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Redistribute static routes into IS-IS
 

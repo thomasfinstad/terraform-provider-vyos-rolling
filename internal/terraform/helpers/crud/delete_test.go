@@ -68,7 +68,7 @@ func TestCrudDeleteSuccess(t *testing.T) {
 	}
 
 	// Server
-	apiAddress := "localhost:8080"
+	apiAddress := "localhost:50007"
 	srv := &http.Server{
 		Addr: apiAddress,
 	}
@@ -139,7 +139,7 @@ func TestCrudDeleteResourceHasChildFailure(t *testing.T) {
 		}
 
 		// Server
-		apiAddress := "localhost:8080"
+		apiAddress := "localhost:50008"
 		srv := &http.Server{
 			Addr: apiAddress,
 		}
@@ -212,7 +212,7 @@ func TestCrudDeleteResourceHasChildIgnore(t *testing.T) {
 	}
 
 	// Server
-	apiAddress := "localhost:8080"
+	apiAddress := "localhost:50009"
 	srv := &http.Server{
 		Addr: apiAddress,
 	}
@@ -301,7 +301,7 @@ func TestCrudDeleteGlobalResourceWithChild(t *testing.T) {
 	}
 
 	// Server
-	apiAddress := "localhost:8080"
+	apiAddress := "localhost:50010"
 	srv := &http.Server{
 		Addr: apiAddress,
 	}
@@ -380,7 +380,7 @@ func TestCrudDeleteGlobalResourceWithoutChild(t *testing.T) {
 	}
 
 	// Server
-	apiAddress := "localhost:8080"
+	apiAddress := "localhost:50011"
 	srv := &http.Server{
 		Addr: apiAddress,
 	}

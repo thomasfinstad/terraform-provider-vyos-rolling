@@ -22,6 +22,6 @@ IPv6 input firewall
 ⯯
 **IPv6 firewall input filter**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

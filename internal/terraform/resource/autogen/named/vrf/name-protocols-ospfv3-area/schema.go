@@ -22,6 +22,6 @@ Open Shortest Path First (OSPF) for IPv6
 ⯯
 **OSPFv3 Area**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

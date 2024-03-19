@@ -26,6 +26,6 @@ L2VPN EVPN BGP settings
 ⯯
 **VXLAN Network Identifier**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

@@ -18,6 +18,6 @@ IPv6 firewall
 ⯯
 **IPv6 custom firewall**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

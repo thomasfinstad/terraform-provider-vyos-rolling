@@ -18,6 +18,6 @@ IPv6 access-list filter
 ⯯
 **Rule for this access-list6**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

@@ -24,6 +24,6 @@ Static IPv4 route
 ⯯
 **Next-hop IPv4 router interface**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

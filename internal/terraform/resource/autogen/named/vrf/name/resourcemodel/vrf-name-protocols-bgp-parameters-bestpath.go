@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -28,7 +30,7 @@ type VrfNameProtocolsBgpParametersBestpath struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpParametersBestpath) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpParametersBestpath) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -86,7 +88,7 @@ func (o VrfNameProtocolsBgpParametersBestpath) ResourceSchemaAttributes() map[st
 		// Nodes
 
 		"as_path": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersBestpathAsPath{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpParametersBestpathAsPath{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `AS-path attribute comparison parameters
 
@@ -97,7 +99,7 @@ func (o VrfNameProtocolsBgpParametersBestpath) ResourceSchemaAttributes() map[st
 		},
 
 		"peer_type": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersBestpathPeerType{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpParametersBestpathPeerType{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Peer type
 

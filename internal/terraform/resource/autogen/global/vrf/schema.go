@@ -16,6 +16,6 @@ func (r vrf) Schema(ctx context.Context, req resource.SchemaRequest, resp *resou
 
 	**Virtual Routing and Forwarding**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

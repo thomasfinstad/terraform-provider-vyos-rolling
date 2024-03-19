@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
@@ -13,8 +14,6 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 )
-
-// TODO wrap create() call in "timeout" and "retry" functionality
 
 // Create method to define the logic which creates the resource and sets its initial Terraform state.
 func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequest, resp *resource.CreateResponse) {
@@ -28,6 +27,15 @@ func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequ
 	if resp.Diagnostics.HasError() {
 		return
 	}
+
+	// Setup timeout
+	createTimeout, diags := planModel.GetTimeouts().Create(ctx, time.Duration(r.GetProviderConfig().Config.CrudDefaultTimeouts)*time.Minute)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+	ctx, cancel := context.WithTimeout(ctx, createTimeout)
+	defer cancel()
 
 	// Fetch resource from API
 	err := create(ctx, r.GetProviderConfig(), r.GetClient(), planModel)
@@ -54,12 +62,8 @@ func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequ
 // model must be a ptr
 // this function is seperated out to keep the terraform provider
 // logic and API logic seperate so we can test the API logic easier
+// TODO add retry support to create()
 func create(ctx context.Context, providerCfg data.ProviderData, c client.Client, planModel helpers.VyosTopResourceDataModel) error {
-	// TODO consolidate parent check and self check API calls
-	//  When running the API call for the parent check we should have enough data
-	//  to also check if the resource already exists and can skip the extra
-	//  API call
-
 	// Check if nearest parent exists
 	if !providerCfg.Config.CrudSkipCheckParentBeforeCreate && (len(planModel.GetVyosNamedParentPath()) > 0) {
 		tflog.Debug(ctx, fmt.Sprintf("checking for parent: '%s'", planModel.GetVyosNamedParentPath()))

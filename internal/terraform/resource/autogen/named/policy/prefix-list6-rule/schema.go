@@ -18,6 +18,6 @@ IPv6 prefix-list filter
 ⯯
 **Rule for this prefix-list6**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

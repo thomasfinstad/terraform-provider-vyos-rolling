@@ -22,6 +22,6 @@ IPv6 output firewall
 ⯯
 **IPv6 firewall output filter**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

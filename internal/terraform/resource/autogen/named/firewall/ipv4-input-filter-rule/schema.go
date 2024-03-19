@@ -22,6 +22,6 @@ IPv4 firewall input filter
 ⯯
 **IPv4 Firewall input filter rule number**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

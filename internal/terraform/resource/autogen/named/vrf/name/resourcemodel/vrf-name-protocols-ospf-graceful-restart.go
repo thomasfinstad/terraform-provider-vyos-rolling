@@ -2,6 +2,8 @@
 package resourcemodel
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
@@ -24,7 +26,7 @@ type VrfNameProtocolsOspfGracefulRestart struct {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsOspfGracefulRestart) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsOspfGracefulRestart) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -50,7 +52,7 @@ func (o VrfNameProtocolsOspfGracefulRestart) ResourceSchemaAttributes() map[stri
 		// Nodes
 
 		"helper": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfGracefulRestartHelper{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsOspfGracefulRestartHelper{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `OSPF graceful-restart helpers
 

@@ -18,6 +18,6 @@ Container name
 ⯯
 **Attach user defined network to container**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

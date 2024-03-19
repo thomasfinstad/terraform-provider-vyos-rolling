@@ -32,6 +32,6 @@ Prefer backup path via downstream node
 ⯯
 **Set preference order among tiebreakers**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

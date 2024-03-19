@@ -18,6 +18,6 @@ func (r highAvailabilityVrrp) Schema(ctx context.Context, req resource.SchemaReq
 ⯯
 **Virtual Router Redundancy Protocol settings**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

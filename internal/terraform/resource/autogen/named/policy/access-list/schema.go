@@ -16,6 +16,6 @@ func (r policyAccessList) Schema(ctx context.Context, req resource.SchemaRequest
 ⯯
 **IP access-list filter**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }

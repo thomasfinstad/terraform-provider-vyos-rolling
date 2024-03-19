@@ -2,9 +2,11 @@
 package resourcemodel
 
 import (
+	"context"
 	"regexp"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
@@ -29,6 +31,8 @@ type VrfNameProtocolsBgpBmpTarget struct {
 
 	ParentIDVrfName types.String `tfsdk:"name_id" vyos:"name,parent-id"`
 
+	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
+
 	// LeafNodes
 	LeafVrfNameProtocolsBgpBmpTargetAddress  types.String `tfsdk:"address" vyos:"address,omitempty"`
 	LeafVrfNameProtocolsBgpBmpTargetPort     types.Number `tfsdk:"port" vyos:"port,omitempty"`
@@ -45,6 +49,11 @@ type VrfNameProtocolsBgpBmpTarget struct {
 // SetID configures the resource ID
 func (o *VrfNameProtocolsBgpBmpTarget) SetID(id []string) {
 	o.ID = basetypes.NewStringValue(strings.Join(id, "__"))
+}
+
+// GetTimeouts returns resource timeout config
+func (o *VrfNameProtocolsBgpBmpTarget) GetTimeouts() timeouts.Value {
+	return o.Timeouts
 }
 
 // IsGlobalResource returns true if this is global
@@ -99,7 +108,7 @@ func (o *VrfNameProtocolsBgpBmpTarget) GetVyosNamedParentPath() []string {
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
-func (o VrfNameProtocolsBgpBmpTarget) ResourceSchemaAttributes() map[string]schema.Attribute {
+func (o VrfNameProtocolsBgpBmpTarget) ResourceSchemaAttributes(ctx context.Context) map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
@@ -162,6 +171,10 @@ func (o VrfNameProtocolsBgpBmpTarget) ResourceSchemaAttributes() map[string]sche
 				),
 			},
 		},
+
+		"timeouts": timeouts.Attributes(ctx, timeouts.Opts{
+			Create: true,
+		}),
 
 		// LeafNodes
 
@@ -255,7 +268,7 @@ func (o VrfNameProtocolsBgpBmpTarget) ResourceSchemaAttributes() map[string]sche
 		// Nodes
 
 		"monitor": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpBmpTargetMonitor{}.ResourceSchemaAttributes(),
+			Attributes: VrfNameProtocolsBgpBmpTargetMonitor{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
 			MarkdownDescription: `Send BMP route monitoring messages
 

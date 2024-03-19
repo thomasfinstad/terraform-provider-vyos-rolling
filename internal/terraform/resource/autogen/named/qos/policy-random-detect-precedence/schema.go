@@ -20,6 +20,6 @@ Weighted Random Early Detect policy
 ⯯
 **IP precedence**
 `,
-		Attributes: r.model.ResourceSchemaAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}
 }
