@@ -45,14 +45,14 @@ func (o VrfNameProtocolsIsisTrafficEngineering) ResourceSchemaAttributes() map[s
 			Optional: true,
 			MarkdownDescription: `MPLS traffic engineering router ID
 
-    |  Format  &emsp;|  Description   |
-    |----------------|----------------|
-    |  ipv4    &emsp;|  IPv4 address  |
+    |  Format  |  Description   |
+    |----------|----------------|
+    |  ipv4    |  IPv4 address  |
 `,
 			Description: `MPLS traffic engineering router ID
 
     |  Format  |  Description   |
-    |----------------|----------------|
+    |----------|----------------|
     |  ipv4    |  IPv4 address  |
 `,
 		},

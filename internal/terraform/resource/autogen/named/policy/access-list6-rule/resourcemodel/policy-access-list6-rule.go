@@ -100,14 +100,14 @@ func (o PolicyAccessListsixRule) ResourceSchemaAttributes() map[string]schema.At
 			Required: true,
 			MarkdownDescription: `Rule for this access-list6
 
-    |  Format   &emsp;|  Description               |
-    |-----------------|----------------------------|
-    |  1-65535  &emsp;|  Access-list6 rule number  |
+    |  Format   |  Description               |
+    |-----------|----------------------------|
+    |  1-65535  |  Access-list6 rule number  |
 `,
 			Description: `Rule for this access-list6
 
     |  Format   |  Description               |
-    |-----------------|----------------------------|
+    |-----------|----------------------------|
     |  1-65535  |  Access-list6 rule number  |
 `,
 			PlanModifiers: []planmodifier.Number{
@@ -119,14 +119,14 @@ func (o PolicyAccessListsixRule) ResourceSchemaAttributes() map[string]schema.At
 			Required: true,
 			MarkdownDescription: `IPv6 access-list filter
 
-    |  Format  &emsp;|  Description               |
-    |----------------|----------------------------|
-    |  txt     &emsp;|  Name of IPv6 access-list  |
+    |  Format  |  Description               |
+    |----------|----------------------------|
+    |  txt     |  Name of IPv6 access-list  |
 `,
 			Description: `IPv6 access-list filter
 
     |  Format  |  Description               |
-    |----------------|----------------------------|
+    |----------|----------------------------|
     |  txt     |  Name of IPv6 access-list  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -153,15 +153,15 @@ func (o PolicyAccessListsixRule) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
-    |  Format  &emsp;|  Description              |
-    |----------------|---------------------------|
-    |  permit  &emsp;|  Permit matching entries  |
-    |  deny    &emsp;|  Deny matching entries    |
+    |  Format  |  Description              |
+    |----------|---------------------------|
+    |  permit  |  Permit matching entries  |
+    |  deny    |  Deny matching entries    |
 `,
 			Description: `Action to take on entries matching this rule
 
     |  Format  |  Description              |
-    |----------------|---------------------------|
+    |----------|---------------------------|
     |  permit  |  Permit matching entries  |
     |  deny    |  Deny matching entries    |
 `,
@@ -171,14 +171,14 @@ func (o PolicyAccessListsixRule) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},

@@ -101,17 +101,17 @@ func (o HighAvailabilityVrrpGroupAddress) ResourceSchemaAttributes() map[string]
 			Required: true,
 			MarkdownDescription: `Virtual IP address
 
-    |  Format   &emsp;|  Description                     |
-    |-----------------|----------------------------------|
-    |  ipv4net  &emsp;|  IPv4 address and prefix length  |
-    |  ipv6net  &emsp;|  IPv6 address and prefix length  |
-    |  ipv4     &emsp;|  IPv4 address                    |
-    |  ipv6     &emsp;|  IPv6 address                    |
+    |  Format   |  Description                     |
+    |-----------|----------------------------------|
+    |  ipv4net  |  IPv4 address and prefix length  |
+    |  ipv6net  |  IPv6 address and prefix length  |
+    |  ipv4     |  IPv4 address                    |
+    |  ipv6     |  IPv6 address                    |
 `,
 			Description: `Virtual IP address
 
     |  Format   |  Description                     |
-    |-----------------|----------------------------------|
+    |-----------|----------------------------------|
     |  ipv4net  |  IPv4 address and prefix length  |
     |  ipv6net  |  IPv6 address and prefix length  |
     |  ipv4     |  IPv4 address                    |
@@ -167,14 +167,14 @@ func (o HighAvailabilityVrrpGroupAddress) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Interface to use
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  txt     &emsp;|  Interface name  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Interface name  |
 `,
 			Description: `Interface to use
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  txt     |  Interface name  |
 `,
 		},

@@ -31,14 +31,14 @@ func (o VrfNameProtocolsOspfRefresh) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Refresh timer
 
-    |  Format   &emsp;|  Description             |
-    |-----------------|--------------------------|
-    |  10-1800  &emsp;|  Timer value in seconds  |
+    |  Format   |  Description             |
+    |-----------|--------------------------|
+    |  10-1800  |  Timer value in seconds  |
 `,
 			Description: `Refresh timer
 
     |  Format   |  Description             |
-    |-----------------|--------------------------|
+    |-----------|--------------------------|
     |  10-1800  |  Timer value in seconds  |
 `,
 		},

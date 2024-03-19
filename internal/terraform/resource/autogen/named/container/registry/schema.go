@@ -12,16 +12,9 @@ import (
 func (r containerRegistry) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-Container applications
-
-<br>
-&darr;
-<br>
-<b>
-Registry Name
-</b>
-</div>
+		MarkdownDescription: `Container applications
+⯯
+**Registry Name**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

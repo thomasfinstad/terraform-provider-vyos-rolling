@@ -42,17 +42,17 @@ func (o FirewallIPvfourOutputFilterRuleAddAddressToGroupDestinationAddress) Reso
 			Optional: true,
 			MarkdownDescription: `Set timeout
 
-    |  Format           &emsp;|  Description               |
-    |-------------------------|----------------------------|
-    |  &lt;number&gt;s  &emsp;|  Timeout value in seconds  |
-    |  &lt;number&gt;m  &emsp;|  Timeout value in minutes  |
-    |  &lt;number&gt;h  &emsp;|  Timeout value in hours    |
-    |  &lt;number&gt;d  &emsp;|  Timeout value in days     |
+    |  Format     |  Description               |
+    |-------------|----------------------------|
+    |  <number>s  |  Timeout value in seconds  |
+    |  <number>m  |  Timeout value in minutes  |
+    |  <number>h  |  Timeout value in hours    |
+    |  <number>d  |  Timeout value in days     |
 `,
 			Description: `Set timeout
 
-    |  Format           |  Description               |
-    |-------------------------|----------------------------|
+    |  Format     |  Description               |
+    |-------------|----------------------------|
     |  <number>s  |  Timeout value in seconds  |
     |  <number>m  |  Timeout value in minutes  |
     |  <number>h  |  Timeout value in hours    |

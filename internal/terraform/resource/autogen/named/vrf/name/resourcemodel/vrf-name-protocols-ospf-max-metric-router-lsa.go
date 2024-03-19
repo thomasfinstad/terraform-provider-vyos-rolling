@@ -46,14 +46,14 @@ func (o VrfNameProtocolsOspfMaxMetricRouterLsa) ResourceSchemaAttributes() map[s
 			Optional: true,
 			MarkdownDescription: `Advertise stub-router prior to full shutdown of OSPF
 
-    |  Format  &emsp;|  Description                                      |
-    |----------------|---------------------------------------------------|
-    |  5-100   &emsp;|  Time (seconds) to advertise self as stub-router  |
+    |  Format  |  Description                                      |
+    |----------|---------------------------------------------------|
+    |  5-100   |  Time (seconds) to advertise self as stub-router  |
 `,
 			Description: `Advertise stub-router prior to full shutdown of OSPF
 
     |  Format  |  Description                                      |
-    |----------------|---------------------------------------------------|
+    |----------|---------------------------------------------------|
     |  5-100   |  Time (seconds) to advertise self as stub-router  |
 `,
 		},
@@ -62,14 +62,14 @@ func (o VrfNameProtocolsOspfMaxMetricRouterLsa) ResourceSchemaAttributes() map[s
 			Optional: true,
 			MarkdownDescription: `Automatically advertise stub Router-LSA on startup of OSPF
 
-    |  Format   &emsp;|  Description                                      |
-    |-----------------|---------------------------------------------------|
-    |  5-86400  &emsp;|  Time (seconds) to advertise self as stub-router  |
+    |  Format   |  Description                                      |
+    |-----------|---------------------------------------------------|
+    |  5-86400  |  Time (seconds) to advertise self as stub-router  |
 `,
 			Description: `Automatically advertise stub Router-LSA on startup of OSPF
 
     |  Format   |  Description                                      |
-    |-----------------|---------------------------------------------------|
+    |-----------|---------------------------------------------------|
     |  5-86400  |  Time (seconds) to advertise self as stub-router  |
 `,
 		},

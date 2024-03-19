@@ -91,14 +91,14 @@ func (o QosPolicyLimiter) ResourceSchemaAttributes() map[string]schema.Attribute
 			Required: true,
 			MarkdownDescription: `Traffic input limiting policy
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Policy name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Policy name  |
 `,
 			Description: `Traffic input limiting policy
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Policy name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -125,14 +125,14 @@ func (o QosPolicyLimiter) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},

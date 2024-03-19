@@ -152,14 +152,14 @@ func (o ContainerNameDevice) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Source device (Example: "/dev/x")
 
-    |  Format  &emsp;|  Description    |
-    |----------------|-----------------|
-    |  txt     &emsp;|  Source device  |
+    |  Format  |  Description    |
+    |----------|-----------------|
+    |  txt     |  Source device  |
 `,
 			Description: `Source device (Example: "/dev/x")
 
     |  Format  |  Description    |
-    |----------------|-----------------|
+    |----------|-----------------|
     |  txt     |  Source device  |
 `,
 		},
@@ -168,14 +168,14 @@ func (o ContainerNameDevice) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Destination container device (Example: "/dev/x")
 
-    |  Format  &emsp;|  Description                   |
-    |----------------|--------------------------------|
-    |  txt     &emsp;|  Destination container device  |
+    |  Format  |  Description                   |
+    |----------|--------------------------------|
+    |  txt     |  Destination container device  |
 `,
 			Description: `Destination container device (Example: "/dev/x")
 
     |  Format  |  Description                   |
-    |----------------|--------------------------------|
+    |----------|--------------------------------|
     |  txt     |  Destination container device  |
 `,
 		},

@@ -114,14 +114,14 @@ func (o VrfNameProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes() map[strin
 			Required: true,
 			MarkdownDescription: `Specify alternate ASN for this BGP process
 
-    |  Format        &emsp;|  Description                     |
-    |----------------------|----------------------------------|
-    |  1-4294967294  &emsp;|  Autonomous System Number (ASN)  |
+    |  Format        |  Description                     |
+    |----------------|----------------------------------|
+    |  1-4294967294  |  Autonomous System Number (ASN)  |
 `,
 			Description: `Specify alternate ASN for this BGP process
 
     |  Format        |  Description                     |
-    |----------------------|----------------------------------|
+    |----------------|----------------------------------|
     |  1-4294967294  |  Autonomous System Number (ASN)  |
 `,
 			PlanModifiers: []planmodifier.Number{
@@ -133,14 +133,14 @@ func (o VrfNameProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes() map[strin
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -165,16 +165,16 @@ func (o VrfNameProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes() map[strin
 			Required: true,
 			MarkdownDescription: `BGP neighbor
 
-    |  Format  &emsp;|  Description                |
-    |----------------|-----------------------------|
-    |  ipv4    &emsp;|  BGP neighbor IP address    |
-    |  ipv6    &emsp;|  BGP neighbor IPv6 address  |
-    |  txt     &emsp;|  Interface name             |
+    |  Format  |  Description                |
+    |----------|-----------------------------|
+    |  ipv4    |  BGP neighbor IP address    |
+    |  ipv6    |  BGP neighbor IPv6 address  |
+    |  txt     |  Interface name             |
 `,
 			Description: `BGP neighbor
 
     |  Format  |  Description                |
-    |----------------|-----------------------------|
+    |----------|-----------------------------|
     |  ipv4    |  BGP neighbor IP address    |
     |  ipv6    |  BGP neighbor IPv6 address  |
     |  txt     |  Interface name             |

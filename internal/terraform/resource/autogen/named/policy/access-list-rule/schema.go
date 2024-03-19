@@ -12,21 +12,11 @@ import (
 func (r policyAccessListRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-Routing policy
-
-<br>
-&darr;
-<br>
+		MarkdownDescription: `Routing policy
+⯯
 IP access-list filter
-
-<br>
-&darr;
-<br>
-<b>
-Rule for this access-list
-</b>
-</div>
+⯯
+**Rule for this access-list**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

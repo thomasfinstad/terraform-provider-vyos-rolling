@@ -103,14 +103,14 @@ func (o VrfNameProtocolsOspfSummaryAddress) ResourceSchemaAttributes() map[strin
 			Required: true,
 			MarkdownDescription: `External summary address
 
-    |  Format   &emsp;|  Description                                  |
-    |-----------------|-----------------------------------------------|
-    |  ipv4net  &emsp;|  OSPF area number in dotted decimal notation  |
+    |  Format   |  Description                                  |
+    |-----------|-----------------------------------------------|
+    |  ipv4net  |  OSPF area number in dotted decimal notation  |
 `,
 			Description: `External summary address
 
     |  Format   |  Description                                  |
-    |-----------------|-----------------------------------------------|
+    |-----------|-----------------------------------------------|
     |  ipv4net  |  OSPF area number in dotted decimal notation  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -135,14 +135,14 @@ func (o VrfNameProtocolsOspfSummaryAddress) ResourceSchemaAttributes() map[strin
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -181,14 +181,14 @@ func (o VrfNameProtocolsOspfSummaryAddress) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Router tag
 
-    |  Format        &emsp;|  Description       |
-    |----------------------|--------------------|
-    |  1-4294967295  &emsp;|  Router tag value  |
+    |  Format        |  Description       |
+    |----------------|--------------------|
+    |  1-4294967295  |  Router tag value  |
 `,
 			Description: `Router tag
 
     |  Format        |  Description       |
-    |----------------------|--------------------|
+    |----------------|--------------------|
     |  1-4294967295  |  Router tag value  |
 `,
 		},

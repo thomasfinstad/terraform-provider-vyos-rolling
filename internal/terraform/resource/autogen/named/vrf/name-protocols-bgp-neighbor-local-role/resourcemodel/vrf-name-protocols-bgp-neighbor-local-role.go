@@ -114,18 +114,18 @@ func (o VrfNameProtocolsBgpNeighborLocalRole) ResourceSchemaAttributes() map[str
 			Required: true,
 			MarkdownDescription: `Local role for BGP neighbor (RFC9234)
 
-    |  Format     &emsp;|  Description             |
-    |-------------------|--------------------------|
-    |  customer   &emsp;|  Using Transit           |
-    |  peer       &emsp;|  Public/Private Peering  |
-    |  provider   &emsp;|  Providing Transit       |
-    |  rs-client  &emsp;|  RS Client               |
-    |  rs-server  &emsp;|  Route Server            |
+    |  Format     |  Description             |
+    |-------------|--------------------------|
+    |  customer   |  Using Transit           |
+    |  peer       |  Public/Private Peering  |
+    |  provider   |  Providing Transit       |
+    |  rs-client  |  RS Client               |
+    |  rs-server  |  Route Server            |
 `,
 			Description: `Local role for BGP neighbor (RFC9234)
 
     |  Format     |  Description             |
-    |-------------------|--------------------------|
+    |-------------|--------------------------|
     |  customer   |  Using Transit           |
     |  peer       |  Public/Private Peering  |
     |  provider   |  Providing Transit       |
@@ -154,14 +154,14 @@ func (o VrfNameProtocolsBgpNeighborLocalRole) ResourceSchemaAttributes() map[str
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -186,16 +186,16 @@ func (o VrfNameProtocolsBgpNeighborLocalRole) ResourceSchemaAttributes() map[str
 			Required: true,
 			MarkdownDescription: `BGP neighbor
 
-    |  Format  &emsp;|  Description                |
-    |----------------|-----------------------------|
-    |  ipv4    &emsp;|  BGP neighbor IP address    |
-    |  ipv6    &emsp;|  BGP neighbor IPv6 address  |
-    |  txt     &emsp;|  Interface name             |
+    |  Format  |  Description                |
+    |----------|-----------------------------|
+    |  ipv4    |  BGP neighbor IP address    |
+    |  ipv6    |  BGP neighbor IPv6 address  |
+    |  txt     |  Interface name             |
 `,
 			Description: `BGP neighbor
 
     |  Format  |  Description                |
-    |----------------|-----------------------------|
+    |----------|-----------------------------|
     |  ipv4    |  BGP neighbor IP address    |
     |  ipv6    |  BGP neighbor IPv6 address  |
     |  txt     |  Interface name             |

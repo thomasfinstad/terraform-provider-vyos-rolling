@@ -96,14 +96,14 @@ func (o QosPolicyNetworkEmulator) ResourceSchemaAttributes() map[string]schema.A
 			Required: true,
 			MarkdownDescription: `Network emulator policy
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Policy name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Policy name  |
 `,
 			Description: `Network emulator policy
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Policy name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -130,14 +130,14 @@ func (o QosPolicyNetworkEmulator) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},
@@ -146,20 +146,20 @@ func (o QosPolicyNetworkEmulator) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Available bandwidth for this policy
 
-    |  Format              &emsp;|  Description                         |
-    |----------------------------|--------------------------------------|
-    |  &lt;number&gt;      &emsp;|  Bits per second                     |
-    |  &lt;number&gt;bit   &emsp;|  Bits per second                     |
-    |  &lt;number&gt;kbit  &emsp;|  Kilobits per second                 |
-    |  &lt;number&gt;mbit  &emsp;|  Megabits per second                 |
-    |  &lt;number&gt;gbit  &emsp;|  Gigabits per second                 |
-    |  &lt;number&gt;tbit  &emsp;|  Terabits per second                 |
-    |  &lt;number&gt;%%    &emsp;|  Percentage of interface link speed  |
+    |  Format        |  Description                         |
+    |----------------|--------------------------------------|
+    |  <number>      |  Bits per second                     |
+    |  <number>bit   |  Bits per second                     |
+    |  <number>kbit  |  Kilobits per second                 |
+    |  <number>mbit  |  Megabits per second                 |
+    |  <number>gbit  |  Gigabits per second                 |
+    |  <number>tbit  |  Terabits per second                 |
+    |  <number>%%    |  Percentage of interface link speed  |
 `,
 			Description: `Available bandwidth for this policy
 
-    |  Format              |  Description                         |
-    |----------------------------|--------------------------------------|
+    |  Format        |  Description                         |
+    |----------------|--------------------------------------|
     |  <number>      |  Bits per second                     |
     |  <number>bit   |  Bits per second                     |
     |  <number>kbit  |  Kilobits per second                 |
@@ -174,14 +174,14 @@ func (o QosPolicyNetworkEmulator) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Adds delay to packets outgoing to chosen network interface
 
-    |  Format          &emsp;|  Description           |
-    |------------------------|------------------------|
-    |  &lt;number&gt;  &emsp;|  Time in milliseconds  |
+    |  Format    |  Description           |
+    |------------|------------------------|
+    |  <number>  |  Time in milliseconds  |
 `,
 			Description: `Adds delay to packets outgoing to chosen network interface
 
-    |  Format          |  Description           |
-    |------------------------|------------------------|
+    |  Format    |  Description           |
+    |------------|------------------------|
     |  <number>  |  Time in milliseconds  |
 `,
 		},
@@ -190,14 +190,14 @@ func (o QosPolicyNetworkEmulator) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Introducing error in a random position for chosen percent of packets
 
-    |  Format          &emsp;|  Description                     |
-    |------------------------|----------------------------------|
-    |  &lt;number&gt;  &emsp;|  Percentage of packets affected  |
+    |  Format    |  Description                     |
+    |------------|----------------------------------|
+    |  <number>  |  Percentage of packets affected  |
 `,
 			Description: `Introducing error in a random position for chosen percent of packets
 
-    |  Format          |  Description                     |
-    |------------------------|----------------------------------|
+    |  Format    |  Description                     |
+    |------------|----------------------------------|
     |  <number>  |  Percentage of packets affected  |
 `,
 		},
@@ -206,14 +206,14 @@ func (o QosPolicyNetworkEmulator) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Cosen percent of packets is duplicated before queuing them
 
-    |  Format          &emsp;|  Description                     |
-    |------------------------|----------------------------------|
-    |  &lt;number&gt;  &emsp;|  Percentage of packets affected  |
+    |  Format    |  Description                     |
+    |------------|----------------------------------|
+    |  <number>  |  Percentage of packets affected  |
 `,
 			Description: `Cosen percent of packets is duplicated before queuing them
 
-    |  Format          |  Description                     |
-    |------------------------|----------------------------------|
+    |  Format    |  Description                     |
+    |------------|----------------------------------|
     |  <number>  |  Percentage of packets affected  |
 `,
 		},
@@ -222,14 +222,14 @@ func (o QosPolicyNetworkEmulator) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Add independent loss probability to the packets outgoing to chosen network interface
 
-    |  Format          &emsp;|  Description                     |
-    |------------------------|----------------------------------|
-    |  &lt;number&gt;  &emsp;|  Percentage of packets affected  |
+    |  Format    |  Description                     |
+    |------------|----------------------------------|
+    |  <number>  |  Percentage of packets affected  |
 `,
 			Description: `Add independent loss probability to the packets outgoing to chosen network interface
 
-    |  Format          |  Description                     |
-    |------------------------|----------------------------------|
+    |  Format    |  Description                     |
+    |------------|----------------------------------|
     |  <number>  |  Percentage of packets affected  |
 `,
 		},
@@ -238,14 +238,14 @@ func (o QosPolicyNetworkEmulator) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Emulated packet reordering percentage
 
-    |  Format          &emsp;|  Description                     |
-    |------------------------|----------------------------------|
-    |  &lt;number&gt;  &emsp;|  Percentage of packets affected  |
+    |  Format    |  Description                     |
+    |------------|----------------------------------|
+    |  <number>  |  Percentage of packets affected  |
 `,
 			Description: `Emulated packet reordering percentage
 
-    |  Format          |  Description                     |
-    |------------------------|----------------------------------|
+    |  Format    |  Description                     |
+    |------------|----------------------------------|
     |  <number>  |  Percentage of packets affected  |
 `,
 		},
@@ -254,14 +254,14 @@ func (o QosPolicyNetworkEmulator) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
-    |  Format        &emsp;|  Description            |
-    |----------------------|-------------------------|
-    |  1-4294967295  &emsp;|  Queue size in packets  |
+    |  Format        |  Description            |
+    |----------------|-------------------------|
+    |  1-4294967295  |  Queue size in packets  |
 `,
 			Description: `Maximum queue size
 
     |  Format        |  Description            |
-    |----------------------|-------------------------|
+    |----------------|-------------------------|
     |  1-4294967295  |  Queue size in packets  |
 `,
 		},

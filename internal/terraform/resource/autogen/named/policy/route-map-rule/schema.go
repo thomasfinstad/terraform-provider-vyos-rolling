@@ -12,21 +12,11 @@ import (
 func (r policyRouteMapRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-Routing policy
-
-<br>
-&darr;
-<br>
+		MarkdownDescription: `Routing policy
+⯯
 IP route-map
-
-<br>
-&darr;
-<br>
-<b>
-Rule for this route-map
-</b>
-</div>
+⯯
+**Rule for this route-map**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

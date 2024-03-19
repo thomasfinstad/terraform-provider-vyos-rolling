@@ -12,21 +12,11 @@ import (
 func (r pkiOpenvpnSharedSecret) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-Public key infrastructure (PKI)
-
-<br>
-&darr;
-<br>
+		MarkdownDescription: `Public key infrastructure (PKI)
+⯯
 OpenVPN keys
-
-<br>
-&darr;
-<br>
-<b>
-OpenVPN shared secret key
-</b>
-</div>
+⯯
+**OpenVPN shared secret key**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

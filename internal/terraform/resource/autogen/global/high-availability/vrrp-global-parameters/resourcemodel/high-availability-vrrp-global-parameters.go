@@ -82,14 +82,14 @@ func (o HighAvailabilityVrrpGlobalParameters) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Time VRRP startup process (in seconds)
 
-    |  Format  &emsp;|  Description          |
-    |----------------|-----------------------|
-    |  1-600   &emsp;|  Interval in seconds  |
+    |  Format  |  Description          |
+    |----------|-----------------------|
+    |  1-600   |  Interval in seconds  |
 `,
 			Description: `Time VRRP startup process (in seconds)
 
     |  Format  |  Description          |
-    |----------------|-----------------------|
+    |----------|-----------------------|
     |  1-600   |  Interval in seconds  |
 `,
 		},
@@ -98,15 +98,15 @@ func (o HighAvailabilityVrrpGlobalParameters) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Default VRRP version to use, IPv6 always uses VRRP version 3
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  2       &emsp;|  VRRP version 2  |
-    |  3       &emsp;|  VRRP version 3  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  2       |  VRRP version 2  |
+    |  3       |  VRRP version 3  |
 `,
 			Description: `Default VRRP version to use, IPv6 always uses VRRP version 3
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  2       |  VRRP version 2  |
     |  3       |  VRRP version 3  |
 `,

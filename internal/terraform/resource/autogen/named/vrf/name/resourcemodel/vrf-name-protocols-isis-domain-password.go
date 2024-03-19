@@ -32,14 +32,14 @@ func (o VrfNameProtocolsIsisDomainPassword) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Plain-text authentication type
 
-    |  Format  &emsp;|  Description       |
-    |----------------|--------------------|
-    |  txt     &emsp;|  Circuit password  |
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  txt     |  Circuit password  |
 `,
 			Description: `Plain-text authentication type
 
     |  Format  |  Description       |
-    |----------------|--------------------|
+    |----------|--------------------|
     |  txt     |  Circuit password  |
 `,
 		},
@@ -48,14 +48,14 @@ func (o VrfNameProtocolsIsisDomainPassword) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `MD5 authentication type
 
-    |  Format  &emsp;|  Description          |
-    |----------------|-----------------------|
-    |  txt     &emsp;|  Level-wide password  |
+    |  Format  |  Description          |
+    |----------|-----------------------|
+    |  txt     |  Level-wide password  |
 `,
 			Description: `MD5 authentication type
 
     |  Format  |  Description          |
-    |----------------|-----------------------|
+    |----------|-----------------------|
     |  txt     |  Level-wide password  |
 `,
 		},

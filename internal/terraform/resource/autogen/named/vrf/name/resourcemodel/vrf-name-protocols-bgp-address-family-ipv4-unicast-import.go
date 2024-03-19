@@ -46,14 +46,14 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport) ResourceSchemaAttr
 			Optional:    true,
 			MarkdownDescription: `VRF to import from
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `VRF to import from
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 		},

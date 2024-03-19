@@ -87,14 +87,14 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpn) ResourceSchemaAttrib
 			Optional: true,
 			MarkdownDescription: `Maximum number of prefixes to accept from this peer
 
-    |  Format        &emsp;|  Description   |
-    |----------------------|----------------|
-    |  1-4294967295  &emsp;|  Prefix limit  |
+    |  Format        |  Description   |
+    |----------------|----------------|
+    |  1-4294967295  |  Prefix limit  |
 `,
 			Description: `Maximum number of prefixes to accept from this peer
 
     |  Format        |  Description   |
-    |----------------------|----------------|
+    |----------------|----------------|
     |  1-4294967295  |  Prefix limit  |
 `,
 		},
@@ -103,14 +103,14 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpn) ResourceSchemaAttrib
 			Optional: true,
 			MarkdownDescription: `Maximum number of prefixes to be sent to this peer
 
-    |  Format        &emsp;|  Description   |
-    |----------------------|----------------|
-    |  1-4294967295  &emsp;|  Prefix limit  |
+    |  Format        |  Description   |
+    |----------------|----------------|
+    |  1-4294967295  |  Prefix limit  |
 `,
 			Description: `Maximum number of prefixes to be sent to this peer
 
     |  Format        |  Description   |
-    |----------------------|----------------|
+    |----------------|----------------|
     |  1-4294967295  |  Prefix limit  |
 `,
 		},
@@ -143,14 +143,14 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpn) ResourceSchemaAttrib
 			Optional: true,
 			MarkdownDescription: `Route-map to selectively unsuppress suppressed routes
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  txt     &emsp;|  Route map name  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Route map name  |
 `,
 			Description: `Route-map to selectively unsuppress suppressed routes
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  txt     |  Route map name  |
 `,
 		},
@@ -159,14 +159,14 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpn) ResourceSchemaAttrib
 			Optional: true,
 			MarkdownDescription: `Default weight for routes from this peer
 
-    |  Format   &emsp;|  Description     |
-    |-----------------|------------------|
-    |  1-65535  &emsp;|  Default weight  |
+    |  Format   |  Description     |
+    |-----------|------------------|
+    |  1-65535  |  Default weight  |
 `,
 			Description: `Default weight for routes from this peer
 
     |  Format   |  Description     |
-    |-----------------|------------------|
+    |-----------|------------------|
     |  1-65535  |  Default weight  |
 `,
 		},

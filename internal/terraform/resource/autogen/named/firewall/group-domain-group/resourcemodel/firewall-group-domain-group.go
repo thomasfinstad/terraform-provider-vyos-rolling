@@ -119,14 +119,14 @@ func (o FirewallGroupDomainGroup) ResourceSchemaAttributes() map[string]schema.A
 			Optional:    true,
 			MarkdownDescription: `Domain-group member
 
-    |  Format  &emsp;|  Description              |
-    |----------------|---------------------------|
-    |  txt     &emsp;|  Domain address to match  |
+    |  Format  |  Description              |
+    |----------|---------------------------|
+    |  txt     |  Domain address to match  |
 `,
 			Description: `Domain-group member
 
     |  Format  |  Description              |
-    |----------------|---------------------------|
+    |----------|---------------------------|
     |  txt     |  Domain address to match  |
 `,
 		},
@@ -135,14 +135,14 @@ func (o FirewallGroupDomainGroup) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},

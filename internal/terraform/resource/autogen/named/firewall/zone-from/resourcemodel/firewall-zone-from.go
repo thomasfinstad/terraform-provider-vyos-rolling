@@ -123,14 +123,14 @@ func (o FirewallZoneFrom) ResourceSchemaAttributes() map[string]schema.Attribute
 			Required: true,
 			MarkdownDescription: `Zone-policy
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Zone name    |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Zone name    |
 `,
 			Description: `Zone-policy
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Zone name    |
 `,
 			PlanModifiers: []planmodifier.String{

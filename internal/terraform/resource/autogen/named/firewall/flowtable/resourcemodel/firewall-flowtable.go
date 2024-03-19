@@ -117,14 +117,14 @@ func (o FirewallFlowtable) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},
@@ -144,15 +144,15 @@ func (o FirewallFlowtable) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Offloading method
 
-    |  Format    &emsp;|  Description       |
-    |------------------|--------------------|
-    |  hardware  &emsp;|  Hardware offload  |
-    |  software  &emsp;|  Software offload  |
+    |  Format    |  Description       |
+    |------------|--------------------|
+    |  hardware  |  Hardware offload  |
+    |  software  |  Software offload  |
 `,
 			Description: `Offloading method
 
     |  Format    |  Description       |
-    |------------------|--------------------|
+    |------------|--------------------|
     |  hardware  |  Hardware offload  |
     |  software  |  Software offload  |
 `,

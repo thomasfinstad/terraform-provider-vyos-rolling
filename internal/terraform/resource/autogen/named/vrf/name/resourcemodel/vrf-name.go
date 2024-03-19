@@ -94,14 +94,14 @@ func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -128,14 +128,14 @@ func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},
@@ -156,14 +156,14 @@ func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Routing table associated with this instance
 
-    |  Format     &emsp;|  Description       |
-    |-------------------|--------------------|
-    |  100-65535  &emsp;|  Routing table ID  |
+    |  Format     |  Description       |
+    |-------------|--------------------|
+    |  100-65535  |  Routing table ID  |
 `,
 			Description: `Routing table associated with this instance
 
     |  Format     |  Description       |
-    |-------------------|--------------------|
+    |-------------|--------------------|
     |  100-65535  |  Routing table ID  |
 `,
 		},
@@ -172,14 +172,14 @@ func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Virtual Network Identifier
 
-    |  Format      &emsp;|  Description                       |
-    |--------------------|------------------------------------|
-    |  0-16777214  &emsp;|  VXLAN virtual network identifier  |
+    |  Format      |  Description                       |
+    |--------------|------------------------------------|
+    |  0-16777214  |  VXLAN virtual network identifier  |
 `,
 			Description: `Virtual Network Identifier
 
     |  Format      |  Description                       |
-    |--------------------|------------------------------------|
+    |--------------|------------------------------------|
     |  0-16777214  |  VXLAN virtual network identifier  |
 `,
 		},

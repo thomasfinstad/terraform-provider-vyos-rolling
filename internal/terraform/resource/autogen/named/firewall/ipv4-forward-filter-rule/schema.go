@@ -12,31 +12,15 @@ import (
 func (r firewallIPvfourForwardFilterRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-Firewall
-
-<br>
-&darr;
-<br>
+		MarkdownDescription: `Firewall
+⯯
 IPv4 firewall
-
-<br>
-&darr;
-<br>
+⯯
 IPv4 forward firewall
-
-<br>
-&darr;
-<br>
+⯯
 IPv4 firewall forward filter
-
-<br>
-&darr;
-<br>
-<b>
-IPv4 Firewall forward filter rule number
-</b>
-</div>
+⯯
+**IPv4 Firewall forward filter rule number**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

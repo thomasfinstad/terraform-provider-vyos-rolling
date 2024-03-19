@@ -100,14 +100,14 @@ func (o PolicyLargeCommunityListRule) ResourceSchemaAttributes() map[string]sche
 			Required: true,
 			MarkdownDescription: `Rule for this BGP extended community list
 
-    |  Format   &emsp;|  Description                       |
-    |-----------------|------------------------------------|
-    |  1-65535  &emsp;|  Large community-list rule number  |
+    |  Format   |  Description                       |
+    |-----------|------------------------------------|
+    |  1-65535  |  Large community-list rule number  |
 `,
 			Description: `Rule for this BGP extended community list
 
     |  Format   |  Description                       |
-    |-----------------|------------------------------------|
+    |-----------|------------------------------------|
     |  1-65535  |  Large community-list rule number  |
 `,
 			PlanModifiers: []planmodifier.Number{
@@ -119,14 +119,14 @@ func (o PolicyLargeCommunityListRule) ResourceSchemaAttributes() map[string]sche
 			Required: true,
 			MarkdownDescription: `Add a BGP large community list entry
 
-    |  Format  &emsp;|  Description                    |
-    |----------------|---------------------------------|
-    |  txt     &emsp;|  BGP large-community-list name  |
+    |  Format  |  Description                    |
+    |----------|---------------------------------|
+    |  txt     |  BGP large-community-list name  |
 `,
 			Description: `Add a BGP large community list entry
 
     |  Format  |  Description                    |
-    |----------------|---------------------------------|
+    |----------|---------------------------------|
     |  txt     |  BGP large-community-list name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -153,15 +153,15 @@ func (o PolicyLargeCommunityListRule) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
-    |  Format  &emsp;|  Description              |
-    |----------------|---------------------------|
-    |  permit  &emsp;|  Permit matching entries  |
-    |  deny    &emsp;|  Deny matching entries    |
+    |  Format  |  Description              |
+    |----------|---------------------------|
+    |  permit  |  Permit matching entries  |
+    |  deny    |  Deny matching entries    |
 `,
 			Description: `Action to take on entries matching this rule
 
     |  Format  |  Description              |
-    |----------------|---------------------------|
+    |----------|---------------------------|
     |  permit  |  Permit matching entries  |
     |  deny    |  Deny matching entries    |
 `,
@@ -171,14 +171,14 @@ func (o PolicyLargeCommunityListRule) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},
@@ -187,15 +187,15 @@ func (o PolicyLargeCommunityListRule) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Regular expression to match against a large community list
 
-    |  Format     &emsp;|  Description                                            |
-    |-------------------|---------------------------------------------------------|
-    |  ASN:NN:NN  &emsp;|  BGP large-community-list filter                        |
-    |  IP:NN:NN   &emsp;|  BGP large-community-list filter (IPv4 address format)  |
+    |  Format     |  Description                                            |
+    |-------------|---------------------------------------------------------|
+    |  ASN:NN:NN  |  BGP large-community-list filter                        |
+    |  IP:NN:NN   |  BGP large-community-list filter (IPv4 address format)  |
 `,
 			Description: `Regular expression to match against a large community list
 
     |  Format     |  Description                                            |
-    |-------------------|---------------------------------------------------------|
+    |-------------|---------------------------------------------------------|
     |  ASN:NN:NN  |  BGP large-community-list filter                        |
     |  IP:NN:NN   |  BGP large-community-list filter (IPv4 address format)  |
 `,

@@ -41,14 +41,14 @@ func (o VrfNameProtocolsBgp) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Autonomous System Number (ASN)
 
-    |  Format        &emsp;|  Description               |
-    |----------------------|----------------------------|
-    |  1-4294967294  &emsp;|  Autonomous System Number  |
+    |  Format        |  Description               |
+    |----------------|----------------------------|
+    |  1-4294967294  |  Autonomous System Number  |
 `,
 			Description: `Autonomous System Number (ASN)
 
     |  Format        |  Description               |
-    |----------------------|----------------------------|
+    |----------------|----------------------------|
     |  1-4294967294  |  Autonomous System Number  |
 `,
 		},

@@ -106,14 +106,14 @@ func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schem
 			Required: true,
 			MarkdownDescription: `Static IPv4 route
 
-    |  Format   &emsp;|  Description        |
-    |-----------------|---------------------|
-    |  ipv4net  &emsp;|  IPv4 static route  |
+    |  Format   |  Description        |
+    |-----------|---------------------|
+    |  ipv4net  |  IPv4 static route  |
 `,
 			Description: `Static IPv4 route
 
     |  Format   |  Description        |
-    |-----------------|---------------------|
+    |-----------|---------------------|
     |  ipv4net  |  IPv4 static route  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -138,14 +138,14 @@ func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schem
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -172,14 +172,14 @@ func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `DHCP interface supplying next-hop IP address
 
-    |  Format  &emsp;|  Description          |
-    |----------------|-----------------------|
-    |  txt     &emsp;|  DHCP interface name  |
+    |  Format  |  Description          |
+    |----------|-----------------------|
+    |  txt     |  DHCP interface name  |
 `,
 			Description: `DHCP interface supplying next-hop IP address
 
     |  Format  |  Description          |
-    |----------------|-----------------------|
+    |----------|-----------------------|
     |  txt     |  DHCP interface name  |
 `,
 		},
@@ -188,14 +188,14 @@ func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},

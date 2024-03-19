@@ -60,15 +60,15 @@ func (o HighAvailabilityVrrpSyncGroupHealthCheck) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `ICMP ping health check
 
-    |  Format  &emsp;|  Description               |
-    |----------------|----------------------------|
-    |  ipv4    &emsp;|  IPv4 ping target address  |
-    |  ipv6    &emsp;|  IPv6 ping target address  |
+    |  Format  |  Description               |
+    |----------|----------------------------|
+    |  ipv4    |  IPv4 ping target address  |
+    |  ipv6    |  IPv6 ping target address  |
 `,
 			Description: `ICMP ping health check
 
     |  Format  |  Description               |
-    |----------------|----------------------------|
+    |----------|----------------------------|
     |  ipv4    |  IPv4 ping target address  |
     |  ipv6    |  IPv6 ping target address  |
 `,

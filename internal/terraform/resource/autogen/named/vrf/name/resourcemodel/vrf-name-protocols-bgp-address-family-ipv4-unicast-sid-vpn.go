@@ -31,15 +31,15 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastSIDVpn) ResourceSchemaAttr
 			Optional: true,
 			MarkdownDescription: `For routes leaked from current VRF to VPN
 
-    |  Format     &emsp;|  Description                   |
-    |-------------------|--------------------------------|
-    |  1-1048575  &emsp;|  SID allocation index          |
-    |  auto       &emsp;|  Automatically assign a label  |
+    |  Format     |  Description                   |
+    |-------------|--------------------------------|
+    |  1-1048575  |  SID allocation index          |
+    |  auto       |  Automatically assign a label  |
 `,
 			Description: `For routes leaked from current VRF to VPN
 
     |  Format     |  Description                   |
-    |-------------------|--------------------------------|
+    |-------------|--------------------------------|
     |  1-1048575  |  SID allocation index          |
     |  auto       |  Automatically assign a label  |
 `,

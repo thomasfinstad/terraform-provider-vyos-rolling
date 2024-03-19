@@ -32,14 +32,14 @@ func (o VrfNameProtocolsOspfInterfaceAuthentication) ResourceSchemaAttributes() 
 			Optional: true,
 			MarkdownDescription: `Plain text password
 
-    |  Format  &emsp;|  Description                                 |
-    |----------------|----------------------------------------------|
-    |  txt     &emsp;|  Plain text password (8 characters or less)  |
+    |  Format  |  Description                                 |
+    |----------|----------------------------------------------|
+    |  txt     |  Plain text password (8 characters or less)  |
 `,
 			Description: `Plain text password
 
     |  Format  |  Description                                 |
-    |----------------|----------------------------------------------|
+    |----------|----------------------------------------------|
     |  txt     |  Plain text password (8 characters or less)  |
 `,
 		},

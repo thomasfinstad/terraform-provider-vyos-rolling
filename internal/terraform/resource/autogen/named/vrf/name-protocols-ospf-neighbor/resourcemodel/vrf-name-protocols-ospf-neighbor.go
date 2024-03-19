@@ -102,14 +102,14 @@ func (o VrfNameProtocolsOspfNeighbor) ResourceSchemaAttributes() map[string]sche
 			Required: true,
 			MarkdownDescription: `Specify neighbor router
 
-    |  Format  &emsp;|  Description          |
-    |----------------|-----------------------|
-    |  ipv4    &emsp;|  Neighbor IP address  |
+    |  Format  |  Description          |
+    |----------|-----------------------|
+    |  ipv4    |  Neighbor IP address  |
 `,
 			Description: `Specify neighbor router
 
     |  Format  |  Description          |
-    |----------------|-----------------------|
+    |----------|-----------------------|
     |  ipv4    |  Neighbor IP address  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -134,14 +134,14 @@ func (o VrfNameProtocolsOspfNeighbor) ResourceSchemaAttributes() map[string]sche
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -168,14 +168,14 @@ func (o VrfNameProtocolsOspfNeighbor) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Dead neighbor polling interval
 
-    |  Format   &emsp;|  Description                                     |
-    |-----------------|--------------------------------------------------|
-    |  1-65535  &emsp;|  Seconds between dead neighbor polling interval  |
+    |  Format   |  Description                                     |
+    |-----------|--------------------------------------------------|
+    |  1-65535  |  Seconds between dead neighbor polling interval  |
 `,
 			Description: `Dead neighbor polling interval
 
     |  Format   |  Description                                     |
-    |-----------------|--------------------------------------------------|
+    |-----------|--------------------------------------------------|
     |  1-65535  |  Seconds between dead neighbor polling interval  |
 `,
 
@@ -187,14 +187,14 @@ func (o VrfNameProtocolsOspfNeighbor) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Neighbor priority in seconds
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  0-255   &emsp;|  Neighbor priority  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  0-255   |  Neighbor priority  |
 `,
 			Description: `Neighbor priority in seconds
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  0-255   |  Neighbor priority  |
 `,
 

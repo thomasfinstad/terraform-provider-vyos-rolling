@@ -152,15 +152,15 @@ func (o ContainerNameNetwork) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional:    true,
 			MarkdownDescription: `Assign static IP address to container
 
-    |  Format  &emsp;|  Description   |
-    |----------------|----------------|
-    |  ipv4    &emsp;|  IPv4 address  |
-    |  ipv6    &emsp;|  IPv6 address  |
+    |  Format  |  Description   |
+    |----------|----------------|
+    |  ipv4    |  IPv4 address  |
+    |  ipv6    |  IPv6 address  |
 `,
 			Description: `Assign static IP address to container
 
     |  Format  |  Description   |
-    |----------------|----------------|
+    |----------|----------------|
     |  ipv4    |  IPv4 address  |
     |  ipv6    |  IPv6 address  |
 `,

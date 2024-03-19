@@ -127,16 +127,16 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Required: true,
 			MarkdownDescription: `BGP neighbor
 
-    |  Format  &emsp;|  Description                |
-    |----------------|-----------------------------|
-    |  ipv4    &emsp;|  BGP neighbor IP address    |
-    |  ipv6    &emsp;|  BGP neighbor IPv6 address  |
-    |  txt     &emsp;|  Interface name             |
+    |  Format  |  Description                |
+    |----------|-----------------------------|
+    |  ipv4    |  BGP neighbor IP address    |
+    |  ipv6    |  BGP neighbor IPv6 address  |
+    |  txt     |  Interface name             |
 `,
 			Description: `BGP neighbor
 
     |  Format  |  Description                |
-    |----------------|-----------------------------|
+    |----------|-----------------------------|
     |  ipv4    |  BGP neighbor IP address    |
     |  ipv6    |  BGP neighbor IPv6 address  |
     |  txt     |  Interface name             |
@@ -163,14 +163,14 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -197,14 +197,14 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Minimum interval for sending routing updates
 
-    |  Format  &emsp;|  Description                        |
-    |----------------|-------------------------------------|
-    |  0-600   &emsp;|  Advertisement interval in seconds  |
+    |  Format  |  Description                        |
+    |----------|-------------------------------------|
+    |  0-600   |  Advertisement interval in seconds  |
 `,
 			Description: `Minimum interval for sending routing updates
 
     |  Format  |  Description                        |
-    |----------------|-------------------------------------|
+    |----------|-------------------------------------|
     |  0-600   |  Advertisement interval in seconds  |
 `,
 		},
@@ -213,14 +213,14 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},
@@ -253,14 +253,14 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Allow this EBGP neighbor to not be on a directly connected network
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  1-255   &emsp;|  Number of hops  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  1-255   |  Number of hops  |
 `,
 			Description: `Allow this EBGP neighbor to not be on a directly connected network
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  1-255   |  Number of hops  |
 `,
 		},
@@ -269,16 +269,16 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `BGP graceful restart functionality
 
-    |  Format          &emsp;|  Description                                            |
-    |------------------------|---------------------------------------------------------|
-    |  enable          &emsp;|  Enable BGP graceful restart at peer level              |
-    |  disable         &emsp;|  Disable BGP graceful restart at peer level             |
-    |  restart-helper  &emsp;|  Enable BGP graceful restart helper only functionality  |
+    |  Format          |  Description                                            |
+    |------------------|---------------------------------------------------------|
+    |  enable          |  Enable BGP graceful restart at peer level              |
+    |  disable         |  Disable BGP graceful restart at peer level             |
+    |  restart-helper  |  Enable BGP graceful restart helper only functionality  |
 `,
 			Description: `BGP graceful restart functionality
 
     |  Format          |  Description                                            |
-    |------------------------|---------------------------------------------------------|
+    |------------------|---------------------------------------------------------|
     |  enable          |  Enable BGP graceful restart at peer level              |
     |  disable         |  Disable BGP graceful restart at peer level             |
     |  restart-helper  |  Enable BGP graceful restart helper only functionality  |
@@ -323,14 +323,14 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Peer group for this peer
 
-    |  Format  &emsp;|  Description      |
-    |----------------|-------------------|
-    |  txt     &emsp;|  Peer-group name  |
+    |  Format  |  Description      |
+    |----------|-------------------|
+    |  txt     |  Peer-group name  |
 `,
 			Description: `Peer group for this peer
 
     |  Format  |  Description      |
-    |----------------|-------------------|
+    |----------|-------------------|
     |  txt     |  Peer-group name  |
 `,
 		},
@@ -339,16 +339,16 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Neighbor BGP AS number
 
-    |  Format        &emsp;|  Description                         |
-    |----------------------|--------------------------------------|
-    |  1-4294967294  &emsp;|  Neighbor AS number                  |
-    |  external      &emsp;|  Any AS different from the local AS  |
-    |  internal      &emsp;|  Neighbor AS number                  |
+    |  Format        |  Description                         |
+    |----------------|--------------------------------------|
+    |  1-4294967294  |  Neighbor AS number                  |
+    |  external      |  Any AS different from the local AS  |
+    |  internal      |  Neighbor AS number                  |
 `,
 			Description: `Neighbor BGP AS number
 
     |  Format        |  Description                         |
-    |----------------------|--------------------------------------|
+    |----------------|--------------------------------------|
     |  1-4294967294  |  Neighbor AS number                  |
     |  external      |  Any AS different from the local AS  |
     |  internal      |  Neighbor AS number                  |
@@ -407,16 +407,16 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Source IP of routing updates
 
-    |  Format  &emsp;|  Description                   |
-    |----------------|--------------------------------|
-    |  ipv4    &emsp;|  IPv4 address of route source  |
-    |  ipv6    &emsp;|  IPv6 address of route source  |
-    |  txt     &emsp;|  Interface as route source     |
+    |  Format  |  Description                   |
+    |----------|--------------------------------|
+    |  ipv4    |  IPv4 address of route source  |
+    |  ipv6    |  IPv6 address of route source  |
+    |  txt     |  Interface as route source     |
 `,
 			Description: `Source IP of routing updates
 
     |  Format  |  Description                   |
-    |----------------|--------------------------------|
+    |----------|--------------------------------|
     |  ipv4    |  IPv4 address of route source  |
     |  ipv6    |  IPv6 address of route source  |
     |  txt     |  Interface as route source     |
@@ -427,14 +427,14 @@ func (o VrfNameProtocolsBgpNeighbor) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format   &emsp;|  Description      |
-    |-----------------|-------------------|
-    |  1-65535  &emsp;|  Numeric IP port  |
+    |  Format   |  Description      |
+    |-----------|-------------------|
+    |  1-65535  |  Numeric IP port  |
 `,
 			Description: `Port number used by connection
 
     |  Format   |  Description      |
-    |-----------------|-------------------|
+    |-----------|-------------------|
     |  1-65535  |  Numeric IP port  |
 `,
 		},

@@ -91,14 +91,14 @@ func (o QosPolicyPriorityQueue) ResourceSchemaAttributes() map[string]schema.Att
 			Required: true,
 			MarkdownDescription: `Priority queuing based policy
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Policy name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Policy name  |
 `,
 			Description: `Priority queuing based policy
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Policy name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -125,14 +125,14 @@ func (o QosPolicyPriorityQueue) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},

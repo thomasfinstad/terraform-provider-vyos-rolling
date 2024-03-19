@@ -12,21 +12,11 @@ import (
 func (r natStaticRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-Network Address Translation (NAT) parameters
-
-<br>
-&darr;
-<br>
+		MarkdownDescription: `Network Address Translation (NAT) parameters
+⯯
 Static NAT (one-to-one)
-
-<br>
-&darr;
-<br>
-<b>
-Rule number for NAT
-</b>
-</div>
+⯯
+**Rule number for NAT**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

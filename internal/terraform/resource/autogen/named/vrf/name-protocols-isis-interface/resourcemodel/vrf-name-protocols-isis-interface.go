@@ -140,14 +140,14 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -174,16 +174,16 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Configure circuit type for interface
 
-    |  Format        &emsp;|  Description                          |
-    |----------------------|---------------------------------------|
-    |  level-1       &emsp;|  Level-1 only adjacencies are formed  |
-    |  level-1-2     &emsp;|  Level-1-2 adjacencies are formed     |
-    |  level-2-only  &emsp;|  Level-2 only adjacencies are formed  |
+    |  Format        |  Description                          |
+    |----------------|---------------------------------------|
+    |  level-1       |  Level-1 only adjacencies are formed  |
+    |  level-1-2     |  Level-1-2 adjacencies are formed     |
+    |  level-2-only  |  Level-2 only adjacencies are formed  |
 `,
 			Description: `Configure circuit type for interface
 
     |  Format        |  Description                          |
-    |----------------------|---------------------------------------|
+    |----------------|---------------------------------------|
     |  level-1       |  Level-1 only adjacencies are formed  |
     |  level-1-2     |  Level-1-2 adjacencies are formed     |
     |  level-2-only  |  Level-2 only adjacencies are formed  |
@@ -206,14 +206,14 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Set Hello interval
 
-    |  Format  &emsp;|  Description         |
-    |----------------|----------------------|
-    |  1-600   &emsp;|  Set Hello interval  |
+    |  Format  |  Description         |
+    |----------|----------------------|
+    |  1-600   |  Set Hello interval  |
 `,
 			Description: `Set Hello interval
 
     |  Format  |  Description         |
-    |----------------|----------------------|
+    |----------|----------------------|
     |  1-600   |  Set Hello interval  |
 `,
 		},
@@ -222,14 +222,14 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Set Hello interval
 
-    |  Format  &emsp;|  Description                            |
-    |----------------|-----------------------------------------|
-    |  2-100   &emsp;|  Set multiplier for Hello holding time  |
+    |  Format  |  Description                            |
+    |----------|-----------------------------------------|
+    |  2-100   |  Set multiplier for Hello holding time  |
 `,
 			Description: `Set Hello interval
 
     |  Format  |  Description                            |
-    |----------------|-----------------------------------------|
+    |----------|-----------------------------------------|
     |  2-100   |  Set multiplier for Hello holding time  |
 `,
 		},
@@ -238,14 +238,14 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Set default metric for circuit
 
-    |  Format      &emsp;|  Description           |
-    |--------------------|------------------------|
-    |  0-16777215  &emsp;|  Default metric value  |
+    |  Format      |  Description           |
+    |--------------|------------------------|
+    |  0-16777215  |  Default metric value  |
 `,
 			Description: `Set default metric for circuit
 
     |  Format      |  Description           |
-    |--------------------|------------------------|
+    |--------------|------------------------|
     |  0-16777215  |  Default metric value  |
 `,
 		},
@@ -266,14 +266,14 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Set priority for Designated Router election
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  0-127   &emsp;|  Priority value  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  0-127   |  Priority value  |
 `,
 			Description: `Set priority for Designated Router election
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  0-127   |  Priority value  |
 `,
 		},
@@ -282,14 +282,14 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Set PSNP interval
 
-    |  Format  &emsp;|  Description               |
-    |----------------|----------------------------|
-    |  0-127   &emsp;|  PSNP interval in seconds  |
+    |  Format  |  Description               |
+    |----------|----------------------------|
+    |  0-127   |  PSNP interval in seconds  |
 `,
 			Description: `Set PSNP interval
 
     |  Format  |  Description               |
-    |----------------|----------------------------|
+    |----------|----------------------------|
     |  0-127   |  PSNP interval in seconds  |
 `,
 		},

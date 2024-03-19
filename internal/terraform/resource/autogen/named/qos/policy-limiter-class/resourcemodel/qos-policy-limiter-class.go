@@ -108,14 +108,14 @@ func (o QosPolicyLimiterClass) ResourceSchemaAttributes() map[string]schema.Attr
 			Required: true,
 			MarkdownDescription: `Class ID
 
-    |  Format  &emsp;|  Description       |
-    |----------------|--------------------|
-    |  1-4090  &emsp;|  Class Identifier  |
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  1-4090  |  Class Identifier  |
 `,
 			Description: `Class ID
 
     |  Format  |  Description       |
-    |----------------|--------------------|
+    |----------|--------------------|
     |  1-4090  |  Class Identifier  |
 `,
 			PlanModifiers: []planmodifier.Number{
@@ -127,14 +127,14 @@ func (o QosPolicyLimiterClass) ResourceSchemaAttributes() map[string]schema.Attr
 			Required: true,
 			MarkdownDescription: `Traffic input limiting policy
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Policy name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Policy name  |
 `,
 			Description: `Traffic input limiting policy
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Policy name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -161,14 +161,14 @@ func (o QosPolicyLimiterClass) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},
@@ -177,20 +177,20 @@ func (o QosPolicyLimiterClass) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Available bandwidth for this policy
 
-    |  Format              &emsp;|  Description                         |
-    |----------------------------|--------------------------------------|
-    |  &lt;number&gt;      &emsp;|  Bits per second                     |
-    |  &lt;number&gt;bit   &emsp;|  Bits per second                     |
-    |  &lt;number&gt;kbit  &emsp;|  Kilobits per second                 |
-    |  &lt;number&gt;mbit  &emsp;|  Megabits per second                 |
-    |  &lt;number&gt;gbit  &emsp;|  Gigabits per second                 |
-    |  &lt;number&gt;tbit  &emsp;|  Terabits per second                 |
-    |  &lt;number&gt;%%    &emsp;|  Percentage of interface link speed  |
+    |  Format        |  Description                         |
+    |----------------|--------------------------------------|
+    |  <number>      |  Bits per second                     |
+    |  <number>bit   |  Bits per second                     |
+    |  <number>kbit  |  Kilobits per second                 |
+    |  <number>mbit  |  Megabits per second                 |
+    |  <number>gbit  |  Gigabits per second                 |
+    |  <number>tbit  |  Terabits per second                 |
+    |  <number>%%    |  Percentage of interface link speed  |
 `,
 			Description: `Available bandwidth for this policy
 
-    |  Format              |  Description                         |
-    |----------------------------|--------------------------------------|
+    |  Format        |  Description                         |
+    |----------------|--------------------------------------|
     |  <number>      |  Bits per second                     |
     |  <number>bit   |  Bits per second                     |
     |  <number>kbit  |  Kilobits per second                 |
@@ -205,16 +205,16 @@ func (o QosPolicyLimiterClass) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Burst size for this class
 
-    |  Format                        &emsp;|  Description                             |
-    |--------------------------------------|------------------------------------------|
-    |  &lt;number&gt;                &emsp;|  Bytes                                   |
-    |  &lt;number&gt;&lt;suffix&gt;  &emsp;|  Bytes with scaling suffix (kb, mb, gb)  |
+    |  Format            |  Description                             |
+    |--------------------|------------------------------------------|
+    |  <number>          |  Bytes                                   |
+    |  <number><suffix>  |  Bytes with scaling suffix (kb, mb, gb)  |
 `,
 			Description: `Burst size for this class
 
-    |  Format                        |  Description                             |
-    |--------------------------------------|------------------------------------------|
-    |  <number>                |  Bytes                                   |
+    |  Format            |  Description                             |
+    |--------------------|------------------------------------------|
+    |  <number>          |  Bytes                                   |
     |  <number><suffix>  |  Bytes with scaling suffix (kb, mb, gb)  |
 `,
 
@@ -226,18 +226,18 @@ func (o QosPolicyLimiterClass) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Default action for packets exceeding the limiter
 
-    |  Format      &emsp;|  Description                                                                                                                   |
-    |--------------------|--------------------------------------------------------------------------------------------------------------------------------|
-    |  continue    &emsp;|  Do not do anything, just continue with the next action in line                                                                |
-    |  drop        &emsp;|  Drop the packet immediately                                                                                                   |
-    |  ok          &emsp;|  Accept the packet                                                                                                             |
-    |  reclassify  &emsp;|  Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
-    |  pipe        &emsp;|  Pass the packet to the next action in line                                                                                    |
+    |  Format      |  Description                                                                                                                   |
+    |--------------|--------------------------------------------------------------------------------------------------------------------------------|
+    |  continue    |  Do not do anything, just continue with the next action in line                                                                |
+    |  drop        |  Drop the packet immediately                                                                                                   |
+    |  ok          |  Accept the packet                                                                                                             |
+    |  reclassify  |  Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
+    |  pipe        |  Pass the packet to the next action in line                                                                                    |
 `,
 			Description: `Default action for packets exceeding the limiter
 
     |  Format      |  Description                                                                                                                   |
-    |--------------------|--------------------------------------------------------------------------------------------------------------------------------|
+    |--------------|--------------------------------------------------------------------------------------------------------------------------------|
     |  continue    |  Do not do anything, just continue with the next action in line                                                                |
     |  drop        |  Drop the packet immediately                                                                                                   |
     |  ok          |  Accept the packet                                                                                                             |
@@ -253,18 +253,18 @@ func (o QosPolicyLimiterClass) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Default action for packets not exceeding the limiter
 
-    |  Format      &emsp;|  Description                                                                                                                   |
-    |--------------------|--------------------------------------------------------------------------------------------------------------------------------|
-    |  continue    &emsp;|  Do not do anything, just continue with the next action in line                                                                |
-    |  drop        &emsp;|  Drop the packet immediately                                                                                                   |
-    |  ok          &emsp;|  Accept the packet                                                                                                             |
-    |  reclassify  &emsp;|  Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
-    |  pipe        &emsp;|  Pass the packet to the next action in line                                                                                    |
+    |  Format      |  Description                                                                                                                   |
+    |--------------|--------------------------------------------------------------------------------------------------------------------------------|
+    |  continue    |  Do not do anything, just continue with the next action in line                                                                |
+    |  drop        |  Drop the packet immediately                                                                                                   |
+    |  ok          |  Accept the packet                                                                                                             |
+    |  reclassify  |  Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
+    |  pipe        |  Pass the packet to the next action in line                                                                                    |
 `,
 			Description: `Default action for packets not exceeding the limiter
 
     |  Format      |  Description                                                                                                                   |
-    |--------------------|--------------------------------------------------------------------------------------------------------------------------------|
+    |--------------|--------------------------------------------------------------------------------------------------------------------------------|
     |  continue    |  Do not do anything, just continue with the next action in line                                                                |
     |  drop        |  Drop the packet immediately                                                                                                   |
     |  ok          |  Accept the packet                                                                                                             |
@@ -280,14 +280,14 @@ func (o QosPolicyLimiterClass) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Priority for rule evaluation
 
-    |  Format  &emsp;|  Description                         |
-    |----------------|--------------------------------------|
-    |  0-20    &emsp;|  Priority for match rule evaluation  |
+    |  Format  |  Description                         |
+    |----------|--------------------------------------|
+    |  0-20    |  Priority for match rule evaluation  |
 `,
 			Description: `Priority for rule evaluation
 
     |  Format  |  Description                         |
-    |----------------|--------------------------------------|
+    |----------|--------------------------------------|
     |  0-20    |  Priority for match rule evaluation  |
 `,
 

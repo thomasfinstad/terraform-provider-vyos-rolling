@@ -34,14 +34,14 @@ func (o PolicyRouteMapRuleMatchIPvsixNexthop) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `IPv6 address of next-hop
 
-    |  Format  &emsp;|  Description           |
-    |----------------|------------------------|
-    |  ipv6    &emsp;|  Nexthop IPv6 address  |
+    |  Format  |  Description           |
+    |----------|------------------------|
+    |  ipv6    |  Nexthop IPv6 address  |
 `,
 			Description: `IPv6 address of next-hop
 
     |  Format  |  Description           |
-    |----------------|------------------------|
+    |----------|------------------------|
     |  ipv6    |  Nexthop IPv6 address  |
 `,
 		},
@@ -50,14 +50,14 @@ func (o PolicyRouteMapRuleMatchIPvsixNexthop) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `IPv6 access-list to match
 
-    |  Format  &emsp;|  Description            |
-    |----------------|-------------------------|
-    |  txt     &emsp;|  IPV6 access list name  |
+    |  Format  |  Description            |
+    |----------|-------------------------|
+    |  txt     |  IPV6 access list name  |
 `,
 			Description: `IPv6 access-list to match
 
     |  Format  |  Description            |
-    |----------------|-------------------------|
+    |----------|-------------------------|
     |  txt     |  IPV6 access list name  |
 `,
 		},
@@ -76,14 +76,14 @@ func (o PolicyRouteMapRuleMatchIPvsixNexthop) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Match type
 
-    |  Format     &emsp;|  Description  |
-    |-------------------|---------------|
-    |  blackhole  &emsp;|  Blackhole    |
+    |  Format     |  Description  |
+    |-------------|---------------|
+    |  blackhole  |  Blackhole    |
 `,
 			Description: `Match type
 
     |  Format     |  Description  |
-    |-------------------|---------------|
+    |-------------|---------------|
     |  blackhole  |  Blackhole    |
 `,
 		},

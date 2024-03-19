@@ -12,21 +12,11 @@ import (
 func (r firewallZoneFrom) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-Firewall
-
-<br>
-&darr;
-<br>
+		MarkdownDescription: `Firewall
+⯯
 Zone-policy
-
-<br>
-&darr;
-<br>
-<b>
-Zone from which to filter traffic
-</b>
-</div>
+⯯
+**Zone from which to filter traffic**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

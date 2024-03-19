@@ -120,15 +120,15 @@ func (o FirewallGroupIPvsixAddressGroup) ResourceSchemaAttributes() map[string]s
 			Optional:    true,
 			MarkdownDescription: `Address-group member
 
-    |  Format     &emsp;|  Description                                  |
-    |-------------------|-----------------------------------------------|
-    |  ipv6       &emsp;|  IPv6 address to match                        |
-    |  ipv6range  &emsp;|  IPv6 range to match (e.g. 2002::1-2002::ff)  |
+    |  Format     |  Description                                  |
+    |-------------|-----------------------------------------------|
+    |  ipv6       |  IPv6 address to match                        |
+    |  ipv6range  |  IPv6 range to match (e.g. 2002::1-2002::ff)  |
 `,
 			Description: `Address-group member
 
     |  Format     |  Description                                  |
-    |-------------------|-----------------------------------------------|
+    |-------------|-----------------------------------------------|
     |  ipv6       |  IPv6 address to match                        |
     |  ipv6range  |  IPv6 range to match (e.g. 2002::1-2002::ff)  |
 `,
@@ -149,14 +149,14 @@ func (o FirewallGroupIPvsixAddressGroup) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},

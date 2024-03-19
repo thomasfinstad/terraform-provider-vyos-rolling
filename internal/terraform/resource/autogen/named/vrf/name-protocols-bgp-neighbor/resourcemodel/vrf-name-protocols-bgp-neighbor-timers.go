@@ -33,15 +33,15 @@ func (o VrfNameProtocolsBgpNeighborTimers) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `BGP connect timer for this neighbor
 
-    |  Format   &emsp;|  Description               |
-    |-----------------|----------------------------|
-    |  1-65535  &emsp;|  Connect timer in seconds  |
-    |  0        &emsp;|  Disable connect timer     |
+    |  Format   |  Description               |
+    |-----------|----------------------------|
+    |  1-65535  |  Connect timer in seconds  |
+    |  0        |  Disable connect timer     |
 `,
 			Description: `BGP connect timer for this neighbor
 
     |  Format   |  Description               |
-    |-----------------|----------------------------|
+    |-----------|----------------------------|
     |  1-65535  |  Connect timer in seconds  |
     |  0        |  Disable connect timer     |
 `,
@@ -51,15 +51,15 @@ func (o VrfNameProtocolsBgpNeighborTimers) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `Hold timer
 
-    |  Format   &emsp;|  Description            |
-    |-----------------|-------------------------|
-    |  1-65535  &emsp;|  Hold timer in seconds  |
-    |  0        &emsp;|  Disable hold timer     |
+    |  Format   |  Description            |
+    |-----------|-------------------------|
+    |  1-65535  |  Hold timer in seconds  |
+    |  0        |  Disable hold timer     |
 `,
 			Description: `Hold timer
 
     |  Format   |  Description            |
-    |-----------------|-------------------------|
+    |-----------|-------------------------|
     |  1-65535  |  Hold timer in seconds  |
     |  0        |  Disable hold timer     |
 `,
@@ -69,14 +69,14 @@ func (o VrfNameProtocolsBgpNeighborTimers) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `BGP keepalive interval for this neighbor
 
-    |  Format   &emsp;|  Description                    |
-    |-----------------|---------------------------------|
-    |  1-65535  &emsp;|  Keepalive interval in seconds  |
+    |  Format   |  Description                    |
+    |-----------|---------------------------------|
+    |  1-65535  |  Keepalive interval in seconds  |
 `,
 			Description: `BGP keepalive interval for this neighbor
 
     |  Format   |  Description                    |
-    |-----------------|---------------------------------|
+    |-----------|---------------------------------|
     |  1-65535  |  Keepalive interval in seconds  |
 `,
 		},

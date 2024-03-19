@@ -34,14 +34,14 @@ func (o FirewallIPvsixNameRuleDestinationGeoIP) ResourceSchemaAttributes() map[s
 			Optional:    true,
 			MarkdownDescription: `GeoIP country code
 
-    |  Format           &emsp;|  Description                  |
-    |-------------------------|-------------------------------|
-    |  &lt;country&gt;  &emsp;|  Country code (2 characters)  |
+    |  Format     |  Description                  |
+    |-------------|-------------------------------|
+    |  <country>  |  Country code (2 characters)  |
 `,
 			Description: `GeoIP country code
 
-    |  Format           |  Description                  |
-    |-------------------------|-------------------------------|
+    |  Format     |  Description                  |
+    |-------------|-------------------------------|
     |  <country>  |  Country code (2 characters)  |
 `,
 		},

@@ -109,14 +109,14 @@ func (o VrfNameProtocolsIsisFastRerouteLfaRemotePrefixList) ResourceSchemaAttrib
 			Required: true,
 			MarkdownDescription: `Filter PQ node router ID based on prefix list
 
-    |  Format  &emsp;|  Description                    |
-    |----------------|---------------------------------|
-    |  txt     &emsp;|  Name of IPv4/IPv6 prefix-list  |
+    |  Format  |  Description                    |
+    |----------|---------------------------------|
+    |  txt     |  Name of IPv4/IPv6 prefix-list  |
 `,
 			Description: `Filter PQ node router ID based on prefix list
 
     |  Format  |  Description                    |
-    |----------------|---------------------------------|
+    |----------|---------------------------------|
     |  txt     |  Name of IPv4/IPv6 prefix-list  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -141,14 +141,14 @@ func (o VrfNameProtocolsIsisFastRerouteLfaRemotePrefixList) ResourceSchemaAttrib
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{

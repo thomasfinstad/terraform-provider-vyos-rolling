@@ -47,14 +47,14 @@ func (o VrfNameProtocolsOspfvthreeGracefulRestartHelper) ResourceSchemaAttribute
 			Optional: true,
 			MarkdownDescription: `Supported grace timer
 
-    |  Format   &emsp;|  Description                |
-    |-----------------|-----------------------------|
-    |  10-1800  &emsp;|  Grace interval in seconds  |
+    |  Format   |  Description                |
+    |-----------|-----------------------------|
+    |  10-1800  |  Grace interval in seconds  |
 `,
 			Description: `Supported grace timer
 
     |  Format   |  Description                |
-    |-----------------|-----------------------------|
+    |-----------|-----------------------------|
     |  10-1800  |  Grace interval in seconds  |
 `,
 		},

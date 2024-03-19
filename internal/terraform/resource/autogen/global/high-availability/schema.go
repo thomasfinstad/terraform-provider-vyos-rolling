@@ -14,11 +14,7 @@ func (r highAvailability) Schema(ctx context.Context, req resource.SchemaRequest
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-	<div style="text-align: center">
-<b>
-High availability settings
-</b>
-</div>
+	**High availability settings**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

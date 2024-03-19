@@ -135,14 +135,14 @@ func (o VrfNameProtocolsBgpBmpTarget) ResourceSchemaAttributes() map[string]sche
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -169,15 +169,15 @@ func (o VrfNameProtocolsBgpBmpTarget) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `IP address
 
-    |  Format  &emsp;|  Description   |
-    |----------------|----------------|
-    |  ipv4    &emsp;|  IPv4 address  |
-    |  ipv6    &emsp;|  IPv6 address  |
+    |  Format  |  Description   |
+    |----------|----------------|
+    |  ipv4    |  IPv4 address  |
+    |  ipv6    |  IPv6 address  |
 `,
 			Description: `IP address
 
     |  Format  |  Description   |
-    |----------------|----------------|
+    |----------|----------------|
     |  ipv4    |  IPv4 address  |
     |  ipv6    |  IPv6 address  |
 `,
@@ -187,14 +187,14 @@ func (o VrfNameProtocolsBgpBmpTarget) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format   &emsp;|  Description      |
-    |-----------------|-------------------|
-    |  1-65535  &emsp;|  Numeric IP port  |
+    |  Format   |  Description      |
+    |-----------|-------------------|
+    |  1-65535  |  Numeric IP port  |
 `,
 			Description: `Port number used by connection
 
     |  Format   |  Description      |
-    |-----------------|-------------------|
+    |-----------|-------------------|
     |  1-65535  |  Numeric IP port  |
 `,
 
@@ -206,14 +206,14 @@ func (o VrfNameProtocolsBgpBmpTarget) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Minimum connection retry interval (in milliseconds)
 
-    |  Format        &emsp;|  Description                        |
-    |----------------------|-------------------------------------|
-    |  100-86400000  &emsp;|  Minimum connection retry interval  |
+    |  Format        |  Description                        |
+    |----------------|-------------------------------------|
+    |  100-86400000  |  Minimum connection retry interval  |
 `,
 			Description: `Minimum connection retry interval (in milliseconds)
 
     |  Format        |  Description                        |
-    |----------------------|-------------------------------------|
+    |----------------|-------------------------------------|
     |  100-86400000  |  Minimum connection retry interval  |
 `,
 
@@ -225,14 +225,14 @@ func (o VrfNameProtocolsBgpBmpTarget) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Maximum connection retry interval
 
-    |  Format          &emsp;|  Description                        |
-    |------------------------|-------------------------------------|
-    |  100-4294967295  &emsp;|  Maximum connection retry interval  |
+    |  Format          |  Description                        |
+    |------------------|-------------------------------------|
+    |  100-4294967295  |  Maximum connection retry interval  |
 `,
 			Description: `Maximum connection retry interval
 
     |  Format          |  Description                        |
-    |------------------------|-------------------------------------|
+    |------------------|-------------------------------------|
     |  100-4294967295  |  Maximum connection retry interval  |
 `,
 

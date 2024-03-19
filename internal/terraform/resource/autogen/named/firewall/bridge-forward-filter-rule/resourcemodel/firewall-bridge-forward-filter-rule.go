@@ -102,14 +102,14 @@ func (o FirewallBrIDgeForwardFilterRule) ResourceSchemaAttributes() map[string]s
 			Required: true,
 			MarkdownDescription: `Bridge Firewall forward filter rule number
 
-    |  Format    &emsp;|  Description                    |
-    |------------------|---------------------------------|
-    |  1-999999  &emsp;|  Number for this firewall rule  |
+    |  Format    |  Description                    |
+    |------------|---------------------------------|
+    |  1-999999  |  Number for this firewall rule  |
 `,
 			Description: `Bridge Firewall forward filter rule number
 
     |  Format    |  Description                    |
-    |------------------|---------------------------------|
+    |------------|---------------------------------|
     |  1-999999  |  Number for this firewall rule  |
 `,
 			PlanModifiers: []planmodifier.Number{
@@ -123,19 +123,19 @@ func (o FirewallBrIDgeForwardFilterRule) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Rule action
 
-    |  Format    &emsp;|  Description                                                                    |
-    |------------------|---------------------------------------------------------------------------------|
-    |  accept    &emsp;|  Accept matching entries                                                        |
-    |  continue  &emsp;|  Continue parsing next rule                                                     |
-    |  jump      &emsp;|  Jump to another chain                                                          |
-    |  return    &emsp;|  Return from the current chain and continue at the next rule of the last chain  |
-    |  drop      &emsp;|  Drop matching entries                                                          |
-    |  queue     &emsp;|  Enqueue packet to userspace                                                    |
+    |  Format    |  Description                                                                    |
+    |------------|---------------------------------------------------------------------------------|
+    |  accept    |  Accept matching entries                                                        |
+    |  continue  |  Continue parsing next rule                                                     |
+    |  jump      |  Jump to another chain                                                          |
+    |  return    |  Return from the current chain and continue at the next rule of the last chain  |
+    |  drop      |  Drop matching entries                                                          |
+    |  queue     |  Enqueue packet to userspace                                                    |
 `,
 			Description: `Rule action
 
     |  Format    |  Description                                                                    |
-    |------------------|---------------------------------------------------------------------------------|
+    |------------|---------------------------------------------------------------------------------|
     |  accept    |  Accept matching entries                                                        |
     |  continue  |  Continue parsing next rule                                                     |
     |  jump      |  Jump to another chain                                                          |
@@ -149,14 +149,14 @@ func (o FirewallBrIDgeForwardFilterRule) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Queue target to use. Action queue must be defined to use this setting
 
-    |  Format   &emsp;|  Description   |
-    |-----------------|----------------|
-    |  0-65535  &emsp;|  Queue target  |
+    |  Format   |  Description   |
+    |-----------|----------------|
+    |  0-65535  |  Queue target  |
 `,
 			Description: `Queue target to use. Action queue must be defined to use this setting
 
     |  Format   |  Description   |
-    |-----------------|----------------|
+    |-----------|----------------|
     |  0-65535  |  Queue target  |
 `,
 		},
@@ -166,15 +166,15 @@ func (o FirewallBrIDgeForwardFilterRule) ResourceSchemaAttributes() map[string]s
 			Optional:    true,
 			MarkdownDescription: `Options used for queue target. Action queue must be defined to use this setting
 
-    |  Format  &emsp;|  Description                                                      |
-    |----------------|-------------------------------------------------------------------|
-    |  bypass  &emsp;|  Let packets go through if userspace application cannot back off  |
-    |  fanout  &emsp;|  Distribute packets between several queues                        |
+    |  Format  |  Description                                                      |
+    |----------|-------------------------------------------------------------------|
+    |  bypass  |  Let packets go through if userspace application cannot back off  |
+    |  fanout  |  Distribute packets between several queues                        |
 `,
 			Description: `Options used for queue target. Action queue must be defined to use this setting
 
     |  Format  |  Description                                                      |
-    |----------------|-------------------------------------------------------------------|
+    |----------|-------------------------------------------------------------------|
     |  bypass  |  Let packets go through if userspace application cannot back off  |
     |  fanout  |  Distribute packets between several queues                        |
 `,

@@ -104,15 +104,15 @@ func (o VrfNameProtocolsIsisSegmentRoutingPrefix) ResourceSchemaAttributes() map
 			Required: true,
 			MarkdownDescription: `Static IPv4/IPv6 prefix segment/label mapping
 
-    |  Format   &emsp;|  Description          |
-    |-----------------|-----------------------|
-    |  ipv4net  &emsp;|  IPv4 prefix segment  |
-    |  ipv6net  &emsp;|  IPv6 prefix segment  |
+    |  Format   |  Description          |
+    |-----------|-----------------------|
+    |  ipv4net  |  IPv4 prefix segment  |
+    |  ipv6net  |  IPv6 prefix segment  |
 `,
 			Description: `Static IPv4/IPv6 prefix segment/label mapping
 
     |  Format   |  Description          |
-    |-----------------|-----------------------|
+    |-----------|-----------------------|
     |  ipv4net  |  IPv4 prefix segment  |
     |  ipv6net  |  IPv6 prefix segment  |
 `,
@@ -138,14 +138,14 @@ func (o VrfNameProtocolsIsisSegmentRoutingPrefix) ResourceSchemaAttributes() map
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{

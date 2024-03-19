@@ -31,14 +31,14 @@ func (o VrfNameProtocolsOspfAggregation) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Delay timer
 
-    |  Format  &emsp;|  Description                |
-    |----------------|-----------------------------|
-    |  5-1800  &emsp;|  Timer interval in seconds  |
+    |  Format  |  Description                |
+    |----------|-----------------------------|
+    |  5-1800  |  Timer interval in seconds  |
 `,
 			Description: `Delay timer
 
     |  Format  |  Description                |
-    |----------------|-----------------------------|
+    |----------|-----------------------------|
     |  5-1800  |  Timer interval in seconds  |
 `,
 

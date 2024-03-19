@@ -115,14 +115,14 @@ func (o VrfNameProtocolsOspfvthreeAreaRange) ResourceSchemaAttributes() map[stri
 			Required: true,
 			MarkdownDescription: `Specify IPv6 prefix (border routers only)
 
-    |  Format   &emsp;|  Description                                |
-    |-----------------|---------------------------------------------|
-    |  ipv6net  &emsp;|  Specify IPv6 prefix (border routers only)  |
+    |  Format   |  Description                                |
+    |-----------|---------------------------------------------|
+    |  ipv6net  |  Specify IPv6 prefix (border routers only)  |
 `,
 			Description: `Specify IPv6 prefix (border routers only)
 
     |  Format   |  Description                                |
-    |-----------------|---------------------------------------------|
+    |-----------|---------------------------------------------|
     |  ipv6net  |  Specify IPv6 prefix (border routers only)  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -147,14 +147,14 @@ func (o VrfNameProtocolsOspfvthreeAreaRange) ResourceSchemaAttributes() map[stri
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -179,15 +179,15 @@ func (o VrfNameProtocolsOspfvthreeAreaRange) ResourceSchemaAttributes() map[stri
 			Required: true,
 			MarkdownDescription: `OSPFv3 Area
 
-    |  Format  &emsp;|  Description                  |
-    |----------------|-------------------------------|
-    |  u32     &emsp;|  Area ID as a decimal value   |
-    |  ipv4    &emsp;|  Area ID in IP address forma  |
+    |  Format  |  Description                  |
+    |----------|-------------------------------|
+    |  u32     |  Area ID as a decimal value   |
+    |  ipv4    |  Area ID in IP address forma  |
 `,
 			Description: `OSPFv3 Area
 
     |  Format  |  Description                  |
-    |----------------|-------------------------------|
+    |----------|-------------------------------|
     |  u32     |  Area ID as a decimal value   |
     |  ipv4    |  Area ID in IP address forma  |
 `,

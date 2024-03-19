@@ -108,14 +108,14 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastAggregateAddress) R
 			Required: true,
 			MarkdownDescription: `BGP aggregate network/prefix
 
-    |  Format   &emsp;|  Description                   |
-    |-----------------|--------------------------------|
-    |  ipv4net  &emsp;|  BGP aggregate network/prefix  |
+    |  Format   |  Description                   |
+    |-----------|--------------------------------|
+    |  ipv4net  |  BGP aggregate network/prefix  |
 `,
 			Description: `BGP aggregate network/prefix
 
     |  Format   |  Description                   |
-    |-----------------|--------------------------------|
+    |-----------|--------------------------------|
     |  ipv4net  |  BGP aggregate network/prefix  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -140,14 +140,14 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastAggregateAddress) R
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -186,14 +186,14 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastAggregateAddress) R
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  txt     &emsp;|  Route map name  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Route map name  |
 `,
 			Description: `Specify route-map name to use
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  txt     |  Route map name  |
 `,
 		},

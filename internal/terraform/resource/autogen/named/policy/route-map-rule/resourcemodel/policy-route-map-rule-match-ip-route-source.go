@@ -32,17 +32,17 @@ func (o PolicyRouteMapRuleMatchIPRouteSource) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `IP access-list to match
 
-    |  Format     &emsp;|  Description                               |
-    |-------------------|--------------------------------------------|
-    |  1-99       &emsp;|  IP standard access list                   |
-    |  100-199    &emsp;|  IP extended access list                   |
-    |  1300-1999  &emsp;|  IP standard access list (expanded range)  |
-    |  2000-2699  &emsp;|  IP extended access list (expanded range)  |
+    |  Format     |  Description                               |
+    |-------------|--------------------------------------------|
+    |  1-99       |  IP standard access list                   |
+    |  100-199    |  IP extended access list                   |
+    |  1300-1999  |  IP standard access list (expanded range)  |
+    |  2000-2699  |  IP extended access list (expanded range)  |
 `,
 			Description: `IP access-list to match
 
     |  Format     |  Description                               |
-    |-------------------|--------------------------------------------|
+    |-------------|--------------------------------------------|
     |  1-99       |  IP standard access list                   |
     |  100-199    |  IP extended access list                   |
     |  1300-1999  |  IP standard access list (expanded range)  |

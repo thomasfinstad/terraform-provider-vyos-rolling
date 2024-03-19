@@ -12,36 +12,17 @@ import (
 func (r vrfNameProtocolsBgpListenRange) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-Virtual Routing and Forwarding
-
-<br>
-&darr;
-<br>
+		MarkdownDescription: `Virtual Routing and Forwarding
+⯯
 Virtual Routing and Forwarding instance
-
-<br>
-&darr;
-<br>
+⯯
 Routing protocol parameters
-
-<br>
-&darr;
-<br>
+⯯
 Border Gateway Protocol (BGP)
-
-<br>
-&darr;
-<br>
+⯯
 Listen for and accept BGP dynamic neighbors from range
-
-<br>
-&darr;
-<br>
-<b>
-BGP dynamic neighbors listen range
-</b>
-</div>
+⯯
+**BGP dynamic neighbors listen range**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

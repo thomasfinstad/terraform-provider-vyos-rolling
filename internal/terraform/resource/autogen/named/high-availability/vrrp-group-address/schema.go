@@ -12,26 +12,13 @@ import (
 func (r highAvailabilityVrrpGroupAddress) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-High availability settings
-
-<br>
-&darr;
-<br>
+		MarkdownDescription: `High availability settings
+⯯
 Virtual Router Redundancy Protocol settings
-
-<br>
-&darr;
-<br>
+⯯
 VRRP group
-
-<br>
-&darr;
-<br>
-<b>
-Virtual IP address
-</b>
-</div>
+⯯
+**Virtual IP address**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

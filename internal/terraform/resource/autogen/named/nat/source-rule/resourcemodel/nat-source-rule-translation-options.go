@@ -32,15 +32,15 @@ func (o NatSourceRuleTranSLAtionOptions) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Address mapping options
 
-    |  Format      &emsp;|  Description                                                                |
-    |--------------------|-----------------------------------------------------------------------------|
-    |  persistent  &emsp;|  Gives a client the same source or destination-address for each connection  |
-    |  random      &emsp;|  Random source or destination address allocation for each connection        |
+    |  Format      |  Description                                                                |
+    |--------------|-----------------------------------------------------------------------------|
+    |  persistent  |  Gives a client the same source or destination-address for each connection  |
+    |  random      |  Random source or destination address allocation for each connection        |
 `,
 			Description: `Address mapping options
 
     |  Format      |  Description                                                                |
-    |--------------------|-----------------------------------------------------------------------------|
+    |--------------|-----------------------------------------------------------------------------|
     |  persistent  |  Gives a client the same source or destination-address for each connection  |
     |  random      |  Random source or destination address allocation for each connection        |
 `,
@@ -53,16 +53,16 @@ func (o NatSourceRuleTranSLAtionOptions) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Port mapping options
 
-    |  Format        &emsp;|  Description                      |
-    |----------------------|-----------------------------------|
-    |  random        &emsp;|  Randomize source port mapping    |
-    |  fully-random  &emsp;|  Full port randomization          |
-    |  none          &emsp;|  Do not apply port randomization  |
+    |  Format        |  Description                      |
+    |----------------|-----------------------------------|
+    |  random        |  Randomize source port mapping    |
+    |  fully-random  |  Full port randomization          |
+    |  none          |  Do not apply port randomization  |
 `,
 			Description: `Port mapping options
 
     |  Format        |  Description                      |
-    |----------------------|-----------------------------------|
+    |----------------|-----------------------------------|
     |  random        |  Randomize source port mapping    |
     |  fully-random  |  Full port randomization          |
     |  none          |  Do not apply port randomization  |

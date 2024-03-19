@@ -102,14 +102,14 @@ func (o VrfNameProtocolsOspfAccessList) ResourceSchemaAttributes() map[string]sc
 			Required: true,
 			MarkdownDescription: `Access list to filter networks in routing updates
 
-    |  Format  &emsp;|  Description         |
-    |----------------|----------------------|
-    |  u32     &emsp;|  Access-list number  |
+    |  Format  |  Description         |
+    |----------|----------------------|
+    |  u32     |  Access-list number  |
 `,
 			Description: `Access list to filter networks in routing updates
 
     |  Format  |  Description         |
-    |----------------|----------------------|
+    |----------|----------------------|
     |  u32     |  Access-list number  |
 `,
 			PlanModifiers: []planmodifier.Number{
@@ -121,14 +121,14 @@ func (o VrfNameProtocolsOspfAccessList) ResourceSchemaAttributes() map[string]sc
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -156,19 +156,19 @@ func (o VrfNameProtocolsOspfAccessList) ResourceSchemaAttributes() map[string]sc
 			Optional:    true,
 			MarkdownDescription: `Filter for outgoing routing update
 
-    |  Format     &emsp;|  Description              |
-    |-------------------|---------------------------|
-    |  bgp        &emsp;|  Filter BGP routes        |
-    |  connected  &emsp;|  Filter connected routes  |
-    |  isis       &emsp;|  Filter IS-IS routes      |
-    |  kernel     &emsp;|  Filter Kernel routes     |
-    |  rip        &emsp;|  Filter RIP routes        |
-    |  static     &emsp;|  Filter static routes     |
+    |  Format     |  Description              |
+    |-------------|---------------------------|
+    |  bgp        |  Filter BGP routes        |
+    |  connected  |  Filter connected routes  |
+    |  isis       |  Filter IS-IS routes      |
+    |  kernel     |  Filter Kernel routes     |
+    |  rip        |  Filter RIP routes        |
+    |  static     |  Filter static routes     |
 `,
 			Description: `Filter for outgoing routing update
 
     |  Format     |  Description              |
-    |-------------------|---------------------------|
+    |-------------|---------------------------|
     |  bgp        |  Filter BGP routes        |
     |  connected  |  Filter connected routes  |
     |  isis       |  Filter IS-IS routes      |

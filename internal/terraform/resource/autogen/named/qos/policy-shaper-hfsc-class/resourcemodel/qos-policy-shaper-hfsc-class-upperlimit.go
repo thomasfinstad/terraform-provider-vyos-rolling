@@ -33,14 +33,14 @@ func (o QosPolicyShaperHfscClassUpperlimit) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Service curve delay
 
-    |  Format          &emsp;|  Description           |
-    |------------------------|------------------------|
-    |  &lt;number&gt;  &emsp;|  Time in milliseconds  |
+    |  Format    |  Description           |
+    |------------|------------------------|
+    |  <number>  |  Time in milliseconds  |
 `,
 			Description: `Service curve delay
 
-    |  Format          |  Description           |
-    |------------------------|------------------------|
+    |  Format    |  Description           |
+    |------------|------------------------|
     |  <number>  |  Time in milliseconds  |
 `,
 		},
@@ -49,19 +49,19 @@ func (o QosPolicyShaperHfscClassUpperlimit) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Linkshare m1 parameter for class traffic
 
-    |  Format              &emsp;|  Description                                              |
-    |----------------------------|-----------------------------------------------------------|
-    |  &lt;number&gt;      &emsp;|  Rate in kbit (kilobit per second)                        |
-    |  &lt;number&gt;%%    &emsp;|  Percentage of overall rate                               |
-    |  &lt;number&gt;bit   &emsp;|  bit(1), kbit(10^3), mbit(10^6), gbit, tbit               |
-    |  &lt;number&gt;ibit  &emsp;|  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
-    |  &lt;number&gt;ibps  &emsp;|  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
-    |  &lt;number&gt;bps   &emsp;|  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
+    |  Format        |  Description                                              |
+    |----------------|-----------------------------------------------------------|
+    |  <number>      |  Rate in kbit (kilobit per second)                        |
+    |  <number>%%    |  Percentage of overall rate                               |
+    |  <number>bit   |  bit(1), kbit(10^3), mbit(10^6), gbit, tbit               |
+    |  <number>ibit  |  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
+    |  <number>ibps  |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
+    |  <number>bps   |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
 `,
 			Description: `Linkshare m1 parameter for class traffic
 
-    |  Format              |  Description                                              |
-    |----------------------------|-----------------------------------------------------------|
+    |  Format        |  Description                                              |
+    |----------------|-----------------------------------------------------------|
     |  <number>      |  Rate in kbit (kilobit per second)                        |
     |  <number>%%    |  Percentage of overall rate                               |
     |  <number>bit   |  bit(1), kbit(10^3), mbit(10^6), gbit, tbit               |
@@ -78,19 +78,19 @@ func (o QosPolicyShaperHfscClassUpperlimit) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Linkshare m2 parameter for class traffic
 
-    |  Format              &emsp;|  Description                                              |
-    |----------------------------|-----------------------------------------------------------|
-    |  &lt;number&gt;      &emsp;|  Rate in kbit (kilobit per second)                        |
-    |  &lt;number&gt;%%    &emsp;|  Percentage of overall rate                               |
-    |  &lt;number&gt;bit   &emsp;|  bit(1), kbit(10^3), mbit(10^6), gbit, tbit               |
-    |  &lt;number&gt;ibit  &emsp;|  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
-    |  &lt;number&gt;ibps  &emsp;|  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
-    |  &lt;number&gt;bps   &emsp;|  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
+    |  Format        |  Description                                              |
+    |----------------|-----------------------------------------------------------|
+    |  <number>      |  Rate in kbit (kilobit per second)                        |
+    |  <number>%%    |  Percentage of overall rate                               |
+    |  <number>bit   |  bit(1), kbit(10^3), mbit(10^6), gbit, tbit               |
+    |  <number>ibit  |  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
+    |  <number>ibps  |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
+    |  <number>bps   |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
 `,
 			Description: `Linkshare m2 parameter for class traffic
 
-    |  Format              |  Description                                              |
-    |----------------------------|-----------------------------------------------------------|
+    |  Format        |  Description                                              |
+    |----------------|-----------------------------------------------------------|
     |  <number>      |  Rate in kbit (kilobit per second)                        |
     |  <number>%%    |  Percentage of overall rate                               |
     |  <number>bit   |  bit(1), kbit(10^3), mbit(10^6), gbit, tbit               |

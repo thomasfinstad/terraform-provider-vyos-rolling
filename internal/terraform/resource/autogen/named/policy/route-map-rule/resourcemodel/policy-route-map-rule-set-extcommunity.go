@@ -36,16 +36,16 @@ func (o PolicyRouteMapRuleSetExtcommunity) ResourceSchemaAttributes() map[string
 			Optional: true,
 			MarkdownDescription: `Bandwidth value in Mbps
 
-    |  Format          &emsp;|  Description                                                                  |
-    |------------------------|-------------------------------------------------------------------------------|
-    |  1-25600         &emsp;|  Bandwidth value in Mbps                                                      |
-    |  cumulative      &emsp;|  Cumulative bandwidth of all multipaths (outbound-only)                       |
-    |  num-multipaths  &emsp;|  Internally computed bandwidth based on number of multipaths (outbound-only)  |
+    |  Format          |  Description                                                                  |
+    |------------------|-------------------------------------------------------------------------------|
+    |  1-25600         |  Bandwidth value in Mbps                                                      |
+    |  cumulative      |  Cumulative bandwidth of all multipaths (outbound-only)                       |
+    |  num-multipaths  |  Internally computed bandwidth based on number of multipaths (outbound-only)  |
 `,
 			Description: `Bandwidth value in Mbps
 
     |  Format          |  Description                                                                  |
-    |------------------------|-------------------------------------------------------------------------------|
+    |------------------|-------------------------------------------------------------------------------|
     |  1-25600         |  Bandwidth value in Mbps                                                      |
     |  cumulative      |  Cumulative bandwidth of all multipaths (outbound-only)                       |
     |  num-multipaths  |  Internally computed bandwidth based on number of multipaths (outbound-only)  |
@@ -69,15 +69,15 @@ func (o PolicyRouteMapRuleSetExtcommunity) ResourceSchemaAttributes() map[string
 			Optional:    true,
 			MarkdownDescription: `Set route target value
 
-    |  Format  &emsp;|  Description                                                               |
-    |----------------|----------------------------------------------------------------------------|
-    |  ASN:NN  &emsp;|  based on autonomous system number in format &lt;0-65535:0-4294967295&gt;  |
-    |  IP:NN   &emsp;|  Based on a router-id IP address in format &lt;IP:0-65535&gt;              |
+    |  Format  |  Description                                                         |
+    |----------|----------------------------------------------------------------------|
+    |  ASN:NN  |  based on autonomous system number in format <0-65535:0-4294967295>  |
+    |  IP:NN   |  Based on a router-id IP address in format <IP:0-65535>              |
 `,
 			Description: `Set route target value
 
-    |  Format  |  Description                                                               |
-    |----------------|----------------------------------------------------------------------------|
+    |  Format  |  Description                                                         |
+    |----------|----------------------------------------------------------------------|
     |  ASN:NN  |  based on autonomous system number in format <0-65535:0-4294967295>  |
     |  IP:NN   |  Based on a router-id IP address in format <IP:0-65535>              |
 `,
@@ -88,15 +88,15 @@ func (o PolicyRouteMapRuleSetExtcommunity) ResourceSchemaAttributes() map[string
 			Optional:    true,
 			MarkdownDescription: `Set Site of Origin value
 
-    |  Format  &emsp;|  Description                                                               |
-    |----------------|----------------------------------------------------------------------------|
-    |  ASN:NN  &emsp;|  based on autonomous system number in format &lt;0-65535:0-4294967295&gt;  |
-    |  IP:NN   &emsp;|  Based on a router-id IP address in format &lt;IP:0-65535&gt;              |
+    |  Format  |  Description                                                         |
+    |----------|----------------------------------------------------------------------|
+    |  ASN:NN  |  based on autonomous system number in format <0-65535:0-4294967295>  |
+    |  IP:NN   |  Based on a router-id IP address in format <IP:0-65535>              |
 `,
 			Description: `Set Site of Origin value
 
-    |  Format  |  Description                                                               |
-    |----------------|----------------------------------------------------------------------------|
+    |  Format  |  Description                                                         |
+    |----------|----------------------------------------------------------------------|
     |  ASN:NN  |  based on autonomous system number in format <0-65535:0-4294967295>  |
     |  IP:NN   |  Based on a router-id IP address in format <IP:0-65535>              |
 `,

@@ -146,14 +146,14 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -180,14 +180,14 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},
@@ -220,14 +220,14 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Allow this EBGP neighbor to not be on a directly connected network
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  1-255   &emsp;|  Number of hops  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  1-255   |  Number of hops  |
 `,
 			Description: `Allow this EBGP neighbor to not be on a directly connected network
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  1-255   |  Number of hops  |
 `,
 		},
@@ -236,16 +236,16 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `BGP graceful restart functionality
 
-    |  Format          &emsp;|  Description                                            |
-    |------------------------|---------------------------------------------------------|
-    |  enable          &emsp;|  Enable BGP graceful restart at peer level              |
-    |  disable         &emsp;|  Disable BGP graceful restart at peer level             |
-    |  restart-helper  &emsp;|  Enable BGP graceful restart helper only functionality  |
+    |  Format          |  Description                                            |
+    |------------------|---------------------------------------------------------|
+    |  enable          |  Enable BGP graceful restart at peer level              |
+    |  disable         |  Disable BGP graceful restart at peer level             |
+    |  restart-helper  |  Enable BGP graceful restart helper only functionality  |
 `,
 			Description: `BGP graceful restart functionality
 
     |  Format          |  Description                                            |
-    |------------------------|---------------------------------------------------------|
+    |------------------|---------------------------------------------------------|
     |  enable          |  Enable BGP graceful restart at peer level              |
     |  disable         |  Disable BGP graceful restart at peer level             |
     |  restart-helper  |  Enable BGP graceful restart helper only functionality  |
@@ -302,16 +302,16 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Source IP of routing updates
 
-    |  Format  &emsp;|  Description                   |
-    |----------------|--------------------------------|
-    |  ipv4    &emsp;|  IPv4 address of route source  |
-    |  ipv6    &emsp;|  IPv6 address of route source  |
-    |  txt     &emsp;|  Interface as route source     |
+    |  Format  |  Description                   |
+    |----------|--------------------------------|
+    |  ipv4    |  IPv4 address of route source  |
+    |  ipv6    |  IPv6 address of route source  |
+    |  txt     |  Interface as route source     |
 `,
 			Description: `Source IP of routing updates
 
     |  Format  |  Description                   |
-    |----------------|--------------------------------|
+    |----------|--------------------------------|
     |  ipv4    |  IPv4 address of route source  |
     |  ipv6    |  IPv6 address of route source  |
     |  txt     |  Interface as route source     |
@@ -322,16 +322,16 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Neighbor BGP AS number
 
-    |  Format        &emsp;|  Description                         |
-    |----------------------|--------------------------------------|
-    |  1-4294967294  &emsp;|  Neighbor AS number                  |
-    |  external      &emsp;|  Any AS different from the local AS  |
-    |  internal      &emsp;|  Neighbor AS number                  |
+    |  Format        |  Description                         |
+    |----------------|--------------------------------------|
+    |  1-4294967294  |  Neighbor AS number                  |
+    |  external      |  Any AS different from the local AS  |
+    |  internal      |  Neighbor AS number                  |
 `,
 			Description: `Neighbor BGP AS number
 
     |  Format        |  Description                         |
-    |----------------------|--------------------------------------|
+    |----------------|--------------------------------------|
     |  1-4294967294  |  Neighbor AS number                  |
     |  external      |  Any AS different from the local AS  |
     |  internal      |  Neighbor AS number                  |
@@ -342,14 +342,14 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format   &emsp;|  Description      |
-    |-----------------|-------------------|
-    |  1-65535  &emsp;|  Numeric IP port  |
+    |  Format   |  Description      |
+    |-----------|-------------------|
+    |  1-65535  |  Numeric IP port  |
 `,
 			Description: `Port number used by connection
 
     |  Format   |  Description      |
-    |-----------------|-------------------|
+    |-----------|-------------------|
     |  1-65535  |  Numeric IP port  |
 `,
 		},

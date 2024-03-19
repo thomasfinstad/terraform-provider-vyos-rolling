@@ -35,14 +35,14 @@ func (o PkiCertificateAcme) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Remote URL
 
-    |  Format  &emsp;|  Description         |
-    |----------------|----------------------|
-    |  url     &emsp;|  Remote HTTP(S) URL  |
+    |  Format  |  Description         |
+    |----------|----------------------|
+    |  url     |  Remote HTTP(S) URL  |
 `,
 			Description: `Remote URL
 
     |  Format  |  Description         |
-    |----------------|----------------------|
+    |----------|----------------------|
     |  url     |  Remote HTTP(S) URL  |
 `,
 
@@ -75,14 +75,14 @@ func (o PkiCertificateAcme) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Local IPv4 addresses to listen on
 
-    |  Format  &emsp;|  Description                                      |
-    |----------------|---------------------------------------------------|
-    |  ipv4    &emsp;|  IPv4 address to listen for incoming connections  |
+    |  Format  |  Description                                      |
+    |----------|---------------------------------------------------|
+    |  ipv4    |  IPv4 address to listen for incoming connections  |
 `,
 			Description: `Local IPv4 addresses to listen on
 
     |  Format  |  Description                                      |
-    |----------------|---------------------------------------------------|
+    |----------|---------------------------------------------------|
     |  ipv4    |  IPv4 address to listen for incoming connections  |
 `,
 		},
@@ -91,16 +91,16 @@ func (o PkiCertificateAcme) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Size of the RSA key
 
-    |  Format  &emsp;|  Description              |
-    |----------------|---------------------------|
-    |  2048    &emsp;|  RSA key length 2048 bit  |
-    |  3072    &emsp;|  RSA key length 3072 bit  |
-    |  4096    &emsp;|  RSA key length 4096 bit  |
+    |  Format  |  Description              |
+    |----------|---------------------------|
+    |  2048    |  RSA key length 2048 bit  |
+    |  3072    |  RSA key length 3072 bit  |
+    |  4096    |  RSA key length 4096 bit  |
 `,
 			Description: `Size of the RSA key
 
     |  Format  |  Description              |
-    |----------------|---------------------------|
+    |----------|---------------------------|
     |  2048    |  RSA key length 2048 bit  |
     |  3072    |  RSA key length 3072 bit  |
     |  4096    |  RSA key length 4096 bit  |

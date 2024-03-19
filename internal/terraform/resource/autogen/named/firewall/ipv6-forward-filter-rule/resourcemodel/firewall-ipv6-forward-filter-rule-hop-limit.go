@@ -33,14 +33,14 @@ func (o FirewallIPvsixForwardFilterRuleHopLimit) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `Match on equal value
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  0-255   &emsp;|  Equal to value  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  0-255   |  Equal to value  |
 `,
 			Description: `Match on equal value
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  0-255   |  Equal to value  |
 `,
 		},
@@ -49,14 +49,14 @@ func (o FirewallIPvsixForwardFilterRuleHopLimit) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `Match on greater then value
 
-    |  Format  &emsp;|  Description         |
-    |----------------|----------------------|
-    |  0-255   &emsp;|  Greater then value  |
+    |  Format  |  Description         |
+    |----------|----------------------|
+    |  0-255   |  Greater then value  |
 `,
 			Description: `Match on greater then value
 
     |  Format  |  Description         |
-    |----------------|----------------------|
+    |----------|----------------------|
     |  0-255   |  Greater then value  |
 `,
 		},
@@ -65,14 +65,14 @@ func (o FirewallIPvsixForwardFilterRuleHopLimit) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `Match on less then value
 
-    |  Format  &emsp;|  Description      |
-    |----------------|-------------------|
-    |  0-255   &emsp;|  Less then value  |
+    |  Format  |  Description      |
+    |----------|-------------------|
+    |  0-255   |  Less then value  |
 `,
 			Description: `Match on less then value
 
     |  Format  |  Description      |
-    |----------------|-------------------|
+    |----------|-------------------|
     |  0-255   |  Less then value  |
 `,
 		},

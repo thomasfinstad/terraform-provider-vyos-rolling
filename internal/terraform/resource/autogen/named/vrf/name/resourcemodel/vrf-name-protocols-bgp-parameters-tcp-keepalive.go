@@ -33,14 +33,14 @@ func (o VrfNameProtocolsBgpParametersTCPKeepalive) ResourceSchemaAttributes() ma
 			Optional: true,
 			MarkdownDescription: `TCP keepalive idle time
 
-    |  Format   &emsp;|  Description           |
-    |-----------------|------------------------|
-    |  1-65535  &emsp;|  Idle time in seconds  |
+    |  Format   |  Description           |
+    |-----------|------------------------|
+    |  1-65535  |  Idle time in seconds  |
 `,
 			Description: `TCP keepalive idle time
 
     |  Format   |  Description           |
-    |-----------------|------------------------|
+    |-----------|------------------------|
     |  1-65535  |  Idle time in seconds  |
 `,
 		},
@@ -49,14 +49,14 @@ func (o VrfNameProtocolsBgpParametersTCPKeepalive) ResourceSchemaAttributes() ma
 			Optional: true,
 			MarkdownDescription: `TCP keepalive interval
 
-    |  Format   &emsp;|  Description          |
-    |-----------------|-----------------------|
-    |  1-65535  &emsp;|  Interval in seconds  |
+    |  Format   |  Description          |
+    |-----------|-----------------------|
+    |  1-65535  |  Interval in seconds  |
 `,
 			Description: `TCP keepalive interval
 
     |  Format   |  Description          |
-    |-----------------|-----------------------|
+    |-----------|-----------------------|
     |  1-65535  |  Interval in seconds  |
 `,
 		},
@@ -65,14 +65,14 @@ func (o VrfNameProtocolsBgpParametersTCPKeepalive) ResourceSchemaAttributes() ma
 			Optional: true,
 			MarkdownDescription: `TCP keepalive maximum probes
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  1-30    &emsp;|  Maximum probes  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  1-30    |  Maximum probes  |
 `,
 			Description: `TCP keepalive maximum probes
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  1-30    |  Maximum probes  |
 `,
 		},

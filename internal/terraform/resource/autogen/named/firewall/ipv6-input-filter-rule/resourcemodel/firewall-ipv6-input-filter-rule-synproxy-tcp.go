@@ -32,14 +32,14 @@ func (o FirewallIPvsixInputFilterRuleSynproxyTCP) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `TCP Maximum segment size
 
-    |  Format     &emsp;|  Description                                    |
-    |-------------------|-------------------------------------------------|
-    |  501-65535  &emsp;|  Maximum segment size for synproxy connections  |
+    |  Format     |  Description                                    |
+    |-------------|-------------------------------------------------|
+    |  501-65535  |  Maximum segment size for synproxy connections  |
 `,
 			Description: `TCP Maximum segment size
 
     |  Format     |  Description                                    |
-    |-------------------|-------------------------------------------------|
+    |-------------|-------------------------------------------------|
     |  501-65535  |  Maximum segment size for synproxy connections  |
 `,
 		},
@@ -48,14 +48,14 @@ func (o FirewallIPvsixInputFilterRuleSynproxyTCP) ResourceSchemaAttributes() map
 			Optional: true,
 			MarkdownDescription: `TCP window scale for synproxy connections
 
-    |  Format  &emsp;|  Description       |
-    |----------------|--------------------|
-    |  1-14    &emsp;|  TCP window scale  |
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  1-14    |  TCP window scale  |
 `,
 			Description: `TCP window scale for synproxy connections
 
     |  Format  |  Description       |
-    |----------------|--------------------|
+    |----------|--------------------|
     |  1-14    |  TCP window scale  |
 `,
 		},

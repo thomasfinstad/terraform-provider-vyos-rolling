@@ -106,14 +106,14 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 			Required: true,
 			MarkdownDescription: `IP precedence
 
-    |  Format  &emsp;|  Description          |
-    |----------------|-----------------------|
-    |  0-7     &emsp;|  IP precedence value  |
+    |  Format  |  Description          |
+    |----------|-----------------------|
+    |  0-7     |  IP precedence value  |
 `,
 			Description: `IP precedence
 
     |  Format  |  Description          |
-    |----------------|-----------------------|
+    |----------|-----------------------|
     |  0-7     |  IP precedence value  |
 `,
 			PlanModifiers: []planmodifier.Number{
@@ -125,14 +125,14 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 			Required: true,
 			MarkdownDescription: `Weighted Random Early Detect policy
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Policy name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Policy name  |
 `,
 			Description: `Weighted Random Early Detect policy
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Policy name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -159,14 +159,14 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
-    |  Format        &emsp;|  Description            |
-    |----------------------|-------------------------|
-    |  1-4294967295  &emsp;|  Queue size in packets  |
+    |  Format        |  Description            |
+    |----------------|-------------------------|
+    |  1-4294967295  |  Queue size in packets  |
 `,
 			Description: `Maximum queue size
 
     |  Format        |  Description            |
-    |----------------------|-------------------------|
+    |----------------|-------------------------|
     |  1-4294967295  |  Queue size in packets  |
 `,
 		},
@@ -175,14 +175,14 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Average packet size (bytes)
 
-    |  Format    &emsp;|  Description                   |
-    |------------------|--------------------------------|
-    |  16-10240  &emsp;|  Average packet size in bytes  |
+    |  Format    |  Description                   |
+    |------------|--------------------------------|
+    |  16-10240  |  Average packet size in bytes  |
 `,
 			Description: `Average packet size (bytes)
 
     |  Format    |  Description                   |
-    |------------------|--------------------------------|
+    |------------|--------------------------------|
     |  16-10240  |  Average packet size in bytes  |
 `,
 
@@ -194,14 +194,14 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Mark probability for this precedence
 
-    |  Format          &emsp;|  Description          |
-    |------------------------|-----------------------|
-    |  &lt;number&gt;  &emsp;|  Numeric value (1/N)  |
+    |  Format    |  Description          |
+    |------------|-----------------------|
+    |  <number>  |  Numeric value (1/N)  |
 `,
 			Description: `Mark probability for this precedence
 
-    |  Format          |  Description          |
-    |------------------------|-----------------------|
+    |  Format    |  Description          |
+    |------------|-----------------------|
     |  <number>  |  Numeric value (1/N)  |
 `,
 
@@ -213,14 +213,14 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Maximum threshold for random detection
 
-    |  Format  &emsp;|  Description                   |
-    |----------------|--------------------------------|
-    |  0-4096  &emsp;|  Maximum Threshold in packets  |
+    |  Format  |  Description                   |
+    |----------|--------------------------------|
+    |  0-4096  |  Maximum Threshold in packets  |
 `,
 			Description: `Maximum threshold for random detection
 
     |  Format  |  Description                   |
-    |----------------|--------------------------------|
+    |----------|--------------------------------|
     |  0-4096  |  Maximum Threshold in packets  |
 `,
 
@@ -232,14 +232,14 @@ func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Minimum  threshold for random detection
 
-    |  Format  &emsp;|  Description                   |
-    |----------------|--------------------------------|
-    |  0-4096  &emsp;|  Maximum Threshold in packets  |
+    |  Format  |  Description                   |
+    |----------|--------------------------------|
+    |  0-4096  |  Maximum Threshold in packets  |
 `,
 			Description: `Minimum  threshold for random detection
 
     |  Format  |  Description                   |
-    |----------------|--------------------------------|
+    |----------|--------------------------------|
     |  0-4096  |  Maximum Threshold in packets  |
 `,
 		},

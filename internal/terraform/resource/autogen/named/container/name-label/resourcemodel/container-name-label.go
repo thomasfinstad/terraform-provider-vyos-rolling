@@ -151,14 +151,14 @@ func (o ContainerNameLabel) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Set label option value
 
-    |  Format  &emsp;|  Description             |
-    |----------------|--------------------------|
-    |  txt     &emsp;|  Set label option value  |
+    |  Format  |  Description             |
+    |----------|--------------------------|
+    |  txt     |  Set label option value  |
 `,
 			Description: `Set label option value
 
     |  Format  |  Description             |
-    |----------------|--------------------------|
+    |----------|--------------------------|
     |  txt     |  Set label option value  |
 `,
 		},

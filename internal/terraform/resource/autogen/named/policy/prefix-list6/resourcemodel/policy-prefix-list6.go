@@ -88,14 +88,14 @@ func (o PolicyPrefixListsix) ResourceSchemaAttributes() map[string]schema.Attrib
 			Required: true,
 			MarkdownDescription: `IPv6 prefix-list filter
 
-    |  Format  &emsp;|  Description               |
-    |----------------|----------------------------|
-    |  txt     &emsp;|  Name of IPv6 prefix-list  |
+    |  Format  |  Description               |
+    |----------|----------------------------|
+    |  txt     |  Name of IPv6 prefix-list  |
 `,
 			Description: `IPv6 prefix-list filter
 
     |  Format  |  Description               |
-    |----------------|----------------------------|
+    |----------|----------------------------|
     |  txt     |  Name of IPv6 prefix-list  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -122,14 +122,14 @@ func (o PolicyPrefixListsix) ResourceSchemaAttributes() map[string]schema.Attrib
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},

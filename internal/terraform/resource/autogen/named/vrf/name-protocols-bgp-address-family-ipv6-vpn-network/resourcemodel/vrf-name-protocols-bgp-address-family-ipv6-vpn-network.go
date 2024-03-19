@@ -106,14 +106,14 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork) ResourceSchemaAttribut
 			Required: true,
 			MarkdownDescription: `Import BGP network/prefix into unicast VPN IPv6 RIB
 
-    |  Format   &emsp;|  Description                          |
-    |-----------------|---------------------------------------|
-    |  ipv6net  &emsp;|  Unicast VPN IPv6 BGP network/prefix  |
+    |  Format   |  Description                          |
+    |-----------|---------------------------------------|
+    |  ipv6net  |  Unicast VPN IPv6 BGP network/prefix  |
 `,
 			Description: `Import BGP network/prefix into unicast VPN IPv6 RIB
 
     |  Format   |  Description                          |
-    |-----------------|---------------------------------------|
+    |-----------|---------------------------------------|
     |  ipv6net  |  Unicast VPN IPv6 BGP network/prefix  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -138,14 +138,14 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork) ResourceSchemaAttribut
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -172,14 +172,14 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork) ResourceSchemaAttribut
 			Optional: true,
 			MarkdownDescription: `Route Distinguisher
 
-    |  Format                   &emsp;|  Description                                   |
-    |---------------------------------|------------------------------------------------|
-    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp;|  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  Format                   |  Description                                   |
+    |---------------------------|------------------------------------------------|
+    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 `,
 			Description: `Route Distinguisher
 
     |  Format                   |  Description                                   |
-    |---------------------------------|------------------------------------------------|
+    |---------------------------|------------------------------------------------|
     |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 `,
 		},
@@ -188,14 +188,14 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork) ResourceSchemaAttribut
 			Optional: true,
 			MarkdownDescription: `MPLS label value assigned to route
 
-    |  Format     &emsp;|  Description       |
-    |-------------------|--------------------|
-    |  0-1048575  &emsp;|  MPLS label value  |
+    |  Format     |  Description       |
+    |-------------|--------------------|
+    |  0-1048575  |  MPLS label value  |
 `,
 			Description: `MPLS label value assigned to route
 
     |  Format     |  Description       |
-    |-------------------|--------------------|
+    |-------------|--------------------|
     |  0-1048575  |  MPLS label value  |
 `,
 		},

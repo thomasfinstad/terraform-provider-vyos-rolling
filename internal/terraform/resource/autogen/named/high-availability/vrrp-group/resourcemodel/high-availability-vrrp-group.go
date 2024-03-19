@@ -135,14 +135,14 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Interface to use
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  txt     &emsp;|  Interface name  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Interface name  |
 `,
 			Description: `Interface to use
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  txt     |  Interface name  |
 `,
 		},
@@ -151,14 +151,14 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Advertise interval
 
-    |  Format  &emsp;|  Description                    |
-    |----------------|---------------------------------|
-    |  1-255   &emsp;|  Advertise interval in seconds  |
+    |  Format  |  Description                    |
+    |----------|---------------------------------|
+    |  1-255   |  Advertise interval in seconds  |
 `,
 			Description: `Advertise interval
 
     |  Format  |  Description                    |
-    |----------------|---------------------------------|
+    |----------|---------------------------------|
     |  1-255   |  Advertise interval in seconds  |
 `,
 
@@ -170,14 +170,14 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},
@@ -198,15 +198,15 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `VRRP hello source address
 
-    |  Format  &emsp;|  Description                |
-    |----------------|-----------------------------|
-    |  ipv4    &emsp;|  IPv4 hello source address  |
-    |  ipv6    &emsp;|  IPv6 hello source address  |
+    |  Format  |  Description                |
+    |----------|-----------------------------|
+    |  ipv4    |  IPv4 hello source address  |
+    |  ipv6    |  IPv6 hello source address  |
 `,
 			Description: `VRRP hello source address
 
     |  Format  |  Description                |
-    |----------------|-----------------------------|
+    |----------|-----------------------------|
     |  ipv4    |  IPv4 hello source address  |
     |  ipv6    |  IPv6 hello source address  |
 `,
@@ -217,15 +217,15 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional:    true,
 			MarkdownDescription: `Unicast VRRP peer address
 
-    |  Format  &emsp;|  Description                |
-    |----------------|-----------------------------|
-    |  ipv4    &emsp;|  IPv4 unicast peer address  |
-    |  ipv6    &emsp;|  IPv6 unicast peer address  |
+    |  Format  |  Description                |
+    |----------|-----------------------------|
+    |  ipv4    |  IPv4 unicast peer address  |
+    |  ipv6    |  IPv6 unicast peer address  |
 `,
 			Description: `Unicast VRRP peer address
 
     |  Format  |  Description                |
-    |----------------|-----------------------------|
+    |----------|-----------------------------|
     |  ipv4    |  IPv4 unicast peer address  |
     |  ipv6    |  IPv6 unicast peer address  |
 `,
@@ -247,14 +247,14 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Preempt delay (in seconds)
 
-    |  Format  &emsp;|  Description    |
-    |----------------|-----------------|
-    |  0-1000  &emsp;|  preempt delay  |
+    |  Format  |  Description    |
+    |----------|-----------------|
+    |  0-1000  |  preempt delay  |
 `,
 			Description: `Preempt delay (in seconds)
 
     |  Format  |  Description    |
-    |----------------|-----------------|
+    |----------|-----------------|
     |  0-1000  |  preempt delay  |
 `,
 
@@ -266,14 +266,14 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Router priority
 
-    |  Format  &emsp;|  Description      |
-    |----------------|-------------------|
-    |  1-255   &emsp;|  Router priority  |
+    |  Format  |  Description      |
+    |----------|-------------------|
+    |  1-255   |  Router priority  |
 `,
 			Description: `Router priority
 
     |  Format  |  Description      |
-    |----------------|-------------------|
+    |----------|-------------------|
     |  1-255   |  Router priority  |
 `,
 
@@ -298,15 +298,15 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional:    true,
 			MarkdownDescription: `Virtual address (If you need additional IPv4 and IPv6 in same group)
 
-    |  Format  &emsp;|  Description   |
-    |----------------|----------------|
-    |  ipv4    &emsp;|  IP address    |
-    |  ipv6    &emsp;|  IPv6 address  |
+    |  Format  |  Description   |
+    |----------|----------------|
+    |  ipv4    |  IP address    |
+    |  ipv6    |  IPv6 address  |
 `,
 			Description: `Virtual address (If you need additional IPv4 and IPv6 in same group)
 
     |  Format  |  Description   |
-    |----------------|----------------|
+    |----------|----------------|
     |  ipv4    |  IP address    |
     |  ipv6    |  IPv6 address  |
 `,
@@ -316,14 +316,14 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Virtual router identifier
 
-    |  Format  &emsp;|  Description                |
-    |----------------|-----------------------------|
-    |  1-255   &emsp;|  Virtual router identifier  |
+    |  Format  |  Description                |
+    |----------|-----------------------------|
+    |  1-255   |  Virtual router identifier  |
 `,
 			Description: `Virtual router identifier
 
     |  Format  |  Description                |
-    |----------------|-----------------------------|
+    |----------|-----------------------------|
     |  1-255   |  Virtual router identifier  |
 `,
 		},

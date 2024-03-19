@@ -34,14 +34,14 @@ func (o FirewallIPvfourForwardFilterRuleLogOptions) ResourceSchemaAttributes() m
 			Optional: true,
 			MarkdownDescription: `Set log group
 
-    |  Format   &emsp;|  Description                    |
-    |-----------------|---------------------------------|
-    |  0-65535  &emsp;|  Log group to send messages to  |
+    |  Format   |  Description                    |
+    |-----------|---------------------------------|
+    |  0-65535  |  Log group to send messages to  |
 `,
 			Description: `Set log group
 
     |  Format   |  Description                    |
-    |-----------------|---------------------------------|
+    |-----------|---------------------------------|
     |  0-65535  |  Log group to send messages to  |
 `,
 		},
@@ -50,14 +50,14 @@ func (o FirewallIPvfourForwardFilterRuleLogOptions) ResourceSchemaAttributes() m
 			Optional: true,
 			MarkdownDescription: `Length of packet payload to include in netlink message
 
-    |  Format  &emsp;|  Description                                             |
-    |----------------|----------------------------------------------------------|
-    |  0-9000  &emsp;|  Length of packet payload to include in netlink message  |
+    |  Format  |  Description                                             |
+    |----------|----------------------------------------------------------|
+    |  0-9000  |  Length of packet payload to include in netlink message  |
 `,
 			Description: `Length of packet payload to include in netlink message
 
     |  Format  |  Description                                             |
-    |----------------|----------------------------------------------------------|
+    |----------|----------------------------------------------------------|
     |  0-9000  |  Length of packet payload to include in netlink message  |
 `,
 		},
@@ -66,14 +66,14 @@ func (o FirewallIPvfourForwardFilterRuleLogOptions) ResourceSchemaAttributes() m
 			Optional: true,
 			MarkdownDescription: `Number of packets to queue inside the kernel before sending them to userspace
 
-    |  Format   &emsp;|  Description                                                                    |
-    |-----------------|---------------------------------------------------------------------------------|
-    |  0-65535  &emsp;|  Number of packets to queue inside the kernel before sending them to userspace  |
+    |  Format   |  Description                                                                    |
+    |-----------|---------------------------------------------------------------------------------|
+    |  0-65535  |  Number of packets to queue inside the kernel before sending them to userspace  |
 `,
 			Description: `Number of packets to queue inside the kernel before sending them to userspace
 
     |  Format   |  Description                                                                    |
-    |-----------------|---------------------------------------------------------------------------------|
+    |-----------|---------------------------------------------------------------------------------|
     |  0-65535  |  Number of packets to queue inside the kernel before sending them to userspace  |
 `,
 		},
@@ -82,21 +82,21 @@ func (o FirewallIPvfourForwardFilterRuleLogOptions) ResourceSchemaAttributes() m
 			Optional: true,
 			MarkdownDescription: `Set log-level
 
-    |  Format  &emsp;|  Description         |
-    |----------------|----------------------|
-    |  emerg   &emsp;|  Emerg log level     |
-    |  alert   &emsp;|  Alert log level     |
-    |  crit    &emsp;|  Critical log level  |
-    |  err     &emsp;|  Error log level     |
-    |  warn    &emsp;|  Warning log level   |
-    |  notice  &emsp;|  Notice log level    |
-    |  info    &emsp;|  Info log level      |
-    |  debug   &emsp;|  Debug log level     |
+    |  Format  |  Description         |
+    |----------|----------------------|
+    |  emerg   |  Emerg log level     |
+    |  alert   |  Alert log level     |
+    |  crit    |  Critical log level  |
+    |  err     |  Error log level     |
+    |  warn    |  Warning log level   |
+    |  notice  |  Notice log level    |
+    |  info    |  Info log level      |
+    |  debug   |  Debug log level     |
 `,
 			Description: `Set log-level
 
     |  Format  |  Description         |
-    |----------------|----------------------|
+    |----------|----------------------|
     |  emerg   |  Emerg log level     |
     |  alert   |  Alert log level     |
     |  crit    |  Critical log level  |

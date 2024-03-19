@@ -100,14 +100,14 @@ func (o PolicyCommunityListRule) ResourceSchemaAttributes() map[string]schema.At
 			Required: true,
 			MarkdownDescription: `Rule for this BGP community list
 
-    |  Format   &emsp;|  Description                 |
-    |-----------------|------------------------------|
-    |  1-65535  &emsp;|  Community-list rule number  |
+    |  Format   |  Description                 |
+    |-----------|------------------------------|
+    |  1-65535  |  Community-list rule number  |
 `,
 			Description: `Rule for this BGP community list
 
     |  Format   |  Description                 |
-    |-----------------|------------------------------|
+    |-----------|------------------------------|
     |  1-65535  |  Community-list rule number  |
 `,
 			PlanModifiers: []planmodifier.Number{
@@ -119,14 +119,14 @@ func (o PolicyCommunityListRule) ResourceSchemaAttributes() map[string]schema.At
 			Required: true,
 			MarkdownDescription: `Add a BGP community list entry
 
-    |  Format  &emsp;|  Description              |
-    |----------------|---------------------------|
-    |  txt     &emsp;|  BGP community-list name  |
+    |  Format  |  Description              |
+    |----------|---------------------------|
+    |  txt     |  BGP community-list name  |
 `,
 			Description: `Add a BGP community list entry
 
     |  Format  |  Description              |
-    |----------------|---------------------------|
+    |----------|---------------------------|
     |  txt     |  BGP community-list name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -153,15 +153,15 @@ func (o PolicyCommunityListRule) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
-    |  Format  &emsp;|  Description              |
-    |----------------|---------------------------|
-    |  permit  &emsp;|  Permit matching entries  |
-    |  deny    &emsp;|  Deny matching entries    |
+    |  Format  |  Description              |
+    |----------|---------------------------|
+    |  permit  |  Permit matching entries  |
+    |  deny    |  Deny matching entries    |
 `,
 			Description: `Action to take on entries matching this rule
 
     |  Format  |  Description              |
-    |----------------|---------------------------|
+    |----------|---------------------------|
     |  permit  |  Permit matching entries  |
     |  deny    |  Deny matching entries    |
 `,
@@ -171,14 +171,14 @@ func (o PolicyCommunityListRule) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},
@@ -187,25 +187,25 @@ func (o PolicyCommunityListRule) ResourceSchemaAttributes() map[string]schema.At
 			Optional: true,
 			MarkdownDescription: `Regular expression to match against a community-list
 
-    |  Format         &emsp;|  Description                                                  |
-    |-----------------------|---------------------------------------------------------------|
-    |  &lt;aa:nn&gt;  &emsp;|  Community number in AA:NN format                             |
-    |  local-AS       &emsp;|  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
-    |  no-advertise   &emsp;|  Well-known communities value NO_ADVERTISE 0xFFFFFF02         |
-    |  no-export      &emsp;|  Well-known communities value NO_EXPORT 0xFFFFFF01            |
-    |  internet       &emsp;|  Well-known communities value 0                               |
-    |  additive       &emsp;|  New value is appended to the existing value                  |
+    |  Format        |  Description                                                  |
+    |----------------|---------------------------------------------------------------|
+    |  <aa:nn>       |  Community number in AA:NN format                             |
+    |  local-AS      |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
+    |  no-advertise  |  Well-known communities value NO_ADVERTISE 0xFFFFFF02         |
+    |  no-export     |  Well-known communities value NO_EXPORT 0xFFFFFF01            |
+    |  internet      |  Well-known communities value 0                               |
+    |  additive      |  New value is appended to the existing value                  |
 `,
 			Description: `Regular expression to match against a community-list
 
-    |  Format         |  Description                                                  |
-    |-----------------------|---------------------------------------------------------------|
-    |  <aa:nn>  |  Community number in AA:NN format                             |
-    |  local-AS       |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
-    |  no-advertise   |  Well-known communities value NO_ADVERTISE 0xFFFFFF02         |
-    |  no-export      |  Well-known communities value NO_EXPORT 0xFFFFFF01            |
-    |  internet       |  Well-known communities value 0                               |
-    |  additive       |  New value is appended to the existing value                  |
+    |  Format        |  Description                                                  |
+    |----------------|---------------------------------------------------------------|
+    |  <aa:nn>       |  Community number in AA:NN format                             |
+    |  local-AS      |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
+    |  no-advertise  |  Well-known communities value NO_ADVERTISE 0xFFFFFF02         |
+    |  no-export     |  Well-known communities value NO_EXPORT 0xFFFFFF01            |
+    |  internet      |  Well-known communities value 0                               |
+    |  additive      |  New value is appended to the existing value                  |
 `,
 		},
 

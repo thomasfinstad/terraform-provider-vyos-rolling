@@ -32,14 +32,14 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnDistributeList) Resou
 			Optional: true,
 			MarkdownDescription: `Access-list to filter outgoing route updates to this peer-group
 
-    |  Format   &emsp;|  Description                                                      |
-    |-----------------|-------------------------------------------------------------------|
-    |  1-65535  &emsp;|  Access-list to filter outgoing route updates to this peer-group  |
+    |  Format   |  Description                                                      |
+    |-----------|-------------------------------------------------------------------|
+    |  1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
 `,
 			Description: `Access-list to filter outgoing route updates to this peer-group
 
     |  Format   |  Description                                                      |
-    |-----------------|-------------------------------------------------------------------|
+    |-----------|-------------------------------------------------------------------|
     |  1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
 `,
 		},
@@ -48,14 +48,14 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourVpnDistributeList) Resou
 			Optional: true,
 			MarkdownDescription: `Access-list to filter incoming route updates from this peer-group
 
-    |  Format   &emsp;|  Description                                                        |
-    |-----------------|---------------------------------------------------------------------|
-    |  1-65535  &emsp;|  Access-list to filter incoming route updates from this peer-group  |
+    |  Format   |  Description                                                        |
+    |-----------|---------------------------------------------------------------------|
+    |  1-65535  |  Access-list to filter incoming route updates from this peer-group  |
 `,
 			Description: `Access-list to filter incoming route updates from this peer-group
 
     |  Format   |  Description                                                        |
-    |-----------------|---------------------------------------------------------------------|
+    |-----------|---------------------------------------------------------------------|
     |  1-65535  |  Access-list to filter incoming route updates from this peer-group  |
 `,
 		},

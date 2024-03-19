@@ -12,21 +12,11 @@ import (
 func (r firewallGroupMacGroup) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-Firewall
-
-<br>
-&darr;
-<br>
+		MarkdownDescription: `Firewall
+⯯
 Firewall group
-
-<br>
-&darr;
-<br>
-<b>
-Firewall mac-group
-</b>
-</div>
+⯯
+**Firewall mac-group**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

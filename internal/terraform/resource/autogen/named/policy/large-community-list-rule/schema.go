@@ -12,21 +12,11 @@ import (
 func (r policyLargeCommunityListRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-Routing policy
-
-<br>
-&darr;
-<br>
+		MarkdownDescription: `Routing policy
+⯯
 Add a BGP large community list entry
-
-<br>
-&darr;
-<br>
-<b>
-Rule for this BGP extended community list
-</b>
-</div>
+⯯
+**Rule for this BGP extended community list**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

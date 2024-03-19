@@ -120,15 +120,15 @@ func (o FirewallGroupAddressGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional:    true,
 			MarkdownDescription: `Address-group member
 
-    |  Format     &emsp;|  Description                                     |
-    |-------------------|--------------------------------------------------|
-    |  ipv4       &emsp;|  IPv4 address to match                           |
-    |  ipv4range  &emsp;|  IPv4 range to match (e.g. 10.0.0.1-10.0.0.200)  |
+    |  Format     |  Description                                     |
+    |-------------|--------------------------------------------------|
+    |  ipv4       |  IPv4 address to match                           |
+    |  ipv4range  |  IPv4 range to match (e.g. 10.0.0.1-10.0.0.200)  |
 `,
 			Description: `Address-group member
 
     |  Format     |  Description                                     |
-    |-------------------|--------------------------------------------------|
+    |-------------|--------------------------------------------------|
     |  ipv4       |  IPv4 address to match                           |
     |  ipv4range  |  IPv4 range to match (e.g. 10.0.0.1-10.0.0.200)  |
 `,
@@ -149,14 +149,14 @@ func (o FirewallGroupAddressGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},

@@ -35,17 +35,17 @@ func (o VrfNameProtocolsOspfParameters) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `OSPF ABR type
 
-    |  Format    &emsp;|  Description        |
-    |------------------|---------------------|
-    |  cisco     &emsp;|  Cisco ABR type     |
-    |  ibm       &emsp;|  IBM ABR type       |
-    |  shortcut  &emsp;|  Shortcut ABR type  |
-    |  standard  &emsp;|  Standard ABR type  |
+    |  Format    |  Description        |
+    |------------|---------------------|
+    |  cisco     |  Cisco ABR type     |
+    |  ibm       |  IBM ABR type       |
+    |  shortcut  |  Shortcut ABR type  |
+    |  standard  |  Standard ABR type  |
 `,
 			Description: `OSPF ABR type
 
     |  Format    |  Description        |
-    |------------------|---------------------|
+    |------------|---------------------|
     |  cisco     |  Cisco ABR type     |
     |  ibm       |  IBM ABR type       |
     |  shortcut  |  Shortcut ABR type  |
@@ -84,14 +84,14 @@ func (o VrfNameProtocolsOspfParameters) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `Override default router identifier
 
-    |  Format  &emsp;|  Description                     |
-    |----------------|----------------------------------|
-    |  ipv4    &emsp;|  Router-ID in IP address format  |
+    |  Format  |  Description                     |
+    |----------|----------------------------------|
+    |  ipv4    |  Router-ID in IP address format  |
 `,
 			Description: `Override default router identifier
 
     |  Format  |  Description                     |
-    |----------------|----------------------------------|
+    |----------|----------------------------------|
     |  ipv4    |  Router-ID in IP address format  |
 `,
 		},

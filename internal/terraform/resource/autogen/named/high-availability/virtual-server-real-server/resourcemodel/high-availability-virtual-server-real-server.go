@@ -153,14 +153,14 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format   &emsp;|  Description      |
-    |-----------------|-------------------|
-    |  0-65535  &emsp;|  Numeric IP port  |
+    |  Format   |  Description      |
+    |-----------|-------------------|
+    |  0-65535  |  Numeric IP port  |
 `,
 			Description: `Port number used by connection
 
     |  Format   |  Description      |
-    |-----------------|-------------------|
+    |-----------|-------------------|
     |  0-65535  |  Numeric IP port  |
 `,
 		},
@@ -169,14 +169,14 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `Server connection timeout
 
-    |  Format   &emsp;|  Description                          |
-    |-----------------|---------------------------------------|
-    |  1-86400  &emsp;|  Connection timeout to remote server  |
+    |  Format   |  Description                          |
+    |-----------|---------------------------------------|
+    |  1-86400  |  Connection timeout to remote server  |
 `,
 			Description: `Server connection timeout
 
     |  Format   |  Description                          |
-    |-----------------|---------------------------------------|
+    |-----------|---------------------------------------|
     |  1-86400  |  Connection timeout to remote server  |
 `,
 		},

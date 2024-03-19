@@ -12,21 +12,11 @@ import (
 func (r policyPrefixListsixRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-Routing policy
-
-<br>
-&darr;
-<br>
+		MarkdownDescription: `Routing policy
+⯯
 IPv6 prefix-list filter
-
-<br>
-&darr;
-<br>
-<b>
-Rule for this prefix-list6
-</b>
-</div>
+⯯
+**Rule for this prefix-list6**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

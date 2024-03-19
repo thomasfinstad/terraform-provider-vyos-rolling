@@ -114,14 +114,14 @@ func (o VrfNameProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[stri
 			Required: true,
 			MarkdownDescription: `Specify alternate ASN for this BGP process
 
-    |  Format        &emsp;|  Description                     |
-    |----------------------|----------------------------------|
-    |  1-4294967294  &emsp;|  Autonomous System Number (ASN)  |
+    |  Format        |  Description                     |
+    |----------------|----------------------------------|
+    |  1-4294967294  |  Autonomous System Number (ASN)  |
 `,
 			Description: `Specify alternate ASN for this BGP process
 
     |  Format        |  Description                     |
-    |----------------------|----------------------------------|
+    |----------------|----------------------------------|
     |  1-4294967294  |  Autonomous System Number (ASN)  |
 `,
 			PlanModifiers: []planmodifier.Number{
@@ -133,14 +133,14 @@ func (o VrfNameProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[stri
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{

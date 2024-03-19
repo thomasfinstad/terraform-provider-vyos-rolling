@@ -31,15 +31,15 @@ func (o FirewallIPvfourInputFilterRuleConnectionStatus) ResourceSchemaAttributes
 			Optional: true,
 			MarkdownDescription: `NAT connection status
 
-    |  Format       &emsp;|  Description                                            |
-    |---------------------|---------------------------------------------------------|
-    |  destination  &emsp;|  Match connections that are subject to destination NAT  |
-    |  source       &emsp;|  Match connections that are subject to source NAT       |
+    |  Format       |  Description                                            |
+    |---------------|---------------------------------------------------------|
+    |  destination  |  Match connections that are subject to destination NAT  |
+    |  source       |  Match connections that are subject to source NAT       |
 `,
 			Description: `NAT connection status
 
     |  Format       |  Description                                            |
-    |---------------------|---------------------------------------------------------|
+    |---------------|---------------------------------------------------------|
     |  destination  |  Match connections that are subject to destination NAT  |
     |  source       |  Match connections that are subject to source NAT       |
 `,

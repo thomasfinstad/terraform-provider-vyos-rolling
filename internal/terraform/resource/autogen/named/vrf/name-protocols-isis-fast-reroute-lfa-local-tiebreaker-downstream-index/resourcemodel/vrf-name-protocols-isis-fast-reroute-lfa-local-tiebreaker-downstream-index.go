@@ -114,14 +114,14 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex) Resour
 			Required: true,
 			MarkdownDescription: `Set preference order among tiebreakers
 
-    |  Format  &emsp;|  Description              |
-    |----------------|---------------------------|
-    |  1-255   &emsp;|  The index integer value  |
+    |  Format  |  Description              |
+    |----------|---------------------------|
+    |  1-255   |  The index integer value  |
 `,
 			Description: `Set preference order among tiebreakers
 
     |  Format  |  Description              |
-    |----------------|---------------------------|
+    |----------|---------------------------|
     |  1-255   |  The index integer value  |
 `,
 			PlanModifiers: []planmodifier.Number{
@@ -133,14 +133,14 @@ func (o VrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerDownstreamIndex) Resour
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{

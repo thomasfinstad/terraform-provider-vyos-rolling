@@ -120,14 +120,14 @@ func (o HighAvailabilityVrrpSyncGroup) ResourceSchemaAttributes() map[string]sch
 			Optional:    true,
 			MarkdownDescription: `Sync group member
 
-    |  Format  &emsp;|  Description      |
-    |----------------|-------------------|
-    |  txt     &emsp;|  VRRP group name  |
+    |  Format  |  Description      |
+    |----------|-------------------|
+    |  txt     |  VRRP group name  |
 `,
 			Description: `Sync group member
 
     |  Format  |  Description      |
-    |----------------|-------------------|
+    |----------|-------------------|
     |  txt     |  VRRP group name  |
 `,
 		},

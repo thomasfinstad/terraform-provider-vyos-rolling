@@ -32,14 +32,14 @@ func (o VrfNameProtocolsOspfDistance) ResourceSchemaAttributes() map[string]sche
 			Optional: true,
 			MarkdownDescription: `Administrative distance
 
-    |  Format  &emsp;|  Description              |
-    |----------------|---------------------------|
-    |  1-255   &emsp;|  Administrative distance  |
+    |  Format  |  Description              |
+    |----------|---------------------------|
+    |  1-255   |  Administrative distance  |
 `,
 			Description: `Administrative distance
 
     |  Format  |  Description              |
-    |----------------|---------------------------|
+    |----------|---------------------------|
     |  1-255   |  Administrative distance  |
 `,
 		},

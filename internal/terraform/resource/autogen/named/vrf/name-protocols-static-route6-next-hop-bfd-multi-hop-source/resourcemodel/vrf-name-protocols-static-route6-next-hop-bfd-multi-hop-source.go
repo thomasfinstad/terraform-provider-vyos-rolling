@@ -125,15 +125,15 @@ func (o VrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource) ResourceSchemaAt
 			Required: true,
 			MarkdownDescription: `Use source for BFD session
 
-    |  Format  &emsp;|  Description          |
-    |----------------|-----------------------|
-    |  ipv4    &emsp;|  IPv4 source address  |
-    |  ipv6    &emsp;|  IPv6 source address  |
+    |  Format  |  Description          |
+    |----------|-----------------------|
+    |  ipv4    |  IPv4 source address  |
+    |  ipv6    |  IPv6 source address  |
 `,
 			Description: `Use source for BFD session
 
     |  Format  |  Description          |
-    |----------------|-----------------------|
+    |----------|-----------------------|
     |  ipv4    |  IPv4 source address  |
     |  ipv6    |  IPv6 source address  |
 `,
@@ -159,14 +159,14 @@ func (o VrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource) ResourceSchemaAt
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -191,14 +191,14 @@ func (o VrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource) ResourceSchemaAt
 			Required: true,
 			MarkdownDescription: `Static IPv6 route
 
-    |  Format   &emsp;|  Description        |
-    |-----------------|---------------------|
-    |  ipv6net  &emsp;|  IPv6 static route  |
+    |  Format   |  Description        |
+    |-----------|---------------------|
+    |  ipv6net  |  IPv6 static route  |
 `,
 			Description: `Static IPv6 route
 
     |  Format   |  Description        |
-    |-----------------|---------------------|
+    |-----------|---------------------|
     |  ipv6net  |  IPv6 static route  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -223,14 +223,14 @@ func (o VrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource) ResourceSchemaAt
 			Required: true,
 			MarkdownDescription: `IPv6 gateway address
 
-    |  Format  &emsp;|  Description           |
-    |----------------|------------------------|
-    |  ipv6    &emsp;|  Next-hop IPv6 router  |
+    |  Format  |  Description           |
+    |----------|------------------------|
+    |  ipv6    |  Next-hop IPv6 router  |
 `,
 			Description: `IPv6 gateway address
 
     |  Format  |  Description           |
-    |----------------|------------------------|
+    |----------|------------------------|
     |  ipv6    |  Next-hop IPv6 router  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -257,14 +257,14 @@ func (o VrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource) ResourceSchemaAt
 			Optional: true,
 			MarkdownDescription: `Use settings from BFD profile
 
-    |  Format  &emsp;|  Description       |
-    |----------------|--------------------|
-    |  txt     &emsp;|  BFD profile name  |
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  txt     |  BFD profile name  |
 `,
 			Description: `Use settings from BFD profile
 
     |  Format  |  Description       |
-    |----------------|--------------------|
+    |----------|--------------------|
     |  txt     |  BFD profile name  |
 `,
 		},

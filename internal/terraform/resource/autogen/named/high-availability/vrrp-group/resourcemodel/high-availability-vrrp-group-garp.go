@@ -35,14 +35,14 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Interval between Gratuitous ARP
 
-    |  Format              &emsp;|  Description                                   |
-    |----------------------------|------------------------------------------------|
-    |  &lt;0.000-1000&gt;  &emsp;|  Interval in seconds, resolution microseconds  |
+    |  Format        |  Description                                   |
+    |----------------|------------------------------------------------|
+    |  <0.000-1000>  |  Interval in seconds, resolution microseconds  |
 `,
 			Description: `Interval between Gratuitous ARP
 
-    |  Format              |  Description                                   |
-    |----------------------------|------------------------------------------------|
+    |  Format        |  Description                                   |
+    |----------------|------------------------------------------------|
     |  <0.000-1000>  |  Interval in seconds, resolution microseconds  |
 `,
 
@@ -54,14 +54,14 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Delay for second set of gratuitous ARPs after transition to master
 
-    |  Format  &emsp;|  Description       |
-    |----------------|--------------------|
-    |  1-1000  &emsp;|  Delay in seconds  |
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  1-1000  |  Delay in seconds  |
 `,
 			Description: `Delay for second set of gratuitous ARPs after transition to master
 
     |  Format  |  Description       |
-    |----------------|--------------------|
+    |----------|--------------------|
     |  1-1000  |  Delay in seconds  |
 `,
 
@@ -73,15 +73,15 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Minimum time interval for refreshing gratuitous ARPs while beeing master
 
-    |  Format  &emsp;|  Description          |
-    |----------------|-----------------------|
-    |  0       &emsp;|  No refresh           |
-    |  1-255   &emsp;|  Interval in seconds  |
+    |  Format  |  Description          |
+    |----------|-----------------------|
+    |  0       |  No refresh           |
+    |  1-255   |  Interval in seconds  |
 `,
 			Description: `Minimum time interval for refreshing gratuitous ARPs while beeing master
 
     |  Format  |  Description          |
-    |----------------|-----------------------|
+    |----------|-----------------------|
     |  0       |  No refresh           |
     |  1-255   |  Interval in seconds  |
 `,
@@ -94,14 +94,14 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Number of gratuitous ARP messages to send at a time while beeing master
 
-    |  Format  &emsp;|  Description                        |
-    |----------------|-------------------------------------|
-    |  1-255   &emsp;|  Number of gratuitous ARP messages  |
+    |  Format  |  Description                        |
+    |----------|-------------------------------------|
+    |  1-255   |  Number of gratuitous ARP messages  |
 `,
 			Description: `Number of gratuitous ARP messages to send at a time while beeing master
 
     |  Format  |  Description                        |
-    |----------------|-------------------------------------|
+    |----------|-------------------------------------|
     |  1-255   |  Number of gratuitous ARP messages  |
 `,
 
@@ -113,14 +113,14 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Number of gratuitous ARP messages to send at a time after transition to master
 
-    |  Format  &emsp;|  Description                        |
-    |----------------|-------------------------------------|
-    |  1-255   &emsp;|  Number of gratuitous ARP messages  |
+    |  Format  |  Description                        |
+    |----------|-------------------------------------|
+    |  1-255   |  Number of gratuitous ARP messages  |
 `,
 			Description: `Number of gratuitous ARP messages to send at a time after transition to master
 
     |  Format  |  Description                        |
-    |----------------|-------------------------------------|
+    |----------|-------------------------------------|
     |  1-255   |  Number of gratuitous ARP messages  |
 `,
 

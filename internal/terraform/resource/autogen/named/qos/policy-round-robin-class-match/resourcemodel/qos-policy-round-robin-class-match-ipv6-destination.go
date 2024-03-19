@@ -32,14 +32,14 @@ func (o QosPolicyRoundRobinClassMatchIPvsixDestination) ResourceSchemaAttributes
 			Optional: true,
 			MarkdownDescription: `IPv6 destination address for this match
 
-    |  Format   &emsp;|  Description                     |
-    |-----------------|----------------------------------|
-    |  ipv6net  &emsp;|  IPv6 address and prefix length  |
+    |  Format   |  Description                     |
+    |-----------|----------------------------------|
+    |  ipv6net  |  IPv6 address and prefix length  |
 `,
 			Description: `IPv6 destination address for this match
 
     |  Format   |  Description                     |
-    |-----------------|----------------------------------|
+    |-----------|----------------------------------|
     |  ipv6net  |  IPv6 address and prefix length  |
 `,
 		},
@@ -48,14 +48,14 @@ func (o QosPolicyRoundRobinClassMatchIPvsixDestination) ResourceSchemaAttributes
 			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
-    |  Format   &emsp;|  Description      |
-    |-----------------|-------------------|
-    |  1-65535  &emsp;|  Numeric IP port  |
+    |  Format   |  Description      |
+    |-----------|-------------------|
+    |  1-65535  |  Numeric IP port  |
 `,
 			Description: `Port number used by connection
 
     |  Format   |  Description      |
-    |-----------------|-------------------|
+    |-----------|-------------------|
     |  1-65535  |  Numeric IP port  |
 `,
 		},

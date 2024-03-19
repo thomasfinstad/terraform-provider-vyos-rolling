@@ -32,14 +32,14 @@ func (o VrfNameProtocolsOspfvthreeGracefulRestart) ResourceSchemaAttributes() ma
 			Optional: true,
 			MarkdownDescription: `Maximum length of the grace period
 
-    |  Format  &emsp;|  Description                                    |
-    |----------------|-------------------------------------------------|
-    |  1-1800  &emsp;|  Maximum length of the grace period in seconds  |
+    |  Format  |  Description                                    |
+    |----------|-------------------------------------------------|
+    |  1-1800  |  Maximum length of the grace period in seconds  |
 `,
 			Description: `Maximum length of the grace period
 
     |  Format  |  Description                                    |
-    |----------------|-------------------------------------------------|
+    |----------|-------------------------------------------------|
     |  1-1800  |  Maximum length of the grace period in seconds  |
 `,
 

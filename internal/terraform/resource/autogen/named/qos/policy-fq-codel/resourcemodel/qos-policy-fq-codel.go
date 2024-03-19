@@ -94,14 +94,14 @@ func (o QosPolicyFqCodel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Required: true,
 			MarkdownDescription: `Fair Queuing (FQ) with Controlled Delay (CoDel)
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Policy name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Policy name  |
 `,
 			Description: `Fair Queuing (FQ) with Controlled Delay (CoDel)
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Policy name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -128,14 +128,14 @@ func (o QosPolicyFqCodel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},
@@ -144,14 +144,14 @@ func (o QosPolicyFqCodel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Deficit in the fair queuing algorithm
 
-    |  Format     &emsp;|  Description                        |
-    |-------------------|-------------------------------------|
-    |  0-1048576  &emsp;|  Number of bytes used as 'deficit'  |
+    |  Format     |  Description                        |
+    |-------------|-------------------------------------|
+    |  0-1048576  |  Number of bytes used as 'deficit'  |
 `,
 			Description: `Deficit in the fair queuing algorithm
 
     |  Format     |  Description                        |
-    |-------------------|-------------------------------------|
+    |-------------|-------------------------------------|
     |  0-1048576  |  Number of bytes used as 'deficit'  |
 `,
 
@@ -163,14 +163,14 @@ func (o QosPolicyFqCodel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Number of flows into which the incoming packets are classified
 
-    |  Format   &emsp;|  Description      |
-    |-----------------|-------------------|
-    |  1-65536  &emsp;|  Number of flows  |
+    |  Format   |  Description      |
+    |-----------|-------------------|
+    |  1-65536  |  Number of flows  |
 `,
 			Description: `Number of flows into which the incoming packets are classified
 
     |  Format   |  Description      |
-    |-----------------|-------------------|
+    |-----------|-------------------|
     |  1-65536  |  Number of flows  |
 `,
 
@@ -182,14 +182,14 @@ func (o QosPolicyFqCodel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Interval used to measure the delay
 
-    |  Format  &emsp;|  Description               |
-    |----------------|----------------------------|
-    |  u32     &emsp;|  Interval in milliseconds  |
+    |  Format  |  Description               |
+    |----------|----------------------------|
+    |  u32     |  Interval in milliseconds  |
 `,
 			Description: `Interval used to measure the delay
 
     |  Format  |  Description               |
-    |----------------|----------------------------|
+    |----------|----------------------------|
     |  u32     |  Interval in milliseconds  |
 `,
 
@@ -201,14 +201,14 @@ func (o QosPolicyFqCodel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Upper limit of the queue
 
-    |  Format   &emsp;|  Description            |
-    |-----------------|-------------------------|
-    |  2-10999  &emsp;|  Queue size in packets  |
+    |  Format   |  Description            |
+    |-----------|-------------------------|
+    |  2-10999  |  Queue size in packets  |
 `,
 			Description: `Upper limit of the queue
 
     |  Format   |  Description            |
-    |-----------------|-------------------------|
+    |-----------|-------------------------|
     |  2-10999  |  Queue size in packets  |
 `,
 
@@ -220,14 +220,14 @@ func (o QosPolicyFqCodel) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Acceptable minimum standing/persistent queue delay
 
-    |  Format  &emsp;|  Description                  |
-    |----------------|-------------------------------|
-    |  u32     &emsp;|  Queue delay in milliseconds  |
+    |  Format  |  Description                  |
+    |----------|-------------------------------|
+    |  u32     |  Queue delay in milliseconds  |
 `,
 			Description: `Acceptable minimum standing/persistent queue delay
 
     |  Format  |  Description                  |
-    |----------------|-------------------------------|
+    |----------|-------------------------------|
     |  u32     |  Queue delay in milliseconds  |
 `,
 

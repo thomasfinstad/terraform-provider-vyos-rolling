@@ -12,36 +12,17 @@ import (
 func (r vrfNameProtocolsOspfAreaVirtualLink) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-Virtual Routing and Forwarding
-
-<br>
-&darr;
-<br>
+		MarkdownDescription: `Virtual Routing and Forwarding
+⯯
 Virtual Routing and Forwarding instance
-
-<br>
-&darr;
-<br>
+⯯
 Routing protocol parameters
-
-<br>
-&darr;
-<br>
+⯯
 Open Shortest Path First (OSPF)
-
-<br>
-&darr;
-<br>
+⯯
 OSPF area settings
-
-<br>
-&darr;
-<br>
-<b>
-Virtual link
-</b>
-</div>
+⯯
+**Virtual link**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

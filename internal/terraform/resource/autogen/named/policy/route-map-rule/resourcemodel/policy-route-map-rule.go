@@ -104,14 +104,14 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Required: true,
 			MarkdownDescription: `Rule for this route-map
 
-    |  Format   &emsp;|  Description            |
-    |-----------------|-------------------------|
-    |  1-65535  &emsp;|  Route-map rule number  |
+    |  Format   |  Description            |
+    |-----------|-------------------------|
+    |  1-65535  |  Route-map rule number  |
 `,
 			Description: `Rule for this route-map
 
     |  Format   |  Description            |
-    |-----------------|-------------------------|
+    |-----------|-------------------------|
     |  1-65535  |  Route-map rule number  |
 `,
 			PlanModifiers: []planmodifier.Number{
@@ -123,14 +123,14 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Required: true,
 			MarkdownDescription: `IP route-map
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  txt     &emsp;|  Route map name  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Route map name  |
 `,
 			Description: `IP route-map
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  txt     |  Route map name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -157,15 +157,15 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
-    |  Format  &emsp;|  Description              |
-    |----------------|---------------------------|
-    |  permit  &emsp;|  Permit matching entries  |
-    |  deny    &emsp;|  Deny matching entries    |
+    |  Format  |  Description              |
+    |----------|---------------------------|
+    |  permit  |  Permit matching entries  |
+    |  deny    |  Deny matching entries    |
 `,
 			Description: `Action to take on entries matching this rule
 
     |  Format  |  Description              |
-    |----------------|---------------------------|
+    |----------|---------------------------|
     |  permit  |  Permit matching entries  |
     |  deny    |  Deny matching entries    |
 `,
@@ -175,14 +175,14 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Call another route-map on match
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  txt     &emsp;|  Route map name  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Route map name  |
 `,
 			Description: `Call another route-map on match
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  txt     |  Route map name  |
 `,
 		},
@@ -191,14 +191,14 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Jump to a different rule in this route-map on a match
 
-    |  Format   &emsp;|  Description  |
-    |-----------------|---------------|
-    |  1-65535  &emsp;|  Rule number  |
+    |  Format   |  Description  |
+    |-----------|---------------|
+    |  1-65535  |  Rule number  |
 `,
 			Description: `Jump to a different rule in this route-map on a match
 
     |  Format   |  Description  |
-    |-----------------|---------------|
+    |-----------|---------------|
     |  1-65535  |  Rule number  |
 `,
 		},
@@ -207,14 +207,14 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},

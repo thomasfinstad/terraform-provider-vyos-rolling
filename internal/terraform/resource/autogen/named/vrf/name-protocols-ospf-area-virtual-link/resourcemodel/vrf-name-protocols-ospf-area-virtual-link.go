@@ -117,14 +117,14 @@ func (o VrfNameProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[stri
 			Required: true,
 			MarkdownDescription: `Virtual link
 
-    |  Format  &emsp;|  Description                           |
-    |----------------|----------------------------------------|
-    |  ipv4    &emsp;|  OSPF area in dotted decimal notation  |
+    |  Format  |  Description                           |
+    |----------|----------------------------------------|
+    |  ipv4    |  OSPF area in dotted decimal notation  |
 `,
 			Description: `Virtual link
 
     |  Format  |  Description                           |
-    |----------------|----------------------------------------|
+    |----------|----------------------------------------|
     |  ipv4    |  OSPF area in dotted decimal notation  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -149,14 +149,14 @@ func (o VrfNameProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[stri
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -181,15 +181,15 @@ func (o VrfNameProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[stri
 			Required: true,
 			MarkdownDescription: `OSPF area settings
 
-    |  Format  &emsp;|  Description                                  |
-    |----------------|-----------------------------------------------|
-    |  u32     &emsp;|  OSPF area number in decimal notation         |
-    |  ipv4    &emsp;|  OSPF area number in dotted decimal notation  |
+    |  Format  |  Description                                  |
+    |----------|-----------------------------------------------|
+    |  u32     |  OSPF area number in decimal notation         |
+    |  ipv4    |  OSPF area number in dotted decimal notation  |
 `,
 			Description: `OSPF area settings
 
     |  Format  |  Description                                  |
-    |----------------|-----------------------------------------------|
+    |----------|-----------------------------------------------|
     |  u32     |  OSPF area number in decimal notation         |
     |  ipv4    |  OSPF area number in dotted decimal notation  |
 `,
@@ -217,14 +217,14 @@ func (o VrfNameProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Interval after which a neighbor is declared dead
 
-    |  Format   &emsp;|  Description                       |
-    |-----------------|------------------------------------|
-    |  1-65535  &emsp;|  Neighbor dead interval (seconds)  |
+    |  Format   |  Description                       |
+    |-----------|------------------------------------|
+    |  1-65535  |  Neighbor dead interval (seconds)  |
 `,
 			Description: `Interval after which a neighbor is declared dead
 
     |  Format   |  Description                       |
-    |-----------------|------------------------------------|
+    |-----------|------------------------------------|
     |  1-65535  |  Neighbor dead interval (seconds)  |
 `,
 
@@ -236,14 +236,14 @@ func (o VrfNameProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Interval between hello packets
 
-    |  Format   &emsp;|  Description               |
-    |-----------------|----------------------------|
-    |  1-65535  &emsp;|  Hello interval (seconds)  |
+    |  Format   |  Description               |
+    |-----------|----------------------------|
+    |  1-65535  |  Hello interval (seconds)  |
 `,
 			Description: `Interval between hello packets
 
     |  Format   |  Description               |
-    |-----------------|----------------------------|
+    |-----------|----------------------------|
     |  1-65535  |  Hello interval (seconds)  |
 `,
 
@@ -255,14 +255,14 @@ func (o VrfNameProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Interval between retransmitting lost link state advertisements
 
-    |  Format   &emsp;|  Description                    |
-    |-----------------|---------------------------------|
-    |  1-65535  &emsp;|  Retransmit interval (seconds)  |
+    |  Format   |  Description                    |
+    |-----------|---------------------------------|
+    |  1-65535  |  Retransmit interval (seconds)  |
 `,
 			Description: `Interval between retransmitting lost link state advertisements
 
     |  Format   |  Description                    |
-    |-----------------|---------------------------------|
+    |-----------|---------------------------------|
     |  1-65535  |  Retransmit interval (seconds)  |
 `,
 
@@ -274,14 +274,14 @@ func (o VrfNameProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Link state transmit delay
 
-    |  Format   &emsp;|  Description                          |
-    |-----------------|---------------------------------------|
-    |  1-65535  &emsp;|  Link state transmit delay (seconds)  |
+    |  Format   |  Description                          |
+    |-----------|---------------------------------------|
+    |  1-65535  |  Link state transmit delay (seconds)  |
 `,
 			Description: `Link state transmit delay
 
     |  Format   |  Description                          |
-    |-----------------|---------------------------------------|
+    |-----------|---------------------------------------|
     |  1-65535  |  Link state transmit delay (seconds)  |
 `,
 

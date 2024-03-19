@@ -12,16 +12,9 @@ import (
 func (r highAvailabilityVirtualServer) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-High availability settings
-
-<br>
-&darr;
-<br>
-<b>
-Load-balancing virtual server alias
-</b>
-</div>
+		MarkdownDescription: `High availability settings
+⯯
+**Load-balancing virtual server alias**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

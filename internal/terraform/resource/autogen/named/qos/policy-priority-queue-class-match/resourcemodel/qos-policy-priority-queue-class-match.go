@@ -142,14 +142,14 @@ func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes() map[string]
 			Required: true,
 			MarkdownDescription: `Priority queuing based policy
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Policy name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Policy name  |
 `,
 			Description: `Priority queuing based policy
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Policy name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -174,14 +174,14 @@ func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes() map[string]
 			Required: true,
 			MarkdownDescription: `Class Handle
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  1-7     &emsp;|  Priority     |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  1-7     |  Priority     |
 `,
 			Description: `Class Handle
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  1-7     |  Priority     |
 `,
 			PlanModifiers: []planmodifier.Number{
@@ -195,14 +195,14 @@ func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},
@@ -211,14 +211,14 @@ func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Interface to use
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  txt     &emsp;|  Interface name  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Interface name  |
 `,
 			Description: `Interface to use
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  txt     |  Interface name  |
 `,
 		},
@@ -227,14 +227,14 @@ func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Match on mark applied by firewall
 
-    |  Format  &emsp;|  Description       |
-    |----------------|--------------------|
-    |  u32     &emsp;|  FW mark to match  |
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  u32     |  FW mark to match  |
 `,
 			Description: `Match on mark applied by firewall
 
     |  Format  |  Description       |
-    |----------------|--------------------|
+    |----------|--------------------|
     |  u32     |  FW mark to match  |
 `,
 		},
@@ -243,14 +243,14 @@ func (o QosPolicyPriorityQueueClassMatch) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Virtual Local Area Network (VLAN) ID for this match
 
-    |  Format  &emsp;|  Description                             |
-    |----------------|------------------------------------------|
-    |  0-4095  &emsp;|  Virtual Local Area Network (VLAN) tag   |
+    |  Format  |  Description                             |
+    |----------|------------------------------------------|
+    |  0-4095  |  Virtual Local Area Network (VLAN) tag   |
 `,
 			Description: `Virtual Local Area Network (VLAN) ID for this match
 
     |  Format  |  Description                             |
-    |----------------|------------------------------------------|
+    |----------|------------------------------------------|
     |  0-4095  |  Virtual Local Area Network (VLAN) tag   |
 `,
 		},

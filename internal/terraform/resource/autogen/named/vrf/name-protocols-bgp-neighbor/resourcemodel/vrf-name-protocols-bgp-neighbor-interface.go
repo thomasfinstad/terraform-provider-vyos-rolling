@@ -34,14 +34,14 @@ func (o VrfNameProtocolsBgpNeighborInterface) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Peer group for this peer
 
-    |  Format  &emsp;|  Description      |
-    |----------------|-------------------|
-    |  txt     &emsp;|  Peer-group name  |
+    |  Format  |  Description      |
+    |----------|-------------------|
+    |  txt     |  Peer-group name  |
 `,
 			Description: `Peer group for this peer
 
     |  Format  |  Description      |
-    |----------------|-------------------|
+    |----------|-------------------|
     |  txt     |  Peer-group name  |
 `,
 		},
@@ -50,16 +50,16 @@ func (o VrfNameProtocolsBgpNeighborInterface) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Neighbor BGP AS number
 
-    |  Format        &emsp;|  Description                         |
-    |----------------------|--------------------------------------|
-    |  1-4294967294  &emsp;|  Neighbor AS number                  |
-    |  external      &emsp;|  Any AS different from the local AS  |
-    |  internal      &emsp;|  Neighbor AS number                  |
+    |  Format        |  Description                         |
+    |----------------|--------------------------------------|
+    |  1-4294967294  |  Neighbor AS number                  |
+    |  external      |  Any AS different from the local AS  |
+    |  internal      |  Neighbor AS number                  |
 `,
 			Description: `Neighbor BGP AS number
 
     |  Format        |  Description                         |
-    |----------------------|--------------------------------------|
+    |----------------|--------------------------------------|
     |  1-4294967294  |  Neighbor AS number                  |
     |  external      |  Any AS different from the local AS  |
     |  internal      |  Neighbor AS number                  |
@@ -70,14 +70,14 @@ func (o VrfNameProtocolsBgpNeighborInterface) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Interface used to establish connection
 
-    |  Format     &emsp;|  Description     |
-    |-------------------|------------------|
-    |  interface  &emsp;|  Interface name  |
+    |  Format     |  Description     |
+    |-------------|------------------|
+    |  interface  |  Interface name  |
 `,
 			Description: `Interface used to establish connection
 
     |  Format     |  Description     |
-    |-------------------|------------------|
+    |-------------|------------------|
     |  interface  |  Interface name  |
 `,
 		},

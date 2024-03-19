@@ -35,14 +35,14 @@ func (o PolicyRouteMapRuleMatchIPNexthop) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `IP address to match
 
-    |  Format  &emsp;|  Description         |
-    |----------------|----------------------|
-    |  ipv4    &emsp;|  Nexthop IP address  |
+    |  Format  |  Description         |
+    |----------|----------------------|
+    |  ipv4    |  Nexthop IP address  |
 `,
 			Description: `IP address to match
 
     |  Format  |  Description         |
-    |----------------|----------------------|
+    |----------|----------------------|
     |  ipv4    |  Nexthop IP address  |
 `,
 		},
@@ -51,17 +51,17 @@ func (o PolicyRouteMapRuleMatchIPNexthop) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `IP access-list to match
 
-    |  Format     &emsp;|  Description                               |
-    |-------------------|--------------------------------------------|
-    |  1-99       &emsp;|  IP standard access list                   |
-    |  100-199    &emsp;|  IP extended access list                   |
-    |  1300-1999  &emsp;|  IP standard access list (expanded range)  |
-    |  2000-2699  &emsp;|  IP extended access list (expanded range)  |
+    |  Format     |  Description                               |
+    |-------------|--------------------------------------------|
+    |  1-99       |  IP standard access list                   |
+    |  100-199    |  IP extended access list                   |
+    |  1300-1999  |  IP standard access list (expanded range)  |
+    |  2000-2699  |  IP extended access list (expanded range)  |
 `,
 			Description: `IP access-list to match
 
     |  Format     |  Description                               |
-    |-------------------|--------------------------------------------|
+    |-------------|--------------------------------------------|
     |  1-99       |  IP standard access list                   |
     |  100-199    |  IP extended access list                   |
     |  1300-1999  |  IP standard access list (expanded range)  |
@@ -73,14 +73,14 @@ func (o PolicyRouteMapRuleMatchIPNexthop) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `IP prefix-length to match
 
-    |  Format  &emsp;|  Description    |
-    |----------------|-----------------|
-    |  0-32    &emsp;|  Prefix length  |
+    |  Format  |  Description    |
+    |----------|-----------------|
+    |  0-32    |  Prefix length  |
 `,
 			Description: `IP prefix-length to match
 
     |  Format  |  Description    |
-    |----------------|-----------------|
+    |----------|-----------------|
     |  0-32    |  Prefix length  |
 `,
 		},
@@ -99,14 +99,14 @@ func (o PolicyRouteMapRuleMatchIPNexthop) ResourceSchemaAttributes() map[string]
 			Optional: true,
 			MarkdownDescription: `Match type
 
-    |  Format     &emsp;|  Description  |
-    |-------------------|---------------|
-    |  blackhole  &emsp;|  Blackhole    |
+    |  Format     |  Description  |
+    |-------------|---------------|
+    |  blackhole  |  Blackhole    |
 `,
 			Description: `Match type
 
     |  Format     |  Description  |
-    |-------------------|---------------|
+    |-------------|---------------|
     |  blackhole  |  Blackhole    |
 `,
 		},

@@ -92,16 +92,16 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `IS-IS level number
 
-    |  Format     &emsp;|  Description                               |
-    |-------------------|--------------------------------------------|
-    |  level-1    &emsp;|  Act as a station router                   |
-    |  level-1-2  &emsp;|  Act as both a station and an area router  |
-    |  level-2    &emsp;|  Act as an area router                     |
+    |  Format     |  Description                               |
+    |-------------|--------------------------------------------|
+    |  level-1    |  Act as a station router                   |
+    |  level-1-2  |  Act as both a station and an area router  |
+    |  level-2    |  Act as an area router                     |
 `,
 			Description: `IS-IS level number
 
     |  Format     |  Description                               |
-    |-------------------|--------------------------------------------|
+    |-------------|--------------------------------------------|
     |  level-1    |  Act as a station router                   |
     |  level-1-2  |  Act as both a station and an area router  |
     |  level-2    |  Act as an area router                     |
@@ -124,14 +124,14 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Minimum interval between regenerating same LSP
 
-    |  Format  &emsp;|  Description                  |
-    |----------------|-------------------------------|
-    |  1-120   &emsp;|  Minimum interval in seconds  |
+    |  Format  |  Description                  |
+    |----------|-------------------------------|
+    |  1-120   |  Minimum interval in seconds  |
 `,
 			Description: `Minimum interval between regenerating same LSP
 
     |  Format  |  Description                  |
-    |----------------|-------------------------------|
+    |----------|-------------------------------|
     |  1-120   |  Minimum interval in seconds  |
 `,
 		},
@@ -140,14 +140,14 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Configure the maximum size of generated LSPs
 
-    |  Format    &emsp;|  Description                     |
-    |------------------|----------------------------------|
-    |  128-4352  &emsp;|  Maximum size of generated LSPs  |
+    |  Format    |  Description                     |
+    |------------|----------------------------------|
+    |  128-4352  |  Maximum size of generated LSPs  |
 `,
 			Description: `Configure the maximum size of generated LSPs
 
     |  Format    |  Description                     |
-    |------------------|----------------------------------|
+    |------------|----------------------------------|
     |  128-4352  |  Maximum size of generated LSPs  |
 `,
 
@@ -159,14 +159,14 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `LSP refresh interval
 
-    |  Format   &emsp;|  Description                      |
-    |-----------------|-----------------------------------|
-    |  1-65235  &emsp;|  LSP refresh interval in seconds  |
+    |  Format   |  Description                      |
+    |-----------|-----------------------------------|
+    |  1-65235  |  LSP refresh interval in seconds  |
 `,
 			Description: `LSP refresh interval
 
     |  Format   |  Description                      |
-    |-----------------|-----------------------------------|
+    |-----------|-----------------------------------|
     |  1-65235  |  LSP refresh interval in seconds  |
 `,
 		},
@@ -175,14 +175,14 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Maximum LSP lifetime
 
-    |  Format     &emsp;|  Description              |
-    |-------------------|---------------------------|
-    |  350-65535  &emsp;|  LSP lifetime in seconds  |
+    |  Format     |  Description              |
+    |-------------|---------------------------|
+    |  350-65535  |  LSP lifetime in seconds  |
 `,
 			Description: `Maximum LSP lifetime
 
     |  Format     |  Description              |
-    |-------------------|---------------------------|
+    |-------------|---------------------------|
     |  350-65535  |  LSP lifetime in seconds  |
 `,
 		},
@@ -191,16 +191,16 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Use old-style (ISO 10589) or new-style packet formats
 
-    |  Format      &emsp;|  Description                                            |
-    |--------------------|---------------------------------------------------------|
-    |  narrow      &emsp;|  Use old style of TLVs with narrow metric               |
-    |  transition  &emsp;|  Send and accept both styles of TLVs during transition  |
-    |  wide        &emsp;|  Use new style of TLVs to carry wider metric            |
+    |  Format      |  Description                                            |
+    |--------------|---------------------------------------------------------|
+    |  narrow      |  Use old style of TLVs with narrow metric               |
+    |  transition  |  Send and accept both styles of TLVs during transition  |
+    |  wide        |  Use new style of TLVs to carry wider metric            |
 `,
 			Description: `Use old-style (ISO 10589) or new-style packet formats
 
     |  Format      |  Description                                            |
-    |--------------------|---------------------------------------------------------|
+    |--------------|---------------------------------------------------------|
     |  narrow      |  Use old style of TLVs with narrow metric               |
     |  transition  |  Send and accept both styles of TLVs during transition  |
     |  wide        |  Use new style of TLVs to carry wider metric            |
@@ -211,14 +211,14 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `A Network Entity Title for this process (ISO only)
 
-    |  Format                &emsp;|  Description                 |
-    |------------------------------|------------------------------|
-    |  XX.XXXX. ... .XXX.XX  &emsp;|  Network entity title (NET)  |
+    |  Format                |  Description                 |
+    |------------------------|------------------------------|
+    |  XX.XXXX. ... .XXX.XX  |  Network entity title (NET)  |
 `,
 			Description: `A Network Entity Title for this process (ISO only)
 
     |  Format                |  Description                 |
-    |------------------------------|------------------------------|
+    |------------------------|------------------------------|
     |  XX.XXXX. ... .XXX.XX  |  Network entity title (NET)  |
 `,
 		},
@@ -263,14 +263,14 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Minimum interval between SPF calculations
 
-    |  Format  &emsp;|  Description          |
-    |----------------|-----------------------|
-    |  1-120   &emsp;|  Interval in seconds  |
+    |  Format  |  Description          |
+    |----------|-----------------------|
+    |  1-120   |  Interval in seconds  |
 `,
 			Description: `Minimum interval between SPF calculations
 
     |  Format  |  Description          |
-    |----------------|-----------------------|
+    |----------|-----------------------|
     |  1-120   |  Interval in seconds  |
 `,
 		},

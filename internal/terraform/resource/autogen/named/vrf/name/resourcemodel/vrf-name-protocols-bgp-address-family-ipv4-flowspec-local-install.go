@@ -32,14 +32,14 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourFlowspecLocalInstall) ResourceSch
 			Optional:    true,
 			MarkdownDescription: `Interface to use
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  txt     &emsp;|  Interface name  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Interface name  |
 `,
 			Description: `Interface to use
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  txt     |  Interface name  |
 `,
 		},

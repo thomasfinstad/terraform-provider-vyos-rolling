@@ -33,14 +33,14 @@ func (o PolicyRouteMapRuleOnMatch) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Rule number to goto on match
 
-    |  Format   &emsp;|  Description  |
-    |-----------------|---------------|
-    |  1-65535  &emsp;|  Rule number  |
+    |  Format   |  Description  |
+    |-----------|---------------|
+    |  1-65535  |  Rule number  |
 `,
 			Description: `Rule number to goto on match
 
     |  Format   |  Description  |
-    |-----------------|---------------|
+    |-----------|---------------|
     |  1-65535  |  Rule number  |
 `,
 		},

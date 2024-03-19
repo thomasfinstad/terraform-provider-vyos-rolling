@@ -12,36 +12,17 @@ import (
 func (r vrfNameProtocolsOspfRedistributeTable) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-Virtual Routing and Forwarding
-
-<br>
-&darr;
-<br>
+		MarkdownDescription: `Virtual Routing and Forwarding
+⯯
 Virtual Routing and Forwarding instance
-
-<br>
-&darr;
-<br>
+⯯
 Routing protocol parameters
-
-<br>
-&darr;
-<br>
+⯯
 Open Shortest Path First (OSPF)
-
-<br>
-&darr;
-<br>
+⯯
 Redistribute information from another routing protocol
-
-<br>
-&darr;
-<br>
-<b>
-Redistribute non-main Kernel Routing Table
-</b>
-</div>
+⯯
+**Redistribute non-main Kernel Routing Table**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

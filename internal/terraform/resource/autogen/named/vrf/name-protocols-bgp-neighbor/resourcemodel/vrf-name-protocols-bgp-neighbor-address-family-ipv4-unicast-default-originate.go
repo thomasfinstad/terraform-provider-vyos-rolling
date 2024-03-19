@@ -31,14 +31,14 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastDefaultOriginate) 
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  txt     &emsp;|  Route map name  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Route map name  |
 `,
 			Description: `Specify route-map name to use
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  txt     |  Route map name  |
 `,
 		},

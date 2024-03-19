@@ -119,14 +119,14 @@ func (o FirewallGroupIPvsixNetworkGroup) ResourceSchemaAttributes() map[string]s
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},
@@ -136,14 +136,14 @@ func (o FirewallGroupIPvsixNetworkGroup) ResourceSchemaAttributes() map[string]s
 			Optional:    true,
 			MarkdownDescription: `Network-group member
 
-    |  Format   &emsp;|  Description            |
-    |-----------------|-------------------------|
-    |  ipv6net  &emsp;|  IPv6 address to match  |
+    |  Format   |  Description            |
+    |-----------|-------------------------|
+    |  ipv6net  |  IPv6 address to match  |
 `,
 			Description: `Network-group member
 
     |  Format   |  Description            |
-    |-----------------|-------------------------|
+    |-----------|-------------------------|
     |  ipv6net  |  IPv6 address to match  |
 `,
 		},

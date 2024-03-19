@@ -85,16 +85,16 @@ func (o FirewallGlobalOptionsStatePolicyInvalID) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `Action for packets
 
-    |  Format  &emsp;|  Description       |
-    |----------------|--------------------|
-    |  accept  &emsp;|  Action to accept  |
-    |  drop    &emsp;|  Action to drop    |
-    |  reject  &emsp;|  Action to reject  |
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  accept  |  Action to accept  |
+    |  drop    |  Action to drop    |
+    |  reject  |  Action to reject  |
 `,
 			Description: `Action for packets
 
     |  Format  |  Description       |
-    |----------------|--------------------|
+    |----------|--------------------|
     |  accept  |  Action to accept  |
     |  drop    |  Action to drop    |
     |  reject  |  Action to reject  |
@@ -117,21 +117,21 @@ func (o FirewallGlobalOptionsStatePolicyInvalID) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `Set log-level. Log must be enable.
 
-    |  Format  &emsp;|  Description         |
-    |----------------|----------------------|
-    |  emerg   &emsp;|  Emerg log level     |
-    |  alert   &emsp;|  Alert log level     |
-    |  crit    &emsp;|  Critical log level  |
-    |  err     &emsp;|  Error log level     |
-    |  warn    &emsp;|  Warning log level   |
-    |  notice  &emsp;|  Notice log level    |
-    |  info    &emsp;|  Info log level      |
-    |  debug   &emsp;|  Debug log level     |
+    |  Format  |  Description         |
+    |----------|----------------------|
+    |  emerg   |  Emerg log level     |
+    |  alert   |  Alert log level     |
+    |  crit    |  Critical log level  |
+    |  err     |  Error log level     |
+    |  warn    |  Warning log level   |
+    |  notice  |  Notice log level    |
+    |  info    |  Info log level      |
+    |  debug   |  Debug log level     |
 `,
 			Description: `Set log-level. Log must be enable.
 
     |  Format  |  Description         |
-    |----------------|----------------------|
+    |----------|----------------------|
     |  emerg   |  Emerg log level     |
     |  alert   |  Alert log level     |
     |  crit    |  Critical log level  |

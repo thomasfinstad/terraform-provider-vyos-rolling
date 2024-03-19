@@ -33,14 +33,14 @@ func (o VrfNameProtocolsBgpParametersDistanceGlobal) ResourceSchemaAttributes() 
 			Optional: true,
 			MarkdownDescription: `Administrative distance for external BGP routes
 
-    |  Format  &emsp;|  Description                                      |
-    |----------------|---------------------------------------------------|
-    |  1-255   &emsp;|  Administrative distance for external BGP routes  |
+    |  Format  |  Description                                      |
+    |----------|---------------------------------------------------|
+    |  1-255   |  Administrative distance for external BGP routes  |
 `,
 			Description: `Administrative distance for external BGP routes
 
     |  Format  |  Description                                      |
-    |----------------|---------------------------------------------------|
+    |----------|---------------------------------------------------|
     |  1-255   |  Administrative distance for external BGP routes  |
 `,
 		},
@@ -49,14 +49,14 @@ func (o VrfNameProtocolsBgpParametersDistanceGlobal) ResourceSchemaAttributes() 
 			Optional: true,
 			MarkdownDescription: `Administrative distance for internal BGP routes
 
-    |  Format  &emsp;|  Description                                      |
-    |----------------|---------------------------------------------------|
-    |  1-255   &emsp;|  Administrative distance for internal BGP routes  |
+    |  Format  |  Description                                      |
+    |----------|---------------------------------------------------|
+    |  1-255   |  Administrative distance for internal BGP routes  |
 `,
 			Description: `Administrative distance for internal BGP routes
 
     |  Format  |  Description                                      |
-    |----------------|---------------------------------------------------|
+    |----------|---------------------------------------------------|
     |  1-255   |  Administrative distance for internal BGP routes  |
 `,
 		},
@@ -65,14 +65,14 @@ func (o VrfNameProtocolsBgpParametersDistanceGlobal) ResourceSchemaAttributes() 
 			Optional: true,
 			MarkdownDescription: `Administrative distance for local BGP routes
 
-    |  Format  &emsp;|  Description                                      |
-    |----------------|---------------------------------------------------|
-    |  1-255   &emsp;|  Administrative distance for internal BGP routes  |
+    |  Format  |  Description                                      |
+    |----------|---------------------------------------------------|
+    |  1-255   |  Administrative distance for internal BGP routes  |
 `,
 			Description: `Administrative distance for local BGP routes
 
     |  Format  |  Description                                      |
-    |----------------|---------------------------------------------------|
+    |----------|---------------------------------------------------|
     |  1-255   |  Administrative distance for internal BGP routes  |
 `,
 		},

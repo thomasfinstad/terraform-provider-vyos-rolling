@@ -110,14 +110,14 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes
 			Required: true,
 			MarkdownDescription: `VXLAN Network Identifier
 
-    |  Format      &emsp;|  Description  |
-    |--------------------|---------------|
-    |  1-16777215  &emsp;|  VNI number   |
+    |  Format      |  Description  |
+    |--------------|---------------|
+    |  1-16777215  |  VNI number   |
 `,
 			Description: `VXLAN Network Identifier
 
     |  Format      |  Description  |
-    |--------------------|---------------|
+    |--------------|---------------|
     |  1-16777215  |  VNI number   |
 `,
 			PlanModifiers: []planmodifier.Number{
@@ -129,14 +129,14 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -187,14 +187,14 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes
 			Optional: true,
 			MarkdownDescription: `Route Distinguisher
 
-    |  Format                   &emsp;|  Description                                   |
-    |---------------------------------|------------------------------------------------|
-    |  ASN:NN_OR_IP-ADDRESS:NN  &emsp;|  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  Format                   |  Description                                   |
+    |---------------------------|------------------------------------------------|
+    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 `,
 			Description: `Route Distinguisher
 
     |  Format                   |  Description                                   |
-    |---------------------------------|------------------------------------------------|
+    |---------------------------|------------------------------------------------|
     |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 `,
 		},

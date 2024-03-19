@@ -103,15 +103,15 @@ func (o VrfNameProtocolsBgpListenRange) ResourceSchemaAttributes() map[string]sc
 			Required: true,
 			MarkdownDescription: `BGP dynamic neighbors listen range
 
-    |  Format   &emsp;|  Description                          |
-    |-----------------|---------------------------------------|
-    |  ipv4net  &emsp;|  IPv4 dynamic neighbors listen range  |
-    |  ipv6net  &emsp;|  IPv6 dynamic neighbors listen range  |
+    |  Format   |  Description                          |
+    |-----------|---------------------------------------|
+    |  ipv4net  |  IPv4 dynamic neighbors listen range  |
+    |  ipv6net  |  IPv6 dynamic neighbors listen range  |
 `,
 			Description: `BGP dynamic neighbors listen range
 
     |  Format   |  Description                          |
-    |-----------------|---------------------------------------|
+    |-----------|---------------------------------------|
     |  ipv4net  |  IPv4 dynamic neighbors listen range  |
     |  ipv6net  |  IPv6 dynamic neighbors listen range  |
 `,
@@ -137,14 +137,14 @@ func (o VrfNameProtocolsBgpListenRange) ResourceSchemaAttributes() map[string]sc
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -171,14 +171,14 @@ func (o VrfNameProtocolsBgpListenRange) ResourceSchemaAttributes() map[string]sc
 			Optional: true,
 			MarkdownDescription: `Peer group for this peer
 
-    |  Format  &emsp;|  Description      |
-    |----------------|-------------------|
-    |  txt     &emsp;|  Peer-group name  |
+    |  Format  |  Description      |
+    |----------|-------------------|
+    |  txt     |  Peer-group name  |
 `,
 			Description: `Peer group for this peer
 
     |  Format  |  Description      |
-    |----------------|-------------------|
+    |----------|-------------------|
     |  txt     |  Peer-group name  |
 `,
 		},

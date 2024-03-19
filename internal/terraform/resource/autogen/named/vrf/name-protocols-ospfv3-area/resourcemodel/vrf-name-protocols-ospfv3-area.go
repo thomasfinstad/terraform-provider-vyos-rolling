@@ -104,15 +104,15 @@ func (o VrfNameProtocolsOspfvthreeArea) ResourceSchemaAttributes() map[string]sc
 			Required: true,
 			MarkdownDescription: `OSPFv3 Area
 
-    |  Format  &emsp;|  Description                  |
-    |----------------|-------------------------------|
-    |  u32     &emsp;|  Area ID as a decimal value   |
-    |  ipv4    &emsp;|  Area ID in IP address forma  |
+    |  Format  |  Description                  |
+    |----------|-------------------------------|
+    |  u32     |  Area ID as a decimal value   |
+    |  ipv4    |  Area ID in IP address forma  |
 `,
 			Description: `OSPFv3 Area
 
     |  Format  |  Description                  |
-    |----------------|-------------------------------|
+    |----------|-------------------------------|
     |  u32     |  Area ID as a decimal value   |
     |  ipv4    |  Area ID in IP address forma  |
 `,
@@ -138,14 +138,14 @@ func (o VrfNameProtocolsOspfvthreeArea) ResourceSchemaAttributes() map[string]sc
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{

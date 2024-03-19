@@ -33,14 +33,14 @@ func (o PolicyRouteMapRuleMatchIPvsixAddress) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `IPv6 access-list to match
 
-    |  Format  &emsp;|  Description            |
-    |----------------|-------------------------|
-    |  txt     &emsp;|  IPV6 access list name  |
+    |  Format  |  Description            |
+    |----------|-------------------------|
+    |  txt     |  IPV6 access list name  |
 `,
 			Description: `IPv6 access-list to match
 
     |  Format  |  Description            |
-    |----------------|-------------------------|
+    |----------|-------------------------|
     |  txt     |  IPV6 access list name  |
 `,
 		},
@@ -59,14 +59,14 @@ func (o PolicyRouteMapRuleMatchIPvsixAddress) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `IPv6 prefix-length to match (can be used for kernel routes only)
 
-    |  Format  &emsp;|  Description    |
-    |----------------|-----------------|
-    |  0-128   &emsp;|  Prefix length  |
+    |  Format  |  Description    |
+    |----------|-----------------|
+    |  0-128   |  Prefix length  |
 `,
 			Description: `IPv6 prefix-length to match (can be used for kernel routes only)
 
     |  Format  |  Description    |
-    |----------------|-----------------|
+    |----------|-----------------|
     |  0-128   |  Prefix length  |
 `,
 		},

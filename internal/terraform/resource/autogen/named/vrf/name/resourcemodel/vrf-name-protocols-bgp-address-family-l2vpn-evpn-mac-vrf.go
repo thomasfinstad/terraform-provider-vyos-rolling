@@ -31,15 +31,15 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnMacVrf) ResourceSchemaAttribu
 			Optional: true,
 			MarkdownDescription: `Site-of-Origin extended community
 
-    |  Format  &emsp;|  Description                                                               |
-    |----------------|----------------------------------------------------------------------------|
-    |  ASN:NN  &emsp;|  based on autonomous system number in format &lt;0-65535:0-4294967295&gt;  |
-    |  IP:NN   &emsp;|  Based on a router-id IP address in format &lt;IP:0-65535&gt;              |
+    |  Format  |  Description                                                         |
+    |----------|----------------------------------------------------------------------|
+    |  ASN:NN  |  based on autonomous system number in format <0-65535:0-4294967295>  |
+    |  IP:NN   |  Based on a router-id IP address in format <IP:0-65535>              |
 `,
 			Description: `Site-of-Origin extended community
 
-    |  Format  |  Description                                                               |
-    |----------------|----------------------------------------------------------------------------|
+    |  Format  |  Description                                                         |
+    |----------|----------------------------------------------------------------------|
     |  ASN:NN  |  based on autonomous system number in format <0-65535:0-4294967295>  |
     |  IP:NN   |  Based on a router-id IP address in format <IP:0-65535>              |
 `,

@@ -32,14 +32,14 @@ func (o VrfNameProtocolsBgpListen) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Maximum number of dynamic neighbors that can be created
 
-    |  Format  &emsp;|  Description         |
-    |----------------|----------------------|
-    |  1-5000  &emsp;|  BGP neighbor limit  |
+    |  Format  |  Description         |
+    |----------|----------------------|
+    |  1-5000  |  BGP neighbor limit  |
 `,
 			Description: `Maximum number of dynamic neighbors that can be created
 
     |  Format  |  Description         |
-    |----------------|----------------------|
+    |----------|----------------------|
     |  1-5000  |  BGP neighbor limit  |
 `,
 		},

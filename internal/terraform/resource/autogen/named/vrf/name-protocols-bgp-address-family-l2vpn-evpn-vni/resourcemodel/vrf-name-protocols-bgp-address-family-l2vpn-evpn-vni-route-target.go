@@ -34,14 +34,14 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget) ResourceSchem
 			Optional:    true,
 			MarkdownDescription: `Route Target both import and export
 
-    |  Format  &emsp;|  Description                                |
-    |----------------|---------------------------------------------|
-    |  txt     &emsp;|  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  |  Description                                |
+    |----------|---------------------------------------------|
+    |  txt     |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 `,
 			Description: `Route Target both import and export
 
     |  Format  |  Description                                |
-    |----------------|---------------------------------------------|
+    |----------|---------------------------------------------|
     |  txt     |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 `,
 		},
@@ -51,14 +51,14 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget) ResourceSchem
 			Optional:    true,
 			MarkdownDescription: `Route Target import
 
-    |  Format  &emsp;|  Description                                |
-    |----------------|---------------------------------------------|
-    |  txt     &emsp;|  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  |  Description                                |
+    |----------|---------------------------------------------|
+    |  txt     |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 `,
 			Description: `Route Target import
 
     |  Format  |  Description                                |
-    |----------------|---------------------------------------------|
+    |----------|---------------------------------------------|
     |  txt     |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 `,
 		},
@@ -68,14 +68,14 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget) ResourceSchem
 			Optional:    true,
 			MarkdownDescription: `Route Target export
 
-    |  Format  &emsp;|  Description                                |
-    |----------------|---------------------------------------------|
-    |  txt     &emsp;|  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  |  Description                                |
+    |----------|---------------------------------------------|
+    |  txt     |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 `,
 			Description: `Route Target export
 
     |  Format  |  Description                                |
-    |----------------|---------------------------------------------|
+    |----------|---------------------------------------------|
     |  txt     |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 `,
 		},

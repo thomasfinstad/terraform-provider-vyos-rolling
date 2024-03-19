@@ -119,14 +119,14 @@ func (o FirewallGroupPortGroup) ResourceSchemaAttributes() map[string]schema.Att
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},
@@ -136,16 +136,16 @@ func (o FirewallGroupPortGroup) ResourceSchemaAttributes() map[string]schema.Att
 			Optional:    true,
 			MarkdownDescription: `Port-group member
 
-    |  Format     &emsp;|  Description                                         |
-    |-------------------|------------------------------------------------------|
-    |  txt        &emsp;|  Named port (any name in /etc/services, e.g., http)  |
-    |  1-65535    &emsp;|  Numbered port                                       |
-    |  start-end  &emsp;|  Numbered port range (e.g. 1001-1050)                |
+    |  Format     |  Description                                         |
+    |-------------|------------------------------------------------------|
+    |  txt        |  Named port (any name in /etc/services, e.g., http)  |
+    |  1-65535    |  Numbered port                                       |
+    |  start-end  |  Numbered port range (e.g. 1001-1050)                |
 `,
 			Description: `Port-group member
 
     |  Format     |  Description                                         |
-    |-------------------|------------------------------------------------------|
+    |-------------|------------------------------------------------------|
     |  txt        |  Named port (any name in /etc/services, e.g., http)  |
     |  1-65535    |  Numbered port                                       |
     |  start-end  |  Numbered port range (e.g. 1001-1050)                |

@@ -9,12 +9,6 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider"
 )
 
-// Run "go generate" to generate the docs for the registry/website
-
-// Run the docs generation tool, check its repository for more information on how it works and how docs
-// can be customized.
-//go:generate tfplugindocs generate --provider-name vyos
-
 var (
 	// these will be set by the goreleaser configuration
 	// to appropriate values for the compiled binary.
@@ -62,6 +56,7 @@ func main() {
 //  - [ ] diagram of the makefile workflow
 
 // TODO Autogenerate CHANGELOG.md
+//  Ref: https://developer.hashicorp.com/terraform/plugin/best-practices/versioning#changelog-specification
 //  - [ ] Investigate how to add "chglog" friendly part to commit message
 //  - [ ] Add git commit messages
 //  - [ ] Autogenerate resource changes from provider-schema files

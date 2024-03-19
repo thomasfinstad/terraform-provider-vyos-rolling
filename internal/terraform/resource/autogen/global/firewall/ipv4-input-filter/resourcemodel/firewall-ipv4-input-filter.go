@@ -86,15 +86,15 @@ func (o FirewallIPvfourInputFilter) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Default-action for rule-set
 
-    |  Format  &emsp;|  Description                       |
-    |----------------|------------------------------------|
-    |  drop    &emsp;|  Drop if no prior rules are hit    |
-    |  accept  &emsp;|  Accept if no prior rules are hit  |
+    |  Format  |  Description                       |
+    |----------|------------------------------------|
+    |  drop    |  Drop if no prior rules are hit    |
+    |  accept  |  Accept if no prior rules are hit  |
 `,
 			Description: `Default-action for rule-set
 
     |  Format  |  Description                       |
-    |----------------|------------------------------------|
+    |----------|------------------------------------|
     |  drop    |  Drop if no prior rules are hit    |
     |  accept  |  Accept if no prior rules are hit  |
 `,
@@ -119,14 +119,14 @@ func (o FirewallIPvfourInputFilter) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},

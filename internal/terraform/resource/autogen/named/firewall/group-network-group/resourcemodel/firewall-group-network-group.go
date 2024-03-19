@@ -119,14 +119,14 @@ func (o FirewallGroupNetworkGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},
@@ -136,14 +136,14 @@ func (o FirewallGroupNetworkGroup) ResourceSchemaAttributes() map[string]schema.
 			Optional:    true,
 			MarkdownDescription: `Network-group member
 
-    |  Format   &emsp;|  Description           |
-    |-----------------|------------------------|
-    |  ipv4net  &emsp;|  IPv4 Subnet to match  |
+    |  Format   |  Description           |
+    |-----------|------------------------|
+    |  ipv4net  |  IPv4 Subnet to match  |
 `,
 			Description: `Network-group member
 
     |  Format   |  Description           |
-    |-----------------|------------------------|
+    |-----------|------------------------|
     |  ipv4net  |  IPv4 Subnet to match  |
 `,
 		},

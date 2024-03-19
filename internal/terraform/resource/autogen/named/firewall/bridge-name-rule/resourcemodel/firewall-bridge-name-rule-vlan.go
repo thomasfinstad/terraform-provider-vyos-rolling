@@ -32,16 +32,16 @@ func (o FirewallBrIDgeNameRuleVlan) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Vlan id
 
-    |  Format             &emsp;|  Description             |
-    |---------------------------|--------------------------|
-    |  0-4096             &emsp;|  Vlan id                 |
-    |  &lt;start-end&gt;  &emsp;|  Vlan id range to match  |
+    |  Format       |  Description             |
+    |---------------|--------------------------|
+    |  0-4096       |  Vlan id                 |
+    |  <start-end>  |  Vlan id range to match  |
 `,
 			Description: `Vlan id
 
-    |  Format             |  Description             |
-    |---------------------------|--------------------------|
-    |  0-4096             |  Vlan id                 |
+    |  Format       |  Description             |
+    |---------------|--------------------------|
+    |  0-4096       |  Vlan id                 |
     |  <start-end>  |  Vlan id range to match  |
 `,
 		},
@@ -50,16 +50,16 @@ func (o FirewallBrIDgeNameRuleVlan) ResourceSchemaAttributes() map[string]schema
 			Optional: true,
 			MarkdownDescription: `Vlan priority(pcp)
 
-    |  Format             &emsp;|  Description                   |
-    |---------------------------|--------------------------------|
-    |  0-7                &emsp;|  Vlan priority                 |
-    |  &lt;start-end&gt;  &emsp;|  Vlan priority range to match  |
+    |  Format       |  Description                   |
+    |---------------|--------------------------------|
+    |  0-7          |  Vlan priority                 |
+    |  <start-end>  |  Vlan priority range to match  |
 `,
 			Description: `Vlan priority(pcp)
 
-    |  Format             |  Description                   |
-    |---------------------------|--------------------------------|
-    |  0-7                |  Vlan priority                 |
+    |  Format       |  Description                   |
+    |---------------|--------------------------------|
+    |  0-7          |  Vlan priority                 |
     |  <start-end>  |  Vlan priority range to match  |
 `,
 		},

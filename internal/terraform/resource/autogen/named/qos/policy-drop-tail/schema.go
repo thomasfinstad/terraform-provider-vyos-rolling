@@ -12,21 +12,11 @@ import (
 func (r qosPolicyDropTail) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-Quality of Service (QoS)
-
-<br>
-&darr;
-<br>
+		MarkdownDescription: `Quality of Service (QoS)
+⯯
 Service Policy definitions
-
-<br>
-&darr;
-<br>
-<b>
-Packet limited First In, First Out queue
-</b>
-</div>
+⯯
+**Packet limited First In, First Out queue**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

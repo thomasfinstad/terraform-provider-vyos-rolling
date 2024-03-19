@@ -12,56 +12,25 @@ import (
 func (r vrfNameProtocolsIsisFastRerouteLfaLocalTiebreakerLowestBackupMetricIndex) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-Virtual Routing and Forwarding
-
-<br>
-&darr;
-<br>
+		MarkdownDescription: `Virtual Routing and Forwarding
+⯯
 Virtual Routing and Forwarding instance
-
-<br>
-&darr;
-<br>
+⯯
 Routing protocol parameters
-
-<br>
-&darr;
-<br>
+⯯
 Intermediate System to Intermediate System (IS-IS)
-
-<br>
-&darr;
-<br>
+⯯
 IS-IS fast reroute configuration
-
-<br>
-&darr;
-<br>
+⯯
 Loop free alternate functionality
-
-<br>
-&darr;
-<br>
+⯯
 Local loop free alternate options
-
-<br>
-&darr;
-<br>
+⯯
 Configure tiebreaker for multiple backups
-
-<br>
-&darr;
-<br>
+⯯
 Prefer backup path with lowest total metric
-
-<br>
-&darr;
-<br>
-<b>
-Set preference order among tiebreakers
-</b>
-</div>
+⯯
+**Set preference order among tiebreakers**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

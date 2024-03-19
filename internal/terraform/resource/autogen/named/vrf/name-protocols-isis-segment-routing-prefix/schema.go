@@ -12,36 +12,17 @@ import (
 func (r vrfNameProtocolsIsisSegmentRoutingPrefix) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-Virtual Routing and Forwarding
-
-<br>
-&darr;
-<br>
+		MarkdownDescription: `Virtual Routing and Forwarding
+⯯
 Virtual Routing and Forwarding instance
-
-<br>
-&darr;
-<br>
+⯯
 Routing protocol parameters
-
-<br>
-&darr;
-<br>
+⯯
 Intermediate System to Intermediate System (IS-IS)
-
-<br>
-&darr;
-<br>
+⯯
 Segment-Routing (SPRING) settings
-
-<br>
-&darr;
-<br>
-<b>
-Static IPv4/IPv6 prefix segment/label mapping
-</b>
-</div>
+⯯
+**Static IPv4/IPv6 prefix segment/label mapping**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

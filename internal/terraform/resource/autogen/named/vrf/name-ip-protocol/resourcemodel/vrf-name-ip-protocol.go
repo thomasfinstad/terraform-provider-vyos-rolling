@@ -99,23 +99,23 @@ func (o VrfNameIPProtocol) ResourceSchemaAttributes() map[string]schema.Attribut
 			Required: true,
 			MarkdownDescription: `Filter routing info exchanged between routing protocol and zebra
 
-    |  Format     &emsp;|  Description                                          |
-    |-------------------|-------------------------------------------------------|
-    |  any        &emsp;|  Any of the above protocols                           |
-    |  babel      &emsp;|  Babel routing protocol                               |
-    |  bgp        &emsp;|  Border Gateway Protocol                              |
-    |  connected  &emsp;|  Connected routes (directly attached subnet or host)  |
-    |  eigrp      &emsp;|  Enhanced Interior Gateway Routing Protocol           |
-    |  isis       &emsp;|  Intermediate System to Intermediate System           |
-    |  kernel     &emsp;|  Kernel routes (not installed via the zebra RIB)      |
-    |  ospf       &emsp;|  Open Shortest Path First (OSPFv2)                    |
-    |  rip        &emsp;|  Routing Information Protocol                         |
-    |  static     &emsp;|  Statically configured routes                         |
+    |  Format     |  Description                                          |
+    |-------------|-------------------------------------------------------|
+    |  any        |  Any of the above protocols                           |
+    |  babel      |  Babel routing protocol                               |
+    |  bgp        |  Border Gateway Protocol                              |
+    |  connected  |  Connected routes (directly attached subnet or host)  |
+    |  eigrp      |  Enhanced Interior Gateway Routing Protocol           |
+    |  isis       |  Intermediate System to Intermediate System           |
+    |  kernel     |  Kernel routes (not installed via the zebra RIB)      |
+    |  ospf       |  Open Shortest Path First (OSPFv2)                    |
+    |  rip        |  Routing Information Protocol                         |
+    |  static     |  Statically configured routes                         |
 `,
 			Description: `Filter routing info exchanged between routing protocol and zebra
 
     |  Format     |  Description                                          |
-    |-------------------|-------------------------------------------------------|
+    |-------------|-------------------------------------------------------|
     |  any        |  Any of the above protocols                           |
     |  babel      |  Babel routing protocol                               |
     |  bgp        |  Border Gateway Protocol                              |
@@ -149,14 +149,14 @@ func (o VrfNameIPProtocol) ResourceSchemaAttributes() map[string]schema.Attribut
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -183,14 +183,14 @@ func (o VrfNameIPProtocol) ResourceSchemaAttributes() map[string]schema.Attribut
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  txt     &emsp;|  Route map name  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Route map name  |
 `,
 			Description: `Specify route-map name to use
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  txt     |  Route map name  |
 `,
 		},

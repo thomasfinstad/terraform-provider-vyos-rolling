@@ -88,14 +88,14 @@ func (o PolicyAsPathList) ResourceSchemaAttributes() map[string]schema.Attribute
 			Required: true,
 			MarkdownDescription: `Add a BGP autonomous system path filter
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  AS path list name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  AS path list name  |
 `,
 			Description: `Add a BGP autonomous system path filter
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  AS path list name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -122,14 +122,14 @@ func (o PolicyAsPathList) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},

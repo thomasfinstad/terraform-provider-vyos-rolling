@@ -106,14 +106,14 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork) ResourceSchemaAttr
 			Required: true,
 			MarkdownDescription: `BGP network
 
-    |  Format   &emsp;|  Description        |
-    |-----------------|---------------------|
-    |  ipv6net  &emsp;|  Aggregate network  |
+    |  Format   |  Description        |
+    |-----------|---------------------|
+    |  ipv6net  |  Aggregate network  |
 `,
 			Description: `BGP network
 
     |  Format   |  Description        |
-    |-----------------|---------------------|
+    |-----------|---------------------|
     |  ipv6net  |  Aggregate network  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -138,14 +138,14 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork) ResourceSchemaAttr
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -172,14 +172,14 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork) ResourceSchemaAttr
 			Optional: true,
 			MarkdownDescription: `AS-path hopcount limit
 
-    |  Format  &emsp;|  Description              |
-    |----------------|---------------------------|
-    |  0-255   &emsp;|  AS path hop count limit  |
+    |  Format  |  Description              |
+    |----------|---------------------------|
+    |  0-255   |  AS path hop count limit  |
 `,
 			Description: `AS-path hopcount limit
 
     |  Format  |  Description              |
-    |----------------|---------------------------|
+    |----------|---------------------------|
     |  0-255   |  AS path hop count limit  |
 `,
 		},
@@ -188,14 +188,14 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork) ResourceSchemaAttr
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  txt     &emsp;|  Route map name  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Route map name  |
 `,
 			Description: `Specify route-map name to use
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  txt     |  Route map name  |
 `,
 		},

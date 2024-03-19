@@ -109,14 +109,14 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Required: true,
 			MarkdownDescription: `Class Handle
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  1-7     &emsp;|  Priority     |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  1-7     |  Priority     |
 `,
 			Description: `Class Handle
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  1-7     |  Priority     |
 `,
 			PlanModifiers: []planmodifier.Number{
@@ -128,14 +128,14 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Required: true,
 			MarkdownDescription: `Priority queuing based policy
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Policy name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Policy name  |
 `,
 			Description: `Priority queuing based policy
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Policy name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -162,14 +162,14 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},
@@ -178,14 +178,14 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Deficit in the fair queuing algorithm
 
-    |  Format     &emsp;|  Description                        |
-    |-------------------|-------------------------------------|
-    |  0-1048576  &emsp;|  Number of bytes used as 'deficit'  |
+    |  Format     |  Description                        |
+    |-------------|-------------------------------------|
+    |  0-1048576  |  Number of bytes used as 'deficit'  |
 `,
 			Description: `Deficit in the fair queuing algorithm
 
     |  Format     |  Description                        |
-    |-------------------|-------------------------------------|
+    |-------------|-------------------------------------|
     |  0-1048576  |  Number of bytes used as 'deficit'  |
 `,
 
@@ -197,14 +197,14 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Number of flows into which the incoming packets are classified
 
-    |  Format   &emsp;|  Description      |
-    |-----------------|-------------------|
-    |  1-65536  &emsp;|  Number of flows  |
+    |  Format   |  Description      |
+    |-----------|-------------------|
+    |  1-65536  |  Number of flows  |
 `,
 			Description: `Number of flows into which the incoming packets are classified
 
     |  Format   |  Description      |
-    |-----------------|-------------------|
+    |-----------|-------------------|
     |  1-65536  |  Number of flows  |
 `,
 
@@ -216,14 +216,14 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Interval used to measure the delay
 
-    |  Format  &emsp;|  Description               |
-    |----------------|----------------------------|
-    |  u32     &emsp;|  Interval in milliseconds  |
+    |  Format  |  Description               |
+    |----------|----------------------------|
+    |  u32     |  Interval in milliseconds  |
 `,
 			Description: `Interval used to measure the delay
 
     |  Format  |  Description               |
-    |----------------|----------------------------|
+    |----------|----------------------------|
     |  u32     |  Interval in milliseconds  |
 `,
 
@@ -235,14 +235,14 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
-    |  Format        &emsp;|  Description            |
-    |----------------------|-------------------------|
-    |  1-4294967295  &emsp;|  Queue size in packets  |
+    |  Format        |  Description            |
+    |----------------|-------------------------|
+    |  1-4294967295  |  Queue size in packets  |
 `,
 			Description: `Maximum queue size
 
     |  Format        |  Description            |
-    |----------------------|-------------------------|
+    |----------------|-------------------------|
     |  1-4294967295  |  Queue size in packets  |
 `,
 		},
@@ -251,18 +251,18 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Queue type for default traffic
 
-    |  Format         &emsp;|  Description                   |
-    |-----------------------|--------------------------------|
-    |  drop-tail      &emsp;|  First-In-First-Out (FIFO)     |
-    |  fair-queue     &emsp;|  Stochastic Fair Queue (SFQ)   |
-    |  fq-codel       &emsp;|  Fair Queue Codel              |
-    |  priority       &emsp;|  Priority queuing              |
-    |  random-detect  &emsp;|  Random Early Detection (RED)  |
+    |  Format         |  Description                   |
+    |-----------------|--------------------------------|
+    |  drop-tail      |  First-In-First-Out (FIFO)     |
+    |  fair-queue     |  Stochastic Fair Queue (SFQ)   |
+    |  fq-codel       |  Fair Queue Codel              |
+    |  priority       |  Priority queuing              |
+    |  random-detect  |  Random Early Detection (RED)  |
 `,
 			Description: `Queue type for default traffic
 
     |  Format         |  Description                   |
-    |-----------------------|--------------------------------|
+    |-----------------|--------------------------------|
     |  drop-tail      |  First-In-First-Out (FIFO)     |
     |  fair-queue     |  Stochastic Fair Queue (SFQ)   |
     |  fq-codel       |  Fair Queue Codel              |
@@ -278,14 +278,14 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Acceptable minimum standing/persistent queue delay
 
-    |  Format  &emsp;|  Description                  |
-    |----------------|-------------------------------|
-    |  u32     &emsp;|  Queue delay in milliseconds  |
+    |  Format  |  Description                  |
+    |----------|-------------------------------|
+    |  u32     |  Queue delay in milliseconds  |
 `,
 			Description: `Acceptable minimum standing/persistent queue delay
 
     |  Format  |  Description                  |
-    |----------------|-------------------------------|
+    |----------|-------------------------------|
     |  u32     |  Queue delay in milliseconds  |
 `,
 

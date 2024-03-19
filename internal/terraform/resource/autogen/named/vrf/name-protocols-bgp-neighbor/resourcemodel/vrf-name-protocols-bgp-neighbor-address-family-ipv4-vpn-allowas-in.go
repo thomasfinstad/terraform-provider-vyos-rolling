@@ -31,14 +31,14 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAllowasIn) ResourceSch
 			Optional: true,
 			MarkdownDescription: `Number of occurrences of AS number
 
-    |  Format  &emsp;|  Description                            |
-    |----------------|-----------------------------------------|
-    |  1-10    &emsp;|  Number of times AS is allowed in path  |
+    |  Format  |  Description                            |
+    |----------|-----------------------------------------|
+    |  1-10    |  Number of times AS is allowed in path  |
 `,
 			Description: `Number of occurrences of AS number
 
     |  Format  |  Description                            |
-    |----------------|-----------------------------------------|
+    |----------|-----------------------------------------|
     |  1-10    |  Number of times AS is allowed in path  |
 `,
 		},

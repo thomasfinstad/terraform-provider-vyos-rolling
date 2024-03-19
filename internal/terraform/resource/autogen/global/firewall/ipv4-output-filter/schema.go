@@ -14,26 +14,13 @@ func (r firewallIPvfourOutputFilter) Schema(ctx context.Context, req resource.Sc
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-	<div style="text-align: center">
-Firewall
-
-<br>
-&darr;
-<br>
+	Firewall
+⯯
 IPv4 firewall
-
-<br>
-&darr;
-<br>
+⯯
 IPv4 output firewall
-
-<br>
-&darr;
-<br>
-<b>
-IPv4 firewall output filter
-</b>
-</div>
+⯯
+**IPv4 firewall output filter**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

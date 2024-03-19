@@ -33,15 +33,15 @@ func (o PolicyRouteMapRuleSetAsPath) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Remove/exclude from the as-path attribute
 
-    |  Format        &emsp;|  Description                              |
-    |----------------------|-------------------------------------------|
-    |  1-4294967295  &emsp;|  AS number                                |
-    |  all           &emsp;|  Exclude all AS numbers from the as-path  |
+    |  Format        |  Description                              |
+    |----------------|-------------------------------------------|
+    |  1-4294967295  |  AS number                                |
+    |  all           |  Exclude all AS numbers from the as-path  |
 `,
 			Description: `Remove/exclude from the as-path attribute
 
     |  Format        |  Description                              |
-    |----------------------|-------------------------------------------|
+    |----------------|-------------------------------------------|
     |  1-4294967295  |  AS number                                |
     |  all           |  Exclude all AS numbers from the as-path  |
 `,
@@ -51,14 +51,14 @@ func (o PolicyRouteMapRuleSetAsPath) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Prepend to the as-path
 
-    |  Format        &emsp;|  Description  |
-    |----------------------|---------------|
-    |  1-4294967295  &emsp;|  AS number    |
+    |  Format        |  Description  |
+    |----------------|---------------|
+    |  1-4294967295  |  AS number    |
 `,
 			Description: `Prepend to the as-path
 
     |  Format        |  Description  |
-    |----------------------|---------------|
+    |----------------|---------------|
     |  1-4294967295  |  AS number    |
 `,
 		},
@@ -67,14 +67,14 @@ func (o PolicyRouteMapRuleSetAsPath) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Use the last AS-number in the as-path
 
-    |  Format  &emsp;|  Description                |
-    |----------------|-----------------------------|
-    |  1-10    &emsp;|  Number of times to insert  |
+    |  Format  |  Description                |
+    |----------|-----------------------------|
+    |  1-10    |  Number of times to insert  |
 `,
 			Description: `Use the last AS-number in the as-path
 
     |  Format  |  Description                |
-    |----------------|-----------------------------|
+    |----------|-----------------------------|
     |  1-10    |  Number of times to insert  |
 `,
 		},

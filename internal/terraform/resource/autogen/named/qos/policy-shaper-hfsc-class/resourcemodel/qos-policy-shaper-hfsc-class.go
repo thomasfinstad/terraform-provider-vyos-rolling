@@ -106,14 +106,14 @@ func (o QosPolicyShaperHfscClass) ResourceSchemaAttributes() map[string]schema.A
 			Required: true,
 			MarkdownDescription: `Class ID
 
-    |  Format  &emsp;|  Description       |
-    |----------------|--------------------|
-    |  1-4095  &emsp;|  Class Identifier  |
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  1-4095  |  Class Identifier  |
 `,
 			Description: `Class ID
 
     |  Format  |  Description       |
-    |----------------|--------------------|
+    |----------|--------------------|
     |  1-4095  |  Class Identifier  |
 `,
 			PlanModifiers: []planmodifier.Number{
@@ -125,14 +125,14 @@ func (o QosPolicyShaperHfscClass) ResourceSchemaAttributes() map[string]schema.A
 			Required: true,
 			MarkdownDescription: `Hierarchical Fair Service Curve's policy
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Policy name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Policy name  |
 `,
 			Description: `Hierarchical Fair Service Curve's policy
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Policy name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -159,14 +159,14 @@ func (o QosPolicyShaperHfscClass) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},

@@ -12,26 +12,13 @@ import (
 func (r firewallGroupDynamicGroupAddressGroup) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-Firewall
-
-<br>
-&darr;
-<br>
+		MarkdownDescription: `Firewall
+⯯
 Firewall group
-
-<br>
-&darr;
-<br>
+⯯
 Firewall dynamic group
-
-<br>
-&darr;
-<br>
-<b>
-Firewall dynamic address group
-</b>
-</div>
+⯯
+**Firewall dynamic address group**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

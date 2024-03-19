@@ -126,14 +126,14 @@ func (o VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSc
 			Required: true,
 			MarkdownDescription: `MD5 key id
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  1-255   &emsp;|  MD5 key id   |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  1-255   |  MD5 key id   |
 `,
 			Description: `MD5 key id
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  1-255   |  MD5 key id   |
 `,
 			PlanModifiers: []planmodifier.Number{
@@ -145,14 +145,14 @@ func (o VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSc
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -177,15 +177,15 @@ func (o VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSc
 			Required: true,
 			MarkdownDescription: `OSPF area settings
 
-    |  Format  &emsp;|  Description                                  |
-    |----------------|-----------------------------------------------|
-    |  u32     &emsp;|  OSPF area number in decimal notation         |
-    |  ipv4    &emsp;|  OSPF area number in dotted decimal notation  |
+    |  Format  |  Description                                  |
+    |----------|-----------------------------------------------|
+    |  u32     |  OSPF area number in decimal notation         |
+    |  ipv4    |  OSPF area number in dotted decimal notation  |
 `,
 			Description: `OSPF area settings
 
     |  Format  |  Description                                  |
-    |----------------|-----------------------------------------------|
+    |----------|-----------------------------------------------|
     |  u32     |  OSPF area number in decimal notation         |
     |  ipv4    |  OSPF area number in dotted decimal notation  |
 `,
@@ -211,14 +211,14 @@ func (o VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSc
 			Required: true,
 			MarkdownDescription: `Virtual link
 
-    |  Format  &emsp;|  Description                           |
-    |----------------|----------------------------------------|
-    |  ipv4    &emsp;|  OSPF area in dotted decimal notation  |
+    |  Format  |  Description                           |
+    |----------|----------------------------------------|
+    |  ipv4    |  OSPF area in dotted decimal notation  |
 `,
 			Description: `Virtual link
 
     |  Format  |  Description                           |
-    |----------------|----------------------------------------|
+    |----------|----------------------------------------|
     |  ipv4    |  OSPF area in dotted decimal notation  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -245,14 +245,14 @@ func (o VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSc
 			Optional: true,
 			MarkdownDescription: `MD5 authentication type
 
-    |  Format  &emsp;|  Description                      |
-    |----------------|-----------------------------------|
-    |  txt     &emsp;|  MD5 Key (16 characters or less)  |
+    |  Format  |  Description                      |
+    |----------|-----------------------------------|
+    |  txt     |  MD5 Key (16 characters or less)  |
 `,
 			Description: `MD5 authentication type
 
     |  Format  |  Description                      |
-    |----------------|-----------------------------------|
+    |----------|-----------------------------------|
     |  txt     |  MD5 Key (16 characters or less)  |
 `,
 		},

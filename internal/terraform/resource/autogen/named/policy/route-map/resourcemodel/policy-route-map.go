@@ -88,14 +88,14 @@ func (o PolicyRouteMap) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Required: true,
 			MarkdownDescription: `IP route-map
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  txt     &emsp;|  Route map name  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Route map name  |
 `,
 			Description: `IP route-map
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  txt     |  Route map name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -122,14 +122,14 @@ func (o PolicyRouteMap) ResourceSchemaAttributes() map[string]schema.Attribute {
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},

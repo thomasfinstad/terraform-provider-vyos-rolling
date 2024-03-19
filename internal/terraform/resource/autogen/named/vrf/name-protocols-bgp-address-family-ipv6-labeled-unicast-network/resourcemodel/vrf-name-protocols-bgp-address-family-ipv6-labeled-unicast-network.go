@@ -107,14 +107,14 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork) ResourceSch
 			Required: true,
 			MarkdownDescription: `Import BGP network/prefix into labeled unicast IPv6 RIB
 
-    |  Format   &emsp;|  Description                              |
-    |-----------------|-------------------------------------------|
-    |  ipv6net  &emsp;|  Labeled Unicast IPv6 BGP network/prefix  |
+    |  Format   |  Description                              |
+    |-----------|-------------------------------------------|
+    |  ipv6net  |  Labeled Unicast IPv6 BGP network/prefix  |
 `,
 			Description: `Import BGP network/prefix into labeled unicast IPv6 RIB
 
     |  Format   |  Description                              |
-    |-----------------|-------------------------------------------|
+    |-----------|-------------------------------------------|
     |  ipv6net  |  Labeled Unicast IPv6 BGP network/prefix  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -139,14 +139,14 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork) ResourceSch
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -185,14 +185,14 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork) ResourceSch
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  txt     &emsp;|  Route map name  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Route map name  |
 `,
 			Description: `Specify route-map name to use
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  txt     |  Route map name  |
 `,
 		},

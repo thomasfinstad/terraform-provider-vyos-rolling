@@ -122,19 +122,19 @@ func (o FirewallIPvsixName) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Default-action for rule-set
 
-    |  Format    &emsp;|  Description                                                                    |
-    |------------------|---------------------------------------------------------------------------------|
-    |  drop      &emsp;|  Drop if no prior rules are hit                                                 |
-    |  jump      &emsp;|  Jump to another chain if no prior rules are hit                                |
-    |  reject    &emsp;|  Drop and notify source if no prior rules are hit                               |
-    |  return    &emsp;|  Return from the current chain and continue at the next rule of the last chain  |
-    |  accept    &emsp;|  Accept if no prior rules are hit                                               |
-    |  continue  &emsp;|  Continue parsing next rule                                                     |
+    |  Format    |  Description                                                                    |
+    |------------|---------------------------------------------------------------------------------|
+    |  drop      |  Drop if no prior rules are hit                                                 |
+    |  jump      |  Jump to another chain if no prior rules are hit                                |
+    |  reject    |  Drop and notify source if no prior rules are hit                               |
+    |  return    |  Return from the current chain and continue at the next rule of the last chain  |
+    |  accept    |  Accept if no prior rules are hit                                               |
+    |  continue  |  Continue parsing next rule                                                     |
 `,
 			Description: `Default-action for rule-set
 
     |  Format    |  Description                                                                    |
-    |------------------|---------------------------------------------------------------------------------|
+    |------------|---------------------------------------------------------------------------------|
     |  drop      |  Drop if no prior rules are hit                                                 |
     |  jump      |  Jump to another chain if no prior rules are hit                                |
     |  reject    |  Drop and notify source if no prior rules are hit                               |
@@ -163,14 +163,14 @@ func (o FirewallIPvsixName) ResourceSchemaAttributes() map[string]schema.Attribu
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},

@@ -12,16 +12,9 @@ import (
 func (r qosInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-Quality of Service (QoS)
-
-<br>
-&darr;
-<br>
-<b>
-Interface to apply QoS policy
-</b>
-</div>
+		MarkdownDescription: `Quality of Service (QoS)
+⯯
+**Interface to apply QoS policy**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

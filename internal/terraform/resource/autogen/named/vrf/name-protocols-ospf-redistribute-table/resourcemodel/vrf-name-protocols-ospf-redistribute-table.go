@@ -106,14 +106,14 @@ func (o VrfNameProtocolsOspfRedistributeTable) ResourceSchemaAttributes() map[st
 			Required: true,
 			MarkdownDescription: `Redistribute non-main Kernel Routing Table
 
-    |  Format  &emsp;|  Description                |
-    |----------------|-----------------------------|
-    |  1-200   &emsp;|  Policy route table number  |
+    |  Format  |  Description                |
+    |----------|-----------------------------|
+    |  1-200   |  Policy route table number  |
 `,
 			Description: `Redistribute non-main Kernel Routing Table
 
     |  Format  |  Description                |
-    |----------------|-----------------------------|
+    |----------|-----------------------------|
     |  1-200   |  Policy route table number  |
 `,
 			PlanModifiers: []planmodifier.Number{
@@ -125,14 +125,14 @@ func (o VrfNameProtocolsOspfRedistributeTable) ResourceSchemaAttributes() map[st
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -159,14 +159,14 @@ func (o VrfNameProtocolsOspfRedistributeTable) ResourceSchemaAttributes() map[st
 			Optional: true,
 			MarkdownDescription: `OSPF default metric
 
-    |  Format      &emsp;|  Description     |
-    |--------------------|------------------|
-    |  0-16777214  &emsp;|  Default metric  |
+    |  Format      |  Description     |
+    |--------------|------------------|
+    |  0-16777214  |  Default metric  |
 `,
 			Description: `OSPF default metric
 
     |  Format      |  Description     |
-    |--------------------|------------------|
+    |--------------|------------------|
     |  0-16777214  |  Default metric  |
 `,
 		},
@@ -175,14 +175,14 @@ func (o VrfNameProtocolsOspfRedistributeTable) ResourceSchemaAttributes() map[st
 			Optional: true,
 			MarkdownDescription: `OSPF metric type for default routes
 
-    |  Format  &emsp;|  Description                         |
-    |----------------|--------------------------------------|
-    |  1-2     &emsp;|  Set OSPF External Type 1/2 metrics  |
+    |  Format  |  Description                         |
+    |----------|--------------------------------------|
+    |  1-2     |  Set OSPF External Type 1/2 metrics  |
 `,
 			Description: `OSPF metric type for default routes
 
     |  Format  |  Description                         |
-    |----------------|--------------------------------------|
+    |----------|--------------------------------------|
     |  1-2     |  Set OSPF External Type 1/2 metrics  |
 `,
 
@@ -194,14 +194,14 @@ func (o VrfNameProtocolsOspfRedistributeTable) ResourceSchemaAttributes() map[st
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  txt     &emsp;|  Route map name  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Route map name  |
 `,
 			Description: `Specify route-map name to use
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  txt     |  Route map name  |
 `,
 		},

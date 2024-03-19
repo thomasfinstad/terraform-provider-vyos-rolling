@@ -34,14 +34,14 @@ func (o VrfNameProtocolsOspfAreaAreaTypeNssa) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Summary-default cost of an NSSA area
 
-    |  Format      &emsp;|  Description           |
-    |--------------------|------------------------|
-    |  0-16777215  &emsp;|  Summary default cost  |
+    |  Format      |  Description           |
+    |--------------|------------------------|
+    |  0-16777215  |  Summary default cost  |
 `,
 			Description: `Summary-default cost of an NSSA area
 
     |  Format      |  Description           |
-    |--------------------|------------------------|
+    |--------------|------------------------|
     |  0-16777215  |  Summary default cost  |
 `,
 		},
@@ -62,16 +62,16 @@ func (o VrfNameProtocolsOspfAreaAreaTypeNssa) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Configure NSSA-ABR
 
-    |  Format     &emsp;|  Description                 |
-    |-------------------|------------------------------|
-    |  always     &emsp;|  Always translate LSA types  |
-    |  candidate  &emsp;|  Translate for election      |
-    |  never      &emsp;|  Never translate LSA types   |
+    |  Format     |  Description                 |
+    |-------------|------------------------------|
+    |  always     |  Always translate LSA types  |
+    |  candidate  |  Translate for election      |
+    |  never      |  Never translate LSA types   |
 `,
 			Description: `Configure NSSA-ABR
 
     |  Format     |  Description                 |
-    |-------------------|------------------------------|
+    |-------------|------------------------------|
     |  always     |  Always translate LSA types  |
     |  candidate  |  Translate for election      |
     |  never      |  Never translate LSA types   |

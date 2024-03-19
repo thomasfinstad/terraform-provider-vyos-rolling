@@ -32,14 +32,14 @@ func (o FirewallIPvsixOutputFilterRuleLimit) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Maximum number of packets to allow in excess of rate
 
-    |  Format        &emsp;|  Description                                           |
-    |----------------------|--------------------------------------------------------|
-    |  0-4294967295  &emsp;|  Maximum number of packets to allow in excess of rate  |
+    |  Format        |  Description                                           |
+    |----------------|--------------------------------------------------------|
+    |  0-4294967295  |  Maximum number of packets to allow in excess of rate  |
 `,
 			Description: `Maximum number of packets to allow in excess of rate
 
     |  Format        |  Description                                           |
-    |----------------------|--------------------------------------------------------|
+    |----------------|--------------------------------------------------------|
     |  0-4294967295  |  Maximum number of packets to allow in excess of rate  |
 `,
 		},
@@ -48,14 +48,14 @@ func (o FirewallIPvsixOutputFilterRuleLimit) ResourceSchemaAttributes() map[stri
 			Optional: true,
 			MarkdownDescription: `Maximum average matching rate
 
-    |  Format  &emsp;|  Description                       |
-    |----------------|------------------------------------|
-    |  txt     &emsp;|  integer/unit (Example: 5/minute)  |
+    |  Format  |  Description                       |
+    |----------|------------------------------------|
+    |  txt     |  integer/unit (Example: 5/minute)  |
 `,
 			Description: `Maximum average matching rate
 
     |  Format  |  Description                       |
-    |----------------|------------------------------------|
+    |----------|------------------------------------|
     |  txt     |  integer/unit (Example: 5/minute)  |
 `,
 		},

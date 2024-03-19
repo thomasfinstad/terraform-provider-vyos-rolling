@@ -53,14 +53,14 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Metric of redistributed routes
 
-    |  Format      &emsp;|  Description                     |
-    |--------------------|----------------------------------|
-    |  0-16777214  &emsp;|  Metric of redistributed routes  |
+    |  Format      |  Description                     |
+    |--------------|----------------------------------|
+    |  0-16777214  |  Metric of redistributed routes  |
 `,
 			Description: `Metric of redistributed routes
 
     |  Format      |  Description                     |
-    |--------------------|----------------------------------|
+    |--------------|----------------------------------|
     |  0-16777214  |  Metric of redistributed routes  |
 `,
 		},
@@ -69,14 +69,14 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Maximum multiple paths (ECMP)
 
-    |  Format  &emsp;|  Description                    |
-    |----------------|---------------------------------|
-    |  1-64    &emsp;|  Maximum multiple paths (ECMP)  |
+    |  Format  |  Description                    |
+    |----------|---------------------------------|
+    |  1-64    |  Maximum multiple paths (ECMP)  |
 `,
 			Description: `Maximum multiple paths (ECMP)
 
     |  Format  |  Description                    |
-    |----------------|---------------------------------|
+    |----------|---------------------------------|
     |  1-64    |  Maximum multiple paths (ECMP)  |
 `,
 		},
@@ -85,14 +85,14 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 			Optional: true,
 			MarkdownDescription: `Suppress routing updates on an interface
 
-    |  Format   &emsp;|  Description                                            |
-    |-----------------|---------------------------------------------------------|
-    |  default  &emsp;|  Default to suppress routing updates on all interfaces  |
+    |  Format   |  Description                                            |
+    |-----------|---------------------------------------------------------|
+    |  default  |  Default to suppress routing updates on all interfaces  |
 `,
 			Description: `Suppress routing updates on an interface
 
     |  Format   |  Description                                            |
-    |-----------------|---------------------------------------------------------|
+    |-----------|---------------------------------------------------------|
     |  default  |  Default to suppress routing updates on all interfaces  |
 `,
 		},

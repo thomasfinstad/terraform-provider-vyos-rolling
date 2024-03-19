@@ -117,14 +117,14 @@ func (o VrfNameProtocolsStaticRoutesixInterface) ResourceSchemaAttributes() map[
 			Required: true,
 			MarkdownDescription: `IPv6 gateway interface name
 
-    |  Format  &emsp;|  Description             |
-    |----------------|--------------------------|
-    |  txt     &emsp;|  Gateway interface name  |
+    |  Format  |  Description             |
+    |----------|--------------------------|
+    |  txt     |  Gateway interface name  |
 `,
 			Description: `IPv6 gateway interface name
 
     |  Format  |  Description             |
-    |----------------|--------------------------|
+    |----------|--------------------------|
     |  txt     |  Gateway interface name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -149,14 +149,14 @@ func (o VrfNameProtocolsStaticRoutesixInterface) ResourceSchemaAttributes() map[
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -181,14 +181,14 @@ func (o VrfNameProtocolsStaticRoutesixInterface) ResourceSchemaAttributes() map[
 			Required: true,
 			MarkdownDescription: `Static IPv6 route
 
-    |  Format   &emsp;|  Description        |
-    |-----------------|---------------------|
-    |  ipv6net  &emsp;|  IPv6 static route  |
+    |  Format   |  Description        |
+    |-----------|---------------------|
+    |  ipv6net  |  IPv6 static route  |
 `,
 			Description: `Static IPv6 route
 
     |  Format   |  Description        |
-    |-----------------|---------------------|
+    |-----------|---------------------|
     |  ipv6net  |  IPv6 static route  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -227,14 +227,14 @@ func (o VrfNameProtocolsStaticRoutesixInterface) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `Distance for this route
 
-    |  Format  &emsp;|  Description              |
-    |----------------|---------------------------|
-    |  1-255   &emsp;|  Distance for this route  |
+    |  Format  |  Description              |
+    |----------|---------------------------|
+    |  1-255   |  Distance for this route  |
 `,
 			Description: `Distance for this route
 
     |  Format  |  Description              |
-    |----------------|---------------------------|
+    |----------|---------------------------|
     |  1-255   |  Distance for this route  |
 `,
 		},
@@ -243,14 +243,14 @@ func (o VrfNameProtocolsStaticRoutesixInterface) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `SRv6 segments
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Segs (SIDs)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Segs (SIDs)  |
 `,
 			Description: `SRv6 segments
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Segs (SIDs)  |
 `,
 		},
@@ -259,14 +259,14 @@ func (o VrfNameProtocolsStaticRoutesixInterface) ResourceSchemaAttributes() map[
 			Optional: true,
 			MarkdownDescription: `VRF to leak route
 
-    |  Format  &emsp;|  Description             |
-    |----------------|--------------------------|
-    |  txt     &emsp;|  Name of VRF to leak to  |
+    |  Format  |  Description             |
+    |----------|--------------------------|
+    |  txt     |  Name of VRF to leak to  |
 `,
 			Description: `VRF to leak route
 
     |  Format  |  Description             |
-    |----------------|--------------------------|
+    |----------|--------------------------|
     |  txt     |  Name of VRF to leak to  |
 `,
 		},

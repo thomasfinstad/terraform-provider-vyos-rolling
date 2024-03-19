@@ -169,15 +169,17 @@ internal/vyos/vyosinterface/auto-package.go:  $(shell find data/vyos/interface-d
 
 	gofumpt -w ./internal/vyos/vyosinterface/*.go
 
-internal/terraform/resource/autogen/timestamp.txt: internal/vyos/vyosinterface/auto-package.go $(shell find internal/vyos/schema/interfacedefinition/ -type f) $(shell find internal/vyos/vyosinterface/ -type f) $(shell find tools/build-terraform-resource-full/ -type f)
+internal/terraform/resource/autogen/timestamp.txt: \
+													internal/vyos/vyosinterface/auto-package.go \
+													$(shell find internal/vyos/schema/interfacedefinition/ -type f) \
+													$(shell find internal/vyos/vyosinterface/ -type f) \
+													$(shell find tools/build-terraform-resource-full/ -type f)
 	# Prep dirs
-	@rm -rfv internal/terraform/resource/autogen
-	@rm -rfv docs/resources
+	rm -rf internal/terraform/resource/autogen
 	mkdir -p "internal/terraform/resource/autogen/named"
 	mkdir -p "internal/terraform/resource/autogen/global"
-	date > "internal/terraform/resource/autogen/timestamp.txt"
 
-	# Generate code
+	# Generate resources
 	go run tools/build-terraform-resource-full/main.go \
 		internal/terraform/resource/autogen \
 		$(GO_IMPORT_ROOT) \
@@ -187,13 +189,7 @@ internal/terraform/resource/autogen/timestamp.txt: internal/vyos/vyosinterface/a
 	gofumpt -w internal/terraform/resource/autogen/
 	goimports -w "./internal/terraform/resource/autogen"
 
-	# Create docs
-	go generate main.go
-	# https://github.com/hashicorp/terraform-plugin-docs/issues/156
-	for f in $$(find docs -name "*.md"); do \
-		SC=$$(basename "$$f" | cut -d_ -f1); \
-		sed -i "s|subcategory:.*|subcategory: \"$$SC\"|" "$$f"; \
-	done
+	date > "internal/terraform/resource/autogen/timestamp.txt"
 
 ## Ref: https://stackoverflow.com/a/45003119
 # problems of method 2:
@@ -224,23 +220,23 @@ endif
 test: internal/terraform/resource/autogen/timestamp.txt
 	@echo Input Args: $(INPUT_ARGS)
 	go clean -testcache
-	sleep 3
+	sleep 1
 	go test -failfast -timeout 5s ./internal/terraform/tests/... ./internal/terraform/helpers/... $(INPUT_ARGS)
 
 .PHONY: build-rolling
 build-rolling:
-	make --always-make data/vyos/rolling-iso-build.txt
+#	make --always-make data/vyos/rolling-iso-build.txt
 	make test
 
 	-rm -rf "${BIN_DIR}"
 	-mkdir -p "${BIN_DIR}/local/providers/${NAME}/${VERSION_ROLLING}/${OS_ARCH}/"
 	go build -o ${BIN_DIR}/local/providers/${NAME}/${VERSION_ROLLING}/${OS_ARCH}/${BINARY_PREFIX}${NAME} $(RUN_ARGS)
 
-.PHONY: build
-build: test
-	-rm -rf ${BIN_DIR}
-	-mkdir -p "${BIN_DIR}/local/providers/${NAME}/${VERSION}/${OS_ARCH}/"
-	go build -o ${BIN_DIR}/local/providers/${NAME}/${VERSION}/${OS_ARCH}/${BINARY_PREFIX}${NAME}
+# .PHONY: build
+# build: test
+# 	-rm -rf ${BIN_DIR}
+# 	-mkdir -p "${BIN_DIR}/local/providers/${NAME}/${VERSION}/${OS_ARCH}/"
+# 	go build -o ${BIN_DIR}/local/providers/${NAME}/${VERSION}/${OS_ARCH}/${BINARY_PREFIX}${NAME}
 
 .PHONY: clean
 clean:
@@ -261,8 +257,19 @@ provider-schema: build-rolling
 	# 	rm -v data/provider-schema/${VERSION_ROLLING}.json; \
 	# fi
 
+docs/index.md: \
+				build-rolling \
+				internal/terraform/resource/autogen/timestamp.txt \
+				$(shell find templates/ -type f)
+
+	# Prep dirs
+	rm -rf "docs/"
+
+	# Create docs
+	tfplugindocs generate
+
 .PHONY: stage
-stage: provider-schema
+stage: docs/index.md provider-schema
 	git add -A
 	-pre-commit run
 	git add -A

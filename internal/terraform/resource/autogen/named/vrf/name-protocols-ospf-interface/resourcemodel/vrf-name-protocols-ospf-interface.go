@@ -116,14 +116,14 @@ func (o VrfNameProtocolsOspfInterface) ResourceSchemaAttributes() map[string]sch
 			Required: true,
 			MarkdownDescription: `Interface configuration
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  txt     &emsp;|  Interface name  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Interface name  |
 `,
 			Description: `Interface configuration
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  txt     |  Interface name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -148,14 +148,14 @@ func (o VrfNameProtocolsOspfInterface) ResourceSchemaAttributes() map[string]sch
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -182,15 +182,15 @@ func (o VrfNameProtocolsOspfInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Enable OSPF on this interface
 
-    |  Format  &emsp;|  Description                          |
-    |----------------|---------------------------------------|
-    |  u32     &emsp;|  OSPF area ID as decimal notation     |
-    |  ipv4    &emsp;|  OSPF area ID in IP address notation  |
+    |  Format  |  Description                          |
+    |----------|---------------------------------------|
+    |  u32     |  OSPF area ID as decimal notation     |
+    |  ipv4    |  OSPF area ID in IP address notation  |
 `,
 			Description: `Enable OSPF on this interface
 
     |  Format  |  Description                          |
-    |----------------|---------------------------------------|
+    |----------|---------------------------------------|
     |  u32     |  OSPF area ID as decimal notation     |
     |  ipv4    |  OSPF area ID in IP address notation  |
 `,
@@ -200,14 +200,14 @@ func (o VrfNameProtocolsOspfInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Interval after which a neighbor is declared dead
 
-    |  Format   &emsp;|  Description                       |
-    |-----------------|------------------------------------|
-    |  1-65535  &emsp;|  Neighbor dead interval (seconds)  |
+    |  Format   |  Description                       |
+    |-----------|------------------------------------|
+    |  1-65535  |  Neighbor dead interval (seconds)  |
 `,
 			Description: `Interval after which a neighbor is declared dead
 
     |  Format   |  Description                       |
-    |-----------------|------------------------------------|
+    |-----------|------------------------------------|
     |  1-65535  |  Neighbor dead interval (seconds)  |
 `,
 
@@ -219,14 +219,14 @@ func (o VrfNameProtocolsOspfInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Interval between hello packets
 
-    |  Format   &emsp;|  Description               |
-    |-----------------|----------------------------|
-    |  1-65535  &emsp;|  Hello interval (seconds)  |
+    |  Format   |  Description               |
+    |-----------|----------------------------|
+    |  1-65535  |  Hello interval (seconds)  |
 `,
 			Description: `Interval between hello packets
 
     |  Format   |  Description               |
-    |-----------------|----------------------------|
+    |-----------|----------------------------|
     |  1-65535  |  Hello interval (seconds)  |
 `,
 
@@ -238,14 +238,14 @@ func (o VrfNameProtocolsOspfInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Interval between retransmitting lost link state advertisements
 
-    |  Format   &emsp;|  Description                    |
-    |-----------------|---------------------------------|
-    |  1-65535  &emsp;|  Retransmit interval (seconds)  |
+    |  Format   |  Description                    |
+    |-----------|---------------------------------|
+    |  1-65535  |  Retransmit interval (seconds)  |
 `,
 			Description: `Interval between retransmitting lost link state advertisements
 
     |  Format   |  Description                    |
-    |-----------------|---------------------------------|
+    |-----------|---------------------------------|
     |  1-65535  |  Retransmit interval (seconds)  |
 `,
 
@@ -257,14 +257,14 @@ func (o VrfNameProtocolsOspfInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Link state transmit delay
 
-    |  Format   &emsp;|  Description                          |
-    |-----------------|---------------------------------------|
-    |  1-65535  &emsp;|  Link state transmit delay (seconds)  |
+    |  Format   |  Description                          |
+    |-----------|---------------------------------------|
+    |  1-65535  |  Link state transmit delay (seconds)  |
 `,
 			Description: `Link state transmit delay
 
     |  Format   |  Description                          |
-    |-----------------|---------------------------------------|
+    |-----------|---------------------------------------|
     |  1-65535  |  Link state transmit delay (seconds)  |
 `,
 
@@ -276,14 +276,14 @@ func (o VrfNameProtocolsOspfInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Interface cost
 
-    |  Format   &emsp;|  Description          |
-    |-----------------|-----------------------|
-    |  1-65535  &emsp;|  OSPF interface cost  |
+    |  Format   |  Description          |
+    |-----------|-----------------------|
+    |  1-65535  |  OSPF interface cost  |
 `,
 			Description: `Interface cost
 
     |  Format   |  Description          |
-    |-----------------|-----------------------|
+    |-----------|-----------------------|
     |  1-65535  |  OSPF interface cost  |
 `,
 		},
@@ -304,14 +304,14 @@ func (o VrfNameProtocolsOspfInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Router priority
 
-    |  Format  &emsp;|  Description                |
-    |----------------|-----------------------------|
-    |  0-255   &emsp;|  OSPF router priority cost  |
+    |  Format  |  Description                |
+    |----------|-----------------------------|
+    |  0-255   |  OSPF router priority cost  |
 `,
 			Description: `Router priority
 
     |  Format  |  Description                |
-    |----------------|-----------------------------|
+    |----------|-----------------------------|
     |  0-255   |  OSPF router priority cost  |
 `,
 
@@ -323,14 +323,14 @@ func (o VrfNameProtocolsOspfInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Interface bandwidth (Mbit/s)
 
-    |  Format    &emsp;|  Description                                           |
-    |------------------|--------------------------------------------------------|
-    |  1-100000  &emsp;|  Bandwidth in Megabit/sec (for calculating OSPF cost)  |
+    |  Format    |  Description                                           |
+    |------------|--------------------------------------------------------|
+    |  1-100000  |  Bandwidth in Megabit/sec (for calculating OSPF cost)  |
 `,
 			Description: `Interface bandwidth (Mbit/s)
 
     |  Format    |  Description                                           |
-    |------------------|--------------------------------------------------------|
+    |------------|--------------------------------------------------------|
     |  1-100000  |  Bandwidth in Megabit/sec (for calculating OSPF cost)  |
 `,
 		},
@@ -339,14 +339,14 @@ func (o VrfNameProtocolsOspfInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Hello multiplier factor
 
-    |  Format  &emsp;|  Description                           |
-    |----------------|----------------------------------------|
-    |  1-10    &emsp;|  Number of Hellos to send each second  |
+    |  Format  |  Description                           |
+    |----------|----------------------------------------|
+    |  1-10    |  Number of Hellos to send each second  |
 `,
 			Description: `Hello multiplier factor
 
     |  Format  |  Description                           |
-    |----------------|----------------------------------------|
+    |----------|----------------------------------------|
     |  1-10    |  Number of Hellos to send each second  |
 `,
 		},
@@ -355,17 +355,17 @@ func (o VrfNameProtocolsOspfInterface) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Network type
 
-    |  Format               &emsp;|  Description                       |
-    |-----------------------------|------------------------------------|
-    |  broadcast            &emsp;|  Broadcast network type            |
-    |  non-broadcast        &emsp;|  Non-broadcast network type        |
-    |  point-to-multipoint  &emsp;|  Point-to-multipoint network type  |
-    |  point-to-point       &emsp;|  Point-to-point network type       |
+    |  Format               |  Description                       |
+    |-----------------------|------------------------------------|
+    |  broadcast            |  Broadcast network type            |
+    |  non-broadcast        |  Non-broadcast network type        |
+    |  point-to-multipoint  |  Point-to-multipoint network type  |
+    |  point-to-point       |  Point-to-point network type       |
 `,
 			Description: `Network type
 
     |  Format               |  Description                       |
-    |-----------------------------|------------------------------------|
+    |-----------------------|------------------------------------|
     |  broadcast            |  Broadcast network type            |
     |  non-broadcast        |  Non-broadcast network type        |
     |  point-to-multipoint  |  Point-to-multipoint network type  |

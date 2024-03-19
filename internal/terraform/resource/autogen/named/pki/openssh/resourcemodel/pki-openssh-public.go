@@ -42,14 +42,14 @@ func (o PkiOpenTCPPublic) ResourceSchemaAttributes() map[string]schema.Attribute
 			Optional: true,
 			MarkdownDescription: `SSH public key type
 
-    |  Format   &emsp;|  Description                      |
-    |-----------------|-----------------------------------|
-    |  ssh-rsa  &emsp;|  Key pair based on RSA algorithm  |
+    |  Format   |  Description                      |
+    |-----------|-----------------------------------|
+    |  ssh-rsa  |  Key pair based on RSA algorithm  |
 `,
 			Description: `SSH public key type
 
     |  Format   |  Description                      |
-    |-----------------|-----------------------------------|
+    |-----------|-----------------------------------|
     |  ssh-rsa  |  Key pair based on RSA algorithm  |
 `,
 		},

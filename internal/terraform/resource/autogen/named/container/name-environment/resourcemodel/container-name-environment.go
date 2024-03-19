@@ -151,14 +151,14 @@ func (o ContainerNameEnvironment) ResourceSchemaAttributes() map[string]schema.A
 			Optional: true,
 			MarkdownDescription: `Set environment option value
 
-    |  Format  &emsp;|  Description                   |
-    |----------------|--------------------------------|
-    |  txt     &emsp;|  Set environment option value  |
+    |  Format  |  Description                   |
+    |----------|--------------------------------|
+    |  txt     |  Set environment option value  |
 `,
 			Description: `Set environment option value
 
     |  Format  |  Description                   |
-    |----------------|--------------------------------|
+    |----------|--------------------------------|
     |  txt     |  Set environment option value  |
 `,
 		},

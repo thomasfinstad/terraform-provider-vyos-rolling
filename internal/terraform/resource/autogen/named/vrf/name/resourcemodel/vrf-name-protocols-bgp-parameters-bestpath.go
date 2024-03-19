@@ -36,16 +36,16 @@ func (o VrfNameProtocolsBgpParametersBestpath) ResourceSchemaAttributes() map[st
 			Optional: true,
 			MarkdownDescription: `Link Bandwidth attribute
 
-    |  Format                      &emsp;|  Description                                                            |
-    |------------------------------------|-------------------------------------------------------------------------|
-    |  default-weight-for-missing  &emsp;|  Assign low default weight (1) to paths not having link bandwidth       |
-    |  ignore                      &emsp;|  Ignore link bandwidth (do regular ECMP, not weighted)                  |
-    |  skip-missing                &emsp;|  Ignore paths without link bandwidth for ECMP (if other paths have it)  |
+    |  Format                      |  Description                                                            |
+    |------------------------------|-------------------------------------------------------------------------|
+    |  default-weight-for-missing  |  Assign low default weight (1) to paths not having link bandwidth       |
+    |  ignore                      |  Ignore link bandwidth (do regular ECMP, not weighted)                  |
+    |  skip-missing                |  Ignore paths without link bandwidth for ECMP (if other paths have it)  |
 `,
 			Description: `Link Bandwidth attribute
 
     |  Format                      |  Description                                                            |
-    |------------------------------------|-------------------------------------------------------------------------|
+    |------------------------------|-------------------------------------------------------------------------|
     |  default-weight-for-missing  |  Assign low default weight (1) to paths not having link bandwidth       |
     |  ignore                      |  Ignore link bandwidth (do regular ECMP, not weighted)                  |
     |  skip-missing                |  Ignore paths without link bandwidth for ECMP (if other paths have it)  |
@@ -69,15 +69,15 @@ func (o VrfNameProtocolsBgpParametersBestpath) ResourceSchemaAttributes() map[st
 			Optional:    true,
 			MarkdownDescription: `MED attribute comparison parameters
 
-    |  Format            &emsp;|  Description                                              |
-    |--------------------------|-----------------------------------------------------------|
-    |  confed            &emsp;|  Compare MEDs among confederation paths                   |
-    |  missing-as-worst  &emsp;|  Treat missing route as a MED as the least preferred one  |
+    |  Format            |  Description                                              |
+    |--------------------|-----------------------------------------------------------|
+    |  confed            |  Compare MEDs among confederation paths                   |
+    |  missing-as-worst  |  Treat missing route as a MED as the least preferred one  |
 `,
 			Description: `MED attribute comparison parameters
 
     |  Format            |  Description                                              |
-    |--------------------------|-----------------------------------------------------------|
+    |--------------------|-----------------------------------------------------------|
     |  confed            |  Compare MEDs among confederation paths                   |
     |  missing-as-worst  |  Treat missing route as a MED as the least preferred one  |
 `,

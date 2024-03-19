@@ -31,14 +31,14 @@ func (o VrfNameProtocolsIsisLdpSync) ResourceSchemaAttributes() map[string]schem
 			Optional: true,
 			MarkdownDescription: `Hold down timer for LDP-IGP cost restoration
 
-    |  Format   &emsp;|  Description                                                                                   |
-    |-----------------|------------------------------------------------------------------------------------------------|
-    |  0-10000  &emsp;|  Time to wait in seconds for LDP-IGP synchronization to occur before restoring interface cost  |
+    |  Format   |  Description                                                                                   |
+    |-----------|------------------------------------------------------------------------------------------------|
+    |  0-10000  |  Time to wait in seconds for LDP-IGP synchronization to occur before restoring interface cost  |
 `,
 			Description: `Hold down timer for LDP-IGP cost restoration
 
     |  Format   |  Description                                                                                   |
-    |-----------------|------------------------------------------------------------------------------------------------|
+    |-----------|------------------------------------------------------------------------------------------------|
     |  0-10000  |  Time to wait in seconds for LDP-IGP synchronization to occur before restoring interface cost  |
 `,
 		},

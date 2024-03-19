@@ -34,14 +34,14 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceSchemaAttributes() map[s
 			Optional: true,
 			MarkdownDescription: `Half-life time for dampening
 
-    |  Format  &emsp;|  Description                   |
-    |----------------|--------------------------------|
-    |  1-45    &emsp;|  Half-life penalty in minutes  |
+    |  Format  |  Description                   |
+    |----------|--------------------------------|
+    |  1-45    |  Half-life penalty in minutes  |
 `,
 			Description: `Half-life time for dampening
 
     |  Format  |  Description                   |
-    |----------------|--------------------------------|
+    |----------|--------------------------------|
     |  1-45    |  Half-life penalty in minutes  |
 `,
 		},
@@ -50,14 +50,14 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceSchemaAttributes() map[s
 			Optional: true,
 			MarkdownDescription: `Maximum duration to suppress a stable route
 
-    |  Format  &emsp;|  Description                           |
-    |----------------|----------------------------------------|
-    |  1-255   &emsp;|  Maximum suppress duration in minutes  |
+    |  Format  |  Description                           |
+    |----------|----------------------------------------|
+    |  1-255   |  Maximum suppress duration in minutes  |
 `,
 			Description: `Maximum duration to suppress a stable route
 
     |  Format  |  Description                           |
-    |----------------|----------------------------------------|
+    |----------|----------------------------------------|
     |  1-255   |  Maximum suppress duration in minutes  |
 `,
 		},
@@ -66,14 +66,14 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceSchemaAttributes() map[s
 			Optional: true,
 			MarkdownDescription: `Threshold to start reusing a route
 
-    |  Format   &emsp;|  Description            |
-    |-----------------|-------------------------|
-    |  1-20000  &emsp;|  Re-use penalty points  |
+    |  Format   |  Description            |
+    |-----------|-------------------------|
+    |  1-20000  |  Re-use penalty points  |
 `,
 			Description: `Threshold to start reusing a route
 
     |  Format   |  Description            |
-    |-----------------|-------------------------|
+    |-----------|-------------------------|
     |  1-20000  |  Re-use penalty points  |
 `,
 		},
@@ -82,14 +82,14 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceSchemaAttributes() map[s
 			Optional: true,
 			MarkdownDescription: `When to start suppressing a route
 
-    |  Format   &emsp;|  Description                    |
-    |-----------------|---------------------------------|
-    |  1-20000  &emsp;|  Start-suppress penalty points  |
+    |  Format   |  Description                    |
+    |-----------|---------------------------------|
+    |  1-20000  |  Start-suppress penalty points  |
 `,
 			Description: `When to start suppressing a route
 
     |  Format   |  Description                    |
-    |-----------------|---------------------------------|
+    |-----------|---------------------------------|
     |  1-20000  |  Start-suppress penalty points  |
 `,
 		},

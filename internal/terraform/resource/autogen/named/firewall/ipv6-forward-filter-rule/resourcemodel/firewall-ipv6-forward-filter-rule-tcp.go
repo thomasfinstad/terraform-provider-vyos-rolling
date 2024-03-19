@@ -32,16 +32,16 @@ func (o FirewallIPvsixForwardFilterRuleTCP) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Maximum segment size (MSS)
 
-    |  Format                   &emsp;|  Description                           |
-    |---------------------------------|----------------------------------------|
-    |  1-16384                  &emsp;|  Maximum segment size                  |
-    |  &lt;min&gt;-&lt;max&gt;  &emsp;|  TCP MSS range (use '-' as delimiter)  |
+    |  Format       |  Description                           |
+    |---------------|----------------------------------------|
+    |  1-16384      |  Maximum segment size                  |
+    |  <min>-<max>  |  TCP MSS range (use '-' as delimiter)  |
 `,
 			Description: `Maximum segment size (MSS)
 
-    |  Format                   |  Description                           |
-    |---------------------------------|----------------------------------------|
-    |  1-16384                  |  Maximum segment size                  |
+    |  Format       |  Description                           |
+    |---------------|----------------------------------------|
+    |  1-16384      |  Maximum segment size                  |
     |  <min>-<max>  |  TCP MSS range (use '-' as delimiter)  |
 `,
 		},

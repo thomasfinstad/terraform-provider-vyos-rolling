@@ -35,14 +35,14 @@ func (o PolicyRouteMapRuleSetIPvsixNextHop) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Nexthop IPv6 global address
 
-    |  Format  &emsp;|  Description                     |
-    |----------------|----------------------------------|
-    |  ipv6    &emsp;|  IPv6 address and prefix length  |
+    |  Format  |  Description                     |
+    |----------|----------------------------------|
+    |  ipv6    |  IPv6 address and prefix length  |
 `,
 			Description: `Nexthop IPv6 global address
 
     |  Format  |  Description                     |
-    |----------------|----------------------------------|
+    |----------|----------------------------------|
     |  ipv6    |  IPv6 address and prefix length  |
 `,
 		},
@@ -51,14 +51,14 @@ func (o PolicyRouteMapRuleSetIPvsixNextHop) ResourceSchemaAttributes() map[strin
 			Optional: true,
 			MarkdownDescription: `Nexthop IPv6 local address
 
-    |  Format  &emsp;|  Description                     |
-    |----------------|----------------------------------|
-    |  ipv6    &emsp;|  IPv6 address and prefix length  |
+    |  Format  |  Description                     |
+    |----------|----------------------------------|
+    |  ipv6    |  IPv6 address and prefix length  |
 `,
 			Description: `Nexthop IPv6 local address
 
     |  Format  |  Description                     |
-    |----------------|----------------------------------|
+    |----------|----------------------------------|
     |  ipv6    |  IPv6 address and prefix length  |
 `,
 		},

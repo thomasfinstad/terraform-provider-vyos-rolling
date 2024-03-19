@@ -116,14 +116,14 @@ func (o VrfNameProtocolsOspfAreaRange) ResourceSchemaAttributes() map[string]sch
 			Required: true,
 			MarkdownDescription: `Summarize routes matching a prefix (border routers only)
 
-    |  Format   &emsp;|  Description        |
-    |-----------------|---------------------|
-    |  ipv4net  &emsp;|  Area range prefix  |
+    |  Format   |  Description        |
+    |-----------|---------------------|
+    |  ipv4net  |  Area range prefix  |
 `,
 			Description: `Summarize routes matching a prefix (border routers only)
 
     |  Format   |  Description        |
-    |-----------------|---------------------|
+    |-----------|---------------------|
     |  ipv4net  |  Area range prefix  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -148,14 +148,14 @@ func (o VrfNameProtocolsOspfAreaRange) ResourceSchemaAttributes() map[string]sch
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -180,15 +180,15 @@ func (o VrfNameProtocolsOspfAreaRange) ResourceSchemaAttributes() map[string]sch
 			Required: true,
 			MarkdownDescription: `OSPF area settings
 
-    |  Format  &emsp;|  Description                                  |
-    |----------------|-----------------------------------------------|
-    |  u32     &emsp;|  OSPF area number in decimal notation         |
-    |  ipv4    &emsp;|  OSPF area number in dotted decimal notation  |
+    |  Format  |  Description                                  |
+    |----------|-----------------------------------------------|
+    |  u32     |  OSPF area number in decimal notation         |
+    |  ipv4    |  OSPF area number in dotted decimal notation  |
 `,
 			Description: `OSPF area settings
 
     |  Format  |  Description                                  |
-    |----------------|-----------------------------------------------|
+    |----------|-----------------------------------------------|
     |  u32     |  OSPF area number in decimal notation         |
     |  ipv4    |  OSPF area number in dotted decimal notation  |
 `,
@@ -216,14 +216,14 @@ func (o VrfNameProtocolsOspfAreaRange) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Metric for this range
 
-    |  Format      &emsp;|  Description            |
-    |--------------------|-------------------------|
-    |  0-16777215  &emsp;|  Metric for this range  |
+    |  Format      |  Description            |
+    |--------------|-------------------------|
+    |  0-16777215  |  Metric for this range  |
 `,
 			Description: `Metric for this range
 
     |  Format      |  Description            |
-    |--------------------|-------------------------|
+    |--------------|-------------------------|
     |  0-16777215  |  Metric for this range  |
 `,
 		},
@@ -244,14 +244,14 @@ func (o VrfNameProtocolsOspfAreaRange) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Advertise area range as another prefix
 
-    |  Format   &emsp;|  Description                             |
-    |-----------------|------------------------------------------|
-    |  ipv4net  &emsp;|  Advertise area range as another prefix  |
+    |  Format   |  Description                             |
+    |-----------|------------------------------------------|
+    |  ipv4net  |  Advertise area range as another prefix  |
 `,
 			Description: `Advertise area range as another prefix
 
     |  Format   |  Description                             |
-    |-----------------|------------------------------------------|
+    |-----------|------------------------------------------|
     |  ipv4net  |  Advertise area range as another prefix  |
 `,
 		},

@@ -32,14 +32,14 @@ func (o VrfNameProtocolsOspfGracefulRestartHelperEnable) ResourceSchemaAttribute
 			Optional:    true,
 			MarkdownDescription: `Advertising Router-ID
 
-    |  Format  &emsp;|  Description                     |
-    |----------------|----------------------------------|
-    |  ipv4    &emsp;|  Router-ID in IP address format  |
+    |  Format  |  Description                     |
+    |----------|----------------------------------|
+    |  ipv4    |  Router-ID in IP address format  |
 `,
 			Description: `Advertising Router-ID
 
     |  Format  |  Description                     |
-    |----------------|----------------------------------|
+    |----------|----------------------------------|
     |  ipv4    |  Router-ID in IP address format  |
 `,
 		},

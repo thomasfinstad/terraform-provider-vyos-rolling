@@ -101,14 +101,14 @@ func (o VrfNameProtocolsBgpInterface) ResourceSchemaAttributes() map[string]sche
 			Required: true,
 			MarkdownDescription: `Configure interface related parameters, e.g. MPLS
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  txt     &emsp;|  Interface name  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Interface name  |
 `,
 			Description: `Configure interface related parameters, e.g. MPLS
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  txt     |  Interface name  |
 `,
 			PlanModifiers: []planmodifier.String{
@@ -133,14 +133,14 @@ func (o VrfNameProtocolsBgpInterface) ResourceSchemaAttributes() map[string]sche
 			Required: true,
 			MarkdownDescription: `Virtual Routing and Forwarding instance
 
-    |  Format  &emsp;|  Description        |
-    |----------------|---------------------|
-    |  txt     &emsp;|  VRF instance name  |
+    |  Format  |  Description        |
+    |----------|---------------------|
+    |  txt     |  VRF instance name  |
 `,
 			Description: `Virtual Routing and Forwarding instance
 
     |  Format  |  Description        |
-    |----------------|---------------------|
+    |----------|---------------------|
     |  txt     |  VRF instance name  |
 `,
 			PlanModifiers: []planmodifier.String{

@@ -31,14 +31,14 @@ func (o VrfNameProtocolsBgpParametersConditionalAdvertisement) ResourceSchemaAtt
 			Optional: true,
 			MarkdownDescription: `Set period to rescan BGP table to check if condition is met
 
-    |  Format  &emsp;|  Description                                                    |
-    |----------------|-----------------------------------------------------------------|
-    |  5-240   &emsp;|  Period to rerun the conditional advertisement scanner process  |
+    |  Format  |  Description                                                    |
+    |----------|-----------------------------------------------------------------|
+    |  5-240   |  Period to rerun the conditional advertisement scanner process  |
 `,
 			Description: `Set period to rescan BGP table to check if condition is met
 
     |  Format  |  Description                                                    |
-    |----------------|-----------------------------------------------------------------|
+    |----------|-----------------------------------------------------------------|
     |  5-240   |  Period to rerun the conditional advertisement scanner process  |
 `,
 

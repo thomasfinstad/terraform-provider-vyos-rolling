@@ -37,19 +37,19 @@ func (o FirewallIPvsixOutputFilterRuleSource) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `IP address, subnet, or range
 
-    |  Format      &emsp;|  Description                                    |
-    |--------------------|-------------------------------------------------|
-    |  ipv6        &emsp;|  IP address to match                            |
-    |  ipv6net     &emsp;|  Subnet to match                                |
-    |  ipv6range   &emsp;|  IP range to match                              |
-    |  !ipv6       &emsp;|  Match everything except the specified address  |
-    |  !ipv6net    &emsp;|  Match everything except the specified prefix   |
-    |  !ipv6range  &emsp;|  Match everything except the specified range    |
+    |  Format      |  Description                                    |
+    |--------------|-------------------------------------------------|
+    |  ipv6        |  IP address to match                            |
+    |  ipv6net     |  Subnet to match                                |
+    |  ipv6range   |  IP range to match                              |
+    |  !ipv6       |  Match everything except the specified address  |
+    |  !ipv6net    |  Match everything except the specified prefix   |
+    |  !ipv6range  |  Match everything except the specified range    |
 `,
 			Description: `IP address, subnet, or range
 
     |  Format      |  Description                                    |
-    |--------------------|-------------------------------------------------|
+    |--------------|-------------------------------------------------|
     |  ipv6        |  IP address to match                            |
     |  ipv6net     |  Subnet to match                                |
     |  ipv6range   |  IP range to match                              |
@@ -63,14 +63,14 @@ func (o FirewallIPvsixOutputFilterRuleSource) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `IP mask
 
-    |  Format  &emsp;|  Description       |
-    |----------------|--------------------|
-    |  ipv6    &emsp;|  IP mask to apply  |
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  ipv6    |  IP mask to apply  |
 `,
 			Description: `IP mask
 
     |  Format  |  Description       |
-    |----------------|--------------------|
+    |----------|--------------------|
     |  ipv6    |  IP mask to apply  |
 `,
 		},
@@ -79,14 +79,14 @@ func (o FirewallIPvsixOutputFilterRuleSource) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Fully qualified domain name
 
-    |  Format        &emsp;|  Description                  |
-    |----------------------|-------------------------------|
-    |  &lt;fqdn&gt;  &emsp;|  Fully qualified domain name  |
+    |  Format  |  Description                  |
+    |----------|-------------------------------|
+    |  <fqdn>  |  Fully qualified domain name  |
 `,
 			Description: `Fully qualified domain name
 
-    |  Format        |  Description                  |
-    |----------------------|-------------------------------|
+    |  Format  |  Description                  |
+    |----------|-------------------------------|
     |  <fqdn>  |  Fully qualified domain name  |
 `,
 		},
@@ -95,15 +95,15 @@ func (o FirewallIPvsixOutputFilterRuleSource) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `MAC address
 
-    |  Format    &emsp;|  Description                                        |
-    |------------------|-----------------------------------------------------|
-    |  macaddr   &emsp;|  MAC address to match                               |
-    |  !macaddr  &emsp;|  Match everything except the specified MAC address  |
+    |  Format    |  Description                                        |
+    |------------|-----------------------------------------------------|
+    |  macaddr   |  MAC address to match                               |
+    |  !macaddr  |  Match everything except the specified MAC address  |
 `,
 			Description: `MAC address
 
     |  Format    |  Description                                        |
-    |------------------|-----------------------------------------------------|
+    |------------|-----------------------------------------------------|
     |  macaddr   |  MAC address to match                               |
     |  !macaddr  |  Match everything except the specified MAC address  |
 `,
@@ -113,21 +113,21 @@ func (o FirewallIPvsixOutputFilterRuleSource) ResourceSchemaAttributes() map[str
 			Optional: true,
 			MarkdownDescription: `Port
 
-    |  Format             &emsp;|  Description                                                                                                               |
-    |---------------------------|----------------------------------------------------------------------------------------------------------------------------|
-    |  txt                &emsp;|  Named port (any name in /etc/services, e.g., http)                                                                        |
-    |  1-65535            &emsp;|  Numbered port                                                                                                             |
-    |  &lt;start-end&gt;  &emsp;|  Numbered port range (e.g. 1001-1005)                                                                                      |
-    |                     &emsp;|  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
+    |  Format       |  Description                                                                                                               |
+    |---------------|----------------------------------------------------------------------------------------------------------------------------|
+    |  txt          |  Named port (any name in /etc/services, e.g., http)                                                                        |
+    |  1-65535      |  Numbered port                                                                                                             |
+    |  <start-end>  |  Numbered port range (e.g. 1001-1005)                                                                                      |
+    |               |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
 `,
 			Description: `Port
 
-    |  Format             |  Description                                                                                                               |
-    |---------------------------|----------------------------------------------------------------------------------------------------------------------------|
-    |  txt                |  Named port (any name in /etc/services, e.g., http)                                                                        |
-    |  1-65535            |  Numbered port                                                                                                             |
+    |  Format       |  Description                                                                                                               |
+    |---------------|----------------------------------------------------------------------------------------------------------------------------|
+    |  txt          |  Named port (any name in /etc/services, e.g., http)                                                                        |
+    |  1-65535      |  Numbered port                                                                                                             |
     |  <start-end>  |  Numbered port range (e.g. 1001-1005)                                                                                      |
-    |                     |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
+    |               |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
 `,
 		},
 

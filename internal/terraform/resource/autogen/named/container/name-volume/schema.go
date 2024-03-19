@@ -12,21 +12,11 @@ import (
 func (r containerNameVolume) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `<div style="text-align: center">
-Container applications
-
-<br>
-&darr;
-<br>
+		MarkdownDescription: `Container applications
+⯯
 Container name
-
-<br>
-&darr;
-<br>
-<b>
-Mount a volume into the container
-</b>
-</div>
+⯯
+**Mount a volume into the container**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(),
 	}

@@ -83,14 +83,14 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Route-reflector cluster-id
 
-    |  Format  &emsp;|  Description                 |
-    |----------------|------------------------------|
-    |  ipv4    &emsp;|  Route-reflector cluster-id  |
+    |  Format  |  Description                 |
+    |----------|------------------------------|
+    |  ipv4    |  Route-reflector cluster-id  |
 `,
 			Description: `Route-reflector cluster-id
 
     |  Format  |  Description                 |
-    |----------------|------------------------------|
+    |----------|------------------------------|
     |  ipv4    |  Route-reflector cluster-id  |
 `,
 		},
@@ -159,16 +159,16 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `BGP Labeled-unicast options
 
-    |  Format              &emsp;|  Description                                                 |
-    |----------------------------|--------------------------------------------------------------|
-    |  explicit-null       &emsp;|  Use explicit-null label values for all local prefixes       |
-    |  ipv4-explicit-null  &emsp;|  Use IPv4 explicit-null label value for IPv4 local prefixes  |
-    |  ipv6-explicit-null  &emsp;|  Use IPv6 explicit-null label value for IPv4 local prefixes  |
+    |  Format              |  Description                                                 |
+    |----------------------|--------------------------------------------------------------|
+    |  explicit-null       |  Use explicit-null label values for all local prefixes       |
+    |  ipv4-explicit-null  |  Use IPv4 explicit-null label value for IPv4 local prefixes  |
+    |  ipv6-explicit-null  |  Use IPv6 explicit-null label value for IPv4 local prefixes  |
 `,
 			Description: `BGP Labeled-unicast options
 
     |  Format              |  Description                                                 |
-    |----------------------------|--------------------------------------------------------------|
+    |----------------------|--------------------------------------------------------------|
     |  explicit-null       |  Use explicit-null label values for all local prefixes       |
     |  ipv4-explicit-null  |  Use IPv4 explicit-null label value for IPv4 local prefixes  |
     |  ipv6-explicit-null  |  Use IPv6 explicit-null label value for IPv4 local prefixes  |
@@ -191,14 +191,14 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `BGP minimum holdtime
 
-    |  Format   &emsp;|  Description                  |
-    |-----------------|-------------------------------|
-    |  1-65535  &emsp;|  Minimum holdtime in seconds  |
+    |  Format   |  Description                  |
+    |-----------|-------------------------------|
+    |  1-65535  |  Minimum holdtime in seconds  |
 `,
 			Description: `BGP minimum holdtime
 
     |  Format   |  Description                  |
-    |-----------------|-------------------------------|
+    |-----------|-------------------------------|
     |  1-65535  |  Minimum holdtime in seconds  |
 `,
 		},
@@ -303,14 +303,14 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 			Optional: true,
 			MarkdownDescription: `Override default router identifier
 
-    |  Format  &emsp;|  Description                     |
-    |----------------|----------------------------------|
-    |  ipv4    &emsp;|  Router-ID in IP address format  |
+    |  Format  |  Description                     |
+    |----------|----------------------------------|
+    |  ipv4    |  Router-ID in IP address format  |
 `,
 			Description: `Override default router identifier
 
     |  Format  |  Description                     |
-    |----------------|----------------------------------|
+    |----------|----------------------------------|
     |  ipv4    |  Router-ID in IP address format  |
 `,
 		},

@@ -32,14 +32,14 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected) Reso
 			Optional: true,
 			MarkdownDescription: `Metric for redistributed routes
 
-    |  Format        &emsp;|  Description                      |
-    |----------------------|-----------------------------------|
-    |  1-4294967295  &emsp;|  Metric for redistributed routes  |
+    |  Format        |  Description                      |
+    |----------------|-----------------------------------|
+    |  1-4294967295  |  Metric for redistributed routes  |
 `,
 			Description: `Metric for redistributed routes
 
     |  Format        |  Description                      |
-    |----------------------|-----------------------------------|
+    |----------------|-----------------------------------|
     |  1-4294967295  |  Metric for redistributed routes  |
 `,
 		},
@@ -48,14 +48,14 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeConnected) Reso
 			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
-    |  Format  &emsp;|  Description     |
-    |----------------|------------------|
-    |  txt     &emsp;|  Route map name  |
+    |  Format  |  Description     |
+    |----------|------------------|
+    |  txt     |  Route map name  |
 `,
 			Description: `Specify route-map name to use
 
     |  Format  |  Description     |
-    |----------------|------------------|
+    |----------|------------------|
     |  txt     |  Route map name  |
 `,
 		},

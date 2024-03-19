@@ -123,11 +123,7 @@ func (o *LeafNode) BaseNameCG() string {
 
 // Description returns the formatted description of the node, including help text
 func (o LeafNode) Description() string {
-	regexReplaceWithString := map[string]string{
-		"&emsp;": "",
-		"&lt;":   "<",
-		"&gt;":   ">",
-	}
+	regexReplaceWithString := map[string]string{}
 	ret := o.MarkdownDescription()
 	for regex, repl := range regexReplaceWithString {
 		ret = regexp.MustCompile(regex).ReplaceAllString(ret, repl)
@@ -139,10 +135,7 @@ func (o LeafNode) Description() string {
 // MarkdownDescription returns the markdown formatted description of the node, including help text
 func (o LeafNode) MarkdownDescription() string {
 	regexReplaceWithString := map[string]string{
-		`\r?\n`: "<br>",
-		`u32:`:  "",
-		"<":     "&lt;",
-		">":     "&gt;",
+		`u32:`: "",
 	}
 
 	var desc string
@@ -183,12 +176,11 @@ func (o LeafNode) MarkdownDescription() string {
 			}
 
 			// Add paded text to description
-			// the &emsp; (4 spaces) is used so the documentation render in a more readable way on the registry hosting site
-			desc += fmt.Sprintf("    |  %-*s  &emsp;|  %-*s  |\n", formatMaxLen, "Format", descriptionMaxLen, "Description") +
-				fmt.Sprintf("    |--%s--------|--%s--|\n", strings.Repeat("-", formatMaxLen), strings.Repeat("-", descriptionMaxLen))
+			desc += fmt.Sprintf("    |  %-*s  |  %-*s  |\n", formatMaxLen, "Format", descriptionMaxLen, "Description") +
+				fmt.Sprintf("    |--%s--|--%s--|\n", strings.Repeat("-", formatMaxLen), strings.Repeat("-", descriptionMaxLen))
 
 			for _, row := range valueHelp {
-				desc += fmt.Sprintf("    |  %-*s  &emsp;|  %-*s  |\n", formatMaxLen, row[0], descriptionMaxLen, row[1])
+				desc += fmt.Sprintf("    |  %-*s  |  %-*s  |\n", formatMaxLen, row[0], descriptionMaxLen, row[1])
 			}
 		}
 	}
@@ -221,23 +213,20 @@ func (o *LeafNode) AncestorDescription() string {
 
 		if p := n.GetProperties(); p != nil {
 			if h := p.Help; h != nil {
-				subdesc += fmt.Sprintf("%s\n\n", strings.Join(h, "\n<br>"))
+				subdesc += strings.Join(h, "\n")
 			} else {
-				subdesc += fmt.Sprintf("<i>%s</i>\n\n", n.BaseName())
+				subdesc += fmt.Sprintf("*%s*", n.BaseName())
 			}
 		} else {
-			subdesc += fmt.Sprintf("<i>%s</i>\n\n", n.BaseName())
+			subdesc += fmt.Sprintf("*%s*", n.BaseName())
 		}
 
-		subdesc += "<br>\n"
-		subdesc += "&darr;\n"
-		subdesc += "<br>\n"
+		subdesc += "  \n⯯  \n"
 
 		return subdesc
 	}
 
-	// Center text
-	desc := "<div style=\"text-align: center\">\n"
+	desc := ""
 
 	// Ancestors descriptions
 	if parent := o.GetParent(); parent != nil {
@@ -245,14 +234,11 @@ func (o *LeafNode) AncestorDescription() string {
 	}
 
 	// Make our own description bold
-	desc += "<b>\n"
 	if p := o.GetProperties(); p != nil {
 		if h := p.Help; h != nil {
-			desc += fmt.Sprintf("%s\n", strings.Join(h, "\n"))
+			desc += fmt.Sprintf("**%s**\n", strings.Join(h, "\n"))
 		}
 	}
-	desc += "</b>\n"
-	desc += "</div>\n"
 
 	return desc
 }

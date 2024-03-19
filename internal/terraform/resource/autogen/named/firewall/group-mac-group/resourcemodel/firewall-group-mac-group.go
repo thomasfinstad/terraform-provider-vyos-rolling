@@ -119,14 +119,14 @@ func (o FirewallGroupMacGroup) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional: true,
 			MarkdownDescription: `Description
 
-    |  Format  &emsp;|  Description  |
-    |----------------|---------------|
-    |  txt     &emsp;|  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt     |  Description  |
 `,
 			Description: `Description
 
     |  Format  |  Description  |
-    |----------------|---------------|
+    |----------|---------------|
     |  txt     |  Description  |
 `,
 		},
@@ -136,14 +136,14 @@ func (o FirewallGroupMacGroup) ResourceSchemaAttributes() map[string]schema.Attr
 			Optional:    true,
 			MarkdownDescription: `Mac-group member
 
-    |  Format   &emsp;|  Description           |
-    |-----------------|------------------------|
-    |  macaddr  &emsp;|  MAC address to match  |
+    |  Format   |  Description           |
+    |-----------|------------------------|
+    |  macaddr  |  MAC address to match  |
 `,
 			Description: `Mac-group member
 
     |  Format   |  Description           |
-    |-----------------|------------------------|
+    |-----------|------------------------|
     |  macaddr  |  MAC address to match  |
 `,
 		},
