@@ -316,7 +316,6 @@ func TestCrudDeleteGlobalResourceWithChild(t *testing.T) {
 	err := delete(ctx, providerData, client, model)
 	if err != nil {
 		t.Errorf("Delete failed: %v", err)
-		return
 	}
 
 	// Validate API calls
@@ -325,7 +324,6 @@ func TestCrudDeleteGlobalResourceWithChild(t *testing.T) {
 			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
 		}
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
-		return
 	}
 }
 
