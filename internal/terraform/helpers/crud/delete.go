@@ -3,6 +3,7 @@ package crud
 import (
 	"context"
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
@@ -51,23 +52,21 @@ func Delete(ctx context.Context, r helpers.VyosResource, req resource.DeleteRequ
 // model must be a ptr
 // this function is seperated out to keep the terraform provider
 // logic and API logic seperate so we can test the API logic easier
-// TODO add retry support to delete()
 func delete(ctx context.Context, providerCfg data.ProviderData, c client.Client, stateModel helpers.VyosTopResourceDataModel) error {
-	var vyosOps [][]string
-
 	if providerCfg.Config.CrudSkipCheckChildBeforeDelete {
 		// If we do not care about child resources we can nuke it all
-		vyosOps = helpers.GenerateVyosOps(ctx, stateModel.GetVyosPath(), nil)
+		c.StageDelete(ctx, helpers.GenerateVyosOps(ctx, stateModel.GetVyosPath(), nil))
 	} else {
-		// Check if resource has children
-		err := read(ctx, c, stateModel)
-		if err != nil {
-			return fmt.Errorf("unable to find resource: %w", err)
-		}
-
-		child, hasChild := helpers.GetChild(ctx, stateModel)
-
 		if stateModel.IsGlobalResource() {
+			// Handle global resources
+
+			// Check if resource has children
+			err := read(ctx, c, stateModel)
+			if err != nil {
+				return fmt.Errorf("unable to find resource: %w", err)
+			}
+			_, hasChild := helpers.GetChild(ctx, stateModel)
+
 			// global resources do not handle children the same way as named resources
 			if hasChild {
 				// global resources with children should remove their attributes only
@@ -75,22 +74,76 @@ func delete(ctx context.Context, providerCfg data.ProviderData, c client.Client,
 				if err != nil {
 					return fmt.Errorf("format delete operations: %w", err)
 				}
-				vyosOps = helpers.GenerateVyosOps(ctx, stateModel.GetVyosPath(), vyosData)
+				c.StageDelete(ctx, helpers.GenerateVyosOps(ctx, stateModel.GetVyosPath(), vyosData))
 			} else {
 				// global resources with no children should delete the entire resource
-				vyosOps = helpers.GenerateVyosOps(ctx, stateModel.GetVyosPath(), nil)
+				c.StageDelete(ctx, helpers.GenerateVyosOps(ctx, stateModel.GetVyosPath(), nil))
 			}
-		} else if hasChild {
-			// named resources should not delete if there is a child
-			return fmt.Errorf("child resource detected: %s", child)
 		} else {
-			// named resources with no children means we can delete the resource
-			vyosOps = helpers.GenerateVyosOps(ctx, stateModel.GetVyosPath(), nil)
+			// Handle named resources
+
+			// Check timeout before retrying
+			var lastErr error
+			boMs := 500
+			boExp := 1.04
+			boMaxS := 10.0
+			retryTotalDelay := time.Duration(0)
+			retryCnt := 0
+
+		L:
+			for {
+				select {
+				case <-ctx.Done():
+					log.Println("retry timeout reached")
+					tflog.Warn(ctx, "retry timeout reached")
+					return lastErr
+				default:
+					// Check if resource has children
+					err := read(ctx, c, stateModel)
+					if err != nil {
+						return fmt.Errorf("unable to find resource: %w", err)
+					}
+					child, hasChild := helpers.GetChild(ctx, stateModel)
+					if !hasChild {
+						// named resources with no children means we can delete the resource
+						c.StageDelete(ctx, helpers.GenerateVyosOps(ctx, stateModel.GetVyosPath(), nil))
+						break L
+					}
+
+					// named resources should not delete if there is a child
+					tflog.Warn(ctx, "child resource detected, retrying", map[string]interface{}{"child": child})
+					lastErr = fmt.Errorf("child resource detected: %s", child)
+
+					// No Deadline means we do not wish to retry
+					if _, ok := ctx.Deadline(); !ok {
+						log.Println("no retry deadline configured, disabling retry.", retryTotalDelay)
+						tflog.Warn(ctx, "no retry deadline configured, disabling retry.")
+						if lastErr != nil {
+							return lastErr
+						}
+						break L
+					}
+
+					// Wait a bit before allowing the next attempt
+					boMs = int(float64(boMs) * boExp)
+					backOff := min(
+						time.Duration(boMs)*time.Millisecond,
+						time.Duration(boMaxS)*time.Second,
+					)
+					log.Println("Total retry delay:", retryTotalDelay)
+					log.Println("Total retry count:", retryCnt)
+					log.Println("Retry delay..:", backOff)
+					tflog.Info(ctx, "delaying before next retry", map[string]interface{}{"retryTotalDelay": retryTotalDelay, "retryCnt": retryCnt, "backOff": backOff})
+					time.Sleep(backOff)
+					log.Println("Retrying...")
+					retryTotalDelay += backOff
+					retryCnt++
+				}
+			}
 		}
 	}
 
 	// Stage and Commit changes to api
-	c.StageDelete(ctx, vyosOps)
 	response, err := c.CommitChanges(ctx)
 	if err != nil {
 		return fmt.Errorf("unable to delete %s: %w", stateModel.GetVyosPath(), err)

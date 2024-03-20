@@ -1,4 +1,3 @@
-
 # Misc
 ```bash
 curl -k --location --request POST "https://$VYOS_HOST/retrieve" --form key="$VYOS_KEY" --form data='{"op":"showConfig","path": ["firewall","ipv4","name","example1"]}'&

@@ -33,7 +33,7 @@ func TestCrudCreateSuccess(t *testing.T) {
 	exchangeParentExistsCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudCreateSuccess"]}`,
 	).Response(
 		200,
 		`{
@@ -48,7 +48,7 @@ func TestCrudCreateSuccess(t *testing.T) {
 	exchangeExistingResourceCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name","rule","42"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudCreateSuccess","rule","42"]}`,
 	).Response(
 		200,
 		`{
@@ -64,10 +64,10 @@ func TestCrudCreateSuccess(t *testing.T) {
 		"/configure",
 		apiKey,
 		`[`+
-			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","action","accept"]},`+
-			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","description","Allow http outgoing traffic"]},`+
-			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","protocol","tcp"]},`+
-			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","destination","group","port-group","Web"]}`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateSuccess","rule","42","action","accept"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateSuccess","rule","42","description","Allow http outgoing traffic"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateSuccess","rule","42","protocol","tcp"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateSuccess","rule","42","destination","group","port-group","Web"]}`+
 			`]`,
 	).Response(
 		200,
@@ -80,7 +80,7 @@ func TestCrudCreateSuccess(t *testing.T) {
 
 	// From resource model
 	model := &resourcemodel.FirewallIPvfourNameRule{
-		ParentIDFirewallIPvfourName: basetypes.NewStringValue("Test-Fw-Name"),
+		ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateSuccess"),
 		SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
 
 		LeafFirewallIPvfourNameRuleAction:      basetypes.NewStringValue("accept"),
@@ -113,9 +113,7 @@ func TestCrudCreateSuccess(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		for _, e := range eList.Unmatched() {
-			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
-		}
+		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
 	}
 }
@@ -133,7 +131,7 @@ func TestCrudCreateResourceAlreadyExsitsFailure(t *testing.T) {
 	exchangeParentExistsCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExsitsFailure"]}`,
 	).Response(
 		200,
 		`{
@@ -148,7 +146,7 @@ func TestCrudCreateResourceAlreadyExsitsFailure(t *testing.T) {
 	exchangeExistingResourceCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name","rule","42"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExsitsFailure","rule","42"]}`,
 	).Response(
 		200,
 		`{
@@ -160,7 +158,7 @@ func TestCrudCreateResourceAlreadyExsitsFailure(t *testing.T) {
 
 	// From resource model
 	model := &resourcemodel.FirewallIPvfourNameRule{
-		ParentIDFirewallIPvfourName: basetypes.NewStringValue("Test-Fw-Name"),
+		ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateResourceAlreadyExsitsFailure"),
 		SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
 
 		LeafFirewallIPvfourNameRuleAction:      basetypes.NewStringValue("accept"),
@@ -193,9 +191,7 @@ func TestCrudCreateResourceAlreadyExsitsFailure(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		for _, e := range eList.Unmatched() {
-			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
-		}
+		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
 	}
 }
@@ -213,7 +209,7 @@ func TestCrudCreateResourceAlreadyExsitsIgnore(t *testing.T) {
 	exchangeParentExistsCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExsitsIgnore"]}`,
 	).Response(
 		200,
 		`{
@@ -229,10 +225,10 @@ func TestCrudCreateResourceAlreadyExsitsIgnore(t *testing.T) {
 		"/configure",
 		apiKey,
 		`[`+
-			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","action","accept"]},`+
-			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","description","Allow http outgoing traffic"]},`+
-			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","protocol","tcp"]},`+
-			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","destination","group","port-group","Web"]}`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExsitsIgnore","rule","42","action","accept"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExsitsIgnore","rule","42","description","Allow http outgoing traffic"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExsitsIgnore","rule","42","protocol","tcp"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExsitsIgnore","rule","42","destination","group","port-group","Web"]}`+
 			`]`,
 	).Response(
 		200,
@@ -245,7 +241,7 @@ func TestCrudCreateResourceAlreadyExsitsIgnore(t *testing.T) {
 
 	// From resource model
 	model := &resourcemodel.FirewallIPvfourNameRule{
-		ParentIDFirewallIPvfourName: basetypes.NewStringValue("Test-Fw-Name"),
+		ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateResourceAlreadyExsitsIgnore"),
 		SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
 
 		LeafFirewallIPvfourNameRuleAction:      basetypes.NewStringValue("accept"),
@@ -279,9 +275,7 @@ func TestCrudCreateResourceAlreadyExsitsIgnore(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		for _, e := range eList.Unmatched() {
-			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
-		}
+		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
 	}
 }
@@ -301,7 +295,7 @@ func TestCrudCreateResourceParentMissingFailure(t *testing.T) {
 	exchangeParentExistsCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudCreateResourceParentMissingFailure"]}`,
 	).Response(
 		200,
 		`{
@@ -313,7 +307,7 @@ func TestCrudCreateResourceParentMissingFailure(t *testing.T) {
 
 	// From resource model
 	model := &resourcemodel.FirewallIPvfourNameRule{
-		ParentIDFirewallIPvfourName: basetypes.NewStringValue("Test-Fw-Name"),
+		ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateResourceParentMissingFailure"),
 		SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
 
 		LeafFirewallIPvfourNameRuleAction:      basetypes.NewStringValue("accept"),
@@ -346,9 +340,7 @@ func TestCrudCreateResourceParentMissingFailure(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		for _, e := range eList.Unmatched() {
-			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
-		}
+		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
 	}
 }
@@ -368,7 +360,7 @@ func TestCrudCreateResourceParentMissingIgnore(t *testing.T) {
 	exchangeExistingResourceCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name","rule","42"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudCreateResourceParentMissingIgnore","rule","42"]}`,
 	).Response(
 		200,
 		`{
@@ -384,10 +376,10 @@ func TestCrudCreateResourceParentMissingIgnore(t *testing.T) {
 		"/configure",
 		apiKey,
 		`[`+
-			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","action","accept"]},`+
-			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","description","Allow http outgoing traffic"]},`+
-			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","protocol","tcp"]},`+
-			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","destination","group","port-group","Web"]}`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateResourceParentMissingIgnore","rule","42","action","accept"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateResourceParentMissingIgnore","rule","42","description","Allow http outgoing traffic"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateResourceParentMissingIgnore","rule","42","protocol","tcp"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateResourceParentMissingIgnore","rule","42","destination","group","port-group","Web"]}`+
 			`]`,
 	).Response(
 		200,
@@ -400,7 +392,7 @@ func TestCrudCreateResourceParentMissingIgnore(t *testing.T) {
 
 	// From resource model
 	model := &resourcemodel.FirewallIPvfourNameRule{
-		ParentIDFirewallIPvfourName: basetypes.NewStringValue("Test-Fw-Name"),
+		ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateResourceParentMissingIgnore"),
 		SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
 
 		LeafFirewallIPvfourNameRuleAction:      basetypes.NewStringValue("accept"),
@@ -434,9 +426,7 @@ func TestCrudCreateResourceParentMissingIgnore(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		for _, e := range eList.Unmatched() {
-			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
-		}
+		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
 	}
 }
@@ -454,7 +444,7 @@ func TestCrudCreateTimeoutSuccess(t *testing.T) {
 	exchangeParentExistsCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudCreateTimeoutSuccess"]}`,
 	).Response(
 		200,
 		`{
@@ -469,7 +459,7 @@ func TestCrudCreateTimeoutSuccess(t *testing.T) {
 	exchangeExistingResourceCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name","rule","42"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudCreateTimeoutSuccess","rule","42"]}`,
 	).Response(
 		200,
 		`{
@@ -485,10 +475,10 @@ func TestCrudCreateTimeoutSuccess(t *testing.T) {
 		"/configure",
 		apiKey,
 		`[`+
-			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","action","accept"]},`+
-			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","description","Allow http outgoing traffic"]},`+
-			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","protocol","tcp"]},`+
-			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","destination","group","port-group","Web"]}`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateTimeoutSuccess","rule","42","action","accept"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateTimeoutSuccess","rule","42","description","Allow http outgoing traffic"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateTimeoutSuccess","rule","42","protocol","tcp"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateTimeoutSuccess","rule","42","destination","group","port-group","Web"]}`+
 			`]`,
 	).Response(
 		200,
@@ -519,7 +509,7 @@ func TestCrudCreateTimeoutSuccess(t *testing.T) {
 			),
 		},
 
-		ParentIDFirewallIPvfourName: basetypes.NewStringValue("Test-Fw-Name"),
+		ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateTimeoutSuccess"),
 		SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
 
 		LeafFirewallIPvfourNameRuleAction:      basetypes.NewStringValue("accept"),
@@ -560,9 +550,7 @@ func TestCrudCreateTimeoutSuccess(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		for _, e := range eList.Unmatched() {
-			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
-		}
+		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
 	}
 }
@@ -580,7 +568,7 @@ func TestCrudCreateTimeoutFailure(t *testing.T) {
 	exchangeParentExistsCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudCreateTimeoutFailure"]}`,
 	).Response(
 		200,
 		`{
@@ -595,7 +583,7 @@ func TestCrudCreateTimeoutFailure(t *testing.T) {
 	exchangeExistingResourceCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"exists","path":["firewall","ipv4","name","Test-Fw-Name","rule","42"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudCreateTimeoutFailure","rule","42"]}`,
 	).Response(
 		200,
 		`{
@@ -611,10 +599,10 @@ func TestCrudCreateTimeoutFailure(t *testing.T) {
 		"/configure",
 		apiKey,
 		`[`+
-			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","action","accept"]},`+
-			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","description","Allow http outgoing traffic"]},`+
-			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","protocol","tcp"]},`+
-			`{"op":"set","path":["firewall","ipv4","name","Test-Fw-Name","rule","42","destination","group","port-group","Web"]}`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateTimeoutFailure","rule","42","action","accept"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateTimeoutFailure","rule","42","description","Allow http outgoing traffic"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateTimeoutFailure","rule","42","protocol","tcp"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateTimeoutFailure","rule","42","destination","group","port-group","Web"]}`+
 			`]`,
 	).Response(
 		200,
@@ -649,7 +637,7 @@ func TestCrudCreateTimeoutFailure(t *testing.T) {
 		// 	),
 		// },
 
-		ParentIDFirewallIPvfourName: basetypes.NewStringValue("Test-Fw-Name"),
+		ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateTimeoutFailure"),
 		SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
 
 		LeafFirewallIPvfourNameRuleAction:      basetypes.NewStringValue("accept"),
@@ -692,4 +680,120 @@ func TestCrudCreateTimeoutFailure(t *testing.T) {
 	}
 }
 
-// TODO test retry support to create()
+// TestCrudCreateRetrySuccess test CRUD helper: Create
+//
+// Default situation where we attempt to create a resource where the parent exists,
+// but the resource is in the process of being destroyed so we must wait and retry
+// until the resource has been removed so we can re-create it
+func TestCrudCreateRetrySuccess(t *testing.T) {
+	// API mocking
+	eList := api.NewExchangeList()
+	apiKey := "test-key"
+
+	// Parent check API call
+	exchangeParentExistsCheck := eList.Add()
+	exchangeParentExistsCheck.Expect(
+		"/retrieve",
+		apiKey,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudCreateRetrySuccess"]}`,
+	).Response(
+		200,
+		`{
+			"success": true,
+			"data": true,
+			"error": null
+		}`,
+	)
+
+	// Self check API call: before remove x3
+	for range 3 {
+		exchangeExistingResourceCheckBefore := eList.Add()
+		exchangeExistingResourceCheckBefore.Expect(
+			"/retrieve",
+			apiKey,
+			`{"op":"exists","path":["firewall","ipv4","name","TestCrudCreateRetrySuccess","rule","42"]}`,
+		).Response(
+			200,
+			`{
+			"success": true,
+			"data": true,
+			"error": null
+		}`,
+		)
+	}
+
+	// Self check API call: after remove
+	exchangeExistingResourceCheckAfter := eList.Add()
+	exchangeExistingResourceCheckAfter.Expect(
+		"/retrieve",
+		apiKey,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudCreateRetrySuccess","rule","42"]}`,
+	).Response(
+		200,
+		`{
+			"success": true,
+			"data": false,
+			"error": null
+		}`,
+	)
+
+	// Create resource API call
+	exchangeCreateResource := eList.Add()
+	exchangeCreateResource.Expect(
+		"/configure",
+		apiKey,
+		`[`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateRetrySuccess","rule","42","action","accept"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateRetrySuccess","rule","42","description","Allow http outgoing traffic"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateRetrySuccess","rule","42","protocol","tcp"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateRetrySuccess","rule","42","destination","group","port-group","Web"]}`+
+			`]`,
+	).Response(
+		200,
+		`{
+			"success": true,
+			"data": null,
+			"error": null
+		}`,
+	)
+
+	// From resource model
+	model := &resourcemodel.FirewallIPvfourNameRule{
+		ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateRetrySuccess"),
+		SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
+
+		LeafFirewallIPvfourNameRuleAction:      basetypes.NewStringValue("accept"),
+		LeafFirewallIPvfourNameRuleDescrIPtion: basetypes.NewStringValue("Allow http outgoing traffic"),
+		NodeFirewallIPvfourNameRuleDestination: &resourcemodel.FirewallIPvfourNameRuleDestination{
+			NodeFirewallIPvfourNameRuleDestinationGroup: &resourcemodel.FirewallIPvfourNameRuleDestinationGroup{
+				LeafFirewallIPvfourNameRuleDestinationGroupPortGroup: basetypes.NewStringValue("Web"),
+			},
+		},
+		LeafFirewallIPvfourNameRuleProtocol: basetypes.NewStringValue("tcp"),
+	}
+
+	// Server
+	apiAddress := "localhost:50001"
+	srv := &http.Server{
+		Addr: apiAddress,
+	}
+	api.Server(srv, eList)
+
+	// Client
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
+	providerData := data.NewProviderData(client)
+
+	// Execute test
+	err := create(ctx, providerData, client, model)
+	if err != nil {
+		t.Errorf("Create failed: %v", err)
+	}
+
+	// Validate API calls
+	if len(eList.Unmatched()) > 0 {
+		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+	}
+}

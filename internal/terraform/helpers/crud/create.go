@@ -3,6 +3,7 @@ package crud
 import (
 	"context"
 	"fmt"
+	"log"
 	"strings"
 	"time"
 
@@ -67,30 +68,56 @@ func create(ctx context.Context, providerCfg data.ProviderData, c client.Client,
 	if !providerCfg.Config.CrudSkipCheckParentBeforeCreate && (len(planModel.GetVyosNamedParentPath()) > 0) {
 		tflog.Debug(ctx, fmt.Sprintf("checking for parent: '%s'", planModel.GetVyosNamedParentPath()))
 
+		// Check timeout before retrying
 		var lastErr error
+		boMs := 500
+		boExp := 1.04
+		boMaxS := 10.0
+		retryTotalDelay := time.Duration(0)
+		retryCnt := 0
 	PL:
 		for {
-			parentExists, err := c.Has(ctx, planModel.GetVyosNamedParentPath())
-			if parentExists {
-				break
-			} else {
-				tflog.Warn(ctx, "parent resource missing, retrying in 3 seconds", map[string]interface{}{"resource": planModel.GetVyosPath()})
-				lastErr = fmt.Errorf("parent resource missing: '%s': ", planModel.GetVyosNamedParentPath())
-			}
 			select {
 			case <-ctx.Done():
+				log.Println("retry timeout reached")
+				tflog.Warn(ctx, "retry timeout reached")
 				return lastErr
 			default:
+				parentExists, err := c.Has(ctx, planModel.GetVyosNamedParentPath())
 				if err != nil {
 					return fmt.Errorf("parent check error for: '%s': %w", planModel.GetVyosNamedParentPath(), err)
 				}
-				if dl, ok := ctx.Deadline(); ok {
-					time.Sleep(
-						min(time.Until(dl)/10, 1.0),
-					)
+
+				if parentExists {
+					break PL
 				} else {
+					tflog.Warn(ctx, "parent resource missing, retrying", map[string]interface{}{"resource": planModel.GetVyosPath()})
+					lastErr = fmt.Errorf("parent resource missing: '%s': ", planModel.GetVyosNamedParentPath())
+				}
+
+				// No Deadline means we do not wish to retry
+				if _, ok := ctx.Deadline(); !ok {
+					log.Println("no retry deadline configured, disabling retry.", retryTotalDelay)
+					tflog.Warn(ctx, "no retry deadline configured, disabling retry.")
+					if lastErr != nil {
+						return lastErr
+					}
 					break PL
 				}
+
+				// Wait a bit before allowing the next attempt
+				boMs = int(float64(boMs) * boExp)
+				backOff := min(
+					time.Duration(boMs)*time.Millisecond,
+					time.Duration(boMaxS)*time.Second,
+				)
+				log.Println("Total retry delay:", retryTotalDelay)
+				log.Println("Total retry count:", retryCnt)
+				log.Println("Retry delay:", backOff)
+				tflog.Info(ctx, "delaying before next retry", map[string]interface{}{"retryTotalDelay": retryTotalDelay, "retryCnt": retryCnt, "backOff": backOff})
+				time.Sleep(backOff)
+				retryTotalDelay += backOff
+				retryCnt++
 			}
 		}
 	}
@@ -99,30 +126,55 @@ func create(ctx context.Context, providerCfg data.ProviderData, c client.Client,
 	if !providerCfg.Config.CrudSkipExistingResourceCheck {
 		tflog.Debug(ctx, fmt.Sprintf("checking for existing resource: '%s'", planModel.GetVyosPath()))
 
+		// Check timeout before retrying
 		var lastErr error
+		boMs := 500
+		boExp := 1.04
+		boMaxS := 10.0
+		retryTotalDelay := time.Duration(0)
+		retryCnt := 0
 	EL:
 		for {
-			resourceExists, err := c.Has(ctx, planModel.GetVyosPath())
-			if !resourceExists {
-				break
-			} else {
-				tflog.Warn(ctx, "resource already exists, retrying in 3 seconds", map[string]interface{}{"resource": planModel.GetVyosPath()})
-				lastErr = fmt.Errorf("resource already exists: '%s'", strings.Join(planModel.GetVyosPath(), " "))
-			}
 			select {
 			case <-ctx.Done():
+				log.Println("retry timeout reached")
+				tflog.Warn(ctx, "retry timeout reached")
 				return lastErr
 			default:
+				resourceExists, err := c.Has(ctx, planModel.GetVyosPath())
+				if !resourceExists {
+					break EL
+				} else {
+					tflog.Warn(ctx, "resource already exists, retrying", map[string]interface{}{"resource": planModel.GetVyosPath()})
+					lastErr = fmt.Errorf("resource already exists: '%s'", strings.Join(planModel.GetVyosPath(), " "))
+				}
 				if err != nil {
 					return fmt.Errorf("resource check error for: '%s': %w", planModel.GetVyosNamedParentPath(), err)
 				}
-				if dl, ok := ctx.Deadline(); ok {
-					time.Sleep(
-						min(time.Until(dl)/10, 1.0),
-					)
-				} else {
+
+				// No Deadline means we do not wish to retry
+				if _, ok := ctx.Deadline(); !ok {
+					log.Println("no retry deadline configured, disabling retry.", retryTotalDelay)
+					tflog.Warn(ctx, "no retry deadline configured, disabling retry.")
+					if lastErr != nil {
+						return lastErr
+					}
 					break EL
 				}
+
+				// Wait a bit before allowing the next attempt
+				boMs = int(float64(boMs) * boExp)
+				backOff := min(
+					time.Duration(boMs)*time.Millisecond,
+					time.Duration(boMaxS)*time.Second,
+				)
+				log.Println("Total retry delay:", retryTotalDelay)
+				log.Println("Total retry count:", retryCnt)
+				log.Println("Retry delay:", backOff)
+				tflog.Info(ctx, "delaying before next retry", map[string]interface{}{"retryTotalDelay": retryTotalDelay, "retryCnt": retryCnt, "backOff": backOff})
+				time.Sleep(backOff)
+				retryTotalDelay += backOff
+				retryCnt++
 			}
 		}
 	}

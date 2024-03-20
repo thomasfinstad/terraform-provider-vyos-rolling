@@ -219,8 +219,12 @@ endif
 .PHONY: test
 test: internal/terraform/resource/autogen/timestamp.txt
 	@echo Input Args: $(INPUT_ARGS)
-	go clean -testcache
-	go test -failfast -timeout 5s ./internal/terraform/tests/... ./internal/terraform/helpers/... $(INPUT_ARGS)
+
+	# VyOS API can often take ~1 second to respond to a configure request.
+	# This means we attempt to tune retrys and delays around this.
+	# The end result is that to be able to test retry functionality we will need a bit of head room,
+	# so 5s timeout should be plenty for any test by using a context with 2 or 3 seconds timeout.
+	go test -count=1 -failfast -timeout 30s ./internal/terraform/tests/... ./internal/terraform/helpers/... $(INPUT_ARGS)
 
 .PHONY: build-rolling
 build-rolling:

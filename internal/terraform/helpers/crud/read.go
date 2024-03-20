@@ -57,7 +57,6 @@ func Read(ctx context.Context, r helpers.VyosResource, req resource.ReadRequest,
 // model must be a ptr
 // this function is seperated out to keep the terraform provider
 // logic and API logic seperate so we can test the API logic easier
-// TODO add retry support to read()
 func read(ctx context.Context, c client.Client, model helpers.VyosTopResourceDataModel) error {
 	tflog.Debug(ctx, "Fetching API data")
 	response, err := c.Read(ctx, model.GetVyosPath())

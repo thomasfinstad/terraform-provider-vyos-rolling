@@ -54,6 +54,8 @@ func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceD
 
 			if !KeyInMap(flags["name"].(string), data) {
 				log.Printf("No child entry found.\n")
+				tfValueRefection := reflect.ValueOf(false)
+				fValue.Set(tfValueRefection)
 				continue
 			}
 

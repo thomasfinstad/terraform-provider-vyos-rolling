@@ -66,14 +66,7 @@ func (el *ExchangeList) Add() *Exchange {
 }
 
 func (el *ExchangeList) handle(w http.ResponseWriter, r *http.Request) (foundMatch bool) {
-	for i, e := range el.Unmatched() {
-		log.Printf("Checking unmatched pattern %d of %d", i+1, len(el.Unmatched()))
-		if e.handle(w, r) {
-			return true
-		}
-	}
-
-	return false
+	return el.Unmatched()[0].handle(w, r)
 }
 
 // Unmatched returns all exchanges that did not trigger a match so far, useful for inspection
@@ -135,7 +128,7 @@ func (e *Exchange) handle(w http.ResponseWriter, r *http.Request) (ok bool) {
 	}
 
 	if e.delay > 0 {
-		log.Printf("Delaying response for: %dms", e.delay/time.Millisecond)
+		log.Printf("MOCK SRV:Delaying response for: %dms", e.delay/time.Millisecond)
 		time.Sleep(e.delay)
 	}
 
@@ -143,7 +136,7 @@ func (e *Exchange) handle(w http.ResponseWriter, r *http.Request) (ok bool) {
 		panic("unable to send reply")
 	}
 
-	log.Printf("Matched: %v", e.expect)
+	log.Printf("MOCK SRV:Matched: %v", e.expect)
 	e.matched = true
 	return true
 }
@@ -195,7 +188,7 @@ func (e expect) matches(r *http.Request) bool {
 	opsErr := json.Unmarshal([]byte(e.ops), &eOpsJSONM)
 	formErr := json.Unmarshal([]byte(formData), &formDataJSONM)
 	if opsErr == nil && formErr == nil {
-		log.Printf("map[string]any exchange check\n")
+		log.Printf("MOCK SRV:map[string]any exchange check\n")
 		return cmp.Equal(eOpsJSONM, formDataJSONM,
 			cmpopts.SortMaps(sillySort),
 			cmpopts.SortSlices(sillySort),
@@ -208,7 +201,7 @@ func (e expect) matches(r *http.Request) bool {
 	opsErr = json.Unmarshal([]byte(e.ops), &eOpsJSONL)
 	formErr = json.Unmarshal([]byte(formData), &formDataJSONL)
 	if opsErr == nil && formErr == nil {
-		log.Printf("[]interface{}{} exchange check\n")
+		log.Printf("MOCK SRV:[]interface{}{} exchange check\n")
 		return cmp.Equal(eOpsJSONL, formDataJSONL,
 			cmpopts.SortMaps(sillySort),
 			cmpopts.SortSlices(sillySort),
@@ -216,7 +209,7 @@ func (e expect) matches(r *http.Request) bool {
 	}
 
 	// Otherwise try to just match as a simple string
-	log.Printf("comparing exchange expect as string\n")
+	log.Printf("MOCK SRV:comparing exchange expect as string\n")
 	return e.ops == formData
 }
 
@@ -239,29 +232,34 @@ func (r response) reply(w http.ResponseWriter) (ok bool) {
 }
 
 // Server starts and maintains the http server until all exchanges are matched
+// TODO change to using test server https://pkg.go.dev/net/http/httptest#Server
 func Server(srv *http.Server, el *ExchangeList) {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
 		if !el.handle(w, r) {
-			log.Printf("No match found for:\n")
-			log.Printf("URI: %s\n", r.RequestURI)
-			log.Printf("Key: %s\n", r.FormValue("key"))
-			log.Printf("Ops: %s\n", r.FormValue("data"))
+			log.Printf("MOCK SRV:Did not match the next expected exchange pattern:\n")
+			log.Printf("MOCK SRV:URI: %s\n", r.RequestURI)
+			log.Printf("MOCK SRV:Key: %s\n", r.FormValue("key"))
+			log.Printf("MOCK SRV:Ops: %s\n", r.FormValue("data"))
 
 			w.WriteHeader(http.StatusNotFound)
 			w.Write([]byte("NO MATCH"))
 			if f, ok := w.(http.Flusher); ok {
 				f.Flush()
 			}
-			log.Printf("Flushed\n")
+			log.Printf("MOCK SRV:Flushed\n")
+
+			go srv.Shutdown(context.TODO())
+			log.Printf("MOCK SRV:Srv Shutdown\n")
 		}
+
 		if len(el.Unmatched()) == 0 {
 			// Only works if the response.reply() does a Flush() on the http.ResponseWriter,
 			//   otherwise it will close the server before response is sent
 			// Run as a go func as being in this handler and shutting down the server is self-blocking
 			go srv.Shutdown(context.TODO())
-			log.Printf("Srv Shutdown\n")
+			log.Printf("MOCK SRV:Srv Shutdown\n")
 		}
 	})
 
@@ -276,9 +274,9 @@ func Server(srv *http.Server, el *ExchangeList) {
 	go func() {
 		err := srv.Serve(l)
 		if errors.Is(err, http.ErrServerClosed) {
-			log.Printf("server closed\n")
+			log.Printf("MOCK SRV:server closed\n")
 		} else if err != nil {
-			log.Printf("error starting server: %s\n", err)
+			log.Printf("MOCK SRV:error starting server: %s\n", err)
 			os.Exit(1)
 		}
 	}()

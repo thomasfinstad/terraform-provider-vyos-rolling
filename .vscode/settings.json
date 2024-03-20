@@ -8,6 +8,6 @@
     "todo-tree.filtering.ignoreGitSubmodules": true,
     "todo-tree.filtering.excludeGlobs": [
         "**/tools/trang-20091111/**",
-        "**/panic.go"
+        "/usr/local/go/**/*"
     ]
 }

@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
@@ -28,7 +29,7 @@ func TestCrudDeleteSuccess(t *testing.T) {
 	exchangeChildExistsCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"showConfig","path":["firewall","ipv4","name","Test-Fw-Name"]}`,
+		`{"op":"showConfig","path":["firewall","ipv4","name","TestCrudDeleteSuccess"]}`,
 	).Response(
 		200,
 		`{
@@ -48,7 +49,7 @@ func TestCrudDeleteSuccess(t *testing.T) {
 		"/configure",
 		apiKey,
 		`[`+
-			`{"op":"delete","path":["firewall","ipv4","name","Test-Fw-Name"]}`+
+			`{"op":"delete","path":["firewall","ipv4","name","TestCrudDeleteSuccess"]}`+
 			`]`,
 	).Response(
 		200,
@@ -61,7 +62,7 @@ func TestCrudDeleteSuccess(t *testing.T) {
 
 	// From resource model
 	model := &ipv4ResModel.FirewallIPvfourName{
-		SelfIdentifier:                       basetypes.NewStringValue("Test-Fw-Name"),
+		SelfIdentifier:                       basetypes.NewStringValue("TestCrudDeleteSuccess"),
 		LeafFirewallIPvfourNameDefaultAction: basetypes.NewStringValue("reject"),
 		LeafFirewallIPvfourNameDefaultLog:    basetypes.NewBoolValue(true),
 		LeafFirewallIPvfourNameDescrIPtion:   basetypes.NewStringValue("Managed by terraform"),
@@ -87,9 +88,7 @@ func TestCrudDeleteSuccess(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		for _, e := range eList.Unmatched() {
-			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
-		}
+		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
 	}
 }
@@ -104,15 +103,16 @@ func TestCrudDeleteResourceHasChildFailure(t *testing.T) {
 		eList := api.NewExchangeList()
 		apiKey := "test-key"
 
-		// Child check API call
-		exchangeChildExistsCheck := eList.Add()
-		exchangeChildExistsCheck.Expect(
-			"/retrieve",
-			apiKey,
-			`{"op":"showConfig","path":["firewall","ipv4","name","Test-Fw-Name"]}`,
-		).Response(
-			200,
-			`{
+		// Child check API call x4 (due to retry)
+		for range 4 {
+			exchangeChildExistsCheck := eList.Add()
+			exchangeChildExistsCheck.Expect(
+				"/retrieve",
+				apiKey,
+				`{"op":"showConfig","path":["firewall","ipv4","name","TestCrudDeleteResourceHasChildFailure"]}`,
+			).Response(
+				200,
+				`{
 					"success": true,
 					"data": {
 						"default-action": "reject",
@@ -126,11 +126,12 @@ func TestCrudDeleteResourceHasChildFailure(t *testing.T) {
 					},
 					"error": null
 				}`,
-		)
+			)
+		}
 
 		// From resource model
 		model := &ipv4ResModel.FirewallIPvfourName{
-			SelfIdentifier:                       basetypes.NewStringValue("Test-Fw-Name"),
+			SelfIdentifier:                       basetypes.NewStringValue("TestCrudDeleteResourceHasChildFailure"),
 			LeafFirewallIPvfourNameDefaultAction: basetypes.NewStringValue("reject"),
 			LeafFirewallIPvfourNameDefaultLog:    basetypes.NewBoolValue(true),
 			LeafFirewallIPvfourNameDescrIPtion:   basetypes.NewStringValue("Managed by terraform"),
@@ -144,7 +145,8 @@ func TestCrudDeleteResourceHasChildFailure(t *testing.T) {
 		api.Server(srv, eList)
 
 		// Client
-		ctx := context.Background()
+		ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+		defer cancel()
 		client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 		providerData := data.NewProviderData(client)
 
@@ -160,14 +162,10 @@ func TestCrudDeleteResourceHasChildFailure(t *testing.T) {
 			t.Errorf("delete returned the wrong error: %s", err.Error())
 		}
 
-		t.Logf("Found child!\n%s", err.Error())
-
 		// Validate API calls
 		if len(eList.Unmatched()) > 0 {
-			for _, e := range eList.Unmatched() {
-				t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
-			}
-			t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+			t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
+			t.Logf("Total unmatched exchanges: %d", len(eList.Unmatched()))
 		}
 	}
 }
@@ -187,7 +185,7 @@ func TestCrudDeleteResourceHasChildIgnore(t *testing.T) {
 		"/configure",
 		apiKey,
 		`[`+
-			`{"op":"delete","path":["firewall","ipv4","name","Test-Fw-Name"]}`+
+			`{"op":"delete","path":["firewall","ipv4","name","TestCrudDeleteResourceHasChildIgnore"]}`+
 			`]`,
 	).Response(
 		200,
@@ -200,7 +198,7 @@ func TestCrudDeleteResourceHasChildIgnore(t *testing.T) {
 
 	// From resource model
 	model := &ipv4ResModel.FirewallIPvfourName{
-		SelfIdentifier:                       basetypes.NewStringValue("Test-Fw-Name"),
+		SelfIdentifier:                       basetypes.NewStringValue("TestCrudDeleteResourceHasChildIgnore"),
 		LeafFirewallIPvfourNameDefaultAction: basetypes.NewStringValue("reject"),
 		LeafFirewallIPvfourNameDefaultLog:    basetypes.NewBoolValue(true),
 		LeafFirewallIPvfourNameDescrIPtion:   basetypes.NewStringValue("Managed by terraform"),
@@ -227,9 +225,7 @@ func TestCrudDeleteResourceHasChildIgnore(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		for _, e := range eList.Unmatched() {
-			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
-		}
+		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
 	}
 }
@@ -313,9 +309,7 @@ func TestCrudDeleteGlobalResourceWithChild(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		for _, e := range eList.Unmatched() {
-			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
-		}
+		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
 	}
 }
@@ -392,9 +386,112 @@ func TestCrudDeleteGlobalResourceWithoutChild(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		for _, e := range eList.Unmatched() {
-			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
-		}
+		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+	}
+}
+
+// TestCrudDeleteRetrySuccess test CRUD helper: Delete
+//
+//	Default situation where we attempt to delete a resource, but
+//	have to wait for the child resource to be deleted.
+func TestCrudDeleteRetrySuccess(t *testing.T) {
+	// API mocking
+	eList := api.NewExchangeList()
+	apiKey := "test-key"
+
+	// Child check API call: before delete x3
+	for range 3 {
+		exchangeChildExistsCheck := eList.Add()
+		exchangeChildExistsCheck.Expect(
+			"/retrieve",
+			apiKey,
+			`{"op":"showConfig","path":["firewall","ipv4","name","TestCrudDeleteRetrySuccess"]}`,
+		).Response(
+			200,
+			`{
+				"success": true,
+				"data": {
+					"default-action": "reject",
+					"default-log": {},
+					"description": "Managed by terraform",
+					"rule": {
+						"1": {"action": "accept", "description": "Allow established connections", "protocol": "all", "state": "established"},
+						"2": {"action": "accept", "description": "Allow related connections", "protocol": "all", "state": "related"},
+						"3": {"action": "drop", "description": "Disallow invalid packets", "log": {}, "protocol": "all", "state": "invalid"}
+					}
+				},
+				"error": null
+			}`,
+		)
+	}
+
+	// Child check API call: after delete
+	exchangeChildExistsCheck := eList.Add()
+	exchangeChildExistsCheck.Expect(
+		"/retrieve",
+		apiKey,
+		`{"op":"showConfig","path":["firewall","ipv4","name","TestCrudDeleteRetrySuccess"]}`,
+	).Response(
+		200,
+		`{
+				"success": true,
+				"data": {
+					"default-action": "reject",
+					"default-log": {},
+					"description": "Managed by terraform"
+				},
+				"error": null
+			}`,
+	)
+
+	// Delete resource API call
+	exchangeCreateResource := eList.Add()
+	exchangeCreateResource.Expect(
+		"/configure",
+		apiKey,
+		`[`+
+			`{"op":"delete","path":["firewall","ipv4","name","TestCrudDeleteRetrySuccess"]}`+
+			`]`,
+	).Response(
+		200,
+		`{
+				"success": true,
+				"data": null,
+				"error": null
+			}`,
+	)
+
+	// From resource model
+	model := &ipv4ResModel.FirewallIPvfourName{
+		SelfIdentifier:                       basetypes.NewStringValue("TestCrudDeleteRetrySuccess"),
+		LeafFirewallIPvfourNameDefaultAction: basetypes.NewStringValue("reject"),
+		LeafFirewallIPvfourNameDefaultLog:    basetypes.NewBoolValue(true),
+		LeafFirewallIPvfourNameDescrIPtion:   basetypes.NewStringValue("Managed by terraform"),
+	}
+
+	// Server
+	apiAddress := "localhost:50007"
+	srv := &http.Server{
+		Addr: apiAddress,
+	}
+	api.Server(srv, eList)
+
+	// Client
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
+	providerData := data.NewProviderData(client)
+
+	// Execute test
+	err := delete(ctx, providerData, client, model)
+	if err != nil {
+		t.Errorf("Delete failed: %v", err)
+	}
+
+	// Validate API calls
+	if len(eList.Unmatched()) > 0 {
+		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
 	}
 }
