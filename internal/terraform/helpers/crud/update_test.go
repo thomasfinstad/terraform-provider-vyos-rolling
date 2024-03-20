@@ -96,6 +96,5 @@ func TestCrudUpdateCrossResourceContamination(t *testing.T) {
 			t.Errorf("Unmatched exchange: %#v", e)
 		}
 		t.Errorf("Have %d unmatched exchanges", len(eList.Unmatched()))
-		return
 	}
 }

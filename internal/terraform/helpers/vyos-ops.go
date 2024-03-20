@@ -8,9 +8,19 @@ import (
 	"strconv"
 
 	"github.com/hashicorp/terraform-plugin-log/tflog"
+	"golang.org/x/exp/maps"
 )
 
 // GenerateVyosOps takes a resource data model and converts it to vyos api operation compatible list of lists of strings
+//
+// Input:
+//
+//	vyosPath: []string{"firewall", "ipv4", "forward", "filter"}
+//	vyosData: map[string]interface {}{"default-action":"reject", "default-log":map[string]interface {}{}}
+//
+// Output:
+//
+//	[][]string{[]string{"firewall", "ipv4", "forward", "filter", "default-log"}, []string{"firewall", "ipv4", "forward", "filter", "default-action", "reject"}}
 func GenerateVyosOps(ctx context.Context, vyosPath []string, vyosData map[string]interface{}) [][]string {
 	tflog.Trace(ctx, "GenerateVyosOps Input", map[string]interface{}{"vyosPath": vyosPath, "vyosData": vyosData})
 	vyosOps := iron(ctx, vyosPath, vyosData)
@@ -18,17 +28,27 @@ func GenerateVyosOps(ctx context.Context, vyosPath []string, vyosData map[string
 	return vyosOps
 }
 
-// TODO deep investigation into origins of the bug requiring the cloning
-// Do not understand why I must clone here, but it seems the slice some times is/contains pointer, so it duplicates elements of the last one in the slice instead of adding all the uniqeue values otherwise
-// Is this because it comes from json marshalling function before being sent here?
+// iron flatens out the input and adds the vyosPath as a prefix to each element
 func iron(ctx context.Context, vyosPath []string, values map[string]interface{}) [][]string {
 
 	ret := [][]string{}
 
-	for key, value := range values {
-		log.Printf("Path: %#v, Key: %#v, Value: %#v\n", vyosPath, key, value)
+	log.Printf("vyosPath: %#v\n", vyosPath)
+	log.Printf("Values: %#v\n", values)
 
-		cVyosPath := append(vyosPath, key)
+	// Make operation deterministic, helps during debugging
+	keys := maps.Keys(values)
+	slices.Sort(keys)
+	slices.Reverse(keys)
+	for _, key := range keys {
+		log.Printf("ReturnValue Before: %#v\n", ret)
+
+		// This Clone has proven itself nessecary due underlyding mangling happening otherwise
+		cVyosPath := append(slices.Clone(vyosPath), key)
+
+		value := values[key]
+		log.Printf("cVyosPath: %#v, Key: %#v, Value: %#v\n", cVyosPath, key, value)
+
 		switch value := value.(type) {
 
 		// LeafNodes
@@ -36,18 +56,16 @@ func iron(ctx context.Context, vyosPath []string, values map[string]interface{})
 			log.Printf("type: string\n")
 			tflog.Trace(ctx, "ironing string value", map[string]interface{}{"current-vyos-path": cVyosPath, "type": fmt.Sprintf("%T", value), "value": fmt.Sprintf("%#v", value)})
 			val := append(cVyosPath, value)
-			cloneVal := slices.Clone(val)
-			tflog.Trace(ctx, "appending to ret", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret), "cloneVal": fmt.Sprintf("%#v", cloneVal)})
-			ret = append(ret, cloneVal)
+			tflog.Trace(ctx, "appending to ret", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret), "val": fmt.Sprintf("%#v", val)})
+			ret = append(ret, val)
 		// LeafNodes
 		case bool:
 			log.Printf("type: bool\n")
 			tflog.Trace(ctx, "ironing bool value", map[string]interface{}{"current-vyos-path": cVyosPath, "type": fmt.Sprintf("%T", value), "value": fmt.Sprintf("%#v", value)})
 			if value {
 				val := append(cVyosPath, "{}")
-				cloneVal := slices.Clone(val)
-				tflog.Trace(ctx, "appending to ret", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret), "cloneVal": fmt.Sprintf("%#v", cloneVal)})
-				ret = append(ret, cloneVal)
+				tflog.Trace(ctx, "appending to ret", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret), "val": fmt.Sprintf("%#v", val)})
+				ret = append(ret, val)
 			} else {
 				tflog.Trace(ctx, "NOT appending to ret because bool is false", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret)})
 			}
@@ -56,19 +74,16 @@ func iron(ctx context.Context, vyosPath []string, values map[string]interface{})
 			log.Printf("type: float64\n")
 			tflog.Trace(ctx, "ironing float value", map[string]interface{}{"current-vyos-path": cVyosPath, "type": fmt.Sprintf("%T", value), "value": fmt.Sprintf("%#v", value)})
 			val := append(cVyosPath, strconv.FormatFloat(value, 'f', -1, 64))
-			cloneVal := slices.Clone(val)
-			tflog.Trace(ctx, "appending to ret", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret), "cloneVal": fmt.Sprintf("%#v", cloneVal)})
-			ret = append(ret, cloneVal)
+			tflog.Trace(ctx, "appending to ret", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret), "val": fmt.Sprintf("%#v", val)})
+			ret = append(ret, val)
 		// LeafNodes multi value
 		case []string:
 			log.Printf("type: []string]\n")
 			tflog.Trace(ctx, "ironing slice of strings value", map[string]interface{}{"current-vyos-path": cVyosPath, "type": fmt.Sprintf("%T", value), "value": fmt.Sprintf("%#v", value)})
 			for _, element := range value {
 				val := append(cVyosPath, element)
-				cloneVal := slices.Clone(val)
 				tflog.Trace(ctx, "appending to ret", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret), "val": fmt.Sprintf("%#v", val)})
-				ret = append(ret, cloneVal)
-				tflog.Trace(ctx, "appended to ret", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret), "cloneVal": fmt.Sprintf("%#v", cloneVal)})
+				ret = append(ret, val)
 			}
 
 		// TagNodes and Nodes
@@ -77,10 +92,9 @@ func iron(ctx context.Context, vyosPath []string, values map[string]interface{})
 			tflog.Trace(ctx, "ironing nested map value", map[string]interface{}{"current-vyos-path": cVyosPath, "type": fmt.Sprintf("%T", value), "value": fmt.Sprintf("%#v", value)})
 			tflog.Trace(ctx, "recursing for ret", map[string]interface{}{"cVyosPath": fmt.Sprintf("%#v", cVyosPath)})
 			val := iron(ctx, cVyosPath, value)
-			cloneVal := slices.Clone(val)
 			ret = append(
 				ret,
-				cloneVal...,
+				val...,
 			)
 
 		// ERROR
@@ -89,10 +103,12 @@ func iron(ctx context.Context, vyosPath []string, values map[string]interface{})
 			panic("unhandled type see last log entry")
 		}
 
-		log.Printf("CurrentReturnValue: %#v\n", ret)
+		log.Printf("ReturnValue After: %#v\n", ret)
 	}
 
 	if len(ret) == 0 {
+		log.Printf("type: empty, adding vyosPath instead\n")
+		tflog.Trace(ctx, "ironing empty value", map[string]interface{}{"vyosPath": vyosPath})
 		ret = [][]string{vyosPath}
 	}
 

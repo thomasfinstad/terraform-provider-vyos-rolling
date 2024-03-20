@@ -83,7 +83,6 @@ func TestCrudDeleteSuccess(t *testing.T) {
 	err := delete(ctx, providerData, client, model)
 	if err != nil {
 		t.Errorf("Delete failed: %v", err)
-		return
 	}
 
 	// Validate API calls
@@ -92,7 +91,6 @@ func TestCrudDeleteSuccess(t *testing.T) {
 			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
 		}
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
-		return
 	}
 }
 
@@ -156,12 +154,10 @@ func TestCrudDeleteResourceHasChildFailure(t *testing.T) {
 		// Verify results
 		if err == nil {
 			t.Errorf("expected an error, got nil")
-			return
 		}
 
 		if !strings.Contains(err.Error(), "child resource detected") {
 			t.Errorf("delete returned the wrong error: %s", err.Error())
-			return
 		}
 
 		t.Logf("Found child!\n%s", err.Error())
@@ -172,7 +168,6 @@ func TestCrudDeleteResourceHasChildFailure(t *testing.T) {
 				t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
 			}
 			t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
-			return
 		}
 	}
 }
@@ -228,7 +223,6 @@ func TestCrudDeleteResourceHasChildIgnore(t *testing.T) {
 	err := delete(ctx, providerData, client, model)
 	if err != nil {
 		t.Errorf("Delete failed: %v", err)
-		return
 	}
 
 	// Validate API calls
@@ -237,7 +231,6 @@ func TestCrudDeleteResourceHasChildIgnore(t *testing.T) {
 			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
 		}
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
-		return
 	}
 }
 
@@ -395,7 +388,6 @@ func TestCrudDeleteGlobalResourceWithoutChild(t *testing.T) {
 	err := delete(ctx, providerData, client, model)
 	if err != nil {
 		t.Errorf("Delete failed: %v", err)
-		return
 	}
 
 	// Validate API calls
@@ -404,6 +396,5 @@ func TestCrudDeleteGlobalResourceWithoutChild(t *testing.T) {
 			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
 		}
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
-		return
 	}
 }

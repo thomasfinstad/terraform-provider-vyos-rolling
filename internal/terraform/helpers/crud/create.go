@@ -62,19 +62,36 @@ func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequ
 // model must be a ptr
 // this function is seperated out to keep the terraform provider
 // logic and API logic seperate so we can test the API logic easier
-// TODO add retry support to create()
 func create(ctx context.Context, providerCfg data.ProviderData, c client.Client, planModel helpers.VyosTopResourceDataModel) error {
 	// Check if nearest parent exists
 	if !providerCfg.Config.CrudSkipCheckParentBeforeCreate && (len(planModel.GetVyosNamedParentPath()) > 0) {
 		tflog.Debug(ctx, fmt.Sprintf("checking for parent: '%s'", planModel.GetVyosNamedParentPath()))
 
-		ret, err := c.Has(ctx, planModel.GetVyosNamedParentPath())
-		if err != nil {
-			return fmt.Errorf("parent check error for: '%s': %w", planModel.GetVyosNamedParentPath(), err)
-		}
-
-		if !ret {
-			return fmt.Errorf("missing parent: '%s': ", planModel.GetVyosNamedParentPath())
+		var lastErr error
+	PL:
+		for {
+			parentExists, err := c.Has(ctx, planModel.GetVyosNamedParentPath())
+			if parentExists {
+				break
+			} else {
+				tflog.Warn(ctx, "parent resource missing, retrying in 3 seconds", map[string]interface{}{"resource": planModel.GetVyosPath()})
+				lastErr = fmt.Errorf("parent resource missing: '%s': ", planModel.GetVyosNamedParentPath())
+			}
+			select {
+			case <-ctx.Done():
+				return lastErr
+			default:
+				if err != nil {
+					return fmt.Errorf("parent check error for: '%s': %w", planModel.GetVyosNamedParentPath(), err)
+				}
+				if dl, ok := ctx.Deadline(); ok {
+					time.Sleep(
+						min(time.Until(dl)/10, 1.0),
+					)
+				} else {
+					break PL
+				}
+			}
 		}
 	}
 
@@ -82,13 +99,31 @@ func create(ctx context.Context, providerCfg data.ProviderData, c client.Client,
 	if !providerCfg.Config.CrudSkipExistingResourceCheck {
 		tflog.Debug(ctx, fmt.Sprintf("checking for existing resource: '%s'", planModel.GetVyosPath()))
 
-		ret, err := c.Has(ctx, planModel.GetVyosPath())
-		if err != nil {
-			return fmt.Errorf("resource check error for: '%s': %w", planModel.GetVyosNamedParentPath(), err)
-		}
-
-		if ret {
-			return fmt.Errorf("resource already exists: '%s'", strings.Join(planModel.GetVyosPath(), " "))
+		var lastErr error
+	EL:
+		for {
+			resourceExists, err := c.Has(ctx, planModel.GetVyosPath())
+			if !resourceExists {
+				break
+			} else {
+				tflog.Warn(ctx, "resource already exists, retrying in 3 seconds", map[string]interface{}{"resource": planModel.GetVyosPath()})
+				lastErr = fmt.Errorf("resource already exists: '%s'", strings.Join(planModel.GetVyosPath(), " "))
+			}
+			select {
+			case <-ctx.Done():
+				return lastErr
+			default:
+				if err != nil {
+					return fmt.Errorf("resource check error for: '%s': %w", planModel.GetVyosNamedParentPath(), err)
+				}
+				if dl, ok := ctx.Deadline(); ok {
+					time.Sleep(
+						min(time.Until(dl)/10, 1.0),
+					)
+				} else {
+					break EL
+				}
+			}
 		}
 	}
 

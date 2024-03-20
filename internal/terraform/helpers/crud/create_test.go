@@ -109,7 +109,6 @@ func TestCrudCreateSuccess(t *testing.T) {
 	err := create(ctx, providerData, client, model)
 	if err != nil {
 		t.Errorf("Create failed: %v", err)
-		return
 	}
 
 	// Validate API calls
@@ -118,7 +117,6 @@ func TestCrudCreateSuccess(t *testing.T) {
 			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
 		}
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
-		return
 	}
 }
 
@@ -191,7 +189,6 @@ func TestCrudCreateResourceAlreadyExsitsFailure(t *testing.T) {
 	err := create(ctx, providerData, client, model)
 	if err == nil {
 		t.Errorf("Should have failed to create existing resource")
-		return
 	}
 
 	// Validate API calls
@@ -200,7 +197,6 @@ func TestCrudCreateResourceAlreadyExsitsFailure(t *testing.T) {
 			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
 		}
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
-		return
 	}
 }
 
@@ -279,7 +275,6 @@ func TestCrudCreateResourceAlreadyExsitsIgnore(t *testing.T) {
 	err := create(ctx, providerData, client, model)
 	if err != nil {
 		t.Errorf("Create failed: %v", err)
-		return
 	}
 
 	// Validate API calls
@@ -288,7 +283,6 @@ func TestCrudCreateResourceAlreadyExsitsIgnore(t *testing.T) {
 			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
 		}
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
-		return
 	}
 }
 
@@ -348,7 +342,6 @@ func TestCrudCreateResourceParentMissingFailure(t *testing.T) {
 	err := create(ctx, providerData, client, model)
 	if err == nil {
 		t.Errorf("Should have failed to create resource without parent")
-		return
 	}
 
 	// Validate API calls
@@ -357,7 +350,6 @@ func TestCrudCreateResourceParentMissingFailure(t *testing.T) {
 			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
 		}
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
-		return
 	}
 }
 
@@ -438,7 +430,6 @@ func TestCrudCreateResourceParentMissingIgnore(t *testing.T) {
 	err := create(ctx, providerData, client, model)
 	if err != nil {
 		t.Errorf("Create failed: %v", err)
-		return
 	}
 
 	// Validate API calls
@@ -447,7 +438,6 @@ func TestCrudCreateResourceParentMissingIgnore(t *testing.T) {
 			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
 		}
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
-		return
 	}
 }
 
@@ -566,7 +556,6 @@ func TestCrudCreateTimeoutSuccess(t *testing.T) {
 		t.Error("DeadLine Left:", time.Until(d))
 		t.Error("Since        :", time.Since(start))
 		t.Error("Create failed:", err)
-		return
 	}
 
 	// Validate API calls
@@ -575,7 +564,6 @@ func TestCrudCreateTimeoutSuccess(t *testing.T) {
 			t.Errorf("Unmatched exchange:\n%s", e.Sexpect())
 		}
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
-		return
 	}
 }
 
@@ -703,3 +691,5 @@ func TestCrudCreateTimeoutFailure(t *testing.T) {
 		t.Errorf("Expected 1 unmatched exchange. Total unmatched exchanges: %d", len(eList.Unmatched()))
 	}
 }
+
+// TODO test retry support to create()

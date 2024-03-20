@@ -220,7 +220,6 @@ endif
 test: internal/terraform/resource/autogen/timestamp.txt
 	@echo Input Args: $(INPUT_ARGS)
 	go clean -testcache
-	sleep 1
 	go test -failfast -timeout 5s ./internal/terraform/tests/... ./internal/terraform/helpers/... $(INPUT_ARGS)
 
 .PHONY: build-rolling
