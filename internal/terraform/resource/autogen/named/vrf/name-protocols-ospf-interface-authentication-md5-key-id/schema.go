@@ -12,20 +12,20 @@ import (
 func (r vrfNameProtocolsOspfInterfaceAuthenticationMdfiveKeyID) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Virtual Routing and Forwarding
-⯯
-Virtual Routing and Forwarding instance
-⯯
-Routing protocol parameters
-⯯
-Open Shortest Path First (OSPF)
-⯯
-Interface configuration
-⯯
-Authentication
-⯯
-MD5 key id
-⯯
+		MarkdownDescription: `Virtual Routing and Forwarding  
+⯯  
+Virtual Routing and Forwarding instance  
+⯯  
+Routing protocol parameters  
+⯯  
+Open Shortest Path First (OSPF)  
+⯯  
+Interface configuration  
+⯯  
+Authentication  
+⯯  
+MD5 key id  
+⯯  
 **MD5 key id**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

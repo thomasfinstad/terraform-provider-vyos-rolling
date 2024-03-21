@@ -12,12 +12,12 @@ import (
 func (r vrfNameIPProtocol) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Virtual Routing and Forwarding
-⯯
-Virtual Routing and Forwarding instance
-⯯
-IPv4 routing parameters
-⯯
+		MarkdownDescription: `Virtual Routing and Forwarding  
+⯯  
+Virtual Routing and Forwarding instance  
+⯯  
+IPv4 routing parameters  
+⯯  
 **Filter routing info exchanged between routing protocol and zebra**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

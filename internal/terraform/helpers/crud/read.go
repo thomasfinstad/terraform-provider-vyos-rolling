@@ -10,6 +10,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/client/clienterrors"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 	cruderrors "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/crud/cruderror"
 )
@@ -39,11 +40,13 @@ func Read(ctx context.Context, r helpers.VyosResource, req resource.ReadRequest,
 
 	// Fetch live state from Vyos
 	err := read(ctx, r.GetClient(), stateModel)
-	var nfErr *cruderrors.ResourceNotFoundError
-	if errors.As(err, &nfErr) {
+
+	var rnfErr *cruderrors.ResourceNotFoundError
+	if errors.As(err, &rnfErr) {
 		resp.State.RemoveResource(ctx)
 		return
-	} else if err != nil {
+	}
+	if err != nil {
 		resp.Diagnostics.AddError("unable to retreive config", err.Error())
 		return
 	}
@@ -71,16 +74,21 @@ func read(ctx context.Context, c client.Client, model helpers.VyosTopResourceDat
 		return cruderrors.WrapIntoResourceNotFoundError(model, hasErr)
 	}
 
-	response, errGet := c.Get(ctx, model.GetVyosPath())
+	response, getErr := c.Get(ctx, model.GetVyosPath())
+	// Error after successful client.Has call should mean empty resource
+	var nfErr *clienterrors.NotFoundError
+	WHY := errors.As(getErr, &nfErr)
 
-	// Error after successful client.Has call means empty resource
-	if errGet != nil {
-		// Marshal up as empty
+	if WHY {
+		//if errors.As(getErr, &nfErr) {
 		err := helpers.UnmarshalVyos(ctx, make(map[string]any), model)
 		if err != nil {
 			return fmt.Errorf("empty unmarshal response: %w", err)
 		}
 		return nil
+	}
+	if getErr != nil {
+		return getErr
 	}
 
 	// Populate full model config

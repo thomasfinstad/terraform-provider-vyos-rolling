@@ -12,8 +12,8 @@ import (
 func (r netnsName) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Network namespace
-⯯
+		MarkdownDescription: `Network namespace  
+⯯  
 **Network namespace name**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

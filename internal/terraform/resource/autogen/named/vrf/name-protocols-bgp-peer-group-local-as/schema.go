@@ -12,16 +12,16 @@ import (
 func (r vrfNameProtocolsBgpPeerGroupLocalAs) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Virtual Routing and Forwarding
-⯯
-Virtual Routing and Forwarding instance
-⯯
-Routing protocol parameters
-⯯
-Border Gateway Protocol (BGP)
-⯯
-Name of peer-group
-⯯
+		MarkdownDescription: `Virtual Routing and Forwarding  
+⯯  
+Virtual Routing and Forwarding instance  
+⯯  
+Routing protocol parameters  
+⯯  
+Border Gateway Protocol (BGP)  
+⯯  
+Name of peer-group  
+⯯  
 **Specify alternate ASN for this BGP process**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

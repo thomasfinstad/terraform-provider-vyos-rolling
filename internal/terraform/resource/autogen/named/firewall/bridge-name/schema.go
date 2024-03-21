@@ -12,10 +12,10 @@ import (
 func (r firewallBrIDgeName) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Firewall
-⯯
-Bridge firewall
-⯯
+		MarkdownDescription: `Firewall  
+⯯  
+Bridge firewall  
+⯯  
 **Bridge custom firewall**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

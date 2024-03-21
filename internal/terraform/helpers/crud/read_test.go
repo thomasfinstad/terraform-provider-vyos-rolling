@@ -173,6 +173,7 @@ func TestCrudReadEmptyResource(t *testing.T) {
 		SelfIdentifier: basetypes.NewNumberValue(big.NewFloat(42)),
 	}
 
+	// Execute test
 	err := read(ctx, client, model)
 	if err != nil {
 		t.Errorf("read failed: %v", err)

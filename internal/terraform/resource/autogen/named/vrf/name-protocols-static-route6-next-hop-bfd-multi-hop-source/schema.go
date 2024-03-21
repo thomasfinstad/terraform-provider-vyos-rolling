@@ -12,22 +12,22 @@ import (
 func (r vrfNameProtocolsStaticRoutesixNextHopBfdMultiHopSource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Virtual Routing and Forwarding
-⯯
-Virtual Routing and Forwarding instance
-⯯
-Routing protocol parameters
-⯯
-Static Routing
-⯯
-Static IPv6 route
-⯯
-IPv6 gateway address
-⯯
-BFD monitoring
-⯯
-Use BFD multi hop session
-⯯
+		MarkdownDescription: `Virtual Routing and Forwarding  
+⯯  
+Virtual Routing and Forwarding instance  
+⯯  
+Routing protocol parameters  
+⯯  
+Static Routing  
+⯯  
+Static IPv6 route  
+⯯  
+IPv6 gateway address  
+⯯  
+BFD monitoring  
+⯯  
+Use BFD multi hop session  
+⯯  
 **Use source for BFD session**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

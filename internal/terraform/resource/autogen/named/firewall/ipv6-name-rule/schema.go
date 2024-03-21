@@ -12,12 +12,12 @@ import (
 func (r firewallIPvsixNameRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Firewall
-⯯
-IPv6 firewall
-⯯
-IPv6 custom firewall
-⯯
+		MarkdownDescription: `Firewall  
+⯯  
+IPv6 firewall  
+⯯  
+IPv6 custom firewall  
+⯯  
 **IPv6 Firewall custom rule number**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

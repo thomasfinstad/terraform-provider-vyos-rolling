@@ -14,12 +14,12 @@ func (r firewallGlobalOptionsStatePolicyInvalID) Schema(ctx context.Context, req
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-	Firewall
-⯯
-Global Options
-⯯
-Global firewall state-policy
-⯯
+	Firewall  
+⯯  
+Global Options  
+⯯  
+Global firewall state-policy  
+⯯  
 **Global firewall policy for packets part of an invalid connection**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

@@ -12,18 +12,18 @@ import (
 func (r vrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Virtual Routing and Forwarding
-⯯
-Virtual Routing and Forwarding instance
-⯯
-Routing protocol parameters
-⯯
-Border Gateway Protocol (BGP)
-⯯
-BGP address-family parameters
-⯯
-IPv4 BGP settings
-⯯
+		MarkdownDescription: `Virtual Routing and Forwarding  
+⯯  
+Virtual Routing and Forwarding instance  
+⯯  
+Routing protocol parameters  
+⯯  
+Border Gateway Protocol (BGP)  
+⯯  
+BGP address-family parameters  
+⯯  
+IPv4 BGP settings  
+⯯  
 **BGP aggregate network**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

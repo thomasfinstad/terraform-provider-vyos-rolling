@@ -12,16 +12,16 @@ import (
 func (r vrfNameProtocolsBgpBmpTarget) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Virtual Routing and Forwarding
-⯯
-Virtual Routing and Forwarding instance
-⯯
-Routing protocol parameters
-⯯
-Border Gateway Protocol (BGP)
-⯯
-BGP Monitoring Protocol (BMP)
-⯯
+		MarkdownDescription: `Virtual Routing and Forwarding  
+⯯  
+Virtual Routing and Forwarding instance  
+⯯  
+Routing protocol parameters  
+⯯  
+Border Gateway Protocol (BGP)  
+⯯  
+BGP Monitoring Protocol (BMP)  
+⯯  
 **BMP target**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

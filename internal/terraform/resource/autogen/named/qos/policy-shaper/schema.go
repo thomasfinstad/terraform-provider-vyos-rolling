@@ -12,10 +12,10 @@ import (
 func (r qosPolicyShaper) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Quality of Service (QoS)
-⯯
-Service Policy definitions
-⯯
+		MarkdownDescription: `Quality of Service (QoS)  
+⯯  
+Service Policy definitions  
+⯯  
 **Traffic shaping based policy (Hierarchy Token Bucket)**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

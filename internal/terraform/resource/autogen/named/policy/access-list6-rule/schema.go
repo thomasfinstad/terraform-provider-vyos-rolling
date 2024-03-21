@@ -12,10 +12,10 @@ import (
 func (r policyAccessListsixRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Routing policy
-⯯
-IPv6 access-list filter
-⯯
+		MarkdownDescription: `Routing policy  
+⯯  
+IPv6 access-list filter  
+⯯  
 **Rule for this access-list6**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

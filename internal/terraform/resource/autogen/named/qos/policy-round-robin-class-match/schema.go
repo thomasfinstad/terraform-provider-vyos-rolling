@@ -12,14 +12,14 @@ import (
 func (r qosPolicyRoundRobinClassMatch) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Quality of Service (QoS)
-⯯
-Service Policy definitions
-⯯
-Deficit Round Robin Scheduler
-⯯
-Class ID
-⯯
+		MarkdownDescription: `Quality of Service (QoS)  
+⯯  
+Service Policy definitions  
+⯯  
+Deficit Round Robin Scheduler  
+⯯  
+Class ID  
+⯯  
 **Class matching rule name**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

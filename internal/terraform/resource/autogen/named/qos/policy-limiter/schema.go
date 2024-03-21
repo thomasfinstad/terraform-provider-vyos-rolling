@@ -12,10 +12,10 @@ import (
 func (r qosPolicyLimiter) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Quality of Service (QoS)
-⯯
-Service Policy definitions
-⯯
+		MarkdownDescription: `Quality of Service (QoS)  
+⯯  
+Service Policy definitions  
+⯯  
 **Traffic input limiting policy**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),
