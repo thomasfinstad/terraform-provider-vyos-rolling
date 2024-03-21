@@ -15,44 +15,38 @@ import (
 )
 
 // TestCrudReadSuccess test CRUD helper: Read
-//
-// curl -k --location --request POST "https://$VYOS_HOST/retrieve" --form key="$VYOS_KEY" --form data='{"op":"showConfig","path":["firewall","ipv4","name","SrvMain-WanTelia"]}'
-//
-//	Pseudo simulated Resources:
-//	resource "vyos_firewall_ipv4_name" "name" {
-//		name_id = "SrvMain-WanTelia"
-//		default_action = "reject"
-//		description    = "Managed by terraform"
-//		default_log    = true
-//	}
-//
-//	resource "vyos_firewall_ipv4_name_rule" "..." {
-//		name_id = "SrvMain-WanTelia"
-//		...
-//		rule_id = 1...
-//		rule_id = 2...
-//		rule_id = 3...
-//		rule_id = 1000...
-//		...
-//	}
 func TestCrudReadSuccess(t *testing.T) {
 	ctx := context.Background()
 
 	// When Mock API Server
 	address := "localhost:50012"
 	uri := "/retrieve"
-	key := "test-key"
+	apiKey := "test-key"
 	srv := &http.Server{
 		Addr: address,
 	}
 
 	eList := api.NewExchangeList()
 
+	// Resource exists check API call
+	eList.Add().Expect(
+		"/retrieve",
+		apiKey,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudReadSuccess"]}`,
+	).Response(
+		200,
+		`{
+			"success": true,
+			"data": true,
+			"error": null
+		}`,
+	)
+
 	e1 := eList.Add()
 	e1.Expect(
 		uri,
-		key,
-		`{"op":"showConfig","path":["firewall","ipv4","name","SrvMain-WanTelia"]}`,
+		apiKey,
+		`{"op":"showConfig","path":["firewall","ipv4","name","TestCrudReadSuccess"]}`,
 	).Response(
 		200,
 		`{
@@ -74,16 +68,16 @@ func TestCrudReadSuccess(t *testing.T) {
 	api.Server(srv, eList)
 
 	// When API Client
-	client := client.NewClient(ctx, "http://"+address, key, "test-agent", true)
+	client := client.NewClient(ctx, "http://"+address, apiKey, "test-agent", true)
 
 	// With NewFirewallIPvfourName
 	model := &fw4res.FirewallIPvfourName{
-		SelfIdentifier: basetypes.NewStringValue("SrvMain-WanTelia"),
+		SelfIdentifier: basetypes.NewStringValue("TestCrudReadSuccess"),
 	}
 
 	// Should
 	modelShould := &fw4res.FirewallIPvfourName{
-		SelfIdentifier:                       basetypes.NewStringValue("SrvMain-WanTelia"),
+		SelfIdentifier:                       basetypes.NewStringValue("TestCrudReadSuccess"),
 		LeafFirewallIPvfourNameDefaultAction: basetypes.NewStringValue("reject"),
 		LeafFirewallIPvfourNameDefaultLog:    basetypes.NewBoolValue(true),
 		LeafFirewallIPvfourNameDescrIPtion:   basetypes.NewStringValue("Managed by terraform"),
@@ -117,18 +111,32 @@ func TestCrudReadEmptyResource(t *testing.T) {
 	// When Mock API Server
 	address := "localhost:50013"
 	uri := "/retrieve"
-	key := "test-key"
+	apiKey := "test-key"
 	srv := &http.Server{
 		Addr: address,
 	}
 
 	eList := api.NewExchangeList()
 
+	// Resource exists check API call
+	eList.Add().Expect(
+		"/retrieve",
+		apiKey,
+		`{"op":"exists","path":["policy","access-list","42"]}`,
+	).Response(
+		200,
+		`{
+			"success": true,
+			"data": true,
+			"error": null
+		}`,
+	)
+
 	// Initial retrieve request
 	e1 := eList.Add()
 	e1.Expect(
 		uri,
-		key,
+		apiKey,
 		`{"op":"showConfig","path":["policy","access-list","42"]}`,
 	).Response(
 		400,
@@ -139,7 +147,7 @@ func TestCrudReadEmptyResource(t *testing.T) {
 	e2 := eList.Add()
 	e2.Expect(
 		uri,
-		key,
+		apiKey,
 		`{"op":"exists","path":["policy","access-list","42"]}`,
 	).Response(
 		200,
@@ -153,7 +161,7 @@ func TestCrudReadEmptyResource(t *testing.T) {
 	api.Server(srv, eList)
 
 	// When API Client
-	client := client.NewClient(ctx, "http://"+address, key, "test-agent", true)
+	client := client.NewClient(ctx, "http://"+address, apiKey, "test-agent", true)
 
 	// With NewFirewallIPvfourName
 	model := &polalres.PolicyAccessList{

@@ -12,6 +12,7 @@ import (
 	"strings"
 
 	"github.com/hashicorp/terraform-plugin-log/tflog"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/client/clienterrors"
 )
 
 // TODO create a client request internal function
@@ -230,14 +231,19 @@ func (c *Client) Has(ctx context.Context, path []string) (bool, error) {
 
 	if errmsg, ok := ret["error"]; ok {
 		if errmsg, ok := errmsg.(string); ok {
-			return false, fmt.Errorf("[api error]: %s", errmsg)
+			return false, clienterrors.NewNotFoundError("[api error]: %s", errmsg)
 		}
 	}
 
-	return false, fmt.Errorf("[api error]: %v", ret)
+	return false, clienterrors.NewNotFoundError("[api error]: %v", ret)
 }
 
-func (c *Client) Read(ctx context.Context, path []string) (any, error) {
+// Get returns the config found under path if it exists
+//
+// Returns:
+//
+//	error: if the resource was not found a clienterror.NotFoundError is returned, otherwise a generic error
+func (c *Client) Get(ctx context.Context, path []string) (any, error) {
 	endpoint := c.endpoint + "/retrieve"
 	operation, err := json.Marshal(
 		map[string]interface{}{
@@ -297,10 +303,11 @@ func (c *Client) Read(ctx context.Context, path []string) (any, error) {
 
 	if errmsg, ok := ret["error"]; ok {
 		if errmsg, ok := errmsg.(string); ok && errmsg == "Configuration under specified path is empty\n" {
-			return nil, &APINotFoundError{
-				message: strings.TrimSuffix(errmsg, "\n"),
-				path:    strings.Join(path, " "),
-			}
+			return nil, clienterrors.NewNotFoundError(
+				"[%s]: %s",
+				strings.Join(path, " "),
+				strings.TrimSuffix(errmsg, "\n"),
+			)
 		}
 
 		return nil, fmt.Errorf("[api error]: %s", errmsg)

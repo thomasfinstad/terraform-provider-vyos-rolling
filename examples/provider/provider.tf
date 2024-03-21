@@ -36,28 +36,28 @@ resource "vyos_firewall_ipv4_name" "example" {
   description    = "Another terraform t ${plantimestamp()}"
 } */
 
-resource "vyos_firewall_ipv4_name" "example2" {
-  count = 1
+# resource "vyos_firewall_ipv4_name" "example2" {
+#   count = 1
 
-  name_id = "TF-Example2-${count.index}-${replace(plantimestamp(), ":", "-")}"
+#   name_id = "TF-Example2-${count.index}-${replace(plantimestamp(), ":", "-")}"
 
-  default_action = "accept"
-  description    = "Another terraform test"
-}
+#   default_action = "accept"
+#   description    = "Another terraform test"
+# }
 
-resource "vyos_firewall_ipv4_name_rule" "example2" {
-  count = length(vyos_firewall_ipv4_name.example2)
+# resource "vyos_firewall_ipv4_name_rule" "example2" {
+#   count = length(vyos_firewall_ipv4_name.example2)
 
-  name_id = vyos_firewall_ipv4_name.example2[count.index].name_id
-  rule_id = 99
+#   name_id = vyos_firewall_ipv4_name.example2[count.index].name_id
+#   rule_id = 99
 
-  action = "accept"
+#   action = "accept"
 
-  icmp = {
-    code = 0
-    type = 0
-  }
-}
+#   icmp = {
+#     code = 0
+#     type = 0
+#   }
+# }
 
 
 // Empty named resource
@@ -76,3 +76,5 @@ resource "vyos_policy_access_list_rule" "name" {
     host = "55.55.55.55"
   }
 }
+
+# vyos_policy_access_list_rule.name: Modifications complete after 10s [id=policy__access-list__42__rule__69]

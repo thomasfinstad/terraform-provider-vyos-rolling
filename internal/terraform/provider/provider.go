@@ -123,6 +123,7 @@ func (p *VyosProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 		)
 	}
 
+	// SSL settings
 	disableVerifyAttr := providerModel.Certificate.Attributes()["disable_verify"]
 
 	var disableVerify bool
@@ -137,16 +138,26 @@ func (p *VyosProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 		client.NewClient(ctx, endpoint, apiKey, "TODO: add useragent with provider version", disableVerify),
 	)
 
-	t, _ := providerModel.DefaultTimeouts.ValueBigFloat().Float64()
-	if t == 0.0 {
+	// Default timeout
+	var defaultTimeout float64
+	if providerModel.DefaultTimeouts.IsNull() || providerModel.DefaultTimeouts.IsUnknown() {
+		defaultTimeout = 15
+	} else {
+		defaultTimeout, _ = providerModel.DefaultTimeouts.ValueBigFloat().Float64()
+	}
+
+	if defaultTimeout == 0.0 {
 		config.Config.CrudDefaultTimeouts = 15
 	} else {
-		config.Config.CrudDefaultTimeouts = t
+		config.Config.CrudDefaultTimeouts = defaultTimeout
 	}
+
+	// CRUD checks
 	config.Config.CrudSkipExistingResourceCheck = providerModel.OverwriteExistingRes.ValueBool()
 	config.Config.CrudSkipCheckParentBeforeCreate = providerModel.IgnoreMissingParentRes.ValueBool()
 	config.Config.CrudSkipCheckChildBeforeDelete = providerModel.IgnoreChildResOnDelete.ValueBool()
 
+	// Send provider data
 	resp.DataSourceData = config
 	resp.ResourceData = config
 }

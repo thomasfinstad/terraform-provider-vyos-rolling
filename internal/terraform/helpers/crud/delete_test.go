@@ -24,6 +24,20 @@ func TestCrudDeleteSuccess(t *testing.T) {
 	eList := api.NewExchangeList()
 	apiKey := "test-key"
 
+	// Resource exists check API call
+	eList.Add().Expect(
+		"/retrieve",
+		apiKey,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudDeleteSuccess"]}`,
+	).Response(
+		200,
+		`{
+			"success": true,
+			"data": true,
+			"error": null
+		}`,
+	)
+
 	// Child check API call
 	exchangeChildExistsCheck := eList.Add()
 	exchangeChildExistsCheck.Expect(
@@ -33,14 +47,14 @@ func TestCrudDeleteSuccess(t *testing.T) {
 	).Response(
 		200,
 		`{
-				"success": true,
-				"data": {
-					"default-action": "reject",
-					"default-log": {},
-					"description": "Managed by terraform"
-				},
-				"error": null
-			}`,
+			"success": true,
+			"data": {
+				"default-action": "reject",
+				"default-log": {},
+				"description": "Managed by terraform"
+			},
+			"error": null
+		}`,
 	)
 
 	// Delete resource API call
@@ -103,10 +117,24 @@ func TestCrudDeleteResourceHasChildFailure(t *testing.T) {
 		eList := api.NewExchangeList()
 		apiKey := "test-key"
 
-		// Child check API call x4 (due to retry)
+		// x4, due to retry
 		for range 4 {
-			exchangeChildExistsCheck := eList.Add()
-			exchangeChildExistsCheck.Expect(
+			// Resource exists check API call
+			eList.Add().Expect(
+				"/retrieve",
+				apiKey,
+				`{"op":"exists","path":["firewall","ipv4","name","TestCrudDeleteResourceHasChildFailure"]}`,
+			).Response(
+				200,
+				`{
+					"success": true,
+					"data": true,
+					"error": null
+				}`,
+			)
+
+			// Child check API call
+			eList.Add().Expect(
 				"/retrieve",
 				apiKey,
 				`{"op":"showConfig","path":["firewall","ipv4","name","TestCrudDeleteResourceHasChildFailure"]}`,
@@ -239,6 +267,20 @@ func TestCrudDeleteGlobalResourceWithChild(t *testing.T) {
 	eList := api.NewExchangeList()
 	apiKey := "test-key"
 
+	// Resource exists check API call
+	eList.Add().Expect(
+		"/retrieve",
+		apiKey,
+		`{"op":"exists","path":["firewall","ipv4","forward","filter"]}`,
+	).Response(
+		200,
+		`{
+			"success": true,
+			"data": true,
+			"error": null
+		}`,
+	)
+
 	// Child check API call
 	exchangeChildExistsCheck := eList.Add()
 	exchangeChildExistsCheck.Expect(
@@ -324,6 +366,20 @@ func TestCrudDeleteGlobalResourceWithoutChild(t *testing.T) {
 	eList := api.NewExchangeList()
 	apiKey := "test-key"
 
+	// Resource exists check API call
+	eList.Add().Expect(
+		"/retrieve",
+		apiKey,
+		`{"op":"exists","path":["firewall","ipv4","forward","filter"]}`,
+	).Response(
+		200,
+		`{
+			"success": true,
+			"data": true,
+			"error": null
+		}`,
+	)
+
 	// Child check API call
 	exchangeChildExistsCheck := eList.Add()
 	exchangeChildExistsCheck.Expect(
@@ -400,8 +456,23 @@ func TestCrudDeleteRetrySuccess(t *testing.T) {
 	eList := api.NewExchangeList()
 	apiKey := "test-key"
 
-	// Child check API call: before delete x3
+	// x3, due to retry
 	for range 3 {
+		// Resource exists check API call
+		eList.Add().Expect(
+			"/retrieve",
+			apiKey,
+			`{"op":"exists","path":["firewall","ipv4","name","TestCrudDeleteRetrySuccess"]}`,
+		).Response(
+			200,
+			`{
+				"success": true,
+				"data": true,
+				"error": null
+			}`,
+		)
+
+		// Child check API call: before delete
 		exchangeChildExistsCheck := eList.Add()
 		exchangeChildExistsCheck.Expect(
 			"/retrieve",
@@ -425,6 +496,20 @@ func TestCrudDeleteRetrySuccess(t *testing.T) {
 			}`,
 		)
 	}
+
+	// Resource exists check API call
+	eList.Add().Expect(
+		"/retrieve",
+		apiKey,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudDeleteRetrySuccess"]}`,
+	).Response(
+		200,
+		`{
+			"success": true,
+			"data": true,
+			"error": null
+		}`,
+	)
 
 	// Child check API call: after delete
 	exchangeChildExistsCheck := eList.Add()

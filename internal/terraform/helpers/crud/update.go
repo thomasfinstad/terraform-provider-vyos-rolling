@@ -61,7 +61,6 @@ func Update(ctx context.Context, r helpers.VyosResource, req resource.UpdateRequ
 // model must be a ptr
 // this function is seperated out to keep the terraform provider
 // logic and API logic seperate so we can test the API logic easier
-// TODO add retry support to update()
 func update(ctx context.Context, client client.Client, stateModel, planModel helpers.VyosTopResourceDataModel) error {
 	// Delete existing config
 	stateVyosData, err := helpers.MarshalVyos(ctx, stateModel)

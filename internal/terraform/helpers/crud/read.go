@@ -11,6 +11,7 @@ import (
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	cruderrors "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/crud/cruderror"
 )
 
 // Read method to define the logic which refreshes the Terraform state for the resource.
@@ -38,13 +39,13 @@ func Read(ctx context.Context, r helpers.VyosResource, req resource.ReadRequest,
 
 	// Fetch live state from Vyos
 	err := read(ctx, r.GetClient(), stateModel)
-	if err != nil {
-		var apiNotFoundError *client.APINotFoundError
-		if errors.As(err, &apiNotFoundError) {
-			resp.State.RemoveResource(ctx)
-			return
-		}
-		resp.Diagnostics.AddError("read error", err.Error())
+	var nfErr *cruderrors.ResourceNotFoundError
+	if errors.As(err, &nfErr) {
+		resp.State.RemoveResource(ctx)
+		return
+	} else if err != nil {
+		resp.Diagnostics.AddError("unable to retreive config", err.Error())
+		return
 	}
 
 	// Save updated data into Terraform state
@@ -58,37 +59,38 @@ func Read(ctx context.Context, r helpers.VyosResource, req resource.ReadRequest,
 // this function is seperated out to keep the terraform provider
 // logic and API logic seperate so we can test the API logic easier
 func read(ctx context.Context, c client.Client, model helpers.VyosTopResourceDataModel) error {
-	tflog.Debug(ctx, "Fetching API data")
-	response, err := c.Read(ctx, model.GetVyosPath())
-	if err != nil {
-		tflog.Warn(ctx, "API Error:", map[string]interface{}{"vyos-path": model.GetVyosPath(), "error": err, "response": response})
+	tflog.Debug(ctx, "Fetching API data", map[string]interface{}{"vyos-path": model.GetVyosPath()})
 
-		// Check if we exists, if so this means we are an empty resource
-		ret, hasErr := c.Has(ctx, model.GetVyosPath())
-		if hasErr != nil {
-			return fmt.Errorf("resource check error for: '%s': %w", model.GetVyosNamedParentPath(), hasErr)
-		}
+	// Check if we exists, if so this means we are an empty resource
+	ret, hasErr := c.Has(ctx, model.GetVyosPath())
+	if hasErr != nil {
+		return fmt.Errorf("[%s] resource lookup: %w", model.GetVyosNamedParentPath(), hasErr)
+	}
 
-		if !ret {
-			return hasErr
-		}
+	if !ret {
+		return cruderrors.WrapIntoResourceNotFoundError(model, hasErr)
+	}
 
+	response, errGet := c.Get(ctx, model.GetVyosPath())
+
+	// Error after successful client.Has call means empty resource
+	if errGet != nil {
 		// Marshal up as empty
 		err := helpers.UnmarshalVyos(ctx, make(map[string]any), model)
 		if err != nil {
-			return fmt.Errorf("vyos API response unmarshalling error: %w", err)
+			return fmt.Errorf("empty unmarshal response: %w", err)
 		}
 		return nil
-
 	}
 
+	// Populate full model config
 	if responseAssrt, ok := response.(map[string]any); ok {
 		err := helpers.UnmarshalVyos(ctx, responseAssrt, model)
 		if err != nil {
-			return fmt.Errorf("vyos API response unmarshalling error: %w", err)
+			return fmt.Errorf("unmarshal response: %w", err)
 		}
 	} else {
-		return fmt.Errorf("wrong API return type, expected map[string]any, got: %#v", response)
+		return fmt.Errorf("unknown api response: %#v", response)
 	}
 
 	return nil

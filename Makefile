@@ -216,24 +216,28 @@ ifeq (test,$(firstword $(MAKECMDGOALS)))
   # ...and turn them into do-nothing targets
   $(eval $(INPUT_ARGS):;@:)
 endif
-.PHONY: test
-test: internal/terraform/resource/autogen/timestamp.txt
+test: Makefile internal/terraform/resource/autogen/timestamp.txt $(shell find . -type f -name "*.go")
 	@echo Input Args: $(INPUT_ARGS)
 
 	# VyOS API can often take ~1 second to respond to a configure request.
 	# This means we attempt to tune retrys and delays around this.
 	# The end result is that to be able to test retry functionality we will need a bit of head room,
 	# so 5s timeout should be plenty for any test by using a context with 2 or 3 seconds timeout.
-	go test -count=1 -failfast -timeout 30s ./internal/terraform/tests/... ./internal/terraform/helpers/... $(INPUT_ARGS)
+	go test -count=1 -failfast -timeout 30s $(shell find . -type f -name "*_test.go" -exec dirname {} \; | sort -u) $(INPUT_ARGS)
 
-.PHONY: build-rolling
-build-rolling:
-#	make --always-make data/vyos/rolling-iso-build.txt
-	make test
+	# Caching timestamp
+	@date > test
 
+update-rolling:
+	make --always-make data/vyos/rolling-iso-build.txt
+
+build-rolling: test
 	-rm -rf "${BIN_DIR}"
 	-mkdir -p "${BIN_DIR}/local/providers/${NAME}/${VERSION_ROLLING}/${OS_ARCH}/"
 	go build -o ${BIN_DIR}/local/providers/${NAME}/${VERSION_ROLLING}/${OS_ARCH}/${BINARY_PREFIX}${NAME} $(RUN_ARGS)
+
+	# Caching timestamp
+	@date > build-rolling
 
 # .PHONY: build
 # build: test
@@ -245,10 +249,6 @@ build-rolling:
 clean:
 	rm -rfv .build
 	git submodule deinit --all -f
-
-.PHONY: example-clean
-example-clean:
-	-rm -rfv ~/.terraform.d/plugins/
 
 .PHONY: provider-schema
 provider-schema: build-rolling

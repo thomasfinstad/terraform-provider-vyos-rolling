@@ -1,13 +1,21 @@
+###
 # Custom
+
+# Build files
 .build/
-ERROR-FILE
 dist/
+test
+build-rolling
+
+# Terraform files
 .terraform.lock.hcl
+
+# Misc
 tmp/
 temp/
 *.tmp
 *.temp
-
+ERROR-FILE
 
 ###
 # Templates
