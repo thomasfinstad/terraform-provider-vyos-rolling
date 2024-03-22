@@ -3,7 +3,6 @@ default: plan
 
 init: ../.terraform-version $(shell find ../../dist/ -type f) $(shell find . -type f -name "*.tf" -execdir grep -l provider "{}" \; | sort -u)
 	-rm -rf .terraform .terraform.lock.hcl
-	-rm -fv trace.log
 	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log terraform init -upgrade
 
 	# Cache timestamp
@@ -35,6 +34,13 @@ apply: plan
 
 	# Cache timestamp
 	date > apply
+
+.PHONY: clean
+clean:
+	-rm init plan apply
+
+	-rm -rf .terraform .terraform.lock.hcl
+	-rm -fv trace.log
 
 
 ###

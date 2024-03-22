@@ -2,13 +2,7 @@
 page_title: "vyos_qos_policy_round_robin_class Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)
-  ⯯
-  Service Policy definitions
-  ⯯
-  Deficit Round Robin Scheduler
-  ⯯
-  Class ID
+  Quality of Service (QoS)⯯Service Policy definitions⯯Deficit Round Robin Scheduler⯯Class ID
 ---
 
 # vyos_qos_policy_round_robin_class (Resource)

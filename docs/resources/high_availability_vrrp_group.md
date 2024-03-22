@@ -2,11 +2,7 @@
 page_title: "vyos_high_availability_vrrp_group Resource - terraform-provider-vyos"
 subcategory: "high"
 description: |-
-  High availability settings
-  ⯯
-  Virtual Router Redundancy Protocol settings
-  ⯯
-  VRRP group
+  High availability settings⯯Virtual Router Redundancy Protocol settings⯯VRRP group
 ---
 
 # vyos_high_availability_vrrp_group (Resource)

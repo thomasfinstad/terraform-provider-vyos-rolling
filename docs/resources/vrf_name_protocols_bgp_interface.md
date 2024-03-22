@@ -2,15 +2,7 @@
 page_title: "vyos_vrf_name_protocols_bgp_interface Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding
-  ⯯
-  Virtual Routing and Forwarding instance
-  ⯯
-  Routing protocol parameters
-  ⯯
-  Border Gateway Protocol (BGP)
-  ⯯
-  Configure interface related parameters, e.g. MPLS
+  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Border Gateway Protocol (BGP)⯯Configure interface related parameters, e.g. MPLS
 ---
 
 # vyos_vrf_name_protocols_bgp_interface (Resource)

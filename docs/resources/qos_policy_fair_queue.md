@@ -2,11 +2,7 @@
 page_title: "vyos_qos_policy_fair_queue Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)
-  ⯯
-  Service Policy definitions
-  ⯯
-  Stochastic Fairness Queueing
+  Quality of Service (QoS)⯯Service Policy definitions⯯Stochastic Fairness Queueing
 ---
 
 # vyos_qos_policy_fair_queue (Resource)

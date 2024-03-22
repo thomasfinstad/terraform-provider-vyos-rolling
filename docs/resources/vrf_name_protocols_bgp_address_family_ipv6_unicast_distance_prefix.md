@@ -2,21 +2,7 @@
 page_title: "vyos_vrf_name_protocols_bgp_address_family_ipv6_unicast_distance_prefix Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding
-  ⯯
-  Virtual Routing and Forwarding instance
-  ⯯
-  Routing protocol parameters
-  ⯯
-  Border Gateway Protocol (BGP)
-  ⯯
-  BGP address-family parameters
-  ⯯
-  IPv6 BGP settings
-  ⯯
-  Administrative distances for BGP routes
-  ⯯
-  Administrative distance for a specific BGP prefix
+  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Border Gateway Protocol (BGP)⯯BGP address-family parameters⯯IPv6 BGP settings⯯Administrative distances for BGP routes⯯Administrative distance for a specific BGP prefix
 ---
 
 # vyos_vrf_name_protocols_bgp_address_family_ipv6_unicast_distance_prefix (Resource)

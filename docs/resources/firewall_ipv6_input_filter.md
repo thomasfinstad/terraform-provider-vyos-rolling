@@ -4,12 +4,7 @@ subcategory: "firewall"
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
   Firewall
-  ⯯
-  IPv6 firewall
-  ⯯
-  IPv6 input firewall
-  ⯯
-  IPv6 firewall input filter
+  ⯯IPv6 firewall⯯IPv6 input firewall⯯IPv6 firewall input filter
 ---
 
 # vyos_firewall_ipv6_input_filter (Resource)

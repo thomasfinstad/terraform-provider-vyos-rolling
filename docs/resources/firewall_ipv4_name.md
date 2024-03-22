@@ -2,11 +2,7 @@
 page_title: "vyos_firewall_ipv4_name Resource - terraform-provider-vyos"
 subcategory: "firewall"
 description: |-
-  Firewall
-  ⯯
-  IPv4 firewall
-  ⯯
-  IPv4 custom firewall
+  Firewall⯯IPv4 firewall⯯IPv4 custom firewall
 ---
 
 # vyos_firewall_ipv4_name (Resource)

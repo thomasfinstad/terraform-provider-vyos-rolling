@@ -2,11 +2,7 @@
 page_title: "vyos_qos_policy_limiter Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)
-  ⯯
-  Service Policy definitions
-  ⯯
-  Traffic input limiting policy
+  Quality of Service (QoS)⯯Service Policy definitions⯯Traffic input limiting policy
 ---
 
 # vyos_qos_policy_limiter (Resource)

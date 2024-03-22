@@ -2,11 +2,7 @@
 page_title: "vyos_qos_policy_network_emulator Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)
-  ⯯
-  Service Policy definitions
-  ⯯
-  Network emulator policy
+  Quality of Service (QoS)⯯Service Policy definitions⯯Network emulator policy
 ---
 
 # vyos_qos_policy_network_emulator (Resource)

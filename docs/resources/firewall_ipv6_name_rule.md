@@ -2,13 +2,7 @@
 page_title: "vyos_firewall_ipv6_name_rule Resource - terraform-provider-vyos"
 subcategory: "firewall"
 description: |-
-  Firewall
-  ⯯
-  IPv6 firewall
-  ⯯
-  IPv6 custom firewall
-  ⯯
-  IPv6 Firewall custom rule number
+  Firewall⯯IPv6 firewall⯯IPv6 custom firewall⯯IPv6 Firewall custom rule number
 ---
 
 # vyos_firewall_ipv6_name_rule (Resource)

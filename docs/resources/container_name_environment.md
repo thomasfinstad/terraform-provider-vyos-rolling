@@ -2,11 +2,7 @@
 page_title: "vyos_container_name_environment Resource - terraform-provider-vyos"
 subcategory: "container"
 description: |-
-  Container applications
-  ⯯
-  Container name
-  ⯯
-  Add custom environment variables
+  Container applications⯯Container name⯯Add custom environment variables
 ---
 
 # vyos_container_name_environment (Resource)

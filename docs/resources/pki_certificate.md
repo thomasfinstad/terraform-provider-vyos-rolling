@@ -2,9 +2,7 @@
 page_title: "vyos_pki_certificate Resource - terraform-provider-vyos"
 subcategory: "pki"
 description: |-
-  Public key infrastructure (PKI)
-  ⯯
-  Certificate
+  Public key infrastructure (PKI)⯯Certificate
 ---
 
 # vyos_pki_certificate (Resource)

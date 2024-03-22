@@ -2,11 +2,7 @@
 page_title: "vyos_firewall_bridge_name Resource - terraform-provider-vyos"
 subcategory: "firewall"
 description: |-
-  Firewall
-  ⯯
-  Bridge firewall
-  ⯯
-  Bridge custom firewall
+  Firewall⯯Bridge firewall⯯Bridge custom firewall
 ---
 
 # vyos_firewall_bridge_name (Resource)

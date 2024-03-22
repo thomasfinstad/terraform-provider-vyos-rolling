@@ -2,9 +2,7 @@
 page_title: "vyos_container_network Resource - terraform-provider-vyos"
 subcategory: "container"
 description: |-
-  Container applications
-  ⯯
-  Network name
+  Container applications⯯Network name
 ---
 
 # vyos_container_network (Resource)

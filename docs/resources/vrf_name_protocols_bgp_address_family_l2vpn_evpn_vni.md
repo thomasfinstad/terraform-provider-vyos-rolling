@@ -2,19 +2,7 @@
 page_title: "vyos_vrf_name_protocols_bgp_address_family_l2vpn_evpn_vni Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding
-  ⯯
-  Virtual Routing and Forwarding instance
-  ⯯
-  Routing protocol parameters
-  ⯯
-  Border Gateway Protocol (BGP)
-  ⯯
-  BGP address-family parameters
-  ⯯
-  L2VPN EVPN BGP settings
-  ⯯
-  VXLAN Network Identifier
+  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Border Gateway Protocol (BGP)⯯BGP address-family parameters⯯L2VPN EVPN BGP settings⯯VXLAN Network Identifier
 ---
 
 # vyos_vrf_name_protocols_bgp_address_family_l2vpn_evpn_vni (Resource)

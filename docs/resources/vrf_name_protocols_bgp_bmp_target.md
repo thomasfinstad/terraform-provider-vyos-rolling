@@ -2,17 +2,7 @@
 page_title: "vyos_vrf_name_protocols_bgp_bmp_target Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding
-  ⯯
-  Virtual Routing and Forwarding instance
-  ⯯
-  Routing protocol parameters
-  ⯯
-  Border Gateway Protocol (BGP)
-  ⯯
-  BGP Monitoring Protocol (BMP)
-  ⯯
-  BMP target
+  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Border Gateway Protocol (BGP)⯯BGP Monitoring Protocol (BMP)⯯BMP target
 ---
 
 # vyos_vrf_name_protocols_bgp_bmp_target (Resource)

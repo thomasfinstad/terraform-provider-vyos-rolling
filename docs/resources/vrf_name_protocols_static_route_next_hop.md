@@ -2,17 +2,7 @@
 page_title: "vyos_vrf_name_protocols_static_route_next_hop Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding
-  ⯯
-  Virtual Routing and Forwarding instance
-  ⯯
-  Routing protocol parameters
-  ⯯
-  Static Routing
-  ⯯
-  Static IPv4 route
-  ⯯
-  Next-hop IPv4 router address
+  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Static Routing⯯Static IPv4 route⯯Next-hop IPv4 router address
 ---
 
 # vyos_vrf_name_protocols_static_route_next_hop (Resource)
