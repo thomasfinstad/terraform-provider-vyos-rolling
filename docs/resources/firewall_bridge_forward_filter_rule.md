@@ -2,15 +2,7 @@
 page_title: "vyos_firewall_bridge_forward_filter_rule Resource - terraform-provider-vyos"
 subcategory: "firewall"
 description: |-
-  Firewall
-  ⯯
-  Bridge firewall
-  ⯯
-  Bridge forward firewall
-  ⯯
-  Bridge firewall forward filter
-  ⯯
-  Bridge Firewall forward filter rule number
+  Firewall⯯Bridge firewall⯯Bridge forward firewall⯯Bridge firewall forward filter⯯Bridge Firewall forward filter rule number
 ---
 
 # vyos_firewall_bridge_forward_filter_rule (Resource)

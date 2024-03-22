@@ -4,10 +4,7 @@ subcategory: "pki"
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
   Public key infrastructure (PKI)
-  ⯯
-  X509 Settings
-  ⯯
-  X509 Default Values
+  ⯯X509 Settings⯯X509 Default Values
 ---
 
 # vyos_pki_x509_default (Resource)

@@ -1,11 +1,13 @@
 
 default: plan
 
-.PHONY: init
-init: provider.tf ../.terraform-version ../../dist/
+init: ../.terraform-version $(shell find ../../dist/ -type f) $(shell find . -type f -name "*.tf" -execdir grep -l provider "{}" \; | sort -u)
 	-rm -rf .terraform .terraform.lock.hcl
 	-rm -fv trace.log
 	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log terraform init -upgrade
+
+	# Cache timestamp
+	date > init
 
 # Ref: "Optional dynamic parameters" section below
 # Example usage: make plan -- -target vyos_banana.nomnom
@@ -15,10 +17,9 @@ ifeq (plan,$(firstword $(MAKECMDGOALS)))
   # ...and turn them into do-nothing targets
   $(eval $(DYN_ARGS):;@:)
 endif
-.PHONY: plan
-plan: init
+plan: init $(shell find . -type f -name "*.tf")
 	-rm -fv trace.log
-	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log terraform plan $(DYN_ARGS)
+	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log terraform plan -out=plan $(DYN_ARGS)
 
 # Ref: "Optional dynamic parameters" section below
 # Example usage: make apply -- -target vyos_banana.nomnom
@@ -28,10 +29,12 @@ ifeq (apply,$(firstword $(MAKECMDGOALS)))
   # ...and turn them into do-nothing targets
   $(eval $(DYN_ARGS):;@:)
 endif
-.PHONY: apply
-apply: init
+apply: plan
 	-rm -fv trace.log
-	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log terraform apply -auto-approve $(DYN_ARGS)
+	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log terraform apply -auto-approve $(DYN_ARGS) plan
+
+	# Cache timestamp
+	date > apply
 
 
 ###

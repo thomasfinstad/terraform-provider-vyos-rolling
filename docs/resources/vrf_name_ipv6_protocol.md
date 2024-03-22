@@ -2,13 +2,7 @@
 page_title: "vyos_vrf_name_ipv6_protocol Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding
-  ⯯
-  Virtual Routing and Forwarding instance
-  ⯯
-  IPv6 routing parameters
-  ⯯
-  Filter routing info exchanged between routing protocol and zebra
+  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯IPv6 routing parameters⯯Filter routing info exchanged between routing protocol and zebra
 ---
 
 # vyos_vrf_name_ipv6_protocol (Resource)

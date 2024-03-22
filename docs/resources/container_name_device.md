@@ -2,11 +2,7 @@
 page_title: "vyos_container_name_device Resource - terraform-provider-vyos"
 subcategory: "container"
 description: |-
-  Container applications
-  ⯯
-  Container name
-  ⯯
-  Add a host device to the container
+  Container applications⯯Container name⯯Add a host device to the container
 ---
 
 # vyos_container_name_device (Resource)

@@ -9,5 +9,9 @@
     "todo-tree.filtering.excludeGlobs": [
         "**/tools/trang-20091111/**",
         "/usr/local/go/**/*"
-    ]
+    ],
+    "[makefile]": {
+        "editor.insertSpaces": false,
+        "editor.detectIndentation": false
+    }
 }

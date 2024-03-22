@@ -2,11 +2,7 @@
 page_title: "vyos_container_name_network Resource - terraform-provider-vyos"
 subcategory: "container"
 description: |-
-  Container applications
-  ⯯
-  Container name
-  ⯯
-  Attach user defined network to container
+  Container applications⯯Container name⯯Attach user defined network to container
 ---
 
 # vyos_container_name_network (Resource)

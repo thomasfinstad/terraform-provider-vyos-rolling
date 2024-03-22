@@ -12,6 +12,7 @@ import (
 var (
 	// these will be set by the goreleaser configuration
 	// to appropriate values for the compiled binary.
+	// TODO set correct version
 	version string = "dev"
 
 	// goreleaser can pass other information to the main package, such as the specific commit

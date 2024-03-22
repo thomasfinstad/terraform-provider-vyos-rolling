@@ -2,11 +2,7 @@
 page_title: "vyos_nat_destination_rule Resource - terraform-provider-vyos"
 subcategory: "nat"
 description: |-
-  Network Address Translation (NAT) parameters
-  ⯯
-  Destination NAT settings
-  ⯯
-  Rule number for NAT
+  Network Address Translation (NAT) parameters⯯Destination NAT settings⯯Rule number for NAT
 ---
 
 # vyos_nat_destination_rule (Resource)

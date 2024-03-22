@@ -113,8 +113,10 @@ func TestCrudCreateSuccess(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Logf("Total matched exchanges: %d", len(eList.Matched()))
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Errorf("Received request:\n%s", eList.Failed())
 	}
 }
 
@@ -191,8 +193,10 @@ func TestCrudCreateResourceAlreadyExsitsFailure(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Logf("Total matched exchanges: %d", len(eList.Matched()))
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Errorf("Received request:\n%s", eList.Failed())
 	}
 }
 
@@ -275,8 +279,10 @@ func TestCrudCreateResourceAlreadyExsitsIgnore(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Logf("Total matched exchanges: %d", len(eList.Matched()))
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Errorf("Received request:\n%s", eList.Failed())
 	}
 }
 
@@ -340,8 +346,10 @@ func TestCrudCreateResourceParentMissingFailure(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Logf("Total matched exchanges: %d", len(eList.Matched()))
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Errorf("Received request:\n%s", eList.Failed())
 	}
 }
 
@@ -426,8 +434,10 @@ func TestCrudCreateResourceParentMissingIgnore(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Logf("Total matched exchanges: %d", len(eList.Matched()))
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Errorf("Received request:\n%s", eList.Failed())
 	}
 }
 
@@ -550,8 +560,10 @@ func TestCrudCreateTimeoutSuccess(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Logf("Total matched exchanges: %d", len(eList.Matched()))
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Errorf("Received request:\n%s", eList.Failed())
 	}
 }
 
@@ -793,7 +805,9 @@ func TestCrudCreateRetrySuccess(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Logf("Total matched exchanges: %d", len(eList.Matched()))
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Errorf("Received request:\n%s", eList.Failed())
 	}
 }

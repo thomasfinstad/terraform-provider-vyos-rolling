@@ -2,17 +2,7 @@
 page_title: "vyos_vrf_name_protocols_ospf_redistribute_table Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding
-  ⯯
-  Virtual Routing and Forwarding instance
-  ⯯
-  Routing protocol parameters
-  ⯯
-  Open Shortest Path First (OSPF)
-  ⯯
-  Redistribute information from another routing protocol
-  ⯯
-  Redistribute non-main Kernel Routing Table
+  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Open Shortest Path First (OSPF)⯯Redistribute information from another routing protocol⯯Redistribute non-main Kernel Routing Table
 ---
 
 # vyos_vrf_name_protocols_ospf_redistribute_table (Resource)

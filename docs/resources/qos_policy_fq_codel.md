@@ -2,11 +2,7 @@
 page_title: "vyos_qos_policy_fq_codel Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)
-  ⯯
-  Service Policy definitions
-  ⯯
-  Fair Queuing (FQ) with Controlled Delay (CoDel)
+  Quality of Service (QoS)⯯Service Policy definitions⯯Fair Queuing (FQ) with Controlled Delay (CoDel)
 ---
 
 # vyos_qos_policy_fq_codel (Resource)

@@ -2,11 +2,7 @@
 page_title: "vyos_pki_openvpn_shared_secret Resource - terraform-provider-vyos"
 subcategory: "pki"
 description: |-
-  Public key infrastructure (PKI)
-  ⯯
-  OpenVPN keys
-  ⯯
-  OpenVPN shared secret key
+  Public key infrastructure (PKI)⯯OpenVPN keys⯯OpenVPN shared secret key
 ---
 
 # vyos_pki_openvpn_shared_secret (Resource)

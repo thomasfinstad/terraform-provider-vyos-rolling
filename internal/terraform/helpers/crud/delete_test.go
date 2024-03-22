@@ -2,6 +2,7 @@ package crud
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 	"testing"
@@ -9,6 +10,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	cruderrors "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/crud/cruderror"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 	ipv4FwFilterResModel "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/global/firewall/ipv4-forward-filter/resourcemodel"
 	ipv4ResModel "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/ipv4-name/resourcemodel"
@@ -102,8 +104,10 @@ func TestCrudDeleteSuccess(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Logf("Total matched exchanges: %d", len(eList.Matched()))
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Errorf("Received request:\n%s", eList.Failed())
 	}
 }
 
@@ -184,16 +188,18 @@ func TestCrudDeleteResourceHasChildFailure(t *testing.T) {
 		// Verify results
 		if err == nil {
 			t.Errorf("expected an error, got nil")
-		}
-
-		if !strings.Contains(err.Error(), "child resource detected") {
-			t.Errorf("delete returned the wrong error: %s", err.Error())
+		} else {
+			if !strings.Contains(err.Error(), "child resource detected") {
+				t.Errorf("delete returned the wrong error: %s", err.Error())
+			}
 		}
 
 		// Validate API calls
 		if len(eList.Unmatched()) > 0 {
-			t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
-			t.Logf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+			t.Logf("Total matched exchanges: %d", len(eList.Matched()))
+			t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+			t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
+			t.Errorf("Received request:\n%s", eList.Failed())
 		}
 	}
 }
@@ -253,8 +259,10 @@ func TestCrudDeleteResourceHasChildIgnore(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Logf("Total matched exchanges: %d", len(eList.Matched()))
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Errorf("Received request:\n%s", eList.Failed())
 	}
 }
 
@@ -351,8 +359,10 @@ func TestCrudDeleteGlobalResourceWithChild(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Logf("Total matched exchanges: %d", len(eList.Matched()))
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Errorf("Received request:\n%s", eList.Failed())
 	}
 }
 
@@ -442,8 +452,10 @@ func TestCrudDeleteGlobalResourceWithoutChild(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Logf("Total matched exchanges: %d", len(eList.Matched()))
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Errorf("Received request:\n%s", eList.Failed())
 	}
 }
 
@@ -576,7 +588,289 @@ func TestCrudDeleteRetrySuccess(t *testing.T) {
 
 	// Validate API calls
 	if len(eList.Unmatched()) > 0 {
-		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Logf("Total matched exchanges: %d", len(eList.Matched()))
 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Errorf("Received request:\n%s", eList.Failed())
+	}
+}
+
+// TestCrudDeleteEmptyGlobalResource test CRUD helper: Delete
+//
+//	Default situation where a global resource exists but is empty
+func TestCrudDeleteEmptyGlobalResource(t *testing.T) {
+	// API mocking
+	eList := api.NewExchangeList()
+	apiKey := "test-key"
+
+	// Resource exists check API call
+	eList.Add().Expect(
+		"/retrieve",
+		apiKey,
+		`{"op":"exists","path":["firewall","ipv4","forward","filter"]}`,
+	).Response(
+		200,
+		`{
+			"success": true,
+			"data": true,
+			"error": null
+		}`,
+	)
+
+	// Child check API call
+	exchangeChildExistsCheck := eList.Add()
+	exchangeChildExistsCheck.Expect(
+		"/retrieve",
+		apiKey,
+		`{"op":"showConfig","path":["firewall","ipv4","forward","filter"]}`,
+	).Response(
+		400,
+		`{"success": false, "error": "Configuration under specified path is empty\n", "data": null}`,
+	)
+
+	// Delete resource API call
+	exchangeCreateResource := eList.Add()
+	exchangeCreateResource.Expect(
+		"/configure",
+		apiKey,
+		`[`+
+			`{"op":"delete","path":["firewall","ipv4","forward","filter"]}`+
+			`]`,
+	).Response(
+		200,
+		`{
+				"success": true,
+				"data": null,
+				"error": null
+			}`,
+	)
+
+	// From resource model
+	model := &ipv4FwFilterResModel.FirewallIPvfourForwardFilter{
+		ID: basetypes.NewStringValue("GLOBAL"),
+		LeafFirewallIPvfourForwardFilterDefaultAction: basetypes.NewStringValue("reject"),
+		LeafFirewallIPvfourForwardFilterDefaultLog:    basetypes.NewBoolValue(true),
+	}
+
+	// Server
+	apiAddress := "localhost:50011"
+	srv := &http.Server{
+		Addr: apiAddress,
+	}
+	api.Server(srv, eList)
+
+	// Client
+	ctx := context.Background()
+	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
+	providerData := data.NewProviderData(client)
+
+	// Execute test
+	err := delete(ctx, providerData, client, model)
+	if err != nil {
+		t.Errorf("Delete failed: %v", err)
+	}
+
+	// Validate API calls
+	if len(eList.Unmatched()) > 0 {
+		t.Logf("Total matched exchanges: %d", len(eList.Matched()))
+		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Errorf("Received request:\n%s", eList.Failed())
+	}
+}
+
+// TestCrudDeleteEmptyResource test CRUD helper: Delete
+//
+//	Default situation where the a named resource exists but is empty
+func TestCrudDeleteEmptyResource(t *testing.T) {
+	// API mocking
+	eList := api.NewExchangeList()
+	apiKey := "test-key"
+
+	// Resource exists check API call
+	eList.Add().Expect(
+		"/retrieve",
+		apiKey,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudDeleteEmptyResource"]}`,
+	).Response(
+		200,
+		`{
+			"success": true,
+			"data": true,
+			"error": null
+		}`,
+	)
+
+	// Child check API call
+	exchangeChildExistsCheck := eList.Add()
+	exchangeChildExistsCheck.Expect(
+		"/retrieve",
+		apiKey,
+		`{"op":"showConfig","path":["firewall","ipv4","name","TestCrudDeleteEmptyResource"]}`,
+	).Response(
+		400,
+		`{"success": false, "error": "Configuration under specified path is empty\n", "data": null}`,
+	)
+
+	// Delete resource API call
+	exchangeCreateResource := eList.Add()
+	exchangeCreateResource.Expect(
+		"/configure",
+		apiKey,
+		`[`+
+			`{"op":"delete","path":["firewall","ipv4","name","TestCrudDeleteEmptyResource"]}`+
+			`]`,
+	).Response(
+		200,
+		`{
+				"success": true,
+				"data": null,
+				"error": null
+			}`,
+	)
+
+	// From resource model
+	model := &ipv4ResModel.FirewallIPvfourName{
+		SelfIdentifier:                       basetypes.NewStringValue("TestCrudDeleteEmptyResource"),
+		LeafFirewallIPvfourNameDefaultAction: basetypes.NewStringValue("reject"),
+		LeafFirewallIPvfourNameDefaultLog:    basetypes.NewBoolValue(true),
+		LeafFirewallIPvfourNameDescrIPtion:   basetypes.NewStringValue("Managed by terraform"),
+	}
+
+	// Server
+	apiAddress := "localhost:50011"
+	srv := &http.Server{
+		Addr: apiAddress,
+	}
+	api.Server(srv, eList)
+
+	// Client
+	ctx := context.Background()
+	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
+	providerData := data.NewProviderData(client)
+
+	// Execute test
+	err := delete(ctx, providerData, client, model)
+	if err != nil {
+		t.Errorf("Delete failed: %v", err)
+	}
+
+	// Validate API calls
+	if len(eList.Unmatched()) > 0 {
+		t.Logf("Total matched exchanges: %d", len(eList.Matched()))
+		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Errorf("Received request:\n%s", eList.Failed())
+	}
+}
+
+// TestCrudDeleteDeletedGlobalResource test CRUD helper: Delete
+//
+//	Default situation where a global resource is already deleted
+func TestCrudDeleteDeletedGlobalResource(t *testing.T) {
+	// API mocking
+	eList := api.NewExchangeList()
+	apiKey := "test-key"
+
+	// Resource exists check API call
+	eList.Add().Expect(
+		"/retrieve",
+		apiKey,
+		`{"op":"exists","path":["firewall","ipv4","forward","filter"]}`,
+	).Response(
+		200,
+		`{
+			"success": true,
+			"data": false,
+			"error": null
+		}`,
+	)
+
+	// From resource model
+	model := &ipv4FwFilterResModel.FirewallIPvfourForwardFilter{
+		ID: basetypes.NewStringValue("GLOBAL"),
+		LeafFirewallIPvfourForwardFilterDefaultAction: basetypes.NewStringValue("reject"),
+		LeafFirewallIPvfourForwardFilterDefaultLog:    basetypes.NewBoolValue(true),
+	}
+
+	// Server
+	apiAddress := "localhost:50011"
+	srv := &http.Server{
+		Addr: apiAddress,
+	}
+	api.Server(srv, eList)
+
+	// Client
+	ctx := context.Background()
+	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
+	providerData := data.NewProviderData(client)
+
+	// Execute test
+	err := delete(ctx, providerData, client, model)
+	var wantErr cruderrors.ResourceNotFoundError
+	if !errors.As(err, &wantErr) {
+		t.Errorf("Delete failed: %v", err)
+	}
+
+	// Validate API calls
+	if len(eList.Unmatched()) > 0 {
+		t.Logf("Total matched exchanges: %d", len(eList.Matched()))
+		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Errorf("Received request:\n%s", eList.Failed())
+	}
+}
+
+// TestCrudDeleteDeletedResource test CRUD helper: Delete
+//
+//	Default situation where the a named resource is already deleted
+func TestCrudDeleteDeletedResource(t *testing.T) {
+	// API mocking
+	eList := api.NewExchangeList()
+	apiKey := "test-key"
+
+	// Resource exists check API call
+	eList.Add().Expect(
+		"/retrieve",
+		apiKey,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudDeleteDeletedResource"]}`,
+	).Response(
+		400,
+		`{"success": true, "error": null, "data": false}`,
+	)
+
+	// From resource model
+	model := &ipv4ResModel.FirewallIPvfourName{
+		SelfIdentifier:                       basetypes.NewStringValue("TestCrudDeleteDeletedResource"),
+		LeafFirewallIPvfourNameDefaultAction: basetypes.NewStringValue("reject"),
+		LeafFirewallIPvfourNameDefaultLog:    basetypes.NewBoolValue(true),
+		LeafFirewallIPvfourNameDescrIPtion:   basetypes.NewStringValue("Managed by terraform"),
+	}
+
+	// Server
+	apiAddress := "localhost:50011"
+	srv := &http.Server{
+		Addr: apiAddress,
+	}
+	api.Server(srv, eList)
+
+	// Client
+	ctx := context.Background()
+	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
+	providerData := data.NewProviderData(client)
+
+	// Execute test
+	err := delete(ctx, providerData, client, model)
+	var wantErr cruderrors.ResourceNotFoundError
+	if !errors.As(err, &wantErr) {
+		t.Errorf("Delete failed: %v", err)
+	}
+
+	// Validate API calls
+	if len(eList.Unmatched()) > 0 {
+		t.Logf("Total matched exchanges: %d", len(eList.Matched()))
+		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Errorf("Received request:\n%s", eList.Failed())
 	}
 }

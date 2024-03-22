@@ -41,7 +41,7 @@ func Read(ctx context.Context, r helpers.VyosResource, req resource.ReadRequest,
 	// Fetch live state from Vyos
 	err := read(ctx, r.GetClient(), stateModel)
 
-	var rnfErr *cruderrors.ResourceNotFoundError
+	var rnfErr cruderrors.ResourceNotFoundError
 	if errors.As(err, &rnfErr) {
 		resp.State.RemoveResource(ctx)
 		return
@@ -76,11 +76,8 @@ func read(ctx context.Context, c client.Client, model helpers.VyosTopResourceDat
 
 	response, getErr := c.Get(ctx, model.GetVyosPath())
 	// Error after successful client.Has call should mean empty resource
-	var nfErr *clienterrors.NotFoundError
-	WHY := errors.As(getErr, &nfErr)
-
-	if WHY {
-		//if errors.As(getErr, &nfErr) {
+	var nfErr clienterrors.NotFoundError
+	if errors.As(getErr, &nfErr) {
 		err := helpers.UnmarshalVyos(ctx, make(map[string]any), model)
 		if err != nil {
 			return fmt.Errorf("empty unmarshal response: %w", err)

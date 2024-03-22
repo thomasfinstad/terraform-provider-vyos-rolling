@@ -2,17 +2,7 @@
 page_title: "vyos_vrf_name_protocols_bgp_neighbor_local_role Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding
-  ⯯
-  Virtual Routing and Forwarding instance
-  ⯯
-  Routing protocol parameters
-  ⯯
-  Border Gateway Protocol (BGP)
-  ⯯
-  BGP neighbor
-  ⯯
-  Local role for BGP neighbor (RFC9234)
+  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Border Gateway Protocol (BGP)⯯BGP neighbor⯯Local role for BGP neighbor (RFC9234)
 ---
 
 # vyos_vrf_name_protocols_bgp_neighbor_local_role (Resource)

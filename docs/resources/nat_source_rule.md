@@ -2,11 +2,7 @@
 page_title: "vyos_nat_source_rule Resource - terraform-provider-vyos"
 subcategory: "nat"
 description: |-
-  Network Address Translation (NAT) parameters
-  ⯯
-  Source NAT settings
-  ⯯
-  Rule number for NAT
+  Network Address Translation (NAT) parameters⯯Source NAT settings⯯Rule number for NAT
 ---
 
 # vyos_nat_source_rule (Resource)

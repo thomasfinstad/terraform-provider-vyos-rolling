@@ -47,12 +47,13 @@ func Example() {
 
 // NewExchangeList constructs a new list used to add new exchanges
 func NewExchangeList() *ExchangeList {
-	return &ExchangeList{}
+	return &ExchangeList{failed: "N/A"}
 }
 
 // ExchangeList holds and handles exchanges to be matched against
 type ExchangeList struct {
 	exchanges []*Exchange
+	failed    string
 }
 
 // Add appends a new exchange to the list and returns a reference of the exchange
@@ -81,6 +82,23 @@ func (el *ExchangeList) Unmatched() []*Exchange {
 	return ret
 }
 
+// Failed returns returns a human friendly string representation for the request that did not match
+func (el *ExchangeList) Failed() string {
+	return el.failed
+}
+
+// Matched returns all exchanges that triggered a match so far, useful for inspection
+func (el *ExchangeList) Matched() []*Exchange {
+	var ret []*Exchange
+	for _, e := range el.exchanges {
+		if e.matched {
+			ret = append(ret, e)
+		}
+	}
+
+	return ret
+}
+
 // Exchange holds information used to match requests sent to the Server
 type Exchange struct {
 	matched  bool
@@ -91,6 +109,32 @@ type Exchange struct {
 
 // Expect configures how the incoming request is expected to look
 func (e *Exchange) Expect(uri, key string, ops string) *Exchange {
+
+	// If we can json marshal the ops string it will be more likely to conform to
+	// the values we receive as they are likely, but not guarantied, to be from
+	// other json marshalling operations
+
+	// Check if we can match a JSON blob to maps
+	unmarshalMap := make(map[string]any)
+	err := json.Unmarshal([]byte(ops), &unmarshalMap)
+	if err == nil {
+		opsB, err := json.Marshal(unmarshalMap)
+		if err == nil {
+			ops = string(opsB)
+		}
+	}
+
+	// Check if we can match a JSON blob to lists
+	unmarshalSlice := []interface{}{}
+	err = json.Unmarshal([]byte(ops), &unmarshalSlice)
+	if err == nil {
+		opsB, err := json.Marshal(unmarshalSlice)
+		if err == nil {
+			ops = string(opsB)
+		}
+	}
+
+	// Crete expect and return self
 	e.expect = expect{
 		uri: uri,
 		key: key,
@@ -109,7 +153,7 @@ func (e *Exchange) Delay(delay time.Duration) *Exchange {
 
 // Sexpect returns a human friendly string representation of the expect config
 func (e *Exchange) Sexpect() string {
-	return fmt.Sprintf("URI: %v\nKEY: %v\nOPS: %v", e.expect.uri, e.expect.key, e.expect.ops)
+	return fmt.Sprintf("Expected Uri: %v\nExpected Key: %v\nExpected Ops: %v", e.expect.uri, e.expect.key, e.expect.ops)
 }
 
 // Response configures how the Exchange should respond when matched
@@ -128,15 +172,15 @@ func (e *Exchange) handle(w http.ResponseWriter, r *http.Request) (ok bool) {
 	}
 
 	if e.delay > 0 {
-		log.Printf("MOCK SRV:Delaying response for: %dms", e.delay/time.Millisecond)
+		log.Printf("Mock srv:  Delaying response for: %dms", e.delay/time.Millisecond)
 		time.Sleep(e.delay)
 	}
 
 	if !e.response.reply(w) {
-		panic("unable to send reply")
+		panic("Mock srv: unable to send reply")
 	}
 
-	log.Printf("MOCK SRV:Matched: %v", e.expect)
+	log.Printf("Mock srv: Matched: %v", e.expect)
 	e.matched = true
 	return true
 }
@@ -188,7 +232,7 @@ func (e expect) matches(r *http.Request) bool {
 	opsErr := json.Unmarshal([]byte(e.ops), &eOpsJSONM)
 	formErr := json.Unmarshal([]byte(formData), &formDataJSONM)
 	if opsErr == nil && formErr == nil {
-		log.Printf("MOCK SRV:map[string]any exchange check\n")
+		log.Printf("Mock srv: map[string]any exchange check\n")
 		return cmp.Equal(eOpsJSONM, formDataJSONM,
 			cmpopts.SortMaps(sillySort),
 			cmpopts.SortSlices(sillySort),
@@ -201,7 +245,7 @@ func (e expect) matches(r *http.Request) bool {
 	opsErr = json.Unmarshal([]byte(e.ops), &eOpsJSONL)
 	formErr = json.Unmarshal([]byte(formData), &formDataJSONL)
 	if opsErr == nil && formErr == nil {
-		log.Printf("MOCK SRV:[]interface{}{} exchange check\n")
+		log.Printf("Mock srv: []interface{}{} exchange check\n")
 		return cmp.Equal(eOpsJSONL, formDataJSONL,
 			cmpopts.SortMaps(sillySort),
 			cmpopts.SortSlices(sillySort),
@@ -209,7 +253,7 @@ func (e expect) matches(r *http.Request) bool {
 	}
 
 	// Otherwise try to just match as a simple string
-	log.Printf("MOCK SRV:comparing exchange expect as string\n")
+	log.Printf("Mock srv: comparing exchange expect as string\n")
 	return e.ops == formData
 }
 
@@ -238,20 +282,18 @@ func Server(srv *http.Server, el *ExchangeList) {
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
 		if !el.handle(w, r) {
-			log.Printf("MOCK SRV:Did not match the next expected exchange pattern:\n")
-			log.Printf("MOCK SRV:URI: %s\n", r.RequestURI)
-			log.Printf("MOCK SRV:Key: %s\n", r.FormValue("key"))
-			log.Printf("MOCK SRV:Ops: %s\n", r.FormValue("data"))
+			log.Printf("Mock srv: Request did not match the next expected exchange pattern:\n")
+			el.failed = fmt.Sprintf("Requested Uri: %v\nRequested Key: %v\nRequested Ops: %v", r.RequestURI, r.FormValue("key"), r.FormValue("data"))
 
 			w.WriteHeader(http.StatusNotFound)
 			w.Write([]byte("NO MATCH"))
 			if f, ok := w.(http.Flusher); ok {
 				f.Flush()
 			}
-			log.Printf("MOCK SRV:Flushed\n")
+			log.Printf("Mock srv: Flushed\n")
 
 			go srv.Shutdown(context.TODO())
-			log.Printf("MOCK SRV:Srv Shutdown\n")
+			log.Printf("Mock srv: Srv Shutdown\n")
 		}
 
 		if len(el.Unmatched()) == 0 {
@@ -259,7 +301,7 @@ func Server(srv *http.Server, el *ExchangeList) {
 			//   otherwise it will close the server before response is sent
 			// Run as a go func as being in this handler and shutting down the server is self-blocking
 			go srv.Shutdown(context.TODO())
-			log.Printf("MOCK SRV:Srv Shutdown\n")
+			log.Printf("Mock srv: Srv Shutdown\n")
 		}
 	})
 
@@ -268,15 +310,15 @@ func Server(srv *http.Server, el *ExchangeList) {
 	// Split out listen and serve functions to reduce chances of server not being ready when test starts
 	l, err := net.Listen("tcp", srv.Addr)
 	if err != nil {
-		log.Fatalf("error starting listner: %s\n", err)
+		log.Fatalf("Mock srv: error starting listner: %s\n", err)
 	}
 
 	go func() {
 		err := srv.Serve(l)
 		if errors.Is(err, http.ErrServerClosed) {
-			log.Printf("MOCK SRV:server closed\n")
+			log.Printf("Mock srv: server closed\n")
 		} else if err != nil {
-			log.Printf("MOCK SRV:error starting server: %s\n", err)
+			log.Printf("Mock srv: error starting server: %s\n", err)
 			os.Exit(1)
 		}
 	}()

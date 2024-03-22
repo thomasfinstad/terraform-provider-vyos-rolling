@@ -95,9 +95,17 @@ func TestCrudReadSuccess(t *testing.T) {
 	if diff != nil {
 		t.Errorf("compare failed: %v", diff)
 	}
+
+	// Validate API calls
+	if len(eList.Unmatched()) > 0 {
+		t.Logf("Total matched exchanges: %d", len(eList.Matched()))
+		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Errorf("Received request:\n%s", eList.Failed())
+	}
 }
 
-// TestCrudReadEmptyResource tests that an empty resource response from API is checked correctly
+// TestCrudReadEmptyGlobalResource tests that an empty resource response from API is checked correctly
 //
 // curl -k --location --request POST "https://$VYOS_HOST/retrieve" --form key="$VYOS_KEY" --form data='{"op":"showConfig","path":["policy","access-list","2"]}'
 //
@@ -105,12 +113,11 @@ func TestCrudReadSuccess(t *testing.T) {
 //	resource "vyos_policy_access_list" "name" {
 //		access_list_id = 42
 //	}
-func TestCrudReadEmptyResource(t *testing.T) {
+func TestCrudReadEmptyGlobalResource(t *testing.T) {
 	ctx := context.Background()
 
 	// When Mock API Server
 	address := "localhost:50013"
-	uri := "/retrieve"
 	apiKey := "test-key"
 	srv := &http.Server{
 		Addr: address,
@@ -135,27 +142,12 @@ func TestCrudReadEmptyResource(t *testing.T) {
 	// Initial retrieve request
 	e1 := eList.Add()
 	e1.Expect(
-		uri,
+		"/retrieve",
 		apiKey,
 		`{"op":"showConfig","path":["policy","access-list","42"]}`,
 	).Response(
 		400,
 		`{"success": false, "error": "Configuration under specified path is empty\n", "data": null}`,
-	)
-
-	// Dedicated retrieve request that checks for empty resource
-	e2 := eList.Add()
-	e2.Expect(
-		uri,
-		apiKey,
-		`{"op":"exists","path":["policy","access-list","42"]}`,
-	).Response(
-		200,
-		`{
-			"success": true,
-			"data": true,
-			"error": null
-		}`,
 	)
 
 	api.Server(srv, eList)
@@ -184,5 +176,13 @@ func TestCrudReadEmptyResource(t *testing.T) {
 	diff := deep.Equal(model, modelShould)
 	if diff != nil {
 		t.Errorf("compare failed: %v", diff)
+	}
+
+	// Validate API calls
+	if len(eList.Unmatched()) > 0 {
+		t.Logf("Total matched exchanges: %d", len(eList.Matched()))
+		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+		t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
+		t.Errorf("Received request:\n%s", eList.Failed())
 	}
 }

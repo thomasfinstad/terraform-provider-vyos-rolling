@@ -2,11 +2,7 @@
 page_title: "vyos_container_name_label Resource - terraform-provider-vyos"
 subcategory: "container"
 description: |-
-  Container applications
-  ⯯
-  Container name
-  ⯯
-  Add label variables
+  Container applications⯯Container name⯯Add label variables
 ---
 
 # vyos_container_name_label (Resource)

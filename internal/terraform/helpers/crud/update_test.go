@@ -78,8 +78,11 @@ package crud
 
 // 	wg.Wait()
 
-// 	if len(eList.Unmatched()) > 0 {
-// 		t.Errorf("Unmatched exchange:\n%s", eList.Unmatched()[0].Sexpect())
-// 		t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
-// 	}
+// // Validate API calls
+// if len(eList.Unmatched()) > 0 {
+// 	t.Logf("Total matched exchanges: %d", len(eList.Matched()))
+// 	t.Errorf("Total unmatched exchanges: %d", len(eList.Unmatched()))
+// 	t.Errorf("Next expected exchange match:\n%s", eList.Unmatched()[0].Sexpect())
+// 	t.Errorf("Received request:\n%s", eList.Failed())
+// }
 // }

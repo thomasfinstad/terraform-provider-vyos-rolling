@@ -2,9 +2,7 @@
 page_title: "vyos_container_name Resource - terraform-provider-vyos"
 subcategory: "container"
 description: |-
-  Container applications
-  ⯯
-  Container name
+  Container applications⯯Container name
 ---
 
 # vyos_container_name (Resource)

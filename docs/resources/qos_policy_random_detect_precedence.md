@@ -2,13 +2,7 @@
 page_title: "vyos_qos_policy_random_detect_precedence Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)
-  ⯯
-  Service Policy definitions
-  ⯯
-  Weighted Random Early Detect policy
-  ⯯
-  IP precedence
+  Quality of Service (QoS)⯯Service Policy definitions⯯Weighted Random Early Detect policy⯯IP precedence
 ---
 
 # vyos_qos_policy_random_detect_precedence (Resource)

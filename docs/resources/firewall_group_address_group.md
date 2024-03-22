@@ -2,11 +2,7 @@
 page_title: "vyos_firewall_group_address_group Resource - terraform-provider-vyos"
 subcategory: "firewall"
 description: |-
-  Firewall
-  ⯯
-  Firewall group
-  ⯯
-  Firewall address-group
+  Firewall⯯Firewall group⯯Firewall address-group
 ---
 
 # vyos_firewall_group_address_group (Resource)

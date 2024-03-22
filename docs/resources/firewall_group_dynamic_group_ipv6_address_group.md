@@ -2,13 +2,7 @@
 page_title: "vyos_firewall_group_dynamic_group_ipv6_address_group Resource - terraform-provider-vyos"
 subcategory: "firewall"
 description: |-
-  Firewall
-  ⯯
-  Firewall group
-  ⯯
-  Firewall dynamic group
-  ⯯
-  Firewall dynamic IPv6 address group
+  Firewall⯯Firewall group⯯Firewall dynamic group⯯Firewall dynamic IPv6 address group
 ---
 
 # vyos_firewall_group_dynamic_group_ipv6_address_group (Resource)

@@ -2,11 +2,7 @@
 page_title: "vyos_qos_policy_rate_control Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)
-  ⯯
-  Service Policy definitions
-  ⯯
-  Rate limiting policy (Token Bucket Filter)
+  Quality of Service (QoS)⯯Service Policy definitions⯯Rate limiting policy (Token Bucket Filter)
 ---
 
 # vyos_qos_policy_rate_control (Resource)

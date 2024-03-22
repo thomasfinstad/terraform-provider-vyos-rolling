@@ -2,11 +2,7 @@
 page_title: "vyos_qos_policy_priority_queue Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)
-  ⯯
-  Service Policy definitions
-  ⯯
-  Priority queuing based policy
+  Quality of Service (QoS)⯯Service Policy definitions⯯Priority queuing based policy
 ---
 
 # vyos_qos_policy_priority_queue (Resource)

@@ -2,15 +2,7 @@
 page_title: "vyos_firewall_ipv6_input_filter_rule Resource - terraform-provider-vyos"
 subcategory: "firewall"
 description: |-
-  Firewall
-  ⯯
-  IPv6 firewall
-  ⯯
-  IPv6 input firewall
-  ⯯
-  IPv6 firewall input filter
-  ⯯
-  IPv6 Firewall input filter rule number
+  Firewall⯯IPv6 firewall⯯IPv6 input firewall⯯IPv6 firewall input filter⯯IPv6 Firewall input filter rule number
 ---
 
 # vyos_firewall_ipv6_input_filter_rule (Resource)
