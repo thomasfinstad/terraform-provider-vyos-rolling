@@ -2,7 +2,11 @@
 page_title: "vyos_firewall_group_domain_group Resource - terraform-provider-vyos"
 subcategory: "firewall"
 description: |-
-  Firewall⯯Firewall group⯯Firewall domain-group
+  Firewall
+  ⯯
+  Firewall group
+  ⯯
+  Firewall domain-group
 ---
 
 # vyos_firewall_group_domain_group (Resource)

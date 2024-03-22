@@ -37,6 +37,7 @@ type QosPolicyLimiterClass struct {
 	LeafQosPolicyLimiterClassDescrIPtion types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafQosPolicyLimiterClassBandwIDth   types.String `tfsdk:"bandwidth" vyos:"bandwidth,omitempty"`
 	LeafQosPolicyLimiterClassBurst       types.String `tfsdk:"burst" vyos:"burst,omitempty"`
+	LeafQosPolicyLimiterClassMtu         types.Number `tfsdk:"mtu" vyos:"mtu,omitempty"`
 	LeafQosPolicyLimiterClassExceed      types.String `tfsdk:"exceed" vyos:"exceed,omitempty"`
 	LeafQosPolicyLimiterClassNotExceed   types.String `tfsdk:"not_exceed" vyos:"not-exceed,omitempty"`
 	LeafQosPolicyLimiterClassPriority    types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
@@ -233,6 +234,22 @@ func (o QosPolicyLimiterClass) ResourceSchemaAttributes(ctx context.Context) map
 
 			// Default:          stringdefault.StaticString(`15k`),
 			Computed: true,
+		},
+
+		"mtu": schema.NumberAttribute{
+			Optional: true,
+			MarkdownDescription: `MTU size for this class
+
+    |  Format     |  Description  |
+    |-------------|---------------|
+    |  256-65535  |  Bytes        |
+`,
+			Description: `MTU size for this class
+
+    |  Format     |  Description  |
+    |-------------|---------------|
+    |  256-65535  |  Bytes        |
+`,
 		},
 
 		"exceed": schema.StringAttribute{

@@ -2,7 +2,11 @@
 page_title: "vyos_qos_policy_random_detect Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)⯯Service Policy definitions⯯Weighted Random Early Detect policy
+  Quality of Service (QoS)
+  ⯯
+  Service Policy definitions
+  ⯯
+  Weighted Random Early Detect policy
 ---
 
 # vyos_qos_policy_random_detect (Resource)

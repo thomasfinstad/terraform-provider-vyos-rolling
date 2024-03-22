@@ -2,7 +2,9 @@
 page_title: "vyos_pki_key_pair Resource - terraform-provider-vyos"
 subcategory: "pki"
 description: |-
-  Public key infrastructure (PKI)⯯Public and private keys
+  Public key infrastructure (PKI)
+  ⯯
+  Public and private keys
 ---
 
 # vyos_pki_key_pair (Resource)

@@ -2,7 +2,17 @@
 page_title: "vyos_vrf_name_protocols_bgp_peer_group_local_as Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Border Gateway Protocol (BGP)⯯Name of peer-group⯯Specify alternate ASN for this BGP process
+  Virtual Routing and Forwarding
+  ⯯
+  Virtual Routing and Forwarding instance
+  ⯯
+  Routing protocol parameters
+  ⯯
+  Border Gateway Protocol (BGP)
+  ⯯
+  Name of peer-group
+  ⯯
+  Specify alternate ASN for this BGP process
 ---
 
 # vyos_vrf_name_protocols_bgp_peer_group_local_as (Resource)

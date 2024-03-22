@@ -14,10 +14,10 @@ func (r highAvailabilityVrrpGlobalParameters) Schema(ctx context.Context, req re
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-	High availability settings  
-⯯  
-Virtual Router Redundancy Protocol settings  
-⯯  
+	High availability settings
+⯯
+Virtual Router Redundancy Protocol settings
+⯯
 **VRRP global parameters**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

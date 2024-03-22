@@ -12,14 +12,14 @@ import (
 func (r vrfNameProtocolsOspfvthreeInterface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Virtual Routing and Forwarding  
-⯯  
-Virtual Routing and Forwarding instance  
-⯯  
-Routing protocol parameters  
-⯯  
-Open Shortest Path First (OSPF) for IPv6  
-⯯  
+		MarkdownDescription: `Virtual Routing and Forwarding
+⯯
+Virtual Routing and Forwarding instance
+⯯
+Routing protocol parameters
+⯯
+Open Shortest Path First (OSPF) for IPv6
+⯯
 **Enable routing on an IPv6 interface**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

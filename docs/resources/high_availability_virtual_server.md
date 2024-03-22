@@ -2,7 +2,9 @@
 page_title: "vyos_high_availability_virtual_server Resource - terraform-provider-vyos"
 subcategory: "high"
 description: |-
-  High availability settings⯯Load-balancing virtual server alias
+  High availability settings
+  ⯯
+  Load-balancing virtual server alias
 ---
 
 # vyos_high_availability_virtual_server (Resource)

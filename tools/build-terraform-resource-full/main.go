@@ -9,8 +9,8 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/vyos/schema/interfacedefinition"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/vyos/vyosinterface"
+	vyosinterfaces "github.com/thomasfinstad/terraform-provider-vyos/.build/vyosinterfaces"
+	schemadefinition "github.com/thomasfinstad/terraform-provider-vyos/internal/vyos/schemadefinition"
 )
 
 type autogenTemplateInfo struct {
@@ -25,7 +25,7 @@ func main() {
 	selfImportRoot := args[1]
 	skipDirAbsNames := strings.Split(args[2], ",")
 
-	vyosInterfaces := vyosinterface.GetInterfaces()
+	vyosInterfaces := vyosinterfaces.GetInterfaces()
 
 	var packagesToGenerate []autogenTemplateInfo
 
@@ -114,10 +114,10 @@ func main() {
 	//  Is there any way to detect this from the shcema?
 	//  If not a manual overwrite feature during code generation
 	//  will be the next best thing.
-	//  Example of sensitive value: 
+	//  Example of sensitive value:
 }
 
-func namedResources(tagNode *interfacedefinition.TagNode, skipDirAbsNames []string, rootOutputDirectory string, rootPkgName string, selfImportRoot string) (pkgs []autogenTemplateInfo) {
+func namedResources(tagNode *schemadefinition.TagNode, skipDirAbsNames []string, rootOutputDirectory string, rootPkgName string, selfImportRoot string) (pkgs []autogenTemplateInfo) {
 	_, thisFilename, _, ok := runtime.Caller(0)
 	if !ok {
 		panic("Did not get path info")
@@ -188,7 +188,7 @@ func namedResources(tagNode *interfacedefinition.TagNode, skipDirAbsNames []stri
 	return pkgs
 }
 
-func globalResources(node *interfacedefinition.Node, skipDirAbsNames []string, rootOutputDirectory string, rootPkgName string, selfImportRoot string) (pkgs []autogenTemplateInfo) {
+func globalResources(node *schemadefinition.Node, skipDirAbsNames []string, rootOutputDirectory string, rootPkgName string, selfImportRoot string) (pkgs []autogenTemplateInfo) {
 	_, thisFilename, _, ok := runtime.Caller(0)
 	if !ok {
 		panic("Did not get path info")
@@ -265,7 +265,7 @@ func die(err error) {
 	}
 }
 
-func globalResourceGeneration(resourceOutputDir string, templateName string, thisFilename string, rootPkgName string, rootNode *interfacedefinition.Node, selfImportRoot string, resourceModelSubDir string, t *template.Template, data any) (pkg autogenTemplateInfo) {
+func globalResourceGeneration(resourceOutputDir string, templateName string, thisFilename string, rootPkgName string, rootNode *schemadefinition.Node, selfImportRoot string, resourceModelSubDir string, t *template.Template, data any) (pkg autogenTemplateInfo) {
 	// Format outpout file name
 	outputFile := fmt.Sprintf(
 		"%s.go",
@@ -312,7 +312,7 @@ func globalResourceGeneration(resourceOutputDir string, templateName string, thi
 	return pkg
 }
 
-func namedResourceGeneration(resourceOutputDir string, templateName string, thisFilename string, rootPkgName string, rootTagNode *interfacedefinition.TagNode, selfImportRoot string, resourceModelSubDir string, t *template.Template, data any) (pkg autogenTemplateInfo) {
+func namedResourceGeneration(resourceOutputDir string, templateName string, thisFilename string, rootPkgName string, rootTagNode *schemadefinition.TagNode, selfImportRoot string, resourceModelSubDir string, t *template.Template, data any) (pkg autogenTemplateInfo) {
 	// Format outpout file name
 	outputFile := fmt.Sprintf(
 		"%s.go",
@@ -359,7 +359,7 @@ func namedResourceGeneration(resourceOutputDir string, templateName string, this
 	return pkg
 }
 
-func namedResourceModelGeneration(resourceModelOutputDir string, node interfacedefinition.NodeParent, t *template.Template, thisFilename string, resourceModelSubDir string) {
+func namedResourceModelGeneration(resourceModelOutputDir string, node schemadefinition.NodeParent, t *template.Template, thisFilename string, resourceModelSubDir string) {
 	outputFile := fmt.Sprintf(
 		"%s.go",
 		strings.Join(
@@ -399,7 +399,7 @@ func namedResourceModelGeneration(resourceModelOutputDir string, node interfaced
 	}
 }
 
-func globalResourceModelGeneration(resourceModelOutputDir string, node interfacedefinition.NodeParent, t *template.Template, thisFilename string, resourceModelSubDir string) {
+func globalResourceModelGeneration(resourceModelOutputDir string, node schemadefinition.NodeParent, t *template.Template, thisFilename string, resourceModelSubDir string) {
 	outputFile := fmt.Sprintf(
 		"%s.go",
 		strings.Join(

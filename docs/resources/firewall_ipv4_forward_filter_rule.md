@@ -2,7 +2,15 @@
 page_title: "vyos_firewall_ipv4_forward_filter_rule Resource - terraform-provider-vyos"
 subcategory: "firewall"
 description: |-
-  Firewall⯯IPv4 firewall⯯IPv4 forward firewall⯯IPv4 firewall forward filter⯯IPv4 Firewall forward filter rule number
+  Firewall
+  ⯯
+  IPv4 firewall
+  ⯯
+  IPv4 forward firewall
+  ⯯
+  IPv4 firewall forward filter
+  ⯯
+  IPv4 Firewall forward filter rule number
 ---
 
 # vyos_firewall_ipv4_forward_filter_rule (Resource)

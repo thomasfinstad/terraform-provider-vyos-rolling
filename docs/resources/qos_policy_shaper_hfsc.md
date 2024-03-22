@@ -2,7 +2,11 @@
 page_title: "vyos_qos_policy_shaper_hfsc Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)⯯Service Policy definitions⯯Hierarchical Fair Service Curve's policy
+  Quality of Service (QoS)
+  ⯯
+  Service Policy definitions
+  ⯯
+  Hierarchical Fair Service Curve's policy
 ---
 
 # vyos_qos_policy_shaper_hfsc (Resource)

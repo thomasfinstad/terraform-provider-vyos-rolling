@@ -12,10 +12,10 @@ import (
 func (r containerNameEnvironment) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Container applications  
-⯯  
-Container name  
-⯯  
+		MarkdownDescription: `Container applications
+⯯
+Container name
+⯯
 **Add custom environment variables**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

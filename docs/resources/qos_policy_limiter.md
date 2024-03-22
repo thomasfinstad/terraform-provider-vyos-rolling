@@ -2,7 +2,11 @@
 page_title: "vyos_qos_policy_limiter Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)⯯Service Policy definitions⯯Traffic input limiting policy
+  Quality of Service (QoS)
+  ⯯
+  Service Policy definitions
+  ⯯
+  Traffic input limiting policy
 ---
 
 # vyos_qos_policy_limiter (Resource)
@@ -72,6 +76,11 @@ Optional:
     &emsp;|ok          &emsp;|Accept the packet                                                                                                             |
     &emsp;|reclassify  &emsp;|Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
     &emsp;|pipe        &emsp;|Pass the packet to the next action in line                                                                                    |
+- `mtu` (Number) MTU size for this class
+
+    &emsp;|Format     &emsp;|Description  |
+    |-------------|---------------|
+    &emsp;|256-65535  &emsp;|Bytes        |
 - `not_exceed` (String) Default action for packets not exceeding the limiter
 
     &emsp;|Format      &emsp;|Description                                                                                                                   |

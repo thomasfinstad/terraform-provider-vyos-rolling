@@ -12,14 +12,14 @@ import (
 func (r firewallIPvsixForwardFilterRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Firewall  
-⯯  
-IPv6 firewall  
-⯯  
-IPv6 forward firewall  
-⯯  
-IPv6 firewall forward filter  
-⯯  
+		MarkdownDescription: `Firewall
+⯯
+IPv6 firewall
+⯯
+IPv6 forward firewall
+⯯
+IPv6 firewall forward filter
+⯯
 **IPv6 Firewall forward filter rule number**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

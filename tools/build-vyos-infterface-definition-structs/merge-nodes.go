@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"sort"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/vyos/schema/interfacedefinition"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/vyos/schemadefinition"
 )
 
 type duplicateIndex struct {
@@ -63,7 +63,7 @@ func (o *duplicateInfo) isDup(nodeType string, index int) bool {
 	return false
 }
 
-func populateDuplicateChildIndexes(node interfacedefinition.NodeParent) (dups duplicateInfo) {
+func populateDuplicateChildIndexes(node schemadefinition.NodeParent) (dups duplicateInfo) {
 	children := node.GetChildren()
 
 	for idx1, c1 := range children.LeafNodes() {
@@ -126,7 +126,7 @@ func populateDuplicateChildIndexes(node interfacedefinition.NodeParent) (dups du
 	return dups
 }
 
-func mergeNodeParents(rootNode interfacedefinition.NodeParent) {
+func mergeNodeParents(rootNode schemadefinition.NodeParent) {
 	// Find and move duplicate data from TagNode children
 	if reflect.ValueOf(rootNode).Kind() != reflect.Ptr {
 		panic("node parameter must be a pointer for merge to have any effect")

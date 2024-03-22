@@ -4,7 +4,8 @@ subcategory: "high"
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
   High availability settings
-  ⯯Virtual Router Redundancy Protocol settings
+  ⯯
+  Virtual Router Redundancy Protocol settings
 ---
 
 # vyos_high_availability_vrrp (Resource)

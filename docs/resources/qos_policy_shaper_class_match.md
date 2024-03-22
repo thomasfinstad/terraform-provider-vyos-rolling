@@ -2,7 +2,15 @@
 page_title: "vyos_qos_policy_shaper_class_match Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)⯯Service Policy definitions⯯Traffic shaping based policy (Hierarchy Token Bucket)⯯Class ID⯯Class matching rule name
+  Quality of Service (QoS)
+  ⯯
+  Service Policy definitions
+  ⯯
+  Traffic shaping based policy (Hierarchy Token Bucket)
+  ⯯
+  Class ID
+  ⯯
+  Class matching rule name
 ---
 
 # vyos_qos_policy_shaper_class_match (Resource)

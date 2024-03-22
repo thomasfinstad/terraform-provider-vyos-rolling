@@ -12,10 +12,10 @@ import (
 func (r policyAsPathListRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Routing policy  
-⯯  
-Add a BGP autonomous system path filter  
-⯯  
+		MarkdownDescription: `Routing policy
+⯯
+Add a BGP autonomous system path filter
+⯯
 **Rule for this as-path-list**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

@@ -12,20 +12,20 @@ import (
 func (r vrfNameProtocolsIsisFastRerouteLfaRemotePrefixList) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Virtual Routing and Forwarding  
-⯯  
-Virtual Routing and Forwarding instance  
-⯯  
-Routing protocol parameters  
-⯯  
-Intermediate System to Intermediate System (IS-IS)  
-⯯  
-IS-IS fast reroute configuration  
-⯯  
-Loop free alternate functionality  
-⯯  
-Remote loop free alternate options  
-⯯  
+		MarkdownDescription: `Virtual Routing and Forwarding
+⯯
+Virtual Routing and Forwarding instance
+⯯
+Routing protocol parameters
+⯯
+Intermediate System to Intermediate System (IS-IS)
+⯯
+IS-IS fast reroute configuration
+⯯
+Loop free alternate functionality
+⯯
+Remote loop free alternate options
+⯯
 **Filter PQ node router ID based on prefix list**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

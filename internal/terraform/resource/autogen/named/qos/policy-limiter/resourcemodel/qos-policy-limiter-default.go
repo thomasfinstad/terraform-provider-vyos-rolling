@@ -19,6 +19,7 @@ type QosPolicyLimiterDefault struct {
 	// LeafNodes
 	LeafQosPolicyLimiterDefaultBandwIDth types.String `tfsdk:"bandwidth" vyos:"bandwidth,omitempty"`
 	LeafQosPolicyLimiterDefaultBurst     types.String `tfsdk:"burst" vyos:"burst,omitempty"`
+	LeafQosPolicyLimiterDefaultMtu       types.Number `tfsdk:"mtu" vyos:"mtu,omitempty"`
 	LeafQosPolicyLimiterDefaultExceed    types.String `tfsdk:"exceed" vyos:"exceed,omitempty"`
 	LeafQosPolicyLimiterDefaultNotExceed types.String `tfsdk:"not_exceed" vyos:"not-exceed,omitempty"`
 
@@ -79,6 +80,22 @@ func (o QosPolicyLimiterDefault) ResourceSchemaAttributes(ctx context.Context) m
 
 			// Default:          stringdefault.StaticString(`15k`),
 			Computed: true,
+		},
+
+		"mtu": schema.NumberAttribute{
+			Optional: true,
+			MarkdownDescription: `MTU size for this class
+
+    |  Format     |  Description  |
+    |-------------|---------------|
+    |  256-65535  |  Bytes        |
+`,
+			Description: `MTU size for this class
+
+    |  Format     |  Description  |
+    |-------------|---------------|
+    |  256-65535  |  Bytes        |
+`,
 		},
 
 		"exceed": schema.StringAttribute{

@@ -2,7 +2,13 @@
 page_title: "vyos_firewall_group_dynamic_group_address_group Resource - terraform-provider-vyos"
 subcategory: "firewall"
 description: |-
-  Firewall⯯Firewall group⯯Firewall dynamic group⯯Firewall dynamic address group
+  Firewall
+  ⯯
+  Firewall group
+  ⯯
+  Firewall dynamic group
+  ⯯
+  Firewall dynamic address group
 ---
 
 # vyos_firewall_group_dynamic_group_address_group (Resource)

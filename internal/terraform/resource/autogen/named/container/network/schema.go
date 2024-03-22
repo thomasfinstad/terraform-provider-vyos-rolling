@@ -12,8 +12,8 @@ import (
 func (r containerNetwork) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Container applications  
-⯯  
+		MarkdownDescription: `Container applications
+⯯
 **Network name**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

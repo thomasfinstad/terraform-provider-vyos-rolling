@@ -30,7 +30,8 @@
 		"ghcr.io/devcontainers/features/java:1": {
 			"version" : "17"
 		},
-		"ghcr.io/mickeahlinder/devcontainer-features/tfenv:1": {}
+		"ghcr.io/mickeahlinder/devcontainer-features/tfenv:1": {},
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
 	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -53,8 +54,8 @@
 			]
 		}
 	},
-	"containerUser": "root",
-	"remoteUser": "root",
+	"containerUser": "vscode",
+	"remoteUser": "vscode",
 	"containerEnv": {"PODMAN_USERNS":"keep-id"},
 	"updateRemoteUserUID": true
 }

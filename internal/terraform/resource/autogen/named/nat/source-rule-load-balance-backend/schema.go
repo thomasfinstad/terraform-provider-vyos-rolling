@@ -12,14 +12,14 @@ import (
 func (r natSourceRuleLoadBalanceBackend) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Network Address Translation (NAT) parameters  
-⯯  
-Source NAT settings  
-⯯  
-Rule number for NAT  
-⯯  
-Apply NAT load balance  
-⯯  
+		MarkdownDescription: `Network Address Translation (NAT) parameters
+⯯
+Source NAT settings
+⯯
+Rule number for NAT
+⯯
+Apply NAT load balance
+⯯
 **Translated IP address**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

@@ -4,7 +4,12 @@ subcategory: "firewall"
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
   Firewall
-  ⯯IPv4 firewall⯯IPv4 output firewall⯯IPv4 firewall output filter
+  ⯯
+  IPv4 firewall
+  ⯯
+  IPv4 output firewall
+  ⯯
+  IPv4 firewall output filter
 ---
 
 # vyos_firewall_ipv4_output_filter (Resource)

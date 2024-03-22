@@ -14,12 +14,12 @@ func (r firewallBrIDgeForwardFilter) Schema(ctx context.Context, req resource.Sc
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-	Firewall  
-⯯  
-Bridge firewall  
-⯯  
-Bridge forward firewall  
-⯯  
+	Firewall
+⯯
+Bridge firewall
+⯯
+Bridge forward firewall
+⯯
 **Bridge firewall forward filter**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

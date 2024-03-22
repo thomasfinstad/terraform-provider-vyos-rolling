@@ -2,7 +2,17 @@
 page_title: "vyos_vrf_name_protocols_ospf_segment_routing_prefix Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Open Shortest Path First (OSPF)⯯Segment-Routing (SPRING) settings⯯Static IPv4 prefix segment/label mapping
+  Virtual Routing and Forwarding
+  ⯯
+  Virtual Routing and Forwarding instance
+  ⯯
+  Routing protocol parameters
+  ⯯
+  Open Shortest Path First (OSPF)
+  ⯯
+  Segment-Routing (SPRING) settings
+  ⯯
+  Static IPv4 prefix segment/label mapping
 ---
 
 # vyos_vrf_name_protocols_ospf_segment_routing_prefix (Resource)

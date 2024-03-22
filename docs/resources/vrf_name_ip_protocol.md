@@ -2,7 +2,13 @@
 page_title: "vyos_vrf_name_ip_protocol Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯IPv4 routing parameters⯯Filter routing info exchanged between routing protocol and zebra
+  Virtual Routing and Forwarding
+  ⯯
+  Virtual Routing and Forwarding instance
+  ⯯
+  IPv4 routing parameters
+  ⯯
+  Filter routing info exchanged between routing protocol and zebra
 ---
 
 # vyos_vrf_name_ip_protocol (Resource)

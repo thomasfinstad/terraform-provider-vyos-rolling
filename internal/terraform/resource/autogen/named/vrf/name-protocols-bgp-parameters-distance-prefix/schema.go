@@ -12,18 +12,18 @@ import (
 func (r vrfNameProtocolsBgpParametersDistancePrefix) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Virtual Routing and Forwarding  
-⯯  
-Virtual Routing and Forwarding instance  
-⯯  
-Routing protocol parameters  
-⯯  
-Border Gateway Protocol (BGP)  
-⯯  
-BGP parameters  
-⯯  
-Administratives distances for BGP routes  
-⯯  
+		MarkdownDescription: `Virtual Routing and Forwarding
+⯯
+Virtual Routing and Forwarding instance
+⯯
+Routing protocol parameters
+⯯
+Border Gateway Protocol (BGP)
+⯯
+BGP parameters
+⯯
+Administratives distances for BGP routes
+⯯
 **Administrative distance for a specific BGP prefix**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

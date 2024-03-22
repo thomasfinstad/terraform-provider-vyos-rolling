@@ -2,7 +2,9 @@
 page_title: "vyos_policy_extcommunity_list Resource - terraform-provider-vyos"
 subcategory: "policy"
 description: |-
-  Routing policy⯯Add a BGP extended community list entry
+  Routing policy
+  ⯯
+  Add a BGP extended community list entry
 ---
 
 # vyos_policy_extcommunity_list (Resource)

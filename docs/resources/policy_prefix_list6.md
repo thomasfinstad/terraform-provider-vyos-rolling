@@ -2,7 +2,9 @@
 page_title: "vyos_policy_prefix_list6 Resource - terraform-provider-vyos"
 subcategory: "policy"
 description: |-
-  Routing policy⯯IPv6 prefix-list filter
+  Routing policy
+  ⯯
+  IPv6 prefix-list filter
 ---
 
 # vyos_policy_prefix_list6 (Resource)

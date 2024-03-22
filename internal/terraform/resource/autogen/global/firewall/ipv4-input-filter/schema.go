@@ -14,12 +14,12 @@ func (r firewallIPvfourInputFilter) Schema(ctx context.Context, req resource.Sch
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-	Firewall  
-⯯  
-IPv4 firewall  
-⯯  
-IPv4 input firewall  
-⯯  
+	Firewall
+⯯
+IPv4 firewall
+⯯
+IPv4 input firewall
+⯯
 **IPv4 firewall input filter**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

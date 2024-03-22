@@ -12,10 +12,10 @@ import (
 func (r qosPolicyPriorityQueue) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Quality of Service (QoS)  
-⯯  
-Service Policy definitions  
-⯯  
+		MarkdownDescription: `Quality of Service (QoS)
+⯯
+Service Policy definitions
+⯯
 **Priority queuing based policy**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

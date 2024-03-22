@@ -12,10 +12,10 @@ import (
 func (r firewallGroupIPvsixNetworkGroup) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Firewall  
-⯯  
-Firewall group  
-⯯  
+		MarkdownDescription: `Firewall
+⯯
+Firewall group
+⯯
 **Firewall ipv6-network-group**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),

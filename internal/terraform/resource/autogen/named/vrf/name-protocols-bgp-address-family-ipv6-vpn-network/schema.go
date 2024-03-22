@@ -12,18 +12,18 @@ import (
 func (r vrfNameProtocolsBgpAddressFamilyIPvsixVpnNetwork) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: `Virtual Routing and Forwarding  
-⯯  
-Virtual Routing and Forwarding instance  
-⯯  
-Routing protocol parameters  
-⯯  
-Border Gateway Protocol (BGP)  
-⯯  
-BGP address-family parameters  
-⯯  
-Unicast VPN IPv6 BGP settings  
-⯯  
+		MarkdownDescription: `Virtual Routing and Forwarding
+⯯
+Virtual Routing and Forwarding instance
+⯯
+Routing protocol parameters
+⯯
+Border Gateway Protocol (BGP)
+⯯
+BGP address-family parameters
+⯯
+Unicast VPN IPv6 BGP settings
+⯯
 **Import BGP network/prefix into unicast VPN IPv6 RIB**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),
