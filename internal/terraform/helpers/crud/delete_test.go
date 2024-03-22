@@ -4,11 +4,13 @@ import (
 	"context"
 	"errors"
 	"net/http"
+	"os"
 	"strings"
 	"testing"
 	"time"
 
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflogtest"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	cruderrors "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/crud/cruderror"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
@@ -92,7 +94,7 @@ func TestCrudDeleteSuccess(t *testing.T) {
 	api.Server(srv, eList)
 
 	// Client
-	ctx := context.Background()
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 	providerData := data.NewProviderData(client)
 
@@ -177,7 +179,8 @@ func TestCrudDeleteResourceHasChildFailure(t *testing.T) {
 		api.Server(srv, eList)
 
 		// Client
-		ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+		ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
+		ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
 		defer cancel()
 		client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 		providerData := data.NewProviderData(client)
@@ -246,7 +249,7 @@ func TestCrudDeleteResourceHasChildIgnore(t *testing.T) {
 	api.Server(srv, eList)
 
 	// Client
-	ctx := context.Background()
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 	providerData := data.NewProviderData(client)
 	providerData.Config.CrudSkipCheckChildBeforeDelete = true
@@ -347,7 +350,7 @@ func TestCrudDeleteGlobalResourceWithChild(t *testing.T) {
 	api.Server(srv, eList)
 
 	// Client
-	ctx := context.Background()
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 	providerData := data.NewProviderData(client)
 
@@ -440,7 +443,7 @@ func TestCrudDeleteGlobalResourceWithoutChild(t *testing.T) {
 	api.Server(srv, eList)
 
 	// Client
-	ctx := context.Background()
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 	providerData := data.NewProviderData(client)
 
@@ -575,7 +578,8 @@ func TestCrudDeleteRetrySuccess(t *testing.T) {
 	api.Server(srv, eList)
 
 	// Client
-	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
+	ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
 	defer cancel()
 	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 	providerData := data.NewProviderData(client)
@@ -660,7 +664,7 @@ func TestCrudDeleteEmptyGlobalResource(t *testing.T) {
 	api.Server(srv, eList)
 
 	// Client
-	ctx := context.Background()
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 	providerData := data.NewProviderData(client)
 
@@ -745,7 +749,7 @@ func TestCrudDeleteEmptyResource(t *testing.T) {
 	api.Server(srv, eList)
 
 	// Client
-	ctx := context.Background()
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 	providerData := data.NewProviderData(client)
 
@@ -801,7 +805,7 @@ func TestCrudDeleteDeletedGlobalResource(t *testing.T) {
 	api.Server(srv, eList)
 
 	// Client
-	ctx := context.Background()
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 	providerData := data.NewProviderData(client)
 
@@ -855,7 +859,7 @@ func TestCrudDeleteDeletedResource(t *testing.T) {
 	api.Server(srv, eList)
 
 	// Client
-	ctx := context.Background()
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 	providerData := data.NewProviderData(client)
 

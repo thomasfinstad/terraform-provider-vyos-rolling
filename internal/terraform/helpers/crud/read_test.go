@@ -4,10 +4,12 @@ import (
 	"context"
 	"math/big"
 	"net/http"
+	"os"
 	"testing"
 
 	"github.com/go-test/deep"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflogtest"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	fw4res "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/ipv4-name/resourcemodel"
 	polalres "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/policy/access-list/resourcemodel"
@@ -16,7 +18,7 @@ import (
 
 // TestCrudReadSuccess test CRUD helper: Read
 func TestCrudReadSuccess(t *testing.T) {
-	ctx := context.Background()
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 
 	// When Mock API Server
 	address := "localhost:50012"
@@ -114,7 +116,7 @@ func TestCrudReadSuccess(t *testing.T) {
 //		access_list_id = 42
 //	}
 func TestCrudReadEmptyGlobalResource(t *testing.T) {
-	ctx := context.Background()
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 
 	// When Mock API Server
 	address := "localhost:50013"

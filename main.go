@@ -38,12 +38,6 @@ func main() {
 	}
 }
 
-// TODO Clean up logging
-//  Find out if there is a better way to allow logging during tests
-//  and general terraform logging to cooperate. Also clean up different
-//  logging levels being used and create a clear guideline for what
-//  is included in the different log levels.
-
 // TODO Mask any known sensitive information
 //  Such as API keys. Also investigate if there is any information
 //  in the vyos schema about (leaf)nodes that contain sensitive

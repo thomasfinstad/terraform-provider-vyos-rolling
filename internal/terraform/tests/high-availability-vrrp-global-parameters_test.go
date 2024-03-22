@@ -3,15 +3,15 @@ package tests
 import (
 	"context"
 	"math/big"
+	"os"
 	"sort"
 	"strings"
 	"testing"
 
 	"github.com/go-test/deep"
 
-	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
+	"github.com/hashicorp/terraform-plugin-log/tflogtest"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/global/high-availability/vrrp-global-parameters/resourcemodel"
@@ -29,9 +29,7 @@ func TestHighAvailabilityVrrpGlobalParametersMarshalVyos(t *testing.T) {
 		"startup-delay": float64(12),
 	}
 
-	ctx := context.Background()
-	lvl := tflog.WithLevel(hclog.Error)
-	ctx = tflog.NewSubsystem(ctx, "my-subsystem", lvl)
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 
 	got, err := helpers.MarshalVyos(ctx, has)
 	diff := deep.Equal(got, want)
@@ -57,9 +55,11 @@ func TestHighAvailabilityVrrpGlobalParametersUnmarshalVyos(t *testing.T) {
 		ExistsNodeHighAvailabilityVrrpGlobalParametersGarp:   true,
 	}
 
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
+
 	got := &resourcemodel.HighAvailabilityVrrpGlobalParameters{}
 
-	err := helpers.UnmarshalVyos(context.Background(), has, got)
+	err := helpers.UnmarshalVyos(ctx, has, got)
 	if err != nil {
 		t.Fatalf(`desired value can not be unmarshaled: %v`, err)
 	}
@@ -83,9 +83,7 @@ func TestHighAvailabilityVrrpGlobalParametersGenerateVyosOps(t *testing.T) {
 		{"high-availability", "vrrp", "global-parameters", "startup-delay", "12"},
 	}
 
-	ctx := context.Background()
-	lvl := tflog.WithLevel(hclog.Error)
-	ctx = tflog.NewSubsystem(ctx, "my-subsystem", lvl)
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 
 	got := helpers.GenerateVyosOps(ctx, hasPath, hasData)
 

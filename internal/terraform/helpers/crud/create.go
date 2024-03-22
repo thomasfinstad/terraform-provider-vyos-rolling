@@ -3,7 +3,6 @@ package crud
 import (
 	"context"
 	"fmt"
-	"log"
 	"strings"
 	"time"
 
@@ -79,7 +78,7 @@ func create(ctx context.Context, providerCfg data.ProviderData, c client.Client,
 		for {
 			select {
 			case <-ctx.Done():
-				log.Println("retry timeout reached")
+
 				tflog.Warn(ctx, "retry timeout reached")
 				return lastErr
 			default:
@@ -97,7 +96,7 @@ func create(ctx context.Context, providerCfg data.ProviderData, c client.Client,
 
 				// No Deadline means we do not wish to retry
 				if _, ok := ctx.Deadline(); !ok {
-					log.Println("no retry deadline configured, disabling retry.", retryTotalDelay)
+
 					tflog.Warn(ctx, "no retry deadline configured, disabling retry.")
 					if lastErr != nil {
 						return lastErr
@@ -111,9 +110,7 @@ func create(ctx context.Context, providerCfg data.ProviderData, c client.Client,
 					time.Duration(boMs)*time.Millisecond,
 					time.Duration(boMaxS)*time.Second,
 				)
-				log.Println("Total retry delay:", retryTotalDelay)
-				log.Println("Total retry count:", retryCnt)
-				log.Println("Retry delay:", backOff)
+
 				tflog.Info(ctx, "delaying before next retry", map[string]interface{}{"retryTotalDelay": retryTotalDelay, "retryCnt": retryCnt, "backOff": backOff})
 				time.Sleep(backOff)
 				retryTotalDelay += backOff
@@ -137,7 +134,7 @@ func create(ctx context.Context, providerCfg data.ProviderData, c client.Client,
 		for {
 			select {
 			case <-ctx.Done():
-				log.Println("retry timeout reached")
+
 				tflog.Warn(ctx, "retry timeout reached")
 				return lastErr
 			default:
@@ -154,7 +151,7 @@ func create(ctx context.Context, providerCfg data.ProviderData, c client.Client,
 
 				// No Deadline means we do not wish to retry
 				if _, ok := ctx.Deadline(); !ok {
-					log.Println("no retry deadline configured, disabling retry.", retryTotalDelay)
+
 					tflog.Warn(ctx, "no retry deadline configured, disabling retry.")
 					if lastErr != nil {
 						return lastErr
@@ -168,9 +165,7 @@ func create(ctx context.Context, providerCfg data.ProviderData, c client.Client,
 					time.Duration(boMs)*time.Millisecond,
 					time.Duration(boMaxS)*time.Second,
 				)
-				log.Println("Total retry delay:", retryTotalDelay)
-				log.Println("Total retry count:", retryCnt)
-				log.Println("Retry delay:", backOff)
+
 				tflog.Info(ctx, "delaying before next retry", map[string]interface{}{"retryTotalDelay": retryTotalDelay, "retryCnt": retryCnt, "backOff": backOff})
 				time.Sleep(backOff)
 				retryTotalDelay += backOff

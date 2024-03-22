@@ -2,15 +2,15 @@ package tests
 
 import (
 	"context"
+	"os"
 	"sort"
 	"strings"
 	"testing"
 
 	"github.com/go-test/deep"
 
-	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
+	"github.com/hashicorp/terraform-plugin-log/tflogtest"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/zone/resourcemodel"
@@ -38,9 +38,7 @@ func TestFirewallZoneMarshalVyos(t *testing.T) {
 		},
 	}
 
-	ctx := context.Background()
-	lvl := tflog.WithLevel(hclog.Error)
-	ctx = tflog.NewSubsystem(ctx, "my-subsystem", lvl)
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 
 	got, err := helpers.MarshalVyos(ctx, has)
 	diff := deep.Equal(got, want)
@@ -73,9 +71,11 @@ func TestFirewallZoneUnmarshalVyos(t *testing.T) {
 		},
 	}
 
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
+
 	got := &resourcemodel.FirewallZone{}
 
-	err := helpers.UnmarshalVyos(context.Background(), has, got)
+	err := helpers.UnmarshalVyos(ctx, has, got)
 	if err != nil {
 		t.Fatalf(`desired value can not be unmarshaled: %v`, err)
 	}
@@ -100,9 +100,7 @@ func TestFirewallZoneGenerateVyosOps(t *testing.T) {
 		{"firewall", "zone", "TF-Examples", "intra-zone-filtering", "firewall", "name", "test"},
 	}
 
-	ctx := context.Background()
-	lvl := tflog.WithLevel(hclog.Error)
-	ctx = tflog.NewSubsystem(ctx, "my-subsystem", lvl)
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 
 	got := helpers.GenerateVyosOps(ctx, hasPath, hasData)
 

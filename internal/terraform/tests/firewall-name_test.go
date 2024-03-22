@@ -2,16 +2,16 @@ package tests
 
 import (
 	"context"
+	"os"
 	"testing"
 
 	"github.com/go-test/deep"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflogtest"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/ipv4-name/resourcemodel"
 )
-
-// TODO figure out print logging vs tflog for testing
 
 // TestFirewallIPvfourNameMarshalVyos does some simple marshalling tests
 func TestFirewallIPvfourNameMarshalVyos(t *testing.T) {
@@ -25,7 +25,9 @@ func TestFirewallIPvfourNameMarshalVyos(t *testing.T) {
 		"default-action": "drop",
 	}
 
-	got, err := helpers.MarshalVyos(context.Background(), model)
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
+
+	got, err := helpers.MarshalVyos(ctx, model)
 	if err != nil {
 		t.Fatalf(`desired value can not be marshalled: %v`, err)
 	}
@@ -47,9 +49,11 @@ func TestFirewallIPvfourNameUnmarshalVyos(t *testing.T) {
 		LeafFirewallIPvfourNameDefaultLog:    basetypes.NewBoolValue(false),
 	}
 
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
+
 	got := &resourcemodel.FirewallIPvfourName{}
 
-	err := helpers.UnmarshalVyos(context.Background(), has, got)
+	err := helpers.UnmarshalVyos(ctx, has, got)
 	if err != nil {
 		t.Fatalf(`desired value can not be unmarshaled: %v`, err)
 	}
@@ -79,13 +83,15 @@ func TestFirewallIPvfourNameUnmarshalVyosHasChild(t *testing.T) {
 
 	want := true
 
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
+
 	resource := &resourcemodel.FirewallIPvfourName{}
-	err := helpers.UnmarshalVyos(context.Background(), has, resource)
+	err := helpers.UnmarshalVyos(ctx, has, resource)
 	if err != nil {
 		t.Fatalf(`desired value can not be unmarshaled: %v`, err)
 	}
 
-	_, got := helpers.GetChild(context.Background(), resource)
+	_, got := helpers.GetChild(ctx, resource)
 
 	diff := deep.Equal(got, want)
 	if diff != nil {
@@ -101,13 +107,15 @@ func TestFirewallIPvfourNameUnmarshalVyosNoChild(t *testing.T) {
 
 	want := false
 
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
+
 	resource := &resourcemodel.FirewallIPvfourName{}
-	err := helpers.UnmarshalVyos(context.Background(), has, resource)
+	err := helpers.UnmarshalVyos(ctx, has, resource)
 	if err != nil {
 		t.Fatalf(`desired value can not be unmarshaled: %v`, err)
 	}
 
-	_, got := helpers.GetChild(context.Background(), resource)
+	_, got := helpers.GetChild(ctx, resource)
 
 	diff := deep.Equal(got, want)
 	if diff != nil {

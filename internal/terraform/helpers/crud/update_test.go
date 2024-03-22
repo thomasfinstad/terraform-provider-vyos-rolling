@@ -3,7 +3,7 @@ package crud
 // TestCrudUpdateCrossResourceContamination test CRUD helper: Update
 // Had some issues where the client is shared across resources causing a clusterfuck during api commit, this is currently not needed since we no longer use a ptr for the client
 // func TestCrudUpdateCrossResourceContamination(t *testing.T) {
-// 	ctx := context.Background()
+// ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 
 // 	// When Mock API Server
 // 	address := "localhost:50015"

@@ -2,7 +2,6 @@ package helpers
 
 import (
 	"context"
-	"log"
 	"reflect"
 	"strings"
 
@@ -21,7 +20,6 @@ func GetChild(ctx context.Context, value VyosResourceDataModel) (childField stri
 		fValue := valueReflection.Field(i)
 		fTags := strings.Split(typeReflection.Field(i).Tag.Get("vyos"), ",")
 		tflog.Debug(ctx, "processing field", map[string]interface{}{"Field": fName, "Type": fType, "Tags": fTags})
-		log.Printf("Field: %s\tType: %s\tTags: %v\n", fName, fType, fTags)
 
 		// Set flags based on tags, first tag must be the vyos field name, the rest are bools with default of false
 		// TODO create struct of valid options
@@ -36,7 +34,7 @@ func GetChild(ctx context.Context, value VyosResourceDataModel) (childField stri
 			flags[tag] = true
 		}
 		if !flags["child"].(bool) {
-			log.Printf("\tNot a child, skipping field: %s\n", fName)
+
 			continue
 		}
 

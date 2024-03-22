@@ -3,7 +3,6 @@ package helpers
 import (
 	"context"
 	"fmt"
-	"log"
 	"math/big"
 	"reflect"
 	"strconv"
@@ -19,7 +18,6 @@ import (
 func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceDataModel) error {
 	valueReflection := reflect.ValueOf(value).Elem()
 	typeReflection := valueReflection.Type()
-	log.Printf("Unmarshaling to type:%T from data: %#v\n", value, data)
 
 	for i := 0; i < valueReflection.NumField(); i++ {
 		fName := typeReflection.Field(i).Name
@@ -27,7 +25,6 @@ func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceD
 		fValue := valueReflection.Field(i)
 		fTags := strings.Split(typeReflection.Field(i).Tag.Get("vyos"), ",")
 		tflog.Debug(ctx, "processing field", map[string]interface{}{"Field": fName, "Type": fType, "Tags": fTags})
-		log.Printf("Field: %s\tType: %s\tTags: %v\n", fName, fType, fTags)
 
 		// Set flags based on tags, first tag must be the vyos field name, the rest are bools with default of false
 		// TODO create struct of valid options
@@ -42,33 +39,29 @@ func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceD
 		for _, tag := range fTags[1:] {
 			flags[tag] = true
 		}
-		log.Printf("\tField flags: %#v\n", flags)
+
 		if flags["self-id"].(bool) || flags["parent-id"].(bool) || flags["timeout"].(bool) {
-			log.Printf("\tNot configuring field: %s\n", fName)
+
 			tflog.Debug(ctx, "Not configuring field", map[string]interface{}{"field-name": fName})
 			continue
 		}
 
 		if flags["child"].(bool) {
-			log.Printf("\tField is child resource. ")
 
 			if !KeyInMap(flags["name"].(string), data) {
-				log.Printf("No child entry found.\n")
+
 				tfValueRefection := reflect.ValueOf(false)
 				fValue.Set(tfValueRefection)
 				continue
 			}
-
-			log.Printf("Found child entry. ")
 
 			if data == nil {
-				log.Printf("Field does not have data. \n")
+
 				tfValueRefection := reflect.ValueOf(false)
 				fValue.Set(tfValueRefection)
 				continue
 			}
 
-			log.Printf("Field has data. \n")
 			tfValueRefection := reflect.ValueOf(true)
 			fValue.Set(tfValueRefection)
 			continue
@@ -79,14 +72,13 @@ func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceD
 			var tfval basetypes.StringValuable
 
 			if !KeyInMap(flags["name"].(string), data) {
-				log.Printf("\tNo data for field: %s, setting to empty string\n", fName)
+
 				tflog.Debug(ctx, "No data for field, setting to empty string", map[string]interface{}{"field-name": fName})
 
 				tfval = basetypes.NewStringNull()
 			} else {
 				dataValue := data[flags["name"].(string)]
 
-				log.Printf("\tUnmarshalling String Field: %s\t%s=%s\n", fName, flags["name"].(string), dataValue)
 				tflog.Debug(ctx, "Unmarshalling String Field", map[string]interface{}{"field-name": fName, flags["name"].(string): dataValue})
 
 				tfval = basetypes.NewStringValue(dataValue.(string))
@@ -95,7 +87,7 @@ func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceD
 			fValue.Set(tfValueRefection)
 
 		case basetypes.BoolValue:
-			log.Printf("\tUnmarshalling Bool Field: %s\n", fName)
+
 			tflog.Debug(ctx, "Unmarshalling Bool Field", map[string]interface{}{"field-name": fName})
 			tfValue := basetypes.NewBoolValue(KeyInMap(flags["name"].(string), data))
 			tfValueRefection := reflect.ValueOf(tfValue)
@@ -104,14 +96,13 @@ func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceD
 			var tfval basetypes.NumberValuable
 
 			if !KeyInMap(flags["name"].(string), data) {
-				log.Printf("\tNo data for field: %s, skipping\n", fName)
+
 				tflog.Debug(ctx, "No data for field, skipping", map[string]interface{}{"field-name": fName})
 
 				tfval = basetypes.NewNumberNull()
 			} else {
 				dataValue := data[flags["name"].(string)]
 
-				log.Printf("\tUnmarshalling Number Field: %s\t%s=%s\n", fName, flags["name"].(string), dataValue)
 				tflog.Debug(ctx, "Unmarshalling Number Field", map[string]interface{}{"field-name": fName, flags["name"].(string): dataValue})
 
 				var dataValueF float64
@@ -167,18 +158,17 @@ func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceD
 			elemType := listAttr.ElementType
 
 			if !KeyInMap(flags["name"].(string), data) {
-				log.Printf("\tNo data for field: %s, skipping\n", fName)
+
 				tflog.Debug(ctx, "No data for field, skipping", map[string]interface{}{"field-name": fName})
 
 				tfval = basetypes.NewListNull(elemType)
 			} else {
 				dataValue := data[flags["name"].(string)]
 
-				log.Printf("\tUnmarshalling List Field: %s\t%s=%s\n", fName, flags["name"].(string), dataValue)
 				tflog.Debug(ctx, "Unmarshalling List Field", map[string]interface{}{"field-name": fName, flags["name"].(string): dataValue})
 
 				if reflect.TypeOf(dataValue).Kind() != reflect.Slice {
-					log.Printf("\tdataValue is not a slice, wrapping the value in list: %#v\n", dataValue)
+
 					tflog.Debug(ctx, "dataValue is not a slice, wrapping the value in list", map[string]interface{}{flags["name"].(string): dataValue})
 					dataValue = []interface{}{dataValue}
 				}
@@ -195,13 +185,12 @@ func UnmarshalVyos(ctx context.Context, data map[string]any, value VyosResourceD
 
 		default:
 			if !KeyInMap(flags["name"].(string), data) {
-				log.Printf("\tNo data for field: %s, skipping\n", fName)
+
 				tflog.Debug(ctx, "No data for field, skipping", map[string]interface{}{"field-name": fName})
 				continue
 			}
 			dataValue := data[flags["name"].(string)]
 
-			log.Printf("\tUnmarshalling Struct Field: %s\t%s=%s\n", fName, flags["name"].(string), dataValue)
 			tflog.Debug(ctx, "Unmarshalling Struct Field", map[string]interface{}{"field-name": fName, flags["name"].(string): dataValue})
 
 			subSctructReflection := reflect.New(fType.Elem())

@@ -6,6 +6,7 @@ import (
 	"math/big"
 	"net"
 	"net/http"
+	"os"
 	"testing"
 	"time"
 
@@ -13,6 +14,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflogtest"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/ipv4-name-rule/resourcemodel"
@@ -101,7 +103,7 @@ func TestCrudCreateSuccess(t *testing.T) {
 	api.Server(srv, eList)
 
 	// Client
-	ctx := context.Background()
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 	providerData := data.NewProviderData(client)
 
@@ -181,7 +183,7 @@ func TestCrudCreateResourceAlreadyExsitsFailure(t *testing.T) {
 	api.Server(srv, eList)
 
 	// Client
-	ctx := context.Background()
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 	providerData := data.NewProviderData(client)
 
@@ -266,7 +268,7 @@ func TestCrudCreateResourceAlreadyExsitsIgnore(t *testing.T) {
 	api.Server(srv, eList)
 
 	// Client
-	ctx := context.Background()
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 	providerData := data.NewProviderData(client)
 	providerData.Config.CrudSkipExistingResourceCheck = true
@@ -334,7 +336,7 @@ func TestCrudCreateResourceParentMissingFailure(t *testing.T) {
 	api.Server(srv, eList)
 
 	// Client
-	ctx := context.Background()
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 	providerData := data.NewProviderData(client)
 
@@ -421,7 +423,7 @@ func TestCrudCreateResourceParentMissingIgnore(t *testing.T) {
 	api.Server(srv, eList)
 
 	// Client
-	ctx := context.Background()
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 	providerData := data.NewProviderData(client)
 	providerData.Config.CrudSkipCheckParentBeforeCreate = true
@@ -541,7 +543,8 @@ func TestCrudCreateTimeoutSuccess(t *testing.T) {
 
 	// Client
 	start := time.Now()
-	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
+	ctx, cancel := context.WithTimeout(ctx, 100*time.Millisecond)
 	defer cancel()
 	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 	providerData := data.NewProviderData(client)
@@ -670,7 +673,8 @@ func TestCrudCreateTimeoutFailure(t *testing.T) {
 	api.Server(srv, eList)
 
 	// Client
-	ctx, cancel := context.WithTimeout(context.Background(), 50*time.Millisecond)
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
+	ctx, cancel := context.WithTimeout(ctx, 50*time.Millisecond)
 	defer cancel()
 	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 	providerData := data.NewProviderData(client)
@@ -792,7 +796,8 @@ func TestCrudCreateRetrySuccess(t *testing.T) {
 	api.Server(srv, eList)
 
 	// Client
-	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
+	ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
 	defer cancel()
 	client := client.NewClient(ctx, "http://"+apiAddress, apiKey, "test-agent", true)
 	providerData := data.NewProviderData(client)

@@ -247,6 +247,9 @@ data/provider-schema/$(VERSION_ROLLING).json: build-rolling
 	# 	rm -v data/provider-schema/${VERSION_ROLLING}.json; \
 	# fi
 
+#CHANGELOG.md:
+	#go run tools/generate-changelog/*.go data/provider-schema/2024.03.21.json data/provider-schema/2024.03.22.json
+
 .PHONY: clean
 clean:
 	-rm -rf dist

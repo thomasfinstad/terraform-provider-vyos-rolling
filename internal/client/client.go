@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"net/url"
 	"strings"
@@ -122,7 +121,6 @@ func (c *Client) CommitChanges(ctx context.Context) (any, error) {
 	}
 
 	tflog.Info(ctx, "Creating configure request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
-	log.Println("Creating configure request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
 
 	req, err := http.NewRequestWithContext(ctx, "POST", endpoint, strings.NewReader(payload.Encode()))
 	if err != nil {
@@ -186,7 +184,6 @@ func (c *Client) Has(ctx context.Context, path []string) (bool, error) {
 	}
 
 	tflog.Info(ctx, "Creating exists request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
-	log.Println("Creating exists request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
 
 	payloadEnc := payload.Encode()
 	tflog.Debug(ctx, "Request payload encoded", map[string]interface{}{"payload": payloadEnc})
@@ -198,14 +195,12 @@ func (c *Client) Has(ctx context.Context, path []string) (bool, error) {
 	req.Header.Set("User-Agent", c.userAgent)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
-	log.Println("Sending Request")
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return false, fmt.Errorf("failed to complete http request: %w", err)
 	}
 	defer resp.Body.Close()
 
-	log.Println("Reading response")
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return false, fmt.Errorf("failed to read http response: %w", err)
@@ -213,21 +208,18 @@ func (c *Client) Has(ctx context.Context, path []string) (bool, error) {
 
 	var ret map[string]interface{}
 
-	log.Println("Unmarshaling from json")
 	err = json.Unmarshal(body, &ret)
 	if err != nil {
 		return false, fmt.Errorf("failed to unmarshal http response body: '%s' as json: %w", body, err)
 	}
 
 	if ret["success"] == true {
-		log.Println("API exists success")
+
 		if retB, ok := ret["data"].(bool); ok {
 			return retB, nil
 		}
 		return false, fmt.Errorf("[api error]: could not convert returned 'data' field to bool: %v", ret)
 	}
-
-	log.Println("API exists failure")
 
 	if errmsg, ok := ret["error"]; ok {
 		if errmsg, ok := errmsg.(string); ok {
@@ -261,7 +253,6 @@ func (c *Client) Get(ctx context.Context, path []string) (any, error) {
 	}
 
 	tflog.Info(ctx, "Creating showConfig request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
-	log.Println("Creating showConfig request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
 
 	payloadEnc := payload.Encode()
 	tflog.Debug(ctx, "Request payload encoded", map[string]interface{}{"payload": payloadEnc})
@@ -273,14 +264,12 @@ func (c *Client) Get(ctx context.Context, path []string) (any, error) {
 	req.Header.Set("User-Agent", c.userAgent)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
-	log.Println("Sending Request")
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to complete http request: %w", err)
 	}
 	defer resp.Body.Close()
 
-	log.Println("Reading response")
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read http response: %w", err)
@@ -288,18 +277,15 @@ func (c *Client) Get(ctx context.Context, path []string) (any, error) {
 
 	var ret map[string]interface{}
 
-	log.Println("Unmarshaling from json")
 	err = json.Unmarshal(body, &ret)
 	if err != nil {
 		return nil, fmt.Errorf("failed to unmarshal http response body: '%s' as json: %w", body, err)
 	}
 
 	if ret["success"] == true {
-		log.Println("API showConfig success")
+
 		return ret["data"], nil
 	}
-
-	log.Println("API showConfig failure")
 
 	if errmsg, ok := ret["error"]; ok {
 		if errmsg, ok := errmsg.(string); ok && errmsg == "Configuration under specified path is empty\n" {

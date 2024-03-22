@@ -50,6 +50,9 @@ func main() {
 
 	outputFormatted := []byte(output)
 
+	// TODO improve interface definition generation
+	//  look into using dst instead of regex replace
+
 	// Change recursive attributes with nil as these can not be dumped as code
 	// Rendered example: Parent:<REC(&interfacedefinition.Node)>,
 	// Rendered example: LeafNode:[]*interfacedefinition.LeafNode{<REC()>}

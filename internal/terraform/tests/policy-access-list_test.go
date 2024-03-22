@@ -3,20 +3,18 @@ package tests
 import (
 	"context"
 	"math/big"
+	"os"
 	"sort"
 	"strings"
 	"testing"
 
 	"github.com/go-test/deep"
-	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
+	"github.com/hashicorp/terraform-plugin-log/tflogtest"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/policy/access-list/resourcemodel"
 )
-
-// TODO figure out print logging vs tflog for testing
 
 // TestPolicyAccessListEmptyMarshal tests that that an empty resource marshals to the correct empty representation
 //
@@ -31,9 +29,7 @@ func TestPolicyAccessListEmptyMarshal(t *testing.T) {
 
 	want := make(map[string]any)
 
-	ctx := context.Background()
-	lvl := tflog.WithLevel(hclog.Error)
-	ctx = tflog.NewSubsystem(ctx, "my-subsystem", lvl)
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 
 	got, err := helpers.MarshalVyos(ctx, model)
 	diff := deep.Equal(got, want)
@@ -56,9 +52,7 @@ func TestPolicyAccessListEmptyGenerateVyosOps(t *testing.T) {
 		{"policy", "access-list", "42"},
 	}
 
-	ctx := context.Background()
-	lvl := tflog.WithLevel(hclog.Error)
-	ctx = tflog.NewSubsystem(ctx, "my-subsystem", lvl)
+	ctx := tflogtest.RootLogger(context.Background(), os.Stdout)
 
 	got := helpers.GenerateVyosOps(ctx, hasPath, hasData)
 

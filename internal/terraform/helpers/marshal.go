@@ -3,7 +3,6 @@ package helpers
 import (
 	"context"
 	"fmt"
-	"log"
 	"reflect"
 	"strings"
 
@@ -32,8 +31,6 @@ func MarshalVyos(ctx context.Context, data any) (map[string]any, error) {
 		}
 		tflog.Debug(ctx, "processing field", map[string]interface{}{"Field": fName, "Type": fType, "Value-Interface": fValue, "Tags": fTags})
 		tflog.Trace(ctx, "processing field", map[string]interface{}{"Field": fName, "Type": fType, "Value-Interface": fValue, "Tags": fTags, "data": data})
-		log.Printf("Field: %s\tType: %s\tValue: %v\tTags: %v", fName, fType, fValue, fTags)
-		//log.Printf("Field: %s\tType: %s\tValue: %v\tTags: %v Data:%#v\n", fName, fType, fValue, fTags, data)
 
 		if len(fTags) < 1 {
 			tflog.Error(ctx, "no vyos tags found on field, at least the name field must be filled. an underscore can be used if no real value is propriate")
@@ -52,12 +49,12 @@ func MarshalVyos(ctx context.Context, data any) (map[string]any, error) {
 			"tfsdk-id":  false,
 		}
 		for _, tag := range fTags[1:] {
-			//log.Printf("\tEnabling flag: %s\n", tag)
+
 			tflog.Trace(ctx, "Enabling flag", map[string]interface{}{"flag": tag})
 			flags[tag] = true
 		}
 		if flags["child"].(bool) || flags["self-id"].(bool) || flags["parent-id"].(bool) || flags["tfsdk-id"].(bool) || flags["timeout"].(bool) {
-			//log.Printf("\tNot configuring field: %s with flags: %v\n", fName, flags)
+
 			tflog.Debug(ctx, "Not configuring field", map[string]interface{}{"field-name": fName, "flags": flags})
 			continue
 		}
@@ -65,29 +62,29 @@ func MarshalVyos(ctx context.Context, data any) (map[string]any, error) {
 		switch v := fValue.Interface().(type) {
 		case basetypes.StringValue:
 			if !(v.IsNull() || v.IsUnknown()) {
-				//log.Printf("\tMarshalling String Field: %v\t%v=%v\n", fName, flags["name"], v.ValueString())
+
 				tflog.Debug(ctx, "Marshalling String Field", map[string]interface{}{"field-name": fName, "flag:name": flags["name"], "value-string": v.ValueString()})
 				res[flags["name"].(string)] = v.ValueString()
 			} else if !flags["omitempty"].(bool) {
 				panic(fmt.Sprintf("Missing value: %s", fName))
 			}
 		case basetypes.BoolValue:
-			// log.Printf("\tMarshalling Bool Field: %s\n", fName)
+
 			tflog.Debug(ctx, "Marshalling Bool Field", map[string]interface{}{"field-name": fName})
 			if v.IsNull() || v.IsUnknown() {
-				// log.Printf("\tMarshalling Bool Field: %s is nil, skipping\n", fName)
+
 				tflog.Debug(ctx, "Marshalling Bool Field  is nil, skipping", map[string]interface{}{"field-name": fName})
 			} else if !v.ValueBool() {
-				// log.Printf("\tMarshalling Bool Field: %s is false, skipping: %s=%s\n", fName, flags["name"].(string), v)
+
 				tflog.Debug(ctx, "Marshalling Bool Field  is false, skipping", map[string]interface{}{"field-name": fName, flags["name"].(string): v})
 			} else {
-				// log.Printf("\tMarshalling Bool Field: %s is true: %s=%s\n", fName, flags["name"].(string), v)
+
 				tflog.Debug(ctx, "Marshalling Bool Field  is true", map[string]interface{}{"field-name": fName, flags["name"].(string): v})
 				res[flags["name"].(string)] = map[string]interface{}{}
 			}
 		case basetypes.NumberValue:
 			if !(v.IsNull() || v.IsUnknown()) {
-				// log.Printf("\tMarshalling Number Field: %s\t%s=%s\n", fName, flags["name"].(string), v.ValueBigFloat())
+
 				tflog.Debug(ctx, "Marshalling Number Field", map[string]interface{}{"field-name": fName, flags["name"].(string): v.ValueBigFloat()})
 				res[flags["name"].(string)], _ = v.ValueBigFloat().Float64()
 			} else if !flags["omitempty"].(bool) {
@@ -95,7 +92,7 @@ func MarshalVyos(ctx context.Context, data any) (map[string]any, error) {
 			}
 		case basetypes.ListValue:
 			if !(v.IsNull() || v.IsUnknown()) {
-				// log.Printf("\tMarshalling List Field: %s\t%s=%s\n", fName, flags["name"].(string), v)
+
 				tflog.Debug(ctx, "Marshalling List Field", map[string]interface{}{"field-name": flags["name"].(string), "field-value": fmt.Sprintf("%#v", v)})
 				switch v.ElementType(ctx).(type) {
 				case basetypes.StringType:
@@ -126,7 +123,7 @@ func MarshalVyos(ctx context.Context, data any) (map[string]any, error) {
 				fType = fValue.Type().Elem()
 			}
 			if fType.Kind() == reflect.Struct {
-				// log.Printf("\tMarshalling Struct Field: %s\t%s=%s\n", fName, flags["name"].(string), fValue.Interface())
+
 				tflog.Debug(ctx, "Marshalling Struct Field", map[string]interface{}{"field-name": fName, flags["name"].(string): fValue.Interface()})
 				if !(fValue.IsNil() || fValue.IsZero()) {
 					type subctxkey string
@@ -137,19 +134,19 @@ func MarshalVyos(ctx context.Context, data any) (map[string]any, error) {
 					}
 					res[flags["name"].(string)] = subv
 				} else {
-					// log.Printf("\tMarshalling Struct Field: %s is nil, skipping\n", fName)
+
 					tflog.Debug(ctx, "Marshalling Struct Field is nil, skipping", map[string]interface{}{"field-name": fName})
 
 				}
 			} else {
-				log.Printf("\tERROR!!! Currently unhandled tf type: %s\tkind: %v\tvalue:%#v\n", fType, fType.Kind(), v)
+
 				tflog.Error(ctx, "Currently unhandled tf type", map[string]interface{}{"field-name": fName, "kind": fType.Kind(), "value": v})
 			}
 		}
 	}
 
 	// Return data
-	log.Printf("Marshal return: %#v\n", res)
+
 	tflog.Trace(ctx, "Marshal return", map[string]interface{}{"res": res})
 	return res, nil
 }
