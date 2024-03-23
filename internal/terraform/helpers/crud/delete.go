@@ -6,19 +6,21 @@ import (
 	"time"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client/clienterrors"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 	cruderrors "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/crud/cruderror"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/tools"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 )
 
 // Delete method to define the logic which deletes the resource and removes the Terraform state on success.
 func Delete(ctx context.Context, r helpers.VyosResource, req resource.DeleteRequest, resp *resource.DeleteResponse) {
-	tflog.Debug(ctx, "Delete Resource")
-	tflog.Trace(ctx, "Fetching data model")
+	tools.Debug(ctx, "Delete Resource")
+	ctx = r.GetProviderConfig().CtxMutilatorRun(ctx)
+
+	tools.Trace(ctx, "Fetching data model")
 	stateModel := r.GetModel()
 	c := r.GetClient()
 
@@ -49,7 +51,7 @@ func Delete(ctx context.Context, r helpers.VyosResource, req resource.DeleteRequ
 
 	// Save data to Terraform state
 	resp.State.RemoveResource(ctx)
-	tflog.Info(ctx, "resource deleted")
+	tools.Info(ctx, "resource deleted")
 }
 
 // delete removes the resource
@@ -104,7 +106,7 @@ func delete(ctx context.Context, providerCfg data.ProviderData, c client.Client,
 				select {
 				case <-ctx.Done():
 
-					tflog.Warn(ctx, "retry timeout reached")
+					tools.Warn(ctx, "retry timeout reached")
 					return cruderrors.WrapIntoResourceError(stateModel, lastErr)
 				default:
 					// Check if resource has children
@@ -123,14 +125,14 @@ func delete(ctx context.Context, providerCfg data.ProviderData, c client.Client,
 					}
 
 					// named resources should not delete if there is a child
-					tflog.Warn(ctx, "child resource detected, retrying", map[string]interface{}{"child": child})
+					tools.Warn(ctx, "child resource detected, retrying", map[string]interface{}{"child": child})
 					// lastErr = fmt.Errorf("child resource detected: %s", child)
 					lastErr = cruderrors.NewResourceError(stateModel, "child resource detected: %s", child)
 
 					// No Deadline means we do not wish to retry
 					if _, ok := ctx.Deadline(); !ok {
 
-						tflog.Warn(ctx, "no retry deadline configured, disabling retry.")
+						tools.Warn(ctx, "no retry deadline configured, disabling retry.")
 						return lastErr
 					}
 
@@ -141,7 +143,7 @@ func delete(ctx context.Context, providerCfg data.ProviderData, c client.Client,
 						time.Duration(boMaxS)*time.Second,
 					)
 
-					tflog.Info(ctx, "delaying before next retry", map[string]interface{}{"retryTotalDelay": retryTotalDelay, "retryCnt": retryCnt, "backOff": backOff})
+					tools.Info(ctx, "delaying before next retry", map[string]interface{}{"retryTotalDelay": retryTotalDelay, "retryCnt": retryCnt, "backOff": backOff})
 					time.Sleep(backOff)
 
 					retryTotalDelay += backOff
@@ -157,7 +159,7 @@ func delete(ctx context.Context, providerCfg data.ProviderData, c client.Client,
 		return cruderrors.WrapIntoResourceError(stateModel, err)
 	}
 	if response != nil {
-		tflog.Error(ctx, "got non-nil response from API", map[string]interface{}{"response": response})
+		tools.Error(ctx, "got non-nil response from API", map[string]interface{}{"response": response})
 		return cruderrors.NewResourceError(stateModel, "got non-nil response from API: %s", response)
 	}
 

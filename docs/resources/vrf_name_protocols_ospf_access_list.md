@@ -2,7 +2,15 @@
 page_title: "vyos_vrf_name_protocols_ospf_access_list Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Open Shortest Path First (OSPF)⯯Access list to filter networks in routing updates
+  Virtual Routing and Forwarding
+  ⯯
+  Virtual Routing and Forwarding instance
+  ⯯
+  Routing protocol parameters
+  ⯯
+  Open Shortest Path First (OSPF)
+  ⯯
+  Access list to filter networks in routing updates
 ---
 
 # vyos_vrf_name_protocols_ospf_access_list (Resource)

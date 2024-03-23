@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/hashicorp/terraform-plugin-log/tflog"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/tools"
 )
 
 // GetChild takes a resource model and checks if it has children configured
@@ -19,7 +19,7 @@ func GetChild(ctx context.Context, value VyosResourceDataModel) (childField stri
 		fType := typeReflection.Field(i).Type
 		fValue := valueReflection.Field(i)
 		fTags := strings.Split(typeReflection.Field(i).Tag.Get("vyos"), ",")
-		tflog.Debug(ctx, "processing field", map[string]interface{}{"Field": fName, "Type": fType, "Tags": fTags})
+		tools.Debug(ctx, "processing field", map[string]interface{}{"Field": fName, "Type": fType, "Tags": fTags})
 
 		// Set flags based on tags, first tag must be the vyos field name, the rest are bools with default of false
 		// TODO create struct of valid options

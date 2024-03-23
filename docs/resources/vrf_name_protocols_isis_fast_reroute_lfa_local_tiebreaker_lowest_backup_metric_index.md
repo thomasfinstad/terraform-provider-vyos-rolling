@@ -2,7 +2,25 @@
 page_title: "vyos_vrf_name_protocols_isis_fast_reroute_lfa_local_tiebreaker_lowest_backup_metric_index Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Intermediate System to Intermediate System (IS-IS)⯯IS-IS fast reroute configuration⯯Loop free alternate functionality⯯Local loop free alternate options⯯Configure tiebreaker for multiple backups⯯Prefer backup path with lowest total metric⯯Set preference order among tiebreakers
+  Virtual Routing and Forwarding
+  ⯯
+  Virtual Routing and Forwarding instance
+  ⯯
+  Routing protocol parameters
+  ⯯
+  Intermediate System to Intermediate System (IS-IS)
+  ⯯
+  IS-IS fast reroute configuration
+  ⯯
+  Loop free alternate functionality
+  ⯯
+  Local loop free alternate options
+  ⯯
+  Configure tiebreaker for multiple backups
+  ⯯
+  Prefer backup path with lowest total metric
+  ⯯
+  Set preference order among tiebreakers
 ---
 
 # vyos_vrf_name_protocols_isis_fast_reroute_lfa_local_tiebreaker_lowest_backup_metric_index (Resource)

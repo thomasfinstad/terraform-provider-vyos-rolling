@@ -6,7 +6,7 @@ import (
 	"slices"
 	"strconv"
 
-	"github.com/hashicorp/terraform-plugin-log/tflog"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/tools"
 	"golang.org/x/exp/maps"
 )
 
@@ -21,13 +21,13 @@ import (
 //
 //	[][]string{[]string{"firewall", "ipv4", "forward", "filter", "default-log"}, []string{"firewall", "ipv4", "forward", "filter", "default-action", "reject"}}
 func GenerateVyosOps(ctx context.Context, vyosPath []string, vyosData map[string]interface{}) [][]string {
-	tflog.Trace(ctx, "GenerateVyosOps Input", map[string]interface{}{"vyosPath": vyosPath, "vyosData": vyosData})
-	tflog.Debug(ctx, "GenerateVyosOps Input", map[string]interface{}{"vyosPath": vyosPath, "vyosData": vyosData})
-	tflog.Info(ctx, "GenerateVyosOps Input", map[string]interface{}{"vyosPath": vyosPath, "vyosData": vyosData})
-	tflog.Warn(ctx, "GenerateVyosOps Input", map[string]interface{}{"vyosPath": vyosPath, "vyosData": vyosData})
-	tflog.Error(ctx, "GenerateVyosOps Input", map[string]interface{}{"vyosPath": vyosPath, "vyosData": vyosData})
+	tools.Trace(ctx, "GenerateVyosOps Input", map[string]interface{}{"vyosPath": vyosPath, "vyosData": vyosData})
+	tools.Debug(ctx, "GenerateVyosOps Input", map[string]interface{}{"vyosPath": vyosPath, "vyosData": vyosData})
+	tools.Info(ctx, "GenerateVyosOps Input", map[string]interface{}{"vyosPath": vyosPath, "vyosData": vyosData})
+	tools.Warn(ctx, "GenerateVyosOps Input", map[string]interface{}{"vyosPath": vyosPath, "vyosData": vyosData})
+	tools.Error(ctx, "GenerateVyosOps Input", map[string]interface{}{"vyosPath": vyosPath, "vyosData": vyosData})
 	vyosOps := iron(ctx, vyosPath, vyosData)
-	tflog.Trace(ctx, "GenerateVyosOps return", map[string]interface{}{"vyosOps": vyosOps})
+	tools.Trace(ctx, "GenerateVyosOps return", map[string]interface{}{"vyosOps": vyosOps})
 	return vyosOps
 }
 
@@ -52,43 +52,43 @@ func iron(ctx context.Context, vyosPath []string, values map[string]interface{})
 		// LeafNodes
 		case string:
 
-			tflog.Trace(ctx, "ironing string value", map[string]interface{}{"current-vyos-path": cVyosPath, "type": fmt.Sprintf("%T", value), "value": fmt.Sprintf("%#v", value)})
+			tools.Trace(ctx, "ironing string value", map[string]interface{}{"current-vyos-path": cVyosPath, "type": fmt.Sprintf("%T", value), "value": fmt.Sprintf("%#v", value)})
 			val := append(cVyosPath, value)
-			tflog.Trace(ctx, "appending to ret", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret), "val": fmt.Sprintf("%#v", val)})
+			tools.Trace(ctx, "appending to ret", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret), "val": fmt.Sprintf("%#v", val)})
 			ret = append(ret, val)
 		// LeafNodes
 		case bool:
 
-			tflog.Trace(ctx, "ironing bool value", map[string]interface{}{"current-vyos-path": cVyosPath, "type": fmt.Sprintf("%T", value), "value": fmt.Sprintf("%#v", value)})
+			tools.Trace(ctx, "ironing bool value", map[string]interface{}{"current-vyos-path": cVyosPath, "type": fmt.Sprintf("%T", value), "value": fmt.Sprintf("%#v", value)})
 			if value {
 				val := append(cVyosPath, "{}")
-				tflog.Trace(ctx, "appending to ret", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret), "val": fmt.Sprintf("%#v", val)})
+				tools.Trace(ctx, "appending to ret", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret), "val": fmt.Sprintf("%#v", val)})
 				ret = append(ret, val)
 			} else {
-				tflog.Trace(ctx, "NOT appending to ret because bool is false", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret)})
+				tools.Trace(ctx, "NOT appending to ret because bool is false", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret)})
 			}
 		// LeafNodes
 		case float64:
 
-			tflog.Trace(ctx, "ironing float value", map[string]interface{}{"current-vyos-path": cVyosPath, "type": fmt.Sprintf("%T", value), "value": fmt.Sprintf("%#v", value)})
+			tools.Trace(ctx, "ironing float value", map[string]interface{}{"current-vyos-path": cVyosPath, "type": fmt.Sprintf("%T", value), "value": fmt.Sprintf("%#v", value)})
 			val := append(cVyosPath, strconv.FormatFloat(value, 'f', -1, 64))
-			tflog.Trace(ctx, "appending to ret", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret), "val": fmt.Sprintf("%#v", val)})
+			tools.Trace(ctx, "appending to ret", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret), "val": fmt.Sprintf("%#v", val)})
 			ret = append(ret, val)
 		// LeafNodes multi value
 		case []string:
 
-			tflog.Trace(ctx, "ironing slice of strings value", map[string]interface{}{"current-vyos-path": cVyosPath, "type": fmt.Sprintf("%T", value), "value": fmt.Sprintf("%#v", value)})
+			tools.Trace(ctx, "ironing slice of strings value", map[string]interface{}{"current-vyos-path": cVyosPath, "type": fmt.Sprintf("%T", value), "value": fmt.Sprintf("%#v", value)})
 			for _, element := range value {
 				val := append(cVyosPath, element)
-				tflog.Trace(ctx, "appending to ret", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret), "val": fmt.Sprintf("%#v", val)})
+				tools.Trace(ctx, "appending to ret", map[string]interface{}{"ret": fmt.Sprintf("%#v", ret), "val": fmt.Sprintf("%#v", val)})
 				ret = append(ret, val)
 			}
 
 		// TagNodes and Nodes
 		case map[string]interface{}:
 
-			tflog.Trace(ctx, "ironing nested map value", map[string]interface{}{"current-vyos-path": cVyosPath, "type": fmt.Sprintf("%T", value), "value": fmt.Sprintf("%#v", value)})
-			tflog.Trace(ctx, "recursing for ret", map[string]interface{}{"cVyosPath": fmt.Sprintf("%#v", cVyosPath)})
+			tools.Trace(ctx, "ironing nested map value", map[string]interface{}{"current-vyos-path": cVyosPath, "type": fmt.Sprintf("%T", value), "value": fmt.Sprintf("%#v", value)})
+			tools.Trace(ctx, "recursing for ret", map[string]interface{}{"cVyosPath": fmt.Sprintf("%#v", cVyosPath)})
 			val := iron(ctx, cVyosPath, value)
 			ret = append(
 				ret,
@@ -97,7 +97,7 @@ func iron(ctx context.Context, vyosPath []string, values map[string]interface{})
 
 		// ERROR
 		default:
-			tflog.Error(ctx, "No handling of value type", map[string]interface{}{"type": fmt.Sprintf("%T", value), "key": key, "cVyosPath": cVyosPath})
+			tools.Error(ctx, "No handling of value type", map[string]interface{}{"type": fmt.Sprintf("%T", value), "key": key, "cVyosPath": cVyosPath})
 			panic("unhandled type see last log entry")
 		}
 
@@ -105,11 +105,11 @@ func iron(ctx context.Context, vyosPath []string, values map[string]interface{})
 
 	if len(ret) == 0 {
 
-		tflog.Trace(ctx, "ironing empty value", map[string]interface{}{"vyosPath": vyosPath})
+		tools.Trace(ctx, "ironing empty value", map[string]interface{}{"vyosPath": vyosPath})
 		ret = [][]string{vyosPath}
 	}
 
-	tflog.Trace(ctx, "ironing result", map[string]interface{}{"result": fmt.Sprintf("%#v", ret)})
+	tools.Trace(ctx, "ironing result", map[string]interface{}{"result": fmt.Sprintf("%#v", ret)})
 
 	return ret
 }

@@ -10,8 +10,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client/clienterrors"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/tools"
 )
 
 // TODO create a client request internal function
@@ -36,7 +36,7 @@ func NewClient(
 	}
 
 	if disableVerify {
-		tflog.Warn(ctx, "Disabling TLS Certificate Verification")
+		tools.Warn(ctx, "Disabling TLS Certificate Verification")
 		c.httpClient.Transport = &http.Transport{
 			TLSClientConfig: &tls.Config{
 				InsecureSkipVerify: true,
@@ -62,13 +62,13 @@ type Client struct {
 
 // StageSet saves vyos paths to configure during commit
 func (c *Client) StageSet(ctx context.Context, values [][]string) {
-	tflog.Trace(ctx, "stageing set ops", map[string]interface{}{"client:httpClient": fmt.Sprintf("%p:%p", c, &c.httpClient), "paths": values, "current set ops": c.opsSet})
+	tools.Trace(ctx, "stageing set ops", map[string]interface{}{"client:httpClient": fmt.Sprintf("%p:%p", c, &c.httpClient), "paths": values, "current set ops": c.opsSet})
 	c.opsSet = append(c.opsSet, values...)
 }
 
 // StageDelete saves vyos paths to delete during commit
 func (c *Client) StageDelete(ctx context.Context, values [][]string) {
-	tflog.Trace(ctx, "stageing delete ops", map[string]interface{}{"client:httpClient": fmt.Sprintf("%p:%p", c, &c.httpClient), "paths": values, "current del ops": c.opsDelete})
+	tools.Trace(ctx, "stageing delete ops", map[string]interface{}{"client:httpClient": fmt.Sprintf("%p:%p", c, &c.httpClient), "paths": values, "current del ops": c.opsDelete})
 	c.opsDelete = append(c.opsDelete, values...)
 }
 
@@ -120,7 +120,7 @@ func (c *Client) CommitChanges(ctx context.Context) (any, error) {
 		"data": []string{string(jsonOperations)},
 	}
 
-	tflog.Info(ctx, "Creating configure request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
+	tools.Info(ctx, "Creating configure request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
 
 	req, err := http.NewRequestWithContext(ctx, "POST", endpoint, strings.NewReader(payload.Encode()))
 	if err != nil {
@@ -183,10 +183,10 @@ func (c *Client) Has(ctx context.Context, path []string) (bool, error) {
 		"data": []string{string(operation)},
 	}
 
-	tflog.Info(ctx, "Creating exists request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
+	tools.Info(ctx, "Creating exists request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
 
 	payloadEnc := payload.Encode()
-	tflog.Debug(ctx, "Request payload encoded", map[string]interface{}{"payload": payloadEnc})
+	tools.Debug(ctx, "Request payload encoded", map[string]interface{}{"payload": payloadEnc})
 	req, err := http.NewRequestWithContext(ctx, "POST", endpoint, strings.NewReader(payloadEnc))
 	if err != nil {
 		return false, fmt.Errorf("failed to create http request object: %w", err)
@@ -252,10 +252,10 @@ func (c *Client) Get(ctx context.Context, path []string) (any, error) {
 		"data": []string{string(operation)},
 	}
 
-	tflog.Info(ctx, "Creating showConfig request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
+	tools.Info(ctx, "Creating showConfig request for endpoint", map[string]interface{}{"endpoint": endpoint, "payload": payload})
 
 	payloadEnc := payload.Encode()
-	tflog.Debug(ctx, "Request payload encoded", map[string]interface{}{"payload": payloadEnc})
+	tools.Debug(ctx, "Request payload encoded", map[string]interface{}{"payload": payloadEnc})
 	req, err := http.NewRequestWithContext(ctx, "POST", endpoint, strings.NewReader(payloadEnc))
 	if err != nil {
 		return nil, fmt.Errorf("failed to create http request object: %w", err)

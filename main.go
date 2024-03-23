@@ -38,11 +38,6 @@ func main() {
 	}
 }
 
-// TODO Mask any known sensitive information
-//  Such as API keys. Also investigate if there is any information
-//  in the vyos schema about (leaf)nodes that contain sensitive
-//  information.
-
 // TODO Create a CONTRIBUTION.md doc
 //  include meta info such as
 //  - [ ] how schema is used

@@ -186,7 +186,7 @@
                 "optional": true
               }
             },
-            "description": "Container applications  \n⯯  \n**Container name**\n",
+            "description": "Container applications\n⯯\n**Container name**\n",
             "description_kind": "markdown"
           }
         },
@@ -240,7 +240,7 @@
                 "optional": true
               }
             },
-            "description": "Container applications  \n⯯  \nContainer name  \n⯯  \n**Add a host device to the container**\n",
+            "description": "Container applications\n⯯\nContainer name\n⯯\n**Add a host device to the container**\n",
             "description_kind": "markdown"
           }
         },
@@ -288,7 +288,7 @@
                 "optional": true
               }
             },
-            "description": "Container applications  \n⯯  \nContainer name  \n⯯  \n**Add custom environment variables**\n",
+            "description": "Container applications\n⯯\nContainer name\n⯯\n**Add custom environment variables**\n",
             "description_kind": "markdown"
           }
         },
@@ -336,7 +336,7 @@
                 "optional": true
               }
             },
-            "description": "Container applications  \n⯯  \nContainer name  \n⯯  \n**Add label variables**\n",
+            "description": "Container applications\n⯯\nContainer name\n⯯\n**Add label variables**\n",
             "description_kind": "markdown"
           }
         },
@@ -387,7 +387,7 @@
                 "optional": true
               }
             },
-            "description": "Container applications  \n⯯  \nContainer name  \n⯯  \n**Attach user defined network to container**\n",
+            "description": "Container applications\n⯯\nContainer name\n⯯\n**Attach user defined network to container**\n",
             "description_kind": "markdown"
           }
         },
@@ -457,7 +457,7 @@
                 "optional": true
               }
             },
-            "description": "Container applications  \n⯯  \nContainer name  \n⯯  \n**Publish port to the container**\n",
+            "description": "Container applications\n⯯\nContainer name\n⯯\n**Publish port to the container**\n",
             "description_kind": "markdown"
           }
         },
@@ -525,7 +525,7 @@
                 "required": true
               }
             },
-            "description": "Container applications  \n⯯  \nContainer name  \n⯯  \n**Mount a volume into the container**\n",
+            "description": "Container applications\n⯯\nContainer name\n⯯\n**Mount a volume into the container**\n",
             "description_kind": "markdown"
           }
         },
@@ -582,7 +582,7 @@
                 "optional": true
               }
             },
-            "description": "Container applications  \n⯯  \n**Network name**\n",
+            "description": "Container applications\n⯯\n**Network name**\n",
             "description_kind": "markdown"
           }
         },
@@ -647,7 +647,7 @@
                 "optional": true
               }
             },
-            "description": "Container applications  \n⯯  \n**Registry Name**\n",
+            "description": "Container applications\n⯯\n**Registry Name**\n",
             "description_kind": "markdown"
           }
         },
@@ -697,7 +697,7 @@
                 "optional": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall  \n⯯  \nBridge firewall  \n⯯  \nBridge forward firewall  \n⯯  \n**Bridge firewall forward filter**\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall\n⯯\nBridge firewall\n⯯\nBridge forward firewall\n⯯\n**Bridge firewall forward filter**\n",
             "description_kind": "markdown"
           }
         },
@@ -906,7 +906,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nBridge firewall  \n⯯  \nBridge forward firewall  \n⯯  \nBridge firewall forward filter  \n⯯  \n**Bridge Firewall forward filter rule number**\n",
+            "description": "Firewall\n⯯\nBridge firewall\n⯯\nBridge forward firewall\n⯯\nBridge firewall forward filter\n⯯\n**Bridge Firewall forward filter rule number**\n",
             "description_kind": "markdown"
           }
         },
@@ -968,7 +968,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nBridge firewall  \n⯯  \n**Bridge custom firewall**\n",
+            "description": "Firewall\n⯯\nBridge firewall\n⯯\n**Bridge custom firewall**\n",
             "description_kind": "markdown"
           }
         },
@@ -1183,7 +1183,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nBridge firewall  \n⯯  \nBridge custom firewall  \n⯯  \n**Bridge Firewall forward filter rule number**\n",
+            "description": "Firewall\n⯯\nBridge firewall\n⯯\nBridge custom firewall\n⯯\n**Bridge Firewall forward filter rule number**\n",
             "description_kind": "markdown"
           }
         },
@@ -1241,7 +1241,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \n**Flowtable**\n",
+            "description": "Firewall\n⯯\n**Flowtable**\n",
             "description_kind": "markdown"
           }
         },
@@ -1369,7 +1369,7 @@
                 "computed": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall  \n⯯  \n**Global Options**\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall\n⯯\n**Global Options**\n",
             "description_kind": "markdown"
           }
         },
@@ -1418,7 +1418,7 @@
                 "optional": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall  \n⯯  \nGlobal Options  \n⯯  \nGlobal firewall state-policy  \n⯯  \n**Global firewall policy for packets part of an established connection**\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall\n⯯\nGlobal Options\n⯯\nGlobal firewall state-policy\n⯯\n**Global firewall policy for packets part of an established connection**\n",
             "description_kind": "markdown"
           }
         },
@@ -1467,7 +1467,7 @@
                 "optional": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall  \n⯯  \nGlobal Options  \n⯯  \nGlobal firewall state-policy  \n⯯  \n**Global firewall policy for packets part of an invalid connection**\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall\n⯯\nGlobal Options\n⯯\nGlobal firewall state-policy\n⯯\n**Global firewall policy for packets part of an invalid connection**\n",
             "description_kind": "markdown"
           }
         },
@@ -1516,7 +1516,7 @@
                 "optional": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall  \n⯯  \nGlobal Options  \n⯯  \nGlobal firewall state-policy  \n⯯  \n**Global firewall policy for packets part of a related connection**\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall\n⯯\nGlobal Options\n⯯\nGlobal firewall state-policy\n⯯\n**Global firewall policy for packets part of a related connection**\n",
             "description_kind": "markdown"
           }
         },
@@ -1576,7 +1576,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nFirewall group  \n⯯  \n**Firewall address-group**\n",
+            "description": "Firewall\n⯯\nFirewall group\n⯯\n**Firewall address-group**\n",
             "description_kind": "markdown"
           }
         },
@@ -1627,7 +1627,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nFirewall group  \n⯯  \n**Firewall domain-group**\n",
+            "description": "Firewall\n⯯\nFirewall group\n⯯\n**Firewall domain-group**\n",
             "description_kind": "markdown"
           }
         },
@@ -1669,7 +1669,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nFirewall group  \n⯯  \nFirewall dynamic group  \n⯯  \n**Firewall dynamic address group**\n",
+            "description": "Firewall\n⯯\nFirewall group\n⯯\nFirewall dynamic group\n⯯\n**Firewall dynamic address group**\n",
             "description_kind": "markdown"
           }
         },
@@ -1711,7 +1711,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nFirewall group  \n⯯  \nFirewall dynamic group  \n⯯  \n**Firewall dynamic IPv6 address group**\n",
+            "description": "Firewall\n⯯\nFirewall group\n⯯\nFirewall dynamic group\n⯯\n**Firewall dynamic IPv6 address group**\n",
             "description_kind": "markdown"
           }
         },
@@ -1771,7 +1771,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nFirewall group  \n⯯  \n**Firewall interface-group**\n",
+            "description": "Firewall\n⯯\nFirewall group\n⯯\n**Firewall interface-group**\n",
             "description_kind": "markdown"
           }
         },
@@ -1831,7 +1831,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nFirewall group  \n⯯  \n**Firewall ipv6-address-group**\n",
+            "description": "Firewall\n⯯\nFirewall group\n⯯\n**Firewall ipv6-address-group**\n",
             "description_kind": "markdown"
           }
         },
@@ -1891,7 +1891,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nFirewall group  \n⯯  \n**Firewall ipv6-network-group**\n",
+            "description": "Firewall\n⯯\nFirewall group\n⯯\n**Firewall ipv6-network-group**\n",
             "description_kind": "markdown"
           }
         },
@@ -1951,7 +1951,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nFirewall group  \n⯯  \n**Firewall mac-group**\n",
+            "description": "Firewall\n⯯\nFirewall group\n⯯\n**Firewall mac-group**\n",
             "description_kind": "markdown"
           }
         },
@@ -2011,7 +2011,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nFirewall group  \n⯯  \n**Firewall network-group**\n",
+            "description": "Firewall\n⯯\nFirewall group\n⯯\n**Firewall network-group**\n",
             "description_kind": "markdown"
           }
         },
@@ -2071,7 +2071,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nFirewall group  \n⯯  \n**Firewall port-group**\n",
+            "description": "Firewall\n⯯\nFirewall group\n⯯\n**Firewall port-group**\n",
             "description_kind": "markdown"
           }
         },
@@ -2121,7 +2121,7 @@
                 "optional": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall  \n⯯  \nIPv4 firewall  \n⯯  \nIPv4 forward firewall  \n⯯  \n**IPv4 firewall forward filter**\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall\n⯯\nIPv4 firewall\n⯯\nIPv4 forward firewall\n⯯\n**IPv4 firewall forward filter**\n",
             "description_kind": "markdown"
           }
         },
@@ -3031,7 +3031,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nIPv4 firewall  \n⯯  \nIPv4 forward firewall  \n⯯  \nIPv4 firewall forward filter  \n⯯  \n**IPv4 Firewall forward filter rule number**\n",
+            "description": "Firewall\n⯯\nIPv4 firewall\n⯯\nIPv4 forward firewall\n⯯\nIPv4 firewall forward filter\n⯯\n**IPv4 Firewall forward filter rule number**\n",
             "description_kind": "markdown"
           }
         },
@@ -3081,7 +3081,7 @@
                 "optional": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall  \n⯯  \nIPv4 firewall  \n⯯  \nIPv4 input firewall  \n⯯  \n**IPv4 firewall input filter**\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall\n⯯\nIPv4 firewall\n⯯\nIPv4 input firewall\n⯯\n**IPv4 firewall input filter**\n",
             "description_kind": "markdown"
           }
         },
@@ -3963,7 +3963,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nIPv4 firewall  \n⯯  \nIPv4 input firewall  \n⯯  \nIPv4 firewall input filter  \n⯯  \n**IPv4 Firewall input filter rule number**\n",
+            "description": "Firewall\n⯯\nIPv4 firewall\n⯯\nIPv4 input firewall\n⯯\nIPv4 firewall input filter\n⯯\n**IPv4 Firewall input filter rule number**\n",
             "description_kind": "markdown"
           }
         },
@@ -4025,7 +4025,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nIPv4 firewall  \n⯯  \n**IPv4 custom firewall**\n",
+            "description": "Firewall\n⯯\nIPv4 firewall\n⯯\n**IPv4 custom firewall**\n",
             "description_kind": "markdown"
           }
         },
@@ -4941,7 +4941,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nIPv4 firewall  \n⯯  \nIPv4 custom firewall  \n⯯  \n**IPv4 Firewall custom rule number**\n",
+            "description": "Firewall\n⯯\nIPv4 firewall\n⯯\nIPv4 custom firewall\n⯯\n**IPv4 Firewall custom rule number**\n",
             "description_kind": "markdown"
           }
         },
@@ -4991,7 +4991,7 @@
                 "optional": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall  \n⯯  \nIPv4 firewall  \n⯯  \nIPv4 output firewall  \n⯯  \n**IPv4 firewall output filter**\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall\n⯯\nIPv4 firewall\n⯯\nIPv4 output firewall\n⯯\n**IPv4 firewall output filter**\n",
             "description_kind": "markdown"
           }
         },
@@ -5849,7 +5849,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nIPv4 firewall  \n⯯  \nIPv4 output firewall  \n⯯  \nIPv4 firewall output filter  \n⯯  \n**IPv4 Firewall output filter rule number**\n",
+            "description": "Firewall\n⯯\nIPv4 firewall\n⯯\nIPv4 output firewall\n⯯\nIPv4 firewall output filter\n⯯\n**IPv4 Firewall output filter rule number**\n",
             "description_kind": "markdown"
           }
         },
@@ -5899,7 +5899,7 @@
                 "optional": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall  \n⯯  \nIPv6 firewall  \n⯯  \nIPv6 forward firewall  \n⯯  \n**IPv6 firewall forward filter**\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall\n⯯\nIPv6 firewall\n⯯\nIPv6 forward firewall\n⯯\n**IPv6 firewall forward filter**\n",
             "description_kind": "markdown"
           }
         },
@@ -6809,7 +6809,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nIPv6 firewall  \n⯯  \nIPv6 forward firewall  \n⯯  \nIPv6 firewall forward filter  \n⯯  \n**IPv6 Firewall forward filter rule number**\n",
+            "description": "Firewall\n⯯\nIPv6 firewall\n⯯\nIPv6 forward firewall\n⯯\nIPv6 firewall forward filter\n⯯\n**IPv6 Firewall forward filter rule number**\n",
             "description_kind": "markdown"
           }
         },
@@ -6859,7 +6859,7 @@
                 "optional": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall  \n⯯  \nIPv6 firewall  \n⯯  \nIPv6 input firewall  \n⯯  \n**IPv6 firewall input filter**\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall\n⯯\nIPv6 firewall\n⯯\nIPv6 input firewall\n⯯\n**IPv6 firewall input filter**\n",
             "description_kind": "markdown"
           }
         },
@@ -7741,7 +7741,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nIPv6 firewall  \n⯯  \nIPv6 input firewall  \n⯯  \nIPv6 firewall input filter  \n⯯  \n**IPv6 Firewall input filter rule number**\n",
+            "description": "Firewall\n⯯\nIPv6 firewall\n⯯\nIPv6 input firewall\n⯯\nIPv6 firewall input filter\n⯯\n**IPv6 Firewall input filter rule number**\n",
             "description_kind": "markdown"
           }
         },
@@ -7803,7 +7803,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nIPv6 firewall  \n⯯  \n**IPv6 custom firewall**\n",
+            "description": "Firewall\n⯯\nIPv6 firewall\n⯯\n**IPv6 custom firewall**\n",
             "description_kind": "markdown"
           }
         },
@@ -8719,7 +8719,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nIPv6 firewall  \n⯯  \nIPv6 custom firewall  \n⯯  \n**IPv6 Firewall custom rule number**\n",
+            "description": "Firewall\n⯯\nIPv6 firewall\n⯯\nIPv6 custom firewall\n⯯\n**IPv6 Firewall custom rule number**\n",
             "description_kind": "markdown"
           }
         },
@@ -8769,7 +8769,7 @@
                 "optional": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall  \n⯯  \nIPv6 firewall  \n⯯  \nIPv6 output firewall  \n⯯  \n**IPv6 firewall output filter**\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tFirewall\n⯯\nIPv6 firewall\n⯯\nIPv6 output firewall\n⯯\n**IPv6 firewall output filter**\n",
             "description_kind": "markdown"
           }
         },
@@ -9627,7 +9627,7 @@
                 "optional": true
               }
             },
-            "description": "Firewall  \n⯯  \nIPv6 firewall  \n⯯  \nIPv6 output firewall  \n⯯  \nIPv6 firewall output filter  \n⯯  \n**IPv6 Firewall output filter rule number**\n",
+            "description": "Firewall\n⯯\nIPv6 firewall\n⯯\nIPv6 output firewall\n⯯\nIPv6 firewall output filter\n⯯\n**IPv6 Firewall output filter rule number**\n",
             "description_kind": "markdown"
           }
         },
@@ -9737,7 +9737,7 @@
                 "required": true
               }
             },
-            "description": "Firewall  \n⯯  \n**Zone-policy**\n",
+            "description": "Firewall\n⯯\n**Zone-policy**\n",
             "description_kind": "markdown"
           }
         },
@@ -9801,7 +9801,7 @@
                 "required": true
               }
             },
-            "description": "Firewall  \n⯯  \nZone-policy  \n⯯  \n**Zone from which to filter traffic**\n",
+            "description": "Firewall\n⯯\nZone-policy\n⯯\n**Zone from which to filter traffic**\n",
             "description_kind": "markdown"
           }
         },
@@ -9927,7 +9927,7 @@
                 "required": true
               }
             },
-            "description": "High availability settings  \n⯯  \n**Load-balancing virtual server alias**\n",
+            "description": "High availability settings\n⯯\n**Load-balancing virtual server alias**\n",
             "description_kind": "markdown"
           }
         },
@@ -9997,7 +9997,7 @@
                 "required": true
               }
             },
-            "description": "High availability settings  \n⯯  \nLoad-balancing virtual server alias  \n⯯  \n**Real server address**\n",
+            "description": "High availability settings\n⯯\nLoad-balancing virtual server alias\n⯯\n**Real server address**\n",
             "description_kind": "markdown"
           }
         },
@@ -10034,7 +10034,7 @@
                 "optional": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tHigh availability settings  \n⯯  \n**Virtual Router Redundancy Protocol settings**\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tHigh availability settings\n⯯\n**Virtual Router Redundancy Protocol settings**\n",
             "description_kind": "markdown"
           }
         },
@@ -10076,7 +10076,7 @@
                 "optional": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tHigh availability settings  \n⯯  \nVirtual Router Redundancy Protocol settings  \n⯯  \n**VRRP global parameters**\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tHigh availability settings\n⯯\nVirtual Router Redundancy Protocol settings\n⯯\n**VRRP global parameters**\n",
             "description_kind": "markdown"
           }
         },
@@ -10141,7 +10141,7 @@
                 "optional": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tHigh availability settings  \n⯯  \nVirtual Router Redundancy Protocol settings  \n⯯  \nVRRP global parameters  \n⯯  \n**Gratuitous ARP parameters**\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tHigh availability settings\n⯯\nVirtual Router Redundancy Protocol settings\n⯯\nVRRP global parameters\n⯯\n**Gratuitous ARP parameters**\n",
             "description_kind": "markdown"
           }
         },
@@ -10424,7 +10424,7 @@
                 "optional": true
               }
             },
-            "description": "High availability settings  \n⯯  \nVirtual Router Redundancy Protocol settings  \n⯯  \n**VRRP group**\n",
+            "description": "High availability settings\n⯯\nVirtual Router Redundancy Protocol settings\n⯯\n**VRRP group**\n",
             "description_kind": "markdown"
           }
         },
@@ -10472,7 +10472,7 @@
                 "optional": true
               }
             },
-            "description": "High availability settings  \n⯯  \nVirtual Router Redundancy Protocol settings  \n⯯  \nVRRP group  \n⯯  \n**Virtual IP address**\n",
+            "description": "High availability settings\n⯯\nVirtual Router Redundancy Protocol settings\n⯯\nVRRP group\n⯯\n**Virtual IP address**\n",
             "description_kind": "markdown"
           }
         },
@@ -10587,7 +10587,7 @@
                 "optional": true
               }
             },
-            "description": "High availability settings  \n⯯  \nVirtual Router Redundancy Protocol settings  \n⯯  \n**VRRP sync group**\n",
+            "description": "High availability settings\n⯯\nVirtual Router Redundancy Protocol settings\n⯯\n**VRRP sync group**\n",
             "description_kind": "markdown"
           }
         },
@@ -10891,7 +10891,7 @@
                 "optional": true
               }
             },
-            "description": "Network Address Translation (NAT) parameters  \n⯯  \nDestination NAT settings  \n⯯  \n**Rule number for NAT**\n",
+            "description": "Network Address Translation (NAT) parameters\n⯯\nDestination NAT settings\n⯯\n**Rule number for NAT**\n",
             "description_kind": "markdown"
           }
         },
@@ -10939,7 +10939,7 @@
                 "optional": true
               }
             },
-            "description": "Network Address Translation (NAT) parameters  \n⯯  \nDestination NAT settings  \n⯯  \nRule number for NAT  \n⯯  \nApply NAT load balance  \n⯯  \n**Translated IP address**\n",
+            "description": "Network Address Translation (NAT) parameters\n⯯\nDestination NAT settings\n⯯\nRule number for NAT\n⯯\nApply NAT load balance\n⯯\n**Translated IP address**\n",
             "description_kind": "markdown"
           }
         },
@@ -11227,7 +11227,7 @@
                 "optional": true
               }
             },
-            "description": "Network Address Translation (NAT) parameters  \n⯯  \nSource NAT settings  \n⯯  \n**Rule number for NAT**\n",
+            "description": "Network Address Translation (NAT) parameters\n⯯\nSource NAT settings\n⯯\n**Rule number for NAT**\n",
             "description_kind": "markdown"
           }
         },
@@ -11275,7 +11275,7 @@
                 "optional": true
               }
             },
-            "description": "Network Address Translation (NAT) parameters  \n⯯  \nSource NAT settings  \n⯯  \nRule number for NAT  \n⯯  \nApply NAT load balance  \n⯯  \n**Translated IP address**\n",
+            "description": "Network Address Translation (NAT) parameters\n⯯\nSource NAT settings\n⯯\nRule number for NAT\n⯯\nApply NAT load balance\n⯯\n**Translated IP address**\n",
             "description_kind": "markdown"
           }
         },
@@ -11355,7 +11355,7 @@
                 "optional": true
               }
             },
-            "description": "Network Address Translation (NAT) parameters  \n⯯  \nStatic NAT (one-to-one)  \n⯯  \n**Rule number for NAT**\n",
+            "description": "Network Address Translation (NAT) parameters\n⯯\nStatic NAT (one-to-one)\n⯯\n**Rule number for NAT**\n",
             "description_kind": "markdown"
           }
         },
@@ -11397,7 +11397,7 @@
                 "optional": true
               }
             },
-            "description": "Network namespace  \n⯯  \n**Network namespace name**\n",
+            "description": "Network namespace\n⯯\n**Network namespace name**\n",
             "description_kind": "markdown"
           }
         },
@@ -11484,7 +11484,7 @@
                 "optional": true
               }
             },
-            "description": "Public key infrastructure (PKI)  \n⯯  \n**Certificate Authority**\n",
+            "description": "Public key infrastructure (PKI)\n⯯\n**Certificate Authority**\n",
             "description_kind": "markdown"
           }
         },
@@ -11607,7 +11607,7 @@
                 "optional": true
               }
             },
-            "description": "Public key infrastructure (PKI)  \n⯯  \n**Certificate**\n",
+            "description": "Public key infrastructure (PKI)\n⯯\n**Certificate**\n",
             "description_kind": "markdown"
           }
         },
@@ -11649,7 +11649,7 @@
                 "optional": true
               }
             },
-            "description": "Public key infrastructure (PKI)  \n⯯  \n**Diffie-Hellman parameters**\n",
+            "description": "Public key infrastructure (PKI)\n⯯\n**Diffie-Hellman parameters**\n",
             "description_kind": "markdown"
           }
         },
@@ -11724,7 +11724,7 @@
                 "optional": true
               }
             },
-            "description": "Public key infrastructure (PKI)  \n⯯  \n**Public and private keys**\n",
+            "description": "Public key infrastructure (PKI)\n⯯\n**Public and private keys**\n",
             "description_kind": "markdown"
           }
         },
@@ -11805,7 +11805,7 @@
                 "optional": true
               }
             },
-            "description": "Public key infrastructure (PKI)  \n⯯  \n**OpenSSH public and private keys**\n",
+            "description": "Public key infrastructure (PKI)\n⯯\n**OpenSSH public and private keys**\n",
             "description_kind": "markdown"
           }
         },
@@ -11853,7 +11853,7 @@
                 "optional": true
               }
             },
-            "description": "Public key infrastructure (PKI)  \n⯯  \nOpenVPN keys  \n⯯  \n**OpenVPN shared secret key**\n",
+            "description": "Public key infrastructure (PKI)\n⯯\nOpenVPN keys\n⯯\n**OpenVPN shared secret key**\n",
             "description_kind": "markdown"
           }
         },
@@ -11911,7 +11911,7 @@
                 "optional": true
               }
             },
-            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tPublic key infrastructure (PKI)  \n⯯  \nX509 Settings  \n⯯  \n**X509 Default Values**\n",
+            "description": "~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.\n\n\tPublic key infrastructure (PKI)\n⯯\nX509 Settings\n⯯\n**X509 Default Values**\n",
             "description_kind": "markdown"
           }
         },
@@ -11953,7 +11953,7 @@
                 "optional": true
               }
             },
-            "description": "Routing policy  \n⯯  \n**IP access-list filter**\n",
+            "description": "Routing policy\n⯯\n**IP access-list filter**\n",
             "description_kind": "markdown"
           }
         },
@@ -11995,7 +11995,7 @@
                 "optional": true
               }
             },
-            "description": "Routing policy  \n⯯  \n**IPv6 access-list filter**\n",
+            "description": "Routing policy\n⯯\n**IPv6 access-list filter**\n",
             "description_kind": "markdown"
           }
         },
@@ -12079,7 +12079,7 @@
                 "optional": true
               }
             },
-            "description": "Routing policy  \n⯯  \nIPv6 access-list filter  \n⯯  \n**Rule for this access-list6**\n",
+            "description": "Routing policy\n⯯\nIPv6 access-list filter\n⯯\n**Rule for this access-list6**\n",
             "description_kind": "markdown"
           }
         },
@@ -12203,7 +12203,7 @@
                 "optional": true
               }
             },
-            "description": "Routing policy  \n⯯  \nIP access-list filter  \n⯯  \n**Rule for this access-list**\n",
+            "description": "Routing policy\n⯯\nIP access-list filter\n⯯\n**Rule for this access-list**\n",
             "description_kind": "markdown"
           }
         },
@@ -12245,7 +12245,7 @@
                 "optional": true
               }
             },
-            "description": "Routing policy  \n⯯  \n**Add a BGP autonomous system path filter**\n",
+            "description": "Routing policy\n⯯\n**Add a BGP autonomous system path filter**\n",
             "description_kind": "markdown"
           }
         },
@@ -12305,7 +12305,7 @@
                 "optional": true
               }
             },
-            "description": "Routing policy  \n⯯  \nAdd a BGP autonomous system path filter  \n⯯  \n**Rule for this as-path-list**\n",
+            "description": "Routing policy\n⯯\nAdd a BGP autonomous system path filter\n⯯\n**Rule for this as-path-list**\n",
             "description_kind": "markdown"
           }
         },
@@ -12347,7 +12347,7 @@
                 "optional": true
               }
             },
-            "description": "Routing policy  \n⯯  \n**Add a BGP community list entry**\n",
+            "description": "Routing policy\n⯯\n**Add a BGP community list entry**\n",
             "description_kind": "markdown"
           }
         },
@@ -12407,7 +12407,7 @@
                 "optional": true
               }
             },
-            "description": "Routing policy  \n⯯  \nAdd a BGP community list entry  \n⯯  \n**Rule for this BGP community list**\n",
+            "description": "Routing policy\n⯯\nAdd a BGP community list entry\n⯯\n**Rule for this BGP community list**\n",
             "description_kind": "markdown"
           }
         },
@@ -12449,7 +12449,7 @@
                 "optional": true
               }
             },
-            "description": "Routing policy  \n⯯  \n**Add a BGP extended community list entry**\n",
+            "description": "Routing policy\n⯯\n**Add a BGP extended community list entry**\n",
             "description_kind": "markdown"
           }
         },
@@ -12509,7 +12509,7 @@
                 "optional": true
               }
             },
-            "description": "Routing policy  \n⯯  \nAdd a BGP extended community list entry  \n⯯  \n**Rule for this BGP extended community list**\n",
+            "description": "Routing policy\n⯯\nAdd a BGP extended community list entry\n⯯\n**Rule for this BGP extended community list**\n",
             "description_kind": "markdown"
           }
         },
@@ -12551,7 +12551,7 @@
                 "optional": true
               }
             },
-            "description": "Routing policy  \n⯯  \n**Add a BGP large community list entry**\n",
+            "description": "Routing policy\n⯯\n**Add a BGP large community list entry**\n",
             "description_kind": "markdown"
           }
         },
@@ -12611,7 +12611,7 @@
                 "optional": true
               }
             },
-            "description": "Routing policy  \n⯯  \nAdd a BGP large community list entry  \n⯯  \n**Rule for this BGP extended community list**\n",
+            "description": "Routing policy\n⯯\nAdd a BGP large community list entry\n⯯\n**Rule for this BGP extended community list**\n",
             "description_kind": "markdown"
           }
         },
@@ -12653,7 +12653,7 @@
                 "optional": true
               }
             },
-            "description": "Routing policy  \n⯯  \n**IP prefix-list filter**\n",
+            "description": "Routing policy\n⯯\n**IP prefix-list filter**\n",
             "description_kind": "markdown"
           }
         },
@@ -12695,7 +12695,7 @@
                 "optional": true
               }
             },
-            "description": "Routing policy  \n⯯  \n**IPv6 prefix-list filter**\n",
+            "description": "Routing policy\n⯯\n**IPv6 prefix-list filter**\n",
             "description_kind": "markdown"
           }
         },
@@ -12767,7 +12767,7 @@
                 "optional": true
               }
             },
-            "description": "Routing policy  \n⯯  \nIPv6 prefix-list filter  \n⯯  \n**Rule for this prefix-list6**\n",
+            "description": "Routing policy\n⯯\nIPv6 prefix-list filter\n⯯\n**Rule for this prefix-list6**\n",
             "description_kind": "markdown"
           }
         },
@@ -12839,7 +12839,7 @@
                 "optional": true
               }
             },
-            "description": "Routing policy  \n⯯  \nIP prefix-list filter  \n⯯  \n**Rule for this prefix-list**\n",
+            "description": "Routing policy\n⯯\nIP prefix-list filter\n⯯\n**Rule for this prefix-list**\n",
             "description_kind": "markdown"
           }
         },
@@ -12881,7 +12881,7 @@
                 "optional": true
               }
             },
-            "description": "Routing policy  \n⯯  \n**IP route-map**\n",
+            "description": "Routing policy\n⯯\n**IP route-map**\n",
             "description_kind": "markdown"
           }
         },
@@ -13644,7 +13644,7 @@
                 "optional": true
               }
             },
-            "description": "Routing policy  \n⯯  \nIP route-map  \n⯯  \n**Rule for this route-map**\n",
+            "description": "Routing policy\n⯯\nIP route-map\n⯯\n**Rule for this route-map**\n",
             "description_kind": "markdown"
           }
         },
@@ -13692,7 +13692,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \n**Interface to apply QoS policy**\n",
+            "description": "Quality of Service (QoS)\n⯯\n**Interface to apply QoS policy**\n",
             "description_kind": "markdown"
           }
         },
@@ -13820,7 +13820,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \n**Common Applications Kept Enhanced (CAKE)**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Common Applications Kept Enhanced (CAKE)**\n",
             "description_kind": "markdown"
           }
         },
@@ -13868,7 +13868,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \n**Packet limited First In, First Out queue**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Packet limited First In, First Out queue**\n",
             "description_kind": "markdown"
           }
         },
@@ -13924,7 +13924,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \n**Stochastic Fairness Queueing**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Stochastic Fairness Queueing**\n",
             "description_kind": "markdown"
           }
         },
@@ -14001,7 +14001,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \n**Fair Queuing (FQ) with Controlled Delay (CoDel)**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Fair Queuing (FQ) with Controlled Delay (CoDel)**\n",
             "description_kind": "markdown"
           }
         },
@@ -14086,7 +14086,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \n**Traffic input limiting policy**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Traffic input limiting policy**\n",
             "description_kind": "markdown"
           }
         },
@@ -14174,7 +14174,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \nTraffic input limiting policy  \n⯯  \n**Class ID**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\nTraffic input limiting policy\n⯯\n**Class ID**\n",
             "description_kind": "markdown"
           }
         },
@@ -14466,7 +14466,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \nTraffic input limiting policy  \n⯯  \nClass ID  \n⯯  \n**Class matching rule name**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\nTraffic input limiting policy\n⯯\nClass ID\n⯯\n**Class matching rule name**\n",
             "description_kind": "markdown"
           }
         },
@@ -14550,7 +14550,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \n**Network emulator policy**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Network emulator policy**\n",
             "description_kind": "markdown"
           }
         },
@@ -14643,7 +14643,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \n**Priority queuing based policy**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Priority queuing based policy**\n",
             "description_kind": "markdown"
           }
         },
@@ -14732,7 +14732,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \nPriority queuing based policy  \n⯯  \n**Class Handle**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\nPriority queuing based policy\n⯯\n**Class Handle**\n",
             "description_kind": "markdown"
           }
         },
@@ -15024,7 +15024,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \nPriority queuing based policy  \n⯯  \nClass Handle  \n⯯  \n**Class matching rule name**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\nPriority queuing based policy\n⯯\nClass Handle\n⯯\n**Class matching rule name**\n",
             "description_kind": "markdown"
           }
         },
@@ -15073,7 +15073,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \n**Weighted Random Early Detect policy**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Weighted Random Early Detect policy**\n",
             "description_kind": "markdown"
           }
         },
@@ -15148,7 +15148,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \nWeighted Random Early Detect policy  \n⯯  \n**IP precedence**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\nWeighted Random Early Detect policy\n⯯\n**IP precedence**\n",
             "description_kind": "markdown"
           }
         },
@@ -15210,7 +15210,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \n**Rate limiting policy (Token Bucket Filter)**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Rate limiting policy (Token Bucket Filter)**\n",
             "description_kind": "markdown"
           }
         },
@@ -15303,7 +15303,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \n**Deficit Round Robin Scheduler**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Deficit Round Robin Scheduler**\n",
             "description_kind": "markdown"
           }
         },
@@ -15398,7 +15398,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \nDeficit Round Robin Scheduler  \n⯯  \n**Class ID**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\nDeficit Round Robin Scheduler\n⯯\n**Class ID**\n",
             "description_kind": "markdown"
           }
         },
@@ -15690,7 +15690,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \nDeficit Round Robin Scheduler  \n⯯  \nClass ID  \n⯯  \n**Class matching rule name**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\nDeficit Round Robin Scheduler\n⯯\nClass ID\n⯯\n**Class matching rule name**\n",
             "description_kind": "markdown"
           }
         },
@@ -15822,7 +15822,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \n**Traffic shaping based policy (Hierarchy Token Bucket)**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Traffic shaping based policy (Hierarchy Token Bucket)**\n",
             "description_kind": "markdown"
           }
         },
@@ -15943,7 +15943,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \nTraffic shaping based policy (Hierarchy Token Bucket)  \n⯯  \n**Class ID**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\nTraffic shaping based policy (Hierarchy Token Bucket)\n⯯\n**Class ID**\n",
             "description_kind": "markdown"
           }
         },
@@ -16235,7 +16235,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \nTraffic shaping based policy (Hierarchy Token Bucket)  \n⯯  \nClass ID  \n⯯  \n**Class matching rule name**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\nTraffic shaping based policy (Hierarchy Token Bucket)\n⯯\nClass ID\n⯯\n**Class matching rule name**\n",
             "description_kind": "markdown"
           }
         },
@@ -16384,7 +16384,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \n**Hierarchical Fair Service Curve's policy**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\n**Hierarchical Fair Service Curve's policy**\n",
             "description_kind": "markdown"
           }
         },
@@ -16522,7 +16522,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \nHierarchical Fair Service Curve's policy  \n⯯  \n**Class ID**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\nHierarchical Fair Service Curve's policy\n⯯\n**Class ID**\n",
             "description_kind": "markdown"
           }
         },
@@ -16814,7 +16814,7 @@
                 "optional": true
               }
             },
-            "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \nHierarchical Fair Service Curve's policy  \n⯯  \nClass ID  \n⯯  \n**Class matching rule name**\n",
+            "description": "Quality of Service (QoS)\n⯯\nService Policy definitions\n⯯\nHierarchical Fair Service Curve's policy\n⯯\nClass ID\n⯯\n**Class matching rule name**\n",
             "description_kind": "markdown"
           }
         },
@@ -21523,7 +21523,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \n**Virtual Routing and Forwarding instance**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\n**Virtual Routing and Forwarding instance**\n",
             "description_kind": "markdown"
           }
         },
@@ -21571,7 +21571,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nIPv4 routing parameters  \n⯯  \n**Filter routing info exchanged between routing protocol and zebra**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nIPv4 routing parameters\n⯯\n**Filter routing info exchanged between routing protocol and zebra**\n",
             "description_kind": "markdown"
           }
         },
@@ -21619,7 +21619,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nIPv6 routing parameters  \n⯯  \n**Filter routing info exchanged between routing protocol and zebra**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nIPv6 routing parameters\n⯯\n**Filter routing info exchanged between routing protocol and zebra**\n",
             "description_kind": "markdown"
           }
         },
@@ -21681,7 +21681,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP address-family parameters  \n⯯  \nLabeled Unicast IPv4 BGP settings  \n⯯  \n**BGP aggregate network/prefix**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nLabeled Unicast IPv4 BGP settings\n⯯\n**BGP aggregate network/prefix**\n",
             "description_kind": "markdown"
           }
         },
@@ -21736,7 +21736,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP address-family parameters  \n⯯  \nLabeled Unicast IPv4 BGP settings  \n⯯  \n**Import BGP network/prefix into labeled unicast IPv4 RIB**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nLabeled Unicast IPv4 BGP settings\n⯯\n**Import BGP network/prefix into labeled unicast IPv4 RIB**\n",
             "description_kind": "markdown"
           }
         },
@@ -21798,7 +21798,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP address-family parameters  \n⯯  \nMulticast IPv4 BGP settings  \n⯯  \n**BGP aggregate network/prefix**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nMulticast IPv4 BGP settings\n⯯\n**BGP aggregate network/prefix**\n",
             "description_kind": "markdown"
           }
         },
@@ -21846,7 +21846,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP address-family parameters  \n⯯  \nMulticast IPv4 BGP settings  \n⯯  \nAdministrative distances for BGP routes  \n⯯  \n**Administrative distance for a specific BGP prefix**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nMulticast IPv4 BGP settings\n⯯\nAdministrative distances for BGP routes\n⯯\n**Administrative distance for a specific BGP prefix**\n",
             "description_kind": "markdown"
           }
         },
@@ -21901,7 +21901,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP address-family parameters  \n⯯  \nMulticast IPv4 BGP settings  \n⯯  \n**Import BGP network/prefix into multicast IPv4 RIB**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nMulticast IPv4 BGP settings\n⯯\n**Import BGP network/prefix into multicast IPv4 RIB**\n",
             "description_kind": "markdown"
           }
         },
@@ -21963,7 +21963,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP address-family parameters  \n⯯  \nIPv4 BGP settings  \n⯯  \n**BGP aggregate network**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nIPv4 BGP settings\n⯯\n**BGP aggregate network**\n",
             "description_kind": "markdown"
           }
         },
@@ -22011,7 +22011,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP address-family parameters  \n⯯  \nIPv4 BGP settings  \n⯯  \nAdministrative distances for BGP routes  \n⯯  \n**Administrative distance for a specific BGP prefix**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nIPv4 BGP settings\n⯯\nAdministrative distances for BGP routes\n⯯\n**Administrative distance for a specific BGP prefix**\n",
             "description_kind": "markdown"
           }
         },
@@ -22066,7 +22066,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP address-family parameters  \n⯯  \nIPv4 BGP settings  \n⯯  \n**BGP network**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nIPv4 BGP settings\n⯯\n**BGP network**\n",
             "description_kind": "markdown"
           }
         },
@@ -22120,7 +22120,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP address-family parameters  \n⯯  \nUnicast VPN IPv4 BGP settings  \n⯯  \n**Import BGP network/prefix into unicast VPN IPv4 RIB**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nUnicast VPN IPv4 BGP settings\n⯯\n**Import BGP network/prefix into unicast VPN IPv4 RIB**\n",
             "description_kind": "markdown"
           }
         },
@@ -22182,7 +22182,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP address-family parameters  \n⯯  \nLabeled Unicast IPv6 BGP settings  \n⯯  \n**BGP aggregate network/prefix**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nLabeled Unicast IPv6 BGP settings\n⯯\n**BGP aggregate network/prefix**\n",
             "description_kind": "markdown"
           }
         },
@@ -22237,7 +22237,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP address-family parameters  \n⯯  \nLabeled Unicast IPv6 BGP settings  \n⯯  \n**Import BGP network/prefix into labeled unicast IPv6 RIB**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nLabeled Unicast IPv6 BGP settings\n⯯\n**Import BGP network/prefix into labeled unicast IPv6 RIB**\n",
             "description_kind": "markdown"
           }
         },
@@ -22299,7 +22299,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP address-family parameters  \n⯯  \nMulticast IPv6 BGP settings  \n⯯  \n**BGP aggregate network/prefix**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nMulticast IPv6 BGP settings\n⯯\n**BGP aggregate network/prefix**\n",
             "description_kind": "markdown"
           }
         },
@@ -22347,7 +22347,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP address-family parameters  \n⯯  \nMulticast IPv6 BGP settings  \n⯯  \nAdministrative distances for BGP routes  \n⯯  \n**Administrative distance for a specific BGP prefix**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nMulticast IPv6 BGP settings\n⯯\nAdministrative distances for BGP routes\n⯯\n**Administrative distance for a specific BGP prefix**\n",
             "description_kind": "markdown"
           }
         },
@@ -22401,7 +22401,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP address-family parameters  \n⯯  \nMulticast IPv6 BGP settings  \n⯯  \n**Import BGP network/prefix into multicast IPv6 RIB**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nMulticast IPv6 BGP settings\n⯯\n**Import BGP network/prefix into multicast IPv6 RIB**\n",
             "description_kind": "markdown"
           }
         },
@@ -22463,7 +22463,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP address-family parameters  \n⯯  \nIPv6 BGP settings  \n⯯  \n**BGP aggregate network**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nIPv6 BGP settings\n⯯\n**BGP aggregate network**\n",
             "description_kind": "markdown"
           }
         },
@@ -22511,7 +22511,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP address-family parameters  \n⯯  \nIPv6 BGP settings  \n⯯  \nAdministrative distances for BGP routes  \n⯯  \n**Administrative distance for a specific BGP prefix**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nIPv6 BGP settings\n⯯\nAdministrative distances for BGP routes\n⯯\n**Administrative distance for a specific BGP prefix**\n",
             "description_kind": "markdown"
           }
         },
@@ -22565,7 +22565,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP address-family parameters  \n⯯  \nIPv6 BGP settings  \n⯯  \n**BGP network**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nIPv6 BGP settings\n⯯\n**BGP network**\n",
             "description_kind": "markdown"
           }
         },
@@ -22619,7 +22619,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP address-family parameters  \n⯯  \nUnicast VPN IPv6 BGP settings  \n⯯  \n**Import BGP network/prefix into unicast VPN IPv6 RIB**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nUnicast VPN IPv6 BGP settings\n⯯\n**Import BGP network/prefix into unicast VPN IPv6 RIB**\n",
             "description_kind": "markdown"
           }
         },
@@ -22718,7 +22718,7 @@
                 "required": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP address-family parameters  \n⯯  \nL2VPN EVPN BGP settings  \n⯯  \n**VXLAN Network Identifier**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP address-family parameters\n⯯\nL2VPN EVPN BGP settings\n⯯\n**VXLAN Network Identifier**\n",
             "description_kind": "markdown"
           }
         },
@@ -22852,7 +22852,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP Monitoring Protocol (BMP)  \n⯯  \n**BMP target**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP Monitoring Protocol (BMP)\n⯯\n**BMP target**\n",
             "description_kind": "markdown"
           }
         },
@@ -22911,7 +22911,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \n**Configure interface related parameters, e.g. MPLS**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\n**Configure interface related parameters, e.g. MPLS**\n",
             "description_kind": "markdown"
           }
         },
@@ -22959,7 +22959,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nListen for and accept BGP dynamic neighbors from range  \n⯯  \n**BGP dynamic neighbors listen range**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nListen for and accept BGP dynamic neighbors from range\n⯯\n**BGP dynamic neighbors listen range**\n",
             "description_kind": "markdown"
           }
         },
@@ -26475,7 +26475,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \n**BGP neighbor**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\n**BGP neighbor**\n",
             "description_kind": "markdown"
           }
         },
@@ -26540,7 +26540,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP neighbor  \n⯯  \n**Specify alternate ASN for this BGP process**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP neighbor\n⯯\n**Specify alternate ASN for this BGP process**\n",
             "description_kind": "markdown"
           }
         },
@@ -26595,7 +26595,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP neighbor  \n⯯  \n**Local role for BGP neighbor (RFC9234)**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP neighbor\n⯯\n**Local role for BGP neighbor (RFC9234)**\n",
             "description_kind": "markdown"
           }
         },
@@ -26643,7 +26643,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nBGP parameters  \n⯯  \nAdministratives distances for BGP routes  \n⯯  \n**Administrative distance for a specific BGP prefix**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nBGP parameters\n⯯\nAdministratives distances for BGP routes\n⯯\n**Administrative distance for a specific BGP prefix**\n",
             "description_kind": "markdown"
           }
         },
@@ -29127,7 +29127,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \n**Name of peer-group**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\n**Name of peer-group**\n",
             "description_kind": "markdown"
           }
         },
@@ -29192,7 +29192,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nName of peer-group  \n⯯  \n**Specify alternate ASN for this BGP process**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nName of peer-group\n⯯\n**Specify alternate ASN for this BGP process**\n",
             "description_kind": "markdown"
           }
         },
@@ -29247,7 +29247,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nBorder Gateway Protocol (BGP)  \n⯯  \nName of peer-group  \n⯯  \n**Local role for BGP neighbor (RFC9234)**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nBorder Gateway Protocol (BGP)\n⯯\nName of peer-group\n⯯\n**Local role for BGP neighbor (RFC9234)**\n",
             "description_kind": "markdown"
           }
         },
@@ -29303,7 +29303,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nIntermediate System to Intermediate System (IS-IS)  \n⯯  \nIS-IS fast reroute configuration  \n⯯  \nLoop free alternate functionality  \n⯯  \nLocal loop free alternate options  \n⯯  \nConfigure tiebreaker for multiple backups  \n⯯  \nPrefer backup path via downstream node  \n⯯  \n**Set preference order among tiebreakers**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nIntermediate System to Intermediate System (IS-IS)\n⯯\nIS-IS fast reroute configuration\n⯯\nLoop free alternate functionality\n⯯\nLocal loop free alternate options\n⯯\nConfigure tiebreaker for multiple backups\n⯯\nPrefer backup path via downstream node\n⯯\n**Set preference order among tiebreakers**\n",
             "description_kind": "markdown"
           }
         },
@@ -29359,7 +29359,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nIntermediate System to Intermediate System (IS-IS)  \n⯯  \nIS-IS fast reroute configuration  \n⯯  \nLoop free alternate functionality  \n⯯  \nLocal loop free alternate options  \n⯯  \nConfigure tiebreaker for multiple backups  \n⯯  \nPrefer backup path with lowest total metric  \n⯯  \n**Set preference order among tiebreakers**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nIntermediate System to Intermediate System (IS-IS)\n⯯\nIS-IS fast reroute configuration\n⯯\nLoop free alternate functionality\n⯯\nLocal loop free alternate options\n⯯\nConfigure tiebreaker for multiple backups\n⯯\nPrefer backup path with lowest total metric\n⯯\n**Set preference order among tiebreakers**\n",
             "description_kind": "markdown"
           }
         },
@@ -29415,7 +29415,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nIntermediate System to Intermediate System (IS-IS)  \n⯯  \nIS-IS fast reroute configuration  \n⯯  \nLoop free alternate functionality  \n⯯  \nLocal loop free alternate options  \n⯯  \nConfigure tiebreaker for multiple backups  \n⯯  \nPrefer node protecting backup path  \n⯯  \n**Set preference order among tiebreakers**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nIntermediate System to Intermediate System (IS-IS)\n⯯\nIS-IS fast reroute configuration\n⯯\nLoop free alternate functionality\n⯯\nLocal loop free alternate options\n⯯\nConfigure tiebreaker for multiple backups\n⯯\nPrefer node protecting backup path\n⯯\n**Set preference order among tiebreakers**\n",
             "description_kind": "markdown"
           }
         },
@@ -29471,7 +29471,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nIntermediate System to Intermediate System (IS-IS)  \n⯯  \nIS-IS fast reroute configuration  \n⯯  \nLoop free alternate functionality  \n⯯  \nRemote loop free alternate options  \n⯯  \n**Filter PQ node router ID based on prefix list**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nIntermediate System to Intermediate System (IS-IS)\n⯯\nIS-IS fast reroute configuration\n⯯\nLoop free alternate functionality\n⯯\nRemote loop free alternate options\n⯯\n**Filter PQ node router ID based on prefix list**\n",
             "description_kind": "markdown"
           }
         },
@@ -29648,7 +29648,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nIntermediate System to Intermediate System (IS-IS)  \n⯯  \n**Interface params**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nIntermediate System to Intermediate System (IS-IS)\n⯯\n**Interface params**\n",
             "description_kind": "markdown"
           }
         },
@@ -29750,7 +29750,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nIntermediate System to Intermediate System (IS-IS)  \n⯯  \nSegment-Routing (SPRING) settings  \n⯯  \n**Static IPv4/IPv6 prefix segment/label mapping**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nIntermediate System to Intermediate System (IS-IS)\n⯯\nSegment-Routing (SPRING) settings\n⯯\n**Static IPv4/IPv6 prefix segment/label mapping**\n",
             "description_kind": "markdown"
           }
         },
@@ -29801,7 +29801,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nOpen Shortest Path First (OSPF)  \n⯯  \n**Access list to filter networks in routing updates**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF)\n⯯\n**Access list to filter networks in routing updates**\n",
             "description_kind": "markdown"
           }
         },
@@ -29946,7 +29946,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nOpen Shortest Path First (OSPF)  \n⯯  \n**OSPF area settings**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF)\n⯯\n**OSPF area settings**\n",
             "description_kind": "markdown"
           }
         },
@@ -30013,7 +30013,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nOpen Shortest Path First (OSPF)  \n⯯  \nOSPF area settings  \n⯯  \n**Summarize routes matching a prefix (border routers only)**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF)\n⯯\nOSPF area settings\n⯯\n**Summarize routes matching a prefix (border routers only)**\n",
             "description_kind": "markdown"
           }
         },
@@ -30113,7 +30113,7 @@
                 "required": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nOpen Shortest Path First (OSPF)  \n⯯  \nOSPF area settings  \n⯯  \n**Virtual link**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF)\n⯯\nOSPF area settings\n⯯\n**Virtual link**\n",
             "description_kind": "markdown"
           }
         },
@@ -30173,7 +30173,7 @@
                 "required": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nOpen Shortest Path First (OSPF)  \n⯯  \nOSPF area settings  \n⯯  \nVirtual link  \n⯯  \nAuthentication  \n⯯  \nMD5 key id  \n⯯  \n**MD5 key id**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF)\n⯯\nOSPF area settings\n⯯\nVirtual link\n⯯\nAuthentication\n⯯\nMD5 key id\n⯯\n**MD5 key id**\n",
             "description_kind": "markdown"
           }
         },
@@ -30367,7 +30367,7 @@
                 "computed": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nOpen Shortest Path First (OSPF)  \n⯯  \n**Interface configuration**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF)\n⯯\n**Interface configuration**\n",
             "description_kind": "markdown"
           }
         },
@@ -30421,7 +30421,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nOpen Shortest Path First (OSPF)  \n⯯  \nInterface configuration  \n⯯  \nAuthentication  \n⯯  \nMD5 key id  \n⯯  \n**MD5 key id**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF)\n⯯\nInterface configuration\n⯯\nAuthentication\n⯯\nMD5 key id\n⯯\n**MD5 key id**\n",
             "description_kind": "markdown"
           }
         },
@@ -30477,7 +30477,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nOpen Shortest Path First (OSPF)  \n⯯  \n**Specify neighbor router**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF)\n⯯\n**Specify neighbor router**\n",
             "description_kind": "markdown"
           }
         },
@@ -30538,7 +30538,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nOpen Shortest Path First (OSPF)  \n⯯  \nRedistribute information from another routing protocol  \n⯯  \n**Redistribute non-main Kernel Routing Table**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF)\n⯯\nRedistribute information from another routing protocol\n⯯\n**Redistribute non-main Kernel Routing Table**\n",
             "description_kind": "markdown"
           }
         },
@@ -30610,7 +30610,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nOpen Shortest Path First (OSPF)  \n⯯  \nSegment-Routing (SPRING) settings  \n⯯  \n**Static IPv4 prefix segment/label mapping**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF)\n⯯\nSegment-Routing (SPRING) settings\n⯯\n**Static IPv4 prefix segment/label mapping**\n",
             "description_kind": "markdown"
           }
         },
@@ -30665,7 +30665,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nOpen Shortest Path First (OSPF)  \n⯯  \n**External summary address**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF)\n⯯\n**External summary address**\n",
             "description_kind": "markdown"
           }
         },
@@ -30770,7 +30770,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nOpen Shortest Path First (OSPF) for IPv6  \n⯯  \n**OSPFv3 Area**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF) for IPv6\n⯯\n**OSPFv3 Area**\n",
             "description_kind": "markdown"
           }
         },
@@ -30832,7 +30832,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nOpen Shortest Path First (OSPF) for IPv6  \n⯯  \nOSPFv3 Area  \n⯯  \n**Specify IPv6 prefix (border routers only)**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF) for IPv6\n⯯\nOSPFv3 Area\n⯯\n**Specify IPv6 prefix (border routers only)**\n",
             "description_kind": "markdown"
           }
         },
@@ -30970,7 +30970,7 @@
                 "computed": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nOpen Shortest Path First (OSPF) for IPv6  \n⯯  \n**Enable routing on an IPv6 interface**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nOpen Shortest Path First (OSPF) for IPv6\n⯯\n**Enable routing on an IPv6 interface**\n",
             "description_kind": "markdown"
           }
         },
@@ -31068,7 +31068,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nStatic Routing  \n⯯  \n**Static IPv4 route**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nStatic Routing\n⯯\n**Static IPv4 route**\n",
             "description_kind": "markdown"
           }
         },
@@ -31160,7 +31160,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nStatic Routing  \n⯯  \n**Static IPv6 route**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nStatic Routing\n⯯\n**Static IPv6 route**\n",
             "description_kind": "markdown"
           }
         },
@@ -31233,7 +31233,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nStatic Routing  \n⯯  \nStatic IPv6 route  \n⯯  \n**IPv6 gateway interface name**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nStatic Routing\n⯯\nStatic IPv6 route\n⯯\n**IPv6 gateway interface name**\n",
             "description_kind": "markdown"
           }
         },
@@ -31336,7 +31336,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nStatic Routing  \n⯯  \nStatic IPv6 route  \n⯯  \n**IPv6 gateway address**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nStatic Routing\n⯯\nStatic IPv6 route\n⯯\n**IPv6 gateway address**\n",
             "description_kind": "markdown"
           }
         },
@@ -31396,7 +31396,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nStatic Routing  \n⯯  \nStatic IPv6 route  \n⯯  \nIPv6 gateway address  \n⯯  \nBFD monitoring  \n⯯  \nUse BFD multi hop session  \n⯯  \n**Use source for BFD session**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nStatic Routing\n⯯\nStatic IPv6 route\n⯯\nIPv6 gateway address\n⯯\nBFD monitoring\n⯯\nUse BFD multi hop session\n⯯\n**Use source for BFD session**\n",
             "description_kind": "markdown"
           }
         },
@@ -31463,7 +31463,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nStatic Routing  \n⯯  \nStatic IPv4 route  \n⯯  \n**Next-hop IPv4 router interface**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nStatic Routing\n⯯\nStatic IPv4 route\n⯯\n**Next-hop IPv4 router interface**\n",
             "description_kind": "markdown"
           }
         },
@@ -31560,7 +31560,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nStatic Routing  \n⯯  \nStatic IPv4 route  \n⯯  \n**Next-hop IPv4 router address**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nStatic Routing\n⯯\nStatic IPv4 route\n⯯\n**Next-hop IPv4 router address**\n",
             "description_kind": "markdown"
           }
         },
@@ -31620,7 +31620,7 @@
                 "optional": true
               }
             },
-            "description": "Virtual Routing and Forwarding  \n⯯  \nVirtual Routing and Forwarding instance  \n⯯  \nRouting protocol parameters  \n⯯  \nStatic Routing  \n⯯  \nStatic IPv4 route  \n⯯  \nNext-hop IPv4 router address  \n⯯  \nBFD monitoring  \n⯯  \nUse BFD multi hop session  \n⯯  \n**Use source for BFD session**\n",
+            "description": "Virtual Routing and Forwarding\n⯯\nVirtual Routing and Forwarding instance\n⯯\nRouting protocol parameters\n⯯\nStatic Routing\n⯯\nStatic IPv4 route\n⯯\nNext-hop IPv4 router address\n⯯\nBFD monitoring\n⯯\nUse BFD multi hop session\n⯯\n**Use source for BFD session**\n",
             "description_kind": "markdown"
           }
         }

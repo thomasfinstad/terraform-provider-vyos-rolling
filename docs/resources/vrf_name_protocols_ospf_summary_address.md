@@ -2,7 +2,15 @@
 page_title: "vyos_vrf_name_protocols_ospf_summary_address Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Open Shortest Path First (OSPF)⯯External summary address
+  Virtual Routing and Forwarding
+  ⯯
+  Virtual Routing and Forwarding instance
+  ⯯
+  Routing protocol parameters
+  ⯯
+  Open Shortest Path First (OSPF)
+  ⯯
+  External summary address
 ---
 
 # vyos_vrf_name_protocols_ospf_summary_address (Resource)

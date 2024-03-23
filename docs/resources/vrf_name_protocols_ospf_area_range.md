@@ -2,7 +2,17 @@
 page_title: "vyos_vrf_name_protocols_ospf_area_range Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Open Shortest Path First (OSPF)⯯OSPF area settings⯯Summarize routes matching a prefix (border routers only)
+  Virtual Routing and Forwarding
+  ⯯
+  Virtual Routing and Forwarding instance
+  ⯯
+  Routing protocol parameters
+  ⯯
+  Open Shortest Path First (OSPF)
+  ⯯
+  OSPF area settings
+  ⯯
+  Summarize routes matching a prefix (border routers only)
 ---
 
 # vyos_vrf_name_protocols_ospf_area_range (Resource)

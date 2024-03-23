@@ -7,22 +7,24 @@ import (
 	"time"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client/clienterrors"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 	cruderrors "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/crud/cruderror"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/tools"
 )
 
 // Read method to define the logic which refreshes the Terraform state for the resource.
 func Read(ctx context.Context, r helpers.VyosResource, req resource.ReadRequest, resp *resource.ReadResponse) {
-	tflog.Debug(ctx, "Read Resource")
-	tflog.Trace(ctx, "Fetching data model")
+	tools.Debug(ctx, "Read Resource")
+	ctx = r.GetProviderConfig().CtxMutilatorRun(ctx)
+
+	tools.Trace(ctx, "Fetching data model")
 	stateModel := r.GetModel()
 
 	// Read Terraform prior state data into the model
-	tflog.Trace(ctx, "Fetching state data")
+	tools.Trace(ctx, "Fetching state data")
 	diags := req.State.Get(ctx, stateModel)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -52,8 +54,8 @@ func Read(ctx context.Context, r helpers.VyosResource, req resource.ReadRequest,
 	}
 
 	// Save updated data into Terraform state
-	tflog.Info(ctx, "Saving state")
-	tflog.Trace(ctx, "Setting state to", map[string]interface{}{"data": fmt.Sprintf("%#v", stateModel)})
+	tools.Info(ctx, "Saving state")
+	tools.Trace(ctx, "Setting state to", map[string]interface{}{"data": fmt.Sprintf("%#v", stateModel)})
 	resp.Diagnostics.Append(resp.State.Set(ctx, stateModel)...)
 }
 
@@ -62,7 +64,7 @@ func Read(ctx context.Context, r helpers.VyosResource, req resource.ReadRequest,
 // this function is seperated out to keep the terraform provider
 // logic and API logic seperate so we can test the API logic easier
 func read(ctx context.Context, c client.Client, model helpers.VyosTopResourceDataModel) error {
-	tflog.Debug(ctx, "Fetching API data", map[string]interface{}{"vyos-path": model.GetVyosPath()})
+	tools.Debug(ctx, "Fetching API data", map[string]interface{}{"vyos-path": model.GetVyosPath()})
 
 	// Check if we exists, if so this means we are an empty resource
 	ret, hasErr := c.Has(ctx, model.GetVyosPath())

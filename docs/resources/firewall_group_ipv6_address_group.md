@@ -2,7 +2,11 @@
 page_title: "vyos_firewall_group_ipv6_address_group Resource - terraform-provider-vyos"
 subcategory: "firewall"
 description: |-
-  Firewall⯯Firewall group⯯Firewall ipv6-address-group
+  Firewall
+  ⯯
+  Firewall group
+  ⯯
+  Firewall ipv6-address-group
 ---
 
 # vyos_firewall_group_ipv6_address_group (Resource)

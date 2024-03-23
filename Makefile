@@ -171,17 +171,6 @@ internal/terraform/resource/autogen: data/vyos-1x-info.txt |.build/vyosinterface
 	gofumpt -w internal/terraform/resource/autogen/
 	goimports -w "./internal/terraform/resource/autogen"
 
-docs/index.md: \
-				build-rolling \
-				internal/terraform/resource/autogen \
-				$(shell find templates/ -type f)
-
-	# Prep dirs
-	rm -rf "docs/"
-
-	# Create docs
-	tfplugindocs generate
-
 ## Ref: https://stackoverflow.com/a/45003119
 # problems of method 2:
 # 	If an argument has same name as an existing target then make will print a warning that it is being overwritten.
@@ -207,7 +196,10 @@ ifeq (test,$(firstword $(MAKECMDGOALS)))
   # ...and turn them into do-nothing targets
   $(eval $(INPUT_ARGS):;@:)
 endif
-test: Makefile internal/terraform/resource/autogen $(shell find . -type f -name "*_test.go")
+test:	internal/terraform/resource/autogen \
+		$(shell find . -type f -name "*_test.go") \
+		$(shell find . -type f -name "*.go" -not \( -path "*autogen*" -or -path "*/.build/*" -or -path "*/tools/*" \) )
+
 	@echo Input Args: $(INPUT_ARGS)
 
 	# VyOS API can often take ~1 second to respond to a configure request.
@@ -230,6 +222,17 @@ build-rolling: test
 
 	# Caching timestamp
 	@date > build-rolling
+
+docs/index.md: \
+				build-rolling \
+				internal/terraform/resource/autogen \
+				$(shell find templates/ -type f)
+
+	# Prep dirs
+	rm -rf "docs/"
+
+	# Create docs
+	tfplugindocs generate
 
 # .PHONY: build
 # build: test

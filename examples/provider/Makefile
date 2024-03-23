@@ -42,6 +42,11 @@ clean:
 	-rm -rf .terraform .terraform.lock.hcl
 	-rm -fv trace.log
 
+.PHONY: why
+why:
+	@make -nd apply \
+		| sed -rn 's/^ *([A-Za-z ]*Must remake target.*| Prerequisite.*is newer than.*)/\1/p' \
+			| tac
 
 ###
 # Optional dynamic parameters

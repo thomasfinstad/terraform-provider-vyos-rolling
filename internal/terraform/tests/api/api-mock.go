@@ -109,6 +109,9 @@ type Exchange struct {
 
 // Expect configures how the incoming request is expected to look
 func (e *Exchange) Expect(uri, key string, ops string) *Exchange {
+	// TODO evaluate usage of testify for Mock server
+	//  Can be used to compare json.
+	//  Ref: https://pkg.go.dev/github.com/stretchr/testify/require?utm_source=godoc#JSONEq
 
 	// If we can json marshal the ops string it will be more likely to conform to
 	// the values we receive as they are likely, but not guarantied, to be from

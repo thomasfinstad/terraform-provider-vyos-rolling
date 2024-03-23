@@ -4,7 +4,8 @@ subcategory: "firewall"
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
   Firewall
-  ⯯Global Options
+  ⯯
+  Global Options
 ---
 
 # vyos_firewall_global_options (Resource)

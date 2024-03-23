@@ -2,7 +2,13 @@
 page_title: "vyos_qos_policy_priority_queue_class Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)⯯Service Policy definitions⯯Priority queuing based policy⯯Class Handle
+  Quality of Service (QoS)
+  ⯯
+  Service Policy definitions
+  ⯯
+  Priority queuing based policy
+  ⯯
+  Class Handle
 ---
 
 # vyos_qos_policy_priority_queue_class (Resource)

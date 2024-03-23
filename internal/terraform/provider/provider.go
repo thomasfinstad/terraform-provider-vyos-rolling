@@ -9,9 +9,9 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/tools"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen"
 )
@@ -93,7 +93,7 @@ This has no effect on global resources.`,
 
 // Configure method to configure shared clients for data source and resource implementations.
 func (p *VyosProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
-	tflog.Info(ctx, "Configuring vyos client")
+	tools.Info(ctx, "Configuring vyos provider")
 
 	var providerModel VyosProviderModel
 
@@ -133,10 +133,20 @@ func (p *VyosProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 		disableVerify = false
 	}
 
+	ctxMutilators := data.CtxMutilators(endpoint, apiKey)
+
+	// Run ctx mutilators for client
+	for _, fn := range ctxMutilators {
+		ctx = fn(ctx)
+	}
+
 	// Client configuration for data sources and resources
 	config := data.NewProviderData(
 		client.NewClient(ctx, endpoint, apiKey, "TODO: add useragent with provider version", disableVerify),
 	)
+
+	// Add ctx mutilators to provider data
+	config.CtxMutilatorAdd(ctxMutilators...)
 
 	// Default timeout
 	var defaultTimeout float64

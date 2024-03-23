@@ -2,7 +2,15 @@
 page_title: "vyos_vrf_name_protocols_static_route Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Static Routing⯯Static IPv4 route
+  Virtual Routing and Forwarding
+  ⯯
+  Virtual Routing and Forwarding instance
+  ⯯
+  Routing protocol parameters
+  ⯯
+  Static Routing
+  ⯯
+  Static IPv4 route
 ---
 
 # vyos_vrf_name_protocols_static_route (Resource)

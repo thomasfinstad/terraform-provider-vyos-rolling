@@ -2,7 +2,11 @@
 page_title: "vyos_qos_policy_shaper Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)⯯Service Policy definitions⯯Traffic shaping based policy (Hierarchy Token Bucket)
+  Quality of Service (QoS)
+  ⯯
+  Service Policy definitions
+  ⯯
+  Traffic shaping based policy (Hierarchy Token Bucket)
 ---
 
 # vyos_qos_policy_shaper (Resource)

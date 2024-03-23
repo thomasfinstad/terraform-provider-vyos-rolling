@@ -7,7 +7,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/tools"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 )
@@ -62,7 +62,7 @@ func (o *LeafNode) BaseNameS() string {
 func (o *LeafNode) BaseNameSB() string {
 	name := o.BaseNameS()
 
-	if helpers.ListContains(terraformReservedParameternames(), name) {
+	if tools.ListContains(terraformReservedParameternames(), name) {
 		return fmt.Sprintf("%s_param", name)
 	}
 	return name

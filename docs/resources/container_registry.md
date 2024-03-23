@@ -2,7 +2,9 @@
 page_title: "vyos_container_registry Resource - terraform-provider-vyos"
 subcategory: "container"
 description: |-
-  Container applications⯯Registry Name
+  Container applications
+  ⯯
+  Registry Name
 ---
 
 # vyos_container_registry (Resource)

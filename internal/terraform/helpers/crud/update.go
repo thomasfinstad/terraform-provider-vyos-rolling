@@ -7,16 +7,18 @@ import (
 	"time"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/tools"
 )
 
 // Update method to define the logic which updates the resource and sets the updated Terraform state on success.
 func Update(ctx context.Context, r helpers.VyosResource, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	tflog.Debug(ctx, "Update Resource")
-	tflog.Trace(ctx, "Fetching data model")
+	tools.Debug(ctx, "Update Resource")
+	ctx = r.GetProviderConfig().CtxMutilatorRun(ctx)
+
+	tools.Trace(ctx, "Fetching data model")
 	// Current State as resource model
 	stateModel := r.GetModel()
 
@@ -52,8 +54,8 @@ func Update(ctx context.Context, r helpers.VyosResource, req resource.UpdateRequ
 	}
 
 	// Save data to Terraform state
-	tflog.Trace(ctx, "resource updated")
-	tflog.Error(ctx, "Setting state", map[string]interface{}{"data": fmt.Sprintf("%#v", planModel)})
+	tools.Trace(ctx, "resource updated")
+	tools.Error(ctx, "Setting state", map[string]interface{}{"data": fmt.Sprintf("%#v", planModel)})
 	resp.Diagnostics.Append(resp.State.Set(ctx, planModel)...)
 }
 
@@ -69,7 +71,7 @@ func update(ctx context.Context, client client.Client, stateModel, planModel hel
 	}
 
 	vyosOpsState := helpers.GenerateVyosOps(ctx, stateModel.GetVyosPath(), stateVyosData)
-	tflog.Trace(ctx, "Compiling vyos state operations", map[string]interface{}{"vyosOpsState": vyosOpsState})
+	tools.Trace(ctx, "Compiling vyos state operations", map[string]interface{}{"vyosOpsState": vyosOpsState})
 
 	client.StageDelete(ctx, vyosOpsState)
 
@@ -80,7 +82,7 @@ func update(ctx context.Context, client client.Client, stateModel, planModel hel
 	}
 
 	vyosOpsPlan := helpers.GenerateVyosOps(ctx, planModel.GetVyosPath(), planVyosData)
-	tflog.Error(ctx, "Compiling vyos plan operations", map[string]interface{}{"vyosOpsPlan": vyosOpsPlan})
+	tools.Error(ctx, "Compiling vyos plan operations", map[string]interface{}{"vyosOpsPlan": vyosOpsPlan})
 
 	client.StageSet(ctx, vyosOpsPlan)
 
@@ -90,7 +92,7 @@ func update(ctx context.Context, client client.Client, stateModel, planModel hel
 		return fmt.Errorf("client error: unable to create '%s', got error: %s", planModel.GetVyosPath(), err)
 	}
 	if response != nil {
-		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
+		tools.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
 	}
 
 	// Add ID to the resource model as plan fetching do not include it

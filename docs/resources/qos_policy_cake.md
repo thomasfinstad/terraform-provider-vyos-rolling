@@ -2,7 +2,11 @@
 page_title: "vyos_qos_policy_cake Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)⯯Service Policy definitions⯯Common Applications Kept Enhanced (CAKE)
+  Quality of Service (QoS)
+  ⯯
+  Service Policy definitions
+  ⯯
+  Common Applications Kept Enhanced (CAKE)
 ---
 
 # vyos_qos_policy_cake (Resource)

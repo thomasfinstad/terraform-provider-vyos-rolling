@@ -2,7 +2,9 @@
 page_title: "vyos_policy_as_path_list Resource - terraform-provider-vyos"
 subcategory: "policy"
 description: |-
-  Routing policy⯯Add a BGP autonomous system path filter
+  Routing policy
+  ⯯
+  Add a BGP autonomous system path filter
 ---
 
 # vyos_policy_as_path_list (Resource)
