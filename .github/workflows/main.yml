@@ -21,3 +21,4 @@ jobs:
                   MANUAL_BASE_REF: ${{ inputs.MANUAL_BASE_REF }}
               with:
                 IDENTIFIERS: '[{"name": "TODO", "labels": ["help wanted"]}, {"name": "FIXME", "labels": ["bug"]}]'
+                IGNORE: "docs/*"
