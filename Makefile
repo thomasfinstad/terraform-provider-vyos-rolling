@@ -268,10 +268,13 @@ clean:
 .PHONY: all
 all: docs/index.md build-rolling data/provider-schema/$(VERSION_ROLLING).json
 	-pre-commit run --all-files
-	git diff --word-diff --word-diff-regex='\w+' -- . ':!docs' ':!data/provider-schema' ':!*autogen*'
 
 .PHONY: why
 why:
 	@make -and all \
 		| sed -rn 's/^ *([A-Za-z ]*Must remake target.*| Prerequisite.*is newer than.*)/\1/p' \
 			| tac
+
+.PHONY: diff
+diff:
+	git diff --word-diff --word-diff-regex='\w+' -- . ':!docs' ':!data/provider-schema' ':!*autogen*'
