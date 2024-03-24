@@ -37,7 +37,7 @@ import (
 	namedfirewallgroupdomaingroup "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/group-domain-group"
 	namedfirewallgroupdynamicgroupaddressgroup "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/group-dynamic-group-address-group"
 	namedfirewallgroupdynamicgroupipvsixaddressgroup "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/group-dynamic-group-ipv6-address-group"
-	namedfirewallgroupinterfacegroup "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/group-interface-group"
+
 	namedfirewallgroupipvsixaddressgroup "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/group-ipv6-address-group"
 	namedfirewallgroupipvsixnetworkgroup "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/group-ipv6-network-group"
 	namedfirewallgroupmacgroup "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/group-mac-group"
@@ -192,7 +192,7 @@ func GetResources() []func() resource.Resource {
 		namedfirewallzone.NewFirewallZone,
 		namedfirewallgroupaddressgroup.NewFirewallGroupAddressGroup,
 		namedfirewallgroupdomaingroup.NewFirewallGroupDomainGroup,
-		namedfirewallgroupinterfacegroup.NewFirewallGroupInterfaceGroup,
+		// namedfirewallgroupinterfacegroup.NewFirewallGroupInterfaceGroup,
 		namedfirewallgroupipvsixaddressgroup.NewFirewallGroupIPvsixAddressGroup,
 		namedfirewallgroupipvsixnetworkgroup.NewFirewallGroupIPvsixNetworkGroup,
 		namedfirewallgroupmacgroup.NewFirewallGroupMacGroup,
