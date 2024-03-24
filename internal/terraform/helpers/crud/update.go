@@ -61,8 +61,8 @@ func Update(ctx context.Context, r helpers.VyosResource, req resource.UpdateRequ
 
 // update re-configures all resource parameters
 // model must be a ptr
-// this function is seperated out to keep the terraform provider
-// logic and API logic seperate so we can test the API logic easier
+// this function is separated out to keep the terraform provider
+// logic and API logic separate so we can test the API logic easier
 func update(ctx context.Context, client client.Client, stateModel, planModel helpers.VyosTopResourceDataModel) error {
 	// Delete existing config
 	stateVyosData, err := helpers.MarshalVyos(ctx, stateModel)

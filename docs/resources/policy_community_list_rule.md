@@ -2,20 +2,16 @@
 page_title: "vyos_policy_community_list_rule Resource - terraform-provider-vyos"
 subcategory: "policy"
 description: |-
-  Routing policy
-  ⯯
-  Add a BGP community list entry
-  ⯯
-  Rule for this BGP community list
+  Routing policy⯯Add a BGP community list entry⯯Rule for this BGP community list
 ---
 
 # vyos_policy_community_list_rule (Resource)
 <center>
 
-Routing policy
-⯯
-Add a BGP community list entry
-⯯
+Routing policy  
+⯯  
+Add a BGP community list entry  
+⯯  
 **Rule for this BGP community list**
 
 
@@ -63,7 +59,7 @@ Add a BGP community list entry
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

@@ -2,16 +2,14 @@
 page_title: "vyos_pki_dh Resource - terraform-provider-vyos"
 subcategory: "pki"
 description: |-
-  Public key infrastructure (PKI)
-  ⯯
-  Diffie-Hellman parameters
+  Public key infrastructure (PKI)⯯Diffie-Hellman parameters
 ---
 
 # vyos_pki_dh (Resource)
 <center>
 
-Public key infrastructure (PKI)
-⯯
+Public key infrastructure (PKI)  
+⯯  
 **Diffie-Hellman parameters**
 
 
@@ -30,7 +28,7 @@ Public key infrastructure (PKI)
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

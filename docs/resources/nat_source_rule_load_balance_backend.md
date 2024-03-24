@@ -2,28 +2,20 @@
 page_title: "vyos_nat_source_rule_load_balance_backend Resource - terraform-provider-vyos"
 subcategory: "nat"
 description: |-
-  Network Address Translation (NAT) parameters
-  ⯯
-  Source NAT settings
-  ⯯
-  Rule number for NAT
-  ⯯
-  Apply NAT load balance
-  ⯯
-  Translated IP address
+  Network Address Translation (NAT) parameters⯯Source NAT settings⯯Rule number for NAT⯯Apply NAT load balance⯯Translated IP address
 ---
 
 # vyos_nat_source_rule_load_balance_backend (Resource)
 <center>
 
-Network Address Translation (NAT) parameters
-⯯
-Source NAT settings
-⯯
-Rule number for NAT
-⯯
-Apply NAT load balance
-⯯
+Network Address Translation (NAT) parameters  
+⯯  
+Source NAT settings  
+⯯  
+Rule number for NAT  
+⯯  
+Apply NAT load balance  
+⯯  
 **Translated IP address**
 
 
@@ -55,7 +47,7 @@ Apply NAT load balance
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

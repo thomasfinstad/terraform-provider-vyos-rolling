@@ -2,20 +2,16 @@
 page_title: "vyos_firewall_group_network_group Resource - terraform-provider-vyos"
 subcategory: "firewall"
 description: |-
-  Firewall
-  ⯯
-  Firewall group
-  ⯯
-  Firewall network-group
+  Firewall⯯Firewall group⯯Firewall network-group
 ---
 
 # vyos_firewall_group_network_group (Resource)
 <center>
 
-Firewall
-⯯
-Firewall group
-⯯
+Firewall  
+⯯  
+Firewall group  
+⯯  
 **Firewall network-group**
 
 
@@ -44,7 +40,7 @@ Firewall group
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

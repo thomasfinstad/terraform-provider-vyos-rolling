@@ -2,16 +2,14 @@
 page_title: "vyos_firewall_flowtable Resource - terraform-provider-vyos"
 subcategory: "firewall"
 description: |-
-  Firewall
-  ⯯
-  Flowtable
+  Firewall⯯Flowtable
 ---
 
 # vyos_firewall_flowtable (Resource)
 <center>
 
-Firewall
-⯯
+Firewall  
+⯯  
 **Flowtable**
 
 
@@ -41,7 +39,7 @@ Firewall
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

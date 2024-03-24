@@ -14,6 +14,7 @@ description: |-
 
 ```terraform
 # TODO Improve provider example
+#  milestone:3
 
 terraform {
   required_providers {
@@ -24,11 +25,8 @@ terraform {
 }
 
 provider "vyos" {
-  // TODO replace dev instance endpoint with var
   endpoint = "https://192.168.2.252"
-
-  // TODO replace dev instance api key with var
-  api_key = "FoFeMcws4XpbKk4TDceQWzUdDsHptAr7FcuApxiHUV"
+  api_key  = "FoFeMcws4XpbKk4TDceQWzUdDsHptAr7FcuApxiHUV"
 
   certificate = {
     disable_verify = true
@@ -107,8 +105,8 @@ resource "vyos_policy_access_list_rule" "name" {
 
 - `certificate` (Attributes) (see [below for nested schema](#nestedatt--certificate))
 - `default_timeouts` (Number) Default Create/Read/Update/Destroy timeouts in minutes, can be overridden on a per resource basis. If not configured, defaults to 15.
-- `ignore_child_resource_on_delete` (Boolean) !> **WARNING:** This is extremly destructive and will delete everything below the destroyed resource.
-Disables the check to see if the resouce has any child resources.
+- `ignore_child_resource_on_delete` (Boolean) !> **WARNING:** This is extremely destructive and will delete everything below the destroyed resource.
+Disables the check to see if the resource has any child resources.
 This can be useful when only a parent resource is configured via terraform.
 This has no effect on global resources.
 - `ignore_missing_parent_resource_on_create` (Boolean) Disables the check to see if the required parent resource exists on the target machine.

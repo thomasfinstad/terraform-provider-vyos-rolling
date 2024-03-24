@@ -101,7 +101,7 @@ func (o ContainerNameDevice) ResourceSchemaAttributes(ctx context.Context) map[s
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
 		"device_id": schema.StringAttribute{
 			Required: true,
@@ -123,7 +123,7 @@ func (o ContainerNameDevice) ResourceSchemaAttributes(ctx context.Context) map[s
 					),
 					stringvalidator.RegexMatches(
 						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  device_id, value must match: ^[a-zA-Z0-9-_]*$",
+						"illegal character in  device_id, value must match: ^[a-zA-Z0-9-_]*$",
 					),
 				),
 			},
@@ -149,7 +149,7 @@ func (o ContainerNameDevice) ResourceSchemaAttributes(ctx context.Context) map[s
 					),
 					stringvalidator.RegexMatches(
 						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
+						"illegal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
 					),
 				),
 			},

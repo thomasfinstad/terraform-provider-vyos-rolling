@@ -102,7 +102,7 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes(ctx co
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
 		"real_server_id": schema.StringAttribute{
 			Required: true,
@@ -124,7 +124,7 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes(ctx co
 					),
 					stringvalidator.RegexMatches(
 						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  real_server_id, value must match: ^[a-zA-Z0-9-_]*$",
+						"illegal character in  real_server_id, value must match: ^[a-zA-Z0-9-_]*$",
 					),
 				),
 			},
@@ -150,7 +150,7 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes(ctx co
 					),
 					stringvalidator.RegexMatches(
 						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  virtual_server_id, value must match: ^[a-zA-Z0-9-_]*$",
+						"illegal character in  virtual_server_id, value must match: ^[a-zA-Z0-9-_]*$",
 					),
 				),
 			},

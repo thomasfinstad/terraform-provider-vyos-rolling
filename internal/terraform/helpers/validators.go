@@ -24,7 +24,7 @@ type StringNotValidator struct {
 
 // Description explains the validation.
 func (v StringNotValidator) Description(ctx context.Context) string {
-	return fmt.Sprintf("illigal value: %s", v.validator.Description(ctx))
+	return fmt.Sprintf("illegal value: %s", v.validator.Description(ctx))
 }
 
 // MarkdownDescription explains the validation in md.

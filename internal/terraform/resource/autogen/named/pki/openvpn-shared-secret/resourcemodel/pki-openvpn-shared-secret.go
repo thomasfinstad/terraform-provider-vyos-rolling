@@ -93,7 +93,7 @@ func (o PkiOpenvpnSharedSecret) ResourceSchemaAttributes(ctx context.Context) ma
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
 		"shared_secret_id": schema.StringAttribute{
 			Required: true,
@@ -115,7 +115,7 @@ func (o PkiOpenvpnSharedSecret) ResourceSchemaAttributes(ctx context.Context) ma
 					),
 					stringvalidator.RegexMatches(
 						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  shared_secret_id, value must match: ^[a-zA-Z0-9-_]*$",
+						"illegal character in  shared_secret_id, value must match: ^[a-zA-Z0-9-_]*$",
 					),
 				),
 			},

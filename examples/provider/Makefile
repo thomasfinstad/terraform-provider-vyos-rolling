@@ -44,7 +44,7 @@ clean:
 
 .PHONY: why
 why:
-	@make -nd apply \
+	@make -and apply \
 		| sed -rn 's/^ *([A-Za-z ]*Must remake target.*| Prerequisite.*is newer than.*)/\1/p' \
 			| tac
 

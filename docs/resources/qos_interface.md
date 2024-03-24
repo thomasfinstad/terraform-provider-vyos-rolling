@@ -2,16 +2,14 @@
 page_title: "vyos_qos_interface Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)
-  ⯯
-  Interface to apply QoS policy
+  Quality of Service (QoS)⯯Interface to apply QoS policy
 ---
 
 # vyos_qos_interface (Resource)
 <center>
 
-Quality of Service (QoS)
-⯯
+Quality of Service (QoS)  
+⯯  
 **Interface to apply QoS policy**
 
 
@@ -43,7 +41,7 @@ Quality of Service (QoS)
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

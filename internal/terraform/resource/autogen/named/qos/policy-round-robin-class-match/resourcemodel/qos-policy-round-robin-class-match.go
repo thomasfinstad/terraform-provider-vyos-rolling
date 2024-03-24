@@ -119,7 +119,7 @@ func (o QosPolicyRoundRobinClassMatch) ResourceSchemaAttributes(ctx context.Cont
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
 		"match_id": schema.StringAttribute{
 			Required: true,
@@ -141,7 +141,7 @@ func (o QosPolicyRoundRobinClassMatch) ResourceSchemaAttributes(ctx context.Cont
 					),
 					stringvalidator.RegexMatches(
 						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  match_id, value must match: ^[a-zA-Z0-9-_]*$",
+						"illegal character in  match_id, value must match: ^[a-zA-Z0-9-_]*$",
 					),
 				),
 			},
@@ -173,7 +173,7 @@ func (o QosPolicyRoundRobinClassMatch) ResourceSchemaAttributes(ctx context.Cont
 					),
 					stringvalidator.RegexMatches(
 						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  round_robin_id, value must match: ^[a-zA-Z0-9-_]*$",
+						"illegal character in  round_robin_id, value must match: ^[a-zA-Z0-9-_]*$",
 					),
 				),
 			},

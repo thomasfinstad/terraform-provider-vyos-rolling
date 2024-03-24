@@ -268,7 +268,7 @@ func die(err error) {
 }
 
 func globalResourceGeneration(resourceOutputDir string, templateName string, thisFilename string, rootPkgName string, rootNode *schemadefinition.Node, selfImportRoot string, resourceModelSubDir string, t *template.Template, data any) (pkg autogenTemplateInfo) {
-	// Format outpout file name
+	// Format output file name
 	outputFile := fmt.Sprintf(
 		"%s.go",
 		strings.Join(
@@ -315,7 +315,7 @@ func globalResourceGeneration(resourceOutputDir string, templateName string, thi
 }
 
 func namedResourceGeneration(resourceOutputDir string, templateName string, thisFilename string, rootPkgName string, rootTagNode *schemadefinition.TagNode, selfImportRoot string, resourceModelSubDir string, t *template.Template, data any) (pkg autogenTemplateInfo) {
-	// Format outpout file name
+	// Format output file name
 	outputFile := fmt.Sprintf(
 		"%s.go",
 		strings.Join(

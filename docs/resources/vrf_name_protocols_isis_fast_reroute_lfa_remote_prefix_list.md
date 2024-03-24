@@ -2,40 +2,26 @@
 page_title: "vyos_vrf_name_protocols_isis_fast_reroute_lfa_remote_prefix_list Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding
-  ⯯
-  Virtual Routing and Forwarding instance
-  ⯯
-  Routing protocol parameters
-  ⯯
-  Intermediate System to Intermediate System (IS-IS)
-  ⯯
-  IS-IS fast reroute configuration
-  ⯯
-  Loop free alternate functionality
-  ⯯
-  Remote loop free alternate options
-  ⯯
-  Filter PQ node router ID based on prefix list
+  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Intermediate System to Intermediate System (IS-IS)⯯IS-IS fast reroute configuration⯯Loop free alternate functionality⯯Remote loop free alternate options⯯Filter PQ node router ID based on prefix list
 ---
 
 # vyos_vrf_name_protocols_isis_fast_reroute_lfa_remote_prefix_list (Resource)
 <center>
 
-Virtual Routing and Forwarding
-⯯
-Virtual Routing and Forwarding instance
-⯯
-Routing protocol parameters
-⯯
-Intermediate System to Intermediate System (IS-IS)
-⯯
-IS-IS fast reroute configuration
-⯯
-Loop free alternate functionality
-⯯
-Remote loop free alternate options
-⯯
+Virtual Routing and Forwarding  
+⯯  
+Virtual Routing and Forwarding instance  
+⯯  
+Routing protocol parameters  
+⯯  
+Intermediate System to Intermediate System (IS-IS)  
+⯯  
+IS-IS fast reroute configuration  
+⯯  
+Loop free alternate functionality  
+⯯  
+Remote loop free alternate options  
+⯯  
 **Filter PQ node router ID based on prefix list**
 
 
@@ -64,7 +50,7 @@ Remote loop free alternate options
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

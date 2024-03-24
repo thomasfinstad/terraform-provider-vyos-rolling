@@ -2,28 +2,20 @@
 page_title: "vyos_qos_policy_priority_queue_class_match Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)
-  ⯯
-  Service Policy definitions
-  ⯯
-  Priority queuing based policy
-  ⯯
-  Class Handle
-  ⯯
-  Class matching rule name
+  Quality of Service (QoS)⯯Service Policy definitions⯯Priority queuing based policy⯯Class Handle⯯Class matching rule name
 ---
 
 # vyos_qos_policy_priority_queue_class_match (Resource)
 <center>
 
-Quality of Service (QoS)
-⯯
-Service Policy definitions
-⯯
-Priority queuing based policy
-⯯
-Class Handle
-⯯
+Quality of Service (QoS)  
+⯯  
+Service Policy definitions  
+⯯  
+Priority queuing based policy  
+⯯  
+Class Handle  
+⯯  
 **Class matching rule name**
 
 
@@ -74,7 +66,7 @@ Class Handle
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--ether&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `ether`

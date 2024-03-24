@@ -2,28 +2,20 @@
 page_title: "vyos_firewall_ipv4_forward_filter_rule Resource - terraform-provider-vyos"
 subcategory: "firewall"
 description: |-
-  Firewall
-  ⯯
-  IPv4 firewall
-  ⯯
-  IPv4 forward firewall
-  ⯯
-  IPv4 firewall forward filter
-  ⯯
-  IPv4 Firewall forward filter rule number
+  Firewall⯯IPv4 firewall⯯IPv4 forward firewall⯯IPv4 firewall forward filter⯯IPv4 Firewall forward filter rule number
 ---
 
 # vyos_firewall_ipv4_forward_filter_rule (Resource)
 <center>
 
-Firewall
-⯯
-IPv4 firewall
-⯯
-IPv4 forward firewall
-⯯
-IPv4 firewall forward filter
-⯯
+Firewall  
+⯯  
+IPv4 firewall  
+⯯  
+IPv4 forward firewall  
+⯯  
+IPv4 firewall forward filter  
+⯯  
 **IPv4 Firewall forward filter rule number**
 
 
@@ -168,7 +160,7 @@ IPv4 firewall forward filter
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--add_address_to_group&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `add_address_to_group`

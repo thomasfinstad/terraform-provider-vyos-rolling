@@ -20,7 +20,7 @@ pipx install argcomplete
 pipx install Commitizen
 register-python-argcomplete cz >> ~/.bashrc
 
-# Used to improve commits before they are commited
+# Used to improve commits before they are committed
 pipx install pre-commit
 pre-commit install --hook-type pre-commit --hook-type commit-msg
 

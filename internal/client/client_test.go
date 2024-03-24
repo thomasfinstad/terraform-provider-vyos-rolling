@@ -1,6 +1,6 @@
 package client
 
-// TODO test that certificate functionallity works
+// TODO test that certificate functionality works
 //  milestone:2
 //  this is not going to be an automated test, and this file can be deleted later.
 //  just test it out personally and document of how it works in the

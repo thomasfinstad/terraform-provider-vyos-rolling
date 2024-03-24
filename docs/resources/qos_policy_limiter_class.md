@@ -2,24 +2,18 @@
 page_title: "vyos_qos_policy_limiter_class Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)
-  ⯯
-  Service Policy definitions
-  ⯯
-  Traffic input limiting policy
-  ⯯
-  Class ID
+  Quality of Service (QoS)⯯Service Policy definitions⯯Traffic input limiting policy⯯Class ID
 ---
 
 # vyos_qos_policy_limiter_class (Resource)
 <center>
 
-Quality of Service (QoS)
-⯯
-Service Policy definitions
-⯯
-Traffic input limiting policy
-⯯
+Quality of Service (QoS)  
+⯯  
+Service Policy definitions  
+⯯  
+Traffic input limiting policy  
+⯯  
 **Class ID**
 
 
@@ -96,7 +90,7 @@ Traffic input limiting policy
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

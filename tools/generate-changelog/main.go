@@ -9,10 +9,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/gdexlab/go-render/render"
-	jd "github.com/josephburnett/jd/lib"
 	"github.com/qri-io/deepdiff"
-	"github.com/wI2L/jsondiff"
 )
 
 func main() {
@@ -77,104 +74,6 @@ func main() {
 
 	}
 
-}
-
-func tryJsondiff(fileA, fileB string) string {
-	previousSchemaByte, err := os.ReadFile(fileA)
-	die(err)
-
-	newSchemaByte, err := os.ReadFile(fileB)
-	die(err)
-
-	var previousSchema map[string]any
-	err = json.Unmarshal(previousSchemaByte, &previousSchema)
-	die(err)
-
-	var newSchema map[string]any
-	err = json.Unmarshal(newSchemaByte, &newSchema)
-	die(err)
-
-	patch, err := jsondiff.Compare(previousSchema, newSchema)
-	die(err)
-
-	return render.Render(patch)
-}
-
-func tryJd(fileA, fileB string) string {
-	aNode, err := jd.ReadJsonFile(fileA)
-	die(err)
-	bNode, err := jd.ReadJsonFile(fileB)
-	die(err)
-
-	diff := aNode.Diff(bNode)
-
-	changes := make(map[string]string)
-
-	for _, e := range diff {
-		action := "Change that occured: deleted/added/changed"
-		typeName := "Type: Resource/Data source"
-		blockName := "Resource/Data source name"
-
-		if len(e.NewValues) == 0 && len(e.OldValues) != 0 {
-			action = "## Removed\n"
-		} else if len(e.NewValues) != 0 && len(e.OldValues) == 0 {
-			action = "## Added\n"
-		} else if len(e.NewValues) != 0 && len(e.OldValues) != 0 {
-			action = "## Changed\n"
-		} else {
-			die(fmt.Errorf("can not determine action: %#v", e))
-		}
-
-		if len(e.Path) < 3 {
-			die(fmt.Errorf("too short to determine type: %#v", e.Render()))
-		} else if fmt.Sprint(e.Path[2]) == "resource_schemas" {
-			typeName = "Resource"
-		} else if fmt.Sprint(e.Path[2]) == "data_source_schemas" {
-			typeName = "Data source"
-		} else if fmt.Sprint(e.Path[2]) == "provider" {
-			typeName = "Provider config"
-
-		} else {
-			die(fmt.Errorf("can not determine type:\n%s", e.Render()))
-		}
-
-		blockName = fmt.Sprint(e.Path[3])
-		switch len(e.Path) {
-		case 1:
-			fmt.Printf("%#v", e)
-		case 4:
-			changes[action] += fmt.Sprintf("%s: %s \n\n", typeName, blockName)
-		case 6:
-			changes[action] += fmt.Sprintf("%s: %s Attribute (6)\n*  %s \n\n", typeName, blockName, e.Path[5])
-		case 7:
-			changes[action] += fmt.Sprintf("%s: %s Attribute (7)\n*  %s \n\n", typeName, blockName, e.Path[6])
-		default:
-			if len(e.Path) > 6 {
-				// "provider_schemas", "local/providers/vyos", "resource_schemas", "vyos_qos_policy_limiter_class", "block", "attributes", "mtu"
-
-				// "provider_schemas", "local/providers/vyos", "resource_schemas", "vyos_qos_policy_limiter", "block", "attributes", "default", "nested_type", "attributes", "mtu"
-
-				switch fmt.Sprint(e.Path[5]) {
-				case "attributes":
-					changes[action] += fmt.Sprintf("%s: %s (attributes)\n* %s.%s \n\n", typeName, blockName, e.Path[6], e.Path[7])
-				case "block_types":
-					changes[action] += fmt.Sprintf("%s: %s Attribute (block_types)\n* %s \n\n", typeName, blockName, e.Path[5])
-				default:
-					die(fmt.Errorf("we might need to go deeper: %#v", e))
-				}
-			} else {
-				die(fmt.Errorf("can not determine what was changed: %#v", e))
-			}
-		}
-	}
-
-	chglog := ""
-
-	for k, v := range changes {
-		chglog += k + v
-	}
-
-	return chglog
 }
 
 func tryDeepDiff(fileA, fileB string) string {
@@ -280,7 +179,7 @@ func tryDeepDiff(fileA, fileB string) string {
 
 // AddLineBreaks is a very naive way to add line breaks
 // to a .go file string. It came about as a solution when
-// regex replace were too slow to be feasable
+// regex replace were too slow to be feasible
 func AddLineBreaks(r string) string {
 	rr := []rune(r)
 	var pa rune
@@ -307,7 +206,7 @@ func AddLineBreaks(r string) string {
 					//  of indexes where we wish to act, then loop over
 					//  that list backwards after it is populated
 					//  as we do not with to append to the slice while
-					//  itterating over it in a forwards fashion
+					//  iterating over it in a forwards fashion
 					rr[pos+1] = '\n'
 				}
 			}

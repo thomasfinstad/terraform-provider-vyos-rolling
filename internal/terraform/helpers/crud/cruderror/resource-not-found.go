@@ -26,7 +26,7 @@ diag.Diagnostics interface implementation
 --------------------------------------------
 */
 
-// NewResourceNotFoundError formates and returns a new ResourceNotFoundError
+// NewResourceNotFoundError formats and returns a new ResourceNotFoundError
 func NewResourceNotFoundError(model helpers.VyosTopResourceDataModel, format string, args ...interface{}) ResourceNotFoundError {
 	return ResourceNotFoundError{
 		error: fmt.Errorf(format, args...),

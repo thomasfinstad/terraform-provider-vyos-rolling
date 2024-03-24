@@ -2,20 +2,16 @@
 page_title: "vyos_qos_policy_priority_queue Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)
-  ⯯
-  Service Policy definitions
-  ⯯
-  Priority queuing based policy
+  Quality of Service (QoS)⯯Service Policy definitions⯯Priority queuing based policy
 ---
 
 # vyos_qos_policy_priority_queue (Resource)
 <center>
 
-Quality of Service (QoS)
-⯯
-Service Policy definitions
-⯯
+Quality of Service (QoS)  
+⯯  
+Service Policy definitions  
+⯯  
 **Priority queuing based policy**
 
 
@@ -43,7 +39,7 @@ Service Policy definitions
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--default&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `default`

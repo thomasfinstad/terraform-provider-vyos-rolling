@@ -23,7 +23,7 @@ func Unwrap(err error) error {
 	return errors.Unwrap(err)
 }
 
-// NewNotFoundError formates and returns a new NotFoundError
+// NewNotFoundError formats and returns a new NotFoundError
 func NewNotFoundError(format string, args ...interface{}) NotFoundError {
 	return NotFoundError{
 		error: fmt.Errorf(format, args...),

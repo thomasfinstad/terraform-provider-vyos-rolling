@@ -2,32 +2,22 @@
 page_title: "vyos_vrf_name_protocols_bgp_listen_range Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding
-  ⯯
-  Virtual Routing and Forwarding instance
-  ⯯
-  Routing protocol parameters
-  ⯯
-  Border Gateway Protocol (BGP)
-  ⯯
-  Listen for and accept BGP dynamic neighbors from range
-  ⯯
-  BGP dynamic neighbors listen range
+  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Border Gateway Protocol (BGP)⯯Listen for and accept BGP dynamic neighbors from range⯯BGP dynamic neighbors listen range
 ---
 
 # vyos_vrf_name_protocols_bgp_listen_range (Resource)
 <center>
 
-Virtual Routing and Forwarding
-⯯
-Virtual Routing and Forwarding instance
-⯯
-Routing protocol parameters
-⯯
-Border Gateway Protocol (BGP)
-⯯
-Listen for and accept BGP dynamic neighbors from range
-⯯
+Virtual Routing and Forwarding  
+⯯  
+Virtual Routing and Forwarding instance  
+⯯  
+Routing protocol parameters  
+⯯  
+Border Gateway Protocol (BGP)  
+⯯  
+Listen for and accept BGP dynamic neighbors from range  
+⯯  
 **BGP dynamic neighbors listen range**
 
 
@@ -60,7 +50,7 @@ Listen for and accept BGP dynamic neighbors from range
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

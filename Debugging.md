@@ -138,13 +138,13 @@ for combo in sudoSandwich:
         print("|".join(e)+"|TestCrudDeleteRetrySuccess")
 ```
 
-No I will not take critisim on the script, its is a expertly crafted masterpeice of abstract art!
+No I will not take critisim on the script, its is a expertly crafted masterpiece of abstract art!
 
 
 ```
 $ time timeout 10s python tmp/perm.py $(cat tmp/tests) > tmp/perms
 
-args: ['TestCrudCreateSuccess', 'TestCrudCreateResourceAlreadyExsitsFailure', 'TestCrudCreateResourceAlreadyExsitsIgnore', 'TestCrudCreateResourceParentMissingFailure', 'TestCrudCreateResourceParentMissingIgnore', 'TestCrudCreateTimeoutSuccess', 'TestCrudCreateTimeoutFailure', 'TestCrudCreateRetrySuccess', 'TestCrudDeleteSuccess', 'TestCrudDeleteResourceHasChildFailure', 'TestCrudDeleteResourceHasChildIgnore', 'TestCrudDeleteGlobalResourceWithChild', 'TestCrudDeleteGlobalResourceWithoutChild', 'TestCrudReadSuccess', 'TestCrudReadEmptyResource', 'TestCrudUpdateCrossResourceContamination']
+args: ['TestCrudCreateSuccess', 'TestCrudCreateResourceAlreadyExistsFailure', 'TestCrudCreateResourceAlreadyExistsIgnore', 'TestCrudCreateResourceParentMissingFailure', 'TestCrudCreateResourceParentMissingIgnore', 'TestCrudCreateTimeoutSuccess', 'TestCrudCreateTimeoutFailure', 'TestCrudCreateRetrySuccess', 'TestCrudDeleteSuccess', 'TestCrudDeleteResourceHasChildFailure', 'TestCrudDeleteResourceHasChildIgnore', 'TestCrudDeleteGlobalResourceWithChild', 'TestCrudDeleteGlobalResourceWithoutChild', 'TestCrudReadSuccess', 'TestCrudReadEmptyResource', 'TestCrudUpdateCrossResourceContamination']
 
 1 tests has permutations: 16 currently total tallied permutations: 16
 2 tests has permutations: 240 currently total tallied permutations: 256
@@ -230,8 +230,8 @@ Lets just list the tests and the order they are being run in
 ```
 $ cat tmp/problemTests
 TestCrudCreateSuccess
-TestCrudCreateResourceAlreadyExsitsFailure
-TestCrudCreateResourceAlreadyExsitsIgnore
+TestCrudCreateResourceAlreadyExistsFailure
+TestCrudCreateResourceAlreadyExistsIgnore
 TestCrudCreateResourceParentMissingFailure
 TestCrudCreateResourceParentMissingIgnore
 TestCrudCreateTimeoutSuccess
@@ -348,7 +348,7 @@ $ timeout 10m bash -c 't=$(wc -l<tmp/permsReduced); i=0; for l in $(cat tmp/perm
 15/1956 TestCrudDeleteResourceHasChildFailure|TestCrudCreateRetrySuccess|TestCrudDeleteRetrySuccess
 ```
 
-That didn't take long. So the ordering of the "prerequsites" does not matter it seems, is there any other combo than these 3 tests that causes the issues?
+That didn't take long. So the ordering of the "prerequisites" does not matter it seems, is there any other combo than these 3 tests that causes the issues?
 
 (truncated)
 

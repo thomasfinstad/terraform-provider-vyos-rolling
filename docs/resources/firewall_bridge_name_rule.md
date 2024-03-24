@@ -2,24 +2,18 @@
 page_title: "vyos_firewall_bridge_name_rule Resource - terraform-provider-vyos"
 subcategory: "firewall"
 description: |-
-  Firewall
-  ⯯
-  Bridge firewall
-  ⯯
-  Bridge custom firewall
-  ⯯
-  Bridge Firewall forward filter rule number
+  Firewall⯯Bridge firewall⯯Bridge custom firewall⯯Bridge Firewall forward filter rule number
 ---
 
 # vyos_firewall_bridge_name_rule (Resource)
 <center>
 
-Firewall
-⯯
-Bridge firewall
-⯯
-Bridge custom firewall
-⯯
+Firewall  
+⯯  
+Bridge firewall  
+⯯  
+Bridge custom firewall  
+⯯  
 **Bridge Firewall forward filter rule number**
 
 
@@ -72,7 +66,7 @@ Bridge custom firewall
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--destination&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `destination`

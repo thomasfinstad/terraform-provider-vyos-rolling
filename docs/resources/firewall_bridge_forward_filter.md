@@ -3,13 +3,8 @@ page_title: "vyos_firewall_bridge_forward_filter Resource - terraform-provider-v
 subcategory: "firewall"
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
-  Firewall
-  ⯯
-  Bridge firewall
-  ⯯
-  Bridge forward firewall
-  ⯯
-  Bridge firewall forward filter
+  Firewall  
+  ⯯Bridge firewall⯯Bridge forward firewall⯯Bridge firewall forward filter
 ---
 
 # vyos_firewall_bridge_forward_filter (Resource)
@@ -17,12 +12,12 @@ description: |-
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-	Firewall
-⯯
-Bridge firewall
-⯯
-Bridge forward firewall
-⯯
+	Firewall  
+⯯  
+Bridge firewall  
+⯯  
+Bridge forward firewall  
+⯯  
 **Bridge firewall forward filter**
 
 
@@ -48,7 +43,7 @@ Bridge forward firewall
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

@@ -125,7 +125,7 @@ func (o FirewallIPvsixInputFilterRule) ResourceSchemaAttributes(ctx context.Cont
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
 		"rule_id": schema.NumberAttribute{
 			Required: true,

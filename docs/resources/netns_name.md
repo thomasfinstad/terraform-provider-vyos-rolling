@@ -2,16 +2,14 @@
 page_title: "vyos_netns_name Resource - terraform-provider-vyos"
 subcategory: "netns"
 description: |-
-  Network namespace
-  ⯯
-  Network namespace name
+  Network namespace⯯Network namespace name
 ---
 
 # vyos_netns_name (Resource)
 <center>
 
-Network namespace
-⯯
+Network namespace  
+⯯  
 **Network namespace name**
 
 
@@ -34,7 +32,7 @@ Network namespace
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

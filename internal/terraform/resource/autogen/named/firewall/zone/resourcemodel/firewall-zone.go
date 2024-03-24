@@ -97,7 +97,7 @@ func (o FirewallZone) ResourceSchemaAttributes(ctx context.Context) map[string]s
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
 		"zone_id": schema.StringAttribute{
 			Required: true,
@@ -125,7 +125,7 @@ func (o FirewallZone) ResourceSchemaAttributes(ctx context.Context) map[string]s
 					),
 					stringvalidator.RegexMatches(
 						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  zone_id, value must match: ^[a-zA-Z0-9-_]*$",
+						"illegal character in  zone_id, value must match: ^[a-zA-Z0-9-_]*$",
 					),
 				),
 			},

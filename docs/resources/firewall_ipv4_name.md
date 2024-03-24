@@ -2,20 +2,16 @@
 page_title: "vyos_firewall_ipv4_name Resource - terraform-provider-vyos"
 subcategory: "firewall"
 description: |-
-  Firewall
-  ⯯
-  IPv4 firewall
-  ⯯
-  IPv4 custom firewall
+  Firewall⯯IPv4 firewall⯯IPv4 custom firewall
 ---
 
 # vyos_firewall_ipv4_name (Resource)
 <center>
 
-Firewall
-⯯
-IPv4 firewall
-⯯
+Firewall  
+⯯  
+IPv4 firewall  
+⯯  
 **IPv4 custom firewall**
 
 
@@ -50,7 +46,7 @@ IPv4 firewall
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

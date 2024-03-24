@@ -42,7 +42,7 @@ func iron(ctx context.Context, vyosPath []string, values map[string]interface{})
 	slices.Reverse(keys)
 	for _, key := range keys {
 
-		// This Clone has proven itself nessecary due underlyding mangling happening otherwise
+		// This Clone has proven itself necessary due underlyding mangling happening otherwise
 		cVyosPath := append(slices.Clone(vyosPath), key)
 
 		value := values[key]

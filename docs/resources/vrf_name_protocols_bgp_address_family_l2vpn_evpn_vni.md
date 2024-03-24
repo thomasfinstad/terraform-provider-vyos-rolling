@@ -2,36 +2,24 @@
 page_title: "vyos_vrf_name_protocols_bgp_address_family_l2vpn_evpn_vni Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding
-  ⯯
-  Virtual Routing and Forwarding instance
-  ⯯
-  Routing protocol parameters
-  ⯯
-  Border Gateway Protocol (BGP)
-  ⯯
-  BGP address-family parameters
-  ⯯
-  L2VPN EVPN BGP settings
-  ⯯
-  VXLAN Network Identifier
+  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Border Gateway Protocol (BGP)⯯BGP address-family parameters⯯L2VPN EVPN BGP settings⯯VXLAN Network Identifier
 ---
 
 # vyos_vrf_name_protocols_bgp_address_family_l2vpn_evpn_vni (Resource)
 <center>
 
-Virtual Routing and Forwarding
-⯯
-Virtual Routing and Forwarding instance
-⯯
-Routing protocol parameters
-⯯
-Border Gateway Protocol (BGP)
-⯯
-BGP address-family parameters
-⯯
-L2VPN EVPN BGP settings
-⯯
+Virtual Routing and Forwarding  
+⯯  
+Virtual Routing and Forwarding instance  
+⯯  
+Routing protocol parameters  
+⯯  
+Border Gateway Protocol (BGP)  
+⯯  
+BGP address-family parameters  
+⯯  
+L2VPN EVPN BGP settings  
+⯯  
 **VXLAN Network Identifier**
 
 
@@ -66,7 +54,7 @@ L2VPN EVPN BGP settings
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--route_target&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `route_target`

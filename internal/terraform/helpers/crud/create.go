@@ -62,8 +62,8 @@ func Create(ctx context.Context, r helpers.VyosResource, req resource.CreateRequ
 
 // create populates resource model
 // model must be a ptr
-// this function is seperated out to keep the terraform provider
-// logic and API logic seperate so we can test the API logic easier
+// this function is separated out to keep the terraform provider
+// logic and API logic separate so we can test the API logic easier
 func create(ctx context.Context, providerCfg data.ProviderData, c client.Client, planModel helpers.VyosTopResourceDataModel) error {
 	// Check if nearest parent exists
 	if !providerCfg.Config.CrudSkipCheckParentBeforeCreate && (len(planModel.GetVyosNamedParentPath()) > 0) {

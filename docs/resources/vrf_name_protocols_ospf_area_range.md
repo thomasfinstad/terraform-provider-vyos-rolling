@@ -2,32 +2,22 @@
 page_title: "vyos_vrf_name_protocols_ospf_area_range Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding
-  ⯯
-  Virtual Routing and Forwarding instance
-  ⯯
-  Routing protocol parameters
-  ⯯
-  Open Shortest Path First (OSPF)
-  ⯯
-  OSPF area settings
-  ⯯
-  Summarize routes matching a prefix (border routers only)
+  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Open Shortest Path First (OSPF)⯯OSPF area settings⯯Summarize routes matching a prefix (border routers only)
 ---
 
 # vyos_vrf_name_protocols_ospf_area_range (Resource)
 <center>
 
-Virtual Routing and Forwarding
-⯯
-Virtual Routing and Forwarding instance
-⯯
-Routing protocol parameters
-⯯
-Open Shortest Path First (OSPF)
-⯯
-OSPF area settings
-⯯
+Virtual Routing and Forwarding  
+⯯  
+Virtual Routing and Forwarding instance  
+⯯  
+Routing protocol parameters  
+⯯  
+Open Shortest Path First (OSPF)  
+⯯  
+OSPF area settings  
+⯯  
 **Summarize routes matching a prefix (border routers only)**
 
 
@@ -71,7 +61,7 @@ OSPF area settings
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

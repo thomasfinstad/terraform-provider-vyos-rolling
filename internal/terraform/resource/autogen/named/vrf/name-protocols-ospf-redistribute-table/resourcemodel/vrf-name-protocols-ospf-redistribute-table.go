@@ -109,7 +109,7 @@ func (o VrfNameProtocolsOspfRedistributeTable) ResourceSchemaAttributes(ctx cont
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
 		"table_id": schema.NumberAttribute{
 			Required: true,
@@ -156,7 +156,7 @@ func (o VrfNameProtocolsOspfRedistributeTable) ResourceSchemaAttributes(ctx cont
 					),
 					stringvalidator.RegexMatches(
 						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
+						"illegal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
 					),
 				),
 			},

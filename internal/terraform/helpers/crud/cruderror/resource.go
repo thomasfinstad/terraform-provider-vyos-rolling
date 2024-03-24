@@ -27,7 +27,7 @@ diag.Diagnostics interface implementation
 --------------------------------------------
 */
 
-// NewResourceError formates and returns a new ResourceError
+// NewResourceError formats and returns a new ResourceError
 //
 // msgFormat  : in the format of `fmt.Errorf()`
 // args       : values used in msgFormat

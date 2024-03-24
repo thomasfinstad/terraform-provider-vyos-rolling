@@ -2,14 +2,20 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
-    -   id: check-yaml
-    -   id: end-of-file-fixer
-    -   id: trailing-whitespace
+    - id: check-yaml
+    - id: end-of-file-fixer
+    - id: trailing-whitespace
+      args:
+        - --markdown-linebreak-ext=md
 
   - repo: https://github.com/commitizen-tools/commitizen
     rev: v2.42.1
     hooks:
       - id: commitizen
+  - repo: https://github.com/crate-ci/typos
+    rev: v1.19.0
+    hooks:
+      - id: typos
 
     # ==========================================================================
     # Golang Pre-Commit Hooks | https://github.com/tekwizely/pre-commit-golang

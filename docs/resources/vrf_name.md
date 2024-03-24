@@ -2,16 +2,14 @@
 page_title: "vyos_vrf_name Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding
-  ⯯
-  Virtual Routing and Forwarding instance
+  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance
 ---
 
 # vyos_vrf_name (Resource)
 <center>
 
-Virtual Routing and Forwarding
-⯯
+Virtual Routing and Forwarding  
+⯯  
 **Virtual Routing and Forwarding instance**
 
 
@@ -52,7 +50,7 @@ Virtual Routing and Forwarding
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--ip&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `ip`

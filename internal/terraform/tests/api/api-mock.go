@@ -316,7 +316,7 @@ func Server(srv *http.Server, el *ExchangeList) {
 	// Split out listen and serve functions to reduce chances of server not being ready when test starts
 	l, err := net.Listen("tcp", srv.Addr)
 	if err != nil {
-		log.Fatalf("Mock srv: error starting listner: %s\n", err)
+		log.Fatalf("Mock srv: error starting listener: %s\n", err)
 	}
 
 	go func() {

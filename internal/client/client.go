@@ -48,7 +48,7 @@ func NewClient(
 	return c
 }
 
-// Client wrapper around http client with convinience functions
+// Client wrapper around http client with convenience functions
 // Use NewClient() to generate a new client
 type Client struct {
 	httpClient http.Client
@@ -80,9 +80,9 @@ func (c *Client) StageDelete(ctx context.Context, values [][]string) {
 func (c *Client) CommitChanges(ctx context.Context) (any, error) {
 
 	// TODO investigate options to speed up multiple resource config
-	//	Suggestes pesudo solution:
+	//	Suggests pesudo solution:
 	//  1. Make client, or some part, a pointer shared across all resources
-	//	2. wait 500ms to allow multiple resources to gather up changes to be commited
+	//	2. wait 500ms to allow multiple resources to gather up changes to be committed
 	//  3. on failure remove some resources changes from the commit and try again
 	//  4. on success return so to the resources that succeeded
 	//  milestone:6

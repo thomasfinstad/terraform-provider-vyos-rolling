@@ -2,20 +2,16 @@
 page_title: "vyos_policy_route_map_rule Resource - terraform-provider-vyos"
 subcategory: "policy"
 description: |-
-  Routing policy
-  ⯯
-  IP route-map
-  ⯯
-  Rule for this route-map
+  Routing policy⯯IP route-map⯯Rule for this route-map
 ---
 
 # vyos_policy_route_map_rule (Resource)
 <center>
 
-Routing policy
-⯯
-IP route-map
-⯯
+Routing policy  
+⯯  
+IP route-map  
+⯯  
 **Rule for this route-map**
 
 
@@ -66,7 +62,7 @@ IP route-map
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--match&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `match`

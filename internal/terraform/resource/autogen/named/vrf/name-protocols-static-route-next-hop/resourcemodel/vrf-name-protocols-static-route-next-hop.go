@@ -121,7 +121,7 @@ func (o VrfNameProtocolsStaticRouteNextHop) ResourceSchemaAttributes(ctx context
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
 		"next_hop_id": schema.StringAttribute{
 			Required: true,
@@ -149,7 +149,7 @@ func (o VrfNameProtocolsStaticRouteNextHop) ResourceSchemaAttributes(ctx context
 					),
 					stringvalidator.RegexMatches(
 						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  next_hop_id, value must match: ^[a-zA-Z0-9-_]*$",
+						"illegal character in  next_hop_id, value must match: ^[a-zA-Z0-9-_]*$",
 					),
 				),
 			},
@@ -181,7 +181,7 @@ func (o VrfNameProtocolsStaticRouteNextHop) ResourceSchemaAttributes(ctx context
 					),
 					stringvalidator.RegexMatches(
 						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
+						"illegal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
 					),
 				),
 			},
@@ -213,7 +213,7 @@ func (o VrfNameProtocolsStaticRouteNextHop) ResourceSchemaAttributes(ctx context
 					),
 					stringvalidator.RegexMatches(
 						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  route_id, value must match: ^[a-zA-Z0-9-_]*$",
+						"illegal character in  route_id, value must match: ^[a-zA-Z0-9-_]*$",
 					),
 				),
 			},

@@ -107,7 +107,7 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes(ctx context.Context) map[st
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
 		"rule_id": schema.NumberAttribute{
 			Required: true,
@@ -154,7 +154,7 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes(ctx context.Context) map[st
 					),
 					stringvalidator.RegexMatches(
 						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  route_map_id, value must match: ^[a-zA-Z0-9-_]*$",
+						"illegal character in  route_map_id, value must match: ^[a-zA-Z0-9-_]*$",
 					),
 				),
 			},

@@ -92,7 +92,7 @@ func (o ContainerNetwork) ResourceSchemaAttributes(ctx context.Context) map[stri
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
 		"network_id": schema.StringAttribute{
 			Required: true,
@@ -114,7 +114,7 @@ func (o ContainerNetwork) ResourceSchemaAttributes(ctx context.Context) map[stri
 					),
 					stringvalidator.RegexMatches(
 						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  network_id, value must match: ^[a-zA-Z0-9-_]*$",
+						"illegal character in  network_id, value must match: ^[a-zA-Z0-9-_]*$",
 					),
 				),
 			},

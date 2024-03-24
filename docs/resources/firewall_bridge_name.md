@@ -2,20 +2,16 @@
 page_title: "vyos_firewall_bridge_name Resource - terraform-provider-vyos"
 subcategory: "firewall"
 description: |-
-  Firewall
-  ⯯
-  Bridge firewall
-  ⯯
-  Bridge custom firewall
+  Firewall⯯Bridge firewall⯯Bridge custom firewall
 ---
 
 # vyos_firewall_bridge_name (Resource)
 <center>
 
-Firewall
-⯯
-Bridge firewall
-⯯
+Firewall  
+⯯  
+Bridge firewall  
+⯯  
 **Bridge custom firewall**
 
 
@@ -50,7 +46,7 @@ Bridge firewall
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

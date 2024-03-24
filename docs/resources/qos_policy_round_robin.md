@@ -2,20 +2,16 @@
 page_title: "vyos_qos_policy_round_robin Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)
-  ⯯
-  Service Policy definitions
-  ⯯
-  Deficit Round Robin Scheduler
+  Quality of Service (QoS)⯯Service Policy definitions⯯Deficit Round Robin Scheduler
 ---
 
 # vyos_qos_policy_round_robin (Resource)
 <center>
 
-Quality of Service (QoS)
-⯯
-Service Policy definitions
-⯯
+Quality of Service (QoS)  
+⯯  
+Service Policy definitions  
+⯯  
 **Deficit Round Robin Scheduler**
 
 
@@ -43,7 +39,7 @@ Service Policy definitions
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--default&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `default`

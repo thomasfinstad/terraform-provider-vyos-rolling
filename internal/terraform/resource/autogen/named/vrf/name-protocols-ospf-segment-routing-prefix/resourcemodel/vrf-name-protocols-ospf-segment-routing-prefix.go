@@ -106,7 +106,7 @@ func (o VrfNameProtocolsOspfSegmentRoutingPrefix) ResourceSchemaAttributes(ctx c
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
 		"prefix_id": schema.StringAttribute{
 			Required: true,
@@ -134,7 +134,7 @@ func (o VrfNameProtocolsOspfSegmentRoutingPrefix) ResourceSchemaAttributes(ctx c
 					),
 					stringvalidator.RegexMatches(
 						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  prefix_id, value must match: ^[a-zA-Z0-9-_]*$",
+						"illegal character in  prefix_id, value must match: ^[a-zA-Z0-9-_]*$",
 					),
 				),
 			},
@@ -166,7 +166,7 @@ func (o VrfNameProtocolsOspfSegmentRoutingPrefix) ResourceSchemaAttributes(ctx c
 					),
 					stringvalidator.RegexMatches(
 						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
+						"illegal character in  name_id, value must match: ^[a-zA-Z0-9-_]*$",
 					),
 				),
 			},

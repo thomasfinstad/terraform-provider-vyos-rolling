@@ -2,20 +2,16 @@
 page_title: "vyos_qos_policy_fair_queue Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)
-  ⯯
-  Service Policy definitions
-  ⯯
-  Stochastic Fairness Queueing
+  Quality of Service (QoS)⯯Service Policy definitions⯯Stochastic Fairness Queueing
 ---
 
 # vyos_qos_policy_fair_queue (Resource)
 <center>
 
-Quality of Service (QoS)
-⯯
-Service Policy definitions
-⯯
+Quality of Service (QoS)  
+⯯  
+Service Policy definitions  
+⯯  
 **Stochastic Fairness Queueing**
 
 
@@ -53,7 +49,7 @@ Service Policy definitions
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

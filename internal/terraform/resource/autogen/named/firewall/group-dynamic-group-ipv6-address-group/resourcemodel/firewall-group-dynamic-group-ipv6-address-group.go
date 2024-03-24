@@ -94,7 +94,7 @@ func (o FirewallGroupDynamicGroupIPvsixAddressGroup) ResourceSchemaAttributes(ct
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
 		"ipv6_address_group_id": schema.StringAttribute{
 			Required: true,
@@ -116,7 +116,7 @@ func (o FirewallGroupDynamicGroupIPvsixAddressGroup) ResourceSchemaAttributes(ct
 					),
 					stringvalidator.RegexMatches(
 						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  ipv6_address_group_id, value must match: ^[a-zA-Z0-9-_]*$",
+						"illegal character in  ipv6_address_group_id, value must match: ^[a-zA-Z0-9-_]*$",
 					),
 				),
 			},

@@ -3,11 +3,8 @@ page_title: "vyos_high_availability_vrrp_global_parameters Resource - terraform-
 subcategory: "high"
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
-  High availability settings
-  ⯯
-  Virtual Router Redundancy Protocol settings
-  ⯯
-  VRRP global parameters
+  High availability settings  
+  ⯯Virtual Router Redundancy Protocol settings⯯VRRP global parameters
 ---
 
 # vyos_high_availability_vrrp_global_parameters (Resource)
@@ -15,10 +12,10 @@ description: |-
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-	High availability settings
-⯯
-Virtual Router Redundancy Protocol settings
-⯯
+	High availability settings  
+⯯  
+Virtual Router Redundancy Protocol settings  
+⯯  
 **VRRP global parameters**
 
 
@@ -43,7 +40,7 @@ Virtual Router Redundancy Protocol settings
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

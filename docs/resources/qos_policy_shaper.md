@@ -2,20 +2,16 @@
 page_title: "vyos_qos_policy_shaper Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)
-  ⯯
-  Service Policy definitions
-  ⯯
-  Traffic shaping based policy (Hierarchy Token Bucket)
+  Quality of Service (QoS)⯯Service Policy definitions⯯Traffic shaping based policy (Hierarchy Token Bucket)
 ---
 
 # vyos_qos_policy_shaper (Resource)
 <center>
 
-Quality of Service (QoS)
-⯯
-Service Policy definitions
-⯯
+Quality of Service (QoS)  
+⯯  
+Service Policy definitions  
+⯯  
 **Traffic shaping based policy (Hierarchy Token Bucket)**
 
 
@@ -55,7 +51,7 @@ Service Policy definitions
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--default&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `default`

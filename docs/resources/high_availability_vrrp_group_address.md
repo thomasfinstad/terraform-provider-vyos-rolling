@@ -2,24 +2,18 @@
 page_title: "vyos_high_availability_vrrp_group_address Resource - terraform-provider-vyos"
 subcategory: "high"
 description: |-
-  High availability settings
-  ⯯
-  Virtual Router Redundancy Protocol settings
-  ⯯
-  VRRP group
-  ⯯
-  Virtual IP address
+  High availability settings⯯Virtual Router Redundancy Protocol settings⯯VRRP group⯯Virtual IP address
 ---
 
 # vyos_high_availability_vrrp_group_address (Resource)
 <center>
 
-High availability settings
-⯯
-Virtual Router Redundancy Protocol settings
-⯯
-VRRP group
-⯯
+High availability settings  
+⯯  
+Virtual Router Redundancy Protocol settings  
+⯯  
+VRRP group  
+⯯  
 **Virtual IP address**
 
 
@@ -50,7 +44,7 @@ VRRP group
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

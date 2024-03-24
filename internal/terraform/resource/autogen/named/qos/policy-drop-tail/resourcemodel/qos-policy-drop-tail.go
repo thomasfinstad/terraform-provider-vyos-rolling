@@ -93,7 +93,7 @@ func (o QosPolicyDropTail) ResourceSchemaAttributes(ctx context.Context) map[str
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
 		"drop_tail_id": schema.StringAttribute{
 			Required: true,
@@ -121,7 +121,7 @@ func (o QosPolicyDropTail) ResourceSchemaAttributes(ctx context.Context) map[str
 					),
 					stringvalidator.RegexMatches(
 						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  drop_tail_id, value must match: ^[a-zA-Z0-9-_]*$",
+						"illegal character in  drop_tail_id, value must match: ^[a-zA-Z0-9-_]*$",
 					),
 				),
 			},

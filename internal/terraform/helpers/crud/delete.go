@@ -56,8 +56,8 @@ func Delete(ctx context.Context, r helpers.VyosResource, req resource.DeleteRequ
 
 // delete removes the resource
 // model must be a ptr
-// this function is seperated out to keep the terraform provider
-// logic and API logic seperate so we can test the API logic easier
+// this function is separated out to keep the terraform provider
+// logic and API logic separate so we can test the API logic easier
 func delete(ctx context.Context, providerCfg data.ProviderData, c client.Client, stateModel helpers.VyosTopResourceDataModel) cruderrors.CrudError {
 
 	if stateModel.IsGlobalResource() {

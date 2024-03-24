@@ -2,20 +2,16 @@
 page_title: "vyos_policy_prefix_list6_rule Resource - terraform-provider-vyos"
 subcategory: "policy"
 description: |-
-  Routing policy
-  ⯯
-  IPv6 prefix-list filter
-  ⯯
-  Rule for this prefix-list6
+  Routing policy⯯IPv6 prefix-list filter⯯Rule for this prefix-list6
 ---
 
 # vyos_policy_prefix_list6_rule (Resource)
 <center>
 
-Routing policy
-⯯
-IPv6 prefix-list filter
-⯯
+Routing policy  
+⯯  
+IPv6 prefix-list filter  
+⯯  
 **Rule for this prefix-list6**
 
 
@@ -68,7 +64,7 @@ IPv6 prefix-list filter
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

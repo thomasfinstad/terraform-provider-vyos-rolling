@@ -14,7 +14,7 @@ GO_IMPORT_ROOT:=${HOSTNAME}/${NAMESPACE}/terraform-provider-vyos
 
 # TODO support rolling and LTS builds
 #  we need 1 for rolling releases and 1 for LTS 1.4 releases
-#  figure out if these should be seperate repos, branches or what else
+#  figure out if these should be separate repos, branches or what else
 #  milestone: 5
 
 ###
@@ -25,7 +25,7 @@ GO_IMPORT_ROOT:=${HOSTNAME}/${NAMESPACE}/terraform-provider-vyos
 #  should print all targets when requested
 #  milestone: 3
 help:
-	@echo "Most targets are not ment for manual usage, these are the private targets starting with dot"
+	@echo "Most targets are not meant for manual usage, these are the private targets starting with dot"
 	@echo "Valid targets listed below"
 	@echo "<target>: <dependency> <dependency ...>" | egrep --color '^[^ ]*:'
 	@make -rpn | sed -n -e '/^$$/ { n ; /^[^ .#][^ ]*:/p ; }' | egrep --color '^[^ ]*:'
@@ -101,7 +101,7 @@ internal/vyos/schemadefinition/autogen-structs.go: data/vyos-1x-info.txt interna
 	# Ensure the nodes name atter will be properly unmarshaled from xml
 	sed -i 's|\*NodeNameAttr.*|string `xml:"name,attr,omitempty"`|' internal/vyos/schemadefinition/autogen-structs.go
 
-	# Convert any undefined value as string type to stop unmarshaling from breaking
+	# Convert any undefined value as string type to stop unmarshalling from breaking
 	sed -i 's|interface{}|string|' internal/vyos/schemadefinition/autogen-structs.go
 
 	# Add option to set if this is used as a root node
@@ -268,9 +268,10 @@ clean:
 .PHONY: all
 all: docs/index.md build-rolling data/provider-schema/$(VERSION_ROLLING).json
 	-pre-commit run --all-files
+	git diff --word-diff --word-diff-regex='\w+' -- . ':!docs' ':!data/provider-schema' ':!*autogen*'
 
 .PHONY: why
 why:
-	@make -nd all \
+	@make -and all \
 		| sed -rn 's/^ *([A-Za-z ]*Must remake target.*| Prerequisite.*is newer than.*)/\1/p' \
 			| tac

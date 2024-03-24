@@ -2,20 +2,16 @@
 page_title: "vyos_high_availability_vrrp_sync_group Resource - terraform-provider-vyos"
 subcategory: "high"
 description: |-
-  High availability settings
-  ⯯
-  Virtual Router Redundancy Protocol settings
-  ⯯
-  VRRP sync group
+  High availability settings⯯Virtual Router Redundancy Protocol settings⯯VRRP sync group
 ---
 
 # vyos_high_availability_vrrp_sync_group (Resource)
 <center>
 
-High availability settings
-⯯
-Virtual Router Redundancy Protocol settings
-⯯
+High availability settings  
+⯯  
+Virtual Router Redundancy Protocol settings  
+⯯  
 **VRRP sync group**
 
 
@@ -40,7 +36,7 @@ Virtual Router Redundancy Protocol settings
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--health_check&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `health_check`

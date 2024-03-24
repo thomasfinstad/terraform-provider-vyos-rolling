@@ -104,7 +104,7 @@ func (o HighAvailabilityVrrpGroupAddress) ResourceSchemaAttributes(ctx context.C
 	return map[string]schema.Attribute{
 		"id": schema.StringAttribute{
 			Computed:            true,
-			MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
+			MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 		},
 		"address_id": schema.StringAttribute{
 			Required: true,
@@ -138,7 +138,7 @@ func (o HighAvailabilityVrrpGroupAddress) ResourceSchemaAttributes(ctx context.C
 					),
 					stringvalidator.RegexMatches(
 						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  address_id, value must match: ^[a-zA-Z0-9-_]*$",
+						"illegal character in  address_id, value must match: ^[a-zA-Z0-9-_]*$",
 					),
 				),
 			},
@@ -164,7 +164,7 @@ func (o HighAvailabilityVrrpGroupAddress) ResourceSchemaAttributes(ctx context.C
 					),
 					stringvalidator.RegexMatches(
 						regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-						"illigal character in  group_id, value must match: ^[a-zA-Z0-9-_]*$",
+						"illegal character in  group_id, value must match: ^[a-zA-Z0-9-_]*$",
 					),
 				),
 			},

@@ -166,7 +166,7 @@ import (
 								),
 								stringvalidator.RegexMatches(
 									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illigal character in  {{.BaseNameS}}_id, value must match: ^[a-zA-Z0-9-_]*$",
+									"illegal character in  {{.BaseNameS}}_id, value must match: ^[a-zA-Z0-9-_]*$",
 								),
 							),
 						},
@@ -402,7 +402,7 @@ import (
 			{{if .IsBaseNode }}
 				"id": schema.StringAttribute{
 					Computed: true,
-					MarkdownDescription: "Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).",
+					MarkdownDescription: "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
 				},
 				"{{.BaseNameS}}_id":
 					{{- if eq .ValueType "string" -}}
@@ -445,7 +445,7 @@ import (
 								),
 								stringvalidator.RegexMatches(
 									regexp.MustCompile(`^[a-zA-Z0-9-_]*$`),
-									"illigal character in  {{.BaseNameS}}_id, value must match: ^[a-zA-Z0-9-_]*$",
+									"illegal character in  {{.BaseNameS}}_id, value must match: ^[a-zA-Z0-9-_]*$",
 								),
 							),
 						},
@@ -522,7 +522,7 @@ import (
 	{{- end}}
 {{end}}
 
-{{/* This is so we can check for required parents before createing a resource */}}
+{{/* This is so we can check for required parents before creating a resource */}}
 {{define "resource-model-parent-vyos-path-hack-for-non-global"}}
 	{{- if  ne .NodeType "TagNode" }}
 		{{- if .Parent}}

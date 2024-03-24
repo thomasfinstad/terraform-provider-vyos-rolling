@@ -49,7 +49,7 @@ func Read(ctx context.Context, r helpers.VyosResource, req resource.ReadRequest,
 		return
 	}
 	if err != nil {
-		resp.Diagnostics.AddError("unable to retreive config", err.Error())
+		resp.Diagnostics.AddError("unable to retrieve config", err.Error())
 		return
 	}
 
@@ -61,8 +61,8 @@ func Read(ctx context.Context, r helpers.VyosResource, req resource.ReadRequest,
 
 // read populates resource model
 // model must be a ptr
-// this function is seperated out to keep the terraform provider
-// logic and API logic seperate so we can test the API logic easier
+// this function is separated out to keep the terraform provider
+// logic and API logic separate so we can test the API logic easier
 func read(ctx context.Context, c client.Client, model helpers.VyosTopResourceDataModel) error {
 	tools.Debug(ctx, "Fetching API data", map[string]interface{}{"vyos-path": model.GetVyosPath()})
 

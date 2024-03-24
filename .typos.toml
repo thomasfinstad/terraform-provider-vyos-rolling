@@ -1,0 +1,20 @@
+# Ref: https://github.com/crate-ci/typos/blob/master/docs/reference.md
+[default]
+extend-ignore-re = [
+    # Random data does not play well with a spell checker
+    'api_key[=\s]+.*',
+]
+[files]
+extend-exclude = [
+    "*autogen*",
+    "docs/*",
+    "go.mod",
+    "go.sum",
+    "data/*",
+]
+
+[type.make]
+extend-ignore-identifiers-re = [
+    # Command parameters can trigger spell check
+    "make .*",
+]

@@ -2,24 +2,18 @@
 page_title: "vyos_vrf_name_ip_protocol Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding
-  ⯯
-  Virtual Routing and Forwarding instance
-  ⯯
-  IPv4 routing parameters
-  ⯯
-  Filter routing info exchanged between routing protocol and zebra
+  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯IPv4 routing parameters⯯Filter routing info exchanged between routing protocol and zebra
 ---
 
 # vyos_vrf_name_ip_protocol (Resource)
 <center>
 
-Virtual Routing and Forwarding
-⯯
-Virtual Routing and Forwarding instance
-⯯
-IPv4 routing parameters
-⯯
+Virtual Routing and Forwarding  
+⯯  
+Virtual Routing and Forwarding instance  
+⯯  
+IPv4 routing parameters  
+⯯  
 **Filter routing info exchanged between routing protocol and zebra**
 
 
@@ -60,7 +54,7 @@ IPv4 routing parameters
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

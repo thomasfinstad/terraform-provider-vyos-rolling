@@ -2,24 +2,18 @@
 page_title: "vyos_qos_policy_priority_queue_class Resource - terraform-provider-vyos"
 subcategory: "qos"
 description: |-
-  Quality of Service (QoS)
-  ⯯
-  Service Policy definitions
-  ⯯
-  Priority queuing based policy
-  ⯯
-  Class Handle
+  Quality of Service (QoS)⯯Service Policy definitions⯯Priority queuing based policy⯯Class Handle
 ---
 
 # vyos_qos_policy_priority_queue_class (Resource)
 <center>
 
-Quality of Service (QoS)
-⯯
-Service Policy definitions
-⯯
-Priority queuing based policy
-⯯
+Quality of Service (QoS)  
+⯯  
+Service Policy definitions  
+⯯  
+Priority queuing based policy  
+⯯  
 **Class Handle**
 
 
@@ -85,7 +79,7 @@ Priority queuing based policy
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

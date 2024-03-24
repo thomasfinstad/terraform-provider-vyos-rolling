@@ -2,20 +2,16 @@
 page_title: "vyos_nat_static_rule Resource - terraform-provider-vyos"
 subcategory: "nat"
 description: |-
-  Network Address Translation (NAT) parameters
-  ⯯
-  Static NAT (one-to-one)
-  ⯯
-  Rule number for NAT
+  Network Address Translation (NAT) parameters⯯Static NAT (one-to-one)⯯Rule number for NAT
 ---
 
 # vyos_nat_static_rule (Resource)
 <center>
 
-Network Address Translation (NAT) parameters
-⯯
-Static NAT (one-to-one)
-⯯
+Network Address Translation (NAT) parameters  
+⯯  
+Static NAT (one-to-one)  
+⯯  
 **Rule number for NAT**
 
 
@@ -41,7 +37,7 @@ Static NAT (one-to-one)
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--destination&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `destination`

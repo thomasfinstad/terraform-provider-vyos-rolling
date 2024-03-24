@@ -81,8 +81,8 @@ This can be helpful when encountering a bug with the provider.`,
 				Optional: true,
 			},
 			"ignore_child_resource_on_delete": schema.BoolAttribute{
-				MarkdownDescription: ` !> **WARNING:** This is extremly destructive and will delete everything below the destroyed resource.
-Disables the check to see if the resouce has any child resources.
+				MarkdownDescription: ` !> **WARNING:** This is extremely destructive and will delete everything below the destroyed resource.
+Disables the check to see if the resource has any child resources.
 This can be useful when only a parent resource is configured via terraform.
 This has no effect on global resources.`,
 				Optional: true,

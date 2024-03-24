@@ -2,28 +2,20 @@
 page_title: "vyos_vrf_name_protocols_isis_interface Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding
-  ⯯
-  Virtual Routing and Forwarding instance
-  ⯯
-  Routing protocol parameters
-  ⯯
-  Intermediate System to Intermediate System (IS-IS)
-  ⯯
-  Interface params
+  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Intermediate System to Intermediate System (IS-IS)⯯Interface params
 ---
 
 # vyos_vrf_name_protocols_isis_interface (Resource)
 <center>
 
-Virtual Routing and Forwarding
-⯯
-Virtual Routing and Forwarding instance
-⯯
-Routing protocol parameters
-⯯
-Intermediate System to Intermediate System (IS-IS)
-⯯
+Virtual Routing and Forwarding  
+⯯  
+Virtual Routing and Forwarding instance  
+⯯  
+Routing protocol parameters  
+⯯  
+Intermediate System to Intermediate System (IS-IS)  
+⯯  
 **Interface params**
 
 
@@ -85,7 +77,7 @@ Intermediate System to Intermediate System (IS-IS)
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--bfd&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `bfd`

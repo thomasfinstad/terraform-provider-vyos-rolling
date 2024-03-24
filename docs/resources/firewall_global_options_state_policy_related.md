@@ -3,13 +3,8 @@ page_title: "vyos_firewall_global_options_state_policy_related Resource - terraf
 subcategory: "firewall"
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
-  Firewall
-  ⯯
-  Global Options
-  ⯯
-  Global firewall state-policy
-  ⯯
-  Global firewall policy for packets part of a related connection
+  Firewall  
+  ⯯Global Options⯯Global firewall state-policy⯯Global firewall policy for packets part of a related connection
 ---
 
 # vyos_firewall_global_options_state_policy_related (Resource)
@@ -17,12 +12,12 @@ description: |-
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-	Firewall
-⯯
-Global Options
-⯯
-Global firewall state-policy
-⯯
+	Firewall  
+⯯  
+Global Options  
+⯯  
+Global firewall state-policy  
+⯯  
 **Global firewall policy for packets part of a related connection**
 
 
@@ -56,7 +51,7 @@ Global firewall state-policy
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

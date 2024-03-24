@@ -3,13 +3,8 @@ page_title: "vyos_firewall_ipv6_forward_filter Resource - terraform-provider-vyo
 subcategory: "firewall"
 description: |-
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
-  Firewall
-  ⯯
-  IPv6 firewall
-  ⯯
-  IPv6 forward firewall
-  ⯯
-  IPv6 firewall forward filter
+  Firewall  
+  ⯯IPv6 firewall⯯IPv6 forward firewall⯯IPv6 firewall forward filter
 ---
 
 # vyos_firewall_ipv6_forward_filter (Resource)
@@ -17,12 +12,12 @@ description: |-
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-	Firewall
-⯯
-IPv6 firewall
-⯯
-IPv6 forward firewall
-⯯
+	Firewall  
+⯯  
+IPv6 firewall  
+⯯  
+IPv6 forward firewall  
+⯯  
 **IPv6 firewall forward filter**
 
 
@@ -48,7 +43,7 @@ IPv6 forward firewall
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

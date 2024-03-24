@@ -122,10 +122,10 @@ func TestCrudCreateSuccess(t *testing.T) {
 	}
 }
 
-// TestCrudCreateResourceAlreadyExsitsFailure test CRUD helper: Create
+// TestCrudCreateResourceAlreadyExistsFailure test CRUD helper: Create
 //
 //	Default situation where the resource already exists and we fail because of it
-func TestCrudCreateResourceAlreadyExsitsFailure(t *testing.T) {
+func TestCrudCreateResourceAlreadyExistsFailure(t *testing.T) {
 	// API mocking
 	eList := api.NewExchangeList()
 	apiKey := "test-key"
@@ -135,7 +135,7 @@ func TestCrudCreateResourceAlreadyExsitsFailure(t *testing.T) {
 	exchangeParentExistsCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"exists","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExsitsFailure"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExistsFailure"]}`,
 	).Response(
 		200,
 		`{
@@ -150,7 +150,7 @@ func TestCrudCreateResourceAlreadyExsitsFailure(t *testing.T) {
 	exchangeExistingResourceCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"exists","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExsitsFailure","rule","42"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExistsFailure","rule","42"]}`,
 	).Response(
 		200,
 		`{
@@ -162,7 +162,7 @@ func TestCrudCreateResourceAlreadyExsitsFailure(t *testing.T) {
 
 	// From resource model
 	model := &resourcemodel.FirewallIPvfourNameRule{
-		ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateResourceAlreadyExsitsFailure"),
+		ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateResourceAlreadyExistsFailure"),
 		SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
 
 		LeafFirewallIPvfourNameRuleAction:      basetypes.NewStringValue("accept"),
@@ -202,10 +202,10 @@ func TestCrudCreateResourceAlreadyExsitsFailure(t *testing.T) {
 	}
 }
 
-// TestCrudCreateResourceAlreadyExsitsIgnore test CRUD helper: Create
+// TestCrudCreateResourceAlreadyExistsIgnore test CRUD helper: Create
 //
 //	Configure provider to ignore an existing resource and overwrite it
-func TestCrudCreateResourceAlreadyExsitsIgnore(t *testing.T) {
+func TestCrudCreateResourceAlreadyExistsIgnore(t *testing.T) {
 	// API mocking
 	eList := api.NewExchangeList()
 	apiKey := "test-key"
@@ -215,7 +215,7 @@ func TestCrudCreateResourceAlreadyExsitsIgnore(t *testing.T) {
 	exchangeParentExistsCheck.Expect(
 		"/retrieve",
 		apiKey,
-		`{"op":"exists","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExsitsIgnore"]}`,
+		`{"op":"exists","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExistsIgnore"]}`,
 	).Response(
 		200,
 		`{
@@ -231,10 +231,10 @@ func TestCrudCreateResourceAlreadyExsitsIgnore(t *testing.T) {
 		"/configure",
 		apiKey,
 		`[`+
-			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExsitsIgnore","rule","42","action","accept"]},`+
-			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExsitsIgnore","rule","42","description","Allow http outgoing traffic"]},`+
-			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExsitsIgnore","rule","42","protocol","tcp"]},`+
-			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExsitsIgnore","rule","42","destination","group","port-group","Web"]}`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExistsIgnore","rule","42","action","accept"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExistsIgnore","rule","42","description","Allow http outgoing traffic"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExistsIgnore","rule","42","protocol","tcp"]},`+
+			`{"op":"set","path":["firewall","ipv4","name","TestCrudCreateResourceAlreadyExistsIgnore","rule","42","destination","group","port-group","Web"]}`+
 			`]`,
 	).Response(
 		200,
@@ -247,7 +247,7 @@ func TestCrudCreateResourceAlreadyExsitsIgnore(t *testing.T) {
 
 	// From resource model
 	model := &resourcemodel.FirewallIPvfourNameRule{
-		ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateResourceAlreadyExsitsIgnore"),
+		ParentIDFirewallIPvfourName: basetypes.NewStringValue("TestCrudCreateResourceAlreadyExistsIgnore"),
 		SelfIdentifier:              basetypes.NewNumberValue(big.NewFloat(42)),
 
 		LeafFirewallIPvfourNameRuleAction:      basetypes.NewStringValue("accept"),

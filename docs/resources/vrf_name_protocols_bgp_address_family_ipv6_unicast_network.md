@@ -2,36 +2,24 @@
 page_title: "vyos_vrf_name_protocols_bgp_address_family_ipv6_unicast_network Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding
-  ⯯
-  Virtual Routing and Forwarding instance
-  ⯯
-  Routing protocol parameters
-  ⯯
-  Border Gateway Protocol (BGP)
-  ⯯
-  BGP address-family parameters
-  ⯯
-  IPv6 BGP settings
-  ⯯
-  BGP network
+  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Border Gateway Protocol (BGP)⯯BGP address-family parameters⯯IPv6 BGP settings⯯BGP network
 ---
 
 # vyos_vrf_name_protocols_bgp_address_family_ipv6_unicast_network (Resource)
 <center>
 
-Virtual Routing and Forwarding
-⯯
-Virtual Routing and Forwarding instance
-⯯
-Routing protocol parameters
-⯯
-Border Gateway Protocol (BGP)
-⯯
-BGP address-family parameters
-⯯
-IPv6 BGP settings
-⯯
+Virtual Routing and Forwarding  
+⯯  
+Virtual Routing and Forwarding instance  
+⯯  
+Routing protocol parameters  
+⯯  
+Border Gateway Protocol (BGP)  
+⯯  
+BGP address-family parameters  
+⯯  
+IPv6 BGP settings  
+⯯  
 **BGP network**
 
 
@@ -68,7 +56,7 @@ IPv6 BGP settings
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

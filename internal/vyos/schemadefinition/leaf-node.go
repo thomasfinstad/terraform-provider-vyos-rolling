@@ -15,7 +15,7 @@ import (
 // Validate conformity
 var _ NodeBase = &LeafNode{}
 
-// AbsName returns each name in the node hirarchy starting with the root as the first element and this node as the last element
+// AbsName returns each name in the node hierarchy starting with the root as the first element and this node as the last element
 func (o *LeafNode) AbsName() []string {
 	if o.Parent == nil {
 		return []string{o.BaseName()}
@@ -24,9 +24,9 @@ func (o *LeafNode) AbsName() []string {
 	return append(o.Parent.AbsName(), o.BaseName())
 }
 
-// AbsNameR returns full name in the node hirarchy,
+// AbsNameR returns full name in the node hierarchy,
 // starting with the root as the first element and this node as the last element
-// concatinated with underscores to make it tf resource name friendly
+// concatenated with underscores to make it tf resource name friendly
 // This is intended to be used as a way to generate resource names
 func (o *LeafNode) AbsNameR() string {
 	return regexp.MustCompile(
@@ -81,7 +81,7 @@ func (o *LeafNode) BaseNameCG() string {
 
 	for _, nameComponent := range o.AbsName() {
 
-		// Convert numbers for go compability
+		// Convert numbers for go compatibility
 		nameComponent = strings.ReplaceAll(nameComponent, "0", "Zero")
 		nameComponent = strings.ReplaceAll(nameComponent, "1", "One")
 		nameComponent = strings.ReplaceAll(nameComponent, "2", "Two")
@@ -98,7 +98,7 @@ func (o *LeafNode) BaseNameCG() string {
 		// Capitalize words for improved readability
 		nameComponent = cases.Title(language.Norwegian).String(nameComponent)
 
-		// Special cases for go lint compability
+		// Special cases for go lint compatibility
 		nameComponent = regexp.MustCompile(`(?i)sla`).ReplaceAllString(nameComponent, `SLA`)
 		nameComponent = regexp.MustCompile(`(?i)tcp`).ReplaceAllString(nameComponent, `TCP`)
 		nameComponent = regexp.MustCompile(`(?i)udp`).ReplaceAllString(nameComponent, `UDP`)

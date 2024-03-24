@@ -2,16 +2,14 @@
 page_title: "vyos_firewall_zone Resource - terraform-provider-vyos"
 subcategory: "firewall"
 description: |-
-  Firewall
-  ⯯
-  Zone-policy
+  Firewall⯯Zone-policy
 ---
 
 # vyos_firewall_zone (Resource)
 <center>
 
-Firewall
-⯯
+Firewall  
+⯯  
 **Zone-policy**
 
 
@@ -53,7 +51,7 @@ Firewall
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--intra_zone_filtering&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `intra_zone_filtering`

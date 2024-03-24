@@ -2,44 +2,28 @@
 page_title: "vyos_vrf_name_protocols_ospf_area_virtual_link_authentication_md5_key_id Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding
-  ⯯
-  Virtual Routing and Forwarding instance
-  ⯯
-  Routing protocol parameters
-  ⯯
-  Open Shortest Path First (OSPF)
-  ⯯
-  OSPF area settings
-  ⯯
-  Virtual link
-  ⯯
-  Authentication
-  ⯯
-  MD5 key id
-  ⯯
-  MD5 key id
+  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Open Shortest Path First (OSPF)⯯OSPF area settings⯯Virtual link⯯Authentication⯯MD5 key id⯯MD5 key id
 ---
 
 # vyos_vrf_name_protocols_ospf_area_virtual_link_authentication_md5_key_id (Resource)
 <center>
 
-Virtual Routing and Forwarding
-⯯
-Virtual Routing and Forwarding instance
-⯯
-Routing protocol parameters
-⯯
-Open Shortest Path First (OSPF)
-⯯
-OSPF area settings
-⯯
-Virtual link
-⯯
-Authentication
-⯯
-MD5 key id
-⯯
+Virtual Routing and Forwarding  
+⯯  
+Virtual Routing and Forwarding instance  
+⯯  
+Routing protocol parameters  
+⯯  
+Open Shortest Path First (OSPF)  
+⯯  
+OSPF area settings  
+⯯  
+Virtual link  
+⯯  
+Authentication  
+⯯  
+MD5 key id  
+⯯  
 **MD5 key id**
 
 
@@ -82,7 +66,7 @@ MD5 key id
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

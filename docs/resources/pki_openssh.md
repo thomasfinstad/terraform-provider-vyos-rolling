@@ -2,16 +2,14 @@
 page_title: "vyos_pki_openssh Resource - terraform-provider-vyos"
 subcategory: "pki"
 description: |-
-  Public key infrastructure (PKI)
-  ⯯
-  OpenSSH public and private keys
+  Public key infrastructure (PKI)⯯OpenSSH public and private keys
 ---
 
 # vyos_pki_openssh (Resource)
 <center>
 
-Public key infrastructure (PKI)
-⯯
+Public key infrastructure (PKI)  
+⯯  
 **OpenSSH public and private keys**
 
 
@@ -31,7 +29,7 @@ Public key infrastructure (PKI)
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--private&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `private`

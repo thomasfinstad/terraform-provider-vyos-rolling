@@ -25,7 +25,7 @@ func NewProviderData(c client.Client) ProviderData {
 	}
 }
 
-// CtxMutilators is seperated out for testing convenience
+// CtxMutilators is separated out for testing convenience
 // only, do not use outside this package
 func CtxMutilators(apiEndpoint, apiKey string) []CtxMutilator {
 	return []CtxMutilator{

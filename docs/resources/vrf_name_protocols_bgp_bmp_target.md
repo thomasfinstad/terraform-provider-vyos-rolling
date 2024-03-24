@@ -2,32 +2,22 @@
 page_title: "vyos_vrf_name_protocols_bgp_bmp_target Resource - terraform-provider-vyos"
 subcategory: "vrf"
 description: |-
-  Virtual Routing and Forwarding
-  ⯯
-  Virtual Routing and Forwarding instance
-  ⯯
-  Routing protocol parameters
-  ⯯
-  Border Gateway Protocol (BGP)
-  ⯯
-  BGP Monitoring Protocol (BMP)
-  ⯯
-  BMP target
+  Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Border Gateway Protocol (BGP)⯯BGP Monitoring Protocol (BMP)⯯BMP target
 ---
 
 # vyos_vrf_name_protocols_bgp_bmp_target (Resource)
 <center>
 
-Virtual Routing and Forwarding
-⯯
-Virtual Routing and Forwarding instance
-⯯
-Routing protocol parameters
-⯯
-Border Gateway Protocol (BGP)
-⯯
-BGP Monitoring Protocol (BMP)
-⯯
+Virtual Routing and Forwarding  
+⯯  
+Virtual Routing and Forwarding instance  
+⯯  
+Routing protocol parameters  
+⯯  
+Border Gateway Protocol (BGP)  
+⯯  
+BGP Monitoring Protocol (BMP)  
+⯯  
 **BMP target**
 
 
@@ -73,7 +63,7 @@ BGP Monitoring Protocol (BMP)
 
 ### Read-Only
 
-- `id` (String) Resource ID, full vyos path to the resource with each field seperated by dunder (`__`).
+- `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
 
 &lt;a id=&#34;nestedatt--monitor&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `monitor`
