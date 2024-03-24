@@ -10,9 +10,11 @@ import (
 )
 
 var (
+	// TODO set correct version
+	//  milestone:1
+
 	// these will be set by the goreleaser configuration
 	// to appropriate values for the compiled binary.
-	// TODO set correct version
 	version string = "dev"
 
 	// goreleaser can pass other information to the main package, such as the specific commit
@@ -27,6 +29,7 @@ func main() {
 
 	opts := providerserver.ServeOpts{
 		// TODO: Update this string with the published name of provider.
+		//  milestone:1
 		Address: "github.com/thomasfinstad/vyos",
 		Debug:   debug,
 	}
@@ -39,6 +42,7 @@ func main() {
 }
 
 // TODO Create a CONTRIBUTION.md doc
+//  milestone:2
 //  include meta info such as
 //  - [ ] how schema is used
 //  - [ ] how the code generation works
@@ -46,6 +50,7 @@ func main() {
 //  - [ ] diagram of the makefile workflow
 
 // TODO Autogenerate CHANGELOG.md
+//  milestone:2
 //  Ref: https://developer.hashicorp.com/terraform/plugin/best-practices/versioning#changelog-specification
 //  - [ ] Investigate how to add "chglog" friendly part to commit message
 //  - [ ] Add git commit messages

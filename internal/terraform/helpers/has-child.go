@@ -22,7 +22,8 @@ func GetChild(ctx context.Context, value VyosResourceDataModel) (childField stri
 		tools.Debug(ctx, "processing field", map[string]interface{}{"Field": fName, "Type": fType, "Tags": fTags})
 
 		// Set flags based on tags, first tag must be the vyos field name, the rest are bools with default of false
-		// TODO create struct of valid options
+		// TODO create struct of valid struct field flag options
+		//  milestone:6
 		flags := map[string]any{
 			"name":      fTags[0],
 			"self-id":   false,

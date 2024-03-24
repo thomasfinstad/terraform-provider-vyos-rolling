@@ -17,6 +17,7 @@ import (
 // TODO create a client request internal function
 //  deduplicate the work being done in the public functions by
 //  having a private function to send the request and receive the response
+//  milestone:6
 
 // NewClient creates a new client object to use with VyOS CRUD functions
 func NewClient(
@@ -84,6 +85,7 @@ func (c *Client) CommitChanges(ctx context.Context) (any, error) {
 	//	2. wait 500ms to allow multiple resources to gather up changes to be commited
 	//  3. on failure remove some resources changes from the commit and try again
 	//  4. on success return so to the resources that succeeded
+	//  milestone:6
 
 	endpoint := c.endpoint + "/configure"
 	operations := []map[string]interface{}{}

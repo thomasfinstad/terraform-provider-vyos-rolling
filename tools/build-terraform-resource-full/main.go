@@ -106,11 +106,13 @@ func main() {
 	}
 
 	// TODO autogenerate resource import doc
+	//  milestone:2
 	//  making it easier for users to import resources by following the documentation
 	//  explain how the resource ID is built up by using a template
 	//  something like policy__access-list__<access-list id>__rule__<rule id>
 
 	// TODO look into marking values as sensitive
+	//  milestone:3
 	//  Is there any way to detect this from the shcema?
 	//  If not a manual overwrite feature during code generation
 	//  will be the next best thing.

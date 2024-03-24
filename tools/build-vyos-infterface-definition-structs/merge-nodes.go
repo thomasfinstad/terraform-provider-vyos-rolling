@@ -137,10 +137,12 @@ func mergeNodeParents(rootNode schemadefinition.NodeParent) {
 
 	// Merge children by moving children from dups into the original
 
-	// Duplicate Leaf
 	// TODO improve error logging during failed node merging
+	//  milestone:2
 	//  save or show output in a more visible way to indicate what was
 	//  lost due to being unable to merge
+
+	// Duplicate Leaf
 	for _, dupIndex := range duplicateSibling.leaf {
 		fmt.Printf("\t\t%sWarning%s: Can not merge leaf [%s] from: index: %d to index: %d \n", yellow, reset, siblings.LeafNode[dupIndex.original].AbsName(), dupIndex.duplicate, dupIndex.original)
 	}

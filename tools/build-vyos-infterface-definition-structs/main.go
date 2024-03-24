@@ -51,6 +51,7 @@ func main() {
 	outputFormatted := []byte(output)
 
 	// TODO improve interface definition generation
+	//  milestone:6
 	//  look into using dst instead of regex replace
 
 	// Change recursive attributes with nil as these can not be dumped as code

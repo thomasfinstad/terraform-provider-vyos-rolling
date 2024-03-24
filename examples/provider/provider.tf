@@ -1,4 +1,5 @@
 # TODO Improve provider example
+#  milestone:3
 
 terraform {
   required_providers {
@@ -9,11 +10,8 @@ terraform {
 }
 
 provider "vyos" {
-  // TODO replace dev instance endpoint with var
   endpoint = "https://192.168.2.252"
-
-  // TODO replace dev instance api key with var
-  api_key = "FoFeMcws4XpbKk4TDceQWzUdDsHptAr7FcuApxiHUV"
+  api_key  = "FoFeMcws4XpbKk4TDceQWzUdDsHptAr7FcuApxiHUV"
 
   certificate = {
     disable_verify = true

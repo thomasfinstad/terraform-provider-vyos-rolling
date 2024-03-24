@@ -302,6 +302,7 @@ func AddLineBreaks(r string) string {
 			} else {
 				if char == ',' {
 					// TODO change replacement to appending
+					//  milestone:6
 					//  this will need to be changed to a list
 					//  of indexes where we wish to act, then loop over
 					//  that list backwards after it is populated
