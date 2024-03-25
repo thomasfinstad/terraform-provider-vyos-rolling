@@ -76,8 +76,5 @@ func main() {
 //  milestone: 2
 //  If we need to create a custom import function add validation for the interface
 
-// TODO rename repo to rolling
-//  milestone: 1
-
 // TODO improve Readme and index.md
 //  milestone: 1
