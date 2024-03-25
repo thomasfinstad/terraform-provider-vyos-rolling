@@ -14,7 +14,7 @@ description: |-
 
 ```terraform
 # TODO Improve provider example
-#  milestone:3
+#  milestone: 3
 
 terraform {
   required_providers {

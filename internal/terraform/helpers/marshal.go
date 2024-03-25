@@ -39,7 +39,7 @@ func MarshalVyos(ctx context.Context, data any) (map[string]any, error) {
 
 		// Set flags based on tags, first tag must be the vyos field name, the rest are bools with default of false
 		// TODO create struct of valid struct field flag options
-		//  milestone:6
+		//  milestone: 6
 		flags := map[string]any{
 			"name":      fTags[0],
 			"self-id":   false,
@@ -120,7 +120,7 @@ func MarshalVyos(ctx context.Context, data any) (map[string]any, error) {
 			}
 		default:
 			// TODO cleanup nested ifs inside switch and flatten out to only use switch statement, this might require not using a type switch
-			//  milestone:6
+			//  milestone: 6
 			if fType.Kind() == reflect.Ptr {
 				fType = fValue.Type().Elem()
 			}

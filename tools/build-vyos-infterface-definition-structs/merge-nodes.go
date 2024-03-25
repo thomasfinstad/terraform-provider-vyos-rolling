@@ -138,7 +138,7 @@ func mergeNodeParents(rootNode schemadefinition.NodeParent) {
 	// Merge children by moving children from dups into the original
 
 	// TODO improve error logging during failed node merging
-	//  milestone:2
+	//  milestone: 2
 	//  save or show output in a more visible way to indicate what was
 	//  lost due to being unable to merge
 

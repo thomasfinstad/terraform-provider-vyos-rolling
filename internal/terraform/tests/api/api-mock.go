@@ -110,7 +110,7 @@ type Exchange struct {
 // Expect configures how the incoming request is expected to look
 func (e *Exchange) Expect(uri, key string, ops string) *Exchange {
 	// TODO evaluate usage of testify for Mock server
-	//  milestone:6
+	//  milestone: 6
 	//  Can be used to compare json.
 	//  Ref: https://pkg.go.dev/github.com/stretchr/testify/require?utm_source=godoc#JSONEq
 
@@ -280,7 +280,7 @@ func (r response) reply(w http.ResponseWriter) (ok bool) {
 }
 
 // TODO change to using test server https://pkg.go.dev/net/http/httptest#Server
-//  milestone:6
+//  milestone: 6
 
 // Server starts and maintains the http server until all exchanges are matched
 func Server(srv *http.Server, el *ExchangeList) {

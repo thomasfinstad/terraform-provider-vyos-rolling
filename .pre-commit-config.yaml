@@ -3,10 +3,14 @@ repos:
     rev: v4.4.0
     hooks:
     - id: check-yaml
+    - id: check-toml
     - id: end-of-file-fixer
     - id: trailing-whitespace
       args:
         - --markdown-linebreak-ext=md
+    - id: check-added-large-files
+    - id: check-merge-conflict
+    - id: detect-private-key
 
   - repo: https://github.com/commitizen-tools/commitizen
     rev: v2.42.1
