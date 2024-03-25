@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_vrf_name_protocols_static_route6 Resource - terraform-provider-vyos"
+page_title: "vyos_vrf_name_protocols_static_route6 Resource - vyos"
 subcategory: "vrf"
-description: |-
+description: |- 
   Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Static Routing⯯Static IPv6 route
 ---
 

@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_pki_ca Resource - terraform-provider-vyos"
+page_title: "vyos_pki_ca Resource - vyos"
 subcategory: "pki"
-description: |-
+description: |- 
   Public key infrastructure (PKI)⯯Certificate Authority
 ---
 

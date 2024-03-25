@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_vrf_name_protocols_isis_fast_reroute_lfa_remote_prefix_list Resource - terraform-provider-vyos"
+page_title: "vyos_vrf_name_protocols_isis_fast_reroute_lfa_remote_prefix_list Resource - vyos"
 subcategory: "vrf"
-description: |-
+description: |- 
   Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Intermediate System to Intermediate System (IS-IS)⯯IS-IS fast reroute configuration⯯Loop free alternate functionality⯯Remote loop free alternate options⯯Filter PQ node router ID based on prefix list
 ---
 

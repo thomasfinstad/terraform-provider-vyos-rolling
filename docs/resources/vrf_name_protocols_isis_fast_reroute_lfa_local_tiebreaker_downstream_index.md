@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_vrf_name_protocols_isis_fast_reroute_lfa_local_tiebreaker_downstream_index Resource - terraform-provider-vyos"
+page_title: "vyos_vrf_name_protocols_isis_fast_reroute_lfa_local_tiebreaker_downstream_index Resource - vyos"
 subcategory: "vrf"
-description: |-
+description: |- 
   Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Intermediate System to Intermediate System (IS-IS)⯯IS-IS fast reroute configuration⯯Loop free alternate functionality⯯Local loop free alternate options⯯Configure tiebreaker for multiple backups⯯Prefer backup path via downstream node⯯Set preference order among tiebreakers
 ---
 

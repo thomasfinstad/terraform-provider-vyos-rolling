@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_pki_openssh Resource - terraform-provider-vyos"
+page_title: "vyos_pki_openssh Resource - vyos"
 subcategory: "pki"
-description: |-
+description: |- 
   Public key infrastructure (PKI)⯯OpenSSH public and private keys
 ---
 

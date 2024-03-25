@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_container_name_port Resource - terraform-provider-vyos"
+page_title: "vyos_container_name_port Resource - vyos"
 subcategory: "container"
-description: |-
+description: |- 
   Container applications⯯Container name⯯Publish port to the container
 ---
 

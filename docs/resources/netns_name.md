@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_netns_name Resource - terraform-provider-vyos"
+page_title: "vyos_netns_name Resource - vyos"
 subcategory: "netns"
-description: |-
+description: |- 
   Network namespace⯯Network namespace name
 ---
 

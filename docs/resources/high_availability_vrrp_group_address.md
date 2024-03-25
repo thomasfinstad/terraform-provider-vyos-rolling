@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_high_availability_vrrp_group_address Resource - terraform-provider-vyos"
+page_title: "vyos_high_availability_vrrp_group_address Resource - vyos"
 subcategory: "high"
-description: |-
+description: |- 
   High availability settings⯯Virtual Router Redundancy Protocol settings⯯VRRP group⯯Virtual IP address
 ---
 

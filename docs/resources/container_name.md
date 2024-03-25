@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_container_name Resource - terraform-provider-vyos"
+page_title: "vyos_container_name Resource - vyos"
 subcategory: "container"
-description: |-
+description: |- 
   Container applications⯯Container name
 ---
 
@@ -50,7 +50,11 @@ Container applications
     |-----------|---------------------------------------|
     &emsp;|0-65535  &emsp;|Group ID this container will run as  |
 - `host_name` (String) Container host name
-- `image` (String) Image name in the hub-registry
+- `image` (String) Container image to use
+
+    &emsp;|Format  &emsp;|Description                     |
+    |----------|----------------------------------|
+    &emsp;|txt     &emsp;|Image name in the hub-registry  |
 - `memory` (Number) Memory (RAM) available to this container
 
     &emsp;|Format   &emsp;|Description                         |

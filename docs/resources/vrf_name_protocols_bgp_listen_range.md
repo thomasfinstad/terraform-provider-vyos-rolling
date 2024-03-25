@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_vrf_name_protocols_bgp_listen_range Resource - terraform-provider-vyos"
+page_title: "vyos_vrf_name_protocols_bgp_listen_range Resource - vyos"
 subcategory: "vrf"
-description: |-
+description: |- 
   Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Border Gateway Protocol (BGP)⯯Listen for and accept BGP dynamic neighbors from range⯯BGP dynamic neighbors listen range
 ---
 

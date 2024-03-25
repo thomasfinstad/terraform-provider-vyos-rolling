@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_firewall_ipv6_name Resource - terraform-provider-vyos"
+page_title: "vyos_firewall_ipv6_name Resource - vyos"
 subcategory: "firewall"
-description: |-
+description: |- 
   Firewall⯯IPv6 firewall⯯IPv6 custom firewall
 ---
 

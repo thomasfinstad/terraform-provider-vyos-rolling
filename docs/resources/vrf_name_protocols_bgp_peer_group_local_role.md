@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_vrf_name_protocols_bgp_peer_group_local_role Resource - terraform-provider-vyos"
+page_title: "vyos_vrf_name_protocols_bgp_peer_group_local_role Resource - vyos"
 subcategory: "vrf"
-description: |-
+description: |- 
   Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Border Gateway Protocol (BGP)⯯Name of peer-group⯯Local role for BGP neighbor (RFC9234)
 ---
 

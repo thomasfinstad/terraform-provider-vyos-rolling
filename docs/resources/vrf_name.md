@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_vrf_name Resource - terraform-provider-vyos"
+page_title: "vyos_vrf_name Resource - vyos"
 subcategory: "vrf"
-description: |-
+description: |- 
   Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance
 ---
 

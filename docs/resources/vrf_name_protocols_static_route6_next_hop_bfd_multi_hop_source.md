@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_vrf_name_protocols_static_route6_next_hop_bfd_multi_hop_source Resource - terraform-provider-vyos"
+page_title: "vyos_vrf_name_protocols_static_route6_next_hop_bfd_multi_hop_source Resource - vyos"
 subcategory: "vrf"
-description: |-
+description: |- 
   Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Static Routing⯯Static IPv6 route⯯IPv6 gateway address⯯BFD monitoring⯯Use BFD multi hop session⯯Use source for BFD session
 ---
 

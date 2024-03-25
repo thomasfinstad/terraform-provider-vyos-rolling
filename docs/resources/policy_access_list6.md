@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_policy_access_list6 Resource - terraform-provider-vyos"
+page_title: "vyos_policy_access_list6 Resource - vyos"
 subcategory: "policy"
-description: |-
+description: |- 
   Routing policy⯯IPv6 access-list filter
 ---
 

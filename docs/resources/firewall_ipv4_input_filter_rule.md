@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_firewall_ipv4_input_filter_rule Resource - terraform-provider-vyos"
+page_title: "vyos_firewall_ipv4_input_filter_rule Resource - vyos"
 subcategory: "firewall"
-description: |-
+description: |- 
   Firewall⯯IPv4 firewall⯯IPv4 input firewall⯯IPv4 firewall input filter⯯IPv4 Firewall input filter rule number
 ---
 

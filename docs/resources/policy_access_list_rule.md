@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_policy_access_list_rule Resource - terraform-provider-vyos"
+page_title: "vyos_policy_access_list_rule Resource - vyos"
 subcategory: "policy"
-description: |-
+description: |- 
   Routing policy⯯IP access-list filter⯯Rule for this access-list
 ---
 

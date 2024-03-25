@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_firewall_group_port_group Resource - terraform-provider-vyos"
+page_title: "vyos_firewall_group_port_group Resource - vyos"
 subcategory: "firewall"
-description: |-
+description: |- 
   Firewall⯯Firewall group⯯Firewall port-group
 ---
 

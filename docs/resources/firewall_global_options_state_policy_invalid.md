@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_firewall_global_options_state_policy_invalid Resource - terraform-provider-vyos"
+page_title: "vyos_firewall_global_options_state_policy_invalid Resource - vyos"
 subcategory: "firewall"
-description: |-
+description: |- 
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
   Firewall  
   ⯯Global Options⯯Global firewall state-policy⯯Global firewall policy for packets part of an invalid connection

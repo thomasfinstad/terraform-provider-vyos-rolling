@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_vrf_name_protocols_isis_interface Resource - terraform-provider-vyos"
+page_title: "vyos_vrf_name_protocols_isis_interface Resource - vyos"
 subcategory: "vrf"
-description: |-
+description: |- 
   Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Intermediate System to Intermediate System (IS-IS)⯯Interface params
 ---
 

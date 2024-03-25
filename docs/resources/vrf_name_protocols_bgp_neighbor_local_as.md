@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_vrf_name_protocols_bgp_neighbor_local_as Resource - terraform-provider-vyos"
+page_title: "vyos_vrf_name_protocols_bgp_neighbor_local_as Resource - vyos"
 subcategory: "vrf"
-description: |-
+description: |- 
   Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Border Gateway Protocol (BGP)⯯BGP neighbor⯯Specify alternate ASN for this BGP process
 ---
 

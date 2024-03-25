@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_firewall_ipv6_output_filter Resource - terraform-provider-vyos"
+page_title: "vyos_firewall_ipv6_output_filter Resource - vyos"
 subcategory: "firewall"
-description: |-
+description: |- 
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
   Firewall  
   ⯯IPv6 firewall⯯IPv6 output firewall⯯IPv6 firewall output filter

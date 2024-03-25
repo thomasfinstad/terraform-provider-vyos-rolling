@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_container_name_volume Resource - terraform-provider-vyos"
+page_title: "vyos_container_name_volume Resource - vyos"
 subcategory: "container"
-description: |-
+description: |- 
   Container applications⯯Container name⯯Mount a volume into the container
 ---
 

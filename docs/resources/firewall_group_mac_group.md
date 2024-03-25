@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_firewall_group_mac_group Resource - terraform-provider-vyos"
+page_title: "vyos_firewall_group_mac_group Resource - vyos"
 subcategory: "firewall"
-description: |-
+description: |- 
   Firewall⯯Firewall group⯯Firewall mac-group
 ---
 

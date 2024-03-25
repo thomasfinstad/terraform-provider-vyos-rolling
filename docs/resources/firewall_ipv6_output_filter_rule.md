@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_firewall_ipv6_output_filter_rule Resource - terraform-provider-vyos"
+page_title: "vyos_firewall_ipv6_output_filter_rule Resource - vyos"
 subcategory: "firewall"
-description: |-
+description: |- 
   Firewall⯯IPv6 firewall⯯IPv6 output firewall⯯IPv6 firewall output filter⯯IPv6 Firewall output filter rule number
 ---
 

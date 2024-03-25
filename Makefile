@@ -5,12 +5,12 @@ HOSTNAME=github.com
 NAMESPACE=thomasfinstad
 NAME=vyos
 BINARY_PREFIX=terraform-provider-
-VERSION=1.5.0
-VERSION_ROLLING=$(shell cut -d"T" -f1 data/vyos-1x-info.txt | tr '-' '.')
+VERSION=$(shell cut -d"T" -f1 data/vyos-1x-info.txt | tr '-' '.')
 OS_ARCH=linux_amd64
 BIN_DIR=dist
 
-GO_IMPORT_ROOT:=${HOSTNAME}/${NAMESPACE}/terraform-provider-vyos
+GO_IMPORT_ROOT:=${HOSTNAME}/${NAMESPACE}/terraform-provider-${NAME}
+ADDRESS := "registry.terraform.io/${NAMESPACE}/${NAME}"
 
 # TODO support rolling and LTS builds
 #  we need 1 for rolling releases and 1 for LTS 1.4 releases
@@ -220,16 +220,18 @@ test:	internal/terraform/resource/autogen \
 update-rolling:
 	make --always-make data/vyos-1x-info.txt
 
-build-rolling: test
+build: test
 	-rm -rf "${BIN_DIR}"
-	-mkdir -p "${BIN_DIR}/local/providers/${NAME}/${VERSION_ROLLING}/${OS_ARCH}/"
-	go build -o ${BIN_DIR}/local/providers/${NAME}/${VERSION_ROLLING}/${OS_ARCH}/${BINARY_PREFIX}${NAME} $(RUN_ARGS)
+	-mkdir -p "${BIN_DIR}/local/providers/${NAME}/${VERSION}/${OS_ARCH}/"
+	go build \
+		-ldflags "-X main.version=$(VERSION) -X main.address=${ADDRESS}" \
+		-o "${BIN_DIR}/local/providers/${NAME}/${VERSION}/${OS_ARCH}/${BINARY_PREFIX}${NAME}"
 
 	# Caching timestamp
-	@date > build-rolling
+	@date > build
 
 docs/index.md: \
-				build-rolling \
+				build \
 				internal/terraform/resource/autogen \
 				$(shell find templates/ -type f)
 
@@ -237,22 +239,15 @@ docs/index.md: \
 	rm -rf "docs/"
 
 	# Create docs
-	tfplugindocs generate
+	tfplugindocs generate --provider-name vyos
 
-# .PHONY: build
-# build: test
-# 	-rm -rf ${BIN_DIR}
-# 	-mkdir -p "${BIN_DIR}/local/providers/${NAME}/${VERSION}/${OS_ARCH}/"
-# 	go build -o ${BIN_DIR}/local/providers/${NAME}/${VERSION}/${OS_ARCH}/${BINARY_PREFIX}${NAME}
-
-
-data/provider-schema/$(VERSION_ROLLING).json: build-rolling
+data/provider-schema/$(VERSION).json: build
 	mkdir -p data/provider-schema
 	cd examples/provider && make init
-	terraform -chdir=examples/provider providers schema -json | jq '.' > data/provider-schema/${VERSION_ROLLING}.json
+	terraform -chdir=examples/provider providers schema -json | jq '.' > data/provider-schema/${VERSION}.json
 
-	# if diff data/provider-schema/$(shell ls data/provider-schema | sort -V | tail -n1) data/provider-schema/${VERSION_ROLLING}.json; then \
-	# 	rm -v data/provider-schema/${VERSION_ROLLING}.json; \
+	# if diff data/provider-schema/$(shell ls data/provider-schema | sort -V | tail -n1) data/provider-schema/${VERSION}.json; then \
+	# 	rm -v data/provider-schema/${VERSION}.json; \
 	# fi
 
 #CHANGELOG.md:
@@ -263,15 +258,15 @@ clean:
 	-rm -rf dist
 	-rm -rf .build
 	-rm test
-	-rm build-rolling
+	-rm build
 
-.PHONY: all
-all: docs/index.md build-rolling data/provider-schema/$(VERSION_ROLLING).json
+.PHONY: full
+full: build docs/index.md data/provider-schema/$(VERSION).json
 	-pre-commit run --all-files
 
 .PHONY: why
 why:
-	@make -and all \
+	@make -and full \
 		| sed -rn 's/^ *([A-Za-z ]*Must remake target.*| Prerequisite.*is newer than.*)/\1/p' \
 			| tac
 

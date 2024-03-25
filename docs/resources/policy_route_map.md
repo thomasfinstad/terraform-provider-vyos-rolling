@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_policy_route_map Resource - terraform-provider-vyos"
+page_title: "vyos_policy_route_map Resource - vyos"
 subcategory: "policy"
-description: |-
+description: |- 
   Routing policy⯯IP route-map
 ---
 

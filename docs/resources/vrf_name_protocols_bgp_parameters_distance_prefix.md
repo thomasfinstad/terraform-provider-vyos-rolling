@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_vrf_name_protocols_bgp_parameters_distance_prefix Resource - terraform-provider-vyos"
+page_title: "vyos_vrf_name_protocols_bgp_parameters_distance_prefix Resource - vyos"
 subcategory: "vrf"
-description: |-
+description: |- 
   Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Border Gateway Protocol (BGP)⯯BGP parameters⯯Administratives distances for BGP routes⯯Administrative distance for a specific BGP prefix
 ---
 

@@ -5,7 +5,7 @@
 .build/
 dist/
 test
-build-rolling
+build
 
 # Terraform files
 .terraform.lock.hcl

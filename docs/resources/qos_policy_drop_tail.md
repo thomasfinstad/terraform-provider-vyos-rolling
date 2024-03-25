@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_qos_policy_drop_tail Resource - terraform-provider-vyos"
+page_title: "vyos_qos_policy_drop_tail Resource - vyos"
 subcategory: "qos"
-description: |-
+description: |- 
   Quality of Service (QoS)⯯Service Policy definitions⯯Packet limited First In, First Out queue
 ---
 

@@ -1,3 +1,9 @@
+exclude: |
+  (?x)^(
+      docs/.*\.md|
+      data/provider-schema/.*\.json|
+      .*/autogen.*
+  )$
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0

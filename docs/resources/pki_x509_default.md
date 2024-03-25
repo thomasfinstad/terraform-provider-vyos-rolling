@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_pki_x509_default Resource - terraform-provider-vyos"
+page_title: "vyos_pki_x509_default Resource - vyos"
 subcategory: "pki"
-description: |-
+description: |- 
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
   Public key infrastructure (PKI)  
   ⯯X509 Settings⯯X509 Default Values

@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_vrf_name_protocols_bgp_address_family_ipv6_multicast_aggregate_address Resource - terraform-provider-vyos"
+page_title: "vyos_vrf_name_protocols_bgp_address_family_ipv6_multicast_aggregate_address Resource - vyos"
 subcategory: "vrf"
-description: |-
+description: |- 
   Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Border Gateway Protocol (BGP)⯯BGP address-family parameters⯯Multicast IPv6 BGP settings⯯BGP aggregate network/prefix
 ---
 

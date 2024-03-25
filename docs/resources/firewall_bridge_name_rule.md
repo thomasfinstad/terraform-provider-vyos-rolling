@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_firewall_bridge_name_rule Resource - terraform-provider-vyos"
+page_title: "vyos_firewall_bridge_name_rule Resource - vyos"
 subcategory: "firewall"
-description: |-
+description: |- 
   Firewall⯯Bridge firewall⯯Bridge custom firewall⯯Bridge Firewall forward filter rule number
 ---
 

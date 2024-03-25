@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_vrf_name_protocols_ospfv3_area Resource - terraform-provider-vyos"
+page_title: "vyos_vrf_name_protocols_ospfv3_area Resource - vyos"
 subcategory: "vrf"
-description: |-
+description: |- 
   Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Open Shortest Path First (OSPF) for IPv6⯯OSPFv3 Area
 ---
 

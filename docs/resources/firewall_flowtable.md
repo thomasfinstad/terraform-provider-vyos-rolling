@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_firewall_flowtable Resource - terraform-provider-vyos"
+page_title: "vyos_firewall_flowtable Resource - vyos"
 subcategory: "firewall"
-description: |-
+description: |- 
   Firewall⯯Flowtable
 ---
 

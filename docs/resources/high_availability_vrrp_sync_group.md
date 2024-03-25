@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_high_availability_vrrp_sync_group Resource - terraform-provider-vyos"
+page_title: "vyos_high_availability_vrrp_sync_group Resource - vyos"
 subcategory: "high"
-description: |-
+description: |- 
   High availability settings⯯Virtual Router Redundancy Protocol settings⯯VRRP sync group
 ---
 

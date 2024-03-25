@@ -133,7 +133,7 @@
               },
               "image": {
                 "type": "string",
-                "description": "Image name in the hub-registry\n\n",
+                "description": "Container image to use\n\n    |  Format  |  Description                     |\n    |----------|----------------------------------|\n    |  txt     |  Image name in the hub-registry  |\n",
                 "description_kind": "markdown",
                 "optional": true
               },

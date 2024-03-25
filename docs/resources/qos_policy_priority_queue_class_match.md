@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_qos_policy_priority_queue_class_match Resource - terraform-provider-vyos"
+page_title: "vyos_qos_policy_priority_queue_class_match Resource - vyos"
 subcategory: "qos"
-description: |-
+description: |- 
   Quality of Service (QoS)⯯Service Policy definitions⯯Priority queuing based policy⯯Class Handle⯯Class matching rule name
 ---
 

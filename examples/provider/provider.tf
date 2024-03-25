@@ -17,7 +17,7 @@ provider "vyos" {
     disable_verify = true
   }
 
-  #overwrite_existing_resources_on_create = true
+  default_timeouts = 2
 }
 
 /* resource "vyos_firewall_group_port_group" "example" {

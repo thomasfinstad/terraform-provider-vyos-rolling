@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_nat_destination_rule_load_balance_backend Resource - terraform-provider-vyos"
+page_title: "vyos_nat_destination_rule_load_balance_backend Resource - vyos"
 subcategory: "nat"
-description: |-
+description: |- 
   Network Address Translation (NAT) parameters⯯Destination NAT settings⯯Rule number for NAT⯯Apply NAT load balance⯯Translated IP address
 ---
 

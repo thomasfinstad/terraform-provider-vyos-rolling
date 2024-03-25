@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_vrf_name_protocols_isis_segment_routing_prefix Resource - terraform-provider-vyos"
+page_title: "vyos_vrf_name_protocols_isis_segment_routing_prefix Resource - vyos"
 subcategory: "vrf"
-description: |-
+description: |- 
   Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Intermediate System to Intermediate System (IS-IS)⯯Segment-Routing (SPRING) settings⯯Static IPv4/IPv6 prefix segment/label mapping
 ---
 

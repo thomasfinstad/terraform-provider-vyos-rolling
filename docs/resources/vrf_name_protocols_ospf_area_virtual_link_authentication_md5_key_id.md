@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_vrf_name_protocols_ospf_area_virtual_link_authentication_md5_key_id Resource - terraform-provider-vyos"
+page_title: "vyos_vrf_name_protocols_ospf_area_virtual_link_authentication_md5_key_id Resource - vyos"
 subcategory: "vrf"
-description: |-
+description: |- 
   Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Open Shortest Path First (OSPF)⯯OSPF area settings⯯Virtual link⯯Authentication⯯MD5 key id⯯MD5 key id
 ---
 

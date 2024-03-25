@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_high_availability_virtual_server_real_server Resource - terraform-provider-vyos"
+page_title: "vyos_high_availability_virtual_server_real_server Resource - vyos"
 subcategory: "high"
-description: |-
+description: |- 
   High availability settings⯯Load-balancing virtual server alias⯯Real server address
 ---
 

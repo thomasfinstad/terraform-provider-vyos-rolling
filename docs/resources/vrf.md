@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_vrf Resource - terraform-provider-vyos"
+page_title: "vyos_vrf Resource - vyos"
 subcategory: "vrf"
-description: |-
+description: |- 
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
   **Virtual Routing and Forwarding**
 ---

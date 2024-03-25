@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_pki_dh Resource - terraform-provider-vyos"
+page_title: "vyos_pki_dh Resource - vyos"
 subcategory: "pki"
-description: |-
+description: |- 
   Public key infrastructure (PKI)⯯Diffie-Hellman parameters
 ---
 

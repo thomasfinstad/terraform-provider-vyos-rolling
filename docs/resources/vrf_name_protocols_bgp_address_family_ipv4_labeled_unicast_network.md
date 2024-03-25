@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_vrf_name_protocols_bgp_address_family_ipv4_labeled_unicast_network Resource - terraform-provider-vyos"
+page_title: "vyos_vrf_name_protocols_bgp_address_family_ipv4_labeled_unicast_network Resource - vyos"
 subcategory: "vrf"
-description: |-
+description: |- 
   Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Border Gateway Protocol (BGP)⯯BGP address-family parameters⯯Labeled Unicast IPv4 BGP settings⯯Import BGP network/prefix into labeled unicast IPv4 RIB
 ---
 

@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_firewall_ipv6_forward_filter_rule Resource - terraform-provider-vyos"
+page_title: "vyos_firewall_ipv6_forward_filter_rule Resource - vyos"
 subcategory: "firewall"
-description: |-
+description: |- 
   Firewall⯯IPv6 firewall⯯IPv6 forward firewall⯯IPv6 firewall forward filter⯯IPv6 Firewall forward filter rule number
 ---
 

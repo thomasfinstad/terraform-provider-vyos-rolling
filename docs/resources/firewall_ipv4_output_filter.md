@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_firewall_ipv4_output_filter Resource - terraform-provider-vyos"
+page_title: "vyos_firewall_ipv4_output_filter Resource - vyos"
 subcategory: "firewall"
-description: |-
+description: |- 
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
   Firewall  
   ⯯IPv4 firewall⯯IPv4 output firewall⯯IPv4 firewall output filter

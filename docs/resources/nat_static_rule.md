@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_nat_static_rule Resource - terraform-provider-vyos"
+page_title: "vyos_nat_static_rule Resource - vyos"
 subcategory: "nat"
-description: |-
+description: |- 
   Network Address Translation (NAT) parameters⯯Static NAT (one-to-one)⯯Rule number for NAT
 ---
 

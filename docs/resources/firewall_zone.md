@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_firewall_zone Resource - terraform-provider-vyos"
+page_title: "vyos_firewall_zone Resource - vyos"
 subcategory: "firewall"
-description: |-
+description: |- 
   Firewall⯯Zone-policy
 ---
 

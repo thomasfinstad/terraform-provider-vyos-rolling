@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_high_availability_vrrp_global_parameters_garp Resource - terraform-provider-vyos"
+page_title: "vyos_high_availability_vrrp_global_parameters_garp Resource - vyos"
 subcategory: "high"
-description: |-
+description: |- 
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
   High availability settings  
   ⯯Virtual Router Redundancy Protocol settings⯯VRRP global parameters⯯Gratuitous ARP parameters

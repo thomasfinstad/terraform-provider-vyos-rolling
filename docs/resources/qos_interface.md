@@ -1,7 +1,7 @@
 ---
-page_title: "vyos_qos_interface Resource - terraform-provider-vyos"
+page_title: "vyos_qos_interface Resource - vyos"
 subcategory: "qos"
-description: |-
+description: |- 
   Quality of Service (QoS)⯯Interface to apply QoS policy
 ---
 
