@@ -8,7 +8,6 @@ BINARY_PREFIX=terraform-provider-
 VERSION=$(shell cut -d"T" -f1 data/vyos-1x-info.txt | tr '-' '.')
 OS_ARCH=linux_amd64
 BIN_DIR=dist
-
 GO_IMPORT_ROOT:=${HOSTNAME}/${NAMESPACE}/terraform-provider-${NAME}
 ADDRESS := "registry.terraform.io/${NAMESPACE}/${NAME}"
 

@@ -10,10 +10,8 @@ import (
 )
 
 var (
-	// TODO set correct version
-	//  milestone: 1
-
-	// These are intended to be set in the build command
+	// These are intended to be set in the build command,
+	// if they are not they will use the defaults below.
 	version string
 	address string
 )
@@ -29,7 +27,7 @@ func main() {
 	}
 
 	if address == "" {
-		address = " hostname/namespace/type"
+		address = "hostname/namespace/type"
 	}
 
 	opts := providerserver.ServeOpts{
