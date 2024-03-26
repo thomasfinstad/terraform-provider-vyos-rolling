@@ -5,7 +5,7 @@ import (
 	"regexp"
 
 	"github.com/hashicorp/terraform-plugin-log/tflog"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/client"
 )
 
 // CtxMutilator changes the context object and returns the new value

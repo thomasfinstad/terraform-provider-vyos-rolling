@@ -8,7 +8,7 @@ BINARY_PREFIX=terraform-provider-
 VERSION=$(shell cut -d"T" -f1 data/vyos-1x-info.txt | tr '-' '.')
 OS_ARCH=linux_amd64
 BIN_DIR=dist
-GO_IMPORT_ROOT:=${HOSTNAME}/${NAMESPACE}/terraform-provider-${NAME}
+GO_IMPORT_ROOT:=${HOSTNAME}/${NAMESPACE}/terraform-provider-${NAME}-rolling
 ADDRESS := "registry.terraform.io/${NAMESPACE}/${NAME}"
 
 # TODO support rolling and LTS builds
@@ -36,6 +36,8 @@ help:
 #  ref: https://github.com/vyos/vyos-rolling-nightly-builds/releases
 #  milestone: 4
 data/vyos-1x-info.txt:
+	# data/vyos-1x-info.txt
+
 	-mkdir -p data
 	-mkdir -p .build
 
@@ -56,6 +58,8 @@ data/vyos-1x-info.txt:
 ###
 # VyOS src repo at correct commit
 .build/vyos-1x: data/vyos-1x-info.txt
+	# .build/vyos-1x
+
 	-mkdir -p .build
 
 	# Clone repo if needed
@@ -66,10 +70,12 @@ data/vyos-1x-info.txt:
 
 	# Cache the commit sha
 	cd .build/vyos-1x && \
-	git rev-list --date=iso-strict -n 1 --before="$$(cat "../data/vyos-1x-info.txt")" "origin/current" > ../vyos-1x.sha
+	git rev-list --date=iso-strict -n 1 --before="$$(cat "../../data/vyos-1x-info.txt")" "origin/current" > ../vyos-1x.sha
 
 	# Checkout the commit
 	cd .build/vyos-1x && \
+	git checkout master && \
+	git pull && \
 	git checkout "$$(cat ../vyos-1x.sha)"
 
 ###
@@ -121,13 +127,16 @@ internal/vyos/schemadefinition/autogen-structs.go: data/vyos-1x-info.txt interna
 	# the files in the directory, which would cause make to
 	# see vyos-1x as newer than the interface-definitions
 	# causing interface-definitions to always rebuild
-	cp -rl .build/vyos-1x .build/vyos-1x-tmp
+	cp -a .build/vyos-1x .build/vyos-1x-tmp
 
-	docker run --rm -v .:/repo -w /repo vyos/vyos-build:current bash -c "cd .build/vyos-1x-tmp && make interface_definitions"
+	# Build interface definitions using the vyos build container.
+	docker run --rm -v .:/repo -w /repo docker.io/vyos/vyos-build:current bash -c "cd .build/vyos-1x-tmp && make interface_definitions"
 
+	# Clean up the tmp directory
 	mv .build/vyos-1x-tmp/build/interface-definitions .build/interface-definitions
 	rm -rf .build/vyos-1x-tmp
 
+	# Pretty format the XML files incase a human needs to inspect them
 	find .build/interface-definitions/ -type f -name "*.xml" -execdir xmllint --format --recover --output '{}' '{}' \;
 
 .build/vyosinterfaces/auto-package.go: data/vyos-1x-info.txt internal/vyos/schemadefinition/autogen-structs.go tools/build-vyos-infterface-definition-structs |.build/interface-definitions

@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/hashicorp/terraform-plugin-framework/diag"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
 // ResourceNotFoundError indicates the client could not find the requested config

@@ -1,4 +1,4 @@
-module github.com/thomasfinstad/terraform-provider-vyos
+module github.com/thomasfinstad/terraform-provider-vyos-rolling
 
 go 1.22
 

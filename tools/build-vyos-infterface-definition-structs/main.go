@@ -13,7 +13,7 @@ import (
 	"github.com/dave/dst/decorator"
 	"github.com/dave/dst/dstutil"
 	"github.com/gdexlab/go-render/render"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/vyos/schemadefinition"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/vyos/schemadefinition"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 )
@@ -85,7 +85,7 @@ func main() {
 			import (
 				"encoding/xml"
 
-				"github.com/thomasfinstad/terraform-provider-vyos/internal/vyos/schemadefinition"
+				"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/vyos/schemadefinition"
 			)
 
 			func %s() schemadefinition.InterfaceDefinition {

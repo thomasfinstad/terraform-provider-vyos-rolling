@@ -6,7 +6,7 @@ import (
 	"slices"
 	"strconv"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/tools"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers/tools"
 	"golang.org/x/exp/maps"
 )
 

@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/hashicorp/terraform-plugin-framework/diag"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
 // ResourceError indicates the client could not find the requested config

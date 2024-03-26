@@ -7,12 +7,12 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/provider/data"
 
 	// Extra Imports
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/global/firewall/global-options-state-policy-invalid/resourcemodel"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/global-options-state-policy-invalid/resourcemodel"
 )
 
 // NewFirewallGlobalOptionsStatePolicyInvalID method to return the example resource reference

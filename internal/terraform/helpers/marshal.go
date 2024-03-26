@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/tools"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers/tools"
 )
 
 // MarshalVyos takes a Terraform resource model pointer and returns a vyos config representation

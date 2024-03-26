@@ -50,11 +50,7 @@ Container applications
     |-----------|---------------------------------------|
     &emsp;|0-65535  &emsp;|Group ID this container will run as  |
 - `host_name` (String) Container host name
-- `image` (String) Container image to use
-
-    &emsp;|Format  &emsp;|Description                     |
-    |----------|----------------------------------|
-    &emsp;|txt     &emsp;|Image name in the hub-registry  |
+- `image` (String) Image name in the hub-registry
 - `memory` (Number) Memory (RAM) available to this container
 
     &emsp;|Format   &emsp;|Description                         |

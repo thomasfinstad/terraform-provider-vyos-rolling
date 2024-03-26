@@ -11,7 +11,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/tools"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers/tools"
 )
 
 // UnmarshalVyos takes unmarshalled json data and a Terraform resource model pointer and populates it with the data

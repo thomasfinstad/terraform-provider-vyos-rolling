@@ -7,7 +7,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/tools"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers/tools"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 )

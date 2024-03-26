@@ -16,7 +16,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
 // Validate compliance
@@ -235,17 +235,11 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		"image": schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `Container image to use
+			MarkdownDescription: `Image name in the hub-registry
 
-    |  Format  |  Description                     |
-    |----------|----------------------------------|
-    |  txt     |  Image name in the hub-registry  |
 `,
-			Description: `Container image to use
+			Description: `Image name in the hub-registry
 
-    |  Format  |  Description                     |
-    |----------|----------------------------------|
-    |  txt     |  Image name in the hub-registry  |
 `,
 		},
 

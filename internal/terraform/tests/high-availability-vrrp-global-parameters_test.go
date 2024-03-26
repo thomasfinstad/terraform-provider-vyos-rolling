@@ -13,8 +13,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/hashicorp/terraform-plugin-log/tflogtest"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/global/high-availability/vrrp-global-parameters/resourcemodel"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/high-availability/vrrp-global-parameters/resourcemodel"
 )
 
 // TestHighAvailabilityVrrpGlobalParametersMarshalVyos test global resource marshaling

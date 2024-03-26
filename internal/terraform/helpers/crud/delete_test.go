@@ -11,12 +11,12 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/hashicorp/terraform-plugin-log/tflogtest"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
-	cruderrors "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/crud/cruderror"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
-	ipv4FwFilterResModel "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/global/firewall/ipv4-forward-filter/resourcemodel"
-	ipv4ResModel "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/ipv4-name/resourcemodel"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/tests/api"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/client"
+	cruderrors "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers/crud/cruderror"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/provider/data"
+	ipv4FwFilterResModel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/ipv4-forward-filter/resourcemodel"
+	ipv4ResModel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/ipv4-name/resourcemodel"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/tests/api"
 )
 
 // TestCrudDeleteSuccess test CRUD helper: Delete

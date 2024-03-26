@@ -10,8 +10,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/client/clienterrors"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/tools"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/client/clienterrors"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers/tools"
 )
 
 // TODO create a client request internal function

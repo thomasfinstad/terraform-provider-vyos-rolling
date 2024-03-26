@@ -6,7 +6,7 @@ import (
 	"log"
 
 	"github.com/hashicorp/terraform-plugin-framework/providerserver"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/provider"
 )
 
 var (
@@ -49,14 +49,6 @@ func main() {
 //  - [ ] why so many extra files are committed to the repo
 //  - [ ] diagram of the makefile workflow
 
-// TODO Autogenerate CHANGELOG.md
-//  milestone: 2
-//  Ref: https://developer.hashicorp.com/terraform/plugin/best-practices/versioning#versioning-specification
-//  Ref: https://developer.hashicorp.com/terraform/plugin/best-practices/versioning#changelog-specification
-//  - [ ] Investigate how to add "chglog" friendly part to commit message
-//  - [ ] Add git commit messages
-//  - [ ] Autogenerate resource changes from provider-schema files
-
 // TODO Investigate official code gen method
 //  Ref: https://developer.hashicorp.com/terraform/plugin/code-generation/design
 //  milestone: 6
@@ -75,6 +67,3 @@ func main() {
 // TODO implement import state interface in resource generation template
 //  milestone: 2
 //  If we need to create a custom import function add validation for the interface
-
-// TODO improve Readme and index.md
-//  milestone: 1

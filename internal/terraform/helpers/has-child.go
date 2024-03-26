@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/tools"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers/tools"
 )
 
 // GetChild takes a resource model and checks if it has children configured

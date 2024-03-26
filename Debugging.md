@@ -42,10 +42,10 @@ main.main()
 goroutine 1273 [sleep]:
 time.Sleep(0x1efe9200)
         /usr/local/go/src/runtime/time.go:195 +0x115
-github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/crud.delete({_, _}, {{{{0xa35340, 0xc000178140}, 0x0, {0x0, 0x0}, 0x0}, {0x959297, 0xa}, ...}, ...}, ...)
-        /workspaces/terraform-provider-vyos/internal/terraform/helpers/crud/delete.go:137 +0x665
-github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/crud.TestCrudDeleteRetrySuccess(0xc00046a000)
-        /workspaces/terraform-provider-vyos/internal/terraform/helpers/crud/delete_test.go:492 +0x79a
+github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers/crud.delete({_, _}, {{{{0xa35340, 0xc000178140}, 0x0, {0x0, 0x0}, 0x0}, {0x959297, 0xa}, ...}, ...}, ...)
+        /workspaces/terraform-provider-vyos-rolling/internal/terraform/helpers/crud/delete.go:137 +0x665
+github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers/crud.TestCrudDeleteRetrySuccess(0xc00046a000)
+        /workspaces/terraform-provider-vyos-rolling/internal/terraform/helpers/crud/delete_test.go:492 +0x79a
 testing.tRunner(0xc00046a000, 0x99ec98)
         /usr/local/go/src/testing/testing.go:1689 +0xfb
 created by testing.(*T).Run in goroutine 1
@@ -379,7 +379,7 @@ package main
 import (
         "testing"
 
-        "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/crud"
+        "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers/crud"
 )
 
 func main() {

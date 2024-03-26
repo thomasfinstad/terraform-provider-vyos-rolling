@@ -4,7 +4,7 @@ package namedfirewallflowtable
 import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.

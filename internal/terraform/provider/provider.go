@@ -10,10 +10,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/tools"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers/tools"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/provider/data"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen"
 )
 
 // Ensure ScaffoldingProvider satisfies various provider interfaces.
@@ -47,6 +47,16 @@ func (p *VyosProvider) Metadata(ctx context.Context, req provider.MetadataReques
 // Schema method to define the schema for provider-level configuration.
 func (p *VyosProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
+
+		// TODO Support dynamic changes in description to match rolling vs lts targets
+		//  Change the notice and documentation link.
+		//  milestone: 5
+		MarkdownDescription: "" +
+			"!> This is for the rolling release of VyOS, it will automatically update when the API schemas change\n\n" +
+			"-> This provider's version number will follow `<MAJOR>.<MINOR>.<VYOS ROLLING RELEASE DATE>`, so Version 1.3 of this provider, built with the API schemas for VyOS rolling release built on 27th of November 1970 would be have the version number `1.3.19701127`.\n\n" +
+			"Use Terraform to configure your VyOS instances via API calls.\n\n" +
+			"## Requirements\n" +
+			"To use this provider you must enable the HTTP(S) API on the target instances. See [VyOS documentation](https://docs.vyos.io/en/latest/configuration/service/https.html) for more information.\n\n",
 		Attributes: map[string]schema.Attribute{
 			"endpoint": schema.StringAttribute{
 				MarkdownDescription: "VyOS API Endpoint",

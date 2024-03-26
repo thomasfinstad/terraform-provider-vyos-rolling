@@ -10,8 +10,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/hashicorp/terraform-plugin-log/tflogtest"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/zone/resourcemodel"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/zone/resourcemodel"
 )
 
 // TestFirewallZoneMarshalVyos does some simple marshalling tests to prevent a bug with tags handling from reappearing

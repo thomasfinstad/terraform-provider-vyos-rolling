@@ -9,10 +9,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/tools"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers/tools"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/provider/data"
 )
 
 // Create method to define the logic which creates the resource and sets its initial Terraform state.

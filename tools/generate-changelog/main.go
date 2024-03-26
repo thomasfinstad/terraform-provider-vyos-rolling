@@ -12,6 +12,15 @@ import (
 	"github.com/qri-io/deepdiff"
 )
 
+// TODO Autogenerate CHANGELOG.md
+//  milestone: 2
+//  Ref: https://developer.hashicorp.com/terraform/plugin/best-practices/versioning#versioning-specification
+//  Ref: https://developer.hashicorp.com/terraform/plugin/best-practices/versioning#changelog-specification
+//  - [ ] Investigate how to add "chglog" friendly part to commit message
+//  - [ ] Add git commit messages to log.
+//  - [ ] Autogenerate resource changes from provider-schema files
+//  - [ ] Include resource changes in calculation for release version bumping
+
 func main() {
 	var err error
 	//args := os.Args[1:]

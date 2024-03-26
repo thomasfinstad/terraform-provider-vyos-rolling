@@ -9,8 +9,8 @@ import (
 	"strings"
 	"text/template"
 
-	vyosinterfaces "github.com/thomasfinstad/terraform-provider-vyos/.build/vyosinterfaces"
-	schemadefinition "github.com/thomasfinstad/terraform-provider-vyos/internal/vyos/schemadefinition"
+	vyosinterfaces "github.com/thomasfinstad/terraform-provider-vyos-rolling/.build/vyosinterfaces"
+	schemadefinition "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/vyos/schemadefinition"
 )
 
 type autogenTemplateInfo struct {

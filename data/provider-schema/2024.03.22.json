@@ -58,7 +58,8 @@
               "optional": true
             }
           },
-          "description_kind": "plain"
+          "description": "!> This is for the rolling release of VyOS, it will automatically update when the API schemas change\n\n-> This provider's version number will follow `<MAJOR>.<MINOR>.<VYOS ROLLING RELEASE DATE>`, so Version 1.3 of this provider, built with the API schemas for VyOS rolling release built on 27th of November 1970 would be have the version number `1.3.19701127`.\n\nUse Terraform to configure your VyOS instances via API calls.\n\n## Requirements\nTo use this provider you must enable the HTTP(S) API on the target instances. See [VyOS documentation](https://docs.vyos.io/en/latest/configuration/service/https.html) for more information.\n\n",
+          "description_kind": "markdown"
         }
       },
       "resource_schemas": {
@@ -133,7 +134,7 @@
               },
               "image": {
                 "type": "string",
-                "description": "Container image to use\n\n    |  Format  |  Description                     |\n    |----------|----------------------------------|\n    |  txt     |  Image name in the hub-registry  |\n",
+                "description": "Image name in the hub-registry\n\n",
                 "description_kind": "markdown",
                 "optional": true
               },

@@ -10,10 +10,10 @@ import (
 	"github.com/go-test/deep"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/hashicorp/terraform-plugin-log/tflogtest"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
-	fw4res "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/firewall/ipv4-name/resourcemodel"
-	polalres "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named/policy/access-list/resourcemodel"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/tests/api"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/client"
+	fw4res "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/ipv4-name/resourcemodel"
+	polalres "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/policy/access-list/resourcemodel"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/tests/api"
 )
 
 // TestCrudReadSuccess test CRUD helper: Read

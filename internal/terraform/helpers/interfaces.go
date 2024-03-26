@@ -5,8 +5,8 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/provider/data"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/provider/data"
 )
 
 // VyosResource is used to support CRUD operations for terraform resources via helpers

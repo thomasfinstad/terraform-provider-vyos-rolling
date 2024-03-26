@@ -3,7 +3,7 @@ package data
 import (
 	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/client"
 )
 
 /*

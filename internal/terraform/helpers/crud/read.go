@@ -8,11 +8,11 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/client/clienterrors"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
-	cruderrors "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/crud/cruderror"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers/tools"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/client/clienterrors"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers"
+	cruderrors "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers/crud/cruderror"
+	"github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/helpers/tools"
 )
 
 // Read method to define the logic which refreshes the Terraform state for the resource.
