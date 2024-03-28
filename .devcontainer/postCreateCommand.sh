@@ -30,18 +30,19 @@ go install golang.org/x/tools/cmd/goimports@v0.19.0
 go install github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs@v0.18.0
 
 # Local terraform provider
+# Ref: https://developer.hashicorp.com/terraform/cli/config/config-file#provider-installation
 cat > "$HOME/.terraformrc" <<EOL
+# Ref: https://servian.dev/terraform-local-providers-and-registry-mirror-configuration-b963117dfffa
 provider_installation {
   filesystem_mirror {
-    path    = "${PWD}/dist/"
-    include = ["local/providers/*"]
+    path = "${PWD}/dist"
+    include = ["providers.localhost/dev/*"]
   }
-
   direct {
-    exclude = ["local/providers/*"]
+    exclude = ["providers.localhost/dev/*"]
   }
 }
 EOL
 
-# Default Terraform version
+# Default Terraform version, before the infamous license change
 tfenv use "1.5.7"

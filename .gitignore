@@ -6,12 +6,14 @@
 dist/
 test
 build
+generate
 
 # Terraform files
 .terraform.lock.hcl
 plan
 init
 apply
+secrets.tfvars
 
 # Misc
 tmp/

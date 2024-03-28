@@ -3,7 +3,7 @@ module github.com/thomasfinstad/terraform-provider-vyos-rolling
 go 1.22
 
 require (
-	github.com/dave/dst v0.27.2
+	github.com/dave/dst v0.27.3
 	github.com/gdexlab/go-render v1.0.1
 	github.com/go-test/deep v1.1.0
 	github.com/google/go-cmp v0.5.9
