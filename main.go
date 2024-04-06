@@ -67,3 +67,15 @@ func main() {
 // TODO implement import state interface in resource generation template
 //  milestone: 2
 //  If we need to create a custom import function add validation for the interface
+
+// TODO Fix documentation formatting
+//  milestone: 3
+//  Known problems:
+//  - [ ] [warning in resources makes first following element into codeblock](https://registry.terraform.io/providers/thomasfinstad/vyos-rolling/latest/docs/resources/firewall_global_options_state_policy_invalid)
+//  - [ ] [value format help tables have extra column which makes it align well, but looks bad](https://registry.terraform.io/providers/thomasfinstad/vyos-rolling/latest/docs/resources/container_name)
+//  - [ ] [link to nested timeout attr is visible as an <a > html element](https://registry.terraform.io/providers/thomasfinstad/vyos-rolling/latest/docs/resources/container_name#nested-schema-for-timeouts)
+//  - [ ] [nested timeout attr has extra pipe character at end of line](https://registry.terraform.io/providers/thomasfinstad/vyos-rolling/latest/docs/resources/container_name#nested-schema-for-timeouts)
+
+// TODO Add all CRUD timeouts
+//  milestone: 3
+//  Enable timeout config for URD part of CRUD operations
