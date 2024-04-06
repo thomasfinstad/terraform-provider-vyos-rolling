@@ -12,6 +12,9 @@ $APT install -y bash-completion
 # Xml formatter
 $APT install -y libxml2-utils
 
+# Github CLI
+$APT install -y gh
+
 ###
 # Pre-commit / git tools
 

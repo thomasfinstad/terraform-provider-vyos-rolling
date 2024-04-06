@@ -247,6 +247,10 @@ build: Makefile test
 
 	for os in $(BUILD_OS); do \
 		for arch in $(BUILD_ARCH); do \
+			if [ "$${os}/$${arch}" == "darwin/arm" -o "$${os}/$${arch}" == "darwin/386" ]; then \
+				echo "Skipping unsupported os/arch combination: $${os}/$${arch}"; \
+				continue; \
+			fi; \
 			echo "Building for $${os} ($${arch})" && \
 			build_dir="${DIST_DIR}/providers.localhost/dev/$(PROVIDER_NAME)/$(PROVIDER_VERSION)/$${os}_$${arch}" && \
 			\
@@ -267,6 +271,10 @@ publish: build
 
 	for os in $(BUILD_OS); do \
 		for arch in $(BUILD_ARCH); do \
+			if [ "$${os}/$${arch}" == "darwin/arm" -o "$${os}/$${arch}" == "darwin/386" ]; then \
+				echo "Skipping unsupported os/arch combination: $${os}/$${arch}"; \
+				continue; \
+			fi; \
 			echo "Packaging for $${os} ($${arch})" && \
 			build_dir="${DIST_DIR}/providers.localhost/dev/$(PROVIDER_NAME)/$(PROVIDER_VERSION)/$${os}_$${arch}" && \
 			pub_dir="${DIST_DIR}/publish" && \
@@ -280,8 +288,17 @@ publish: build
 
 	echo '{"version":1,"metadata":{"protocol_versions":["6.0"]}}' > "dist/publish/terraform-provider-$(PROVIDER_NAME)_$(PROVIDER_VERSION)_manifest.json"
 
-	cd dist/publish && shasum -a 256 *.zip > "terraform-provider-$(PROVIDER_NAME)_$(PROVIDER_VERSION)_SHA256SUMS"
+	cd dist/publish && shasum -a 256 * > "terraform-provider-$(PROVIDER_NAME)_$(PROVIDER_VERSION)_SHA256SUMS"
 	gpg --detach-sign "dist/publish/terraform-provider-$(PROVIDER_NAME)_$(PROVIDER_VERSION)_SHA256SUMS"
+
+	git tag "v$(PROVIDER_VERSION)"
+	git push --tags
+	gh release create \
+		"v$(PROVIDER_VERSION)" \
+		--title "v$(PROVIDER_VERSION)" \
+		--notes-file dist/RELEASE.md \
+		dist/publish/*
+
 
 	# Caching timestamp
 	@date > publish

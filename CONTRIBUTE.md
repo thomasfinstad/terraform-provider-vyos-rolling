@@ -1,6 +1,8 @@
 # Dev Container troubleshooting
 
+General References:
 
+* [Sharing git credentials](https://code.visualstudio.com/remote/advancedcontainers/sharing-git-credentials)
 
 ## WSL2
 
