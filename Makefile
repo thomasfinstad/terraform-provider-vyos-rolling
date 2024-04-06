@@ -6,7 +6,7 @@ NAMESPACE=thomasfinstad
 PROVIDER_NAME=vyos-rolling
 VYOS_ROLLING_DATE=$(shell cut -d"T" -f1 data/vyos-1x-info.txt | tr '-' '.')
 PROVIDER_VERSION="0.0.$(shell echo $(VYOS_ROLLING_DATE) | tr -d '.')"
-DIST_DIR=dist/
+DIST_DIR=dist
 GO_IMPORT_ROOT=${HOSTNAME}/${NAMESPACE}/terraform-provider-${PROVIDER_NAME}
 ADDRESS="registry.terraform.io/${NAMESPACE}/${PROVIDER_NAME}"
 BUILD_ARCH=amd64 386 arm arm64
@@ -241,36 +241,51 @@ test:	internal/terraform/resource/autogen/ \
 update-rolling:
 	make --always-make data/vyos-1x-info.txt
 
-build: test
+build: Makefile test
 	# Build
 	-rm -rf "${DIST_DIR}"
 
-	# HOSTNAME				/NAMESPACE	/TYPE	/VERSION	/TARGET
-	# registry.terraform.io	/hashicorp	/aws	/5.42.0		/linux_amd64	/terraform-provider-aws_v5.42.0_x5
-
-	# .terraform.d
-	# └── plugins
-	# 	└── local.providers
-	# 		└── local
-	# 			└── null
-	# 				└── 3.2.1
-	# 					└── linux_amd64
-	# 						└── terraform-provider-null_v3.2.1_x5
-
 	for os in $(BUILD_OS); do \
 		for arch in $(BUILD_ARCH); do \
-			echo "Building for $${os} ($${arch})"; \
-			dir="${DIST_DIR}/providers.localhost/dev/$(PROVIDER_NAME)/$(PROVIDER_VERSION)/$${os}_$${arch}"; \
+			echo "Building for $${os} ($${arch})" && \
+			build_dir="${DIST_DIR}/providers.localhost/dev/$(PROVIDER_NAME)/$(PROVIDER_VERSION)/$${os}_$${arch}" && \
 			\
-			mkdir -p "$${dir}/"; \
+			mkdir -p "$${build_dir}/"; \
 			go build \
 				-ldflags "-X main.version=$(PROVIDER_VERSION) -X main.address=${ADDRESS}" \
-				-o "$${dir}/terraform-provider-$(PROVIDER_NAME)_$(PROVIDER_VERSION)_x6"; \
+				-o "$${build_dir}/terraform-provider-$(PROVIDER_NAME)_v$(PROVIDER_VERSION)"; \
 		done; \
 	done;
 
 	# Caching timestamp
 	@date > build
+
+publish: build
+	# Publish
+	-rm -rf "${DIST_DIR}/publish"
+	-mkdir -p "${DIST_DIR}/publish"
+
+	for os in $(BUILD_OS); do \
+		for arch in $(BUILD_ARCH); do \
+			echo "Packaging for $${os} ($${arch})" && \
+			build_dir="${DIST_DIR}/providers.localhost/dev/$(PROVIDER_NAME)/$(PROVIDER_VERSION)/$${os}_$${arch}" && \
+			pub_dir="${DIST_DIR}/publish" && \
+			\
+			mkdir -p "$${build_dir}/"; \
+			zip \
+				"$${pub_dir}/terraform-provider-$(PROVIDER_NAME)_$(PROVIDER_VERSION)_$${os}_$${arch}.zip" \
+				"$${build_dir}/terraform-provider-$(PROVIDER_NAME)_v$(PROVIDER_VERSION)"; \
+		done; \
+	done;
+
+	echo '{"version":1,"metadata":{"protocol_versions":["6.0"]}}' > "dist/publish/terraform-provider-$(PROVIDER_NAME)_$(PROVIDER_VERSION)_manifest.json"
+
+	cd dist/publish && shasum -a 256 *.zip > "terraform-provider-$(PROVIDER_NAME)_$(PROVIDER_VERSION)_SHA256SUMS"
+	gpg --detach-sign "dist/publish/terraform-provider-$(PROVIDER_NAME)_$(PROVIDER_VERSION)_SHA256SUMS"
+
+	# Caching timestamp
+	@date > publish
+
 
 docs/index.md: \
 				build \
