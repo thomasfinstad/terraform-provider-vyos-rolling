@@ -1,6 +1,8 @@
 ---
 page_title: "vyos_vrf_name_protocols_ospf_area_virtual_link_authentication_md5_key_id Resource - vyos"
-subcategory: "vrf"
+
+subcategory: "Vrf"
+
 description: |- 
   Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Open Shortest Path First (OSPF)⯯OSPF area settings⯯Virtual link⯯Authentication⯯MD5 key id⯯MD5 key id
 ---
@@ -73,4 +75,4 @@ MD5 key id
 
 Optional:
 
-- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  &emsp;|
+- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  

@@ -1,10 +1,11 @@
 ---
 page_title: "vyos_firewall_ipv4_input_filter Resource - vyos"
-subcategory: "firewall"
+
+subcategory: "Firewall"
+
 description: |- 
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
-  Firewall  
-  ⯯IPv4 firewall⯯IPv4 input firewall⯯IPv4 firewall input filter
+  Firewall⯯IPv4 firewall⯯IPv4 input firewall⯯IPv4 firewall input filter
 ---
 
 # vyos_firewall_ipv4_input_filter (Resource)
@@ -12,7 +13,7 @@ description: |-
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-	Firewall  
+Firewall  
 ⯯  
 IPv4 firewall  
 ⯯  
@@ -50,4 +51,4 @@ IPv4 input firewall
 
 Optional:
 
-- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  &emsp;|
+- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  

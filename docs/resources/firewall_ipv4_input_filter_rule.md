@@ -1,6 +1,8 @@
 ---
 page_title: "vyos_firewall_ipv4_input_filter_rule Resource - vyos"
-subcategory: "firewall"
+
+subcategory: "Firewall"
+
 description: |- 
   Firewall⯯IPv4 firewall⯯IPv4 input firewall⯯IPv4 firewall input filter⯯IPv4 Firewall input filter rule number
 ---
@@ -626,4 +628,4 @@ Optional:
 
     &emsp;|Format  &emsp;|Description      |
     |----------|-------------------|
-    &emsp;|0-255   &emsp;|Less then value  |  &emsp;|
+    &emsp;|0-255   &emsp;|Less then value  |  

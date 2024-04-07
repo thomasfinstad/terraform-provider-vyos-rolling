@@ -1,6 +1,8 @@
 ---
 page_title: "vyos_qos_policy_priority_queue Resource - vyos"
-subcategory: "qos"
+
+subcategory: "Qos"
+
 description: |- 
   Quality of Service (QoS)⯯Service Policy definitions⯯Priority queuing based policy
 ---
@@ -87,4 +89,4 @@ Optional:
 
 Optional:
 
-- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  &emsp;|
+- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  

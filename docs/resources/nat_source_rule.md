@@ -1,6 +1,8 @@
 ---
 page_title: "vyos_nat_source_rule Resource - vyos"
-subcategory: "nat"
+
+subcategory: "Nat"
+
 description: |- 
   Network Address Translation (NAT) parameters⯯Source NAT settings⯯Rule number for NAT
 ---
@@ -277,4 +279,4 @@ Optional:
     |----------------|-----------------------------------|
     &emsp;|random        &emsp;|Randomize source port mapping    |
     &emsp;|fully-random  &emsp;|Full port randomization          |
-    &emsp;|none          &emsp;|Do not apply port randomization  |  &emsp;|
+    &emsp;|none          &emsp;|Do not apply port randomization  |  

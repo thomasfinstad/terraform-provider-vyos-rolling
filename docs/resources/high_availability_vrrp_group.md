@@ -1,6 +1,8 @@
 ---
 page_title: "vyos_high_availability_vrrp_group Resource - vyos"
-subcategory: "high"
+
+subcategory: "High Availability"
+
 description: |- 
   High availability settings⯯Virtual Router Redundancy Protocol settings⯯VRRP group
 ---
@@ -183,4 +185,4 @@ Optional:
 - `backup` (String) Script to run on VRRP state transition to backup
 - `fault` (String) Script to run on VRRP state transition to fault
 - `master` (String) Script to run on VRRP state transition to master
-- `stop` (String) Script to run on VRRP state transition to stop  &emsp;|
+- `stop` (String) Script to run on VRRP state transition to stop  

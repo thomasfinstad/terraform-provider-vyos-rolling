@@ -1,6 +1,8 @@
 ---
 page_title: "vyos_nat_destination_rule Resource - vyos"
-subcategory: "nat"
+
+subcategory: "Nat"
+
 description: |- 
   Network Address Translation (NAT) parameters⯯Destination NAT settings⯯Rule number for NAT
 ---
@@ -290,4 +292,4 @@ Optional:
     &emsp;|Format   &emsp;|Description                            |
     |-----------|-----------------------------------------|
     &emsp;|1-65535  &emsp;|Numeric IP port                        |
-    &emsp;|range    &emsp;|Numbered port range (e.g., 1001-1005)  |  &emsp;|
+    &emsp;|range    &emsp;|Numbered port range (e.g., 1001-1005)  |  

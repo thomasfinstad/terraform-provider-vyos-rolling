@@ -4,7 +4,7 @@ page_title: "vyos Provider"
 subcategory: ""
 description: |-
   !> This is for the rolling release of VyOS, it will automatically update when the API schemas change
-  -> This provider's version number will follow <MAJOR>.<MINOR>.<VYOS ROLLING RELEASE DATE>, so Version 1.3 of this provider, built with the API schemas for VyOS rolling release built on 27th of November 1970 would be have the version number 1.3.19701127.This allows for locking to a major version, or even a spessific release of rolling VyOS.
+  -> This provider's version number MIGHT follow <MAJOR>.<MINOR>.<VYOS ROLLING RELEASE DATE>, so Version 1.3 of this provider, built with the API schemas for VyOS rolling release built on 27th of November 1970 would be have the version number 1.3.19701127.This allows for locking to a major version, or even a spessific release of rolling VyOS. This versioning scheme is not final and might change.
   Use Terraform to configure your VyOS instances via API calls.
   Requirements
   To use this provider you must enable the HTTP(S) API on the target instances. See VyOS documentation https://docs.vyos.io/en/latest/configuration/service/https.html for more information.
@@ -14,7 +14,7 @@ description: |-
 
 !> This is for the rolling release of VyOS, it will automatically update when the API schemas change
 
--> This provider's version number will follow `<MAJOR>.<MINOR>.<VYOS ROLLING RELEASE DATE>`, so Version `1.3` of this provider, built with the API schemas for VyOS rolling release built on 27th of November 1970 would be have the version number `1.3.19701127`.This allows for locking to a major version, or even a spessific release of rolling VyOS.
+-> This provider's version number MIGHT follow `<MAJOR>.<MINOR>.<VYOS ROLLING RELEASE DATE>`, so Version `1.3` of this provider, built with the API schemas for VyOS rolling release built on 27th of November 1970 would be have the version number `1.3.19701127`.This allows for locking to a major version, or even a spessific release of rolling VyOS. This versioning scheme is not final and might change.
 
 Use Terraform to configure your VyOS instances via API calls.
 

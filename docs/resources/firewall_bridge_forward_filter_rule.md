@@ -1,6 +1,8 @@
 ---
 page_title: "vyos_firewall_bridge_forward_filter_rule Resource - vyos"
-subcategory: "firewall"
+
+subcategory: "Firewall"
+
 description: |- 
   Firewall⯯Bridge firewall⯯Bridge forward firewall⯯Bridge firewall forward filter⯯Bridge Firewall forward filter rule number
 ---
@@ -193,4 +195,4 @@ Optional:
     &emsp;|Format       &emsp;|Description                   |
     |---------------|--------------------------------|
     &emsp;|0-7          &emsp;|Vlan priority                 |
-    &emsp;|&lt;start-end&gt;  &emsp;|Vlan priority range to match  |  &emsp;|
+    &emsp;|&lt;start-end&gt;  &emsp;|Vlan priority range to match  |  

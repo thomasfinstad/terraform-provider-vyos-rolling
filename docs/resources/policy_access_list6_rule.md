@@ -1,6 +1,8 @@
 ---
 page_title: "vyos_policy_access_list6_rule Resource - vyos"
-subcategory: "policy"
+
+subcategory: "Policy"
+
 description: |- 
   Routing policy⯯IPv6 access-list filter⯯Rule for this access-list6
 ---
@@ -71,4 +73,4 @@ Optional:
 
 Optional:
 
-- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  &emsp;|
+- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  

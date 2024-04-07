@@ -6,7 +6,7 @@ NAMESPACE=thomasfinstad
 PROVIDER_NAME=vyos-rolling
 VYOS_ROLLING_DATE=$(shell cut -d"T" -f1 data/vyos-1x-info.txt | tr '-' '.')
 PROVIDER_VERSION="0.0.$(shell echo $(VYOS_ROLLING_DATE) | tr -d '.')"
-DIST_DIR=dist
+DIST_DIR="$(PWD)/dist"
 GO_IMPORT_ROOT=${HOSTNAME}/${NAMESPACE}/terraform-provider-${PROVIDER_NAME}
 ADDRESS="registry.terraform.io/${NAMESPACE}/${PROVIDER_NAME}"
 BUILD_ARCH=amd64 386 arm arm64
@@ -88,7 +88,7 @@ data/vyos-1x-info.txt:
 
 	# Checkout the commit
 	cd .build/vyos-1x && \
-	git checkout master && \
+	git checkout current && \
 	git pull && \
 	git checkout "$$(cat ../vyos-1x.sha)"
 
@@ -264,7 +264,7 @@ build: Makefile test
 	# Caching timestamp
 	@date > build
 
-publish: build
+publish: data/provider-schema/$(VYOS_ROLLING_DATE).json build docs/index.md
 	# Publish
 	-rm -rf "${DIST_DIR}/publish"
 	-mkdir -p "${DIST_DIR}/publish"
@@ -280,9 +280,10 @@ publish: build
 			pub_dir="${DIST_DIR}/publish" && \
 			\
 			mkdir -p "$${build_dir}/"; \
+			cd "$${build_dir}" && \
 			zip \
 				"$${pub_dir}/terraform-provider-$(PROVIDER_NAME)_$(PROVIDER_VERSION)_$${os}_$${arch}.zip" \
-				"$${build_dir}/terraform-provider-$(PROVIDER_NAME)_v$(PROVIDER_VERSION)"; \
+				"terraform-provider-$(PROVIDER_NAME)_v$(PROVIDER_VERSION)"; \
 		done; \
 	done;
 

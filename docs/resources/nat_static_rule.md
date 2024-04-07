@@ -1,6 +1,8 @@
 ---
 page_title: "vyos_nat_static_rule Resource - vyos"
-subcategory: "nat"
+
+subcategory: "Nat"
+
 description: |- 
   Network Address Translation (NAT) parameters⯯Static NAT (one-to-one)⯯Rule number for NAT
 ---
@@ -70,4 +72,4 @@ Optional:
     &emsp;|Format   &emsp;|Description            |
     |-----------|-------------------------|
     &emsp;|ipv4     &emsp;|IPv4 address to match  |
-    &emsp;|ipv4net  &emsp;|IPv4 prefix to match   |  &emsp;|
+    &emsp;|ipv4net  &emsp;|IPv4 prefix to match   |  

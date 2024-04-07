@@ -1,6 +1,8 @@
 ---
 page_title: "vyos_vrf_name_protocols_ospf_segment_routing_prefix Resource - vyos"
-subcategory: "vrf"
+
+subcategory: "Vrf"
+
 description: |- 
   Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Open Shortest Path First (OSPF)⯯Segment-Routing (SPRING) settings⯯Static IPv4 prefix segment/label mapping
 ---
@@ -66,4 +68,4 @@ Optional:
 
 Optional:
 
-- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  &emsp;|
+- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  

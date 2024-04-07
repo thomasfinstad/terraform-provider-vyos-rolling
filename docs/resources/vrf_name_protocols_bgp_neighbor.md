@@ -1,6 +1,8 @@
 ---
 page_title: "vyos_vrf_name_protocols_bgp_neighbor Resource - vyos"
-subcategory: "vrf"
+
+subcategory: "Vrf"
+
 description: |- 
   Virtual Routing and Forwarding⯯Virtual Routing and Forwarding instance⯯Routing protocol parameters⯯Border Gateway Protocol (BGP)⯯BGP neighbor
 ---
@@ -2132,4 +2134,4 @@ Optional:
 
     &emsp;|Format  &emsp;|Description     |
     |----------|------------------|
-    &emsp;|1-254   &emsp;|Number of hops  |  &emsp;|
+    &emsp;|1-254   &emsp;|Number of hops  |  

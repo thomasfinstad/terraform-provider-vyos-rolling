@@ -1,6 +1,8 @@
 ---
 page_title: "vyos_qos_policy_shaper_hfsc_class Resource - vyos"
-subcategory: "qos"
+
+subcategory: "Qos"
+
 description: |- 
   Quality of Service (QoS)⯯Service Policy definitions⯯Hierarchical Fair Service Curve's policy⯯Class ID
 ---
@@ -151,4 +153,4 @@ Optional:
     &emsp;|&lt;number&gt;bit   &emsp;|bit(1), kbit(10^3), mbit(10^6), gbit, tbit               |
     &emsp;|&lt;number&gt;ibit  &emsp;|kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
     &emsp;|&lt;number&gt;ibps  &emsp;|kibps(1024&amp;8), mibps(1024^2&amp;8), gibps, tibps - Byte/sec  |
-    &emsp;|&lt;number&gt;bps   &emsp;|bps(8),kbps(8&amp;10^3),mbps(8&amp;10^6), gbps, tbps - Byte/sec  |  &emsp;|
+    &emsp;|&lt;number&gt;bps   &emsp;|bps(8),kbps(8&amp;10^3),mbps(8&amp;10^6), gbps, tbps - Byte/sec  |  

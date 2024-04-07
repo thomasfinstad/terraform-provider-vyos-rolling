@@ -14,7 +14,7 @@ func (r vrf) Schema(ctx context.Context, req resource.SchemaRequest, resp *resou
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-	**Virtual Routing and Forwarding**
+**Virtual Routing and Forwarding**
 `,
 		Attributes: r.model.ResourceSchemaAttributes(ctx),
 	}

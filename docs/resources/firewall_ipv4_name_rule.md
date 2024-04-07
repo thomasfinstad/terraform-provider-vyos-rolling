@@ -1,6 +1,8 @@
 ---
 page_title: "vyos_firewall_ipv4_name_rule Resource - vyos"
-subcategory: "firewall"
+
+subcategory: "Firewall"
+
 description: |- 
   Firewall⯯IPv4 firewall⯯IPv4 custom firewall⯯IPv4 Firewall custom rule number
 ---
@@ -647,4 +649,4 @@ Optional:
 
     &emsp;|Format  &emsp;|Description      |
     |----------|-------------------|
-    &emsp;|0-255   &emsp;|Less then value  |  &emsp;|
+    &emsp;|0-255   &emsp;|Less then value  |  

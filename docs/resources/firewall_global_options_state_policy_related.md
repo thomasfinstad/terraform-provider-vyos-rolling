@@ -1,10 +1,11 @@
 ---
 page_title: "vyos_firewall_global_options_state_policy_related Resource - vyos"
-subcategory: "firewall"
+
+subcategory: "Firewall"
+
 description: |- 
   ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
-  Firewall  
-  ⯯Global Options⯯Global firewall state-policy⯯Global firewall policy for packets part of a related connection
+  Firewall⯯Global Options⯯Global firewall state-policy⯯Global firewall policy for packets part of a related connection
 ---
 
 # vyos_firewall_global_options_state_policy_related (Resource)
@@ -12,7 +13,7 @@ description: |-
 
 ~> This resource is global, having more than one resource of this type will cause configuration drift and possibly conflicts.
 
-	Firewall  
+Firewall  
 ⯯  
 Global Options  
 ⯯  
@@ -58,4 +59,4 @@ Global firewall state-policy
 
 Optional:
 
-- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  &emsp;|
+- `create` (String) A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as &#34;30s&#34; or &#34;2h45m&#34;. Valid time units are &#34;s&#34; (seconds), &#34;m&#34; (minutes), &#34;h&#34; (hours).  

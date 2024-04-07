@@ -1,6 +1,11 @@
 ---
 page_title: "{{.Name}} {{.Type}} - {{.ProviderName}}"
-subcategory: "{{ index (split .Name "_") 1}}"
+{{ $n := index (split .Name "_") 1 }}
+{{ if eq $n "high" -}}
+    subcategory: "High Availability"
+{{ else -}}
+    subcategory: "{{ title $n }}"
+{{ end }}
 description: |- {{/* Remove html formatting */}}
 {{range $_, $e := split (.Description | plainmarkdown | trimspace) "\n" -}}
     {{- if ge (len $e) 1 -}}
@@ -31,8 +36,10 @@ description: |- {{/* Remove html formatting */}}
     {{- $SMd = print $SMd $e -}}
 {{end -}}
 
-{{ range $index, $element := split ($SMd | trimspace | html) "  |  " -}}
-    {{- $element }}  &emsp;|
+{{- /* Add whitespace to tables to increase readability */}}
+{{- $SMds := split ($SMd | trimspace | html) "  |  " }}
+{{- range $index, $element := $SMds -}}
+    {{- $element }}  {{ if lt $index (len (slice $SMds 1)) -}} &emsp;| {{- end }}
 {{- end }}
 
 {{- if .HasImport }}
