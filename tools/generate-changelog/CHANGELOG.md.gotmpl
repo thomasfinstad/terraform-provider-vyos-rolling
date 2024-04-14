@@ -1,0 +1,52 @@
+{{ define release -}}
+## {{ .Version }} ({{ .Date }})
+
+{{ if .HasBreaking }}{{ template breaking .Breaking }}{{ end }}
+
+{{ if .HasNotes }}{{ template notes .Notes }}{{ end }}
+
+{{ if .HasFeatures }}{{ template features .Features }}{{ end }}
+
+{{ if .HasEnhancements }}{{ template enhancements .Enhancements }}{{ end }}
+
+{{ if .HasFixes }}{{ template fixes .Fixes }}{{ end }}
+
+{{ end }}
+
+{{ define breaking }}
+BREAKING CHANGES:
+{{ range . }}{{msg .}}{{ end }}
+{{ end }}
+
+{{ define notes }}
+NOTES:
+{{ range . }}{{msg .}}{{ end }}
+{{ end }}
+
+{{ define features }}
+FEATURES:
+{{ range . }}{{msg .}}{{ end }}
+{{ end }}
+
+{{ define enhancements }}
+ENHANCEMENTS:
+{{ range . }}{{msg .}}{{ end }}
+{{ end }}
+
+{{ define fixes }}
+BUG FIXES:
+{{ range . }}{{msg .}}{{ end }}
+{{ end }}
+
+{{ define msg }}
+{{/*
+For provider development typically the "subsystem" is the resource or data source affected e.g. resource/load_balancer,
+or provider if the change affects whole provider (e.g. authentication logic).
+Each bullet also references the corresponding pull request number that contained the code changes,
+in the format of [GH-####] (for HashiCorp released plugins, this will be automatically updated on release).
+
+* resource/load_balancer: Add `ATTRIBUTE` argument (support X new functionality) [GH-12]
+* resource/subnet: Now better [GH-22, GH-32]
+*/}}
+* {{ .Type }}/{{.Name}}: {{.Message}}
+{{ end }}

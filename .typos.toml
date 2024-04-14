@@ -3,6 +3,9 @@
 extend-ignore-re = [
     # Random data does not play well with a spell checker
     'api_key[=\s]+.*',
+
+    # Misc
+    "HashiCorp",
 ]
 [files]
 extend-exclude = [
