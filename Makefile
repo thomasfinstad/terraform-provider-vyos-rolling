@@ -241,10 +241,11 @@ test:	internal/terraform/resource/autogen/ \
 update-rolling:
 	make --always-make data/vyos-1x-info.txt
 
-build: Makefile test
+build: test
 	# Build
 	-rm -rf "${DIST_DIR}"
 
+	version=$(shell date +%Y%m%d.%H%M.%S); \
 	for os in $(BUILD_OS); do \
 		for arch in $(BUILD_ARCH); do \
 			if [ "$${os}/$${arch}" == "darwin/arm" -o "$${os}/$${arch}" == "darwin/386" ]; then \
@@ -252,12 +253,12 @@ build: Makefile test
 				continue; \
 			fi; \
 			echo "Building for $${os} ($${arch})" && \
-			build_dir="${DIST_DIR}/providers.localhost/dev/$(PROVIDER_NAME)/$(PROVIDER_VERSION)/$${os}_$${arch}" && \
+			build_dir="${DIST_DIR}/providers.localhost/dev/$(PROVIDER_NAME)/$${version}/$${os}_$${arch}" && \
 			\
 			mkdir -p "$${build_dir}/"; \
 			go build \
-				-ldflags "-X main.version=$(PROVIDER_VERSION) -X main.address=${ADDRESS}" \
-				-o "$${build_dir}/terraform-provider-$(PROVIDER_NAME)_v$(PROVIDER_VERSION)"; \
+				-ldflags "-X main.version=$${version} -X main.address=${ADDRESS}" \
+				-o "$${build_dir}/terraform-provider-$(PROVIDER_NAME)_v$${version}"; \
 		done; \
 	done;
 
@@ -266,13 +267,19 @@ build: Makefile test
 
 publish: build docs/index.md
 	# Publish
+	@if [[ -n "$(shell git status -s)" ]]; then \
+		git status -s; \
+		echo "Can not publish when git is not in a clean, committed, and pushed state" >&2; \
+		exit 1; \
+	fi
+
 	-rm -rf "${DIST_DIR}/publish"
 	-mkdir -p "${DIST_DIR}/publish"
 	-mkdir -p ".build"
 
-	mkdir -p data/provider-schema
-	cd examples/provider && make init
-	terraform -chdir=examples/provider providers schema -json | jq '.' > .build/provider-schema.json
+	cd examples/provider && \
+	make init && \
+	terraform providers schema -json | jq '.' > ../../.build/provider-schema.json
 
 	cd tools/generate-changelog && go run *.go ../../.build/provider-schema.json ../../data/provider-schema.json
 
@@ -280,39 +287,55 @@ publish: build docs/index.md
 	mv CHANGELOG.md .build/CHANGELOG.md.old
 	cat tools/generate-changelog/tmp/CHANGELOG.md > CHANGELOG.md
 	tail -n +2  .build/CHANGELOG.md.old >> CHANGELOG.md
+	grep "^##" CHANGELOG.md | head -n1 | cut -d" " -f2 > VERSION
 
-	git add data/provider-schema.json
-	git add CHANGELOG.md
-	git commit -m "chore: prepare for release"
-
+	version="$$(cat VERSION)"; \
+	make_dir="$$PWD"; \
+	build_dir=".build/release-build"; \
+	mkdir -p "$${build_dir}/"; \
 	for os in $(BUILD_OS); do \
 		for arch in $(BUILD_ARCH); do \
 			if [ "$${os}/$${arch}" == "darwin/arm" -o "$${os}/$${arch}" == "darwin/386" ]; then \
 				echo "Skipping unsupported os/arch combination: $${os}/$${arch}"; \
 				continue; \
 			fi; \
-			echo "Packaging for $${os} ($${arch})" && \
-			build_dir="${DIST_DIR}/providers.localhost/dev/$(PROVIDER_NAME)/$(PROVIDER_VERSION)/$${os}_$${arch}" && \
+			echo -n "Packaging for $${os} ($${arch})" && \
 			pub_dir="${DIST_DIR}/publish" && \
 			\
-			mkdir -p "$${build_dir}/"; \
+			go build \
+				-ldflags "-X main.version=$${version} -X main.address=${ADDRESS}" \
+				-o "$${build_dir}/terraform-provider-$(PROVIDER_NAME)_v$${version}"; \
 			cd "$${build_dir}" && \
 			zip \
-				"$${pub_dir}/terraform-provider-$(PROVIDER_NAME)_$(PROVIDER_VERSION)_$${os}_$${arch}.zip" \
-				"terraform-provider-$(PROVIDER_NAME)_v$(PROVIDER_VERSION)"; \
+				"$${pub_dir}/terraform-provider-$(PROVIDER_NAME)_$${version}_$${os}_$${arch}.zip" \
+				"terraform-provider-$(PROVIDER_NAME)_v$${version}" && \
+			rm "terraform-provider-$(PROVIDER_NAME)_v$${version}" && \
+			cd "$${make_dir}"; \
 		done; \
 	done;
 
-	echo '{"version":1,"metadata":{"protocol_versions":["6.0"]}}' > "dist/publish/terraform-provider-$(PROVIDER_NAME)_$(PROVIDER_VERSION)_manifest.json"
+	echo '{"version":1,"metadata":{"protocol_versions":["6.0"]}}' > "dist/publish/terraform-provider-$(PROVIDER_NAME)_$$(cat VERSION)_manifest.json"
 
-	cd dist/publish && shasum -a 256 * > "terraform-provider-$(PROVIDER_NAME)_$(PROVIDER_VERSION)_SHA256SUMS"
-	gpg --detach-sign "dist/publish/terraform-provider-$(PROVIDER_NAME)_$(PROVIDER_VERSION)_SHA256SUMS"
+	cd dist/publish && shasum -a 256 * > "terraform-provider-$(PROVIDER_NAME)_$$(cat ../../VERSION)_SHA256SUMS"
+	gpg --detach-sign "dist/publish/terraform-provider-$(PROVIDER_NAME)_$$(cat VERSION)_SHA256SUMS"
 
-	git tag "v$(PROVIDER_VERSION)"
+	git add data/provider-schema.json
+	git add CHANGELOG.md
+	git add VERSION
+	-pre-commit run
+	git add data/provider-schema.json
+	git add CHANGELOG.md
+	git add VERSION
+
+	git commit -m "chore: Prepare for release v$$(cat VERSION)"
+	git tag "v$$(cat VERSION)"
+
+	git push
 	git push --tags
+
 	gh release create \
-		"v$(PROVIDER_VERSION)" \
-		--title "v$(PROVIDER_VERSION)" \
+		"v$$(cat VERSION)" \
+		--title "v$$(cat VERSION)" \
 		--notes-file dist/RELEASE.md \
 		dist/publish/*
 
