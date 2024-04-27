@@ -16,6 +16,6 @@ var yellow = "\033[33m"
 
 func die(err error) {
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Die: ", err)
 	}
 }

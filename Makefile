@@ -264,10 +264,26 @@ build: Makefile test
 	# Caching timestamp
 	@date > build
 
-publish: data/provider-schema/$(VYOS_ROLLING_DATE).json build docs/index.md
+publish: build docs/index.md
 	# Publish
 	-rm -rf "${DIST_DIR}/publish"
 	-mkdir -p "${DIST_DIR}/publish"
+	-mkdir -p ".build"
+
+	mkdir -p data/provider-schema
+	cd examples/provider && make init
+	terraform -chdir=examples/provider providers schema -json | jq '.' > .build/provider-schema.json
+
+	cd tools/generate-changelog && go run *.go ../../.build/provider-schema.json ../../data/provider-schema.json
+
+	mv .build/provider-schema.json data/provider-schema.json
+	mv CHANGELOG.md .build/CHANGELOG.md.old
+	cat tools/generate-changelog/tmp/CHANGELOG.md > CHANGELOG.md
+	tail -n +2  .build/CHANGELOG.md.old >> CHANGELOG.md
+
+	git add data/provider-schema.json
+	git add CHANGELOG.md
+	git commit -m "chore: prepare for release"
 
 	for os in $(BUILD_OS); do \
 		for arch in $(BUILD_ARCH); do \
@@ -315,18 +331,6 @@ docs/index.md: \
 
 	# Create docs
 	tfplugindocs generate --provider-name vyos
-
-data/provider-schema/$(VYOS_ROLLING_DATE).json: build
-	mkdir -p data/provider-schema
-	cd examples/provider && make init
-	terraform -chdir=examples/provider providers schema -json | jq '.' > data/provider-schema/${VYOS_ROLLING_DATE}.json
-
-	# if diff data/provider-schema/$(shell ls data/provider-schema | sort -V | tail -n1) data/provider-schema/${VYOS_ROLLING_DATE}.json; then \
-	# 	rm -v data/provider-schema/${VYOS_ROLLING_DATE}.json; \
-	# fi
-
-#CHANGELOG.md:
-	#go run tools/generate-changelog/*.go data/provider-schema/2024.03.21.json data/provider-schema/2024.03.22.json
 
 .PHONY: clean
 clean:
