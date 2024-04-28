@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## 0.2.20240323 (2024-04-28 12:32:19 UTC)
+FEATURES:
+
+* use goreleaser to release provider
+
+
+BUG FIXES:
+
+* add missing manifest required by goreleaser
+
+* removed unintended increase in fix version
+
+
+
+
+
 ## 0.2.20240324 (2024-04-28 12:20:45 UTC)
 FEATURES:
 
