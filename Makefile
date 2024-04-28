@@ -4,9 +4,7 @@ SHELL:=/usr/bin/bash
 HOSTNAME=github.com
 NAMESPACE=thomasfinstad
 PROVIDER_NAME=vyos-rolling
-VYOS_ROLLING_DATE=$(shell cut -d"T" -f1 data/vyos-1x-info.txt | tr '-' '.')
-PROVIDER_VERSION="0.0.$(shell echo $(VYOS_ROLLING_DATE) | tr -d '.')"
-DIST_DIR="$(PWD)/dist"
+DIST_DIR="/dist"
 GO_IMPORT_ROOT=${HOSTNAME}/${NAMESPACE}/terraform-provider-${PROVIDER_NAME}
 ADDRESS="registry.terraform.io/${NAMESPACE}/${PROVIDER_NAME}"
 BUILD_ARCH=amd64 386 arm arm64
@@ -142,14 +140,17 @@ internal/vyos/schemadefinition/autogen-structs.go: data/vyos-1x-info.txt interna
 	# the files in the directory, which would cause make to
 	# see vyos-1x as newer than the interface-definitions
 	# causing interface-definitions to always rebuild
-	cp -a .build/vyos-1x .build/vyos-1x-tmp
+	docker volume create --name repo
+	docker container create --name make-interface-definitions -v repo:/docker-volume busybox
+	docker cp .build/vyos-1x make-interface-definitions:/docker-volume
 
 	# Build interface definitions using the vyos build container.
-	docker run --rm -v .:/repo -w /repo docker.io/vyos/vyos-build:current bash -c "cd .build/vyos-1x-tmp && make interface_definitions"
+	docker run --rm -v repo:/docker-volume -w /docker-volume/vyos-1x docker.io/vyos/vyos-build:current make interface_definitions
 
-	# Clean up the tmp directory
-	mv .build/vyos-1x-tmp/build/interface-definitions .build/interface-definitions
-	rm -rf .build/vyos-1x-tmp
+	# Clean up the tmp resources
+	docker cp make-interface-definitions:/docker-volume/vyos-1x/build/interface-definitions .build/interface-definitions
+	docker rm make-interface-definitions
+	docker volume rm repo
 
 	# Pretty format the XML files incase a human needs to inspect them
 	find .build/interface-definitions/ -type f -name "*.xml" -execdir xmllint --format --recover --output '{}' '{}' \;
@@ -240,6 +241,12 @@ test:	internal/terraform/resource/autogen/ \
 
 update-rolling:
 	make --always-make data/vyos-1x-info.txt
+
+	if [ -n "$$(git status -s "data/vyos-1x-info.txt" )" ]; then \
+		make generate && \
+		make test && \
+		echo "Updated to rolling release $$(cat data/vyos-1x-info.txt)";
+	fi
 
 build: test
 	# Build
@@ -369,12 +376,11 @@ clean:
 	go clean -fuzzcache
 	-rm -rf dist
 	-rm -rf .build
+	-rm generate
 	-rm test
 	-rm build
-
-.PHONY: full
-full: generate build docs/index.md data/provider-schema/$(VYOS_ROLLING_DATE).json
-	-pre-commit run --all-files
+	-rm version
+	-rm release
 
 
 ################

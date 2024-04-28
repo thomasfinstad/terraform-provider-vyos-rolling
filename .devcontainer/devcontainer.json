@@ -11,30 +11,33 @@
 //  milestone: 6
 {
 	"name": "vyos_api",
-	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+	// "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	//"build": { "dockerfile": "Dockerfile" },
+	"build": { "dockerfile": "Dockerfile" },
+
+	"runArgs": ["--init"],
+	"mounts": [ "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind" ],
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
-	"features": {
-		"ghcr.io/devcontainers/features/python:1": {
-			"installTools": true,
-			"version": "3.11"
-		},
-		"ghcr.io/eitsupi/devcontainer-features/jq-likes:1": {
-			"jqVersion": "latest",
-			"yqVersion": "latest"
-		},
-		"ghcr.io/jungaretti/features/make:1": {},
-		"ghcr.io/devcontainers/features/go:1": {
-			"version": "1.22"
-		},
-		"ghcr.io/devcontainers/features/java:1": {
-			"version" : "17"
-		},
-		"ghcr.io/mickeahlinder/devcontainer-features/tfenv:1": {},
-		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
-	},
+	// "features": {
+	// 	"ghcr.io/devcontainers/features/python:1": {
+	// 		"installTools": true,
+	// 		"version": "3.11"
+	// 	},
+	// 	"ghcr.io/eitsupi/devcontainer-features/jq-likes:1": {
+	// 		"jqVersion": "latest",
+	// 		"yqVersion": "latest"
+	// 	},
+	// 	"ghcr.io/jungaretti/features/make:1": {},
+	// 	"ghcr.io/devcontainers/features/go:1": {
+	// 		"version": "1.22"
+	// 	},
+	// 	"ghcr.io/devcontainers/features/java:1": {
+	// 		"version" : "17"
+	// 	},
+	// 	"ghcr.io/mickeahlinder/devcontainer-features/tfenv:1": {},
+	// 	"ghcr.io/devcontainers/features/docker-in-docker:2": {}
+	// },
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
