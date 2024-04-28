@@ -175,7 +175,7 @@ func (c chglog) Version() *version.Version {
 		patch = patch + 1
 	}
 
-	newVersion, err = version.NewVersion(fmt.Sprintf("%d.%d.%d", major, minor, patch+1))
+	newVersion, err = version.NewVersion(fmt.Sprintf("%d.%d.%d", major, minor, patch))
 	die(err)
 	return newVersion
 }
