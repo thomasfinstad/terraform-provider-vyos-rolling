@@ -1,11 +1,3 @@
-terraform {
-  required_providers {
-    vyos = {
-      source = "providers.localhost/dev/vyos-rolling"
-    }
-  }
-}
-
 
 /* resource "vyos_firewall_group_port_group" "example" {
   port_group_id = "TF-Examples"

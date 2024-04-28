@@ -1,6 +1,14 @@
 # TODO Improve provider example
 #  milestone: 3
 
+terraform {
+  required_providers {
+    vyos = {
+      source = "thomasfinstad/vyos-rolling"
+    }
+  }
+}
+
 variable "vyos_host" {
   type    = string
   default = "http://vyos.local"

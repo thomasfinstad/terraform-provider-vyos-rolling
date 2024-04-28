@@ -265,16 +265,14 @@ build: test
 	# Caching timestamp
 	@date > build
 
-publish: build docs/index.md
+version: build docs/index.md
 	# Publish
 	@if [[ -n "$(shell git status -s)" ]]; then \
 		git status -s; \
-		echo "Can not publish when git is not in a clean, committed, and pushed state" >&2; \
+		echo "Can not create version when git is not in a clean, committed, and pushed state" >&2; \
 		exit 1; \
 	fi
 
-	-rm -rf "${DIST_DIR}/publish"
-	-mkdir -p "${DIST_DIR}/publish"
 	-mkdir -p ".build"
 
 	cd examples/provider && \
@@ -288,6 +286,29 @@ publish: build docs/index.md
 	cat tools/generate-changelog/tmp/CHANGELOG.md > CHANGELOG.md
 	tail -n +2  .build/CHANGELOG.md.old >> CHANGELOG.md
 	grep "^##" CHANGELOG.md | head -n1 | cut -d" " -f2 > VERSION
+
+	git add data/provider-schema.json
+	git add CHANGELOG.md
+	git add VERSION
+	-pre-commit run
+	git add data/provider-schema.json
+	git add CHANGELOG.md
+	git add VERSION
+
+	git commit -m "chore: Prepare for release v$$(cat VERSION)"
+	git tag "v$$(cat VERSION)"
+
+	git push
+	git push --tags
+
+	# Caching timestamp
+	@date > version
+
+release: version
+	# Release
+
+	-rm -rf "${DIST_DIR}/publish"
+	-mkdir -p "${DIST_DIR}/publish"
 
 	version="$$(cat VERSION)"; \
 	make_dir="$$PWD"; \
@@ -319,29 +340,15 @@ publish: build docs/index.md
 	cd dist/publish && shasum -a 256 * > "terraform-provider-$(PROVIDER_NAME)_$$(cat ../../VERSION)_SHA256SUMS"
 	gpg --detach-sign "dist/publish/terraform-provider-$(PROVIDER_NAME)_$$(cat VERSION)_SHA256SUMS"
 
-	git add data/provider-schema.json
-	git add CHANGELOG.md
-	git add VERSION
-	-pre-commit run
-	git add data/provider-schema.json
-	git add CHANGELOG.md
-	git add VERSION
-
-	git commit -m "chore: Prepare for release v$$(cat VERSION)"
-	git tag "v$$(cat VERSION)"
-
-	git push
-	git push --tags
-
 	gh release create \
 		"v$$(cat VERSION)" \
 		--title "v$$(cat VERSION)" \
-		--notes-file dist/RELEASE.md \
+		--notes-file tools/generate-changelog/tmp/CHANGELOG.md \
 		dist/publish/*
 
 
 	# Caching timestamp
-	@date > publish
+	@date > release
 
 
 docs/index.md: \

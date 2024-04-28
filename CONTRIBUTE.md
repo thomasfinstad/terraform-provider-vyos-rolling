@@ -1,10 +1,26 @@
-# Dev Container troubleshooting
+# Development
+
+## Intro
+
+This repo is highly reliant on using devcontainers to keep the development environment the same over time and for all contributors.
+
+All development "actions" are done via the provided Makefile
+
+## Workflow
+
+Due to the somewhat confusing nature of the workflow this list can be used as a reference:
+
+1.  
+
+## Troubleshooting
+
+### Dev Container
 
 General References:
 
 * [Sharing git credentials](https://code.visualstudio.com/remote/advancedcontainers/sharing-git-credentials)
 
-## WSL2
+#### WSL2
 
 Some workaround / issues must be handled to get dev containers to work well in WSL2.
 
