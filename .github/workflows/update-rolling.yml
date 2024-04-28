@@ -1,18 +1,22 @@
-name: "Update to latest rolling release"
+name: "Update rolling release"
 on:
+  workflow_dispatch:
   schedule:
-    - cron: 00 05 * * *
+    - cron: 00 08 * * *
 jobs:
-  unittest:
+  ci-update:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-tags: true
+          fetch-depth: 0
       - uses: docker/setup-buildx-action@v2
       - uses: docker/build-push-action@v4
         with:
           context: .devcontainer/
-          file: "Dockerfile"
+          file: ".devcontainer/Dockerfile"
           tags: devcontainer:latest
           load: true
           cache-from: type=gha
@@ -22,5 +26,24 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: devcontainer:latest
-          run: make ci-update
-          options: --mount source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind --user vscode
+          options: -v ${{ github.workspace }}:/repo -w /repo --user vscode
+          run: |
+            echo "Running In Devcontainer"
+            . /etc/profile
+            echo "ID: $(id)"
+            echo "Dir: $PWD"
+            echo "PATH: $PATH"
+            echo "Files:"
+            ls -la | sed 's/^/    /'
+            echo "Setting file ownership"
+            sudo chown -R $(id -u) .
+            echo "Running make target"
+            make ci-update
+      - name: GIT Push new version
+        run: |
+          set -x
+          sudo chown -R $(id -u) .
+          git log -n 3
+          git tag -l | tail -n 5
+          git push
+          git push --tags

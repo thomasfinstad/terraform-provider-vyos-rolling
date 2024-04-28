@@ -289,7 +289,7 @@ func main() {
 	t, err := template.New("changelog-template").ParseFiles("CHANGELOG.md.gotmpl")
 	die(err)
 
-	f, err := os.Create("tmp/CHANGELOG.md")
+	f, err := os.Create("../../.build/CHANGELOG.md")
 	die(err)
 	defer f.Close()
 	die(t.ExecuteTemplate(f, "changelog", chgs))
@@ -390,7 +390,7 @@ func schemaJSONDeepDiff(fileA, fileB string) []schemaChg {
 func parseDiffs(d deepdiff.Deltas) []schemaChg {
 
 	{ // useful for debugging
-		f, err := os.Create("tmp/file.go")
+		f, err := os.Create("../../.build/schema-deepdiff.go")
 		die(err)
 		defer f.Close()
 		f.WriteString(`package tmp

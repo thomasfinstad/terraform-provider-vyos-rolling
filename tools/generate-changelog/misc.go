@@ -1,7 +1,5 @@
 package main
 
-import "log"
-
 var reset = "\033[0m"
 
 // var red = "\033[31m"
@@ -16,6 +14,6 @@ var yellow = "\033[33m"
 
 func die(err error) {
 	if err != nil {
-		log.Fatal("Die: ", err)
+		panic(err)
 	}
 }

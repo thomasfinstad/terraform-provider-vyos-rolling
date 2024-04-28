@@ -146,17 +146,19 @@ internal/vyos/schemadefinition/autogen-structs.go: data/vyos-1x-info.txt interna
 	# the files in the directory, which would cause make to
 	# see vyos-1x as newer than the interface-definitions
 	# causing interface-definitions to always rebuild
-	docker volume create --name repo
-	docker container create --name make-interface-definitions -v repo:/docker-volume busybox
-	docker cp .build/vyos-1x make-interface-definitions:/docker-volume
+	sudo docker volume create --name repo
+	sudo docker container create --name make-interface-definitions -v repo:/docker-volume busybox
+	sudo docker cp .build/vyos-1x make-interface-definitions:/docker-volume
 
 	# Build interface definitions using the vyos build container.
-	docker run --rm -v repo:/docker-volume -w /docker-volume/vyos-1x docker.io/vyos/vyos-build:current make interface_definitions
+	sudo docker run --rm -v repo:/docker-volume -w /docker-volume/vyos-1x docker.io/vyos/vyos-build:current make interface_definitions
 
 	# Clean up the tmp resources
-	docker cp make-interface-definitions:/docker-volume/vyos-1x/build/interface-definitions .build/interface-definitions
-	docker rm make-interface-definitions
-	docker volume rm repo
+	sudo docker cp make-interface-definitions:/docker-volume/vyos-1x/build/interface-definitions .build/interface-definitions
+	sudo docker rm make-interface-definitions
+	sudo docker volume rm repo
+
+	sudo chown -R $$(id -u) .build/interface-definitions
 
 	# Pretty format the XML files incase a human needs to inspect them
 	find .build/interface-definitions/ -type f -name "*.xml" -execdir xmllint --format --recover --output '{}' '{}' \;
@@ -166,13 +168,18 @@ internal/vyos/vyosinterfaces/autogen.go: data/vyos-1x-info.txt internal/vyos/sch
 
 	mkdir -p "internal/vyos/vyosinterfaces"
 
-	@rm -fv internal/vyos/vyosinterfaces/autogen.go
-	@rm -fv internal/vyos/vyosinterfaces/autogen-*.go
+	@rm -f internal/vyos/vyosinterfaces/autogen.go
+	@rm -f internal/vyos/vyosinterfaces/autogen-*.go
 
 	# Generate interfaces, skip xml component version metadata file
 	for xmlFile in $$(ls ".build/interface-definitions/" | grep -v "xml-component-version.xml"); do \
 		echo -en "Input xml: '$${xmlFile}'\t"; \
-		go run tools/build-vyos-infterface-definition-structs/*.go ".build/interface-definitions/$${xmlFile}" "internal/vyos/vyosinterfaces" "vyosinterface" || exit 1; \
+		go run tools/build-vyos-infterface-definition-structs/*.go \
+			".build/interface-definitions/$${xmlFile}" \
+			"internal/vyos/vyosinterfaces" \
+			"vyosinterface" \
+				|| exit 1; \
+		echo; \
 	done
 
 	# TODO clean up generation of vyosinterfaces/autogen.go
@@ -256,7 +263,7 @@ test:	internal/terraform/resource/autogen/ \
 build: test
 	# Make build
 
-	-rm -rf "${DIST_DIR}"
+	-rm -rf "${DIST_DIR}/providers.localhost"
 
 	version=$(shell date +%Y%m%d.%H%M.%S); \
 	for os in $(BUILD_OS); do \
@@ -290,10 +297,11 @@ docs/index.md: \
 	# Create docs
 	tfplugindocs generate --provider-name vyos
 
-VERSION: test docs/index.md
-	# Make VERSION
+.PHONY: version
+version:
+	# Make version
 
-	@if [[ -n "$(shell git status -s)" ]]; then \
+	@if [ -n "$(shell git status -s)" ]; then \
 		git status -s; \
 		echo "Can not create version when git is not in a clean, committed, and pushed state" >&2; \
 		exit 1; \
@@ -305,29 +313,23 @@ VERSION: test docs/index.md
 	make init && \
 	terraform providers schema -json | jq '.' > ../../.build/provider-schema.json
 
+	git tag -l
 	cd tools/generate-changelog && go run *.go ../../.build/provider-schema.json ../../data/provider-schema.json
 
 	mv .build/provider-schema.json data/provider-schema.json
 	mv CHANGELOG.md .build/CHANGELOG.md.old
-	cat tools/generate-changelog/tmp/CHANGELOG.md > CHANGELOG.md
+	cat .build/CHANGELOG.md > CHANGELOG.md
 	tail -n +2  .build/CHANGELOG.md.old >> CHANGELOG.md
 	grep "^##" CHANGELOG.md | head -n1 | cut -d" " -f2 > VERSION
 
-	git add data/provider-schema.json
-	git add CHANGELOG.md
-	git add VERSION
+	git add -A
 	-pre-commit run
-	git add data/provider-schema.json
-	git add CHANGELOG.md
-	git add VERSION
+	git add -A
 
 	git commit -m "chore: Prepare for release v$$(cat VERSION)"
 	git tag "v$$(cat VERSION)"
 
-	git push
-	git push --tags
-
-release: VERSION
+release: version
 	# Make release
 
 	-rm -rf "${DIST_DIR}/publish"
@@ -366,7 +368,7 @@ release: VERSION
 	gh release create \
 		"v$$(cat VERSION)" \
 		--title "v$$(cat VERSION)" \
-		--notes-file tools/generate-changelog/tmp/CHANGELOG.md \
+		--notes-file .build/CHANGELOG.md \
 		dist/publish/*
 
 
@@ -377,16 +379,23 @@ release: VERSION
 ci-update:
 	# Make ci-update
 
-	@make --always-make data/vyos-1x-info.txt
+	make --always-make data/vyos-1x-info.txt
 
-	@if [ -n "$$(git status -s "data/vyos-1x-info.txt" )" ]; then \
-		make generate && \
-		make test && \
-		make VERSION && \
-		echo "Updated to rolling release $$(cat data/vyos-1x-info.txt)"; \
-	else \
-		echo "No new update for rolling release, sticking with $$(cat data/vyos-1x-info.txt)"; \
+	@if [ -z "$$(git status -s "data/vyos-1x-info.txt" )" ]; then \
+		echo "No new update for rolling release"; \
+		exit 1; \
 	fi
+
+	git config --global user.name "Github Action"
+	git config --global user.email "noreply@github.com"
+
+	make generate
+	make test
+	make docs/index.md
+	git add -A
+	git commit -m "chore: update to rolling release $$(cat data/vyos-1x-info.txt)"
+	make version
+	@echo "Updated to rolling release $$(cat data/vyos-1x-info.txt)"
 
 .PHONY: clean
 clean:

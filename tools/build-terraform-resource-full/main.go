@@ -276,7 +276,7 @@ func globalResourceGeneration(resourceOutputDir string, templateName string, thi
 			"/",
 		),
 	)
-	fmt.Printf("Creating global resource: %s\n", outputFile)
+	//fmt.Printf("Creating global resource: %s\n", outputFile)
 	file, err := os.Create(outputFile)
 	if err != nil {
 		return
@@ -323,7 +323,7 @@ func namedResourceGeneration(resourceOutputDir string, templateName string, this
 			"/",
 		),
 	)
-	fmt.Printf("Creating named resource: %s\n", outputFile)
+	// fmt.Printf("Creating named resource: %s\n", outputFile)
 	file, err := os.Create(outputFile)
 	if err != nil {
 		return
@@ -369,7 +369,7 @@ func namedResourceModelGeneration(resourceModelOutputDir string, node schemadefi
 			"/",
 		),
 	)
-	fmt.Printf("Creating named resource model: %s\n", outputFile)
+	// fmt.Printf("Creating named resource model: %s\n", outputFile)
 	file, err := os.Create(outputFile)
 	if err != nil {
 		return
@@ -409,7 +409,7 @@ func globalResourceModelGeneration(resourceModelOutputDir string, node schemadef
 			"/",
 		),
 	)
-	fmt.Printf("Creating global resource model: %s\n", outputFile)
+	// fmt.Printf("Creating global resource model: %s\n", outputFile)
 	file, err := os.Create(outputFile)
 	if err != nil {
 		return

@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/base:ubuntu
+FROM mcr.microsoft.com/devcontainers/base:ubuntu22.04
 
 ###
 # Custom shell environment
@@ -37,6 +37,11 @@ RUN ln -s /tfenv/bin/tfenv /usr/local/bin/tfenv
 RUN ln -s /tfenv/bin/terraform /usr/local/bin/terraform
 RUN mkdir /tfenv/versions && chgrp vscode /tfenv/versions && chmod 775 /tfenv/versions
 RUN tfenv use 1.5.7
+
+###
+# Dist directory is hard coded due to .terraformrc file
+RUN mkdir /dist
+RUN chown -R vscode /dist
 
 ###
 # Custom user settings

@@ -27,9 +27,17 @@ To use this provider you must enable the HTTP(S) API on the target instances. Se
 # TODO Improve provider example
 #  milestone: 3
 
+terraform {
+  required_providers {
+    vyos = {
+      source = "thomasfinstad/vyos-rolling"
+    }
+  }
+}
+
 variable "vyos_host" {
   type    = string
-  default = "http://vyos.local"
+  default = "https://vyos.local"
 }
 
 variable "vyos_key" {

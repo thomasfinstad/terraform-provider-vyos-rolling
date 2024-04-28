@@ -11,32 +11,38 @@
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"build": { "dockerfile": "Dockerfile" },
 
-	// Needed for vyos-1x make in (nested) docker
-	"runArgs": ["--init"],
+	"containerUser": "vscode",
+	"remoteUser": "vscode",
+	"updateRemoteUserUID": true,
+	"runArgs": [
+		// This is needed for podman, hopefully docker will not mind.
+		"--userns=keep-id:uid=1000,gid=1000",
+
+		// Needed together with the docker socket mount for vyos-1x Makefile in (nested) docker during generation of interface definitions
+		"--init"
+	],
 	"mounts": [ "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind" ],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
+	"postCreateCommand": "bash .devcontainer/post-create-script.sh",
 	//"postStartCommand": "",
 
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
 			"extensions": [
+				"golang.go",
 				"ms-azuretools.vscode-docker",
 				"redhat.vscode-xml",
 				"Gruntfuggly.todo-tree",
 				"hashicorp.terraform",
 				"casualjim.gotemplate",
-				"ms-vscode.makefile-tools"
+				"ms-vscode.makefile-tools",
+				"github.vscode-github-actions"
 			]
 		}
-	},
-	"containerUser": "vscode",
-	"remoteUser": "vscode",
-	"containerEnv": {"PODMAN_USERNS":"keep-id"},
-	"updateRemoteUserUID": true
+	}
 }
