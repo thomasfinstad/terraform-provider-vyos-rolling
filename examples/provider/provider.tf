@@ -11,7 +11,7 @@ terraform {
 
 variable "vyos_host" {
   type    = string
-  default = "http://vyos.local"
+  default = "https://vyos.local"
 }
 
 variable "vyos_key" {
