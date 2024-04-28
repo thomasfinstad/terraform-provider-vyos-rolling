@@ -48,7 +48,7 @@ endif
 #  ref: https://github.com/vyos/vyos-rolling-nightly-builds/releases
 #  milestone: 4
 data/vyos-1x-info.txt:
-	# data/vyos-1x-info.txt
+	# Make data/vyos-1x-info.txt
 
 	-mkdir -p data
 	-mkdir -p .build
@@ -57,7 +57,7 @@ data/vyos-1x-info.txt:
 		-H "Accept: application/vnd.github+json" \
 		-H "X-GitHub-Api-Version: 2022-11-28" \
 		--url "https://api.github.com/repos/vyos/vyos-rolling-nightly-builds/actions/runs?status=success&per_page=10" \
-			| jq -r '[.workflow_runs[] | select(.name | "VyOS rolling nightly build")].[0].run_started_at' \
+			| jq -r '[.workflow_runs[] | select(.name | "VyOS rolling nightly build")] | first .run_started_at' \
 				> ".build/latest-vyos-repo-version.txt"
 
 	if [ ! -f data/vyos-1x-info.txt ]; then \
@@ -70,7 +70,7 @@ data/vyos-1x-info.txt:
 ###
 # VyOS src repo at correct commit
 .build/vyos-1x: data/vyos-1x-info.txt
-	# .build/vyos-1x
+	# Make .build/vyos-1x
 
 	-mkdir -p .build
 
@@ -95,6 +95,8 @@ data/vyos-1x-info.txt:
 
 # Convert from relaxng to XSD
 .build/schema-definitions.xsd: data/vyos-1x-info.txt |.build/vyos-1x
+	# Make .build/schema-definitions.xsd
+
 	-mkdir -p .build
 
 	java -jar tools/trang-20091111/trang.jar -I rnc -O xsd .build/vyos-1x/schema/interface_definition.rnc .build/schema-definitions.xsd
@@ -102,6 +104,8 @@ data/vyos-1x-info.txt:
 
 # Generate go structs from XSD
 internal/vyos/schemadefinition/autogen-structs.go: data/vyos-1x-info.txt internal/vyos/schemadefinition/interface-definition.go .build/schema-definitions.xsd
+	# Make internal/vyos/schemadefinition/autogen-structs.go
+
 	go get
 
 	@-rm -v internal/vyos/schemadefinition/autogen-structs.go
@@ -133,6 +137,8 @@ internal/vyos/schemadefinition/autogen-structs.go: data/vyos-1x-info.txt interna
 
 # Compile interface devfinitions
 .build/interface-definitions: data/vyos-1x-info.txt |.build/vyos-1x
+	# Make .build/interface-definitions
+
 	@rm -rf ".build/interface-definitions"
 	-mkdir -p .build
 
@@ -156,6 +162,8 @@ internal/vyos/schemadefinition/autogen-structs.go: data/vyos-1x-info.txt interna
 	find .build/interface-definitions/ -type f -name "*.xml" -execdir xmllint --format --recover --output '{}' '{}' \;
 
 internal/vyos/vyosinterfaces/autogen.go: data/vyos-1x-info.txt internal/vyos/schemadefinition/autogen-structs.go tools/build-vyos-infterface-definition-structs .build/interface-definitions
+	# Make internal/vyos/vyosinterfaces/autogen.go
+
 	mkdir -p "internal/vyos/vyosinterfaces"
 
 	@rm -fv internal/vyos/vyosinterfaces/autogen.go
@@ -185,6 +193,8 @@ internal/vyos/vyosinterfaces/autogen.go: data/vyos-1x-info.txt internal/vyos/sch
 	gofumpt -w ./internal/vyos/vyosinterfaces/*.go
 
 internal/terraform/resource/autogen: data/vyos-1x-info.txt internal/vyos/vyosinterfaces/autogen.go
+	# Make internal/terraform/resource/autogen
+
 	# Prep dirs
 	rm -rf internal/terraform/resource/autogen
 	mkdir -p "internal/terraform/resource/autogen/named"
@@ -201,6 +211,8 @@ internal/terraform/resource/autogen: data/vyos-1x-info.txt internal/vyos/vyosint
 
 # Pretty-name target for human usage
 generate: internal/terraform/resource/autogen
+	#Make generate
+
 	# Caching timestamp
 	@date > generate
 
@@ -227,6 +239,8 @@ test:	internal/terraform/resource/autogen/ \
 		$(shell find . -type f -name "*_test.go"  -not \( -path "*/.build/*" \) ) \
 		$(shell find . -type f -name "*.go" -not \( -path "*autogen*" -or -path "*/.build/*" -or -path "*/tools/*" \) )
 
+	# Make test
+
 	@echo Input Args: $(INPUT_ARGS)
 
 	# VyOS API can often take ~1 second to respond to a configure request.
@@ -239,17 +253,9 @@ test:	internal/terraform/resource/autogen/ \
 	# Caching timestamp
 	@date > test
 
-update-rolling:
-	make --always-make data/vyos-1x-info.txt
-
-	if [ -n "$$(git status -s "data/vyos-1x-info.txt" )" ]; then \
-		make generate && \
-		make test && \
-		echo "Updated to rolling release $$(cat data/vyos-1x-info.txt)";
-	fi
-
 build: test
-	# Build
+	# Make build
+
 	-rm -rf "${DIST_DIR}"
 
 	version=$(shell date +%Y%m%d.%H%M.%S); \
@@ -272,8 +278,21 @@ build: test
 	# Caching timestamp
 	@date > build
 
-version: build docs/index.md
-	# Publish
+docs/index.md: \
+				build \
+				internal/terraform/resource/autogen \
+				$(shell find templates/ -type f)
+	# Make docs/index.md
+
+	# Prep dirs
+	rm -rf "docs/"
+
+	# Create docs
+	tfplugindocs generate --provider-name vyos
+
+VERSION: test docs/index.md
+	# Make VERSION
+
 	@if [[ -n "$(shell git status -s)" ]]; then \
 		git status -s; \
 		echo "Can not create version when git is not in a clean, committed, and pushed state" >&2; \
@@ -308,11 +327,8 @@ version: build docs/index.md
 	git push
 	git push --tags
 
-	# Caching timestamp
-	@date > version
-
-release: version
-	# Release
+release: VERSION
+	# Make release
 
 	-rm -rf "${DIST_DIR}/publish"
 	-mkdir -p "${DIST_DIR}/publish"
@@ -357,20 +373,25 @@ release: version
 	# Caching timestamp
 	@date > release
 
+.PHONY: ci-update
+ci-update:
+	# Make ci-update
 
-docs/index.md: \
-				build \
-				internal/terraform/resource/autogen \
-				$(shell find templates/ -type f)
+	@make --always-make data/vyos-1x-info.txt
 
-	# Prep dirs
-	rm -rf "docs/"
-
-	# Create docs
-	tfplugindocs generate --provider-name vyos
+	@if [ -n "$$(git status -s "data/vyos-1x-info.txt" )" ]; then \
+		make generate && \
+		make test && \
+		make version && \
+		echo "Updated to rolling release $$(cat data/vyos-1x-info.txt)"; \
+	else \
+		echo "No new update for rolling release, sticking with $$(cat data/vyos-1x-info.txt)"; \
+	fi
 
 .PHONY: clean
 clean:
+	# Make clean
+
 	go clean -modcache
 	go clean -testcache
 	go clean -fuzzcache

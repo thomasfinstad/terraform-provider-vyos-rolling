@@ -1,43 +1,19 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/go
 
-// TODO migrate to Dockerfile
 //  Should be compatible with working as a pure container using the Makefile if possible
 //  This is to enable those that do not wish to use devcontainers, docker or vscode
 //  to be able to easily follow this repositorys guidelines and formatting, and use the
 //  tooling.
-//  Verify by running a full clean test and build and pre-commit hook run in a pure podman
-//  container.
-//  milestone: 6
 {
 	"name": "vyos_api",
 	// "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"build": { "dockerfile": "Dockerfile" },
 
+	// Needed for vyos-1x make in (nested) docker
 	"runArgs": ["--init"],
 	"mounts": [ "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind" ],
-
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {
-	// 	"ghcr.io/devcontainers/features/python:1": {
-	// 		"installTools": true,
-	// 		"version": "3.11"
-	// 	},
-	// 	"ghcr.io/eitsupi/devcontainer-features/jq-likes:1": {
-	// 		"jqVersion": "latest",
-	// 		"yqVersion": "latest"
-	// 	},
-	// 	"ghcr.io/jungaretti/features/make:1": {},
-	// 	"ghcr.io/devcontainers/features/go:1": {
-	// 		"version": "1.22"
-	// 	},
-	// 	"ghcr.io/devcontainers/features/java:1": {
-	// 		"version" : "17"
-	// 	},
-	// 	"ghcr.io/mickeahlinder/devcontainer-features/tfenv:1": {},
-	// 	"ghcr.io/devcontainers/features/docker-in-docker:2": {}
-	// },
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
