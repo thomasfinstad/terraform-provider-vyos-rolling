@@ -1,0 +1,26 @@
+name: "Update to latest rolling release"
+on:
+  schedule:
+    - cron: 00 05 * * *
+jobs:
+  unittest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - uses: docker/setup-buildx-action@v2
+      - uses: docker/build-push-action@v4
+        with:
+          context: .devcontainer/
+          file: "Dockerfile"
+          tags: devcontainer:latest
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: false
+      - name: "Run Makefile target: ci-update"
+        uses: addnab/docker-run-action@v3
+        with:
+          image: devcontainer:latest
+          run: make ci-update
+          options: --mount source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind --user vscode

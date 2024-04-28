@@ -18,6 +18,7 @@ apply
 secrets.tfvars
 
 # Misc
+tmp
 tmp/
 temp/
 *.tmp

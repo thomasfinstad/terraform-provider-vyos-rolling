@@ -382,7 +382,7 @@ ci-update:
 	@if [ -n "$$(git status -s "data/vyos-1x-info.txt" )" ]; then \
 		make generate && \
 		make test && \
-		make version && \
+		make VERSION && \
 		echo "Updated to rolling release $$(cat data/vyos-1x-info.txt)"; \
 	else \
 		echo "No new update for rolling release, sticking with $$(cat data/vyos-1x-info.txt)"; \
