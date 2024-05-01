@@ -59,6 +59,7 @@ import (
 	namedhighavailabilityvirtualserverrealserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/high-availability/virtual-server-real-server"
 	namedhighavailabilityvrrpgroup "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/high-availability/vrrp-group"
 	namedhighavailabilityvrrpgroupaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/high-availability/vrrp-group-address"
+	namedhighavailabilityvrrpgroupexcludedaddress "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/high-availability/vrrp-group-excluded-address"
 	namedhighavailabilityvrrpsyncgroup "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/high-availability/vrrp-sync-group"
 	namednatdestinationrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/nat/destination-rule"
 	namednatdestinationruleloadbalancebackend "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/nat/destination-rule-load-balance-backend"
@@ -229,6 +230,7 @@ func GetResources() []func() resource.Resource {
 		namedhighavailabilityvrrpgroup.NewHighAvailabilityVrrpGroup,
 		namedhighavailabilityvrrpsyncgroup.NewHighAvailabilityVrrpSyncGroup,
 		namedhighavailabilityvrrpgroupaddress.NewHighAvailabilityVrrpGroupAddress,
+		namedhighavailabilityvrrpgroupexcludedaddress.NewHighAvailabilityVrrpGroupExcludedAddress,
 		namedhighavailabilityvirtualserverrealserver.NewHighAvailabilityVirtualServerRealServer,
 		globalhighavailability.NewHighAvailability,
 		globalhighavailabilityvrrp.NewHighAvailabilityVrrp,

@@ -27,7 +27,7 @@ Container applications
 
 - `allow_host_networks` (Boolean) Allow host networks in container
 - `arguments` (String) The command&#39;s arguments for this container
-- `cap_add` (List of String) Container capabilities/permissions
+- `capability` (List of String) Grant individual Linux capability to container instance
 
     &emsp;|Format            &emsp;|Description                                                            |
     |--------------------|-------------------------------------------------------------------------|
@@ -37,6 +37,7 @@ Container applications
     &emsp;|setpcap           &emsp;|Capability sets (from bounded or inherited set)                        |
     &emsp;|sys-admin         &emsp;|Administation operations (quotactl, mount, sethostname, setdomainame)  |
     &emsp;|sys-module        &emsp;|Load, unload and delete kernel modules                                 |
+    &emsp;|sys-nice          &emsp;|Permission to set process nice value                                   |
     &emsp;|sys-time          &emsp;|Permission to set system clock                                         |
 - `command` (String) Override the default CMD from the image
 - `description` (String) Description
@@ -52,7 +53,11 @@ Container applications
     |-----------|---------------------------------------|
     &emsp;|0-65535  &emsp;|Group ID this container will run as  |
 - `host_name` (String) Container host name
-- `image` (String) Image name in the hub-registry
+- `image` (String) Container image to use
+
+    &emsp;|Format  &emsp;|Description                     |
+    |----------|----------------------------------|
+    &emsp;|txt     &emsp;|Image name in the hub-registry  |
 - `memory` (Number) Memory (RAM) available to this container
 
     &emsp;|Format   &emsp;|Description                         |

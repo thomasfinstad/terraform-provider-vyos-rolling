@@ -39,12 +39,6 @@ Virtual Router Redundancy Protocol settings
     |----------|---------------|
     &emsp;|txt     &emsp;|Description  |
 - `disable` (Boolean) Disable instance
-- `excluded_address` (List of String) Virtual address (If you need additional IPv4 and IPv6 in same group)
-
-    &emsp;|Format  &emsp;|Description   |
-    |----------|----------------|
-    &emsp;|ipv4    &emsp;|IP address    |
-    &emsp;|ipv6    &emsp;|IPv6 address  |
 - `garp` (Attributes) Gratuitous ARP parameters (see [below for nested schema](#nestedatt--garp))
 - `health_check` (Attributes) Health check (see [below for nested schema](#nestedatt--health_check))
 - `hello_source_address` (String) VRRP hello source address

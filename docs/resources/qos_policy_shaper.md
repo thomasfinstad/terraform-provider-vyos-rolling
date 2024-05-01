@@ -60,6 +60,11 @@ Service Policy definitions
 
 Optional:
 
+- `average_packet` (Number) Average packet size (bytes)
+
+    &emsp;|Format    &emsp;|Description                   |
+    |------------|--------------------------------|
+    &emsp;|16-10240  &emsp;|Average packet size in bytes  |
 - `bandwidth` (String) Available bandwidth for this policy
 
     &emsp;|Format        &emsp;|Description                         |
@@ -102,6 +107,21 @@ Optional:
     &emsp;|Format  &emsp;|Description               |
     |----------|----------------------------|
     &emsp;|u32     &emsp;|Interval in milliseconds  |
+- `mark_probability` (Number) Mark probability for random detection
+
+    &emsp;|Format  &emsp;|Description          |
+    |----------|-----------------------|
+    &emsp;|u32     &emsp;|Numeric value (1/N)  |
+- `maximum_threshold` (Number) Maximum threshold for random detection
+
+    &emsp;|Format  &emsp;|Description                   |
+    |----------|--------------------------------|
+    &emsp;|0-4096  &emsp;|Maximum threshold in packets  |
+- `minimum_threshold` (Number) Minimum threshold for random detection
+
+    &emsp;|Format  &emsp;|Description                   |
+    |----------|--------------------------------|
+    &emsp;|0-4096  &emsp;|Minimum threshold in packets  |
 - `priority` (Number) Priority for usage of excess bandwidth
 
     &emsp;|Format  &emsp;|Description                        |

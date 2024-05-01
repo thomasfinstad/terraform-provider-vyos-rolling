@@ -1,0 +1,12 @@
+echo "Running In Devcontainer"
+. /etc/profile
+echo "ID: $(id)"
+echo "Dir: $PWD"
+echo "PATH: $PATH"
+echo "Files:"
+ls -la | sed 's/^/    /'
+echo "Setting file ownership"
+sudo chown -R $(id -u) .
+echo "Running make target"
+make ci-update
+

@@ -43,21 +43,21 @@ Weighted Random Early Detect policy
     &emsp;|Format    &emsp;|Description                   |
     |------------|--------------------------------|
     &emsp;|16-10240  &emsp;|Average packet size in bytes  |
-- `mark_probability` (String) Mark probability for this precedence
+- `mark_probability` (Number) Mark probability for random detection
 
-    &emsp;|Format    &emsp;|Description          |
-    |------------|-----------------------|
-    &emsp;|&lt;number&gt;  &emsp;|Numeric value (1/N)  |
+    &emsp;|Format  &emsp;|Description          |
+    |----------|-----------------------|
+    &emsp;|u32     &emsp;|Numeric value (1/N)  |
 - `maximum_threshold` (Number) Maximum threshold for random detection
 
     &emsp;|Format  &emsp;|Description                   |
     |----------|--------------------------------|
-    &emsp;|0-4096  &emsp;|Maximum Threshold in packets  |
-- `minimum_threshold` (Number) Minimum  threshold for random detection
+    &emsp;|0-4096  &emsp;|Maximum threshold in packets  |
+- `minimum_threshold` (Number) Minimum threshold for random detection
 
     &emsp;|Format  &emsp;|Description                   |
     |----------|--------------------------------|
-    &emsp;|0-4096  &emsp;|Maximum Threshold in packets  |
+    &emsp;|0-4096  &emsp;|Minimum threshold in packets  |
 - `queue_limit` (Number) Maximum queue size
 
     &emsp;|Format        &emsp;|Description            |

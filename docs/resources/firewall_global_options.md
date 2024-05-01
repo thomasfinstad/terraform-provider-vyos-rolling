@@ -36,6 +36,12 @@ Firewall
     |-----------|---------------------------------------------------------------------|
     &emsp;|enable   &emsp;|Enable processing of broadcast IPv4 ICMP echo/timestamp requests   |
     &emsp;|disable  &emsp;|Disable processing of broadcast IPv4 ICMP echo/timestamp requests  |
+- `directed_broadcast` (String) Policy for handling IPv4 directed broadcast forwarding on all interfaces
+
+    &emsp;|Format   &emsp;|Description                                                   |
+    |-----------|----------------------------------------------------------------|
+    &emsp;|enable   &emsp;|Enable IPv4 directed broadcast forwarding on all interfaces   |
+    &emsp;|disable  &emsp;|Disable IPv4 directed broadcast forwarding on all interfaces  |
 - `ip_src_route` (String) Policy for handling IPv4 packets with source route option
 
     &emsp;|Format   &emsp;|Description                                                  |

@@ -1167,6 +1167,7 @@ Optional:
 - `dampening` (Attributes) Enable route-flap dampening (see [below for nested schema](#nestedatt--protocols--bgp--parameters--dampening))
 - `default` (Attributes) BGP defaults (see [below for nested schema](#nestedatt--protocols--bgp--parameters--default))
 - `deterministic_med` (Boolean) Compare MEDs between different peers in the same AS
+- `disable_ebgp_connected_route_check` (Boolean) Disable checking if nexthop is connected on eBGP session
 - `distance` (Attributes) Administratives distances for BGP routes (see [below for nested schema](#nestedatt--protocols--bgp--parameters--distance))
 - `ebgp_requires_policy` (Boolean) Require in and out policy for eBGP peers (RFC8212)
 - `fast_convergence` (Boolean) Teardown sessions immediately whenever peer becomes unreachable

@@ -45,7 +45,7 @@ Border Gateway Protocol (BGP)
     |----------|---------------|
     &emsp;|txt     &emsp;|Description  |
 - `disable_capability_negotiation` (Boolean) Disable capability negotiation with this neighbor
-- `disable_connected_check` (Boolean) Disable check to see if eBGP peer address is a connected route
+- `disable_connected_check` (Boolean) Allow peerings between eBGP peer using loopback/dummy address
 - `ebgp_multihop` (Number) Allow this EBGP neighbor to not be on a directly connected network
 
     &emsp;|Format  &emsp;|Description     |
