@@ -80,12 +80,12 @@
                 "description_kind": "markdown",
                 "optional": true
               },
-              "cap_add": {
+              "capability": {
                 "type": [
                   "list",
                   "string"
                 ],
-                "description": "Container capabilities/permissions\n\n    |  Format            |  Description                                                            |\n    |--------------------|-------------------------------------------------------------------------|\n    |  net-admin         |  Network operations (interface, firewall, routing tables)               |\n    |  net-bind-service  |  Bind a socket to privileged ports (port numbers less than 1024)        |\n    |  net-raw           |  Permission to create raw network sockets                               |\n    |  setpcap           |  Capability sets (from bounded or inherited set)                        |\n    |  sys-admin         |  Administation operations (quotactl, mount, sethostname, setdomainame)  |\n    |  sys-module        |  Load, unload and delete kernel modules                                 |\n    |  sys-time          |  Permission to set system clock                                         |\n",
+                "description": "Grant individual Linux capability to container instance\n\n    |  Format            |  Description                                                            |\n    |--------------------|-------------------------------------------------------------------------|\n    |  net-admin         |  Network operations (interface, firewall, routing tables)               |\n    |  net-bind-service  |  Bind a socket to privileged ports (port numbers less than 1024)        |\n    |  net-raw           |  Permission to create raw network sockets                               |\n    |  setpcap           |  Capability sets (from bounded or inherited set)                        |\n    |  sys-admin         |  Administation operations (quotactl, mount, sethostname, setdomainame)  |\n    |  sys-module        |  Load, unload and delete kernel modules                                 |\n    |  sys-nice          |  Permission to set process nice value                                   |\n    |  sys-time          |  Permission to set system clock                                         |\n",
                 "description_kind": "markdown",
                 "optional": true
               },
@@ -134,7 +134,7 @@
               },
               "image": {
                 "type": "string",
-                "description": "Image name in the hub-registry\n\n",
+                "description": "Container image to use\n\n    |  Format  |  Description                     |\n    |----------|----------------------------------|\n    |  txt     |  Image name in the hub-registry  |\n",
                 "description_kind": "markdown",
                 "optional": true
               },
@@ -1260,6 +1260,13 @@
               "broadcast_ping": {
                 "type": "string",
                 "description": "Policy for handling broadcast IPv4 ICMP echo and timestamp requests\n\n    |  Format   |  Description                                                        |\n    |-----------|---------------------------------------------------------------------|\n    |  enable   |  Enable processing of broadcast IPv4 ICMP echo/timestamp requests   |\n    |  disable  |  Disable processing of broadcast IPv4 ICMP echo/timestamp requests  |\n",
+                "description_kind": "markdown",
+                "optional": true,
+                "computed": true
+              },
+              "directed_broadcast": {
+                "type": "string",
+                "description": "Policy for handling IPv4 directed broadcast forwarding on all interfaces\n\n    |  Format   |  Description                                                   |\n    |-----------|----------------------------------------------------------------|\n    |  enable   |  Enable IPv4 directed broadcast forwarding on all interfaces   |\n    |  disable  |  Disable IPv4 directed broadcast forwarding on all interfaces  |\n",
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
@@ -10192,15 +10199,6 @@
                 "optional": true,
                 "computed": true
               },
-              "excluded_address": {
-                "type": [
-                  "list",
-                  "string"
-                ],
-                "description": "Virtual address (If you need additional IPv4 and IPv6 in same group)\n\n    |  Format  |  Description   |\n    |----------|----------------|\n    |  ipv4    |  IP address    |\n    |  ipv6    |  IPv6 address  |\n",
-                "description_kind": "markdown",
-                "optional": true
-              },
               "garp": {
                 "nested_type": {
                   "attributes": {
@@ -10474,6 +10472,54 @@
               }
             },
             "description": "High availability settings  \n⯯  \nVirtual Router Redundancy Protocol settings  \n⯯  \nVRRP group  \n⯯  \n**Virtual IP address**\n",
+            "description_kind": "markdown"
+          }
+        },
+        "vyos_high_availability_vrrp_group_excluded_address": {
+          "version": 0,
+          "block": {
+            "attributes": {
+              "excluded_address_id": {
+                "type": "string",
+                "description": "Virtual address (If you need additional IPv4 and IPv6 in same group)\n\n    |  Format   |  Description                     |\n    |-----------|----------------------------------|\n    |  ipv4net  |  IPv4 address and prefix length  |\n    |  ipv6net  |  IPv6 address and prefix length  |\n    |  ipv4     |  IPv4 address                    |\n    |  ipv6     |  IPv6 address                    |\n",
+                "description_kind": "markdown",
+                "required": true
+              },
+              "group_id": {
+                "type": "string",
+                "description": "VRRP group\n\n",
+                "description_kind": "markdown",
+                "required": true
+              },
+              "id": {
+                "type": "string",
+                "description": "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
+                "description_kind": "markdown",
+                "computed": true
+              },
+              "interface": {
+                "type": "string",
+                "description": "Interface to use\n\n    |  Format  |  Description     |\n    |----------|------------------|\n    |  txt     |  Interface name  |\n",
+                "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              }
+            },
+            "description": "High availability settings  \n⯯  \nVirtual Router Redundancy Protocol settings  \n⯯  \nVRRP group  \n⯯  \n**Virtual address (If you need additional IPv4 and IPv6 in same group)**\n",
             "description_kind": "markdown"
           }
         },
@@ -15096,22 +15142,22 @@
                 "computed": true
               },
               "mark_probability": {
-                "type": "string",
-                "description": "Mark probability for this precedence\n\n    |  Format    |  Description          |\n    |------------|-----------------------|\n    |  <number>  |  Numeric value (1/N)  |\n",
+                "type": "number",
+                "description": "Mark probability for random detection\n\n    |  Format  |  Description          |\n    |----------|-----------------------|\n    |  u32     |  Numeric value (1/N)  |\n",
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
               },
               "maximum_threshold": {
                 "type": "number",
-                "description": "Maximum threshold for random detection\n\n    |  Format  |  Description                   |\n    |----------|--------------------------------|\n    |  0-4096  |  Maximum Threshold in packets  |\n",
+                "description": "Maximum threshold for random detection\n\n    |  Format  |  Description                   |\n    |----------|--------------------------------|\n    |  0-4096  |  Maximum threshold in packets  |\n",
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
               },
               "minimum_threshold": {
                 "type": "number",
-                "description": "Minimum  threshold for random detection\n\n    |  Format  |  Description                   |\n    |----------|--------------------------------|\n    |  0-4096  |  Maximum Threshold in packets  |\n",
+                "description": "Minimum threshold for random detection\n\n    |  Format  |  Description                   |\n    |----------|--------------------------------|\n    |  0-4096  |  Minimum threshold in packets  |\n",
                 "description_kind": "markdown",
                 "optional": true
               },
@@ -15709,6 +15755,13 @@
               "default": {
                 "nested_type": {
                   "attributes": {
+                    "average_packet": {
+                      "type": "number",
+                      "description": "Average packet size (bytes)\n\n    |  Format    |  Description                   |\n    |------------|--------------------------------|\n    |  16-10240  |  Average packet size in bytes  |\n",
+                      "description_kind": "markdown",
+                      "optional": true,
+                      "computed": true
+                    },
                     "bandwidth": {
                       "type": "string",
                       "description": "Available bandwidth for this policy\n\n    |  Format        |  Description                         |\n    |----------------|--------------------------------------|\n    |  <number>      |  Bits per second                     |\n    |  <number>bit   |  Bits per second                     |\n    |  <number>kbit  |  Kilobits per second                 |\n    |  <number>mbit  |  Megabits per second                 |\n    |  <number>gbit  |  Gigabits per second                 |\n    |  <number>tbit  |  Terabits per second                 |\n    |  <number>%%    |  Percentage of interface link speed  |\n",
@@ -15748,6 +15801,26 @@
                       "description_kind": "markdown",
                       "optional": true,
                       "computed": true
+                    },
+                    "mark_probability": {
+                      "type": "number",
+                      "description": "Mark probability for random detection\n\n    |  Format  |  Description          |\n    |----------|-----------------------|\n    |  u32     |  Numeric value (1/N)  |\n",
+                      "description_kind": "markdown",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "maximum_threshold": {
+                      "type": "number",
+                      "description": "Maximum threshold for random detection\n\n    |  Format  |  Description                   |\n    |----------|--------------------------------|\n    |  0-4096  |  Maximum threshold in packets  |\n",
+                      "description_kind": "markdown",
+                      "optional": true,
+                      "computed": true
+                    },
+                    "minimum_threshold": {
+                      "type": "number",
+                      "description": "Minimum threshold for random detection\n\n    |  Format  |  Description                   |\n    |----------|--------------------------------|\n    |  0-4096  |  Minimum threshold in packets  |\n",
+                      "description_kind": "markdown",
+                      "optional": true
                     },
                     "priority": {
                       "type": "number",
@@ -15831,6 +15904,13 @@
           "version": 0,
           "block": {
             "attributes": {
+              "average_packet": {
+                "type": "number",
+                "description": "Average packet size (bytes)\n\n    |  Format    |  Description                   |\n    |------------|--------------------------------|\n    |  16-10240  |  Average packet size in bytes  |\n",
+                "description_kind": "markdown",
+                "optional": true,
+                "computed": true
+              },
               "bandwidth": {
                 "type": "string",
                 "description": "Available bandwidth for this policy\n\n    |  Format        |  Description                         |\n    |----------------|--------------------------------------|\n    |  auto          |  Bandwidth matches interface speed   |\n    |  <number>      |  Bits per second                     |\n    |  <number>bit   |  Bits per second                     |\n    |  <number>kbit  |  Kilobits per second                 |\n    |  <number>mbit  |  Megabits per second                 |\n    |  <number>gbit  |  Gigabits per second                 |\n    |  <number>tbit  |  Terabits per second                 |\n    |  <number>%%    |  Percentage of interface link speed  |\n",
@@ -15889,6 +15969,26 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "mark_probability": {
+                "type": "number",
+                "description": "Mark probability for random detection\n\n    |  Format  |  Description          |\n    |----------|-----------------------|\n    |  u32     |  Numeric value (1/N)  |\n",
+                "description_kind": "markdown",
+                "optional": true,
+                "computed": true
+              },
+              "maximum_threshold": {
+                "type": "number",
+                "description": "Maximum threshold for random detection\n\n    |  Format  |  Description                   |\n    |----------|--------------------------------|\n    |  0-4096  |  Maximum threshold in packets  |\n",
+                "description_kind": "markdown",
+                "optional": true,
+                "computed": true
+              },
+              "minimum_threshold": {
+                "type": "number",
+                "description": "Minimum threshold for random detection\n\n    |  Format  |  Description                   |\n    |----------|--------------------------------|\n    |  0-4096  |  Minimum threshold in packets  |\n",
+                "description_kind": "markdown",
+                "optional": true
               },
               "priority": {
                 "type": "number",
@@ -18557,6 +18657,13 @@
                                 "deterministic_med": {
                                   "type": "bool",
                                   "description": "Compare MEDs between different peers in the same AS\n\n",
+                                  "description_kind": "markdown",
+                                  "optional": true,
+                                  "computed": true
+                                },
+                                "disable_ebgp_connected_route_check": {
+                                  "type": "bool",
+                                  "description": "Disable checking if nexthop is connected on eBGP session\n\n",
                                   "description_kind": "markdown",
                                   "optional": true,
                                   "computed": true
@@ -26234,7 +26341,7 @@
               },
               "disable_connected_check": {
                 "type": "bool",
-                "description": "Disable check to see if eBGP peer address is a connected route\n\n",
+                "description": "Allow peerings between eBGP peer using loopback/dummy address\n\n",
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
@@ -28991,7 +29098,7 @@
               },
               "disable_connected_check": {
                 "type": "bool",
-                "description": "Disable check to see if eBGP peer address is a connected route\n\n",
+                "description": "Allow peerings between eBGP peer using loopback/dummy address\n\n",
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true

@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## 0.3.20240323 (2024-05-01 15:38:08 UTC)
+FEATURES:
+
+* enable daily automatic release to match rolling release
+
+* prepare ci-update make target
+
+* Move devcontainer to Dockerfile
+
+* Resource/`vyos_container_name` Added attribute `cap_add`
+
+* Resource/`vyos_high_availability_vrrp_group` Added attribute `excluded_address`
+
+
+BUG FIXES:
+
+* auto update github action
+
+
+
+
+
 ## 0.2.20240323 (2024-04-28 12:32:19 UTC)
 FEATURES:
 
