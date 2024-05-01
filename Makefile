@@ -43,10 +43,7 @@ endif
 
 
 # Fetch and format newest successful rolling ISO build time
-# TODO use release page for version and commit
-#  ref: https://vyos.dev/T6156
-#  ref: https://github.com/vyos/vyos-rolling-nightly-builds/releases
-#  milestone: 4
+# ref: https://vyos.dev/T6156
 data/vyos-1x-info.txt:
 	# Make data/vyos-1x-info.txt
 
@@ -60,11 +57,17 @@ data/vyos-1x-info.txt:
 			| jq -r '[.workflow_runs[] | select(.name | "VyOS rolling nightly build")] | first .run_started_at' \
 				> ".build/latest-vyos-repo-version.txt"
 
+	echo "Currently based on version: $$(cat data/vyos-1x-info.txt)"
+	echo "Newest built version: $$(cat .build/latest-vyos-repo-version.txt)"
+
 	if [ ! -f data/vyos-1x-info.txt ]; then \
+		echo "creating timestamp file"; \
 		mv ".build/latest-vyos-repo-version.txt" "data/vyos-1x-info.txt"; \
 	elif ! diff -w "data/vyos-1x-info.txt" ".build/latest-vyos-repo-version.txt" > /dev/null; then \
 		echo "updating timestamp file"; \
 		mv ".build/latest-vyos-repo-version.txt" "data/vyos-1x-info.txt"; \
+	else \
+		echo "keeping current version"; \
 	fi
 
 ###
@@ -375,15 +378,17 @@ release: version
 	# Caching timestamp
 	@date > release
 
+# useful so we can exit without it being an error, but will not print commands one by one
+.ONESHELL: ci-update
 .PHONY: ci-update
 ci-update:
 	# Make ci-update
 
 	make --always-make data/vyos-1x-info.txt
 
-	@if [ -z "$$(git status -s "data/vyos-1x-info.txt" )" ]; then \
-		echo "No new update for rolling release"; \
-		exit 1; \
+	if [ -z "$$(git status -s "data/vyos-1x-info.txt" )" ]; then
+		echo "No new update for rolling release"
+		exit 0
 	fi
 
 	git config --global user.name "Github Action"
