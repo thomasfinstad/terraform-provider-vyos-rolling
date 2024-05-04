@@ -6628,6 +6628,7 @@ func service_pppoeserver() schemadefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "constraint",
 									},
+									Regex: []string{"disable"},
 									Validator: []*schemadefinition.Validator{{
 										XMLName: xml.Name{
 											Local: "validator",
@@ -6640,10 +6641,22 @@ func service_pppoeserver() schemadefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "valueHelp",
 									},
+									Format:      "disable",
+									Description: "Disable new connections",
+								}, {
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
 									Format:      "u32:1-999999",
 									Description: "Number in ms",
 								}},
 								ConstraintErrorMessage: []string{"Invalid PADO delay"},
+								CompletionHelp: []*schemadefinition.CompletionHelp{{
+									XMLName: xml.Name{
+										Local: "completionHelp",
+									},
+									List: []string{"disable"},
+								}},
 							}},
 							Children: []*schemadefinition.Children{{
 								XMLName: xml.Name{

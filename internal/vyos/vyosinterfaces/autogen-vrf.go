@@ -40254,7 +40254,6 @@ func vrf() schemadefinition.InterfaceDefinition {
 								Local: "leafNode",
 							},
 							NodeNameAttr: "vni",
-							OwnerAttr:    "${vyos_conf_scripts_dir}/vrf_vni.py $VAR(../@)",
 							Properties: []*schemadefinition.Properties{{
 								XMLName: xml.Name{
 									Local: "properties",
@@ -40279,7 +40278,6 @@ func vrf() schemadefinition.InterfaceDefinition {
 									Format:      "u32:0-16777214",
 									Description: "VXLAN virtual network identifier",
 								}},
-								Priority: []string{"822"},
 							}},
 						}},
 					}},
