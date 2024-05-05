@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/xml"
 	"fmt"
+	"log/slog"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -29,10 +30,12 @@ func main() {
 		panic("Did not get path info")
 	}
 
+	slog.SetLogLoggerLevel(slog.LevelInfo)
+
 	outputBaseName := strings.TrimSuffix(filepath.Base(inputXMLFilePath), filepath.Ext(inputXMLFilePath))
 	outputFile := fmt.Sprintf("%s/autogen-%s.go", outputDirectory, outputBaseName)
 
-	fmt.Printf("->\tOutput Go file: %s\n", outputFile)
+	slog.Info(fmt.Sprintf("->\tOutput Go file: %s", outputFile))
 
 	dat, err := os.ReadFile(inputXMLFilePath)
 	die(err)
@@ -113,7 +116,7 @@ func main() {
 			x.Decorations().Before = dst.NewLine
 
 		case *dst.Package:
-			fmt.Println("Skipping package node")
+			slog.Info("Skipping package node")
 		}
 
 		return true

@@ -1,7 +1,8 @@
+DIST_DIR:=$(shell sed -n -e '/^DIST_DIR=/s/.*=//p' ../../Makefile)
 
 default: plan
 
-init: ../.terraform-version $(shell find ../../dist/ -type f) $(shell find . -type f -name "*.tf" -execdir grep -l provider "{}" \; | sort -u)
+init: ../.terraform-version $(shell find $(DIST_DIR) -type f) $(shell find . -type f -name "*.tf" -execdir grep -l provider "{}" \; | sort -u)
 	-rm -rf .terraform .terraform.lock.hcl
 	TF_LOG_PROVIDER=TRACE TF_LOG_PATH=trace.log terraform init -upgrade
 

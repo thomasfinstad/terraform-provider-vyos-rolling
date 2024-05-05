@@ -20,6 +20,25 @@ General References:
 
 * [Sharing git credentials](https://code.visualstudio.com/remote/advancedcontainers/sharing-git-credentials)
 
+General tips:
+
+* Unless your user has `UID=1000`, and you are using rootless podman you will need to change the docker socket mount in `.devcontainer/devcontainer.json`
+
+#### Linux
+
+##### Podman
+
+> Tip: podman-desktop is a nice and handy tool for a gui overview, for a tui client check out lazydocker
+
+If you are using podman, make sure the docker socket compatibility is enabled: `sudo systemctl enable podman.socket`,
+alternatively you can configure the devcontainer to mount the user socket, usually found at `/run/user/$(id -u)/podman/podman.sock`.
+
+You can verify the socket access with curl, if it work it will show *"OK"*:
+`curl -H "Content-Type: application/json" --unix-socket /var/run/docker.sock http://localhost/_ping`, if that does not work but the user socket works:
+`curl -H "Content-Type: application/json" --unix-socket /run/user/$(id -u)/podman/podman.sock http://localhost/_ping`
+you can try to communicate with the system socket using sudo.
+If the system socket works as root, but not your user, you might need to add your user to the `podman` group (and log out and in again).
+
 #### WSL2
 
 Some workaround / issues must be handled to get dev containers to work well in WSL2.

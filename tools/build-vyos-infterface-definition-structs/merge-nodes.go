@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log/slog"
 	"math"
 	"reflect"
 	"sort"
@@ -72,12 +73,12 @@ func populateDuplicateChildIndexes(node schemadefinition.NodeParent) (dups dupli
 				if c1.AbsNameR() == c2.AbsNameR() {
 					originalIdx := int(math.Min(float64(idx1), float64(idx2)))
 					duplicateIdx := int(math.Max(float64(idx1), float64(idx2)))
-					fmt.Printf("\tINFO: Tag[%s] Has duplicate, indexes: %d & %d. ", c1.AbsName(), originalIdx, duplicateIdx)
+					slog.Info(fmt.Sprintf("Tag[%s] Has duplicate, indexes: %d & %d. ", c1.AbsName(), originalIdx, duplicateIdx))
 
 					if dups.isDup("leaf", duplicateIdx) {
-						fmt.Printf("Index %d already marked as duplicate\n", duplicateIdx)
+						slog.Debug(fmt.Sprintf("Index %d already marked as duplicate\n", duplicateIdx))
 					} else {
-						fmt.Printf("Adding index %d to duplicate list\n", duplicateIdx)
+						slog.Debug(fmt.Sprintf("Adding index %d to duplicate list\n", duplicateIdx))
 						dups.addDup("leaf", originalIdx, duplicateIdx)
 					}
 				}
@@ -91,12 +92,12 @@ func populateDuplicateChildIndexes(node schemadefinition.NodeParent) (dups dupli
 				if c1.AbsNameR() == c2.AbsNameR() {
 					originalIdx := int(math.Min(float64(idx1), float64(idx2)))
 					duplicateIdx := int(math.Max(float64(idx1), float64(idx2)))
-					fmt.Printf("\tINFO: Tag[%s] Has duplicate, indexes: %d & %d. ", c1.AbsName(), originalIdx, duplicateIdx)
+					slog.Info(fmt.Sprintf("Tag[%s] Has duplicate, indexes: %d & %d. ", c1.AbsName(), originalIdx, duplicateIdx))
 
 					if dups.isDup("tag", duplicateIdx) {
-						fmt.Printf("Index %d already marked as duplicate\n", duplicateIdx)
+						slog.Debug(fmt.Sprintf("Index %d already marked as duplicate", duplicateIdx))
 					} else {
-						fmt.Printf("Adding index %d to duplicate list\n", duplicateIdx)
+						slog.Debug(fmt.Sprintf("Adding index %d to duplicate list", duplicateIdx))
 						dups.addDup("tag", originalIdx, duplicateIdx)
 					}
 				}
@@ -110,12 +111,12 @@ func populateDuplicateChildIndexes(node schemadefinition.NodeParent) (dups dupli
 				if c1.AbsNameR() == c2.AbsNameR() {
 					originalIdx := int(math.Min(float64(idx1), float64(idx2)))
 					duplicateIdx := int(math.Max(float64(idx1), float64(idx2)))
-					fmt.Printf("\tINFO: Tag[%s] Has duplicate, indexes: %d & %d. ", c1.AbsName(), originalIdx, duplicateIdx)
+					slog.Info(fmt.Sprintf("Tag[%s] Has duplicate, indexes: %d & %d. ", c1.AbsName(), originalIdx, duplicateIdx))
 
 					if dups.isDup("node", duplicateIdx) {
-						fmt.Printf("Index %d already marked as duplicate\n", duplicateIdx)
+						slog.Debug(fmt.Sprintf("Index %d already marked as duplicate", duplicateIdx))
 					} else {
-						fmt.Printf("Adding index %d to duplicate list\n", duplicateIdx)
+						slog.Debug(fmt.Sprintf("Adding index %d to duplicate list", duplicateIdx))
 						dups.addDup("node", originalIdx, duplicateIdx)
 					}
 				}
@@ -144,12 +145,12 @@ func mergeNodeParents(rootNode schemadefinition.NodeParent) {
 
 	// Duplicate Leaf
 	for _, dupIndex := range duplicateSibling.leaf {
-		fmt.Printf("\t\t%sWarning%s: Can not merge leaf [%s] from: index: %d to index: %d \n", yellow, reset, siblings.LeafNode[dupIndex.original].AbsName(), dupIndex.duplicate, dupIndex.original)
+		slog.Warn(fmt.Sprintf("Can not merge leaf [%s] from: index: %d to index: %d", siblings.LeafNode[dupIndex.original].AbsName(), dupIndex.duplicate, dupIndex.original))
 	}
 
 	// Duplicate Tag
 	for _, dupIndex := range duplicateSibling.tag {
-		fmt.Printf("\t\tINFO: Merging tag [%s] from: index: %d to index: %d \n", siblings.TagNode[dupIndex.original].AbsName(), dupIndex.duplicate, dupIndex.original)
+		slog.Info(fmt.Sprintf("Merging tag [%s] from: index: %d to index: %d", siblings.TagNode[dupIndex.original].AbsName(), dupIndex.duplicate, dupIndex.original))
 
 		childrenOfDuplicate := siblings.TagNode[dupIndex.duplicate].GetChildren()
 		childrenOfOriginal := siblings.TagNode[dupIndex.original].GetChildren()
@@ -162,7 +163,7 @@ func mergeNodeParents(rootNode schemadefinition.NodeParent) {
 
 	// Duplicate Node
 	for _, dupIndex := range duplicateSibling.node {
-		fmt.Printf("\t\tINFO: Merging node [%s] from: index: %d to index: %d \n", siblings.Node[dupIndex.original].AbsName(), dupIndex.duplicate, dupIndex.original)
+		slog.Info(fmt.Sprintf("Merging node [%s] from: index: %d to index: %d", siblings.Node[dupIndex.original].AbsName(), dupIndex.duplicate, dupIndex.original))
 
 		childrenOfDuplicate := siblings.Node[dupIndex.duplicate].GetChildren()
 		childrenOfOriginal := siblings.Node[dupIndex.original].GetChildren()
@@ -194,7 +195,7 @@ func mergeNodeParents(rootNode schemadefinition.NodeParent) {
 	// Leaf
 	sort.Sort(sort.Reverse(sort.IntSlice(leafToRemove)))
 	for _, idx := range leafToRemove {
-		fmt.Printf("\t\tINFO: Removing leaf: [%s] idx: %d \n", siblings.LeafNode[idx].AbsName(), idx)
+		slog.Info(fmt.Sprintf("Removing leaf: [%s] idx: %d", siblings.LeafNode[idx].AbsName(), idx))
 		siblings.LeafNode = append(
 			siblings.LeafNode[:idx],
 			siblings.LeafNode[idx+1:]...,
@@ -204,7 +205,7 @@ func mergeNodeParents(rootNode schemadefinition.NodeParent) {
 	// Tag
 	sort.Sort(sort.Reverse(sort.IntSlice(tagToRemove)))
 	for _, idx := range tagToRemove {
-		fmt.Printf("\t\tINFO: Removing tag: [%s] idx: %d \n", siblings.TagNode[idx].AbsName(), idx)
+		slog.Info(fmt.Sprintf("Removing tag: [%s] idx: %d", siblings.TagNode[idx].AbsName(), idx))
 		siblings.TagNode = append(
 			siblings.TagNode[:idx],
 			siblings.TagNode[idx+1:]...,
@@ -214,7 +215,7 @@ func mergeNodeParents(rootNode schemadefinition.NodeParent) {
 	// Node
 	sort.Sort(sort.Reverse(sort.IntSlice(nodeToRemove)))
 	for _, idx := range nodeToRemove {
-		fmt.Printf("\t\tINFO: Removing node: [%s] idx: %d \n", siblings.Node[idx].AbsName(), idx)
+		slog.Info(fmt.Sprintf("Removing node: [%s] idx: %d", siblings.Node[idx].AbsName(), idx))
 		siblings.Node = append(
 			siblings.Node[:idx],
 			siblings.Node[idx+1:]...,

@@ -185,8 +185,6 @@ func namedResources(tagNode *schemadefinition.TagNode, skipDirAbsNames []string,
 
 	namedResourceModelGeneration(resourceModelOutputDir, tagNode, t, thisFilename, resourceModelSubDir)
 
-	fmt.Printf("Done...\n\n")
-
 	return pkgs
 }
 
@@ -255,8 +253,6 @@ func globalResources(node *schemadefinition.Node, skipDirAbsNames []string, root
 	}
 
 	globalResourceModelGeneration(resourceModelOutputDir, node, t, thisFilename, resourceModelSubDir)
-
-	fmt.Printf("Done...\n\n")
 
 	return pkgs
 }

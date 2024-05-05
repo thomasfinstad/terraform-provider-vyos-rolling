@@ -3,7 +3,7 @@
 echo "Current user: $(id)"
 
 # Trust repo
-git config --global --add safe.directory /workspaces/terraform-provider-vyos-rolling
+git config --global --add safe.directory $PWD
 
 # Used for commit message formatting
 register-python-argcomplete cz >> ~/.bashrc

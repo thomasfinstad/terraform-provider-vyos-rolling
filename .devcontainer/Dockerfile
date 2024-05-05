@@ -45,9 +45,12 @@ RUN chown -R vscode /dist
 
 ###
 # Custom user settings
-RUN sudo -u vscode bash -c "pipx install argcomplete"
-RUN sudo -u vscode bash -c "pipx install Commitizen"
-RUN sudo -u vscode bash -c "pipx install pre-commit"
+RUN sudo -u vscode bash -c "pipx install argcomplete==3.3.0"
+RUN sudo -u vscode bash -c "pipx install Commitizen==3.25.0"
+
+RUN sudo -u vscode bash -c "pipx install pre-commit==3.7.0"
+# This is very hacky, but we just want pre-commit available for all during github action runs
+RUN ln -s /home/vscode/.local/bin/pre-commit /usr/bin/pre-commit
 
 RUN sudo -u vscode bash -c "go install mvdan.cc/gofumpt@v0.6.0"
 RUN sudo -u vscode bash -c "go install golang.org/x/tools/cmd/goimports@v0.19.0"
