@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 0.3.20240505 (2024-05-05 13:02:39 UTC)
+BUG FIXES:
+
+* makefile improvements and CI fixes
+
+
+
+
+
 ## 0.3.20240323 (2024-05-01 15:38:08 UTC)
 FEATURES:
 
