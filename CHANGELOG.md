@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 0.3.20240506 (2024-05-06 10:32:57 UTC)
+NOTES:
+
+* update to rolling release 2024-05-06T00:19:12Z
+
+* attempt to add changelog to release notes
+
+
+
+
+
 ## 0.3.20240505 (2024-05-05 13:02:39 UTC)
 BUG FIXES:
 
