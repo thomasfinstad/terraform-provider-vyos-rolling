@@ -46,7 +46,9 @@ func (c change) IsNote() bool {
 	if c.FromSchema() {
 		return c.schemaChange.chgLvl == schemaChgLvlNote
 	}
-	return !c.conventionalCommit.Ok() || c.conventionalCommit.Type == "docs"
+	return (!c.conventionalCommit.Ok() ||
+		c.conventionalCommit.Type == "docs" ||
+		c.conventionalCommit.Type == "refactor")
 }
 
 func (c change) IsFeature() bool {

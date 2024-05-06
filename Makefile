@@ -411,7 +411,7 @@ ci-update:
 	make test
 	make docs/index.md
 	git add -A
-	git commit -m "chore: update to rolling release $$(cat data/vyos-1x-info.txt)"
+	git commit -m "refactor: update to rolling release $$(cat data/vyos-1x-info.txt)"
 	make version
 	echo "Updated to rolling release $$(cat data/vyos-1x-info.txt)"
 

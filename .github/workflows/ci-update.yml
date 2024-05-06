@@ -1,4 +1,4 @@
-name: "Update rolling release"
+name: "Rebase on latest rolling release"
 on:
   workflow_dispatch:
   schedule:
@@ -40,10 +40,39 @@ jobs:
             echo "Running make target"
             make ci-update
       - name: GIT Push new version
+        id: git-push
         run: |
           set -x
+          set -e
           sudo chown -R $(id -u) .
           git log -n 3
-          git tag -l | tail -n 5
-          git push
-          git push --tags
+          git tag -l | tail -n 3
+
+          if git merge-base --is-ancestor HEAD '@{u}'; then
+            echo "git_status=clean" | tee -a "$GITHUB_OUTPUT"
+          else
+            git push
+            git push --tags
+            echo "git_status=pushed" | tee -a "$GITHUB_OUTPUT"
+          fi
+
+      # Go Releaser
+      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
+        with:
+          go-version-file: 'go.mod'
+          cache: true
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@01dd5d3ca463c7f10f7f4f7b4f177225ac661ee4 # v6.1.0
+        id: import_gpg
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+      - name: Run GoReleaser
+        if: steps.git-push.outputs.git_status == 'pushed'
+        uses: goreleaser/goreleaser-action@7ec5c2b0c6cdda6e8bbb49444bc797dd33d74dd8 # v5.0.0
+        with:
+          args: release --clean --release-notes .build/CHANGELOG.md
+        env:
+          # GitHub sets the GITHUB_TOKEN secret automatically.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
