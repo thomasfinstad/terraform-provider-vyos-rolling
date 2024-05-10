@@ -7003,6 +7003,25 @@ func vpn_sstp() schemadefinition.InterfaceDefinition {
 									},
 								}},
 							}},
+						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
+							NodeNameAttr: "host-name",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Only allow connection to specified host with the same TLS SNI"},
+								Constraint: []*schemadefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Regex: []string{"[A-Za-z0-9][-.A-Za-z0-9]&[A-Za-z0-9]"},
+								}},
+								ConstraintErrorMessage: []string{"Host-name must be alphanumeric and can contain hyphens"},
+							}},
 						}},
 					}},
 				}},

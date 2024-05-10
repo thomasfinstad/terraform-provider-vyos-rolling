@@ -1460,7 +1460,7 @@ func interfaces_openvpn() schemadefinition.InterfaceDefinition {
 																Local: "valueHelp",
 															},
 															Format:      "1-65535",
-															Description: "Seconds",
+															Description: "Digits",
 														}},
 													}},
 												}, {
