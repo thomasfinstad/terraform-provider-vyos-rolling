@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 0.3.20240512 (2024-05-13 08:23:13 UTC)
+NOTES:
+
+* update to rolling release 2024-05-12T14:02:26Z
+
+* Add notetice about provider being incomplete
+
+
+
+
+
 ## 0.3.20240510 (2024-05-10 08:21:55 UTC)
 NOTES:
 
