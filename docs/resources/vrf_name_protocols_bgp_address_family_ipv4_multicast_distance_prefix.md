@@ -29,6 +29,8 @@ Administrative distances for BGP routes
 
 </center>
 
+-> This provider is in "early access", please see the current status at: https://github.com/thomasfinstad/terraform-provider-vyos-rolling/milestones?state=open
+
 ## Schema
 
 ### Required
