@@ -4797,14 +4797,14 @@ func policy() schemadefinition.InterfaceDefinition {
 															Local: "validator",
 														},
 														NameAttr:     "numeric",
-														ArgumentAttr: "--range 1-200",
+														ArgumentAttr: "--range 1-4294967295",
 													}},
 												}},
 												ValueHelp: []*schemadefinition.ValueHelp{{
 													XMLName: xml.Name{
 														Local: "valueHelp",
 													},
-													Format:      "u32:1-200",
+													Format:      "u32:1-4294967295",
 													Description: "Table value",
 												}},
 											}},

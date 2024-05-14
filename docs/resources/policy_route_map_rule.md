@@ -386,9 +386,9 @@ Optional:
     &emsp;|ipv6    &emsp;|IPv6 address  |
 - `table` (Number) Set prefixes to table
 
-    &emsp;|Format  &emsp;|Description  |
-    |----------|---------------|
-    &emsp;|1-200   &emsp;|Table value  |
+    &emsp;|Format        &emsp;|Description  |
+    |----------------|---------------|
+    &emsp;|1-4294967295  &emsp;|Table value  |
 - `tag` (Number) Route tag value
 
     &emsp;|Format   &emsp;|Description  |

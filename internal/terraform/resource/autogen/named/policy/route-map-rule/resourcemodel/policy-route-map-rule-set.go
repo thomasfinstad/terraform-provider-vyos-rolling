@@ -211,15 +211,15 @@ func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes(ctx context.Context) map
 			Optional: true,
 			MarkdownDescription: `Set prefixes to table
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  1-200   |  Table value  |
+    |  Format        |  Description  |
+    |----------------|---------------|
+    |  1-4294967295  |  Table value  |
 `,
 			Description: `Set prefixes to table
 
-    |  Format  |  Description  |
-    |----------|---------------|
-    |  1-200   |  Table value  |
+    |  Format        |  Description  |
+    |----------------|---------------|
+    |  1-4294967295  |  Table value  |
 `,
 		},
 

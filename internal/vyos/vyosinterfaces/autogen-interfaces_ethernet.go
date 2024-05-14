@@ -651,6 +651,41 @@ func interfaces_ethernet() schemadefinition.InterfaceDefinition {
 							XMLName: xml.Name{
 								Local: "node",
 							},
+							NodeNameAttr: "evpn",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"EVPN Multihoming"},
+							}},
+							Children: []*schemadefinition.Children{{
+								XMLName: xml.Name{
+									Local: "children",
+								},
+								LeafNode: []*schemadefinition.LeafNode{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "uplink",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Uplink to the VXLAN core"},
+										Valueless: []*schemadefinition.Valueless{{
+											XMLName: xml.Name{
+												Local: "valueless",
+											},
+										}},
+									}},
+								}},
+							}},
+						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "node",
+							},
 							NodeNameAttr: "ip",
 							Properties: []*schemadefinition.Properties{{
 								XMLName: xml.Name{
