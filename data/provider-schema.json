@@ -13652,7 +13652,7 @@
                     },
                     "table": {
                       "type": "number",
-                      "description": "Set prefixes to table\n\n    |  Format  |  Description  |\n    |----------|---------------|\n    |  1-200   |  Table value  |\n",
+                      "description": "Set prefixes to table\n\n    |  Format        |  Description  |\n    |----------------|---------------|\n    |  1-4294967295  |  Table value  |\n",
                       "description_kind": "markdown",
                       "optional": true
                     },
