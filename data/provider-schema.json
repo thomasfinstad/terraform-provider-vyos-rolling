@@ -69,7 +69,14 @@
             "attributes": {
               "allow_host_networks": {
                 "type": "bool",
-                "description": "Allow host networks in container\n\n",
+                "description": "Allow sharing host networking with container\n\n",
+                "description_kind": "markdown",
+                "optional": true,
+                "computed": true
+              },
+              "allow_host_pid": {
+                "type": "bool",
+                "description": "Allow sharing host process namespace with container\n\n",
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
