@@ -27,7 +27,8 @@ Container applications
 
 ### Optional
 
-- `allow_host_networks` (Boolean) Allow host networks in container
+- `allow_host_networks` (Boolean) Allow sharing host networking with container
+- `allow_host_pid` (Boolean) Allow sharing host process namespace with container
 - `arguments` (String) The command&#39;s arguments for this container
 - `capability` (List of String) Grant individual Linux capability to container instance
 

@@ -333,6 +333,54 @@ func vpn_sstp() schemadefinition.InterfaceDefinition {
 																	}},
 																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
 																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "priority",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Server priority"},
+																	Constraint: []*schemadefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*schemadefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-255",
+																		}},
+																	}},
+																	ValueHelp: []*schemadefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-255",
+																		Description: "Server priority",
+																	}},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "backup",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Use backup server if other servers are not available"},
+																	Valueless: []*schemadefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
 															}},
 														}},
 													}},
@@ -1259,6 +1307,54 @@ func vpn_sstp() schemadefinition.InterfaceDefinition {
 																	}},
 																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
 																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "priority",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Server priority"},
+																	Constraint: []*schemadefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*schemadefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-255",
+																		}},
+																	}},
+																	ValueHelp: []*schemadefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-255",
+																		Description: "Server priority",
+																	}},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "backup",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Use backup server if other servers are not available"},
+																	Valueless: []*schemadefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
 															}},
 														}},
 													},
@@ -1698,6 +1794,54 @@ func vpn_sstp() schemadefinition.InterfaceDefinition {
 																	}},
 																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
 																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "priority",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Server priority"},
+																	Constraint: []*schemadefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*schemadefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-255",
+																		}},
+																	}},
+																	ValueHelp: []*schemadefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-255",
+																		Description: "Server priority",
+																	}},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "backup",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Use backup server if other servers are not available"},
+																	Valueless: []*schemadefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
 															}},
 														}},
 													},
@@ -2106,7 +2250,55 @@ func vpn_sstp() schemadefinition.InterfaceDefinition {
 																		},
 																	}},
 																}},
-															}, nil},
+															}, nil, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "priority",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Server priority"},
+																	Constraint: []*schemadefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*schemadefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-255",
+																		}},
+																	}},
+																	ValueHelp: []*schemadefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-255",
+																		Description: "Server priority",
+																	}},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "backup",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Use backup server if other servers are not available"},
+																	Valueless: []*schemadefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
+															}},
 														}},
 													},
 													IsBaseNode: false,
@@ -2140,6 +2332,950 @@ func vpn_sstp() schemadefinition.InterfaceDefinition {
 															Description: "Fail time penalty",
 														}},
 														ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
+													}},
+												}, {
+													Parent: &schemadefinition.TagNode{
+														Parent: &schemadefinition.Node{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "radius",
+															Children: []*schemadefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																Node: []*schemadefinition.Node{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "dynamic-author",
+																	Properties: []*schemadefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Dynamic Authorization Extension/Change of Authorization server"},
+																	}},
+																	Children: []*schemadefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*schemadefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "server",
+																			Properties: []*schemadefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
+																				Constraint: []*schemadefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*schemadefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr: "ipv4-address",
+																					}},
+																				}},
+																				ValueHelp: []*schemadefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "ipv4",
+																					Description: "IPv4 address for dynamic authorization server",
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "port",
+																			DefaultValue: []string{"1700"},
+																			Properties: []*schemadefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
+																				Constraint: []*schemadefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*schemadefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr:     "numeric",
+																						ArgumentAttr: "--range 1-65535",
+																					}},
+																				}},
+																				ValueHelp: []*schemadefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "u32:1-65535",
+																					Description: "TCP port",
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "key",
+																			Properties: []*schemadefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Shared secret for Dynamic Authorization Extension server"},
+																			}},
+																		}},
+																	}},
+																}},
+																TagNode: []*schemadefinition.TagNode{nil},
+																LeafNode: []*schemadefinition.LeafNode{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "accounting-interim-interval",
+																	Properties: []*schemadefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Interval in seconds to send accounting information"},
+																		Constraint: []*schemadefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*schemadefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-3600",
+																			}},
+																		}},
+																		ValueHelp: []*schemadefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-3600",
+																			Description: "Interval in seconds to send accounting information",
+																		}},
+																		ConstraintErrorMessage: []string{"Interval value must be between 1 and 3600 seconds"},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "acct-interim-jitter",
+																	Properties: []*schemadefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Maximum jitter value in seconds to be applied to accounting information interval"},
+																		Constraint: []*schemadefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*schemadefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-60",
+																			}},
+																		}},
+																		ValueHelp: []*schemadefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-60",
+																			Description: "Maximum jitter value in seconds",
+																		}},
+																		ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "timeout",
+																	DefaultValue: []string{"3"},
+																	Properties: []*schemadefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Timeout in seconds to wait response from RADIUS server"},
+																		Constraint: []*schemadefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*schemadefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-60",
+																			}},
+																		}},
+																		ValueHelp: []*schemadefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-60",
+																			Description: "Timeout in seconds",
+																		}},
+																		ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "acct-timeout",
+																	DefaultValue: []string{"3"},
+																	Properties: []*schemadefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Timeout for Interim-Update packets, terminate session afterwards"},
+																		Constraint: []*schemadefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*schemadefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 0-60",
+																			}},
+																		}},
+																		ValueHelp: []*schemadefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:0-60",
+																			Description: "Timeout in seconds, 0 to keep active",
+																		}},
+																		ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "max-try",
+																	DefaultValue: []string{"3"},
+																	Properties: []*schemadefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Number of tries to send Access-Request/Accounting-Request queries"},
+																		Constraint: []*schemadefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*schemadefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-20",
+																			}},
+																		}},
+																		ValueHelp: []*schemadefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-20",
+																			Description: "Maximum tries",
+																		}},
+																		ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "nas-identifier",
+																	Properties: []*schemadefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"NAS-Identifier attribute sent to RADIUS"},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "nas-ip-address",
+																	Properties: []*schemadefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"NAS-IP-Address attribute sent to RADIUS"},
+																		Constraint: []*schemadefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*schemadefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr: "ipv4-address",
+																			}},
+																		}},
+																		ValueHelp: []*schemadefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "ipv4",
+																			Description: "NAS-IP-Address attribute",
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "preallocate-vif",
+																	Properties: []*schemadefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Enable attribute NAS-Port-Id in Access-Request"},
+																		Valueless: []*schemadefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}},
+															}},
+														},
+														IsBaseNode: false,
+														XMLName: xml.Name{
+															Local: "tagNode",
+														},
+														NodeNameAttr: "server",
+														Children: []*schemadefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*schemadefinition.LeafNode{{
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "acct-port",
+																DefaultValue: []string{"1813"},
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Accounting port"},
+																	Constraint: []*schemadefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*schemadefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-65535",
+																		}},
+																	}},
+																	ValueHelp: []*schemadefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-65535",
+																		Description: "Numeric IP port",
+																	}},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "disable-accounting",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Disable accounting"},
+																	Valueless: []*schemadefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "fail-time",
+																DefaultValue: []string{"0"},
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Mark server unavailable for <n> seconds on failure"},
+																	Constraint: []*schemadefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*schemadefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 0-600",
+																		}},
+																	}},
+																	ValueHelp: []*schemadefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:0-600",
+																		Description: "Fail time penalty",
+																	}},
+																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
+																}},
+															}, nil, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "backup",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Use backup server if other servers are not available"},
+																	Valueless: []*schemadefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
+															}},
+														}},
+													},
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "priority",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Server priority"},
+														Constraint: []*schemadefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*schemadefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr:     "numeric",
+																ArgumentAttr: "--range 1-255",
+															}},
+														}},
+														ValueHelp: []*schemadefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "u32:1-255",
+															Description: "Server priority",
+														}},
+													}},
+												}, {
+													Parent: &schemadefinition.TagNode{
+														Parent: &schemadefinition.Node{
+															IsBaseNode: false,
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "radius",
+															Children: []*schemadefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																Node: []*schemadefinition.Node{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "dynamic-author",
+																	Properties: []*schemadefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Dynamic Authorization Extension/Change of Authorization server"},
+																	}},
+																	Children: []*schemadefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*schemadefinition.LeafNode{{
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "server",
+																			Properties: []*schemadefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
+																				Constraint: []*schemadefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*schemadefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr: "ipv4-address",
+																					}},
+																				}},
+																				ValueHelp: []*schemadefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "ipv4",
+																					Description: "IPv4 address for dynamic authorization server",
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "port",
+																			DefaultValue: []string{"1700"},
+																			Properties: []*schemadefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
+																				Constraint: []*schemadefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*schemadefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr:     "numeric",
+																						ArgumentAttr: "--range 1-65535",
+																					}},
+																				}},
+																				ValueHelp: []*schemadefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "u32:1-65535",
+																					Description: "TCP port",
+																				}},
+																			}},
+																		}, {
+																			IsBaseNode: false,
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "key",
+																			Properties: []*schemadefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Shared secret for Dynamic Authorization Extension server"},
+																			}},
+																		}},
+																	}},
+																}},
+																TagNode: []*schemadefinition.TagNode{nil},
+																LeafNode: []*schemadefinition.LeafNode{{
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "accounting-interim-interval",
+																	Properties: []*schemadefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Interval in seconds to send accounting information"},
+																		Constraint: []*schemadefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*schemadefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-3600",
+																			}},
+																		}},
+																		ValueHelp: []*schemadefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-3600",
+																			Description: "Interval in seconds to send accounting information",
+																		}},
+																		ConstraintErrorMessage: []string{"Interval value must be between 1 and 3600 seconds"},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "acct-interim-jitter",
+																	Properties: []*schemadefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Maximum jitter value in seconds to be applied to accounting information interval"},
+																		Constraint: []*schemadefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*schemadefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-60",
+																			}},
+																		}},
+																		ValueHelp: []*schemadefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-60",
+																			Description: "Maximum jitter value in seconds",
+																		}},
+																		ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "timeout",
+																	DefaultValue: []string{"3"},
+																	Properties: []*schemadefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Timeout in seconds to wait response from RADIUS server"},
+																		Constraint: []*schemadefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*schemadefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-60",
+																			}},
+																		}},
+																		ValueHelp: []*schemadefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-60",
+																			Description: "Timeout in seconds",
+																		}},
+																		ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "acct-timeout",
+																	DefaultValue: []string{"3"},
+																	Properties: []*schemadefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Timeout for Interim-Update packets, terminate session afterwards"},
+																		Constraint: []*schemadefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*schemadefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 0-60",
+																			}},
+																		}},
+																		ValueHelp: []*schemadefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:0-60",
+																			Description: "Timeout in seconds, 0 to keep active",
+																		}},
+																		ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "max-try",
+																	DefaultValue: []string{"3"},
+																	Properties: []*schemadefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Number of tries to send Access-Request/Accounting-Request queries"},
+																		Constraint: []*schemadefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*schemadefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-20",
+																			}},
+																		}},
+																		ValueHelp: []*schemadefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-20",
+																			Description: "Maximum tries",
+																		}},
+																		ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "nas-identifier",
+																	Properties: []*schemadefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"NAS-Identifier attribute sent to RADIUS"},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "nas-ip-address",
+																	Properties: []*schemadefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"NAS-IP-Address attribute sent to RADIUS"},
+																		Constraint: []*schemadefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*schemadefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr: "ipv4-address",
+																			}},
+																		}},
+																		ValueHelp: []*schemadefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "ipv4",
+																			Description: "NAS-IP-Address attribute",
+																		}},
+																	}},
+																}, {
+																	IsBaseNode: false,
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "preallocate-vif",
+																	Properties: []*schemadefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Enable attribute NAS-Port-Id in Access-Request"},
+																		Valueless: []*schemadefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}},
+															}},
+														},
+														IsBaseNode: false,
+														XMLName: xml.Name{
+															Local: "tagNode",
+														},
+														NodeNameAttr: "server",
+														Children: []*schemadefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*schemadefinition.LeafNode{{
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "acct-port",
+																DefaultValue: []string{"1813"},
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Accounting port"},
+																	Constraint: []*schemadefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*schemadefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-65535",
+																		}},
+																	}},
+																	ValueHelp: []*schemadefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-65535",
+																		Description: "Numeric IP port",
+																	}},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "disable-accounting",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Disable accounting"},
+																	Valueless: []*schemadefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "fail-time",
+																DefaultValue: []string{"0"},
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Mark server unavailable for <n> seconds on failure"},
+																	Constraint: []*schemadefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*schemadefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 0-600",
+																		}},
+																	}},
+																	ValueHelp: []*schemadefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:0-600",
+																		Description: "Fail time penalty",
+																	}},
+																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "priority",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Server priority"},
+																	Constraint: []*schemadefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*schemadefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-255",
+																		}},
+																	}},
+																	ValueHelp: []*schemadefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-255",
+																		Description: "Server priority",
+																	}},
+																}},
+															}, nil},
+														}},
+													},
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "backup",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Use backup server if other servers are not available"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
 													}},
 												}},
 											}},
@@ -2375,6 +3511,54 @@ func vpn_sstp() schemadefinition.InterfaceDefinition {
 																		Description: "Fail time penalty",
 																	}},
 																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "priority",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Server priority"},
+																	Constraint: []*schemadefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*schemadefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-255",
+																		}},
+																	}},
+																	ValueHelp: []*schemadefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-255",
+																		Description: "Server priority",
+																	}},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "backup",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Use backup server if other servers are not available"},
+																	Valueless: []*schemadefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
 																}},
 															}},
 														}},
@@ -2799,6 +3983,54 @@ func vpn_sstp() schemadefinition.InterfaceDefinition {
 																	}},
 																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
 																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "priority",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Server priority"},
+																	Constraint: []*schemadefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*schemadefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-255",
+																		}},
+																	}},
+																	ValueHelp: []*schemadefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-255",
+																		Description: "Server priority",
+																	}},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "backup",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Use backup server if other servers are not available"},
+																	Valueless: []*schemadefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
 															}},
 														}},
 													}},
@@ -3221,6 +4453,54 @@ func vpn_sstp() schemadefinition.InterfaceDefinition {
 																		Description: "Fail time penalty",
 																	}},
 																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "priority",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Server priority"},
+																	Constraint: []*schemadefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*schemadefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-255",
+																		}},
+																	}},
+																	ValueHelp: []*schemadefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-255",
+																		Description: "Server priority",
+																	}},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "backup",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Use backup server if other servers are not available"},
+																	Valueless: []*schemadefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
 																}},
 															}},
 														}},
@@ -3645,6 +4925,54 @@ func vpn_sstp() schemadefinition.InterfaceDefinition {
 																	}},
 																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
 																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "priority",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Server priority"},
+																	Constraint: []*schemadefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*schemadefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-255",
+																		}},
+																	}},
+																	ValueHelp: []*schemadefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-255",
+																		Description: "Server priority",
+																	}},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "backup",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Use backup server if other servers are not available"},
+																	Valueless: []*schemadefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
 															}},
 														}},
 													}},
@@ -4067,6 +5395,54 @@ func vpn_sstp() schemadefinition.InterfaceDefinition {
 																		Description: "Fail time penalty",
 																	}},
 																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "priority",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Server priority"},
+																	Constraint: []*schemadefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*schemadefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-255",
+																		}},
+																	}},
+																	ValueHelp: []*schemadefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-255",
+																		Description: "Server priority",
+																	}},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "backup",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Use backup server if other servers are not available"},
+																	Valueless: []*schemadefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
 																}},
 															}},
 														}},
@@ -4491,6 +5867,54 @@ func vpn_sstp() schemadefinition.InterfaceDefinition {
 																	}},
 																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
 																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "priority",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Server priority"},
+																	Constraint: []*schemadefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*schemadefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-255",
+																		}},
+																	}},
+																	ValueHelp: []*schemadefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-255",
+																		Description: "Server priority",
+																	}},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "backup",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Use backup server if other servers are not available"},
+																	Valueless: []*schemadefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
 															}},
 														}},
 													}},
@@ -4914,6 +6338,54 @@ func vpn_sstp() schemadefinition.InterfaceDefinition {
 																	}},
 																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
 																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "priority",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Server priority"},
+																	Constraint: []*schemadefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*schemadefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-255",
+																		}},
+																	}},
+																	ValueHelp: []*schemadefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-255",
+																		Description: "Server priority",
+																	}},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "backup",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Use backup server if other servers are not available"},
+																	Valueless: []*schemadefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
 															}},
 														}},
 													}},
@@ -5336,6 +6808,54 @@ func vpn_sstp() schemadefinition.InterfaceDefinition {
 																		Description: "Fail time penalty",
 																	}},
 																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "priority",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Server priority"},
+																	Constraint: []*schemadefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*schemadefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-255",
+																		}},
+																	}},
+																	ValueHelp: []*schemadefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-255",
+																		Description: "Server priority",
+																	}},
+																}},
+															}, {
+																IsBaseNode: false,
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "backup",
+																Properties: []*schemadefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Use backup server if other servers are not available"},
+																	Valueless: []*schemadefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
 																}},
 															}},
 														}},

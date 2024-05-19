@@ -618,12 +618,29 @@ func container() schemadefinition.InterfaceDefinition {
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
+							NodeNameAttr: "allow-host-pid",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Allow sharing host process namespace with container"},
+								Valueless: []*schemadefinition.Valueless{{
+									XMLName: xml.Name{
+										Local: "valueless",
+									},
+								}},
+							}},
+						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
 							NodeNameAttr: "allow-host-networks",
 							Properties: []*schemadefinition.Properties{{
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Allow host networks in container"},
+								Help: []string{"Allow sharing host networking with container"},
 								Valueless: []*schemadefinition.Valueless{{
 									XMLName: xml.Name{
 										Local: "valueless",

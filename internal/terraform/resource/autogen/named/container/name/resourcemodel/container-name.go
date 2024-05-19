@@ -32,6 +32,7 @@ type ContainerName struct {
 	Timeouts timeouts.Value `tfsdk:"timeouts" vyos:"-,timeout"`
 
 	// LeafNodes
+	LeafContainerNameAllowHostPID      types.Bool   `tfsdk:"allow_host_pid" vyos:"allow-host-pid,omitempty"`
 	LeafContainerNameAllowHostNetworks types.Bool   `tfsdk:"allow_host_networks" vyos:"allow-host-networks,omitempty"`
 	LeafContainerNameCapability        types.List   `tfsdk:"capability" vyos:"capability,omitempty"`
 	LeafContainerNameDescrIPtion       types.String `tfsdk:"description" vyos:"description,omitempty"`
@@ -144,12 +145,24 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 
 		// LeafNodes
 
-		"allow_host_networks": schema.BoolAttribute{
+		"allow_host_pid": schema.BoolAttribute{
 			Optional: true,
-			MarkdownDescription: `Allow host networks in container
+			MarkdownDescription: `Allow sharing host process namespace with container
 
 `,
-			Description: `Allow host networks in container
+			Description: `Allow sharing host process namespace with container
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
+		"allow_host_networks": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Allow sharing host networking with container
+
+`,
+			Description: `Allow sharing host networking with container
 
 `,
 			Default:  booldefault.StaticBool(false),
