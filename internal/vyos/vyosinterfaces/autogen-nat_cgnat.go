@@ -331,6 +331,11 @@ func nat_cgnat() schemadefinition.InterfaceDefinition {
 													Format:      "ipv4range",
 													Description: "IPv4 address range",
 												}},
+												Multi: []*schemadefinition.Multi{{
+													XMLName: xml.Name{
+														Local: "multi",
+													},
+												}},
 											}},
 										}},
 									}},
