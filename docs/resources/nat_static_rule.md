@@ -36,6 +36,7 @@ Static NAT (one-to-one)
     &emsp;|txt     &emsp;|Description  |
 - `destination` (Attributes) NAT destination parameters (see [below for nested schema](#nestedatt--destination))
 - `inbound_interface` (String) Inbound interface of NAT traffic
+- `log` (Boolean) Log packets hitting this rule
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `translation` (Attributes) Translation address or prefix (see [below for nested schema](#nestedatt--translation))
 

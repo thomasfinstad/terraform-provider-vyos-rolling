@@ -9,6 +9,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -33,6 +34,7 @@ type NatStaticRule struct {
 	// LeafNodes
 	LeafNatStaticRuleDescrIPtion      types.String `tfsdk:"description" vyos:"description,omitempty"`
 	LeafNatStaticRuleInboundInterface types.String `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
+	LeafNatStaticRuleLog              types.Bool   `tfsdk:"log" vyos:"log,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
@@ -153,6 +155,18 @@ func (o NatStaticRule) ResourceSchemaAttributes(ctx context.Context) map[string]
 			Description: `Inbound interface of NAT traffic
 
 `,
+		},
+
+		"log": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Log packets hitting this rule
+
+`,
+			Description: `Log packets hitting this rule
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		// Nodes
