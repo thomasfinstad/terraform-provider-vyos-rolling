@@ -11371,6 +11371,13 @@
                 "description_kind": "markdown",
                 "optional": true
               },
+              "log": {
+                "type": "bool",
+                "description": "Log packets hitting this rule\n\n",
+                "description_kind": "markdown",
+                "optional": true,
+                "computed": true
+              },
               "rule_id": {
                 "type": "string",
                 "description": "Rule number for NAT\n\n",
