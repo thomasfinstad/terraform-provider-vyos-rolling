@@ -55,19 +55,17 @@ func (o NatSourceRuleTranSLAtionOptions) ResourceSchemaAttributes(ctx context.Co
 			Optional: true,
 			MarkdownDescription: `Port mapping options
 
-    |  Format        |  Description                      |
-    |----------------|-----------------------------------|
-    |  random        |  Randomize source port mapping    |
-    |  fully-random  |  Full port randomization          |
-    |  none          |  Do not apply port randomization  |
+    |  Format  |  Description                      |
+    |----------|-----------------------------------|
+    |  random  |  Randomize source port mapping    |
+    |  none    |  Do not apply port randomization  |
 `,
 			Description: `Port mapping options
 
-    |  Format        |  Description                      |
-    |----------------|-----------------------------------|
-    |  random        |  Randomize source port mapping    |
-    |  fully-random  |  Full port randomization          |
-    |  none          |  Do not apply port randomization  |
+    |  Format  |  Description                      |
+    |----------|-----------------------------------|
+    |  random  |  Randomize source port mapping    |
+    |  none    |  Do not apply port randomization  |
 `,
 
 			// Default:          stringdefault.StaticString(`none`),

@@ -277,8 +277,7 @@ Optional:
     &emsp;|random      &emsp;|Random source or destination address allocation for each connection        |
 - `port_mapping` (String) Port mapping options
 
-    &emsp;|Format        &emsp;|Description                      |
-    |----------------|-----------------------------------|
-    &emsp;|random        &emsp;|Randomize source port mapping    |
-    &emsp;|fully-random  &emsp;|Full port randomization          |
-    &emsp;|none          &emsp;|Do not apply port randomization  |  
+    &emsp;|Format  &emsp;|Description                      |
+    |----------|-----------------------------------|
+    &emsp;|random  &emsp;|Randomize source port mapping    |
+    &emsp;|none    &emsp;|Do not apply port randomization  |  

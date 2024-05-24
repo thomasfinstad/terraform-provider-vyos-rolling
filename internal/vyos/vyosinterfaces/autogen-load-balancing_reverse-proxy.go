@@ -620,6 +620,63 @@ func loadbalancing_reverseproxy() schemadefinition.InterfaceDefinition {
 											}},
 										}},
 									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "tagNode",
+									},
+									NodeNameAttr: "http-response-headers",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Headers to include in HTTP response"},
+										Constraint: []*schemadefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"[-a-zA-Z]+"},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "txt",
+											Description: "HTTP header name",
+										}},
+										ConstraintErrorMessage: []string{"Header names must only include alphabetical characters and hyphens"},
+									}},
+									Children: []*schemadefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										LeafNode: []*schemadefinition.LeafNode{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "value",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"HTTP header value"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Regex: []string{"[[:ascii:]]{1,256}"},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt",
+													Description: "HTTP header value",
+												}},
+											}},
+										}},
+									}},
 								}},
 								LeafNode: []*schemadefinition.LeafNode{{
 									IsBaseNode: false,
@@ -1193,6 +1250,63 @@ func loadbalancing_reverseproxy() schemadefinition.InterfaceDefinition {
 									}},
 								}},
 								TagNode: []*schemadefinition.TagNode{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "tagNode",
+									},
+									NodeNameAttr: "http-response-headers",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Headers to include in HTTP response"},
+										Constraint: []*schemadefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"[-a-zA-Z]+"},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "txt",
+											Description: "HTTP header name",
+										}},
+										ConstraintErrorMessage: []string{"Header names must only include alphabetical characters and hyphens"},
+									}},
+									Children: []*schemadefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										LeafNode: []*schemadefinition.LeafNode{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "value",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"HTTP header value"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Regex: []string{"[[:ascii:]]{1,256}"},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt",
+													Description: "HTTP header value",
+												}},
+											}},
+										}},
+									}},
+								}, {
 									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "tagNode",

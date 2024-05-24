@@ -845,7 +845,7 @@ func nat() schemadefinition.InterfaceDefinition {
 																		XMLName: xml.Name{
 																			Local: "constraint",
 																		},
-																		Regex: []string{"(random|fully-random|none)"},
+																		Regex: []string{"(random|none)"},
 																	}},
 																	ValueHelp: []*schemadefinition.ValueHelp{{
 																		XMLName: xml.Name{
@@ -857,12 +857,6 @@ func nat() schemadefinition.InterfaceDefinition {
 																		XMLName: xml.Name{
 																			Local: "valueHelp",
 																		},
-																		Format:      "fully-random",
-																		Description: "Full port randomization",
-																	}, {
-																		XMLName: xml.Name{
-																			Local: "valueHelp",
-																		},
 																		Format:      "none",
 																		Description: "Do not apply port randomization",
 																	}},
@@ -870,7 +864,7 @@ func nat() schemadefinition.InterfaceDefinition {
 																		XMLName: xml.Name{
 																			Local: "completionHelp",
 																		},
-																		List: []string{"random fully-random none"},
+																		List: []string{"random none"},
 																	}},
 																}},
 															}},
@@ -1319,7 +1313,7 @@ func nat() schemadefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"(random|fully-random|none)"},
+															Regex: []string{"(random|none)"},
 														}},
 														ValueHelp: []*schemadefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -1331,12 +1325,6 @@ func nat() schemadefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "valueHelp",
 															},
-															Format:      "fully-random",
-															Description: "Full port randomization",
-														}, {
-															XMLName: xml.Name{
-																Local: "valueHelp",
-															},
 															Format:      "none",
 															Description: "Do not apply port randomization",
 														}},
@@ -1344,7 +1332,7 @@ func nat() schemadefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "completionHelp",
 															},
-															List: []string{"random fully-random none"},
+															List: []string{"random none"},
 														}},
 													}},
 												}},
@@ -2850,7 +2838,7 @@ func nat() schemadefinition.InterfaceDefinition {
 																		XMLName: xml.Name{
 																			Local: "constraint",
 																		},
-																		Regex: []string{"(random|fully-random|none)"},
+																		Regex: []string{"(random|none)"},
 																	}},
 																	ValueHelp: []*schemadefinition.ValueHelp{{
 																		XMLName: xml.Name{
@@ -2862,12 +2850,6 @@ func nat() schemadefinition.InterfaceDefinition {
 																		XMLName: xml.Name{
 																			Local: "valueHelp",
 																		},
-																		Format:      "fully-random",
-																		Description: "Full port randomization",
-																	}, {
-																		XMLName: xml.Name{
-																			Local: "valueHelp",
-																		},
 																		Format:      "none",
 																		Description: "Do not apply port randomization",
 																	}},
@@ -2875,7 +2857,7 @@ func nat() schemadefinition.InterfaceDefinition {
 																		XMLName: xml.Name{
 																			Local: "completionHelp",
 																		},
-																		List: []string{"random fully-random none"},
+																		List: []string{"random none"},
 																	}},
 																}},
 															}},
@@ -3309,7 +3291,7 @@ func nat() schemadefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "constraint",
 															},
-															Regex: []string{"(random|fully-random|none)"},
+															Regex: []string{"(random|none)"},
 														}},
 														ValueHelp: []*schemadefinition.ValueHelp{{
 															XMLName: xml.Name{
@@ -3321,12 +3303,6 @@ func nat() schemadefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "valueHelp",
 															},
-															Format:      "fully-random",
-															Description: "Full port randomization",
-														}, {
-															XMLName: xml.Name{
-																Local: "valueHelp",
-															},
 															Format:      "none",
 															Description: "Do not apply port randomization",
 														}},
@@ -3334,7 +3310,7 @@ func nat() schemadefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "completionHelp",
 															},
-															List: []string{"random fully-random none"},
+															List: []string{"random none"},
 														}},
 													}},
 												}},
