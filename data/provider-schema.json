@@ -10903,7 +10903,7 @@
                           },
                           "port_mapping": {
                             "type": "string",
-                            "description": "Port mapping options\n\n    |  Format        |  Description                      |\n    |----------------|-----------------------------------|\n    |  random        |  Randomize source port mapping    |\n    |  fully-random  |  Full port randomization          |\n    |  none          |  Do not apply port randomization  |\n",
+                            "description": "Port mapping options\n\n    |  Format  |  Description                      |\n    |----------|-----------------------------------|\n    |  random  |  Randomize source port mapping    |\n    |  none    |  Do not apply port randomization  |\n",
                             "description_kind": "markdown",
                             "optional": true,
                             "computed": true
@@ -11255,7 +11255,7 @@
                           },
                           "port_mapping": {
                             "type": "string",
-                            "description": "Port mapping options\n\n    |  Format        |  Description                      |\n    |----------------|-----------------------------------|\n    |  random        |  Randomize source port mapping    |\n    |  fully-random  |  Full port randomization          |\n    |  none          |  Do not apply port randomization  |\n",
+                            "description": "Port mapping options\n\n    |  Format  |  Description                      |\n    |----------|-----------------------------------|\n    |  random  |  Randomize source port mapping    |\n    |  none    |  Do not apply port randomization  |\n",
                             "description_kind": "markdown",
                             "optional": true,
                             "computed": true
