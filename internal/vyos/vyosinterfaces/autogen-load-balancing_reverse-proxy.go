@@ -1147,7 +1147,7 @@ func loadbalancing_reverseproxy() schemadefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Tiemout options"},
+										Help: []string{"Timeout options"},
 									}},
 									Children: []*schemadefinition.Children{{
 										XMLName: xml.Name{
