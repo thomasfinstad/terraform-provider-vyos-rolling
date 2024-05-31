@@ -102,6 +102,13 @@
                 "description_kind": "markdown",
                 "optional": true
               },
+              "cpu_quota": {
+                "type": "string",
+                "description": "This limits the number of CPU resources the container can use\n\n    |  Format  |  Description                                                                         |\n    |----------|--------------------------------------------------------------------------------------|\n    |  0       |  Unlimited                                                                           |\n    |  txt     |  Amount of CPU time the container can use in amount of cores (up to three decimals)  |\n",
+                "description_kind": "markdown",
+                "optional": true,
+                "computed": true
+              },
               "description": {
                 "type": "string",
                 "description": "Description\n\n    |  Format  |  Description  |\n    |----------|---------------|\n    |  txt     |  Description  |\n",
@@ -20432,6 +20439,12 @@
                           "spf_interval": {
                             "type": "number",
                             "description": "Minimum interval between SPF calculations\n\n    |  Format  |  Description          |\n    |----------|-----------------------|\n    |  1-120   |  Interval in seconds  |\n",
+                            "description_kind": "markdown",
+                            "optional": true
+                          },
+                          "topology": {
+                            "type": "string",
+                            "description": "Configure IS-IS topologies\n\n    |  Format          |  Description                   |\n    |------------------|--------------------------------|\n    |  ipv4-multicast  |  Use IPv4 multicast topology   |\n    |  ipv4-mgmt       |  Use IPv4 management topology  |\n    |  ipv6-unicast    |  Use IPv6 unicast topology     |\n    |  ipv6-multicast  |  Use IPv6 multicast topology   |\n    |  ipv6-mgmt       |  Use IPv6 management topology  |\n    |  ipv6-dstsrc     |  Use IPv6 dst-src topology     |\n",
                             "description_kind": "markdown",
                             "optional": true
                           },
