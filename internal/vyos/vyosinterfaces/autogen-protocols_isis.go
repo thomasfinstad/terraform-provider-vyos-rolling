@@ -5335,6 +5335,67 @@ func protocols_isis() schemadefinition.InterfaceDefinition {
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
+							NodeNameAttr: "topology",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Configure IS-IS topologies"},
+								Constraint: []*schemadefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Regex: []string{"(ipv4-multicast|ipv4-mgmt|ipv6-unicast|ipv6-multicast|ipv6-mgmt|ipv6-dstsrc)"},
+								}},
+								ValueHelp: []*schemadefinition.ValueHelp{{
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "ipv4-multicast",
+									Description: "Use IPv4 multicast topology",
+								}, {
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "ipv4-mgmt",
+									Description: "Use IPv4 management topology",
+								}, {
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "ipv6-unicast",
+									Description: "Use IPv6 unicast topology",
+								}, {
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "ipv6-multicast",
+									Description: "Use IPv6 multicast topology",
+								}, {
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "ipv6-mgmt",
+									Description: "Use IPv6 management topology",
+								}, {
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "ipv6-dstsrc",
+									Description: "Use IPv6 dst-src topology",
+								}},
+								CompletionHelp: []*schemadefinition.CompletionHelp{{
+									XMLName: xml.Name{
+										Local: "completionHelp",
+									},
+									List: []string{"ipv4-multicast ipv4-mgmt ipv6-unicast ipv6-multicast ipv6-mgmt ipv6-dstsrc"},
+								}},
+							}},
+						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
 							NodeNameAttr: "net",
 							Properties: []*schemadefinition.Properties{{
 								XMLName: xml.Name{

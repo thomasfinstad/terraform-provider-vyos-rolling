@@ -28,6 +28,7 @@ type VrfNameProtocolsIsis struct {
 	LeafVrfNameProtocolsIsisLspRefreshInterval   types.Number `tfsdk:"lsp_refresh_interval" vyos:"lsp-refresh-interval,omitempty"`
 	LeafVrfNameProtocolsIsisMaxLspLifetime       types.Number `tfsdk:"max_lsp_lifetime" vyos:"max-lsp-lifetime,omitempty"`
 	LeafVrfNameProtocolsIsisMetricStyle          types.String `tfsdk:"metric_style" vyos:"metric-style,omitempty"`
+	LeafVrfNameProtocolsIsisTopology             types.String `tfsdk:"topology" vyos:"topology,omitempty"`
 	LeafVrfNameProtocolsIsisNet                  types.String `tfsdk:"net" vyos:"net,omitempty"`
 	LeafVrfNameProtocolsIsisPurgeOriginator      types.Bool   `tfsdk:"purge_originator" vyos:"purge-originator,omitempty"`
 	LeafVrfNameProtocolsIsisSetAttachedBit       types.Bool   `tfsdk:"set_attached_bit" vyos:"set-attached-bit,omitempty"`
@@ -206,6 +207,32 @@ func (o VrfNameProtocolsIsis) ResourceSchemaAttributes(ctx context.Context) map[
     |  narrow      |  Use old style of TLVs with narrow metric               |
     |  transition  |  Send and accept both styles of TLVs during transition  |
     |  wide        |  Use new style of TLVs to carry wider metric            |
+`,
+		},
+
+		"topology": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Configure IS-IS topologies
+
+    |  Format          |  Description                   |
+    |------------------|--------------------------------|
+    |  ipv4-multicast  |  Use IPv4 multicast topology   |
+    |  ipv4-mgmt       |  Use IPv4 management topology  |
+    |  ipv6-unicast    |  Use IPv6 unicast topology     |
+    |  ipv6-multicast  |  Use IPv6 multicast topology   |
+    |  ipv6-mgmt       |  Use IPv6 management topology  |
+    |  ipv6-dstsrc     |  Use IPv6 dst-src topology     |
+`,
+			Description: `Configure IS-IS topologies
+
+    |  Format          |  Description                   |
+    |------------------|--------------------------------|
+    |  ipv4-multicast  |  Use IPv4 multicast topology   |
+    |  ipv4-mgmt       |  Use IPv4 management topology  |
+    |  ipv6-unicast    |  Use IPv6 unicast topology     |
+    |  ipv6-multicast  |  Use IPv6 multicast topology   |
+    |  ipv6-mgmt       |  Use IPv6 management topology  |
+    |  ipv6-dstsrc     |  Use IPv6 dst-src topology     |
 `,
 		},
 

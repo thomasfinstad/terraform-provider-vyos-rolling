@@ -1560,6 +1560,16 @@ Optional:
     &emsp;|Format  &emsp;|Description          |
     |----------|-----------------------|
     &emsp;|1-120   &emsp;|Interval in seconds  |
+- `topology` (String) Configure IS-IS topologies
+
+    &emsp;|Format          &emsp;|Description                   |
+    |------------------|--------------------------------|
+    &emsp;|ipv4-multicast  &emsp;|Use IPv4 multicast topology   |
+    &emsp;|ipv4-mgmt       &emsp;|Use IPv4 management topology  |
+    &emsp;|ipv6-unicast    &emsp;|Use IPv6 unicast topology     |
+    &emsp;|ipv6-multicast  &emsp;|Use IPv6 multicast topology   |
+    &emsp;|ipv6-mgmt       &emsp;|Use IPv6 management topology  |
+    &emsp;|ipv6-dstsrc     &emsp;|Use IPv6 dst-src topology     |
 - `traffic_engineering` (Attributes) IS-IS traffic engineering extensions (see [below for nested schema](#nestedatt--protocols--isis--traffic_engineering))
 
 &lt;a id=&#34;nestedatt--protocols--isis--area_password&#34;&gt;&lt;/a&gt;

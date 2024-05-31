@@ -910,41 +910,6 @@ func loadbalancing_reverseproxy() schemadefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "node",
 									},
-									NodeNameAttr: "parameters",
-									Properties: []*schemadefinition.Properties{{
-										XMLName: xml.Name{
-											Local: "properties",
-										},
-										Help: []string{"Backend parameters"},
-									}},
-									Children: []*schemadefinition.Children{{
-										XMLName: xml.Name{
-											Local: "children",
-										},
-										LeafNode: []*schemadefinition.LeafNode{{
-											IsBaseNode: false,
-											XMLName: xml.Name{
-												Local: "leafNode",
-											},
-											NodeNameAttr: "http-check",
-											Properties: []*schemadefinition.Properties{{
-												XMLName: xml.Name{
-													Local: "properties",
-												},
-												Help: []string{"HTTP health check"},
-												Valueless: []*schemadefinition.Valueless{{
-													XMLName: xml.Name{
-														Local: "valueless",
-													},
-												}},
-											}},
-										}},
-									}},
-								}, {
-									IsBaseNode: false,
-									XMLName: xml.Name{
-										Local: "node",
-									},
 									NodeNameAttr: "http-check",
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{

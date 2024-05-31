@@ -43,6 +43,12 @@ Container applications
     &emsp;|sys-nice          &emsp;|Permission to set process nice value                                   |
     &emsp;|sys-time          &emsp;|Permission to set system clock                                         |
 - `command` (String) Override the default CMD from the image
+- `cpu_quota` (String) This limits the number of CPU resources the container can use
+
+    &emsp;|Format  &emsp;|Description                                                                         |
+    |----------|--------------------------------------------------------------------------------------|
+    &emsp;|0       &emsp;|Unlimited                                                                           |
+    &emsp;|txt     &emsp;|Amount of CPU time the container can use in amount of cores (up to three decimals)  |
 - `description` (String) Description
 
     &emsp;|Format  &emsp;|Description  |

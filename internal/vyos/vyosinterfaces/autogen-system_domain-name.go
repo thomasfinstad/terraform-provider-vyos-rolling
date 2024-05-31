@@ -46,6 +46,7 @@ func system_domainname() schemadefinition.InterfaceDefinition {
 								NameAttr: "fqdn",
 							}},
 						}},
+						Priority: []string{"6"},
 					}},
 				}},
 			}},

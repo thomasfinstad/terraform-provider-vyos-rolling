@@ -42,6 +42,7 @@ type ContainerName struct {
 	LeafContainerNameImage             types.String `tfsdk:"image" vyos:"image,omitempty"`
 	LeafContainerNameCommand           types.String `tfsdk:"command" vyos:"command,omitempty"`
 	LeafContainerNameArguments         types.String `tfsdk:"arguments" vyos:"arguments,omitempty"`
+	LeafContainerNameCpuQuota          types.String `tfsdk:"cpu_quota" vyos:"cpu-quota,omitempty"`
 	LeafContainerNameMemory            types.Number `tfsdk:"memory" vyos:"memory,omitempty"`
 	LeafContainerNameSharedMemory      types.Number `tfsdk:"shared_memory" vyos:"shared-memory,omitempty"`
 	LeafContainerNameRestart           types.String `tfsdk:"restart" vyos:"restart,omitempty"`
@@ -282,6 +283,27 @@ func (o ContainerName) ResourceSchemaAttributes(ctx context.Context) map[string]
 			Description: `The command's arguments for this container
 
 `,
+		},
+
+		"cpu_quota": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `This limits the number of CPU resources the container can use
+
+    |  Format  |  Description                                                                         |
+    |----------|--------------------------------------------------------------------------------------|
+    |  0       |  Unlimited                                                                           |
+    |  txt     |  Amount of CPU time the container can use in amount of cores (up to three decimals)  |
+`,
+			Description: `This limits the number of CPU resources the container can use
+
+    |  Format  |  Description                                                                         |
+    |----------|--------------------------------------------------------------------------------------|
+    |  0       |  Unlimited                                                                           |
+    |  txt     |  Amount of CPU time the container can use in amount of cores (up to three decimals)  |
+`,
+
+			// Default:          stringdefault.StaticString(`0`),
+			Computed: true,
 		},
 
 		"memory": schema.NumberAttribute{

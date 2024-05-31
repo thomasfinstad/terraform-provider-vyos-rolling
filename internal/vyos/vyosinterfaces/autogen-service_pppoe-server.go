@@ -8065,6 +8065,86 @@ func service_pppoeserver() schemadefinition.InterfaceDefinition {
 									}},
 								}},
 							}},
+						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "node",
+							},
+							NodeNameAttr: "log",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Server logging "},
+							}},
+							Children: []*schemadefinition.Children{{
+								XMLName: xml.Name{
+									Local: "children",
+								},
+								LeafNode: []*schemadefinition.LeafNode{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "level",
+									DefaultValue: []string{"3"},
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Specifies log level"},
+										Constraint: []*schemadefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Validator: []*schemadefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr:     "numeric",
+												ArgumentAttr: "--range 0-5",
+											}},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "0",
+											Description: "Turn off logging",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "1",
+											Description: "Log only error messages",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "2",
+											Description: "Log error and warning messages",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "3",
+											Description: "Log error, warning and minimum information messages",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "4",
+											Description: "Log error, warning and full information messages",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "5",
+											Description: "Log all messages including debug messages",
+										}},
+									}},
+								}},
+							}},
 						}},
 						TagNode: []*schemadefinition.TagNode{{
 							IsBaseNode: false,

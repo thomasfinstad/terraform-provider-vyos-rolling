@@ -880,6 +880,39 @@ func container() schemadefinition.InterfaceDefinition {
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
+							NodeNameAttr: "cpu-quota",
+							DefaultValue: []string{"0"},
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"This limits the number of CPU resources the container can use"},
+								Constraint: []*schemadefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Regex: []string{"(0|[1-9]\\d&)(\\.\\d{1,3})?"},
+								}},
+								ValueHelp: []*schemadefinition.ValueHelp{{
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "u32:0",
+									Description: "Unlimited",
+								}, {
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "txt",
+									Description: "Amount of CPU time the container can use in amount of cores (up to three decimals)",
+								}},
+								ConstraintErrorMessage: []string{"Container CPU limit must be a (decimal) number in range 0 to number of threads"},
+							}},
+						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
 							NodeNameAttr: "memory",
 							DefaultValue: []string{"512"},
 							Properties: []*schemadefinition.Properties{{
