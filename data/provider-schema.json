@@ -14206,6 +14206,15 @@
                 "description_kind": "markdown",
                 "required": true
               },
+              "match_group": {
+                "type": [
+                  "list",
+                  "string"
+                ],
+                "description": "Filter group for QoS policy\n\n    |  Format  |  Description       |\n    |----------|--------------------|\n    |  txt     |  Match group name  |\n",
+                "description_kind": "markdown",
+                "optional": true
+              },
               "mtu": {
                 "type": "number",
                 "description": "MTU size for this class\n\n    |  Format     |  Description  |\n    |-------------|---------------|\n    |  256-65535  |  Bytes        |\n",
@@ -14757,6 +14766,15 @@
                 "description_kind": "markdown",
                 "optional": true,
                 "computed": true
+              },
+              "match_group": {
+                "type": [
+                  "list",
+                  "string"
+                ],
+                "description": "Filter group for QoS policy\n\n    |  Format  |  Description       |\n    |----------|--------------------|\n    |  txt     |  Match group name  |\n",
+                "description_kind": "markdown",
+                "optional": true
               },
               "priority_queue_id": {
                 "type": "string",
@@ -15418,6 +15436,15 @@
                 "optional": true,
                 "computed": true
               },
+              "match_group": {
+                "type": [
+                  "list",
+                  "string"
+                ],
+                "description": "Filter group for QoS policy\n\n    |  Format  |  Description       |\n    |----------|--------------------|\n    |  txt     |  Match group name  |\n",
+                "description_kind": "markdown",
+                "optional": true
+              },
               "quantum": {
                 "type": "number",
                 "description": "Packet scheduling quantum\n\n    |  Format        |  Description                        |\n    |----------------|-------------------------------------|\n    |  1-4294967295  |  Packet scheduling quantum (bytes)  |\n",
@@ -15998,6 +16025,15 @@
                 "optional": true,
                 "computed": true
               },
+              "match_group": {
+                "type": [
+                  "list",
+                  "string"
+                ],
+                "description": "Filter group for QoS policy\n\n    |  Format  |  Description       |\n    |----------|--------------------|\n    |  txt     |  Match group name  |\n",
+                "description_kind": "markdown",
+                "optional": true
+              },
               "maximum_threshold": {
                 "type": "number",
                 "description": "Maximum threshold for random detection\n\n    |  Format  |  Description                   |\n    |----------|--------------------------------|\n    |  0-4096  |  Maximum threshold in packets  |\n",
@@ -16562,6 +16598,15 @@
                 "description_kind": "markdown",
                 "optional": true
               },
+              "match_group": {
+                "type": [
+                  "list",
+                  "string"
+                ],
+                "description": "Filter group for QoS policy\n\n    |  Format  |  Description       |\n    |----------|--------------------|\n    |  txt     |  Match group name  |\n",
+                "description_kind": "markdown",
+                "optional": true
+              },
               "realtime": {
                 "nested_type": {
                   "attributes": {
@@ -16937,6 +16982,309 @@
               }
             },
             "description": "Quality of Service (QoS)  \n⯯  \nService Policy definitions  \n⯯  \nHierarchical Fair Service Curve's policy  \n⯯  \nClass ID  \n⯯  \n**Class matching rule name**\n",
+            "description_kind": "markdown"
+          }
+        },
+        "vyos_qos_traffic_match_group": {
+          "version": 0,
+          "block": {
+            "attributes": {
+              "description": {
+                "type": "string",
+                "description": "Description\n\n    |  Format  |  Description  |\n    |----------|---------------|\n    |  txt     |  Description  |\n",
+                "description_kind": "markdown",
+                "optional": true
+              },
+              "id": {
+                "type": "string",
+                "description": "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
+                "description_kind": "markdown",
+                "computed": true
+              },
+              "match_group": {
+                "type": [
+                  "list",
+                  "string"
+                ],
+                "description": "Filter group for QoS policy\n\n    |  Format  |  Description       |\n    |----------|--------------------|\n    |  txt     |  Match group name  |\n",
+                "description_kind": "markdown",
+                "optional": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
+              "traffic_match_group_id": {
+                "type": "string",
+                "description": "Filter group for QoS policy\n\n    |  Format  |  Description       |\n    |----------|--------------------|\n    |  txt     |  Match group name  |\n",
+                "description_kind": "markdown",
+                "required": true
+              }
+            },
+            "description": "Quality of Service (QoS)  \n⯯  \n**Filter group for QoS policy**\n",
+            "description_kind": "markdown"
+          }
+        },
+        "vyos_qos_traffic_match_group_match": {
+          "version": 0,
+          "block": {
+            "attributes": {
+              "description": {
+                "type": "string",
+                "description": "Description\n\n    |  Format  |  Description  |\n    |----------|---------------|\n    |  txt     |  Description  |\n",
+                "description_kind": "markdown",
+                "optional": true
+              },
+              "id": {
+                "type": "string",
+                "description": "Resource ID, full vyos path to the resource with each field separated by dunder (`__`).",
+                "description_kind": "markdown",
+                "computed": true
+              },
+              "ip": {
+                "nested_type": {
+                  "attributes": {
+                    "destination": {
+                      "nested_type": {
+                        "attributes": {
+                          "address": {
+                            "type": "string",
+                            "description": "IPv4 destination address for this match\n\n    |  Format   |  Description   |\n    |-----------|----------------|\n    |  ipv4     |  IPv4 address  |\n    |  ipv4net  |  IPv4 prefix   |\n",
+                            "description_kind": "markdown",
+                            "optional": true
+                          },
+                          "port": {
+                            "type": "number",
+                            "description": "Port number used by connection\n\n    |  Format   |  Description      |\n    |-----------|-------------------|\n    |  1-65535  |  Numeric IP port  |\n",
+                            "description_kind": "markdown",
+                            "optional": true
+                          }
+                        },
+                        "nesting_mode": "single"
+                      },
+                      "description": "Match on destination port or address\n\n",
+                      "description_kind": "markdown",
+                      "optional": true
+                    },
+                    "dscp": {
+                      "type": "string",
+                      "description": "Match on Differentiated Services Codepoint (DSCP)\n\n    |  Format          |  Description                                      |\n    |------------------|---------------------------------------------------|\n    |  0-63            |  Differentiated Services Codepoint (DSCP) value   |\n    |  default         |  match DSCP (000000)                              |\n    |  reliability     |  match DSCP (000001)                              |\n    |  throughput      |  match DSCP (000010)                              |\n    |  lowdelay        |  match DSCP (000100)                              |\n    |  priority        |  match DSCP (001000)                              |\n    |  immediate       |  match DSCP (010000)                              |\n    |  flash           |  match DSCP (011000)                              |\n    |  flash-override  |  match DSCP (100000)                              |\n    |  critical        |  match DSCP (101000)                              |\n    |  internet        |  match DSCP (110000)                              |\n    |  network         |  match DSCP (111000)                              |\n    |  AF11            |  High-throughput data                             |\n    |  AF12            |  High-throughput data                             |\n    |  AF13            |  High-throughput data                             |\n    |  AF21            |  Low-latency data                                 |\n    |  AF22            |  Low-latency data                                 |\n    |  AF23            |  Low-latency data                                 |\n    |  AF31            |  Multimedia streaming                             |\n    |  AF32            |  Multimedia streaming                             |\n    |  AF33            |  Multimedia streaming                             |\n    |  AF41            |  Multimedia conferencing                          |\n    |  AF42            |  Multimedia conferencing                          |\n    |  AF43            |  Multimedia conferencing                          |\n    |  CS1             |  Low-priority data                                |\n    |  CS2             |  OAM                                              |\n    |  CS3             |  Broadcast video                                  |\n    |  CS4             |  Real-time interactive                            |\n    |  CS5             |  Signaling                                        |\n    |  CS6             |  Network control                                  |\n    |  CS7             |  N/A                                              |\n    |  EF              |  Expedited Forwarding                             |\n",
+                      "description_kind": "markdown",
+                      "optional": true
+                    },
+                    "max_length": {
+                      "type": "number",
+                      "description": "Maximum packet length\n\n    |  Format   |  Description                    |\n    |-----------|---------------------------------|\n    |  1-65535  |  Maximum packet/payload length  |\n",
+                      "description_kind": "markdown",
+                      "optional": true
+                    },
+                    "protocol": {
+                      "type": "string",
+                      "description": "Protocol\n\n    |  Format  |  Description    |\n    |----------|-----------------|\n    |  txt     |  Protocol name  |\n",
+                      "description_kind": "markdown",
+                      "optional": true
+                    },
+                    "source": {
+                      "nested_type": {
+                        "attributes": {
+                          "address": {
+                            "type": "string",
+                            "description": "IPv4 destination address for this match\n\n    |  Format   |  Description   |\n    |-----------|----------------|\n    |  ipv4     |  IPv4 address  |\n    |  ipv4net  |  IPv4 prefix   |\n",
+                            "description_kind": "markdown",
+                            "optional": true
+                          },
+                          "port": {
+                            "type": "number",
+                            "description": "Port number used by connection\n\n    |  Format   |  Description      |\n    |-----------|-------------------|\n    |  1-65535  |  Numeric IP port  |\n",
+                            "description_kind": "markdown",
+                            "optional": true
+                          }
+                        },
+                        "nesting_mode": "single"
+                      },
+                      "description": "Match on source port or address\n\n",
+                      "description_kind": "markdown",
+                      "optional": true
+                    },
+                    "tcp": {
+                      "nested_type": {
+                        "attributes": {
+                          "ack": {
+                            "type": "bool",
+                            "description": "Match TCP ACK\n\n",
+                            "description_kind": "markdown",
+                            "optional": true,
+                            "computed": true
+                          },
+                          "syn": {
+                            "type": "bool",
+                            "description": "Match TCP SYN\n\n",
+                            "description_kind": "markdown",
+                            "optional": true,
+                            "computed": true
+                          }
+                        },
+                        "nesting_mode": "single"
+                      },
+                      "description": "TCP Flags matching\n\n",
+                      "description_kind": "markdown",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description": "Match IP protocol header\n\n",
+                "description_kind": "markdown",
+                "optional": true
+              },
+              "ipv6": {
+                "nested_type": {
+                  "attributes": {
+                    "destination": {
+                      "nested_type": {
+                        "attributes": {
+                          "address": {
+                            "type": "string",
+                            "description": "IPv6 destination address for this match\n\n    |  Format   |  Description                     |\n    |-----------|----------------------------------|\n    |  ipv6net  |  IPv6 address and prefix length  |\n",
+                            "description_kind": "markdown",
+                            "optional": true
+                          },
+                          "port": {
+                            "type": "number",
+                            "description": "Port number used by connection\n\n    |  Format   |  Description      |\n    |-----------|-------------------|\n    |  1-65535  |  Numeric IP port  |\n",
+                            "description_kind": "markdown",
+                            "optional": true
+                          }
+                        },
+                        "nesting_mode": "single"
+                      },
+                      "description": "Match on destination port or address\n\n",
+                      "description_kind": "markdown",
+                      "optional": true
+                    },
+                    "dscp": {
+                      "type": "string",
+                      "description": "Match on Differentiated Services Codepoint (DSCP)\n\n    |  Format          |  Description                                      |\n    |------------------|---------------------------------------------------|\n    |  0-63            |  Differentiated Services Codepoint (DSCP) value   |\n    |  default         |  match DSCP (000000)                              |\n    |  reliability     |  match DSCP (000001)                              |\n    |  throughput      |  match DSCP (000010)                              |\n    |  lowdelay        |  match DSCP (000100)                              |\n    |  priority        |  match DSCP (001000)                              |\n    |  immediate       |  match DSCP (010000)                              |\n    |  flash           |  match DSCP (011000)                              |\n    |  flash-override  |  match DSCP (100000)                              |\n    |  critical        |  match DSCP (101000)                              |\n    |  internet        |  match DSCP (110000)                              |\n    |  network         |  match DSCP (111000)                              |\n    |  AF11            |  High-throughput data                             |\n    |  AF12            |  High-throughput data                             |\n    |  AF13            |  High-throughput data                             |\n    |  AF21            |  Low-latency data                                 |\n    |  AF22            |  Low-latency data                                 |\n    |  AF23            |  Low-latency data                                 |\n    |  AF31            |  Multimedia streaming                             |\n    |  AF32            |  Multimedia streaming                             |\n    |  AF33            |  Multimedia streaming                             |\n    |  AF41            |  Multimedia conferencing                          |\n    |  AF42            |  Multimedia conferencing                          |\n    |  AF43            |  Multimedia conferencing                          |\n    |  CS1             |  Low-priority data                                |\n    |  CS2             |  OAM                                              |\n    |  CS3             |  Broadcast video                                  |\n    |  CS4             |  Real-time interactive                            |\n    |  CS5             |  Signaling                                        |\n    |  CS6             |  Network control                                  |\n    |  CS7             |  N/A                                              |\n    |  EF              |  Expedited Forwarding                             |\n",
+                      "description_kind": "markdown",
+                      "optional": true
+                    },
+                    "max_length": {
+                      "type": "number",
+                      "description": "Maximum packet length\n\n    |  Format   |  Description                    |\n    |-----------|---------------------------------|\n    |  1-65535  |  Maximum packet/payload length  |\n",
+                      "description_kind": "markdown",
+                      "optional": true
+                    },
+                    "protocol": {
+                      "type": "string",
+                      "description": "Protocol\n\n    |  Format  |  Description    |\n    |----------|-----------------|\n    |  txt     |  Protocol name  |\n",
+                      "description_kind": "markdown",
+                      "optional": true
+                    },
+                    "source": {
+                      "nested_type": {
+                        "attributes": {
+                          "address": {
+                            "type": "string",
+                            "description": "IPv6 destination address for this match\n\n    |  Format   |  Description                     |\n    |-----------|----------------------------------|\n    |  ipv6net  |  IPv6 address and prefix length  |\n",
+                            "description_kind": "markdown",
+                            "optional": true
+                          },
+                          "port": {
+                            "type": "number",
+                            "description": "Port number used by connection\n\n    |  Format   |  Description      |\n    |-----------|-------------------|\n    |  1-65535  |  Numeric IP port  |\n",
+                            "description_kind": "markdown",
+                            "optional": true
+                          }
+                        },
+                        "nesting_mode": "single"
+                      },
+                      "description": "Match on source port or address\n\n",
+                      "description_kind": "markdown",
+                      "optional": true
+                    },
+                    "tcp": {
+                      "nested_type": {
+                        "attributes": {
+                          "ack": {
+                            "type": "bool",
+                            "description": "Match TCP ACK\n\n",
+                            "description_kind": "markdown",
+                            "optional": true,
+                            "computed": true
+                          },
+                          "syn": {
+                            "type": "bool",
+                            "description": "Match TCP SYN\n\n",
+                            "description_kind": "markdown",
+                            "optional": true,
+                            "computed": true
+                          }
+                        },
+                        "nesting_mode": "single"
+                      },
+                      "description": "TCP Flags matching\n\n",
+                      "description_kind": "markdown",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description": "Match IPv6 protocol header\n\n",
+                "description_kind": "markdown",
+                "optional": true
+              },
+              "mark": {
+                "type": "number",
+                "description": "Match on mark applied by firewall\n\n    |  Format  |  Description       |\n    |----------|--------------------|\n    |  u32     |  FW mark to match  |\n",
+                "description_kind": "markdown",
+                "optional": true
+              },
+              "match_id": {
+                "type": "string",
+                "description": "Class matching rule name\n\n",
+                "description_kind": "markdown",
+                "required": true
+              },
+              "timeouts": {
+                "nested_type": {
+                  "attributes": {
+                    "create": {
+                      "type": "string",
+                      "description": "A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as \"30s\" or \"2h45m\". Valid time units are \"s\" (seconds), \"m\" (minutes), \"h\" (hours).",
+                      "description_kind": "plain",
+                      "optional": true
+                    }
+                  },
+                  "nesting_mode": "single"
+                },
+                "description_kind": "plain",
+                "optional": true
+              },
+              "traffic_match_group_id": {
+                "type": "string",
+                "description": "Filter group for QoS policy\n\n    |  Format  |  Description       |\n    |----------|--------------------|\n    |  txt     |  Match group name  |\n",
+                "description_kind": "markdown",
+                "required": true
+              },
+              "vif": {
+                "type": "number",
+                "description": "Virtual Local Area Network (VLAN) ID for this match\n\n    |  Format  |  Description                             |\n    |----------|------------------------------------------|\n    |  0-4095  |  Virtual Local Area Network (VLAN) tag   |\n",
+                "description_kind": "markdown",
+                "optional": true
+              }
+            },
+            "description": "Quality of Service (QoS)  \n⯯  \nFilter group for QoS policy  \n⯯  \n**Class matching rule name**\n",
             "description_kind": "markdown"
           }
         },
