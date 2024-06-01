@@ -115,6 +115,8 @@ import (
 	namedqospolicyshaperhfsc "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/qos/policy-shaper-hfsc"
 	namedqospolicyshaperhfscclass "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/qos/policy-shaper-hfsc-class"
 	namedqospolicyshaperhfscclassmatch "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/qos/policy-shaper-hfsc-class-match"
+	namedqostrafficmatchgroup "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/qos/traffic-match-group"
+	namedqostrafficmatchgroupmatch "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/qos/traffic-match-group-match"
 	namedvrfname "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name"
 	namedvrfnameipprotocol "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-ip-protocol"
 	namedvrfnameipvsixprotocol "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/vrf/name-ipv6-protocol"
@@ -268,6 +270,7 @@ func GetResources() []func() resource.Resource {
 		namedpolicyprefixlistsixrule.NewPolicyPrefixListsixRule,
 		namedpolicyroutemaprule.NewPolicyRouteMapRule,
 		namedqosinterface.NewQosInterface,
+		namedqostrafficmatchgroup.NewQosTrafficMatchGroup,
 		namedqospolicycake.NewQosPolicyCake,
 		namedqospolicydroptail.NewQosPolicyDropTail,
 		namedqospolicyfairqueue.NewQosPolicyFairQueue,
@@ -291,6 +294,7 @@ func GetResources() []func() resource.Resource {
 		namedqospolicyshaperclassmatch.NewQosPolicyShaperClassMatch,
 		namedqospolicyshaperhfscclass.NewQosPolicyShaperHfscClass,
 		namedqospolicyshaperhfscclassmatch.NewQosPolicyShaperHfscClassMatch,
+		namedqostrafficmatchgroupmatch.NewQosTrafficMatchGroupMatch,
 		namedvrfname.NewVrfName,
 		namedvrfnameipprotocol.NewVrfNameIPProtocol,
 		namedvrfnameipvsixprotocol.NewVrfNameIPvsixProtocol,

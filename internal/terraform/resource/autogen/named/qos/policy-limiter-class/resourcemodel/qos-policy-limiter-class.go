@@ -40,6 +40,7 @@ type QosPolicyLimiterClass struct {
 	LeafQosPolicyLimiterClassMtu         types.Number `tfsdk:"mtu" vyos:"mtu,omitempty"`
 	LeafQosPolicyLimiterClassExceed      types.String `tfsdk:"exceed" vyos:"exceed,omitempty"`
 	LeafQosPolicyLimiterClassNotExceed   types.String `tfsdk:"not_exceed" vyos:"not-exceed,omitempty"`
+	LeafQosPolicyLimiterClassMatchGroup  types.List   `tfsdk:"match_group" vyos:"match-group,omitempty"`
 	LeafQosPolicyLimiterClassPriority    types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
@@ -304,6 +305,23 @@ func (o QosPolicyLimiterClass) ResourceSchemaAttributes(ctx context.Context) map
 
 			// Default:          stringdefault.StaticString(`ok`),
 			Computed: true,
+		},
+
+		"match_group": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
+			MarkdownDescription: `Filter group for QoS policy
+
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  txt     |  Match group name  |
+`,
+			Description: `Filter group for QoS policy
+
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  txt     |  Match group name  |
+`,
 		},
 
 		"priority": schema.NumberAttribute{

@@ -41,6 +41,7 @@ type QosPolicyShaperClass struct {
 	LeafQosPolicyShaperClassCodelQuantum     types.Number `tfsdk:"codel_quantum" vyos:"codel-quantum,omitempty"`
 	LeafQosPolicyShaperClassFlows            types.Number `tfsdk:"flows" vyos:"flows,omitempty"`
 	LeafQosPolicyShaperClassInterval         types.Number `tfsdk:"interval" vyos:"interval,omitempty"`
+	LeafQosPolicyShaperClassMatchGroup       types.List   `tfsdk:"match_group" vyos:"match-group,omitempty"`
 	LeafQosPolicyShaperClassPriority         types.Number `tfsdk:"priority" vyos:"priority,omitempty"`
 	LeafQosPolicyShaperClassAveragePacket    types.Number `tfsdk:"average_packet" vyos:"average-packet,omitempty"`
 	LeafQosPolicyShaperClassMaximumThreshold types.Number `tfsdk:"maximum_threshold" vyos:"maximum-threshold,omitempty"`
@@ -331,6 +332,23 @@ func (o QosPolicyShaperClass) ResourceSchemaAttributes(ctx context.Context) map[
 
 			// Default:          stringdefault.StaticString(`100`),
 			Computed: true,
+		},
+
+		"match_group": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
+			MarkdownDescription: `Filter group for QoS policy
+
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  txt     |  Match group name  |
+`,
+			Description: `Filter group for QoS policy
+
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  txt     |  Match group name  |
+`,
 		},
 
 		"priority": schema.NumberAttribute{

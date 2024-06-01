@@ -958,6 +958,11 @@ func service_dns_forwarding() schemadefinition.InterfaceDefinition {
 																	Format:      "nsXX.example.com",
 																	Description: "Absolute DNS name",
 																}},
+																Multi: []*schemadefinition.Multi{{
+																	XMLName: xml.Name{
+																		Local: "multi",
+																	},
+																}},
 															}},
 														}, {
 															IsBaseNode: false,

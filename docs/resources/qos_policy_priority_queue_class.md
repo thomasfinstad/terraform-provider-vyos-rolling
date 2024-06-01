@@ -60,6 +60,11 @@ Priority queuing based policy
     &emsp;|Format  &emsp;|Description               |
     |----------|----------------------------|
     &emsp;|u32     &emsp;|Interval in milliseconds  |
+- `match_group` (List of String) Filter group for QoS policy
+
+    &emsp;|Format  &emsp;|Description       |
+    |----------|--------------------|
+    &emsp;|txt     &emsp;|Match group name  |
 - `queue_limit` (Number) Maximum queue size
 
     &emsp;|Format        &emsp;|Description            |

@@ -38,6 +38,7 @@ type QosPolicyRoundRobinClass struct {
 	LeafQosPolicyRoundRobinClassCodelQuantum types.Number `tfsdk:"codel_quantum" vyos:"codel-quantum,omitempty"`
 	LeafQosPolicyRoundRobinClassFlows        types.Number `tfsdk:"flows" vyos:"flows,omitempty"`
 	LeafQosPolicyRoundRobinClassInterval     types.Number `tfsdk:"interval" vyos:"interval,omitempty"`
+	LeafQosPolicyRoundRobinClassMatchGroup   types.List   `tfsdk:"match_group" vyos:"match-group,omitempty"`
 	LeafQosPolicyRoundRobinClassQuantum      types.Number `tfsdk:"quantum" vyos:"quantum,omitempty"`
 	LeafQosPolicyRoundRobinClassQueueLimit   types.Number `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
 	LeafQosPolicyRoundRobinClassQueueType    types.String `tfsdk:"queue_type" vyos:"queue-type,omitempty"`
@@ -243,6 +244,23 @@ func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes(ctx context.Context) 
 
 			// Default:          stringdefault.StaticString(`100`),
 			Computed: true,
+		},
+
+		"match_group": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
+			MarkdownDescription: `Filter group for QoS policy
+
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  txt     |  Match group name  |
+`,
+			Description: `Filter group for QoS policy
+
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  txt     |  Match group name  |
+`,
 		},
 
 		"quantum": schema.NumberAttribute{

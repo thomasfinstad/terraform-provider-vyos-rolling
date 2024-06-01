@@ -2615,7 +2615,7 @@ func system_conntrack() schemadefinition.InterfaceDefinition {
 															Format:      "u32:1-999999",
 															Description: "Number of conntrack rule",
 														}},
-														ConstraintErrorMessage: []string{"Ignore rule number must be between 1 and 999999"},
+														ConstraintErrorMessage: []string{"Timeout rule number must be between 1 and 999999"},
 													}},
 													Children: []*schemadefinition.Children{{
 														XMLName: xml.Name{
@@ -3322,7 +3322,7 @@ func system_conntrack() schemadefinition.InterfaceDefinition {
 																XMLName: xml.Name{
 																	Local: "properties",
 																},
-																Help: []string{"Interface to ignore connections tracking on"},
+																Help: []string{"Interface to apply custom connection timers on"},
 																CompletionHelp: []*schemadefinition.CompletionHelp{{
 																	XMLName: xml.Name{
 																		Local: "completionHelp",
@@ -3381,7 +3381,7 @@ func system_conntrack() schemadefinition.InterfaceDefinition {
 															Format:      "u32:1-999999",
 															Description: "Number of conntrack rule",
 														}},
-														ConstraintErrorMessage: []string{"Ignore rule number must be between 1 and 999999"},
+														ConstraintErrorMessage: []string{"Timeout rule number must be between 1 and 999999"},
 													}},
 													Children: []*schemadefinition.Children{{
 														XMLName: xml.Name{
@@ -4068,7 +4068,7 @@ func system_conntrack() schemadefinition.InterfaceDefinition {
 																XMLName: xml.Name{
 																	Local: "properties",
 																},
-																Help: []string{"Interface to ignore connections tracking on"},
+																Help: []string{"Interface to apply custom connection timers on"},
 																CompletionHelp: []*schemadefinition.CompletionHelp{{
 																	XMLName: xml.Name{
 																		Local: "completionHelp",

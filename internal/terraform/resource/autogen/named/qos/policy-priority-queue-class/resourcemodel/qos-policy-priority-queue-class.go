@@ -38,6 +38,7 @@ type QosPolicyPriorityQueueClass struct {
 	LeafQosPolicyPriorityQueueClassCodelQuantum types.Number `tfsdk:"codel_quantum" vyos:"codel-quantum,omitempty"`
 	LeafQosPolicyPriorityQueueClassFlows        types.Number `tfsdk:"flows" vyos:"flows,omitempty"`
 	LeafQosPolicyPriorityQueueClassInterval     types.Number `tfsdk:"interval" vyos:"interval,omitempty"`
+	LeafQosPolicyPriorityQueueClassMatchGroup   types.List   `tfsdk:"match_group" vyos:"match-group,omitempty"`
 	LeafQosPolicyPriorityQueueClassQueueLimit   types.Number `tfsdk:"queue_limit" vyos:"queue-limit,omitempty"`
 	LeafQosPolicyPriorityQueueClassQueueType    types.String `tfsdk:"queue_type" vyos:"queue-type,omitempty"`
 	LeafQosPolicyPriorityQueueClassTarget       types.Number `tfsdk:"target" vyos:"target,omitempty"`
@@ -242,6 +243,23 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes(ctx context.Contex
 
 			// Default:          stringdefault.StaticString(`100`),
 			Computed: true,
+		},
+
+		"match_group": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
+			MarkdownDescription: `Filter group for QoS policy
+
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  txt     |  Match group name  |
+`,
+			Description: `Filter group for QoS policy
+
+    |  Format  |  Description       |
+    |----------|--------------------|
+    |  txt     |  Match group name  |
+`,
 		},
 
 		"queue_limit": schema.NumberAttribute{

@@ -60,6 +60,11 @@ Deficit Round Robin Scheduler
     &emsp;|Format  &emsp;|Description               |
     |----------|----------------------------|
     &emsp;|u32     &emsp;|Interval in milliseconds  |
+- `match_group` (List of String) Filter group for QoS policy
+
+    &emsp;|Format  &emsp;|Description       |
+    |----------|--------------------|
+    &emsp;|txt     &emsp;|Match group name  |
 - `quantum` (Number) Packet scheduling quantum
 
     &emsp;|Format        &emsp;|Description                        |

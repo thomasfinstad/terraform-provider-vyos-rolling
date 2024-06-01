@@ -46,6 +46,11 @@ Hierarchical Fair Service Curve's policy
     |----------|---------------|
     &emsp;|txt     &emsp;|Description  |
 - `linkshare` (Attributes) Linkshare class settings (see [below for nested schema](#nestedatt--linkshare))
+- `match_group` (List of String) Filter group for QoS policy
+
+    &emsp;|Format  &emsp;|Description       |
+    |----------|--------------------|
+    &emsp;|txt     &emsp;|Match group name  |
 - `realtime` (Attributes) Realtime class settings (see [below for nested schema](#nestedatt--realtime))
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `upperlimit` (Attributes) Upperlimit class settings (see [below for nested schema](#nestedatt--upperlimit))

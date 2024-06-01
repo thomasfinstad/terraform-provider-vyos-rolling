@@ -98,6 +98,11 @@ Traffic shaping based policy (Hierarchy Token Bucket)
     &emsp;|Format  &emsp;|Description          |
     |----------|-----------------------|
     &emsp;|u32     &emsp;|Numeric value (1/N)  |
+- `match_group` (List of String) Filter group for QoS policy
+
+    &emsp;|Format  &emsp;|Description       |
+    |----------|--------------------|
+    &emsp;|txt     &emsp;|Match group name  |
 - `maximum_threshold` (Number) Maximum threshold for random detection
 
     &emsp;|Format  &emsp;|Description                   |

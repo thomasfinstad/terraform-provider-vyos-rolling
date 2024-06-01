@@ -71,6 +71,11 @@ Traffic input limiting policy
     &emsp;|ok          &emsp;|Accept the packet                                                                                                             |
     &emsp;|reclassify  &emsp;|Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
     &emsp;|pipe        &emsp;|Pass the packet to the next action in line                                                                                    |
+- `match_group` (List of String) Filter group for QoS policy
+
+    &emsp;|Format  &emsp;|Description       |
+    |----------|--------------------|
+    &emsp;|txt     &emsp;|Match group name  |
 - `mtu` (Number) MTU size for this class
 
     &emsp;|Format     &emsp;|Description  |
