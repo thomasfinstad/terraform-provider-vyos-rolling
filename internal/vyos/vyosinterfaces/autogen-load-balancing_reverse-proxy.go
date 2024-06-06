@@ -1825,6 +1825,61 @@ func loadbalancing_reverseproxy() schemadefinition.InterfaceDefinition {
 											List: []string{"http tcp"},
 										}},
 									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "health-check",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Non HTTP health check options"},
+										Constraint: []*schemadefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"(ldap|mysql|redis|pgsql|smtp)"},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ldap",
+											Description: "LDAP protocol check",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "mysql",
+											Description: "MySQL protocol check",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "pgsql",
+											Description: "PostgreSQL protocol check",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "redis",
+											Description: "Redis protocol check",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "smtp",
+											Description: "SMTP protocol check",
+										}},
+										CompletionHelp: []*schemadefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											List: []string{"ldap mysql pgsql redis smtp"},
+										}},
+									}},
 								}},
 							}},
 						}},
