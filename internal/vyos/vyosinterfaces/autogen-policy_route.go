@@ -1041,20 +1041,14 @@ func policy_route() schemadefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Validator: []*schemadefinition.Validator{{
-														XMLName: xml.Name{
-															Local: "validator",
-														},
-														NameAttr:     "numeric",
-														ArgumentAttr: "--range 0-4294967295",
-													}},
+													Regex: []string{"\\d+/(second|minute|hour|day)"},
 												}},
 												ValueHelp: []*schemadefinition.ValueHelp{{
 													XMLName: xml.Name{
 														Local: "valueHelp",
 													},
-													Format:      "u32:0-4294967295",
-													Description: "Maximum average matching rate",
+													Format:      "txt",
+													Description: "integer/unit (Example: 5/minute)",
 												}},
 											}},
 										}},
@@ -3883,20 +3877,14 @@ func policy_route() schemadefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Validator: []*schemadefinition.Validator{{
-														XMLName: xml.Name{
-															Local: "validator",
-														},
-														NameAttr:     "numeric",
-														ArgumentAttr: "--range 0-4294967295",
-													}},
+													Regex: []string{"\\d+/(second|minute|hour|day)"},
 												}},
 												ValueHelp: []*schemadefinition.ValueHelp{{
 													XMLName: xml.Name{
 														Local: "valueHelp",
 													},
-													Format:      "u32:0-4294967295",
-													Description: "Maximum average matching rate",
+													Format:      "txt",
+													Description: "integer/unit (Example: 5/minute)",
 												}},
 											}},
 										}},
@@ -4685,7 +4673,7 @@ func policy_route() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"ICMP code (0-255)"},
+												Help: []string{"ICMP code"},
 												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
@@ -4716,7 +4704,7 @@ func policy_route() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"ICMP type (0-255)"},
+												Help: []string{"ICMP type"},
 												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",

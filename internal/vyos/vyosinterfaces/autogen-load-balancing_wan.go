@@ -23,8 +23,7 @@ func loadbalancing_wan() schemadefinition.InterfaceDefinition {
 				XMLName: xml.Name{
 					Local: "properties",
 				},
-				Help:     []string{"Configure load-balancing"},
-				Priority: []string{"900"},
+				Help: []string{"Configure load-balancing"},
 			}},
 			Children: []*schemadefinition.Children{{
 				XMLName: xml.Name{
@@ -41,7 +40,8 @@ func loadbalancing_wan() schemadefinition.InterfaceDefinition {
 						XMLName: xml.Name{
 							Local: "properties",
 						},
-						Help: []string{"Configure Wide Area Network (WAN) load-balancing"},
+						Help:     []string{"Configure Wide Area Network (WAN) load-balancing"},
+						Priority: []string{"900"},
 					}},
 					Children: []*schemadefinition.Children{{
 						XMLName: xml.Name{

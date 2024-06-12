@@ -6314,7 +6314,7 @@ func protocols_bgp() schemadefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "completionHelp",
 													},
-													Path: []string{"protocols bgp peer-group"},
+													Path: []string{"${COMP_WORDS[@]:1:${#COMP_WORDS[@]}-5} peer-group"},
 												}},
 											}},
 										}},
@@ -17501,7 +17501,7 @@ func protocols_bgp() schemadefinition.InterfaceDefinition {
 															XMLName: xml.Name{
 																Local: "completionHelp",
 															},
-															Path: []string{"protocols bgp peer-group"},
+															Path: []string{"${COMP_WORDS[@]:1:${#COMP_WORDS[@]}-5} peer-group"},
 														}},
 													}},
 												}, {
@@ -17580,7 +17580,7 @@ func protocols_bgp() schemadefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "completionHelp",
 													},
-													Path: []string{"protocols bgp peer-group"},
+													Path: []string{"${COMP_WORDS[@]:1:${#COMP_WORDS[@]}-5} peer-group"},
 												}},
 											}},
 										}, {
@@ -18316,7 +18316,7 @@ func protocols_bgp() schemadefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "completionHelp",
 											},
-											Path: []string{"protocols bgp peer-group"},
+											Path: []string{"${COMP_WORDS[@]:1:${#COMP_WORDS[@]}-5} peer-group"},
 										}},
 									}},
 								}, {

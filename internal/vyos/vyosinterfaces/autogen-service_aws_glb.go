@@ -33,8 +33,7 @@ func service_aws_glb() schemadefinition.InterfaceDefinition {
 						XMLName: xml.Name{
 							Local: "properties",
 						},
-						Help:     []string{"Amazon Web Service"},
-						Priority: []string{"1280"},
+						Help: []string{"Amazon Web Service"},
 					}},
 					Children: []*schemadefinition.Children{{
 						XMLName: xml.Name{
@@ -51,7 +50,8 @@ func service_aws_glb() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Gateway load-balancer tunnel handler"},
+								Help:     []string{"Gateway load-balancer tunnel handler"},
+								Priority: []string{"1280"},
 							}},
 							Children: []*schemadefinition.Children{{
 								XMLName: xml.Name{

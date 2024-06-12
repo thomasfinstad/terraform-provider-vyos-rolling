@@ -52,7 +52,8 @@ func system_login_banner() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"System login banners"},
+								Help:     []string{"System login banners"},
+								Priority: []string{"410"},
 							}},
 							Children: []*schemadefinition.Children{{
 								XMLName: xml.Name{

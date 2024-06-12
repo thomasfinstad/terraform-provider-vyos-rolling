@@ -481,6 +481,24 @@ func nat_cgnat() schemadefinition.InterfaceDefinition {
 								}},
 							}},
 						}},
+						LeafNode: []*schemadefinition.LeafNode{{
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
+							NodeNameAttr: "log-allocation",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Log IP address and port allocation"},
+								Valueless: []*schemadefinition.Valueless{{
+									XMLName: xml.Name{
+										Local: "valueless",
+									},
+								}},
+							}},
+						}},
 					}},
 				}},
 			}},

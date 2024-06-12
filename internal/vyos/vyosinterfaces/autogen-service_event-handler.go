@@ -34,7 +34,8 @@ func service_eventhandler() schemadefinition.InterfaceDefinition {
 						XMLName: xml.Name{
 							Local: "properties",
 						},
-						Help: []string{"Service event handler"},
+						Help:     []string{"Service event handler"},
+						Priority: []string{"2"},
 					}},
 					Children: []*schemadefinition.Children{{
 						XMLName: xml.Name{

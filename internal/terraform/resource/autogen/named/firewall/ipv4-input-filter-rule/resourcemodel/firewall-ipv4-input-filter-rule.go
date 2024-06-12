@@ -30,41 +30,41 @@ type FirewallIPvfourInputFilterRule struct {
 
 	// LeafNodes
 	LeafFirewallIPvfourInputFilterRuleAction              types.String `tfsdk:"action" vyos:"action,omitempty"`
+	LeafFirewallIPvfourInputFilterRuleConntrackHelper     types.List   `tfsdk:"conntrack_helper" vyos:"conntrack-helper,omitempty"`
+	LeafFirewallIPvfourInputFilterRuleConnectionMark      types.List   `tfsdk:"connection_mark" vyos:"connection-mark,omitempty"`
 	LeafFirewallIPvfourInputFilterRuleDescrIPtion         types.String `tfsdk:"description" vyos:"description,omitempty"`
+	LeafFirewallIPvfourInputFilterRuleDisable             types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
 	LeafFirewallIPvfourInputFilterRuleDscp                types.List   `tfsdk:"dscp" vyos:"dscp,omitempty"`
 	LeafFirewallIPvfourInputFilterRuleDscpExclude         types.List   `tfsdk:"dscp_exclude" vyos:"dscp-exclude,omitempty"`
+	LeafFirewallIPvfourInputFilterRuleLog                 types.Bool   `tfsdk:"log" vyos:"log,omitempty"`
+	LeafFirewallIPvfourInputFilterRuleMark                types.String `tfsdk:"mark" vyos:"mark,omitempty"`
 	LeafFirewallIPvfourInputFilterRulePacketLength        types.List   `tfsdk:"packet_length" vyos:"packet-length,omitempty"`
 	LeafFirewallIPvfourInputFilterRulePacketLengthExclude types.List   `tfsdk:"packet_length_exclude" vyos:"packet-length-exclude,omitempty"`
 	LeafFirewallIPvfourInputFilterRulePacketType          types.String `tfsdk:"packet_type" vyos:"packet-type,omitempty"`
-	LeafFirewallIPvfourInputFilterRuleMark                types.String `tfsdk:"mark" vyos:"mark,omitempty"`
-	LeafFirewallIPvfourInputFilterRuleConnectionMark      types.List   `tfsdk:"connection_mark" vyos:"connection-mark,omitempty"`
-	LeafFirewallIPvfourInputFilterRuleConntrackHelper     types.List   `tfsdk:"conntrack_helper" vyos:"conntrack-helper,omitempty"`
+	LeafFirewallIPvfourInputFilterRuleProtocol            types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 	LeafFirewallIPvfourInputFilterRuleQueue               types.Number `tfsdk:"queue" vyos:"queue,omitempty"`
 	LeafFirewallIPvfourInputFilterRuleQueueOptions        types.List   `tfsdk:"queue_options" vyos:"queue-options,omitempty"`
-	LeafFirewallIPvfourInputFilterRuleDisable             types.Bool   `tfsdk:"disable" vyos:"disable,omitempty"`
-	LeafFirewallIPvfourInputFilterRuleLog                 types.Bool   `tfsdk:"log" vyos:"log,omitempty"`
-	LeafFirewallIPvfourInputFilterRuleProtocol            types.String `tfsdk:"protocol" vyos:"protocol,omitempty"`
 	LeafFirewallIPvfourInputFilterRuleState               types.List   `tfsdk:"state" vyos:"state,omitempty"`
 	LeafFirewallIPvfourInputFilterRuleJumpTarget          types.String `tfsdk:"jump_target" vyos:"jump-target,omitempty"`
 
 	// TagNodes (Bools that show if child resources have been configured)
 
 	// Nodes
+	NodeFirewallIPvfourInputFilterRuleAddAddressToGroup *FirewallIPvfourInputFilterRuleAddAddressToGroup `tfsdk:"add_address_to_group" vyos:"add-address-to-group,omitempty"`
+	NodeFirewallIPvfourInputFilterRuleConnectionStatus  *FirewallIPvfourInputFilterRuleConnectionStatus  `tfsdk:"connection_status" vyos:"connection-status,omitempty"`
 	NodeFirewallIPvfourInputFilterRuleFragment          *FirewallIPvfourInputFilterRuleFragment          `tfsdk:"fragment" vyos:"fragment,omitempty"`
+	NodeFirewallIPvfourInputFilterRuleIPsec             *FirewallIPvfourInputFilterRuleIPsec             `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
 	NodeFirewallIPvfourInputFilterRuleLimit             *FirewallIPvfourInputFilterRuleLimit             `tfsdk:"limit" vyos:"limit,omitempty"`
 	NodeFirewallIPvfourInputFilterRuleLogOptions        *FirewallIPvfourInputFilterRuleLogOptions        `tfsdk:"log_options" vyos:"log-options,omitempty"`
-	NodeFirewallIPvfourInputFilterRuleConnectionStatus  *FirewallIPvfourInputFilterRuleConnectionStatus  `tfsdk:"connection_status" vyos:"connection-status,omitempty"`
 	NodeFirewallIPvfourInputFilterRuleRecent            *FirewallIPvfourInputFilterRuleRecent            `tfsdk:"recent" vyos:"recent,omitempty"`
 	NodeFirewallIPvfourInputFilterRuleSynproxy          *FirewallIPvfourInputFilterRuleSynproxy          `tfsdk:"synproxy" vyos:"synproxy,omitempty"`
 	NodeFirewallIPvfourInputFilterRuleTCP               *FirewallIPvfourInputFilterRuleTCP               `tfsdk:"tcp" vyos:"tcp,omitempty"`
 	NodeFirewallIPvfourInputFilterRuleTime              *FirewallIPvfourInputFilterRuleTime              `tfsdk:"time" vyos:"time,omitempty"`
-	NodeFirewallIPvfourInputFilterRuleTTL               *FirewallIPvfourInputFilterRuleTTL               `tfsdk:"ttl" vyos:"ttl,omitempty"`
-	NodeFirewallIPvfourInputFilterRuleAddAddressToGroup *FirewallIPvfourInputFilterRuleAddAddressToGroup `tfsdk:"add_address_to_group" vyos:"add-address-to-group,omitempty"`
-	NodeFirewallIPvfourInputFilterRuleDestination       *FirewallIPvfourInputFilterRuleDestination       `tfsdk:"destination" vyos:"destination,omitempty"`
 	NodeFirewallIPvfourInputFilterRuleIcmp              *FirewallIPvfourInputFilterRuleIcmp              `tfsdk:"icmp" vyos:"icmp,omitempty"`
+	NodeFirewallIPvfourInputFilterRuleTTL               *FirewallIPvfourInputFilterRuleTTL               `tfsdk:"ttl" vyos:"ttl,omitempty"`
+	NodeFirewallIPvfourInputFilterRuleDestination       *FirewallIPvfourInputFilterRuleDestination       `tfsdk:"destination" vyos:"destination,omitempty"`
 	NodeFirewallIPvfourInputFilterRuleSource            *FirewallIPvfourInputFilterRuleSource            `tfsdk:"source" vyos:"source,omitempty"`
 	NodeFirewallIPvfourInputFilterRuleInboundInterface  *FirewallIPvfourInputFilterRuleInboundInterface  `tfsdk:"inbound_interface" vyos:"inbound-interface,omitempty"`
-	NodeFirewallIPvfourInputFilterRuleIPsec             *FirewallIPvfourInputFilterRuleIPsec             `tfsdk:"ipsec" vyos:"ipsec,omitempty"`
 }
 
 // SetID configures the resource ID
@@ -184,6 +184,54 @@ func (o FirewallIPvfourInputFilterRule) ResourceSchemaAttributes(ctx context.Con
 `,
 		},
 
+		"conntrack_helper": schema.ListAttribute{
+			ElementType: types.StringType,
+			Optional:    true,
+			MarkdownDescription: `Match related traffic from conntrack helpers
+
+    |  Format  |  Description                         |
+    |----------|--------------------------------------|
+    |  ftp     |  Related traffic from FTP helper     |
+    |  h323    |  Related traffic from H.323 helper   |
+    |  pptp    |  Related traffic from PPTP helper    |
+    |  nfs     |  Related traffic from NFS helper     |
+    |  rtsp    |  Related traffic from RTSP helper    |
+    |  sip     |  Related traffic from SIP helper     |
+    |  tftp    |  Related traffic from TFTP helper    |
+    |  sqlnet  |  Related traffic from SQLNet helper  |
+`,
+			Description: `Match related traffic from conntrack helpers
+
+    |  Format  |  Description                         |
+    |----------|--------------------------------------|
+    |  ftp     |  Related traffic from FTP helper     |
+    |  h323    |  Related traffic from H.323 helper   |
+    |  pptp    |  Related traffic from PPTP helper    |
+    |  nfs     |  Related traffic from NFS helper     |
+    |  rtsp    |  Related traffic from RTSP helper    |
+    |  sip     |  Related traffic from SIP helper     |
+    |  tftp    |  Related traffic from TFTP helper    |
+    |  sqlnet  |  Related traffic from SQLNet helper  |
+`,
+		},
+
+		"connection_mark": schema.ListAttribute{
+			ElementType: types.NumberType,
+			Optional:    true,
+			MarkdownDescription: `Connection mark
+
+    |  Format        |  Description               |
+    |----------------|----------------------------|
+    |  0-2147483647  |  Connection-mark to match  |
+`,
+			Description: `Connection mark
+
+    |  Format        |  Description               |
+    |----------------|----------------------------|
+    |  0-2147483647  |  Connection-mark to match  |
+`,
+		},
+
 		"description": schema.StringAttribute{
 			Optional: true,
 			MarkdownDescription: `Description
@@ -198,6 +246,18 @@ func (o FirewallIPvfourInputFilterRule) ResourceSchemaAttributes(ctx context.Con
     |----------|---------------|
     |  txt     |  Description  |
 `,
+		},
+
+		"disable": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Disable instance
+
+`,
+			Description: `Disable instance
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
 		},
 
 		"dscp": schema.ListAttribute{
@@ -235,6 +295,40 @@ func (o FirewallIPvfourInputFilterRule) ResourceSchemaAttributes(ctx context.Con
     |---------------|---------------------------|
     |  0-63         |  DSCP value not to match  |
     |  <start-end>  |  DSCP range not to match  |
+`,
+		},
+
+		"log": schema.BoolAttribute{
+			Optional: true,
+			MarkdownDescription: `Log packets hitting this rule
+
+`,
+			Description: `Log packets hitting this rule
+
+`,
+			Default:  booldefault.StaticBool(false),
+			Computed: true,
+		},
+
+		"mark": schema.StringAttribute{
+			Optional: true,
+			MarkdownDescription: `Firewall mark
+
+    |  Format         |  Description                            |
+    |-----------------|-----------------------------------------|
+    |  0-2147483647   |  Firewall mark to match                 |
+    |  !0-2147483647  |  Inverted Firewall mark to match        |
+    |  <start-end>    |  Firewall mark range to match           |
+    |  !<start-end>   |  Firewall mark inverted range to match  |
+`,
+			Description: `Firewall mark
+
+    |  Format         |  Description                            |
+    |-----------------|-----------------------------------------|
+    |  0-2147483647   |  Firewall mark to match                 |
+    |  !0-2147483647  |  Inverted Firewall mark to match        |
+    |  <start-end>    |  Firewall mark range to match           |
+    |  !<start-end>   |  Firewall mark inverted range to match  |
 `,
 		},
 
@@ -298,73 +392,27 @@ func (o FirewallIPvfourInputFilterRule) ResourceSchemaAttributes(ctx context.Con
 `,
 		},
 
-		"mark": schema.StringAttribute{
+		"protocol": schema.StringAttribute{
 			Optional: true,
-			MarkdownDescription: `Firewall mark
+			MarkdownDescription: `Protocol to match (protocol name, number, or "all")
 
-    |  Format         |  Description                            |
-    |-----------------|-----------------------------------------|
-    |  0-2147483647   |  Firewall mark to match                 |
-    |  !0-2147483647  |  Inverted Firewall mark to match        |
-    |  <start-end>    |  Firewall mark range to match           |
-    |  !<start-end>   |  Firewall mark inverted range to match  |
+    |  Format       |  Description         |
+    |---------------|----------------------|
+    |  all          |  All IP protocols    |
+    |  tcp_udp      |  Both TCP and UDP    |
+    |  0-255        |  IP protocol number  |
+    |  <protocol>   |  IP protocol name    |
+    |  !<protocol>  |  IP protocol name    |
 `,
-			Description: `Firewall mark
+			Description: `Protocol to match (protocol name, number, or "all")
 
-    |  Format         |  Description                            |
-    |-----------------|-----------------------------------------|
-    |  0-2147483647   |  Firewall mark to match                 |
-    |  !0-2147483647  |  Inverted Firewall mark to match        |
-    |  <start-end>    |  Firewall mark range to match           |
-    |  !<start-end>   |  Firewall mark inverted range to match  |
-`,
-		},
-
-		"connection_mark": schema.ListAttribute{
-			ElementType: types.NumberType,
-			Optional:    true,
-			MarkdownDescription: `Connection mark
-
-    |  Format        |  Description               |
-    |----------------|----------------------------|
-    |  0-2147483647  |  Connection-mark to match  |
-`,
-			Description: `Connection mark
-
-    |  Format        |  Description               |
-    |----------------|----------------------------|
-    |  0-2147483647  |  Connection-mark to match  |
-`,
-		},
-
-		"conntrack_helper": schema.ListAttribute{
-			ElementType: types.StringType,
-			Optional:    true,
-			MarkdownDescription: `Match related traffic from conntrack helpers
-
-    |  Format  |  Description                         |
-    |----------|--------------------------------------|
-    |  ftp     |  Related traffic from FTP helper     |
-    |  h323    |  Related traffic from H.323 helper   |
-    |  pptp    |  Related traffic from PPTP helper    |
-    |  nfs     |  Related traffic from NFS helper     |
-    |  rtsp    |  Related traffic from RTSP helper    |
-    |  sip     |  Related traffic from SIP helper     |
-    |  tftp    |  Related traffic from TFTP helper    |
-    |  sqlnet  |  Related traffic from SQLNet helper  |
-`,
-			Description: `Match related traffic from conntrack helpers
-
-    |  Format  |  Description                         |
-    |----------|--------------------------------------|
-    |  ftp     |  Related traffic from FTP helper     |
-    |  h323    |  Related traffic from H.323 helper   |
-    |  pptp    |  Related traffic from PPTP helper    |
-    |  nfs     |  Related traffic from NFS helper     |
-    |  rtsp    |  Related traffic from RTSP helper    |
-    |  sip     |  Related traffic from SIP helper     |
-    |  tftp    |  Related traffic from TFTP helper    |
-    |  sqlnet  |  Related traffic from SQLNet helper  |
+    |  Format       |  Description         |
+    |---------------|----------------------|
+    |  all          |  All IP protocols    |
+    |  tcp_udp      |  Both TCP and UDP    |
+    |  0-255        |  IP protocol number  |
+    |  <protocol>   |  IP protocol name    |
+    |  !<protocol>  |  IP protocol name    |
 `,
 		},
 
@@ -403,54 +451,6 @@ func (o FirewallIPvfourInputFilterRule) ResourceSchemaAttributes(ctx context.Con
 `,
 		},
 
-		"disable": schema.BoolAttribute{
-			Optional: true,
-			MarkdownDescription: `Disable instance
-
-`,
-			Description: `Disable instance
-
-`,
-			Default:  booldefault.StaticBool(false),
-			Computed: true,
-		},
-
-		"log": schema.BoolAttribute{
-			Optional: true,
-			MarkdownDescription: `Log packets hitting this rule
-
-`,
-			Description: `Log packets hitting this rule
-
-`,
-			Default:  booldefault.StaticBool(false),
-			Computed: true,
-		},
-
-		"protocol": schema.StringAttribute{
-			Optional: true,
-			MarkdownDescription: `Protocol to match (protocol name, number, or "all")
-
-    |  Format       |  Description         |
-    |---------------|----------------------|
-    |  all          |  All IP protocols    |
-    |  tcp_udp      |  Both TCP and UDP    |
-    |  0-255        |  IP protocol number  |
-    |  <protocol>   |  IP protocol name    |
-    |  !<protocol>  |  IP protocol name    |
-`,
-			Description: `Protocol to match (protocol name, number, or "all")
-
-    |  Format       |  Description         |
-    |---------------|----------------------|
-    |  all          |  All IP protocols    |
-    |  tcp_udp      |  Both TCP and UDP    |
-    |  0-255        |  IP protocol number  |
-    |  <protocol>   |  IP protocol name    |
-    |  !<protocol>  |  IP protocol name    |
-`,
-		},
-
 		"state": schema.ListAttribute{
 			ElementType: types.StringType,
 			Optional:    true,
@@ -486,6 +486,28 @@ func (o FirewallIPvfourInputFilterRule) ResourceSchemaAttributes(ctx context.Con
 
 		// Nodes
 
+		"add_address_to_group": schema.SingleNestedAttribute{
+			Attributes: FirewallIPvfourInputFilterRuleAddAddressToGroup{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Add ip address to dynamic address-group
+
+`,
+			Description: `Add ip address to dynamic address-group
+
+`,
+		},
+
+		"connection_status": schema.SingleNestedAttribute{
+			Attributes: FirewallIPvfourInputFilterRuleConnectionStatus{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Connection status
+
+`,
+			Description: `Connection status
+
+`,
+		},
+
 		"fragment": schema.SingleNestedAttribute{
 			Attributes: FirewallIPvfourInputFilterRuleFragment{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
@@ -493,6 +515,17 @@ func (o FirewallIPvfourInputFilterRule) ResourceSchemaAttributes(ctx context.Con
 
 `,
 			Description: `IP fragment match
+
+`,
+		},
+
+		"ipsec": schema.SingleNestedAttribute{
+			Attributes: FirewallIPvfourInputFilterRuleIPsec{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `Inbound IPsec packets
+
+`,
+			Description: `Inbound IPsec packets
 
 `,
 		},
@@ -515,17 +548,6 @@ func (o FirewallIPvfourInputFilterRule) ResourceSchemaAttributes(ctx context.Con
 
 `,
 			Description: `Log options
-
-`,
-		},
-
-		"connection_status": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourInputFilterRuleConnectionStatus{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Connection status
-
-`,
-			Description: `Connection status
 
 `,
 		},
@@ -574,6 +596,17 @@ func (o FirewallIPvfourInputFilterRule) ResourceSchemaAttributes(ctx context.Con
 `,
 		},
 
+		"icmp": schema.SingleNestedAttribute{
+			Attributes: FirewallIPvfourInputFilterRuleIcmp{}.ResourceSchemaAttributes(ctx),
+			Optional:   true,
+			MarkdownDescription: `ICMP type and code information
+
+`,
+			Description: `ICMP type and code information
+
+`,
+		},
+
 		"ttl": schema.SingleNestedAttribute{
 			Attributes: FirewallIPvfourInputFilterRuleTTL{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
@@ -585,17 +618,6 @@ func (o FirewallIPvfourInputFilterRule) ResourceSchemaAttributes(ctx context.Con
 `,
 		},
 
-		"add_address_to_group": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourInputFilterRuleAddAddressToGroup{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Add ip address to dynamic address-group
-
-`,
-			Description: `Add ip address to dynamic address-group
-
-`,
-		},
-
 		"destination": schema.SingleNestedAttribute{
 			Attributes: FirewallIPvfourInputFilterRuleDestination{}.ResourceSchemaAttributes(ctx),
 			Optional:   true,
@@ -603,17 +625,6 @@ func (o FirewallIPvfourInputFilterRule) ResourceSchemaAttributes(ctx context.Con
 
 `,
 			Description: `Destination parameters
-
-`,
-		},
-
-		"icmp": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourInputFilterRuleIcmp{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `ICMP type and code information
-
-`,
-			Description: `ICMP type and code information
 
 `,
 		},
@@ -636,17 +647,6 @@ func (o FirewallIPvfourInputFilterRule) ResourceSchemaAttributes(ctx context.Con
 
 `,
 			Description: `Match inbound-interface
-
-`,
-		},
-
-		"ipsec": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvfourInputFilterRuleIPsec{}.ResourceSchemaAttributes(ctx),
-			Optional:   true,
-			MarkdownDescription: `Inbound IPsec packets
-
-`,
-			Description: `Inbound IPsec packets
 
 `,
 		},

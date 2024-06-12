@@ -86,6 +86,7 @@ Container applications
     |----------|--------------------------------------|
     &emsp;|0       &emsp;|Unlimited                           |
     &emsp;|1-8192  &emsp;|Container memory in megabytes (MB)  |
+- `sysctl` (Attributes) Configure namespaced kernel parameters of the container (see [below for nested schema](#nestedatt--sysctl))
 - `timeouts` (Attributes) (see [below for nested schema](#nestedatt--timeouts))
 - `uid` (Number) User ID this container will run as
 
@@ -96,6 +97,10 @@ Container applications
 ### Read-Only
 
 - `id` (String) Resource ID, full vyos path to the resource with each field separated by dunder (`__`).
+
+&lt;a id=&#34;nestedatt--sysctl&#34;&gt;&lt;/a&gt;
+### Nested Schema for `sysctl`
+
 
 &lt;a id=&#34;nestedatt--timeouts&#34;&gt;&lt;/a&gt;
 ### Nested Schema for `timeouts`

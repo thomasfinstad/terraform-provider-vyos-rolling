@@ -33,8 +33,7 @@ func service_monitoring_telegraf() schemadefinition.InterfaceDefinition {
 						XMLName: xml.Name{
 							Local: "properties",
 						},
-						Help:     []string{"Monitoring services"},
-						Priority: []string{"1280"},
+						Help: []string{"Monitoring services"},
 					}},
 					Children: []*schemadefinition.Children{{
 						XMLName: xml.Name{
@@ -51,7 +50,8 @@ func service_monitoring_telegraf() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Telegraf metric collector"},
+								Help:     []string{"Telegraf metric collector"},
+								Priority: []string{"1280"},
 							}},
 							Children: []*schemadefinition.Children{{
 								XMLName: xml.Name{

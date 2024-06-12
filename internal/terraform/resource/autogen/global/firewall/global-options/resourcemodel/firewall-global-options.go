@@ -44,6 +44,7 @@ type FirewallGlobalOptions struct {
 
 	// Nodes (Bools that show if child resources have been configured)
 	ExistsNodeFirewallGlobalOptionsStatePolicy bool `tfsdk:"-" vyos:"state-policy,child"`
+	ExistsNodeFirewallGlobalOptionsTimeout     bool `tfsdk:"-" vyos:"timeout,child"`
 }
 
 // SetID configures the resource ID

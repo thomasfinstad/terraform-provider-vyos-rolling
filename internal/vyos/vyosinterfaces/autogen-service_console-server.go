@@ -34,7 +34,8 @@ func service_consoleserver() schemadefinition.InterfaceDefinition {
 						XMLName: xml.Name{
 							Local: "properties",
 						},
-						Help: []string{"Serial Console Server"},
+						Help:     []string{"Serial Console Server"},
+						Priority: []string{"2"},
 					}},
 					Children: []*schemadefinition.Children{{
 						XMLName: xml.Name{

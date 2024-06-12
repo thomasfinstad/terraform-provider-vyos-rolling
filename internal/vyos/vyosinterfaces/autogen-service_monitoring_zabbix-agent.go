@@ -44,7 +44,8 @@ func service_monitoring_zabbixagent() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Zabbix-agent settings"},
+								Help:     []string{"Zabbix-agent settings"},
+								Priority: []string{"1280"},
 							}},
 							Children: []*schemadefinition.Children{{
 								XMLName: xml.Name{

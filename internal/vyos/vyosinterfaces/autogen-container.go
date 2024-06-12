@@ -54,6 +54,79 @@ func container() schemadefinition.InterfaceDefinition {
 						XMLName: xml.Name{
 							Local: "children",
 						},
+						Node: []*schemadefinition.Node{{
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "node",
+							},
+							NodeNameAttr: "sysctl",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Configure namespaced kernel parameters of the container"},
+							}},
+							Children: []*schemadefinition.Children{{
+								XMLName: xml.Name{
+									Local: "children",
+								},
+								TagNode: []*schemadefinition.TagNode{{
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "tagNode",
+									},
+									NodeNameAttr: "parameter",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Sysctl key name"},
+										Constraint: []*schemadefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Validator: []*schemadefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "sysctl",
+											}},
+										}},
+										ValueHelp: []*schemadefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "txt",
+											Description: "Sysctl key name",
+										}},
+										CompletionHelp: []*schemadefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											Script: []string{"${vyos_completion_dir}/list_container_sysctl_parameters.sh"},
+										}},
+									}},
+									Children: []*schemadefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										LeafNode: []*schemadefinition.LeafNode{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "value",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Sysctl configuration value"},
+											}},
+										}},
+									}},
+								}},
+							}},
+						}},
 						TagNode: []*schemadefinition.TagNode{{
 							IsBaseNode: false,
 							XMLName: xml.Name{

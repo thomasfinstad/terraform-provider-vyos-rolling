@@ -34,7 +34,8 @@ func system_proxy() schemadefinition.InterfaceDefinition {
 						XMLName: xml.Name{
 							Local: "properties",
 						},
-						Help: []string{"Sets a proxy for system wide use"},
+						Help:     []string{"Sets a proxy for system wide use"},
+						Priority: []string{"100"},
 					}},
 					Children: []*schemadefinition.Children{{
 						XMLName: xml.Name{

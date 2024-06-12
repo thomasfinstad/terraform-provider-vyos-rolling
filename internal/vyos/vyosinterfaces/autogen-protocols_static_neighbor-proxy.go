@@ -44,7 +44,8 @@ func protocols_static_neighborproxy() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Neighbor proxy parameters"},
+								Help:     []string{"Neighbor proxy parameters"},
+								Priority: []string{"481"},
 							}},
 							Children: []*schemadefinition.Children{{
 								XMLName: xml.Name{

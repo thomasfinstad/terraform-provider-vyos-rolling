@@ -8,12 +8,19 @@ import (
 	globalfirewallglobaloptionsstatepolicyestablished "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/global-options-state-policy-established"
 	globalfirewallglobaloptionsstatepolicyinvalid "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/global-options-state-policy-invalid"
 	globalfirewallglobaloptionsstatepolicyrelated "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/global-options-state-policy-related"
+	globalfirewallglobaloptionstimeout "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/global-options-timeout"
+	globalfirewallglobaloptionstimeouttcp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/global-options-timeout-tcp"
+	globalfirewallglobaloptionstimeoutudp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/global-options-timeout-udp"
 	globalfirewallipvfourforwardfilter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/ipv4-forward-filter"
 	globalfirewallipvfourinputfilter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/ipv4-input-filter"
 	globalfirewallipvfouroutputfilter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/ipv4-output-filter"
+	globalfirewallipvfouroutputraw "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/ipv4-output-raw"
+	globalfirewallipvfourpreroutingraw "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/ipv4-prerouting-raw"
 	globalfirewallipvsixforwardfilter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/ipv6-forward-filter"
 	globalfirewallipvsixinputfilter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/ipv6-input-filter"
 	globalfirewallipvsixoutputfilter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/ipv6-output-filter"
+	globalfirewallipvsixoutputraw "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/ipv6-output-raw"
+	globalfirewallipvsixpreroutingraw "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/firewall/ipv6-prerouting-raw"
 	globalhighavailability "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/high-availability"
 	globalhighavailabilityvrrp "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/high-availability/vrrp"
 	globalhighavailabilityvrrpglobalparameters "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/global/high-availability/vrrp-global-parameters"
@@ -26,6 +33,7 @@ import (
 	namedcontainernamelabel "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/container/name-label"
 	namedcontainernamenetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/container/name-network"
 	namedcontainernameport "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/container/name-port"
+	namedcontainernamesysctlparameter "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/container/name-sysctl-parameter"
 	namedcontainernamevolume "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/container/name-volume"
 	namedcontainernetwork "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/container/network"
 	namedcontainerregistry "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/container/registry"
@@ -48,11 +56,15 @@ import (
 	namedfirewallipvfourname "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/ipv4-name"
 	namedfirewallipvfournamerule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/ipv4-name-rule"
 	namedfirewallipvfouroutputfilterrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/ipv4-output-filter-rule"
+	namedfirewallipvfouroutputrawrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/ipv4-output-raw-rule"
+	namedfirewallipvfourpreroutingrawrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/ipv4-prerouting-raw-rule"
 	namedfirewallipvsixforwardfilterrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/ipv6-forward-filter-rule"
 	namedfirewallipvsixinputfilterrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/ipv6-input-filter-rule"
 	namedfirewallipvsixname "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/ipv6-name"
 	namedfirewallipvsixnamerule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/ipv6-name-rule"
 	namedfirewallipvsixoutputfilterrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/ipv6-output-filter-rule"
+	namedfirewallipvsixoutputrawrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/ipv6-output-raw-rule"
+	namedfirewallipvsixpreroutingrawrule "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/ipv6-prerouting-raw-rule"
 	namedfirewallzone "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/zone"
 	namedfirewallzonefrom "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/firewall/zone-from"
 	namedhighavailabilityvirtualserver "github.com/thomasfinstad/terraform-provider-vyos-rolling/internal/terraform/resource/autogen/named/high-availability/virtual-server"
@@ -191,6 +203,7 @@ func GetResources() []func() resource.Resource {
 		namedcontainernamenetwork.NewContainerNameNetwork,
 		namedcontainernameport.NewContainerNamePort,
 		namedcontainernamevolume.NewContainerNameVolume,
+		namedcontainernamesysctlparameter.NewContainerNameSysctlParameter,
 		namedfirewallflowtable.NewFirewallFlowtable,
 		namedfirewallzone.NewFirewallZone,
 		namedfirewallgroupaddressgroup.NewFirewallGroupAddressGroup,
@@ -210,24 +223,35 @@ func GetResources() []func() resource.Resource {
 		namedfirewallipvfourforwardfilterrule.NewFirewallIPvfourForwardFilterRule,
 		namedfirewallipvfourinputfilterrule.NewFirewallIPvfourInputFilterRule,
 		namedfirewallipvfouroutputfilterrule.NewFirewallIPvfourOutputFilterRule,
+		namedfirewallipvfouroutputrawrule.NewFirewallIPvfourOutputRawRule,
+		namedfirewallipvfourpreroutingrawrule.NewFirewallIPvfourPreroutingRawRule,
 		namedfirewallipvfournamerule.NewFirewallIPvfourNameRule,
 		namedfirewallipvsixname.NewFirewallIPvsixName,
 		namedfirewallipvsixforwardfilterrule.NewFirewallIPvsixForwardFilterRule,
 		namedfirewallipvsixinputfilterrule.NewFirewallIPvsixInputFilterRule,
 		namedfirewallipvsixoutputfilterrule.NewFirewallIPvsixOutputFilterRule,
+		namedfirewallipvsixoutputrawrule.NewFirewallIPvsixOutputRawRule,
+		namedfirewallipvsixpreroutingrawrule.NewFirewallIPvsixPreroutingRawRule,
 		namedfirewallipvsixnamerule.NewFirewallIPvsixNameRule,
 		namedfirewallzonefrom.NewFirewallZoneFrom,
 		globalfirewallglobaloptions.NewFirewallGlobalOptions,
 		globalfirewallglobaloptionsstatepolicyestablished.NewFirewallGlobalOptionsStatePolicyEstablished,
 		globalfirewallglobaloptionsstatepolicyinvalid.NewFirewallGlobalOptionsStatePolicyInvalID,
 		globalfirewallglobaloptionsstatepolicyrelated.NewFirewallGlobalOptionsStatePolicyRelated,
+		globalfirewallglobaloptionstimeout.NewFirewallGlobalOptionsTimeout,
+		globalfirewallglobaloptionstimeouttcp.NewFirewallGlobalOptionsTimeoutTCP,
+		globalfirewallglobaloptionstimeoutudp.NewFirewallGlobalOptionsTimeoutUDP,
 		globalfirewallbridgeforwardfilter.NewFirewallBrIDgeForwardFilter,
 		globalfirewallipvfourforwardfilter.NewFirewallIPvfourForwardFilter,
 		globalfirewallipvfourinputfilter.NewFirewallIPvfourInputFilter,
 		globalfirewallipvfouroutputfilter.NewFirewallIPvfourOutputFilter,
+		globalfirewallipvfouroutputraw.NewFirewallIPvfourOutputRaw,
+		globalfirewallipvfourpreroutingraw.NewFirewallIPvfourPreroutingRaw,
 		globalfirewallipvsixforwardfilter.NewFirewallIPvsixForwardFilter,
 		globalfirewallipvsixinputfilter.NewFirewallIPvsixInputFilter,
 		globalfirewallipvsixoutputfilter.NewFirewallIPvsixOutputFilter,
+		globalfirewallipvsixoutputraw.NewFirewallIPvsixOutputRaw,
+		globalfirewallipvsixpreroutingraw.NewFirewallIPvsixPreroutingRaw,
 		namedhighavailabilityvirtualserver.NewHighAvailabilityVirtualServer,
 		namedhighavailabilityvrrpgroup.NewHighAvailabilityVrrpGroup,
 		namedhighavailabilityvrrpsyncgroup.NewHighAvailabilityVrrpSyncGroup,

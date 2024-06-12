@@ -34,7 +34,8 @@ func loadbalancing_reverseproxy() schemadefinition.InterfaceDefinition {
 						XMLName: xml.Name{
 							Local: "properties",
 						},
-						Help: []string{"Configure reverse-proxy"},
+						Help:     []string{"Configure reverse-proxy"},
+						Priority: []string{"900"},
 					}},
 					Children: []*schemadefinition.Children{{
 						XMLName: xml.Name{
@@ -799,6 +800,7 @@ func loadbalancing_reverseproxy() schemadefinition.InterfaceDefinition {
 										Local: "leafNode",
 									},
 									NodeNameAttr: "mode",
+									DefaultValue: []string{"http"},
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
 											Local: "properties",
@@ -1793,6 +1795,7 @@ func loadbalancing_reverseproxy() schemadefinition.InterfaceDefinition {
 										Local: "leafNode",
 									},
 									NodeNameAttr: "mode",
+									DefaultValue: []string{"http"},
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
 											Local: "properties",

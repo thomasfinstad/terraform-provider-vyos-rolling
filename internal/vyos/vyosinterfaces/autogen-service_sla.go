@@ -34,7 +34,8 @@ func service_sla() schemadefinition.InterfaceDefinition {
 						XMLName: xml.Name{
 							Local: "properties",
 						},
-						Help: []string{"Service level agreement (SLA)"},
+						Help:     []string{"Service level agreement (SLA)"},
+						Priority: []string{"2"},
 					}},
 					Children: []*schemadefinition.Children{{
 						XMLName: xml.Name{

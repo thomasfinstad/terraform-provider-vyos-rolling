@@ -44,7 +44,8 @@ func protocols_static_arp() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Static ARP translation"},
+								Help:     []string{"Static ARP translation"},
+								Priority: []string{"481"},
 							}},
 							Children: []*schemadefinition.Children{{
 								XMLName: xml.Name{

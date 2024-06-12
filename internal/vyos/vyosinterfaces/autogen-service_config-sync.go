@@ -34,7 +34,8 @@ func service_configsync() schemadefinition.InterfaceDefinition {
 						XMLName: xml.Name{
 							Local: "properties",
 						},
-						Help: []string{"Configuration synchronization"},
+						Help:     []string{"Configuration synchronization"},
+						Priority: []string{"10000"},
 					}},
 					Children: []*schemadefinition.Children{{
 						XMLName: xml.Name{

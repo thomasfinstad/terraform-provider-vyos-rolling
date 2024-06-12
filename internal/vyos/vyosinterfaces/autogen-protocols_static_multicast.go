@@ -44,7 +44,8 @@ func protocols_static_multicast() schemadefinition.InterfaceDefinition {
 								XMLName: xml.Name{
 									Local: "properties",
 								},
-								Help: []string{"Multicast static route"},
+								Help:     []string{"Multicast static route"},
+								Priority: []string{"481"},
 							}},
 							Children: []*schemadefinition.Children{{
 								XMLName: xml.Name{

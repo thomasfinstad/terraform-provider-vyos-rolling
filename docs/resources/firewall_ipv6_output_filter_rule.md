@@ -91,6 +91,7 @@ IPv6 firewall output filter
 - `fragment` (Attributes) IP fragment match (see [below for nested schema](#nestedatt--fragment))
 - `hop_limit` (Attributes) Hop limit (see [below for nested schema](#nestedatt--hop_limit))
 - `icmpv6` (Attributes) ICMPv6 type and code information (see [below for nested schema](#nestedatt--icmpv6))
+- `ipsec` (Attributes) Inbound IPsec packets (see [below for nested schema](#nestedatt--ipsec))
 - `jump_target` (String) Set jump target. Action jump must be defined to use this setting
 - `limit` (Attributes) Rate limit using a token bucket filter (see [below for nested schema](#nestedatt--limit))
 - `log` (Boolean) Log packets hitting this rule
@@ -354,6 +355,15 @@ Optional:
     &emsp;|ind-neighbor-solicit     &emsp;|ICMPv6 type 141: ind-neighbor-solicit    |
     &emsp;|ind-neighbor-advert      &emsp;|ICMPv6 type 142: ind-neighbor-advert     |
     &emsp;|mld2-listener-report     &emsp;|ICMPv6 type 143: mld2-listener-report    |
+
+
+&lt;a id=&#34;nestedatt--ipsec&#34;&gt;&lt;/a&gt;
+### Nested Schema for `ipsec`
+
+Optional:
+
+- `match_ipsec` (Boolean) Inbound IPsec packets
+- `match_none` (Boolean) Inbound non-IPsec packets
 
 
 &lt;a id=&#34;nestedatt--limit&#34;&gt;&lt;/a&gt;

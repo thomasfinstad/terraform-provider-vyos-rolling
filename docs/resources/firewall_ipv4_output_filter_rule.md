@@ -90,6 +90,7 @@ IPv4 firewall output filter
     &emsp;|&lt;start-end&gt;  &emsp;|DSCP range not to match  |
 - `fragment` (Attributes) IP fragment match (see [below for nested schema](#nestedatt--fragment))
 - `icmp` (Attributes) ICMP type and code information (see [below for nested schema](#nestedatt--icmp))
+- `ipsec` (Attributes) Inbound IPsec packets (see [below for nested schema](#nestedatt--ipsec))
 - `jump_target` (String) Set jump target. Action jump must be defined to use this setting
 - `limit` (Attributes) Rate limit using a token bucket filter (see [below for nested schema](#nestedatt--limit))
 - `log` (Boolean) Log packets hitting this rule
@@ -329,6 +330,15 @@ Optional:
     &emsp;|info-reply               &emsp;|ICMP type 16: info-reply              |
     &emsp;|address-mask-request     &emsp;|ICMP type 17: address-mask-request    |
     &emsp;|address-mask-reply       &emsp;|ICMP type 18: address-mask-reply      |
+
+
+&lt;a id=&#34;nestedatt--ipsec&#34;&gt;&lt;/a&gt;
+### Nested Schema for `ipsec`
+
+Optional:
+
+- `match_ipsec` (Boolean) Inbound IPsec packets
+- `match_none` (Boolean) Inbound non-IPsec packets
 
 
 &lt;a id=&#34;nestedatt--limit&#34;&gt;&lt;/a&gt;
