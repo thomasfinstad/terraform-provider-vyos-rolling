@@ -7336,44 +7336,6 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
-							NodeNameAttr: "country-code",
-							Properties: []*schemadefinition.Properties{{
-								XMLName: xml.Name{
-									Local: "properties",
-								},
-								Help: []string{"Indicate country in which device is operating"},
-								Constraint: []*schemadefinition.Constraint{{
-									XMLName: xml.Name{
-										Local: "constraint",
-									},
-									Regex: []string{"(00|ad|ae|af|ai|al|am|an|ar|as|at|au|aw|az|ba|bb|bd|be|bf|bg|bh|bl|bm|bn|bo|br|bs|bt|by|bz|ca|cf|ch|ci|cl|cn|co|cr|cu|cx|cy|cz|de|dk|dm|do|dz|ec|ee|eg|es|et|fi|fm|fr|gb|gd|ge|gf|gh|gl|gp|gr|gt|gu|gy|hk|hn|hr|ht|hu|id|ie|il|in|ir|is|it|jm|jo|jp|ke|kh|kn|kp|kr|kw|ky|kz|lb|lc|li|lk|ls|lt|lu|lv|ma|mc|md|me|mf|mh|mk|mn|mo|mp|mq|mr|mt|mu|mv|mw|mx|my|ng|ni|nl|no|np|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pr|pt|pw|py|qa|re|ro|rs|ru|rw|sa|se|sg|si|sk|sn|sr|sv|sy|tc|td|tg|th|tn|tr|tt|tw|tz|ua|ug|us|uy|uz|vc|ve|vi|vn|vu|wf|ws|ye|yt|za|zw)"},
-								}},
-								ValueHelp: []*schemadefinition.ValueHelp{{
-									XMLName: xml.Name{
-										Local: "valueHelp",
-									},
-									Format:      "00",
-									Description: "World regulatory domain",
-								}, {
-									XMLName: xml.Name{
-										Local: "valueHelp",
-									},
-									Format:      "txt",
-									Description: "ISO/IEC 3166-1 Country Code",
-								}},
-								ConstraintErrorMessage: []string{"Invalid ISO/IEC 3166-1 Country Code"},
-								CompletionHelp: []*schemadefinition.CompletionHelp{{
-									XMLName: xml.Name{
-										Local: "completionHelp",
-									},
-									List: []string{"00 ad ae af ai al am an ar as at au aw az ba bb bd be bf bg bh bl bm bn bo br bs bt by bz ca cf ch ci cl cn co cr cu cx cy cz de dk dm do dz ec ee eg es et fi fm fr gb gd ge gf gh gl gp gr gt gu gy hk hn hr ht hu id ie il in ir is it jm jo jp ke kh kn kp kr kw ky kz lb lc li lk ls lt lu lv ma mc md me mf mh mk mn mo mp mq mr mt mu mv mw mx my ng ni nl no np nz om pa pe pf pg ph pk pl pm pr pt pw py qa re ro rs ru rw sa se sg si sk sn sr sv sy tc td tg th tn tr tt tw tz ua ug us uy uz vc ve vi vn vu wf ws ye yt za zw"},
-								}},
-							}},
-						}, {
-							IsBaseNode: false,
-							XMLName: xml.Name{
-								Local: "leafNode",
-							},
 							NodeNameAttr: "description",
 							Properties: []*schemadefinition.Properties{{
 								XMLName: xml.Name{
