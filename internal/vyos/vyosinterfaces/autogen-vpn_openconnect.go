@@ -1118,7 +1118,7 @@ func vpn_openconnect() schemadefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Certificate Authority in PKI configuration"},
+										Help: []string{"Certificate Authority chain in PKI configuration"},
 										ValueHelp: []*schemadefinition.ValueHelp{{
 											XMLName: xml.Name{
 												Local: "valueHelp",
@@ -1131,6 +1131,11 @@ func vpn_openconnect() schemadefinition.InterfaceDefinition {
 												Local: "completionHelp",
 											},
 											Path: []string{"pki ca"},
+										}},
+										Multi: []*schemadefinition.Multi{{
+											XMLName: xml.Name{
+												Local: "multi",
+											},
 										}},
 									}},
 								}, {

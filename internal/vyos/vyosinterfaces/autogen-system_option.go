@@ -551,6 +551,23 @@ func system_option() schemadefinition.InterfaceDefinition {
 									List: []string{"12-hour 24-hour"},
 								}},
 							}},
+						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
+							NodeNameAttr: "disable-usb-autosuspend",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Disable autosuspend for all USB devices"},
+								Valueless: []*schemadefinition.Valueless{{
+									XMLName: xml.Name{
+										Local: "valueless",
+									},
+								}},
+							}},
 						}},
 					}},
 				}},
