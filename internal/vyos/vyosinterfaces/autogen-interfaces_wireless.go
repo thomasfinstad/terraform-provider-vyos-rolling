@@ -87,7 +87,7 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"HT (High Throughput) settings"},
+										Help: []string{"High Throughput (HT) settings"},
 									}},
 									Children: []*schemadefinition.Children{{
 										XMLName: xml.Name{
@@ -182,7 +182,7 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Enable WMM-PS unscheduled automatic power aave delivery [U-APSD]"},
+												Help: []string{"Enable WMM-PS unscheduled automatic power save delivery [U-APSD]"},
 												Valueless: []*schemadefinition.Valueless{{
 													XMLName: xml.Name{
 														Local: "valueless",
@@ -450,7 +450,7 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"VHT (Very High Throughput) settings"},
+										Help: []string{"Very High Throughput (VHT) settings"},
 									}},
 									Children: []*schemadefinition.Children{{
 										XMLName: xml.Name{
@@ -532,7 +532,7 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 																Local: "valueHelp",
 															},
 															Format:      "u32:34-173",
-															Description: "5Ghz (802.11 a/h/j/n/ac) center channel index (use 58 for primary 80MHz channel 52)",
+															Description: "5Ghz (802.11 ac) center channel index (use 58 for secondary 80MHz channel 52)",
 														}},
 														ConstraintErrorMessage: []string{"Channel center value must be between 34 and 173"},
 													}},
@@ -658,7 +658,7 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Beamforming capabilities"},
+												Help: []string{"VHT beamforming capabilities"},
 												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
@@ -958,6 +958,272 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 											}},
 										}},
 									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "node",
+									},
+									NodeNameAttr: "he",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"High Efficiency (HE) settings"},
+									}},
+									Children: []*schemadefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										Node: []*schemadefinition.Node{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "node",
+											},
+											NodeNameAttr: "center-channel-freq",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"HE operating channel center frequency"},
+											}},
+											Children: []*schemadefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*schemadefinition.LeafNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "freq-1",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"HE operating channel center frequency - center freq 1 (for use with 80, 80+80 and 160 modes)"},
+														Constraint: []*schemadefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*schemadefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr:     "numeric",
+																ArgumentAttr: "--range 1-233",
+															}},
+														}},
+														ValueHelp: []*schemadefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "u32:1-233",
+															Description: "6Ghz (802.11 ax) center channel index (use 3 (at 40MHz), 7 (at 80MHz) or 15 (at 160MHz) for primary channel 1)",
+														}},
+														ConstraintErrorMessage: []string{"Channel center value must be between 1 and 233"},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "freq-2",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"HE operating channel center frequency - center freq 2 (for use with the 80+80 mode)"},
+														Constraint: []*schemadefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*schemadefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr:     "numeric",
+																ArgumentAttr: "--range 1-233",
+															}},
+														}},
+														ValueHelp: []*schemadefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "u32:1-233",
+															Description: "6Ghz (802.11 ax) center channel index (use 23 (at 80MHz) for secondary channel 17)",
+														}},
+														ConstraintErrorMessage: []string{"Channel center value must be between 1 and 233"},
+													}},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "node",
+											},
+											NodeNameAttr: "beamform",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"HE beamforming capabilities"},
+											}},
+											Children: []*schemadefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*schemadefinition.LeafNode{{
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "single-user-beamformer",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Support for operation as single user beamformer"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "single-user-beamformee",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Support for operation as single user beamformee"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													IsBaseNode: false,
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "multi-user-beamformer",
+													Properties: []*schemadefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Support for operation as multi user beamformer"},
+														Valueless: []*schemadefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}},
+											}},
+										}},
+										LeafNode: []*schemadefinition.LeafNode{{
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "channel-set-width",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"HE operating channel width"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Regex: []string{"(131|132|133|134|135)"},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "131",
+													Description: "20 MHz channel width",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "132",
+													Description: "40 MHz channel width",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "133",
+													Description: "80 MHz channel width",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "134",
+													Description: "160 MHz channel width",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "135",
+													Description: "80+80 MHz channel width",
+												}},
+												CompletionHelp: []*schemadefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													List: []string{"131 132 133 134 135"},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "antenna-pattern-fixed",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Tell the AP that antenna positions are fixed and will not change during the lifetime of an association"},
+												Valueless: []*schemadefinition.Valueless{{
+													XMLName: xml.Name{
+														Local: "valueless",
+													},
+												}},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "bss-color",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"BSS coloring helps to prevent channel jamming when multiple APs use the same channels"},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*schemadefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr:     "numeric",
+														ArgumentAttr: "--range 1-63",
+													}},
+												}},
+											}},
+										}},
+									}},
 								}},
 								LeafNode: []*schemadefinition.LeafNode{{
 									IsBaseNode: false,
@@ -969,13 +1235,7 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Require stations to support HT PHY (reject association if they do not)"},
-										CompletionHelp: []*schemadefinition.CompletionHelp{{
-											XMLName: xml.Name{
-												Local: "completionHelp",
-											},
-											Script: []string{"echo If you reject non-HT, you also disable 802.11g"},
-										}},
+										Help: []string{"Require stations to support HT PHY"},
 										Valueless: []*schemadefinition.Valueless{{
 											XMLName: xml.Name{
 												Local: "valueless",
@@ -992,13 +1252,24 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 										XMLName: xml.Name{
 											Local: "properties",
 										},
-										Help: []string{"Require stations to support VHT PHY (reject association if they do not)"},
-										CompletionHelp: []*schemadefinition.CompletionHelp{{
+										Help: []string{"Require stations to support VHT PHY"},
+										Valueless: []*schemadefinition.Valueless{{
 											XMLName: xml.Name{
-												Local: "completionHelp",
+												Local: "valueless",
 											},
-											Script: []string{"echo If you reject non-VHT, you also disable 802.11n"},
 										}},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "require-he",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Require stations to support HE PHY"},
 										Valueless: []*schemadefinition.Valueless{{
 											XMLName: xml.Name{
 												Local: "valueless",
@@ -2727,10 +2998,31 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 													},
 													List: []string{"GCMP-256 GCMP CCMP-256 CCMP TKIP"},
 												}},
-												Multi: []*schemadefinition.Multi{{
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "group-mgmt-cipher",
+											DefaultValue: []string{"AES-128-CMAC"},
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Group management cipher suite. All the stations connecting to the BSS will also need to support the selected cipher"},
+												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
-														Local: "multi",
+														Local: "constraint",
 													},
+													Regex: []string{"(AES-128-CMAC|BIP-CMAC-256|BIP-GMAC-128|BIP-GMAC-256)"},
+												}},
+												ConstraintErrorMessage: []string{"Invalid group management cipher selection"},
+												CompletionHelp: []*schemadefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													List: []string{"AES-128-CMAC BIP-CMAC-256 BIP-GMAC-128 BIP-GMAC-256"},
 												}},
 											}},
 										}, {
@@ -2769,6 +3061,12 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 													},
 													Format:      "wpa+wpa2",
 													Description: "Allow both WPA and WPA2",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "wpa3",
+													Description: "WPA3 (required for 802.11ax, you must also set mgmt-frame-protection as required)",
 												}},
 												ConstraintErrorMessage: []string{"Unknown WPA mode"},
 												CompletionHelp: []*schemadefinition.CompletionHelp{{
@@ -7308,7 +7606,7 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 											Local: "validator",
 										},
 										NameAttr:     "numeric",
-										ArgumentAttr: "--range 0-0 --range 1-14 --range 34-173",
+										ArgumentAttr: "--range 0-0 --range 1-14 --range 34-173 --range 1-233",
 									}},
 								}},
 								ValueHelp: []*schemadefinition.ValueHelp{{
@@ -7329,6 +7627,12 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 									},
 									Format:      "u32:34-173",
 									Description: "5Ghz (802.11 a/h/j/n/ac) Channel",
+								}, {
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "u32:1-233",
+									Description: "6Ghz (802.11 ax) Channel",
 								}},
 							}},
 						}, {
@@ -7576,6 +7880,23 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
+							NodeNameAttr: "stationary-ap",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Stationary AP config indicates that the AP doesn't move."},
+								Valueless: []*schemadefinition.Valueless{{
+									XMLName: xml.Name{
+										Local: "valueless",
+									},
+								}},
+							}},
+						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
 							NodeNameAttr: "mgmt-frame-protection",
 							DefaultValue: []string{"disabled"},
 							Properties: []*schemadefinition.Properties{{
@@ -7606,13 +7927,31 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 										Local: "valueHelp",
 									},
 									Format:      "required",
-									Description: "MFP enforced",
+									Description: "MFP enforced (mandatory for WPA3)",
 								}},
 								CompletionHelp: []*schemadefinition.CompletionHelp{{
 									XMLName: xml.Name{
 										Local: "completionHelp",
 									},
 									List: []string{"disabled optional required"},
+								}},
+							}},
+						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
+							NodeNameAttr: "enable-bf-protection",
+							DefaultValue: []string{"disabled"},
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Beacon Protection: management frame protection for Beacon frames, requires Management Frame Protection (MFP)"},
+								Valueless: []*schemadefinition.Valueless{{
+									XMLName: xml.Name{
+										Local: "valueless",
+									},
 								}},
 							}},
 						}, {
@@ -7631,7 +7970,7 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "constraint",
 									},
-									Regex: []string{"(a|b|g|n|ac)"},
+									Regex: []string{"(a|b|g|n|ac|ax)"},
 								}},
 								ValueHelp: []*schemadefinition.ValueHelp{{
 									XMLName: xml.Name{
@@ -7663,12 +8002,18 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 									},
 									Format:      "ac",
 									Description: "802.11ac - 1300 Mbits/sec",
+								}, {
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "ax",
+									Description: "802.11ax (6GHz only for now)",
 								}},
 								CompletionHelp: []*schemadefinition.CompletionHelp{{
 									XMLName: xml.Name{
 										Local: "completionHelp",
 									},
-									List: []string{"a b g n ac"},
+									List: []string{"a b g n ac ax"},
 								}},
 							}},
 						}, {
