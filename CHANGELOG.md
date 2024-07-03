@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 0.3.20240702 (2024-07-03 08:23:41 UTC)
+NOTES:
+
+* update to rolling release 2024-07-02T18:39:02Z
+
+
+
+
+
 ## 0.3.20240701 (2024-07-01 08:23:44 UTC)
 NOTES:
 
