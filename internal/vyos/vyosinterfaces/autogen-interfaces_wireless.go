@@ -3081,24 +3081,50 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
-											NodeNameAttr: "passphrase",
+											NodeNameAttr: "username",
 											Properties: []*schemadefinition.Properties{{
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"WPA personal shared pass phrase. If you are using special characters in the WPA passphrase then single quotes are required."},
+												Help: []string{"Username used for authentication"},
 												Constraint: []*schemadefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
 													},
-													Regex: []string{".{8,63}"},
+													Regex: []string{"[[:ascii:]]{1,128}"},
 												}},
 												ValueHelp: []*schemadefinition.ValueHelp{{
 													XMLName: xml.Name{
 														Local: "valueHelp",
 													},
 													Format:      "txt",
-													Description: "Passphrase of at least 8 but not more than 63 printable characters",
+													Description: "Username",
+												}},
+												ConstraintErrorMessage: []string{"Username is limited to ASCII characters only, with a total length of 128"},
+											}},
+										}, {
+											IsBaseNode: false,
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "passphrase",
+											Properties: []*schemadefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"WPA passphrase. If you are using special characters in the WPA passphrase then single quotes are required."},
+												Constraint: []*schemadefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Regex: []string{"[[:ascii:]]{1,256}"},
+												}},
+												ValueHelp: []*schemadefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt",
+													Description: "Passphrase of at least 8 but not more than 63 printable characters for WPA-Personal and any passphrase for WPA-Enterprise",
 												}},
 												ConstraintErrorMessage: []string{"Invalid WPA pass phrase, must be 8 to 63 printable characters!"},
 											}},
@@ -8096,6 +8122,37 @@ func interfaces_wireless() schemadefinition.InterfaceDefinition {
 									Regex: []string{".{1,32}"},
 								}},
 								ConstraintErrorMessage: []string{"Invalid SSID"},
+							}},
+						}, {
+							IsBaseNode: false,
+							XMLName: xml.Name{
+								Local: "leafNode",
+							},
+							NodeNameAttr: "bssid",
+							Properties: []*schemadefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Basic Service Set Identifier (BSSID) - currently station mode only"},
+								Constraint: []*schemadefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Validator: []*schemadefinition.Validator{{
+										XMLName: xml.Name{
+											Local: "validator",
+										},
+										NameAttr: "mac-address",
+									}},
+								}},
+								ValueHelp: []*schemadefinition.ValueHelp{{
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "macaddr",
+									Description: "BSSID (MAC) address",
+								}},
+								ConstraintErrorMessage: []string{"Invalid BSSID"},
 							}},
 						}, {
 							IsBaseNode: false,
