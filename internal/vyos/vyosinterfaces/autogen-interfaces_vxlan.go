@@ -1009,7 +1009,7 @@ func interfaces_vxlan() schemadefinition.InterfaceDefinition {
 											Local: "validator",
 										},
 										NameAttr:     "numeric",
-										ArgumentAttr: "--range 0-4094",
+										ArgumentAttr: "--allow-range --range 0-4094",
 									}},
 								}},
 								ValueHelp: []*schemadefinition.ValueHelp{{
@@ -1018,8 +1018,14 @@ func interfaces_vxlan() schemadefinition.InterfaceDefinition {
 									},
 									Format:      "u32:0-4094",
 									Description: "Virtual Local Area Network (VLAN) ID",
+								}, {
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "<start-end>",
+									Description: "VLAN IDs range (use '-' as delimiter)",
 								}},
-								ConstraintErrorMessage: []string{"VLAN ID must be between 0 and 4094"},
+								ConstraintErrorMessage: []string{"Not a valid VLAN ID or range, VLAN ID must be between 0 and 4094"},
 							}},
 							Children: []*schemadefinition.Children{{
 								XMLName: xml.Name{
@@ -1045,7 +1051,7 @@ func interfaces_vxlan() schemadefinition.InterfaceDefinition {
 													Local: "validator",
 												},
 												NameAttr:     "numeric",
-												ArgumentAttr: "--range 0-16777214",
+												ArgumentAttr: "--allow-range --range 0-16777214",
 											}},
 										}},
 										ValueHelp: []*schemadefinition.ValueHelp{{
@@ -1054,7 +1060,14 @@ func interfaces_vxlan() schemadefinition.InterfaceDefinition {
 											},
 											Format:      "u32:0-16777214",
 											Description: "VXLAN virtual network identifier",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "<start-end>",
+											Description: "VXLAN virtual network IDs range (use '-' as delimiter)",
 										}},
+										ConstraintErrorMessage: []string{"Not a valid VXLAN virtual network ID or range"},
 									}},
 								}},
 							}},
