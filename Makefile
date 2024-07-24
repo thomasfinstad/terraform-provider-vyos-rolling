@@ -397,19 +397,21 @@ ci-update:
 
 	id
 
-	make --always-make data/vyos-1x-info.txt
-
-	if [ -z "$$(git status -s "data/vyos-1x-info.txt" )" ]; then
-		echo "No new update for rolling release"
-		exit 0
-	fi
-
 	git config --global user.name "Github Action"
 	git config --global user.email "noreply@github.com"
+
+	make --always-make data/vyos-1x-info.txt
+	git add "data/vyos-1x-info.txt"
 
 	make generate
 	make test
 	make docs/index.md
+
+	if [ -z "$$(git diff --stat)" ]; then
+		echo "No changes to provider files were detected"
+		exit 0
+	fi
+
 	git add -A
 	git commit -m "refactor: update to rolling release $$(cat data/vyos-1x-info.txt)"
 	make version
