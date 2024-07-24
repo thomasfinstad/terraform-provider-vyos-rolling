@@ -95,7 +95,7 @@ func main() {
 				return %s
 			}
 			`,
-		thisFilename,
+		strings.TrimPrefix(thisFilename, getModuleRoot()),
 		pkgName,
 		funcName,
 		outputFormatted,

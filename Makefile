@@ -401,7 +401,10 @@ ci-update:
 	git config --global user.email "noreply@github.com"
 
 	make --always-make data/vyos-1x-info.txt
-	git add "data/vyos-1x-info.txt"
+	if [ -n "$$(git diff --stat "data/vyos-1x-info.txt")" ]; then
+		git add "data/vyos-1x-info.txt"
+		git commit -m "refactor: update to rolling release $$(cat data/vyos-1x-info.txt)"
+	fi
 
 	make generate
 	make test
@@ -413,7 +416,8 @@ ci-update:
 	fi
 
 	git add -A
-	git commit -m "refactor: update to rolling release $$(cat data/vyos-1x-info.txt)"
+	git commit -m "ci: regenerate files"
+
 	make version
 	echo "Updated to rolling release $$(cat data/vyos-1x-info.txt)"
 

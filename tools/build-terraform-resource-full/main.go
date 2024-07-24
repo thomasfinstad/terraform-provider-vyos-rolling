@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"runtime"
 	"strings"
@@ -284,7 +285,7 @@ func globalResourceGeneration(resourceOutputDir string, templateName string, thi
 	pkg.PkgConstructor = "New" + rootNode.BaseNameCG()
 
 	// Write Package
-	err = t.ExecuteTemplate(file, "package", map[string]string{"caller": thisFilename, "pkg": pkg.PkgName})
+	err = t.ExecuteTemplate(file, "package", map[string]string{"caller": strings.TrimPrefix(thisFilename, getModuleRoot()), "pkg": pkg.PkgName})
 	if err != nil {
 		die(err)
 	}
@@ -331,7 +332,7 @@ func namedResourceGeneration(resourceOutputDir string, templateName string, this
 	pkg.PkgConstructor = "New" + rootTagNode.BaseNameCG()
 
 	// Write Package
-	err = t.ExecuteTemplate(file, "package", map[string]string{"caller": thisFilename, "pkg": pkg.PkgName})
+	err = t.ExecuteTemplate(file, "package", map[string]string{"caller": strings.TrimPrefix(thisFilename, getModuleRoot()), "pkg": pkg.PkgName})
 	if err != nil {
 		die(err)
 	}
@@ -373,7 +374,7 @@ func namedResourceModelGeneration(resourceModelOutputDir string, node schemadefi
 	defer file.Close()
 
 	// Write Package
-	err = t.ExecuteTemplate(file, "package", map[string]string{"caller": thisFilename, "pkg": resourceModelSubDir})
+	err = t.ExecuteTemplate(file, "package", map[string]string{"caller": strings.TrimPrefix(thisFilename, getModuleRoot()), "pkg": resourceModelSubDir})
 	if err != nil {
 		die(err)
 	}
@@ -413,7 +414,7 @@ func globalResourceModelGeneration(resourceModelOutputDir string, node schemadef
 	defer file.Close()
 
 	// Write Package
-	err = t.ExecuteTemplate(file, "package", map[string]string{"caller": thisFilename, "pkg": resourceModelSubDir})
+	err = t.ExecuteTemplate(file, "package", map[string]string{"caller": strings.TrimPrefix(thisFilename, getModuleRoot()), "pkg": resourceModelSubDir})
 	if err != nil {
 		die(err)
 	}
@@ -429,4 +430,11 @@ func globalResourceModelGeneration(resourceModelOutputDir string, node schemadef
 	if err != nil {
 		die(err)
 	}
+}
+
+func getModuleRoot() (root string) {
+	cmd := exec.Command("go", "env", "GOMOD")
+	out, err := cmd.Output()
+	die(err)
+	return filepath.Dir(string(out)) + "/"
 }

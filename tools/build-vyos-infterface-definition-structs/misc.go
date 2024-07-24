@@ -1,6 +1,10 @@
 package main
 
-import "log"
+import (
+	"log"
+	"os/exec"
+	"path/filepath"
+)
 
 var reset = "\033[0m"
 
@@ -18,4 +22,11 @@ func die(err error) {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func getModuleRoot() (root string) {
+	cmd := exec.Command("go", "env", "GOMOD")
+	out, err := cmd.Output()
+	die(err)
+	return filepath.Dir(string(out)) + "/"
 }
