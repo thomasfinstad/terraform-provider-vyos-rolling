@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## 0.3.20240725 (2024-07-25 08:24:01 UTC)
+NOTES:
+
+* update to rolling release 2024-07-25T00:20:19Z
+
+
+BUG FIXES:
+
+* generate files with relative path in autogen comment
+
+* move autogen comment to use relative path to avoid changes between machines
+
+
+
+
+
 ## 0.3.20240717 (2024-07-21 08:22:11 UTC)
 NOTES:
 
