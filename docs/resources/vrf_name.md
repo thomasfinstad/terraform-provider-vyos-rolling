@@ -138,14 +138,14 @@ Optional:
 - `l2vpn_evpn` (Attributes) L2VPN EVPN BGP settings (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn))
 
 &lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_flowspec&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn`
+### Nested Schema for `protocols.bgp.address_family.ipv4_flowspec`
 
 Optional:
 
-- `local_install` (Attributes) Apply local policy routing to interface (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--local_install))
+- `local_install` (Attributes) Apply local policy routing to interface (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_flowspec--local_install))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--local_install&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.local_install`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_flowspec--local_install&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_flowspec.local_install`
 
 Optional:
 
@@ -158,14 +158,14 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_labeled_unicast&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn`
+### Nested Schema for `protocols.bgp.address_family.ipv4_labeled_unicast`
 
 Optional:
 
-- `maximum_paths` (Attributes) Forward packets over multiple paths (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--maximum_paths))
+- `maximum_paths` (Attributes) Forward packets over multiple paths (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_labeled_unicast--maximum_paths))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--maximum_paths&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.maximum_paths`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_labeled_unicast--maximum_paths&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_labeled_unicast.maximum_paths`
 
 Optional:
 
@@ -183,14 +183,14 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_multicast&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn`
+### Nested Schema for `protocols.bgp.address_family.ipv4_multicast`
 
 Optional:
 
-- `distance` (Attributes) Administrative distances for BGP routes (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance))
+- `distance` (Attributes) Administrative distances for BGP routes (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_multicast--distance))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.distance`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_multicast--distance&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_multicast.distance`
 
 Optional:
 
@@ -213,24 +213,24 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn`
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast`
 
 Optional:
 
-- `distance` (Attributes) Administrative distances for BGP routes (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance))
-- `export` (Attributes) Export routes from this address-family (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--export))
-- `import` (Attributes) Import routes to this address-family (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--import))
-- `label` (Attributes) Label value for VRF (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--label))
-- `maximum_paths` (Attributes) Forward packets over multiple paths (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--maximum_paths))
-- `nexthop` (Attributes) Specify next hop to use for VRF advertised prefixes (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--nexthop))
-- `rd` (Attributes) Specify route distinguisher (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--rd))
-- `redistribute` (Attributes) Redistribute routes from other protocols into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute))
-- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_map))
-- `route_target` (Attributes) Specify route target list (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_target))
-- `sid` (Attributes) SID value for VRF (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--sid))
+- `distance` (Attributes) Administrative distances for BGP routes (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--distance))
+- `export` (Attributes) Export routes from this address-family (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--export))
+- `import` (Attributes) Import routes to this address-family (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--import))
+- `label` (Attributes) Label value for VRF (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--label))
+- `maximum_paths` (Attributes) Forward packets over multiple paths (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--maximum_paths))
+- `nexthop` (Attributes) Specify next hop to use for VRF advertised prefixes (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--nexthop))
+- `rd` (Attributes) Specify route distinguisher (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--rd))
+- `redistribute` (Attributes) Redistribute routes from other protocols into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute))
+- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--route_map))
+- `route_target` (Attributes) Specify route target list (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--route_target))
+- `sid` (Attributes) SID value for VRF (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--sid))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.distance`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--distance&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.distance`
 
 Optional:
 
@@ -251,16 +251,16 @@ Optional:
     &emsp;|1-255   &emsp;|Locally originated BGP routes administrative distance  |
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--export&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.export`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--export&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.export`
 
 Optional:
 
 - `vpn` (Boolean) to/from default instance VPN RIB
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--import&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.import`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--import&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.import`
 
 Optional:
 
@@ -272,19 +272,19 @@ Optional:
     &emsp;|txt     &emsp;|VRF instance name  |
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--label&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.label`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--label&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.label`
 
 Optional:
 
-- `vpn` (Attributes) Between current address-family and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--label--vpn))
+- `vpn` (Attributes) Between current address-family and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--label--vpn))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--label--vpn&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.label.vpn`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--label--vpn&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.label.vpn`
 
 Optional:
 
-- `allocation_mode` (Attributes) Label allocation mode (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--label--vpn--allocation_mode))
+- `allocation_mode` (Attributes) Label allocation mode (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--label--vpn--allocation_mode))
 - `export` (String) For routes leaked from current address-family to VPN
 
     &emsp;|Format     &emsp;|Description                   |
@@ -292,8 +292,8 @@ Optional:
     &emsp;|auto       &emsp;|Automatically assign a label  |
     &emsp;|0-1048575  &emsp;|Label Value                   |
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--label--vpn--allocation_mode&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.label.vpn.export`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--label--vpn--allocation_mode&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.label.vpn.allocation_mode`
 
 Optional:
 
@@ -302,8 +302,8 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--maximum_paths&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.maximum_paths`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--maximum_paths&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.maximum_paths`
 
 Optional:
 
@@ -319,15 +319,15 @@ Optional:
     &emsp;|1-256   &emsp;|Number of paths to consider  |
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--nexthop&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.nexthop`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--nexthop&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.nexthop`
 
 Optional:
 
-- `vpn` (Attributes) Between current address-family and vpn (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--nexthop--vpn))
+- `vpn` (Attributes) Between current address-family and vpn (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--nexthop--vpn))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--nexthop--vpn&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.nexthop.vpn`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--nexthop--vpn&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.nexthop.vpn`
 
 Optional:
 
@@ -340,15 +340,15 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--rd&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.rd`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--rd&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.rd`
 
 Optional:
 
-- `vpn` (Attributes) Between current address-family and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--rd--vpn))
+- `vpn` (Attributes) Between current address-family and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--rd--vpn))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--rd--vpn&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.rd.vpn`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--rd--vpn&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.rd.vpn`
 
 Optional:
 
@@ -360,22 +360,22 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.redistribute`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.redistribute`
 
 Optional:
 
-- `babel` (Attributes) Redistribute Babel routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--babel))
-- `connected` (Attributes) Redistribute connected routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--connected))
-- `isis` (Attributes) Redistribute IS-IS routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--isis))
-- `kernel` (Attributes) Redistribute kernel routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--kernel))
-- `ospf` (Attributes) Redistribute OSPF routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--ospf))
-- `rip` (Attributes) Redistribute RIP routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--rip))
-- `static` (Attributes) Redistribute static routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--static))
+- `babel` (Attributes) Redistribute Babel routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--babel))
+- `connected` (Attributes) Redistribute connected routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--connected))
+- `isis` (Attributes) Redistribute IS-IS routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--isis))
+- `kernel` (Attributes) Redistribute kernel routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--kernel))
+- `ospf` (Attributes) Redistribute OSPF routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--ospf))
+- `rip` (Attributes) Redistribute RIP routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--rip))
+- `static` (Attributes) Redistribute static routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--static))
 - `table` (String) Redistribute non-main Kernel Routing Table
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--babel&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.redistribute.table`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--babel&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.redistribute.babel`
 
 Optional:
 
@@ -391,8 +391,8 @@ Optional:
     &emsp;|txt     &emsp;|Route map name  |
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--connected&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.redistribute.table`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--connected&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.redistribute.connected`
 
 Optional:
 
@@ -408,8 +408,8 @@ Optional:
     &emsp;|txt     &emsp;|Route map name  |
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--isis&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.redistribute.table`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--isis&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.redistribute.isis`
 
 Optional:
 
@@ -425,8 +425,8 @@ Optional:
     &emsp;|txt     &emsp;|Route map name  |
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--kernel&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.redistribute.table`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--kernel&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.redistribute.kernel`
 
 Optional:
 
@@ -442,8 +442,8 @@ Optional:
     &emsp;|txt     &emsp;|Route map name  |
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--ospf&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.redistribute.table`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--ospf&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.redistribute.ospf`
 
 Optional:
 
@@ -459,8 +459,8 @@ Optional:
     &emsp;|txt     &emsp;|Route map name  |
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--rip&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.redistribute.table`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--rip&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.redistribute.rip`
 
 Optional:
 
@@ -476,8 +476,8 @@ Optional:
     &emsp;|txt     &emsp;|Route map name  |
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--static&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.redistribute.table`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--redistribute--static&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.redistribute.static`
 
 Optional:
 
@@ -494,15 +494,15 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_map&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.route_map`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--route_map&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.route_map`
 
 Optional:
 
-- `vpn` (Attributes) Between current address-family and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_map--vpn))
+- `vpn` (Attributes) Between current address-family and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--route_map--vpn))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_map--vpn&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.route_map.vpn`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--route_map--vpn&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.route_map.vpn`
 
 Optional:
 
@@ -519,15 +519,15 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_target&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.route_target`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--route_target&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.route_target`
 
 Optional:
 
-- `vpn` (Attributes) Between current address-family and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_target--vpn))
+- `vpn` (Attributes) Between current address-family and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--route_target--vpn))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_target--vpn&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.route_target.vpn`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--route_target--vpn&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.route_target.vpn`
 
 Optional:
 
@@ -549,15 +549,15 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--sid&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.sid`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--sid&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.sid`
 
 Optional:
 
-- `vpn` (Attributes) Between current VRF and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--sid--vpn))
+- `vpn` (Attributes) Between current VRF and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv4_unicast--sid--vpn))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--sid--vpn&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.sid.vpn`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_unicast--sid--vpn&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv4_unicast.sid.vpn`
 
 Optional:
 
@@ -572,18 +572,18 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv4_vpn&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn`
+### Nested Schema for `protocols.bgp.address_family.ipv4_vpn`
 
 
 &lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_flowspec&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn`
+### Nested Schema for `protocols.bgp.address_family.ipv6_flowspec`
 
 Optional:
 
-- `local_install` (Attributes) Apply local policy routing to interface (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--local_install))
+- `local_install` (Attributes) Apply local policy routing to interface (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_flowspec--local_install))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--local_install&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.local_install`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_flowspec--local_install&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_flowspec.local_install`
 
 Optional:
 
@@ -592,18 +592,18 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_labeled_unicast&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn`
+### Nested Schema for `protocols.bgp.address_family.ipv6_labeled_unicast`
 
 
 &lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_multicast&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn`
+### Nested Schema for `protocols.bgp.address_family.ipv6_multicast`
 
 Optional:
 
-- `distance` (Attributes) Administrative distances for BGP routes (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance))
+- `distance` (Attributes) Administrative distances for BGP routes (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_multicast--distance))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.distance`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_multicast--distance&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_multicast.distance`
 
 Optional:
 
@@ -626,24 +626,24 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn`
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast`
 
 Optional:
 
-- `distance` (Attributes) Administrative distances for BGP routes (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance))
-- `export` (Attributes) Export routes from this address-family (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--export))
-- `import` (Attributes) Import routes to this address-family (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--import))
-- `label` (Attributes) Label value for VRF (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--label))
-- `maximum_paths` (Attributes) Forward packets over multiple paths (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--maximum_paths))
-- `nexthop` (Attributes) Specify next hop to use for VRF advertised prefixes (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--nexthop))
-- `rd` (Attributes) Specify route distinguisher (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--rd))
-- `redistribute` (Attributes) Redistribute routes from other protocols into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute))
-- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_map))
-- `route_target` (Attributes) Specify route target list (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_target))
-- `sid` (Attributes) SID value for VRF (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--sid))
+- `distance` (Attributes) Administrative distances for BGP routes (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--distance))
+- `export` (Attributes) Export routes from this address-family (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--export))
+- `import` (Attributes) Import routes to this address-family (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--import))
+- `label` (Attributes) Label value for VRF (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--label))
+- `maximum_paths` (Attributes) Forward packets over multiple paths (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--maximum_paths))
+- `nexthop` (Attributes) Specify next hop to use for VRF advertised prefixes (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--nexthop))
+- `rd` (Attributes) Specify route distinguisher (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--rd))
+- `redistribute` (Attributes) Redistribute routes from other protocols into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute))
+- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--route_map))
+- `route_target` (Attributes) Specify route target list (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--route_target))
+- `sid` (Attributes) SID value for VRF (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--sid))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.distance`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--distance&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.distance`
 
 Optional:
 
@@ -664,16 +664,16 @@ Optional:
     &emsp;|1-255   &emsp;|Locally originated BGP routes administrative distance  |
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--export&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.export`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--export&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.export`
 
 Optional:
 
 - `vpn` (Boolean) to/from default instance VPN RIB
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--import&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.import`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--import&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.import`
 
 Optional:
 
@@ -685,19 +685,19 @@ Optional:
     &emsp;|txt     &emsp;|VRF instance name  |
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--label&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.label`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--label&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.label`
 
 Optional:
 
-- `vpn` (Attributes) Between current address-family and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--label--vpn))
+- `vpn` (Attributes) Between current address-family and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--label--vpn))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--label--vpn&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.label.vpn`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--label--vpn&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.label.vpn`
 
 Optional:
 
-- `allocation_mode` (Attributes) Label allocation mode (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--label--vpn--allocation_mode))
+- `allocation_mode` (Attributes) Label allocation mode (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--label--vpn--allocation_mode))
 - `export` (String) For routes leaked from current address-family to VPN
 
     &emsp;|Format     &emsp;|Description                   |
@@ -705,8 +705,8 @@ Optional:
     &emsp;|auto       &emsp;|Automatically assign a label  |
     &emsp;|0-1048575  &emsp;|Label Value                   |
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--label--vpn--allocation_mode&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.label.vpn.export`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--label--vpn--allocation_mode&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.label.vpn.allocation_mode`
 
 Optional:
 
@@ -715,8 +715,8 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--maximum_paths&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.maximum_paths`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--maximum_paths&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.maximum_paths`
 
 Optional:
 
@@ -732,15 +732,15 @@ Optional:
     &emsp;|1-256   &emsp;|Number of paths to consider  |
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--nexthop&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.nexthop`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--nexthop&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.nexthop`
 
 Optional:
 
-- `vpn` (Attributes) Between current address-family and vpn (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--nexthop--vpn))
+- `vpn` (Attributes) Between current address-family and vpn (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--nexthop--vpn))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--nexthop--vpn&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.nexthop.vpn`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--nexthop--vpn&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.nexthop.vpn`
 
 Optional:
 
@@ -753,15 +753,15 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--rd&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.rd`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--rd&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.rd`
 
 Optional:
 
-- `vpn` (Attributes) Between current address-family and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--rd--vpn))
+- `vpn` (Attributes) Between current address-family and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--rd--vpn))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--rd--vpn&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.rd.vpn`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--rd--vpn&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.rd.vpn`
 
 Optional:
 
@@ -773,21 +773,21 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.redistribute`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.redistribute`
 
 Optional:
 
-- `babel` (Attributes) Redistribute Babel routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--babel))
-- `connected` (Attributes) Redistribute connected routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--connected))
-- `kernel` (Attributes) Redistribute kernel routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--kernel))
-- `ospfv3` (Attributes) Redistribute OSPFv3 routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--ospfv3))
-- `ripng` (Attributes) Redistribute RIPng routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--ripng))
-- `static` (Attributes) Redistribute static routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--static))
+- `babel` (Attributes) Redistribute Babel routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--babel))
+- `connected` (Attributes) Redistribute connected routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--connected))
+- `kernel` (Attributes) Redistribute kernel routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--kernel))
+- `ospfv3` (Attributes) Redistribute OSPFv3 routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--ospfv3))
+- `ripng` (Attributes) Redistribute RIPng routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--ripng))
+- `static` (Attributes) Redistribute static routes into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--static))
 - `table` (String) Redistribute non-main Kernel Routing Table
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--babel&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.redistribute.table`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--babel&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.redistribute.babel`
 
 Optional:
 
@@ -803,8 +803,8 @@ Optional:
     &emsp;|txt     &emsp;|Route map name  |
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--connected&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.redistribute.table`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--connected&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.redistribute.connected`
 
 Optional:
 
@@ -820,8 +820,8 @@ Optional:
     &emsp;|txt     &emsp;|Route map name  |
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--kernel&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.redistribute.table`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--kernel&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.redistribute.kernel`
 
 Optional:
 
@@ -837,8 +837,8 @@ Optional:
     &emsp;|txt     &emsp;|Route map name  |
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--ospfv3&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.redistribute.table`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--ospfv3&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.redistribute.ospfv3`
 
 Optional:
 
@@ -854,8 +854,8 @@ Optional:
     &emsp;|txt     &emsp;|Route map name  |
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--ripng&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.redistribute.table`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--ripng&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.redistribute.ripng`
 
 Optional:
 
@@ -871,8 +871,8 @@ Optional:
     &emsp;|txt     &emsp;|Route map name  |
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--static&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.redistribute.table`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--redistribute--static&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.redistribute.static`
 
 Optional:
 
@@ -889,15 +889,15 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_map&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.route_map`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--route_map&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.route_map`
 
 Optional:
 
-- `vpn` (Attributes) Between current address-family and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_map--vpn))
+- `vpn` (Attributes) Between current address-family and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--route_map--vpn))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_map--vpn&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.route_map.vpn`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--route_map--vpn&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.route_map.vpn`
 
 Optional:
 
@@ -914,15 +914,15 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_target&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.route_target`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--route_target&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.route_target`
 
 Optional:
 
-- `vpn` (Attributes) Between current address-family and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_target--vpn))
+- `vpn` (Attributes) Between current address-family and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--route_target--vpn))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_target--vpn&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.route_target.vpn`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--route_target--vpn&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.route_target.vpn`
 
 Optional:
 
@@ -944,15 +944,15 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--sid&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.sid`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--sid&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.sid`
 
 Optional:
 
-- `vpn` (Attributes) Between current VRF and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--sid--vpn))
+- `vpn` (Attributes) Between current VRF and VPN (see [below for nested schema](#nestedatt--protocols--bgp--address_family--ipv6_unicast--sid--vpn))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--sid--vpn&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.sid.vpn`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_unicast--sid--vpn&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.ipv6_unicast.sid.vpn`
 
 Optional:
 
@@ -967,7 +967,7 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--bgp--address_family--ipv6_vpn&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn`
+### Nested Schema for `protocols.bgp.address_family.ipv6_vpn`
 
 
 &lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn&#34;&gt;&lt;/a&gt;
@@ -1008,14 +1008,14 @@ Optional:
 - `ipv6` (Attributes) IPv6 address family (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--advertise--ipv6))
 
 &lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--advertise--ipv4&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.advertise.ipv6`
+### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.advertise.ipv4`
 
 Optional:
 
-- `unicast` (Attributes) IPv4 address family (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--advertise--ipv6--unicast))
+- `unicast` (Attributes) IPv4 address family (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--advertise--ipv4--unicast))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--advertise--ipv6--unicast&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.advertise.ipv6.unicast`
+&lt;a id=&#34;nestedatt--protocols--bgp--address_family--l2vpn_evpn--advertise--ipv4--unicast&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.advertise.ipv4.unicast`
 
 Optional:
 
@@ -1205,11 +1205,11 @@ Optional:
 - `tcp_keepalive` (Attributes) TCP keepalive parameters (see [below for nested schema](#nestedatt--protocols--bgp--parameters--tcp_keepalive))
 
 &lt;a id=&#34;nestedatt--protocols--bgp--parameters--bestpath&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.parameters.tcp_keepalive`
+### Nested Schema for `protocols.bgp.parameters.bestpath`
 
 Optional:
 
-- `as_path` (Attributes) AS-path attribute comparison parameters (see [below for nested schema](#nestedatt--protocols--bgp--parameters--tcp_keepalive--as_path))
+- `as_path` (Attributes) AS-path attribute comparison parameters (see [below for nested schema](#nestedatt--protocols--bgp--parameters--bestpath--as_path))
 - `bandwidth` (String) Link Bandwidth attribute
 
     &emsp;|Format                      &emsp;|Description                                                            |
@@ -1224,10 +1224,10 @@ Optional:
     |--------------------|-----------------------------------------------------------|
     &emsp;|confed            &emsp;|Compare MEDs among confederation paths                   |
     &emsp;|missing-as-worst  &emsp;|Treat missing route as a MED as the least preferred one  |
-- `peer_type` (Attributes) Peer type (see [below for nested schema](#nestedatt--protocols--bgp--parameters--tcp_keepalive--peer_type))
+- `peer_type` (Attributes) Peer type (see [below for nested schema](#nestedatt--protocols--bgp--parameters--bestpath--peer_type))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--parameters--tcp_keepalive--as_path&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.parameters.tcp_keepalive.as_path`
+&lt;a id=&#34;nestedatt--protocols--bgp--parameters--bestpath--as_path&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.parameters.bestpath.as_path`
 
 Optional:
 
@@ -1236,8 +1236,8 @@ Optional:
 - `multipath_relax` (Boolean) Allow load sharing across routes that have different AS paths (but same length)
 
 
-&lt;a id=&#34;nestedatt--protocols--bgp--parameters--tcp_keepalive--peer_type&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.parameters.tcp_keepalive.peer_type`
+&lt;a id=&#34;nestedatt--protocols--bgp--parameters--bestpath--peer_type&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.parameters.bestpath.peer_type`
 
 Optional:
 
@@ -1246,7 +1246,7 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--bgp--parameters--conditional_advertisement&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.parameters.tcp_keepalive`
+### Nested Schema for `protocols.bgp.parameters.conditional_advertisement`
 
 Optional:
 
@@ -1258,7 +1258,7 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--bgp--parameters--confederation&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.parameters.tcp_keepalive`
+### Nested Schema for `protocols.bgp.parameters.confederation`
 
 Optional:
 
@@ -1275,7 +1275,7 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--bgp--parameters--dampening&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.parameters.tcp_keepalive`
+### Nested Schema for `protocols.bgp.parameters.dampening`
 
 Optional:
 
@@ -1302,7 +1302,7 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--bgp--parameters--default&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.parameters.tcp_keepalive`
+### Nested Schema for `protocols.bgp.parameters.default`
 
 Optional:
 
@@ -1314,14 +1314,14 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--bgp--parameters--distance&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.parameters.tcp_keepalive`
+### Nested Schema for `protocols.bgp.parameters.distance`
 
 Optional:
 
-- `global` (Attributes) Global administratives distances for BGP routes (see [below for nested schema](#nestedatt--protocols--bgp--parameters--tcp_keepalive--global))
+- `global` (Attributes) Global administratives distances for BGP routes (see [below for nested schema](#nestedatt--protocols--bgp--parameters--distance--global))
 
-&lt;a id=&#34;nestedatt--protocols--bgp--parameters--tcp_keepalive--global&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.parameters.tcp_keepalive.global`
+&lt;a id=&#34;nestedatt--protocols--bgp--parameters--distance--global&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.bgp.parameters.distance.global`
 
 Optional:
 
@@ -1344,7 +1344,7 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--bgp--parameters--graceful_restart&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.bgp.parameters.tcp_keepalive`
+### Nested Schema for `protocols.bgp.parameters.graceful_restart`
 
 Optional:
 
@@ -1613,7 +1613,7 @@ Optional:
 - `level_2` (Attributes) Distribute default route into level-2 (see [below for nested schema](#nestedatt--protocols--isis--default_information--originate--ipv4--level_2))
 
 &lt;a id=&#34;nestedatt--protocols--isis--default_information--originate--ipv4--level_1&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.default_information.originate.ipv4.level_2`
+### Nested Schema for `protocols.isis.default_information.originate.ipv4.level_1`
 
 Optional:
 
@@ -1658,7 +1658,7 @@ Optional:
 - `level_2` (Attributes) Distribute default route into level-2 (see [below for nested schema](#nestedatt--protocols--isis--default_information--originate--ipv6--level_2))
 
 &lt;a id=&#34;nestedatt--protocols--isis--default_information--originate--ipv6--level_1&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.default_information.originate.ipv6.level_2`
+### Nested Schema for `protocols.isis.default_information.originate.ipv6.level_1`
 
 Optional:
 
@@ -1738,14 +1738,14 @@ Optional:
 - `tiebreaker` (Attributes) Configure tiebreaker for multiple backups (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker))
 
 &lt;a id=&#34;nestedatt--protocols--isis--fast_reroute--lfa--local--load_sharing&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker`
+### Nested Schema for `protocols.isis.fast_reroute.lfa.local.load_sharing`
 
 Optional:
 
-- `disable` (Attributes) Disable load sharing (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--disable))
+- `disable` (Attributes) Disable load sharing (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--load_sharing--disable))
 
-&lt;a id=&#34;nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--disable&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.disable`
+&lt;a id=&#34;nestedatt--protocols--isis--fast_reroute--lfa--local--load_sharing--disable&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.fast_reroute.lfa.local.load_sharing.disable`
 
 Optional:
 
@@ -1755,25 +1755,16 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--isis--fast_reroute--lfa--local--priority_limit&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker`
+### Nested Schema for `protocols.isis.fast_reroute.lfa.local.priority_limit`
 
 Optional:
 
-- `critical` (Attributes) Compute for critical priority prefixes only (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--critical))
-- `high` (Attributes) Compute for critical, and high priority prefixes (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--high))
-- `medium` (Attributes) Compute for critical, high, and medium priority prefixes (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--medium))
+- `critical` (Attributes) Compute for critical priority prefixes only (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--priority_limit--critical))
+- `high` (Attributes) Compute for critical, and high priority prefixes (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--priority_limit--high))
+- `medium` (Attributes) Compute for critical, high, and medium priority prefixes (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--priority_limit--medium))
 
-&lt;a id=&#34;nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--critical&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.medium`
-
-Optional:
-
-- `level_1` (Boolean) Match on IS-IS level-1 routes
-- `level_2` (Boolean) Match on IS-IS level-2 routes
-
-
-&lt;a id=&#34;nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--high&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.medium`
+&lt;a id=&#34;nestedatt--protocols--isis--fast_reroute--lfa--local--priority_limit--critical&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.fast_reroute.lfa.local.priority_limit.critical`
 
 Optional:
 
@@ -1781,8 +1772,17 @@ Optional:
 - `level_2` (Boolean) Match on IS-IS level-2 routes
 
 
-&lt;a id=&#34;nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--medium&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.medium`
+&lt;a id=&#34;nestedatt--protocols--isis--fast_reroute--lfa--local--priority_limit--high&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.fast_reroute.lfa.local.priority_limit.high`
+
+Optional:
+
+- `level_1` (Boolean) Match on IS-IS level-1 routes
+- `level_2` (Boolean) Match on IS-IS level-2 routes
+
+
+&lt;a id=&#34;nestedatt--protocols--isis--fast_reroute--lfa--local--priority_limit--medium&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.fast_reroute.lfa.local.priority_limit.medium`
 
 Optional:
 
@@ -1801,11 +1801,11 @@ Optional:
 - `node_protecting` (Attributes) Prefer node protecting backup path (see [below for nested schema](#nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--node_protecting))
 
 &lt;a id=&#34;nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--downstream&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.node_protecting`
+### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.downstream`
 
 
 &lt;a id=&#34;nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--lowest_backup_metric&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.node_protecting`
+### Nested Schema for `protocols.isis.fast_reroute.lfa.local.tiebreaker.lowest_backup_metric`
 
 
 &lt;a id=&#34;nestedatt--protocols--isis--fast_reroute--lfa--local--tiebreaker--node_protecting&#34;&gt;&lt;/a&gt;
@@ -1841,45 +1841,28 @@ Optional:
 - `ipv6` (Attributes) Redistribute IPv6 routes (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6))
 
 &lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6`
+### Nested Schema for `protocols.isis.redistribute.ipv4`
 
 Optional:
 
-- `babel` (Attributes) Redistribute Babel routes into IS-IS (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--babel))
-- `bgp` (Attributes) Border Gateway Protocol (BGP) (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--bgp))
-- `connected` (Attributes) Redistribute connected routes into IS-IS (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--connected))
-- `kernel` (Attributes) Redistribute kernel routes into IS-IS (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--kernel))
-- `ospf` (Attributes) Redistribute OSPF routes into IS-IS (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--ospf))
-- `rip` (Attributes) Redistribute RIP routes into IS-IS (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--rip))
-- `static` (Attributes) Redistribute static routes into IS-IS (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--static))
+- `babel` (Attributes) Redistribute Babel routes into IS-IS (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--babel))
+- `bgp` (Attributes) Border Gateway Protocol (BGP) (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--bgp))
+- `connected` (Attributes) Redistribute connected routes into IS-IS (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--connected))
+- `kernel` (Attributes) Redistribute kernel routes into IS-IS (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--kernel))
+- `ospf` (Attributes) Redistribute OSPF routes into IS-IS (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--ospf))
+- `rip` (Attributes) Redistribute RIP routes into IS-IS (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--rip))
+- `static` (Attributes) Redistribute static routes into IS-IS (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--static))
 
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--babel&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.babel`
-
-Optional:
-
-- `level_1` (Attributes) Redistribute into level-1 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--babel--level_1))
-- `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--babel--level_2))
-
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--babel--level_1&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.babel.level_2`
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--babel&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.babel`
 
 Optional:
 
-- `metric` (Number) Set default metric for circuit
+- `level_1` (Attributes) Redistribute into level-1 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--babel--level_1))
+- `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--babel--level_2))
 
-    &emsp;|Format      &emsp;|Description           |
-    |--------------|------------------------|
-    &emsp;|0-16777215  &emsp;|Default metric value  |
-- `route_map` (String) Specify route-map name to use
-
-    &emsp;|Format  &emsp;|Description     |
-    |----------|------------------|
-    &emsp;|txt     &emsp;|Route map name  |
-
-
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--babel--level_2&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.babel.level_2`
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--babel--level_1&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.babel.level_1`
 
 Optional:
 
@@ -1895,34 +1878,8 @@ Optional:
     &emsp;|txt     &emsp;|Route map name  |
 
 
-
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--bgp&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.bgp`
-
-Optional:
-
-- `level_1` (Attributes) Redistribute into level-1 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--bgp--level_1))
-- `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--bgp--level_2))
-
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--bgp--level_1&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.bgp.level_2`
-
-Optional:
-
-- `metric` (Number) Set default metric for circuit
-
-    &emsp;|Format      &emsp;|Description           |
-    |--------------|------------------------|
-    &emsp;|0-16777215  &emsp;|Default metric value  |
-- `route_map` (String) Specify route-map name to use
-
-    &emsp;|Format  &emsp;|Description     |
-    |----------|------------------|
-    &emsp;|txt     &emsp;|Route map name  |
-
-
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--bgp--level_2&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.bgp.level_2`
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--babel--level_2&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.babel.level_2`
 
 Optional:
 
@@ -1939,33 +1896,16 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--connected&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.connected`
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--bgp&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.bgp`
 
 Optional:
 
-- `level_1` (Attributes) Redistribute into level-1 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--connected--level_1))
-- `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--connected--level_2))
+- `level_1` (Attributes) Redistribute into level-1 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--bgp--level_1))
+- `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--bgp--level_2))
 
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--connected--level_1&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.connected.level_2`
-
-Optional:
-
-- `metric` (Number) Set default metric for circuit
-
-    &emsp;|Format      &emsp;|Description           |
-    |--------------|------------------------|
-    &emsp;|0-16777215  &emsp;|Default metric value  |
-- `route_map` (String) Specify route-map name to use
-
-    &emsp;|Format  &emsp;|Description     |
-    |----------|------------------|
-    &emsp;|txt     &emsp;|Route map name  |
-
-
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--connected--level_2&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.connected.level_2`
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--bgp--level_1&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.bgp.level_1`
 
 Optional:
 
@@ -1981,34 +1921,8 @@ Optional:
     &emsp;|txt     &emsp;|Route map name  |
 
 
-
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--kernel&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.kernel`
-
-Optional:
-
-- `level_1` (Attributes) Redistribute into level-1 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--kernel--level_1))
-- `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--kernel--level_2))
-
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--kernel--level_1&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.kernel.level_2`
-
-Optional:
-
-- `metric` (Number) Set default metric for circuit
-
-    &emsp;|Format      &emsp;|Description           |
-    |--------------|------------------------|
-    &emsp;|0-16777215  &emsp;|Default metric value  |
-- `route_map` (String) Specify route-map name to use
-
-    &emsp;|Format  &emsp;|Description     |
-    |----------|------------------|
-    &emsp;|txt     &emsp;|Route map name  |
-
-
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--kernel--level_2&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.kernel.level_2`
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--bgp--level_2&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.bgp.level_2`
 
 Optional:
 
@@ -2025,33 +1939,16 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--ospf&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.ospf`
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--connected&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.connected`
 
 Optional:
 
-- `level_1` (Attributes) Redistribute into level-1 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--ospf--level_1))
-- `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--ospf--level_2))
+- `level_1` (Attributes) Redistribute into level-1 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--connected--level_1))
+- `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--connected--level_2))
 
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--ospf--level_1&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.ospf.level_2`
-
-Optional:
-
-- `metric` (Number) Set default metric for circuit
-
-    &emsp;|Format      &emsp;|Description           |
-    |--------------|------------------------|
-    &emsp;|0-16777215  &emsp;|Default metric value  |
-- `route_map` (String) Specify route-map name to use
-
-    &emsp;|Format  &emsp;|Description     |
-    |----------|------------------|
-    &emsp;|txt     &emsp;|Route map name  |
-
-
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--ospf--level_2&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.ospf.level_2`
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--connected--level_1&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.connected.level_1`
 
 Optional:
 
@@ -2067,34 +1964,8 @@ Optional:
     &emsp;|txt     &emsp;|Route map name  |
 
 
-
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--rip&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.rip`
-
-Optional:
-
-- `level_1` (Attributes) Redistribute into level-1 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--rip--level_1))
-- `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--rip--level_2))
-
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--rip--level_1&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.rip.level_2`
-
-Optional:
-
-- `metric` (Number) Set default metric for circuit
-
-    &emsp;|Format      &emsp;|Description           |
-    |--------------|------------------------|
-    &emsp;|0-16777215  &emsp;|Default metric value  |
-- `route_map` (String) Specify route-map name to use
-
-    &emsp;|Format  &emsp;|Description     |
-    |----------|------------------|
-    &emsp;|txt     &emsp;|Route map name  |
-
-
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--rip--level_2&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.rip.level_2`
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--connected--level_2&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.connected.level_2`
 
 Optional:
 
@@ -2111,16 +1982,16 @@ Optional:
 
 
 
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--static&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.static`
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--kernel&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.kernel`
 
 Optional:
 
-- `level_1` (Attributes) Redistribute into level-1 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--static--level_1))
-- `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--static--level_2))
+- `level_1` (Attributes) Redistribute into level-1 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--kernel--level_1))
+- `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--kernel--level_2))
 
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--static--level_1&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.static.level_2`
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--kernel--level_1&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.kernel.level_1`
 
 Optional:
 
@@ -2136,8 +2007,137 @@ Optional:
     &emsp;|txt     &emsp;|Route map name  |
 
 
-&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--static--level_2&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.static.level_2`
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--kernel--level_2&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.kernel.level_2`
+
+Optional:
+
+- `metric` (Number) Set default metric for circuit
+
+    &emsp;|Format      &emsp;|Description           |
+    |--------------|------------------------|
+    &emsp;|0-16777215  &emsp;|Default metric value  |
+- `route_map` (String) Specify route-map name to use
+
+    &emsp;|Format  &emsp;|Description     |
+    |----------|------------------|
+    &emsp;|txt     &emsp;|Route map name  |
+
+
+
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--ospf&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.ospf`
+
+Optional:
+
+- `level_1` (Attributes) Redistribute into level-1 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--ospf--level_1))
+- `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--ospf--level_2))
+
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--ospf--level_1&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.ospf.level_1`
+
+Optional:
+
+- `metric` (Number) Set default metric for circuit
+
+    &emsp;|Format      &emsp;|Description           |
+    |--------------|------------------------|
+    &emsp;|0-16777215  &emsp;|Default metric value  |
+- `route_map` (String) Specify route-map name to use
+
+    &emsp;|Format  &emsp;|Description     |
+    |----------|------------------|
+    &emsp;|txt     &emsp;|Route map name  |
+
+
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--ospf--level_2&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.ospf.level_2`
+
+Optional:
+
+- `metric` (Number) Set default metric for circuit
+
+    &emsp;|Format      &emsp;|Description           |
+    |--------------|------------------------|
+    &emsp;|0-16777215  &emsp;|Default metric value  |
+- `route_map` (String) Specify route-map name to use
+
+    &emsp;|Format  &emsp;|Description     |
+    |----------|------------------|
+    &emsp;|txt     &emsp;|Route map name  |
+
+
+
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--rip&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.rip`
+
+Optional:
+
+- `level_1` (Attributes) Redistribute into level-1 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--rip--level_1))
+- `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--rip--level_2))
+
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--rip--level_1&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.rip.level_1`
+
+Optional:
+
+- `metric` (Number) Set default metric for circuit
+
+    &emsp;|Format      &emsp;|Description           |
+    |--------------|------------------------|
+    &emsp;|0-16777215  &emsp;|Default metric value  |
+- `route_map` (String) Specify route-map name to use
+
+    &emsp;|Format  &emsp;|Description     |
+    |----------|------------------|
+    &emsp;|txt     &emsp;|Route map name  |
+
+
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--rip--level_2&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.rip.level_2`
+
+Optional:
+
+- `metric` (Number) Set default metric for circuit
+
+    &emsp;|Format      &emsp;|Description           |
+    |--------------|------------------------|
+    &emsp;|0-16777215  &emsp;|Default metric value  |
+- `route_map` (String) Specify route-map name to use
+
+    &emsp;|Format  &emsp;|Description     |
+    |----------|------------------|
+    &emsp;|txt     &emsp;|Route map name  |
+
+
+
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--static&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.static`
+
+Optional:
+
+- `level_1` (Attributes) Redistribute into level-1 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--static--level_1))
+- `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv4--static--level_2))
+
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--static--level_1&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.static.level_1`
+
+Optional:
+
+- `metric` (Number) Set default metric for circuit
+
+    &emsp;|Format      &emsp;|Description           |
+    |--------------|------------------------|
+    &emsp;|0-16777215  &emsp;|Default metric value  |
+- `route_map` (String) Specify route-map name to use
+
+    &emsp;|Format  &emsp;|Description     |
+    |----------|------------------|
+    &emsp;|txt     &emsp;|Route map name  |
+
+
+&lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv4--static--level_2&#34;&gt;&lt;/a&gt;
+### Nested Schema for `protocols.isis.redistribute.ipv4.static.level_2`
 
 Optional:
 
@@ -2177,7 +2177,7 @@ Optional:
 - `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--babel--level_2))
 
 &lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--babel--level_1&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.babel.level_2`
+### Nested Schema for `protocols.isis.redistribute.ipv6.babel.level_1`
 
 Optional:
 
@@ -2220,7 +2220,7 @@ Optional:
 - `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--bgp--level_2))
 
 &lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--bgp--level_1&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.bgp.level_2`
+### Nested Schema for `protocols.isis.redistribute.ipv6.bgp.level_1`
 
 Optional:
 
@@ -2263,7 +2263,7 @@ Optional:
 - `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--connected--level_2))
 
 &lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--connected--level_1&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.connected.level_2`
+### Nested Schema for `protocols.isis.redistribute.ipv6.connected.level_1`
 
 Optional:
 
@@ -2306,7 +2306,7 @@ Optional:
 - `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--kernel--level_2))
 
 &lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--kernel--level_1&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.kernel.level_2`
+### Nested Schema for `protocols.isis.redistribute.ipv6.kernel.level_1`
 
 Optional:
 
@@ -2349,7 +2349,7 @@ Optional:
 - `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--ospf6--level_2))
 
 &lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--ospf6--level_1&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.ospf6.level_2`
+### Nested Schema for `protocols.isis.redistribute.ipv6.ospf6.level_1`
 
 Optional:
 
@@ -2392,7 +2392,7 @@ Optional:
 - `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--ripng--level_2))
 
 &lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--ripng--level_1&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.ripng.level_2`
+### Nested Schema for `protocols.isis.redistribute.ipv6.ripng.level_1`
 
 Optional:
 
@@ -2435,7 +2435,7 @@ Optional:
 - `level_2` (Attributes) Redistribute into level-2 (see [below for nested schema](#nestedatt--protocols--isis--redistribute--ipv6--static--level_2))
 
 &lt;a id=&#34;nestedatt--protocols--isis--redistribute--ipv6--static--level_1&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.redistribute.ipv6.static.level_2`
+### Nested Schema for `protocols.isis.redistribute.ipv6.static.level_1`
 
 Optional:
 
@@ -2485,7 +2485,7 @@ Optional:
     &emsp;|1-16    &emsp;|MPLS label depth  |
 
 &lt;a id=&#34;nestedatt--protocols--isis--segment_routing--global_block&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.segment_routing.maximum_label_depth`
+### Nested Schema for `protocols.isis.segment_routing.global_block`
 
 Optional:
 
@@ -2502,7 +2502,7 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--isis--segment_routing--local_block&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.isis.segment_routing.maximum_label_depth`
+### Nested Schema for `protocols.isis.segment_routing.local_block`
 
 Optional:
 
@@ -2834,7 +2834,7 @@ Optional:
 - `static` (Attributes) Redistribute statically configured routes (see [below for nested schema](#nestedatt--protocols--ospf--redistribute--static))
 
 &lt;a id=&#34;nestedatt--protocols--ospf--redistribute--babel&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.ospf.redistribute.static`
+### Nested Schema for `protocols.ospf.redistribute.babel`
 
 Optional:
 
@@ -2856,7 +2856,7 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--ospf--redistribute--bgp&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.ospf.redistribute.static`
+### Nested Schema for `protocols.ospf.redistribute.bgp`
 
 Optional:
 
@@ -2878,7 +2878,7 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--ospf--redistribute--connected&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.ospf.redistribute.static`
+### Nested Schema for `protocols.ospf.redistribute.connected`
 
 Optional:
 
@@ -2900,7 +2900,7 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--ospf--redistribute--isis&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.ospf.redistribute.static`
+### Nested Schema for `protocols.ospf.redistribute.isis`
 
 Optional:
 
@@ -2922,7 +2922,7 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--ospf--redistribute--kernel&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.ospf.redistribute.static`
+### Nested Schema for `protocols.ospf.redistribute.kernel`
 
 Optional:
 
@@ -2944,7 +2944,7 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--ospf--redistribute--rip&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.ospf.redistribute.static`
+### Nested Schema for `protocols.ospf.redistribute.rip`
 
 Optional:
 
@@ -3014,7 +3014,7 @@ Optional:
     &emsp;|1-16    &emsp;|MPLS label depth  |
 
 &lt;a id=&#34;nestedatt--protocols--ospf--segment_routing--global_block&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.ospf.segment_routing.maximum_label_depth`
+### Nested Schema for `protocols.ospf.segment_routing.global_block`
 
 Optional:
 
@@ -3031,7 +3031,7 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--ospf--segment_routing--local_block&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.ospf.segment_routing.maximum_label_depth`
+### Nested Schema for `protocols.ospf.segment_routing.local_block`
 
 Optional:
 
@@ -3252,7 +3252,7 @@ Optional:
 - `static` (Attributes) Redistribute static routes (see [below for nested schema](#nestedatt--protocols--ospfv3--redistribute--static))
 
 &lt;a id=&#34;nestedatt--protocols--ospfv3--redistribute--babel&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.ospfv3.redistribute.static`
+### Nested Schema for `protocols.ospfv3.redistribute.babel`
 
 Optional:
 
@@ -3274,7 +3274,7 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--ospfv3--redistribute--bgp&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.ospfv3.redistribute.static`
+### Nested Schema for `protocols.ospfv3.redistribute.bgp`
 
 Optional:
 
@@ -3296,7 +3296,7 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--ospfv3--redistribute--connected&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.ospfv3.redistribute.static`
+### Nested Schema for `protocols.ospfv3.redistribute.connected`
 
 Optional:
 
@@ -3318,7 +3318,7 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--ospfv3--redistribute--isis&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.ospfv3.redistribute.static`
+### Nested Schema for `protocols.ospfv3.redistribute.isis`
 
 Optional:
 
@@ -3340,7 +3340,7 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--ospfv3--redistribute--kernel&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.ospfv3.redistribute.static`
+### Nested Schema for `protocols.ospfv3.redistribute.kernel`
 
 Optional:
 
@@ -3362,7 +3362,7 @@ Optional:
 
 
 &lt;a id=&#34;nestedatt--protocols--ospfv3--redistribute--ripng&#34;&gt;&lt;/a&gt;
-### Nested Schema for `protocols.ospfv3.redistribute.static`
+### Nested Schema for `protocols.ospfv3.redistribute.ripng`
 
 Optional:
 

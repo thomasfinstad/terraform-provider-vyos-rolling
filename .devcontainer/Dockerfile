@@ -31,7 +31,6 @@ ENV DEBIAN_FRONTEND=""
 
 ###
 # TF Env
-
 RUN git clone --depth=1 https://github.com/tfutils/tfenv.git /tfenv
 RUN ln -s /tfenv/bin/tfenv /usr/local/bin/tfenv
 RUN ln -s /tfenv/bin/terraform /usr/local/bin/terraform
@@ -52,8 +51,11 @@ RUN sudo -u vscode bash -c "pipx install pre-commit==3.7.0"
 # This is very hacky, but we just want pre-commit available for all during github action runs
 RUN ln -s /home/vscode/.local/bin/pre-commit /usr/bin/pre-commit
 
+# Install go packages / tools
 RUN sudo -u vscode bash -c "go install mvdan.cc/gofumpt@v0.6.0"
 RUN sudo -u vscode bash -c "go install golang.org/x/tools/cmd/goimports@v0.19.0"
-RUN sudo -u vscode bash -c "go install github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs@v0.18.0"
+RUN sudo -u vscode bash -c "go install github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs@v0.19.4"
+RUN sudo -u vscode bash -c "go install github.com/jesseduffield/lazygit@latest"
 
+# Add our custom terraform rc config
 COPY --chown=vscode:vscode terraformrc /home/vscode/.terraformrc
