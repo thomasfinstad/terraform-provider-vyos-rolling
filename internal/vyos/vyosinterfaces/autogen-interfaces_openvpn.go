@@ -1901,7 +1901,7 @@ func interfaces_openvpn() schemadefinition.InterfaceDefinition {
 										Local: "leafNode",
 									},
 									NodeNameAttr: "topology",
-									DefaultValue: []string{"net30"},
+									DefaultValue: []string{"subnet"},
 									Properties: []*schemadefinition.Properties{{
 										XMLName: xml.Name{
 											Local: "properties",
@@ -1917,8 +1917,8 @@ func interfaces_openvpn() schemadefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "valueHelp",
 											},
-											Format:      "net30",
-											Description: "net30 topology",
+											Format:      "subnet",
+											Description: "Subnet topology (recommended)",
 										}, {
 											XMLName: xml.Name{
 												Local: "valueHelp",
@@ -1929,14 +1929,14 @@ func interfaces_openvpn() schemadefinition.InterfaceDefinition {
 											XMLName: xml.Name{
 												Local: "valueHelp",
 											},
-											Format:      "subnet",
-											Description: "Subnet topology",
+											Format:      "net30",
+											Description: "net30 topology (deprecated)",
 										}},
 										CompletionHelp: []*schemadefinition.CompletionHelp{{
 											XMLName: xml.Name{
 												Local: "completionHelp",
 											},
-											List: []string{"net30 point-to-point subnet"},
+											List: []string{"subnet point-to-point net30"},
 										}},
 									}},
 								}},

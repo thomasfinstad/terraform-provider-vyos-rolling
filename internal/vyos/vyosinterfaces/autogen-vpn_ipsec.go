@@ -3677,6 +3677,23 @@ func vpn_ipsec() schemadefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
+									NodeNameAttr: "disable-rekey",
+									Properties: []*schemadefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Do not locally initiate a re-key of the SA, remote peer must re-key before expiration"},
+										Valueless: []*schemadefinition.Valueless{{
+											XMLName: xml.Name{
+												Local: "valueless",
+											},
+										}},
+									}},
+								}, {
+									IsBaseNode: false,
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
 									NodeNameAttr: "mode",
 									DefaultValue: []string{"tunnel"},
 									Properties: []*schemadefinition.Properties{{
